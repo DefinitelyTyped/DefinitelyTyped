@@ -32,7 +32,6 @@ declare namespace AMap {
             constructor(options: Prism.Options);
         }
 
-        // tslint:disable-next-line
         class Wall extends Prism { }
 
         class Line extends Object3D {

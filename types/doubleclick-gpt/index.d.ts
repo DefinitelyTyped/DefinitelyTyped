@@ -78,6 +78,7 @@ declare namespace googletag {
         allowOverlayExpansion?: boolean;
         allowPushExpansion?: boolean;
         sandbox?: boolean;
+        useUniqueDomain?: boolean | null;
     }
 
     interface Googletag {
@@ -189,6 +190,7 @@ declare namespace googletag {
 
         interface SlotRenderEndedEvent extends Event {
             advertiserId?: number;
+            campaignId?: number;
             creativeId?: number;
             isEmpty: boolean;
             lineItemId?: number;

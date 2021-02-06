@@ -90,7 +90,7 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
  * substituted into ./inspector.d.ts.template.
  * @param protocol The parsed contents of the JSON file from which the DevTools Protocol docs are generated.
  */
-export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: string]: string[] } => {
+export const generateSubstituteArgs = (protocol: schema.Schema): NodeJS.Dict<string[]> => {
     const interfaceDefinitions: string[] = protocol.domains
         .map(item => {
             const typePool = (item.types || []).concat(filterNull([

@@ -11,19 +11,19 @@ art.font('my text', 'Doom', '', (rendered) => {
 });
 
 art.artwork({
-	artwork: 'textfiles.com/art/st-char.asc'
+    artwork: 'textfiles.com/art/st-char.asc'
 }).lines(31, 45, (rendered: string) => {
-	// cleanup non-unix terminators
-	rendered = rendered.replace(/\r/g, '');
-	art.image({
-		filepath : '~/Images/earth_in_space.jpg',
-		alphabet : 'ultra-wide'
-	}).overlay(rendered, {
-		x: 0,
-		y: -1,
-		style: 'red+blink',
-		transparent: '&'
-	}, (_final: any) => {});
+    // cleanup non-unix terminators
+    rendered = rendered.replace(/\r/g, '');
+    art.image({
+        filepath : '~/Images/earth_in_space.jpg',
+        alphabet : 'ultra-wide'
+    }).overlay(rendered, {
+        x: 0,
+        y: -1,
+        style: 'red+blink',
+        transparent: '&'
+    }, (_final: any) => {});
 });
 
 art.font('Ghost Wire BBS', 'Doom', (logo) => {
@@ -60,9 +60,9 @@ art.font('Ghost Wire BBS', 'Doom', (logo) => {
 });
 
 art.image({
-	width : 40,
-	filepath : '/Images/initech.png',
-	alphabet : 'wide'
+    width : 40,
+    filepath : '/Images/initech.png',
+    alphabet : 'wide'
 }).font('INITECH', 'Doom', 'cyan', (_ascii) => {
 });
 
@@ -131,8 +131,8 @@ art.table({
 art.Figlet.fontPath = 'Fonts';
 
 const image = new art.Image({
-	filepath: '~/Images/metropolis.jpg',
-	alphabet: 'variant4'
+    filepath: '~/Images/metropolis.jpg',
+    alphabet: 'variant4'
 });
 image.write((_err: any, _rendered: string) => {
 });
@@ -141,9 +141,9 @@ art.font('Prompt', 'Basic', 'red').font('v1', 'Doom', 'magenta', (_rendered) => 
 });
 
 art.image({
-	width : 40,
-	filepath : '/Images/initech.png',
-	alphabet : 'wide'
+    width : 40,
+    filepath : '/Images/initech.png',
+    alphabet : 'wide'
 }).font('INITECH', 'Doom', 'cyan', (_ascii) => {
 });
 
@@ -189,5 +189,5 @@ art.table({
     },
     borderColor : 'bright_white',
 }, (_rendered) => {
-	// use rendered text
+    // use rendered text
 });

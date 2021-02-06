@@ -11,13 +11,13 @@ var writerQos = new dds.DataWriterQos(dds.Partition("chatroom"), dds.Reliability
 var writer = new dds.DataWriter(runtime, chatTopic, writerQos);
 
 writer.write({
-	user: "John Smith",
-	msg : "Hello World!"
+    user: "John Smith",
+    msg : "Hello World!"
 });
 
 var readerQos = new dds.DataReaderQos(dds.Partition("chatroom"), dds.Reliability.Reliable, dds.Durability.Persistent);
 var reader = new dds.DataReader(runtime, chatTopic, readerQos);
 
 reader.addListener(function(msg) {
-	console.log(JSON.stringify(msg));
+    console.log(JSON.stringify(msg));
 });

@@ -12,9 +12,14 @@ new StaticMaps({
     paddingY: 1,
     tileUrl: 'https://tile.server/{x}/{y}/{z}',
     tileSize: 50,
+    tileRequestLimit: 2,
     tileRequestTimeout: 2000,
     tileRequestHeader: {
         Authorization: 'Bearer token',
+    },
+    zoomRange: {
+        min: 2,
+        max: 17,
     },
     maxZoom: 17,
     reverseY: true,
@@ -57,12 +62,24 @@ map.addPolygon({
     coords: [[13.399259, 52.482659], [13.387849, 52.477144], [13.40538, 52.510632], [13.399259, 52.482659]],
 });
 
+// addMultiPolygon
+map.addMultiPolygon({
+    coords: [[[13.399259, 52.482659], [13.387849, 52.477144], [13.40538, 52.510632], [13.399259, 52.482659]]],
+    color: '#0000FFBB',
+    width: 3,
+    fill: '#0000FFBB',
+});
+map.addMultiPolygon({
+    coords: [[[13.399259, 52.482659], [13.387849, 52.477144], [13.40538, 52.510632], [13.399259, 52.482659]]],
+});
+
 // addText
 map.addText({
     coord: [13.437524, 52.4945528],
     text: 'My Text',
 });
 map.addText({
+    anchor: 'end',
     coord: [13.437524, 52.4945528],
     text: 'My Text',
     size: 50,

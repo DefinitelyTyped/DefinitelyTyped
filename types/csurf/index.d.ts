@@ -1,32 +1,35 @@
-// Type definitions for csurf 1.9.0
+// Type definitions for csurf 1.11
 // Project: https://www.npmjs.org/package/csurf
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import express = require('express-serve-static-core');
 
-/// <reference types="express" />
-
-declare namespace Express {
-  export interface Request {
-    csrfToken(): string;
-  }
+declare global {
+    namespace Express {
+        interface Request {
+            csrfToken(): string;
+        }
+    }
 }
 
-declare module "csurf" {
-  import express = require('express-serve-static-core');
-
-  function csurf(options?: {
+declare function csurf(options?: {
     value?: (req: express.Request) => string;
+    /**
+     * @default false
+     */
     cookie?: csurf.CookieOptions | boolean;
     ignoreMethods?: string[];
     sessionKey?: string;
-  }): express.RequestHandler;
+}): express.RequestHandler;
 
-  namespace csurf {
-    export interface CookieOptions extends express.CookieOptions {
-      key?: string;
+declare namespace csurf {
+    interface CookieOptions extends express.CookieOptions {
+        /**
+         * @defautl '_csrf'
+         */
+        key?: string;
     }
-  }
-
-  export = csurf;
 }
+
+export = csurf;

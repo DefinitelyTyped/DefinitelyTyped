@@ -27,6 +27,8 @@ class Test extends React.Component<AutosizeInputProps> {
                 placeholder="Testing 1, 2, 3"
                 placeholderIsMinWidth
                 onChange={this.onChange}
+                extraWidth={64}
+                injectStyles
             />
         );
     }

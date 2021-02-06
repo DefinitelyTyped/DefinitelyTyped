@@ -3,6 +3,7 @@
 // Definitions by: Codemonk <http://www.youxianxueche.com/>
 //                 ipcjs <https://github.com/ipcjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]

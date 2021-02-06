@@ -13,6 +13,7 @@ export interface LiteralSymbolStyle {
     src?: string;
     color?: Color | ExpressionValue[] | string;
     opacity?: ExpressionValue;
+    rotation?: ExpressionValue;
     offset?: ExpressionValue[];
     textureCoord?: ExpressionValue[];
     rotateWithView?: boolean;

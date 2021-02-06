@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 3.9
+// Type definitions for webpack-dev-server 3.11
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
@@ -9,8 +9,9 @@
 //                 Katsuya Hino <https://github.com/dobogo>
 //                 Billy Le <https://github.com/billy-le>
 //                 Chris Paterson <https://github.com/chrispaterson>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 William Artero <https://github.com/wwmoraes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import * as webpack from 'webpack';
 import * as httpProxyMiddleware from 'http-proxy-middleware';
@@ -76,6 +77,12 @@ declare namespace WebpackDevServer {
          * precedence.
          */
         contentBase?: boolean | string | string[] | number;
+        /**
+         * Tell the server at what URL to serve `devServer.contentBase`.
+         * If there was a file `assets/manifest.json`,
+         * it would be served at `/serve-content-base-at-this-url/manifest.json`
+         */
+        contentBasePublicPath?: string | string[];
         /**
          * When set to true this option bypasses host checking.  THIS IS NOT
          * RECOMMENDED as apps that do not check the host are vulnerable to DNS
@@ -190,7 +197,7 @@ declare namespace WebpackDevServer {
          */
         onListening?: (server: WebpackDevServer) => void;
         /** When open is enabled, the dev server will open the browser. */
-        open?: boolean | string;
+        open?: boolean | string | object;
         /** Specify a page to navigate to when opening the browser. */
         openPage?: string | string[];
         /**
@@ -285,7 +292,7 @@ declare namespace WebpackDevServer {
          * displayed.  This can be a nice middle ground if you want some bundle
          * information, but not all of it.
          */
-        stats?: webpack.Options.Stats;
+        stats?: webpack.Configuration['stats'];
         /**
          * transportMode is an experimental option, meaning its usage could
          * potentially change without warning.
@@ -330,7 +337,7 @@ declare namespace WebpackDevServer {
          */
         watchContentBase?: boolean;
         /** Control options related to watching the files. */
-        watchOptions?: webpack.WatchOptions;
+        watchOptions?: webpack.Configuration['watchOptions'];
         /** Tells devServer to write generated assets to the disk. */
         writeToDisk?: boolean | ((filePath: string) => boolean);
     }
@@ -347,6 +354,8 @@ declare module 'webpack' {
 }
 
 declare class WebpackDevServer {
+    sockets: NodeJS.EventEmitter[];
+
     constructor(webpack: webpack.Compiler | webpack.MultiCompiler, config?: WebpackDevServer.Configuration);
 
     static addDevServerEntrypoints(
@@ -360,6 +369,8 @@ declare class WebpackDevServer {
     listen(port: number, callback?: (error?: Error) => void): http.Server;
 
     close(callback?: () => void): void;
+
+    sockWrite(sockets: NodeJS.EventEmitter[], type: string, data?: any): void;
 }
 
 export = WebpackDevServer;

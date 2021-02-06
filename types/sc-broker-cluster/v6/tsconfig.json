@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "sc-broker-cluster": [
+                "sc-broker-cluster/v6"
+            ],
+            "sc-broker-cluster/*": [
+                "sc-broker-cluster/v6/*"
+            ],
+            "socketcluster-server": [
+                "socketcluster-server/v14"
+            ],
+            "sc-channel": [
+                "sc-channel/v1"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "sc-broker-cluster-tests.ts"
+    ]
+}

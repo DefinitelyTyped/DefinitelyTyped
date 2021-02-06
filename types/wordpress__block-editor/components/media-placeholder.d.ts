@@ -1,6 +1,6 @@
 // tslint:disable:no-unnecessary-generics
 import { Dashicon, DropZone } from '@wordpress/components';
-import { ComponentType, MouseEventHandler } from '@wordpress/element';
+import { ComponentType, MouseEventHandler } from 'react';
 
 declare namespace MediaPlaceholder {
     interface Props<T extends boolean> extends Pick<DropZone.Props, 'onHTMLDrop'> {

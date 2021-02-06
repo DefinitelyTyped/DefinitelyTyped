@@ -8,7 +8,7 @@ import * as React from "react";
 
 export interface ReactFacebookLoginProps {
     appId: string;
-    callback(userInfo: ReactFacebookLoginInfo): void;
+    callback(userInfo: ReactFacebookLoginInfo | ReactFacebookFailureResponse): void;
     onFailure?(response: ReactFacebookFailureResponse): void;
 
     autoLoad?: boolean;
@@ -44,9 +44,18 @@ export interface ReactFacebookFailureResponse {
 
 export interface ReactFacebookLoginInfo {
     id: string;
+    userID: string;
     accessToken: string;
     name?: string;
     email?: string;
+    picture?: {
+        data: {
+          height?: number,
+          is_silhouette?: boolean,
+          url?: string,
+          width?: number,
+      },
+    };
 }
 
 export interface ReactFacebookLoginState {

@@ -1317,6 +1317,10 @@ declare namespace GoogleAppsScript {
      *     }
      */
     enum ProtectionType { RANGE, SHEET }
+
+    type FontLine = "none" | "underline" | "line-through";
+    type FontStyle = "normal" | "italic";
+    type FontWeight = "normal" | "bold";
     /**
      * Access and modify spreadsheet ranges. A range can be a single cell in a sheet or a group of
      * adjacent cells in a sheet.
@@ -1381,14 +1385,14 @@ declare namespace GoogleAppsScript {
       getFontColors(): string[][];
       getFontFamilies(): string[][];
       getFontFamily(): string;
-      getFontLine(): string;
-      getFontLines(): string[][];
+      getFontLine(): FontLine;
+      getFontLines(): FontLine[][];
       getFontSize(): Integer;
       getFontSizes(): Integer[][];
-      getFontStyle(): string;
-      getFontStyles(): string[][];
-      getFontWeight(): string;
-      getFontWeights(): string[][];
+      getFontStyle(): FontStyle;
+      getFontStyles(): FontStyle[][];
+      getFontWeight(): FontWeight;
+      getFontWeights(): FontWeight[][];
       getFormula(): string;
       getFormulaR1C1(): string | null;
       getFormulas(): string[][];
@@ -1461,14 +1465,14 @@ declare namespace GoogleAppsScript {
       setFontColors(colors: any[][]): Range;
       setFontFamilies(fontFamilies: (string | null)[][]): Range;
       setFontFamily(fontFamily: string | null): Range;
-      setFontLine(fontLine: "underline" | "line-through" | "none" | null): Range;
-      setFontLines(fontLines: ("underline" | "line-through" | "none" | null)[][]): Range;
+      setFontLine(fontLine: FontLine | null): Range;
+      setFontLines(fontLines: (FontLine | null)[][]): Range;
       setFontSize(size: Integer): Range;
       setFontSizes(sizes: Integer[][]): Range;
-      setFontStyle(fontStyle: "italic" | "normal" | null): Range;
-      setFontStyles(fontStyles: ("italic" | "normal" | null)[][]): Range;
-      setFontWeight(fontWeight: "bold" | "normal" | null): Range;
-      setFontWeights(fontWeights: ("bold" | "normal" | null)[][]): Range;
+      setFontStyle(fontStyle: FontStyle | null): Range;
+      setFontStyles(fontStyles: (FontStyle | null)[][]): Range;
+      setFontWeight(fontWeight: FontWeight | null): Range;
+      setFontWeights(fontWeights: (FontWeight | null)[][]): Range;
       setFormula(formula: string): Range;
       setFormulaR1C1(formula: string): Range;
       setFormulas(formulas: string[][]): Range;
@@ -1532,10 +1536,10 @@ declare namespace GoogleAppsScript {
       setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null, color: string | null, style: BorderStyle | null): RangeList;
       setFontColor(color: string | null): RangeList;
       setFontFamily(fontFamily: string | null): RangeList;
-      setFontLine(fontLine: "underline" | "line-through" | "none" | null): RangeList;
+      setFontLine(fontLine: FontLine | null): RangeList;
       setFontSize(size: Integer): RangeList;
-      setFontStyle(fontStyle: "italic" | "normal" | null): RangeList;
-      setFontWeight(fontWeight: "bold" | "normal" | null): RangeList;
+      setFontStyle(fontStyle: FontStyle | null): RangeList;
+      setFontWeight(fontWeight: FontWeight | null): RangeList;
       setFormula(formula: string): RangeList;
       setFormulaR1C1(formula: string): RangeList;
       setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): RangeList;

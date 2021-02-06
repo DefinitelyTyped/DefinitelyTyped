@@ -8,6 +8,7 @@ const anyObject = {
   },
 };
 
-console.log(sizeof(anyObject)); // 50
+console.log(sizeof(anyObject) + 0); // 50
+console.log(sizeof(anyObject, false) + 0); // 50
 console.log(sizeof(anyObject, true)); // 50B
 console.log(format(50)); // 50B

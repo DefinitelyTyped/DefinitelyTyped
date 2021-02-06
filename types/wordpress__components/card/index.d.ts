@@ -1,8 +1,6 @@
-import { StyledComponent } from '@emotion/styled';
-
 declare namespace Card {
     type CardSize = 'large' | 'medium' | 'small' | 'extraSmall';
-    interface Props {
+    type Props<T extends keyof JSX.IntrinsicElements> = {
         /**
          * `className` of the container.
          */
@@ -24,9 +22,15 @@ declare namespace Card {
          * @defaultValue "medium"
          */
         size?: CardSize;
-    }
+
+        /**
+         * Render as a different element type
+         */
+        as?: T;
+    } & JSX.IntrinsicElements[T];
 }
 
-declare const Card: StyledComponent<JSX.IntrinsicElements['div'], Card.Props, {}>;
+// tslint:disable-next-line no-unnecessary-generics
+declare function Card<T extends keyof JSX.IntrinsicElements = 'div'>(props: Card.Props<T>): JSX.Element;
 
 export default Card;

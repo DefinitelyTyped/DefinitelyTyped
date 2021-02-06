@@ -15,7 +15,10 @@ tp.ping();
 tp.ping({});
 
 // $ExpectType void
-tp.probe("localhost", 8080, () => {});
+tp.probe("localhost", 8080, (err, result) => {
+    // $ExpectType boolean
+    result;
+});
 
 // $ExpectError
 tp.probe("localhost", 8080);

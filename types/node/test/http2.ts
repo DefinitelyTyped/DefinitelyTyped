@@ -102,6 +102,7 @@ import { URL } from 'url';
     (http2Session as ClientHttp2Session).request(headers, options);
 
     const stream: Http2Stream = {} as any;
+    http2Session.setLocalWindowSize(2 ** 20);
     http2Session.setTimeout(100, () => {});
     http2Session.close(() => {});
 
@@ -296,7 +297,7 @@ import { URL } from 'url';
         response.removeHeader(':method');
         response.setHeader(':method', 'GET');
         response.setHeader(':status', 200);
-        response.setHeader('some-list', ['', '']);
+        response.setHeader('some-list', ['', ''] as ReadonlyArray<string>);
         const headersSent: boolean = response.headersSent;
 
         response.setTimeout(0, () => {});
@@ -350,6 +351,7 @@ import { URL } from 'url';
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
+        protocol: 'https:',
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings
     };

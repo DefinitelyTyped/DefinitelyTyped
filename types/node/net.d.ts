@@ -58,23 +58,24 @@ declare module "net" {
 
         // Extended base methods
         write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
-        write(str: Uint8Array | string, encoding?: string, cb?: (err?: Error) => void): boolean;
+        write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
 
         connect(options: SocketConnectOpts, connectionListener?: () => void): this;
         connect(port: number, host: string, connectionListener?: () => void): this;
         connect(port: number, connectionListener?: () => void): this;
         connect(path: string, connectionListener?: () => void): this;
 
-        setEncoding(encoding?: string): this;
+        setEncoding(encoding?: BufferEncoding): this;
         pause(): this;
         resume(): this;
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
-        address(): AddressInfo | string;
+        address(): AddressInfo | {};
         unref(): this;
         ref(): this;
 
+        /** @deprecated since v14.6.0 - Use `writableLength` instead. */
         readonly bufferSize: number;
         readonly bytesRead: number;
         readonly bytesWritten: number;
@@ -89,7 +90,7 @@ declare module "net" {
         // Extended base methods
         end(cb?: () => void): void;
         end(buffer: Uint8Array | string, cb?: () => void): void;
-        end(str: Uint8Array | string, encoding?: string, cb?: () => void): void;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, cb?: () => void): void;
 
         /**
          * events.EventEmitter
@@ -177,10 +178,22 @@ declare module "net" {
         ipv6Only?: boolean;
     }
 
+    interface ServerOpts {
+        /**
+         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
+         */
+        allowHalfOpen?: boolean;
+
+        /**
+         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
+         */
+        pauseOnConnect?: boolean;
+    }
+
     // https://github.com/nodejs/node/blob/master/lib/net.js
     class Server extends events.EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
-        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+        constructor(options?: ServerOpts, connectionListener?: (socket: Socket) => void);
 
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
         listen(port?: number, hostname?: string, listeningListener?: () => void): this;
@@ -255,7 +268,7 @@ declare module "net" {
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
 
     function createServer(connectionListener?: (socket: Socket) => void): Server;
-    function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
+    function createServer(options?: ServerOpts, connectionListener?: (socket: Socket) => void): Server;
     function connect(options: NetConnectOpts, connectionListener?: () => void): Socket;
     function connect(port: number, host?: string, connectionListener?: () => void): Socket;
     function connect(path: string, connectionListener?: () => void): Socket;

@@ -21,4 +21,4 @@ declare class Tweezer {
   begin(): this;
 }
 
-export default Tweezer;
+export = Tweezer;

@@ -3,8 +3,9 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Tom Wanzek <https://github.com/tomwanzek>
-//                 denisname <https://github.com/denisname>,
+//                 denisname <https://github.com/denisname>
 //                 Hugues Stefanski <https://github.com/ledragon>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

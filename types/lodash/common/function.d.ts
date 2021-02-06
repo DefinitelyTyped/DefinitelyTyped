@@ -1,7 +1,5 @@
 import _ = require("../index");
 declare module "../index" {
-    // after
-
     interface LoDashStatic {
         /**
          * The opposite of _.before; this method creates a function that invokes func once it’s called n or more times.
@@ -10,28 +8,20 @@ declare module "../index" {
          * @param func The function to restrict.
          * @return Returns the new restricted function.
          */
-        after<TFunc extends (...args: any[]) => any>(
-            n: number,
-            func: TFunc
-        ): TFunc;
+        after<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
-        /**
-        * @see _.after
-        **/
-        after<TFunc extends (...args: any[]) => any>(func: TFunc): LoDashImplicitWrapper<TFunc>;
-    }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Primitive<T> {
         /**
          * @see _.after
-         **/
-        after<TFunc extends (...args: any[]) => any>(func: TFunc): LoDashExplicitWrapper<TFunc>;
+         */
+        after<TFunc extends (...args: any[]) => any>(func: TFunc): Function<TFunc>;
     }
-
-    // ary
-
+    interface PrimitiveChain<T> {
+        /**
+         * @see _.after
+         */
+        after<TFunc extends (...args: any[]) => any>(func: TFunc): FunctionChain<TFunc>;
+    }
     interface LoDashStatic {
         /**
          * Creates a function that accepts up to n arguments ignoring any additional arguments.
@@ -40,28 +30,20 @@ declare module "../index" {
          * @param n The arity cap.
          * @returns Returns the new function.
          */
-        ary(
-            func: (...args: any[]) => any,
-            n?: number
-        ): (...args: any[]) => any;
+        ary(func: (...args: any[]) => any, n?: number): (...args: any[]) => any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.ary
          */
-        ary(n?: number): LoDashImplicitWrapper<(...args: any[]) => any>;
+        ary(n?: number): Function<(...args: any[]) => any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.ary
          */
-        ary(n?: number): LoDashExplicitWrapper<(...args: any[]) => any>;
+        ary(n?: number): FunctionChain<(...args: any[]) => any>;
     }
-
-    // before
-
     interface LoDashStatic {
         /**
          * Creates a function that invokes func, with the this binding and arguments of the created function, while
@@ -72,38 +54,27 @@ declare module "../index" {
          * @param func The function to restrict.
          * @return Returns the new restricted function.
          */
-        before<TFunc extends (...args: any[]) => any>(
-            n: number,
-            func: TFunc
-        ): TFunc;
+        before<TFunc extends (...args: any[]) => any>(n: number, func: TFunc): TFunc;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Primitive<T> {
         /**
          * @see _.before
-         **/
-        before<TFunc extends (...args: any[]) => any>(func: TFunc): LoDashImplicitWrapper<TFunc>;
+         */
+        before<TFunc extends (...args: any[]) => any>(func: TFunc): Function<TFunc>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface PrimitiveChain<T> {
         /**
          * @see _.before
-         **/
-        before<TFunc extends (...args: any[]) => any>(func: TFunc): LoDashExplicitWrapper<TFunc>;
+         */
+        before<TFunc extends (...args: any[]) => any>(func: TFunc): FunctionChain<TFunc>;
     }
-
-    // bind
-
     interface FunctionBind {
+        /**
+         * @see _.placeholder
+         */
         placeholder: __;
-
-        (
-            func: (...args: any[]) => any,
-            thisArg: any,
-            ...partials: any[]
-        ): (...args: any[]) => any;
+        (func: (...args: any[]) => any, thisArg: any, ...partials: any[]): (...args: any[]) => any;
     }
-
     interface LoDashStatic {
         /**
          * Creates a function that invokes func with the this binding of thisArg and prepends any additional _.bind
@@ -121,39 +92,22 @@ declare module "../index" {
          */
         bind: FunctionBind;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.bind
          */
-        bind(
-            thisArg: any,
-            ...partials: any[]
-        ): LoDashImplicitWrapper<(...args: any[]) => any>;
+        bind(thisArg: any, ...partials: any[]): Function<(...args: any[]) => any>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.bind
          */
-        bind(
-            thisArg: any,
-            ...partials: any[]
-        ): LoDashExplicitWrapper<(...args: any[]) => any>;
+        bind(thisArg: any, ...partials: any[]): FunctionChain<(...args: any[]) => any>;
     }
-
-    // bindKey
-
     interface FunctionBindKey {
         placeholder: __;
-
-        (
-            object: object,
-            key: string,
-            ...partials: any[]
-        ): (...args: any[]) => any;
+        (object: object, key: string, ...partials: any[]): (...args: any[]) => any;
     }
-
     interface LoDashStatic {
         /**
          * Creates a function that invokes the method at object[key] and prepends any additional _.bindKey arguments
@@ -172,109 +126,40 @@ declare module "../index" {
          */
         bindKey: FunctionBindKey;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.bindKey
          */
-        bindKey(
-            key: string,
-            ...partials: any[]
-        ): LoDashImplicitWrapper<(...args: any[]) => any>;
+        bindKey(key: string, ...partials: any[]): Function<(...args: any[]) => any>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.bindKey
          */
-        bindKey(
-            key: string,
-            ...partials: any[]
-        ): LoDashExplicitWrapper<(...args: any[]) => any>;
+        bindKey(key: string, ...partials: any[]): FunctionChain<(...args: any[]) => any>;
     }
-
-    // curry
-
     interface Curry {
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, R>(func: (t1: T1) => R, arity?: number):
-            CurriedFunction1<T1, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number):
-            CurriedFunction2<T1, T2, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number):
-            CurriedFunction3<T1, T2, T3, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number):
-            CurriedFunction4<T1, T2, T3, T4, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number):
-            CurriedFunction5<T1, T2, T3, T4, T5, R>;
-        /**
-         * Creates a function that accepts one or more arguments of func that when called either invokes func returning
-         * its result, if all func arguments have been provided, or returns a function that accepts one or more of the
-         * remaining func arguments, and so on. The arity of func may be specified if func.length is not sufficient.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
+        <T1, R>(func: (t1: T1) => R, arity?: number): CurriedFunction1<T1, R>;
+        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number): CurriedFunction2<T1, T2, R>;
+        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number): CurriedFunction3<T1, T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number): CurriedFunction4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number): CurriedFunction5<T1, T2, T3, T4, T5, R>;
         (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
-
         placeholder: __;
     }
-
     interface LoDashStatic {
         curry: Curry;
     }
-
     interface CurriedFunction1<T1, R> {
         (): CurriedFunction1<T1, R>;
         (t1: T1): R;
     }
-
     interface CurriedFunction2<T1, T2, R> {
         (): CurriedFunction2<T1, T2, R>;
         (t1: T1): CurriedFunction1<T2, R>;
         (t1: __, t2: T2): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2): R;
     }
-
     interface CurriedFunction3<T1, T2, T3, R> {
         (): CurriedFunction3<T1, T2, T3, R>;
         (t1: T1): CurriedFunction2<T2, T3, R>;
@@ -285,7 +170,6 @@ declare module "../index" {
         (t1: __, t2: T2, t3: T3): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3): R;
     }
-
     interface CurriedFunction4<T1, T2, T3, T4, R> {
         (): CurriedFunction4<T1, T2, T3, T4, R>;
         (t1: T1): CurriedFunction3<T2, T3, T4, R>;
@@ -304,7 +188,6 @@ declare module "../index" {
         (t1: __, t2: T2, t3: T3, t4: T4): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
-
     interface CurriedFunction5<T1, T2, T3, T4, T5, R> {
         (): CurriedFunction5<T1, T2, T3, T4, T5, R>;
         (t1: T1): CurriedFunction4<T2, T3, T4, T5, R>;
@@ -339,19 +222,16 @@ declare module "../index" {
         (t1: __, t2: T2, t3: T3, t4: T4, t5: T5): CurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-
     interface RightCurriedFunction1<T1, R> {
         (): RightCurriedFunction1<T1, R>;
         (t1: T1): R;
     }
-
     interface RightCurriedFunction2<T1, T2, R> {
         (): RightCurriedFunction2<T1, T2, R>;
         (t2: T2): RightCurriedFunction1<T1, R>;
         (t1: T1, t2: __): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2): R;
     }
-
     interface RightCurriedFunction3<T1, T2, T3, R> {
         (): RightCurriedFunction3<T1, T2, T3, R>;
         (t3: T3): RightCurriedFunction2<T1, T2, R>;
@@ -362,7 +242,6 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3): R;
     }
-
     interface RightCurriedFunction4<T1, T2, T3, T4, R> {
         (): RightCurriedFunction4<T1, T2, T3, T4, R>;
         (t4: T4): RightCurriedFunction3<T1, T2, T3, R>;
@@ -381,7 +260,6 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3, t4: T4): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
-
     interface RightCurriedFunction5<T1, T2, T3, T4, T5, R> {
         (): RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (t5: T5): RightCurriedFunction4<T1, T2, T3, T4, R>;
@@ -416,238 +294,106 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3, t4: T4, t5: T5): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
-        * @see _.curry
-        **/
-        curry<T1, R>(this: LoDashImplicitWrapper<(t1: T1) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction1<T1, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction2<T1, T2, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction3<T1, T2, T3, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction4<T1, T2, T3, T4, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, T4, T5, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            LoDashImplicitWrapper<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry(arity?: number): LoDashImplicitWrapper<(...args: any[]) => any>;
+         * @see _.curry
+         */
+        curry(arity?: number):
+            T extends (arg1: infer T1) => infer R ? Function<CurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? Function<CurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? Function<CurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? Function<CurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? Function<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            Function<(...args: any[]) => any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
-        * @see _.curry
-        **/
-        curry<T1, R>(this: LoDashExplicitWrapper<(t1: T1) => R>):
-            LoDashExplicitWrapper<CurriedFunction1<T1, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2) => R>):
-            LoDashExplicitWrapper<CurriedFunction2<T1, T2, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3) => R>):
-            LoDashExplicitWrapper<CurriedFunction3<T1, T2, T3, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4) => R>):
-            LoDashExplicitWrapper<CurriedFunction4<T1, T2, T3, T4, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry<T1, T2, T3, T4, T5, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>):
-            LoDashExplicitWrapper<CurriedFunction5<T1, T2, T3, T4, T5, R>>;
-
-        /**
-        * @see _.curry
-        **/
-        curry(arity?: number): LoDashExplicitWrapper<(...args: any[]) => any>;
+         * @see _.curry
+         */
+        curry(arity?: number):
+            T extends (arg1: infer T1) => infer R ? FunctionChain<CurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? FunctionChain<CurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? FunctionChain<CurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? FunctionChain<CurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? FunctionChain<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            FunctionChain<(...args: any[]) => any>;
     }
-
-    // curryRight
-
     interface CurryRight {
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, R>(func: (t1: T1) => R, arity?: number):
-            RightCurriedFunction1<T1, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number):
-            RightCurriedFunction2<T1, T2, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number):
-            RightCurriedFunction3<T1, T2, T3, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number):
-            RightCurriedFunction4<T1, T2, T3, T4, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
-        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number):
-            RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
-        /**
-         * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
-         * instead of _.partial.
-         * @param func The function to curry.
-         * @param arity The arity of func.
-         * @return Returns the new curried function.
-         */
+        <T1, R>(func: (t1: T1) => R, arity?: number): RightCurriedFunction1<T1, R>;
+        <T1, T2, R>(func: (t1: T1, t2: T2) => R, arity?: number): RightCurriedFunction2<T1, T2, R>;
+        <T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R, arity?: number): RightCurriedFunction3<T1, T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R, arity?: number): RightCurriedFunction4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R, arity?: number): RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (func: (...args: any[]) => any, arity?: number): (...args: any[]) => any;
-
         placeholder: __;
     }
-
     interface LoDashStatic {
         curryRight: CurryRight;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.curryRight
-         **/
-        curryRight<T1, R>(this: LoDashImplicitWrapper<(t1: T1) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction1<T1, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction2<T1, T2, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction3<T1, T2, T3, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction4<T1, T2, T3, T4, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, T4, T5, R>(this: LoDashImplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            LoDashImplicitWrapper<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight(arity?: number): LoDashImplicitWrapper<(...args: any[]) => any>;
+         */
+        curryRight(arity?: number):
+            T extends (arg1: infer T1) => infer R ? Function<RightCurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? Function<RightCurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? Function<RightCurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? Function<RightCurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? Function<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            Function<(...args: any[]) => any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.curryRight
-         **/
-        curryRight<T1, R>(this: LoDashExplicitWrapper<(t1: T1) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction1<T1, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction2<T1, T2, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction3<T1, T2, T3, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction4<T1, T2, T3, T4, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight<T1, T2, T3, T4, T5, R>(this: LoDashExplicitWrapper<(t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R>, arity?: number):
-            LoDashExplicitWrapper<RightCurriedFunction5<T1, T2, T3, T4, T5, R>>;
-
-        /**
-         * @see _.curryRight
-         **/
-        curryRight(arity?: number): LoDashExplicitWrapper<(...args: any[]) => any>;
+         */
+        curryRight(arity?: number):
+            T extends (arg1: infer T1) => infer R ? FunctionChain<RightCurriedFunction1<T1, R>> :
+            T extends (arg1: infer T1, arg2: infer T2) => infer R ? FunctionChain<RightCurriedFunction2<T1, T2, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3) => infer R ? FunctionChain<RightCurriedFunction3<T1, T2, T3, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4) => infer R ? FunctionChain<RightCurriedFunction4<T1, T2, T3, T4, R>> :
+            T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? FunctionChain<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
+            FunctionChain<(...args: any[]) => any>;
     }
-
-    // debounce
-
     interface DebounceSettings {
         /**
-         * Specify invoking on the leading edge of the timeout.
+         * @see _.leading
          */
         leading?: boolean;
-
         /**
-         * The maximum time func is allowed to be delayed before it’s invoked.
+         * @see _.maxWait
          */
         maxWait?: number;
-
         /**
-         * Specify invoking on the trailing edge of the timeout.
+         * @see _.trailing
          */
         trailing?: boolean;
     }
+    interface DebouncedFunc<T extends (...args: any[]) => any> {
+        /**
+         * Call the original function, but applying the debounce rules.
+         *
+         * If the debounced function can be run immediately, this calls it and returns its return
+         * value.
+         *
+         * Otherwise, it returns the return value of the last invokation, or undefined if the debounced
+         * function was not invoked yet.
+         */
+        (...args: Parameters<T>): ReturnType<T> | undefined;
 
+        /**
+         * Throw away any pending invokation of the debounced function.
+         */
+        cancel(): void;
+
+        /**
+         * If there is a pending invokation of the debounced function, invoke it immediately and return
+         * its return value.
+         *
+         * Otherwise, return the value from the last invokation, or undefined if the debounced function
+         * was never invoked.
+         */
+        flush(): ReturnType<T> | undefined;
+    }
     interface LoDashStatic {
         /**
          * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
@@ -669,35 +415,26 @@ declare module "../index" {
          * @param options.trailing Specify invoking on the trailing edge of the timeout.
          * @return Returns the new debounced function.
          */
-        debounce<T extends (...args: any[]) => any>(
-            func: T,
-            wait?: number,
-            options?: DebounceSettings
-        ): T & Cancelable;
+        debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: DebounceSettings): DebouncedFunc<T>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.debounce
          */
         debounce(
             wait?: number,
             options?: DebounceSettings
-        ): LoDashImplicitWrapper<TValue & Cancelable>;
+        ): T extends (...args: any[]) => any ? Function<DebouncedFunc<T>> : never;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.debounce
          */
         debounce(
             wait?: number,
             options?: DebounceSettings
-        ): LoDashExplicitWrapper<TValue & Cancelable>;
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFunc<T>> : never;
     }
-
-    // defer
-
     interface LoDashStatic {
         /**
          * Defers invoking the func until the current call stack has cleared. Any additional arguments are provided to
@@ -707,28 +444,20 @@ declare module "../index" {
          * @param args The arguments to invoke the function with.
          * @return Returns the timer id.
          */
-        defer(
-            func: (...args: any[]) => any,
-            ...args: any[]
-        ): number;
+        defer(func: (...args: any[]) => any, ...args: any[]): number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.defer
          */
-        defer(...args: any[]): LoDashImplicitWrapper<number>;
+        defer(...args: any[]): Primitive<number>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.defer
          */
-        defer(...args: any[]): LoDashExplicitWrapper<number>;
+        defer(...args: any[]): PrimitiveChain<number>;
     }
-
-    // delay
-
     interface LoDashStatic {
         /**
          * Invokes func after wait milliseconds. Any additional arguments are provided to func when it’s invoked.
@@ -738,35 +467,20 @@ declare module "../index" {
          * @param args The arguments to invoke the function with.
          * @return Returns the timer id.
          */
-        delay(
-            func: (...args: any[]) => any,
-            wait: number,
-            ...args: any[]
-        ): number;
+        delay(func: (...args: any[]) => any, wait: number, ...args: any[]): number;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.delay
          */
-        delay(
-            wait: number,
-            ...args: any[]
-        ): LoDashImplicitWrapper<number>;
+        delay(wait: number, ...args: any[]): Primitive<number>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.delay
          */
-        delay(
-            wait: number,
-            ...args: any[]
-        ): LoDashExplicitWrapper<number>;
+        delay(wait: number, ...args: any[]): PrimitiveChain<number>;
     }
-
-    // flip
-
     interface LoDashStatic {
         /**
          * Creates a function that invokes `func` with arguments reversed.
@@ -783,22 +497,26 @@ declare module "../index" {
          * flipped('a', 'b', 'c', 'd');
          * // => ['d', 'c', 'b', 'a']
          */
-        flip<T extends (...args: any[]) => any>(func: T): T;
+        flip<T extends (...args: any) => any>(func: T): T;
     }
-
-    interface LoDashWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.flip
          */
         flip(): this;
     }
-
-    // memoize
-
+    interface FunctionChain<T extends (...args: any) => any> {
+        /**
+         * @see _.flip
+         */
+        flip(): this;
+    }
     interface MemoizedFunction {
+        /**
+         * @see _.cache
+         */
         cache: MapCache;
     }
-
     interface LoDashStatic {
         /**
          * Creates a function that memoizes the result of func. If resolver is provided it determines the cache key for
@@ -811,27 +529,22 @@ declare module "../index" {
          * @return Returns the new memoizing function.
          */
         memoize: {
-            <T extends (...args: any[]) => any>(func: T, resolver?: (...args: any[]) => any): T & MemoizedFunction;
+            <T extends (...args: any) => any>(func: T, resolver?: (...args: Parameters<T>) => any): T & MemoizedFunction;
             Cache: MapCacheConstructor;
         };
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.memoize
          */
-        memoize(resolver?: (...args: any[]) => any): LoDashImplicitWrapper<TValue & MemoizedFunction>;
+        memoize(resolver?: (...args: any[]) => any): Function<T & MemoizedFunction>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.memoize
          */
-        memoize(resolver?: (...args: any[]) => any): LoDashExplicitWrapper<TValue & MemoizedFunction>;
+        memoize(resolver?: (...args: any[]) => any): FunctionChain<T & MemoizedFunction>;
     }
-
-    // negate
-
     interface LoDashStatic {
         /**
          * Creates a function that negates the result of the predicate func. The func predicate is invoked with
@@ -840,34 +553,20 @@ declare module "../index" {
          * @param predicate The predicate to negate.
          * @return Returns the new function.
          */
-        negate(predicate: () => boolean): () => boolean;
-        negate<A1>(predicate: (a1: A1) => boolean): (a1: A1) => boolean;
-        negate<A1, A2>(predicate: (a1: A1, a2: A2) => boolean): (a1: A1, a2: A2) => boolean;
-        negate(predicate: (...args: any[]) => any): (...args: any[]) => boolean;
+        negate<T extends any[]>(predicate: (...args: T) => boolean): (...args: T) => boolean;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.negate
          */
-        negate(this: LoDashImplicitWrapper<() => boolean>): LoDashImplicitWrapper<() => boolean>;
-        negate<A1>(this: LoDashImplicitWrapper<(a1: A1) => boolean>): LoDashImplicitWrapper<(a1: A1) => boolean>;
-        negate<A1, A2>(this: LoDashImplicitWrapper<(a1: A1, a2: A2) => boolean>): LoDashImplicitWrapper<(a1: A1, a2: A2) => boolean>;
-        negate(this: LoDashImplicitWrapper<(...args: any[]) => any>): LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        negate(): Function<(...args: Parameters<T>) => boolean>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.negate
          */
-        negate(this: LoDashExplicitWrapper<() => boolean>): LoDashExplicitWrapper<() => boolean>;
-        negate<A1>(this: LoDashExplicitWrapper<(a1: A1) => boolean>): LoDashExplicitWrapper<(a1: A1) => boolean>;
-        negate<A1, A2>(this: LoDashExplicitWrapper<(a1: A1, a2: A2) => boolean>): LoDashExplicitWrapper<(a1: A1, a2: A2) => boolean>;
-        negate(this: LoDashExplicitWrapper<(...args: any[]) => any>): LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        negate(): FunctionChain<(...args: Parameters<T>) => boolean>;
     }
-
-    // once
-
     interface LoDashStatic {
         /**
          * Creates a function that is restricted to invoking func once. Repeat calls to the function return the value
@@ -876,18 +575,20 @@ declare module "../index" {
          * @param func The function to restrict.
          * @return Returns the new restricted function.
          */
-        once<T extends (...args: any[]) => any>(func: T): T;
+        once<T extends (...args: any) => any>(func: T): T;
     }
-
-    interface LoDashWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.once
          */
-        once(): this;
+        once(): Function<T>;
     }
-
-    // overArgs
-
+    interface FunctionChain<T extends (...args: any) => any> {
+        /**
+         * @see _.once
+         */
+        once(): FunctionChain<T>;
+    }
     interface LoDashStatic {
         /**
          * Creates a function that runs each argument through a corresponding transform function.
@@ -897,28 +598,20 @@ declare module "../index" {
          * of functions.
          * @return Returns the new function.
          */
-        overArgs(
-            func: (...args: any[]) => any,
-            ...transforms: Array<Many<(...args: any[]) => any>>
-        ): (...args: any[]) => any;
+        overArgs(func: (...args: any[]) => any, ...transforms: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.overArgs
          */
-        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Function<(...args: any[]) => any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.overArgs
          */
-        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        overArgs(...transforms: Array<Many<(...args: any[]) => any>>): FunctionChain<(...args: any[]) => any>;
     }
-
-    // partial
-
     interface LoDashStatic {
         /**
         * Creates a function that, when called, invokes func with any additional partial arguments
@@ -927,160 +620,272 @@ declare module "../index" {
         * @param func The function to partially apply arguments to.
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
-        **/
+         */
         partial: Partial;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
-        /**
-         * @see _.partial
-         */
-        partial: ImplicitPartial;
-    }
-
-    interface LoDashExplicitWrapper<TValue> {
-        /**
-         * @see _.partial
-         */
-        partial: ExplicitPartial;
-    }
-
-    /** The placeholder, to be used in curried functions */
     type __ = LoDashStatic;
-
     type Function0<R> = () => R;
     type Function1<T1, R> = (t1: T1) => R;
     type Function2<T1, T2, R> = (t1: T1, t2: T2) => R;
     type Function3<T1, T2, T3, R> = (t1: T1, t2: T2, t3: T3) => R;
     type Function4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
-
     interface Partial {
-        // arity 0
-        <R>(func: Function0<R>): Function0<R>;
-        // arity 1
-        <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
-        <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
-        // arity 2
-        <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1):            Function1<    T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: __, arg2: T2):  Function1<T1,     R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
-        // arity 3
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1):                      Function2<    T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2):            Function2<T1,     T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2):            Function1<        T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, plc2: __, arg3: T3):  Function2<T1, T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3):  Function1<    T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2, arg3: T3):  Function1<T1,         R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
-        // arity 4
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1):                                Function3<    T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2):                      Function3<T1,     T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2):                      Function2<        T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3):            Function3<T1, T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3):            Function2<    T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3):            Function2<T1,         T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3):            Function1<            T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, plc3: __, arg4: T4):  Function3<T1, T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Function2<    T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, plc3: __, arg4: T4):  Function2<T1,     T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Function1<        T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Function1<    T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
-        // catch-all
-        (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
-
+        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: __, arg2: T2): Function1<T1, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2): Function2<T1, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, plc2: __, arg3: T3): Function2<T1, T2, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3): Function1<T2, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: __, arg2: T2, arg3: T3): Function1<T1, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2): Function3<T1, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3): Function3<T1, T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3): Function2<T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3): Function2<T1, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3): Function1<T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, plc3: __, arg4: T4): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, plc3: __, arg4: T4): Function2<T1, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Function1<T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3, arg4: T4): Function2<T1, T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3, arg4: T4): Function1<T1, R>;
+        <TS extends any[], R>(func: (...ts: TS) => R): (...ts: TS) => R;
+        <TS extends any[], T1, R>(func: (t1: T1, ...ts: TS) => R, arg1: T1): (...ts: TS) => R;
+        <TS extends any[], T1, T2, R>(func: (t1: T1, t2: T2, ...ts: TS) => R, t1: T1, t2: T2): (...ts: TS) => R;
+        <TS extends any[], T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3, ...ts: TS) => R, t1: T1, t2: T2, t3: T3): (...ts: TS) => R;
+        <TS extends any[], T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: TS) => R, t1: T1, t2: T2, t3: T3, t4: T4): (...ts: TS) => R;
         placeholder: __;
     }
-
-    interface ImplicitPartial {
-        // arity 0
-        <R>(this: LoDashImplicitWrapper<Function0<R>>): LoDashImplicitWrapper<Function0<R>>;
-        // arity 1
-        <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>): LoDashImplicitWrapper<Function1<T1, R>>;
-        <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashImplicitWrapper<Function0<R>>;
-        // arity 2
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>):                      LoDashImplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1):            LoDashImplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, plc1: __, arg2: T2):  LoDashImplicitWrapper<Function1<T1,     R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashImplicitWrapper<Function0<        R>>;
-        // arity 3
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashImplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1):                      LoDashImplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            LoDashImplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            LoDashImplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function0<            R>>;
-        // arity 4
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                LoDashImplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      LoDashImplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      LoDashImplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            LoDashImplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            LoDashImplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            LoDashImplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            LoDashImplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function0<                R>>;
-        // catch-all
-        (...args: any[]): LoDashImplicitWrapper<(...args: any[]) => any>;
+    interface Function<T extends (...args: any) => any> {
+        /**
+         * @see _.partial
+         */
+        partial<T2>(plc1: __, arg2: T2): Function<
+            T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> :
+            T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
+            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T3>(plc1: __, plc2: __, arg3: T3): Function<
+            T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
+            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T3>(arg1: T1, plc2: __, arg3: T3): Function<
+            T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
+            T extends Function4<T1, infer T2, T3, infer T4, infer R> ? Function2<T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T2, T3>(plc1: __, arg2: T2, arg3: T3): Function<
+            T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
+            T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T3>(plc1: __, plc2: __, arg3: T3): Function<
+            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): Function<
+            T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T2, T4>(plc1: __, arg2: T2, plc3: __, arg4: T4): Function<
+            T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): Function<
+            T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T3, T4>(plc1: __, plc2: __, arg3: T3, arg4: T4): Function<
+            T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): Function<
+            T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T2, T3, T4>(plc1: __, arg2: T2, arg3: T3, arg4: T4): Function<
+            T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2, T3, T4>(arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function<
+            T extends (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: infer TS) => infer R ? (...ts: TS) => R :
+            any
+            >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): Function<
+            T extends (t1: T1, t2: T2, t3: T3, ...ts: infer TS) => infer R ? (...ts: TS) => R :
+            any
+            >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2>(arg1: T1, arg2: T2): Function<
+            T extends (t1: T1, t2: T2, ...ts: infer TS) => infer R ? (...ts: TS) => R :
+            any
+            >;
+        /**
+         * @see _.partial
+         */
+        partial<T1>(arg1: T1): Function<
+            T extends (t1: T1, ...ts: infer TS) => infer R ? (...ts: TS) => R :
+            any
+            >;
+        /**
+         * @see _.partial
+         */
+        partial(): Function<T extends (...ts: any[]) => any ? T : any>;
     }
-
-    interface ExplicitPartial {
-        // arity 0
-        <R>(this: LoDashExplicitWrapper<Function0<R>>): LoDashExplicitWrapper<Function0<R>>;
-        // arity 1
-        <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>): LoDashExplicitWrapper<Function1<T1, R>>;
-        <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashExplicitWrapper<Function0<R>>;
-        // arity 2
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>):                      LoDashExplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1):            LoDashExplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, plc1: __, arg2: T2):  LoDashExplicitWrapper<Function1<T1,     R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashExplicitWrapper<Function0<        R>>;
-        // arity 3
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashExplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1):                      LoDashExplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2):            LoDashExplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2):            LoDashExplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, plc1: __, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function0<            R>>;
-        // arity 4
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1):                                LoDashExplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2):                      LoDashExplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2):                      LoDashExplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3):            LoDashExplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3):            LoDashExplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3):            LoDashExplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3):            LoDashExplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, plc1: __, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function0<                R>>;
-        // catch-all
-        (...args: any[]): LoDashExplicitWrapper<(...args: any[]) => any>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        /**
+         * @see _.partial
+         */
+        partial<T2>(plc1: __, arg2: T2): FunctionChain<
+            T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> :
+            T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
+            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T3>(plc1: __, plc2: __, arg3: T3): FunctionChain<
+            T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
+            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T3>(arg1: T1, plc2: __, arg3: T3): FunctionChain<
+            T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
+            T extends Function4<T1, infer T2, T3, infer T4, infer R> ? Function2<T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T2, T3>(plc1: __, arg2: T2, arg3: T3): FunctionChain<
+            T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
+            T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T3>(plc1: __, plc2: __, arg3: T3): FunctionChain<
+            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): FunctionChain<
+            T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T2, T4>(plc1: __, arg2: T2, plc3: __, arg4: T4): FunctionChain<
+            T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): FunctionChain<
+            T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T3, T4>(plc1: __, plc2: __, arg3: T3, arg4: T4): FunctionChain<
+            T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): FunctionChain<
+            T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T2, T3, T4>(plc1: __, arg2: T2, arg3: T3, arg4: T4): FunctionChain<
+            T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
+            any
+        >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2, T3, T4>(arg1: T1, arg2: T2, arg3: T3, arg4: T4): FunctionChain<
+            T extends (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: infer TS) => infer R ? (...ts: TS) => R :
+            any
+            >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3): FunctionChain<
+            T extends (t1: T1, t2: T2, t3: T3, ...ts: infer TS) => infer R ? (...ts: TS) => R :
+            any
+            >;
+        /**
+         * @see _.partial
+         */
+        partial<T1, T2>(arg1: T1, arg2: T2): FunctionChain<
+            T extends (t1: T1, t2: T2, ...ts: infer TS) => infer R ? (...ts: TS) => R :
+            any
+            >;
+        /**
+         * @see _.partial
+         */
+        partial<T1>(arg1: T1): FunctionChain<
+            T extends (t1: T1, ...ts: infer TS) => infer R ? (...ts: TS) => R :
+            any
+            >;
+        /**
+         * @see _.partial
+         */
+        partial(): FunctionChain<T extends (...ts: any[]) => any ? T : any>;
     }
-
-    // partialRight
-
     interface LoDashStatic {
         /**
         * This method is like _.partial except that partial arguments are appended to those provided
@@ -1088,151 +893,370 @@ declare module "../index" {
         * @param func The function to partially apply arguments to.
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
-        **/
+         */
         partialRight: PartialRight;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
-        /**
-         * @see _.partialRight
-         */
-        partialRight: ImplicitPartialRight;
-    }
-
-    interface LoDashExplicitWrapper<TValue> {
-        /**
-         * @see _.partialRight
-         */
-        partialRight: ExplicitPartialRight;
-    }
-
     interface PartialRight {
-        // arity 0
         <R>(func: Function0<R>): Function0<R>;
-        // arity 1
         <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
         <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
-        // arity 2
-        <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: __):  Function1<    T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>,           arg2: T2):  Function1<T1,     R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
-        // arity 3
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, plc3: __):  Function2<    T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, plc3: __):  Function2<T1,     T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: __):  Function1<        T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,                     arg3: T3):  Function2<T1, T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3):  Function1<    T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, arg3: T3):  Function1<T1,         R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
-        // arity 4
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, plc4: __):  Function3<    T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: __, plc4: __):  Function3<T1,     T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, plc4: __):  Function2<        T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, plc4: __):  Function3<T1, T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, plc4: __):  Function2<    T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, plc4: __):  Function2<T1,         T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  Function1<            T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                               arg4: T4):  Function3<T1, T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4):  Function2<    T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: __, arg4: T4):  Function2<T1,     T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  Function1<        T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  Function1<    T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
-        // catch-all
+        <T1, T2, R>(func: Function2<T1, T2, R>): Function2<T1, T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: __): Function1<T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg2: T2): Function1<T1, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2): Function0<R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, plc3: __): Function2<T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg2: T2, plc3: __): Function2<T1, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: __): Function1<T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg3: T3): Function2<T1, T2, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: __, arg3: T3): Function1<T2, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg2: T2, arg3: T3): Function1<T1, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): Function0<R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>): Function4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, plc4: __): Function3<T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, plc3: __, plc4: __): Function3<T1, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, plc4: __): Function2<T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg3: T3, plc4: __): Function3<T1, T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, plc4: __): Function2<T2, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, arg3: T3, plc4: __): Function2<T1, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: __): Function1<T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg4: T4): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<T2, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, plc3: __, arg4: T4): Function2<T1, T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: __, arg4: T4): Function1<T3, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg3: T3, arg4: T4): Function2<T1, T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3, arg4: T4): Function1<T2, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg2: T2, arg3: T3, arg4: T4): Function1<T1, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function0<R>;
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
-
         placeholder: __;
     }
-
-    interface ImplicitPartialRight {
-        // arity 0
-        <R>(this: LoDashImplicitWrapper<Function0<R>>): LoDashImplicitWrapper<Function0<R>>;
-        // arity 1
-        <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>): LoDashImplicitWrapper<Function1<T1, R>>;
-        <T1, R>(this: LoDashImplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashImplicitWrapper<Function0<R>>;
-        // arity 2
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>):                      LoDashImplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, plc2: __):  LoDashImplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>,           arg2: T2):  LoDashImplicitWrapper<Function1<T1,     R>>;
-        <T1, T2, R>(this: LoDashImplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashImplicitWrapper<Function0<        R>>;
-        // arity 3
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashImplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  LoDashImplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  LoDashImplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  LoDashImplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,                     arg3: T3):  LoDashImplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashImplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: LoDashImplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashImplicitWrapper<Function0<            R>>;
-        // arity 4
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  LoDashImplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  LoDashImplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  LoDashImplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  LoDashImplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  LoDashImplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  LoDashImplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashImplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: LoDashImplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashImplicitWrapper<Function0<                R>>;
-        // catch-all
-        (...args: any[]): LoDashImplicitWrapper<(...args: any[]) => any>;
+    interface Function<T extends (...args: any) => any> {
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1>(arg1: T1, plc2: __): Function<
+            T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2>(arg2: T2): Function<
+            T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> : any
+            >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1>(arg1: T1, plc2: __, plc3: __): Function<
+            T extends Function3<T1, infer T2, infer T3, infer R> ? Function2<T2, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2>(arg2: T2, plc3: __): Function<
+            T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __): Function<
+            T extends Function3<T1, T2, infer T3, infer R> ? Function1<T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T3>(arg3: T3): Function<
+            T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3): Function<
+            T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T3>(arg2: T2, arg3: T3): Function<
+            T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1>(arg1: T1, plc2: __, plc3: __, plc4: __): Function<
+            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function3<T2, T3, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2>(arg2: T2, plc3: __, plc4: __): Function<
+            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __, plc4: __): Function<
+            T extends Function4<T1, T2, infer T3, infer T4, infer R> ? Function2<T3, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T3>(arg3: T3, plc4: __): Function<
+            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3, plc4: __): Function<
+            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function2<T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T3>(arg2: T2, arg3: T3, plc4: __): Function<
+            T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3, plc4: __): Function<
+            T extends Function4<T1, T2, T3, infer T4, infer R> ? Function1<T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T4>(arg4: T4): Function<
+            T extends Function4<infer T1, infer T2, infer T3, T4, infer R> ? Function3<T1, T2, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): Function<
+            T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T4>(arg2: T2, plc3: __, arg4: T4): Function<
+            T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): Function<
+            T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T3, T4>(arg3: T3, arg4: T4): Function<
+            T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): Function<
+            T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T3, T4>(arg2: T2, arg3: T3, arg4: T4): Function<
+            T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<TS extends any[]>(...ts: TS): Function<T extends (...args: TS) => infer R ? () => R : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight(): Function<T extends (...ts: any[]) => any ? T : any>;
     }
-
-    interface ExplicitPartialRight {
-        // arity 0
-        <R>(this: LoDashExplicitWrapper<Function0<R>>): LoDashExplicitWrapper<Function0<R>>;
-        // arity 1
-        <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>): LoDashExplicitWrapper<Function1<T1, R>>;
-        <T1, R>(this: LoDashExplicitWrapper<Function1<T1, R>>, arg1: T1): LoDashExplicitWrapper<Function0<R>>;
-        // arity 2
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>):                      LoDashExplicitWrapper<Function2<T1, T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, plc2: __):  LoDashExplicitWrapper<Function1<    T2, R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>,           arg2: T2):  LoDashExplicitWrapper<Function1<T1,     R>>;
-        <T1, T2, R>(this: LoDashExplicitWrapper<Function2<T1, T2, R>>, arg1: T1, arg2: T2):  LoDashExplicitWrapper<Function0<        R>>;
-        // arity 3
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>):                                LoDashExplicitWrapper<Function3<T1, T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, plc3: __):  LoDashExplicitWrapper<Function2<    T2, T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, plc3: __):  LoDashExplicitWrapper<Function2<T1,     T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, plc3: __):  LoDashExplicitWrapper<Function1<        T3, R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,                     arg3: T3):  LoDashExplicitWrapper<Function2<T1, T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, plc2: __, arg3: T3):  LoDashExplicitWrapper<Function1<    T2,     R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>,           arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function1<T1,         R>>;
-        <T1, T2, T3, R>(this: LoDashExplicitWrapper<Function3<T1, T2, T3, R>>, arg1: T1, arg2: T2, arg3: T3):  LoDashExplicitWrapper<Function0<            R>>;
-        // arity 4
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>):                                          LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, plc4: __):  LoDashExplicitWrapper<Function3<    T2, T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, plc4: __):  LoDashExplicitWrapper<Function3<T1,     T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, plc4: __):  LoDashExplicitWrapper<Function2<        T3, T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, plc4: __):  LoDashExplicitWrapper<Function3<T1, T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function2<    T2,     T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function2<T1,         T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, plc4: __):  LoDashExplicitWrapper<Function1<            T4, R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                               arg4: T4):  LoDashExplicitWrapper<Function3<T1, T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<    T2, T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function2<T1,     T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, plc3: __, arg4: T4):  LoDashExplicitWrapper<Function1<        T3,     R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,                     arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function2<T1, T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, plc2: __, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<    T2,         R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>,           arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function1<T1,             R>>;
-        <T1, T2, T3, T4, R>(this: LoDashExplicitWrapper<Function4<T1, T2, T3, T4, R>>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  LoDashExplicitWrapper<Function0<                R>>;
-        // catch-all
-        (...args: any[]): LoDashExplicitWrapper<(...args: any[]) => any>;
+    interface FunctionChain<T extends (...args: any) => any> {
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1>(arg1: T1, plc2: __): FunctionChain<
+            T extends Function2<T1, infer T2, infer R> ? Function1<T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2>(arg2: T2): FunctionChain<
+            T extends Function2<infer T1, T2, infer R> ? Function1<T1, R> : any
+            >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1>(arg1: T1, plc2: __, plc3: __): FunctionChain<
+            T extends Function3<T1, infer T2, infer T3, infer R> ? Function2<T2, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2>(arg2: T2, plc3: __): FunctionChain<
+            T extends Function3<infer T1, T2, infer T3, infer R> ? Function2<T1, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __): FunctionChain<
+            T extends Function3<T1, T2, infer T3, infer R> ? Function1<T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T3>(arg3: T3): FunctionChain<
+            T extends Function3<infer T1, infer T2, T3, infer R> ? Function2<T1, T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3): FunctionChain<
+            T extends Function3<T1, infer T2, T3, infer R> ? Function1<T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T3>(arg2: T2, arg3: T3): FunctionChain<
+            T extends Function3<infer T1, T2, T3, infer R> ? Function1<T1, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1>(arg1: T1, plc2: __, plc3: __, plc4: __): FunctionChain<
+            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function3<T2, T3, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2>(arg2: T2, plc3: __, plc4: __): FunctionChain<
+            T extends Function4<infer T1, T2, infer T3, infer T4, infer R> ? Function3<T1, T3, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2>(arg1: T1, arg2: T2, plc3: __, plc4: __): FunctionChain<
+            T extends Function4<T1, T2, infer T3, infer T4, infer R> ? Function2<T3, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T3>(arg3: T3, plc4: __): FunctionChain<
+            T extends Function4<infer T1, infer T2, T3, infer T4, infer R> ? Function3<T1, T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T3>(arg1: T1, plc2: __, arg3: T3, plc4: __): FunctionChain<
+            T extends Function4<T1, infer T2, infer T3, infer T4, infer R> ? Function2<T2, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T3>(arg2: T2, arg3: T3, plc4: __): FunctionChain<
+            T extends Function4<infer T1, T2, T3, infer T4, infer R> ? Function2<T1, T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2, T3>(arg1: T1, arg2: T2, arg3: T3, plc4: __): FunctionChain<
+            T extends Function4<T1, T2, T3, infer T4, infer R> ? Function1<T4, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T4>(arg4: T4): FunctionChain<
+            T extends Function4<infer T1, infer T2, infer T3, T4, infer R> ? Function3<T1, T2, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T4>(arg1: T1, plc2: __, plc3: __, arg4: T4): FunctionChain<
+            T extends Function4<T1, infer T2, infer T3, T4, infer R> ? Function2<T2, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T4>(arg2: T2, plc3: __, arg4: T4): FunctionChain<
+            T extends Function4<infer T1, T2, infer T3, T4, infer R> ? Function2<T1, T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T2, T4>(arg1: T1, arg2: T2, plc3: __, arg4: T4): FunctionChain<
+            T extends Function4<T1, T2, infer T3, T4, infer R> ? Function1<T3, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T3, T4>(arg3: T3, arg4: T4): FunctionChain<
+            T extends Function4<infer T1, infer T2, T3, T4, infer R> ? Function2<T1, T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T1, T3, T4>(arg1: T1, plc2: __, arg3: T3, arg4: T4): FunctionChain<
+            T extends Function4<T1, infer T2, T3, T4, infer R> ? Function1<T2, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<T2, T3, T4>(arg2: T2, arg3: T3, arg4: T4): FunctionChain<
+            T extends Function4<infer T1, T2, T3, T4, infer R> ? Function1<T1, R> :
+            any
+        >;
+        /**
+         * @see _.partialRight
+         */
+        partialRight<TS extends any[]>(...ts: TS): FunctionChain<T extends (...args: TS) => infer R ? () => R : any>;
+        /**
+         * @see _.partialRight
+         */
+        partialRight(): FunctionChain<T extends (...ts: any[]) => any ? T : any>;
     }
-
-    // rearg
-
     interface LoDashStatic {
         /**
          * Creates a function that invokes func with arguments arranged according to the specified indexes where the
@@ -1244,23 +1268,18 @@ declare module "../index" {
          */
         rearg(func: (...args: any[]) => any, ...indexes: Array<Many<number>>): (...args: any[]) => any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.rearg
          */
-        rearg(...indexes: Array<Many<number>>): LoDashImplicitWrapper<(...args: any[]) => any>;
+        rearg(...indexes: Array<Many<number>>): Function<(...args: any[]) => any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.rearg
          */
-        rearg(...indexes: Array<Many<number>>): LoDashExplicitWrapper<(...args: any[]) => any>;
+        rearg(...indexes: Array<Many<number>>): FunctionChain<(...args: any[]) => any>;
     }
-
-    // rest
-
     interface LoDashStatic {
         /**
          * Creates a function that invokes func with the this binding of the created function and arguments from start
@@ -1272,28 +1291,20 @@ declare module "../index" {
          * @param start The start position of the rest parameter.
          * @return Returns the new function.
          */
-        rest(
-            func: (...args: any[]) => any,
-            start?: number
-        ): (...args: any[]) => any;
+        rest(func: (...args: any[]) => any, start?: number): (...args: any[]) => any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.rest
          */
-        rest(start?: number): LoDashImplicitWrapper<(...args: any[]) => any>;
+        rest(start?: number): Function<(...args: any[]) => any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.rest
          */
-        rest(start?: number): LoDashExplicitWrapper<(...args: any[]) => any>;
+        rest(start?: number): FunctionChain<(...args: any[]) => any>;
     }
-
-    // spread
-
     interface LoDashStatic {
         /**
          * Creates a function that invokes func with the this binding of the created function and an array of arguments
@@ -1304,52 +1315,30 @@ declare module "../index" {
          * @param func The function to spread arguments over.
          * @return Returns the new function.
          */
-        spread<TResult>(func: (...args: any[]) => TResult): (...args: any[]) => TResult;
-
-        /**
-         * @see _.spread
-         */
-        spread<TResult>(func: (...args: any[]) => TResult, start: number): (...args: any[]) => TResult;
+        spread<TResult>(func: (...args: any[]) => TResult, start?: number): (...args: any[]) => TResult;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.spread
          */
-        spread<TResult>(this: LoDashImplicitWrapper<(...args: any[]) => TResult>): LoDashImplicitWrapper<(...args: any[]) => TResult>;
-
-        /**
-         * @see _.spread
-         */
-        spread<TResult>(this: LoDashImplicitWrapper<(...args: any[]) => TResult>, start: number): LoDashImplicitWrapper<(...args: any[]) => TResult>;
+        spread(start?: number): Function<(...args: any[]) => ReturnType<T>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.spread
          */
-        spread<TResult>(this: LoDashExplicitWrapper<(...args: any[]) => TResult>): LoDashExplicitWrapper<(...args: any[]) => TResult>;
-
-        /**
-         * @see _.spread
-         */
-        spread<TResult>(this: LoDashExplicitWrapper<(...args: any[]) => TResult>, start: number): LoDashExplicitWrapper<(...args: any[]) => TResult>;
+        spread(start?: number): FunctionChain<(...args: any[]) => ReturnType<T>>;
     }
-
-    // throttle
-
     interface ThrottleSettings {
         /**
-         * If you'd like to disable the leading-edge call, pass this as false.
+         * @see _.leading
          */
         leading?: boolean;
-
         /**
-         * If you'd like to disable the execution on the trailing-edge, pass false.
+         * @see _.trailing
          */
         trailing?: boolean;
     }
-
     interface LoDashStatic {
         /**
          * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
@@ -1367,35 +1356,26 @@ declare module "../index" {
          * @param options.trailing Specify invoking on the trailing edge of the timeout.
          * @return Returns the new throttled function.
          */
-        throttle<T extends (...args: any[]) => any>(
-            func: T,
-            wait?: number,
-            options?: ThrottleSettings
-        ): T & Cancelable;
+        throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): DebouncedFunc<T>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.throttle
          */
         throttle(
             wait?: number,
             options?: ThrottleSettings
-        ): LoDashImplicitWrapper<TValue & Cancelable>;
+        ): T extends (...args: any[]) => any ? Function<DebouncedFunc<T>> : never;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.throttle
          */
         throttle(
             wait?: number,
             options?: ThrottleSettings
-        ): LoDashExplicitWrapper<TValue & Cancelable>;
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFunc<T>> : never;
     }
-
-    // unary
-
     interface LoDashStatic {
         /**
          * Creates a function that accepts up to one argument, ignoring any
@@ -1411,23 +1391,18 @@ declare module "../index" {
          */
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.unary
          */
-        unary<T, TResult>(this: LoDashImplicitWrapper<(arg1: T, ...args: any[]) => TResult>): LoDashImplicitWrapper<(arg1: T) => TResult>;
+        unary(): Function<(arg1: Parameters<T>['0']) => ReturnType<T>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.unary
          */
-        unary<T, TResult>(this: LoDashExplicitWrapper<(arg1: T, ...args: any[]) => TResult>): LoDashExplicitWrapper<(arg1: T) => TResult>;
+        unary(): FunctionChain<(arg1: Parameters<T>['0']) => ReturnType<T>>;
     }
-
-    // wrap
-
     interface LoDashStatic {
         /**
          * Creates a function that provides value to the wrapper function as its first argument. Any additional
@@ -1438,52 +1413,18 @@ declare module "../index" {
          * @param wrapper The wrapper function.
          * @return Returns the new function.
          */
-        wrap<T, TArgs, TResult>(
-            value: T,
-            wrapper: (value: T, ...args: TArgs[]) => TResult
-        ): (...args: TArgs[]) => TResult;
-
-        /**
-         * @see _.wrap
-         */
-        wrap<T, TResult>(
-            value: T,
-            wrapper: (value: T, ...args: any[]) => TResult
-        ): (...args: any[]) => TResult;
+        wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.wrap
          */
-        wrap<TArgs, TResult>(
-            wrapper: (value: TValue, ...args: TArgs[]) => TResult
-        ): LoDashImplicitWrapper<(...args: TArgs[]) => TResult>;
-
-        /**
-         * @see _.wrap
-         */
-        wrap<TResult>(
-            wrapper: (value: TValue, ...args: any[]) => TResult
-        ): LoDashImplicitWrapper<(...args: any[]) => TResult>;
+        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): Function<(...args: TArgs[]) => TResult>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.wrap
          */
-        /**
-         * @see _.wrap
-         */
-        wrap<TArgs, TResult>(
-            wrapper: (value: TValue, ...args: TArgs[]) => TResult
-        ): LoDashExplicitWrapper<(...args: TArgs[]) => TResult>;
-
-        /**
-         * @see _.wrap
-         */
-        wrap<TResult>(
-            wrapper: (value: TValue, ...args: any[]) => TResult
-        ): LoDashExplicitWrapper<(...args: any[]) => TResult>;
+        wrap<TArgs, TResult>(wrapper: (value: TValue, ...args: TArgs[]) => TResult): FunctionChain<(...args: TArgs[]) => TResult>;
     }
 }

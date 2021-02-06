@@ -1,10 +1,12 @@
-
 import through = require('through');
 
 var i = 0;
 through(
-	function () {
-		this.queue((i++).toString());
-	}, function () {
-		this.queue(null);
-	}, { autoDestroy: true }).pipe(process.stdout);
+    function(this: through.ThroughStream) {
+        this.queue((i++).toString());
+    },
+    function(this: through.ThroughStream) {
+        this.queue(null);
+    },
+    { autoDestroy: true },
+).pipe(process.stdout);

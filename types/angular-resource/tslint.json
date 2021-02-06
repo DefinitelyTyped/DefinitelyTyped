@@ -1,14 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO: Fix up types to remove these
+        "ban-types": false,
         "interface-name": false,
-        "only-arrow-functions": false,
         "no-empty-interface": false,
         "no-object-literal-type-assertion": false,
-        "ban-types": false,
+        "no-unnecessary-generics": false,
+        "only-arrow-functions": false,
         "space-before-function-paren": false,
-        "unified-signatures": false,
-        "no-unnecessary-generics": false
+        "unified-signatures": false
     }
 }

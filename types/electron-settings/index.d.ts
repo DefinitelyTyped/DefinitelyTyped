@@ -14,7 +14,7 @@ interface JsonObject {
     [x: string]: JsonValue;
 }
 
-interface JsonArray extends Array<JsonValue> {} // tslint:disable-line no-empty-interface
+interface JsonArray extends Array<JsonValue> {}
 
 type JsonValue = string | number | boolean | null | JsonArray | JsonObject;
 

@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import ghauth = require("ghauth");
 import { AuthOptions, TokenData } from "ghauth";
 

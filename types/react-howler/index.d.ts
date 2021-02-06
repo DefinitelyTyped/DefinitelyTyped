@@ -10,7 +10,7 @@ import { Howl } from 'howler';
 declare enum HOWLER_STATE {
     UNLOADED = 'unloaded',
     LOADING = 'loading',
-    LOADED = 'loaded'
+    LOADED = 'loaded',
 }
 
 interface Props {
@@ -36,7 +36,7 @@ declare class ReactHowler extends React.Component<Props> {
 
     duration(id?: number): number;
 
-    seek(time: number): number;
+    seek(time?: number): number;
 
     howlerState(): HOWLER_STATE;
 

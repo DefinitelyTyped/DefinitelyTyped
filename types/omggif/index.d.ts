@@ -50,10 +50,13 @@ export class GifWriter {
 }
 
 export class GifReader {
+    height: number;
+    width: number;
+
     constructor(buf: Buffer);
 
-    decodeAndBlitFrameBGRA(frame_num: number, pixels: number[]): void;
-    decodeAndBlitFrameRGBA(frame_num: number, pixels: number[]): void;
+    decodeAndBlitFrameBGRA(frame_num: number, pixels: number[] | Uint8Array | Uint8ClampedArray): void;
+    decodeAndBlitFrameRGBA(frame_num: number, pixels: number[] | Uint8Array | Uint8ClampedArray): void;
     frameInfo(frame_num: number): Frame;
     loopCount(): number;
     numFrames(): number;

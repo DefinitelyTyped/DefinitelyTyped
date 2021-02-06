@@ -1,5 +1,5 @@
 // Type definitions for bootstrap-colorpicker 2.5
-// Project: https://github.com/farbelous/bootstrap-colorpicker/tree/v2.x, https://farbelous.github.io/bootstrap-colorpicker
+// Project: https://github.com/farbelous/bootstrap-colorpicker/tree/v2.x
 // Definitions by: Aleksandar Manukov <https://github.com/aleksandar-manukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -94,7 +94,7 @@ interface ColorPickerOptions {
     template?: string;
 
     /**
-     * 	By default, the colorpicker is aligned to the right of the input. If you need to switch it to the left, set align to 'left'.
+     *     By default, the colorpicker is aligned to the right of the input. If you need to switch it to the left, set align to 'left'.
      * 
      * Default: 'right'
      */
@@ -108,7 +108,7 @@ interface ColorPickerOptions {
     customClass?: string;
 
     /**
-     * 	List of pre selected colors (hex format). If you choose one of these colors, the alias is returned instead of the hex code.
+     *     List of pre selected colors (hex format). If you choose one of these colors, the alias is returned instead of the hex code.
      * 
      * Default: null
      */
@@ -122,7 +122,7 @@ interface ColorPickerOptions {
     fallbackColor?: string;
 
     /**
-     * 	Fallback color format (e.g. when not specified or for alias mode, when selecting non aliased colors)
+     *     Fallback color format (e.g. when not specified or for alias mode, when selecting non aliased colors)
      * 
      * Default: hex
      */

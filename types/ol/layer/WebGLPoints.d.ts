@@ -4,6 +4,7 @@ import { Extent } from '../extent';
 import Geometry from '../geom/Geometry';
 import { ObjectEvent } from '../Object';
 import RenderEvent from '../render/Event';
+import WebGLPointsLayerRenderer from '../renderer/webgl/PointsLayer';
 import VectorSource from '../source/Vector';
 import { LiteralStyle } from '../style/LiteralStyle';
 import Layer from './Layer';
@@ -17,14 +18,24 @@ export interface Options {
     zIndex?: number;
     minResolution?: number;
     maxResolution?: number;
+    minZoom?: number;
+    maxZoom?: number;
     source?: VectorSource<Geometry>;
     disableHitDetection?: boolean;
 }
 export default class WebGLPointsLayer extends Layer {
     constructor(options: Options);
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    /**
+     * Create a renderer for this layer.
+     */
+    createRenderer(): WebGLPointsLayerRenderer;
+    /**
+     * Clean up.
+     */
+    disposeInternal(): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

@@ -1,13 +1,14 @@
 import { PureComponent, Validator, Requireable } from 'react';
 import { CellMeasurerCacheInterface, KeyMapper, MeasuredCellParent } from './CellMeasurer';
 import { GridCellRenderer } from './Grid';
+import { IndexRange } from '../../index';
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.
  * This improves performance and makes scrolling smoother.
  */
 export const DEFAULT_SCROLLING_RESET_TIME_INTERVAL = 150;
 
-export type OnCellsRenderedCallback = (params: { startIndex: number; stopIndex: number }) => void;
+export type OnCellsRenderedCallback = (params: IndexRange) => void;
 
 export type OnScrollCallback = (params: { clientHeight: number; scrollHeight: number; scrollTop: number }) => void;
 
@@ -104,6 +105,8 @@ export class Masonry extends PureComponent<MasonryProps, MasonryState> {
 
     static getDerivedStateFromProps(nextProps: MasonryProps, prevState: MasonryState): MasonryState | null;
 }
+
+export default Masonry;
 
 export type emptyObject = {};
 

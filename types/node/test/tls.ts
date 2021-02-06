@@ -12,6 +12,8 @@ import {
     createServer,
     TLSSocket,
     rootCertificates,
+    Server,
+    TlsOptions,
 } from "tls";
 import * as fs from "fs";
 
@@ -24,7 +26,16 @@ import * as fs from "fs";
 
     const connOpts: ConnectionOptions = {
         host: "127.0.0.1",
-        port: 55
+        port: 55,
+        pskCallback(hint) {
+            if (hint === 'something??') {
+                return null;
+            }
+            return {
+                identity: 'henlo',
+                psk: Buffer.from('asd'),
+            };
+        },
     };
     const tlsSocket = connect(connOpts);
 
@@ -48,11 +59,19 @@ import * as fs from "fs";
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;
     const minVersion: string = DEFAULT_MIN_VERSION;
+
+    const buf: Buffer = tlsSocket.exportKeyingMaterial(123, 'test', Buffer.from('nope'));
 }
 
 {
     const _server = createServer({
         enableTrace: true,
+        pskCallback(socket, ident) {
+            if (ident === 'something') {
+                return null;
+            }
+            return Buffer.from('asdasd');
+        }
     });
 
     _server.addContext("example", {
@@ -271,4 +290,9 @@ import * as fs from "fs";
 
 {
     const r00ts: ReadonlyArray<string> = rootCertificates;
+}
+
+{
+    const _options: TlsOptions = {};
+    const _server = new Server(_options, (socket) => {});
 }

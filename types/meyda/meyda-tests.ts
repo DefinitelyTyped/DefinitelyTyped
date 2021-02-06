@@ -1,5 +1,3 @@
-// import Meyda from 'meyda';
-
 function dummyNumbers(a: number): void {}
 
 const AC = new AudioContext();
@@ -11,10 +9,18 @@ if (result) {
     }
 }
 
-Meyda.createMeydaAnalyzer({
+const analyzer = Meyda.createMeydaAnalyzer({
     audioContext: AC,
     source: AC.createOscillator(),
     bufferSize: 2048,
 });
 
 Meyda.windowing([], Meyda.windowingFunction);
+
+analyzer.start();
+analyzer.stop();
+analyzer.get();
+
+analyzer.start('rms');
+analyzer.stop();
+analyzer.get(['rms']);

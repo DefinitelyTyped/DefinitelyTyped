@@ -2,6 +2,7 @@
 // Project: https://github.com/ben-ng/convert-units#readme
 // Definitions by: vladkampov <https://github.com/vladkampov>
 //                 ben-ng <https://github.com/ben-ng>
+//                 Toby Bell <https://github.com/tobybell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -58,7 +59,7 @@ type uIlluminance = "lx" | "ft-cd"; // Illumunance
 type uPartsPer = "ppm" | "ppb" | "ppt" | "ppq"; // Parts-Per
 type uVoltage = "V" | "mV" | "kV"; // Voltage
 type uCurrent = "A" | "mA" | "kA"; // Current
-type uPower = "W" | "mW" | "kM" | "MW" | "GW";
+type uPower = "W" | "mW" | "kW" | "MW" | "GW";
 type uApparentPower = "VA" | "mVA" | "kVA" | "MVA" | "GVA"; // Apparent Power
 type uReactivePower = "VAR" | "mVAR" | "kVAR" | "MVAR" | "GVAR"; // Reactive Power
 type uEnergy = "Wh" | "mWh" | "kWh" | "MWh" | "GWh" | "J" | "kJ"; // Energy
@@ -88,7 +89,7 @@ type unit = uDistance
     | uReactiveEnergy
     | uAngle;
 
-type measure = "distance"
+type measure = "length"
     | "area"
     | "mass"
     | "volume"
@@ -123,12 +124,12 @@ declare class Convert {
     toBest(options?: { exclude?: unit[], cutOffNumber?: number }): { val: number, unit: string, singular: string, plural: string };
     getUnit<T extends unit>(abbr: T): { abbr: T, measure: measure, system: system, unit: { name: { singular: string, plural: string }, to_anchor: number } };
     describe<T extends unit>(abbr: T): { abbr: T, measure: measure, system: system, singular: string, plural: string };
-    list(measure?: measure): unit[];
+    list(measure?: measure): Array<{ abbr: unit, measure: measure, system: system, singular: string, plural: string }>;
     private throwUnsupportedUnitError(what: string): void;
     possibilities(measure?: measure): unit[];
     measures(): measure[];
 }
 
-declare function convert(value: number): Convert;
+declare function convert(value?: number): Convert;
 
 export = convert;

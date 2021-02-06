@@ -3,14 +3,14 @@
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
 
 /// <reference types="jquery" />
 
 declare module 'ember-test-helpers' {
     import Ember from 'ember';
     import { TemplateFactory } from 'htmlbars-inline-precompile';
-    import RSVP from "rsvp";
+    import RSVP from 'rsvp';
 
     interface ModuleCallbacks {
         integration?: boolean;
@@ -84,7 +84,7 @@ declare module 'ember-test-helpers' {
 }
 
 declare module 'ember-test-helpers/wait' {
-    import RSVP from "rsvp";
+    import RSVP from 'rsvp';
 
     interface WaitOptions {
         waitForTimers?: boolean;

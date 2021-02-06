@@ -5,14 +5,13 @@
         "baseUrl": "../..",
         "esModuleInterop": true,
         "noEmit": true,
-        "noImplicitAny": true,
         "pretty": true,
         "strict": true,
         "typeRoots": [
             "../../"
         ],
         "types": [
-            "lodash"
+            "node"
         ]
     }
 }

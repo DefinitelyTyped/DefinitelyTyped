@@ -710,7 +710,7 @@ declare module "fs" {
          * A file mode. If a string is passed, it is parsed as an octal integer. If not specified
          * @default 0o777.
          */
-        mode?: number;
+        mode?: number | string;
     }
 
     /**

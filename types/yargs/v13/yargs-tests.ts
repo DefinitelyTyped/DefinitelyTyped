@@ -148,6 +148,24 @@ function Argv$parsing() {
         .boolean('update')
         .boolean('extern')
         .argv;
+
+    yargs.parse([], (err, argv, msg) => {
+        // $ExpectType Error | undefined
+        err;
+        // $ExpectType { [argName: string]: unknown; _: string[]; $0: string; }
+        argv;
+        // $ExpectType string
+        msg;
+    });
+
+    yargs.parse([], {}, (err, argv, msg) => {
+        // $ExpectType Error | undefined
+        err;
+        // $ExpectType { [argName: string]: unknown; _: string[]; $0: string; }
+        argv;
+        // $ExpectType string
+        msg;
+    });
 }
 
 function Argv$options() {
@@ -320,6 +338,22 @@ function Argv$command() {
         })
         .help()
         .argv;
+}
+
+function Argv$positional() {
+    const module: yargs.CommandModule<{}, { paths: string[] }> = {
+        command: 'test <paths...>',
+        builder(yargs) {
+            return yargs.positional('paths', {
+                type: 'string',
+                array: true,
+                demandOption: true
+            });
+        },
+        handler(argv) {
+            argv.paths.map((path) => path);
+        }
+    };
 }
 
 function Argv$commandModule() {
@@ -631,10 +665,11 @@ function Argv$coerceWithKeys() {
 // From http://yargs.js.org/docs/#methods-failfn
 function Argv$fail() {
     const ya = yargs
-        .fail((msg, err) => {
+        .fail((msg, err, { help }) => {
             if (err) throw err; // preserve stack
             console.error('You broke it!');
             console.error(msg);
+            console.error(help());
             process.exit(1);
         })
         .argv;
@@ -734,6 +769,7 @@ function Argv$parserConfiguration() {
         'populate--': false,
         'set-placeholder-key': false,
         'short-option-groups': false,
+        'sort-commands': true,
     }).parse();
 
     const argv2 = yargs.parserConfiguration({
@@ -902,7 +938,7 @@ function Argv$inferOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.boolean("x").argv.x;
 
-    // $ExpectType "red" | "blue" | "green" | undefined
+    // $ExpectType "red" | "blue" | "green" | undefined || Color | undefined
     yargs.choices("x", colors).argv.x;
 
     // $ExpectType number | undefined
@@ -1110,10 +1146,10 @@ function Argv$inferRepeatedOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.string("a").boolean("a").argv.a;
 
-    // $ExpectType string | undefined
+    // $ExpectType string | undefined || ToString<number | undefined>
     yargs.number("a").string("a").argv.a;
 
-    // $ExpectType number | undefined
+    // $ExpectType number | undefined || ToNumber<string | undefined>
     yargs.string("a").number("a").argv.a;
 
     // $ExpectType boolean | undefined

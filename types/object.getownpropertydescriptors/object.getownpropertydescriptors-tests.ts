@@ -1,27 +1,40 @@
-import descriptors = require('object.getownpropertydescriptors');
+import getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
 
-descriptors({ language: 'TypeScript' });
-// => { language: TypedPropertyDescriptor<string>; }
+/**
+ * The `expectType` function from https://www.npmjs.com/package/tsd,
+ * except instead of returning `void`, it returns `T`.
+ */
+declare function expectType<T>(value: T): T;
 
-const { language } = descriptors({ language: 'TypeScript' });
+interface Language {
+    language: string;
+    description?: string;
+}
 
-language;
-// => {
-//      writable: undefined | boolean,
-//      enumerable: undefined | boolean,
-//      configurable: undefined | boolean,
-//      get: undefined | (() => string),
-//      set: undefined | ((value: string) => void),
-//      value: undefined | string
-// }
+interface LanguageDescriptorMap {
+    language: TypedPropertyDescriptor<string>;
+    description?: TypedPropertyDescriptor<string | undefined>;
+}
 
-descriptors.shim();
-// => typeof descriptors
+declare let lang: Language;
 
-const getOwnPropertyDescriptorsPolyfill = descriptors.getPolyfill();
+// $ExpectType LanguageDescriptorMap & PropertyDescriptorMap
+const langDesc = expectType<LanguageDescriptorMap & PropertyDescriptorMap>(getOwnPropertyDescriptors(lang));
 
-getOwnPropertyDescriptorsPolyfill({ name: 'object.getownpropertydescriptors' });
-// => { name: TypedPropertyDescriptor<string>; }
+langDesc.language; // $ExpectType TypedPropertyDescriptor<string>
+langDesc.description; // $ExpectType TypedPropertyDescriptor<string | undefined> | undefined
+langDesc.foo; // $ExpectType PropertyDescriptor
 
-descriptors.implementation();
-// => typeof descriptors
+// $ExpectType <T>(o: T) => { -readonly [P in keyof T]: TypedPropertyDescriptor<T[P]>; } & { [property: string]: PropertyDescriptor; }
+let implementation = getOwnPropertyDescriptors.getPolyfill();
+implementation = getOwnPropertyDescriptors.shim();
+implementation = getOwnPropertyDescriptors.implementation;
+
+import polyfillImpl = require('object.getownpropertydescriptors/implementation');
+implementation = polyfillImpl;
+
+import getPolyfill = require('object.getownpropertydescriptors/polyfill');
+implementation = getPolyfill();
+
+import shimGetOwnPropertyDescriptors = require('object.getownpropertydescriptors/shim');
+implementation = shimGetOwnPropertyDescriptors();

@@ -1,7 +1,7 @@
 export {};
 import { PusherUser } from './user';
 import { PusherRoom, PusherReadCursor } from './room';
-import { PusherMessage, MessagePart } from './message';
+import { PusherMessage, SendMessagePayload } from './message';
 import { UserHook, UserPresenceHook, ReadCursorHook, RoomParams, UserAndRoomParams } from './hooks';
 
 export interface RoomSubscriptionHooks {
@@ -63,7 +63,7 @@ interface SendSimpleMessageParams {
 
 interface SendMultipartMessageParams {
     roomId: string;
-    parts: MessagePart[];
+    parts: SendMessagePayload[];
 }
 
 interface SetReadCursorParams {
@@ -94,7 +94,7 @@ export interface CurrentUser {
     getJoinableRooms: () => Promise<PusherRoom[]>;
     joinRoom: (params: RoomIdParams) => Promise<PusherRoom>;
     leaveRoom: (params: RoomIdParams) => Promise<PusherRoom>;
-    subscribeToRoomMultipart: (params: RoomSubcriptionParams) => Promise<void>;
+    subscribeToRoomMultipart: (params: RoomSubcriptionParams) => Promise<PusherRoom>;
     sendSimpleMessage: (params: SendSimpleMessageParams) => Promise<number>;
     sendMultipartMessage: (params: SendMultipartMessageParams) => Promise<number>;
     isTypingIn: (params: RoomIdParams) => Promise<void>;

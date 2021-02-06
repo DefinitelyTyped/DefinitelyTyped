@@ -267,6 +267,7 @@ function test_entityManager() {
     em.saveChanges().then(function (saveResult: breeze.SaveResult) {
         var savedEntities = saveResult.entities;
         var keyMappings = saveResult.keyMappings;
+        var deletedKeys = saveResult.deletedKeys;
     }).catch(function (e) {
     });
     var saveOptions = new breeze.SaveOptions({ allowConcurrentSaves: true });
@@ -707,7 +708,7 @@ function test_validationOptions() {
 
 interface NumericRange{
     max: number;
-	min: number;
+    min: number;
 }
 
 interface NumericRangeValidatorFunctionContext extends breeze.ValidatorFunctionContext, NumericRange {
@@ -885,15 +886,15 @@ function test_config() {
     s = config.dataService;
     var o: Object;
     o = config.functionRegistry;
-    o = config.getAdapter("myInterfaceName", "myAdapterName");
-    o = config.getAdapterInstance("myInterfaceName", "myAdapterName");
-    config.initializeAdapterInstance("myInterfaceName", "myAdapterName", true);
+    o = config.getAdapter("dataService", "myAdapterName");
+    o = config.getAdapterInstance("dataService", "myAdapterName");
+    config.initializeAdapterInstance("dataService", "myAdapterName", true);
     config.initializeAdapterInstances({ ajax: "", dataService: "" });
     s = config.interfaceInitialized.type;
     o = config.interfaceRegistry;
     o = config.objectRegistry;
     var f1: Function;
-    config.registerAdapter("myAdapterName", f1);
+    config.registerAdapter("dataService", f1);
     config.registerFunction(f1, "myFunction");
     config.registerType(f1, "myCtor");
     s = config.stringifyPad;

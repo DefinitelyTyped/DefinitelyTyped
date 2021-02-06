@@ -1,21 +1,25 @@
-import * as React from "react";
+import * as MapboxGL from 'mapbox-gl';
+import * as React from 'react';
+
 import {
-    InteractiveMap,
     CanvasOverlay,
-    SVGOverlay,
-    HTMLOverlay,
+    CanvasRedrawOptions,
     FullscreenControl,
     GeolocateControl,
-    CanvasRedrawOptions,
+    HTMLOverlay,
     HTMLRedrawOptions,
+    InteractiveMap,
+    Layer,
+    LinearInterpolator,
+    SVGOverlay,
     SVGRedrawOptions,
+    ScaleControl,
+    Source,
     StaticMap,
     ViewportProps,
-    Source,
-    Layer,
 } from 'react-map-gl';
-import * as MapboxGL from "mapbox-gl";
-import { FeatureCollection } from "geojson";
+
+import { FeatureCollection } from 'geojson';
 
 interface State {
     viewport: ViewportProps;
@@ -23,10 +27,8 @@ interface State {
 
 const geojson: FeatureCollection = {
     type: 'FeatureCollection',
-    features: [
-      {type: 'Feature', properties: {}, geometry: {type: 'Point', coordinates: [-122.4, 37.8]}}
-    ]
-  };
+    features: [{ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [-122.4, 37.8] } }],
+};
 
 class MyMap extends React.Component<{}, State> {
     readonly state: State = {
@@ -45,7 +47,8 @@ class MyMap extends React.Component<{}, State> {
             minPitch: 0,
         },
     };
-    private map: MapboxGL.Map;
+    private mapboxMap: MapboxGL.Map;
+    private map: InteractiveMap;
 
     render() {
         return (
@@ -53,21 +56,33 @@ class MyMap extends React.Component<{}, State> {
                 <InteractiveMap
                     {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
+                    mapboxApiUrl="http://url.test"
                     ref={this.setRefInteractive}
                     onViewportChange={viewport => this.setState({ viewport })}
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
+                    onClick={e => {
+                        const features = this.map.queryRenderedFeatures(e.point);
+                        if (features.length > 0) {
+                            console.log(features[0].source);
+                        }
+                    }}
+                    onContextMenu={event => {
+                        event.preventDefault();
+                    }}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
-                    <GeolocateControl className="test-class" style={{ marginTop: "8px" }} />
+                    <GeolocateControl
+                        auto={false}
+                        className="test-class"
+                        style={{ marginTop: '8px' }}
+                        onGeolocate={options => {
+                            console.log(options.enableHighAccuracy);
+                        }}
+                    />
+                    <ScaleControl unit="nautical" />
                     <CanvasOverlay
                         redraw={opts => {
-                            const {
-                                ctx,
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { ctx, height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                             ctx.clearRect(0, 0, width, height);
                         }}
@@ -79,17 +94,10 @@ class MyMap extends React.Component<{}, State> {
                         captureClick={true}
                         captureDoubleClick={true}
                     />
-                    <SVGOverlay
-                        redraw={() => {}}
-                    />
+                    <SVGOverlay redraw={() => {}} />
                     <SVGOverlay
                         redraw={opts => {
-                            const {
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                         }}
                         captureScroll={true}
@@ -97,21 +105,14 @@ class MyMap extends React.Component<{}, State> {
                         captureClick={true}
                         captureDoubleClick={true}
                     />
-                    <HTMLOverlay
-                        redraw={() => {}}
-                    />
+                    <HTMLOverlay redraw={() => {}} />
                     <HTMLOverlay
                         redraw={opts => {
-                            const {
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                         }}
                         style={{
-                            border: "2px solid black"
+                            border: '2px solid black',
                         }}
                         captureScroll={true}
                         captureDrag={true}
@@ -120,10 +121,29 @@ class MyMap extends React.Component<{}, State> {
                     />
 
                     <Source type="geojson" data={geojson}>
-                        <Layer type="point" paint={{
-                                                    'circle-radius': 10,
-                                                    'circle-color': '#007cbf'
-                                                    }}></Layer>
+                        <Layer
+                            type="point"
+                            paint={{
+                                'circle-radius': 10,
+                                'circle-color': '#007cbf',
+                            }}
+                        ></Layer>
+                    </Source>
+                    <Source
+                        id="raster-tiles-source"
+                        type="raster"
+                        scheme="tms"
+                        tiles={["path/to/tiles/{z}/{x}/{y}.png"]}
+                        tileSize={256}
+                    >
+                        <Layer
+                            id="raster-layer"
+                            type="raster"
+                            source="raster-tiles-source"
+                            paint={{}}
+                            minzoom={0}
+                            maxzoom={22}
+                        ></Layer>
                     </Source>
                 </InteractiveMap>
                 <StaticMap
@@ -133,15 +153,35 @@ class MyMap extends React.Component<{}, State> {
                     width={400}
                     ref={this.setRefStatic}
                 />
+                <button
+                    onClick={() => {
+                        const nullPoint = [0, 0];
+                        const li = new LinearInterpolator({
+                            around: nullPoint,
+                        });
+                        this.setState(prevState => ({
+                            viewport: {
+                                ...prevState.viewport,
+                                latitude: nullPoint[1],
+                                longitude: nullPoint[0],
+                                transitionInterpolator: li,
+                                transitionDuration: 100,
+                            },
+                        }));
+                    }}
+                >
+                    Jump to Null Point
+                </button>
             </div>
         );
     }
 
     private readonly setRefInteractive = (el: InteractiveMap) => {
-        this.map = el.getMap();
+        this.map = el;
+        this.mapboxMap = el.getMap();
     }
 
     private readonly setRefStatic = (el: StaticMap) => {
-        this.map = el.getMap();
+        this.mapboxMap = el.getMap();
     }
 }

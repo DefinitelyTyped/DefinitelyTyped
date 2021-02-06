@@ -1,15 +1,14 @@
 function test_events() {
+    const object = Backbone.Events;
+    object.on('alert', (eventName: string) => alert('Triggered ' + eventName));
 
-    var object = Backbone.Events;
-    object.on("alert", (eventName: string) => alert("Triggered " + eventName));
+    object.trigger('alert', 'an event');
 
-    object.trigger("alert", "an event");
+    const onChange = () => alert('whatever');
+    const context: any = {};
 
-    var onChange = () => alert('whatever');
-    var context: any;
-
-    object.off("change", onChange);
-    object.off("change");
+    object.off('change', onChange);
+    object.off('change');
     object.off(null, onChange);
     object.off(null, null, context);
     object.off();
@@ -31,83 +30,115 @@ class PubSub implements Backbone.Events {
 Object.assign(PubSub.prototype, Backbone.Events);
 
 function test_events_shorthands() {
-    let channel1 = new PubSub();
-    let channel2 = new PubSub();
-    let onChange = () => alert('whatever');
+    const channel1 = new PubSub();
+    const channel2 = new PubSub();
+    const onChange = () => alert('whatever');
 
-    channel1.on("alert", (eventName: string) => alert("Triggered " + eventName));
-    channel1.trigger("alert", "an event");
+    channel1.on('alert', (eventName: string) => alert('Triggered ' + eventName));
+    channel1.trigger('alert', 'an event');
 
-    channel1.once('invalid', () => { }, this);
-    channel1.once('invalid', () => { });
-    channel1.once({invalid: () => { }, success: () => { }}, this);
-    channel1.once({invalid: () => { }, success: () => { }});
+    channel1.once('invalid', () => {}, this);
+    channel1.once('invalid', () => {});
+    channel1.once({ invalid: () => {}, success: () => {} }, this);
+    channel1.once({ invalid: () => {}, success: () => {} });
 
-    channel1.off("change", onChange);
-    channel1.off("change");
+    channel1.off('change', onChange);
+    channel1.off('change');
     channel1.off(null, onChange);
     channel1.off(null, null, this);
     channel1.off();
 
-    channel2.listenTo(channel1, 'invalid', () => { });
-    channel2.listenTo(channel1, {invalid: () => { }, success: () => { }});
-    channel2.listenToOnce(channel1, 'invalid', () => { });
-    channel2.listenToOnce(channel1, {invalid: () => { }, success: () => { }});
+    channel2.listenTo(channel1, 'invalid', () => {});
+    channel2.listenTo(channel1, { invalid: () => {}, success: () => {} });
+    channel2.listenToOnce(channel1, 'invalid', () => {});
+    channel2.listenToOnce(channel1, { invalid: () => {}, success: () => {} });
 
-    channel2.stopListening(channel1, 'invalid', () => { });
+    channel2.stopListening(channel1, 'invalid', () => {});
     channel2.stopListening(channel1, 'invalid');
     channel2.stopListening(channel1);
 }
 
 class SettingDefaults extends Backbone.Model {
-
     // 'defaults' could be set in one of the following ways:
 
     defaults() {
         return {
-            name: "Joe"
-        }
+            name: 'Joe',
+        };
     }
 
     // will be invoked when the view is first created, before any instantiation logic is run
     preinitialize() {
         this.defaults = {
-            name: "Joe"
+            name: 'Joe',
         } as any;
-
     }
 
     constructor(attributes?: any, options?: any) {
         super(attributes, options); // error TS17009: 'super' must be called before accessing 'this' in the constructor of a derived class.
-        this.defaults = <any>{
-            name: "Joe"
-        }
+        this.defaults = {
+            name: 'Joe',
+        } as any;
         // super has to come last
     }
 
     // or set it like this
     initialize() {
-        this.defaults = <any>{
-            name: "Joe"
-        }
-
+        this.defaults = {
+            name: 'Joe',
+        } as any;
     }
 
     // same patterns could be used for setting 'Router.routes' and 'View.events'
 }
 
-class Sidebar extends Backbone.Model {
+class FullyTyped extends Backbone.Model<{ iLikeBacon: boolean; iLikeToast: boolean }> {
+    getILikeBacon(): boolean | undefined {
+        return this.get('iLikeBacon');
+    }
 
+    setILikeBacon(value: boolean) {
+        return this.set('iLikeBacon', value);
+    }
+
+    setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean }) {
+        return this.set(values);
+    }
+
+    setValue(key: keyof { iLikeBacon: boolean; iLikeToast: boolean }, value: any) {
+        return this.set(key, value);
+    }
+}
+
+class FullyTypedDefault extends Backbone.Model {
+    getILikeBacon(): boolean {
+        return this.get('iLikeBacon');
+    }
+
+    setILikeBacon(value: boolean) {
+        return this.set('iLikeBacon', value);
+    }
+
+    setAll(values: { iLikeBacon: boolean; iLikeToast?: boolean }) {
+        return this.set(values);
+    }
+
+    setValue(key: string, value: any) {
+        return this.set(key, value);
+    }
+}
+
+class Sidebar extends Backbone.Model {
     promptColor() {
-        var cssColor = prompt("Please enter a CSS color:");
+        const cssColor = prompt('Please enter a CSS color:');
         this.set({ color: cssColor });
     }
 }
 
 class Note extends Backbone.Model {
-    initialize() { }
-    author() { }
-    coordinates() { }
+    initialize() {}
+    author() {}
+    coordinates() {}
     allowedToEdit(account: any) {
         return true;
     }
@@ -118,46 +149,45 @@ class PrivateNote extends Note {
         return account.owns(this);
     }
 
-    set(attributes: any, options?: any): Backbone.Model {
+    set(attributes: any, options?: any): this {
         return Backbone.Model.prototype.set.call(this, attributes, options);
     }
 }
 
 function test_models() {
-
-    var sidebar = new Sidebar();
+    const sidebar = new Sidebar();
     sidebar.on('change:color', (model: {}, color: string) => $('#sidebar').css({ background: color }));
     sidebar.set({ color: 'white' });
     sidebar.promptColor();
 
     //////////
 
-    var note = new PrivateNote();
+    const note = new PrivateNote();
 
-    note.get("title");
+    note.get('title');
 
-    note.set({ title: "March 20", content: "In his eyes she eclipses..." });
+    note.set({ title: 'March 20', content: 'In his eyes she eclipses...' });
 
-    note.set("title", "A Scandal in Bohemia");
+    note.set('title', 'A Scandal in Bohemia');
 
-    let strings: string[]
+    let strings: string[];
     let value: any;
     let values: any[];
     let bool: boolean;
 
     // underscore methods
     strings = note.keys();
-    values  = note.values();
-    values  = note.pairs();
-    values  = note.invert();
-    value   = note.pick("foo");
-    value   = note.pick("foo", "bar");
-    value   = note.pick((value: any, key: any, object: any) => true);
-    value   = note.omit("foo");
-    value   = note.omit("foo", "bar");
-    value   = note.omit((value: any, key: any, object: any) => true);
-    value   = note.chain().pick().omit().value();
-    bool    = note.isEmpty();
+    values = note.values();
+    values = note.pairs();
+    values = note.invert();
+    value = note.pick('foo');
+    value = note.pick('foo', 'bar');
+    value = note.pick((value: any, key: any, object: any) => true);
+    value = note.omit('foo');
+    value = note.omit('foo', 'bar');
+    value = note.omit((value: any, key: any, object: any) => true);
+    value = note.chain().pick().omit().value();
+    bool = note.isEmpty();
 }
 
 class Employee extends Backbone.Model {
@@ -166,9 +196,9 @@ class Employee extends Backbone.Model {
     constructor(attributes?: any, options?: any) {
         super(options);
         this.reports = new EmployeeCollection();
-        this.reports.url = '../api/employees/' + this.id + '/reports';
+        this.reports.url = `../api/employees/${this.id}/reports`;
         // Test that collection url property can be set as a function returning a string.
-        this.reports.url = () => { return ""; };
+        this.reports.url = () => '';
     }
 
     more() {
@@ -177,7 +207,7 @@ class Employee extends Backbone.Model {
 }
 
 class EmployeeCollection extends Backbone.Collection<Employee> {
-    findByName(key: any) { }
+    findByName(key: any) {}
 }
 
 class Book extends Backbone.Model {
@@ -191,26 +221,27 @@ class Library extends Backbone.Collection<Book> {
     // is not necessary in working code as it is automatically inferred through generics.
     model: typeof Book;
 
-    constructor(models?: Book[] | Object[], options?: any) {
+    constructor(models?: Book[] | Array<Record<string, any>>, options?: any) {
         super(models, options);
 
         // Test comparator allowed types.
-        this.comparator = "title";
-        this.comparator = (model: Book) => { return 1; };
-        this.comparator = (model: Book) => { return "Title"; };
-        this.comparator = (model1: Book, model2: Book) => { return 1; };
+        this.comparator = 'title';
+        this.comparator = (model: Book) => 1;
+        this.comparator = (model: Book) => 'Title';
+        this.comparator = (model1: Book, model2: Book) => 1;
     }
 }
 
-class Books extends Backbone.Collection<Book> { }
+class Books extends Backbone.Collection<Book> {}
 
-class ArbitraryCollection extends Backbone.Collection { }
+class ArbitraryCollection extends Backbone.Collection {}
 
 function test_collection() {
+    const books = new Books();
+    books.set([{ title: 'Title 0', author: 'Johan' }]);
+    books.reset();
 
-    var books = new Books();
-
-    var book1: Book = new Book({ title: "Title 1", author: "Mike" });
+    const book1: Book = new Book({ title: 'Title 1', author: 'Mike' });
     books.add(book1);
 
     // Test adding sort option to add.
@@ -219,25 +250,22 @@ function test_collection() {
     // Objects can be added to collection by casting to model type.
     // Compiler will check if object properties are valid for the cast.
     // This gives better type checking than declaring an `any` overload.
-    books.add(<Book>{ title: "Title 2", author: "Mikey" });
+    books.add({ title: 'Title 2', author: 'Mikey' });
 
-    var model: Book = book1.collection.first();
+    const model: Book = book1.collection.first();
     if (model !== book1) {
-        throw new Error("Error");
+        throw new Error('Error');
     }
 
-    books.each(book =>
-        book.get("title"));
+    books.each(book => book.get('title'));
 
-    var titles = books.map(book =>
-        book.get("title"));
+    const titles = books.map(book => book.get('title'));
 
-    var publishedBooks = books.filter(book =>
-        book.get("published") === true);
+    const publishedBooks = books.filter(book => book.get('published') === true);
 
-    var alphabetical = books.sortBy((book: Book): number => null);
+    const alphabetical = books.sortBy((book: Book): number => 1);
 
-    var copy = books.clone();
+    const copy = books.clone();
 
     let one: Book;
     let models: Book[];
@@ -251,66 +279,77 @@ function test_collection() {
     models = books.slice(1);
     models = books.slice(1, 3);
 
+    let it1: Iterator<Book>;
+    it1 = books.values();
+    it1 = books[Symbol.iterator]();
+    let it2: Iterator<any>;
+    it2 = books.keys();
+    let it3: Iterator<[any, Book]>;
+    it3 = books.entries();
+
     // underscore methods
-    bool       = books.all((value: Book, index: number, list: Book[]) => true);
-    bool       = books.any((value: Book, index: number, list: Book[]) => true);
-    bool       = books.chain().any((value: Book, index: number, list: Book[]) => true).value();
-    models     = books.collect((value: Book, index: number, list: Book[]) => value);
-    bool       = books.contains(book1);
-    numDict    = books.countBy((value: Book, index: number, list: Book[]) => true);
-    numDict    = books.countBy("foo");
-    one        = books.detect((value: Book, index: number, list: Book[]) => true);
-    models     = books.difference([book1]);
-    models     = books.drop();
-    models     = books.each((value: Book, index: number, list: Book[]) => true);
-    bool       = books.every((value: Book, index: number, list: Book[]) => true);
-    models     = books.filter((value: Book, index: number, list: Book[]) => true);
-    one        = books.find((value: Book, index: number, list: Book[]) => true);
-    num        = books.findIndex((value: Book, index: number, list: Book[]) => true);
-    num        = books.findLastIndex((value: Book, index: number, list: Book[]) => true);
-    one        = books.first();
-    models     = books.first(3);
-    models     = books.foldl((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
-    models     = books.foldr((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
-    models     = books.forEach((value: Book, index: number, list: Book[]) => true);
+    bool = books.all((value: Book, index: number, list: Book[]) => true);
+    bool = books.any((value: Book, index: number, list: Book[]) => true);
+    bool = books
+        .chain()
+        .any((value: Book, index: number, list: Book[]) => true)
+        .value();
+    models = books.collect((value: Book, index: number, list: Book[]) => value);
+    bool = books.contains(book1);
+    numDict = books.countBy((value: Book, index: number, list: Book[]) => true);
+    numDict = books.countBy('foo');
+    one = books.detect((value: Book, index: number, list: Book[]) => true);
+    models = books.difference([book1]);
+    models = books.drop();
+    models = books.each((value: Book, index: number, list: Book[]) => true);
+    bool = books.every((value: Book, index: number, list: Book[]) => true);
+    models = books.filter((value: Book, index: number, list: Book[]) => true);
+    one = books.find((value: Book, index: number, list: Book[]) => true);
+    num = books.findIndex((value: Book, index: number, list: Book[]) => true);
+    num = books.findLastIndex((value: Book, index: number, list: Book[]) => true);
+    one = books.first();
+    models = books.first(3);
+    models = books.foldl((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    models = books.foldr((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    models = books.forEach((value: Book, index: number, list: Book[]) => true);
     modelsDict = books.groupBy((value: Book, index: number, list: Book[]) => true);
-    modelsDict = books.groupBy("foo");
-    one        = books.head();
-    models     = books.head(3);
-    bool       = books.include(book1);
-    bool       = books.includes(book1);
-    modelDict  = books.indexBy((value: Book, index: number, list: Book[]) => true);
-    modelDict  = books.indexBy("foo");
-    num        = books.indexOf(book1, true);
-    one        = books.initial();
-    models     = books.initial(3);
-    models     = books.inject((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
-    one        = books.invoke("at", 3);
-    bool       = books.isEmpty();
-    one        = books.last();
-    models     = books.last(3);
-    num        = books.lastIndexOf(book1, 3);
-    models     = books.map((value: Book, index: number, list: Book[]) => value);
-    one        = books.max((value: Book, index: number, list: Book[]) => value);
-    one        = books.min((value: Book, index: number, list: Book[]) => value);
-    [models]   = books.partition((value: Book, index: number, list: Book[]) => true);
-    models     = books.reduce((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
-    models     = books.reduceRight((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
-    models     = books.reject((value: Book, index: number, list: Book[]) => true);
-    models     = books.rest(3);
-    one        = books.sample();
-    models     = books.sample(3);
-    models     = books.select((value: Book, index: number, list: Book[]) => true);
-    models     = books.shuffle();
-    num        = books.size();
-    bool       = books.some((value: Book, index: number, list: Book[]) => true);
-    models     = books.sortBy((value: Book, index: number, list: Book[]) => value);
-    models     = books.sortBy("foo");
-    models     = books.tail(3);
-    one        = books.take();
-    models     = books.take(3);
-    models     = books.toArray();
-    models     = books.without(book1, book1);
+    modelsDict = books.groupBy('foo');
+    one = books.head();
+    models = books.head(3);
+    bool = books.include(book1);
+    bool = books.includes(book1);
+    modelDict = books.indexBy((value: Book, index: number, list: Book[]) => true);
+    modelDict = books.indexBy('foo');
+    num = books.indexOf(book1, true);
+    one = books.initial();
+    models = books.initial(3);
+    models = books.inject((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    one = books.invoke('at', 3);
+    bool = books.isEmpty();
+    one = books.last();
+    models = books.last(3);
+    num = books.lastIndexOf(book1, 3);
+    models = books.map((value: Book, index: number, list: Book[]) => value);
+    one = books.max((value: Book, index: number, list: Book[]) => value);
+    one = books.min((value: Book, index: number, list: Book[]) => value);
+    [models] = books.partition((value: Book, index: number, list: Book[]) => true);
+    models = books.reduce((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    models = books.reduceRight((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    models = books.reject((value: Book, index: number, list: Book[]) => true);
+    models = books.rest(3);
+    one = books.sample();
+    models = books.sample(3);
+    models = books.select((value: Book, index: number, list: Book[]) => true);
+    models = books.shuffle();
+    num = books.size();
+    bool = books.some((value: Book, index: number, list: Book[]) => true);
+    models = books.sortBy((value: Book, index: number, list: Book[]) => value);
+    models = books.sortBy('foo');
+    models = books.tail(3);
+    one = books.take();
+    models = books.take(3);
+    models = books.toArray();
+    models = books.without(book1, book1);
 }
 
 //////////
@@ -323,31 +362,31 @@ Backbone.history.loadUrl('12345');
 namespace v1Changes {
     namespace events {
         function test_once() {
-            var model = new Employee;
-            model.once('invalid', () => { }, this);
-            model.once('invalid', () => { });
-            model.once({invalid: () => { }, success: () => { }}, this);
-            model.once({invalid: () => { }, success: () => { }});
+            const model = new Employee();
+            model.once('invalid', () => {}, this);
+            model.once('invalid', () => {});
+            model.once({ invalid: () => {}, success: () => {} }, this);
+            model.once({ invalid: () => {}, success: () => {} });
         }
 
         function test_listenTo() {
-            var model = new Employee;
-            var view = new Backbone.View<Employee>();
-            view.listenTo(model, 'invalid', () => { });
-            view.listenTo(model, {invalid: () => { }, success: () => { }});
+            const model = new Employee();
+            const view = new Backbone.View<Employee>();
+            view.listenTo(model, 'invalid', () => {});
+            view.listenTo(model, { invalid: () => {}, success: () => {} });
         }
 
         function test_listenToOnce() {
-            var model = new Employee;
-            var view = new Backbone.View<Employee>();
-            view.listenToOnce(model, 'invalid', () => { });
-            view.listenToOnce(model, {invalid: () => { }, success: () => { }});
+            const model = new Employee();
+            const view = new Backbone.View<Employee>();
+            view.listenToOnce(model, 'invalid', () => {});
+            view.listenToOnce(model, { invalid: () => {}, success: () => {} });
         }
 
         function test_stopListening() {
-            var model = new Employee;
-            var view = new Backbone.View<Employee>();
-            view.stopListening(model, 'invalid', () => { });
+            const model = new Employee();
+            const view = new Backbone.View<Employee>();
+            view.stopListening(model, 'invalid', () => {});
             view.stopListening(model, 'invalid');
             view.stopListening(model);
         }
@@ -359,131 +398,132 @@ namespace v1Changes {
             EmployeeCollection.prototype.url = () => '/employees';
         }
 
+        function test_model_create_with_collection() {
+            const collection = new Books();
+            const employee = new Book({}, { collection, parse: true });
+            employee.collection;
+        }
+
         function test_parse() {
-            var model = new Employee();
+            const model = new Employee();
             model.parse('{}', {});
-            var collection = new EmployeeCollection;
+            const collection = new EmployeeCollection();
             collection.parse('{}', {});
         }
 
         function test_toJSON() {
-            var model = new Employee();
+            const model = new Employee();
             model.toJSON({});
-            var collection = new EmployeeCollection;
+            const collection = new EmployeeCollection();
             collection.toJSON({});
         }
 
         function test_sync() {
-            var model = new Employee();
+            const model = new Employee();
             model.sync();
-            var collection = new EmployeeCollection;
+            const collection = new EmployeeCollection();
             collection.sync();
         }
     }
 
     namespace Model {
         function test_validationError() {
-            var model = new Employee;
+            const model = new Employee();
             if (model.validationError) {
                 console.log('has validation errors');
             }
         }
 
         function test_fetch() {
-            var model = new Employee({ id: 1 });
+            const model = new Employee({ id: 1 });
             model.fetch({
-                success: () => { },
-                error: () => { }
+                success: () => {},
+                error: () => {},
             });
         }
 
         function test_set() {
-            var model = new Employee;
+            const model = new Employee();
             model.set({ name: 'JoeDoe', age: 21 }, { validate: false });
             model.set('name', 'JoeDoes', { validate: false });
         }
 
         function test_destroy() {
-            var model = new Employee;
+            const model = new Employee();
             model.destroy({
                 wait: true,
-                success: (m?, response?, options?) => { },
-                error: (m?, jqxhr?, options?) => { }
+                success: (m?, response?, options?) => {},
+                error: (m?, jqxhr?, options?) => {},
             });
 
             model.destroy({
-                success: (m?, response?, options?) => { },
-                error: (m?, jqxhr?) => { }
+                success: (m?, response?, options?) => {},
+                error: (m?, jqxhr?) => {},
             });
 
             model.destroy({
-                success: () => { },
-                error: (m?, jqxhr?) => { }
+                success: () => {},
+                error: (m?, jqxhr?) => {},
             });
         }
 
         function test_save() {
-            var model = new Employee;
+            const model = new Employee();
 
-            model.save({
+            model.save(
+                {
                     name: 'Joe Doe',
-                    age: 21
+                    age: 21,
                 },
                 {
                     wait: true,
                     validate: false,
-                    success: (m?, response?, options?) => { },
-                    error: (m?, jqxhr?, options?) => { }
-                });
+                    success: (m?, response?, options?) => {},
+                    error: (m?, jqxhr?, options?) => {},
+                },
+            );
 
-            model.save({
+            model.save(
+                {
                     name: 'Joe Doe',
-                    age: 21
+                    age: 21,
                 },
                 {
-                    success: () => { },
-                    error: (m?, jqxhr?) => { }
-                });
+                    success: () => {},
+                    error: (m?, jqxhr?) => {},
+                },
+            );
         }
 
         function test_validate() {
-            var model = new Employee;
+            const model = new Employee();
 
-            model.validate({ name: 'JoeDoe', age: 21 }, { validateAge: false })
+            model.validate({ name: 'JoeDoe', age: 21 }, { validateAge: false });
         }
     }
 
     namespace Collection {
         function test_fetch() {
-            var collection = new EmployeeCollection;
+            const collection = new EmployeeCollection();
             collection.fetch({
                 reset: true,
-                remove: false
+                remove: false,
             });
         }
 
         function test_create() {
-            var collection = new EmployeeCollection;
-            var model = new Employee;
+            const collection = new EmployeeCollection();
+            const model = new Employee();
 
             collection.create(model, {
-                validate: false
+                validate: false,
             });
         }
 
         function test_set() {
-            var collection = new EmployeeCollection();
-            var model = new Employee();
+            const collection = new EmployeeCollection();
+            const model = new Employee();
             collection.set([model], { add: false, remove: true, merge: false });
-        }
-    }
-
-    namespace Router {
-        function test_navigate() {
-            var router = new Backbone.Router;
-
-            router.navigate('/employees', { trigger: true });
-            router.navigate('/employees', true);
         }
     }
 
@@ -511,9 +551,80 @@ interface ModellessViewOptions extends Backbone.ViewOptions {
 }
 
 class ModellessView extends Backbone.View {
-    color: string;
+    color?: string;
     constructor(options: ModellessViewOptions) {
         super(options);
         this.color = options.color;
     }
+}
+
+interface TypedModelAttributes {
+    stringAttr: string;
+    numberAttr: number;
+}
+
+class TypedModel extends Backbone.Model<TypedModelAttributes> {}
+
+function testTypedModel() {
+    const model = new TypedModel();
+    model.set('unknownAttr', 'stringValue'); // $ExpectError
+    model.set('stringAttr', 1); // $ExpectError
+    model.set('stringAttr', 'stringValue'); // $ExpectType TypedModel
+    model.get('unknownAttr'); // $ExpectError
+    model.get('stringAttr'); // $ExpectType string | undefined
+    model.attributes; // $ExpectType Partial<TypedModelAttributes>
+    model.changedAttributes(); // $ExpectType false | Partial<TypedModelAttributes>
+    model.changedAttributes({ unknownAttr: 1 }); // $ExpectError
+    model.clear(); // $ExpectType TypedModel
+    model.destroy(); // $ExpectType false | JQueryXHR
+    model.escape('unknownAttr'); // $ExpectError
+    model.escape('stringAttr'); // $ExpectType string
+    model.has('unknownAttr'); // $ExpectError
+    model.has('stringAttr'); // $ExpectType boolean
+    model.hasChanged('unknownAttr'); // $ExpectError
+    model.hasChanged('stringAttr'); // $ExpectType boolean
+    model.previous('unknownAttr'); // $ExpectError
+    model.previous('numberAttr'); // $ExpectType number | null | undefined
+    model.previousAttributes(); // $ExpectType Partial<TypedModelAttributes>
+    model.save({ unknownAttr: 'value' }); // $ExpectError
+    model.save(); // $ExpectType JQueryXHR
+    model.save({ stringAttr: 'stringValue' }); // $ExpectType JQueryXHR
+    model.save(null, { patch: true }); // $ExpectType JQueryXHR
+    model.unset('unknownAttr'); // $ExpectError
+    model.unset('stringAttr'); // $ExpectType TypedModel
+    model.validate({ unknownAttr: 'value' }); // $ExpectError
+    model.validate({ stringAttr: 'value' });
+    model.pick('unknownAttr'); // $ExpectError
+    model.pick(['unknownAttr', 'numberAttr']); // $ExpectError
+    model.pick('stringAttr', 'numberAttr');
+    model.pick(['stringAttr'])['numberAttr']; // $ExpectError
+    model.pick(['stringAttr'])['stringAttr']; // $ExpectType string | undefined
+    model.pick(['stringAttr', 'numberAttr']);
+    model.omit('unknownAttr'); // $ExpectError
+    model.omit(['unknownAttr', 'numberAttr']); // $ExpectError
+    model.omit(['stringAttr'])['numberAttr']; // $ExpectType number | undefined
+    model.omit(['stringAttr'])['stringAttr']; // $ExpectError
+    model.omit('stringAttr', 'numberAttr');
+    model.omit(['stringAttr', 'numberAttr']);
+}
+
+function testRouter() {
+    let router = new Backbone.Router();
+    router = new Backbone.Router({
+        routes: {
+            help: 'help', // #help
+            'search/:query': 'search', // #search/kiwis
+            'search/:query/p:page': 'search', // #search/kiwis/p7
+        },
+    });
+
+    router = new Backbone.Router({ routes: 'not object' }); // $ExpectError
+
+    router.route('search/:query/p:num', 'search', (query, num) => {});
+    router.route(/search/, (query, num) => {});
+
+    router.navigate('/employees', true);
+    router.navigate('help/troubleshooting', { trigger: true, replace: true });
+
+    router.execute((param1, param2) => {}, ['param1', 'param2'], 'routeName');
 }

@@ -1,10 +1,11 @@
 // Type definitions for mimos 3.0
 // Project: https://github.com/hapijs/mimos
 // Definitions by: AJP <https://github.com/AJamesPhillips>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { DataStructure as MimeDbDataStructure } from 'mime-db';
+import { MimeEntry } from 'mime-db';
 
 /**
  *
@@ -19,7 +20,7 @@ export interface MimosOptions {
     override: {[index: string]: MimosOptionsValue};
 }
 
-export interface MimosOptionsValue extends MimeDbDataStructure {
+export interface MimosOptionsValue extends MimeEntry {
     /** specify the type value of result objects, defaults to key. See the example below for more clarification. */
     type?: string;
     /** method with signature function(mime) when this mime type is found in the database, this function will run. This allows you make customizations to mime based on developer criteria. */

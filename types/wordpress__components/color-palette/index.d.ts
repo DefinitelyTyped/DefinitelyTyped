@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace ColorPalette {
     interface Color {
@@ -19,6 +19,7 @@ declare namespace ColorPalette {
         colors: readonly Color[];
         /**
          * Should custom color selection be disabled?
+         * @defaultValue false
          */
         disableCustomColors?: boolean;
         /**
@@ -30,6 +31,11 @@ declare namespace ColorPalette {
          * `undefined` if the color selection is the same as the current `value`.
          */
         onChange(color?: Color): void;
+        /**
+         * Whether the palette should have a clearing button or not.
+         * @defaultValue `true`
+         */
+        clearable?: boolean;
     }
 }
 declare const ColorPalette: ComponentType<ColorPalette.Props>;

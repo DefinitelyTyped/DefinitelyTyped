@@ -1,5 +1,5 @@
-import { Root, Fragment, GeneratedDefinition } from '../core/GraphQLIR';
-import { IRTransform } from '../core/GraphQLCompilerContext';
+import { Root, Fragment, GeneratedDefinition } from '../core/IR';
+import { IRTransform } from '../core/CompilerContext';
 import { GeneratedNode, RelayConcreteNode } from 'relay-runtime';
 import { ScalarTypeMapping } from './javascript/RelayFlowTypeTransformers';
 import { Schema } from '../core/Schema';

@@ -1,9 +1,9 @@
 /***************************************************************************
  *                                                                         *
  *   This file was automatically generated with idlc.js                    *
- *	 build info: 								   						   *
- *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 12 2018 07:22:40                                     *
+ *     build info:                                                               *
+ *       - fibjs    : 0.25.0                                                   *
+ *       - date    : Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -196,62 +196,62 @@
 
 /** module Or Internal Object */
 /**
-	* @brief 输入输出处理模块
-	* @detail 使用方法：,```JavaScript,var io = require('io');,```
-	*/
+    * @brief 输入输出处理模块
+    * @detail 使用方法：,```JavaScript,var io = require('io');,```
+    */
 declare module "io" {
-	
+    
 
-	module io {
-		
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个内存流对象，参见 MemoryStream
-		 * 
-		 * 
-		 */
-		export class MemoryStream extends Class_MemoryStream {}
-		
-		
-		/**
-		 * 
-		 * @brief 创建一个缓存流读取对象，参见 BufferedStream
-		 * 
-		 * 
-		 */
-		export class BufferedStream extends Class_BufferedStream {}
-		
-		
-		
-		
-		/**
-		 * 
-		 * @brief 复制流数据到目标流中
-		 * @param from 源流对象
-		 * @param to 目标流对象
-		 * @param bytes 复制的字节数
-		 * @return 返回复制的字节数
-		 * 
-		 * 
-		 * @async
-		 */
-		export function copyStream(from: Class_Stream, to: Class_Stream, bytes?: number/** = -1*/): number;
-	
-		/**
-		 * 
-		 * @brief 双向复制流数据，直到流中无数据，或者流被关闭
-		 * @param stm1 流对象一
-		 * @param stm2 流对象二
-		 * 
-		 * 
-		 * @async
-		 */
-		export function bridge(stm1: Class_Stream, stm2: Class_Stream): void;
-	
-	} /** end of `module io` */
-	export = io
+    module io {
+        
+        
+        
+        /**
+         * 
+         * @brief 创建一个内存流对象，参见 MemoryStream
+         * 
+         * 
+         */
+        export class MemoryStream extends Class_MemoryStream {}
+        
+        
+        /**
+         * 
+         * @brief 创建一个缓存流读取对象，参见 BufferedStream
+         * 
+         * 
+         */
+        export class BufferedStream extends Class_BufferedStream {}
+        
+        
+        
+        
+        /**
+         * 
+         * @brief 复制流数据到目标流中
+         * @param from 源流对象
+         * @param to 目标流对象
+         * @param bytes 复制的字节数
+         * @return 返回复制的字节数
+         * 
+         * 
+         * @async
+         */
+        export function copyStream(from: Class_Stream, to: Class_Stream, bytes?: number/** = -1*/): number;
+    
+        /**
+         * 
+         * @brief 双向复制流数据，直到流中无数据，或者流被关闭
+         * @param stm1 流对象一
+         * @param stm2 流对象二
+         * 
+         * 
+         * @async
+         */
+        export function bridge(stm1: Class_Stream, stm2: Class_Stream): void;
+    
+    } /** end of `module io` */
+    export = io
 }
 
 /** endof `module Or Internal Object` */

@@ -1231,13 +1231,13 @@ declare namespace fin {
         addEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Performs the specified window transitions
@@ -1351,13 +1351,13 @@ declare namespace fin {
         removeEventListener(
             type: OpenFinWindowEventType,
             listener: (event: WindowBaseEvent
-					   | WindowAuthRequestedEvent
-					   | WindowBoundsEvent
-					   | WindowExternalProcessStartedEvent
-					   | WindowExternalProcessExited
-					   | WindowGroupChangedEvent
-					   | WindowHiddenEvent
-					   | Window_NavigationRejectedEvent) => void,
+                       | WindowAuthRequestedEvent
+                       | WindowBoundsEvent
+                       | WindowExternalProcessStartedEvent
+                       | WindowExternalProcessExited
+                       | WindowGroupChangedEvent
+                       | WindowHiddenEvent
+                       | Window_NavigationRejectedEvent) => void,
             callback?: () => void,
             errorCallback?: (reason: string) => void): void;
         /**
@@ -1482,17 +1482,17 @@ declare namespace fin {
         virtualScreen: MontiorCoordinates;
     }
 
-	interface TrayIconInfo {
-		x: number;
-		y: number;
-		bounds: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-		monitorInfo: MonitorInfo;
-	}
+    interface TrayIconInfo {
+        x: number;
+        y: number;
+        bounds: {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+        };
+        monitorInfo: MonitorInfo;
+    }
 
     interface MonitorInfoDetail {
         availableRect: MontiorCoordinates;

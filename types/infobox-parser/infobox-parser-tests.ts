@@ -11,9 +11,9 @@ const { name, hero }: Hero = parseInfo(`
 |hero      = y
 }}`).general;
 /* Outputs {
-	general: {
-		hero: true,
-		name: 'Bruce Wayne'
-	}
+    general: {
+        hero: true,
+        name: 'Bruce Wayne'
+    }
 }
 */

@@ -3,7 +3,7 @@ import { Plugin } from 'webpack';
 export = SVGSpriteLoaderPlugin;
 
 declare class SVGSpriteLoaderPlugin extends Plugin {
-	constructor(options?: SVGSpriteLoaderPlugin.Options);
+    constructor(options?: SVGSpriteLoaderPlugin.Options);
 }
 
 declare namespace SVGSpriteLoaderPlugin {

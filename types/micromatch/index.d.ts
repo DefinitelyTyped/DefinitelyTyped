@@ -266,6 +266,60 @@ declare namespace micromatch {
          */
         windows?: boolean;
     }
+
+    interface ScanOptions extends Options {
+        /**
+         * When `true`, the returned object will include an array of `tokens` (objects), representing each path "segment" in the scanned glob pattern.
+         *
+         * @default false
+         */
+        tokens?: boolean;
+        /**
+         * When `true`, the returned object will include an array of strings representing each path "segment" in the scanned glob pattern.
+         * This is automatically enabled when `options.tokens` is `true`.
+         *
+         * @default false
+         */
+        parts?: boolean;
+    }
+
+    interface ScanInfo {
+        prefix: string;
+        input: string;
+        start: number;
+        base: string;
+        glob: string;
+        isBrace: boolean;
+        isBracket: boolean;
+        isGlob: boolean;
+        isExtglob: boolean;
+        isGlobstar: boolean;
+        negated: boolean;
+    }
+
+    interface ScanInfoToken {
+        value: string;
+        depth: number;
+        isGlob: boolean;
+
+        backslashes?: boolean;
+        isBrace?: boolean;
+        isBracket?: boolean;
+        isExtglob?: boolean;
+        isGlobstar?: boolean;
+        isPrefix?: boolean;
+        negated?: boolean;
+    }
+
+    interface ScanInfoWithParts extends ScanInfo {
+        slashes: number[];
+        parts: string[];
+    }
+
+    interface ScanInfoWithTokens extends ScanInfoWithParts {
+        maxDepth: number;
+        tokens: ScanInfoToken[];
+    }
 }
 
 interface Micromatch {
@@ -610,7 +664,9 @@ interface Micromatch {
     /**
      * Scan a glob pattern to separate the pattern into segments.
      */
-    scan(pattern: string, options?: micromatch.Options): object;
+    scan(pattern: string, options: { parts: true } & micromatch.ScanOptions): micromatch.ScanInfoWithParts;
+    scan(pattern: string, options: { tokens: true } & micromatch.ScanOptions): micromatch.ScanInfoWithTokens;
+    scan(pattern: string, options?: micromatch.ScanOptions): micromatch.ScanInfo;
 }
 
 export as namespace micromatch;

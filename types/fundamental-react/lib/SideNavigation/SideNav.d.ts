@@ -1,35 +1,45 @@
 import * as React from "react";
+import { IconGlyph } from "../Icon/Icon";
 
 export type SideNavProps = {
     className?: string;
-    customStyles?: {[x: string]: any};
+    compact?: boolean;
+    condensed?: boolean;
     disableStyles?: boolean;
-    /* Set to **true** to only render icons for each `SideNavListItem`. */
-    icons?: boolean;
-    /* The `id` of the selected `SideNavListItem`. */
     selectedId?: string;
-    /* Callback function when a navigation item is selected. Arguments passed are the event and the id of the selected item. */
+    skipLink?: { href: string, label: string };
     onItemSelect?: (e: any, id: any) => void;
-} & { [x: string]: any };
+} & React.HTMLAttributes<Element>;
 
 export type SideNavListProps = {
     className?: string;
-    headingLevel?: 2 | 3 | 4 | 5 | 6;
+    compact?: boolean;
+    condensed?: boolean;
+    groupLabel?: string;
+    hasParent?: boolean;
+    isUtility?: boolean;
+    level?: number;
+    open?: boolean;
+    selectedId?: string;
     title?: string;
-    titleProps?: { [x: string]: any };
-} & { [x: string]: any };
+    titleProps?: any;
+    onItemSelect?: (...args: any[]) => any;
+} & React.HTMLAttributes<Element>;
 
 export type SideNavListItemProps = {
-    /* Set to **true** to have this item initially render as expanded and its children items shown. */
+    condensed?: boolean;
     expanded?: boolean;
-    glyph?: string;
+    expandSubmenuLabel?: string;
+    glyph?: IconGlyph;
     id?: string;
-    /* Localized text for the item (when `url` is provided). */
+    isSubItem?: boolean;
     name?: string;
-    /* Enables use of `<a>` element. Value to be applied to the anchor\'s `href` attribute. */
+    selected?: boolean;
+    selectedId?: string;
     url?: string;
-    onClick?: (e: React.MouseEvent) => void;
-} & { [x: string]: any };
+    onClick?: (...args: any[]) => any;
+    onItemSelect?: (...args: any[]) => any;
+} & React.HTMLAttributes<Element>;
 
 declare class SideNav extends React.Component<SideNavProps> {
     static displayName: "SideNav";

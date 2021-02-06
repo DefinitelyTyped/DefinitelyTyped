@@ -1,4 +1,8 @@
+import * as RdfJs from 'rdf-js';
 import * as SparqlJs from 'sparqljs';
+
+// Declare RDF/JS factory implementation to create terms (IRIs, literals, variables, etc)
+declare const DataFactory: RdfJs.DataFactory;
 
 /**
  * Examples from the project's README
@@ -16,7 +20,7 @@ function officialExamples() {
     const SparqlGenerator = SparqlJs.Generator;
     const generator = new SparqlGenerator();
     if (parsedQuery.type === 'query' && parsedQuery.queryType === 'SELECT') {
-        parsedQuery.variables = ['?mickey' as SparqlJs.Term];
+        parsedQuery.variables = [DataFactory.variable!('mickey')];
     }
 
     // $ExpectType string
@@ -24,10 +28,10 @@ function officialExamples() {
 }
 
 function advancedOptions() {
-    const parser = new SparqlJs.Parser(
-        {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'},
-        'http://example.com'
-    );
+    const parser = new SparqlJs.Parser({
+        prefixes: {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'},
+        baseIRI: 'http://example.com'
+    });
     const generator = new SparqlJs.Generator({allPrefixes: false});
 }
 
@@ -35,9 +39,11 @@ function advancedOptions() {
  * Basic query structure
  */
 function basicQueries() {
-    const foo = 'example:foo' as SparqlJs.Term;
-    const bar = 'example:bar' as SparqlJs.Term;
-    const qux = 'example:qux' as SparqlJs.Term;
+    const foo = DataFactory.namedNode('example:foo');
+    const bar = DataFactory.namedNode('example:bar');
+    const qux = DataFactory.namedNode('example:qux');
+    const var1 = DataFactory.variable!('var1');
+    const var2 = DataFactory.variable!('var2');
 
     const prefixes = {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'};
 
@@ -61,16 +67,19 @@ function basicQueries() {
         type: 'query',
         queryType: 'SELECT',
         prefixes,
-        variables: ['*'],
+        variables: [new SparqlJs.Wildcard()],
         distinct: true,
         from: {
-            default: ['http://example.com/'],
-            named: ['http://example.com/foo', 'http://example.com/bar'],
+            default: [DataFactory.namedNode('http://example.com/')],
+            named: [
+                DataFactory.namedNode('http://example.com/foo'),
+                DataFactory.namedNode('http://example.com/bar'),
+            ],
         },
         reduced: false,
         group: [
-            {expression: foo},
-            {expression: bar},
+            {expression: var1},
+            {expression: var2},
         ],
         having: [{
             type: 'functionCall',
@@ -78,7 +87,7 @@ function basicQueries() {
             args: [foo],
         }],
         order: [{
-            expression: bar,
+            expression: var1,
             descending: true,
         }],
         limit: 100,
@@ -109,9 +118,9 @@ function basicQueries() {
         queryType: 'DESCRIBE',
         prefixes,
         variables: [
-            foo,
+            var1,
             {
-                variable: bar,
+                variable: var2,
                 expression: {
                     type: 'operation',
                     operator: '+',
@@ -139,7 +148,7 @@ function updateQueries() {
         updates: [
             {
                 updateType: 'insertdelete',
-                graph: 'http://example.com/foo',
+                graph: DataFactory.namedNode('http://example.com/foo'),
                 insert: [bgp],
                 delete: [bgp],
                 where: [],
@@ -149,7 +158,7 @@ function updateQueries() {
                 silent: true,
                 source: {
                     type: 'graph',
-                    name: 'http://example.com/foo',
+                    name: DataFactory.namedNode('http://example.com/foo'),
                 },
                 destination: {
                     type: 'graph',
@@ -164,6 +173,30 @@ function updateQueries() {
                     all: true,
                 },
             },
+        ],
+    };
+}
+
+/**
+ * SPARQL* AST
+ */
+function sparqlStarAst() {
+    const bgp: SparqlJs.BgpPattern = {
+        type: 'bgp',
+        triples: [
+            {
+                subject: DataFactory.quad(
+                    DataFactory.namedNode('http://example.com/s1'),
+                    DataFactory.namedNode('http://example.com/p1'),
+                    DataFactory.literal('str1')
+                ),
+                predicate: DataFactory.namedNode('http://example.com/p2'),
+                object: DataFactory.quad(
+                    DataFactory.namedNode('http://example.com/s2'),
+                    DataFactory.namedNode('http://example.com/p3'),
+                    DataFactory.literal('str2')
+                ),
+            }
         ],
     };
 }

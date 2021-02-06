@@ -14,9 +14,8 @@ import {
     PaymentMethod,
     PaymentMethodNonce,
     Transaction,
-    SampleNotification,
-    WebhookNotification,
     WebhookNotificationKind,
+    MerchantAccountCreateRequest, Plan,
 } from 'braintree';
 
 /**
@@ -99,6 +98,25 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     gateway.transaction.search(() => true).on('data', transactions.push);
 })();
 
+// Plan Gateway
+(async () => {
+    // $ExpectType { plans: Plan[]; }
+    await gateway.plan.all();
+})();
+
+// Subscription
+(async () => {
+    // $ExpectType ValidatedResponse<Subscription>
+    const result = await gateway.subscription.create({
+        paymentMethodToken: 'token',
+        planId: 'planId'
+    });
+
+    const { subscription } = result;
+    // $ExpectType string
+    subscription.nextBillingDate;
+})();
+
 (async () => {
     const kind: WebhookNotificationKind = 'subscription_canceled';
     const subscriptionId = '123456';
@@ -106,8 +124,82 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
     if (!sampleResponse) return;
 
-    const notificationResponse = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
-    if (!notificationResponse) return;
+    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    if (!notification) return;
 
-    const notification: WebhookNotification = notificationResponse;
+    // this should cause the type of `notification` to be narrowed to `SubscriptionNotification`
+    if (notification.kind !== kind) return;
+
+    const subscription = notification.subscription;
+})();
+
+(async () => {
+    const kind: WebhookNotificationKind = 'payment_method_revoked_by_customer';
+    const subscriptionId = '123456';
+
+    const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
+    if (!sampleResponse) return;
+
+    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    if (!notification) return;
+
+    // this should cause the type of `notification` to be narrowed to `PaymentMethodNotification`
+    if (notification.kind !== kind) return;
+
+    const metadata = notification.revokedPaymentMethodMetadata;
+    if (!metadata.revokedPaymentMethod) return;
+})();
+
+(async () => {
+    const kind: WebhookNotificationKind = 'account_updater_daily_report';
+    const subscriptionId = '123456';
+
+    const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
+    if (!sampleResponse) return;
+
+    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    if (!notification) return;
+
+    // this should cause the type of `notification` to be narrowed to `AccountUpdaterNotification`
+    if (notification.kind !== kind) return;
+
+    const reportUrl = notification.accountUpdaterDailyReport.reportUrl;
+    if (!reportUrl) return;
+})();
+
+/**
+ * Gateway function helper
+ */
+const gateway2: BraintreeGateway = braintree.connect({
+    environment: braintree.Environment.Sandbox,
+    merchantId: 'abc123',
+    publicKey: 'def456',
+    privateKey: 'xyz789',
+});
+
+(async () => {
+    const merchantAccount: MerchantAccountCreateRequest = {
+        individual: {
+            address: {
+                locality: 'New York',
+                postalCode: '10001',
+                region: 'New York',
+                streetAddress: '222 Oak Street'
+            },
+            dateOfBirth: '20200214',
+            email: 'merchant@example.com',
+            firstName: 'Jane',
+            lastName: 'Doe'
+        },
+        funding: {
+            destination: 'Bank',
+            accountNumber: '123456789',
+            routingNumber: '021000021'
+        },
+        masterMerchantAccountId: 'master_merchant',
+        tosAccepted: true
+    };
+    const response = await gateway2.merchantAccount.create(merchantAccount);
+    if (!response) return;
+    const id = response.merchantAccount.masterMerchantAccount?.id;
 })();

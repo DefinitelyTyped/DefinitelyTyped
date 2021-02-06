@@ -1,4 +1,4 @@
-export function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
+export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.setHeader()
     request.setHeader("from-set-header-1", ["value-1", "trailer-1"]);
 
@@ -20,7 +20,7 @@ export function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) 
     }
 }
 
-export function onOriginRequest(request: EW.MutableRequest) {
+export function onOriginRequest(request: EW.IngressOriginRequest) {
     // getHeader
     const h = request.getHeader("onOriginRequest-getHeader");
     if (h == null) {
@@ -43,7 +43,7 @@ export function onOriginRequest(request: EW.MutableRequest) {
     request.setHeader("variable", v);
 }
 
-export function onOriginResponse(request: EW.ImmutableRequest & EW.HasRespondWith, response: EW.Response) {
+export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.EgressOriginResponse) {
     if (response.getHeader("should-respondWith")) {
         request.respondWith(444, {}, "wanted a respond with");
         return;
@@ -82,7 +82,7 @@ export function onOriginResponse(request: EW.ImmutableRequest & EW.HasRespondWit
     response.status = 189;
 }
 
-export function onClientResponse(request: EW.ImmutableRequest, response: EW.Response) {
+export function onClientResponse(request: EW.EgressClientRequest, response: EW.EgressClientResponse) {
     if (request.getHeader("should-status")) {
         response.status = 234;
         return;

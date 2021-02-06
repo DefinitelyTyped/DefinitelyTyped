@@ -877,6 +877,7 @@ declare namespace GoogleAppsScript {
         state?: string;
         submissionModificationMode?: string;
         title?: string;
+        topicId?: string;
         updateTime?: string;
         workType?: string;
       }

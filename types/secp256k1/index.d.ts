@@ -1,4 +1,4 @@
-// Type definitions for secp256k1 3.5
+// Type definitions for secp256k1 4.0
 // Project: https://github.com/cryptocoinjs/secp256k1-node
 // Definitions by: Anler <https://github.com/anler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,101 +8,103 @@
 /** Options for the `sign` function */
 export interface SignOptions {
     /** Nonce generator. By default it is rfc6979 */
-    noncefn?: (message: Buffer, privateKey: Buffer, algo: Buffer | null,
-               data: Buffer | null, attempt: number) => Buffer;
+    noncefn?: (message: Uint8Array, privateKey: Uint8Array, algo: Uint8Array | null,
+               data: Uint8Array | null, attempt: number) => Uint8Array;
 
     /**
      * Additional data for noncefn (RFC 6979 3.6) (32 bytes).
      *
      * By default is `null`.
      */
-    data?: Buffer;
+    data?: Uint8Array;
+}
+
+export interface ecdhOptions {
+    data?: Uint8Array;
+    xbuf?: Uint8Array;
+    ybuf?: Uint8Array;
+    hashfn?: (x: Uint8Array, y: Uint8Array, data: Uint8Array) => Uint8Array;
 }
 
 /**
  * Verify an ECDSA privateKey.
  */
-export function privateKeyVerify(privateKey: Buffer): boolean;
+export function privateKeyVerify(privateKey: Uint8Array): boolean;
 
 /**
  * Export a privateKey in DER format.
  */
-export function privateKeyExport(privateKey: Buffer, compressed?: boolean): Buffer;
+export function privateKeyExport(privateKey: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Import a privateKey in DER format.
  */
-export function privateKeyImport(privateKey: Buffer): Buffer;
+export function privateKeyImport(privateKey: Uint8Array): Uint8Array;
 
 /**
  * Negate a privateKey by subtracting it from the order of the curve's base point.
  */
-export function privateKeyNegate(privateKey: Buffer): Buffer;
+export function privateKeyNegate(privateKey: Uint8Array): Uint8Array;
 
 /**
  * Compute the inverse of a privateKey (modulo the order of the curve's base point).
  */
-export function privateKeyModInverse(privateKey: Buffer): Buffer;
+export function privateKeyModInverse(privateKey: Uint8Array): Uint8Array;
 
 /**
  * Tweak a privateKey by adding tweak to it.
  */
-export function privateKeyTweakAdd(privateKey: Buffer, tweak: Buffer): Buffer;
+export function privateKeyTweakAdd(privateKey: Uint8Array, tweak: Uint8Array): Uint8Array;
 
 /**
  * Tweak a privateKey by multiplying it by a tweak.
  */
-export function privateKeyTweakMul(privateKey: Buffer, tweak: Buffer): Buffer;
+export function privateKeyTweakMul(privateKey: Uint8Array, tweak: Uint8Array): Uint8Array;
 
 /**
  * Compute the public key for a privateKey.
  */
-export function publicKeyCreate(privateKey: Buffer, compressed?: boolean): Buffer;
+export function publicKeyCreate(privateKey: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Convert a publicKey to compressed or uncompressed form.
  */
-export function publicKeyConvert(publicKey: Buffer, compressed?: boolean): Buffer;
+export function publicKeyConvert(publicKey: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Verify an ECDSA publicKey.
  */
-export function publicKeyVerify(publicKey: Buffer): boolean;
+export function publicKeyVerify(publicKey: Uint8Array): boolean;
 
 /**
  * Tweak a publicKey by adding tweak times the generator to it.
  */
-export function publicKeyTweakAdd(publicKey: Buffer, tweak: Buffer, compressed?: boolean): Buffer;
+export function publicKeyTweakAdd(publicKey: Uint8Array, tweak: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Tweak a publicKey by multiplying it by a tweak value.
  */
-export function publicKeyTweakMul(publicKey: Buffer, tweak: Buffer, compressed?: boolean): Buffer;
+export function publicKeyTweakMul(publicKey: Uint8Array, tweak: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Add a given publicKeys together.
  */
-export function publicKeyCombine(publicKeys: Buffer[], compressed?: boolean): Buffer;
+export function publicKeyCombine(publicKeys: Uint8Array[], compressed?: boolean): Uint8Array;
 
 /**
  * Convert a signature to a normalized lower-S form.
  */
-export function signatureNormalize(signature: Buffer): Buffer;
+export function signatureNormalize(signature: Uint8Array): Uint8Array;
 
 /**
  * Serialize an ECDSA signature in DER format.
  */
-export function signatureExport(signature: Buffer): Buffer;
+export function signatureExport(signature: Uint8Array): Uint8Array;
 
 /**
  * Parse a DER ECDSA signature (follow by BIP66).
  */
-export function signatureImport(signature: Buffer): Buffer;
-
-/**
- * Same as `signatureImport` but not follow by BIP66.
- */
-export function signatureImportLax(signature: Buffer): Buffer;
+export function signatureImport(signature: Uint8Array): Uint8Array;
 
 /**
  * Create an ECDSA signature. Always return low-S signature.
@@ -113,7 +115,7 @@ export function signatureImportLax(signature: Buffer): Buffer;
  * - Compose 32-byte scalar `s = k^-1 * (r * d + m)`. Reject nonce if `s` is zero.
  * - The signature is `(r, s)`.
  */
-export function sign(message: Buffer, privateKey: Buffer, options?: SignOptions): {signature: Buffer, recovery: number};
+export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?: SignOptions): {signature: Uint8Array, recid: number};
 
 /**
  * Verify an ECDSA signature.
@@ -126,19 +128,14 @@ export function sign(message: Buffer, privateKey: Buffer, options?: SignOptions)
  * - Compute point `R = (s^-1 * m * G + s^-1 * r * Q)`. Reject if `R` is infinity.
  * - Signature is valid if R's `x` coordinate equals to `r`.
  */
-export function verify(message: Buffer, signature: Buffer, publicKey: Buffer): boolean;
+export function ecdsaVerify(signature: Uint8Array, message: Uint8Array, publicKey: Uint8Array): boolean;
 
 /**
  * Recover an ECDSA public key from a signature.
  */
-export function recover(message: Buffer, signature: Buffer, recovery: number, compressed?: boolean): Buffer;
+export function ecdsaRecover(signature: Uint8Array, recid: number, message: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Compute an EC Diffie-Hellman secret and applied sha256 to compressed public key.
  */
-export function ecdh(publicKey: Buffer, privateKey: Buffer): Buffer;
-
-/**
- * Compute an EC Diffie-Hellman secret and return public key as result.
- */
-export function ecdhUnsafe(publicKey: Buffer, privateKey: Buffer, compressed?: boolean): Buffer;
+export function ecdh(publicKey: Uint8Array, privateKey: Uint8Array, opt?: ecdhOptions): Uint8Array;

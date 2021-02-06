@@ -28,9 +28,9 @@ export function convert(obj: unknown, options?: WebIDLConversionOptions): DOMExc
  *         in the WebIDL2JS constructor registry.
  */
 export function create(
-	globalObject: object,
-	[message, name]?: [string?, string?],
-	privateData?: {},
+    globalObject: object,
+    [message, name]?: [string?, string?],
+    privateData?: {},
 ): DOMException;
 
 /**
@@ -41,9 +41,9 @@ export function create(
  *         in the WebIDL2JS constructor registry.
  */
 export function createImpl(
-	globalObject: object,
-	[message, name]?: [string?, string?],
-	privateData?: {},
+    globalObject: object,
+    [message, name]?: [string?, string?],
+    privateData?: {},
 ): DOMExceptionImpl;
 
 /**
@@ -52,10 +52,10 @@ export function createImpl(
  * Useful when manually sub-classing a non-constructable wrapper object.
  */
 export function setup<T extends DOMException>(
-	obj: T,
-	globalObject: object,
-	[message, name]?: [string?, string?],
-	privateData?: {},
+    obj: T,
+    globalObject: object,
+    [message, name]?: [string?, string?],
+    privateData?: {},
 ): T;
 
 /**

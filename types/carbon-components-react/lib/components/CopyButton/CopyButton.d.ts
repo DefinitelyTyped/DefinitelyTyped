@@ -1,15 +1,10 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactButtonAttr } from "../../../typings/shared";
-import { FeedbackProps } from "../Copy";
+import { CopyProps } from "../Copy";
 
-interface InheritedProps extends
-    ReactButtonAttr,
-    EmbeddedIconProps,
-    FeedbackProps
-{ }
+export interface CopyButtonProps extends CopyProps {
+    iconDescription?: string;
+}
 
-export interface CopyButtonProps extends InheritedProps { }
-
-declare class CopyButton extends React.Component<CopyButtonProps> { }
+declare const CopyButton: React.FC<CopyButtonProps>;
 
 export default CopyButton;

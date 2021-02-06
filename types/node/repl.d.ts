@@ -37,6 +37,11 @@ declare module "repl" {
          */
         eval?: REPLEval;
         /**
+         * Defines if the repl prints output previews or not.
+         * @default `true` Always `false` in case `terminal` is falsy.
+         */
+        preview?: boolean;
+        /**
          * If `true`, specifies that the default `writer` function should include ANSI color
          * styling to REPL output. If a custom `writer` function is provided then this has no
          * effect.
@@ -131,17 +136,25 @@ declare module "repl" {
          */
         readonly context: Context;
         /**
-         * The `Readable` stream from which REPL input will be read.
+         * @deprecated since v14.3.0 - Use `input` instead.
          */
         readonly inputStream: NodeJS.ReadableStream;
         /**
-         * The `Writable` stream to which REPL output will be written.
+         * @deprecated since v14.3.0 - Use `output` instead.
          */
         readonly outputStream: NodeJS.WritableStream;
         /**
+         * The `Readable` stream from which REPL input will be read.
+         */
+        readonly input: NodeJS.ReadableStream;
+        /**
+         * The `Writable` stream to which REPL output will be written.
+         */
+        readonly output: NodeJS.WritableStream;
+        /**
          * The commands registered via `replServer.defineCommand()`.
          */
-        readonly commands: { readonly [name: string]: REPLCommand | undefined };
+        readonly commands: NodeJS.ReadOnlyDict<REPLCommand>;
         /**
          * A value indicating whether the REPL is currently in "editor mode".
          *

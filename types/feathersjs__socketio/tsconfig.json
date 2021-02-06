@@ -16,11 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/socketio": [
-                "feathersjs__socketio"
-            ],
-            "@feathersjs/feathers": [
-                "feathersjs__feathers"
+            "@feathersjs/*": [
+                "feathersjs__*"
             ]
         }
     },

@@ -1,7 +1,8 @@
-// Type definitions for pngjs 3.4
+// Type definitions for pngjs 6.0
 // Project: https://github.com/lukeapage/pngjs
 // Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Imdahl <https://github.com/ffflorian>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -24,7 +25,7 @@ export class PNG extends Duplex {
     ): void;
 
     static sync: {
-        read(buffer: Buffer, options?: ParserOptions): PNG;
+        read(buffer: Buffer, options?: ParserOptions): PNGWithMetadata;
         write(png: PNG, options?: PackerOptions): Buffer;
     };
 
@@ -47,11 +48,11 @@ export class PNG extends Duplex {
         deltaY?: number,
     ): PNG;
 
-    on(event: 'metadata', callback: (metadata: Metadata) => void): this;
-    on(event: 'parsed', callback: (data: Buffer) => void): this;
-    on(event: 'error', callback: (error: Error) => void): this;
-    on(event: 'close', callback: () => void): this;
-    on(event: string, callback: (...args: any[]) => void): this;
+    on(event: 'metadata', callback: (this: PNG, metadata: Metadata) => void): this;
+    on(event: 'parsed', callback: (this: PNG, data: Buffer) => void): this;
+    on(event: 'error', callback: (this: PNG, error: Error) => void): this;
+    on(event: 'close', callback: (this: PNG) => void): this;
+    on(event: string, callback: (this: PNG, ...args: any[]) => void): this;
 
     pack(): PNG;
 
@@ -66,6 +67,7 @@ export interface BaseOptions {
 
 export interface ParserOptions {
     checkCRC?: boolean;
+    skipRescale?: boolean;
 }
 
 export interface PackerOptions {
@@ -86,6 +88,8 @@ export interface PackerOptions {
 }
 
 export type PNGOptions = BaseOptions & ParserOptions & PackerOptions;
+
+export type PNGWithMetadata = PNG & Metadata;
 
 export type ColorType = 0 | 2 | 4 | 6;
 

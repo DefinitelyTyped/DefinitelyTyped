@@ -1,11 +1,22 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
+import { Value } from '@wordpress/rich-text';
+import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 
 //
 // primitives
 //
 <C.Rect width={10} height={10} rx={5} />;
 <C.HorizontalRule />;
+
+//
+// angle-picker-control
+//
+<C.AnglePickerControl
+    value={350}
+    label="Test label"
+    onChange={value => console.log(value)}
+/>;
 
 //
 // animate
@@ -22,7 +33,16 @@ interface MyCompleteOption {
     name: string;
     id: number;
 }
+let record: Value = {
+    formats: [],
+    replacements: [],
+    text: '',
+};
 <C.Autocomplete<MyCompleteOption>
+    onReplace={(value) => (record = value)}
+    onChange={(value) => (record = value)}
+    record={record}
+    isSelected={false}
     completers={[
         {
             name: 'fruit',
@@ -50,7 +70,7 @@ interface MyCompleteOption {
         },
     ]}
 >
-    {({ isExpanded, listBoxId, activeId }) => (
+    {({ isExpanded, listBoxId, activeId, onKeyDown }) => (
         <div
             contentEditable
             suppressContentEditableWarning
@@ -58,6 +78,7 @@ interface MyCompleteOption {
             aria-expanded={isExpanded}
             aria-owns={listBoxId}
             aria-activedescendant={activeId}
+            onKeyDown={onKeyDown}
         ></div>
     )}
 </C.Autocomplete>;
@@ -75,14 +96,20 @@ interface MyCompleteOption {
 <C.Button href="#foo" download="foo.txt" isSmall>
     Anchor Button
 </C.Button>;
-<C.Button autoFocus isDestructive isLarge>
+
+<C.Button autoFocus isDestructive isLarge isSecondary>
     Button Button
+</C.Button>;
+
+<C.Button showTooltip tooltipPosition="top center" label="A test label">
+    Tooltipped button
 </C.Button>;
 
 //
 // button-group
 //
-<C.ButtonGroup>
+const buttonGroupRef = createRef<HTMLDivElement>();
+<C.ButtonGroup ref={buttonGroupRef}>
     <button>Hello</button>
     <button>World</button>
 </C.ButtonGroup>;
@@ -94,14 +121,17 @@ interface MyCompleteOption {
 <C.Card isElevated isBorderless className="card" size="large">
     I'm a card with props!
 </C.Card>;
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 
-// Card is <div /> by default, autoFocus prop is not allowed
+// These components can be rendered as other components:
+<C.Card as={C.HorizontalRule} />;
+// Card renders a `div` by default:
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+// `div` doesn't support autoFocus:
 // $ExpectError
-<C.Card autoFocus>`div` can't have autoFocus :(</C.Card>;
-
-// `withComponent` renders a `button`
-const ButtonCard = C.Card.withComponent('button');
-<ButtonCard autoFocus>`button` _can_ have autoFocus :D</ButtonCard>;
+<C.Card autoFocus />;
+// With `as="button"`, a `button` element is rendered and `button` props are accepted:
+<C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
 
 <C.CardBody isShady size="extraSmall">
     Hello world!
@@ -150,10 +180,36 @@ const ButtonCard = C.Card.withComponent('button');
     onChange={color => color && console.log(color.name)}
 />;
 
+<C.ColorPalette
+    disableCustomColors
+    clearable={false}
+    colors={[
+        { name: 'red', color: '#ff0000' },
+        { name: 'green', color: '#00ff00' },
+        { name: 'blue', color: '#0000ff' },
+    ]}
+    value={{ name: 'red', color: '#ff0000' }}
+    onChange={color => color && console.log(color.name)}
+/>;
+
 //
 // color-picker
 //
-<C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} />;
+<C.ColorPicker color="#ff0000" onChangeComplete={color => console.log(color.hex)} oldHue={3} />;
+<C.ColorPicker onChangeComplete={color => console.log(color.hex)} disableAlpha />;
+
+//
+// custom-select-control
+//
+<C.CustomSelectControl
+    label="Fruit"
+    options={[
+        { key: 'apple', name: 'Apple', style: { color: 'red' } },
+        { key: 'banana', name: 'Banana', style: { backgroundColor: 'yellow' }, className: 'my-favorite-fruit' },
+        { key: 'papaya', name: 'Papaya', style: { color: 'orange', backgroundColor: 'green' } },
+    ]}
+    onChange={v => console.log(v.selectedItem && v.selectedItem.name)}
+/>;
 
 //
 // dashicon
@@ -251,6 +307,27 @@ const ButtonCard = C.Card.withComponent('button');
 // external-link
 //
 <C.ExternalLink href="https://wordpress.org">WordPress.org</C.ExternalLink>;
+
+//
+// flex
+//
+<C.Flex
+    isReversed
+    gap={3}
+    align='bottom'
+    justify='left'
+    className="test-classname"
+>
+    <C.FlexBlock className="test-classname">Test Flex Block</C.FlexBlock>
+    <C.FlexItem className="test-classname">
+        Flex Item 1
+    </C.FlexItem>
+    <C.FlexItem>
+        Flex Item 2
+    </C.FlexItem>
+</C.Flex>;
+
+<C.Flex><div /></C.Flex>;
 
 //
 // focal-point-picker
@@ -404,7 +481,7 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" onRequestClose={() => console.log('closing modal')}>
+<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 
@@ -539,14 +616,20 @@ const kbshortcuts = {
     label="User type"
     help="The type of the current user"
     selected="a"
-    options={[{ label: 'Author', value: 'a' }, { label: 'Editor', value: 'e' }]}
+    options={[
+        { label: 'Author', value: 'a' },
+        { label: 'Editor', value: 'e' },
+    ]}
     onChange={value => value && console.log(value.toUpperCase())}
 />;
 <C.RadioControl
     label="User type"
     help="The type of the current user"
     selected={{ foo: 'bar' }}
-    options={[{ label: 'Author', value: { foo: 'bar' } }, { label: 'Editor', value: { foo: 'baz' } }]}
+    options={[
+        { label: 'Author', value: { foo: 'bar' } },
+        { label: 'Editor', value: { foo: 'baz' } },
+    ]}
     onChange={value => value && console.log(value.foo)}
 />;
 
@@ -600,14 +683,22 @@ const kbshortcuts = {
 <C.SelectControl
     label="Size"
     value="50%"
-    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
+    options={[
+        { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
     onChange={size => console.log(size)}
 />;
 <C.SelectControl
     label="Size"
     value={['50%']}
     multiple
-    options={[{ label: 'Big', value: '100%' }, { label: 'Medium', value: '50%' }, { label: 'Small', value: '25%' }]}
+    options={[
+        { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
     onChange={size => console.log(size)}
 />;
 

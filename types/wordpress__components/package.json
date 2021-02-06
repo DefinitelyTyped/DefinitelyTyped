@@ -1,7 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "@emotion/styled": "^10.0.0",
+        "@wordpress/element": "^2.14.0",
+        "downshift": "^4.0.5",
         "re-resizable": "^4.7.1"
     }
 }
