@@ -560,7 +560,11 @@ slider.updateOptions(
  */
 // Get value
 (<noUiSlider.Instance>testHtmlElement).noUiSlider.get();
+
+// Get tooltip elements
 (<noUiSlider.Instance>testHtmlElement).noUiSlider.getTooltips();
+
+// Get origin elements
 (<noUiSlider.Instance>testHtmlElement).noUiSlider.getOrigins();
 
 // Set one value
