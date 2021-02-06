@@ -1196,15 +1196,22 @@ declare namespace google {
             backgroundColor?: string | ChartStrokeFill;
             colors?: string[];
             enableInteractivity?: boolean;
+            fontName?: string;
+            fontSize?: number;
             forceIFrame?: boolean;
             height?: number;
             timeline?: {
                 barLabelStyle?: LabelStyle;
                 colorByRowLabel?: boolean;
                 groupByRowLabel?: boolean;
-                rowLabelStyle?: LabelStyle;
+                rowLabelStyle?: LabelStyle | null;
+                showBarLabels?: boolean;
                 showRowLabels?: boolean;
-                singleColor?: string;
+                singleColor?: string | null;
+            }
+            tooltip?: {
+                isHtml?: boolean;
+                trigger?: 'focus' | 'none'
             }
             width?: number;
         }
