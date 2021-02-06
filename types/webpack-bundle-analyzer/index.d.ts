@@ -210,7 +210,6 @@ export namespace BundleAnalyzerPlugin {
 
     /** The json report that will be produced if `analyzerMode: 'json'` */
     type JsonReport = JsonReportItem[];
-
 }
 
 export class BundleAnalyzerPlugin implements WebpackPluginInstance {
