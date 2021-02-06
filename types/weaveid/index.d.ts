@@ -7,7 +7,7 @@ import { JWKInterface } from "arweave/node/lib/wallet";
 
 declare global {
   interface Window {
-    closeLoginModal: typeof closeModal;
+    closeLoginModal: typeof closeLoginModal;
     openLoginModal: typeof openLoginModal;
     getAddress: typeof getAddress;
     getWallet: typeof getWallet;
@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-export function closeModal(): void;
+export function closeLoginModal(): void;
 export function openLoginModal(e?: Event): Promise<string>;
 export function getAddress(): Promise<string>;
 export function getWallet(): Promise<JWKInterface>;
