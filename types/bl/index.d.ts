@@ -1,7 +1,8 @@
-// Type definitions for BufferList v2.1.0
+// Type definitions for BufferList v4.0.4
 // Project: https://github.com/rvagg/bl
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Francis Gulotta <https://github.com/reconbot>
+//                 Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
