@@ -38,7 +38,7 @@ declare module 'node:dgram' {
     function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    class Socket extends events.EventEmitter {
+    class Socket extends EventEmitter {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         address(): AddressInfo;
         bind(port?: number, address?: string, callback?: () => void): void;
