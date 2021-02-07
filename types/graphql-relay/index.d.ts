@@ -98,9 +98,7 @@ export interface PageInfo {
     hasNextPage?: boolean | null;
 }
 
-export interface ArrayConnectionPageInfo {
-    startCursor?: ConnectionCursor | null;
-    endCursor?: ConnectionCursor | null;
+export interface ArrayConnectionPageInfo extends PageInfo {
     hasPreviousPage: boolean;
     hasNextPage: boolean;
 }
@@ -113,8 +111,7 @@ export interface Connection<T> {
     pageInfo: PageInfo;
 }
 
-export interface ArrayConnection<T> {
-    edges: Array<Edge<T>>;
+export interface ArrayConnection<T> extends Connection<T> {
     pageInfo: ArrayConnectionPageInfo;
 }
 
