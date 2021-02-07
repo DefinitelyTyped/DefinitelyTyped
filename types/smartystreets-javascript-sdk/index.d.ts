@@ -130,22 +130,70 @@ export namespace core {
 export namespace usStreet {
     class Lookup {
         constructor(
+            /**
+             * The street line of the address, or the entire address ("freeform" input).
+             *
+             * Freeform input can be up to 100 characters but only the first 50 will be considered for the street portion of the address. Freeform inputs should NOT include any form of country information (like "USA").
+             */
             street1?: string,
+            /**
+             * Any extra address information
+             * @example Leave it on the front porch.
+             */
             street2?: string,
+            /**
+             * Apartment, suite, or office number
+             * @example "Apt 52" or simply "52"; not "Apt52"
+             */
             secondary?: string,
+            /** The city name */
             city?: string,
+            /** The state name or abbreviation */
             state?: string,
+            /** The ZIP Code */
             zipCode?: string,
+            /** City, state, and ZIP Code combined */
             lastLine?: string,
+            /** The name of the person or company at this address */
             addressee?: string,
+            /** The neighborhood (only Puerto Rican addresses) */
             urbanization?: string,
+            /**
+             * The match output strategy to be employed for this lookup. Valid values are:
+             * - strict  The API will return detailed output only if a valid match is found. Otherwise the API response will be an empty array.
+             * - invalid  The API will return detailed output for both valid and invalid addresses. To find out if the address is valid, check the dpv_match_code. Values of Y, S, or D indicate a valid address.
+             *
+             * Notes:
+             *
+             * 1 The invalid setting is not compatible with freeform address input. For all addresses submitted freeform, the API will automatically employ a strict match output strategy.
+             * + When submitting addresses in components, setting match to invalid will prevent the API from finding valid matches for ambiguous address input.
+             */
             match?: string,
+            /**
+             * The maximum number of addresses returned when the input is ambiguous
+             * @default 1
+             */
             maxCandidates?: string,
+            /** A unique identifier for this address used in your application; this field will be copied into the output. */
             inputId?: string,
         );
+        /**
+         * The street line of the address, or the entire address ("freeform" input).
+         *
+         * Freeform input can be up to 100 characters but only the first 50 will be considered for the street portion of the address. Freeform inputs should NOT include any form of country information (like "USA").
+         */
         street: string;
+        /**
+         * Any extra address information
+         * @example Leave it on the front porch.
+         */
         street2: string;
+        /**
+         * Apartment, suite, or office number
+         * @example "Apt 52" or simply "52"; not "Apt52"
+         */
         secondary: string;
+        /** The city name */
         city: string;
         state: string;
         zipCode: string;
@@ -154,8 +202,9 @@ export namespace usStreet {
         urbanization: string;
         match: string;
         maxCandidates: number;
+        /** A unique identifier for this address used in your application; this field will be copied into the output. */
         inputId: string;
-        result: [Candidate];
+        result: Candidate[];
     }
     class Candidate {
         constructor(responseData: any);
@@ -231,7 +280,7 @@ export namespace usZipcode {
         state: string;
         zipCode: string;
         inputId: string;
-        result: [Result];
+        result: Result[];
     }
 
     class Result {
@@ -240,8 +289,8 @@ export namespace usZipcode {
         status: string;
         reason: string;
         valid: boolean;
-        cities: [City];
-        zipcodes: [ZipCode];
+        cities: City[];
+        zipcodes: ZipCode[];
     }
     interface City {
         city: string;
@@ -260,7 +309,7 @@ export namespace usZipcode {
         precision: string;
         stateAbbreviation: string;
         state: string;
-        alternateCounties: [County];
+        alternateCounties: County[];
     }
     interface County {
         countyFips: any;
@@ -273,15 +322,50 @@ export namespace usZipcode {
 export namespace usAutocomplete {
     class Lookup {
         constructor(prefix: string);
-        result: [Suggestion];
+        result: Suggestion[];
+        /**
+         * Required. The part of the address that has already been typed. Maximum length is 128 bytes.
+         */
         prefix: string;
+        /**
+         * Maximum number of address suggestions, range [1, 10].
+         * @default 10
+         */
         maxSuggestions: number;
-        cityFilter: [any];
-        stateFilter: [any];
-        prefer: [any];
-        preferRatio: any;
-        geolocate: any;
-        geolocatePrecision: any;
+        /**
+         * Exclude the following cities from the results.
+         *
+         * See [filtering](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-filtering) for more information.
+         */
+        cityFilter: string[];
+        /**
+         * Exclude the following states from the results.
+         *
+         * See [filtering](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-filtering) for more information.
+         * @example ['SD', 'ND', 'MT']
+         */
+        stateFilter: string[];
+        /**
+         * A list of cities/states to prefer at the top of the results.
+         *
+         * See [preferencing](https://smartystreets.com/docs/cloud/us-autocomplete-basic-api#preference) for more information.
+         */
+        prefer: string[];
+        /**
+         * Specifies the percentage of address suggestions that should be from preferred cities/states. Expressed as a decimal value, range [0, 1] (input out of bounds is adjusted).
+         *
+         * See [preferencing](https://smartystreets.com/docs/cloud/us-autocomplete-basic-api#preference) for more information.
+         * @default 0.333333333
+         */
+        preferRatio: number;
+        /**
+         * Whether to prefer address suggestions in the user's city and state, based on their IP address. (If the request to the Autocomplete API goes through a proxy, you will need to set an [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For) header specifying the user's IP address.)
+         */
+        geolocate: boolean;
+        /**
+         * If the geolocate field is set to true then setting this field to city causes the geolocated results that bubble up to the top of the response to be from the city/state corresponding to the sender's IP address. Setting this field to state causes results from the sender's entire state to be preferred.
+         */
+        geolocatePrecision: string;
     }
 
     class Suggestion {
@@ -296,19 +380,85 @@ export namespace usAutocomplete {
 export namespace usAutocompletePro {
     class Lookup {
         constructor(search: string);
-        result: [Suggestion];
+        result: Suggestion[];
+        /**
+         * Required. The part of the address that has already been typed. Maximum length is 128 bytes.
+         */
         search: string;
-        selected: any;
+        /**
+         * Used by UI components to request a list of secondaries (up to 100) for the specified address. See [Secondary Number Expansion](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-secondary-expansion) for usage information.
+         */
+        selected: string;
+        /**
+         * Maximum number of address suggestions to return; range [1, 10].
+         */
         maxResults: number;
-        includeOnlyCities: [any];
-        includeOnlyStates: [any];
-        includeOnlyZIPCodes: [any];
-        excludeStates: [any];
-        preferCities: [any];
-        preferStates: [any];
-        preferZIPCodes: [any];
-        preferRatio: any;
-        preferGeolocation: any;
+        /**
+         * Limit the results to only those cities and states listed, as well as those in include_only_states.
+         *
+         * See [filtering](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-filtering) for more information.
+         * @example ['DENVER,AURORA,CO', 'OMAHA,NE']
+         */
+        includeOnlyCities: string[];
+        /**
+         * Limit the results to only those states listed, as well as those listed in include_only_cities.
+         *
+         * See [filtering](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-filtering) for more information.
+         * @example ['UT', 'ID', 'MT'] or ['CONTIGUOUS'] or ['ALLSTATES']
+         */
+        includeOnlyStates: string[];
+        /**
+         * Limit the results to only those ZIP Codes listed. When this parameter is used, no other _cities, _states parameters can be used.
+         *
+         * Note: When using this parameter, the prefer_geolocation parameter MUST be set to none.
+         *
+         * See [filtering](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-filtering) for more information.
+         * @example ['90210', '06504']
+         */
+        includeOnlyZIPCodes: string[];
+        /**
+         * Exclude the following states from the results. When this parameter is used, no other include_ parameters may be used.
+         *
+         * Note: The prefer_geolocation parameter MUST be set to none if the customer's current location is in a state specified in this parameter; otherwise the customer will see addresses from their current location.
+         *
+         * See [filtering](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-filtering) for more information.
+         * @example ['SD', 'ND', 'MT']
+         */
+        excludeStates: string[];
+        /**
+         * Display suggestions with the listed cities and states at the top of the suggestion list, as well as those listed in prefer_states. Example: DENVER,AURORA,CO;OMAHA,NE
+         *
+         * See [preferencing](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-preference) for more information.
+         */
+        preferCities: string[];
+        /**
+         * Display suggestions with the listed states at the top of the suggestion list, as well as those listed in prefer_cities. Examples: UT;ID;MT
+         *
+         * See [preferencing](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-preference) for more information.
+         */
+        preferStates: string[];
+        /**
+         * Display suggestions with the listed ZIP Codes at the top of the suggestion list. When this parameter is used, no other _cities or _states parameters can be used.
+         *
+         * Note: When using this parameter, the prefer_geolocation parameter MUST be set to none.
+         *
+         * See [preferencing](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-preference) for more information.
+         */
+        preferZIPCodes: string[];
+        /**
+         * Specifies the percentage of address suggestions that should be preferred and will appear at the top of the suggestion list. Expressed as an integer value, range [0, 100]. See [preferencing](https://smartystreets.com/docs/cloud/us-autocomplete-pro-api#pro-preference) for more information.
+         */
+        preferRatio: number;
+        /**
+         * If omitted or set to city, it uses the sender's IP address to determine location, then automatically adds the city and state to the prefer_cities value. This parameter takes precedence over other _include or _exclude parameters meaning that if it is not set to none, you may see addresses from the customer's area when you may not desire it.
+         *
+         * Acceptable values are: empty string (which defaults to city), none, or city.
+         *
+         * Notes:
+         * 1. If any _zip_codes parameters are used, this parameter MUST be set to none)
+         * 2. If the request to the Autocomplete Pro API goes through a proxy, you will need to set an [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For) header specifying the user's IP address.
+         */
+        preferGeolocation: string;
     }
     class Suggestion {
         constructor(responseData: any);
@@ -324,12 +474,24 @@ export namespace usAutocompletePro {
 export namespace usExtract {
     class Lookup {
         constructor(text: string);
-        result: [Result];
+        result: Result[];
         text: string;
-        html: any;
-        aggressive: any;
-        addressesHaveLineBreaks: any;
-        addressesPerLine: any;
+        /**
+         * HTML input is automatically detected and stripped, but you can manually specify whether your input is formatted as HTML by setting this to true or false.
+         */
+        html: boolean;
+        /**
+         * Aggressive mode may use more lookups on your account, but it can find addresses in populous cities without needing a state and [ZIP Code](https://smartystreets.com/docs/zip-codes-101) , as well as finding addresses in some messy inputs.
+         * @default true */
+        aggressive: boolean;
+        /**
+         * This parameter specifies if addresses in your input will ever have line breaks.
+         * @default true */
+        addressesHaveLineBreaks: boolean;
+        /**
+         * Limits the extractor to a certain number of addresses per input line. Generally, you will not need this parameter unless you are submitting structured data that you know will only have a certain number of addresses per line.
+         * @default 0 - no limit */
+        addressesPerLine: number;
     }
     class Result {
         constructor(x: { meta: any; addresses: any });
@@ -348,7 +510,7 @@ export namespace usExtract {
 export namespace internationalStreet {
     class Lookup {
         constructor(country: string, freeform: string);
-        result: [Candidate];
+        result: Candidate[];
         country: string;
         freeform: string;
         address1: string;
