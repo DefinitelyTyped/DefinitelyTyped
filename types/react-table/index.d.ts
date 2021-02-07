@@ -290,7 +290,7 @@ export interface UseTableColumnProps<D extends object> {
     getHeaderProps: (propGetter?: HeaderPropGetter<D>) => TableHeaderProps;
     getFooterProps: (propGetter?: FooterPropGetter<D>) => TableFooterProps;
     toggleHidden: (value?: boolean) => void;
-    parent: ColumnInstance<D>; // not documented
+    parent?: ColumnInstance<D>; // not documented
     getToggleHiddenProps: (userProps?: any) => any;
     depth: number; // not documented
     index: number; // not documented
