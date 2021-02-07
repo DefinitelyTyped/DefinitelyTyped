@@ -175,7 +175,7 @@ export class SimpleSchema {
   messageForError(type: any, key: any, def: any, value: any): string;
   allowsKey(key: any): string;
   newContext(): ValidationContext;
-  objectKeys(keyPrefix: any): any[];
+  objectKeys(keyPrefix?: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   validator(options?: ValidationOption): (obj: any) => boolean;
   extend(otherSchema: SimpleSchema | SimpleSchemaDefinition): SimpleSchema;
