@@ -1790,7 +1790,11 @@ declare module "fs" {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    export function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean, recursive?: boolean } | "buffer", listener?: (event: "rename" | "change", filename: Buffer) => void): FSWatcher;
+    export function watch(
+        filename: PathLike,
+        options: { encoding: "buffer", persistent?: boolean, recursive?: boolean; } | "buffer",
+        listener?: (event: "rename" | "change", filename: Buffer) => void
+    ): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
