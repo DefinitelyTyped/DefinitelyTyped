@@ -153,7 +153,7 @@ export interface TestObject {
      *
      */
     babelOptions?: Babel.TransformOptions;
-    
+
     /**
      * This can be used to pass options into your plugin at transform time.
      *
@@ -290,7 +290,10 @@ export default function pluginTester(options: PluginTesterOptions): void;
 /**
  * Formatter used for the snapshots.
  */
-export function prettierFormatter(code: string, options: Options): string;
+export function prettierFormatter(
+    code: string,
+    options?: { cwd?: string; filename?: string; config?: Options },
+): string;
 
 export const unstringSnapshotSerializer: {
     test(value: unknown): value is string;
