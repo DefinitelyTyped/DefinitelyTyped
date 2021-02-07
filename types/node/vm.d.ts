@@ -1,4 +1,8 @@
-declare module "vm" {
+declare module 'node:vm' {
+    export * from 'vm';
+}
+
+declare module 'vm' {
     interface Context extends NodeJS.Dict<any> { }
     interface BaseOptions {
         /**
