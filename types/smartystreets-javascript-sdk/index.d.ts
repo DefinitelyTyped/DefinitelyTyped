@@ -67,6 +67,7 @@ export namespace core {
         buildUsAutocompleteProClient(): Client<usAutocompletePro.Lookup, usAutocompletePro.Lookup>;
         buildUsExtractClient(): Client<usExtract.Lookup, usExtract.Lookup>;
         buildInternationalStreetClient(): Client<internationalStreet.Lookup, internationalStreet.Lookup>;
+        buildUsReverseGeoClient(): Client<usReverseGeo.Lookup, usReverseGeo.Lookup>;
     }
 
     namespace buildClient {
@@ -80,6 +81,7 @@ export namespace core {
         function internationalStreet(
             credentials: StaticCredentials | SharedCredentials,
         ): Client<internationalStreet.Lookup, internationalStreet.Lookup>;
+        function usReverseGeo(credentials: StaticCredentials | SharedCredentials): Client<usReverseGeo.Lookup, usReverseGeo.Lookup>;
     }
 
     namespace Errors {
@@ -381,5 +383,40 @@ export namespace internationalStreet {
         components: any;
         analysis: any;
         metadata: any;
+    }
+}
+
+export namespace usReverseGeo {
+    class Lookup {
+        constructor(latitude: string, longitude: string);
+        latitude: string;
+        longitude: string;
+        response: Response;
+    }
+
+    class Response {
+        constructor(responseData: any)
+        results: Result[];
+    }
+
+    interface ResultAddress {
+        street: string;
+        city: string;
+        state_abbreviation: string;
+        zipcode: string;
+    }
+
+    interface ResultCoordinate {
+        latitude: number;
+        longitude: number;
+        accuracy: string;
+        license: number;
+    }
+
+    class Result {
+        constructor(responseData: any)
+        distance: number;
+        address: ResultAddress;
+        coordinate: ResultCoordinate;
     }
 }
