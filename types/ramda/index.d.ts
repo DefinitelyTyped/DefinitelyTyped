@@ -933,6 +933,7 @@ export function lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens
  * Creates a lens that will focus on index n of the source array.
  */
 export function lensIndex<A>(n: number): Lens<A[], A>;
+export function lensIndex<A extends any[], N extends number>(n: N): Lens<A, A[N]>;
 
 /**
  * Returns a lens whose focus is the specified path.
