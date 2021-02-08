@@ -51,6 +51,7 @@ declare class Test {
     fixture(type: 'dir', content: Fixture.Spec): Fixture.Instance;
 
     testdir(spec?: Fixture.Spec): string;
+    readonly testdirName: string;
 
     context: any;
     name: string;

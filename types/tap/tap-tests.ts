@@ -249,6 +249,7 @@ tap.test('testdir', t => {
         target: {},
     });
     t.notEqual(cwd, topLevelDir);
+    t.equals(cwd, t.testdirName);
 });
 
 tap.test('fixture', t => {
