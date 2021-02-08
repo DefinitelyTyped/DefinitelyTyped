@@ -476,11 +476,10 @@ export function differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1:
 export function differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: readonly T1[]): (list2: readonly T2[]) => T1[];
 
 /*
-    * Returns a new object that does not contain a prop property.
-    */
-// It seems impossible to infer the return type, so this may to be specified explicitely
-export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc(prop: string): <U>(obj: any) => U;
+ * Returns a new object that does not contain a prop property.
+ */
+export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
+export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
 /**
  * Makes a shallow clone of an object, omitting the property at the given path.
