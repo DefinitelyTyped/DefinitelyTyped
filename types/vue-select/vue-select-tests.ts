@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueSelect, {VueSelectInstance, VueSelectProps} from 'vue-select';
+import VueSelect, { VueSelectInstance, VueSelectProps } from 'vue-select';
 
 const options = [
     {
