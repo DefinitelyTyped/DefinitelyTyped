@@ -30,17 +30,16 @@
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
 //                 Mike Deverell <https://github.com/devrelm>
 //                 Jorge Santana <https://github.com/LORDBABUINO>
+//                 Mikael Couzic <https://github.com/couzic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 4.2
 
 import * as _ from "ts-toolbelt";
 import {
-    Arity0Fn,
     Arity1Fn,
     Arity2Fn,
     AssocPartialOne,
     ComposeWithFns,
-    Dictionary,
     Evolvable,
     Evolve,
     Evolver,
@@ -366,13 +365,16 @@ export function composeWith(composer: (...args: any[]) => any): <V0, T>(fns: Com
 /**
  * Returns the result of concatenating the given lists or strings.
  */
-export function concat<T extends string | readonly any[]>(placeholder: Placeholder): (list2: T, list1: T) => T;
-export function concat<T>(placeholder: Placeholder, list2: readonly T[]): (list1: readonly T[]) => T[];
-export function concat(placeholder: Placeholder, list2: string): (list1: string) => string;
-export function concat<T>(list1: readonly T[], list2: readonly T[]): T[];
-export function concat<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
-export function concat(list1: string, list2: string): string;
-export function concat(list1: string): (list2: string) => string;
+export function concat(
+    placeholder: Placeholder,
+): (<L1 extends any[], L2 extends any[]>(list1: L1, list2: L2) => [...L1, ...L2]) &
+    (<S1 extends string, S2 extends string>(s1: S1, s2: S2) => `${S1}${S2}`);
+export function concat<L2 extends any[]>(placeholder: Placeholder, list2: L2): <L1 extends any[]>(list1: L1) => [...L1, ...L2];
+export function concat<S2 extends string>(placeholder: Placeholder, s2: S2): <S1 extends string>(s1: S1) => `${S1}${S2}`;
+export function concat<L1 extends any[]>(list1: L1): <L2 extends any[]>(list2: L2) => [...L1, ...L2];
+export function concat<S1 extends string>(s1: S1): <S2 extends string>(s2: S2) => `${S1}${S2}`;
+export function concat<L1 extends any[], L2 extends any[]>(list1: L1, list2: L2): [...L1, ...L2];
+export function concat<S1 extends string, S2 extends string>(s1: S1, s2: S2): `${S1}${S2}`;
 
 /**
  * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.

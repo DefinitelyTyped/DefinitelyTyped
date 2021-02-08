@@ -9,7 +9,7 @@ import * as R from 'ramda';
 
 () => {
   R.concat(R.__, [4, 5, 6])([1, 2, 3]); // [1, 2, 3, 4, 5, 6]
-  R.concat(R.__)([4, 5, 6], [1, 2, 3]); // [1, 2, 3, 4, 5, 6]
+  R.concat(R.__)([1, 2, 3], [4, 5, 6]); // [1, 2, 3, 4, 5, 6]
   R.concat(R.__, 'DEF')('ABC'); // 'ABCDEF'
-  R.concat(R.__)('DEF', 'ABC'); // 'ABCDEF'
+  R.concat(R.__)('ABC', 'DEF'); // 'ABCDEF'
 };
