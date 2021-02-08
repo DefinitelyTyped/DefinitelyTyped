@@ -173,7 +173,7 @@ declare namespace Task {
     type: 'ORGANIZATION';
     organization: string;
   }
-  
+
   interface TeamTaskContainer {
     type: 'TEAM';
     team: string;
