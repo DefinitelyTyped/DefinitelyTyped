@@ -3041,7 +3041,7 @@ declare namespace google.maps {
      * <code>streetViewControl</code> will be reflected in the display of such a
      * bound panorama.
      */
-    getStreetView(): google.maps.StreetViewPanorama|undefined;
+    getStreetView(): google.maps.StreetViewPanorama;
     /**
      * Returns the current angle of incidence of the map, in degrees from the
      * viewport plane to the map plane. The result will be <code>0</code> for
@@ -6249,8 +6249,10 @@ declare namespace google.maps.localContext {
              undefined)|google.maps.localContext.PlaceDetailsViewSetupOptions
         |null;
     /**
-     * The types of places to search for (up to 10).
-     * <code>Iterable&lt;string|PlaceTypePreference&gt;</code> is also accepted.
+     * The types of places to search for (up to 10). The type
+     * <code>Iterable&lt;string|PlaceTypePreference&gt;</code> is also accepted,
+     * but is only supported in browsers which natively support JavaScript
+     * Symbols.
      */
     placeTypePreferences: google.maps.localContext.PlaceTypePreference[];
   }
