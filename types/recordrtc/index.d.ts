@@ -274,7 +274,7 @@ declare class RecordRTC {
     destroy(): void;
 
     /** get recorder's state */
-    getState(): void;
+    getState(): string;
 
     /** recorder's state */
     readonly state: string;
