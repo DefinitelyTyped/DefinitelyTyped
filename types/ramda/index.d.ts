@@ -1939,7 +1939,9 @@ export function toPairs<O extends object, K extends Extract<keyof O, string | nu
  * Note that the order of the output array is not guaranteed to be
  * consistent across different JS platforms.
  */
-export function toPairsIn<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
+export function toPairsIn<O extends object, K extends Extract<keyof O, string | number>>(
+    obj: O,
+): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
 
 /**
  * Returns the string representation of the given value. eval'ing the output should
