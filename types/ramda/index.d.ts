@@ -1929,7 +1929,9 @@ export function toLower(str: string): string;
  * Note that the order of the output array is not guaranteed to be
  * consistent across different JS platforms.
  */
-export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
+export function toPairs<O extends object, K extends Extract<keyof O, string | number>>(
+    obj: O,
+): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
 
 /**
  * Converts an object into an array of key, value arrays.
