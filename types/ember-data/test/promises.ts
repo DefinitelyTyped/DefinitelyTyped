@@ -1,4 +1,6 @@
+import Ember from 'ember';
 import DS from 'ember-data';
+import RSVP from 'rsvp';
 import { assertType } from './lib/assert';
 
 declare const store: DS.Store;
@@ -18,3 +20,7 @@ const promiseFind = store.findRecord('person', 1);
 promiseFind.content; // $ExpectType Person | undefined
 
 promiseFind.get('firstName');
+
+let promiseArray = DS.PromiseArray.create({ promise: RSVP.Promise.resolve(Ember.A([1])) });
+
+let promiseObject = DS.PromiseObject.create({ promise: RSVP.Promise.resolve({ value: 1 }) });
