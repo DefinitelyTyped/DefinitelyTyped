@@ -46,6 +46,12 @@ declare class Test {
     cleanSnapshot: (s: string) => string;
     formatSnapshot: (obj: any) => string;
 
+    fixture(type: 'symlink' | 'link', content: string): Fixture.Instance;
+    fixture(type: 'file', content: string | Buffer): Fixture.Instance;
+    fixture(type: 'dir', content: Fixture.Spec): Fixture.Instance;
+
+    testdir(spec?: Fixture.Spec): string;
+
     context: any;
     name: string;
     runOnly: boolean;
@@ -325,6 +331,17 @@ declare namespace Assertions {
         message?: string,
         extra?: Options.Assert,
     ) => boolean;
+}
+
+declare namespace Fixture {
+    interface Instance {
+        type: 'symlink' | 'link' | 'file' | 'dir';
+        content: string | Buffer | Spec;
+    }
+
+    interface Spec {
+        [pathname: string]: string | Buffer | Instance | Spec;
+    }
 }
 
 interface Mocha {
