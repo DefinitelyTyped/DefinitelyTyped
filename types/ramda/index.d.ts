@@ -1918,6 +1918,7 @@ export function times<T>(fn: (i: number) => T): (n: number) => T[];
 /**
  * The lower case version of a string.
  */
+export function toLower<S extends string>(str: S): Lowercase<S>;
 export function toLower(str: string): string;
 
 /**
@@ -1951,6 +1952,7 @@ export function toString<T>(val: T): string;
 /**
  * The upper case version of a string.
  */
+export function toUpper<S extends string>(str: S): Uppercase<S>;
 export function toUpper(str: string): string;
 
 /**
