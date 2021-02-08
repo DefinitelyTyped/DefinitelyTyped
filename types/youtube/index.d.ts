@@ -660,10 +660,10 @@ declare namespace YT
         index?: number;
     }
     
-     /**
-     * The spherical video config object, including information about the 
-     * viewport headings and zoom level.
-     */
+    /**
+    * The spherical video config object, including information about the 
+    * viewport headings and zoom level.
+    */
     export interface SphericalProperties {
       enableOrientationSensor?: boolean;
       fov?: number;
