@@ -344,7 +344,7 @@ cheerio.html($el);
 cheerio.version;
 
 const doSomething = (element: cheerio.Element): void => {
-    if (element.type !== 'text') {
+    if (element.type !== 'text' && element.type !== 'comment') {
         // $ExpectType { [attr: string]: string; }
         element.attribs;
         // $ExpectType Element[]
