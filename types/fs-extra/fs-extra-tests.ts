@@ -147,7 +147,7 @@ fs.remove(dir).then(() => {
 // @ts-expect-error promise should not be returned when callback is provided.
 // tslint:disable-next-line:no-void-expression
 fs.remove(dir, errorCallback).then(() => {
-	// stub
+    // stub
 });
 fs.removeSync(dir);
 
