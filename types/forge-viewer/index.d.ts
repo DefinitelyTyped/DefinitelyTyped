@@ -23,8 +23,6 @@
 // UNINTERRUPTED OR ERROR FREE.
 //
 /// <reference types="THREE" />
-type DeprecatedGeometry = import('three/examples/jsm/deprecated/Geometry').Geometry;
-type DeprecatedFace3 = import('three/examples/jsm/deprecated/Geometry').Face3;
 
 declare namespace Autodesk {
     namespace Viewing {
@@ -617,8 +615,8 @@ declare namespace Autodesk {
             circularArcRadius: number;
             faceNormal: THREE.Vector3;
             fromTopology: boolean;
-            geomEdge: DeprecatedGeometry;
-            geomFace: DeprecatedGeometry;
+            geomEdge: ThreeDeprecated.Geometry;
+            geomFace: ThreeDeprecated.Geometry;
             geomType: number;
             geomVertex: THREE.Vector3;
             hasTopology: boolean;
@@ -635,9 +633,9 @@ declare namespace Autodesk {
             clear(): void;
             clone(): SnapResult;
             copyTo(destiny: SnapResult): void;
-            getEdge(): DeprecatedGeometry;
-            getFace(): DeprecatedGeometry;
-            getGeometry(): DeprecatedGeometry;
+            getEdge(): ThreeDeprecated.Geometry;
+            getFace(): ThreeDeprecated.Geometry;
+            getGeometry(): ThreeDeprecated.Geometry;
             getVertex(): THREE.Vector3;
             isEmpty(): boolean;
           }
@@ -1347,16 +1345,16 @@ declare namespace Autodesk {
             }
 
             namespace VertexEnumerator {
-              function enumMeshEdges(geometry: DeprecatedGeometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
-              function enumMeshIndices(geometry: DeprecatedGeometry, callback: (a: number, b: number, c: number) => void): void;
-              function enumMeshLines(geometry: DeprecatedGeometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
-              function enumMeshTriangles(geometry: DeprecatedGeometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
+              function enumMeshEdges(geometry: ThreeDeprecated.Geometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
+              function enumMeshIndices(geometry: ThreeDeprecated.Geometry, callback: (a: number, b: number, c: number) => void): void;
+              function enumMeshLines(geometry: ThreeDeprecated.Geometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
+              function enumMeshTriangles(geometry: ThreeDeprecated.Geometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
               function enumMeshVertices(
-                geometry: DeprecatedGeometry,
+                geometry: ThreeDeprecated.Geometry,
                 callback: (p: THREE.Vector3, n?: THREE.Vector3, uv?: { u: number, v: number }, idx?: number) => void,
                 matrix?: THREE.Matrix4
               ): void;
-              function getVertexCount(geom: DeprecatedGeometry): number;
+              function getVertexCount(geom: ThreeDeprecated.Geometry): number;
             }
 
             class ViewerState {
@@ -1371,7 +1369,7 @@ declare namespace Autodesk {
             interface HitTestResult {
                 dbId: number;
                 distance: number;
-                face: DeprecatedFace3;
+                face: ThreeDeprecated.Face3;
                 faceIndex: number;
                 fragId: number;
                 intersectPoint: THREE.Vector3;
@@ -1738,6 +1736,317 @@ declare namespace Autodesk {
             restoreDefault(): void;
             saveAsDefault(): void;
           }
+        }
+
+        namespace ThreeDeprecated {
+            class Geometry extends EventDispatcher {
+                constructor();
+
+                /**
+                 * Unique number of this geometry instance
+                 */
+                id: number;
+
+                uuid: string;
+
+                readonly isGeometry: true;
+
+                /**
+                 * Name for this geometry. Default is an empty string.
+                 * @default ''
+                 */
+                name: string;
+
+                /**
+                 * @default 'Geometry'
+                 */
+                type: string;
+
+                /**
+                 * The array of vertices hold every position of points of the model.
+                 * To signal an update in this array, Geometry.verticesNeedUpdate needs to be set to true.
+                 * @default []
+                 */
+                vertices: THREE.Vector3[];
+
+                /**
+                 * Array of vertex colors, matching number and order of vertices.
+                 * Used in ParticleSystem, Line and Ribbon.
+                 * Meshes use per-face-use-of-vertex colors embedded directly in faces.
+                 * To signal an update in this array, Geometry.colorsNeedUpdate needs to be set to true.
+                 * @default []
+                 */
+                colors: THREE.Color[];
+
+                /**
+                 * Array of triangles or/and quads.
+                 * The array of faces describe how each vertex in the model is connected with each other.
+                 * To signal an update in this array, Geometry.elementsNeedUpdate needs to be set to true.
+                 * @default []
+                 */
+                faces: Face3[];
+
+                /**
+                 * Array of face UV layers.
+                 * Each UV layer is an array of UV matching order and number of vertices in faces.
+                 * To signal an update in this array, Geometry.uvsNeedUpdate needs to be set to true.
+                 * @default [[]]
+                 */
+                faceVertexUvs: THREE.Vector2[][][];
+
+                /**
+                 * Array of morph targets. Each morph target is a Javascript object:
+                 *
+                 * { name: "targetName", vertices: [ new THREE.Vector3(), ... ] }
+                 *
+                 * Morph vertices match number and order of primary vertices.
+                 * @default []
+                 */
+                morphTargets: THREE.MorphTarget[];
+
+                /**
+                 * Array of morph normals. Morph normals have similar structure as morph targets, each normal set is a Javascript object:
+                 *
+                 * morphNormal = { name: "NormalName", normals: [ new THREE.Vector3(), ... ] }
+                 * @default []
+                 */
+                morphNormals: MorphNormals[];
+
+                /**
+                 * Array of skinning weights, matching number and order of vertices.
+                 * @default []
+                 */
+                skinWeights: THREE.Vector4[];
+
+                /**
+                 * Array of skinning indices, matching number and order of vertices.
+                 * @default []
+                 */
+                skinIndices: THREE.Vector4[];
+
+                /**
+                 * @default []
+                 */
+                lineDistances: number[];
+
+                /**
+                 * Bounding box.
+                 * @default null
+                 */
+                boundingBox: THREE.Box3 | null;
+
+                /**
+                 * Bounding sphere.
+                 * @default null
+                 */
+                boundingSphere: THREE.Sphere | null;
+
+                /**
+                 * Set to true if the vertices array has been updated.
+                 * @default false
+                 */
+                verticesNeedUpdate: boolean;
+
+                /**
+                 * Set to true if the faces array has been updated.
+                 * @default false
+                 */
+                elementsNeedUpdate: boolean;
+
+                /**
+                 * Set to true if the uvs array has been updated.
+                 * @default false
+                 */
+                uvsNeedUpdate: boolean;
+
+                /**
+                 * Set to true if the normals array has been updated.
+                 * @default false
+                 */
+                normalsNeedUpdate: boolean;
+
+                /**
+                 * Set to true if the colors array has been updated.
+                 * @default false
+                 */
+                colorsNeedUpdate: boolean;
+
+                /**
+                 * Set to true if the linedistances array has been updated.
+                 * @default false
+                 */
+                lineDistancesNeedUpdate: boolean;
+
+                /**
+                 *
+                 * @default false
+                 */
+                groupsNeedUpdate: boolean;
+
+                /**
+                 * Bakes matrix transform directly into vertex coordinates.
+                 */
+                applyMatrix4(matrix: THREE.Matrix4): Geometry;
+
+                rotateX(angle: number): Geometry;
+                rotateY(angle: number): Geometry;
+                rotateZ(angle: number): Geometry;
+
+                translate(x: number, y: number, z: number): Geometry;
+                scale(x: number, y: number, z: number): Geometry;
+                lookAt(vector: THREE.Vector3): void;
+
+                fromBufferGeometry(geometry: THREE.BufferGeometry): Geometry;
+
+                center(): Geometry;
+
+                normalize(): Geometry;
+
+                /**
+                 * Computes face normals.
+                 */
+                computeFaceNormals(): void;
+
+                /**
+                 * Computes vertex normals by averaging face normals.
+                 * Face normals must be existing / computed beforehand.
+                 */
+                computeVertexNormals(areaWeighted?: boolean): void;
+
+                /**
+                 * Compute vertex normals, but duplicating face normals.
+                 */
+                computeFlatVertexNormals(): void;
+
+                /**
+                 * Computes morph normals.
+                 */
+                computeMorphNormals(): void;
+
+                /**
+                 * Computes bounding box of the geometry, updating {@link Geometry.boundingBox} attribute.
+                 */
+                computeBoundingBox(): void;
+
+                /**
+                 * Computes bounding sphere of the geometry, updating Geometry.boundingSphere attribute.
+                 * Neither bounding boxes or bounding spheres are computed by default. They need to be explicitly computed, otherwise they are null.
+                 */
+                computeBoundingSphere(): void;
+
+                merge(geometry: Geometry, matrix?: THREE.Matrix, materialIndexOffset?: number): void;
+
+                mergeMesh(mesh: THREE.Mesh): void;
+
+                /**
+                 * Checks for duplicate vertices using hashmap for specified number of decimal points, e.g. 4 for epsilon of 0.0001
+                 * Duplicated vertices are removed and faces' vertices are updated.
+                 */
+                mergeVertices(precisionPoints?: number): number;
+
+                setFromPoints(points: THREE.Vector2[] | THREE.Vector3[]): this;
+
+                sortFacesByMaterialIndex(): void;
+
+                toBufferGeometry(): THREE.BufferGeometry;
+
+                static createBufferGeometryFromObject(object: THREE.Object3D): THREE.BufferGeometry;
+
+                toJSON(): any;
+
+                /**
+                 * Creates a new clone of the Geometry.
+                 */
+                clone(): Geometry;
+
+                copy(source: Geometry): this;
+
+                /**
+                 * Removes The object from memory.
+                 * Don't forget to call this method when you remove an geometry because it can cuase meomory leaks.
+                 */
+                dispose(): void;
+
+                // These properties do not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
+                bones: THREE.Bone[];
+                animation: THREE.AnimationClip;
+                animations: THREE.AnimationClip[];
+            }
+
+            interface MorphNormals {
+                name: string;
+                normals: THREE.Vector3[];
+            }
+
+            /**
+             * Triangle face.
+             */
+            class Face3 {
+                /**
+                 * @param a Vertex A index.
+                 * @param b Vertex B index.
+                 * @param c Vertex C index.
+                 * @param normal Face normal or array of vertex normals.
+                 * @param color Face color or array of vertex colors.
+                 * @param materialIndex Material index.
+                 */
+                constructor(
+                    a: number,
+                    b: number,
+                    c: number,
+                    normal?: THREE.Vector3 | THREE.Vector3[],
+                    color?: THREE.Color | THREE.Color[],
+                    materialIndex?: number,
+                );
+
+                /**
+                 * Vertex A index.
+                 */
+                a: number;
+
+                /**
+                 * Vertex B index.
+                 */
+                b: number;
+
+                /**
+                 * Vertex C index.
+                 */
+                c: number;
+
+                /**
+                 * Face normal.
+                 * @default new THREE.Vector3()
+                 */
+                normal: THREE.Vector3;
+
+                /**
+                 * Array of 3 vertex normals.
+                 * @default []
+                 */
+                vertexNormals: THREE.Vector3[];
+
+                /**
+                 * Face color.
+                 * @default new THREE.Color()
+                 */
+                color: THREE.Color;
+
+                /**
+                 * Array of 3 vertex colors.
+                 * @default []
+                 */
+                vertexColors: THREE.Color[];
+
+                /**
+                 * Material index (points to {@link Mesh.material}).
+                 * @default 0
+                 */
+                materialIndex: number;
+
+                clone(): Face3;
+                copy(source: Face3): this;
+            }
         }
     }
 
