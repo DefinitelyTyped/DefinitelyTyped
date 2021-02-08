@@ -661,9 +661,9 @@ declare namespace YT
     }
     
     /**
-    * The spherical video config object, including information about the 
-    * viewport headings and zoom level.
-    */
+     * The spherical video config object, including information about the 
+     * viewport headings and zoom level.
+     */
     export interface SphericalProperties {
       enableOrientationSensor?: boolean;
       fov?: number;
@@ -940,16 +940,16 @@ declare namespace YT
         getVideoUrl(): string;
         
         /**
-        * @returns The spherical video config object, with information about the viewport
-        * headings and zoom level.
-        */
+         * @returns The spherical video config object, with information about the viewport
+         * headings and zoom level.
+         */
         getSphericalProperties(): SphericalProperties;
 
         /**
-        * Sets the spherical video config object. The call will be No-Op for non-360
-        * videos, and will change the view port according to the input for 360
-        * videos.
-        */
+         * Sets the spherical video config object. The call will be No-Op for non-360
+         * videos, and will change the view port according to the input for 360
+         * videos.
+         */
         setSphericalProperties(option: SphericalProperties): void;
 
         /**
