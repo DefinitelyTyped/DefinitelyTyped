@@ -93,9 +93,7 @@ export interface XRSessionInit {
     requiredFeatures?: string[];
 }
 
-export interface XRSession {
-    addEventListener: () => void;
-    removeEventListener: () => void;
+export interface XRSession extends EventTarget {
     requestReferenceSpace(type: XRReferenceSpaceType): Promise<XRReferenceSpace>;
     updateRenderState(renderStateInit: XRRenderStateInit): Promise<void>;
     requestAnimationFrame(callback: XRFrameRequestCallback): number;
