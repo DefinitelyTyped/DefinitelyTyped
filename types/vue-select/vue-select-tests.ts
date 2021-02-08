@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueSelect from 'vue-select';
+import VueSelect, {VueSelectInstance, VueSelectProps} from 'vue-select';
 
 const options = [
     {
@@ -9,6 +9,12 @@ const options = [
         name: 'SomeName2'
     }
 ];
+
+const calculatePosition: VueSelectProps['calculatePosition'] = (dropdownList, component, {top, left, width}) => {
+    dropdownList.style.top = top;
+    dropdownList.style.left = left;
+    dropdownList.style.width = width;
+};
 
 new Vue({
     el: '#app',
@@ -43,7 +49,8 @@ new Vue({
         },
         optionsFilter(options: any[], search: string) {
             return true;
-        }
+        },
+        calculatePosition
     },
     template: `
     <vue-select :filterable="false"
@@ -73,6 +80,8 @@ new Vue({
                 :inputId="null"
                 dir="rtl"
                 :selectOnTab="false"
+                :appendToBody="true"
+                :calculatePosition="calculatePosition"
                 @search="onSearch"
                 @input="optionConsumer">
     </vue-select>
