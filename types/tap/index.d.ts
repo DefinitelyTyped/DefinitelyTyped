@@ -352,7 +352,7 @@ interface Mocha {
 
 // Little hack to simulate the Test class on the tap export
 interface TestConstructor {
-    new(options?: Options.Test): Test;
+    new (options?: Options.Test): Test;
     prototype: Test;
 }
 
