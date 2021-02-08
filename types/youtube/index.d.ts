@@ -660,7 +660,7 @@ declare namespace YT
         index?: number;
     }
     
-    /**
+     /**
      * The spherical video config object, including information about the 
      * viewport headings and zoom level.
      */
