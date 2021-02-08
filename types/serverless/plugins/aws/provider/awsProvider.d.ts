@@ -6,8 +6,12 @@ declare namespace Aws {
     */
     interface Serverless {
         service: Service | string;
-        frameworkVersion: string;
-        configValidationMode?: string;
+        useDotenv?: boolean;
+        frameworkVersion?: string;
+        enableLocalInstallationFallback?: boolean;
+        unresolvedVariablesNotificationMode?: 'warn' | 'error';
+        disabledDeprecations?: string[];
+        configValidationMode?: 'warn' | 'error' | 'off';
         provider: Provider;
         package?: Package;
         functions?: Functions;
@@ -22,6 +26,7 @@ declare namespace Aws {
 
     interface Service {
         name: string;
+        /** @deprecated in favor of `kmsKeyArn` at the provider level  */
         awsKmsKeyArn?: string;
     }
 
@@ -32,6 +37,7 @@ declare namespace Aws {
         region?: string;
         stackName?: string;
         apiName?: string;
+        lambdaHashingVersion?: number;
         websocketsApiName?: string;
         websocketsApiRouteSelectionExpression?: string;
         profile?: string;
@@ -41,9 +47,17 @@ declare namespace Aws {
         logRetentionInDays?: number | string;
         deploymentBucket?: DeploymentBucket;
         deploymentPrefix?: string;
+        /** @deprecated in favor of `iam.role` */
         role?: string;
+        /** @deprecated in favor of `iam.permissionsBoundary` */
         rolePermissionsBoundary?: string;
+        /** @deprecated in favor of `iam.statements` */
+        iamRoleStatements?: IamRoleStatement[];
+        /** @deprecated in favor of `iam.managedPolicies` */
+        iamManagedPolicies?: string[];
+        /** @deprecated in favor of `iam.deploymentRole` */
         cfnRole?: string;
+        iam?: IamSettings;
         versionFunctions?: boolean;
         environment?: Environment | string;
         endpointType?: 'regional' | 'edge' | 'private';
@@ -53,8 +67,6 @@ declare namespace Aws {
         httpApi?: HttpApi;
         usagePlan?: UsagePlan;
         stackTags?: Tags;
-        iamManagedPolicies?: string[];
-        iamRoleStatements?: IamRoleStatement[];
         stackPolicy?: ResourcePolicy[];
         vpc?: string | Vpc;
         notificationArns?: string[];
@@ -64,6 +76,15 @@ declare namespace Aws {
         tags?: Tags;
         tracing?: Tracing;
         logs?: Logs;
+        kmsKeyArn?: string;
+    }
+
+    interface IamSettings {
+        role?: string;
+        permissionBoundary?: string;
+        statements?: IamRoleStatement[];
+        managedPolicies?: string[];
+        deploymentRole?: string;
     }
 
     interface Tags {
@@ -93,7 +114,7 @@ declare namespace Aws {
             [key: string]: string;
         };
         websocketApiId?: any;
-        apiKeySourceType?: string;
+        apiKeySourceType?: 'HEADER' | 'AUTHORIZER' | 'header' | 'authorizer';
         minimumCompressionSize?: number | string;
         description?: string;
         binaryMediaTypes?: string[];
@@ -218,21 +239,21 @@ declare namespace Aws {
 
     interface Tracing {
         apiGateway: boolean;
-        lambda?: boolean;
+        lambda?: 'Active' | 'PassThrough' | boolean;
     }
 
     interface RestApiLogs {
         accessLogging?: boolean;
         format?: string;
         executionLogging?: boolean;
-        level?: string;
+        level?: 'INFO' | 'ERROR';
         fullExecutionData?: boolean;
         role?: string;
         roleManagedExternally?: boolean;
     }
 
     interface WebsocketLogs {
-        level?: string;
+        level?: 'INFO' | 'ERROR';
     }
 
     interface HttpApiLogs {
@@ -293,7 +314,7 @@ declare namespace Aws {
         cors?: boolean | HttpCors;
         private?: boolean;
         async?: boolean;
-        authorizer?: HttpAuthorizer;
+        authorizer?: HttpAuthorizer | string;
         request?: HttpRequestValidation;
         integration?: 'lambda' | 'mock';
     }
@@ -512,6 +533,11 @@ declare namespace Aws {
         cloudFront?: CloudFront;
     }
 
+    interface FileSystemConfig {
+        arn: string;
+        localMountPath: string;
+    }
+
     interface AwsFunction {
         name?: string;
         description?: string;
@@ -522,17 +548,21 @@ declare namespace Aws {
         timeout?: number | string;
         role?: string;
         onError?: string;
+        /** @deprecated in favor of `kmsKeyArn` */
         awsKmsKeyArn?: string;
+        kmsKeyArn?: string;
         environment?: Environment;
         tags?: Tags;
         vpc?: string | Vpc;
         package?: Package;
         layers?: Array<string | Record<string, string>>;
-        tracing?: string;
+        tracing?: 'Active' | 'PassThrough' | boolean;
         condition?: string;
         dependsOn?: string[];
+        fileSystemConfig?: FileSystemConfig;
         destinations?: Destinations;
         events?: Event[];
+        disableLogs?: boolean;
     }
 
     interface AwsFunctionHandler extends AwsFunction {
