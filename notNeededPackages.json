@@ -41,6 +41,11 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "agenda",
+            "typingsPackageName": "agenda",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "aggregate-error",
             "typingsPackageName": "aggregate-error",
             "asOfVersion": "2.2.0"
