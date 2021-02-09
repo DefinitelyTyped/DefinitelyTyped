@@ -2,7 +2,13 @@ import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
 const playerOptions: VideoJsPlayerOptions = {
     autoplay: 'muted',
+    bigPlayButton: false,
     controls: true,
+    controlBar: {
+        playToggle: false,
+        captionsButton: false,
+        chaptersButton: false,
+    },
     height: 10,
     loop: true,
     muted: true,
@@ -11,14 +17,14 @@ const playerOptions: VideoJsPlayerOptions = {
     src: 'https://example.com/video.mp4',
     width: 10,
     aspectRatio: '16:9',
-    children: [{ name: "name" }],
+    children: [{ name: 'name' }],
     fluid: false,
     inactivityTimeout: 42,
     language: 'en',
     languages: {
         en: {
-            someKey: 'someTranslation'
-        }
+            someKey: 'someTranslation',
+        },
     },
     liveui: true,
     nativeControlsForTouch: true,
@@ -26,20 +32,20 @@ const playerOptions: VideoJsPlayerOptions = {
     playbackRates: [0.5, 1],
     plugins: {
         myPlugin: {
-            myOption: true
-        }
+            myOption: true,
+        },
     },
     sources: [
         {
             src: 'https://example.com/video.mp4',
-            type: 'video/mp4'
-        }
+            type: 'video/mp4',
+        },
     ],
     techOrder: ['html5', 'anotherTech'],
     userActions: {
-        doubleClick: (event) => {},
-        hotkeys: true
-    }
+        doubleClick: event => {},
+        hotkeys: true,
+    },
 };
 
 playerOptions.userActions!.hotkeys = event => {
@@ -55,7 +61,13 @@ playerOptions.userActions!.hotkeys = {
     },
     playPauseKey: event => {
         return event.which === 42;
-    }
+    },
+};
+
+playerOptions.controlBar! = {
+    pictureInPictureToggle: false,
+    currentTimeDisplay: false,
+    timeDivider: false,
 };
 
 videojs('example_video_1', playerOptions).ready(function() {
