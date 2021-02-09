@@ -2926,6 +2926,10 @@ declare namespace videojs {
         new (tracks?: HTMLTrackElement[]): HTMLTrackElementList;
     };
 
+    interface KeyboardEvent extends EventTarget.Event {
+        readonly which: number;
+    }
+
     interface LanguageTranslations {
         [language: string]: string;
     }
@@ -5702,6 +5706,17 @@ declare namespace videojs {
         new (tracks?: Track[]): TrackList;
     };
 
+    interface UserActions {
+        doubleClick?: boolean | ((event: EventTarget.Event) => void);
+        hotkeys?: boolean | ((event: KeyboardEvent) => void) | UserActionHotkeys;
+    }
+
+    interface UserActionHotkeys {
+        fullscreenKey?: (event: KeyboardEvent) => boolean;
+        muteKey?: (event: KeyboardEvent) => boolean;
+        playPauseKey?: (event: KeyboardEvent) => boolean;
+    }
+
     /**
      * The bar that contains the volume level and can be clicked on to adjust the level
      */
@@ -6896,6 +6911,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     src?: string;
     techOrder?: string[];
     tracks?: videojs.TextTrackOptions[];
+    userActions?: videojs.UserActions;
     width?: number;
 }
 
