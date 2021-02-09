@@ -3,6 +3,9 @@ import { querySelectorDeep, querySelectorAllDeep, collectAllElementsDeep } from 
 // $ExpectType HTMLElement | null
 const doc = querySelectorDeep('document');
 
+// $ExpectType HTMLElement | null
+const doc2 = querySelectorDeep('div.test');
+
 // $ExpectError
 querySelectorDeep(42);
 // $ExpectError
