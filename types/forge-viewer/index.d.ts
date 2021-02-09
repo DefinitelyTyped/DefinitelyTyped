@@ -2083,7 +2083,7 @@ declare namespace Autodesk {
           setFreeMeasureModel(allow: boolean, useLastViewport: boolean): void;
           setIsolateMeasure(enable: boolean): void;
           setMeasurements(measurements: object[]|object): void;
-          setPrecision(): number;
+          setPrecision(precision: number): void;
           setRestoreSessionMeasurements(enable: boolean): void;
           setUnits(units: string): void;
           showAddCalibrationLabel(): void;
