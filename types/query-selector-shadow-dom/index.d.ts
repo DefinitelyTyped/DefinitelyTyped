@@ -13,7 +13,6 @@
  * // find first active download link element
  * querySelectorDeep('#downloads-list .is-active a[href^="https://"]');
  * ```
- * @author George Griffiths <https://github.com/Georgegriff>
  * @license Apache-2.0
  */
 export function querySelectorDeep(selector: string): HTMLElement | null;
@@ -23,7 +22,6 @@ export function querySelectorDeep(selector: string): HTMLElement | null;
  * Don't have to specify all shadow roots to button, tree is travered to find the correct element
  * @param selector Simple selector to filter the elements by. e.g. 'a', 'div.main'
  * @returns the HTMLElement's found or an empty array if none found
- * @author George Griffiths <https://github.com/Georgegriff>
  * @license Apache-2.0
  */
 export function querySelectorAllDeep(selector: string): HTMLElement[];
@@ -33,7 +31,6 @@ export function querySelectorAllDeep(selector: string): HTMLElement[];
  * @param selector must be null
  * @param root must be document
  * @returns all elements on the page, inclusive of those within shadow roots.
- * @author Eric Bidelman <https://github.com/ebidel>
  * @license Apache-2.0
  */
 export function collectAllElementsDeep(selector: null, root: Document): HTMLHtmlElement;
