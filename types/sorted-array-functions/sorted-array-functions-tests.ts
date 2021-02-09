@@ -25,3 +25,5 @@ sorted.gt(list, 2);
 sorted.lte(list, 2);
 
 sorted.lt(list, 2);
+
+sorted.nearest(list, 2);

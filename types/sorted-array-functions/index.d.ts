@@ -57,3 +57,5 @@ export function lte<T>(list: T[], value: T, compareFn?: CompareFn<T>): number;
  * If the value could not be found, -1 is returned.
  */
 export function lt<T>(list: T[], value: T, compareFn?: CompareFn<T>): number;
+
+export function nearest<T>(list: ReadonlyArray<T>, value: T, compareFn?: CompareFn<T>): number;
