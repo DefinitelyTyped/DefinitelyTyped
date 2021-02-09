@@ -4927,24 +4927,24 @@ declare namespace google.maps {
     /**
      * Specifies the copyright text for this panorama.
      */
-    copyright: string;
+    copyright?: string;
     /**
      * Specifies the year and month in which the imagery in this panorama was
      * acquired. The date string is in the form YYYY-MM.
      */
-    imageDate: string;
+    imageDate?: string;
     /**
      * Specifies the navigational links to adjacent panoramas.
      */
-    links: (google.maps.StreetViewLink|null)[]|null;
+    links?: google.maps.StreetViewLink[];
     /**
      * Specifies the location meta-data for this panorama.
      */
-    location: google.maps.StreetViewLocation|null;
+    location?: google.maps.StreetViewLocation;
     /**
      * Specifies the custom tiles for this panorama.
      */
-    tiles: google.maps.StreetViewTileData|null;
+    tiles: google.maps.StreetViewTileData;
   }
 }
 declare namespace google.maps {
@@ -5190,11 +5190,11 @@ declare namespace google.maps {
     /**
      * The size (in pixels) at which tiles will be rendered.
      */
-    tileSize: google.maps.Size|null;
+    tileSize: google.maps.Size;
     /**
      * The size (in pixels) of the whole panorama&#39;s &quot;world&quot;.
      */
-    worldSize: google.maps.Size|null;
+    worldSize: google.maps.Size;
   }
 }
 declare namespace google.maps {
