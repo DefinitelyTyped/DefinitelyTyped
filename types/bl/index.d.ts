@@ -1,4 +1,4 @@
-// Type definitions for BufferList v4.0.4
+// Type definitions for BufferList v4.1
 // Project: https://github.com/rvagg/bl
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Francis Gulotta <https://github.com/reconbot>
@@ -20,19 +20,19 @@ declare class BufferList {
     consume(bytes?: number): void;
     toString(encoding?: string, start?: number, end?: number): string;
     indexOf(value: string | number | Uint8Array | BufferList | Buffer, byteOffset?: number, encoding?: string): number;
-    readDoubleBE(offset?: number, noAssert?: boolean): number;
-    readDoubleLE(offset?: number, noAssert?: boolean): number;
-    readFloatBE(offset?: number, noAssert?: boolean): number;
-    readFloatLE(offset?: number, noAssert?: boolean): number;
-    readInt32BE(offset?: number, noAssert?: boolean): number;
-    readInt32LE(offset?: number, noAssert?: boolean): number;
-    readUInt32BE(offset?: number, noAssert?: boolean): number;
-    readUInt32LE(offset?: number, noAssert?: boolean): number;
-    readInt16BE(offset?: number, noAssert?: boolean): number;
-    readInt16LE(offset?: number, noAssert?: boolean): number;
-    readUInt16BE(offset?: number, noAssert?: boolean): number;
-    readUInt16LE(offset?: number, noAssert?: boolean): number;
-    readInt8(offset?: number, noAssert?: boolean): number;
-    readUInt8(offset?: number, noAssert?: boolean): number;
+    readDoubleBE(offset?: number): number;
+    readDoubleLE(offset?: number): number;
+    readFloatBE(offset?: number): number;
+    readFloatLE(offset?: number): number;
+    readInt32BE(offset?: number): number;
+    readInt32LE(offset?: number): number;
+    readUInt32BE(offset?: number): number;
+    readUInt32LE(offset?: number): number;
+    readInt16BE(offset?: number): number;
+    readInt16LE(offset?: number): number;
+    readUInt16BE(offset?: number): number;
+    readUInt16LE(offset?: number): number;
+    readInt8(offset: number): number;
+    readUInt8(offset: number): number;
 }
 export = BufferList;
