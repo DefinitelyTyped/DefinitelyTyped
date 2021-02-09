@@ -1499,7 +1499,7 @@ declare namespace Autodesk {
           }
 
           interface AddControlOptions {
-            index?: object;
+            index?: number;
             [key: string]: any;
           }
 
