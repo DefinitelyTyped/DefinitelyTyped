@@ -1,5 +1,5 @@
 // Type definitions for c-struct 0.0
-// Project: https://github.com/xdenser/node-struct#readme
+// Project: https://github.com/majimboo/c-struct#readme
 // Definitions by: Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
