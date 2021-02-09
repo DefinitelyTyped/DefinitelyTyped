@@ -1,7 +1,7 @@
-import { querySelectorDeep, querySelectorAllDeep } from 'query-selector-shadow-dom';
+import { querySelectorDeep, querySelectorAllDeep, collectAllElementsDeep } from 'query-selector-shadow-dom';
 
-// $ExpectType HTMLElement
-const doc = querySelectorDeep('document') as HTMLElement;
+// $ExpectType HTMLElement | null
+const doc = querySelectorDeep('document');
 
 // $ExpectError
 querySelectorDeep(42);
@@ -11,7 +11,7 @@ querySelectorDeep(true);
 querySelectorDeep({});
 
 // $ExpectType HTMLElement[]
-const docs = querySelectorAllDeep('document') as HTMLElement[];
+const docs = querySelectorAllDeep('document');
 
 // $ExpectError
 querySelectorAllDeep(42);
@@ -19,3 +19,9 @@ querySelectorAllDeep(42);
 querySelectorAllDeep(true);
 // $ExpectError
 querySelectorAllDeep({});
+
+// $Expect HTMLHtmlElement
+const whole1 = collectAllElementsDeep(null, document);
+
+// $ExpectError
+const whole2 = collectAllElementsDeep();
