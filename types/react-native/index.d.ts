@@ -5992,7 +5992,7 @@ interface PlatformAndroidStatic extends PlatformStatic {
         Brand: string;
         Manufacturer: string;
         ServerHost?: string;
-        uiMode: string;
+        uiMode: 'car' | 'desk' | 'normal' | 'tv' | 'watch' | 'unknown';
     };
     OS: 'android';
 }
