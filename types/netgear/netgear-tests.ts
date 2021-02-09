@@ -1,4 +1,4 @@
-import Netgear from 'netgear';
+import Netgear = require('netgear');
 
 // note: options can be passed in here. See login options.
 const router = new Netgear();
