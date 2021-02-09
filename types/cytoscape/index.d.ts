@@ -4820,7 +4820,7 @@ declare namespace cytoscape {
         // put depths in concentric circles if true, put depths top down if false
         circle: boolean;
         // the roots of the trees
-        roots?: string;
+        roots?: string[];
         // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
         maximalAdjustments: number;
     }
