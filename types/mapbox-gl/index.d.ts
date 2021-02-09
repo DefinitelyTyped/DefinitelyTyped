@@ -8,6 +8,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
 //                 André Fonseca <https://github.com/amxfonseca>
+//                 makspetrov <https://github.com/Nosfit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2070,8 +2071,8 @@ declare namespace mapboxgl {
         interactive?: boolean;
 
         filter?: any[];
-        layout?: Layout;
-        paint?: object;
+        layout?: AnyLayout;
+        paint?: AnyPaint;
     }
 
     interface BackgroundLayer extends Layer {
