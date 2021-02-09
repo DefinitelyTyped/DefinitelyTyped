@@ -6,6 +6,8 @@
 /// <reference types="node"/>
 
 export type SchemaDefinition<TObject> = { [_ in keyof TObject]: string };
+
+// tslint:disable:no-unnecessary-class
 export class Schema {
     constructor(schemaDefinition: SchemaDefinition<any>);
 }
