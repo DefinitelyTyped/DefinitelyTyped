@@ -160,6 +160,35 @@ auth.oauth.authorizationCodeGrant({
     redirect_uri: '{REDIRECT_URI}',
 });
 
+// Revoke a refresh token using a callback
+auth.tokens.revokeRefreshToken(
+    {
+        token: '{REFRESH_TOKEN}',
+        client_id: '{OPTIONAL_CLIENT_ID}',
+        client_secret: '{OPTIONAL_CLIENT_SECRET}',
+    },
+    (err: Error) => {
+        if (err) {
+            // Handle error.
+        }
+        console.log('Successful');
+    },
+);
+
+// Revoke a refresh token using a promise
+auth.tokens
+    .revokeRefreshToken({
+        token: '{REFRESH_TOKEN}',
+        client_id: '{OPTIONAL_CLIENT_ID}',
+        client_secret: '{OPTIONAL_CLIENT_SECRET}',
+    })
+    .then(() => {
+        console.log('Successful');
+    })
+    .catch(err => {
+        // Handle the error.
+    });
+
 // Update a user
 management.updateUser({ id: 'user_id' }, { email: 'hi@me.co' });
 
@@ -850,3 +879,40 @@ async () => {
     await idToken.validate('{YOUR_API_V2_TOKEN}'); // $ExpectType string
     await idToken.validate('{YOUR_API_V2_TOKEN}', defaultOptions); // $ExpectType string
 };
+
+// Token manager
+const tokenManager = new auth0.TokenManager({
+    baseUrl: 'baseUrl',
+    clientId: '{OPTIONAL_CLIENT_ID}',
+    clientSecret: '{OPTIONAL_CLIENT_SECRET}',
+    headers: '{OPTIONAL_HEADERS}',
+});
+
+// Revoke a refresh token using a callback
+tokenManager.revokeRefreshToken(
+    {
+        token: '{REFRESH_TOKEN}',
+        client_id: '{OPTIONAL_CLIENT_ID}',
+        client_secret: '{OPTIONAL_CLIENT_SECRET}',
+    },
+    (err: Error) => {
+        if (err) {
+            // Handle error.
+        }
+        console.log('Successful');
+    },
+);
+
+// Revoke a refresh token using a promise
+tokenManager
+    .revokeRefreshToken({
+        token: '{REFRESH_TOKEN}',
+        client_id: '{OPTIONAL_CLIENT_ID}',
+        client_secret: '{OPTIONAL_CLIENT_SECRET}',
+    })
+    .then(() => {
+        console.log('Successful');
+    })
+    .catch(err => {
+        // Handle the error.
+    });
