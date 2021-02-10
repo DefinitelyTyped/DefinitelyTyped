@@ -1983,8 +1983,25 @@ declare namespace videojs {
     };
 
     interface ControlBarOptions extends ComponentOptions {
-        volumePanel?: VolumePanelOptions;
-        fullscreenToggle?: boolean;
+        volumePanel?: VolumePanelOptions | false;
+        playToggle?: false;
+        captionsButton?: false;
+        chaptersButton?: false;
+        subtitlesButton?: false;
+        remainingTimeDisplay?: false;
+        progressControl?: ProgressControlOptions | false;
+        fullscreenToggle?: false;
+        playbackRateMenuButton?: false;
+        pictureInPictureToggle?: false;
+        currentTimeDisplay?: false;
+        timeDivider?: false;
+        durationDisplay?: false;
+        liveDisplay?: false;
+        seekToLive?: false;
+        customControlSpacer?: false;
+        descriptionsButton?: false;
+        subsCapsButton?: false;
+        audioTrackButton?: false;
     }
 
     /**
@@ -4190,8 +4207,12 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): ProgressControl;
+        new (player: Player, options?: ProgressControlOptions): ProgressControl;
     };
+
+    interface ProgressControlOptions extends ComponentOptions {
+        seekBar?: boolean;
+    }
 
     interface Representation {
         id: string;
@@ -6887,6 +6908,7 @@ export interface VideoJsPlayer extends videojs.Component {
 export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     aspectRatio?: string;
     autoplay?: boolean | string;
+    bigPlayButton?: boolean;
     controlBar?: videojs.ControlBarOptions | false;
     textTrackSettings?: videojs.TextTrackSettingsOptions;
     controls?: boolean;
