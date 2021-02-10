@@ -33,7 +33,7 @@ declare module "process" {
             }
 
             interface ProcessVersions {
-                [key: string]: string;
+                [key: string]: string | undefined;
                 http_parser: string;
                 node: string;
                 v8: string;
