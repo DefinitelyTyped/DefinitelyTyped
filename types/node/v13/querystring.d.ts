@@ -13,7 +13,7 @@ declare module "querystring" {
     }
 
     interface ParsedUrlQueryInput {
-        [key: string]: string | number | boolean | string[] | number[] | boolean[] | null | undefined
+        [key: string]: string | number | boolean | string[] | number[] | boolean[] | null | undefined;
     }
 
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
