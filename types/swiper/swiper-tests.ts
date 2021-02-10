@@ -788,7 +788,7 @@ function slideableNavigation() {
                 }
             },
             lazyImageReady: (slideEl, imageEl) => {
-                // 
+                //
             }
         }
     });
