@@ -369,7 +369,7 @@ declare namespace Aws {
     }
 
     interface Sns {
-        arn?: string;
+        arn?: string | { [key: string]: any };
         topicName?: string;
         displayName?: string;
         filterPolicy?: Record<string, unknown>;
