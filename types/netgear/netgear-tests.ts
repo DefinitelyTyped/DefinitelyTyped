@@ -1,7 +1,7 @@
-import Netgear = require('netgear');
+import NetgearRouter = require('netgear');
 
 // note: options can be passed in here. See login options.
-const router = new Netgear();
+const router = new NetgearRouter();
 
 // discover a netgear router, including IP address and SOAP port. The discovered address and SOAP port will override previous settings
 router
@@ -250,6 +250,6 @@ wol('AA:BB:CC:DD:EE:FF', '00:00:00:00:00:00');
 
 const a: Promise<string[]> = router.getSystemLogs();
 const b: Promise<string[]> = router.getSystemLogs(false);
-const c: Promise<Netgear.Log[]> = router.getSystemLogs(true);
+const c: Promise<NetgearRouter.Log[]> = router.getSystemLogs(true);
 
 console.log(a, b, c);

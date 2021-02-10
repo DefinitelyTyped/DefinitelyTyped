@@ -3,7 +3,7 @@
 // Definitions by: Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Netgear {
+declare namespace NetgearRouter {
     enum LoginMethod {
         Heritage = 1,
         Modern = 2,
@@ -168,29 +168,29 @@ declare namespace Netgear {
     }
 }
 
-declare class Netgear {
+declare class NetgearRouter {
     /** If you don't provide options, you must pass them to `login()` instead */
-    constructor(options?: Netgear.Options);
+    constructor(options?: NetgearRouter.Options);
 
     /** If you don't provide options, you must pass them to the `constructor()` instead */
-    login(options?: Netgear.Options): Promise<void>;
+    login(options?: NetgearRouter.Options): Promise<void>;
 
     /**
      * Discovers a netgear router in the network. Also sets the discovered ip address and soap port for this session.
      * @returns The discovered router info, including host ip address and soap port.
      */
-    discover(): Promise<Netgear.Settings>;
+    discover(): Promise<NetgearRouter.Settings>;
 
-    getSystemInfo(): Promise<Netgear.SystemInfo>;
-    getLANConfig(): Promise<Netgear.LANConfig>;
-    getWANConfig(): Promise<Netgear.WANConfig>;
+    getSystemInfo(): Promise<NetgearRouter.SystemInfo>;
+    getLANConfig(): Promise<NetgearRouter.LANConfig>;
+    getWANConfig(): Promise<NetgearRouter.WANConfig>;
     getSysUpTime(): Promise<string>;
-    getDeviceConfig(): Promise<Netgear.DeviceConfig>;
+    getDeviceConfig(): Promise<NetgearRouter.DeviceConfig>;
     /** for 2.4G */
-    getChannelInfo(): Promise<Netgear.Channel>;
-    get5GChannelInfo(): Promise<Netgear.Channel>;
-    get5GChannelInfo(): Promise<Netgear.Channel>;
-    get5G1ChannelInfo(): Promise<Netgear.Channel>;
+    getChannelInfo(): Promise<NetgearRouter.Channel>;
+    get5GChannelInfo(): Promise<NetgearRouter.Channel>;
+    get5GChannelInfo(): Promise<NetgearRouter.Channel>;
+    get5G1ChannelInfo(): Promise<NetgearRouter.Channel>;
     getSmartConnectEnabled(): Promise<boolean>;
     setSmartConnectEnabled(enabled: boolean): Promise<void>;
     getCurrentDeviceBandwidth(): Promise<string>;
@@ -216,14 +216,14 @@ declare class Netgear {
     /**
      * Get router information without need for credentials.
      */
-    getCurrentSetting(host?: string, timeout?: number): Promise<Netgear.Settings>;
+    getCurrentSetting(host?: string, timeout?: number): Promise<NetgearRouter.Settings>;
     getParentalControlEnableStatus(): Promise<boolean>;
     getQoSEnableStatus(): Promise<boolean>;
     getBlockDeviceEnableStatus(): Promise<boolean>;
-    getSupportFeatureListXML(): Promise<Netgear.SupportedFeatures>;
+    getSupportFeatureListXML(): Promise<NetgearRouter.SupportedFeatures>;
     getTrafficMeterEnabled(): Promise<boolean>;
-    getTrafficMeterOptions(): Promise<Netgear.TrafficOptions>;
-    getTrafficMeter(): Promise<Netgear.TrafficStats>;
+    getTrafficMeterOptions(): Promise<NetgearRouter.TrafficOptions>;
+    getTrafficMeter(): Promise<NetgearRouter.TrafficStats>;
     checkNewFirmware(): Promise<{
         currentVersion: string;
         newVersion: string;
@@ -240,7 +240,7 @@ declare class Netgear {
     setNetgearDeviceName(deviceName: string): Promise<void>;
     updateNewFirmware(): Promise<void>;
     /** takes 1 minute to resolve! */
-    speedTest(): Promise<Netgear.SpeedTest>;
+    speedTest(): Promise<NetgearRouter.SpeedTest>;
     reboot(): Promise<void>;
     wol(macAddress: string, secureOnPassword: string): Promise<void>;
     setQoSEnableStatus(enabled: boolean): Promise<void>;
@@ -257,20 +257,20 @@ declare class Netgear {
     }>;
     logout(): Promise<void>;
 
-    getWifiChannels(band?: Netgear.Band): Promise<Netgear.Channel[]>;
-    setWifiChannel(channel: Netgear.Channel, mode: Netgear.Band): Promise<true>;
+    getWifiChannels(band?: NetgearRouter.Band): Promise<NetgearRouter.Channel[]>;
+    setWifiChannel(channel: NetgearRouter.Channel, mode: NetgearRouter.Band): Promise<true>;
 
     setBlockDeviceEnable(enabled: boolean): Promise<true>;
     setBlockDevice(macAddress: string, action: 'Block' | 'Allow'): Promise<true>;
-    getInfo(): Promise<Netgear.Info>;
+    getInfo(): Promise<NetgearRouter.Info>;
 
-    getAttachedDevices(): Promise<Netgear.Device[]>;
+    getAttachedDevices(): Promise<NetgearRouter.Device[]>;
     getPortMappingInfo(): Promise<{
         NewPortMappingNumberOfEntries: string;
         NewPortMappingInfo: undefined;
     }>;
 
-    getSystemLogs(returnAsJson: true): Promise<Netgear.Log[]>;
+    getSystemLogs(returnAsJson: true): Promise<NetgearRouter.Log[]>;
     getSystemLogs(returnAsJson?: false): Promise<string[]>;
 
     readonly timeout: number;
@@ -278,8 +278,8 @@ declare class Netgear {
     readonly password: string;
     /** @deprecated */
     readonly lastResponse: undefined | string;
-    readonly loginMethod: Netgear.LoginMethod;
+    readonly loginMethod: NetgearRouter.LoginMethod;
     readonly cookie: string | undefined;
 }
 
-export = Netgear;
+export = NetgearRouter;
