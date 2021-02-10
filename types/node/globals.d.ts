@@ -565,10 +565,14 @@ declare namespace NodeJS {
         | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
 
+    interface NodeRequireCache {
+        [path: string]: NodeModule;
+    }
+
     interface Require {
         (id: string): any;
         resolve: RequireResolve;
-        cache: Dict<NodeModule>;
+        cache: NodeRequireCache;
         /**
          * @deprecated
          */
@@ -581,10 +585,11 @@ declare namespace NodeJS {
         paths(request: string): string[] | null;
     }
 
-    interface RequireExtensions extends Dict<(m: Module, filename: string) => any> {
+    interface RequireExtensions {
         '.js': (m: Module, filename: string) => any;
         '.json': (m: Module, filename: string) => any;
         '.node': (m: Module, filename: string) => any;
+        [ext: string]: (m: Module, filename: string) => any;
     }
     interface Module {
         exports: any;
@@ -602,13 +607,5 @@ declare namespace NodeJS {
          */
         path: string;
         paths: string[];
-    }
-
-    interface Dict<T> {
-        [key: string]: T | undefined;
-    }
-
-    interface ReadOnlyDict<T> {
-        readonly [key: string]: T | undefined;
     }
 }

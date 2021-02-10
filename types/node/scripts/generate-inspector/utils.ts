@@ -73,7 +73,7 @@ export const createDocs = ({ deprecated, description, experimental }: Documentab
  */
 export const substitute = (
     str: string,
-    args: NodeJS.Dict<string[]>,
+    args: { [propName: string]: string[] },
 ): string => {
     return str.split("\n")
         .map(line => {
@@ -81,11 +81,11 @@ export const substitute = (
             const matches = line.match(regex);
             if (matches) {
                 const [_0, prefix, argName] = matches;
-                const arg = args[argName];
-                if (arg) {
-                    return arg.map(l => prefix + l);
+                if (args[argName]) {
+                    return args[argName].map(l => prefix + l);
+                } else {
+                    return [];
                 }
-                return [];
             }
             return [line];
         })

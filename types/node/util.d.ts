@@ -12,7 +12,9 @@ declare module "util" {
     function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     function inspect(object: any, options: InspectOptions): string;
     namespace inspect {
-        let colors: NodeJS.Dict<[number, number]>;
+        let colors: {
+            [color: string]: [number, number] | undefined
+        };
         let styles: {
             [K in Style]: string
         };

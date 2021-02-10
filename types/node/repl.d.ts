@@ -154,7 +154,7 @@ declare module "repl" {
         /**
          * The commands registered via `replServer.defineCommand()`.
          */
-        readonly commands: NodeJS.ReadOnlyDict<REPLCommand>;
+        readonly commands: { readonly [name: string]: REPLCommand | undefined };
         /**
          * A value indicating whether the REPL is currently in "editor mode".
          *

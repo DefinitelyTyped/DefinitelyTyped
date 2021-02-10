@@ -4,7 +4,7 @@ declare module "http" {
     import { Socket, Server as NetServer } from "net";
 
     // incoming headers will never contain number
-    interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
+    interface IncomingHttpHeaders {
         'accept'?: string;
         'accept-language'?: string;
         'accept-patch'?: string;
@@ -67,12 +67,14 @@ declare module "http" {
         'via'?: string;
         'warning'?: string;
         'www-authenticate'?: string;
+        [header: string]: string | string[] | undefined;
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
     type OutgoingHttpHeader = number | string | string[];
 
-    interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {
+    interface OutgoingHttpHeaders {
+        [header: string]: OutgoingHttpHeader | undefined;
     }
 
     interface ClientRequestArgs {
@@ -323,7 +325,7 @@ declare module "http" {
         socket: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
-        trailers: NodeJS.Dict<string>;
+        trailers: { [key: string]: string | undefined };
         rawTrailers: string[];
         setTimeout(msecs: number, callback?: () => void): this;
         /**
@@ -381,9 +383,15 @@ declare module "http" {
         maxFreeSockets: number;
         maxSockets: number;
         maxTotalSockets: number;
-        readonly freeSockets: NodeJS.ReadOnlyDict<Socket[]>;
-        readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
-        readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
+        readonly freeSockets: {
+            readonly [key: string]: Socket[];
+        };
+        readonly sockets: {
+            readonly [key: string]: Socket[];
+        };
+        readonly requests: {
+            readonly [key: string]: IncomingMessage[];
+        };
 
         constructor(opts?: AgentOptions);
 

@@ -39,7 +39,7 @@ import * as os from 'os';
 }
 
 {
-    let result: NodeJS.Dict<os.NetworkInterfaceInfo[]>;
+    let result: { [index: string]: os.NetworkInterfaceInfo[] };
 
     result = os.networkInterfaces();
 }

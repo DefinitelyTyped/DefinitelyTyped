@@ -32,7 +32,8 @@ declare module "process" {
                 lts?: string;
             }
 
-            interface ProcessVersions extends Dict<string> {
+            interface ProcessVersions {
+                [key: string]: string;
                 http_parser: string;
                 node: string;
                 v8: string;
@@ -79,8 +80,9 @@ declare module "process" {
                 isTTY?: true;
             }
 
-            // Alias for compatibility
-            interface ProcessEnv extends Dict<string> {}
+            interface ProcessEnv {
+                [key: string]: string | undefined;
+            }
 
             interface HRTime {
                 (time?: [number, number]): [number, number];
