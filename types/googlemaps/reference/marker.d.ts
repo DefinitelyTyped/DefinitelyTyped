@@ -461,7 +461,7 @@ declare namespace google.maps {
         /**
          * The className property of the label's element (equivalent to the element's class attribute).
          * Multiple space-separated CSS classes can be added. Default is no CSS class (an empty string).
-         * The font color, size, weight, and family can only be set via the other properties of MarkerLabel.
+         * The font color, size, weight, and family can only be set via the other properties of {@link MarkerLabel}.
          * CSS classes should not be used to change the position nor
          * orientation of the label (e.g. using translations and rotations) if also using marker collision management.
          * @default ''
