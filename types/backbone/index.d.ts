@@ -20,6 +20,10 @@ export as namespace Backbone;
 import * as _ from 'underscore';
 
 declare namespace Backbone {
+    type _Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+    type _Result<T> = T | (() => T);
+    type _StringKey<T> = keyof T & string;
+
     interface AddOptions extends Silenceable {
         at?: number;
         merge?: boolean;
@@ -45,7 +49,7 @@ declare namespace Backbone {
     }
 
     interface RouterOptions {
-        routes: any;
+        routes: _Result<RoutesHash>;
     }
 
     interface Silenceable {
@@ -64,14 +68,10 @@ declare namespace Backbone {
         parse?: boolean;
     }
 
-    interface PersistenceOptions {
-        url?: string;
-        data?: any;
-        beforeSend?: (jqxhr: JQueryXHR) => void;
-        timeout?: number;
-        // TODO: copy all parameters from JQueryAjaxSettings except success/error callbacks?
-        success?: (modelOrCollection?: any, response?: any, options?: any) => void;
-        error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
+    interface PersistenceOptions extends Partial<_Omit<JQueryAjaxSettings, 'success' | 'error'>> {
+        // TODO: Generalize modelOrCollection
+        success?: (modelOrCollection: any, response: any, options: any) => void;
+        error?: (modelOrCollection: any, response: any, options: any) => void;
         emulateJSON?: boolean;
         emulateHTTP?: boolean;
     }
@@ -96,9 +96,7 @@ declare namespace Backbone {
         reset?: boolean;
     }
 
-    interface ObjectHash {
-        [key: string]: any;
-    }
+    type ObjectHash = Record<string, any>;
 
     interface RoutesHash {
         [routePattern: string]: string | { (...urlParts: string[]): void };
@@ -245,7 +243,7 @@ declare namespace Backbone {
          */
         url: () => string;
 
-        urlRoot: any;
+        urlRoot: _Result<string>;
 
         /**
          * For use with models as ES classes. If you define a preinitialize
@@ -267,7 +265,7 @@ declare namespace Backbone {
          *    return super.get("name");
          * }
          */
-        get<a extends keyof T & string>(attributeName: a): T[a];
+        get<A extends _StringKey<T>>(attributeName: A): T[A] | undefined;
 
         /**
          * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
@@ -276,9 +274,9 @@ declare namespace Backbone {
          *    super.set("name", value);
          * }
          */
-        set<a extends keyof T & string>(attributeName: a, value?: T[a], options?: S): this;
+        set<A extends _StringKey<T>>(attributeName: A, value?: T[A], options?: S): this;
         set(attributeName: Partial<T>, options?: S): this;
-        set<a extends keyof T & string>(attributeName: a | Partial<T>, value?: T[a] | S, options?: S): this;
+        set<A extends _StringKey<T>>(attributeName: A | Partial<T>, value?: T[A] | S, options?: S): this;
 
         /**
          * Return an object containing all the attributes that have changed, or
@@ -292,15 +290,15 @@ declare namespace Backbone {
         clear(options?: Silenceable): this;
         clone(): Model;
         destroy(options?: ModelDestroyOptions): JQueryXHR | false;
-        escape(attribute: keyof T & string): string;
-        has(attribute: keyof T & string): boolean;
-        hasChanged(attribute?: keyof T & string): boolean;
+        escape(attribute: _StringKey<T>): string;
+        has(attribute: _StringKey<T>): boolean;
+        hasChanged(attribute?: _StringKey<T>): boolean;
         isNew(): boolean;
         isValid(options?: any): boolean;
-        previous<a extends keyof T & string>(attribute: a): T[a] | null | undefined;
+        previous<A extends _StringKey<T>>(attribute: A): T[A] | null | undefined;
         previousAttributes(): Partial<T>;
         save(attributes?: Partial<T> | null, options?: ModelSaveOptions): JQueryXHR;
-        unset(attribute: keyof T & string, options?: Silenceable): this;
+        unset(attribute: _StringKey<T>, options?: Silenceable): this;
         validate(attributes: Partial<T>, options?: any): any;
         private _validate(attributes: Partial<T>, options: any): boolean;
 
@@ -310,12 +308,12 @@ declare namespace Backbone {
         values(): any[];
         pairs(): any[];
         invert(): any;
-        pick(keys: Array<keyof T & string>): any;
-        pick(...keys: Array<keyof T & string>): any;
-        pick(fn: (value: any, key: any, object: any) => any): any;
-        omit(keys: Array<keyof T & string>): any;
-        omit(...keys: Array<keyof T & string>): any;
-        omit(fn: (value: any, key: any, object: any) => any): any;
+        pick<A extends _StringKey<T>>(keys: A[]): Partial<Pick<T, A>>;
+        pick<A extends _StringKey<T>>(...keys: A[]): Partial<Pick<T, A>>;
+        pick(fn: (value: any, key: any, object: any) => any): Partial<T>;
+        omit<A extends _StringKey<T>>(keys: A[]): Partial<_Omit<T, A>>;
+        omit<A extends _StringKey<T>>(...keys: A[]): Partial<_Omit<T, A>>;
+        omit(fn: (value: any, key: any, object: any) => any): Partial<T>;
         chain(): any;
         isEmpty(): boolean;
         matches(attrs: any): boolean;
@@ -337,10 +335,10 @@ declare namespace Backbone {
          * before any instantiation logic is run for the Collection.
          * @see https://backbonejs.org/#Collection-preinitialize
          */
-        preinitialize(models?: TModel[] | Object[], options?: any): void;
+        preinitialize(models?: TModel[] | Array<Record<string, any>>, options?: any): void;
 
-        constructor(models?: TModel[] | Object[], options?: any);
-        initialize(models?: TModel[] | Object[], options?: any): void;
+        constructor(models?: TModel[] | Array<Record<string, any>>, options?: any);
+        initialize(models?: TModel[] | Array<Record<string, any>>, options?: any): void;
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
@@ -382,7 +380,7 @@ declare namespace Backbone {
          */
         set(models?: Array<{} | TModel>, options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
-        sort(options?: Silenceable): Collection<TModel>;
+        sort(options?: Silenceable): this;
         unshift(model: TModel, options?: AddOptions): TModel;
         where(properties: any): TModel[];
         findWhere(properties: any): TModel;
@@ -466,10 +464,12 @@ declare namespace Backbone {
         /**
          * Sets the url property (or function) on a collection to reference its location on the server.
          */
-        url: string | (() => string);
+        url: _Result<string>;
 
         without(...values: TModel[]): TModel[];
     }
+
+    type RouterCallback = (...args: string[]) => void;
 
     class Router extends EventsMixin implements Events {
         /**
@@ -482,7 +482,7 @@ declare namespace Backbone {
          * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
          * That works only if you set it in the constructor or the initialize method.
          */
-        routes: RoutesHash | (() => RoutesHash);
+        routes: _Result<RoutesHash>;
 
         /**
          * For use with Router as ES classes. If you define a preinitialize method,
@@ -494,14 +494,15 @@ declare namespace Backbone {
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
-        route(route: string | RegExp, name: string, callback?: Function): Router;
-        navigate(fragment: string, options?: NavigateOptions | boolean): Router;
+        route(route: string | RegExp, name: string, callback?: RouterCallback): this;
+        route(route: string | RegExp, callback: RouterCallback): this;
+        navigate(fragment: string, options?: NavigateOptions | boolean): this;
 
-        execute(callback: Function, args: any[], name: string): void;
+        execute(callback: RouterCallback, args: string[], name: string): void;
 
-        private _bindRoutes(): void;
-        private _routeToRegExp(route: string): RegExp;
-        private _extractParameters(route: RegExp, fragment: string): string[];
+        protected _bindRoutes(): void;
+        protected _routeToRegExp(route: string): RegExp;
+        protected _extractParameters(route: RegExp, fragment: string): string[];
     }
 
     const history: History;
@@ -517,7 +518,7 @@ declare namespace Backbone {
         decodeFragment(fragment: string): string;
         getSearch(): string;
         stop(): void;
-        route(route: string | RegExp, callback: Function): number;
+        route(route: string | RegExp, callback: (fragment: string) => void): number;
         checkUrl(e?: any): void;
         getPath(): string;
         matchRoot(): boolean;
@@ -534,13 +535,15 @@ declare namespace Backbone {
         model?: TModel;
         // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
         collection?: Collection<any>; // was: Collection<TModel>;
-        el?: any;
-        events?: EventsHash;
+        el?: HTMLElement | JQuery | string;
         id?: string;
+        attributes?: Record<string, any>;
         className?: string;
         tagName?: string;
-        attributes?: { [id: string]: any };
+        events?: _Result<EventsHash>;
     }
+
+    type ViewEventListener = (event: JQuery.Event) => void;
 
     class View<TModel extends Model = Model> extends EventsMixin implements Events {
         /**
@@ -568,26 +571,28 @@ declare namespace Backbone {
 
         model: TModel;
         collection: Collection<TModel>;
-        // template: (json, options?) => string;
-        setElement(element: HTMLElement | JQuery, delegate?: boolean): View<TModel>;
-        setElement(element: any): View<TModel>;
-        id: string;
+        setElement(element: HTMLElement | JQuery): this;
+        id?: string;
         cid: string;
-        className: string;
+        className?: string;
         tagName: string;
 
-        el: any;
+        el: HTMLElement;
         $el: JQuery;
-        attributes: any;
+        attributes: Record<string, any>;
         $(selector: string): JQuery;
-        render(): View<TModel>;
-        remove(): View<TModel>;
-        delegateEvents(events?: EventsHash): any;
-        delegate(eventName: string, selector: string, listener: Function): View<TModel>;
-        undelegateEvents(): any;
-        undelegate(eventName: string, selector?: string, listener?: Function): View<TModel>;
+        render(): this;
+        remove(): this;
+        delegateEvents(events?: _Result<EventsHash>): this;
+        delegate(eventName: string, selector: string, listener: ViewEventListener): this;
+        undelegateEvents(): this;
+        undelegate(eventName: string, selector?: string, listener?: ViewEventListener): this;
 
-        _ensureElement(): void;
+        protected _removeElement(): void;
+        protected _setElement(el: HTMLElement | JQuery): void;
+        protected _createElement(tagName: string): void;
+        protected _ensureElement(): void;
+        protected _setAttributes(attributes: Record<string, any>): void;
     }
 
     // SYNC

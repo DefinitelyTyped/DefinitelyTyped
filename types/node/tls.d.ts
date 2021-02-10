@@ -385,7 +385,7 @@ declare module "tls" {
         rejectUnauthorized?: boolean;
     }
 
-    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
+    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions, net.ServerOpts {
         /**
          * Abort the connection if the SSL/TLS handshake does not finish in the
          * specified number of milliseconds. A 'tlsClientError' is emitted on
@@ -471,6 +471,9 @@ declare module "tls" {
     }
 
     class Server extends net.Server {
+        constructor(secureConnectionListener?: (socket: TLSSocket) => void);
+        constructor(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void);
+
         /**
          * The server.addContext() method adds a secure context that will be
          * used if the client request's SNI name matches the supplied hostname

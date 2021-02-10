@@ -365,7 +365,38 @@ function test_timeline() {
             [ 'Adams',      new Date(1797, 2, 3),  new Date(1801, 2, 3) ],
             [ 'Jefferson',  new Date(1801, 2, 3),  new Date(1809, 2, 3) ]]);
 
-        chart.draw(dataTable);
+        chart.draw(dataTable, {
+            avoidOverlappingGridLines: true,
+            backgroundColor: 'white',
+            colors: ['red','#004411'],
+            enableInteractivity: true,
+            fontName: 'Arial',
+            fontSize: 16,
+            forceIFrame: false,
+            height: 100,
+            timeline: {
+                barLabelStyle: {
+                    color: 'white',
+                    fontName: 'Arial',
+                    fontSize: 16
+                },
+                colorByRowLabel: false,
+                groupByRowLabel: true,
+                rowLabelStyle: {
+                    color: 'white',
+                    fontName: 'Arial',
+                    fontSize: 16
+                },
+                showBarLabels: true,
+                showRowLabels: true,
+                singleColor: null,
+            },
+            tooltip: {
+                isHtml: true,
+                trigger: 'focus'
+            },
+            width: 100,
+        });
     }
 }
 

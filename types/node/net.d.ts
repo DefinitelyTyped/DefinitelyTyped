@@ -178,10 +178,22 @@ declare module "net" {
         ipv6Only?: boolean;
     }
 
+    interface ServerOpts {
+        /**
+         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
+         */
+        allowHalfOpen?: boolean;
+
+        /**
+         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
+         */
+        pauseOnConnect?: boolean;
+    }
+
     // https://github.com/nodejs/node/blob/master/lib/net.js
     class Server extends events.EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
-        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+        constructor(options?: ServerOpts, connectionListener?: (socket: Socket) => void);
 
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
         listen(port?: number, hostname?: string, listeningListener?: () => void): this;
@@ -256,7 +268,7 @@ declare module "net" {
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
 
     function createServer(connectionListener?: (socket: Socket) => void): Server;
-    function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
+    function createServer(options?: ServerOpts, connectionListener?: (socket: Socket) => void): Server;
     function connect(options: NetConnectOpts, connectionListener?: () => void): Socket;
     function connect(port: number, host?: string, connectionListener?: () => void): Socket;
     function connect(path: string, connectionListener?: () => void): Socket;

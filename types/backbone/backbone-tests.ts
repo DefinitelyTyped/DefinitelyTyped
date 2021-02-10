@@ -93,7 +93,7 @@ class SettingDefaults extends Backbone.Model {
 }
 
 class FullyTyped extends Backbone.Model<{ iLikeBacon: boolean; iLikeToast: boolean }> {
-    getILikeBacon(): boolean {
+    getILikeBacon(): boolean | undefined {
         return this.get('iLikeBacon');
     }
 
@@ -221,7 +221,7 @@ class Library extends Backbone.Collection<Book> {
     // is not necessary in working code as it is automatically inferred through generics.
     model: typeof Book;
 
-    constructor(models?: Book[] | Object[], options?: any) {
+    constructor(models?: Book[] | Array<Record<string, any>>, options?: any) {
         super(models, options);
 
         // Test comparator allowed types.
@@ -527,15 +527,6 @@ namespace v1Changes {
         }
     }
 
-    namespace Router {
-        function test_navigate() {
-            const router = new Backbone.Router();
-
-            router.navigate('/employees', { trigger: true });
-            router.navigate('/employees', true);
-        }
-    }
-
     namespace Sync {
         // Test for Backbone.sync override.
         Backbone.sync('create', new Employee());
@@ -580,7 +571,7 @@ function testTypedModel() {
     model.set('stringAttr', 1); // $ExpectError
     model.set('stringAttr', 'stringValue'); // $ExpectType TypedModel
     model.get('unknownAttr'); // $ExpectError
-    model.get('stringAttr'); // $ExpectType string
+    model.get('stringAttr'); // $ExpectType string | undefined
     model.attributes; // $ExpectType Partial<TypedModelAttributes>
     model.changedAttributes(); // $ExpectType false | Partial<TypedModelAttributes>
     model.changedAttributes({ unknownAttr: 1 }); // $ExpectError
@@ -606,9 +597,34 @@ function testTypedModel() {
     model.pick('unknownAttr'); // $ExpectError
     model.pick(['unknownAttr', 'numberAttr']); // $ExpectError
     model.pick('stringAttr', 'numberAttr');
+    model.pick(['stringAttr'])['numberAttr']; // $ExpectError
+    model.pick(['stringAttr'])['stringAttr']; // $ExpectType string | undefined
     model.pick(['stringAttr', 'numberAttr']);
     model.omit('unknownAttr'); // $ExpectError
     model.omit(['unknownAttr', 'numberAttr']); // $ExpectError
+    model.omit(['stringAttr'])['numberAttr']; // $ExpectType number | undefined
+    model.omit(['stringAttr'])['stringAttr']; // $ExpectError
     model.omit('stringAttr', 'numberAttr');
     model.omit(['stringAttr', 'numberAttr']);
+}
+
+function testRouter() {
+    let router = new Backbone.Router();
+    router = new Backbone.Router({
+        routes: {
+            help: 'help', // #help
+            'search/:query': 'search', // #search/kiwis
+            'search/:query/p:page': 'search', // #search/kiwis/p7
+        },
+    });
+
+    router = new Backbone.Router({ routes: 'not object' }); // $ExpectError
+
+    router.route('search/:query/p:num', 'search', (query, num) => {});
+    router.route(/search/, (query, num) => {});
+
+    router.navigate('/employees', true);
+    router.navigate('help/troubleshooting', { trigger: true, replace: true });
+
+    router.execute((param1, param2) => {}, ['param1', 'param2'], 'routeName');
 }

@@ -42,6 +42,11 @@ async function example_3() {
     await port.open({ baudRate: 115200 });
 }
 
+async function example_3b() {
+    const port = await navigator.serial.requestPort();
+    const info = port.getInfo();
+}
+
 /*~ https://wicg.github.io/serial/#readable-example */
 
 async function example_4() {
