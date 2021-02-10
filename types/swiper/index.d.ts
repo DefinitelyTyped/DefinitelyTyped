@@ -227,7 +227,11 @@ export interface SwiperOptions {
     /**
      * Register event handlers.
      */
-    on?: { [key in SwiperEvent]?: () => void };
+    on?: {
+        [key in Exclude<SwiperEvent, LazyLoadingEvent>]?: (swiper: Swiper) => void;
+    } & {
+        [key in LazyLoadingEvent]?: (slideEl: HTMLElement, imageEl: HTMLImageElement) => void;
+    };
 
     // CSS Scroll Snap
 
