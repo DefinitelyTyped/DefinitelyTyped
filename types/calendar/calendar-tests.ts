@@ -15,9 +15,3 @@ cal.monthDates(
     date => date.getMonth() === month ? date.getDate().toString() : '&nbsp;',
     week => week.join('</td><td>'),
 );
-
-// $ExpectType number[][]
-cal.monthDays(
-    year,
-    month,
-);
