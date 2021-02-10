@@ -376,7 +376,7 @@ export class Duration {
 // @deprecated
 export type EraLength = StringUnitLength;
 
-export type NumberingSystem =
+export type NumberingSystem = Intl.DateTimeFormatOptions extends { numberingSystem?: infer T } ? T :
     | 'arab'
     | 'arabext'
     | 'bali'
@@ -400,7 +400,7 @@ export type NumberingSystem =
     | 'thai'
     | 'tibt';
 
-export type CalendarSystem =
+export type CalendarSystem = Intl.DateTimeFormatOptions extends { calendar?: infer T } ? T :
     | 'buddhist'
     | 'chinese'
     | 'coptic'
