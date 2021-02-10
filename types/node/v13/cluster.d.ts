@@ -100,7 +100,7 @@ declare module "cluster" {
         settings: ClusterSettings;
         setupMaster(settings?: ClusterSettings): void;
         worker?: Worker;
-        workers?: NodeJS.Dict<Worker>;
+        workers?: { [key: string]: Worker | undefined };
 
         readonly SCHED_NONE: number;
         readonly SCHED_RR: number;
@@ -182,7 +182,7 @@ declare module "cluster" {
     const settings: ClusterSettings;
     function setupMaster(settings?: ClusterSettings): void;
     const worker: Worker;
-    const workers: NodeJS.Dict<Worker>;
+    const workers: { [key: string]: Worker | undefined };
 
     /**
      * events.EventEmitter

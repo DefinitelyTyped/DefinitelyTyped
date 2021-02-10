@@ -5,7 +5,8 @@ declare module "http" {
     import { Socket, Server as NetServer } from "net";
 
     // incoming headers will never contain number
-    interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
+    interface IncomingHttpHeaders {
+        [key: string]: string | string[] | undefined;
         'accept'?: string;
         'accept-language'?: string;
         'accept-patch'?: string;
@@ -66,7 +67,8 @@ declare module "http" {
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
-    interface OutgoingHttpHeaders extends NodeJS.Dict<number | string | string[]> {
+    interface OutgoingHttpHeaders {
+        [key: string]: number | string | string[] | undefined;
     }
 
     interface ClientRequestArgs {
@@ -313,7 +315,7 @@ declare module "http" {
         socket: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
-        trailers: NodeJS.Dict<string>;
+        trailers: { [key: string]: string | undefined };
         rawTrailers: string[];
         setTimeout(msecs: number, callback?: () => void): this;
         /**
@@ -362,8 +364,8 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
-        readonly sockets: NodeJS.ReadOnlyDict<Socket[]>;
-        readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
+        readonly sockets: { readonly [key: string]: Socket[] | undefined };
+        readonly requests: { readonly [key: string]: IncomingMessage[] | undefined };
 
         constructor(opts?: AgentOptions);
 

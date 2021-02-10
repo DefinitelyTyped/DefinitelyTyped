@@ -154,7 +154,7 @@ import * as net from 'net';
 
     agent = http.globalAgent;
 
-    let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
+    let sockets: { readonly [key: string]: net.Socket[] | undefined } = agent.sockets;
     sockets = agent.freeSockets;
 
     http.request({ agent: false });

@@ -56,7 +56,7 @@ import * as trace_events from "trace_events";
 
     agent = https.globalAgent;
 
-    let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
+    let sockets: { readonly [key: string]: net.Socket[] | undefined } = agent.sockets;
     sockets = agent.freeSockets;
 
     https.request({

@@ -46,7 +46,7 @@ declare module "os" {
     function cpus(): CpuInfo[];
     function type(): string;
     function release(): string;
-    function networkInterfaces(): NodeJS.Dict<NetworkInterfaceInfo[]>;
+    function networkInterfaces(): { [key: string]: NetworkInterfaceInfo[] | undefined };
     function homedir(): string;
     function userInfo(options: { encoding: 'buffer' }): UserInfo<Buffer>;
     function userInfo(options?: { encoding: string }): UserInfo<string>;
