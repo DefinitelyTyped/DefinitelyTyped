@@ -15,7 +15,7 @@ export class Calendar {
     constructor(firstWeekDay?: number);
 
     monthDates(year: number, month: number, dayFormatter?: DayFormatter, weekFormatter?: WeekFormatter): Date[][];
-    monthDays(year: number, month: number): Date[][];
+    monthDays(year: number, month: number): number[][];
     monthText(): string;
     monthText(year: number, month: number): string;
     weekStartDate(date: Date): Date;
