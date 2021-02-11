@@ -122,21 +122,17 @@ declare namespace resolve {
     realpath?: (file: string, cb: realpathCallback) => void;
   }
 
-  interface AsyncOptsWithReadFile extends BaseAsyncOpts {
+  export type AsyncOpts = BaseAsyncOpts & ({
     /** how to read files asynchronously (defaults to fs.readFile) */
     readFile?: (file: string, cb: readFileCallback) => void;
     /** function to asynchronously read and parse a package.json file */
     readPackage?: never;
-  }
-
-  interface AsyncOptsWithReadPackage extends BaseAsyncOpts {
+  } | {
     /** how to read files asynchronously (defaults to fs.readFile) */
-    readFile?: never;
+    readFile?: never
     /** function to asynchronously read and parse a package.json file */
     readPackage?: (readFile: (file: string, cb: readFileCallback) => void, pkgfile: string, cb: readPackageCallback) => void;
-  }
-
-  export type AsyncOpts = AsyncOptsWithReadFile | AsyncOptsWithReadPackage;
+  });
 
   interface BaseSyncOpts extends Opts {
     /** function to synchronously test whether a file exists */
@@ -147,21 +143,17 @@ declare namespace resolve {
     realpathSync?: (file: string) => string;
   }
 
-  interface SyncOptsWithReadFile extends BaseSyncOpts {
+  export type SyncOpts = BaseSyncOpts & ({
     /** how to read files synchronously (defaults to fs.readFileSync) */
     readFileSync?: (file: string) => string | Buffer;
     /** function to synchronously read and parse a package.json file */
     readPackageSync?: never;
-  }
-
-  interface SyncOptsWithReadPackage extends BaseSyncOpts {
+  } | {
     /** how to read files synchronously (defaults to fs.readFileSync) */
     readFileSync?: never;
     /** function to synchronously read and parse a package.json file */
     readPackageSync?: (readFileSync: (file: string) => string | Buffer, pkgfile: string) => unknown;
-  }
-
-  export type SyncOpts = SyncOptsWithReadFile | SyncOptsWithReadPackage;
+  });
 
   export var sync: typeof resolveSync;
   export var isCore: typeof resolveIsCore;
