@@ -1,4 +1,4 @@
-// NOTE: These definitions support NodeJS and TypeScript 4.1.
+// NOTE: These definitions support NodeJS and TypeScript 3.7.
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
@@ -13,7 +13,7 @@
 /// <reference lib="esnext.bigint" />
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
-/// <reference path="ts3.6/base.d.ts" />
+/// <reference path="../ts3.6/base.d.ts" />
 
 // TypeScript 3.7-specific augmentations:
-/// <reference path="assert.d.ts" />
+/// <reference path="../assert.d.ts" />

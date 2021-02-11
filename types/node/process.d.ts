@@ -32,7 +32,13 @@ declare module "process" {
                 lts?: string;
             }
 
-            interface ProcessVersions extends Dict<string> {
+            // This interface may be augmented with optional properties.
+            // TypeScript has an issue whereby it adds `undefined` to the value
+            // of optional properties. As a workaround to this, we have to add
+            // `undefined` to the index signature, so that optional properties
+            // will be allowed.
+            // https://github.com/microsoft/TypeScript/issues/13195#issuecomment-775930240
+            interface ProcessVersions extends Dict<string | undefined> {
                 http_parser: string;
                 node: string;
                 v8: string;

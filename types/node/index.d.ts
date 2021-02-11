@@ -47,10 +47,12 @@
 //                 Yongsheng Zhang <https://github.com/ZYSzys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// NOTE: These definitions support NodeJS and TypeScript 3.7.
+// NOTE: These definitions support NodeJS and TypeScript 4.1.
 // Typically type modifications should be made in base.d.ts instead of here
 
 /// <reference path="base.d.ts" />
+
+/// <reference path="globals.dict.d.ts" />
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions

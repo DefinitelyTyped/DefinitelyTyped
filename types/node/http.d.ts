@@ -4,7 +4,12 @@ declare module "http" {
     import { Socket, Server as NetServer } from "net";
 
     // incoming headers will never contain number
-    interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
+    // This interface contains optional properties. TypeScript has an issue
+    // whereby it adds `undefined` to the value of optional properties. As a
+    // workaround to this, we have to add `undefined` to the index signature, so
+    // that optional properties will be allowed.
+    // https://github.com/microsoft/TypeScript/issues/13195#issuecomment-775930240
+    interface IncomingHttpHeaders extends NodeJS.Dict<string | string[] | undefined> {
         'accept'?: string;
         'accept-language'?: string;
         'accept-patch'?: string;

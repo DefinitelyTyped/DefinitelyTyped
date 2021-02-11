@@ -5,3 +5,4 @@
 /// <reference path="base.d.ts" />
 
 /// <reference path="../ts3.4/assert.d.ts" />
+/// <reference path="../ts3.4/globals.dict.d.ts" />

@@ -603,12 +603,4 @@ declare namespace NodeJS {
         path: string;
         paths: string[];
     }
-
-    interface Dict<T> {
-        [key: string]: T | undefined;
-    }
-
-    interface ReadOnlyDict<T> {
-        readonly [key: string]: T | undefined;
-    }
 }

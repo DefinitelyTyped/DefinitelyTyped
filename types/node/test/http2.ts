@@ -45,7 +45,6 @@ import { URL } from 'url';
         ':status': 200,
         'content-type': 'text-plain',
         ABC: ['has', 'more', 'than', 'one', 'value'],
-        undef: undefined
     };
 
     const settings: Settings = {

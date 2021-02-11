@@ -80,7 +80,7 @@ import { EventEmitter } from "events";
     const arrayBuffers: number = usage.arrayBuffers;
 }
 {
-    let strDict: NodeJS.Dict<string>;
+    let strDict: NodeJS.Dict<string | undefined>;
     strDict = process.versions;
     strDict = p.versions;
 }

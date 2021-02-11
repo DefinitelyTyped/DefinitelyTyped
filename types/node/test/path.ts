@@ -85,7 +85,8 @@ path.extname('index');
 // returns
 //        ['foo', 'bar', 'baz']
 
-process.env["PATH"]; // $ExpectType string | undefined
+// This will include `undefined` when `noUncheckedIndexedAccess` is enabled.
+process.env["PATH"]; // $ExpectType string
 
 path.parse('/home/user/dir/file.txt');
 // returns
