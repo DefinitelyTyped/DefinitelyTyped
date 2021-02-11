@@ -700,6 +700,14 @@ declare namespace mapboxgl {
         /** Minimum zoom of the map. */
         minZoom?: number;
 
+        /**
+         * If true, map will prioritize rendering for performance by reordering layers
+         * If false, layers will always be drawn in the specified order
+         *
+         * @default true
+         */
+        optimizeForTerrain?: boolean;
+
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
         preserveDrawingBuffer?: boolean;
 
@@ -1209,6 +1217,7 @@ declare namespace mapboxgl {
         light?: Light;
         sources?: Sources;
         sprite?: string;
+        terrain?: TerrainSpecification;
         transition?: Transition;
         version: number;
         zoom?: number;
