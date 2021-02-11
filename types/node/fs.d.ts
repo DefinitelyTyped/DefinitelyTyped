@@ -1778,7 +1778,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | BufferEncoding | undefined | null,
-        listener?: (event: string, filename: string) => void,
+        listener?: (event: "rename" | "change", filename: string) => void,
     ): FSWatcher;
 
     /**
@@ -1790,7 +1790,11 @@ declare module "fs" {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    export function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean, recursive?: boolean } | "buffer", listener?: (event: string, filename: Buffer) => void): FSWatcher;
+    export function watch(
+        filename: PathLike,
+        options: { encoding: "buffer", persistent?: boolean, recursive?: boolean; } | "buffer",
+        listener?: (event: "rename" | "change", filename: Buffer) => void
+    ): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -1804,7 +1808,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | string | null,
-        listener?: (event: string, filename: string | Buffer) => void,
+        listener?: (event: "rename" | "change", filename: string | Buffer) => void,
     ): FSWatcher;
 
     /**
@@ -1812,7 +1816,7 @@ declare module "fs" {
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    export function watch(filename: PathLike, listener?: (event: string, filename: string) => any): FSWatcher;
+    export function watch(filename: PathLike, listener?: (event: "rename" | "change", filename: string) => any): FSWatcher;
 
     /**
      * Asynchronously tests whether or not the given path exists by checking with the file system.
