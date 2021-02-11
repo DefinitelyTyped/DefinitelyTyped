@@ -100,8 +100,13 @@ function test_options_sync() {
     });
     console.log(resolved);
     resolved = resolve.sync('typescript', {
-        readFileSync(file, charset) {
-            return fs.readFileSync(file, charset);
+        readFileSync(file) {
+            return fs.readFileSync(file);
+        },
+    });
+    resolved = resolve.sync('typescript', {
+        readPackageSync(readFileSync, file) {
+            return JSON.parse(readFileSync(file));
         },
     });
 }
