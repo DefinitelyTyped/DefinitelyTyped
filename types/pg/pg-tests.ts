@@ -189,6 +189,9 @@ clientCustomQueryTypes
 const customTypeOverrides = new TypeOverrides();
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
+const customCustomTypeOverrides = new TypeOverrides(customTypes);
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
 // pg.Pool
 // https://node-postgres.com/api/pool
 
