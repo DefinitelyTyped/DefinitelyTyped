@@ -1371,7 +1371,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     ): Promise<TSchema | null>;
     findOne<T = TSchema>(
         filter: FilterQuery<TSchema>,
-        options: FindOneOptions<T extends TSchema ? TSchema : T>,
+        options?: FindOneOptions<T extends TSchema ? TSchema : T>,
     ): Promise<T | null>;
     findOne(
         filter: FilterQuery<TSchema>,
