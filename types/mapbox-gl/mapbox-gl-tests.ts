@@ -75,6 +75,7 @@ let map = new mapboxgl.Map({
         'FullscreenControl.Enter': 'Розгорнути на весь екран',
         'FullscreenControl.Exit': 'Вийти з повоноеранного режиму',
     },
+    optimizeForTerrain: false,
 });
 
 /**
@@ -447,6 +448,24 @@ popup.removeClassName('class2');
 popup.toggleClassName('class3');
 // $ExpectType Popup
 popup.setOffset([10, 20]);
+
+/**
+ * Add terrain
+ */
+const terrainStyle: mapboxgl.Style = {
+    version: 8,
+    name: 'terrain',
+    sources: {
+        dem: {
+            type: 'raster-dem',
+            url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        }
+    },
+    terrain: {
+        source: 'dem',
+        exaggeration: 1.5,
+    }
+};
 
 /**
  * Add an image
