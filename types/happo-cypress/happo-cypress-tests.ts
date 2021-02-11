@@ -1,10 +1,13 @@
 /// <reference types="Cypress" />
 import 'happo-cypress';
 
-cy.get('foo').happoSnapshot(); // $ExpectType void
+// $ExpectType void
+cy.get('foo').happoSnapshot();
 
-cy.get('foo').happoSnapshot({}); // $ExpectType void
+// $ExpectType void
+cy.get('foo').happoSnapshot({});
 
+// $ExpectType void
 cy.get('foo').happoSnapshot({
     component: 'Header',
     variant: 'dark',
@@ -14,16 +17,19 @@ cy.get('foo').happoSnapshot({
         selector: 'iframe',
         transform: (element) => element,
     }
-}); // $ExpectType void
+});
 
-cy.happoHideDynamicElements(); // $ExpectType void
+// $ExpectType void
+cy.happoHideDynamicElements();
 
-cy.happoHideDynamicElements({}); // $ExpectType void
+// $ExpectType void
+cy.happoHideDynamicElements({});
 
+// $ExpectType void
 cy.happoHideDynamicElements({
     matchers: [/liked by [0-9]+ people/],
     defaultMatchers: [/liked by [0-9]+ people/],
     selectors: ['iframe'],
     defaultSelectors: ['iframe'],
     replace: true,
-}); // $ExpectType void
+});
