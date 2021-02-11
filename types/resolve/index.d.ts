@@ -1,4 +1,4 @@
-// Type definitions for resolve 1.19.0
+// Type definitions for resolve 1.20.0
 // Project: https://github.com/browserify/resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
 //                 Klaus Meinhardt <https://github.com/ajafff>
@@ -43,6 +43,14 @@ type readFileCallback = (err: Error | null, file?: Buffer) => void;
  * @param resolved Absolute path to the resolved file
  */
 type realpathCallback = (err: Error | null, resolved?: string) => void;
+
+/**
+ * Callback invoked when reading and parsing a package.json file
+ *
+ * @param error
+ * @param resolved Absolute path to the resolved file
+ */
+type readPackageCallback = (err: Error | null, package?: unknown>) => void;
 
 /**
  * Asynchronously resolve the module path string id into cb(err, res [, pkg]), where pkg (if defined) is the data from package.json
@@ -113,17 +121,21 @@ declare namespace resolve {
     isDirectory?: (directory: string, cb: existsCallback) => void;
     /** function to asynchronously resolve a potential symlink to its real path */
     realpath?: (file: string, cb: realpathCallback) => void;
+    /** function to asynchronously read and parse a package.json file */
+    readPackage?: (readFile: (file: string, cb: readFileCallback) => void, pkgfile: string, cb: readPackageCallback) => void;
   }
 
   export interface SyncOpts extends Opts {
     /** how to read files synchronously (defaults to fs.readFileSync) */
-    readFileSync?: (file: string, encoding: BufferEncoding) => string | Buffer;
+    readFileSync?: (file: string) => string | Buffer;
     /** function to synchronously test whether a file exists */
     isFile?: (file: string) => boolean;
     /** function to synchronously test whether a directory exists */
     isDirectory?: (directory: string) => boolean;
     /** function to synchronously resolve a potential symlink to its real path */
     realpathSync?: (file: string) => string;
+    /** function to synchronously read and parse a package.json file */
+    readPackageSync?: (readFileSync: (file: string) => string | Buffer, pkgfile: string) => unknown;
   }
 
   export var sync: typeof resolveSync;
