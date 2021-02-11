@@ -109,7 +109,7 @@ declare namespace resolve {
      *
      * Note: this property is currently true by default but it will be changed to false in the next major version because Node's resolution
      * algorithm does not preserve symlinks by default.
-    */
+     */
     preserveSymlinks?: boolean;
   }
 
@@ -125,9 +125,13 @@ declare namespace resolve {
   interface AsyncOptsWithReadFile extends BaseAsyncOpts {
     /** how to read files asynchronously (defaults to fs.readFile) */
     readFile?: (file: string, cb: readFileCallback) => void;
+    /** function to asynchronously read and parse a package.json file */
+    readPackage?: never;
   }
 
   interface AsyncOptsWithReadPackage extends BaseAsyncOpts {
+    /** how to read files asynchronously (defaults to fs.readFile) */
+    readFile?: never;
     /** function to asynchronously read and parse a package.json file */
     readPackage?: (readFile: (file: string, cb: readFileCallback) => void, pkgfile: string, cb: readPackageCallback) => void;
   }
@@ -146,9 +150,13 @@ declare namespace resolve {
   interface SyncOptsWithReadFile extends BaseSyncOpts {
     /** how to read files synchronously (defaults to fs.readFileSync) */
     readFileSync?: (file: string) => string | Buffer;
+    /** function to synchronously read and parse a package.json file */
+    readPackageSync?: never;
   }
 
   interface SyncOptsWithReadPackage extends BaseSyncOpts {
+    /** how to read files synchronously (defaults to fs.readFileSync) */
+    readFileSync?: never;
     /** function to synchronously read and parse a package.json file */
     readPackageSync?: (readFileSync: (file: string) => string | Buffer, pkgfile: string) => unknown;
   }
