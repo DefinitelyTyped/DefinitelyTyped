@@ -49,7 +49,7 @@ oboe('friends.json')
     });
 
 var bookCount = 0;
-const manualPump = oboe('').node('book', function(parsedJson) { bookCount++ });
+const manualPump = oboe().node('book', function(parsedJson) { bookCount++ });
 
 manualPump.emit('data', '[{ book: "Book 1"');
 manualPump.emit('data', '},{ book: "Book 2"');
