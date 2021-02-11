@@ -1,4 +1,3 @@
-// TODO: duplicate or extend?
 {
     "extends": "dtslint/dt.json",
     "rules": {
