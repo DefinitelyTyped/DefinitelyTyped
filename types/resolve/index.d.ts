@@ -1,6 +1,7 @@
 // Type definitions for resolve 1.20.0
 // Project: https://github.com/browserify/resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
+// Definitions by: Jordan Harband <https://github.com/ljharb>
 //                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
