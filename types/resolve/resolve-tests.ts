@@ -106,7 +106,19 @@ function test_options_sync() {
     });
     resolved = resolve.sync('typescript', {
         readPackageSync(readFileSync, file) {
-            return JSON.parse(readFileSync(file));
+            // JSON.parse in node acceps a `Buffer`, so we can cast here
+            return JSON.parse(readFileSync(file) as string);
+        },
+    });
+    // specifying both `readFile` and `readPackage` is forbidden
+    // $ExpectError
+    resolved = resolve.sync('typescript', {
+        readFileSync(file) {
+            return fs.readFileSync(file);
+        },
+        readPackageSync(readFileSync, file) {
+            // JSON.parse in node acceps a `Buffer`, so we can cast here
+            return JSON.parse(readFileSync(file) as string);
         },
     });
 }
