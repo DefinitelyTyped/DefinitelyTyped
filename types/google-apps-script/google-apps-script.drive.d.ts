@@ -182,6 +182,7 @@ declare namespace GoogleAppsScript {
       makeCopy(destination: Folder): File;
       makeCopy(name: string): File;
       makeCopy(name: string, destination: Folder): File;
+      moveTo(destination: Folder): File;
       removeCommenter(emailAddress: string): File;
       removeCommenter(user: Base.User): File;
       removeEditor(emailAddress: string): File;
