@@ -7,7 +7,6 @@
 //                 Dale Fenton <https://github.com/dalevfenton>
 //                 Håkon Holhjem <https://github.com/KngHawkon>
 //                 Christian Dornbusch <https://github.com/Chrisdo82>
-//                 Zachary Vanlancker <https://github.com/zachvanl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -485,7 +484,7 @@ export class Overlay extends React.Component<OverlayProps> {}
                     Token Props and Component
 --------------------------------------------------------------------------- */
 export interface TokenProps extends React.HTMLProps<HTMLDivElement> {
-    option: Option
+    option: Option;
     active?: boolean;
     children?: React.ReactNode;
     className?: string;
