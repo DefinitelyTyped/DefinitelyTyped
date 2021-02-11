@@ -15,8 +15,8 @@ cy.get('foo').happoSnapshot({
     responsiveInlinedCanvases: true,
     transformDOM: {
         selector: 'iframe',
-        transform: (element) => element,
-    }
+        transform: element => element,
+    },
 });
 
 // $ExpectType void
