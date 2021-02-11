@@ -24,7 +24,7 @@ import { Locale } from 'date-fns';
 export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
-export function CalendarContainer(className: string, children: React.ReactNode[], showPopperArrow: boolean, arrowProps: {}): React.ReactNode;
+export function CalendarContainer(props: { className?: string, children?: React.ReactNode, showPopperArrow?: boolean, arrowProps?: { [propName: string]: any } }): React.ReactElement;
 
 interface HighlightDates {
     [className: string]: Date[];
