@@ -664,6 +664,9 @@ map = new mapboxgl.Map({
     hash: 'customHash',
 });
 
+const syncOnce: mapboxgl.Map = map.once('load', () => {});
+const asyncOnce: Promise<mapboxgl.Map> = map.once('load');
+
 /**
  * Marker
  */

@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 2.0
+// Type definitions for Mapbox GL JS 2.1
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -539,6 +539,7 @@ declare namespace mapboxgl {
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
         once(type: string, listener: (ev: any) => void): this;
+        once(type: string): Promise<this>;
 
         off<T extends keyof MapLayerEventType>(
             type: T,
@@ -667,6 +668,13 @@ declare namespace mapboxgl {
          * only a subset of strings (thereby patching the default translation table).
          */
         locale?: { [key: string]: string };
+
+        /**
+         * Overrides the generation of all glyphs and font settings except font-weight keywords
+         * Also overrides localIdeographFontFamily
+         * @default null
+         */
+        localFontFamily?: string;
 
         /**
          * If specified, defines a CSS font-family for locally overriding generation of glyphs in the
