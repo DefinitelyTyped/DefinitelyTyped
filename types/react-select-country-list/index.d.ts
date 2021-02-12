@@ -21,8 +21,6 @@ declare namespace ReactSelectCountries {
 }
 
 declare module "react-select-country-list" {
-    export type CountryData = ReactSelectCountries.CountryData
-
     class CountryList {
         data: Array<ReactSelectCountries.CountryData>;
         labelMap: ReactSelectCountries.LabelValueMap;
