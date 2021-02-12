@@ -688,6 +688,7 @@ export interface TokenResponse {
     expires_in: number;
     scope?: string;
     id_token?: string;
+    refresh_token?: string;
 }
 
 export interface ObjectWithId {
