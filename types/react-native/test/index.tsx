@@ -1435,7 +1435,6 @@ const PlatformConstantsTest = () => {
         const host: string | undefined = Platform.constants.ServerHost;
     }
 };
-
 Platform.select({ native: 1 }); // $ExpectType number | undefined
 Platform.select({ native: 1, web: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1 }); // $ExpectType number | undefined
