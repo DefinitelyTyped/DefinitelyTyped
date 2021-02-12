@@ -1655,6 +1655,7 @@ declare module "@arangodb/foxx/sessions/transports/header" {
 declare module "@arangodb/foxx/auth" {
     interface AuthData {
         method: string;
+        iter?: number;
         salt: string;
         hash: string;
     }
@@ -1666,7 +1667,12 @@ declare module "@arangodb/foxx/auth" {
         method?: ArangoDB.HashAlgorithm;
         saltLength?: number;
     }
-    function createAuth(options?: AuthOptions): Authenticator;
+    interface Pbkdf2AuthOptions {
+        method: "pbkdf2";
+        saltLength?: number;
+        workFactor?: number;
+    }
+    function createAuth(options?: AuthOptions | Pbkdf2AuthOptions): Authenticator;
     export = createAuth;
 }
 
