@@ -90,7 +90,7 @@ Interceptor.attach(puts, {
 
 Interceptor.flush();
 
-const cm = new CModule(`
+const ccode = `
 #include <gum/gumstalker.h>
 
 void
@@ -99,7 +99,24 @@ process (const GumEvent * event,
          gpointer user_data)
 {
 }
-`);
+`;
+const cm = new CModule(ccode);
+const cm2 = new CModule(ccode, {}, {});
+const cm3 = new CModule(ccode, {}, { toolchain: "any" });
+const cm4 = new CModule(ccode, {}, { toolchain: "internal" });
+const cm5 = new CModule(ccode, {}, { toolchain: "external" });
+// $ExpectError
+const cmE = new CModule(ccode, {}, { toolchain: "nope" });
+
+const precompiledSharedLibrary = new ArrayBuffer(4 * Process.pageSize);
+const cm6 = new CModule(precompiledSharedLibrary);
+
+// $ExpectType CModuleBuiltins
+CModule.builtins;
+// $ExpectType CModuleDefines
+CModule.builtins.defines;
+// $ExpectType CModuleHeaders
+CModule.builtins.headers;
 
 Stalker.follow(Process.getCurrentThreadId(), {
     events: {
