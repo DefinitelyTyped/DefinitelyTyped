@@ -89,13 +89,6 @@ interface Padding {
     bottom?: number;
 }
 
-interface PositionCoords {
-    xi: number;
-    xl: number;
-    yi: number;
-    yl: number;
-}
-
 interface Position {
     left: number | string;
     right: number | string;
@@ -250,24 +243,6 @@ interface ElementProps {
     class?: Style;
 }
 
-interface Coords {
-    xl: number;
-    xi: number;
-    yl: number;
-    yi: number;
-    base: number;
-    _contentEnd: { x: number; y: number };
-    notop: TTopLeft;
-    noleft: TTopLeft;
-    noright: TPosition;
-    nobot: TPosition;
-}
-
-interface LabelProps {
-    text: string;
-    side: TAlign;
-}
-
 interface ScrollableBoxProps extends ElementProps {
     /**
      * A limit to the childBase. Default is Infinity.
@@ -362,12 +337,7 @@ interface BigTextProps extends BoxProps {
     fch?: string;
 }
 
-interface ListElementStyle {
-    selected?: any;
-    item?: any;
-}
-
-interface ListProps<TStyle extends ListElementStyle> extends BoxProps {
+interface ListProps extends BoxProps {
     /**
      * An array of strings which become the list's items.
      */
@@ -396,26 +366,14 @@ interface ListProps<TStyle extends ListElementStyle> extends BoxProps {
     onSelect(data: any): void;
 }
 
-interface FileManagerProps extends ListProps<ListElementStyle> {
+interface FileManagerProps extends ListProps {
     /**
      * Current working directory.
      */
     cwd?: string;
 }
 
-interface StyleListTable extends ListElementStyle {
-    /**
-     * Header style.
-     */
-    header?: any;
-
-    /**
-     * Cell style.
-     */
-    cell?: any;
-}
-
-interface ListTableProps extends ListProps<StyleListTable> {
+interface ListTableProps extends ListProps {
     /**
      * Array of array of strings representing rows.
      */
@@ -439,7 +397,6 @@ interface ListbarProps extends BoxProps {
      * Set buttons using an object with keys as titles of buttons, containing of objects
      * containing keys of keys and callback.
      */
-    commands: ListbarCommand[];
     items: ListbarCommand[];
 
     /**
@@ -448,7 +405,7 @@ interface ListbarProps extends BoxProps {
     autoCommandKeys: boolean;
 }
 
-interface FormProps<FormData> extends BoxProps {
+interface FormProps extends BoxProps {
     /**
      * Allow default keys (tab, vi keys, enter).
      */
@@ -462,17 +419,17 @@ interface FormProps<FormData> extends BoxProps {
     /**
      * Function called when the form is submitted.
      */
-    onSubmit: (data: FormData) => void;
+    onSubmit: (data: unknown) => void;
 
     /**
      * Function called when the form is reset.
      */
-    onReset?: (data: FormData) => void;
+    onReset?: (data: unknown) => void;
 
     /**
      * Function called when the form is canceled.
      */
-    onCancel?: (data: FormData) => void;
+    onCancel?: (data: unknown) => void;
 }
 
 interface InputProps extends BoxProps {
@@ -564,11 +521,6 @@ interface QuestionProps extends BoxProps {}
 interface MessageProps extends BoxProps {}
 
 interface LoadingProps extends BoxProps {}
-
-interface ProgressBarStyle {
-    style: TStyle;
-    bar: { bg: string; fg: string };
-}
 
 interface ProgressBarProps extends BoxProps {
     /**
@@ -806,13 +758,11 @@ declare namespace JSX {
          */
         'blessed-bigtext': BigTextProps;
 
-        // TODO: fix `any`
-        'blessed-list': ListProps<any>;
+        'blessed-list': ListProps;
         'blessed-filemanager': FileManagerProps;
         'blessed-listtable': ListTableProps;
         'blessed-listbar': ListbarProps;
-        // TODO: fix `any`
-        'blessed-form': FormProps<any>;
+        'blessed-form': FormProps;
         'blessed-textarea': TextareaProps;
         'blessed-textbox': TextboxProps;
         'blessed-button': ButtonProps;
