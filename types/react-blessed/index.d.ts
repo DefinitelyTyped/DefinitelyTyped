@@ -3,7 +3,7 @@
 // Definitions by: Century Guo <https://github.com/guoshencheng>
 //                 NickHackman <https://github.com/NickHackman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
+// TypeScript Version: 4.3
 
 /// <reference path="./react.d.ts" />
 

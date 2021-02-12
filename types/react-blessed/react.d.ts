@@ -82,14 +82,6 @@ interface TImage {
     cellmap: any;
 }
 
-interface IProps {
-    [name: string]: any;
-}
-
-interface IHasProps<T extends IProps> {
-    options: T;
-}
-
 interface Padding {
     left?: number;
     right?: number;
