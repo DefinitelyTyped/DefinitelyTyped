@@ -945,7 +945,7 @@ declare class SpotifyWebApi {
      *                    it contains an error object. Not returned if a callback is given.
      */
     getShowEpisodes(showId: string, options: PaginationMarketOptions, callback: Callback<SpotifyApi.ShowEpisodesResponse>): void;
-    getShowEpisodes(showId: string, options?: PaginationMarketOptions): Promise<SpotifyApi.ShowEpisodesResponse>;
+    getShowEpisodes(showId: string, options?: PaginationMarketOptions): Promise<Response<SpotifyApi.ShowEpisodesResponse>>;
 
     /**
      * Search for a show.
