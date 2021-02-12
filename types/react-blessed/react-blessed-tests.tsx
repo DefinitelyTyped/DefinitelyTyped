@@ -1,203 +1,106 @@
-import * as React from 'react';
-import * as blessed from 'blessed';
-import { render } from 'react-blessed';
+import React, { useState } from "react";
+import blessed from "blessed";
+import { render } from "react-blessed";
 
-/**
- * Stylesheet
- */
-const stylesheet = {
-    bordered: {
-        border: {
-            type: 'line',
-        },
-        style: {
-            border: {
-                fg: 'blue',
-            },
-        },
-    },
+const TestCheckBox = () => {
+  const [checked, setChecked] = useState(true);
+
+  return (
+    <blessed-box left="5%">
+      <blessed-checkbox
+        mouse
+        style={{ fg: "red" }}
+        text="test"
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+      />
+    </blessed-box>
+  );
 };
 
-/**
- * Top level component.
- */
-class Dashboard extends React.Component {
-    render() {
-        return (
-            <>
-                <Log />
-                <Request />
-                <Response />
-                <Jobs />
-                <Progress />
-                <Stats />
-                <blessed-button
-                    mouse
-                    border={{ type: 'line' }}
-                    height={3}
-                    width={3}
-                    top={2}
-                    left={4}
-                    onPress={() => null}
-                >
-                    +
-                </blessed-button>
-                <blessed-form
-                    keys
-                    vi
-                    focused
-                    onSubmit={() => null}
-                    onReset={() => null}
-                    left="5%"
-                    top="5%"
-                    width="90%"
-                    height="90%"
-                    border={{ type: 'line' }}
-                    style={{ bg: 'cyan', border: { fg: 'blue' } }}
-                >
-                    <blessed-box width={6} height={3}>
-                        Name:{' '}
-                    </blessed-box>
-                    <blessed-textbox
-                        value="hi"
-                        onSubmit={(_data: any) => null}
-                        left={6}
-                        height={3}
-                        keys
-                        mouse
-                        inputOnFocus
-                    />
-                    <blessed-box top={3} height={3}>
-                        testing
-                    </blessed-box>
-                </blessed-form>
-            </>
-        );
-    }
-}
+const TestButton = () => {
+  return (
+    <blessed-box>
+      <blessed-button
+        mouse
+        onPress={() => process.exit(1)}
+        style={{ border: "line" }}
+      >
+        Exit
+      </blessed-button>
+    </blessed-box>
+  );
+};
 
-/**
- * Log component.
- */
-class Log extends React.Component {
-    render() {
-        return (
-            <blessed-box label="Log" class={stylesheet.bordered} width="60%" height="70%" draggable={true}>
-                {'Hello'}, {0}, {'World'}
-            </blessed-box>
-        );
-    }
-}
+const TestTextbox = () => {
+  const [text, setText] = useState("");
 
-/**
- * Request component.
- */
-class Request extends React.Component {
-    render() {
-        return (
-            <blessed-box label="Request" class={stylesheet.bordered} top="70%" width="30%">
-                {0}
-            </blessed-box>
-        );
-    }
-}
+  return (
+    <blessed-box left="10%">
+      <blessed-textbox
+        width={10}
+        height={10}
+        border="line"
+        mouse
+        keys
+        censor
+        inputOnFocus
+        onSubmit={() => process.exit(2)}
+        onFocus={() => setText("hi")}
+        onBlur={() => process.exit(3)}
+        value={text}
+        onTextChange={(t: string) => setText(t)}
+      >
+        <blessed-button onPress={() => process.exit(-1)}>click</blessed-button>
+      </blessed-textbox>
+    </blessed-box>
+  );
+};
 
-/**
- * Response component.
- */
-class Response extends React.Component {
-    render() {
-        return <blessed-box class={stylesheet.bordered} top="70%" left="30%" width="30%" />;
-    }
-}
+const TestLine = () => {
+  return (
+    <blessed-box left="16%">
+      <blessed-line content="hi" fg="red" orientation="horizontal" />
+    </blessed-box>
+  );
+};
 
-/**
- * Jobs component.
- */
-class Jobs extends React.Component {
-    render() {
-        return <blessed-box label="Jobs" class={stylesheet.bordered} left="60%" width="40%" height="60%" />;
-    }
-}
+// WIP: blessed-bigtext
+const TestBigText = () => {
+  return (
+    <blessed-box top="5%">
+      <blessed-bigtext content="hi" />
+    </blessed-box>
+  );
+};
 
-/**
- * Progress component.
- */
-class Progress extends React.Component<any, any> {
-    state: {
-        progress: number;
-        color: string;
-    } = {
-        progress: 0,
-        color: 'blue',
-    };
+const TestText = () => (
+  <blessed-box top="5%" left="95%">
+    <blessed-text fg="red" align="center" valign="middle">
+      hi from text
+    </blessed-text>
+  </blessed-box>
+);
 
-    constructor(props: any) {
-        super(props);
-        const interval: NodeJS.Timer = setInterval(() => {
-            const { progress } = this.state;
-            if (this.state.progress >= 100) {
-                clearInterval(interval);
-                return;
-            }
-            this.setState({
-                progress: progress + 1,
-            });
-        }, 50);
-    }
+const App = () => {
+  return (
+    <blessed-box border="line">
+      <TestButton />
+      <TestCheckBox />
+      <TestTextbox />
+      <TestLine />
+      <TestBigText />
+      <TestText />
+    </blessed-box>
+  );
+};
 
-    render() {
-        const { progress, color } = this.state;
-        const label = `Progress - ${progress}%`;
-
-        return (
-            <blessed-box>
-                <blessed-text>text</blessed-text>
-                <blessed-progressbar
-                    label={label}
-                    onComplete={() =>
-                        this.setState({
-                            color: 'green',
-                        })
-                    }
-                    class={stylesheet.bordered}
-                    ref="hi"
-                    filled={progress}
-                    top="60%"
-                    left="60%"
-                    width="40%"
-                    height="10%"
-                />
-            </blessed-box>
-        );
-    }
-}
-
-/**
- * Stats component.
- */
-class Stats extends React.Component {
-    render() {
-        return (
-            <blessed-box label="Stats" class={stylesheet.bordered} top="70%" left="60%" width="40%" height="31%">
-                <blessed-textarea value="hi">hi</blessed-textarea>
-                Some stats
-            </blessed-box>
-        );
-    }
-}
-
-/**
- * Rendering the screen.
- */
+// Creating our screen
 const screen = blessed.screen({
-    autoPadding: true,
-    smartCSR: true,
-    title: 'react-blessed dashboard',
+  autoPadding: true,
+  smartCSR: true,
 });
 
-screen.key(['escape', 'q', 'C-c'], () => {
-    return process.exit(0);
-});
+screen.key(["escape", "q", "C-c"], () => process.exit(0));
 
-render(<Dashboard />, screen);
+render(<App />, screen);

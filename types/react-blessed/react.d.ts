@@ -120,6 +120,9 @@ interface Border {
     underline?: string;
 }
 
+/**
+ * Abstract interface
+ */
 interface ElementProps {
     ref?: string;
 
@@ -264,7 +267,7 @@ interface ScrollableBoxProps extends ElementProps {
     /**
      * Children of Element.
      */
-    children?: Array<JSX.Element | number | string> | number | string;
+    children?: Array<JSX.Element | string | number> | string | number | JSX.Element;
 }
 
 interface ScrollableTextProps extends ScrollableBoxProps {
@@ -432,28 +435,48 @@ interface FormProps extends BoxProps {
     onCancel?: (data: unknown) => void;
 }
 
+/**
+ * Abstract interface
+ */
 interface InputProps extends BoxProps {
+    /**
+     * Function called when Enter or Return is hit when editing the input.
+     */
     onSubmit?(text: string): void;
 
+    /**
+     * Function called when the input is no longer focused.
+     */
     onBlur?(): void;
 
+    /**
+     * Function called when the input receives focus.
+     */
     onFocus?(): void;
 
-    onTextChange?(): void;
+    /**
+     * Function called when the input changes.
+     */
+    onTextChange?(newText: string): void;
 
+    /**
+     * Current text in the input.
+     */
     value: string;
 }
 
 /**
  * A box which allows multiline text input.
  */
+// TODO: Styling
 interface TextareaProps extends InputProps {
     /**
-     * Call readInput() when the element is focused. Automatically unfocus.
+     * RECOMMENDED: When focused receive text input automatically.
      */
     inputOnFocus?: boolean;
 }
 
+// TODO: Styling
 interface TextboxProps extends TextareaProps {
     /**
      * Completely hide text.
@@ -466,6 +489,7 @@ interface TextboxProps extends TextareaProps {
     censor?: boolean;
 }
 
+// TODO: Styles don't apply: bg, fg, border
 interface ButtonProps extends BoxProps {
     /**
      * Press button. Emits press.
@@ -473,11 +497,24 @@ interface ButtonProps extends BoxProps {
     onPress(): void;
 }
 
+// TODO: Many Styles don't seem to apply -- ie: border, invisible, probably more.
+// TODO: Shouldn't have children.
 interface CheckboxProps extends BoxProps {
     /**
      * whether the element is checked or not.
      */
-    checked?: boolean;
+    checked: boolean;
+
+    /**
+     * Intentionally not supported, blessed supports many different ways to
+     * dictate if the checkbox is checked.
+     */
+    // value?: boolean;
+
+    /**
+     * helper text displayed to the left of the checkbox.
+     */
+    text?: string;
 
     /**
      * enable mouse support.
@@ -485,29 +522,9 @@ interface CheckboxProps extends BoxProps {
     mouse?: boolean;
 
     /**
-     * the text next to the checkbox (do not use setcontent, use `check.text = ''`).
+     * Function called when the checkbox is changed.
      */
-    text: string;
-
-    /**
-     * same as `checked`.
-     */
-    value: boolean;
-
-    /**
-     * check the element.
-     */
-    check(): void;
-
-    /**
-     * uncheck the element.
-     */
-    uncheck(): void;
-
-    /**
-     * toggle checked state.
-     */
-    toggle(): void;
+    onChange?(): void;
 }
 
 interface RadioSetProps extends BoxProps {}
