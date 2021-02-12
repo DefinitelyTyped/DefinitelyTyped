@@ -1,4 +1,4 @@
-import DrupalAttribute from 'drupal-attribute';
+import DrupalAttribute = require('drupal-attribute');
 
 const drupalAttribute = new DrupalAttribute(new Map([['key1', 'value1'], ['key2', 'value2']]));
 
