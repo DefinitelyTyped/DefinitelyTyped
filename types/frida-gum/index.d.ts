@@ -2986,9 +2986,11 @@ declare class DebugSymbol {
  * named exactly like in the C source code. This means you can pass them to
  * `Interceptor` and `Stalker`, or call them using `NativeFunction`.
  *
- * Symbols can also be plugged in at creation, e.g. memory allocated using
- * `Memory.alloc()`, or `NativeCallback` for receiving callbacks from the C
- * module.
+ * In addition to accessing a curated subset of Gum, GLib, and standard C APIs,
+ * the code being mapped in can also communicate with JavaScript through the
+ * symbols exposed to it. These can be plugged in at creation, e.g. to share
+ * memory allocated using `Memory.alloc()`, or `NativeCallback` values for
+ * receiving callbacks from the C module.
  *
  * To perform initialization and cleanup, you may define functions with the
  * following names and signatures:
@@ -3002,13 +3004,14 @@ declare class DebugSymbol {
  */
 declare class CModule {
   /**
-   * Creates a new C module from the provided code, which gets mapped into
-   * memory and becomes fully accessible to JavaScript. In addition to accessing
-   * a curated subset of Gum, GLib, and standard C APIs, the code being mapped
-   * in can also communicate with JavaScript through the symbols exposed to it.
+   * Creates a new C module from the provided `code`.
    *
    * @param code C source code to compile, or a precompiled shared library.
    * @param symbols Symbols to expose to the C module. Declare them as `extern`.
+   *    This may for example be one or more memory blocks allocated using
+   *     `Memory.alloc()`, and/or `NativeCallback` values for receiving
+   *     callbacks from the C module.
+   * @param options Options for customizing the construction.
    */
   constructor(code: string | ArrayBuffer, symbols?: CSymbols, options?: CModuleOptions);
 
