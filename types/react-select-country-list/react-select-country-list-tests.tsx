@@ -29,5 +29,3 @@ function CountrySelector(): React.ReactElement {
       />
   );
 }
-
-export default CountrySelector;
