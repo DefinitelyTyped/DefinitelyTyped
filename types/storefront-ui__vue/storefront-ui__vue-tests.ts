@@ -5,8 +5,8 @@ import {
     SfBreadcrumbs,
     SfBullets,
     SfButton,
+    SfCheckbox,
     SfChevron,
-    SfCimage,
     SfCircleIcon,
     SfColor,
     SfDivider,
@@ -21,20 +21,13 @@ import {
     SfProperty,
     SfQuantitySelector,
     SfRating,
-    SfTextarea,
     SfAddToCart,
-    SfAddressPicker,
     SfAlert,
     SfBanner,
     SfBar,
     SfBottomModal,
     SfCallToAction,
-    SfCard,
-    SfCategoryCard,
     SfCharacteristic,
-    SfCheckbox,
-    SfColorPicker,
-    SfComponentSelect,
     SfDropdown,
     SfFilter,
     SfGallery,
@@ -52,7 +45,6 @@ import {
     SfSlidingSection,
     SfSteps,
     SfSticky,
-    SfTile,
     SfAccordion,
     SfBannerGrid,
     SfBottomNavigation,
@@ -71,7 +63,7 @@ import {
     SfStoreLocator,
     SfTable,
     SfTabs,
-    SfTopBar
+    SfTopBar,
 } from '@storefront-ui/vue';
 
 new Vue({
@@ -82,8 +74,8 @@ new Vue({
         SfBreadcrumbs,
         SfBullets,
         SfButton,
+        SfCheckbox,
         SfChevron,
-        SfCimage,
         SfCircleIcon,
         SfColor,
         SfDivider,
@@ -98,20 +90,13 @@ new Vue({
         SfProperty,
         SfQuantitySelector,
         SfRating,
-        SfTextarea,
         SfAddToCart,
-        SfAddressPicker,
         SfAlert,
         SfBanner,
         SfBar,
         SfBottomModal,
         SfCallToAction,
-        SfCard,
-        SfCategoryCard,
         SfCharacteristic,
-        SfCheckbox,
-        SfColorPicker,
-        SfComponentSelect,
         SfDropdown,
         SfFilter,
         SfGallery,
@@ -129,7 +114,6 @@ new Vue({
         SfSlidingSection,
         SfSteps,
         SfSticky,
-        SfTile,
         SfAccordion,
         SfBannerGrid,
         SfBottomNavigation,
@@ -156,8 +140,8 @@ new Vue({
     <SfBreadcrumbs />
     <SfBullets />
     <SfButton />
+    <SfCheckbox />
     <SfChevron />
-    <SfCimage />
     <SfCircleIcon />
     <SfColor />
     <SfDivider />
@@ -172,20 +156,13 @@ new Vue({
     <SfProperty />
     <SfQuantitySelector />
     <SfRating />
-    <SfTextarea />
     <SfAddToCart />
-    <SfAddressPicker />
     <SfAlert />
     <SfBanner />
     <SfBar />
     <SfBottomModal />
     <SfCallToAction />
-    <SfCard />
-    <SfCategoryCard />
     <SfCharacteristic />
-    <SfCheckbox />
-    <SfColorPicker />
-    <SfComponentSelect />
     <SfDropdown />
     <SfFilter />
     <SfGallery />
@@ -203,7 +180,6 @@ new Vue({
     <SfSlidingSection />
     <SfSteps />
     <SfSticky />
-    <SfTile />
     <SfAccordion />
     <SfBannerGrid />
     <SfBottomNavigation />
