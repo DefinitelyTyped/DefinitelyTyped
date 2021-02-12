@@ -102,7 +102,7 @@ doc.utils.isEmpty;
 doc.debug.printDocToDebug;
 
 interface PluginAST {
-    kind: "line";
+    kind: 'line';
     value: string;
 }
 
@@ -110,18 +110,18 @@ const plugin: prettier.Plugin<PluginAST> = {
     parsers: {
         lines: {
             parse(text, parsers, options) {
-                return { kind: "line", value: "This is a line" };
+                return { kind: 'line', value: 'This is a line' };
             },
-            astFormat: "lines",
-            locStart: (node) => {
+            astFormat: 'lines',
+            locStart: node => {
                 node; // $ExpectType PluginAST
                 return 0;
             },
-            locEnd: (node) => {
+            locEnd: node => {
                 node; // $ExpectType PluginAST
                 return 0;
-            }
-        }
+            },
+        },
     },
     printers: {
         lines: {
@@ -133,9 +133,13 @@ const plugin: prettier.Plugin<PluginAST> = {
                 node; // $ExpectType PluginAST
 
                 return node.value;
-            }
-        }
-    }
+            },
+            printComment(commentPath, options) {
+                const comment = commentPath.getValue();
+                return comment.value;
+            },
+        },
+    },
 };
 
-prettier.format("a line!", { parser: "lines", plugins: [plugin] });
+prettier.format('a line!', { parser: 'lines', plugins: [plugin] });
