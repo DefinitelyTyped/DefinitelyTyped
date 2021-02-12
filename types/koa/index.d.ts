@@ -5,6 +5,7 @@
 //                 Brice Bernard <https://github.com/brikou>
 //                 harryparkdotio <https://github.com/harryparkdotio>
 //                 Wooram Jun <https://github.com/chatoo2412>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -22,7 +23,7 @@
 import * as accepts from 'accepts';
 import * as Cookies from 'cookies';
 import { EventEmitter } from 'events';
-import { IncomingMessage, ServerResponse, Server } from 'http';
+import { IncomingMessage, ServerResponse, Server, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
 import httpAssert = require('http-assert');
 import * as HttpErrors from 'http-errors';
@@ -31,17 +32,18 @@ import * as compose from 'koa-compose';
 import { Socket, ListenOptions } from 'net';
 import * as url from 'url';
 import * as contentDisposition from 'content-disposition';
+import { ParsedUrlQuery } from 'querystring';
 
 declare interface ContextDelegatedRequest {
     /**
      * Return request header.
      */
-    header: any;
+    header: IncomingHttpHeaders;
 
     /**
      * Return request header, alias as request.header
      */
-    headers: any;
+    headers: IncomingHttpHeaders;
 
     /**
      * Get/Set request URL.
@@ -73,7 +75,7 @@ declare interface ContextDelegatedRequest {
      * Get parsed query-string.
      * Set query-string as an object.
      */
-    query: any;
+    query: ParsedUrlQuery;
 
     /**
      * Get/Set query string.
@@ -577,12 +579,12 @@ declare namespace Application {
         /**
          * Return response header.
          */
-        header: any;
+        header: OutgoingHttpHeaders;
 
         /**
          * Return response header, alias as response.header
          */
-        headers: any;
+        headers: OutgoingHttpHeaders;
 
         /**
          * Check whether the response is one of the listed types.
