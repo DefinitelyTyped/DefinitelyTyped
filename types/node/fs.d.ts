@@ -1,8 +1,12 @@
-declare module "fs" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import { URL } from "url";
-    import * as promises from 'fs/promises';
+declare module 'node:fs' {
+    export * from 'fs';
+}
+
+declare module 'fs' {
+    import * as stream from 'node:stream';
+    import EventEmitter = require('node:events');
+    import { URL } from 'node:url';
+    import * as promises from 'node:fs/promises';
 
     export { promises };
     /**
@@ -108,7 +112,7 @@ declare module "fs" {
         readSync(): Dirent | null;
     }
 
-    export interface FSWatcher extends events.EventEmitter {
+    export interface FSWatcher extends EventEmitter {
         close(): void;
 
         /**
