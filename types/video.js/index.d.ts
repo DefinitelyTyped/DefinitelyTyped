@@ -3614,7 +3614,7 @@ declare namespace videojs {
          * @param src
          * @param next
          */
-        setSource: (src: Tech.SourceObject, next: (err: any, next: (src: Tech.SourceObject) => void) => void) => void;
+        setSource: (src: Tech.SourceObject, next: (err: any, src: Tech.SourceObject) => void) => void;
     }
 
     /**
