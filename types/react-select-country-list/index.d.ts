@@ -39,4 +39,4 @@ declare class CountryList {
 
 declare function countryList(): CountryList;
 
-export default countryList;
+export = countryList;

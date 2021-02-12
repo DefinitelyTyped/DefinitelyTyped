@@ -1,5 +1,5 @@
 import * as React from "react";
-import countryList from "react-select-country-list";
+import countryList = require("react-select-country-list");
 
 function CountrySelector() {
     const options = React.useMemo(() => countryList().getData(), []);
