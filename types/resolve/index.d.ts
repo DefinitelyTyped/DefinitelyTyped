@@ -5,13 +5,17 @@
 //                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 interface PackageMeta {
   name: string;
   version: string;
   [key: string]: any;
 }
+
+interface ToString {
+  toString(): string;
+}
+
+type StringOrToString = string | ToString;
 
 /**
  * Callback invoked when resolving asynchronously
@@ -35,7 +39,7 @@ type existsCallback = (err: Error | null, isFile?: boolean) => void;
  * @param error
  * @param isFile If the given file exists
  */
-type readFileCallback = (err: Error | null, file?: Buffer) => void;
+type readFileCallback = (err: Error | null, file?: StringOrToString) => void;
 
 /**
  * Callback invoked when resolving a potential symlink
@@ -51,7 +55,7 @@ type realpathCallback = (err: Error | null, resolved?: string) => void;
  * @param error
  * @param resolved Absolute path to the resolved file
  */
-type readPackageCallback = (err: Error | null, package?: unknown) => void;
+type readPackageCallback = (err: Error | null, package?: Record<string, unknown>) => void;
 
 /**
  * Asynchronously resolve the module path string id into cb(err, res [, pkg]), where pkg (if defined) is the data from package.json
@@ -145,14 +149,14 @@ declare namespace resolve {
 
   export type SyncOpts = BaseSyncOpts & ({
     /** how to read files synchronously (defaults to fs.readFileSync) */
-    readFileSync?: (file: string) => string | Buffer;
+    readFileSync?: (file: string) => StringOrToString;
     /** function to synchronously read and parse a package.json file */
     readPackageSync?: never;
   } | {
     /** how to read files synchronously (defaults to fs.readFileSync) */
     readFileSync?: never;
     /** function to synchronously read and parse a package.json file */
-    readPackageSync?: (readFileSync: (file: string) => string | Buffer, pkgfile: string) => unknown;
+    readPackageSync?: (readFileSync: (file: string) => StringOrToString, pkgfile: string) => Record<string, unknown> | undefined;
   });
 
   export var sync: typeof resolveSync;

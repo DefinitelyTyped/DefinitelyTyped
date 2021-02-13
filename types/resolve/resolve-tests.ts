@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as fs from 'fs';
 import resolve = require('resolve');
 
@@ -106,7 +108,7 @@ function test_options_sync() {
     });
     resolved = resolve.sync('typescript', {
         readPackageSync(readFileSync, file) {
-            // JSON.parse in node acceps a `Buffer`, so we can cast here
+            // JSON.parse accepts anything with a toString, so a cast here is safe
             return JSON.parse(readFileSync(file) as string);
         },
     });
@@ -117,7 +119,7 @@ function test_options_sync() {
             return fs.readFileSync(file);
         },
         readPackageSync(readFileSync, file) {
-            // JSON.parse in node acceps a `Buffer`, so we can cast here
+            // JSON.parse accepts anything with a toString, so a cast here is safe
             return JSON.parse(readFileSync(file) as string);
         },
     });
