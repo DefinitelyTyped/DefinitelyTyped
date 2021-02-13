@@ -39,7 +39,7 @@ export function get<RT extends ResponseType | undefined>(
  */
 export function options<RT extends ResponseType | undefined>(
     url: string,
-    body?: RequestBody | null,
+    body?: RequestBody | null | ArrayBuffer,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
@@ -53,7 +53,7 @@ export function options<RT extends ResponseType | undefined>(
  */
 export function patch<RT extends ResponseType | undefined>(
     url: string,
-    body?: RequestBody | null,
+    body?: RequestBody | null | ArrayBuffer,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
@@ -71,7 +71,7 @@ export function patch<RT extends ResponseType | undefined>(
  */
 export function post<RT extends ResponseType | undefined>(
     url: string,
-    body?: RequestBody | null,
+    body?: RequestBody | null | ArrayBuffer,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
@@ -85,7 +85,7 @@ export function post<RT extends ResponseType | undefined>(
  */
 export function put<RT extends ResponseType | undefined>(
     url: string,
-    body?: RequestBody | null,
+    body?: RequestBody | null | ArrayBuffer,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
@@ -105,7 +105,7 @@ export function put<RT extends ResponseType | undefined>(
 export function request<RT extends ResponseType | undefined>(
     method: string,
     url: string,
-    body?: RequestBody | null,
+    body?: RequestBody | null | ArrayBuffer,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
@@ -309,7 +309,7 @@ export interface ObjectBatchRequest {
     url: string;
 
     /** Request body. */
-    body?: RequestBody | null;
+    body?: RequestBody | null | ArrayBuffer;
 
     /** Requset parameters. */
     params?: Params | null;
@@ -348,7 +348,7 @@ export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
 export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> {
     method: string;
     url: string;
-    body?: RequestBody | null;
+    body?: RequestBody | null | ArrayBuffer;
     params?: RefinedParams<RT> | null;
 }
 
@@ -752,7 +752,7 @@ declare namespace http {
      */
     function options<RT extends ResponseType | undefined>(
         url: string,
-        body?: RequestBody | null,
+        body?: RequestBody | null | ArrayBuffer,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
 
@@ -766,7 +766,7 @@ declare namespace http {
      */
     function patch<RT extends ResponseType | undefined>(
         url: string,
-        body?: RequestBody | null,
+        body?: RequestBody | null | ArrayBuffer,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
 
@@ -784,7 +784,7 @@ declare namespace http {
      */
     function post<RT extends ResponseType | undefined>(
         url: string,
-        body?: RequestBody | null,
+        body?: RequestBody | null | ArrayBuffer,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
 
@@ -798,7 +798,7 @@ declare namespace http {
      */
     function put<RT extends ResponseType | undefined>(
         url: string,
-        body?: RequestBody | null,
+        body?: RequestBody | null | ArrayBuffer,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
 
@@ -818,7 +818,7 @@ declare namespace http {
     function request<RT extends ResponseType | undefined>(
         method: string,
         url: string,
-        body?: RequestBody | null,
+        body?: RequestBody | null | ArrayBuffer,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
 
