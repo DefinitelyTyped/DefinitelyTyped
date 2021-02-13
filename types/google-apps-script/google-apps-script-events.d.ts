@@ -102,7 +102,7 @@ declare namespace GoogleAppsScript {
     interface DoPost extends AppsScriptHttpRequestEvent {
       postData: AppsScriptHttpRequestEventPostData;
     }
-      
+
     interface TimeDriven {
       authMode: Script.AuthMode;
       year: number;
