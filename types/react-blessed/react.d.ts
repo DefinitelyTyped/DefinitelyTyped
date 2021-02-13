@@ -2,8 +2,6 @@ type TTopLeft = string | number | 'center';
 
 type TPosition = string | number;
 
-type TMouseAction = 'mousedown' | 'mouseup' | 'mousemove';
-
 interface TStyle {
     type?: string;
     bg?: string;
@@ -340,11 +338,12 @@ interface BigTextProps extends BoxProps {
     fch?: string;
 }
 
+// TODO: Shouldn't allow children
 interface ListProps extends BoxProps {
     /**
      * An array of strings which become the list's items.
      */
-    items?: string[];
+    items: string[];
 
     /**
      * A function that is called when vi mode is enabled and the key / is pressed. This function accepts a
@@ -365,8 +364,17 @@ interface ListProps extends BoxProps {
 
     /**
      * Function called when an item in the list is selected.
+     *
+     * @param item a blessed element
+     *
+     * @param index in array of items.
+     *
+     * @example
+     * ```
+     * <list onSelect={({content}, index) => console.log(content, index)} />
+     * ```
      */
-    onSelect(data: any): void;
+    onSelect(item: ElementProps, index: number): void;
 }
 
 interface FileManagerProps extends ListProps {
@@ -457,7 +465,7 @@ interface InputProps extends BoxProps {
     /**
      * Function called when the input changes.
      */
-    onTextChange?(newText: string): void;
+    onTextChange?(text: string): void;
 
     /**
      * Current text in the input.
@@ -506,12 +514,6 @@ interface CheckboxProps extends BoxProps {
     checked: boolean;
 
     /**
-     * Intentionally not supported, blessed supports many different ways to
-     * dictate if the checkbox is checked.
-     */
-    // value?: boolean;
-
-    /**
      * helper text displayed to the left of the checkbox.
      */
     text?: string;
@@ -527,9 +529,33 @@ interface CheckboxProps extends BoxProps {
     onChange?(): void;
 }
 
+// TODO: from my testing this behaves exactly the same as a box, unlike the docs mention:
+// "An element wrapping RadioButtons. RadioButtons within this element will be mutually exclusive with each other."
 interface RadioSetProps extends BoxProps {}
 
-interface RadioButtonProps extends BoxProps {}
+// TODO: checked seems like a misnomer, it doesn't matter if it's set or not you can easily
+// change a radiobutton value.
+interface RadioButtonProps extends BoxProps {
+    /**
+     * Set the initial value for whether or not a {@link radiobutton} is selected.
+     */
+    checked?: boolean;
+
+    /**
+     * helper text displayed to the left of the {@link radiobutton}.
+     */
+    text?: string;
+
+    /**
+     * enable mouse support.
+     */
+    mouse?: boolean;
+
+    /**
+     * Function called when the {@link radiobutton} is changed.
+     */
+    onChange?(): void;
+}
 
 interface PromptProps extends BoxProps {}
 
@@ -569,11 +595,6 @@ interface ProgressBarProps extends BoxProps {
      * enable mouse support.
      */
     mouse?: boolean;
-
-    /**
-     * Function called when progress bar is complete.
-     */
-    onComplete(): void;
 }
 
 interface LogProps extends ScrollableTextProps {
@@ -749,12 +770,42 @@ interface LayoutProps extends ElementProps {
      * width and height are always determined by the largest children in the layout.
      */
     layout: 'inline' | 'inline-block' | 'grid';
+
+    /**
+     * Width/height of the element, can be a number, percentage (0-100%), or keyword (half or shrink).
+     * Percentages can also have offsets (50%+1, 50%-1).
+     *
+     */
+    // Required {@link https://github.com/chjj/blessed#notes-1}
+    width: number | string;
+
+    /**
+     * Offsets of the element relative to its parent. Can be a number, percentage (0-100%), or
+     * keyword (center). right and bottom do not accept keywords. Percentages can also have
+     * offsets (50%+1, 50%-1).
+     *
+     */
+    // Required {@link https://github.com/chjj/blessed#notes-1}
+    height: number | string;
+
+    /**
+     * Children of Element.
+     */
+    children?: Array<JSX.Element | string | number> | string | number | JSX.Element;
 }
 
 // relation to blessed export widgets, prepare for next version of react-blessed
 declare namespace JSX {
     interface IntrinsicElements {
         box: BoxProps;
+        /**
+         * Displays text.
+         *
+         * @example
+         * ```
+         * <text>Welcome to react-blessed</text>
+         * ```
+         */
         text: TextProps;
         line: LineProps;
 
@@ -775,20 +826,178 @@ declare namespace JSX {
          */
         bigtext: BigTextProps;
 
+        /**
+         * Display an optionally selectable list of items {@type string}.
+         *
+         * @example
+         * ```
+         * const ListExample = () => {
+         *   const [selected, setSelected] = useState("None");
+         *
+         *   return (
+         *     <box>
+         *       <text>{selected}</text>
+         *       <list
+         *         top={2}
+         *         keys
+         *         mouse
+         *         vi
+         *         onSelect={({ content }) => setSelected(content)}
+         *         items={listItems}
+         *       />
+         *     </box>
+         * }
+         * ```
+         */
         list: ListProps;
         filemanager: FileManagerProps;
         listtable: ListTableProps;
         listbar: ListbarProps;
         form: FormProps;
         textarea: TextareaProps;
+
+        /**
+         * A single line text input for multiline see {@link textarea}.
+         *
+         * @example
+         * const ExampleTextbox = () => {
+         *   const [text, setText] = useState("");
+         *
+         *   return (
+         *     <textbox
+         *       width={10}
+         *       border="line"
+         *       mouse
+         *       keys
+         *       inputOnFocus
+         *       onSubmit={() => console.log("submitted")}
+         *       onFocus={() => console.log("focused")}
+         *       onBlur={() => console.log("lost focus")}
+         *       value={text}
+         *       onTextChange={(newText) => setText(newText)}
+         *     />
+         *   );
+         * };
+         *
+         */
         textbox: TextboxProps;
+
+        /**
+         * A button that can be interacted with the mouse or keyboard.
+         *
+         * @example
+         *
+         * ```
+         * const ExampleButton = () => {
+         *   return (
+         *     <button mouse onPress={() => console.log("pressed")} style={{ border: "line" }}>
+         *       Clickable Button
+         *     </button>
+         *   );
+         * };
+         * ```
+         *
+         *
+         */
         button: ButtonProps;
 
         /**
          * A checkbox which can be used in a form element.
+         *
+         * @example
+         * ```
+         * const ExampleCheckbox = () => {
+         *   const [checked, setChecked] = useState(false);
+         *
+         *   return (
+         *     <checkbox
+         *       mouse
+         *       text="insert-label"
+         *       checked={checked}
+         *       onChange={() => setChecked(!checked)}
+         *     />
+         *   );
+         * };
+         * ```
          */
         checkbox: CheckboxProps;
+
+        /**
+         * A {@link box} for {@link radiobutton} that ensures mutual exclusivity.
+         *
+         * When inside of a {@link radioset} or {@link box} managing state of the {@link radiobutton}
+         * is unnecessary as it is managed by Blessed. Furthermore, the `checked` property sets the initially
+         * selected {@link radiobutton}. Don't set all {@link radiobutton} in a {@link radioset} to checked
+         * otherwise it becomes unresponsive.
+         *
+         * @example
+         * ```
+         * const ExampleRadioButtons = () => {
+         *   const [, setOption] = useState(1);
+         *   return (
+         *     <box>
+         *       <radiobutton
+         *         mouse
+         *         text="Option 1"
+         *         onChange={() => setOption(1)}
+         *         checked
+         *       />
+         *       <radiobutton
+         *         mouse
+         *         text="Option 2"
+         *         top={1}
+         *         onChange={() => setOption(2)}
+         *       />
+         *       <radiobutton
+         *         mouse
+         *         text="Option 3"
+         *         top={2}
+         *         onChange={() => setOption(3)}
+         *       />
+         *     </box>
+         *   );
+         * };
+         * ```
+         */
         radioset: RadioSetProps;
+
+        /**
+         * A Radio Button.
+         *
+         * When inside of a {@link radioset} or {@link box} managing state of the {@link radiobutton}
+         * is unnecessary as it is managed by Blessed. Furthermore, the `checked` property sets the initially
+         * selected {@link radiobutton}. Don't set all {@link radiobutton} in a {@link radioset} to checked
+         * otherwise it becomes unresponsive.
+         *
+         * @example
+         * ```
+         * const ExampleRadioButtons = () => {
+         *   const [, setOption] = useState(1);
+         *   return (
+         *     <box>
+         *       <radiobutton
+         *         mouse
+         *         text="Option 1"
+         *         onChange={() => setOption(1)}
+         *         checked
+         *       />
+         *       <radiobutton
+         *         mouse
+         *         text="Option 2"
+         *         top={1}
+         *         onChange={() => setOption(2)}
+         *       />
+         *       <radiobutton
+         *         mouse
+         *         text="Option 3"
+         *         top={2}
+         *         onChange={() => setOption(3)}
+         *       />
+         *     </box>
+         *   );
+         * };
+         * ```
+         */
         radiobutton: RadioButtonProps;
         table: TableProps;
 
@@ -819,9 +1028,47 @@ declare namespace JSX {
 
         /**
          * A progress bar allowing various styles. This can also be used as a form input.
+         *
+         * @example
+         * ```
+         * const ExampleProgressbar = () => {
+         *   const [filled, setFilled] = useState(0);
+         *
+         *   useEffect(() => {
+         *     const interval = setInterval(
+         *       () => setFilled((current) => current + 5),
+         *       1000
+         *     );
+         *
+         *     return () => clearInterval(interval);
+         *   }, []);
+         *
+         *   return (
+         *     <progressbar
+         *       height={1}
+         *       top="50%"
+         *       pch="="
+         *       filled={filled}
+         *       style={{ bar: { fg: "green" } }}
+         *     />
+         *   );
+         * };
+         * ```
          */
         progressbar: ProgressBarProps;
+
         terminal: TerminalProps;
+
+        /**
+         * A layout which can position children automatically.
+         *
+         * @example
+         * ```
+         * <layout width={10} height={10} layout="grid">
+         *   {"this"} {"is"} {"in"} {"a"} {"grid"}
+         * </layout>
+         * ```
+         */
         layout: LayoutProps;
 
         /**
