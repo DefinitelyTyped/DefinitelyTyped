@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "es6-error": "^4.1.1"
+    }
+}
