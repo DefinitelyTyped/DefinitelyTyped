@@ -552,6 +552,17 @@ braintree.client.create(
             },
         );
 
+        braintree.paypalCheckout
+            .loadPayPalSDK({
+                'client-id': 'PayPal Client Id',
+                currency: 'USD',
+                intent: 'capture',
+                vault: true,
+            })
+            .then(() => {
+                // window.paypal.Buttons is now available to use
+            });
+
         braintree.unionpay.create({ client: clientInstance }, (createErr, unionpayInstance) => {
             if (createErr) {
                 console.error(createErr);
@@ -685,7 +696,7 @@ braintree.client.create(
             });
         });
 
-        clientInstance.teardown((err) => {
+        clientInstance.teardown(err => {
             // implementation
         });
     },
@@ -733,7 +744,7 @@ braintree.threeDSecure.verifyCard(
     {
         nonce: existingNonce,
         amount: 123.45, // $ExpectType number
-        bin: "1234",
+        bin: '1234',
         addFrame: (err, iframe) => {
             // Set up your UI and add the iframe.
             const my3DSContainer = document.createElement('div');
