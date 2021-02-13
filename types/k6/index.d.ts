@@ -31,6 +31,7 @@ import './global'; // Type global environment
 
 // Expose everything to autoimport
 import './crypto';
+import './data';
 import './encoding';
 import './html';
 import './http';
