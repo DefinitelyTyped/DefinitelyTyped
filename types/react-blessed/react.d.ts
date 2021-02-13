@@ -754,85 +754,85 @@ interface LayoutProps extends ElementProps {
 // relation to blessed export widgets, prepare for next version of react-blessed
 declare namespace JSX {
     interface IntrinsicElements {
-        'blessed-box': BoxProps;
-        'blessed-text': TextProps;
-        'blessed-line': LineProps;
+        box: BoxProps;
+        text: TextProps;
+        line: LineProps;
 
         /**
          * @deprecated use `box` with scrollable set instead.
          */
-        'blessed-scrollablebox': ScrollableBoxProps;
+        scrollablebox: ScrollableBoxProps;
 
         /**
          * @deprecated - Use Box with the scrollable and alwaysScroll options instead.
          * A scrollable text box which can display and scroll text, as well as handle
          * pre-existing newlines and escape codes.
          */
-        'blessed-scrollabletext': ScrollableTextProps;
+        scrollabletext: ScrollableTextProps;
 
         /**
          * A box which can render content drawn as 8x14 cell characters using the terminus font.
          */
-        'blessed-bigtext': BigTextProps;
+        bigtext: BigTextProps;
 
-        'blessed-list': ListProps;
-        'blessed-filemanager': FileManagerProps;
-        'blessed-listtable': ListTableProps;
-        'blessed-listbar': ListbarProps;
-        'blessed-form': FormProps;
-        'blessed-textarea': TextareaProps;
-        'blessed-textbox': TextboxProps;
-        'blessed-button': ButtonProps;
+        list: ListProps;
+        filemanager: FileManagerProps;
+        listtable: ListTableProps;
+        listbar: ListbarProps;
+        form: FormProps;
+        textarea: TextareaProps;
+        textbox: TextboxProps;
+        button: ButtonProps;
 
         /**
          * A checkbox which can be used in a form element.
          */
-        'blessed-checkbox': CheckboxProps;
-        'blessed-radioset': RadioSetProps;
-        'blessed-radiobutton': RadioButtonProps;
-        'blessed-table': TableProps;
+        checkbox: CheckboxProps;
+        radioset: RadioSetProps;
+        radiobutton: RadioButtonProps;
+        table: TableProps;
 
         /**
          * A prompt box containing a text input, okay, and cancel buttons (automatically hidden).
          */
-        'blessed-prompt': PromptProps;
+        prompt: PromptProps;
 
         /**
          * A question box containing okay and cancel buttons (automatically hidden).
          */
-        'blessed-question': QuestionProps;
+        question: QuestionProps;
 
         /**
          * A box containing a message to be displayed (automatically hidden).
          */
-        'blessed-message': MessageProps;
+        message: MessageProps;
 
         /**
          * A box with a spinning line to denote loading (automatically hidden).
          */
-        'blessed-loading': LoadingProps;
+        loading: LoadingProps;
 
         /**
          * A log permanently scrolled to the bottom.
          */
-        'blessed-log': LogProps;
+        log: LogProps;
 
         /**
          * A progress bar allowing various styles. This can also be used as a form input.
          */
-        'blessed-progressbar': ProgressBarProps;
-        'blessed-terminal': TerminalProps;
-        'blessed-layout': LayoutProps;
+        progressbar: ProgressBarProps;
+        terminal: TerminalProps;
+        layout: LayoutProps;
 
         /**
          * Display an image in the terminal (jpeg, png, gif) using w3mimgdisplay. Requires w3m to be installed.
          * X11 required: works in xterm, urxvt, and possibly other terminals.
          */
-        'blessed-image': ImageProps;
+        image: ImageProps;
 
         /**
          * Convert any .png file (or .gif, see below) to an ANSI image and display it as an element.
          */
-        'blessed-ansi-image': ANSIImageProps;
+        'ansi-image': ANSIImageProps;
     }
 }
