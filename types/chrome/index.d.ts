@@ -6615,7 +6615,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript(injection: ScriptInjection, callback?: (results: InjectionResult[]) => void);
+    export function executeScript(injection: ScriptInjection, callback?: (results: InjectionResult[]) => void): void;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
@@ -6624,7 +6624,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection.
      */
-    export function insertCSS(injection: CSSInjection, callback?: () => void);
+    export function insertCSS(injection: CSSInjection, callback?: () => void): void;
 }
 
 ////////////////////
