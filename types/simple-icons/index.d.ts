@@ -1,5 +1,5 @@
-// Type definitions for simple-icons 3.12
-// Project: https://www.simpleicons.org
+// Type definitions for simple-icons 4.10
+// Project: https://simpleicons.org
 // Definitions by: Eric Cornelissen <https://github.com/ericcornelissen>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
