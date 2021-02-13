@@ -127,6 +127,10 @@ request('post', address, {}, 5); // $ExpectError
 responseBinary = request('post', address, {}, { responseType: 'binary' });
 request('post', address, {}, {}, 5); // $ExpectError
 
+// request params
+responseDefault = request('post', address, {}, {timeout: '10s'});
+responseDefault = request('post', address, {}, {timeout: 10}); // $ExpectError
+
 // batch
 batch(); // $ExpectError
 batch(5); // $ExpectError

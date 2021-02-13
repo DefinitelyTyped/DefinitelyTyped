@@ -242,7 +242,7 @@ export interface Params {
     tags?: { [name: string]: string };
 
     /** Request timeout. */
-    timeout?: number;
+    timeout?: string;
 }
 
 /**
