@@ -3,6 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
+
 export type BoundingBox = [minx: number, miny: number, maxx: number, maxy: number];
 
 /**
