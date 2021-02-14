@@ -303,6 +303,7 @@ resultStr = faker.vehicle.vin();
 resultStr = faker.vehicle.color();
 
 resultNum = faker.unique(faker.random.number);
+resultNum = faker.unique(faker.random.number, undefined, { maxTime: new Date('3000-01-01').getTime() });
 resultNum = faker.unique(faker.random.number, undefined, { maxRetires: 999 });
 resultNum = faker.unique(faker.random.number, [{ min: 0, max: 100, precision: 2 }]);
 resultStr = faker.unique(faker.random.word);
