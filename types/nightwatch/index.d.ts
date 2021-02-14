@@ -2534,7 +2534,7 @@ export interface WebDriverProtocolDocumentHandling {
      *    });
      * }
      */
-    executeAsync<T>(script: ((this: undefined, ...data: any[]) => T) | string, args?: any[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void): this;
+    executeAsync<T>(script: ((this: undefined, ...data: any[]) => any) | string, args?: any[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void): this;
 }
 
 export interface WebDriverProtocolCookies {
