@@ -1,1 +1,3 @@
-export { NotSentFilled20 as default } from "../../";
+import { NotSentFilled20 } from "../../";
+
+export = NotSentFilled20;

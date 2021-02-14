@@ -1,1 +1,3 @@
-export { FruitBowl32 as default } from "../../";
+import { FruitBowl32 } from "../../";
+
+export = FruitBowl32;

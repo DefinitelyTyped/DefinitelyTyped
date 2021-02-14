@@ -1,1 +1,3 @@
-export { Save32 as default } from "../../";
+import { Save32 } from "../../";
+
+export = Save32;

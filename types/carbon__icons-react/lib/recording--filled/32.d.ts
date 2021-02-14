@@ -1,1 +1,3 @@
-export { RecordingFilled32 as default } from "../../";
+import { RecordingFilled32 } from "../../";
+
+export = RecordingFilled32;

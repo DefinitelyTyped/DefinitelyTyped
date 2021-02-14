@@ -1,1 +1,3 @@
-export { Education as default } from "../../";
+import { Education } from "../../";
+
+export = Education;

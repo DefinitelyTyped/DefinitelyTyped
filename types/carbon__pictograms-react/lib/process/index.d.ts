@@ -1,1 +1,3 @@
-export { Process as default } from "../../";
+import { Process } from "../../";
+
+export = Process;

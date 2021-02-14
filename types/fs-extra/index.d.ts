@@ -10,6 +10,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
@@ -42,6 +43,7 @@ export function createSymlink(src: string, dest: string, type: SymlinkType, call
 export function createSymlinkSync(src: string, dest: string, type: SymlinkType): void;
 
 export function ensureDir(path: string, options?: EnsureOptions | number): Promise<void>;
+export function ensureDir(path: string, callback?: (err: Error) => void): void;
 export function ensureDir(path: string, options?: EnsureOptions | number, callback?: (err: Error) => void): void;
 export function ensureDirSync(path: string, options?: EnsureOptions | number): void;
 
@@ -67,8 +69,8 @@ export function readJSON(file: string, options: ReadOptions, callback: (err: Err
 export function readJsonSync(file: string, options?: ReadOptions): any;
 export function readJSONSync(file: string, options?: ReadOptions): any;
 
-export function remove(dir: string): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
+export function remove(dir: string, callback?: (err: Error) => void): Promise<void>;
 export function removeSync(dir: string): void;
 
 export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;

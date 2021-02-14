@@ -1,1 +1,3 @@
-export { CloudSap as default } from "../../";
+import { CloudSap } from "../../";
+
+export = CloudSap;

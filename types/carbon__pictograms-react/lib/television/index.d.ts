@@ -1,1 +1,3 @@
-export { Television as default } from "../../";
+import { Television } from "../../";
+
+export = Television;

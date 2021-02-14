@@ -1,7 +1,11 @@
-declare module "fs" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import { URL } from "url";
+declare module 'node:fs' {
+    export * from 'fs';
+}
+
+declare module 'fs' {
+    import * as stream from 'node:stream';
+    import EventEmitter = require('node:events');
+    import { URL } from 'node:url';
 
     /**
      * Valid types for path values in "fs".
@@ -96,7 +100,7 @@ declare module "fs" {
         readSync(): Dirent;
     }
 
-    interface FSWatcher extends events.EventEmitter {
+    interface FSWatcher extends EventEmitter {
         close(): void;
 
         /**

@@ -1,1 +1,3 @@
-export { MobileCheck32 as default } from "../../";
+import { MobileCheck32 } from "../../";
+
+export = MobileCheck32;

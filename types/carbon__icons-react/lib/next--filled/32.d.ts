@@ -1,1 +1,3 @@
-export { NextFilled32 as default } from "../../";
+import { NextFilled32 } from "../../";
+
+export = NextFilled32;

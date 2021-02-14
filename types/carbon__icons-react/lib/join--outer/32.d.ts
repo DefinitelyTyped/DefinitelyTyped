@@ -1,1 +1,3 @@
-export { JoinOuter32 as default } from "../../";
+import { JoinOuter32 } from "../../";
+
+export = JoinOuter32;

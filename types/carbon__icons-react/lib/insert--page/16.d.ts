@@ -1,1 +1,3 @@
-export { InsertPage16 as default } from "../../";
+import { InsertPage16 } from "../../";
+
+export = InsertPage16;

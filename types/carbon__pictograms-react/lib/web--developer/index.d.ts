@@ -1,1 +1,3 @@
-export { WebDeveloper as default } from "../../";
+import { WebDeveloper } from "../../";
+
+export = WebDeveloper;

@@ -1,1 +1,3 @@
-export { DocumentWordProcessor16 as default } from "../../";
+import { DocumentWordProcessor16 } from "../../";
+
+export = DocumentWordProcessor16;

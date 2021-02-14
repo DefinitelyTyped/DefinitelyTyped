@@ -1,1 +1,3 @@
-export { Shuffle32 as default } from "../../";
+import { Shuffle32 } from "../../";
+
+export = Shuffle32;

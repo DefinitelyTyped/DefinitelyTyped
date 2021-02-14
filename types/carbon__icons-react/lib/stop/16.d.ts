@@ -1,1 +1,3 @@
-export { Stop16 as default } from "../../";
+import { Stop16 } from "../../";
+
+export = Stop16;

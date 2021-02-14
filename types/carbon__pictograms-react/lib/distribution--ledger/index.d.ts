@@ -1,1 +1,3 @@
-export { DistributionLedger as default } from "../../";
+import { DistributionLedger } from "../../";
+
+export = DistributionLedger;

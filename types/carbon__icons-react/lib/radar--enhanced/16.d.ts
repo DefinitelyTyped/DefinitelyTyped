@@ -1,1 +1,3 @@
-export { RadarEnhanced16 as default } from "../../";
+import { RadarEnhanced16 } from "../../";
+
+export = RadarEnhanced16;

@@ -1,1 +1,3 @@
-export { OpenPanelRight20 as default } from "../../";
+import { OpenPanelRight20 } from "../../";
+
+export = OpenPanelRight20;

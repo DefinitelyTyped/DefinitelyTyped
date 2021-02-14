@@ -1,1 +1,3 @@
-export { ThumbsUp20 as default } from "../../";
+import { ThumbsUp20 } from "../../";
+
+export = ThumbsUp20;

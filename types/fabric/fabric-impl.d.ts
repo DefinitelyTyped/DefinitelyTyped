@@ -3371,7 +3371,7 @@ export class Object {
      * @param e Event to operate upon
      * @param [pointer] Pointer to operate upon (instead of event)
      */
-    getLocalPointer(e: Event, pointer?: { x: number; y: number }): { x: number; y: number };
+    getLocalPointer(e: Event | undefined, pointer?: { x: number; y: number }): { x: number; y: number };
 
     /**
      * Basic getter
@@ -3752,7 +3752,7 @@ export class Object {
     /**
      * return correct set of coordinates for intersection
      */
-    getCoords(absolute?: boolean, calculate?: boolean): any;
+    getCoords(absolute?: boolean, calculate?: boolean): [fabric.Point, fabric.Point, fabric.Point, fabric.Point];
     /**
      * Returns height of an object bounding box counting transformations
      * before 2.0 it was named getHeight();

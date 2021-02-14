@@ -16,7 +16,7 @@
 interface Document {}
 
 declare namespace cheerio {
-    type Element = TextElement | TagElement;
+    type Element = TextElement | TagElement | CommentElement;
 
     interface TextElement {
         type: 'text';
@@ -44,6 +44,14 @@ declare namespace cheerio {
         nodeValue: string;
         data?: string;
         startIndex?: number;
+    }
+
+    interface CommentElement {
+        type: 'comment';
+        next: Element | null;
+        prev: Element | null;
+        parent: Element;
+        data?: string;
     }
 
     type AttrFunction = (el: Element, i: number, currentValue: string) => any;

@@ -1,1 +1,3 @@
-export { Queued32 as default } from "../../";
+import { Queued32 } from "../../";
+
+export = Queued32;

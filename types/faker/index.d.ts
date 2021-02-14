@@ -6,6 +6,7 @@
 //                 Matt Bishop <https://github.com/mattbishop>,
 //                 Leonardo Testa <https://github.com/testica>
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
+//                 Daniel Montesinos <https://github.com/damonpam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -198,6 +199,7 @@ declare namespace Faker {
             middleName(gender?: number): string;
             findName(firstName?: string, lastName?: string, gender?: number): string;
             jobTitle(): string;
+            gender(): string;
             prefix(): string;
             suffix(): string;
             title(): string;

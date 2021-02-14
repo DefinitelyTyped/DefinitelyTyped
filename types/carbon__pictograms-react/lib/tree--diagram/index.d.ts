@@ -1,1 +1,3 @@
-export { TreeDiagram as default } from "../../";
+import { TreeDiagram } from "../../";
+
+export = TreeDiagram;

@@ -1,1 +1,3 @@
-export { ClosedCaptionAlt24 as default } from "../../";
+import { ClosedCaptionAlt24 } from "../../";
+
+export = ClosedCaptionAlt24;

@@ -1,1 +1,3 @@
-export { CalendarEvent as default } from "../../";
+import { CalendarEvent } from "../../";
+
+export = CalendarEvent;

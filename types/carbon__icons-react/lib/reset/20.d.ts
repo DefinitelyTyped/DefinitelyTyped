@@ -1,1 +1,3 @@
-export { Reset20 as default } from "../../";
+import { Reset20 } from "../../";
+
+export = Reset20;

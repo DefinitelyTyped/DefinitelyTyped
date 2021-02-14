@@ -119,7 +119,30 @@ pubnub.addListener({
                 }
             }
         );
-    }
+    },
+    file: ({
+        channel,
+        subscription,
+        timetoken,
+        publisher,
+        message,
+        file: {
+            id,
+            name,
+            url
+        }
+    }) => console.log({
+        channel,
+        subscription,
+        timetoken,
+        publisher,
+        message,
+        file: {
+            id,
+            name,
+            url
+        }
+    })
 });
 
 pubnub.unsubscribe({ channels: ['channel-1'] });

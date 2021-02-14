@@ -27,7 +27,7 @@ namespace Module.Callback {
         recommendation;
         recommendation.level; // $ExpectType number | undefined
         recommendation.reason; // $ExpectType string | undefined
-        recommendation.releaseType; // $ExpectType "major" | "minor" | "patch" | undefined
+        recommendation.releaseType; // $ExpectType "major" | "minor" | "patch" | undefined || ReleaseType | undefined
     };
 }
 

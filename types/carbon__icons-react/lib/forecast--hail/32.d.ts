@@ -1,1 +1,3 @@
-export { ForecastHail32 as default } from "../../";
+import { ForecastHail32 } from "../../";
+
+export = ForecastHail32;

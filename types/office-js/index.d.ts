@@ -1169,10 +1169,12 @@ declare namespace Office {
 
        /**
         * Check if the specified requirement set is supported by the host Office application.
+        *
+        * **Warning**: This overload of `isSetSupported` (where `minVersionNumber` is a number) has been deprecated. Use the string overload of `isSetSupported` instead.
+        *
         * @deprecated Use the string overload of `isSetSupported` instead.
         * @param name - The requirement set name (e.g., "ExcelApi").
         * @param minVersionNumber - The minimum required version (e.g., 1.4). 
-        * **Warning**: This overload of `isSetSupported` (where `minVersionNumber` is a number) is deprecated. Use the string overload of `isSetSupported` instead.
         */
        isSetSupported(name: string, minVersionNumber?: number): boolean;
     }
@@ -1218,10 +1220,12 @@ declare namespace Office {
          * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
          * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
          *
-         * @deprecated Use Office.auth.getAccessToken instead.
-         * 
          * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
-         * 
+         *
+         * **Warning**: `getAccessTokenAsync` has been deprecated. Use `Office.auth.getAccessToken` instead.
+         *
+         * @deprecated Use `Office.auth.getAccessToken` instead.
+         *
          * @remarks
          *
          * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
@@ -1241,9 +1245,11 @@ declare namespace Office {
          * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
          * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
          *
-         * @deprecated Use `Office.auth.getAccessToken` instead.
-         * 
          * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         *
+         * **Warning**: `getAccessTokenAsync` has been deprecated. Use `Office.auth.getAccessToken` instead.
+         *
+         * @deprecated Use `Office.auth.getAccessToken` instead.
          *
          * @remarks
          *
@@ -1298,12 +1304,16 @@ declare namespace Office {
         /**
          * Prompts the user to add their Office account (or to switch to it, if it is already added). Default value is `false`.
          *
+         * **Warning**: `forceAddAccount` has been deprecated. Use `allowSignInPrompt` instead.
+         *
          * @deprecated Use `allowSignInPrompt` instead.
          */
         forceAddAccount?: boolean;
         /**
          * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
          * been revoked. Default value is `false`.
+         *
+         * **Warning**: `forceConsent` has been deprecated. Use `allowConsentPrompt` instead.
          *
          * @deprecated Use `allowConsentPrompt` instead.
          */
@@ -1674,7 +1684,9 @@ declare namespace Office {
      */
     interface SaveSettingsOptions {
         /**
-         * Indicates whether the setting will be replaced if stale.
+         * **Warning**: This setting has been deprecated and should not be used. It has no effect on most platforms and will cause errors if set to `false` in Excel on the web.
+         * 
+         * @deprecated `overwriteIfStale` is no longer supported.
          */
         overwriteIfStale?: boolean
         /**
@@ -9763,7 +9775,7 @@ declare namespace Office {
          * - `InvalidAttachmentId`: The attachment identifier does not exist.
          *
          * @param attachmentId - The identifier of the attachment to remove. The maximum string length of the `attachmentId`
-         *                       is 200 characters in Outlook on the web, and 100 characters in Outlook on Windows.
+         *                       is 200 characters in Outlook on the web and on Windows.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
@@ -13541,7 +13553,7 @@ declare namespace Office {
          * - `InvalidAttachmentId`: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment to remove. The maximum string length of the `attachmentId`
-         *                       is 200 characters in Outlook on the web, and 100 characters in Outlook on Windows.
+         *                       is 200 characters in Outlook on the web and on Windows.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
@@ -20803,8 +20815,7 @@ declare namespace Excel {
          */
         getEntireRow(): Excel.Range;
         /**
-         * Renders the range as a base64-encoded png image.
-                    **Important**: This API is currently unsupported in Excel for Mac. Visit {@link https://github.com/OfficeDev/office-js/issues/235 | OfficeDev/office-js Issue #235} for the current status.
+         * Renders the range as a base64-encoded png image. **Important**: This API is currently unsupported in Excel for Mac. Visit {@link https://github.com/OfficeDev/office-js/issues/235 | OfficeDev/office-js Issue #235} for the current status.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -24208,20 +24219,22 @@ declare namespace Excel {
         textOrientation: number;
         /**
          *
-         * Determines if the row height of the Range object equals the standard height of the sheet.
-                    Returns True if the row height of the Range object equals the standard height of the sheet.
-                    Returns Null if the range contains more than one row and the rows aren't all the same height.
-                    Returns False otherwise.
+         * Determines if the row height of the `Range` object equals the standard height of the sheet.
+                    Returns `true` if the row height of the `Range` object equals the standard height of the sheet.
+                    Returns `null` if the range contains more than one row and the rows aren't all the same height.
+                    Returns `false` otherwise.
+                    Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
          *
          * [Api set: ExcelApi 1.7]
          */
         useStandardHeight: boolean;
         /**
          *
-         * Specifies if the column width of the Range object equals the standard width of the sheet.
-                    Returns True if the column width of the Range object equals the standard width of the sheet.
-                    Returns Null if the range contains more than one column and the columns aren't all the same height.
-                    Returns False otherwise.
+         * Specifies if the column width of the `Range` object equals the standard width of the sheet.
+                    Returns `true` if the column width of the `Range` object equals the standard width of the sheet.
+                    Returns `null` if the range contains more than one column and the columns aren't all the same height.
+                    Returns `false` otherwise.
+                    Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -39827,7 +39840,7 @@ declare namespace Excel {
          */
         linkedDataTypeLinkedDataTypeAdded = "LinkedDataTypeLinkedDataTypeAdded",
         /**
-         * WorksheetFormulaChanged represents the type of event registered on worksheet, and occurs when formula is changed.
+         * WorksheetFormulaChanged represents the type of event registered on worksheet, and occurs when a formula is changed.
          *
          */
         worksheetFormulaChanged = "WorksheetFormulaChanged"
@@ -44961,20 +44974,22 @@ declare namespace Excel {
             textOrientation?: number;
             /**
              *
-             * Determines if the row height of the Range object equals the standard height of the sheet.
-                        Returns True if the row height of the Range object equals the standard height of the sheet.
-                        Returns Null if the range contains more than one row and the rows aren't all the same height.
-                        Returns False otherwise.
+             * Determines if the row height of the `Range` object equals the standard height of the sheet.
+                        Returns `true` if the row height of the `Range` object equals the standard height of the sheet.
+                        Returns `null` if the range contains more than one row and the rows aren't all the same height.
+                        Returns `false` otherwise.
+                        Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
              *
              * [Api set: ExcelApi 1.7]
              */
             useStandardHeight?: boolean;
             /**
              *
-             * Specifies if the column width of the Range object equals the standard width of the sheet.
-                        Returns True if the column width of the Range object equals the standard width of the sheet.
-                        Returns Null if the range contains more than one column and the columns aren't all the same height.
-                        Returns False otherwise.
+             * Specifies if the column width of the `Range` object equals the standard width of the sheet.
+                        Returns `true` if the column width of the `Range` object equals the standard width of the sheet.
+                        Returns `null` if the range contains more than one column and the columns aren't all the same height.
+                        Returns `false` otherwise.
+                        Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -50358,20 +50373,22 @@ declare namespace Excel {
             textOrientation?: number;
             /**
              *
-             * Determines if the row height of the Range object equals the standard height of the sheet.
-                        Returns True if the row height of the Range object equals the standard height of the sheet.
-                        Returns Null if the range contains more than one row and the rows aren't all the same height.
-                        Returns False otherwise.
+             * Determines if the row height of the `Range` object equals the standard height of the sheet.
+                        Returns `true` if the row height of the `Range` object equals the standard height of the sheet.
+                        Returns `null` if the range contains more than one row and the rows aren't all the same height.
+                        Returns `false` otherwise.
+                        Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
              *
              * [Api set: ExcelApi 1.7]
              */
             useStandardHeight?: boolean;
             /**
              *
-             * Specifies if the column width of the Range object equals the standard width of the sheet.
-                        Returns True if the column width of the Range object equals the standard width of the sheet.
-                        Returns Null if the range contains more than one column and the columns aren't all the same height.
-                        Returns False otherwise.
+             * Specifies if the column width of the `Range` object equals the standard width of the sheet.
+                        Returns `true` if the column width of the `Range` object equals the standard width of the sheet.
+                        Returns `null` if the range contains more than one column and the columns aren't all the same height.
+                        Returns `false` otherwise.
+                        Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -57291,20 +57308,22 @@ declare namespace Excel {
             textOrientation?: boolean;
             /**
              *
-             * Determines if the row height of the Range object equals the standard height of the sheet.
-                        Returns True if the row height of the Range object equals the standard height of the sheet.
-                        Returns Null if the range contains more than one row and the rows aren't all the same height.
-                        Returns False otherwise.
+             * Determines if the row height of the `Range` object equals the standard height of the sheet.
+                        Returns `true` if the row height of the `Range` object equals the standard height of the sheet.
+                        Returns `null` if the range contains more than one row and the rows aren't all the same height.
+                        Returns `false` otherwise.
+                        Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
              *
              * [Api set: ExcelApi 1.7]
              */
             useStandardHeight?: boolean;
             /**
              *
-             * Specifies if the column width of the Range object equals the standard width of the sheet.
-                        Returns True if the column width of the Range object equals the standard width of the sheet.
-                        Returns Null if the range contains more than one column and the columns aren't all the same height.
-                        Returns False otherwise.
+             * Specifies if the column width of the `Range` object equals the standard width of the sheet.
+                        Returns `true` if the column width of the `Range` object equals the standard width of the sheet.
+                        Returns `null` if the range contains more than one column and the columns aren't all the same height.
+                        Returns `false` otherwise.
+                        Note: This property is only intended to be set to `true`. Setting it to `false` has no effect. 
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -70982,6 +71001,8 @@ declare namespace Word {
      * ContentControl appearance
      *
      * [Api set: WordApi]
+     * @remarks
+     * Content control appearance options are bounding box, tags, or hidden.
      */
     enum ContentControlAppearance {
         /**
@@ -71014,11 +71035,15 @@ declare namespace Word {
          */
         none = "None",
         /**
-         * @deprecated Hidden is no longer supported.
+         * **Warning**: `hidden` has been deprecated.
+         *
+         * @deprecated `hidden` is no longer supported.
          */
         hidden = "Hidden",
         /**
-         * @deprecated DotLine is no longer supported.
+         * **Warning**: `dotLine` has been deprecated.
+         *
+         * @deprecated `dotLine` is no longer supported.
          */
         dotLine = "DotLine",
         /**
@@ -71088,6 +71113,8 @@ declare namespace Word {
          */
         page = "Page",
         /**
+         * **Warning**: `next` has been deprecated. Use `sectionNext` instead.
+         *
          * @deprecated Use sectionNext instead.
          */
         next = "Next",
@@ -71122,6 +71149,10 @@ declare namespace Word {
      * The insertion location types.
      *
      * [Api set: WordApi]
+     * @remarks
+     * To be used with an API call, such as `obj.insertSomething(newStuff, location);`
+     * If the location is "Before" or "After", the new content will be outside of the modified object.
+     * If the location is "Start" or "End", the new content will be included as part of the modified object.
      */
     enum InsertLocation {
         /**
@@ -85356,7 +85387,23 @@ declare namespace PowerPoint {
     class Presentation extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
+        /**
+         *
+         * Returns an ordered collection of slides in the presentation.
+         *
+         * [Api set: PowerPointApi 1.2]
+         */
+        readonly slides: PowerPoint.SlideCollection;
         readonly title: string;
+        /**
+         * Inserts the specified slides from a presentation into the current presentation.
+         *
+         * [Api set: PowerPointApi 1.2]
+         *
+         * @param base64File The base64-encoded string representing the source presentation file.
+         * @param options The options that define which slides will be inserted, where the new slides will go, and which presentation's formatting will be used.
+         */
+        insertSlidesFromBase64(base64File: string, options?: PowerPoint.InsertSlideOptions): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
@@ -85384,6 +85431,180 @@ declare namespace PowerPoint {
         */
         toJSON(): PowerPoint.Interfaces.PresentationData;
     }
+    /**
+     *
+     * Specifies the formatting options for when slides are inserted.
+     *
+     * [Api set: PowerPointApi 1.2]
+     */
+    enum InsertSlideFormatting {
+        /**
+         * Copy the source theme into the target presentation and use that theme.
+         *
+         */
+        keepSourceFormatting = "KeepSourceFormatting",
+        /**
+         * Use the existing theme in the target presentation.
+         *
+         */
+        useDestinationTheme = "UseDestinationTheme",
+    }
+    /**
+     *
+     * Represents the available options when inserting slides.
+     *
+     * [Api set: PowerPointApi 1.2]
+     */
+    interface InsertSlideOptions {
+        /**
+         *
+         * Specifies which formatting to use during slide insertion.
+                    The default option is to use "KeepSourceFormatting".
+         *
+         * [Api set: PowerPointApi 1.2]
+         */
+        formatting?: PowerPoint.InsertSlideFormatting | "KeepSourceFormatting" | "UseDestinationTheme";
+        /**
+         *
+         * Specifies the slides from the source presentation that will be inserted into the current presentation. These slides are represented by their IDs which can be retrieved from a `Slide` object.
+                    The order of these slides is preserved during the insertion.
+                    If any of the source slides are not found, or if the IDs are invalid, the operation throws a `SlideNotFound` exception and no slides will be inserted.
+                    All of the source slides will be inserted when `sourceSlideIds` is not provided (this is the default behavior).
+         *
+         * [Api set: PowerPointApi 1.2]
+         */
+        sourceSlideIds?: string[];
+        /**
+         *
+         * Specifies where in the presentation the new slides will be inserted. The new slides will be inserted after the slide with the given slide ID.
+                    If `targetSlideId` is not provided, the slides will be inserted at the beginning of the presentation.
+                    If `targetSlideId` is invalid or if it is pointing to a non-existing slide, the operation throws a `SlideNotFound` exception and no slides will be inserted.
+         *
+         * [Api set: PowerPointApi 1.2]
+         */
+        targetSlideId?: string;
+    }
+    /**
+     *
+     * Represents a single slide of a presentation.
+     *
+     * [Api set: PowerPointApi 1.2]
+     */
+    class Slide extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the unique ID of the slide.
+         *
+         * [Api set: PowerPointApi 1.2]
+         */
+        readonly id: string;
+        /**
+         * Deletes the slide from the presentation. Does nothing if the slide does not exist.
+         *
+         * [Api set: PowerPointApi 1.2]
+         */
+        delete(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.SlideLoadOptions): PowerPoint.Slide;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.Slide;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): PowerPoint.Slide;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original PowerPoint.Slide object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.SlideData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): PowerPoint.Interfaces.SlideData;
+    }
+    /**
+     *
+     * Represents the collection of slides in the presentation.
+     *
+     * [Api set: PowerPointApi 1.2]
+     */
+    class SlideCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: PowerPoint.Slide[];
+        /**
+         * Gets the number of slides in the collection.
+         *
+         * [Api set: PowerPointApi 1.2]
+         * @returns The number of slides in the collection.
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Gets a slide using its unique ID.
+         *
+         * [Api set: PowerPointApi 1.2]
+         *
+         * @param key The ID of the slide.
+         * @returns The slide with the unique ID. If such a slide does not exist, an error is thrown.
+         */
+        getItem(key: string): PowerPoint.Slide;
+        /**
+         * Gets a slide using its zero-based index in the collection. Slides are stored in the same order as they
+                    are shown in the presentation.
+         *
+         * [Api set: PowerPointApi 1.2]
+         *
+         * @param index The index of the slide in the collection.
+         * @returns The slide at the given index. An error is thrown if index is out of range.
+         */
+        getItemAt(index: number): PowerPoint.Slide;
+        /**
+         * Gets a slide using its unique ID. If such a slide does not exist, an object with an `isNullObject` property set to true is returned. For further information,
+                    see {@link https://docs.microsoft.com/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties | *OrNullObject methods
+                    and properties}.
+         *
+         * [Api set: PowerPointApi 1.2]
+         *
+         * @param id The ID of the slide.
+         * @returns The slide with the unique ID.
+         */
+        getItemOrNullObject(id: string): PowerPoint.Slide;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.SlideCollectionLoadOptions & PowerPoint.Interfaces.CollectionLoadOptions): PowerPoint.SlideCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.SlideCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): PowerPoint.SlideCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `PowerPoint.SlideCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.SlideCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): PowerPoint.Interfaces.SlideCollectionData;
+    }
     enum ErrorCodes {
         generalException = "GeneralException",
     }
@@ -85401,9 +85622,27 @@ declare namespace PowerPoint {
             */
             $skip?: number;
         }
+        /** An interface for updating data on the SlideCollection object, for use in `slideCollection.set({ ... })`. */
+        interface SlideCollectionUpdateData {
+            items?: PowerPoint.Interfaces.SlideData[];
+        }
         /** An interface describing the data returned by calling `presentation.toJSON()`. */
         interface PresentationData {
             title?: string;
+        }
+        /** An interface describing the data returned by calling `slide.toJSON()`. */
+        interface SlideData {
+            /**
+             *
+             * Gets the unique ID of the slide.
+             *
+             * [Api set: PowerPointApi 1.2]
+             */
+            id?: string;
+        }
+        /** An interface describing the data returned by calling `slideCollection.toJSON()`. */
+        interface SlideCollectionData {
+            items?: PowerPoint.Interfaces.SlideData[];
         }
         /**
          * [Api set: PowerPointApi 1.0]
@@ -85414,6 +85653,44 @@ declare namespace PowerPoint {
              */
             $all?: boolean;
             title?: boolean;
+        }
+        /**
+         *
+         * Represents a single slide of a presentation.
+         *
+         * [Api set: PowerPointApi 1.2]
+         */
+        interface SlideLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets the unique ID of the slide.
+             *
+             * [Api set: PowerPointApi 1.2]
+             */
+            id?: boolean;
+        }
+        /**
+         *
+         * Represents the collection of slides in the presentation.
+         *
+         * [Api set: PowerPointApi 1.2]
+         */
+        interface SlideCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the unique ID of the slide.
+             *
+             * [Api set: PowerPointApi 1.2]
+             */
+            id?: boolean;
         }
     }
 }

@@ -1,1 +1,3 @@
-export { GraphicalDataFlow20 as default } from "../../";
+import { GraphicalDataFlow20 } from "../../";
+
+export = GraphicalDataFlow20;

@@ -1,1 +1,3 @@
-export { WatsonHealth3DMprToggle32 as default } from "../../../";
+import { WatsonHealth3DMprToggle32 } from "../../../";
+
+export = WatsonHealth3DMprToggle32;

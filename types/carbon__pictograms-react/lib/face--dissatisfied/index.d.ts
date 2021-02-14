@@ -1,1 +1,3 @@
-export { FaceDissatisfied as default } from "../../";
+import { FaceDissatisfied } from "../../";
+
+export = FaceDissatisfied;

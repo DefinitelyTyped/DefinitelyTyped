@@ -6,7 +6,7 @@
 
 *Link to [Admin manual](./docs/admin.md)*
 
-## Table of Contents
+## Contents
 
 * [Current status](#current-status)
 * [What are declaration files and how do I get them?](#what-are-declaration-files-and-how-do-i-get-them)
@@ -16,7 +16,8 @@
     - [Edit an existing package](#edit-an-existing-package)
     - [Create a new package](#create-a-new-package)
     - [Removing a package](#removing-a-package)
-    - [Running Tests](#running-tests)
+    - [Running tests](#running-tests)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -24,7 +25,7 @@
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [Common mistakes](#common-mistakes)
     </details>
-  - [Definition Owners](#definition-owners)
+  - [Definition owners](#definition-owners)
 * [FAQ](#faq)
 * [License](#license)
 
@@ -70,11 +71,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (3.1 and earlier)
+#### Older versions of TypeScript (3.3 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 3.2 and above are tested.
-If you're using TypeScript 2.0 to 3.1, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 3.4 and above are tested.
+If you're using TypeScript 2.0 to 3.3, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -93,6 +94,8 @@ Here is the support window:
 | 3.8     | February 2020  | February 2022  |
 | 3.9     | May 2020       | May 2022       |
 | 4.0     | August 2020    | August 2022    |
+| 4.1     | November 2020  | November 2022  |
+| 4.2     | February 2021  | February 2023  |
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -171,7 +174,7 @@ If you are the library author and your package is written in TypeScript, [bundle
 
 If you are adding typings for an npm package, create a directory with the same name.
 If the package you are adding typings for is not on npm, make sure the name you choose for it does not conflict with the name of a package on npm.
-(You can use `npm info foo` to check for the existence of the `foo` package.)
+(You can use `npm info <my-package>` to check for the existence of the `<my-package>` package.)
 
 Your package should have this structure:
 
@@ -195,34 +198,42 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
-You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
-* `typingsPackageName`: This is the name of the directory to delete.
-* `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
-* `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to `typingsPackageName`, in which case you can omit it.
+You can remove it by running `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+* `<typingsPackageName>`: This is the name of the directory to delete.
+* `<asOfVersion>`: A stub will be published to `@types/<typingsPackageName>` with this version. Should be higher than any currently published version, and should be a version of `<libraryName>` on npm.
+* `<libraryName>`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to `<typingsPackageName>`, in which case you can omit it.
 
 Any other packages in Definitely Typed that referenced the deleted package should be updated to reference the bundled types.
 You can get this list by looking at the errors from `npm run test-all`.
-To fix the errors, [add a `package.json`](#packagejson) with `"dependencies": { "foo": "x.y.z" }`.
+To fix the errors, [add a `package.json`](#packagejson) with `"dependencies": { "<libraryName>": "x.y.z" }`.
 For example:
 
 ```json
 {
   "private": true,
   "dependencies": {
-    "foo": "^2.6.0"
+    "<libraryName>": "^2.6.0"
   }
 }
 ```
 
-When you add a `package.json` to dependents of `foo`, you will also need to open a PR to add `foo` [to allowedPackageJsonDependencies.txt in DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
+When you add a `package.json` to dependents of `<libraryName>`, you will also need to open a PR to add `<libraryName>` [to allowedPackageJsonDependencies.txt in DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
 
 If a package was never on Definitely Typed, it does not need to be added to `notNeededPackages.json`.
 
-#### Running Tests
+#### Running tests
 
 Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+
+#### Naming
+
+If you are adding typings for an npm package, create a directory with the same name.
+If the package you are adding typings for is not on npm, make sure the name you choose for it does not conflict with the name of a package on npm.
+(You can use `npm info <my-package>` to check for the existence of the `<my-package>` package.)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 
@@ -326,7 +337,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
   Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
-### Definition Owners
+### Definition owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 

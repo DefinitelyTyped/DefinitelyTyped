@@ -12,7 +12,6 @@
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
-//                 Flarna <https://github.com/Flarna>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Huw <https://github.com/hoo29>
@@ -44,6 +43,7 @@
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Victor Perin <https://github.com/victorperin>
+//                 Yongsheng Zhang <https://github.com/ZYSzys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.7.

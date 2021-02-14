@@ -1,1 +1,3 @@
-export { KeepDry32 as default } from "../../";
+import { KeepDry32 } from "../../";
+
+export = KeepDry32;

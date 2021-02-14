@@ -1,1 +1,3 @@
-export { Launch16 as default } from "../../";
+import { Launch16 } from "../../";
+
+export = Launch16;

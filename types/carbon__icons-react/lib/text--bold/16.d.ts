@@ -1,1 +1,3 @@
-export { TextBold16 as default } from "../../";
+import { TextBold16 } from "../../";
+
+export = TextBold16;

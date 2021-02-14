@@ -8,6 +8,7 @@ const minio = new Minio.Client({
     useSSL: false,
     accessKey: 'iV7RAFOtxF',
     secretKey: 'Go1hhOkXnl',
+    pathStyle: true,
 });
 
 minio.makeBucket('testBucket', 'ap-southeast-2', (error: Error|null) => { console.log(error); });

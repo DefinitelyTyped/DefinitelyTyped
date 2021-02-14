@@ -1,1 +1,3 @@
-export { Office as default } from "../../";
+import { Office } from "../../";
+
+export = Office;

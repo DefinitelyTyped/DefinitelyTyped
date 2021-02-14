@@ -4,17 +4,18 @@
 
 Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aunque la información en este README está más actualizada.
 
-## Table of Contents
+## Contents
 
-* [¿Qué son los `declaration files`?](#¿qué-son-los-declaration-files)
-* [¿Cómo los obtengo?](#¿cómo-los-obtengo)
-* [¿Cómo puedo contribuir?](#¿cómo-puedo-contribuir)
+* [¿Qué son los `declaration files`?](#qué-son-los-declaration-files)
+* [¿Cómo los obtengo?](#cómo-los-obtengo)
+* [¿Cómo puedo contribuir?](#cómo-puedo-contribuir)
   - [Prueba](#prueba)
   - [Haz un pull request](#haz-un-pull-request)<details><summary></summary>
     - [Editar un paquete existente](#editar-un-paquete-existente)
     - [Crear un nuevo paquete](#crear-un-nuevo-paquete)
     - [Remover un paquete](#remover-un-paquete)
-    - [Running Tests](#running-tests)
+    - [Running tests](#running-tests)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -22,7 +23,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [Errores comunes](#errores-comunes)
     </details>
-  - [Definition Owners](#definition-owners)
+  - [Definition owners](#definition-owners)
 * [FAQ](#faq)
 * [Licencia](#licencia)
 
@@ -51,10 +52,10 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.t
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de Typescript (3.1 y anteriores)
+#### Versiones más viejas de TypeScript (3.3 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 3.2 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.1, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Actualmente, las versiones 3.4 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.3, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
 Versiones soportadas:
 
 Versión | Liberado | Fin de soporte
@@ -72,6 +73,8 @@ Versión | Liberado | Fin de soporte
 3.8 | Febrero 2020 | Febrero 2022
 3.9 | Mayo 2020 | Mayo 2022
 4.0 | Agosto 2020 | Agosto 2022
+4.1 | Noviembre 2020  | Noviembre 2022
+4.2 | Febrero 2021  | Febrero 2023
 
 Los paquetes `@types` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
 Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript 2.5 puede usar types para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar types para react@16.4.
@@ -86,7 +89,7 @@ Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript
 |ts2.7| 16.4.7|
 | ... | ... |
 
-#### Typescript 1.*
+#### TypeScript 1.*
 
 * Descárguelo manualmente desde la `master` branch de este repositorio
 * [Typings](https://github.com/typings/typings)~~ (use las alternativas preferidas, typings es obsoleto)
@@ -122,9 +125,9 @@ Añade a tu `tsconfig.json`:
 Crea un `types/foo/index.d.ts` que contenga declaraciones del módulo "foo".
 Ahora deberías poder importar desde `"foo"` a tu código y te enviara a un nuevo tipo de definición.
 Entonces compila *y* ejecuta el código para asegurarte que el tipo de definición en realidad corresponde a lo que suceda en el momento de la ejecución.
-Una vez que hayas probado tus definiciones con el código real, haz un [PR](#make-a-pull-request)
-luego sigue las instrucciones para [editar un paquete existente](#edit-an-existing-package) o
-[crear un nuevo paquete](#create-a-new-package).
+Una vez que hayas probado tus definiciones con el código real, haz un [PR](#haz-un-pull-request)
+luego sigue las instrucciones para [editar un paquete existente](#editar-un-paquete-existente) o
+[crear un nuevo paquete](#crear-un-nuevo-paquete).
 
 
 ### Haz un pull request
@@ -161,7 +164,7 @@ Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca
 
 Si estás agregando typings para un paquete npm, crea un directorio con el mismo nombre.
 Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
-(Puedes usar `npm info foo` para verificar la existencia del paquete `foo`.)
+(Puedes usar `npm info <my-package>` para verificar la existencia del paquete `<my-package>`.)
 
 Tu paquete debería tener esta estructura:
 
@@ -183,19 +186,27 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 
 Cuando un paquete [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de Definitely Typed para evitar que generen confusión.
 
-Se puede remover ejecutando `npm run not-needed -- typingsPackageName asOfVersion [libraryName]`.
-- `typingsPackageName`: Este es el nombre del directorio que tienes que eliminar.
-- `asOfVersion`: Un stub será publicado a `@types/foo` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
-- `libraryName`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a `typingsPackageName`.)
+Se puede remover ejecutando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+- `<typingsPackageName>`: Este es el nombre del directorio que tienes que eliminar.
+- `<asOfVersion>`: Un stub será publicado a `@types/<typingsPackageName>` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
+- `<libraryName>`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a `<typingsPackageName>`.)
 
-Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, [añade `package.json`](#packagejson) con `"dependencies": { "foo": "x.y.z" }`.
+Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, [añade `package.json`](#packagejson) con `"dependencies": { "<libraryName>": "x.y.z" }`.
 
 Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `notNeededPackages.json`.
 
-#### Running Tests
+#### Running tests
 
 Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
 Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
+
+#### Naming
+
+Si estás agregando typings para un paquete npm, crea un directorio con el mismo nombre.
+Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
+(Puedes usar `npm info <my-package>` para verificar la existencia del paquete `<my-package>`.)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 
@@ -263,7 +274,7 @@ También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para
 Normalmente no lo necesitarás. Cuando publicas un paquete normalmente nosotros automáticamente crearemos un `package.json` para eso.
 Un `package.json` puede ser incluido por el bien de especificar dependencias. Aquí tienen un [ejemplo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
 No aceptamos otros campos, tales como `"description"`, para que sean definidos manualmente.
-Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/foo": "x.y.z" }` al `package.json`.
+Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/<libraryName>": "x.y.z" }` al `package.json`.
 
 #### `OTHER_FILES.txt`
 
@@ -289,7 +300,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Cuando es usado `any` en un tipo de unión, el tipo resultante todavía es `any`. Así que mientras la porción `string` de este tipo de anotación puede _verse_ útil, de hecho, no ofrece ningún typechecking adicional más que un simple `any`.
   Dependiendo de la intención, una alternativa aceptable puede ser `any`, `string`, o `string | object`.
 
-### Definition Owners
+### Definition owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 

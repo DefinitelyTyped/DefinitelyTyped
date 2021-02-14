@@ -1,1 +1,3 @@
-export { SplitScreen24 as default } from "../../";
+import { SplitScreen24 } from "../../";
+
+export = SplitScreen24;

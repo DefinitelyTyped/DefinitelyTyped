@@ -1,1 +1,3 @@
-export { PlayerFlow as default } from "../../";
+import { PlayerFlow } from "../../";
+
+export = PlayerFlow;

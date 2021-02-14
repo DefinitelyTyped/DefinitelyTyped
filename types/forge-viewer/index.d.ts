@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.32
+// Type definitions for non-npm package Forge Viewer 7.35
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -253,7 +253,13 @@ declare namespace Autodesk {
         const CANCEL_LEAFLET_SCREENSHOT = 'cancelLeafletScreenshot';
         const ESCAPE_EVENT = 'escape';
         const EXPLODE_CHANGE_EVENT = 'explodeChanged';
+        const EXTENSION_ACTIVATED_EVENT = 'extensionActivated';
+        const EXTENSION_DEACTIVATED_EVENT = 'extensionDeactivated';
         const EXTENSION_LOADED_EVENT = 'extensionLoaded';
+        const EXTENSION_PRE_ACTIVATED_EVENT = 'extensionPreActivated';
+        const EXTENSION_PRE_DEACTIVATED_EVENT = 'extensionPreDeactivated';
+        const EXTENSION_PRE_LOADED_EVENT = 'extensionPreLoaded';
+        const EXTENSION_PRE_UNLOADED_EVENT = 'extensionPreUnloaded';
         const EXTENSION_UNLOADED_EVENT = 'extensionUnloaded';
         const FINAL_FRAME_RENDERED_CHANGED_EVENT = 'finalFrameRenderedChanged';
         const FIT_TO_VIEW_EVENT = 'fitToView';
@@ -352,6 +358,8 @@ declare namespace Autodesk {
           static GEOMETRY_F2D_NODE: BubbleNodeSearchProps;
           static VIEWABLE_NODE: BubbleNodeSearchProps;
 
+          static parseLineageUrnFromEncodedUrn(encodedUrn: string): string;
+
           parent: BubbleNode;
           id: number;
           data: ViewerItem;
@@ -383,6 +391,7 @@ declare namespace Autodesk {
           isMetadata(): boolean;
           isViewable(): boolean;
           isViewPreset(): boolean;
+          lineageUrn(encode?: boolean): string;
           name(): string;
           search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
           searchByTag(tagsToMatch: object): BubbleNode[];
@@ -414,8 +423,10 @@ declare namespace Autodesk {
             [key: string]: any;
         }
 
+        function fromUrlSafeBase64(urn: string): string;
         function getApiEndpoint(): string;
         function Initializer(options: InitializerOptions, callback?: () => void): void;
+        function toUrlSafeBase64(urn: string): string;
 
         class Document {
             constructor(dataJSON: object, path: string, acmsession: string);
@@ -543,6 +554,7 @@ declare namespace Autodesk {
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
             getDocumentNode(): any;
+            getDoNotCut(): boolean;
             getExternalIdMapping(onSuccessCallback: (idMapping: { [key: string]: number; }) => void, onErrorCallback: () => void): any;
             getFastLoadList(): any;
             getFragmentMap(): any;
@@ -558,24 +570,44 @@ declare namespace Autodesk {
             getUnitScale(): number;
             getUnitString(): string;
             getUpVector(): number[];
+            getViewportBounds(): THREE.Box3;
             getVisibleBounds(includeGhosted?: boolean, excludeShadow?: boolean): THREE.Box3;
             hasTopology(): boolean;
             instancePolyCount(): number;
             is2d(): boolean;
             is3d(): boolean;
             isAEC(): boolean;
+            isConsolidated(): boolean;
+            isLeaflet(): boolean;
             isLoadDone(): boolean;
             isObjectTreeCreated(): boolean;
             isObjectTreeLoaded(): boolean;
+            isOTG(): boolean;
+            isPageCoordinates(): boolean;
+            isPdf(onlyPdfSource?: boolean): boolean;
+            isSceneBuilder(): boolean;
+            isSVF2(): boolean;
             pageToModel(): void;
             pointInClip(): void;
             search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
             setData(data: object): void;
+            setDoNotCut(materialsManager: Private.MaterialManager, doNotCut: boolean): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
             setUUID(urn: string): void;
+            setViewportBounds(materialsManager: Private.MaterialManager, bounds: THREE.Box3|THREE.Box2): void;
         }
 
         namespace MeasureCommon {
+          enum MeasurementTypes {
+            MEASUREMENT_DISTANCE = 1,
+            MEASUREMENT_ANGLE = 2,
+            MEASUREMENT_AREA = 3,
+            CALIBRATION = 4,
+            MEASUREMENT_CALLOUT = 5,
+            MEASUREMENT_LOCATION = 6,
+            MEASUREMENT_ARC = 7
+          }
+
           function getSnapResultPosition(pick: SnapResult, viewer: Viewer3D): THREE.Vector3;
 
           class SnapResult {
@@ -628,7 +660,7 @@ declare namespace Autodesk {
 
         class Navigation {
             dollyFromPoint(distance: number, point: THREE.Vector3): void;
-            fitBounds(immediate: boolean, bounds: THREE.Box3): any;
+            fitBounds(immediate: boolean, bounds: THREE.Box3, reorient?: boolean, force?: boolean): { position: THREE.Vector3, target: THREE.Vector3 };
             getAlignedUpVector(): THREE.Vector3;
             getCamera(): any;
             getCameraRightVector(worldAligned: boolean): THREE.Vector3;
@@ -1051,11 +1083,24 @@ declare namespace Autodesk {
               isSnapped(): boolean;
               clearSnapped(): void;
               copyResults(destiny: any): void;
+              getArc(): boolean;
               getGeometry(): any;
+              getGeometryType(): number;
               getEdge(): any;
+              getIntersectPoint(): any;
+              getName(): string;
+              getNames(): string[];
+              getPriority(): number;
               getSnapResult(): MeasureCommon.SnapResult;
+              getSnapToArc(): boolean;
+              getSnapToPixel(): boolean;
               getVertex(): any;
+              onMouseDown(mousePosition: { x: number, y: number }): boolean;
               onMouseMove(mousePosition: { x: number, y: number }): boolean;
+              setArc(isArc: boolean): boolean;
+              setViewportId(vpId: number): void;
+              setSnapToArc(enable: boolean): void;
+              setSnapToPixel(enable: boolean): void;
             }
 
             class SnapperIndicator {
@@ -1108,6 +1153,75 @@ declare namespace Autodesk {
         namespace Private {
             const env: string;
             const LocalStorage: LocalStorageClass;
+            enum Prefs {
+              PROGRESSIVE_RENDERING = 'progressiveRendering',
+              OPEN_PROPERTIES_ON_SELECT = 'openPropertiesOnSelect',
+              POINT_RENDERING = 'pointRendering',
+              BACKGROUND_COLOR_PRESET = 'backgroundColorPreset',
+              REVERSE_MOUSE_ZOOM_DIR = 'reverseMouseZoomDir',
+              LEFT_HANDED_MOUSE_SETUP = 'leftHandedMouseSetup',
+              FUSION_ORBIT = 'fusionOrbit',
+              FUSION_ORBIT_CONSTRAINED = 'fusionOrbitConstrained',
+              WHEEL_SETS_PIVOT = 'wheelSetsPivot',
+              RESTORE_SESSION_MEASUREMENTS = 'restoreMeasurements',
+              DISPLAY_UNITS = 'displayUnits',
+              DISPLAY_UNITS_PRECISION = 'displayUnitsPrecision',
+              KEY_MAP_CMD = 'keyMapCmd'
+            }
+
+            enum MATERIAL_VARIANT {
+              INSTANCED = 0,
+              VERTEX_IDS = 1
+            }
+
+            enum Prefs2D {
+              GRAYSCALE = 'grayscale',
+              SWAP_BLACK_AND_WHITE = 'swapBlackAndWhite',
+              LOADING_ANIMATION = 'loadingAnimation',
+              FORCE_PDF_CALIBRATION = 'forcePDFCalibration',
+              FORCE_LEAFLET_CALIBRATION = 'forceLeafletCalibration',
+              DISABLE_PDF_HIGHLIGHT = 'disablePdfHighlight'
+            }
+
+            enum Prefs3D {
+              VIEW_CUBE = 'viewCube',
+              VIEW_CUBE_COMPASS = 'viewCubeCompass',
+              VIEW_TYPE = 'viewType',
+              ALWAYS_USE_PIVOT = 'alwaysUsePivot',
+              ZOOM_TOWARDS_PIVOT = 'zoomTowardsPivot',
+              SELECTION_SETS_PIVOT = 'selectionSetsPivot',
+              REVERSE_HORIZONTAL_LOOK_DIRECTION = 'reverseHorizontalLookDirection',
+              REVERSE_VERTICAL_LOOK_DIRECTION = 'reverseVerticalLookDirection',
+              ORBIT_PAST_WORLD_POLES = 'orbitPastWorldPoles',
+              CLICK_TO_SET_COI = 'clickToSetCOI',
+              GHOSTING = 'ghosting',
+              OPTIMIZE_NAVIGATION = 'optimizeNavigation',
+              AMBIENT_SHADOWS = 'ambientShadows',
+              ANTIALIASING = 'antialiasing',
+              GROUND_SHADOW = 'groundShadow',
+              GROUND_REFLECTION = 'groundReflection',
+              LINE_RENDERING = 'lineRendering',
+              EDGE_RENDERING = 'edgeRendering',
+              LIGHT_PRESET = 'lightPreset',
+              ENV_MAP_BACKGROUND = 'envMapBackground',
+              FIRST_PERSON_TOOL_POPUP = 'firstPersonToolPopup',
+              BIM_WALK_TOOL_POPUP = 'bimWalkToolPopup',
+              BIM_WALK_NAVIGATOR_TYPE = 'bimWalkNavigatorType',
+              BIM_WALK_GRAVITY = 'bimWalkGravity',
+              DEFAULT_NAVIGATION_TOOL_3D = 'defaultNavigationTool3D',
+              SELECTION_MODE = 'selectionMode',
+              ENABLE_CUSTOM_ORBIT_TOOL_CURSOR = 'enableCustomOrbitToolCursor',
+              EXPLODE_STRATEGY = 'explodeStrategy',
+              FORCE_DOUBLE_SIDED = 'forceDoubleSided',
+              DISPLAY_SECTION_HATCHES = 'displaySectionHatches'
+            }
+
+            enum VIEW_TYPES {
+              DEFAULT = 0,
+              ORTHOGRAPHIC = 1,
+              PERSPECTIVE = 2,
+              PERSPECTIVE_ORTHO_FACES = 3
+            }
 
             function calculatePrecision(value: string|number): number;
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
@@ -1144,6 +1258,9 @@ declare namespace Autodesk {
               useThreeMesh: boolean;
               vizflags: Uint32Array;
               vizmeshes: THREE.Mesh[];
+
+              getAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): boolean;
+              updateAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): void;
             }
 
             interface GeometryList {
@@ -1167,6 +1284,24 @@ declare namespace Autodesk {
               isSupported(): boolean;
               removeItem(key: string): void;
               setItem(key: string, value: string): void;
+            }
+
+            class MaterialManager {
+              constructor(renderer: any);
+
+              addCompactLayoutSupport(material: THREE.Material): THREE.Material;
+              addHDRMaterial(name: string, mat: THREE.ShaderMaterial): void;
+              addInstancingSupport(material: THREE.Material): THREE.Material;
+              addLineMaterial(name: string, mat: THREE.ShaderMaterial, modelId: number): void;
+              addMaterial(name: string, mat: THREE.ShaderMaterial, skipSimplePhongHeuristics: boolean): void;
+              addMaterialNonHDR(name: string, mat: THREE.ShaderMaterial): void;
+              addNonHDRMaterial(name: string, mat: THREE.ShaderMaterial): void;
+              addOverrideMaterial(name: string, mat: THREE.Material): void;
+              cloneMaterial(mat: THREE.Material, model: Model): THREE.Material;
+              getMaterialVariant(srcMaterial: THREE.Material, variant: MATERIAL_VARIANT, model: Model): THREE.Material;
+              getModelMaterials(model: Model, includeOTG: boolean): any;
+              removeMaterial(name: string): void;
+              removeNonHDRMaterial(name: string): void;
             }
 
             interface PreferencesOptions {
@@ -1279,6 +1414,7 @@ declare namespace Autodesk {
                 disableHighlight(disable: boolean): void;
                 disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
+                getFragmentProxy(model: Model, fragId: number): any;
                 hitTest(clientX: number, clientY: number, ignoreTransparent?: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
@@ -1287,7 +1423,7 @@ declare namespace Autodesk {
                 setLightPreset(index: number, force?: boolean): void;
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
                 modelqueue(): any;
-                matman(): any;
+                matman(): MaterialManager;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
                 pauseHighlight(disable: boolean): void;
@@ -1297,8 +1433,10 @@ declare namespace Autodesk {
                 rayIntersect(ray: THREE.Ray): HitTestResult;
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
+                setDoNotCut(model: Model, doNotCut: boolean): void;
                 setPlacementTransform(model: Model, matrix: THREE.Matrix4): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
+                setViewportBounds(model: Model, bounds?: THREE.Box3|THREE.Box2): void;
                 syncCamera(syncWorldUp?: boolean): void;
                 viewportToRay(vpVec: THREE.Vector3, ray?: THREE.Ray, camera?: any): THREE.Ray;
                 worldToClient(pos: THREE.Vector3): THREE.Vector3;
@@ -1656,6 +1794,7 @@ declare namespace Autodesk {
 
       class SpriteViewable extends CustomViewable {
         get color(): THREE.Color;
+        get highlightedColor(): THREE.Color;
         get type(): ViewableType;
       }
 
@@ -1714,20 +1853,244 @@ declare namespace Autodesk {
         get viewables(): CustomViewable[];
 
         addViewable(viewable: CustomViewable): void;
+        getViewableColor(dbId: string, highlighted: boolean): THREE.Color;
+        getViewableUV(dbId: string, highlighted: boolean): object;
         finish(): Promise<void>;
       }
 
       class ViewableStyle {
         color: THREE.Color;
+        highlightedColor: THREE.Color;
+        highlightedUrl: string;
         id: string;
         type: ViewableType;
         url: string;
 
-        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string);
+        constructor(id: string, type?: ViewableType, color?: THREE.Color, url?: string, highlightedColor?: THREE.Color, highlightedUrl?: string);
+      }
+    }
+
+    namespace Edit2D {
+      enum EdgeType {
+        Line = 0,
+        Bezier = 1,
+        Ellipse = 2
+      }
+
+      enum LoopType {
+        Empty = 0,
+        Inner = 1,
+        Outer = 2,
+        Overlapping = 3
+      }
+
+      class Edit2DContext {
+        get layer(): EditLayer;
+        get undoStack(): UndoStack;
+
+        addShape(shape: any): void;
+        removeShape(shape: any): void;
+
+        clearLayer(enableUndo?: boolean): void;
+        setMatrix(matrix: THREE.Matrix4): void;
+      }
+
+      class EditLayer extends Viewing.EventDispatcher {
+        constructor(viewer: Viewing.Viewer3D, options?: any);
+
+        shapes: Shape[];
+
+        addShape(shape: Shape): number;
+        addShapes(shapes: Shape[]): void;
+        clear(): void;
+        hasShape(shape: Shape): boolean;
+        removeShape(shape: Shape): boolean;
+        removeShapes(shapes: Shape[]): void;
+        update(): void;
+        updateCanvasGizmos(): void;
+      }
+
+      namespace Math2D {
+        function angleBetweenDirections(dir1: THREE.Vector2, dir2: THREE.Vector2): number;
+        function changesOrientation(matrix: THREE.Matrix4): boolean;
+        function collinear(p1: THREE.Vector2, dir1: THREE.Vector2, p2: THREE.Vector2, dir2: THREE.Vector2, precision: number): boolean;
+        function distance2D(p1: { x: number, y: number }, p2: { x: number, y: number }): number;
+        function edgeIsDegenerated(a: THREE.Vector2, b: THREE.Vector2, eps?: number): boolean;
+        function fuzzyEqual(a: number, b: number, precision: number): boolean;
+        function getEdgeCenter(a: { x: number, y: number }, b: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function getEdgeDirection(a: { x: number, y: number }, b: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function getEdgeLength(a: { x: number, y: number }, b: { x: number, y: number }): number;
+        function getFitToBoxTransform(fromBox: THREE.Box2, toBox: THREE.Box2, options?: { flipY: boolean, preserveAspect: boolean }, target?: THREE.Matrix4): THREE.Matrix4;
+        function intersectLines(linePoint1: {x: number, y: number },
+          lineDir1: { x: number, y: number },
+          linePoint2: { x: number, y: number },
+          lineDir2: { x: number, y: number },
+          outPoint?: { x: number, y: number }): boolean;
+        function isPointOnEdge(p: { x: number, y: number }, a: { x: number, y: number }, b: { x: number, y: number }, precision: number, checkInsideSegment?: boolean): boolean;
+        function isPointOnLine(p: { x: number, y: number }, a: { x: number, y: number }, b: { x: number, y: number }, precision: number): boolean;
+        function mirrorPointOnPoint(p: { x: number, y: number }, c: { x: number, y: number }, target?: THREE.Vector2): THREE.Vector2;
+        function pointDelta(a: { x: number, y: number }, b: { x: number, y: number }, digits?: number): { x: number, y: number };
+        function pointLineDistance(p: THREE.Vector2, linePoint: THREE.Vector2, lineDir: THREE.Vector2): number;
+        function projectToLine(p: THREE.Vector2, linePoint: THREE.Vector2, lineDir: THREE.Vector2): void;
+        function rotateAround(p: THREE.Vector2, angle: number, center?: THREE.Vector2): THREE.Vector2;
+        function turnLeft(x: number, y: number): { x: number, y: number };
+      }
+
+      class MeasureTransform {
+        apply(p: THREE.Vector2): void;
+      }
+      class Path extends PolyBase {
+        constructor(points?: Array<{ x: number, y: number }>, isClosed?: boolean, style?: Style);
+
+        getEdgeType(segmentIndex: number, loopIndex?: number): EdgeType;
+        isBezierArc(segmentIndex: number, loopIndex?: number): boolean;
+        isEllipseArc(segmentIndex: number, loopIndex?: number): boolean;
+      }
+
+      class PolyBase extends Shape {
+        constructor(points?: Array<{ x: number; y: number }>, style?: Style);
+
+        isClosed: boolean;
+
+        get length(): number;
+        get loopCount(): number;
+        get points(): Array<{ x: number; y: number; }>;
+        get vertexCount(): number;
+
+        addPoint(x: number, y: number, loopIndex?: number): { x: number, y: number };
+        applyMatrix4(matrix: THREE.Matrix4): PolyBase;
+        enumEdges(cb: (a: THREE.Vector2, b: THREE.Vector2, ai: number, bi: number) => boolean, loopIndex?: number): void;
+        getChildLoops(loopIndex: number): number[];
+        getEdgeCount(loopIndex?: number): number;
+        getEdgeLength(edgeIndex: number, loopIndex?: number): number;
+        getLoopType(loopIndex: number): LoopType;
+        getMainLoops(): number[];
+        getPoint(index: number, loopIndex?: number, target?: THREE.Vector2): THREE.Vector2;
+        getVertexCount(loopIndex?: number): number;
+        isCCW(loopIndex?: number): boolean;
+        isLoopFinite(loopIndex: number): boolean;
+        isPath(): boolean;
+        isPointFinite(vertex: number, loopIndex?: number): boolean;
+        isPolygon(): boolean;
+        isPolyline(): boolean;
+        isSelfIntersecting(): boolean;
+      }
+
+      class Polygon extends PolyBase {
+        constructor(points?: Array<{ x: number, y: number }>, style?: Style);
+
+        getArea(measureTransform?: MeasureTransform): number;
+        hitTest(x: number, y: number): boolean;
+      }
+
+      class PolygonPath extends Path {
+        constructor(points: Array<{ x: number, y: number }>, style?: Style);
+      }
+
+      class Polyline extends PolyBase {
+        constructor(points: Array<{ x: number, y: number }>, style?: Style);
+      }
+
+      class Shape extends Viewing.EventDispatcher {
+        constructor(style?: Style);
+
+        bbox: THREE.Box2;
+        bboxDirty: boolean;
+        id: number;
+        style: Style;
+
+        computeBBox(): void;
+        getBBox(): THREE.Box2;
+        updateBBox(): void;
+      }
+
+      class Style {
+        constructor(params?: any);
+
+        color: string;
+        fillAlpha: number;
+        fillColor: string;
+        lineAlpha: number;
+        lineColor: string;
+        lineStyle: number;
+        lineWidth: number;
+
+        clone(): Style;
+        copy(from: Style): Style;
+        setFillColor(r: number, g: number, b: number): void;
+        setLineColor(r: number, g: number, b: number): void;
+      }
+
+      class UndoStack extends Viewing.EventDispatcher {
+        static AFTER_ACTION: string;
+        static BEFORE_ACTION: string;
+      }
+
+      namespace BooleanOps {
+        enum Operator {
+          Intersect = 1,
+          Union = 2,
+          Difference = 3,
+          Xor = 4
+        }
+
+        function apply(path1: PolyBase, path2: PolyBase, operator: Operator, extraOperands?: PolyBase[]): PolyBase;
       }
     }
 
     namespace Extensions {
+      namespace Measure {
+        class MeasureExtension extends Viewing.Extension {
+          activeStatus: boolean;
+          calibration: any;
+          calibrationTool: Viewing.ToolInterface;
+          measureTool: Viewing.ToolInterface;
+          mode: string;
+          modes: string[];
+          name: string;
+          sharedMeasureConfig: {
+            units: string;
+            precision: number;
+            calibrationFactor: number;
+          };
+          snapper: Viewing.Extensions.Snapping.Snapper;
+
+          activate(mode: string): boolean;
+          calibrate(requestedUnits: string, requestedSize: number): void;
+          calibrateByScale(requestedUnits: string, requestedSize: number): void;
+          changeMeasurementType(measurementType: Viewing.MeasureCommon.MeasurementTypes): void;
+          deleteCurrentMeasurement(): void;
+          deleteMeasurements(): void;
+          enableCalibrationTool(enable: boolean): boolean;
+          enableMeasureTool(enable: boolean, measurementType: Viewing.MeasureCommon.MeasurementTypes): boolean;
+          enterMeasurementMode(): void;
+          exitMeasurementMode(): void;
+          getCalibration(): any;
+          getCalibrationFactor(): number;
+          getDefaultUnit(): string;
+          getMeasurement(unitType: string, precision: number): object;
+          getMeasurementList(unitType: string, precision: number): object[];
+          getPrecision(): number;
+          getPrecisionOptions(isFractional: boolean): string[];
+          getUnitOptions(): object[];
+          getUnits(): string;
+          isCalibrationValid(requestedUnits: string, requestedSize: number): boolean;
+          isFreeMeasureMode(): boolean;
+          selectMeasurementById(id: number): void;
+          setActive(active: boolean): boolean;
+          setForceLeafletCalibrate(enable: boolean): void;
+          setForcePDFCalibrate(enable: boolean): void;
+          setFreeMeasureModel(allow: boolean, useLastViewport: boolean): void;
+          setIsolateMeasure(enable: boolean): void;
+          setMeasurements(measurements: object[]|object): void;
+          setPrecision(): number;
+          setRestoreSessionMeasurements(enable: boolean): void;
+          setUnits(units: string): void;
+          showAddCalibrationLabel(): void;
+          toggle(): boolean;
+        }
+      }
+
       class DataVisualization extends Viewing.Extension {
         sceneModel: Viewing.Model;
 
@@ -1747,6 +2110,14 @@ declare namespace Autodesk {
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.SurfaceShadingPoint,
           sensorType: string) => number): void;
+      }
+
+      class Edit2D extends Viewing.Extension {
+        get defaultContext(): Edit2D.Edit2DContext;
+        get defaultTools(): any;
+
+        registerDefaultTools(): void;
+        unregisterDefaultTools(): void;
       }
     }
 }

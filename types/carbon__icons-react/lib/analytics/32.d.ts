@@ -1,1 +1,3 @@
-export { Analytics32 as default } from "../../";
+import { Analytics32 } from "../../";
+
+export = Analytics32;

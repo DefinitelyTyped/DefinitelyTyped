@@ -626,6 +626,7 @@ declare namespace Chart {
         minRotation?: number;
         mirror?: boolean;
         padding?: number;
+        precision?: number;
         reverse?: boolean;
         /**
          * The number of ticks to examine when deciding how many labels will fit.

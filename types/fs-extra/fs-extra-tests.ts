@@ -141,6 +141,14 @@ fs.remove(dir, errorCallback);
 fs.remove(dir).then(() => {
     // stub
 });
+// @ts-expect-error map can't be called as it passes a number for the second argument instead of a callback.
+["file/to/remove"].map(fs.remove);
+
+// @ts-expect-error promise should not be returned when callback is provided.
+// tslint:disable-next-line:no-void-expression
+fs.remove(dir, errorCallback).then(() => {
+    // stub
+});
 fs.removeSync(dir);
 
 fs.writeJson(file, object).then(() => {
@@ -173,6 +181,7 @@ fs.ensureDir(path, ensureNum).then(() => {
 });
 fs.ensureDir(path, ensureObj, errorCallback);
 fs.ensureDir(path, ensureNum, errorCallback);
+fs.ensureDir(path, errorCallback);
 fs.ensureDirSync(path);
 fs.ensureDirSync(path, ensureObj);
 fs.ensureDirSync(path, ensureNum);

@@ -1,1 +1,3 @@
-export { TimePlot32 as default } from "../../";
+import { TimePlot32 } from "../../";
+
+export = TimePlot32;

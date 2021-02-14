@@ -1,10 +1,12 @@
 import '../ts3.4/node-tests';
+import '../test/globals';
+import '../test/wasi';
 
 /////////////////////////////////////////////////////
 /// WASI tests : https://nodejs.org/api/wasi.html ///
 /////////////////////////////////////////////////////
 
-import { WASI } from 'wasi';
+import { WASI } from 'node:wasi';
 
 const wasi = new WASI({
   args: process.argv,

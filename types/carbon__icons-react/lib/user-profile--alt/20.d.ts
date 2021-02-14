@@ -1,1 +1,3 @@
-export { UserProfileAlt20 as default } from "../../";
+import { UserProfileAlt20 } from "../../";
+
+export = UserProfileAlt20;

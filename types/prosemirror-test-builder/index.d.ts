@@ -34,13 +34,9 @@ type TestMarksUnion = 'a' | 'link' | 'em' | 'strong' | 'code';
 
 type Args = Array<string | prosemirrorTestBuilder.TaggedProsemirrorNode | prosemirrorTestBuilder.TaggedFlatObject>;
 
-type NodeBuilderMethod<S extends Schema = any> = (
-    ...args: Args
-) => prosemirrorTestBuilder.TaggedProsemirrorNode<S>;
+type NodeBuilderMethod<S extends Schema = any> = (...args: Args) => prosemirrorTestBuilder.TaggedProsemirrorNode<S>;
 
-type MarkBuilderMethod<S extends Schema = any> = (
-    ...args: Args
-) => prosemirrorTestBuilder.TaggedFlatObject<S>;
+type MarkBuilderMethod<S extends Schema = any> = (...args: Args) => prosemirrorTestBuilder.TaggedFlatObject<S>;
 
 declare namespace prosemirrorTestBuilder {
     interface NodeTypeAttributes extends Record<string, any> {
@@ -56,9 +52,7 @@ declare namespace prosemirrorTestBuilder {
         flat: Array<TaggedProsemirrorNode<S> | TaggedFlatObject<S>>;
     }
 
-    interface TaggedProsemirrorNode<S extends Schema = any>
-        extends TaggedFlatObject<S>,
-    ProsemirrorNode {}
+    interface TaggedProsemirrorNode<S extends Schema = any> extends TaggedFlatObject<S>, ProsemirrorNode {}
 
     type TestSchema = Schema<TestNodesUnion, TestMarksUnion>;
 
@@ -67,21 +61,21 @@ declare namespace prosemirrorTestBuilder {
     }
 
     type Builder = <
-        Obj extends Record<
-        string,
-    NodeTypeAttributes | MarkTypeAttributes
-        > = Record<string, NodeTypeAttributes | MarkTypeAttributes>,
-    N extends string = string,
-    M extends string = string
-        >(
-            testSchema: Schema<N, M>,
-            names: Obj,
-        ) => Record<N, NodeBuilderMethod<Schema<N, M>>> &
+        Obj extends Record<string, NodeTypeAttributes | MarkTypeAttributes> = Record<
+            string,
+            NodeTypeAttributes | MarkTypeAttributes
+        >,
+        N extends string = string,
+        M extends string = string
+    >(
+        testSchema: Schema<N, M>,
+        names: Obj,
+    ) => Record<N, NodeBuilderMethod<Schema<N, M>>> &
         Record<M, MarkBuilderMethod<Schema<N, M>>> &
         {
             [P in keyof Obj]: Obj[P] extends NodeTypeAttributes
                 ? NodeBuilderMethod<Schema<N, M>>
-                : MarkBuilderMethod<Schema<N, M>>
+                : MarkBuilderMethod<Schema<N, M>>;
         };
 
     interface ProsemirrorTestBuilder {

@@ -219,3 +219,17 @@ jsonLogic.apply({ substr: ['jsonlogic', 1, 3] });
 
 // $ExpectType any
 jsonLogic.apply({ log: 'apple' });
+
+// $ExpectType void
+jsonLogic.add_operation('op', () => true);
+// $ExpectError
+jsonLogic.add_operation(1, (x: number, y: number) => x + y);
+// $ExpectError
+jsonLogic.add_operation();
+
+// $ExpectType void
+jsonLogic.rm_operation('op');
+// $ExpectError
+jsonLogic.rm_operation(1);
+// $ExpectError
+jsonLogic.rm_operation();

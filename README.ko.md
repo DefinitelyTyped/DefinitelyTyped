@@ -20,6 +20,7 @@
     - [새 패키지를 만들기](#새-패키지를-만들기)
     - [패키지 삭제하기](#패키지-삭제하기)
     - [검증하기](#검증하기)
+    - [Naming](#naming)
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
@@ -27,7 +28,7 @@
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [많이 저지르는 실수들](#많이-저지르는-실수들)
     </details>
-  - [Definition Owners](#definition-owners)
+  - [Definition owners](#definition-owners)
 * [자주 하는 질문들](#자주-하는-질문들)
 * [라이센스](#라이센스)
 
@@ -74,11 +75,11 @@ npm 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (3.1 또는 그 이전)
+#### 이전 버전 TypeScript (3.3 또는 그 이전)
 
 Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 3.2 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 3.1 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
+현재 버전 3.4 및 그 이상만을 테스트하고 있습니다.
+TypeScript 2.0에서 3.3 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
@@ -97,6 +98,8 @@ TypeScript 2.0에서 3.1 버전을 사용하는 경우, 그래도 `@types` 패�
 3.8 | 2020년 2월 | 2022년 2월
 3.9 | 2020년 5월 | 2022년 5월
 4.0 | 2020년 8월 | 2022년 8월
+4.1 | 2020년 11월 | 2022년 11월
+4.2 | 2021년 2월 | 2023년 2월
 
 `@types` 패키지 안에는 패키지가 확실하게 지원하는 TypeScript 버전이 태그로 쓰여 있으므로, 2년 지원 기간이 지난 오래된 패키지도 보통 찾아보실 수 있습니다.
 예를 들어, `npm dist-tags @types/react` 명령어를 입력하면 TypeScript 2.5는 react@16.0용 타입을, TypeScript 2.6 및 2.7은 react@16.4용 타입을 사용할 수 있는 것을 확인하실 수 있습니다:
@@ -148,7 +151,7 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 이제 코드 안에서 여러분의 새 자료형 선언(Type declaration)을 사용하는 `"foo"` 모듈(Module)을 임포트(Import)하실 수 있을 겁니다.
 코드를 컴파일하고 실행시켜서 여러분의 자료형(Typing)이 실행 중에 실제로 벌어지는 일과 잘 맞아떨어지는지 확인해주세요.
 실제 코드를 통한 확인이 끝나면, [풀 리퀘스트(Pull request)](#풀-리퀘스트pull-request-만들기)를 만들어주세요.
-[이미 존재하는 패키지를 수정](#이미-존재하는-패키지를-수정하기)하거나 [새 패키지를 만들기](#새-패키지-만들기)위한 과정들을 따라하시면 됩니다.
+[이미 존재하는 패키지를 수정](#이미-존재하는-패키지를-수정하기)하거나 [새 패키지를 만들기](#새-패키지를-만들기)위한 과정들을 따라하시면 됩니다.
 
 
 ### 풀 리퀘스트(Pull request) 만들기
@@ -185,7 +188,7 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 
 npm 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
 npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 npm 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
-(`npm info foo` 명령어를 사용하여 `foo` 패키지가 npm 에 있는지 확인할 수 있습니다.)
+(`npm info <my-package>` 명령어를 사용하여 `<my-package>` 패키지가 npm 에 있는지 확인할 수 있습니다.)
 
 새 자료형 패키지는 다음과 같은 구조로 구성되어있어야만 합니다.
 
@@ -209,12 +212,12 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 
 패키지가 스스로의 형(Type)을 [포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, Definitely Typed 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
 
-`npm run not-needed -- typingsPackageName asOfVersion [libraryName]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
-- `typingsPackageName` 는 삭제할 디렉토리의 이름입니다.
-- `asOfVersion`  는 새 스텁(Stub) 용 `@types/foo` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 npm 에 올라간 버전보다 더 높은 버전이어야 합니다.
-- `libraryName` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 `typingsPackageName` 와 같은 것으로 취급됩니다.)
+`npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
+- `<typingsPackageName>` 는 삭제할 디렉토리의 이름입니다.
+- `<asOfVersion>`  는 새 스텁(Stub) 용 `@types/<typingsPackageName>` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 npm 에 올라간 버전보다 더 높은 버전이어야 합니다.
+- `<libraryName>` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 `<typingsPackageName>` 와 같은 것으로 취급됩니다.)
 
-Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 [`package.json`](#packagejson) 파일에 `"dependencies": { "foo": "x.y.z" }` 를 추가해주시면 됩니다.
+Definitely Typed 의 다른 패키지들이 삭제된 자료형(Typing) 패키지를 사용하고 있을 경우, 형(Type)을 포함하기 시작한 원래 패키지를 사용하도록 수정해야합니다. 삭제된 자료형(Typing) 패키지를 사용하는 각 Definitely Typed 패키지들의 [`package.json`](#packagejson) 파일에 `"dependencies": { "<libraryName>": "x.y.z" }` 를 추가해주시면 됩니다.
 
 Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 포함하게 되었다면, `notNeededPackages.json` 파일에 추가할 필요도 없습니다.
 
@@ -223,6 +226,14 @@ Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 `npm test <package to test>` 명령을 통해 변경점을 테스트할 수 있습니다. 이 때, `<package to test>`은 테스트하고 싶은 패키지의 이름입니다.
 
 작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/Microsoft/dtslint)를 사용합니다.
+
+#### Naming
+
+npm 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
+npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 npm 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
+(`npm info <my-package>` 명령어를 사용하여 `<my-package>` 패키지가 npm 에 있는지 확인할 수 있습니다.)
+
+If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 
@@ -290,7 +301,7 @@ If for some reason some rule needs to be disabled, [disable it for that specific
 일반적으로는 `package.json` 파일을 사용할 필요가 없습니다. 패키지가 퍼블리시(Publish)될 때 패키지를 위한 `package.json` 파일은 자동으로 생성됩니다.
 가끔 보이는 `package.json` 파일은 의존하는 것들을 표시하기 위해 사용됩니다. [예시](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)를 한 번 보세요.
 의존성을 제외한 다른 필드(Field)들, 그러니까 `"description"` 같은 것들은 사용해서는 안됩니다.
-옛날 `@types` 패키지를 사용하고 싶으실 경우에도 `"dependencies": { "@types/foo": "x.y.z" }` 와 같은 내용을 `package.json` 파일에 넣으셔야 합니다.
+옛날 `@types` 패키지를 사용하고 싶으실 경우에도 `"dependencies": { "@types/<libraryName>": "x.y.z" }` 와 같은 내용을 `package.json` 파일에 넣으셔야 합니다.
 
 #### `OTHER_FILES.txt`
 
@@ -316,7 +327,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   `any` 가 합 자료형(Union type)의 안에서 사용될 경우, 결과 형(Type)은 언제나 `any` 가 됩니다. 따라서 형(Type)의 `string` 부분이 유용해 보인다 하더라도, 사실은 자료형 검사(Type checking)의 측면에서 `any` 와 다른 것이 없습니다.
   대신, `any`, `string`, 나 `string | object` 중 하나를 필요에 맞게 골라서 사용해주세요.
 
-### Definition Owners
+### Definition owners
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
