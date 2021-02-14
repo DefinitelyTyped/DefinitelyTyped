@@ -5,7 +5,6 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-/// <reference path="./lib/type-overrides.d.ts">
 
 import events = require('events');
 import stream = require('stream');
