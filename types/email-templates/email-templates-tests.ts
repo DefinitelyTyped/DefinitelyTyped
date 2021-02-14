@@ -106,3 +106,27 @@ email = new Email({
         from: 'definitelytyped@example.org'
     }
 });
+
+let emailNoMessage = new Email();
+emailNoMessage = new Email({});
+
+emailNoMessage.send({
+    template: 'sometemplate',
+    message: {
+        from: 'definitelytyped@example.org',
+        to: 'recipient@example.com',
+        subject: 'Test message'
+    }
+});
+
+const emailNoTemplate = new Email({
+    message: {
+        from: 'definitelytyped@example.org',
+        to: 'recipient@example.com',
+        subject: 'Test message',
+        text: 'This is a test message.'
+    }
+});
+
+emailNoTemplate.send();
+emailNoTemplate.send({});
