@@ -12,7 +12,6 @@
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
-//                 Flarna <https://github.com/Flarna>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Huw <https://github.com/hoo29>
