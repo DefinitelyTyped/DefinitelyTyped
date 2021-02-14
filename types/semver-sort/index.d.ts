@@ -3,8 +3,9 @@
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>, Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function asc(versions: string[]): string[];
-declare function desc(versions: string[]): string[];
+declare function asc(versions: ReadonlyArray<string>): string[];
+declare function desc(versions: ReadonlyArray<string>): string[];
+
 export {
 	asc,
 	desc
