@@ -1,4 +1,4 @@
-import convert, { unit, measure } from 'convert-units';
+import { convert, measure, unit } from 'convert-units';
 
 const convertedMass = convert(25).from('mcg').to('t');
 const convertedMassBack = convert(convertedMass).from('t').to('mcg');
