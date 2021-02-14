@@ -9,6 +9,6 @@ interface StorageInterface {
   setItem(key: string, value: any): Promise<void>;
 }
 
-export function localStorage(): StorageInterface;
-export function syncStorage(): StorageInterface;
+export const localStorage: StorageInterface;
+export const syncStorage: StorageInterface;
 export {};

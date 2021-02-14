@@ -1,4 +1,4 @@
-import _reduxPersistWebextensionStorage = require("redux-persist-webextension-storage");
+import { localStorage, syncStorage } from "redux-persist-webextension-storage";
 
-_reduxPersistWebextensionStorage.localStorage();
-_reduxPersistWebextensionStorage.syncStorage();
+localStorage;
+syncStorage;
