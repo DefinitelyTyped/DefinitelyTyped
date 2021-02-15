@@ -82,8 +82,13 @@ type AVIMetadata = Partial<{
     ITCH: string;
 }>;
 
+interface Duration {
+    raw: string;
+    seconds: number;
+}
+
 type FLVMetadata = Partial<{
-    duration: number;
+    duration: Duration;
     filesize: string;
     encoder: string;
     width: number;
@@ -312,7 +317,11 @@ interface Video {
      * @returns A promise for an array of paths to the created frames, or void if the callback was defined
      */
     fnExtractFrameToJPG(destinationFolder: string, settings?: FrameToJPGSettings): Promise<string[]>;
-    fnExtractFrameToJPG(destinationFolder: string, settings?: FrameToJPGSettings, cb?: (err: Error, files: string[]) => void): void;
+    fnExtractFrameToJPG(
+        destinationFolder: string,
+        settings?: FrameToJPGSettings,
+        cb?: (err: Error, files: string[]) => void,
+    ): void;
 
     /**
      * This function takes care of adding a watermark to the video that is being developed.
@@ -324,13 +333,18 @@ interface Video {
      * @returns The path to the newly created video, or void if the callback was defined
      */
     fnAddWatermark(watermarkPath: string, newPilePath?: string, settings?: WatermarkSettings): Promise<string>;
-    fnAddWatermark(watermarkPath: string, newPilePath?: string, settings?: WatermarkSettings, cb?: (err: Error, file: string) => void): void;
+    fnAddWatermark(
+        watermarkPath: string,
+        newPilePath?: string,
+        settings?: WatermarkSettings,
+        cb?: (err: Error, file: string) => void,
+    ): void;
 
     metadata: StandardVideoMetadata & AVIMetadata & FLVMetadata;
 }
 
 interface Iffmpeg {
-    new(filePath: string, cb?: (err: Error, video: Video) => void): Promise<Video>;
+    new (filePath: string, cb?: (err: Error, video: Video) => void): Promise<Video>;
 }
 
 declare var ffmpeg: Iffmpeg;
