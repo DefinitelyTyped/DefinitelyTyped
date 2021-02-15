@@ -7,7 +7,6 @@
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "trim-file": false,
-        "comment-format": false
+        "trim-file": false
     }
 }

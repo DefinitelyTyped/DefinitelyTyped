@@ -3,7 +3,7 @@
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node" />
+/// <reference types="node" />
 
 export = Resemble;
 export as namespace resemble;
