@@ -1,4 +1,5 @@
 import {
+    VERSION,
     DateTime,
     Duration,
     FixedOffsetZone,
@@ -10,6 +11,9 @@ import {
     ZoneOffsetFormat,
     ZoneOffsetOptions,
 } from 'luxon';
+
+/* VERSION */
+VERSION; // $ExpectType string
 
 /* DateTime */
 DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
