@@ -1,7 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "@types/glidejs__glide": "^3.4.0",
     "vue": "^2.0.0",
     "vue-router": "^3.0.0"
   }
