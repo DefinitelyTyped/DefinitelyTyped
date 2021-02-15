@@ -17,9 +17,9 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@storefront-ui/vue": ["storefront-ui__vue"]
-        },
-        "esModuleInterop": true
+            "@storefront-ui/vue": ["storefront-ui__vue"],
+            "@glidejs/glide": ["glidejs__glide"]
+        }
     },
     "files": [
         "index.d.ts",

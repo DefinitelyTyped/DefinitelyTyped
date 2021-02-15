@@ -5,7 +5,7 @@
 
 import { VueConstructor } from 'vue';
 import { Location } from 'vue-router';
-import Glide = require('../glidejs__glide/index');
+import Glide = require('@glidejs/glide');
 
 export type Icon = 'add_to_cart'
     | 'added_to_cart'
