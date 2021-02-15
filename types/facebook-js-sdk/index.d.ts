@@ -29,6 +29,52 @@ declare namespace facebook {
         ? () => void
         : (response: StatusResponse) => void;
 
+    type UserField =
+        | 'id'
+        | 'about'
+        | 'age_range'
+        | 'birthday'
+        | 'education'
+        | 'email'
+        | 'favorite_athletes'
+        | 'favorite_teams'
+        | 'first_name'
+        | 'gender'
+        | 'hometown'
+        | 'inspirational_people'
+        | 'install_type'
+        | 'is_guest_user'
+        | 'languages'
+        | 'last_name'
+        | 'link'
+        | 'location'
+        | 'meeting_for'
+        | 'middle_name'
+        | 'name'
+        | 'name_format'
+        | 'payment_pricepoints'
+        | 'name_political'
+        | 'profile_pic'
+        | 'quotes'
+        | 'relationship_status'
+        | 'religion'
+        | 'shared_login_upgrade_required_by'
+        | 'short_name'
+        | 'significant_other'
+        | 'sports'
+        | 'supports_donate_button_in_live_video'
+        | 'token_for_business'
+        | 'video_upload_limits'
+        | 'website';
+
+    type AgeRange = { min: 13; max: 17 } | { min: 18; max: 20 } | { min: 21; max: undefined };
+    type EducationExperience = any;
+    type Experience = any;
+    type Page = any;
+    type PaymentPricepoints = any;
+    type User = any;
+    type VideoUploadLimits = any;
+
     interface FacebookStaticEvent {
         subscribe<TEvent extends FacebookEventType>(
             event: TEvent,
@@ -49,6 +95,50 @@ declare namespace facebook {
             path: string,
             params: TParams,
             callback: (response: TResponse) => void
+        ): void;
+        api<TParams extends UserField>(
+            path: '/me',
+            params: { fields: TParams[] },
+            callback: (response: {
+                id: number;
+                about?: TParams extends 'about' ? string : never;
+                age_range?: TParams extends 'age_range' ? AgeRange : never;
+                birthday?: TParams extends 'birthday' ? string : never;
+                education?: TParams extends 'education' ? EducationExperience[] : never;
+                email?: TParams extends 'email' ? string : never;
+                favorite_athletes?: TParams extends 'favorite_athletes' ? Experience[] : never;
+                favorite_teams?: TParams extends 'favorite_teams' ? Experience[] : never;
+                first_name?: TParams extends 'first_name' ? string : never;
+                gender?: TParams extends 'gender' ? string : never;
+                hometown?: TParams extends 'hometown' ? Page : never;
+                inspirational_people?: TParams extends 'inspirational_people' ? Experience[] : never;
+                install_type?: TParams extends 'install_type' ? any : never;
+                is_guest_user?: TParams extends 'is_guest_user' ? boolean : never;
+                languages?: TParams extends 'languages' ? Experience[] : never;
+                last_name?: TParams extends 'last_name' ? string : never;
+                link?: TParams extends 'link' ? string : never;
+                location?: TParams extends 'location' ? Page : never;
+                meeting_for?: TParams extends 'meeting_for' ? string[] : never;
+                middle_name?: TParams extends 'middle_name' ? string : never;
+                name?: TParams extends 'name' ? string : never;
+                name_format?: TParams extends 'name_format' ? string : never;
+                payment_pricepoints?: TParams extends 'payment_pricepoints' ? PaymentPricepoints : never;
+                name_political?: TParams extends 'political' ? string : never;
+                profile_pic?: TParams extends 'profile_pic' ? string : never;
+                quotes?: TParams extends 'quotes' ? string : never;
+                relationship_status?: TParams extends 'relationship_status' ? string : never;
+                religion?: TParams extends 'religion' ? string : never;
+                shared_login_upgrade_required_by?: TParams extends 'shared_login_upgrade_required_by' ? any : never;
+                short_name?: TParams extends 'short_name' ? any : never;
+                significant_other?: TParams extends 'significant_other' ? User : never;
+                sports?: TParams extends 'sports' ? Experience[] : never;
+                supports_donate_button_in_live_video?: TParams extends 'supports_donate_button_in_live_video'
+                    ? boolean
+                    : never;
+                token_for_business?: TParams extends 'token_for_business' ? VideoUploadLimits : never;
+                video_upload_limits?: TParams extends 'video_upload_limits' ? string : never;
+                website?: TParams extends 'website' ? string : never;
+            }) => void,
         ): void;
         api<TParams extends object, TResponse>(
             path: string,
