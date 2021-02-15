@@ -96,48 +96,48 @@ declare namespace facebook {
             params: TParams,
             callback: (response: TResponse) => void
         ): void;
-        api<TParams extends UserField>(
+        api<TParam extends UserField>(
             path: '/me',
-            params: { fields: TParams[] },
+            params: { fields: TParam[] },
             callback: (response: {
                 id: number;
-                about?: TParams extends 'about' ? string : never;
-                age_range?: TParams extends 'age_range' ? AgeRange : never;
-                birthday?: TParams extends 'birthday' ? string : never;
-                education?: TParams extends 'education' ? EducationExperience[] : never;
-                email?: TParams extends 'email' ? string : never;
-                favorite_athletes?: TParams extends 'favorite_athletes' ? Experience[] : never;
-                favorite_teams?: TParams extends 'favorite_teams' ? Experience[] : never;
-                first_name?: TParams extends 'first_name' ? string : never;
-                gender?: TParams extends 'gender' ? string : never;
-                hometown?: TParams extends 'hometown' ? Page : never;
-                inspirational_people?: TParams extends 'inspirational_people' ? Experience[] : never;
-                install_type?: TParams extends 'install_type' ? any : never;
-                is_guest_user?: TParams extends 'is_guest_user' ? boolean : never;
-                languages?: TParams extends 'languages' ? Experience[] : never;
-                last_name?: TParams extends 'last_name' ? string : never;
-                link?: TParams extends 'link' ? string : never;
-                location?: TParams extends 'location' ? Page : never;
-                meeting_for?: TParams extends 'meeting_for' ? string[] : never;
-                middle_name?: TParams extends 'middle_name' ? string : never;
-                name?: TParams extends 'name' ? string : never;
-                name_format?: TParams extends 'name_format' ? string : never;
-                payment_pricepoints?: TParams extends 'payment_pricepoints' ? PaymentPricepoints : never;
-                name_political?: TParams extends 'political' ? string : never;
-                profile_pic?: TParams extends 'profile_pic' ? string : never;
-                quotes?: TParams extends 'quotes' ? string : never;
-                relationship_status?: TParams extends 'relationship_status' ? string : never;
-                religion?: TParams extends 'religion' ? string : never;
-                shared_login_upgrade_required_by?: TParams extends 'shared_login_upgrade_required_by' ? any : never;
-                short_name?: TParams extends 'short_name' ? any : never;
-                significant_other?: TParams extends 'significant_other' ? User : never;
-                sports?: TParams extends 'sports' ? Experience[] : never;
-                supports_donate_button_in_live_video?: TParams extends 'supports_donate_button_in_live_video'
+                about?: TParam extends 'about' ? string : never;
+                age_range?: TParam extends 'age_range' ? AgeRange : never;
+                birthday?: TParam extends 'birthday' ? string : never;
+                education?: TParam extends 'education' ? EducationExperience[] : never;
+                email?: TParam extends 'email' ? string : never;
+                favorite_athletes?: TParam extends 'favorite_athletes' ? Experience[] : never;
+                favorite_teams?: TParam extends 'favorite_teams' ? Experience[] : never;
+                first_name?: TParam extends 'first_name' ? string : never;
+                gender?: TParam extends 'gender' ? string : never;
+                hometown?: TParam extends 'hometown' ? Page : never;
+                inspirational_people?: TParam extends 'inspirational_people' ? Experience[] : never;
+                install_type?: TParam extends 'install_type' ? any : never;
+                is_guest_user?: TParam extends 'is_guest_user' ? boolean : never;
+                languages?: TParam extends 'languages' ? Experience[] : never;
+                last_name?: TParam extends 'last_name' ? string : never;
+                link?: TParam extends 'link' ? string : never;
+                location?: TParam extends 'location' ? Page : never;
+                meeting_for?: TParam extends 'meeting_for' ? string[] : never;
+                middle_name?: TParam extends 'middle_name' ? string : never;
+                name?: TParam extends 'name' ? string : never;
+                name_format?: TParam extends 'name_format' ? string : never;
+                payment_pricepoints?: TParam extends 'payment_pricepoints' ? PaymentPricepoints : never;
+                name_political?: TParam extends 'political' ? string : never;
+                profile_pic?: TParam extends 'profile_pic' ? string : never;
+                quotes?: TParam extends 'quotes' ? string : never;
+                relationship_status?: TParam extends 'relationship_status' ? string : never;
+                religion?: TParam extends 'religion' ? string : never;
+                shared_login_upgrade_required_by?: TParam extends 'shared_login_upgrade_required_by' ? any : never;
+                short_name?: TParam extends 'short_name' ? any : never;
+                significant_other?: TParam extends 'significant_other' ? User : never;
+                sports?: TParam extends 'sports' ? Experience[] : never;
+                supports_donate_button_in_live_video?: TParam extends 'supports_donate_button_in_live_video'
                     ? boolean
                     : never;
-                token_for_business?: TParams extends 'token_for_business' ? VideoUploadLimits : never;
-                video_upload_limits?: TParams extends 'video_upload_limits' ? string : never;
-                website?: TParams extends 'website' ? string : never;
+                token_for_business?: TParam extends 'token_for_business' ? VideoUploadLimits : never;
+                video_upload_limits?: TParam extends 'video_upload_limits' ? string : never;
+                website?: TParam extends 'website' ? string : never;
             }) => void,
         ): void;
         api<TParams extends object, TResponse>(
