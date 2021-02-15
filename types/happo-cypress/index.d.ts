@@ -1,6 +1,6 @@
 // Type definitions for happo-cypress 1.17
 // Project: https://github.com/happo/happo-cypress#readme
-// Definitions by: Alexander Polyankin <https://github.com/me>
+// Definitions by: Alexander Polyankin <https://github.com/alexanderpolyankin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface SnapshotOptions {
