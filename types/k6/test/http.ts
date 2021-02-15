@@ -134,7 +134,7 @@ request('post', address, {}, {}, 5); // $ExpectError
 
 // request params
 responseDefault = request('post', address, {}, {timeout: '10s'});
-responseDefault = request('post', address, {}, {timeout: 10}); // $ExpectError
+responseDefault = request('post', address, {}, {timeout: 10});
 
 // batch
 batch(); // $ExpectError
