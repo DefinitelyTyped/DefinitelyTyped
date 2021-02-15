@@ -8,7 +8,7 @@ if (playlist.isMasterPlaylist) {
     // Media playlist
 }
 
-const { MediaPlaylist, MasterPlaylist, Segment } = HLS.types;
+const { MediaPlaylist, MasterPlaylist, Segment, PrefetchSegment } = HLS.types;
 
 new MediaPlaylist({
     targetDuration: 9,
@@ -21,6 +21,13 @@ new MediaPlaylist({
             discontinuitySequence: 0,
         }),
     ],
+    prefetchSegments: [
+        new PrefetchSegment({
+            uri: 'test/1.m3u8',
+            mediaSequenceNumber: 1,
+            discontinuitySequence: 0
+        })
+    ]
 });
 
 new MasterPlaylist({

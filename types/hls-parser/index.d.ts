@@ -1,7 +1,8 @@
-// Type definitions for hls-parser 0.5
+// Type definitions for hls-parser 0.8
 // Project: https://github.com/kuu/hls-parser#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Christopher Manouvrier <https://github.com/cmanou>
+//                 Joe Flateau <https://github.com/joeflateau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -80,6 +81,8 @@ export namespace types {
 
         segments: readonly Segment[];
 
+        prefetchSegments: readonly PrefetchSegment[];
+
         constructor(
             properties: BasePlaylistConstructorProperties & {
                 targetDuration: number;
@@ -89,6 +92,7 @@ export namespace types {
                 playlistType?: 'EVENT' | 'VOD';
                 isIFrame?: boolean;
                 segments?: readonly Segment[];
+                prefetchSegments?: readonly PrefetchSegment[];
                 source?: string;
             },
         );
@@ -226,6 +230,26 @@ export namespace types {
             map?: MediaInitializationSection;
             programDateTime?: Date;
             dateRange?: DateRange;
+        });
+    }
+
+    class PrefetchSegment extends Data {
+        uri: string;
+
+        discontinuity?: boolean;
+
+        mediaSequenceNumber: number;
+
+        discontinuitySequence: number;
+
+        key?: Key;
+
+        constructor(properties: {
+            uri: string;
+            discontinuity?: boolean;
+            mediaSequenceNumber: number;
+            discontinuitySequence: number;
+            key?: Key;
         });
     }
 
