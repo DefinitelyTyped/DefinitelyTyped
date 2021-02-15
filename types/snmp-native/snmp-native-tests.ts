@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import snmp, { VarBind, Packet } from 'snmp-native';
 
 // snmp.defaultOptions
