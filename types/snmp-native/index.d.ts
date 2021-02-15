@@ -1,3 +1,9 @@
+// Type definitions for snmp-native 1.2
+// Project: https://github.com/calmh/node-snmp-native
+// Definitions by: Matthew Wilson <https://github.com/traverse1984>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
 /**
  * This is a native SNMP library for Node.js. The purpose is to provide enough
  * functionality to perform large scale monitoring of network equipment.
