@@ -3,7 +3,9 @@
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+declare global {
+    type Buffer = Uint8Array;
+}
 
 export = Resemble;
 export as namespace resemble;
