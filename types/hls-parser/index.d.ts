@@ -66,6 +66,13 @@ export namespace types {
         );
     }
 
+    interface LowLatencyCompatibility {
+        canBlockReload?: boolean;
+        canSkipUntil?: boolean;
+        holdBack?: number;
+        partHoldBack?: number;
+    }
+
     class MediaPlaylist extends Playlist {
         targetDuration: number;
 
@@ -83,6 +90,14 @@ export namespace types {
 
         prefetchSegments: readonly PrefetchSegment[];
 
+        lowLatencyCompatibility?: LowLatencyCompatibility;
+
+        partTargetDuration?: number;
+
+        renditionReports?: RenditionReport[];
+
+        skip?: number;
+
         constructor(
             properties: BasePlaylistConstructorProperties & {
                 targetDuration: number;
@@ -94,6 +109,10 @@ export namespace types {
                 segments?: readonly Segment[];
                 prefetchSegments?: readonly PrefetchSegment[];
                 source?: string;
+                lowLatencyCompatibility?: LowLatencyCompatibility;
+                partTargetDuration?: number;
+                renditionReports?: RenditionReport[];
+                skip?: number;
             },
         );
     }
@@ -218,6 +237,8 @@ export namespace types {
 
         dateRange: DateRange;
 
+        parts?: PartialSegment[];
+
         constructor(properties: {
             uri: string;
             duration: number;
@@ -230,6 +251,35 @@ export namespace types {
             map?: MediaInitializationSection;
             programDateTime?: Date;
             dateRange?: DateRange;
+            parts?: PartialSegment[];
+        });
+    }
+
+    interface ByteRange {
+        length: number;
+        offset: number;
+    }
+
+    class PartialSegment {
+        hint?: boolean;
+
+        uri: string;
+
+        duration?: number;
+
+        independent?: boolean;
+
+        byterange?: ByteRange;
+
+        gap?: boolean;
+
+        constructor(properties: {
+            hint?: boolean;
+            uri: string;
+            duration?: number;
+            independent?: boolean;
+            byterange?: ByteRange;
+            gap?: boolean;
         });
     }
 
@@ -302,6 +352,16 @@ export namespace types {
             endOnNext?: boolean;
             attributes?: object;
         });
+    }
+
+    class RenditionReport {
+        uri: string;
+
+        lastMSN?: number;
+
+        lastPart?: number;
+
+        constructor(properties: { uri: string; lastMSN?: number; lastPart?: number });
     }
 }
 
