@@ -131,3 +131,13 @@ StringSchema.extend({
 });
 
 SimpleSchema.extendOptions(['autoform']);
+
+const objectKeysTestSchema = new SimpleSchema({});
+
+// No prefix passed
+// $ExpectType any[]
+objectKeysTestSchema.objectKeys();
+
+// Prefix passed
+// $ExpectType any[]
+objectKeysTestSchema.objectKeys("_prefix");

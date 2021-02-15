@@ -466,7 +466,7 @@ declare namespace Chai {
         equal<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts non-strict inequality (==) of actual and expected.
+         * Asserts non-strict inequality (!=) of actual and expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -486,7 +486,7 @@ declare namespace Chai {
         strictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts strict inequality (==) of actual and expected.
+         * Asserts strict inequality (!==) of actual and expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.

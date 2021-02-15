@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as assert from 'assert';
-import * as util from 'util';
+import * as fs from 'node:fs';
+import assert = require('node:assert');
+import * as util from 'node:util';
 
 {
     fs.writeFile("thebible.txt",
@@ -273,22 +273,22 @@ async function testPromisify() {
         mode: 0o777,
     }, (err, path) => {
         err; // $ExpectType ErrnoException | null
-        path; // $ExpectType string
+        path; // $ExpectType string | undefined
     });
 
-    // $ExpectType string
+    // $ExpectType string | undefined
     fs.mkdirSync('some/test/path', {
         recursive: true,
         mode: 0o777,
     });
 
-    // $ExpectType Promise<string>
+    // $ExpectType Promise<string | undefined>
     util.promisify(fs.mkdir)('some/test/path', {
         recursive: true,
         mode: 0o777,
     });
 
-    // $ExpectType Promise<string>
+    // $ExpectType Promise<string | undefined>
     fs.promises.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,

@@ -12,8 +12,10 @@ import {
     createServer,
     TLSSocket,
     rootCertificates,
-} from "tls";
-import * as fs from "fs";
+    Server,
+    TlsOptions,
+} from 'node:tls';
+import * as fs from 'node:fs';
 
 {
     const ctx: SecureContext = createSecureContext({
@@ -288,4 +290,9 @@ import * as fs from "fs";
 
 {
     const r00ts: ReadonlyArray<string> = rootCertificates;
+}
+
+{
+    const _options: TlsOptions = {};
+    const _server = new Server(_options, (socket) => {});
 }

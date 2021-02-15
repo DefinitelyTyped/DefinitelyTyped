@@ -96,6 +96,9 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                 onBlur: (e) => { console.log(e.relatedTarget); },
                 ref: this.inputRef
             }}
+            containerProps={{
+                className: 'some-css-class'
+            }}
             theme={theme}/>;
     }
 

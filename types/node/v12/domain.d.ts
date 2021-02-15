@@ -1,5 +1,9 @@
+declare module 'node:domain' {
+    export * from 'domain';
+}
+
 declare module 'domain' {
-    import EventEmitter = require('events');
+    import EventEmitter = require('node:events');
 
     class Domain extends EventEmitter implements NodeJS.Domain {
         run<T>(fn: (...args: any[]) => T, ...args: any[]): T;

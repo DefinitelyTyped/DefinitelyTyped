@@ -47,6 +47,7 @@ import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
 
 type FlattenIfArray<T> = T extends ReadonlyArray<infer R> ? R : T;
+type WithoutProjection<T> = T & { fields?: undefined, projection?: undefined };
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -342,7 +343,6 @@ export class MongoWriteConcernError extends MongoError {
     result?: object;
 }
 
-
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect */
 export interface MongoClientOptions
     extends DbCreateOptions,
@@ -425,6 +425,12 @@ export interface MongoClientOptions
         /** The selected compressors in preference order */
         compressors?: Array<'snappy' | 'zlib'>;
     };
+
+    /**
+     * Enable directConnection
+     * @default false
+     */
+    directConnection?: boolean;
 }
 
 export interface SSLOptions {
@@ -1345,20 +1351,33 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         callback: MongoCallback<number>,
     ): void;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#find */
-    find<T = TSchema>(query?: FilterQuery<TSchema>): Cursor<T>;
+    find(query?: FilterQuery<TSchema>): Cursor<TSchema>;
+    find(
+        query: FilterQuery<TSchema>,
+        options?: WithoutProjection<FindOneOptions<TSchema>>,
+    ): Cursor<TSchema>;
     find<T = TSchema>(
         query: FilterQuery<TSchema>,
-        options?: FindOneOptions<T extends TSchema ? TSchema : T>,
+        options: FindOneOptions<T extends TSchema ? TSchema : T>,
     ): Cursor<T>;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
-    findOne<T = TSchema>(
+    findOne(
         filter: FilterQuery<TSchema>,
-        callback: MongoCallback<T extends TSchema ? TSchema : T | null>,
+        callback: MongoCallback<TSchema>,
     ): void;
+    findOne(
+        filter: FilterQuery<TSchema>,
+        options?: WithoutProjection<FindOneOptions<TSchema>>,
+    ): Promise<TSchema | null>;
     findOne<T = TSchema>(
         filter: FilterQuery<TSchema>,
         options?: FindOneOptions<T extends TSchema ? TSchema : T>,
     ): Promise<T | null>;
+    findOne(
+        filter: FilterQuery<TSchema>,
+        options: WithoutProjection<FindOneOptions<TSchema>>,
+        callback: MongoCallback<TSchema | null>,
+    ): void;
     findOne<T = TSchema>(
         filter: FilterQuery<TSchema>,
         options: FindOneOptions<T extends TSchema ? TSchema : T>,
@@ -2737,7 +2756,7 @@ export class Cursor<T = Default> extends Readable {
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#project */
-    project(value: SchemaMember<T, ProjectionOperators | number | boolean | any>): Cursor<T>;
+    project<U = T>(value: SchemaMember<T, ProjectionOperators | number | boolean | any>): Cursor<U>;
     /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
     read(size: number): string | Buffer | void;
     /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#returnKey */
