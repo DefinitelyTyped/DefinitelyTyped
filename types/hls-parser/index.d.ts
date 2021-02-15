@@ -94,7 +94,7 @@ export namespace types {
 
         partTargetDuration?: number;
 
-        renditionReports?: RenditionReport[];
+        renditionReports?: readonly RenditionReport[];
 
         skip?: number;
 
@@ -111,7 +111,7 @@ export namespace types {
                 source?: string;
                 lowLatencyCompatibility?: LowLatencyCompatibility;
                 partTargetDuration?: number;
-                renditionReports?: RenditionReport[];
+                renditionReports?: readonly RenditionReport[];
                 skip?: number;
             },
         );
@@ -237,7 +237,7 @@ export namespace types {
 
         dateRange: DateRange;
 
-        parts?: PartialSegment[];
+        parts?: readonly PartialSegment[];
 
         constructor(properties: {
             uri: string;
@@ -251,7 +251,7 @@ export namespace types {
             map?: MediaInitializationSection;
             programDateTime?: Date;
             dateRange?: DateRange;
-            parts?: PartialSegment[];
+            parts?: readonly PartialSegment[];
         });
     }
 
