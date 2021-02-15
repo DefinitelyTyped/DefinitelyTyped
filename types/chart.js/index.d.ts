@@ -1,5 +1,5 @@
 // Type definitions for Chart.js 2.9
-// Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
+// Project: https://github.com/chartjs/Chart.js, https://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
