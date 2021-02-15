@@ -83,6 +83,16 @@ function importLibLoader() {
         foo=""
     />;
 
+    const LoadableClassDirectOnlyClient = loadable(importClassComponentLoader, {
+        ssr: false,
+    });
+    <LoadableClassDirectOnlyClient
+        ref={ref => {
+            ref && ref.publicMethod();
+        }}
+        foo=""
+    />;
+
     const LoadableClassDefault = loadable(async () => ({
         default: await importClassComponentLoader(),
     }));
