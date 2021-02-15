@@ -214,6 +214,7 @@ export class DateTime {
     static max(...dateTimes: DateTime[]): DateTime;
     static min(): undefined;
     static min(...dateTimes: DateTime[]): DateTime;
+    static now(): DateTime;
     static utc(
         year?: number,
         month?: number,
