@@ -91,30 +91,31 @@ export type RequestHandlerParams<
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
-type RouteParameterNames<Route extends string> =
+export type RouteParameterNames<Route extends string> =
     string extends Route
         ? string
         : Route extends `${string}:${infer Param}/${infer Rest}`
         ? (Param | RouteParameterNames<Rest>)
-        : (Route extends `${string}:${infer LastParam}` ? LastParam : never)
+        : (Route extends `${string}:${infer LastParam}` ? LastParam : never);
 
 export type RouteParameters<T extends string> = {
     [key in RouteParameterNames<T>]: string
-}
+};
 
 export interface IRouterMatcher<
     T,
     Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any
 > {
     <
-        Path extends string,
-        P = RouteParameters<Path>,
+        Route extends string,
+        P = RouteParameters<Route>,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
     >(
-        path: Path,
+        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
+        path: Route,
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
@@ -126,6 +127,7 @@ export interface IRouterMatcher<
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
     >(
+        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
         path: Path,
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
@@ -156,8 +158,8 @@ export interface IRouterMatcher<
 }
 
 export interface IRouterHandler<T, Route extends string = string> {
-    (...handlers: RequestHandler<RouteParameters<Route>>[]): T;
-    (...handlers: RequestHandlerParams<RouteParameters<Route>>[]): T;
+    (...handlers: Array<RequestHandler<RouteParameters<Route>>>): T;
+    (...handlers: Array<RequestHandlerParams<RouteParameters<Route>>>): T;
     <
         P = RouteParameters<Route>,
         ResBody = any,

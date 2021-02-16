@@ -105,7 +105,6 @@ app.route('/').post((req, res) => {
     res.send('ok'); // $ExpectType Response<any, Record<string, any>, number>
 });
 
-
 // Default types - not using RouteParameters
 app.post('/' as string, (req, res) => {
     req.params[0]; // $ExpectType string
