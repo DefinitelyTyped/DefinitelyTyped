@@ -155,9 +155,29 @@ export interface IRouterMatcher<
     (path: PathParams, subApplication: Application): T;
 }
 
-export interface IRouterHandler<T> {
-    (...handlers: RequestHandler[]): T;
-    (...handlers: RequestHandlerParams[]): T;
+export interface IRouterHandler<T, Route extends string = string> {
+    (...handlers: RequestHandler<RouteParameters<Route>>[]): T;
+    (...handlers: RequestHandlerParams<RouteParameters<Route>>[]): T;
+    <
+        P = RouteParameters<Route>,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+        >(
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
+    <
+        P = RouteParameters<Route>,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+        >(
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
@@ -251,6 +271,7 @@ export interface IRouter extends RequestHandler {
 
     use: IRouterHandler<this> & IRouterMatcher<this>;
 
+    route<T extends string>(prefix: T): IRoute<T>;
     route(prefix: PathParams): IRoute;
     /**
      * Stack of configured routes
@@ -258,34 +279,34 @@ export interface IRouter extends RequestHandler {
     stack: any[];
 }
 
-export interface IRoute {
+export interface IRoute<T extends string = string> {
     path: string;
     stack: any;
-    all: IRouterHandler<this>;
-    get: IRouterHandler<this>;
-    post: IRouterHandler<this>;
-    put: IRouterHandler<this>;
-    delete: IRouterHandler<this>;
-    patch: IRouterHandler<this>;
-    options: IRouterHandler<this>;
-    head: IRouterHandler<this>;
+    all: IRouterHandler<this, T>;
+    get: IRouterHandler<this, T>;
+    post: IRouterHandler<this, T>;
+    put: IRouterHandler<this, T>;
+    delete: IRouterHandler<this, T>;
+    patch: IRouterHandler<this, T>;
+    options: IRouterHandler<this, T>;
+    head: IRouterHandler<this, T>;
 
-    checkout: IRouterHandler<this>;
-    copy: IRouterHandler<this>;
-    lock: IRouterHandler<this>;
-    merge: IRouterHandler<this>;
-    mkactivity: IRouterHandler<this>;
-    mkcol: IRouterHandler<this>;
-    move: IRouterHandler<this>;
-    'm-search': IRouterHandler<this>;
-    notify: IRouterHandler<this>;
-    purge: IRouterHandler<this>;
-    report: IRouterHandler<this>;
-    search: IRouterHandler<this>;
-    subscribe: IRouterHandler<this>;
-    trace: IRouterHandler<this>;
-    unlock: IRouterHandler<this>;
-    unsubscribe: IRouterHandler<this>;
+    checkout: IRouterHandler<this, T>;
+    copy: IRouterHandler<this, T>;
+    lock: IRouterHandler<this, T>;
+    merge: IRouterHandler<this, T>;
+    mkactivity: IRouterHandler<this, T>;
+    mkcol: IRouterHandler<this, T>;
+    move: IRouterHandler<this, T>;
+    'm-search': IRouterHandler<this, T>;
+    notify: IRouterHandler<this, T>;
+    purge: IRouterHandler<this, T>;
+    report: IRouterHandler<this, T>;
+    search: IRouterHandler<this, T>;
+    subscribe: IRouterHandler<this, T>;
+    trace: IRouterHandler<this, T>;
+    unlock: IRouterHandler<this, T>;
+    unsubscribe: IRouterHandler<this, T>;
 }
 
 export interface Router extends IRouter {}
