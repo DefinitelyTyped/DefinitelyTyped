@@ -2,6 +2,7 @@
 // Project: https://github.com/vuestorefront/storefront-ui
 // Definitions by: Luïs De Zutter <https://github.com/ImLuze>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { VueConstructor } from 'vue';
 import { Location } from 'vue-router';
