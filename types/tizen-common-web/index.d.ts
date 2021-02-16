@@ -814,9 +814,9 @@ export interface RequestCallback {
 export class AbstractFilter { // tslint:disable-line:no-unnecessary-class
     constructor();
 }
-export interface AbstractFilter {
+export interface AbstractFilterConstructor {
     prototype: AbstractFilter;
-    new(): AbstractFilter; // tslint:disable-line:no-misused-new
+    new(): AbstractFilter;
 }
 /**
  * The Account interface is the interface for a single account.
@@ -880,9 +880,9 @@ export class Account {
      */
     setExtendedData(key: string, value: string): void;
 }
-export interface Account {
+export interface AccountConstructor {
     prototype: Account;
-    new(provider: AccountProvider, accountInitDict?: AccountInit | null): Account; // tslint:disable-line:no-misused-new
+    new(provider: AccountProvider, accountInitDict?: AccountInit | null): Account;
 }
 /**
  * The AccountExtendedData interface defines the extended data of an account.
@@ -1092,9 +1092,9 @@ export class Alarm {
      */
     readonly id: AlarmId | null;
 }
-export interface Alarm {
+export interface AlarmConstructor {
     prototype: Alarm;
-    new(): Alarm; // tslint:disable-line:no-misused-new
+    new(): Alarm;
 }
 /**
  * The AlarmAbsolute interface provides an absolute alarm, which triggers at a specified absolute date.
@@ -1137,11 +1137,11 @@ export class AlarmAbsolute extends Alarm {
      */
     getNextScheduledDate(): Date | null;
 }
-export interface AlarmAbsolute {
+export interface AlarmAbsoluteConstructor {
     prototype: AlarmAbsolute;
-    new(date: Date): AlarmAbsolute; // tslint:disable-line:no-misused-new unified-signatures
-    new(date: Date, daysOfTheWeek: ByDayValue[]): AlarmAbsolute; // tslint:disable-line:no-misused-new unified-signatures
-    new(date: Date, period: number): AlarmAbsolute; // tslint:disable-line:no-misused-new unified-signatures
+    new(date: Date): AlarmAbsolute; // tslint:disable-line:unified-signatures
+    new(date: Date, daysOfTheWeek: ByDayValue[]): AlarmAbsolute; // tslint:disable-line:unified-signatures
+    new(date: Date, period: number): AlarmAbsolute; // tslint:disable-line:unified-signatures
 }
 /**
  * The AlarmManager interface provides methods to manage alarms.
@@ -1275,9 +1275,9 @@ export class AlarmRelative extends Alarm {
      */
     getRemainingSeconds(): number | null;
 }
-export interface AlarmRelative {
+export interface AlarmRelativeConstructor {
     prototype: AlarmRelative;
-    new(delay: number, period?: number | null): AlarmRelative; // tslint:disable-line:no-misused-new
+    new(delay: number, period?: number | null): AlarmRelative;
 }
 /**
  * This interface defines the current application's information and
@@ -1472,9 +1472,9 @@ export class ApplicationControl {
      */
     uri: string | null;
 }
-export interface ApplicationControl {
+export interface ApplicationControlConstructor {
     prototype: ApplicationControl;
-    new(operation: string, uri?: string | null, mime?: string | null, category?: string | null, data?: ApplicationControlData[] | null, launchMode?: ApplicationControlLaunchMode | null): ApplicationControl; // tslint:disable-line:no-misused-new
+    new(operation: string, uri?: string | null, mime?: string | null, category?: string | null, data?: ApplicationControlData[] | null, launchMode?: ApplicationControlLaunchMode | null): ApplicationControl;
 }
 /**
  * This interface defines a key/value pair used to pass data
@@ -1493,9 +1493,9 @@ export class ApplicationControlData {
      */
     value: ReadonlyArray<string>;
 }
-export interface ApplicationControlData {
+export interface ApplicationControlDataConstructor {
     prototype: ApplicationControlData;
-    new(key: string, value: string[]): ApplicationControlData; // tslint:disable-line:no-misused-new
+    new(key: string, value: string[]): ApplicationControlData;
 }
 /**
  * This interface defines the general information available to an installed application.
@@ -2063,9 +2063,9 @@ export class ArchiveFile {
      */
     getEntryByName(name: string, onsuccess: ArchiveFileEntrySuccessCallback, onerror?: ErrorCallback | null): number;
 }
-export interface ArchiveFile {
+export interface ArchiveFileConstructor {
     prototype: ArchiveFile;
-    new(): ArchiveFile; // tslint:disable-line:no-misused-new
+    new(): ArchiveFile;
 }
 /**
  * The ArchiveFileEntry interface provides access to ArchiveFile member information and file data.
@@ -2129,9 +2129,9 @@ export class ArchiveFileEntry {
      */
     extract(destinationDirectory: FileReference, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null, onprogress?: ArchiveFileProgressCallback | null, stripName?: boolean | null, overwrite?: boolean | null): number;
 }
-export interface ArchiveFileEntry {
+export interface ArchiveFileEntryConstructor {
     prototype: ArchiveFileEntry;
-    new(): ArchiveFileEntry; // tslint:disable-line:no-misused-new
+    new(): ArchiveFileEntry;
 }
 /**
  * The ArchiveManager interface provides methods for global operations related to ArchiveFile.
@@ -2220,9 +2220,9 @@ export class AttributeFilter extends AbstractFilter {
      */
     matchValue: any;
 }
-export interface AttributeFilter {
+export interface AttributeFilterConstructor {
     prototype: AttributeFilter;
-    new(attributeName: string, matchFlag?: FilterMatchFlag | null, matchValue?: any): AttributeFilter; // tslint:disable-line:no-misused-new
+    new(attributeName: string, matchFlag?: FilterMatchFlag | null, matchValue?: any): AttributeFilter;
 }
 /**
  * _AttributeRangeFilter_ represents a filter based on an object attribute
@@ -2255,9 +2255,9 @@ export class AttributeRangeFilter extends AbstractFilter {
      */
     initialValue: any;
 }
-export interface AttributeRangeFilter {
+export interface AttributeRangeFilterConstructor {
     prototype: AttributeRangeFilter;
-    new(attributeName: string, initialValue?: any, endValue?: any): AttributeRangeFilter; // tslint:disable-line:no-misused-new
+    new(attributeName: string, initialValue?: any, endValue?: any): AttributeRangeFilter;
 }
 /**
  * The AudioContent interface extends a basic _Content_ object with audio-specific attributes.
@@ -2543,9 +2543,9 @@ export class Bundle {
      */
     typeOf(key: string): BundleValueType;
 }
-export interface Bundle {
+export interface BundleConstructor {
     prototype: Bundle;
-    new(json?: any): Bundle; // tslint:disable-line:no-misused-new
+    new(json?: any): Bundle;
 }
 /**
  * The Client provides API for client side.
@@ -2680,9 +2680,9 @@ export class CompositeFilter extends AbstractFilter {
      */
     type: CompositeFilterType;
 }
-export interface CompositeFilter {
+export interface CompositeFilterConstructor {
     prototype: CompositeFilter;
-    new(type: CompositeFilterType, filters?: AbstractFilter[] | null): CompositeFilter; // tslint:disable-line:no-misused-new
+    new(type: CompositeFilterType, filters?: AbstractFilter[] | null): CompositeFilter;
 }
 /**
  * The Content interface provides access to the properties of a content item.
@@ -3459,9 +3459,9 @@ export class DownloadRequest {
      */
     url: string;
 }
-export interface DownloadRequest {
+export interface DownloadRequestConstructor {
     prototype: DownloadRequest;
-    new(url: string, destination?: string | null, fileName?: string | null, networkType?: DownloadNetworkType | null, httpHeader?: DownloadHTTPHeaderFields | null): DownloadRequest; // tslint:disable-line:no-misused-new
+    new(url: string, destination?: string | null, fileName?: string | null, networkType?: DownloadNetworkType | null, httpHeader?: DownloadHTTPHeaderFields | null): DownloadRequest;
 }
 /**
  * The ExifInformation interface implements the _ExifInformation_ object.
@@ -3572,9 +3572,9 @@ export class ExifInformation {
      */
     width: number | null;
 }
-export interface ExifInformation {
+export interface ExifInformationConstructor {
     prototype: ExifInformation;
-    new(ExifInitDict?: ExifInit | null): ExifInformation; // tslint:disable-line:no-misused-new
+    new(ExifInitDict?: ExifInit | null): ExifInformation;
 }
 /**
  * The ExifManager interface provides methods to retrieve the _ExifInformation_ object and save the Exif data of the _ExifInformation_ object in a JPEG file.
@@ -5391,9 +5391,9 @@ export class IotconOption {
      */
     id: number;
 }
-export interface IotconOption {
+export interface IotconOptionConstructor {
     prototype: IotconOption;
-    new(id: number, data: string): IotconOption; // tslint:disable-line:no-misused-new
+    new(id: number, data: string): IotconOption;
 }
 /**
  * The KeyManager interface provides methods to store, retrieve and remove the sensitive data of users and their applications.
@@ -8325,9 +8325,9 @@ export class RemoteResource {
      */
     unsetResourceStateChangeListener(): void;
 }
-export interface RemoteResource {
+export interface RemoteResourceConstructor {
     prototype: RemoteResource;
-    new(): RemoteResource; // tslint:disable-line:no-misused-new
+    new(): RemoteResource;
 }
 /**
  * The RemoteResponse Interface holds response from server for specified request of client, this is client-side version of [Response](iotcon.html#Response) object.
@@ -8372,9 +8372,9 @@ export class Representation {
      */
     uriPath: string;
 }
-export interface Representation {
+export interface RepresentationConstructor {
     prototype: Representation;
-    new(uriPath: string): Representation; // tslint:disable-line:no-misused-new
+    new(uriPath: string): Representation;
 }
 /**
  * The Request interface represents a details from client.
@@ -8419,9 +8419,9 @@ export class RequestReply {
      */
     data: Bundle | null;
 }
-export interface RequestReply {
+export interface RequestReplyConstructor {
     prototype: RequestReply;
-    new(data: Bundle | null, code?: number): RequestReply; // tslint:disable-line:no-misused-new
+    new(data: Bundle | null, code?: number): RequestReply;
 }
 /**
  * This interface has an application control information requested and passed
@@ -8634,9 +8634,9 @@ export class Response {
      */
     send(): void;
 }
-export interface Response {
+export interface ResponseConstructor {
     prototype: Response;
-    new(request: Request): Response; // tslint:disable-line:no-misused-new
+    new(request: Request): Response;
 }
 /**
  * This interface defines SQL data type operators.
@@ -8764,9 +8764,9 @@ export class SearchFilter {
      */
     keyword: string | null;
 }
-export interface SearchFilter {
+export interface SearchFilterConstructor {
     prototype: SearchFilter;
-    new(contentType: MediaControllerContentType, category?: MediaControllerSearchCategory, keyword?: string | null, extraData?: Bundle | null): SearchFilter; // tslint:disable-line:no-misused-new
+    new(contentType: MediaControllerContentType, category?: MediaControllerSearchCategory, keyword?: string | null, extraData?: Bundle | null): SearchFilter;
 }
 /**
  * Provides functions for creating resource, registering a resource, handling request from client.
@@ -8860,9 +8860,9 @@ export class SimpleCoordinates {
      */
     longitude: number;
 }
-export interface SimpleCoordinates {
+export interface SimpleCoordinatesConstructor {
     prototype: SimpleCoordinates;
-    new(latitude: number, longitude: number): SimpleCoordinates; // tslint:disable-line:no-misused-new
+    new(latitude: number, longitude: number): SimpleCoordinates;
 }
 /**
  * _SortMode_ is a common interface used for sorting of queried data.
@@ -8882,9 +8882,9 @@ export class SortMode {
      */
     order: SortModeOrder;
 }
-export interface SortMode {
+export interface SortModeConstructor {
     prototype: SortMode;
-    new(attributeName: string, order?: SortModeOrder | null): SortMode; // tslint:disable-line:no-misused-new
+    new(attributeName: string, order?: SortModeOrder | null): SortMode;
 }
 /**
  * The SystemEventData interface defines what is retrieved from the event listener.
@@ -11022,10 +11022,10 @@ export class TZDate {
      */
     toUTC(): TZDate;
 }
-export interface TZDate {
+export interface TZDateConstructor {
     prototype: TZDate;
-    new(datetime?: Date | null, timezone?: string | null): TZDate; // tslint:disable-line:no-misused-new
-    new(year: number, month: number, day: number, hours?: number | null, minutes?: number | null, seconds?: number | null, milliseconds?: number | null, timezone?: string | null): TZDate; // tslint:disable-line:no-misused-new
+    new(datetime?: Date | null, timezone?: string | null): TZDate;
+    new(year: number, month: number, day: number, hours?: number | null, minutes?: number | null, seconds?: number | null, milliseconds?: number | null, timezone?: string | null): TZDate;
 }
 /**
  * The TimeDuration interface that contains the length and its associated time unit.
@@ -11105,9 +11105,9 @@ export class TimeDuration {
      */
     lessThan(other: TimeDuration): boolean;
 }
-export interface TimeDuration {
+export interface TimeDurationConstructor {
     prototype: TimeDuration;
-    new(length: number, unit?: TimeDurationUnit | null): TimeDuration; // tslint:disable-line:no-misused-new
+    new(length: number, unit?: TimeDurationUnit | null): TimeDuration;
 }
 /**
  * The TimeUtil interface that provides access to the time API.
@@ -11255,25 +11255,25 @@ export interface TimeUtil {
  * It is a property of the ECMAScript global object, as specified by the _TizenObject_ interface.
  */
 export interface Tizen {
-    readonly AlarmAbsolute: AlarmAbsolute;
-    readonly AlarmRelative: AlarmRelative;
-    readonly ApplicationControl: ApplicationControl;
-    readonly ApplicationControlData: ApplicationControlData;
-    readonly AttributeFilter: AttributeFilter;
-    readonly AttributeRangeFilter: AttributeRangeFilter;
-    readonly Bundle: Bundle;
-    readonly CompositeFilter: CompositeFilter;
-    readonly DownloadRequest: DownloadRequest;
-    readonly ExifInformation: ExifInformation;
-    readonly IotconOption: IotconOption;
+    readonly AlarmAbsolute: AlarmAbsoluteConstructor;
+    readonly AlarmRelative: AlarmRelativeConstructor;
+    readonly ApplicationControl: ApplicationControlConstructor;
+    readonly ApplicationControlData: ApplicationControlDataConstructor;
+    readonly AttributeFilter: AttributeFilterConstructor;
+    readonly AttributeRangeFilter: AttributeRangeFilterConstructor;
+    readonly Bundle: BundleConstructor;
+    readonly CompositeFilter: CompositeFilterConstructor;
+    readonly DownloadRequest: DownloadRequestConstructor;
+    readonly ExifInformation: ExifInformationConstructor;
+    readonly IotconOption: IotconOptionConstructor;
     readonly Query: Query;
-    readonly Representation: Representation;
-    readonly Response: Response;
-    readonly SimpleCoordinates: SimpleCoordinates;
-    readonly SortMode: SortMode;
-    readonly TZDate: TZDate;
-    readonly TimeDuration: TimeDuration;
-    readonly VoiceControlCommand: VoiceControlCommand;
+    readonly Representation: RepresentationConstructor;
+    readonly Response: ResponseConstructor;
+    readonly SimpleCoordinates: SimpleCoordinatesConstructor;
+    readonly SortMode: SortModeConstructor;
+    readonly TZDate: TZDateConstructor;
+    readonly TimeDuration: TimeDurationConstructor;
+    readonly VoiceControlCommand: VoiceControlCommandConstructor;
     /* tslint:disable:no-irregular-whitespace */
     /**
      * The Account API provides functionality for using existing configured
@@ -12038,9 +12038,9 @@ export class VoiceControlCommand {
      */
     type: VoiceControlCommandType;
 }
-export interface VoiceControlCommand {
+export interface VoiceControlCommandConstructor {
     prototype: VoiceControlCommand;
-    new(command: string, type?: VoiceControlCommandType | null): VoiceControlCommand; // tslint:disable-line:no-misused-new
+    new(command: string, type?: VoiceControlCommandType | null): VoiceControlCommand;
 }
 /**
  * Generic error interface.
@@ -12216,9 +12216,9 @@ export class WebAPIException {
      */
     readonly WRONG_DOCUMENT_ERR: 4;
 }
-export interface WebAPIException {
+export interface WebAPIExceptionConstructor {
     prototype: WebAPIException;
-    new(code: number | null, message: string | null, name: string | null): WebAPIException; // tslint:disable-line:no-misused-new
+    new(code: number | null, message: string | null, name: string | null): WebAPIException;
     /**
      * The operation has been aborted.
      */
@@ -12370,7 +12370,7 @@ declare global {
      */
      interface Window {
         readonly WebAPIError: WebAPIException;
-        readonly WebAPIException: WebAPIException;
+        readonly WebAPIException: WebAPIExceptionConstructor;
         /**
          * This API provides common Tizen functionality.
          *
@@ -12388,7 +12388,7 @@ declare global {
         readonly tizen: Tizen;
     }
     const WebAPIError: WebAPIException;
-    const WebAPIException: WebAPIException;
+    const WebAPIException: WebAPIExceptionConstructor;
     /**
      * This API provides common Tizen functionality.
      *
