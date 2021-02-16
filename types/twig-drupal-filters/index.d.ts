@@ -5,4 +5,5 @@
 
 import Twig = require('twig');
 
-export default function(twigInstance: typeof Twig): void;
+declare function twigDrupal(twigInstance: typeof Twig): void;
+export = twigDrupal;
