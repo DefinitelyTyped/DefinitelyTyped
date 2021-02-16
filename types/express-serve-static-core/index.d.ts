@@ -91,10 +91,45 @@ export type RequestHandlerParams<
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
+type RouteParameterNames<Route extends string> =
+    string extends Route
+        ? string
+        : Route extends `${string}:${infer Param}/${infer Rest}`
+        ? (Param | RouteParameterNames<Rest>)
+        : (Route extends `${string}:${infer LastParam}` ? LastParam : never)
+
+export type RouteParameters<T extends string> = {
+    [key in RouteParameterNames<T>]: string
+}
+
 export interface IRouterMatcher<
     T,
     Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any
 > {
+    <
+        Path extends string,
+        P = RouteParameters<Path>,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+    >(
+        path: Path,
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
+    <
+        Path extends string,
+        P = RouteParameters<Path>,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+    >(
+        path: Path,
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
     <
         P = ParamsDictionary,
         ResBody = any,
