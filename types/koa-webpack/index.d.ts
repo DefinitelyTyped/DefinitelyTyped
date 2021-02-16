@@ -25,7 +25,7 @@ declare function koaWebpack(
 
 declare namespace koaWebpack {
     interface Options {
-        compiler?: webpack.Compiler;
+        compiler?: webpack.Compiler | webpack.MultiCompiler;
         config?: webpack.Configuration;
         devMiddleware?: webpackDevMiddleware.Options;
         hotClient?: webpackHotClient.Options | boolean;
