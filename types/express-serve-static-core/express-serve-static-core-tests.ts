@@ -8,10 +8,8 @@ app.listen(3000, () => {
 
 app.get('/:foo', req => {
     req.params.foo; // $ExpectType string
-    // $ExpectError
-    req.params.bar; // $ExpectType string
-    // $ExpectError
-    req.params[0]; // $ExpectType string
+    req.params.bar; // $ExpectError
+    req.params[0]; // $ExpectError
     // $ExpectType string | false | null
     req.is(['application/json', 'application/xml']);
     // $ExpectType string | false | null
@@ -22,10 +20,8 @@ app.get('/:foo', req => {
 
 app.route('/:foo').get(req => {
     req.params.foo; // $ExpectType string
-    // $ExpectError
-    req.params.bar; // $ExpectType string
-    // $ExpectError
-    req.params[0]; // $ExpectType string
+    req.params.bar; // $ExpectError
+    req.params[0]; // $ExpectError
     // $ExpectType string | false | null
     req.is(['application/json', 'application/xml']);
     // $ExpectType string | false | null
