@@ -316,9 +316,9 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<AnyIfEmp
 
 // Helper type operators
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type WithOptionalTheme<P extends { theme?: T }, T> = P & {
-    theme?: T;
-};
+type WithOptionalTheme<P extends { theme?: T }, T> = (P extends { theme?: T }
+    ? Omit<P, 'theme'>
+    : { [K in keyof P]: P[K] }) & { theme?: T };
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
 export interface ThemedStyledComponentsModule<T extends object, U extends object = T> {
