@@ -82,7 +82,7 @@ declare class Siege {
     attack(): void;
 }
 
-declare function Siege(options?: Options): Siege;
-declare function Siege(path?: string, options?: Options): Siege;
+declare function siege(options?: Options): Siege;
+declare function siege(path?: string, options?: Options): Siege;
 
-export = Siege;
+export = siege;
