@@ -2,7 +2,6 @@
 // Project: https://github.com/kissjs/siege.js#readme
 // Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
 
 /// <reference types="node" />
 
@@ -38,8 +37,8 @@ interface ReportOptions {
 }
 
 declare class For<T> {
-    times: T;
-    seconds: T;
+    readonly times: T;
+    readonly seconds: T;
 }
 
 declare class Task {
@@ -53,10 +52,10 @@ declare class Task {
     }): void;
     concurrent(concurrent: number): Task;
     report(options: ReportOptions): void;
-    withCookie: Siege;
-    withoutCookie: Siege;
-    with304: Siege;
-    without304?: Siege;
+    readonly withCookie: Siege;
+    readonly withoutCookie: Siege;
+    readonly with304: Siege;
+    readonly without304?: Siege;
 }
 
 declare class Siege {
@@ -71,10 +70,10 @@ declare class Siege {
     report(options: ReportOptions): Siege;
     set(name: string, value: string): Siege;
     wait(ms: number): Siege;
-    withCookie: Siege;
-    withoutCookie: Siege;
-    with304: Siege;
-    without304?: Siege;
+    readonly withCookie: Siege;
+    readonly withoutCookie: Siege;
+    readonly with304: Siege;
+    readonly without304?: Siege;
     concurrent(n: number): Siege;
     for(n: number): For<Siege>;
     get(url: string, query?: Stringifiable): Siege;
@@ -82,7 +81,7 @@ declare class Siege {
     attack(): void;
 }
 
-declare function Siege(options?: Options): Siege;
-declare function Siege(path?: string, options?: Options): Siege;
+declare function siege(options?: Options): Siege;
+declare function siege(path?: string, options?: Options): Siege;
 
-export = Siege;
+export = siege;
