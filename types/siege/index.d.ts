@@ -6,6 +6,7 @@
 
 /// <reference types="node" />
 
+type Stringifiable = NodeJS.Dict<string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | null>;
 type Method = 'GET' | 'POST';
 
 interface Options {
@@ -48,7 +49,7 @@ declare class Task {
     request(options: {
         path: string;
         method?: Method;
-        query?: NodeJS.Dict<string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | null>;
+        query?: Stringifiable;
     }): void;
     concurrent(concurrent: number): Task;
     report(options: ReportOptions): void;
@@ -76,8 +77,8 @@ declare class Siege {
     without304?: Siege;
     concurrent(n: number): Siege;
     for(n: number): For<Siege>;
-    get(url: string, query?: NodeJS.Dict<string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | null>): Siege;
-    post(url: string, params: any): Siege;
+    get(url: string, query?: Stringifiable): Siege;
+    post(url: string, params: Stringifiable): Siege;
     attack(): void;
 }
 
