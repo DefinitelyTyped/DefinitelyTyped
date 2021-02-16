@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
-    type Buffer = Uint8Array;
+    // workaround for the Buffer type as referencing all node types breaks dependent projects
+    interface Buffer extends Uint8Array {}
 }
 
 export = Resemble;
