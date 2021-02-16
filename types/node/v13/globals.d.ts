@@ -692,7 +692,7 @@ declare namespace NodeJS {
     }
 
     // Alias for compatibility
-    interface ProcessEnv extends Dict<string> {}
+    interface ProcessEnv extends Dict<string | number | boolean> {}
 
     interface HRTime {
         (time?: [number, number]): [number, number];

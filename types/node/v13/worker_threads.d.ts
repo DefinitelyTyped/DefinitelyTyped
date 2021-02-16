@@ -66,7 +66,7 @@ declare module "worker_threads" {
          * were passed as CLI options to the script.
          */
         argv?: any[];
-        env?: NodeJS.Dict<string> | typeof SHARE_ENV;
+        env?: NodeJS.ProcessEnv | typeof SHARE_ENV;
         eval?: boolean;
         workerData?: any;
         stdin?: boolean;
