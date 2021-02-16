@@ -1871,6 +1871,8 @@ declare namespace IORedis {
     interface ScanStreamOption {
         match?: string;
         count?: number;
+        type?: string;
+        key?: string;
     }
 
     type DNSLookupFunction = (
