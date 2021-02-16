@@ -1,6 +1,7 @@
 // Type definitions for @storefront-ui 0.7
 // Project: https://github.com/vuestorefront/storefront-ui
-// Definitions by: Luïs De Zutter <https://github.com/ImLuze>
+// Definitions by:  Luïs De Zutter <https://github.com/ImLuze>
+//                  Wojciech Sikora <https://github.com/SikoraWojciech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
