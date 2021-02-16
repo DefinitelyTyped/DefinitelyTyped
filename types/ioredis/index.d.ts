@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.19
+// Type definitions for ioredis 4.22
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
