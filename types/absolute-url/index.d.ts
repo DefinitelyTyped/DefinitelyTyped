@@ -2,7 +2,6 @@
 // Project: https://github.com/zazukoians/absolute-url
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
 
 import { RequestHandler, Request } from "express";
 

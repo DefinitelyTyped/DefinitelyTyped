@@ -5,7 +5,6 @@
 //                 Puneet Arora <https://github.com/puneetar>
 //                 Dylan Frankland <https://github.com/dfrankland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
 
 /* =================== USAGE ===================
 

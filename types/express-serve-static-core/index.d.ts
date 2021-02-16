@@ -9,7 +9,7 @@
 //                 David Stephens <https://github.com/dwrss>
 //                 Shin Ando <https://github.com/andoshin11>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+// TypeScript Version: 2.3
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
