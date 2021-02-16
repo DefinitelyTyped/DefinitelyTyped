@@ -2,8 +2,6 @@ import mixpanel = require('mixpanel-browser');
 
 const lib = mixpanel.init('new token', { secure_cookie: true }, 'library_name'); // $ExpectType Mixpanel
 lib.track('event name');
-lib.init('token');  // $ExpectType undefined
-lib.init('token', {});  // $ExpectType undefined
 lib.init('token', {}, "name");  // $ExpectType Mixpanel
 mixpanel.init("token");  // $ExpectType undefined
 mixpanel.init("token", {});  // $ExpectType undefined

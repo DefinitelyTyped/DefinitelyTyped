@@ -155,7 +155,6 @@ export interface Mixpanel {
     has_opted_out_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
     identify(unique_id?: string): any;
     init(token: string, config: Partial<Config>, name: string): Mixpanel;
-    init(token: string, config?: Partial<Config>): undefined;
     opt_in_tracking(options?: Partial<InTrackingOptions>): void;
     opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
     push(item: PushItem): void;
