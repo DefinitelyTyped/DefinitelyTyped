@@ -1184,11 +1184,11 @@ declare namespace Office {
      */
     interface DialogOptions {
         /**
-         * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
+         * Defines the height of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
          */
         height?: number,
         /**
-         * Defines the height of the dialog as a percentage of the current display. Defaults to 80%. 150px minimum.
+         * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 150px minimum.
          */
         width?: number,
         /**
