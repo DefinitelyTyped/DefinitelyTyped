@@ -1,14 +1,7 @@
-// Type definitions for node-http-proxy 1.17
-// Project: https://github.com/nodejitsu/node-http-proxy
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-//                 Florian Oellerich <https://github.com/Raigen>
-//                 Daniel Schmidt <https://github.com/DanielMSchmidt>
-//                 Jordan Abreu <https://github.com/jabreu610>
-//                 Samuel Bodin <https://github.com/bodinsamuel>
+// Type definitions for drawflow 0.0
+// Project: https://github.com/jerosoler/Drawflow
+// Definitions by: Benjamin Maisonneuve <https://github.com/BobBDE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-/// <reference types="node" />
 
 // Declare the workflow module to be able to used it in typescript
 // this file must be defined in the include in tsconfig.json
