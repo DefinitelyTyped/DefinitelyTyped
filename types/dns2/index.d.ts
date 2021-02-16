@@ -8,27 +8,6 @@
 import * as net from 'net';
 import * as udp from 'dgram';
 
-interface DnsRequest {
-    header: { id: string };
-    questions: DnsQuestion[];
-}
-
-interface DnsQuestion {
-    name: string;
-}
-
-interface DnsResponse {
-    answers: DnsAnswer[];
-}
-
-interface DnsAnswer {
-    name: string;
-    type: number;
-    class: number;
-    ttl: number;
-    address: string;
-}
-
 declare class Packet {
     static TYPE: {
         A: 0x01;
@@ -66,26 +45,49 @@ declare class Packet {
         ANY: 0xff;
     };
 
-    static createResponseFromRequest(request: DnsRequest): DnsResponse;
+    static createResponseFromRequest(request: DNS.DnsRequest): DNS.DnsResponse;
 
     toBuffer(): Buffer;
+}
+
+declare namespace DNS {
+    interface DnsRequest {
+        header: { id: string };
+        questions: DnsQuestion[];
+    }
+
+    interface DnsQuestion {
+        name: string;
+    }
+
+    interface DnsResponse {
+        answers: DnsAnswer[];
+    }
+
+    interface DnsAnswer {
+        name: string;
+        type: number;
+        class: number;
+        ttl: number;
+        address: string;
+    }
 }
 
 declare class DNS {
     static createServer(
         callback: (
-            request: DnsRequest,
-            sendResponse: (response: DnsResponse) => void,
+            request: DNS.DnsRequest,
+            sendResponse: (response: DNS.DnsResponse) => void,
             remoteInfo: udp.RemoteInfo,
         ) => void,
     ): net.Server;
 
     static Packet: typeof Packet;
 
-    resolveA(domain: string, clientIp?: string): Promise<DnsResponse>;
-    resolveAAAA(domain: string): Promise<DnsResponse>;
-    resolveMX(domain: string): Promise<DnsResponse>;
-    resolveCNAME(domain: string): Promise<DnsResponse>;
+    resolveA(domain: string, clientIp?: string): Promise<DNS.DnsResponse>;
+    resolveAAAA(domain: string): Promise<DNS.DnsResponse>;
+    resolveMX(domain: string): Promise<DNS.DnsResponse>;
+    resolveCNAME(domain: string): Promise<DNS.DnsResponse>;
 }
 
 export = DNS;
