@@ -73,3 +73,11 @@ const tokens = Prism.tokenize("var n = 1;", Prism.languages[language]);
 if (Prism.util.type(language) === "Null") {
     // `language` is a non-null string constant
 }
+
+Prism.languages.insertBefore('javascript', 'function-variable', {
+    'method-variable': {
+        pattern: RegExp('(\\.\\s*)'),
+        lookbehind: true,
+        alias: ['function-variable', 'method', 'function', 'property-access']
+    }
+});

@@ -72,7 +72,7 @@ f1.descendants(() => true);
 
 const res2_1: model.Node = f1.maybeChild(0)!;
 const res2_2: number = f1.findDiffStart(f1)!;
-const res2_3: { a: number; b: number } = f1.findDiffEnd({} as any)!;
+const res2_3: { a: number; b: number } = f1.findDiffEnd(f1)!;
 const res2_4: object = f1.toJSON()!;
 
 const res3_1 = new model.ResolvedPos();

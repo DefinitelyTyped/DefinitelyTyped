@@ -73,6 +73,7 @@ options(address, 5); // $ExpectError
 responseDefault = options(address, 'choices choices');
 responseDefault = options(address, {});
 responseDefault = options(address, { theme: 'forest' });
+responseDefault = options(address, new ArrayBuffer(8));
 options(address, {}, 5); // $ExpectError
 responseNone = options(address, {}, { responseType: 'none' });
 options(address, {}, {}, 5); // $ExpectError
@@ -85,6 +86,7 @@ patch(address, 5); // $ExpectError
 responseDefault = patch(address, 'a life of contrasts and patchwork');
 responseDefault = patch(address, {});
 responseDefault = patch(address, { weaponOfChoice: 'pen' });
+responseDefault = patch(address, new ArrayBuffer(8));
 patch(address, {}, 5); // $ExpectError
 responseBinary = patch(address, {}, { responseType: 'binary' });
 patch(address, {}, {}, 5); // $ExpectError
@@ -97,6 +99,7 @@ post(address, 5); // $ExpectError
 responseDefault = post(address, 'hello in cyberspace');
 responseDefault = post(address, {});
 responseDefault = post(address, { query: 'kittens' });
+responseDefault = post(address, new ArrayBuffer(8));
 post(address, {}, 5); // $ExpectError
 responseNone = post(address, null, { responseType: 'none' });
 post(address, {}, {}, 5); // $ExpectError
@@ -109,6 +112,7 @@ put(address, 5); // $ExpectError
 responseDefault = put(address, 'cat in box');
 responseDefault = put(address, {});
 responseDefault = put(address, { box: 'cat' });
+responseDefault = put(address, new ArrayBuffer(8));
 put(address, {}, 5); // $ExpectError
 responseText = put(address, null, { responseType: 'text' });
 put(address, {}, {}, 5); // $ExpectError
@@ -123,9 +127,14 @@ request('post', address, 5); // $ExpectError
 responseDefault = request('post', address, 'welcome to the internet');
 responseDefault = request('post', address, {});
 responseDefault = request('post', address, { query: 'quokka' });
+responseDefault = request('post', address, new ArrayBuffer(8));
 request('post', address, {}, 5); // $ExpectError
 responseBinary = request('post', address, {}, { responseType: 'binary' });
 request('post', address, {}, {}, 5); // $ExpectError
+
+// request params
+responseDefault = request('post', address, {}, {timeout: '10s'});
+responseDefault = request('post', address, {}, {timeout: 10});
 
 // batch
 batch(); // $ExpectError

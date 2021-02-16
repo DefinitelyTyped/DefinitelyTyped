@@ -214,6 +214,7 @@ export class DateTime {
     static max(...dateTimes: DateTime[]): DateTime;
     static min(): undefined;
     static min(...dateTimes: DateTime[]): DateTime;
+    static now(): DateTime;
     static utc(
         year?: number,
         month?: number,
@@ -376,7 +377,7 @@ export class Duration {
 // @deprecated
 export type EraLength = StringUnitLength;
 
-export type NumberingSystem =
+export type NumberingSystem = Intl.DateTimeFormatOptions extends { numberingSystem?: infer T } ? T :
     | 'arab'
     | 'arabext'
     | 'bali'
@@ -400,7 +401,7 @@ export type NumberingSystem =
     | 'thai'
     | 'tibt';
 
-export type CalendarSystem =
+export type CalendarSystem = Intl.DateTimeFormatOptions extends { calendar?: infer T } ? T :
     | 'buddhist'
     | 'chinese'
     | 'coptic'

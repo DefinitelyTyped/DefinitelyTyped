@@ -3041,7 +3041,7 @@ declare namespace google.maps {
      * <code>streetViewControl</code> will be reflected in the display of such a
      * bound panorama.
      */
-    getStreetView(): google.maps.StreetViewPanorama|undefined;
+    getStreetView(): google.maps.StreetViewPanorama;
     /**
      * Returns the current angle of incidence of the map, in degrees from the
      * viewport plane to the map plane. The result will be <code>0</code> for
@@ -4927,24 +4927,24 @@ declare namespace google.maps {
     /**
      * Specifies the copyright text for this panorama.
      */
-    copyright: string;
+    copyright?: string;
     /**
      * Specifies the year and month in which the imagery in this panorama was
      * acquired. The date string is in the form YYYY-MM.
      */
-    imageDate: string;
+    imageDate?: string;
     /**
      * Specifies the navigational links to adjacent panoramas.
      */
-    links: (google.maps.StreetViewLink|null)[]|null;
+    links?: google.maps.StreetViewLink[];
     /**
      * Specifies the location meta-data for this panorama.
      */
-    location: google.maps.StreetViewLocation|null;
+    location?: google.maps.StreetViewLocation;
     /**
      * Specifies the custom tiles for this panorama.
      */
-    tiles: google.maps.StreetViewTileData|null;
+    tiles: google.maps.StreetViewTileData;
   }
 }
 declare namespace google.maps {
@@ -5190,11 +5190,11 @@ declare namespace google.maps {
     /**
      * The size (in pixels) at which tiles will be rendered.
      */
-    tileSize: google.maps.Size|null;
+    tileSize: google.maps.Size;
     /**
      * The size (in pixels) of the whole panorama&#39;s &quot;world&quot;.
      */
-    worldSize: google.maps.Size|null;
+    worldSize: google.maps.Size;
   }
 }
 declare namespace google.maps {
@@ -6249,8 +6249,10 @@ declare namespace google.maps.localContext {
              undefined)|google.maps.localContext.PlaceDetailsViewSetupOptions
         |null;
     /**
-     * The types of places to search for (up to 10).
-     * <code>Iterable&lt;string|PlaceTypePreference&gt;</code> is also accepted.
+     * The types of places to search for (up to 10). The type
+     * <code>Iterable&lt;string|PlaceTypePreference&gt;</code> is also accepted,
+     * but is only supported in browsers which natively support JavaScript
+     * Symbols.
      */
     placeTypePreferences: google.maps.localContext.PlaceTypePreference[];
   }

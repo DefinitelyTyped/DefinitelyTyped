@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.32
+// Type definitions for auth0 2.33
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
@@ -688,6 +688,7 @@ export interface TokenResponse {
     expires_in: number;
     scope?: string;
     id_token?: string;
+    refresh_token?: string;
 }
 
 export interface ObjectWithId {
@@ -947,6 +948,7 @@ export interface DatabaseClientOptions extends BaseClientOptions {}
 export interface PasswordLessClientOptions extends BaseClientOptions {}
 
 export interface TokenManagerOptions extends BaseClientOptions {
+    clientSecret?: string;
     headers?: any;
 }
 export interface UsersOptions extends BaseClientOptions {
@@ -1102,7 +1104,7 @@ export class AuthenticationClient {
     passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
-    refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<any>;
+    refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<TokenResponse>;
     refreshToken(
         options: AuthenticationClientRefreshTokenOptions,
         cb: (err: Error, response: TokenResponse) => void,
@@ -1490,7 +1492,7 @@ export class OAuthAuthenticator {
     authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
     authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-    refreshToken(options: RefreshTokenOptions): Promise<any>;
+    refreshToken(options: RefreshTokenOptions): Promise<TokenResponse>;
     refreshToken(options: RefreshTokenOptions, cb: (err: Error, response: TokenResponse) => void): void;
 }
 
@@ -1507,8 +1509,17 @@ export class PasswordlessAuthenticator {
     sendSMS(data: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
 }
 
+export interface RevokeRefreshTokenOptions {
+    client_id?: string;
+    client_secret?: string;
+    token: string;
+}
+
 export class TokenManager {
     constructor(options: TokenManagerOptions);
+
+    revokeRefreshToken(data: RevokeRefreshTokenOptions): Promise<void>;
+    revokeRefreshToken(data: RevokeRefreshTokenOptions, cb: (err: Error) => void): void;
 }
 
 export class UsersManager<A = AppMetadata, U = UserMetadata> {

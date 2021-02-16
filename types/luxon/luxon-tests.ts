@@ -17,7 +17,7 @@ DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
-const now = DateTime.local();
+const now = DateTime.now();
 
 const fromObject = DateTime.fromObject({
     month: 4,
