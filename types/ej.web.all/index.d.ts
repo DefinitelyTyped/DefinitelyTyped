@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 18.1
+// Type definitions for non-npm package ej.web.all 18.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 18.1.0.52
+*  version : 18.3.0.47
 *  Copyright Syncfusion Inc. 2001 - 2020. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -924,7 +924,7 @@ declare namespace ej {
     function parseFloat(value: string, radix?: any, culture?: string): number;
     function parseDate(value: string, format: string, culture?: string): Date;
     function getLocalizedConstants(controlName: string, culture?: string): any;
-    function findCulture(culture?: string): culture;
+	function findCulture(culture?: string): culture;
 
     interface globalize {
         addCulture(name: string, culture?: any): void;
@@ -934,7 +934,7 @@ declare namespace ej {
         parseFloat(value: string, radix?: any, culture?: string): number;
         parseDate(value: string, format: string, culture?: string): Date;
         getLocalizedConstants(controlName: string, culture?: string): any;
-        findCulture(culture?: string): culture;
+		findCulture(culture?: string): culture;
     }
     interface culture {
         name?: string;
@@ -16931,7 +16931,7 @@ declare namespace ej {
             autoHeight?: boolean;
 
             /** This API holds configuration setting for paste cleanup behavior.
-             * @Default {{ listConversion: false, cleanCSS: false,    removeStyles: false, cleanElements: false }}
+             * @Default {{ listConversion: false, cleanCSS: false,	removeStyles: false, cleanElements: false }}
              */
             pasteCleanupSettings?: PasteCleanupSettings;
 
@@ -45252,6 +45252,10 @@ declare namespace ej {
              */
             ribbonClick?(e: RibbonClickEventArgs): void;
 
+            /** Triggered after end of vertical and horizontal scrolling.
+             */
+            scrollStop?(e: ScrollStopEventArgs): void;
+
             /** Triggered when click the ribbon tab.
              */
             tabClick?(e: TabClickEventArgs): void;
@@ -46292,6 +46296,33 @@ declare namespace ej {
             /** Returns the target element.
              */
             target?: HTMLElement;
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+        }
+
+        export interface ScrollStopEventArgs {
+
+            /** Returns the request type.
+             */
+            reqType?: string;
+
+            /** Returns the scrolled position.
+             */
+            position?: number;
+
+            /** Returns the name of the event.
+             */
+            type?: string;
+
+            /** Returns the Spreadsheet model.
+             */
+            model?: ej.Spreadsheet.Model;
+
+            /** Returns the scrolling data
+             */
+            scrollData?: any;
 
             /** Returns the cancel option value.
              */

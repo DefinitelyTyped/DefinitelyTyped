@@ -1,36 +1,49 @@
 import * as React from "react";
-import { ReactAnchorAttr, ReactAttr, ReactLIAttr } from "../../../typings/shared";
+import { ReactLIAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "aria-controls" | "aria-selected" | "aria-disabled" | "role" | "tabIndex";
-interface InheritedProps extends Omit<ReactLIAttr, ExcludedAttributes> {
-    href?: ReactAnchorAttr["href"],
-}
 
-export interface TabCustomAnchorProvidedProps {
-    className: NonNullable<ReactAttr["className"]>,
-    href: InheritedProps["href"],
-    id: ReactAttr["id"],
+export interface TabCustomButtonProvidedProps {
+    "aria-controls": string,
+    "aria-disabled": boolean | undefined,
+    "aria-selected": boolean,
+    className: string,
+    href: string | undefined,
+    id: string | undefined
     ref(element: any): void;
-    tabIndex: NonNullable<ReactAttr["tabIndex"]>,
+    tabIndex: number,
 }
 
-export interface TabStandaloneProps extends InheritedProps {
+/**
+ * @deprecated use TabCustomButtonProvidedProps
+ */
+export interface TabCustomAnchorProviderProps extends TabCustomButtonProvidedProps { }
+
+export interface TabStandaloneProps extends Omit<ReactLIAttr, ExcludedAttributes> {
     disabled?: boolean;
-    handleTabClick(index: TabStandaloneProps["index"], event: React.MouseEvent<HTMLLIElement>): void,
-    handleTabKeyDown(index: TabStandaloneProps["index"], event: React.KeyboardEvent<HTMLLIElement>): void,
+    handleTabClick?(index: TabStandaloneProps["index"], event: React.MouseEvent<HTMLLIElement>): void,
+    handleTabKeyDown?(index: TabStandaloneProps["index"], event: React.KeyboardEvent<HTMLLIElement>): void,
+    /**
+     * @deprecated
+     */
+    href?: string,
     index?: number,
     label?: React.ReactNode,
-    renderAnchor?: React.FC<TabCustomAnchorProvidedProps>,
+    /**
+     * @deprecated
+     */
+    renderAnchor?: (props: TabCustomButtonProvidedProps) => React.ReactNode;
+    renderButton?: (props: TabCustomButtonProvidedProps) => React.ReactNode;
     role?: string, // marked as required, but render code overwrites it currently, also has default
     selected: boolean,
 }
 
 export interface TabCustomContentProvidedProps {
     "aria-hidden": boolean;
-    "aria-labelledby": ReactAttr["aria-labelledby"];
-    id: ReactAttr["id"];
-    className: NonNullable<ReactAttr["className"]>;
+    "aria-labelledby": string | undefined;
+    className: string;
     hidden: boolean;
+    id: string | undefined;
     selected: boolean;
 }
 
@@ -39,6 +52,7 @@ type TabsProvidedPropKeys = "index" | "handleTabClick" | "handleTabKeyDown" | "r
 export interface TabProps extends Omit<TabStandaloneProps, TabsProvidedPropKeys> {
     // only props that are used only by the parent "Tabs" component should go here
     // otherwise they should go in TabStandaloneProps interface
+    // 7.23: doesn't look like this is used anymore
     renderContent?: React.ComponentType<TabCustomContentProvidedProps>;
 }
 

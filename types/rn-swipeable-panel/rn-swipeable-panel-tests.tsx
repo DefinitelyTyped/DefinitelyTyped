@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SwipeablePanel from 'rn-swipeable-panel';
+import { SwipeablePanel } from 'rn-swipeable-panel';
 
 export const App: React.FC = () => {
     const [isActive, setIsActive] = React.useState<boolean>(false);

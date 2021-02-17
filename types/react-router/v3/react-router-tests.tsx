@@ -167,6 +167,21 @@ class User extends React.Component<UserProps> {
     }
 }
 
+const CreateForm: React.FC<WithRouterProps> = ({ router }) => {
+    const [dirty] = React.useState<boolean>(false);
+
+    React.useEffect(() => {
+        const unbind = router.setRouteLeaveHook('/create', () => {
+            if (dirty) return 'Are you sure?';
+        });
+        return () => {
+            unbind();
+        };
+    }, [router, dirty]);
+
+    return <form></form>;
+};
+
 ReactDOM.render((
     <Router history={hashHistory}>
         <Route path="/" component={Master}>
@@ -175,6 +190,7 @@ ReactDOM.render((
             <Route path="user/:id" component={User} />
             <Route path="*" component={NotFound} />
         </Route>
+        <Route path="/create" component={CreateForm} />
     </Router>
 ), document.body);
 

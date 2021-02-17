@@ -1,5 +1,5 @@
-import { createContext, isContext, Script, runInNewContext, runInThisContext, compileFunction } from 'vm';
-import { inspect } from 'util';
+import { createContext, isContext, Script, runInNewContext, runInThisContext, compileFunction } from 'node:vm';
+import { inspect } from 'node:util';
 
 {
     const sandbox = {
@@ -51,7 +51,7 @@ import { inspect } from 'util';
 }
 
 {
-    const fn: Function = compileFunction('console.log("test")', [], {
+    const fn: Function = compileFunction('console.log("test")', [] as ReadonlyArray<string>, {
         parsingContext: createContext(),
         contextExtensions: [{
             a: 1,

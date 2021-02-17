@@ -5,6 +5,7 @@
 //                 Brice Bernard <https://github.com/brikou>
 //                 harryparkdotio <https://github.com/harryparkdotio>
 //                 Wooram Jun <https://github.com/chatoo2412>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -19,28 +20,30 @@
 
  =============================================== */
 /// <reference types="node" />
-import * as accepts from "accepts";
-import * as Cookies from "cookies";
-import { EventEmitter } from "events";
-import { IncomingMessage, ServerResponse, Server } from "http";
+import * as accepts from 'accepts';
+import * as Cookies from 'cookies';
+import { EventEmitter } from 'events';
+import { IncomingMessage, ServerResponse, Server, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import httpAssert = require("http-assert");
-import * as Keygrip from "keygrip";
-import * as compose from "koa-compose";
-import { Socket, ListenOptions } from "net";
-import * as url from "url";
-import * as contentDisposition from "content-disposition";
+import httpAssert = require('http-assert');
+import * as HttpErrors from 'http-errors';
+import * as Keygrip from 'keygrip';
+import * as compose from 'koa-compose';
+import { Socket, ListenOptions } from 'net';
+import * as url from 'url';
+import * as contentDisposition from 'content-disposition';
+import { ParsedUrlQuery } from 'querystring';
 
 declare interface ContextDelegatedRequest {
     /**
      * Return request header.
      */
-    header: any;
+    header: IncomingHttpHeaders;
 
     /**
      * Return request header, alias as request.header
      */
-    headers: any;
+    headers: IncomingHttpHeaders;
 
     /**
      * Get/Set request URL.
@@ -72,7 +75,7 @@ declare interface ContextDelegatedRequest {
      * Get parsed query-string.
      * Set query-string as an object.
      */
-    query: any;
+    query: ParsedUrlQuery;
 
     /**
      * Get/Set query string.
@@ -179,7 +182,7 @@ declare interface ContextDelegatedRequest {
 
     /**
      * Check if the given `type(s)` is acceptable, returning
-     * the best match when true, otherwise `undefined`, in which
+     * the best match when true, otherwise `false`, in which
      * case you should respond with 406 "Not Acceptable".
      *
      * The `type` value may be a single mime type string
@@ -213,9 +216,9 @@ declare interface ContextDelegatedRequest {
      *     this.accepts('html', 'json');
      *     // => "json"
      */
-    accepts(): string[] | boolean;
-    accepts(...types: string[]): string | boolean;
-    accepts(types: string[]): string | boolean;
+    accepts(): string[];
+    accepts(...types: string[]): string | false;
+    accepts(types: string[]): string | false;
 
     /**
      * Return accepted encodings or best fit based on `encodings`.
@@ -225,9 +228,9 @@ declare interface ContextDelegatedRequest {
      *
      *     ['gzip', 'deflate']
      */
-    acceptsEncodings(): string[] | boolean;
-    acceptsEncodings(...encodings: string[]): string | boolean;
-    acceptsEncodings(encodings: string[]): string | boolean;
+    acceptsEncodings(): string[];
+    acceptsEncodings(...encodings: string[]): string | false;
+    acceptsEncodings(encodings: string[]): string | false;
 
     /**
      * Return accepted charsets or best fit based on `charsets`.
@@ -237,9 +240,9 @@ declare interface ContextDelegatedRequest {
      *
      *     ['utf-8', 'utf-7', 'iso-8859-1']
      */
-    acceptsCharsets(): string[] | boolean;
-    acceptsCharsets(...charsets: string[]): string | boolean;
-    acceptsCharsets(charsets: string[]): string | boolean;
+    acceptsCharsets(): string[];
+    acceptsCharsets(...charsets: string[]): string | false;
+    acceptsCharsets(charsets: string[]): string | false;
 
     /**
      * Return accepted languages or best fit based on `langs`.
@@ -249,9 +252,9 @@ declare interface ContextDelegatedRequest {
      *
      *     ['es', 'pt', 'en']
      */
-    acceptsLanguages(): string[] | boolean;
-    acceptsLanguages(...langs: string[]): string | boolean;
-    acceptsLanguages(langs: string[]): string | boolean;
+    acceptsLanguages(): string[];
+    acceptsLanguages(...langs: string[]): string | false;
+    acceptsLanguages(langs: string[]): string | false;
 
     /**
      * Check if the incoming request contains the "Content-Type"
@@ -275,8 +278,8 @@ declare interface ContextDelegatedRequest {
      *     this.is('html'); // => false
      */
     // is(): string | boolean;
-    is(...types: string[]): string | boolean;
-    is(types: string[]): string | boolean;
+    is(...types: string[]): string | false | null;
+    is(types: string[]): string | false | null;
 
     /**
      * Return request header. If the header is not set, will return an empty
@@ -402,7 +405,7 @@ declare interface ContextDelegatedResponse {
      *    this.set('Accept', 'application/json');
      *    this.set({ Accept: 'text/plain', 'X-API-Key': 'tobi' });
      */
-    set(field: { [key: string]: string }): void;
+    set(field: { [key: string]: string | string[] }): void;
     set(field: string, val: string | string[]): void;
 
     /**
@@ -459,35 +462,14 @@ declare class Application<
      *
      *    http.createServer(app.callback()).listen(...)
      */
-    listen(
-        port?: number,
-        hostname?: string,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
-    listen(
-        port: number,
-        hostname?: string,
-        listeningListener?: () => void,
-    ): Server;
-    listen(
-        port: number,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): Server;
+    listen(port: number, hostname?: string, listeningListener?: () => void): Server;
+    listen(port: number, backlog?: number, listeningListener?: () => void): Server;
     listen(port: number, listeningListener?: () => void): Server;
-    listen(
-        path: string,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(path: string, backlog?: number, listeningListener?: () => void): Server;
     listen(path: string, listeningListener?: () => void): Server;
     listen(options: ListenOptions, listeningListener?: () => void): Server;
-    listen(
-        handle: any,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(handle: any, backlog?: number, listeningListener?: () => void): Server;
     listen(handle: any, listeningListener?: () => void): Server;
 
     /**
@@ -515,7 +497,7 @@ declare class Application<
      * Return a request handler callback
      * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => Promise<void>;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
 
     /**
      * Initialize a new context.
@@ -553,10 +535,9 @@ declare namespace Application {
         [key: string]: any;
     }
 
-    type Middleware<
-        StateT = DefaultState,
-        CustomT = DefaultContext
-    > = compose.Middleware<ParameterizedContext<StateT, CustomT>>;
+    type Middleware<StateT = DefaultState, CustomT = DefaultContext> = compose.Middleware<
+        ParameterizedContext<StateT, CustomT>
+    >;
 
     interface BaseRequest extends ContextDelegatedRequest {
         /**
@@ -598,12 +579,12 @@ declare namespace Application {
         /**
          * Return response header.
          */
-        header: any;
+        header: OutgoingHttpHeaders;
 
         /**
          * Return response header, alias as response.header
          */
-        headers: any;
+        headers: OutgoingHttpHeaders;
 
         /**
          * Check whether the response is one of the listed types.
@@ -614,8 +595,8 @@ declare namespace Application {
          * @api public
          */
         // is(): string;
-        is(...types: string[]): string;
-        is(types: string[]): string;
+        is(...types: string[]): string | false | null;
+        is(types: string[]): string | false | null;
 
         /**
          * Return response header. If the header is not set, will return an empty
@@ -648,9 +629,7 @@ declare namespace Application {
         toJSON(): any;
     }
 
-    interface BaseContext
-        extends ContextDelegatedRequest,
-            ContextDelegatedResponse {
+    interface BaseContext extends ContextDelegatedRequest, ContextDelegatedResponse {
         /**
          * util.inspect() implementation, which
          * just returns the JSON output.
@@ -734,16 +713,20 @@ declare namespace Application {
         respond?: boolean;
     }
 
-    type ParameterizedContext<
-        StateT = DefaultState,
-        CustomT = DefaultContext
-    > = ExtendableContext & {
+    type ParameterizedContext<StateT = DefaultState, CustomT = DefaultContext> = ExtendableContext & {
         state: StateT;
     } & CustomT;
 
     interface Context extends ParameterizedContext {}
 
     type Next = () => Promise<any>;
+
+    /**
+     * A re-export of `HttpError` from the `http-assert` package.
+     *
+     * This is the error type that is thrown by `ctx.assert()` and `ctx.throw()`.
+     */
+    const HttpError: typeof HttpErrors.HttpError;
 }
 
 export = Application;

@@ -1,6 +1,8 @@
 // Type definitions for Rax 1.0.0
 // Project: https://rax.js.org
 // Definitions by: Solo Jiang <https://github.com/solojiang>
+//                 chenjun1011 <https://github.com/chenjun1011>
+//                 imsobear <https://github.com/imsobear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -174,6 +176,12 @@ export = Rax;
 export as namespace Rax;
 
 declare namespace Rax {
+  interface shared {
+    Host: any;
+    Instance: RaxInstance;
+    Element: RaxElement;
+    flattenChildren: any;
+  }
   /**
    * ======================================================================
    * Rax Elements
@@ -203,10 +211,41 @@ declare namespace Rax {
     | null;
   type LegacyRef<T> = string | Ref<T>;
 
+  /**
+   * Gets the instance type for a Rax element. The instance will be different for various component types:
+   *
+   * - Rax class components will be the class instance. So if you had `class Foo extends Component<{}> {}`
+   *   and used `ElementRef<typeof Foo>` then the type would be the instance of `Foo`.
+   * - Rax stateless functional components do not have a backing instance and so `ElementRef<typeof Bar>`
+   *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
+   * - JSX intrinsics like `div` will give you their DOM instance. For `ElementRef<'div'>` that would be
+   *   `HTMLDivElement`. For `ElementRef<'input'>` that would be `HTMLInputElement`.
+   * - Rax stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
+   *   to component.
+   *
+   * `C` must be the type _of_ a Rax component so you need to use typeof as in ElementRef<typeof MyComponent>.
+   */
+  type ElementRef<
+      C extends
+          | ForwardRefExoticComponent<any>
+          | { new (props: any): Component<any> }
+          | ((props: any, context?: any) => RaxElement | null)
+          | keyof JSX.IntrinsicElements
+  > =
+      // need to check first if `ref` is a valid prop for ts@3.0
+      // otherwise it will infer `{}` instead of `never`
+      "ref" extends keyof ComponentPropsWithRef<C>
+          ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends Ref<
+              infer Instance
+          >
+              ? Instance
+              : never
+          : never;
+
   type ComponentState = any;
 
   interface Attributes {
-    key?: Key;
+    key?: Key | null;
   }
 
   interface RefAttributes<T> extends Attributes {
@@ -294,7 +333,6 @@ declare namespace Rax {
     ...children: RaxNode[]
   ) => DOMElement<P, T>;
 
-  // tslint:disable-next-line:no-empty-interface
   interface HTMLFactory<T extends HTMLElement>
     extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
@@ -443,7 +481,6 @@ declare namespace Rax {
   type RaxInstance = Component<any> | Element;
 
   // Base component for plain JS classes
-  // tslint:disable-next-line:no-empty-interface
   interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> {}
   class Component<P, S> {
     readonly props: Readonly<P> & Readonly<{ children?: RaxNode }>;
@@ -485,13 +522,28 @@ declare namespace Rax {
     displayName?: string;
   }
 
-  interface RefForwardingComponent<T, P = {}> {
-    (props: PropsWithChildren<P>, ref: Ref<T>): RaxElement | null;
-    propTypes?: WeakValidationMap<P>;
-    contextTypes?: ValidationMap<any>;
-    defaultProps?: Partial<P>;
-    displayName?: string;
+  type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+
+  interface ForwardRefRenderFunction<T, P = {}> {
+      (props: PropsWithChildren<P>, ref: ForwardedRef<T>): RaxElement | null;
+      displayName?: string;
+      // explicit rejected with `never` required due to
+      // https://github.com/microsoft/TypeScript/issues/36826
+      /**
+       * defaultProps are not supported on render functions
+       */
+      defaultProps?: never;
+      /**
+       * propTypes are not supported on render functions
+       */
+      propTypes?: never;
   }
+
+  /**
+   * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
+   *             "real" component.
+   */
+  interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
 
   interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
     new (props: P, context?: any): Component<P, S>;
@@ -937,7 +989,6 @@ declare namespace Rax {
     target: EventTarget & T;
   }
 
-  // tslint:disable-next-line:no-empty-interface
   interface FormEvent<T = Element> extends SyntheticEvent<T> {}
 
   interface InvalidEvent<T = Element> extends SyntheticEvent<T> {
@@ -1652,7 +1703,6 @@ declare namespace Rax {
     referrerPolicy?: string;
   }
 
-  // tslint:disable-next-line:no-empty-interface
   interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
 
   interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1938,6 +1988,7 @@ declare namespace Rax {
 
   interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
     async?: boolean;
+    /** @deprecated */
     charSet?: string;
     crossOrigin?: string;
     defer?: boolean;
@@ -2662,7 +2713,6 @@ type RaxManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: 
 
 declare global {
   namespace JSX {
-    // tslint:disable-next-line:no-empty-interface
     interface Element extends Rax.RaxElement<any, any> {}
     interface ElementClass extends Rax.Component<any> {
       render(): Rax.RaxNode;
@@ -2682,9 +2732,7 @@ declare global {
         : RaxManagedAttributes<T, P>
       : RaxManagedAttributes<C, P>;
 
-    // tslint:disable-next-line:no-empty-interface
     interface IntrinsicAttributes extends Rax.Attributes {}
-    // tslint:disable-next-line:no-empty-interface
     interface IntrinsicClassAttributes<T> extends Rax.ClassAttributes<T> {}
 
     interface IntrinsicElements {

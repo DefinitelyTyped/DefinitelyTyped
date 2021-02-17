@@ -27,7 +27,9 @@ import {
     visit,
     currentURL,
     currentRouteName,
-    setApplication
+    setApplication,
+    setupOnerror,
+    resetOnerror
 } from '@ember/test-helpers';
 
 const MyApp = Application.extend({ modulePrefix: 'my-app' });
@@ -76,6 +78,13 @@ test('routing helpers', async (assert) => {
 test('pause and resume', async () => {
     await pauseTest();
     setTimeout(resumeTest, 1000);
+});
+
+test('catching errors', async (assert) => {
+    setupOnerror((error) => {
+        assert.ok(error);
+    });
+    resetOnerror();
 });
 
 test('wait helpers', async (assert) => {

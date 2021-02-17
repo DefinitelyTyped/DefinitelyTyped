@@ -365,7 +365,38 @@ function test_timeline() {
             [ 'Adams',      new Date(1797, 2, 3),  new Date(1801, 2, 3) ],
             [ 'Jefferson',  new Date(1801, 2, 3),  new Date(1809, 2, 3) ]]);
 
-        chart.draw(dataTable);
+        chart.draw(dataTable, {
+            avoidOverlappingGridLines: true,
+            backgroundColor: 'white',
+            colors: ['red','#004411'],
+            enableInteractivity: true,
+            fontName: 'Arial',
+            fontSize: 16,
+            forceIFrame: false,
+            height: 100,
+            timeline: {
+                barLabelStyle: {
+                    color: 'white',
+                    fontName: 'Arial',
+                    fontSize: 16
+                },
+                colorByRowLabel: false,
+                groupByRowLabel: true,
+                rowLabelStyle: {
+                    color: 'white',
+                    fontName: 'Arial',
+                    fontSize: 16
+                },
+                showBarLabels: true,
+                showRowLabels: true,
+                singleColor: null,
+            },
+            tooltip: {
+                isHtml: true,
+                trigger: 'focus'
+            },
+            width: 100,
+        });
     }
 }
 
@@ -554,11 +585,10 @@ function test_formatter_PatternFormat() {
     }
 }
 
-function test_ChartsLoad() {
+function test_ChartsLoadWithCallback() {
     google.charts.load('current', {packages: ['corechart', 'table', 'sankey']});
 
     function drawChart() {
-        // Define the chart to be drawn.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Element');
         data.addColumn('number', 'Percentage');
@@ -577,6 +607,55 @@ function test_ChartsLoad() {
     }
 
     google.charts.setOnLoadCallback(drawChart);
+}
+
+function test_ChartsLoadWithPromise() {
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Element');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            ['Nitrogen', 0.78],
+            ['Oxygen', 0.21],
+            ['Other', 0.01]
+        ]);
+
+        // Instantiate and draw the chart.
+        var container = document.getElementById('myPieChart');
+        if (container) {
+            var chart = new google.visualization.PieChart(container);
+            chart.draw(data, {});
+        }
+    }
+
+    google.charts.load('current', {packages: ['corechart', 'table', 'sankey']}).then(drawChart);
+}
+
+function test_ChartsSafeLoad() {
+    google.charts.safeLoad({packages: ['corechart']}).then(() => {
+        // Draw a chart.
+    });
+}
+
+function test_ChartsLoadLegacy() {
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.charts.load("visualization", "1", {packages:["corechart"]});
+}
+
+function test_ChartsLoadWithVersion() {
+    google.charts.load('current', {packages: ['corechart']});
+}
+
+function test_ChartsLoadOptions() {
+    google.charts.load({
+        packages: ['corechart'],
+        callback: drawChart,
+        mapsApiKey: 'mapsApiKey',
+        safeMode: true,
+        language: 'ja'
+    });
+
+    function drawChart(){}
 }
 
 
@@ -739,5 +818,181 @@ function test_chartChart() {
                 chart.clearChart()
             }
         }
+    }
+}
+
+function test_GaugeChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Label', 'Value'],
+        ['Memory', 80],
+        ['CPU', 55],
+        ['Network', 68]
+    ]);
+
+    var options = {
+        title: 'Company Performance'
+    };
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.Gauge(container);
+
+        chart.draw(data, {
+            width: 400,
+            height: 120,
+            redFrom: 90,
+            redTo: 100,
+            yellowFrom: 75,
+            yellowTo: 90,
+            minorTicks: 5
+        });
+    }
+}
+
+function test_GanttChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Task ID');
+    data.addColumn('string', 'Task Name');
+    data.addColumn('date', 'Start Date');
+    data.addColumn('date', 'End Date');
+    data.addColumn('number', 'Duration');
+    data.addColumn('number', 'Percent Complete');
+    data.addColumn('string', 'Dependencies');
+
+    function daysToMilliseconds(days: number): number {
+        return days * 24 * 60 * 60 * 1000;
+    }
+
+    data.addRows([
+        ['Research', 'Find sources',
+            new Date(2015, 0, 1), new Date(2015, 0, 5), null, 100, null],
+        ['Write', 'Write paper',
+            null, new Date(2015, 0, 9), daysToMilliseconds(3), 25, 'Research,Outline'],
+        ['Cite', 'Create bibliography',
+            null, new Date(2015, 0, 7), daysToMilliseconds(1), 20, 'Research'],
+        ['Complete', 'Hand in paper',
+            null, new Date(2015, 0, 10), daysToMilliseconds(1), 0, 'Cite,Write'],
+        ['Outline', 'Outline paper',
+            null, new Date(2015, 0, 6), daysToMilliseconds(1), 100, 'Research']
+    ]);
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.Gantt(container);
+
+        chart.draw(data, {
+            height: 300,
+            backgroundColor: {
+                fill: 'white'
+            },
+            gantt: {
+                arrow: {
+                    angle: 45,
+                    color: 'blue',
+                    length: 8,
+                    radius: 30,
+                    spaceAfter: 8,
+                    width: 1.4
+                },
+                barCornerRadius: 5,
+                barHeight: 20,
+                criticalPathEnabled: true,
+                criticalPathStyle: {
+                    stroke: '#fe4444',
+                    strokeWidth: 1.4
+                },
+                defaultStartDate: new Date(2015, 0, 1),
+                innerGridHorizLine: {
+                    stroke: '#888',
+                    strokeWidth: 1
+                },
+                innerGridTrack: {
+                    fill: '#fefefe'
+                },
+                innerGridDarkTrack: {
+                    fill: '#efefef'
+                },
+                labelMaxWidth: 300,
+                labelStyle: {
+                    fontName: 'sans-serif',
+                    fontSize: 14,
+                    color: '#222'
+                },
+                percentEnabled: true,
+                percentStyle: {
+                    fill: '#fecccc'
+                },
+                shadowEnabled: true,
+                shadowStyle: {
+                    fill: '#666'
+                },
+                shadowOffset: 1,
+            },
+        });
+    }
+}
+
+function test_Sankey() {
+    google.charts.load('current', { packages: ['sankey'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+        data.addRows([
+            ['A', 'X', 5],
+            ['A', 'Y', 7],
+            ['A', 'Z', 6],
+            ['B', 'X', 2],
+            ['B', 'Y', 9],
+            ['B', 'Z', 4],
+        ]);
+
+        var element = document.getElementById('sankey_basic');
+
+        if (!element) {
+            return;
+        }
+
+        // Instantiates and draws our chart, passing in some options.
+        var chart = new google.visualization.Sankey(element);
+
+        chart.draw(data, {
+            width: 600,
+            height: 400,
+            sankey: {
+                node: {
+                    label: {
+                        fontName: 'Times-Roman',
+                        fontSize: 12,
+                        color: '#000',
+                        bold: true,
+                        italic: false,
+                    },
+                    interactivity: true,
+                    labelPadding: 6,
+                    nodePadding: 10,
+                    width: 5,
+                    colors: ['#a6cee3', '#b2df8a', '#fb9a99'],
+                },
+                link: {
+                    color: {
+                        fill: '#efd',
+                        fillOpacity: 0.8,
+                        stroke: 'black',
+                        strokeWidth: 1,
+                    },
+                    colors: ['#a6cee3', '#b2df8a', '#fb9a99'],
+                },
+                tooltip: {
+                    textStyle: {
+                        color: '#FF0000',
+                    },
+                    showColorCode: true,
+                },
+            },
+        });
     }
 }

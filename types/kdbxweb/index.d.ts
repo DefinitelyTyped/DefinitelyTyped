@@ -118,11 +118,13 @@ export class Kdbx {
     static loadXml(data: string, credentials: Credentials): Promise<Kdbx>;
 }
 
+export type KdbxErrorCode = typeof Consts.ErrorCodes[keyof typeof Consts.ErrorCodes];
+
 export class KdbxError {
-    constructor(code: number, message: string);
+    constructor(code: KdbxErrorCode, message: string);
 
     name: "KdbxError";
-    code: number;
+    code: KdbxErrorCode;
     message: string;
 
     // Native method; no parameter or return type inference available
@@ -221,14 +223,14 @@ export const Consts: {
         RecycleBinName: string;
     };
     ErrorCodes: {
-        BadSignature: string;
-        FileCorrupt: string;
-        InvalidArg: string;
-        InvalidKey: string;
-        InvalidVersion: string;
-        MergeError: string;
-        NotImplemented: string;
-        Unsupported: string;
+        NotImplemented: 'NotImplemented';
+        InvalidArg: 'InvalidArg';
+        BadSignature: 'BadSignature';
+        InvalidVersion: 'InvalidVersion';
+        Unsupported: 'Unsupported';
+        FileCorrupt: 'FileCorrupt';
+        InvalidKey: 'InvalidKey';
+        MergeError: 'MergeError';
     };
     Icons: {
         Apple: number;

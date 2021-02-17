@@ -1,2 +1,0 @@
-dist/entry.parcel.d.ts
-dist/entry.webpack.d.ts

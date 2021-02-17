@@ -28,6 +28,7 @@ class App extends React.PureComponent {
                     querySelector="someElement"
                     nodeType="span"
                     targetDomEl={this.resizeRef.current}
+                    targetRef={this.resizeRef}
                 />
                 <ReactResizeDetector handleWidth handleHeight>
                     {({ width, height }: { width: number; height: number }) => <div>{`${width}x${height}`}</div>}

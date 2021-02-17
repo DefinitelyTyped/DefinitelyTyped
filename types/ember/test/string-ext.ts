@@ -26,4 +26,4 @@ declare global {
 ''.capitalize('blue man group'); // $ExpectError
 
 ''.loc(); // $ExpectType string
-''.loc("_Hello World");  // $ExpectError
+''.loc('_Hello World'); // $ExpectError

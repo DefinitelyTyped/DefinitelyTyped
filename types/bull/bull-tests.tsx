@@ -11,6 +11,7 @@ const audioQueue = new Queue('audio transcoding', {
     settings: {},
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
+const rateLimitedQueue = new Queue('api calls', { limiter: { max: 1, duration: 500, groupKey: "apiKey", bounceBack: true }});
 
 videoQueue.getWorkers();
 videoQueue.setWorkerName();
@@ -82,6 +83,10 @@ audioQueue.process((job, done) => {
 imageQueue.process((job, done) => {
     // transcode image asynchronously and report progress
     job.progress(42);
+
+    // update job data
+    job.update({ image: 'image2.jpg'});
+    job.update({ url: 'image2.jpg'}); // $ExpectError
 
     // call done when finished
     done();
@@ -242,20 +247,30 @@ myQueue.on('active', (job: Queue.Job) => {
 myQueue.pause().then(() => {
     console.log('queue paused');
 });
+myQueue.isPaused().then(() => {
+    console.log('queue is paused');
+});
 myQueue.pause(true).then(() => {
     console.log('queue paused locally');
 });
 myQueue.pause(true, true).then(() => {
     console.log('queue paused locally, not waiting for active jobs to finish');
 });
-
+myQueue.isPaused(true).then(() => {
+    console.log('queue is paused locally');
+});
 myQueue.resume().then(() => {
     console.log('queue resumed');
+});
+myQueue.isPaused().then(() => {
+    console.log('queue is not paused');
 });
 myQueue.resume(true).then(() => {
     console.log('queue resumed locally');
 });
-
+myQueue.isPaused(true).then(() => {
+    console.log('queue is not paused locally');
+});
 // Remove jobs
 myQueue.removeJobs('?oo*').then(() => {
     console.log('done removing jobs');

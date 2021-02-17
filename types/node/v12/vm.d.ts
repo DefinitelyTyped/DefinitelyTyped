@@ -1,4 +1,8 @@
-declare module "vm" {
+declare module 'node:vm' {
+    export * from 'vm';
+}
+
+declare module 'vm' {
     interface Context {
         [key: string]: any;
     }
@@ -106,5 +110,5 @@ declare module "vm" {
     function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
     function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
     function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
-    function compileFunction(code: string, params?: string[], options?: CompileFunctionOptions): Function;
+    function compileFunction(code: string, params?: ReadonlyArray<string>, options?: CompileFunctionOptions): Function;
 }

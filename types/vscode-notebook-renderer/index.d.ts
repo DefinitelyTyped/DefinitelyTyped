@@ -1,4 +1,4 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.47
+// Type definitions for non-npm package vscode-notebook-renderer 1.48
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,28 @@ export interface Disposable {
 
 export interface VSCodeEvent<T> {
     (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
+}
+
+export interface NotebookOutputEventParams  {
+    element: HTMLElement;
+    outputId: string;
+    output: NotebookOutput;
+    mimeType: string;
+}
+
+/**
+ * Notebook output data -- corresponds to the `CellDisplayOutput` in the VS Code types.
+ */
+export interface NotebookOutput {
+    data: { [mimeType: string]: any };
+    metadata?: NotebookCellOutputMetadata;
+}
+
+export interface NotebookCellOutputMetadata {
+    /**
+     * Additional attributes of a cell metadata.
+     */
+    custom?: { [key: string]: any; };
 }
 
 export interface NotebookRendererApi<T> {
@@ -35,7 +57,7 @@ export interface NotebookRendererApi<T> {
      * as the one given in `NotebookOutputRenderer.render` in the extension
      * API, and `onWillDestroyOutput`.
      */
-    onDidCreateOutput: VSCodeEvent<{ element: HTMLElement; outputId: string }>;
+    onDidCreateOutput: VSCodeEvent<NotebookOutputEventParams>;
 
     /**
      * Called when the renderer uses `postMessage` on the NotebookCommunication

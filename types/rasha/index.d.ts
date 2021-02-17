@@ -3,8 +3,6 @@
 // Definitions by: Justin Baroux <https://github.com/Just1B>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export as namespace Rasha;
 
 export interface Jwk {

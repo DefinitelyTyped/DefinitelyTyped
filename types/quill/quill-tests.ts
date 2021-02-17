@@ -4,19 +4,17 @@ import Delta = require('quill-delta');
 
 function test_quill() {
     const quillEditor = new Quill('#editor', {
-        modules:
-        {
-            toolbar: { container: "#toolbar" }
+        modules: {
+            toolbar: { container: '#toolbar' },
         },
-        theme: 'snow'
+        theme: 'snow',
     });
 }
 
 function test_quill_opts() {
     const quillEditor = new Quill('#editor', {
-        modules:
-        {
-            toolbar: { container: "#toolbar" }
+        modules: {
+            toolbar: { container: '#toolbar' },
         },
         theme: 'snow',
         debug: true,
@@ -36,6 +34,11 @@ function test_deleteText() {
 function test_disable() {
     const quillEditor = new Quill('#Editor');
     quillEditor.disable();
+}
+
+function test_isEnabled() {
+    const quillEditor = new Quill('#Editor');
+    quillEditor.isEnabled();
 }
 
 function test_enable() {
@@ -75,7 +78,7 @@ function test_getText_substring() {
 
 function test_insertText() {
     const quillEditor = new Quill('#editor');
-    quillEditor.insertText(0, "Hello World");
+    quillEditor.insertText(0, 'Hello World');
 }
 
 function test_formatText() {
@@ -87,22 +90,22 @@ function test_formatText2() {
     const quillEditor = new Quill('#editor');
     quillEditor.formatText(0, 5, {
         bold: false,
-        color: 'rgb(0, 0, 255)'
+        color: 'rgb(0, 0, 255)',
     });
 }
 
 function test_formatText3() {
     const quillEditor = new Quill('#editor');
-    const range = {index: 0, length: 5};
+    const range = { index: 0, length: 5 };
     quillEditor.formatText(range, 'bold', true);
 }
 
 function test_formatText4() {
     const quillEditor = new Quill('#editor');
-    const range = {index: 0, length: 5};
+    const range = { index: 0, length: 5 };
     quillEditor.formatText(range, {
         bold: false,
-        color: 'rgb(0, 0, 255)'
+        color: 'rgb(0, 0, 255)',
     });
 }
 
@@ -119,9 +122,9 @@ function test_formatLine2() {
 function test_formatLine3() {
     const quillEditor = new Quill('#editor');
     quillEditor.formatLine(1, 3, {
-            align: 'right',
-            bold: false,
-        });
+        align: 'right',
+        bold: false,
+    });
 }
 
 function test_insertEmbed() {
@@ -131,23 +134,23 @@ function test_insertEmbed() {
 
 function test_updateContents() {
     const quillEditor = new Quill('#editor');
-    quillEditor.updateContents(new Delta({
-        ops: [
-            { retain: 6 },        // Keep 'Hello '
-            { delete: 5 },        // 'World' is deleted
-            { insert: 'Quill' },  // Insert 'Quill'
-            { retain: 1, attributes: { bold: true } }    // Apply bold to exclamation mark
-        ]
-    }));
+    quillEditor.updateContents(
+        new Delta({
+            ops: [
+                { retain: 6 }, // Keep 'Hello '
+                { delete: 5 }, // 'World' is deleted
+                { insert: 'Quill' }, // Insert 'Quill'
+                { retain: 1, attributes: { bold: true } }, // Apply bold to exclamation mark
+            ],
+        }),
+    );
 }
 
 function test_setDeltaContents() {
     const quillEditor = new Quill('#editor');
-    quillEditor.setContents(new Delta({ ops: [
-        { insert: 'Hello ' },
-        { insert: 'World!', attributes: { bold: true } },
-        { insert: '\n' }
-    ]}));
+    quillEditor.setContents(
+        new Delta({ ops: [{ insert: 'Hello ' }, { insert: 'World!', attributes: { bold: true } }, { insert: '\n' }] }),
+    );
 }
 
 function test_setTextContents() {
@@ -157,8 +160,8 @@ function test_setTextContents() {
 
 function test_setHtmlContents() {
     const quillEditor = new Quill('#editor');
-    const html = "<b>this is a bold text</b>";
-    const delta = quillEditor.clipboard.convert(html);
+    const html = '<b>this is a bold text</b>';
+    const delta = quillEditor.clipboard.convert({ html });
     quillEditor.setContents(delta);
     quillEditor.clipboard.convert();
 }
@@ -204,21 +207,21 @@ function test_addContainer() {
 }
 
 function test_on_Events() {
-    const textChangeHandler = (newDelta: Delta, oldDelta: Delta, source: string) => { };
-    const selectionChangeHandler = (newRange: RangeStatic, oldRange: RangeStatic, source: string) => { };
-    const editorChangeHandler = (name: string, ...args: any[]) => { };
+    const textChangeHandler = (newDelta: Delta, oldDelta: Delta, source: string) => {};
+    const selectionChangeHandler = (newRange: RangeStatic, oldRange: RangeStatic, source: string) => {};
+    const editorChangeHandler = (name: string, ...args: any[]) => {};
 
     const quillEditor = new Quill('#editor');
     quillEditor
-      .on('text-change', textChangeHandler)
-      .off('text-change', textChangeHandler)
-      .once('text-change', textChangeHandler)
-      .on('selection-change', selectionChangeHandler)
-      .off('selection-change', selectionChangeHandler)
-      .once('selection-change', selectionChangeHandler)
-      .on('editor-change', editorChangeHandler)
-      .off('editor-change', editorChangeHandler)
-      .once('editor-change', editorChangeHandler);
+        .on('text-change', textChangeHandler)
+        .off('text-change', textChangeHandler)
+        .once('text-change', textChangeHandler)
+        .on('selection-change', selectionChangeHandler)
+        .off('selection-change', selectionChangeHandler)
+        .once('selection-change', selectionChangeHandler)
+        .on('editor-change', editorChangeHandler)
+        .off('editor-change', editorChangeHandler)
+        .once('editor-change', editorChangeHandler);
 }
 
 function test_PasteHTML() {
@@ -241,14 +244,15 @@ function test_DeltaChaining() {
 }
 
 function test_DeltaFilter() {
-    const delta = new Delta().insert('Hello', { bold: true })
+    const delta = new Delta()
+        .insert('Hello', { bold: true })
         .insert({ image: 'https://octodex.github.com/images/labtocat.png' })
         .insert('World!');
 
     const text = delta
-      .filter((op: any) => typeof op.insert === 'string')
-      .map((op: any) => op.insert)
-      .join('');
+        .filter((op: any) => typeof op.insert === 'string')
+        .map((op: any) => op.insert)
+        .join('');
 }
 
 function test_DeltaForEach() {
@@ -262,25 +266,25 @@ function test_DeltaMap() {
         .insert({ image: 'https://octodex.github.com/images/labtocat.png' })
         .insert('World!');
 
-    const text = delta
-      .map((op: any) => typeof op.insert === 'string' ? op.insert : '')
-      .join('');
+    const text = delta.map((op: any) => (typeof op.insert === 'string' ? op.insert : '')).join('');
 }
 
 function test_DeltaPartition() {
-    const delta = new Delta().insert('Hello', { bold: true })
+    const delta = new Delta()
+        .insert('Hello', { bold: true })
         .insert({ image: 'https://octodex.github.com/images/labtocat.png' })
         .insert('World!');
 
     const results = delta.partition((op: any) => typeof op.insert === 'string');
-    const passed = results[0];  // [{ insert: 'Hello', attributes: { bold: true }}, { insert: 'World'}]
-    const failed = results[1];  // [{ insert: { image: 'https://octodex.github.com/images/labtocat.png' }}]
+    const passed = results[0]; // [{ insert: 'Hello', attributes: { bold: true }}, { insert: 'World'}]
+    const failed = results[1]; // [{ insert: { image: 'https://octodex.github.com/images/labtocat.png' }}]
 }
 
 function test_DeltaReduce() {
-    const delta = new Delta().insert('Hello', { bold: true })
-                           .insert({ image: 'https://octodex.github.com/images/labtocat.png' })
-                           .insert('World!');
+    const delta = new Delta()
+        .insert('Hello', { bold: true })
+        .insert({ image: 'https://octodex.github.com/images/labtocat.png' })
+        .insert('World!');
 
     const length = delta.reduce((length: number, op: any) => length + (op.insert.length || 1), 0);
 }
@@ -310,25 +314,26 @@ function test_DeltaCompose() {
     const a = new Delta().insert('abc');
     const b = new Delta().retain(1).delete(1);
 
-    const composed = a.compose(b);  // composed == new Delta().insert('ac');
+    const composed = a.compose(b); // composed == new Delta().insert('ac');
 }
 
 function test_DeltaDiff() {
     const a = new Delta().insert('Hello');
     const b = new Delta().insert('Hello!');
 
-    const diff = a.diff(b);  // { ops: [{ retain: 5 }, { insert: '!' }] }
-                           // a.compose(diff) == b
-    const diff2 = a.diff(b, 0);  // { ops: [{ retain: 5 }, { insert: '!' }] }
-                               // a.compose(diff) == b
+    const diff = a.diff(b); // { ops: [{ retain: 5 }, { insert: '!' }] }
+    // a.compose(diff) == b
+    const diff2 = a.diff(b, 0); // { ops: [{ retain: 5 }, { insert: '!' }] }
+    // a.compose(diff) == b
 }
 
 function test_DeltaEachLine() {
-    const delta = new Delta().insert('Hello\n\n')
-                           .insert('World')
-                           .insert({ image: 'octocat.png' })
-                           .insert('\n', { align: 'right' })
-                           .insert('!');
+    const delta = new Delta()
+        .insert('Hello\n\n')
+        .insert('World')
+        .insert({ image: 'octocat.png' })
+        .insert('\n', { align: 'right' })
+        .insert('!');
 
     delta.eachLine((line: Delta, attributes: StringMap, i: number) => console.log(line, attributes, i));
     // Should log:
@@ -342,7 +347,7 @@ function test_DeltaTransform() {
     const a = new Delta().insert('a');
     const b = new Delta().insert('b').retain(5).insert('c');
 
-    const d1: Delta = a.transform(b, true);  // new Delta().retain(1).insert('b').retain(5).insert('c');
+    const d1: Delta = a.transform(b, true); // new Delta().retain(1).insert('b').retain(5).insert('c');
     const d2: Delta = a.transform(b, false); // new Delta().insert('b').retain(6).insert('c');
     const n1: number = a.transform(5);
     const n2: number = a.transform(5, true);

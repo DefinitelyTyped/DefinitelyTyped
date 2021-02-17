@@ -1,4 +1,4 @@
-// Type definitions for UglifyJS 3.9
+// Type definitions for UglifyJS 3.12
 // Project: https://github.com/mishoo/UglifyJS
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
@@ -155,6 +155,11 @@ export interface CompressOptions {
      */
     loops?: boolean;
     /**
+     * combine and reuse variables.
+     * @default true
+     */
+    merge_vars?: boolean;
+    /**
      * negate `Immediately-Called Function Expressions` where the return value is discarded,
      * to avoid the parens that the code generator would insert.
      * @default true
@@ -236,6 +241,11 @@ export interface CompressOptions {
      */
     switches?: boolean;
     /**
+     * Compact template literals by embedding expressions and/or converting to string literals, e.g. `foo ${42}` → "foo 42"
+     * @default true
+     */
+    templates?: boolean;
+    /**
      * Drop unreferenced functions ("funcs") and/or variables ("vars") in the top level scope (false by default,
      * true to drop both unreferenced functions and variables)
      * @default false
@@ -296,6 +306,12 @@ export interface CompressOptions {
      * @default true
      */
     unused?: boolean;
+    /**
+     * convert block-scoped declaractions into `var`
+     * whenever safe to do so
+     * @default true
+     */
+    varify?: boolean;
 }
 
 export enum InlineFunctions {

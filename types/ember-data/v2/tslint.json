@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "space-before-function-paren": false,
         "ban-types": false,
         "no-empty-interface": false,
         "no-return-await": false,
@@ -8,7 +9,6 @@
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "npm-naming": [true, { "mode": "code", "errors": [["NoDefaultExport", false]] }]
+        "strict-export-declare-modifiers": false
     }
 }

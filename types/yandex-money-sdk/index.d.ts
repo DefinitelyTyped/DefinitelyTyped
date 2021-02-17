@@ -44,7 +44,7 @@ declare namespace YandexMoneySDK {
 
         interface OperationHistoryOptions {
             type: string;
-            label: string;
+            label?: string;
             from?: string|Date;
             till?: string|Date;
             start_record?: string;

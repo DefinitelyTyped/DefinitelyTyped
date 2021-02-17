@@ -82,7 +82,7 @@ BranchSDK.setBranchViewData(_custom_data_deep_link_data); // $ExpectType void
 BranchSDK.closeJourney(); // $ExpectType void
 BranchSDK.closeJourney(_noop_callback_without_data); // $ExpectType void
 
-BranchSDK.getBrowserFingerprint(_noop_callback_with_data); // $ExpectType void
+BranchSDK.getBrowserFingerprintId(_noop_callback_with_data); // $ExpectType void
 
 BranchSDK.track('test-event'); // $ExpectType void
 BranchSDK.track('test-event', { foo: 'bar' }); // $ExpectType void

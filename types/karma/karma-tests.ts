@@ -1,10 +1,5 @@
 import karma = require('karma');
-
-// karma.server is deprecated and will eventually be removed
-karma.server.start({ port: 9876 }, (exitCode: number) => {
-    console.log('Karma has exited with ' + exitCode);
-    process.exit(exitCode);
-});
+import { Server } from 'karma';
 
 karma.runner.run({ port: 9876 }, (exitCode: number) => {
     console.log('Karma has exited with ' + exitCode);
@@ -18,7 +13,7 @@ karma.stopper.stop({ port: 9876 }, exitCode => {
     process.exit(exitCode);
 });
 
-const server = new karma.Server({ logLevel: 'debug', port: 9876 }, (exitCode: number) => {
+const server = new Server({ logLevel: 'debug', port: 9876 }, (exitCode: number) => {
     console.log('Karma has exited with ' + exitCode);
     process.exit(exitCode);
 });
@@ -91,7 +86,7 @@ module.exports = (config: karma.Config) => {
         browserNoActivityTimeout: 10_000,
         browserSocketTimeout: 20_000,
 
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['Chrome', 'Firefox', 'FirefoxHeadless'],
         customHeaders: [
             {
                 match: '.*foo.html',

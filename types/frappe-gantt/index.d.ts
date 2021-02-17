@@ -41,6 +41,7 @@ declare namespace Gantt {
         view_mode?: viewMode;
         date_format?: string;
         custom_popup_html?: string | ((task: EnrichedTask) => string);
+        language?: string;
         on_click?: (task: EnrichedTask) => void;
         on_date_change?: (task: EnrichedTask, start: Date, end: Date) => void;
         on_progress_change?: (task: EnrichedTask, progress: number) => void;

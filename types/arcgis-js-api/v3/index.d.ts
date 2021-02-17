@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.33
+// Type definitions for ArcGIS API for JavaScript 3.35
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -230,7 +230,7 @@ declare module "esri" {
     /** Define the tile info for the layer including lods, rows, cols, origin and spatial reference. */
     tileInfo?: TileInfo;
     /** Define additional tile server domains for the layer. */
-    tileServer?: string[];
+    tileServers?: string[];
     /** The type of layer. */
     type?: string;
     /** URL to the ArcGIS Server REST resource that represents a map or image service. */
@@ -3493,7 +3493,7 @@ declare module "esri/basemaps" {
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer */
+    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer. */
     topo: any;
   };
   export = basemaps;
@@ -3683,7 +3683,7 @@ declare module "esri/dijit/BasemapLayer" {
     /** The tile info for the layer including lods, rows, cols, origin and spatial reference. */
     tileInfo: TileInfo;
     /** Additional tile server domains for the layer. */
-    tileServer: string[];
+    tileServers: string[];
     /** The type of layer. */
     type: string;
     /**
@@ -7638,6 +7638,19 @@ declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerViewModes" {
     static PANELS_IN_STACK: any;
   }
   export = PlayerViewModes;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerZoomBehaviors" {
+  /** Enumerator of available zoom behavior options for the ReportPlayer. */
+  class PlayerZoomBehaviors {
+    /** The Report Player zooms in to fit a full page in the viewable area. */
+    static FIT_PAGE: any;
+    /** The Report Player zooms to fit the full page's width in the viewable area. */
+    static FIT_PAGE_WIDTH: any;
+    /** The zoom will be set to 100% (not zoomed). */
+    static RESET: any;
+  }
+  export = PlayerZoomBehaviors;
 }
 
 declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
@@ -11889,8 +11902,9 @@ declare module "esri/layers/WFSLayer" {
     /**
      * Creates a WFSLayer using the provided JSON object.
      * @param json The input JSON.
+     * @param callback The function to call when the method has completed.
      */
-    fromJson(json: Object): void;
+    fromJson(json: Object, callback?: Function): void;
     /** Redraws all the graphics in the layer. */
     redraw(): void;
     /** Refreshes the features in the WFS layer. */
@@ -18030,8 +18044,11 @@ declare module "esri/urlUtils" {
      * @param rule The rule argument should have the following properties.
      */
     addProxyRule(rule: any): number;
-    /** Returns the proxy rule that matches the given url. */
-    getProxyRule(): any;
+    /**
+     * Returns the proxy rule that matches the given url.
+     * @param url The URL of the resources accessed via proxy.
+     */
+    getProxyRule(url: string): any;
     /**
      * Converts the URL arguments to an object representation.
      * @param url The input URL.
@@ -18204,18 +18221,5 @@ declare module "esri/workers/WorkerClient" {
     terminate(): void;
   }
   export = WorkerClient;
-}
-
-declare module "sri/dijit/geoenrichment/ReportPlayer/PlayerZoomBehaviors" {
-  /** Enumerator of available zoom behavior options for the ReportPlayer. */
-  class PlayerZoomBehaviors {
-    /** The Report Player zooms in to fit a full page in the viewable area. */
-    static FIT_PAGE: any;
-    /** The Report Player zooms to fit the full page's width in the viewable area. */
-    static FIT_PAGE_WIDTH: any;
-    /** The zoom will be set to 100% (not zoomed). */
-    static RESET: any;
-  }
-  export = PlayerZoomBehaviors;
 }
 

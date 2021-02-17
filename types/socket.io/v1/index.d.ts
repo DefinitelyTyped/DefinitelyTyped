@@ -10,6 +10,8 @@
 
 ///<reference types="node" />
 
+import { IncomingMessage } from "http";
+
 declare const SocketIO: SocketIOStatic;
 export = SocketIO;
 /** @deprecated Available as a global for backwards-compatibility. */
@@ -50,7 +52,7 @@ interface SocketIOStatic {
 
 declare namespace SocketIO {
     interface Server {
-        engine: { ws: any };
+        engine: { ws: any, generateId: (id: IncomingMessage) => string };
 
         /**
          * A dictionary of all the namespaces currently on this Server

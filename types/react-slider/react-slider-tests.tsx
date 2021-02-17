@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactSlider = require('react-slider');
+import ReactSlider from 'react-slider';
 
 class Slider extends React.Component<ReactSlider.ReactSliderProps> {
     render() {
@@ -8,6 +8,8 @@ class Slider extends React.Component<ReactSlider.ReactSliderProps> {
                 snapDragDisabled
                 trackClassName="classnameForBar"
                 withTracks={false}
+                marks={5}
+                renderMark={props => <span {...props} />}
                 {...this.props}
             />
         );

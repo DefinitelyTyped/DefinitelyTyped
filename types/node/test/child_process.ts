@@ -1,9 +1,9 @@
-import * as childProcess from 'child_process';
-import * as net from 'net';
-import * as fs from 'fs';
-import * as assert from 'assert';
-import { promisify } from 'util';
-import { Writable, Readable, Pipe } from 'stream';
+import * as childProcess from 'node:child_process';
+import * as net from 'node:net';
+import * as fs from 'node:fs';
+import assert = require('node:assert');
+import { promisify } from 'node:util';
+import { Writable, Readable, Pipe } from 'node:stream';
 
 {
     childProcess.exec("echo test");
@@ -32,9 +32,9 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.execFile("npm", { windowsHide: true }, () => {});
     childProcess.execFile("npm", { shell: true }, () => {});
     childProcess.execFile("npm", { shell: '/bin/sh' }, () => {});
-    childProcess.execFile("npm", ["-v"], () => {});
-    childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-    childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, () => {});
+    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
     childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
 }
@@ -45,7 +45,7 @@ import { Writable, Readable, Pipe } from 'stream';
 }
 
 {
-    const forked = childProcess.fork('./', ['asd'], {
+    const forked = childProcess.fork('./', ['asd'] as ReadonlyArray<string>, {
         windowsVerbatimArguments: true,
         silent: false,
         stdio: "inherit",
@@ -59,12 +59,26 @@ import { Writable, Readable, Pipe } from 'stream';
     ipc.ref();
 }
 
+{
+    const forked = childProcess.fork('./', {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: ["inherit"],
+        execPath: '',
+        execArgv: ['asda']
+    });
+}
+
+{
+    const forked = childProcess.fork('./');
+}
+
 async function testPromisify() {
     const execFile = promisify(childProcess.execFile);
     let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
-    r = await execFile("npm", ["-v"]);
-    r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
-    r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+    r = await execFile("npm", ["-v"] as ReadonlyArray<string>);
+    r = await execFile("npm", ["-v"] as ReadonlyArray<string>, { encoding: 'utf-8' });
+    r = await execFile("npm", ["-v"] as ReadonlyArray<string>, { encoding: 'buffer' });
     r = await execFile("npm", { encoding: 'utf-8' });
     r = await execFile("npm", { encoding: 'buffer' });
 
@@ -80,6 +94,7 @@ async function testPromisify() {
     let _string: string;
     let _stringArray: string[];
     let _maybeNumber: number | null;
+    let _maybeSignal: NodeJS.Signals | null;
 
     _boolean = cp.send(1);
     _boolean = cp.send('one');
@@ -202,8 +217,8 @@ async function testPromisify() {
     const fd5: Readable | Writable | null = cp.stdio[4]!;
 
     cp = cp.addListener("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.addListener("disconnect", () => { });
     cp = cp.addListener("error", (err) => {
@@ -211,7 +226,7 @@ async function testPromisify() {
     });
     cp = cp.addListener("exit", (code, signal) => {
         const _code: number | null = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.addListener("message", (message, sendHandle) => {
         const _message: any = message;
@@ -225,16 +240,16 @@ async function testPromisify() {
     _boolean = cp.emit("message", () => { });
 
     cp = cp.on("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.on("disconnect", () => { });
     cp = cp.on("error", (err) => {
         const _err: Error = err;
     });
     cp = cp.on("exit", (code, signal) => {
-        const _code: number | null  = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.on("message", (message, sendHandle) => {
         const _message: any = message;
@@ -242,16 +257,16 @@ async function testPromisify() {
     });
 
     cp = cp.once("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.once("disconnect", () => { });
     cp = cp.once("error", (err) => {
         const _err: Error = err;
     });
     cp = cp.once("exit", (code, signal) => {
-        const _code: number | null  = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.once("message", (message, sendHandle) => {
         const _message: any = message;
@@ -259,16 +274,16 @@ async function testPromisify() {
     });
 
     cp = cp.prependListener("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.prependListener("disconnect", () => { });
     cp = cp.prependListener("error", (err) => {
         const _err: Error = err;
     });
     cp = cp.prependListener("exit", (code, signal) => {
-        const _code: number | null  = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.prependListener("message", (message, sendHandle) => {
         const _message: any = message;
@@ -276,16 +291,16 @@ async function testPromisify() {
     });
 
     cp = cp.prependOnceListener("close", (code, signal) => {
-        const _code: number = code;
-        const _signal: NodeJS.Signals = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.prependOnceListener("disconnect", () => { });
     cp = cp.prependOnceListener("error", (err) => {
         const _err: Error = err;
     });
     cp = cp.prependOnceListener("exit", (code, signal) => {
-        const _code: number | null  = code;
-        const _signal: NodeJS.Signals | null  = signal;
+        const _code: number | null = code;
+        const _signal: NodeJS.Signals | null = signal;
     });
     cp = cp.prependOnceListener("message", (message, sendHandle) => {
         const _message: any = message;
@@ -297,7 +312,7 @@ async function testPromisify() {
     _boolean = cp.kill("SIGTERM");
 
     _maybeNumber = cp.exitCode;
-    _maybeNumber = cp.signalCode;
+    _maybeSignal = cp.signalCode;
 
     _string = cp.spawnfile;
 

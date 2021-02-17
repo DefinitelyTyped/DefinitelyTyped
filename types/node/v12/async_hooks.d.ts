@@ -1,7 +1,14 @@
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
-declare module "async_hooks" {
+declare module 'node:async_hooks' {
+    export * from 'async_hooks';
+}
+
+/**
+ * Async Hooks module: https://nodejs.org/api/async_hooks.html
+ */
+declare module 'async_hooks' {
     /**
      * Returns the asyncId of the current execution context.
      */
@@ -116,6 +123,19 @@ declare module "async_hooks" {
         constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
 
         /**
+         * Binds the given function to the current execution context.
+         * @param fn The function to bind to the current execution context.
+         * @param type An optional name to associate with the underlying `AsyncResource`.
+         */
+        static bind<Func extends (...args: any[]) => any>(fn: Func, type?: string): Func & { asyncResource: AsyncResource };
+
+        /**
+         * Binds the given function to execute to this `AsyncResource`'s scope.
+         * @param fn The function to bind to the current `AsyncResource`.
+         */
+        bind<Func extends (...args: any[]) => any>(fn: Func): Func & { asyncResource: AsyncResource };
+
+        /**
          * Call the provided function with the provided arguments in the
          * execution context of the async resource. This will establish the
          * context, trigger the AsyncHooks before callbacks, call the function,
@@ -208,20 +228,6 @@ declare module "async_hooks" {
          * Also, the stacktrace will be impacted by the asynchronous call.
          */
         exit(callback: (...args: any[]) => void, ...args: any[]): void;
-
-        /**
-         * This methods runs a function synchronously within a context and return its
-         * return value. The store is not accessible outside of the callback function or
-         * the asynchronous operations created within the callback.
-         *
-         * Optionally, arguments can be passed to the function. They will be passed to
-         * the callback function.
-         *
-         * If the callback function throws an error, it will be thrown by
-         * `runSyncAndReturn` too. The stacktrace will not be impacted by this call and
-         * the context will be exited.
-         */
-        runSyncAndReturn<R>(store: T, callback: (...args: any[]) => R, ...args: any[]): R;
 
         /**
          * This methods runs a function synchronously outside of a context and return its

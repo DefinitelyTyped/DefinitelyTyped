@@ -10,7 +10,7 @@ import {
   Pagination,
   Menu,
   Configure,
-  Index
+  Index,
 } from 'react-instantsearch/dom';
 import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
 
@@ -19,6 +19,9 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
   const App = () => (
     <InstantSearch searchClient={{}} indexName="bestbuy">
       <Search />
+      <Index indexName="lol">
+        <Search2 />
+      </Index>
     </InstantSearch>
   );
 
@@ -37,7 +40,7 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
   function Search2() {
     return (
       <div>
-        <Hits hitComponent={Product} />
+        <Hits hitComponent={Product2} />
       </div>
     );
   }
@@ -235,7 +238,11 @@ const test = () => {
 
   const server = createServer(async (req, res) => {
     const searchState = { query: 'chair' };
-    const resultsState = await findResultsState(App, { searchState });
+    const resultsState = await findResultsState(App, {
+      searchClient: {},
+      indexName: '',
+      searchState,
+    });
     const appInitialState = { searchState, resultsState };
     const appAsString = renderToString(<App {...appInitialState} />);
     res.send(

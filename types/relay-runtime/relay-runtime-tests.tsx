@@ -1,6 +1,8 @@
 import {
+    CacheConfig,
     ConcreteRequest,
     ConnectionHandler,
+    DataID,
     Environment,
     getDefaultMissingFieldHandlers,
     Network,
@@ -11,10 +13,14 @@ import {
     RecordSource,
     RecordSourceSelectorProxy,
     Store,
+    Variables,
     commitLocalUpdate,
     ReaderFragment,
     isPromise,
     __internal,
+    graphql,
+    getRequest,
+    createOperationDescriptor,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -109,17 +115,25 @@ const environment = new Environment({
     ],
     log: logEvent => {
         switch (logEvent.name) {
-            case 'execute.start':
-            case 'execute.next':
-            case 'execute.error':
+            case 'network.start':
+            case 'network.complete':
+            case 'network.error':
+            case 'network.info':
+            case 'network.unsubscribe':
             case 'execute.info':
-            case 'execute.complete':
-            case 'execute.unsubscribe':
             case 'queryresource.fetch':
             default:
                 break;
         }
     },
+    requiredFieldLogger: (arg) => {
+        if (arg.kind === 'missing_field.log') {
+            console.log(arg.fieldPath, arg.owner);
+        } else {
+            arg.kind; // $ExpectType "missing_field.throw"
+            console.log(arg.fieldPath, arg.owner);
+        }
+    }
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -189,6 +203,9 @@ function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversation
 // ~~~~~~~~~~~~~~~~~~~~~
 
 store.publish(source);
+const get_store_recorditem = store.getSource().get("someDataId");
+// $ExpectType Record<TConversation> | null | undefined
+const get_store_recorditem_typed = store.getSource().get<TConversation>("someDataId");
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitLocalUpdate
@@ -399,3 +416,21 @@ const p = Promise.resolve() as unknown;
 if (isPromise(p)) {
     p.then(() => console.log('Indeed a promise'));
 }
+
+const gqlQuery = graphql`
+    query ExampleQuery($pageID: ID!) {
+        page(id: $pageID) {
+            name
+        }
+   }
+`;
+
+const pageID = '110798995619330';
+const cacheConfig: CacheConfig = { force: true};
+const request = getRequest(gqlQuery);
+const variables: Variables = {pageID};
+const dataID: DataID = "dataID";
+const operation = createOperationDescriptor(request, variables);
+const operationWithCacheConfig = createOperationDescriptor(request, variables, cacheConfig);
+const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
+const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);

@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.24
+// Type definitions for luxon 1.26
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -67,7 +67,11 @@ export interface ToSQLOptions {
 
 export type ToISOFormat = 'basic' | 'extended';
 
-export interface ToISOTimeOptions {
+export interface ToISOTimeDurationOptions {
+    /**
+     * @default false
+     */
+    includePrefix?: boolean;
     /**
      * @default false
      */
@@ -77,9 +81,25 @@ export interface ToISOTimeOptions {
      */
     suppressSeconds?: boolean;
     /**
+     * choose between the basic and extended format
+     * @default 'extended'
+     */
+    format?: ToISOFormat;
+}
+
+export interface ToISOTimeOptions {
+    /**
      * @default true
      */
     includeOffset?: boolean;
+    /**
+     * @default false
+     */
+    suppressMilliseconds?: boolean;
+    /**
+     * @default false
+     */
+    suppressSeconds?: boolean;
     /**
      * choose between the basic and extended format
      * @default 'extended'
@@ -160,6 +180,8 @@ export class DateTime {
     static readonly DATE_FULL: DateTimeFormatOptions;
     static readonly DATE_HUGE: DateTimeFormatOptions;
     static readonly DATE_MED: DateTimeFormatOptions;
+    /** abbreviated date with weekday */
+    static readonly DATE_MED_WITH_WEEKDAY: DateTimeFormatOptions;
     static readonly DATE_SHORT: DateTimeFormatOptions;
     static readonly TIME_24_SIMPLE: DateTimeFormatOptions;
     static readonly TIME_24_WITH_LONG_OFFSET: DateTimeFormatOptions;
@@ -212,6 +234,7 @@ export class DateTime {
     static max(...dateTimes: DateTime[]): DateTime;
     static min(): undefined;
     static min(...dateTimes: DateTime[]): DateTime;
+    static now(): DateTime;
     static utc(
         year?: number,
         month?: number,
@@ -263,13 +286,13 @@ export class DateTime {
     minus(duration: Duration | number | DurationObject): DateTime;
     plus(duration: Duration | number | DurationObject): DateTime;
     reconfigure(properties: LocaleOptions): DateTime;
-    resolvedLocaleOpts(options?: DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
+    resolvedLocaleOpts(options?: LocaleOptions & DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
     set(values: DateObjectUnits): DateTime;
     setLocale(locale: string): DateTime;
     setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
     startOf(unit: DurationUnit): DateTime;
     toBSON(): Date;
-    toFormat(format: string, options?: DateTimeFormatOptions): string;
+    toFormat(format: string, options?: LocaleOptions & DateTimeFormatOptions): string;
     toHTTP(): string;
     toISO(options?: ToISOTimeOptions): string;
     /** Returns an ISO 8601-compliant string representation of this DateTime's date component */
@@ -334,6 +357,7 @@ export interface DurationToFormatOptions extends DateTimeFormatOptions {
 
 export class Duration {
     static fromISO(text: string, options?: DurationOptions): Duration;
+    static fromISOTime(text: string, options?: DurationOptions): Duration;
     static fromMillis(count: number, options?: DurationOptions): Duration;
     static fromObject(Object: DurationObject): Duration;
     static invalid(reason?: string): Duration;
@@ -365,7 +389,9 @@ export class Duration {
     mapUnits(fn: (x: number, u: DurationUnit) => number): Duration;
     toFormat(format: string, options?: DurationToFormatOptions): string;
     toISO(): string;
+    toISOTime(options?: ToISOTimeDurationOptions): string;
     toJSON(): string;
+    toMillis(): number;
     toObject(options?: { includeConfig?: boolean }): DurationObject;
     toString(): string;
     valueOf(): number;
@@ -374,7 +400,7 @@ export class Duration {
 // @deprecated
 export type EraLength = StringUnitLength;
 
-export type NumberingSystem =
+export type NumberingSystem = Intl.DateTimeFormatOptions extends { numberingSystem?: infer T } ? T :
     | 'arab'
     | 'arabext'
     | 'bali'
@@ -398,7 +424,7 @@ export type NumberingSystem =
     | 'thai'
     | 'tibt';
 
-export type CalendarSystem =
+export type CalendarSystem = Intl.DateTimeFormatOptions extends { calendar?: infer T } ? T :
     | 'buddhist'
     | 'chinese'
     | 'coptic'

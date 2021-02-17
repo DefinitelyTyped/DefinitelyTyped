@@ -124,3 +124,15 @@ declare const opts: any;
         typographer: true,
     });
 }
+
+{
+    let md = MarkdownIt();
+    let state = new md.inline.State('text `code`', md, {}, []);
+    md.inline.tokenize(state);
+    let hasNull = false
+    for (let i of state.tokens_meta) {
+        if (i === null) {
+            hasNull = true 
+        }
+    }
+}

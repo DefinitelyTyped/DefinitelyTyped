@@ -75,4 +75,20 @@ export interface WebTwainUtil {
      * VersionInfo in the identity string of the Dynamic Web TWAIN library.
      */
     readonly VersionInfo: string;
+    /**
+     * Update / set the ProductKey.
+     * @param productKey the ProductKey.
+     */
+    SetProductKeyAsync(productKey: string): Promise<Authorization>;
+}
+
+export interface Authorization {
+    /**
+     * The domain bound in the product key.
+     */
+    Domain: string;
+    /**
+     * Details of the authorization.
+     */
+    Detail: any;
 }

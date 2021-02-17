@@ -282,22 +282,22 @@ async function testPromisify() {
         mode: 0o777,
     }, (err, path) => {
         err; // $ExpectType ErrnoException | null
-        path; // $ExpectType string
+        path; // $ExpectType string | undefined
     });
 
-    // $ExpectType string
+    // $ExpectType string | undefined
     fs.mkdirSync('some/test/path', {
         recursive: true,
         mode: 0o777,
     });
 
-    // $ExpectType Promise<string>
+    // $ExpectType Promise<string | undefined>
     util.promisify(fs.mkdir)('some/test/path', {
         recursive: true,
         mode: 0o777,
     });
 
-    // $ExpectType Promise<string>
+    // $ExpectType Promise<string | undefined>
     fs.promises.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
@@ -317,9 +317,9 @@ async function testPromisify() {
 }
 
 {
-    fs.writev(1, [Buffer.from('123')], (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+    fs.writev(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>, (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
     });
-    const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
+    const bytesWritten = fs.writevSync(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>);
 }
 
 (async () => {
@@ -359,7 +359,7 @@ async function testPromisify() {
 }
 
 {
-    fs.readvSync(123, [Buffer.from('wut')]);
-    fs.readv(123, [Buffer.from('wut')], 123, (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+    fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    fs.readv(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>, 123, (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
     });
 }

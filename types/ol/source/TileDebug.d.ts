@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
@@ -15,9 +15,23 @@ export interface Options {
     wrapX?: boolean;
     zDirection?: number;
 }
+declare class LabeledTile extends Tile {
+    constructor(tileCoord: TileCoord, tileSize: Size, text: string);
+    /**
+     * Get the image element for this tile.
+     */
+    getImage(): HTMLCanvasElement;
+    /**
+     * Load the image or retry if loading previously failed.
+     * Loading is taken care of by the tile queue, and calling this method is
+     * only needed for preloading or for reloading in case of an error.
+     */
+    load(): void;
+}
 export default class TileDebug extends XYZ {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    getTile(z: number, x: number, y: number): LabeledTile;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

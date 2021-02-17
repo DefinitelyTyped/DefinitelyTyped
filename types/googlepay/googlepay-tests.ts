@@ -78,8 +78,29 @@ function addGooglePayButton() {
     const buttonOptions: google.payments.api.ButtonOptions = {
         onClick: onGooglePaymentButtonClick,
         buttonColor: 'black',
-        buttonType: 'short',
     };
+
+    // $ExpectError
+    buttonOptions.buttonType = 'xyz';
+    buttonOptions.buttonType = 'plain';
+    buttonOptions.buttonType = 'donate';
+    buttonOptions.buttonType = 'buy';
+
+    buttonOptions.buttonSizeMode = undefined;
+    buttonOptions.buttonSizeMode = 'fill';
+    buttonOptions.buttonSizeMode = 'static';
+    // $ExpectError
+    buttonOptions.buttonSizeMode = 'unknown';
+
+    buttonOptions.buttonRootNode = undefined;
+    buttonOptions.buttonRootNode = document;
+
+    const node = document.createElement('div').getRootNode() as ShadowRoot;
+    buttonOptions.buttonRootNode = node;
+
+    // $ExpectError
+    buttonOptions.buttonRootNode = document.createElement('div');
+
     const client = getGooglePaymentsClient();
     const button = client.createButton(buttonOptions);
     document.appendChild(document.createElement('div').appendChild(button));

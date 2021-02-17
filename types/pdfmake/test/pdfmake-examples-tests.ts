@@ -1452,6 +1452,22 @@ const svgs: TDocumentDefinitions = {
     ],
 };
 
+const stack: TDocumentDefinitions = {
+    content: [
+        {
+            stack: [
+                {
+                    text: 'first paragraph',
+                },
+                {
+                    text: 'beginning of another paragraph',
+                    unbreakable: true,
+                },
+            ],
+        },
+    ],
+};
+
 const tables: TDocumentDefinitions = {
     content: [
         { text: 'Tables', style: 'header' },

@@ -1,5 +1,9 @@
-declare module "console" {
-    import { InspectOptions } from 'util';
+declare module 'node:console' {
+    export = console;
+}
+
+declare module 'console' {
+    import { InspectOptions } from 'node:util';
 
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
@@ -66,7 +70,7 @@ declare module "console" {
              * This method does not display anything unless used in the inspector.
              *  Prints to `stdout` the array `array` formatted as a table.
              */
-            table(tabularData: any, properties?: string[]): void;
+            table(tabularData: any, properties?: ReadonlyArray<string>): void;
             /**
              * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
              */

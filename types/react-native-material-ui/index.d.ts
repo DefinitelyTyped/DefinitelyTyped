@@ -146,7 +146,7 @@ export interface CheckBoxProps {
     uncheckedIcon?: string;
     checkedIcon?: string;
     style?: {
-        icon?: ViewStyle
+        icon?: TextStyle
         container?: ViewStyle
         label?: TextStyle
     };
@@ -156,7 +156,7 @@ export interface CheckBoxProps {
 /**
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Checkbox/Checkbox.react.js
  */
-export class Checkbox extends Component<CheckBoxProps, any> {}
+export class Checkbox extends Component<CheckBoxProps> {}
 
 export interface DialogProps {
     children: JSX.Element | JSX.Element[];

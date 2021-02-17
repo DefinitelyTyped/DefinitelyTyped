@@ -1,4 +1,4 @@
-// Type definitions for pino-http 5.0
+// Type definitions for pino-http 5.4
 // Project: https://github.com/pinojs/pino-http#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
@@ -16,7 +16,7 @@ declare function PinoHttp(opts?: PinoHttp.Options, stream?: DestinationStream): 
 declare function PinoHttp(stream?: DestinationStream): PinoHttp.HttpLogger;
 
 declare namespace PinoHttp {
-    type HttpLogger = (req: IncomingMessage, res: ServerResponse) => void;
+    type HttpLogger = (req: IncomingMessage, res: ServerResponse, next?: () => void) => void;
     type ReqId = number | string | object;
 
     /**
@@ -34,7 +34,8 @@ declare namespace PinoHttp {
         customSuccessMessage?: (res: ServerResponse) => string;
         customErrorMessage?: (error: Error, res: ServerResponse) => string;
         customAttributeKeys?: CustomAttributeKeys;
-        reqCustomProps?: (req: IncomingMessage) => object;
+        wrapSerializers?: boolean;
+        reqCustomProps?: (req: IncomingMessage, res: ServerResponse) => object;
     }
 
     interface GenReqId {
@@ -52,6 +53,8 @@ declare namespace PinoHttp {
         err?: string;
         responseTime?: string;
     }
+
+    const startTime: unique symbol;
 }
 
 declare module 'http' {
@@ -59,7 +62,12 @@ declare module 'http' {
         id: PinoHttp.ReqId;
         log: Logger;
     }
+
     interface ServerResponse {
         err?: Error;
+    }
+
+    interface OutgoingMessage {
+        [PinoHttp.startTime]: number;
     }
 }

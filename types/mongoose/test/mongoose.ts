@@ -84,6 +84,7 @@ mongoose.model('Actor', new mongoose.Schema({
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
+mongoose.deleteModel('Actor');
 mongoose.models.Actor.findOne({}).exec();
 new (new mongoose.Mongoose(9, 8, 7)).Mongoose(1, 2, 3).connect('');
 mongoose.plugin(cb, {}).connect('');
@@ -551,6 +552,16 @@ schema.post('insertMany', function(error, docs: mongoose.Document[], next) {
 schema.post('insertMany', async function(docs: mongoose.Document[]): Promise<void> {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
     return;
+});
+
+schema.post('find', function(docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): void {
+  const isDefaultType: mongoose.Query<mongoose.Document> = this;
+  return;
+});
+
+schema.post('find', async function(docs: mongoose.Document[], next: (err?: mongoose.NativeError) => void): Promise<void> {
+  const isDefaultType: mongoose.Query<mongoose.Document> = this;
+  return;
 });
 
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);

@@ -3,7 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -14,7 +13,9 @@ declare namespace yargs {
     interface Argv {
         argv: Arguments;
         (args?: string[], cwd?: string): Arguments;
-        parse(args: string | string[], context?: object, parseCallback?: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>): Arguments;
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback): Arguments;
 
         reset(): Argv;
 

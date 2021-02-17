@@ -1,4 +1,4 @@
-// Type definitions for @tizentv/tizen-common-web 1.0
+// Type definitions for tizen-common-web 1.0
 // Project: https://docs.tizen.org/application/web/api/5.5/device_api/tv/index.html
 // Definitions by: SejoongDeJang <https://github.com/SejoongDeJang>
 //                 Dongkeun Nam <https://github.com/capscrom>
@@ -19,6 +19,7 @@
 /// <reference path="./tvwindow.d.ts" />
 /// <reference path="./tizen.d.ts" />
 /// <reference path="./package.d.ts" />
+/// <reference path="./time.d.ts" />
 
 import {
     WebAPIException,
@@ -28,18 +29,19 @@ import {
     SortModeConstructor,
     SimpleCoordinatesConstructor,
     BundleConstructor,
-} from 'tizen';
-import { ApplicationControlConstructor, ApplicationControlDataConstructor, ApplicationManager } from 'application';
-import { FilesystemManager } from 'filesystem';
-import { DownloadManager, DownloadRequestConstructor } from 'download';
-import { SystemInfoManager } from 'systeminfo';
-import { WebSettingManager } from 'websetting';
-import { TVAudioControlManager } from 'tvaudiocontrol';
-import { TVDisplayControlManager } from 'tvdisplaycontrol';
-import { TVInputDeviceManager } from 'tvinputdevice';
-import { TVWindowManager } from 'tvwindow';
-import { PackageManager } from 'package';
-import { TVInfoManager } from 'tvinfo';
+} from './tizen';
+import { ApplicationControlConstructor, ApplicationControlDataConstructor, ApplicationManager } from './application';
+import { FilesystemManager } from './filesystem';
+import { DownloadManager, DownloadRequestConstructor } from './download';
+import { SystemInfoManager } from './systeminfo';
+import { WebSettingManager } from './websetting';
+import { TVAudioControlManager } from './tvaudiocontrol';
+import { TVDisplayControlManager } from './tvdisplaycontrol';
+import { TVInputDeviceManager } from './tvinputdevice';
+import { TVWindowManager } from './tvwindow';
+import { PackageManager } from './package';
+import { TVInfoManager } from './tvinfo';
+import { TimeUtil, TZDateConstructor, TimeDurationConstructor } from './time';
 
 declare const tizen: Tizen;
 
@@ -73,6 +75,9 @@ interface Tizen {
     tvwindow: TVWindowManager;
     DownloadRequest: DownloadRequestConstructor;
     package: PackageManager;
+    time: TimeUtil;
+    TZDate: TZDateConstructor;
+    TimeDuration: TimeDurationConstructor;
 }
 
 export = tizen;

@@ -80,12 +80,12 @@ export interface ReactDatePickerProps {
     minTime?: Date;
     monthsShown?: number;
     name?: string;
-    nextMonthButtonLabel?: string;
+    nextMonthButtonLabel?: string | React.ReactNode;
     nextYearButtonLabel?: string;
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
-    onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
+    onChange(date: Date | [Date, Date] /* for selectsRange */ | null, event: React.SyntheticEvent<any> | undefined): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
     onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
     onDayMouseEnter?: (date: Date) => void;
@@ -109,10 +109,10 @@ export interface ReactDatePickerProps {
     popperClassName?: string;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
     popperModifiers?: Popper.Modifiers;
-    popperPlacement?: string;
+    popperPlacement?: Popper.Placement;
     popperProps?: {};
     preventOpenOnFocus?: boolean;
-    previousMonthButtonLabel?: string;
+    previousMonthButtonLabel?: string | React.ReactNode;
     previousYearButtonLabel?: string;
     readOnly?: boolean;
     renderCustomHeader?(params: {

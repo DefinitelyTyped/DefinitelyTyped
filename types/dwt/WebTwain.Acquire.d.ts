@@ -29,6 +29,10 @@ export interface WebTwainAcquire extends WebTwainEdit {
      */
     CloseSource(): boolean;
     /**
+     * Close the data source (a TWAIN/ICA/SANE device which in most cases is a scanner) to free it to be used by other applications.
+     */
+    CloseSourceAsync(): Promise<boolean>;
+    /**
      * Disable the data source (a TWAIN/ICA/SANE device which in most cases is a scanner) to stop the acquiring process. If the data source's user interface is displayed, it will be closed.
      */
     DisableSource(): boolean;
@@ -57,7 +61,16 @@ export interface WebTwainAcquire extends WebTwainEdit {
      * Return all available data sources (scanners, etc.) and optionally all detailed information about them.
      * @param bIncludeDetails Whether to return more details about the data sources or just their names.
      */
+    /**
+     * Load a data source to get it ready to acquire images.
+     */
+    OpenSourceAsync(): Promise<boolean>;
     GetSourceNames(bIncludeDetails?: boolean): string[] | SourceDetails[];
+    /**
+     * Return all available data sources (scanners, etc.) and optionally all detailed information about them.
+     * @param bIncludeDetails Whether to return more details about the data sources or just their names.
+     */
+    GetSourceNamesAsync(bIncludeDetails: boolean): Promise<string[] | SourceDetails[]>;
     /**
      * Bring up the Source Selection User Interface (UI) for the user to choose a data source.
      * @param successCallback A callback function that is executed if the request succeeds.
@@ -70,10 +83,26 @@ export interface WebTwainAcquire extends WebTwainEdit {
         failureCallBack?: (errorCode: number, errorString: string) => void
     ): boolean | void;
     /**
+     * Bring up the Source Selection User Interface (UI) for the user to choose a data source.
+     * @param successCallback A callback function that is executed if the request succeeds.
+     * @param failureCallback A callback function that is executed if the request fails.
+     * @argument errorCode The error code.
+     * @argument errorString The error string.
+     */
+    SelectSourceAsync(
+        successCallBack?: () => void,
+        failureCallBack?: (errorCode: number, errorString: string) => void
+    ): Promise<boolean>;
+    /**
      * Select a data source by its index.
      * @param index The index of the data source.
      */
     SelectSourceByIndex(index: number): boolean;
+    /**
+     * Select a data source by its index.
+     * @param index The index of the data source.
+     */
+    SelectSourceByIndexAsync(index: number): Promise<boolean>;
     /**
      * Sets a timer which stops the data source opening process once it expires.
      * @param duration Define the duration of the timer (in milliseconds).
@@ -92,6 +121,10 @@ export interface WebTwainAcquire extends WebTwainEdit {
      * Closes and unloads Data Source Manager.
      */
     CloseSourceManager(): boolean;
+    /**
+     * Closes and unloads Data Source Manager.
+     */
+    CloseSourceManagerAsync(): Promise<boolean>;
     /**
      * Closes the scanning process to release resources on the machine.
      */
@@ -122,6 +155,10 @@ export interface WebTwainAcquire extends WebTwainEdit {
      * Load and open data source manager.
      */
     OpenSourceManager(): boolean;
+    /**
+     * Load and open data source manager.
+     */
+    OpenSourceManagerAsync(): Promise<boolean>;
     /**
      * Reset the image layout in the data source.
      */

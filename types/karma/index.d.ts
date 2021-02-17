@@ -1,4 +1,4 @@
-// Type definitions for karma 5.0
+// Type definitions for karma 6.1
 // Project: https://github.com/karma-runner/karma, http://karma-runner.github.io
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
@@ -127,6 +127,13 @@ export interface ConfigFile {
  * - `ChromeHeadless` - launcher requires `karma-chrome-launcher` plugin
  * - `PhantomJS` - launcher requires `karma-phantomjs-launcher` plugin
  * - `Firefox` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxHeadless` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxDeveloper` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxDeveloperHeadless` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxAurora` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxAuroraHeadless` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxNightly` - launcher requires `karma-firefox-launcher` plugin
+ * - `FirefoxNightlyHeadless` - launcher requires `karma-firefox-launcher` plugin
  * - `Opera` - launcher requires `karma-opera-launcher` plugin
  * - `IE` - launcher requires `karma-ie-launcher` plugin
  * - `Safari` - launcher requires karma-safari-launcher plugin
@@ -137,6 +144,13 @@ export type AutomatedBrowsers =
     | 'ChromeHeadless'
     | 'PhantomJS'
     | 'Firefox'
+    | 'FirefoxHeadless'
+    | 'FirefoxDeveloper'
+    | 'FirefoxDeveloperHeadless'
+    | 'FirefoxAurora'
+    | 'FirefoxAuroraHeadless'
+    | 'FirefoxNightly'
+    | 'FirefoxNightlyHeadless'
     | 'Opera'
     | 'IE'
     | 'Safari';
@@ -269,6 +283,13 @@ export interface ConfigOptions {
      *     <li>ChromeCanary (launcher comes installed with Karma)</li>
      *     <li>PhantomJS (launcher comes installed with Karma)</li>
      *     <li>Firefox (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxHeadless (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxDeveloper (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxDeveloperHeadless (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxAurora (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxAuroraHeadless (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxNightly (launcher requires karma-firefox-launcher plugin)</li>
+     *     <li>FirefoxNightlyHeadless (launcher requires karma-firefox-launcher plugin)</li>
      *     <li>Opera (launcher requires karma-opera-launcher plugin)</li>
      *     <li>Internet Explorer (launcher requires karma-ie-launcher plugin)</li>
      *     <li>Safari (launcher requires karma-safari-launcher plugin)</li>
@@ -618,7 +639,7 @@ export interface ClientOptions {
 }
 
 /** type to use when including a file */
-export type FilePatternTypes = 'css' | 'html' | 'js' | 'dart' | 'module' | 'dom';
+export type FilePatternTypes = 'css' | 'html' | 'js' | 'module' | 'dom';
 
 export interface FilePattern {
     /**
@@ -646,7 +667,7 @@ export interface FilePattern {
      * Choose the type to use when including a file
      * @default 'js'
      * @description  The type determines the mechanism for including the file.
-     * The css and html types create link elements; the js, dart, and module elements create script elements.
+     * The css and html types create link elements; the js and module elements create script elements.
      * The dom type includes the file content in the page, used, for example, to test components combining HTML and JS.
      */
     type?: FilePatternTypes;

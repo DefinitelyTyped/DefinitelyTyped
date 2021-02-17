@@ -14,3 +14,12 @@ azdata.dataprotocol.registerConnectionProvider({
     registerOnIntelliSenseCacheComplete(handler: (connectionUri: string) => any): void { },
     registerOnConnectionChanged(handler: (changedConnInfo: azdata.ChangedConnectionInfo) => any): void { }
 });
+
+const test: azdata.ContainerBuilder<azdata.InputBoxComponent, any, any, azdata.InputBoxProperties> = {
+    component: () => <any> {},
+    withItems: (component: azdata.Component[]) => { throw new Error('Not implemented'); },
+    withLayout: (layout: any) => { throw new Error('Not implemented'); },
+    withProperties: (properties: azdata.InputBoxProperties) => { throw new Error('Not implemented'); },
+    withValidation: (validation: (component: azdata.InputBoxComponent) => boolean | Thenable<boolean>) => { throw new Error('Not implemented'); }
+};
+test.component();

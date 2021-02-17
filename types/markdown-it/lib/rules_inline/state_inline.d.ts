@@ -30,7 +30,7 @@ declare class StateInline {
     env: any;
     md: MarkdownIt;
     tokens: Token[];
-    tokens_meta: StateInline.TokenMata[];
+    tokens_meta: Array<StateInline.TokenMata | null>;
 
     pos: number;
     posMax: number;

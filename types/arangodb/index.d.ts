@@ -907,9 +907,9 @@ declare namespace ArangoDB {
         write?: string | string[];
         allowImplicit?: boolean;
     }
-    interface Transaction {
+    interface Transaction<ReturnType = any> {
         collections: TransactionCollections | string[];
-        action: (params: object) => void | string;
+        action: (params: object) => ReturnType;
         waitForSync?: boolean;
         lockTimeout?: number;
         params?: object;
@@ -993,7 +993,7 @@ declare namespace ArangoDB {
         // Global
         _engine(): EngineType;
         _engineStats(): { [key: string]: any };
-        _executeTransaction(transaction: Transaction): void;
+        _executeTransaction<T>(transaction: Transaction<T>): T;
     }
 }
 
@@ -1038,12 +1038,12 @@ declare namespace Foxx {
 
     interface ValidationResult<T> {
         value: T;
-        error: any;
+        error?: any;
+        errors?: any;
     }
 
     interface Schema {
-        isJoi: boolean;
-        validate<T>(value: T): ValidationResult<T>;
+        validate<T>(value: T, options?: any): ValidationResult<T>;
     }
 
     interface Model {
@@ -1137,13 +1137,21 @@ declare namespace Foxx {
         tests?: string[];
     }
 
+    interface Configuration {
+        [key: string]: any;
+    }
+
+    interface Dependencies {
+        [key: string]: any;
+    }
+
     interface Context {
         argv: any[];
         basePath: string;
         baseUrl: string;
         collectionPrefix: string;
-        configuration: { [key: string]: any };
-        dependencies: { [key: string]: any };
+        configuration: Configuration;
+        dependencies: Dependencies;
         isDevelopment: boolean;
         isProduction: boolean;
         manifest: Manifest;

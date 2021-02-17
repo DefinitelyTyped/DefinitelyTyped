@@ -1,4 +1,4 @@
-// Type definitions for k6 0.26
+// Type definitions for k6 0.30
 // Project: https://k6.io/docs
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
@@ -31,12 +31,14 @@ import './global'; // Type global environment
 
 // Expose everything to autoimport
 import './crypto';
+import './data';
 import './encoding';
 import './html';
 import './http';
 import './metrics';
 import './options';
 import './ws';
+import './net/grpc';
 
 // === Main ===
 // ------------

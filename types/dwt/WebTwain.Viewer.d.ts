@@ -1,4 +1,5 @@
 import { WebTwainAcquire } from "./WebTwain.Acquire";
+import { Resolution } from "./Addon.Camera";
 
 export interface WebTwainViewer extends WebTwainAcquire {
     /**
@@ -10,13 +11,11 @@ export interface WebTwainViewer extends WebTwainAcquire {
         elementId: string,
         config?: BasicViewerConfig
     ): boolean;
-
     /**
      * Update the viewer with the new configuration.
      * @param config Configuration of the viewer.
      */
     UpdateViewer(config: BasicViewerConfig): boolean;
-
     /**
      * Unbind and destroy the viewer.
      */
@@ -77,6 +76,18 @@ export interface WebTwainViewer extends WebTwainAcquire {
 }
 export interface DynamsoftViewer {
     /**
+     * Start streaming video from the current camera in the viewer.
+     * @param deviceId Specify a camera.
+     * @param resolution Specify the initial resolution.
+     */
+    showVideo(deviceId?: string,
+        resolution?: Resolution
+    ): Promise<Resolution>;
+    /**
+     * Close the camera and hide the video streaming UI.
+     */
+    closeVideo(): void;
+    /**
      * Remove a built-in event handler.
      * @param eventName Specify the event.
      */
@@ -112,6 +123,10 @@ export interface DynamsoftViewer {
         name: string,
         className: string
     ): boolean;
+    /**
+     * Return or set the margin between two images or the margin between one side of an image and the border of the viewer.
+     */
+    imageMargin: number;
     /**
      * The mode of operation. Allowed values are 0(no selection, cursor is pointer), 1 (seleciton, cursor is crosshair)
      */

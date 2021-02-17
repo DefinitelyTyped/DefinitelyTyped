@@ -60,6 +60,7 @@ declare module '@ember/test-helpers' {
     export { default as setupApplicationContext } from '@ember/test-helpers/setup-application-context';
     export { default as teardownApplicationContext } from '@ember/test-helpers/teardown-application-context';
     export { default as validateErrorHandler } from '@ember/test-helpers/validate-error-handler';
+    export { default as setupOnerror, resetOnerror } from '@ember/test-helpers/setup-onerror';
 }
 
 declare module '@ember/test-helpers/dom/click' {
@@ -221,6 +222,11 @@ declare module '@ember/test-helpers/validate-error-handler' {
     import Error from '@ember/error';
 
     export default function(callback?: (error: Error) => void): { isValid: boolean, message: string };
+}
+
+declare module '@ember/test-helpers/setup-onerror' {
+    export default function setupOnerror(handler: (error: unknown) => void): void;
+    export function resetOnerror(): void;
 }
 
 declare module '@ember/test-helpers/application' {

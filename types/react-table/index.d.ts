@@ -18,6 +18,7 @@
 // The changelog for the important changes is located in the Readme.md
 
 import {
+    ChangeEvent,
     ComponentType,
     DependencyList,
     EffectCallback,
@@ -139,7 +140,7 @@ export interface TableRowProps extends TableKeyedProps {}
 export interface TableCellProps extends TableKeyedProps {}
 
 export interface TableToggleCommonProps extends TableCommonProps {
-    onChange?: () => void;
+    onChange?: (e: ChangeEvent) => void;
     checked?: boolean;
     title?: string;
     indeterminate?: boolean;
@@ -169,11 +170,12 @@ export type UseTableOptions<D extends object> = {
     data: D[];
 } & Partial<{
     initialState: Partial<TableState<D>>;
-    stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>) => TableState<D>;
+    stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>, instance?: TableInstance<D>) => TableState<D>;
     useControlledState: (state: TableState<D>, meta: Meta<D>) => TableState<D>;
     defaultColumn: Partial<Column<D>>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
     getRowId: (originalRow: D, relativeIndex: number, parent?: Row<D>) => string;
+    autoResetHiddenColumns: boolean;
 }>;
 
 export type PropGetter<D extends object, Props, T extends object = never, P = Partial<Props>> =
@@ -297,6 +299,7 @@ export interface UseTableColumnProps<D extends object> {
 
 export interface UseTableRowProps<D extends object> {
     cells: Array<Cell<D>>;
+    allCells: Array<Cell<D>>;
     values: Record<IdType<D>, CellValue>;
     getRowProps: (propGetter?: RowPropGetter<D>) => TableRowProps;
     index: number;
@@ -412,6 +415,7 @@ export interface UseExpandedRowProps<D extends object> {
     subRows: Array<Row<D>>;
     toggleRowExpanded: (value?: boolean) => void;
     getToggleRowExpandedProps: (props?: Partial<TableExpandedToggleProps>) => TableExpandedToggleProps;
+    depth: number;
 }
 
 //#endregion
@@ -564,7 +568,6 @@ export type UseGroupByColumnOptions<D extends object> = Partial<{
     Aggregated: Renderer<CellProps<D>>;
     disableGroupBy: boolean;
     defaultCanGroupBy: boolean;
-    groupByBoundary: boolean;
 }>;
 
 export interface UseGroupByInstanceProps<D extends object> {
@@ -598,6 +601,7 @@ export interface UseGroupByRowProps<D extends object> {
     groupByVal: string;
     values: Record<IdType<D>, AggregatedValue>;
     subRows: Array<Row<D>>;
+    leafRows: Array<Row<D>>;
     depth: number;
     id: string;
     index: number;
@@ -708,6 +712,7 @@ export type UseRowSelectOptions<D extends object> = Partial<{
 export interface UseRowSelectHooks<D extends object> {
     getToggleRowSelectedProps: Array<PropGetter<D, TableToggleRowsSelectedProps>>;
     getToggleAllRowsSelectedProps: Array<PropGetter<D, TableToggleAllRowsSelectedProps>>;
+    getToggleAllPageRowsSelectedProps: Array<PropGetter<D, TableToggleAllRowsSelectedProps>>;
 }
 
 export interface UseRowSelectState<D extends object> {
@@ -718,6 +723,9 @@ export interface UseRowSelectInstanceProps<D extends object> {
     toggleRowSelected: (rowId: IdType<D>, set?: boolean) => void;
     toggleAllRowsSelected: (value?: boolean) => void;
     getToggleAllRowsSelectedProps: (
+        props?: Partial<TableToggleAllRowsSelectedProps>,
+    ) => TableToggleAllRowsSelectedProps;
+    getToggleAllPageRowsSelectedProps: (
         props?: Partial<TableToggleAllRowsSelectedProps>,
     ) => TableToggleAllRowsSelectedProps;
     isAllRowsSelected: boolean;
@@ -811,12 +819,13 @@ export type UseSortByColumnOptions<D extends object> = Partial<{
 export interface UseSortByInstanceProps<D extends object> {
     rows: Array<Row<D>>;
     preSortedRows: Array<Row<D>>;
-    toggleSortBy: (columnId: IdType<D>, descending: boolean, isMulti: boolean) => void;
+    setSortBy: (sortBy: Array<SortingRule<D>>) => void;
+    toggleSortBy: (columnId: IdType<D>, descending?: boolean, isMulti?: boolean) => void;
 }
 
 export interface UseSortByColumnProps<D extends object> {
     canSort: boolean;
-    toggleSortBy: (descending: boolean, multi: boolean) => void;
+    toggleSortBy: (descending?: boolean, multi?: boolean) => void;
     getSortByToggleProps: (props?: Partial<TableSortByToggleProps>) => TableSortByToggleProps;
     clearSortBy: () => void;
     isSorted: boolean;

@@ -10,9 +10,8 @@
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
  */
 
-/// <reference types="tween.js" />
-
 import * as three from 'three';
+import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
 import * as tween from '@tweenjs/tween.js';
 
 export type ThreeLib = typeof three;
@@ -203,7 +202,7 @@ export interface EntityEventMap {
 export interface Geometry<T = any> {
     data: T;
     name: string;
-    geometry: THREE.Geometry;
+    geometry: threeDeprecated.Geometry;
     schema: Schema<any>;
 
     init(data: any): void;

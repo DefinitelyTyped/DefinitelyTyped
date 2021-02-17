@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "redux": "^4.0.5",
+        "redux-logic": "^3.0.0"
+    }
+}

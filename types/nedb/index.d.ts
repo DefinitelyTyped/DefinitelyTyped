@@ -96,8 +96,8 @@ declare class Nedb<G = any> extends EventEmitter {
      * @param query MongoDB-style query
      * @param projection MongoDB-style projection
      */
-    find<T extends G>(query: any, projection: T, callback: (err: Error | null, documents: T[]) => void): void;
-    find<T extends G>(query: any, projection?: T): Nedb.Cursor<T>;
+    find<T extends G>(query: any, projection: any, callback: (err: Error | null, documents: T[]) => void): void;
+    find<T extends G>(query: any, projection?: any): Nedb.Cursor<T>;
 
     /**
      * Find all documents matching the query
@@ -111,7 +111,7 @@ declare class Nedb<G = any> extends EventEmitter {
      * @param query MongoDB-style query
      * @param projection MongoDB-style projection
      */
-    findOne<T extends G>(query: any, projection: T, callback: (err: Error | null, document: T) => void): void;
+    findOne<T extends G>(query: any, projection: any, callback: (err: Error | null, document: T) => void): void;
 
     /**
      * Find one document matching the query

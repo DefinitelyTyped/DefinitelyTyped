@@ -1,9 +1,17 @@
-declare module "net" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import * as dns from "dns";
+declare module 'node:net' {
+    export * from 'net';
+}
 
-    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+declare module 'net' {
+    import * as stream from 'node:stream';
+    import EventEmitter = require('node:events');
+    import * as dns from 'node:dns';
+
+    type LookupFunction = (
+        hostname: string,
+        options: dns.LookupOneOptions,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+    ) => void;
 
     interface AddressInfo {
         address: string;
@@ -71,10 +79,11 @@ declare module "net" {
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
-        address(): AddressInfo | string;
+        address(): AddressInfo | {};
         unref(): this;
         ref(): this;
 
+        /** @deprecated since v14.6.0 - Use `writableLength` instead. */
         readonly bufferSize: number;
         readonly bytesRead: number;
         readonly bytesWritten: number;
@@ -177,10 +186,22 @@ declare module "net" {
         ipv6Only?: boolean;
     }
 
+    interface ServerOpts {
+        /**
+         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
+         */
+        allowHalfOpen?: boolean;
+
+        /**
+         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
+         */
+        pauseOnConnect?: boolean;
+    }
+
     // https://github.com/nodejs/node/blob/master/lib/net.js
-    class Server extends events.EventEmitter {
+    class Server extends EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
-        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+        constructor(options?: ServerOpts, connectionListener?: (socket: Socket) => void);
 
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
         listen(port?: number, hostname?: string, listeningListener?: () => void): this;
@@ -255,7 +276,7 @@ declare module "net" {
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
 
     function createServer(connectionListener?: (socket: Socket) => void): Server;
-    function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
+    function createServer(options?: ServerOpts, connectionListener?: (socket: Socket) => void): Server;
     function connect(options: NetConnectOpts, connectionListener?: () => void): Socket;
     function connect(port: number, host?: string, connectionListener?: () => void): Socket;
     function connect(path: string, connectionListener?: () => void): Socket;

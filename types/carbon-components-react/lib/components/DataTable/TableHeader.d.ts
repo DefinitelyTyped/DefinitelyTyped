@@ -1,22 +1,27 @@
 import * as React from "react";
-import { InternationalProps, ReactButtonAttr } from "../../../typings/shared";
-import { DataTableSortState } from './state/sorting';
+import { InternationalProps, ReactButtonAttr, ForwardRefReturn } from "../../../typings/shared";
+import { DataTableSortState, DataTableSortStates } from "./state/sorting";
 
 export type TableHeaderTranslationKey = "carbon.table.header.icon.description";
-interface InheritedProps extends
-    ReactButtonAttr,
-    InternationalProps<TableHeaderTranslationKey>
-{
-    scope?: React.ThHTMLAttributes<any>["scope"],
+
+export interface TableHeaderTranslationArgs {
+    header: React.ReactNode,
+    isSortHeader: boolean | undefined,
+    sortDirection: DataTableSortState | undefined,
+    sortStates: DataTableSortStates,
 }
 
-export interface TableHeaderProps extends InheritedProps {
+export interface TableHeaderProps extends
+    ReactButtonAttr<HTMLElement>,
+    React.ThHTMLAttributes<HTMLElement>,
+    InternationalProps<TableHeaderTranslationKey, TableHeaderTranslationArgs>
+{
     isSortable?: boolean,
     isSortHeader?: boolean,
     sortDirection?: DataTableSortState,
 }
 
-interface TableHeaderFC extends React.FC<TableHeaderProps> {
+interface TableHeaderFC extends ForwardRefReturn<HTMLTableHeaderCellElement, TableHeaderProps> {
     readonly translationKeys: ReadonlyArray<TableHeaderTranslationKey>,
 }
 

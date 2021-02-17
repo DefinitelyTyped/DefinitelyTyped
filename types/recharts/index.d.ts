@@ -23,6 +23,7 @@
 //                 George Cheng <https://github.com/Gerhut>
 //                 Haldun Anil <https://github.com/haldunanil>
 //                 Tobias Knapp <https://github.com/t-knapp>
+//                 Jay Lim <https://github.com/jlxc106>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -416,9 +417,19 @@ export interface LegendPayload {
     id: any;
     type: LegendType;
     color?: string;
+    payload?: {
+        strokeDasharray: string;
+    };
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
+
+export interface LayerProps {
+    className?: string;
+    children?: React.ReactNode[] | React.ReactNode;
+}
+
+export class Layer extends React.Component<LayerProps> { }
 
 export interface LegendProps {
     content?: React.ReactElement | ContentRenderer<LegendProps>;
@@ -552,6 +563,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     stroke?: string;
     orientation?: 'inner' | 'outer';
     tickFormatter?: TickFormatterFunction;
+    allowDuplicatedCategory?: boolean;
 }
 
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
@@ -592,6 +604,7 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     domain?: Readonly<[PolarRadiusAxisDomain, PolarRadiusAxisDomain]>;
     scale?: ScaleType | RechartsFunction;
     allowDataOverflow?: boolean;
+    allowDuplicatedCategory?: boolean;
 }
 
 export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps> { }
@@ -785,6 +798,34 @@ export interface ResponsiveContainerProps {
 }
 
 export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, ContainerSize> { }
+
+export interface SankeyProps extends EventAttributes, Partial<PresentationAttributes> {
+    data: { nodes: any[], links: Array<{ target: number, source: number, value: number }> };
+    nameKey?: string | number | RechartsFunction;
+    dataKey?: DataKey;
+    width?: number;
+    height?: number;
+    nodePadding?: number;
+    nodeWidth?: number;
+    linkCurvature?: number;
+    iterations?: number;
+    node?: object | ContentRenderer<any> | React.ReactElement;
+    link?: object | ContentRenderer<any> | React.ReactElement;
+    style?: object;
+    className?: string;
+    children?: React.ReactNode[] | React.ReactNode;
+    margin?: Partial<Margin>;
+}
+
+export interface SankeyState {
+    activeElement?: any;
+    activeElementType?: any;
+    isTooltipActive?: boolean;
+    nodes?: any;
+    links?: any;
+}
+
+export class Sankey extends React.Component<SankeyProps, SankeyState> { }
 
 export interface ScatterPoint {
     cx?: number;
@@ -999,7 +1040,7 @@ export interface XAxisProps extends EventAttributes {
     tickCount?: number;
     // The formatter function of tick
     tickFormatter?: TickFormatterFunction;
-    padding?: XPadding;
+    padding?: Partial<XPadding>;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
     tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
@@ -1059,7 +1100,7 @@ export interface YAxisProps extends EventAttributes {
     // The orientation of axis
     orientation?: 'left' | 'right';
     type?: 'number' | 'category';
-    padding?: YPadding;
+    padding?: Partial<YPadding>;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
     tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
@@ -1073,6 +1114,7 @@ export interface YAxisProps extends EventAttributes {
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label | LabelProps;
+    allowDuplicatedCategory?: boolean;
     stroke?: string;
 }
 

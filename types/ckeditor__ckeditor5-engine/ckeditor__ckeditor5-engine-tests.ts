@@ -1,4 +1,4 @@
-import * as engine from "ckeditor__ckeditor5-engine";
+import * as engine from "@ckeditor/ckeditor5-engine";
 
 declare let pattern: engine.view.MatcherPattern;
 

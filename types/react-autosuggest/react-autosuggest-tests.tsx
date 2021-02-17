@@ -68,6 +68,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         suggestions: this.getSuggestions('')
     };
     // endregion region Rendering methods
+    inputRef = React.createRef<HTMLInputElement>();
     render(): JSX.Element {
         const {value, suggestions} = this.state;
 
@@ -87,11 +88,16 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             renderSuggestion={this.renderSuggestion}
             onSuggestionSelected={this.onSuggestionsSelected}
             alwaysRenderSuggestions={true}
+            shouldRenderSuggestions={(value, reason) => reason !== 'input-focused'}
             inputProps={{
                 placeholder: `Type 'c'`,
                 value,
                 onChange: (e, changeEvent) => this.onChange(e, changeEvent),
-                onBlur: (e) => { console.log(e.relatedTarget); }
+                onBlur: (e) => { console.log(e.relatedTarget); },
+                ref: this.inputRef
+            }}
+            containerProps={{
+                className: 'some-css-class'
             }}
             theme={theme}/>;
     }
@@ -385,11 +391,10 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         return <strong>{section.title}</strong>;
     }
 
-    protected renderInputComponent(inputProps: Autosuggest.InputProps<Language>): JSX.Element {
-        const { onChange, onBlur, ...restInputProps } = inputProps;
+    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): JSX.Element {
         return (
             <div>
-                <input {...restInputProps} />
+                <input {...inputProps} />
             </div>
         );
     }

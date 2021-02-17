@@ -206,6 +206,7 @@ request('/search')
         const files: object = res.files;
         const text: string = res.text;
         const contentLength = res.header['content-length'];
+        assert(res.header === res.headers);
         const contentType: string = res.type;
         const charset: string = res.charset;
         const redirects: string[] = res.redirects;
@@ -498,5 +499,10 @@ async function testDefaultOptions() {
     await agentWithDefaultOptions.get('/with-plugin-and-auth');
     await agentWithDefaultOptions.get('/also-with-plugin-and-auth');
 }
+
+request.get('/').http2().end(callback);
+request('POST', '/').http2().end(callback);
+agent.get('/').http2().end(callback);
+agent('/').http2().end(callback);
 
 testDefaultOptions();

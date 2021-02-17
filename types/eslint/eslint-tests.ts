@@ -1,5 +1,6 @@
-import { Comment } from 'estree';
+import { Comment, WhileStatement } from 'estree';
 import { AST, SourceCode, Rule, Linter, ESLint, CLIEngine, RuleTester, Scope } from 'eslint';
+import { ESLintRules } from 'eslint/rules';
 
 const SOURCE = `var foo = bar;`;
 
@@ -277,6 +278,7 @@ rule = { create(context) { return {}; }, meta: {
         category: 'Possible Errors',
         recommended: true,
         url: 'https://eslint.org/docs/rules/no-console',
+        suggestion: true
     }
 }};
 rule = { create(context) { return {}; }, meta: { fixable: 'whitespace' }};
@@ -380,8 +382,18 @@ rule = {
             onCodePathSegmentStart(segment, node) {},
             onCodePathSegmentEnd(segment, node) {},
             onCodePathSegmentLoop(fromSegment, toSegment, node) {},
-            IfStatement(node) {},
+            IfStatement(node) {
+                node.parent;
+            },
+            WhileStatement(node: WhileStatement) {},
+            Program(node) {
+                // $ExpectError
+                node.parent;
+            },
             'Program:exit'() {},
+            'MemberExpression[object.name="req"]': (node: Rule.Node) => {
+                node.parent;
+            },
         };
     },
 };
@@ -410,6 +422,10 @@ linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalR
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } }, 'test.js');
 linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'readonly' } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'readable' } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'writable' } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'writeable' } }, 'test.js');
 linter.verify(SOURCE, { parser: 'custom-parser' }, 'test.js');
 linter.verify(SOURCE, { settings: { info: 'foo' } }, 'test.js');
 linter.verify(SOURCE, { processor: 'a-plugin/a-processor' }, 'test.js');
@@ -608,6 +624,18 @@ resultsPromise.then(results => {
 
 //#endregion
 
+//#region ESLintRules
+
+let eslintConfig: Linter.Config<ESLintRules>;
+
+eslintConfig = {
+    rules: {
+        'capitalized-comments': [2, 'always', { ignorePattern: 'const|let' }],
+    }
+};
+
+//#endregion
+
 //#region CLIEngine
 
 let cli: CLIEngine;
@@ -629,8 +657,8 @@ cli = new CLIEngine({ ignorePattern: 'foo' });
 cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
-cli = new CLIEngine({ plugins: ['foo'] });
 cli = new CLIEngine({ resolvePluginsRelativeTo: 'test' });
+cli = new CLIEngine({ plugins: ['foo'] });
 cli = new CLIEngine({ rules: { 'test/example-rule': 1 } });
 cli = new CLIEngine({ rulePaths: ['foo'] });
 cli = new CLIEngine({ reportUnusedDisableDirectives: true });

@@ -34,3 +34,5 @@ export * from './lib/RawAudioPlayer';
 export * from './lib/StringReader';
 export * from './lib/StringWriter';
 export * from './lib/IntegerPool';
+export * from './lib/OutputStream';
+export * from './lib/VideoPlayer';

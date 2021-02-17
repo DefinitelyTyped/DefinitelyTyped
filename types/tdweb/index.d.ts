@@ -1,5 +1,5 @@
 // Type definitions for tdweb 1.4
-// Project: https://github.com/tdlib/example/web/tdweb
+// Project: https://github.com/tdlib/td#readme
 // Definitions by: Alexander Krisko <https://github.com/esindger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3

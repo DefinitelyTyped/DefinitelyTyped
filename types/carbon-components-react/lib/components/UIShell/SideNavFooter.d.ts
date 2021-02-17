@@ -1,12 +1,9 @@
 import * as React from "react";
-import { ReactAttr, SideNavSharedProps } from '../../../typings/shared';
+import { SideNavSharedProps } from "../../../typings/shared";
 
-interface InheritedProps extends SideNavSharedProps {
-    className?: ReactAttr["className"],
-}
-
-export interface SideNavFooterProps extends InheritedProps {
+export interface SideNavFooterProps extends SideNavSharedProps {
     assistiveText?: string, // required but has default value
+    className?: string,
     expanded: boolean,
     onToggle(event: React.MouseEvent<HTMLButtonElement>): void,
 }

@@ -3,7 +3,6 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "jsdoc-format": false,
         "no-any-union": false,
@@ -11,7 +10,6 @@
         "no-duplicate-variable": false,
         "no-empty-interface": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-unnecessary-class": false,
@@ -22,7 +20,6 @@
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "prefer-template": false,
         "space-before-function-paren": false,
         "typedef-whitespace": false,

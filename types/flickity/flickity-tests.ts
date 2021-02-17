@@ -224,3 +224,9 @@ let fliktyOpts1: Flickity.Options = {
     rightToLeft: false,
     on: fliktyBindings
 };
+
+// options test
+let fliktyOpts2: Flickity.Options = {
+    autoPlay: true,
+    pauseAutoPlayOnHover: true,
+};

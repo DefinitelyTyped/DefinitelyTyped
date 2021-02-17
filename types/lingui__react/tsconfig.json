@@ -18,11 +18,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@lingui/core": [
-                "lingui__core"
-            ],
-            "@lingui/react": [
-                "lingui__react"
+            "@lingui/*": [
+                "lingui__*"
             ]
         }
     },

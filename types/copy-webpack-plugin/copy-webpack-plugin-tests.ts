@@ -1,10 +1,12 @@
 import { Configuration } from 'webpack';
 import CopyPlugin = require('copy-webpack-plugin');
 import path = require('path');
+import fs = require('fs');
 
 const _: Configuration = {
     plugins: [
         // basic
+        new CopyPlugin(),
         new CopyPlugin({
             patterns: [
                 { from: 'source', to: 'dest' },
@@ -65,6 +67,22 @@ const _: Configuration = {
                 },
             ],
         }),
+        // filter
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'file.txt'),
+                    filter: resourcePath => {
+                        const data = fs.readFileSync(resourcePath);
+                        const content = data.toString();
+                        if (content === 'my-custom-content') {
+                            return false;
+                        }
+                        return true;
+                    },
+                },
+            ],
+        }),
         // to
         new CopyPlugin({
             patterns: [
@@ -79,6 +97,16 @@ const _: Configuration = {
                 {
                     from: '**/*',
                     to: '[path][name].[contenthash].[ext]',
+                },
+            ],
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: 'src/*.png',
+                    to: ({ context, absoluteFilename }) => {
+                        return 'dest/newPath';
+                    },
                 },
             ],
         }),
@@ -290,6 +318,27 @@ const _: Configuration = {
                 },
             ],
             options: { concurrency: 50 },
+        }),
+        // info
+        new CopyPlugin({
+            patterns: [
+                'relative/path/to/file.ext',
+                {
+                    from: '**/*',
+                    // Terser skip this file for minimization
+                    info: { minimized: true },
+                },
+            ],
+        }),
+        new CopyPlugin({
+            patterns: [
+                'relative/path/to/file.ext',
+                {
+                    from: '**/*',
+                    // Terser skip this file for minimization
+                    info: file => ({ minimized: true }),
+                },
+            ],
         }),
     ],
 };

@@ -38,7 +38,19 @@ import React = require('.');
 
 export {};
 
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+
 declare module '.' {
+    export interface SuspenseProps {
+        /**
+         * The presence of this prop indicates that the content is computationally expensive to render.
+         * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
+         * @see {@link https://github.com/facebook/react/pull/19936}
+         */
+        unstable_expectedLoadTime?: number;
+    }
+
     export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
     export type SuspenseListTailMode = 'collapsed' | 'hidden';
 
@@ -94,30 +106,19 @@ declare module '.' {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    export interface SuspenseConfig extends TimeoutConfig {
+    export interface SuspenseConfig {
         busyDelayMs?: number;
         busyMinDurationMs?: number;
     }
 
     // undocumented, considered for removal
     export function unstable_withSuspenseConfig(
-        scope: () => void | undefined,
+        scope: () => VoidOrUndefinedOnly,
         config: SuspenseConfig | null | undefined,
     ): void;
 
-    export interface TimeoutConfig {
-        /**
-         * This timeout (in milliseconds) tells React how long to wait before showing the next state.
-         *
-         * React will always try to use a shorter lag when network and device allows it.
-         *
-         * **NOTE: We recommend that you share Suspense Config between different modules.**
-         */
-        timeoutMs: number;
-    }
-
     // must be synchronous
-    export type TransitionFunction = () => void | undefined;
+    export type TransitionFunction = () => VoidOrUndefinedOnly;
     // strange definition to allow vscode to show documentation on the invocation
     export interface TransitionStartFunction {
         /**
@@ -139,11 +140,10 @@ declare module '.' {
      * A good example of this is a text input.
      *
      * @param value The value that is going to be deferred
-     * @param config An optional object with `timeoutMs`
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usedeferredvalue
      */
-    export function unstable_useDeferredValue<T>(value: T, config?: TimeoutConfig | null): T;
+    export function unstable_useDeferredValue<T>(value: T): T;
 
     /**
      * Allows components to avoid undesirable loading states by waiting for content to load
@@ -163,4 +163,30 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
     export function unstable_useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
+
+    const opaqueIdentifierBranding: unique symbol;
+    /**
+     * WARNING: Don't use this as a `string`.
+     *
+     * This is an opaque type that is not supposed to type-check structurally.
+     * It is only valid if returned from React methods and passed to React e.g. `<button aria-labelledby={opaqueIdentifier} />`
+     */
+    // We can't create a type that would be rejected for string concatenation or `.toString()` calls.
+    // So in order to not have to add `string | OpaqueIdentifier` to every react-dom host prop we intersect it with `string`.
+    type OpaqueIdentifier = string & {
+        readonly [opaqueIdentifierBranding]: unknown;
+        // While this would cause `const stringified: string = opaqueIdentifier.toString()` to not type-check it also adds completions while typing.
+        // It would also still allow string concatenation.
+        // Unsure which is better. Not type-checking or not suggesting.
+        // toString(): void;
+    };
+
+    export function unstable_useOpaqueIdentifier(): OpaqueIdentifier;
+
+    /**
+     * Similar to `useTransition` but allows uses where hooks are not available.
+     *
+     * @param callback A _synchronous_ function which causes state updates that can be deferred.
+     */
+    export function unstable_startTransition(scope: TransitionFunction): void;
 }

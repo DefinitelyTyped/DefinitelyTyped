@@ -1,8 +1,11 @@
-declare module "http" {
-    import * as events from "events";
-    import * as stream from "stream";
-    import { URL } from "url";
-    import { Socket, Server as NetServer } from "net";
+declare module 'node:http' {
+    export * from 'http';
+}
+
+declare module 'http' {
+    import * as stream from 'node:stream';
+    import { URL } from 'node:url';
+    import { Socket, Server as NetServer } from 'node:net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
@@ -135,13 +138,13 @@ declare module "http" {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -173,14 +176,17 @@ declare module "http" {
         rawHeaders: string[];
     }
 
-    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    // https://github.com/nodejs/node/blob/v12.20.0/lib/_http_client.js#L85
     class ClientRequest extends OutgoingMessage {
         connection: Socket;
         socket: Socket;
-        aborted: number;
+        aborted: boolean;
+        host: string;
+        protocol: string;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        method: string;
         readonly path: string;
         abort(): void;
         onSocket(socket: Socket): void;
@@ -318,6 +324,10 @@ declare module "http" {
          */
         maxSockets?: number;
         /**
+         * Maximum number of sockets allowed for all hosts in total. Each request will use a new socket until the maximum is reached. Default: Infinity.
+         */
+        maxTotalSockets?: number;
+        /**
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
         maxFreeSockets?: number;
@@ -330,6 +340,7 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
+        maxTotalSockets: number;
         readonly sockets: {
             readonly [key: string]: Socket[];
         };

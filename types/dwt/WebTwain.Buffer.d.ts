@@ -212,7 +212,7 @@ export interface WebTwainBuffer extends WebTwainIO {
      * [Deprecation] Return how many images are selected.
      * [Alternative] Read the length of SelectedImagesIndices instead.
      */
-    readonly SelectedImagesCount: number;
+    SelectedImagesCount: number;
     /**
      * Return the indices of the selected images.
      */

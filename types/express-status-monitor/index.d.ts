@@ -20,6 +20,8 @@ declare namespace e {
             cpu?: boolean;
             mem?: boolean;
             load?: boolean;
+            /** @default true */
+            heap?: boolean;
             responseTime?: boolean;
             rps?: boolean;
             statusCodes?: boolean;

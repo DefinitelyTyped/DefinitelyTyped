@@ -67,7 +67,13 @@ function testUsingWithExpress() {
 function testUsingWithOptions() {
     var app = require('express')();
     var server = require('http').Server(app);
-    var io = socketIO(server, { wsEngine: 'ws' });
+    var io = socketIO(server, {
+        path: "/hello",
+        serveClient: false,
+        origins: "*/*",
+        wsEngine: 'ws',
+        parser: require("socket.io-parser"),
+    });
 }
 
 function testUsingWithTheExpressFramework() {
@@ -165,8 +171,8 @@ function testUsingItJustAsACrossBrowserWebSocket() {
     var io = socketIO.listen(80);
 
     io.sockets.on('connection', function (socket) {
-        socket.on('message', function () {});
-        socket.on('disconnect', function () {});
+        socket.on('message', function () { });
+        socket.on('disconnect', function () { });
     });
 }
 
@@ -188,7 +194,7 @@ function testSocketConnection() {
 
 function testClosingServerWithCallback() {
     var io = socketIO.listen(80);
-    io.close(function () {});
+    io.close(function () { });
 }
 
 function testClosingServerWithoutCallback() {
@@ -217,7 +223,7 @@ function testSocketUse() {
 
 function testServerEventEmitter() {
     var io = socketIO.listen(80);
-    const fn = () => {};
+    const fn = () => { };
     io.addListener('event', fn);
     io.emit('event', 'payload');
     io.eventNames();
@@ -234,4 +240,21 @@ function testServerEventEmitter() {
     io.removeListener('event', fn);
     io.setMaxListeners(50);
     io.rawListeners('event');
+}
+
+function testOverwriteGenerateId() {
+    var io = socketIO.listen(80);
+    var hash = new Date().toLocaleString();
+    io.use((socket, next) => {
+        io.engine.generateId = () => {
+            return hash;
+        }
+        next();
+    })
+    .on('connection', (socket) => {
+        console.log(socket.id);
+        if (socket.id !== hash) {
+            throw new Error("GenerateId has not been overwritten");
+        }
+    });
 }

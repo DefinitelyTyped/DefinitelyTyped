@@ -285,7 +285,7 @@ function updateVariantInCart(cartLineItem : ShopifyBuy.LineItem, quantity : numb
         id: cartLineItem.id,
         quantity
     };
-    client.checkout.updateLineItem(cartLineItem.id, [lineItemVariant]).then(function(updatedCart : ShopifyBuy.Cart) {
+    client.checkout.updateLineItems(cartLineItem.id, [lineItemVariant]).then(function(updatedCart : ShopifyBuy.Cart) {
         var $cartItem = $('.cart').find('.cart-item[data-variant-id="' + variantId + '"]');
         if (updatedCart.lineItems.length >= cartLength) {
             $cartItem.find('.cart-item__quantity').val(cartLineItem.quantity);

@@ -3,6 +3,11 @@ Frida.version; // $ExpectType string
 // $ExpectType NativePointer
 const p = ptr(1234);
 
+// $ExpectType number
+p.toInt32();
+// $ExpectType number
+p.toUInt32();
+
 // $ExpectType NativePointer
 p.sign();
 // $ExpectType NativePointer
@@ -32,6 +37,17 @@ const puts = new NativeFunction(Module.getExportByName(null, "puts"), "int", ["p
 
 // $ExpectType NativeFunction
 puts;
+
+// $ExpectType NativePointer
+Memory.alloc(1);
+// $ExpectType NativePointer
+Memory.alloc(1, {});
+// $ExpectType NativePointer
+Memory.alloc(1, { near: ptr(1234), maxDistance: 42 });
+// $ExpectError
+Memory.alloc(1, { near: ptr(1234) });
+// $ExpectError
+Memory.alloc(1, { maxDistance: 42 });
 
 const message = Memory.allocUtf8String("Hello!");
 
@@ -70,6 +86,53 @@ Interceptor.attach(puts, {
         // $ExpectType InvocationReturnValue
         retval;
     }
+});
+
+Interceptor.flush();
+
+const ccode = `
+#include <gum/gumstalker.h>
+
+extern void on_interesting_event (const GumEvent * event);
+
+void
+process (const GumEvent * event,
+         GumCpuContext * cpu_context,
+         gpointer user_data)
+{
+  if (event->type == GUM_CALL && cpu_context->rdi == 0x1234)
+    on_interesting_event (event);
+}
+`;
+const symbols: CSymbols = {
+    on_interesting_event: new NativeCallback(e => {}, 'void', ['pointer']),
+};
+const cm = new CModule(ccode);
+const cm2 = new CModule(ccode, symbols, {});
+const cm3 = new CModule(ccode, {}, { toolchain: "any" });
+const cm4 = new CModule(ccode, {}, { toolchain: "internal" });
+const cm5 = new CModule(ccode, {}, { toolchain: "external" });
+// $ExpectError
+const cmE = new CModule(ccode, {}, { toolchain: "nope" });
+
+const precompiledSharedLibrary = new ArrayBuffer(4 * Process.pageSize);
+const cm6 = new CModule(precompiledSharedLibrary);
+
+// $ExpectType CModuleBuiltins
+CModule.builtins;
+// $ExpectType CModuleDefines
+CModule.builtins.defines;
+// $ExpectType CModuleHeaders
+CModule.builtins.headers;
+
+Stalker.follow(Process.getCurrentThreadId(), {
+    events: {
+        compile: true,
+        call: true,
+        ret: true
+    },
+    onEvent: cm.process,
+    data: ptr(42)
 });
 
 const obj = new ObjC.Object(ptr("0x42"));
@@ -121,6 +184,9 @@ Java.enumerateClassLoadersSync()
     });
 
 Java.perform(() => {
+    // $ExpectType void
+    Java.deoptimizeBootImage();
+
     Java.enumerateMethods("*!*game*/i").forEach(group => {
         const factory = Java.ClassFactory.get(group.loader);
         group.classes.forEach(klass => {
@@ -134,5 +200,3 @@ Java.perform(() => {
         });
     });
 });
-
-Interceptor.flush();

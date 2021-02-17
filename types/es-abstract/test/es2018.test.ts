@@ -8,6 +8,11 @@ interface FakePromise<T> extends PromiseLike<T> {
     doStuff(): void;
 }
 
+function testGeneric<T, TReturn>({ done, value }: IteratorResult<T | PromiseLike<T>, TReturn | PromiseLike<TReturn>>) {
+    // $ExpectType Promise<T | TReturn>
+    ES2018.PromiseResolve(Promise, value);
+}
+
 // $ExpectType FakePromise<unknown>
 ES2018.PromiseResolve(FakePromise, any);
 

@@ -35,7 +35,7 @@ expectType<
     | undefined
 >(ES2015.Type<any>(any));
 
-ES2015.ToPrimitive(any); // $ExpectType string | number | boolean | symbol | null | undefined
+ES2015.ToPrimitive(any); // $ExpectType string | number | bigint | boolean | symbol | null | undefined
 ES2015.ToInt16(any); // $ExpectType number
 ES2015.ToInt8(any); // $ExpectType number
 ES2015.ToUint8(any); // $ExpectType number
@@ -79,9 +79,8 @@ ES2015.GetIterator(null, generable);
 ES2015.IteratorNext(generable()); // $ExpectType IteratorResult<number, boolean>
 ES2015.IteratorNext(any as AsyncGenerator<number, void>); // $ExpectType Promise<IteratorResult<number, void>>
 
-// $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>>
+// $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>> || IteratorResult<number, void> | Promise<IteratorResult<number, void>>
 expectType<IteratorResult<number, void> | Promise<IteratorResult<number, void>>>(
-    // tslint:disable-next-line: invalid-void
     ES2015.IteratorNext<number, void>(any as Generator<number, void> | AsyncGenerator<number, void>),
 );
 
@@ -123,7 +122,6 @@ expectType<ES2015.PropertyDescriptor<typeof Reflect.setPrototypeOf> | undefined>
 );
 
 const completeNullishUnionDescriptor = ES2015.CompletePropertyDescriptor(
-    // tslint:disable-next-line: no-null-undefined-union
     newType<{ '[[Value]]': object | null | undefined }>(),
 );
 completeNullishUnionDescriptor['[[Configurable]]']; // $ExpectType boolean

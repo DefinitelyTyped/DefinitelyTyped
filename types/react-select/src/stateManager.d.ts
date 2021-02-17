@@ -1,62 +1,73 @@
 import { Component, ComponentType, Ref as ElementRef } from 'react';
 
 import SelectBase, { Props as SelectProps } from './Select';
-import { ActionMeta, InputActionMeta, OptionTypeBase, ValueType } from './types';
+import { ActionMeta, GroupTypeBase, InputActionMeta, OptionTypeBase, ValueType } from './types';
 
-export interface DefaultProps<OptionType extends OptionTypeBase> {
-  defaultInputValue: string;
-  defaultMenuIsOpen: boolean;
-  defaultValue: ValueType<OptionType>;
+export interface DefaultProps {
+    defaultInputValue: string;
+    defaultMenuIsOpen: boolean;
+    defaultValue: readonly OptionTypeBase[] | OptionTypeBase | null;
 }
 
-export interface Props<OptionType extends OptionTypeBase> {
-  defaultInputValue?: string;
-  defaultMenuIsOpen?: boolean;
-  defaultValue?: ValueType<OptionType>;
-  inputValue?: string;
-  menuIsOpen?: boolean;
-  value?: ValueType<OptionType>;
-  onChange?: (value: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
+export const defaultProps: DefaultProps;
+
+export interface Props<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+> {
+    defaultInputValue?: string;
+    defaultMenuIsOpen?: boolean;
+    defaultValue?: readonly OptionType[] | OptionType | null;
+    inputValue?: string;
+    menuIsOpen?: boolean;
+    value?: readonly OptionType[] | OptionType | null;
+    onChange?: (value: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
 }
 
-type StateProps<T extends SelectProps<any>> = Pick<T, Exclude<keyof T,
-  | 'inputValue'
-  | 'value'
-  | 'menuIsOpen'
-  | 'onChange'
-  | 'onInputChange'
-  | 'onMenuClose'
-  | 'onMenuOpen'
->>;
+type StateProps<T extends SelectProps<any, boolean, any>> = Pick<
+    T,
+    Exclude<
+        keyof T,
+        'inputValue' | 'value' | 'menuIsOpen' | 'onChange' | 'onInputChange' | 'onMenuClose' | 'onMenuOpen'
+    >
+>;
 
-interface State<OptionType extends OptionTypeBase> {
-  inputValue: string;
-  menuIsOpen: boolean;
-  value: ValueType<OptionType>;
+interface State<OptionType extends OptionTypeBase, IsMulti extends boolean> {
+    inputValue: string;
+    menuIsOpen: boolean;
+    value: readonly OptionType[] | OptionType | null;
 }
 
 type GetOptionType<T> = T extends SelectBase<infer OT> ? OT : never;
 
 export class StateManager<
-  OptionType extends OptionTypeBase = { label: string; value: string },
-  T extends SelectBase<OptionType> = SelectBase<OptionType>
-> extends Component<StateProps<SelectProps<OptionType>> & Props<OptionType> & SelectProps<OptionType>, State<OptionType>> {
-  static defaultProps: DefaultProps<any>;
+    OptionType extends OptionTypeBase = { label: string; value: string },
+    IsMulti extends boolean = false,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>,
+    T extends SelectBase<OptionType, IsMulti> = SelectBase<OptionType, IsMulti>
+> extends Component<
+    StateProps<SelectProps<OptionType, IsMulti, GroupType>> &
+        Props<OptionType, IsMulti, GroupType> &
+        SelectProps<OptionType, IsMulti, GroupType>,
+    State<OptionType, IsMulti>
+> {
+    static defaultProps: DefaultProps;
 
-  select: T;
+    select: T;
 
-  focus(): void;
-  blur(): void;
-  getProp(key: string): any;
-  callProp(name: string, ...args: any[]): any;
-  onChange: (value: ValueType<OptionType>, actionMeta: ActionMeta<OptionType>) => void;
-  onInputChange: (value: ValueType<OptionType>, actionMeta: InputActionMeta) => void;
-  onMenuOpen: () => void;
-  onMenuClose: () => void;
+    focus(): void;
+    blur(): void;
+    getProp(key: string): any;
+    callProp(name: string, ...args: any[]): any;
+    onChange: (value: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
+    onInputChange: (value: ValueType<OptionType, IsMulti>, actionMeta: InputActionMeta) => void;
+    onMenuOpen: () => void;
+    onMenuClose: () => void;
 }
 
-export function manageState<T extends SelectBase<any>>(
-  SelectComponent: T
-): StateManager<GetOptionType<T>, T>;
+export function manageState<T extends SelectBase<any, boolean>>(
+    SelectComponent: T,
+): StateManager<GetOptionType<T>, boolean, GroupTypeBase<GetOptionType<T>>, T>;
 
 export default manageState;

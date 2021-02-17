@@ -1,8 +1,12 @@
-declare module "fs" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import { URL } from "url";
-    import * as promises from 'fs/promises';
+declare module 'node:fs' {
+    export * from 'fs';
+}
+
+declare module 'fs' {
+    import * as stream from 'node:stream';
+    import EventEmitter = require('node:events');
+    import { URL } from 'node:url';
+    import * as promises from 'node:fs/promises';
 
     export { promises };
     /**
@@ -105,10 +109,10 @@ declare module "fs" {
          * If there are no more directory entries to read, null will be returned.
          * Directory entries returned by this function are in no particular order as provided by the operating system's underlying directory mechanisms.
          */
-        readSync(): Dirent;
+        readSync(): Dirent | null;
     }
 
-    export interface FSWatcher extends events.EventEmitter {
+    export interface FSWatcher extends EventEmitter {
         close(): void;
 
         /**
@@ -428,6 +432,39 @@ declare module "fs" {
     export function lchownSync(path: PathLike, uid: number, gid: number): void;
 
     /**
+     * Changes the access and modification times of a file in the same way as `fs.utimes()`,
+     * with the difference that if the path refers to a symbolic link, then the link is not
+     * dereferenced: instead, the timestamps of the symbolic link itself are changed.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    export function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date, callback: NoParamCallback): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace lutimes {
+        /**
+         * Changes the access and modification times of a file in the same way as `fsPromises.utimes()`,
+         * with the difference that if the path refers to a symbolic link, then the link is not
+         * dereferenced: instead, the timestamps of the symbolic link itself are changed.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param atime The last access time. If a string is provided, it will be coerced to number.
+         * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+         */
+        function __promisify__(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    }
+
+    /**
+     * Change the file system timestamps of the symbolic link referenced by `path`. Returns `undefined`,
+     * or throws an exception when parameters are incorrect or the operation fails.
+     * This is the synchronous version of `fs.lutimes()`.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    export function lutimesSync(path: PathLike, atime: string | number | Date, mtime: string | number | Date): void;
+
+    /**
      * Asynchronous chmod(2) - Change permissions of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
@@ -503,6 +540,8 @@ declare module "fs" {
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    export function stat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function stat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
@@ -511,6 +550,8 @@ declare module "fs" {
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
+        function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
         function __promisify__(path: PathLike): Promise<Stats>;
     }
 
@@ -518,6 +559,8 @@ declare module "fs" {
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
+    export function statSync(path: PathLike, options: BigIntOptions): BigIntStats;
+    export function statSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
     export function statSync(path: PathLike): Stats;
 
     /**
@@ -815,22 +858,62 @@ declare module "fs" {
 
     export interface RmDirOptions {
         /**
+         * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
+         * `EPERM` error is encountered, Node.js will retry the operation with a linear
+         * backoff wait of `retryDelay` ms longer on each try. This option represents the
+         * number of retries. This option is ignored if the `recursive` option is not
+         * `true`.
+         * @default 0
+         */
+        maxRetries?: number;
+        /**
+         * @deprecated since v14.14.0 In future versions of Node.js,
+         * `fs.rmdir(path, { recursive: true })` will throw on nonexistent
+         * paths, or when given a file as a target.
+         * Use `fs.rm(path, { recursive: true, force: true })` instead.
+         *
          * If `true`, perform a recursive directory removal. In
          * recursive mode, errors are not reported if `path` does not exist, and
          * operations are retried on failure.
-         * @experimental
          * @default false
          */
         recursive?: boolean;
-    }
-
-    export interface RmDirAsyncOptions extends RmDirOptions {
         /**
          * The amount of time in milliseconds to wait between retries.
          * This option is ignored if the `recursive` option is not `true`.
          * @default 100
          */
         retryDelay?: number;
+    }
+
+    /**
+     * Asynchronous rmdir(2) - delete a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function rmdir(path: PathLike, callback: NoParamCallback): void;
+    export function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace rmdir {
+        /**
+         * Asynchronous rmdir(2) - delete a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        function __promisify__(path: PathLike, options?: RmDirOptions): Promise<void>;
+    }
+
+    /**
+     * Synchronous rmdir(2) - delete a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function rmdirSync(path: PathLike, options?: RmDirOptions): void;
+
+    export interface RmOptions {
+        /**
+         * When `true`, exceptions will be ignored if `path` does not exist.
+         * @default false
+         */
+        force?: boolean;
         /**
          * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
          * `EPERM` error is encountered, Node.js will retry the operation with a linear
@@ -840,29 +923,39 @@ declare module "fs" {
          * @default 0
          */
         maxRetries?: number;
+        /**
+         * If `true`, perform a recursive directory removal. In
+         * recursive mode, errors are not reported if `path` does not exist, and
+         * operations are retried on failure.
+         * @default false
+         */
+        recursive?: boolean;
+        /**
+         * The amount of time in milliseconds to wait between retries.
+         * This option is ignored if the `recursive` option is not `true`.
+         * @default 100
+         */
+        retryDelay?: number;
     }
 
     /**
-     * Asynchronous rmdir(2) - delete a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
      */
-    export function rmdir(path: PathLike, callback: NoParamCallback): void;
-    export function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoParamCallback): void;
+    export function rm(path: PathLike, callback: NoParamCallback): void;
+    export function rm(path: PathLike, options: RmOptions, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    export namespace rmdir {
+    export namespace rm {
         /**
-         * Asynchronous rmdir(2) - delete a directory.
-         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
          */
-        function __promisify__(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+        function __promisify__(path: PathLike, options?: RmOptions): Promise<void>;
     }
 
     /**
-     * Synchronous rmdir(2) - delete a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * Synchronously removes files and directories (modeled on the standard POSIX `rm` utility).
      */
-    export function rmdirSync(path: PathLike, options?: RmDirOptions): void;
+    export function rmSync(path: PathLike, options?: RmOptions): void;
 
     export interface MakeDirectoryOptions {
         /**
@@ -884,7 +977,7 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    export function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true }, callback: (err: NodeJS.ErrnoException | null, path: string) => void): void;
+    export function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true }, callback: (err: NodeJS.ErrnoException | null, path?: string) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -900,7 +993,7 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    export function mkdir(path: PathLike, options: Mode | MakeDirectoryOptions | null | undefined, callback: (err: NodeJS.ErrnoException | null, path: string | undefined) => void): void;
+    export function mkdir(path: PathLike, options: Mode | MakeDirectoryOptions | null | undefined, callback: (err: NodeJS.ErrnoException | null, path?: string) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
@@ -916,7 +1009,7 @@ declare module "fs" {
          * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
          * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function __promisify__(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string>;
+        function __promisify__(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string | undefined>;
 
         /**
          * Asynchronous mkdir(2) - create a directory.
@@ -941,7 +1034,7 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    export function mkdirSync(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): string;
+    export function mkdirSync(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): string | undefined;
 
     /**
      * Synchronous mkdir(2) - create a directory.
@@ -1689,7 +1782,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | BufferEncoding | undefined | null,
-        listener?: (event: string, filename: string) => void,
+        listener?: (event: "rename" | "change", filename: string) => void,
     ): FSWatcher;
 
     /**
@@ -1701,7 +1794,11 @@ declare module "fs" {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    export function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean, recursive?: boolean } | "buffer", listener?: (event: string, filename: Buffer) => void): FSWatcher;
+    export function watch(
+        filename: PathLike,
+        options: { encoding: "buffer", persistent?: boolean, recursive?: boolean; } | "buffer",
+        listener?: (event: "rename" | "change", filename: Buffer) => void
+    ): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -1715,7 +1812,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | string | null,
-        listener?: (event: string, filename: string | Buffer) => void,
+        listener?: (event: "rename" | "change", filename: string | Buffer) => void,
     ): FSWatcher;
 
     /**
@@ -1723,7 +1820,7 @@ declare module "fs" {
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    export function watch(filename: PathLike, listener?: (event: string, filename: string) => any): FSWatcher;
+    export function watch(filename: PathLike, listener?: (event: "rename" | "change", filename: string) => any): FSWatcher;
 
     /**
      * Asynchronously tests whether or not the given path exists by checking with the file system.
@@ -2060,12 +2157,12 @@ declare module "fs" {
      */
     export function writev(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
     export function writev(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
@@ -2076,22 +2173,22 @@ declare module "fs" {
     }
 
     export namespace writev {
-        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+        function __promisify__(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
     }
 
     /**
      * See `writev`.
      */
-    export function writevSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+    export function writevSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
 
     export function readv(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
     export function readv(
         fd: number,
-        buffers: NodeJS.ArrayBufferView[],
+        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void
     ): void;
@@ -2102,13 +2199,13 @@ declare module "fs" {
     }
 
     export namespace readv {
-        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+        function __promisify__(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
     }
 
     /**
      * See `readv`.
      */
-    export function readvSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+    export function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
 
     export interface OpenDirOptions {
         encoding?: BufferEncoding;
@@ -2128,5 +2225,23 @@ declare module "fs" {
 
     export namespace opendir {
         function __promisify__(path: string, options?: OpenDirOptions): Promise<Dir>;
+    }
+
+    export interface BigIntStats extends StatsBase<bigint> {
+    }
+
+    export class BigIntStats {
+        atimeNs: bigint;
+        mtimeNs: bigint;
+        ctimeNs: bigint;
+        birthtimeNs: bigint;
+    }
+
+    export interface BigIntOptions {
+        bigint: true;
+    }
+
+    export interface StatOptions {
+        bigint: boolean;
     }
 }

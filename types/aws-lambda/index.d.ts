@@ -37,6 +37,7 @@
 //                 Sachin Shekhar <https://github.com/SachinShekhar>
 //                 Ivan Martos <https://github.com/ivanmartos>
 //                 Zach Anthony <https://github.com/zach-anthony>
+//                 Peter Savnik <https://github.com/savnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -47,6 +48,7 @@ export * from "./trigger/alb";
 // TODO: export * from "./trigger/alexa";
 export * from "./trigger/api-gateway-authorizer";
 export * from "./trigger/api-gateway-proxy";
+export * from "./trigger/appsync-resolver";
 // CloudTrail section just describes using S3 to trigger on cloudtrail changes.
 export * from "./trigger/cloudformation-custom-resource";
 export * from "./trigger/cloudfront-request";
@@ -61,22 +63,23 @@ export * from "./trigger/codepipeline-cloudwatch-action";
 export * from "./trigger/codepipeline-cloudwatch-pipeline";
 export * from "./trigger/codepipeline-cloudwatch-stage";
 // TODO: export * from "./trigger/cognito-sync";
-export * from "./trigger/cognito-user-pool-trigger";
+export * from "./trigger/cognito-user-pool-trigger/";
 export * from "./trigger/connect-contact-flow";
 // TODO: export * from "./trigger/config";
 export * from "./trigger/dynamodb-stream";
 export * from "./trigger/eventbridge";
 // ElastiCache section just describes using lambdas in an ElastiCache context (VPC issues, etc.)
 // EC2 events are delivered using cloudwatch events...
-// TODO: export * from "./trigger/iot"; for "IoT Events"
+export * from "./trigger/iot";
 export * from "./trigger/kinesis-firehose-transformation";
 export * from "./trigger/kinesis-stream";
 export * from "./trigger/lex";
 // RDS events are delivered using SNS events...
 export * from "./trigger/s3";
 export * from "./trigger/s3-batch";
-// SES events are delivered using SNS events...
+export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
+export * from './trigger/msk';
 
 export as namespace AWSLambda;
