@@ -292,8 +292,8 @@ export type TypeCast =
           field: UntypedFieldInfo & {
               type: string;
               length: number;
-              string(): string;
-              buffer(): Buffer;
+              string(): null | string;
+              buffer(): null | Buffer;
               geometry(): null | GeometryType;
           },
           next: () => void,
