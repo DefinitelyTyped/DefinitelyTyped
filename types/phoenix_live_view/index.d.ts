@@ -1,4 +1,4 @@
-// Type definitions for phoenix_live_view 0.14
+// Type definitions for phoenix_live_view 0.15
 // Project: https://github.com/phoenixframework/phoenix_live_view
 // Definitions by: Peter Zingg <https://github.com/pzingg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,6 +33,19 @@ export interface SocketOptions {
     loaderTimeout?: number;
     params?: object;
     viewLogger?: ViewLogger;
+    uploaders?: { [key: string]: Uploader };
+}
+
+export type Uploader = (entries: UploadEntry[], onViewError: (error: unknown) => void) => void;
+
+export interface UploadEntry {
+    meta: {
+        url: string;
+        [key: string]: any;
+    };
+    error: () => void;
+    progress: (percentage: number) => void;
+    file: File;
 }
 
 export type BindCallback = (
