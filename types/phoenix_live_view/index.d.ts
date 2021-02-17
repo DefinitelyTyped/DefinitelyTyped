@@ -1,7 +1,12 @@
-// Type definitions for phoenix_live_view 0.14
+// Type definitions for phoenix_live_view 0.15.4
 // Project: https://github.com/phoenixframework/phoenix_live_view
 // Definitions by: Peter Zingg <https://github.com/pzingg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+
+// Version 0.15.4 added options and interfaces for LiveView uploads
+// See: https://hexdocs.pm/phoenix_live_view/uploads.html
+
 
 import { Socket, SocketConnectOption } from 'phoenix';
 
@@ -32,6 +37,7 @@ export interface SocketOptions {
   hooks?: object;
   loaderTimeout?: number;
   params?: object;
+  uploaders?: object;
   viewLogger?: ViewLogger;
 }
 
@@ -224,6 +230,27 @@ export class View {
   triggerUpdatedHook(hook: any): void;
   update(diff: any, events: Array<[string, object]>): void;
   undoRefs(ref: number): void;
+}
+
+export interface UploadEntryInterface {
+  fileEl: HTMLInputElement
+  file: File
+  view: View
+  meta: object | null
+  metadata: () => object | null
+  progress: (progress: number) => void
+  cancel: () => void
+  isDone: () => boolean
+  error: (reason: string) => void
+}
+
+export interface LiveViewUploaderMeta {
+  path: string
+  ref: string
+  name: string
+  type: string
+  size: number
+  last_modified?: number
 }
 
 export function debug(view: View, kind: string, msg: object, obj: object): void;
