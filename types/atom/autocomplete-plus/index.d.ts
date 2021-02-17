@@ -97,6 +97,23 @@ export interface SuggestionBase {
      *  Takes precedence over plaintext description.
      */
     descriptionMarkdown?: string;
+
+
+    /** LSP specific properties */
+    /**
+     * A string that is used when filtering and sorting a set of
+     * completion items with a prefix present. When `falsy` the
+     * [displayText](#AutoComplete.SuggestionBase.displayText) is used. When
+     * no prefix, the `sortText` property is used.
+     */
+    filterText?: string;
+
+    /**
+     * String representing the replacement prefix from the suggestion's
+     * custom start point to the original buffer position the suggestion
+     * was gathered from.
+     */
+    customReplacmentPrefix?: string;
 }
 
 export interface TextSuggestion extends SuggestionBase {
@@ -113,6 +130,7 @@ export interface SnippetSuggestion extends SuggestionBase {
 }
 
 export type AnySuggestion = TextSuggestion|SnippetSuggestion;
+export type Suggestion =  AnySuggestion;
 export type Suggestions = AnySuggestion[];
 
 /** The interface that all Autocomplete+ providers must implement. */
