@@ -814,10 +814,6 @@ export interface RequestCallback {
 export class AbstractFilter { // tslint:disable-line:no-unnecessary-class
     constructor();
 }
-export interface AbstractFilterConstructor {
-    prototype: AbstractFilter;
-    new(): AbstractFilter;
-}
 /**
  * The Account interface is the interface for a single account.
  * The implementation should manage authentication, storing eventual user
