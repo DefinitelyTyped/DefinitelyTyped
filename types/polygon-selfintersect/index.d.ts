@@ -16,5 +16,3 @@ export function findSelfIntersections(points: readonly number[][], findAllLines?
  * Get the self-intersection lines.
  */
 export function getSelfIntersectLines(): number[][];
-
-export as namespace polygonSelfIntersect;
