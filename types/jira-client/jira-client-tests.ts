@@ -19,7 +19,13 @@ jira.findIssue(issueNumber)
   .catch(err => {
     console.error(err);
   });
-
+jira.searchJira("test", {
+  startAt: 2,
+  maxResults: 1
+});
+jira.getIssueCreateMetadata({
+  expand: 'test'
+});
 async function logIssueName() {
   try {
     const issue = await jira.findIssue(issueNumber);
