@@ -84,3 +84,8 @@ import { inspect } from 'node:util';
       { timeout: 5, microtaskMode: 'afterEvaluate' }
     );
 }
+
+{
+    const script = new Script('foo()', { cachedData: Buffer.from([]) });
+    console.log(script.cachedDataRejected);
+}

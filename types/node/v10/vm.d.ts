@@ -23,6 +23,7 @@ declare module "vm" {
         displayErrors?: boolean;
         timeout?: number;
         cachedData?: Buffer;
+        /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean;
     }
     interface RunningScriptOptions extends BaseOptions {
@@ -69,6 +70,7 @@ declare module "vm" {
         runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
         runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
         runInThisContext(options?: RunningScriptOptions): any;
+        cachedDataRejected?: boolean;
     }
     function createContext(sandbox?: Context): Context;
     function isContext(sandbox: Context): boolean;
