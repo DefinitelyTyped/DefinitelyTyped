@@ -525,7 +525,7 @@ declare module "cookies" {
 }
 
 /**
- * Creates a response that can be returned from the `responseProvider()` 
+ * Creates a response that can be returned from the `responseProvider()`
  * callback in a promise.
  */
 declare module "create-response" {
@@ -545,37 +545,36 @@ declare module "create-response" {
     type CreateResponseBody = string | ReadableStream;
 
     /**
-     * Generates a return value for responseProvider(). It validates the 
-     * passed values and returns an opaque object. Callers should be 
+     * Generates a return value for responseProvider(). It validates the
+     * passed values and returns an opaque object. Callers should be
      * prepared for the function to throw exceptions if they specify invalid
      * arguments.
      *
-     * @param status The HTTP status code of the outgoing response. Must be 
+     * @param status The HTTP status code of the outgoing response. Must be
      *          in the range of 100-599.
-     * @param headers Properties used as key:value pairs for the response 
-     *          headers. Keys are strings that contain header names, values 
+     * @param headers Properties used as key:value pairs for the response
+     *          headers. Keys are strings that contain header names, values
      *          are either strings or arrays of strings.
-     * @param body Content of the response body. When specified as a 
-     *          string, the body is limited to 100,000 bytes. When specified 
+     * @param body Content of the response body. When specified as a
+     *          string, the body is limited to 100,000 bytes. When specified
      *          as a ReadableStream, there is no limit.
-     * @param denyReason Deny reason when the status code is 403. 
+     * @param denyReason Deny reason when the status code is 403.
      */
-    export function createResponse(status: number, headers: Headers, body: CreateResponseBody, denyReason?: string): object;
-    export function createResponse(body?: CreateResponseBody, opts?: {
+    function createResponse(status: number, headers: Headers, body: CreateResponseBody, denyReason?: string): object;
+    function createResponse(body?: CreateResponseBody, opts?: {
         status?: number, headers?: Headers, body?: object, denyReason?: string
     }): object;
-
 }
 
 declare module "http-request" {
     import { ReadableStream } from "streams";
 
     /**
-     * Performs a subrequest, fetching the requested resource asynchronously. 
+     * Performs a subrequest, fetching the requested resource asynchronously.
      *
-     * @param url A String containing the URL to fetch. Can be an absolute 
-     *      or relative URL. Relative URLs will use the parent request as 
-     *      the base URL. Only "http" and "https" are supported for the 
+     * @param url A String containing the URL to fetch. Can be an absolute
+     *      or relative URL. Relative URLs will use the parent request as
+     *      the base URL. Only "http" and "https" are supported for the
      *      scheme. Specifying port numbers is not supported.
      * @param options May include
      *  - `method` The HTTP method to use.
@@ -583,7 +582,7 @@ declare module "http-request" {
      *  - `body` The request payload.
      *  - `timeout` The request timeout, in milliseconds.
      */
-    export function httpRequest(url: string, options?: {
+    function httpRequest(url: string, options?: {
         method?: string,
         headers?: { [others: string]: string | string[] },
         body?: string,
@@ -614,7 +613,7 @@ declare module "http-request" {
 
         /**
          * Parses the body of the response as JSON. The response is buffered
-         * and `JSON.parse()` is run on the text. 
+         * and `JSON.parse()` is run on the text.
          */
         json(): Promise<any>;
     }
@@ -879,31 +878,31 @@ declare module "text-encode-transform" {
 }
 
 /**
- * Provides a debug logging facility. When debugging is enabled, log 
- * messages are written to response headers or the responseProvider() 
+ * Provides a debug logging facility. When debugging is enabled, log
+ * messages are written to response headers or the responseProvider()
  * multipart output.
  */
 declare module "log" {
     interface Logger {
         /**
-         * Emit a message to the log. If logging is not enabled, this is a noop. 
+         * Emit a message to the log. If logging is not enabled, this is a noop.
          *
-         * When logging is enabled, the format string indicates how to display 
+         * When logging is enabled, the format string indicates how to display
          * the arguments. Format specifiers are:
          *
-         * - %s - Call `Value::ToString()` on the corresponding argument. 
-         * - %d or %i - Convert the argument to an integer. 
-         * - %f - Convert the argument to a float. 
-         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`. 
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
          *
-         * See https://console.spec.whatwg.org/#formatter. 
+         * See https://console.spec.whatwg.org/#formatter.
          *
-         * When logging is disabled, the format string is not processed, which 
-         * makes it more efficient than string arithmatic in production 
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
          * environments.
          *
-         * @param format A format string, containing zero or more specifiers. 
-         * @param values Zero or more values to record in the log. 
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
          */
         log(format: string, ...values: any): void;
     }

@@ -117,12 +117,12 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
 }
 
 export function responseProvider(request: EW.ResponseProviderRequest) {
-    let headers = request.getHeaders();
+    const headers = request.getHeaders();
     Object.keys(headers).forEach(key => {
         key.toUpperCase();
     });
 
     // get a specific header and do string operations
-    let acceptHeader = headers["accept-encoding"];
+    const acceptHeader = headers["accept-encoding"];
     acceptHeader.forEach(val => val.toUpperCase());
 }

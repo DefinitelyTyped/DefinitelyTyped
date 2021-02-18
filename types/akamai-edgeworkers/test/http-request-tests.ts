@@ -10,19 +10,19 @@ httpRequest("url", { timeout: 9 });
 
 httpRequest("url").then(response => {
     // Verify the non-body fields
-    let r = response.status;
-    let ok = response.ok;
+    const r = response.status;
+    const ok = response.ok;
 
     response.text().then(words => words.toUpperCase());
     response.json().then(obj => JSON.stringify(obj));
 
     response.getHeader("Date");
 
-    //verify getHeaders
-    let headers = response.getHeaders();
+    // Verify getHeaders
+    const headers = response.getHeaders();
     Object.keys(headers).forEach(key => {
         key.toUpperCase();
-        let values = headers[key];
+        const values = headers[key];
         values.forEach(val => val.toUpperCase());
     });
 
