@@ -294,6 +294,9 @@ resultNum = faker.time.recent('unix');
 resultStr = faker.time.recent('abbr');
 resultStr = faker.time.recent('wide');
 
+resultStr = faker.unique(faker.internet.email);
+resultStr = faker.unique(faker.internet.email, undefined, { maxTime: 10, maxRetries: 1 });
+
 resultStr = faker.vehicle.vehicle();
 resultStr = faker.vehicle.manufacturer();
 resultStr = faker.vehicle.model();
