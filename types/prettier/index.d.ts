@@ -6,6 +6,7 @@
 //                 Sosuke Suzuki <https://github.com/sosukesuzuki>,
 //                 Christopher Quadflieg <https://github.com/Shinigami92>
 //                 Kevin Deisz <https://github.com/kddeisz>
+//                 Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -207,12 +208,7 @@ export interface Printer<T = any> {
     hasPrettierIgnore?: (path: FastPath<T>) => boolean;
     canAttachComment?: (node: T) => boolean;
     willPrintOwnComments?: (path: FastPath<T>) => boolean;
-    printComments?: (
-        path: FastPath<T>,
-        print: (path: FastPath<T>) => Doc,
-        options: ParserOptions<T>,
-        needsSemi: boolean,
-    ) => Doc;
+    printComment?: (commentPath: FastPath<T>, options: ParserOptions<T>) => Doc;
     handleComments?: {
         ownLine?: (
             commentNode: any,

@@ -688,6 +688,7 @@ export interface TokenResponse {
     expires_in: number;
     scope?: string;
     id_token?: string;
+    refresh_token?: string;
 }
 
 export interface ObjectWithId {
@@ -1103,7 +1104,7 @@ export class AuthenticationClient {
     passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
-    refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<any>;
+    refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<TokenResponse>;
     refreshToken(
         options: AuthenticationClientRefreshTokenOptions,
         cb: (err: Error, response: TokenResponse) => void,
@@ -1491,7 +1492,7 @@ export class OAuthAuthenticator {
     authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
     authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-    refreshToken(options: RefreshTokenOptions): Promise<any>;
+    refreshToken(options: RefreshTokenOptions): Promise<TokenResponse>;
     refreshToken(options: RefreshTokenOptions, cb: (err: Error, response: TokenResponse) => void): void;
 }
 

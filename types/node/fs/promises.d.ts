@@ -1,4 +1,8 @@
 declare module 'fs/promises' {
+    export * from 'node:fs/promises';
+}
+
+declare module 'node:fs/promises' {
     import {
         Stats,
         WriteVResult,
@@ -14,7 +18,7 @@ declare module 'fs/promises' {
         BufferEncodingOption,
         OpenMode,
         Mode,
-    } from 'fs';
+    } from 'node:fs';
 
     interface FileHandle {
         /**

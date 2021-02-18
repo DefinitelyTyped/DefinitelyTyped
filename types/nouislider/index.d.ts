@@ -188,6 +188,14 @@ declare namespace noUiSlider {
          */
         get(): string | string[];
         /**
+         * Returns array of tooltip elements. Array will contain the tooltip elements if they exist or false if they don't.
+         */
+        getTooltips(): Array<HTMLElement | false>;
+        /**
+         * Returns array of your sliders origin elements.
+         */
+        getOrigins(): Array<HTMLElement>;
+        /**
          * noUiSlider will keep your values within the slider range, which saves you a bunch of validation.
          * If you have configured the slider to use one handle, you can change the current value by passing
          * a number to the .set() method. If you have two handles, pass an array. One-handled sliders

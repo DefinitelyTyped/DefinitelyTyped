@@ -96,7 +96,7 @@ export namespace MTLLoader {
         setMaterials(materialsInfo: { [key: string]: MaterialInfo }): void;
         convert(materialsInfo: { [key: string]: MaterialInfo }): { [key: string]: MaterialInfo };
         preload(): void;
-        getIndex(materialName: string): Material;
+        getIndex(materialName: string): number;
         getAsArray(): Material[];
         create(materialName: string): Material;
         createMaterial_(materialName: string): Material;

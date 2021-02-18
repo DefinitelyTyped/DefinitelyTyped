@@ -1184,11 +1184,11 @@ declare namespace Office {
      */
     interface DialogOptions {
         /**
-         * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
+         * Defines the height of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
          */
         height?: number,
         /**
-         * Defines the height of the dialog as a percentage of the current display. Defaults to 80%. 150px minimum.
+         * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 150px minimum.
          */
         width?: number,
         /**
@@ -1735,6 +1735,8 @@ declare namespace Office {
     interface Dialog {
         /**
          * Called from a parent page to close the corresponding dialog box. 
+         * 
+         * This method is asynchronous. It does not take a callback parameter and it does not return a Promise object, so it cannot be awaited with either the `await` keyword or the `then` function. See this best practice for more information: {@link https://docs.microsoft.com/office/dev/add-ins/develop/dialog-best-practices#opening-another-dialog-immediately-after-closing-one | Opening another dialog immediately after closing one}
          */
         close(): void;
         /**

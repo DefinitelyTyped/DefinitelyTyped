@@ -155,6 +155,8 @@ videojs('example_video_1', playerOptions).ready(function() {
     testPlugin(this, {});
 
     testLogger();
+
+    testMiddleware();
 });
 
 function testEvents(player: videojs.Player) {
@@ -255,4 +257,10 @@ function testLogger() {
 
     const currentLevel = videojs.log.level();
     videojs.log.level(videojs.log.levels.DEFAULT);
+}
+
+function testMiddleware() {
+    videojs.use('*', () => ({
+        setSource: (srcObj, next) => next(null, srcObj),
+    }));
 }

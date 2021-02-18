@@ -272,6 +272,7 @@ declare namespace GoogleAppsScript {
       isShareableByEditors(): boolean;
       isStarred(): boolean;
       isTrashed(): boolean;
+      moveTo(destination: Folder): Folder;
       removeEditor(emailAddress: string): Folder;
       removeEditor(user: Base.User): Folder;
       removeFile(child: File): Folder;

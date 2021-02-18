@@ -28,19 +28,19 @@ import '../test/vm';
 import '../test/worker_threads';
 import '../test/zlib';
 
-import assert = require("assert");
-import * as fs from "fs";
-import * as url from "url";
-import * as util from "util";
-import * as http from "http";
-import * as https from "https";
-import * as console2 from "console";
-import * as timers from "timers";
-import * as dns from "dns";
-import * as inspector from "inspector";
-import * as trace_events from "trace_events";
-import * as dgram from "dgram";
-import Module = require("module");
+import assert = require('node:assert');
+import * as fs from 'node:fs';
+import * as url from 'node:url';
+import * as util from 'node:util';
+import * as http from 'node:http';
+import * as https from 'node:https';
+import * as console2 from 'node:console';
+import * as timers from 'node:timers';
+import * as dns from 'node:dns';
+import * as inspector from 'node:inspector';
+import * as trace_events from 'node:trace_events';
+import * as dgram from 'node:dgram';
+import Module = require('node:module');
 
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
@@ -459,7 +459,7 @@ import Module = require("module");
 /// Constants Tests                                     ///
 ///////////////////////////////////////////////////////////
 
-import * as constants from 'constants';
+import * as constants from 'node:constants';
 {
     let str: string;
     let num: number;
@@ -667,7 +667,7 @@ import * as constants from 'constants';
 ////////////////////////////////////////////////////
 /// module tests : http://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
-import moduleModule = require('module');
+import moduleModule = require('node:module');
 
 {
     require.extensions[".ts"] = () => "";
@@ -704,8 +704,8 @@ import moduleModule = require('module');
 /////////////////////////////////////////////////////////
 /// stream tests : https://nodejs.org/api/stream.html ///
 /////////////////////////////////////////////////////////
-import stream = require('stream');
-import tty = require('tty');
+import stream = require('node:stream');
+import tty = require('node:tty');
 
 {
     const writeStream = fs.createWriteStream('./index.d.ts');
