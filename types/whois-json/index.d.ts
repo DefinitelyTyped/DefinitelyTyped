@@ -1,5 +1,5 @@
 // Type definitions for whois-json 2.0
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/mikemaccana/whois-json
 // Definitions by: Hwai-En Ho <https://github.com/hwaien>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
