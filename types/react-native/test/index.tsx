@@ -119,6 +119,7 @@ import {
     useWindowDimensions,
     SectionListData,
     ToastAndroid,
+    Touchable,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -361,6 +362,24 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
 }
 
 export default Welcome;
+
+// TouchableTest
+function TouchableTest() {
+    function basicUsage() {
+        if (Touchable.TOUCH_TARGET_DEBUG) {
+            return Touchable.renderDebugView({
+                color: 'mediumspringgreen',
+                hitSlop: { bottom: 5, top: 5 },
+            });
+        }
+    }
+
+    function defaultHitSlop() {
+        return Touchable.renderDebugView({
+            color: 'red',
+        });
+    }
+}
 
 // TouchableNativeFeedbackTest
 export class TouchableNativeFeedbackTest extends React.Component {
@@ -1406,6 +1425,16 @@ const PlatformTest = () => {
     }
 };
 
+const PlatformConstantsTest = () => {
+    const testing: boolean = Platform.constants.isTesting;
+    if (Platform.OS === 'ios') {
+        const hasForceTouch: boolean = Platform.constants.forceTouchAvailable;
+    } else if (Platform.OS === 'android') {
+        const { major, prerelease } = Platform.constants.reactNativeVersion;
+        const v = Platform.constants.Version;
+        const host: string | undefined = Platform.constants.ServerHost;
+    }
+};
 Platform.select({ native: 1 }); // $ExpectType number | undefined
 Platform.select({ native: 1, web: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1 }); // $ExpectType number | undefined

@@ -1,1 +1,3 @@
-export { ChartColumnFloating32 as default } from "../../";
+import { ChartColumnFloating32 } from "../../";
+
+export = ChartColumnFloating32;

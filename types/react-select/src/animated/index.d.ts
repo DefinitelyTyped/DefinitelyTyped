@@ -5,9 +5,15 @@ import { default as AnimatedMultiValue, AnimatedMultiValueProps } from './MultiV
 import { default as AnimatedPlaceholder, AnimatedPlaceholderProps } from './Placeholder';
 import { default as AnimatedSingleValue, AnimatedSingleValueProps } from './SingleValue';
 import { default as AnimatedValueContainer, AnimatedValueContainerProps } from './ValueContainer';
-import { OptionTypeBase } from '../types';
+import { GroupTypeBase, OptionTypeBase } from '../types';
 
-export function makeAnimated<OptionType extends OptionTypeBase, IsMulti extends boolean>(externalComponents?: SelectComponentsConfig<OptionType, IsMulti>): SelectComponents<OptionType, IsMulti>;
+export function makeAnimated<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+>(
+    externalComponents?: SelectComponentsConfig<OptionType, IsMulti, GroupType>,
+): SelectComponents<OptionType, IsMulti, GroupType>;
 
 export const Input: ComponentType<AnimatedInputProps>;
 export const MultiValue: ComponentType<AnimatedMultiValueProps<any>>;

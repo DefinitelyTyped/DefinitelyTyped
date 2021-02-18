@@ -1,1 +1,3 @@
-export { CharacterPatterns24 as default } from "../../";
+import { CharacterPatterns24 } from "../../";
+
+export = CharacterPatterns24;

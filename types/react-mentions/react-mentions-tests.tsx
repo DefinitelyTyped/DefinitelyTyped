@@ -1,6 +1,28 @@
-import * as React from "react";
-import { MentionsInput, Mention, SuggestionDataItem } from "react-mentions";
-import { mapPlainTextIndex } from "react-mentions/lib/utils";
+import * as React from 'react';
+import { MentionsInput, Mention, SuggestionDataItem } from 'react-mentions';
+import {
+    applyChangeToValue,
+    combineRegExps,
+    Config,
+    findPositionOfCapturingGroup,
+    findStartOfMentionInPlainText,
+    getEndOfLastMention,
+    getMentions,
+    getPlainText,
+    getSubstringIndex,
+    getSuggestionHtmlId,
+    isNumber,
+    isPlainObject,
+    iterateMentionsMarkup,
+    keys,
+    mapPlainTextIndex,
+    markupToRegex,
+    merge,
+    mergeDeep,
+    omit,
+    PLACEHOLDERS,
+    spliceString,
+} from 'react-mentions/lib/utils';
 
 interface TestProps {
     data: SuggestionDataItem[];
@@ -10,7 +32,7 @@ interface TestProps {
     regex: RegExp;
 }
 
-export const TestSimple: React.SFC<TestProps> = (props) => {
+export const TestSimple: React.SFC<TestProps> = props => {
     const inputEl = React.createRef<HTMLTextAreaElement>();
 
     function handleClick() {
@@ -27,12 +49,7 @@ export const TestSimple: React.SFC<TestProps> = (props) => {
                 placeholder={"Mention people using '@'"}
                 inputRef={inputEl}
             >
-                <Mention
-                    trigger="@"
-                    displayTransform={login => `@${login}`}
-                    data={props.data}
-                    onAdd={props.onAdd}
-                />
+                <Mention trigger="@" displayTransform={login => `@${login}`} data={props.data} onAdd={props.onAdd} />
             </MentionsInput>
 
             <button onClick={handleClick}>Focus</button>
@@ -40,28 +57,26 @@ export const TestSimple: React.SFC<TestProps> = (props) => {
     );
 };
 
-export const TestMultipleTrigger: React.SFC<TestProps> = (props) => {
+export const TestMultipleTrigger: React.SFC<TestProps> = props => {
     return (
-        <MentionsInput
-            value={props.value}
-            onChange={props.onChange}
-            placeholder={"Mention people using '@'"}
-        >
+        <MentionsInput value={props.value} onChange={props.onChange} placeholder={"Mention people using '@'"}>
             <Mention
                 trigger="@"
-                markup="@[__display__](__type__:__id__)"
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
                 data={props.data}
-                renderSuggestion={(suggestion: SuggestionDataItem, search: string, highlightedDisplay: React.ReactNode, index: number, focused: boolean) => (
-                    <div className={`user ${focused ? 'focused' : ''}`}>
-                    {highlightedDisplay}
-                    </div>
-                )}
+                renderSuggestion={(
+                    suggestion: SuggestionDataItem,
+                    search: string,
+                    highlightedDisplay: React.ReactNode,
+                    index: number,
+                    focused: boolean,
+                ) => <div className={`user ${focused ? 'focused' : ''}`}>{highlightedDisplay}</div>}
                 onAdd={props.onAdd}
             />
 
             <Mention
                 trigger={props.regex}
-                markup="@[__display__](__type__:__id__)"
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
                 data={search => [{ id: search, display: search }]}
                 onAdd={props.onAdd}
             />
@@ -69,4 +84,169 @@ export const TestMultipleTrigger: React.SFC<TestProps> = (props) => {
     );
 };
 
-mapPlainTextIndex("foo", "bar", 1, "NULL", login => `@${login}`, /.*/); // $ExpectType number
+/**
+ * Utils
+ */
+
+const markup = `@[${PLACEHOLDERS.display}](user:${PLACEHOLDERS.id})`;
+const regex = new RegExp(`@[${PLACEHOLDERS.display}](user:${PLACEHOLDERS.id})`);
+const config: Config = {
+    markup,
+    regex,
+    displayTransform: (_id, display) => display,
+};
+
+// $ExpectType number
+mapPlainTextIndex('foo', markup, 1, 'NULL');
+
+// $ExpectType string
+applyChangeToValue(
+    'foo',
+    'bar',
+    {
+        selectionStartBefore: 0,
+        selectionEndBefore: 0,
+        selectionEndAfter: 0,
+    },
+    [config],
+);
+
+// $ExpectType RegExp
+combineRegExps([/a/, /b/]);
+
+// $ExpectType 0 | 1
+findPositionOfCapturingGroup(markup, 'display');
+
+// $ExpectType number
+findStartOfMentionInPlainText('foo', [config], 0);
+
+// $ExpectType number
+getEndOfLastMention('foo', config);
+
+// $ExpectType Mention[]
+getMentions('foo', config);
+
+// $ExpectType string
+getPlainText('foo', config);
+
+// $ExpectType number
+getSubstringIndex('foo', 'bar', false);
+
+// $ExpectType string
+getSuggestionHtmlId('prefix', 'id');
+
+// $ExpectType false
+isNumber('string');
+
+// $ExpectType false
+isNumber({});
+
+// $ExpectType false
+isNumber(null);
+
+// $ExpectType false
+isNumber(undefined);
+
+// $ExpectType false
+isNumber([]);
+
+// $ExpectType true
+isNumber(10);
+
+// $ExpectType false
+isPlainObject('string');
+
+// $ExpectType true
+isPlainObject({});
+
+// $ExpectType false
+isPlainObject(null);
+
+// $ExpectType false
+isPlainObject(undefined);
+
+// $ExpectType false
+isPlainObject([]);
+
+// $ExpectType false
+isPlainObject(10);
+
+// $ExpectType void
+iterateMentionsMarkup('foo', [config], (match, index, plainTextIndex, id, display, childIndex, start) => {
+    // $ExpectType string
+    match;
+
+    // $ExpectType number
+    index;
+
+    // $ExpectType number
+    plainTextIndex;
+
+    // $ExpectType string | number
+    id;
+
+    // $ExpectType string
+    display;
+
+    // $ExpectType number
+    childIndex;
+
+    // $ExpectType number
+    start;
+});
+
+// $ExpectType void
+iterateMentionsMarkup(
+    'foo',
+    [config],
+    (match, index, plainTextIndex, id, display, childIndex, start) => {
+        // $ExpectType string
+        match;
+
+        // $ExpectType number
+        index;
+
+        // $ExpectType number
+        plainTextIndex;
+
+        // $ExpectType string | number
+        id;
+
+        // $ExpectType string
+        display;
+
+        // $ExpectType number
+        childIndex;
+
+        // $ExpectType number
+        start;
+    },
+    (substr, start, plainTextIndex) => {
+        // $ExpectType string
+        substr;
+
+        // $ExpectType number
+        start;
+
+        // $ExpectType number
+        plainTextIndex;
+    },
+);
+
+// $ExpectType ("foo" | "bar")[]
+keys({ foo: 'value', bar: 'value' });
+
+// $ExpectType RegExp
+markupToRegex(markup);
+
+// $ExpectType object
+merge({ foo1: 'value', bar1: 'value' }, { foo: 'value' }, { bar: 'value' });
+
+// $ExpectType { foo1: string; bar1: string; } & { foo: string; }
+mergeDeep({ foo1: 'value', bar1: 'value' }, { foo: 'value' });
+
+// $ExpectType object
+omit({ foo: 'value', bar: 'value' }, 'bar');
+
+// $ExpectType string
+spliceString('foo', 0, 1, 'bar');

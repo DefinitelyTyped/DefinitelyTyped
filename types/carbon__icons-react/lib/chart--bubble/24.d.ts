@@ -1,1 +1,3 @@
-export { ChartBubble24 as default } from "../../";
+import { ChartBubble24 } from "../../";
+
+export = ChartBubble24;

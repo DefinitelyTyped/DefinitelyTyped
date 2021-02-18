@@ -1,1 +1,3 @@
-export { WatsonHealthStackedMove24 as default } from "../../../";
+import { WatsonHealthStackedMove24 } from "../../../";
+
+export = WatsonHealthStackedMove24;

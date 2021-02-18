@@ -1,1 +1,3 @@
-export { Shuttle16 as default } from "../../";
+import { Shuttle16 } from "../../";
+
+export = Shuttle16;

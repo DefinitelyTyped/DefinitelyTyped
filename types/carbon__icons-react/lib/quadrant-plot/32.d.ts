@@ -1,1 +1,3 @@
-export { QuadrantPlot32 as default } from "../../";
+import { QuadrantPlot32 } from "../../";
+
+export = QuadrantPlot32;

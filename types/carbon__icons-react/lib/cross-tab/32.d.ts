@@ -1,1 +1,3 @@
-export { CrossTab32 as default } from "../../";
+import { CrossTab32 } from "../../";
+
+export = CrossTab32;

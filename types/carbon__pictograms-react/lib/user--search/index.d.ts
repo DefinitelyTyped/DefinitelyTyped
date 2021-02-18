@@ -1,1 +1,3 @@
-export { UserSearch as default } from "../../";
+import { UserSearch } from "../../";
+
+export = UserSearch;

@@ -1,1 +1,3 @@
-export { PreviousFilled24 as default } from "../../";
+import { PreviousFilled24 } from "../../";
+
+export = PreviousFilled24;

@@ -1,1 +1,3 @@
-export { Vpn24 as default } from "../../";
+import { Vpn24 } from "../../";
+
+export = Vpn24;

@@ -1,1 +1,3 @@
-export { CloseOutline32 as default } from "../../";
+import { CloseOutline32 } from "../../";
+
+export = CloseOutline32;

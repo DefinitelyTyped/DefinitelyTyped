@@ -457,7 +457,7 @@ declare namespace braintree {
         amount: string;
         avsErrorResponseCode?: string;
         avsPostalCodeResponseCode?: string;
-        avsScreetAddressResponseCode?: string;
+        avsStreetAddressResponseCode?: string;
         billing?: {
             company?: string;
             countryName?: string;
@@ -1105,7 +1105,7 @@ declare namespace braintree {
             startImmediately?: boolean;
         };
         paymentMethodNonce?: string;
-        paymentMethodToken: string;
+        paymentMethodToken?: string;
         planId: string;
         price?: string;
         trialDuration?: number;

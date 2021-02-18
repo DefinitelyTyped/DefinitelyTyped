@@ -30,7 +30,7 @@ declare class Service {
     service: string | null;
     plugins: string[];
     pluginsData: { [key: string]: any };
-    functions: { [key: string]: Serverless.FunctionDefinition };
+    functions: { [key: string]: Serverless.FunctionDefinitionHandler | Serverless.FunctionDefinitionImage };
     resources:
         | {
               Resources: {

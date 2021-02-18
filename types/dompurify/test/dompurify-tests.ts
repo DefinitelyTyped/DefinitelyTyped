@@ -96,5 +96,6 @@ dompurify.addHook('uponSanitizeElement', (currentNode: Element, event: DOMPurify
 dompurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
   if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
       event.allowedAttributes[event.attrName] = true;
+      event.forceKeepAttr = true;
   }
 });

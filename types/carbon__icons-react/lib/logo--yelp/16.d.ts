@@ -1,1 +1,3 @@
-export { LogoYelp16 as default } from "../../";
+import { LogoYelp16 } from "../../";
+
+export = LogoYelp16;

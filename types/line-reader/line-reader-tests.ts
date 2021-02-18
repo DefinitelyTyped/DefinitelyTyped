@@ -27,7 +27,7 @@ eachLine('line-reader-tests.ts', {}, function(line) {
         console.error(err);
     });
 
-lineReader.open('line-reader-tests.ts', function(err: Error, reader: LineReader) {
+lineReader.open('line-reader-tests.ts', function(err: Error, reader) {
     if (err) throw err;
     if (reader.hasNextLine()) {
         try {
@@ -52,3 +52,14 @@ lineReader.eachLine('line-reader.d.ts', {encoding: 'utf8'}, function(line: strin
     console.log(line);
     if (last) console.log('<EOF>');
 });
+
+lineReader.eachLine(
+    'line-reader.d.ts',
+    function(line: string) {
+        console.log(line);
+    },
+    function(err: Error) {
+        if (err) throw err;
+        console.log("I'm done!!");
+    },
+);

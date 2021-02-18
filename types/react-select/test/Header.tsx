@@ -1,9 +1,8 @@
 import * as React from 'react';
-import Select from 'react-select';
-import { ControlProps } from 'react-select/src/components/Control';
+import Select, { ControlProps, OptionTypeBase, StylesConfig } from 'react-select';
 
-const headerSelectStyles = {
-    control: (base: React.CSSProperties, { isFocused }: ControlProps<{}, boolean>) => ({
+const headerSelectStyles: StylesConfig<OptionTypeBase, boolean> = {
+    control: (base, { isFocused }) => ({
         ...base,
         backgroundClip: 'padding-box',
         borderColor: 'rgba(0,0,0,0.1)',

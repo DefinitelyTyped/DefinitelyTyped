@@ -1,1 +1,3 @@
-export { EventsAlt16 as default } from "../../";
+import { EventsAlt16 } from "../../";
+
+export = EventsAlt16;

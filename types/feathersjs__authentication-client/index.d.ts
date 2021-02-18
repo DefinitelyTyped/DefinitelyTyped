@@ -17,6 +17,7 @@ export interface FeathersAuthClientConfig {
     path?: string;
     entity?: string;
     service?: string;
+    timeout?: number;
 }
 
 export interface FeathersAuthCredentials {

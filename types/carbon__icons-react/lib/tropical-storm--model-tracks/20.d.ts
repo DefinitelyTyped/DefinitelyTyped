@@ -1,1 +1,3 @@
-export { TropicalStormModelTracks20 as default } from "../../";
+import { TropicalStormModelTracks20 } from "../../";
+
+export = TropicalStormModelTracks20;

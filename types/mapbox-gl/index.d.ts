@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 2.0
+// Type definitions for Mapbox GL JS 2.1
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -8,6 +8,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
 //                 André Fonseca <https://github.com/amxfonseca>
+//                 makspetrov <https://github.com/Nosfit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -127,6 +128,7 @@ declare namespace mapboxgl {
         | 'case'
         | 'match'
         | 'coalesce'
+        | 'within'
         // Ramps, scales, curves
         | 'interpolate'
         | 'interpolate-hcl'
@@ -323,7 +325,7 @@ declare namespace mapboxgl {
 
         removeImage(name: string): this;
 
-        loadImage(url: string, callback: Function): this;
+        loadImage(url: string, callback: (error?: Error, result?: HTMLImageElement | ImageBitmap) => void): this;
 
         listImages(): string[];
 
@@ -538,6 +540,7 @@ declare namespace mapboxgl {
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
         once(type: string, listener: (ev: any) => void): this;
+        once(type: string): Promise<this>;
 
         off<T extends keyof MapLayerEventType>(
             type: T,
@@ -668,6 +671,13 @@ declare namespace mapboxgl {
         locale?: { [key: string]: string };
 
         /**
+         * Overrides the generation of all glyphs and font settings except font-weight keywords
+         * Also overrides localIdeographFontFamily
+         * @default null
+         */
+        localFontFamily?: string;
+
+        /**
          * If specified, defines a CSS font-family for locally overriding generation of glyphs in the
          * 'CJK Unified Ideographs' and 'Hangul Syllables' ranges. In these ranges, font settings from
          * the map's style will be ignored, except for font-weight keywords (light/regular/medium/bold).
@@ -698,6 +708,14 @@ declare namespace mapboxgl {
 
         /** Minimum zoom of the map. */
         minZoom?: number;
+
+        /**
+         * If true, map will prioritize rendering for performance by reordering layers
+         * If false, layers will always be drawn in the specified order
+         *
+         * @default true
+         */
+        optimizeForTerrain?: boolean;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
         preserveDrawingBuffer?: boolean;
@@ -1208,6 +1226,7 @@ declare namespace mapboxgl {
         light?: Light;
         sources?: Sources;
         sprite?: string;
+        terrain?: TerrainSpecification;
         transition?: Transition;
         version: number;
         zoom?: number;
@@ -1733,15 +1752,16 @@ declare namespace mapboxgl {
         scale?: number;
     }
 
+    type EventedListener = (object?: Object) => any;
     /**
      * Evented
      */
     export class Evented {
-        on(type: string, listener: Function): this;
+        on(type: string, listener: EventedListener): this;
 
-        off(type?: string | any, listener?: Function): this;
+        off(type?: string | any, listener?: EventedListener): this;
 
-        once(type: string, listener: Function): this;
+        once(type: string, listener: EventedListener): this;
 
         // https://github.com/mapbox/mapbox-gl-js/issues/6522
         fire(type: string, properties?: { [key: string]: any }): this;
@@ -2036,7 +2056,8 @@ declare namespace mapboxgl {
         | RasterLayout
         | CircleLayout
         | HeatmapLayout
-        | HillshadeLayout;
+        | HillshadeLayout
+        | SkyLayout;
 
     export type AnyPaint =
         | BackgroundPaint
@@ -2047,7 +2068,8 @@ declare namespace mapboxgl {
         | RasterPaint
         | CirclePaint
         | HeatmapPaint
-        | HillshadePaint;
+        | HillshadePaint
+        | SkyPaint;
 
     interface Layer {
         id: string;
@@ -2066,8 +2088,8 @@ declare namespace mapboxgl {
         interactive?: boolean;
 
         filter?: any[];
-        layout?: Layout;
-        paint?: object;
+        layout?: AnyLayout;
+        paint?: AnyPaint;
     }
 
     interface BackgroundLayer extends Layer {
@@ -2124,6 +2146,12 @@ declare namespace mapboxgl {
         paint?: SymbolPaint;
     }
 
+    interface SkyLayer extends Layer {
+        type: 'sky';
+        layout?: SkyLayout;
+        paint?: SkyPaint;
+    }
+
     export type AnyLayer =
         | BackgroundLayer
         | CircleLayer
@@ -2134,7 +2162,8 @@ declare namespace mapboxgl {
         | LineLayer
         | RasterLayer
         | SymbolLayer
-        | CustomLayerInterface;
+        | CustomLayerInterface
+        | SkyLayer;
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
     export interface CustomLayerInterface {
@@ -2446,5 +2475,19 @@ declare namespace mapboxgl {
         'hillshade-highlight-color-transition'?: Transition;
         'hillshade-accent-color'?: string | Expression;
         'hillshade-accent-color-transition'?: Transition;
+    }
+
+    export interface SkyLayout extends Layout {}
+
+    export interface SkyPaint {
+        'sky-atmosphere-color'?: string | Expression;
+        'sky-atmosphere-halo-color'?: string | Expression;
+        'sky-atmosphere-sun'?: number[] | Expression;
+        'sky-atmosphere-sun-intensity'?: number | Expression;
+        'sky-gradient'?: string | Expression;
+        'sky-gradient-center'?: number[] | Expression;
+        'sky-gradient-radius'?: number | Expression;
+        'sky-opacity'?: number | Expression;
+        'sky-type'?: 'gradient' | 'atmosphere';
     }
 }

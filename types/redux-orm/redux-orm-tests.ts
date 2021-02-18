@@ -205,7 +205,7 @@ const sessionFixture = () => {
     /** Upsert requires id to be provided */
     Book.upsert({ publisher: 1 }); // $ExpectError
 
-    // $ExpectType SessionBoundModel<Book, Pick<{ title: string; publisher: number; }, never>>
+    // $ExpectType SessionBoundModel<Book, Pick<{ title: string; publisher: number; }, never>> || SessionBoundModel<Book, CustomInstanceProps<Book, { title: string; publisher: number; }>>
     Book.upsert({ title: 'B1', publisher: 1 });
 
     /* Incompatible property types: */
@@ -267,10 +267,10 @@ const sessionFixture = () => {
 (() => {
     type ExtractId<M extends Model> = [IdKey<M>, IdType<M>];
 
-    type ImplicitDefault = ExtractId<Authorship>; // $ExpectType ["id", number] || ExtractId<Authorship>
-    type CustomKey = ExtractId<Publisher>; // $ExpectType ["index", number] || ExtractId<Publisher>
-    type CustomType = ExtractId<Person>; // $ExpectType ["id", string] || ExtractId<Person>
-    type CustomKeyAndType = ExtractId<Book>; // $ExpectType ["title", string] || ExtractId<Book>
+    type ImplicitDefault = ExtractId<Authorship>; // $ExpectType ["id", number] || ExtractId<Authorship> || ImplicitDefault
+    type CustomKey = ExtractId<Publisher>; // $ExpectType ["index", number] || ExtractId<Publisher> || CustomKey
+    type CustomType = ExtractId<Person>; // $ExpectType ["id", string] || ExtractId<Person> || CustomType
+    type CustomKeyAndType = ExtractId<Book>; // $ExpectType ["title", string] || ExtractId<Book> || CustomKeyAndType
 })();
 
 // Model#create result retains custom properties supplied during call
@@ -279,7 +279,7 @@ const sessionFixture = () => {
 
     const basicBook = Book.create({ title: 'book', publisher: 1 });
 
-    type basicBookKeys = Exclude<keyof typeof basicBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors"
+    type basicBookKeys = Exclude<keyof typeof basicBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors" || basicBookKeys
     const basicBookTitle = basicBook.title; // $ExpectType string
     const authors = basicBook.authors; // $ExpectType MutableQuerySet<Person, {}>
     const unknownPropertyError = basicBook.customProp; // $ExpectError
@@ -292,7 +292,7 @@ const sessionFixture = () => {
         customProp
     });
 
-    type customBookKeys = Exclude<keyof typeof extendedBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors" | "customProp"
+    type customBookKeys = Exclude<keyof typeof extendedBook, keyof Model>; // $ExpectType "title" | "coverArt" | "publisher" | "authors" | "customProp" || customBookKeys
     const extendedBookTitle = extendedBook.title; // $ExpectType string
     const instanceCustomProp = extendedBook.customProp; // $ExpectType { foo: number; bar: boolean; }
 })();

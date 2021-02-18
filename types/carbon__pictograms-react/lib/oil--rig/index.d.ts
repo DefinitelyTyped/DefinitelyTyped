@@ -1,1 +1,3 @@
-export { OilRig as default } from "../../";
+import { OilRig } from "../../";
+
+export = OilRig;

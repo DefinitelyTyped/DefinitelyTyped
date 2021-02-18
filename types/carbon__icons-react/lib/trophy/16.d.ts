@@ -1,1 +1,3 @@
-export { Trophy16 as default } from "../../";
+import { Trophy16 } from "../../";
+
+export = Trophy16;

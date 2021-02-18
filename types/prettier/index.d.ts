@@ -1,11 +1,12 @@
-// Type definitions for prettier 2.1
+// Type definitions for prettier 2.2
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
-//                 Florian Keller <https://github.com/ffflorian>,
+//                 Florian Imdahl <https://github.com/ffflorian>,
 //                 Sosuke Suzuki <https://github.com/sosukesuzuki>,
 //                 Christopher Quadflieg <https://github.com/Shinigami92>
 //                 Kevin Deisz <https://github.com/kddeisz>
+//                 Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -35,25 +36,27 @@ export interface FastPath<T = any> {
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
-    | 'babel'
+    | 'angular'
     | 'babel-flow'
     | 'babel-ts'
-    | 'flow'
-    | 'typescript'
+    | 'babel'
     | 'css'
-    | 'less'
-    | 'scss'
+    | 'espree'
+    | 'flow'
+    | 'graphql'
+    | 'html'
+    | 'json-stringify'
     | 'json'
     | 'json5'
-    | 'json-stringify'
-    | 'graphql'
+    | 'less'
+    | 'lwc'
     | 'markdown'
-    | 'vue'
-    | 'html'
-    | 'angular'
     | 'mdx'
-    | 'yaml'
-    | 'lwc';
+    | 'meriyah'
+    | 'scss'
+    | 'typescript'
+    | 'vue'
+    | 'yaml';
 export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
 export type CustomParser = (text: string, parsers: BuiltInParsers, options: Options) => AST;
@@ -205,9 +208,15 @@ export interface Printer<T = any> {
     hasPrettierIgnore?: (path: FastPath<T>) => boolean;
     canAttachComment?: (node: T) => boolean;
     willPrintOwnComments?: (path: FastPath<T>) => boolean;
-    printComments?: (path: FastPath<T>, print: (path: FastPath<T>) => Doc, options: ParserOptions<T>, needsSemi: boolean) => Doc;
+    printComment?: (commentPath: FastPath<T>, options: ParserOptions<T>) => Doc;
     handleComments?: {
-        ownLine?: (commentNode: any, text: string, options: ParserOptions<T>, ast: T, isLastComment: boolean) => boolean;
+        ownLine?: (
+            commentNode: any,
+            text: string,
+            options: ParserOptions<T>,
+            ast: T,
+            isLastComment: boolean,
+        ) => boolean;
         endOfLine?: (
             commentNode: any,
             text: string,

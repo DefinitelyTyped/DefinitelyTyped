@@ -16,6 +16,13 @@ class Example extends React.Component {
                         document={{
                             url: sources.url,
                         }}
+                        showThumbnail={{
+                            scale: 3,
+                            onTop: true,
+                            backgroundColor: '#000000',
+                            thumbCss: 'customThumbStyle',
+                            selectedThumbCss: 'customSelThumbStyle',
+                        }}
                     />
                 </div>
                 <div>
@@ -156,9 +163,18 @@ class Example extends React.Component {
                             text: 'WaterMark Demo !!!',
                             diagonal: true,
                             opacity: '0.5',
+                            font: 'Comfortaa',
                             size: '72',
                             color: '#FF5733',
                         }}
+                    />
+                </div>
+                <div>
+                    <PDFViewer
+                        document={{
+                            url: sources.url,
+                        }}
+                        externalInput
                     />
                 </div>
             </div>

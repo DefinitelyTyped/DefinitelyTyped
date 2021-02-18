@@ -1,1 +1,3 @@
-export { UserXRay16 as default } from "../../";
+import { UserXRay16 } from "../../";
+
+export = UserXRay16;

@@ -1,1 +1,3 @@
-export { Txt32 as default } from "../../";
+import { Txt32 } from "../../";
+
+export = Txt32;

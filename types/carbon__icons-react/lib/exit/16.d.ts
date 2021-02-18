@@ -1,1 +1,3 @@
-export { Exit16 as default } from "../../";
+import { Exit16 } from "../../";
+
+export = Exit16;

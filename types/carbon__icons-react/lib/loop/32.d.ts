@@ -1,1 +1,3 @@
-export { Loop32 as default } from "../../";
+import { Loop32 } from "../../";
+
+export = Loop32;

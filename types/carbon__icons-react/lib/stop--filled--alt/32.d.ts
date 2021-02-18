@@ -1,1 +1,3 @@
-export { StopFilledAlt32 as default } from "../../";
+import { StopFilledAlt32 } from "../../";
+
+export = StopFilledAlt32;

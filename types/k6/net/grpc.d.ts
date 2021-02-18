@@ -35,7 +35,6 @@ export interface Params {
  * https://k6.io/docs/javascript-api/k6-net-grpc
  */
 declare namespace grpc {
-
     /**
      * gRPC client to interact with a gRPC server.
      * https://k6.io/docs/javascript-api/k6-net-grpc/client

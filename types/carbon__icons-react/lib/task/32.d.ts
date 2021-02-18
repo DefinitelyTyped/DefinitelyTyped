@@ -1,1 +1,3 @@
-export { Task32 as default } from "../../";
+import { Task32 } from "../../";
+
+export = Task32;

@@ -1,1 +1,3 @@
-export { TrashCan32 as default } from "../../";
+import { TrashCan32 } from "../../";
+
+export = TrashCan32;

@@ -1,1 +1,3 @@
-export { QS32 as default } from "../../../";
+import { QS32 } from "../../../";
+
+export = QS32;

@@ -1,1 +1,3 @@
-export { FacePendingFilled32 as default } from "../../";
+import { FacePendingFilled32 } from "../../";
+
+export = FacePendingFilled32;

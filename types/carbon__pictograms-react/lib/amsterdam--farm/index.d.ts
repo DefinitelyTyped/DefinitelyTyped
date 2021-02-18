@@ -1,1 +1,3 @@
-export { AmsterdamFarm as default } from "../../";
+import { AmsterdamFarm } from "../../";
+
+export = AmsterdamFarm;

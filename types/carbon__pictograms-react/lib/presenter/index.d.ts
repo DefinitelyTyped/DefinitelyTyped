@@ -1,1 +1,3 @@
-export { Presenter as default } from "../../";
+import { Presenter } from "../../";
+
+export = Presenter;

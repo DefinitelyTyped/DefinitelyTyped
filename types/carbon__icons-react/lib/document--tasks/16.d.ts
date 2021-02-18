@@ -1,1 +1,3 @@
-export { DocumentTasks16 as default } from "../../";
+import { DocumentTasks16 } from "../../";
+
+export = DocumentTasks16;

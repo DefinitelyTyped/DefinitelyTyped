@@ -1,1 +1,3 @@
-export { Monster20 as default } from "../../";
+import { Monster20 } from "../../";
+
+export = Monster20;

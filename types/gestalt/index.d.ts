@@ -1,4 +1,4 @@
-// Type definitions for gestalt 15.8
+// Type definitions for gestalt 16.4
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -23,6 +23,7 @@ export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | E
 ) => void;
 export type ReactForwardRef<T, P> = React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<T>>;
 
+export type FourDirections = 'up' | 'right' | 'down' | 'left';
 /**
  * ActivationCard Props Interface
  * https://gestalt.netlify.app/ActivationCard
@@ -237,9 +238,9 @@ export interface ButtonGroupProps {
     children?: React.ReactNode;
 }
 
-export interface LinkData {
+export interface ActionData {
     accessibilityLabel?: string;
-    href: string;
+    href?: string;
     label: string;
     onClick?: AbstractEventHandler<
         | React.MouseEvent<HTMLAnchorElement>
@@ -261,8 +262,8 @@ export interface CalloutProps {
         accessibilityLabel: string;
         onDismiss: () => void;
     };
-    primaryLink?: LinkData;
-    secondaryLink?: LinkData;
+    primaryAction?: ActionData;
+    secondaryAction?: ActionData;
     title?: string;
 }
 
@@ -333,6 +334,79 @@ export interface ContainerProps {
     children?: React.ReactNode;
 }
 
+export interface DropdownOption {
+    label: string;
+    value: string;
+    subtext?: string;
+}
+/**
+ * Dropdown Props Interface
+ * https://gestalt.netlify.app/Dropdown
+ */
+export interface DropdownProps {
+    children:
+        | React.ReactElement<DropdownItemProps | DropdownSectionProps>
+        | ReadonlyArray<React.ReactElement<DropdownItemProps | DropdownSectionProps>>;
+    /**
+     * Unique id to identify this Dropdown
+     */
+    id: string;
+    onDismiss: () => void;
+    /**
+     * Ref for the element that the Dropdown will attach to, will most likely be a Button
+     */
+    anchor?: HTMLElement;
+    headerContent?: React.ReactNode;
+    /**
+     * Preferred direction for the Dropdown to open
+     *
+     * @default "down"
+     */
+    idealDirection?: FourDirections;
+    onSelect?: AbstractEventHandler<
+        React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+        {
+            item: DropdownOption | undefined | null;
+        }
+    >;
+    zIndex?: Indexable;
+}
+
+export interface DropdownItemProps {
+    handleSelect: AbstractEventHandler<
+        React.FocusEvent<HTMLInputElement>,
+        {
+            item: DropdownOption;
+        }
+    >;
+    option: DropdownOption;
+
+    /**
+     * When supplied, will display a Badge next to the item's label.
+     */
+    badgeText?: string;
+    /**
+     * When supplied, wraps the item in a Link, and directs users to the url when item is selected.
+     */
+    href?: string;
+    /**
+     * When true, adds an arrow icon to the end of the item to signal
+     * this item takes users to an external source.
+     * Do not add if the item navigates users within the app.
+     */
+    isExternal?: boolean;
+    /**
+     * Either the selected item info or an array of selected items,
+     * used to determine when the "selected" icon appears on an item
+     */
+    selected?: DropdownOption | ReadonlyArray<DropdownOption>;
+}
+
+export interface DropdownSectionProps {
+    children: React.ReactElement<DropdownItemProps> | ReadonlyArray<React.ReactElement<DropdownItemProps>>;
+    label: string;
+}
+
 /**
  * Flex Props Interface
  * https://gestalt.netlify.app/Flex
@@ -364,7 +438,7 @@ export interface FlyoutProps {
     onDismiss: () => void;
     children?: React.ReactNode;
     color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
-    idealDirection?: 'up' | 'right' | 'down' | 'left';
+    idealDirection?: FourDirections;
     positionRelativeToAnchor?: boolean;
     shouldFocus?: boolean;
     showCaret?: boolean;
@@ -753,12 +827,27 @@ export interface MasonryProps<T = any> {
 export interface ModalProps {
     accessibilityModalLabel: string;
     onDismiss: () => void;
+    /**
+     * Use to specify the alignment of `heading` & `subHeading` strings
+     *
+     * @default "center"
+     */
+    align?: 'center' | 'left';
     children?: React.ReactNode;
+    /**
+     * Close the modal when you click outside of it
+     *
+     * @default true
+     */
     closeOnOutsideClick?: boolean;
     footer?: React.ReactNode;
-    heading?: string | React.ReactNode;
+    heading?: React.ReactNode;
     role?: 'alertdialog' | 'dialog';
     size?: 'sm' | 'md' | 'lg' | number;
+    /**
+     * Only renders with `heading` strings
+     */
+    subHeading?: string;
 }
 
 /**
@@ -1164,7 +1253,15 @@ export interface TextAreaProps {
     onFocus?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     placeholder?: string;
+    /**
+     * Number of text rows to display.
+     * Note that tags take up more space, and will show fewer rows than specified.
+     */
     rows?: number;
+    /**
+     * List of tags to display in the component
+     */
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
     value?: string;
 }
 
@@ -1227,7 +1324,7 @@ export interface ToastProps {
 export interface TooltipProps {
     children: React.ReactNode;
     text: string;
-    idealDirection?: 'up' | 'right' | 'down' | 'left';
+    idealDirection?: FourDirections;
     inline?: boolean;
     link?: React.ReactNode;
     zIndex?: Indexable;
@@ -1263,6 +1360,10 @@ export interface TypeaheadProps {
     }) => void;
     placeholder?: string;
     size?: 'md' | 'lg';
+    /**
+     * List of tags to display in the component
+     */
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
     value?: string;
 }
 
@@ -1284,8 +1385,8 @@ export interface UpsellProps {
             wash: boolean;
         };
     };
-    primaryLink?: LinkData;
-    secondaryLink?: LinkData;
+    primaryAction?: ActionData;
+    secondaryAction?: ActionData;
     title?: string;
 }
 
@@ -1368,6 +1469,10 @@ export class Collage extends React.Component<CollageProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
 export class Divider extends React.Component<{}, any> {}
+export class Dropdown extends React.Component<DropdownProps, any> {
+    static Item: React.FC<DropdownItemProps>;
+    static Section: React.FC<DropdownSectionProps>;
+}
 export class Flex extends React.Component<FlexProps, any> {}
 export class Flyout extends React.Component<FlyoutProps, any> {}
 export class GroupAvatar extends React.Component<GroupAvatarProps, any> {}

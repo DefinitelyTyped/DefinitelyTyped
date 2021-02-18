@@ -1,1 +1,3 @@
-export { RecordingFilledAlt24 as default } from "../../";
+import { RecordingFilledAlt24 } from "../../";
+
+export = RecordingFilledAlt24;

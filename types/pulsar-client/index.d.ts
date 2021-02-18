@@ -102,6 +102,12 @@ export interface ClientOpts {
      * Default: 600
      */
     statsIntervalInSeconds?: number;
+
+    /**
+     * Function to control log messages. To silence logs, you can provide an empty function (not recommended).
+     * Default: undefined
+     */
+    log?: (level: number, file: string, line: number, message: string) => void;
 }
 
 export class Client {

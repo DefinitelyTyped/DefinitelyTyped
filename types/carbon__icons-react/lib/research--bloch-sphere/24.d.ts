@@ -1,1 +1,3 @@
-export { ResearchBlochSphere24 as default } from "../../";
+import { ResearchBlochSphere24 } from "../../";
+
+export = ResearchBlochSphere24;

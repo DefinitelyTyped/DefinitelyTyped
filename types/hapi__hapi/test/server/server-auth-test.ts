@@ -7,6 +7,10 @@ declare module '@hapi/hapi' {
     interface AuthCredentials {
         name?: string;
     }
+
+    interface AuthArtifacts {
+        token?: string;
+    }
 }
 
 const server = new Server({
@@ -34,7 +38,12 @@ server.route({
     path: '/',
     handler: async (request: Request, h: ResponseToolkit) => {
         try {
-            const { credentials } = await request.server.auth.test('default', request);
+            const { credentials, artifacts } = await request.server.auth.test('default', request);
+
+            if (artifacts) {
+                return { status: true, user: credentials.name, token: artifacts.token };
+            }
+
             return { status: true, user: credentials.name };
         } catch (err) {
             return { status: false };

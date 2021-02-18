@@ -1,1 +1,3 @@
-export { CloudComputing as default } from "../../";
+import { CloudComputing } from "../../";
+
+export = CloudComputing;

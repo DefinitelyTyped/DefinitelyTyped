@@ -1,1 +1,3 @@
-export { AlarmAdd16 as default } from "../../";
+import { AlarmAdd16 } from "../../";
+
+export = AlarmAdd16;

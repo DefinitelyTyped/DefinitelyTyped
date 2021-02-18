@@ -1,1 +1,3 @@
-export { LicenseGlobal32 as default } from "../../";
+import { LicenseGlobal32 } from "../../";
+
+export = LicenseGlobal32;

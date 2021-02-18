@@ -431,7 +431,7 @@ declare namespace sharp {
          * Write output image data to a file.
          * @param fileOut The path to write the image data to.
          * @throws {Error} Invalid parameters
-         * @returns A promise that fulfills with an object containing informations on the resulting file
+         * @returns A promise that fulfills with an object containing information on the resulting file
          */
         toFile(fileOut: string): Promise<OutputInfo>;
 
@@ -536,7 +536,7 @@ declare namespace sharp {
          * @returns A sharp instance that can be used to chain operations
          */
         toFormat(
-            format: string | AvailableFormatInfo,
+            format: keyof FormatEnum | AvailableFormatInfo,
             options?:
                 | OutputOptions
                 | JpegOptions
@@ -713,15 +713,15 @@ declare namespace sharp {
 
     interface Metadata extends WriteableMetadata {
         /** Name of decoder used to decompress image data e.g. jpeg, png, webp, gif, svg */
-        format?: string;
+        format?: keyof FormatEnum;
         /** Total size of image in bytes, for Stream and Buffer input only */
         size?: number;
         /** Number of pixels wide (EXIF orientation is not taken into consideration) */
         width?: number;
         /** Number of pixels high (EXIF orientation is not taken into consideration) */
         height?: number;
-        /** Name of colour space interpretation e.g. srgb, rgb, cmyk, lab, b-w ... */
-        space?: string;
+        /** Name of colour space interpretation */
+        space?: keyof ColourspaceEnum;
         /** Number of bands e.g. 3 for sRGB, 4 for CMYK */
         channels?: Channels;
         /** Name of pixel depth format e.g. uchar, char, ushort, float ... */
@@ -1138,23 +1138,23 @@ declare namespace sharp {
     }
 
     interface FormatEnum {
-        jpeg: AvailableFormatInfo;
-        png: AvailableFormatInfo;
-        webp: AvailableFormatInfo;
         avif: AvailableFormatInfo;
-        heif: AvailableFormatInfo;
-        raw: AvailableFormatInfo;
-        tiff: AvailableFormatInfo;
         dz: AvailableFormatInfo;
-        input: AvailableFormatInfo;
-        magick: AvailableFormatInfo;
-        openslide: AvailableFormatInfo;
-        ppm: AvailableFormatInfo;
         fits: AvailableFormatInfo;
         gif: AvailableFormatInfo;
-        svg: AvailableFormatInfo;
+        heif: AvailableFormatInfo;
+        input: AvailableFormatInfo;
+        jpeg: AvailableFormatInfo;
+        magick: AvailableFormatInfo;
+        openslide: AvailableFormatInfo;
         pdf: AvailableFormatInfo;
+        png: AvailableFormatInfo;
+        ppm: AvailableFormatInfo;
+        raw: AvailableFormatInfo;
+        svg: AvailableFormatInfo;
+        tiff: AvailableFormatInfo;
         v: AvailableFormatInfo;
+        webp: AvailableFormatInfo;
     }
 
     interface CacheResult {

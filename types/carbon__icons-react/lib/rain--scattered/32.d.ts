@@ -1,1 +1,3 @@
-export { RainScattered32 as default } from "../../";
+import { RainScattered32 } from "../../";
+
+export = RainScattered32;

@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.17
+// Type definitions for ioredis 4.19
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -16,6 +16,7 @@
 //                 Andrew Lavers <https://github.com/alavers>
 //                 Claudiu Ceia <https://github.com/ClaudiuCeia>
 //                 Asyrique <https://github.com/asyrique>
+//                 Michael Salaverry <https://github.com/barakplasma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -320,6 +321,8 @@ declare namespace IORedis {
 
         lpop(key: KeyType, callback: Callback<string>): void;
         lpop(key: KeyType): Promise<string>;
+
+        lpos(key: KeyType, value: ValueType, rank?: number, count?: number, maxlen?: number): Promise<number | null>;
 
         lpopBuffer(key: KeyType, callback: Callback<Buffer>): void;
         lpopBuffer(key: KeyType): Promise<Buffer>;
@@ -803,7 +806,7 @@ declare namespace IORedis {
         zrevrank(key: KeyType, member: string, callback: Callback<number | null>): void;
         zrevrank(key: KeyType, member: string): Promise<number | null>;
 
-        hset: OverloadedKeyedHashCommand<ValueType, Ok>;
+        hset: OverloadedKeyedHashCommand<ValueType, number>;
 
         hsetBuffer(key: KeyType, field: string, value: ValueType, callback: Callback<BooleanResponse>): void;
         hsetBuffer(key: KeyType, field: string, value: ValueType): Promise<Buffer>;
@@ -1144,7 +1147,7 @@ declare namespace IORedis {
 
         xrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xread: OverloadedListCommand<ValueType, Array<[string, string[]]>>;
+        xread: OverloadedListCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
         xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
@@ -1316,7 +1319,7 @@ declare namespace IORedis {
 
         smembers(key: KeyType, callback?: Callback<string[]>): Pipeline;
 
-        zadd(key: KeyType, ...args: string[]): Pipeline;
+        zadd(key: KeyType, ...scoresAndMembers: Array<number|string>): Pipeline;
 
         zincrby(key: KeyType, increment: number, member: string, callback?: Callback<string>): Pipeline;
 
@@ -1872,7 +1875,7 @@ declare namespace IORedis {
 
     type DNSLookupFunction = (
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family?: number) => void,
     ) => void;
     interface NatMap {
         [key: string]: { host: string; port: number };

@@ -1,1 +1,3 @@
-export { Usb16 as default } from "../../";
+import { Usb16 } from "../../";
+
+export = Usb16;

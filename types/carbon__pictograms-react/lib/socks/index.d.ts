@@ -1,1 +1,3 @@
-export { Socks as default } from "../../";
+import { Socks } from "../../";
+
+export = Socks;

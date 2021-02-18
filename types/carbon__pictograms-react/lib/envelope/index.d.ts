@@ -1,1 +1,3 @@
-export { Envelope as default } from "../../";
+import { Envelope } from "../../";
+
+export = Envelope;

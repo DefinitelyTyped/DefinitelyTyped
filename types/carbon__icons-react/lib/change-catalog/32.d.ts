@@ -1,1 +1,3 @@
-export { ChangeCatalog32 as default } from "../../";
+import { ChangeCatalog32 } from "../../";
+
+export = ChangeCatalog32;

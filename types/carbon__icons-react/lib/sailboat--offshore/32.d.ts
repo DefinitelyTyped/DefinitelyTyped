@@ -1,1 +1,3 @@
-export { SailboatOffshore32 as default } from "../../";
+import { SailboatOffshore32 } from "../../";
+
+export = SailboatOffshore32;

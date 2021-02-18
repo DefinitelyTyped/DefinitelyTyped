@@ -1,1 +1,3 @@
-export { NotificationOffFilled16 as default } from "../../";
+import { NotificationOffFilled16 } from "../../";
+
+export = NotificationOffFilled16;

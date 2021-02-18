@@ -203,6 +203,9 @@ function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversation
 // ~~~~~~~~~~~~~~~~~~~~~
 
 store.publish(source);
+const get_store_recorditem = store.getSource().get("someDataId");
+// $ExpectType Record<TConversation> | null | undefined
+const get_store_recorditem_typed = store.getSource().get<TConversation>("someDataId");
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitLocalUpdate

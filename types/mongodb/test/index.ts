@@ -37,6 +37,7 @@ const options: mongodb.MongoClientOptions = {
     authMechanism: 'SCRAM-SHA-1',
     forceServerObjectId: false,
     promiseLibrary: Promise,
+    directConnection: false,
 };
 
 mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
