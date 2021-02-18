@@ -1,8 +1,8 @@
 // Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
 // Project: https://developer.akamai.com/akamai-edgeworkers-overview
 // Definitions by: Evan Hughes <https://github.com/evan-hughes>
-//                 Will Bain <https://github.com/wabain>	
-//                 Swathi Bala <https://github.com/swathimr>	
+//                 Will Bain <https://github.com/wabain>
+//                 Swathi Bala <https://github.com/swathimr>
 //                 Aman Nanner <https://github.com/ananner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -895,12 +895,12 @@ declare module "log" {
          * - %d or %i - Convert the argument to an integer. 
          * - %f - Convert the argument to a float. 
          * - %o or %O - Convert the argument to JSON with `JSON.stringify()`. 
-         * 
+         *
          * See https://console.spec.whatwg.org/#formatter. 
          *
          * When logging is disabled, the format string is not processed, which 
          * makes it more efficient than string arithmatic in production 
-         * environments. 
+         * environments.
          *
          * @param format A format string, containing zero or more specifiers. 
          * @param values Zero or more values to record in the log. 
