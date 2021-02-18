@@ -3452,3 +3452,7 @@ function testTextEditorComponent() {
   pos = textEditorComponent.screenPositionForMouseEvent(mouseEvent);
   pos = textEditorComponent.screenPositionForPixelPosition(pixelPos);
 }
+
+
+// Autocomplete plus tests
+import "./autocomplete-plus/autocomplete-plus-tests"
