@@ -277,7 +277,7 @@ declare namespace Faker {
         unique<T extends (...args: any) => any>(
             method: T,
             args?: Parameters<T>,
-            opts?: { maxTime?: number; maxRetires?: number },
+            opts?: { maxTime?: number; maxRetries?: number },
         ): ReturnType<T>;
     }
 
