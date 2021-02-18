@@ -9,7 +9,7 @@
  * @param domainName - The domain name on which to perform the lookup.
  * @param options - Options to tweak the behavior of a WHOIS lookup.
  */
-export default function whois(domainName: string, options?: WhoisOptions): WhoisResult;
+export default function whois(domainName: string, options?: WhoisOptions): Promise<WhoisResult>;
 
 /** The result of a WHOIS lookup. */
 export interface WhoisResult {
