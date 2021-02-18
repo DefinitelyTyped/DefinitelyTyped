@@ -393,7 +393,7 @@ export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
     default: boolean;
     array?: false;
     description: string;
-    oppositeDescription?: boolean;
+    oppositeDescription?: string;
 }
 
 export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {
