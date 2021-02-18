@@ -16,7 +16,7 @@
 // TypeScript Version: 2.4
 
 /// <reference types="filesystem" />
-/// <reference path="har-format/index.d.ts" />
+/// <reference path="./har-format/index.d.ts" />
 
 ////////////////////
 // Global object
