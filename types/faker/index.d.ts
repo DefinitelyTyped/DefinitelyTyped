@@ -264,7 +264,7 @@ declare namespace Faker {
         seed(value: number): void;
         seedValue?: number;
 
-        unique<Fn extends () => any>(method: Fn, args?: Parameters<Fn>, options?: IUniqueOptions): ReturnType<Fn>;
+        unique<Fn extends () => any>(method: Fn, args?: Parameters<Fn>, options?: UniqueOptions): ReturnType<Fn>;
 
         vehicle: {
             vehicle(): string;
@@ -359,7 +359,7 @@ declare namespace Faker {
         account: string;
     }
 
-    interface IUniqueOptions {
+    interface UniqueOptions {
         maxTime: number;
         maxRetries: number;
     }
