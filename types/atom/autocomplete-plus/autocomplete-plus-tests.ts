@@ -1,4 +1,4 @@
-import { SuggestionsRequestedEvent, Suggestion, SuggestionInsertedEvent, AutocompleteProvider } from "./index.d"
+import { SuggestionsRequestedEvent, Suggestion, Suggestions, SuggestionInsertedEvent, AutocompleteProvider } from "./index.d"
 import { TextEditor, Point } from "../index.d"
 
 // https://github.com/atom/autocomplete-plus/wiki/Provider-API#suggestions
@@ -46,7 +46,7 @@ const provider: AutocompleteProvider = {
 
   filterSuggestions: true,
 
-  getSuggestions({editor, bufferPosition, scopeDescriptor, prefix, activatedManually}: SuggestionsRequestedEvent) {
+  getSuggestions({editor, bufferPosition, scopeDescriptor, prefix, activatedManually}: SuggestionsRequestedEvent): Promise<Suggestions> {
     return new Promise(resolve => resolve([{text: 'something'}]));
   },
 
@@ -59,11 +59,12 @@ const provider: AutocompleteProvider = {
   dispose() {}
 };
 
-const suggestions = provider.getSuggestions(suggestionsRequestedEvent)
+async function testFun() {
+  const suggestions = await provider.getSuggestions(suggestionsRequestedEvent)
 
-
-const suggestionInsertedEvent: SuggestionInsertedEvent = {
-  editor: new TextEditor(),
-  triggerPosition: new Point(),
-  suggestion: suggestions[0],
+  const suggestionInsertedEvent: SuggestionInsertedEvent = {
+    editor: new TextEditor(),
+    triggerPosition: new Point(),
+    suggestion: suggestions[0],
+  }
 }
