@@ -3,37 +3,108 @@
 // Definitions by: Hwai-En Ho <https://github.com/hwaien>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
+/**
+ * Perform a WHOIS lookup.
+ *
+ * @param domainName - The domain name on which to perform the lookup.
+ * @param options - Options to tweak the behavior of a WHOIS lookup.
  */
-export as namespace myLib;
+export default function whois(domainName: string, options?: WhoisOptions): WhoisResult;
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+/** The result of a WHOIS lookup. */
+export interface WhoisResult {
+    domainName: string;
+    registryDomainId: string;
+    registrarWhoisServer: string;
+    registrarUrl: string;
+    updatedDate: string;
+    creationDate: string;
+    registrarRegistrationExpirationDate: string;
+    registrar: string;
+    registrarIanaId: string;
+    registrarAbuseContactEmail: string;
+    registrarAbuseContactPhone: string;
+    domainStatus: string;
+    registrantName: string;
+    registrantOrganization: string;
+    registrantStreet: string;
+    registrantCity: string;
+    registrantStateProvince: string;
+    registrantPostalCode: string;
+    registrantCountry: string;
+    registrantPhone: string;
+    registrantEmail: string;
+    adminName: string;
+    adminOrganization: string;
+    adminStreet: string;
+    adminCity: string;
+    adminStateProvince: string;
+    adminPostalCode: string;
+    adminCountry: string;
+    adminPhone: string;
+    adminEmail: string;
+    techName: string;
+    techOrganization: string;
+    techStreet: string;
+    techCity: string;
+    techStateProvince: string;
+    techPostalCode: string;
+    techCountry: string;
+    techPhone: string;
+    techEmail: string;
+    nameServer: string;
+    dnssec: string;
+    urlOfTheIcannWhoisDataProblemReportingSystem: string;
+    lastUpdateOfWhoisDatabase: string;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
+/**
+ * The version of SOCKS protocol to exchange network packets between a client and server through a proxy server.
  */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
+export enum SocksProtocolVersion {
+    /**
+     * The SOCKS4 protocol.
      */
-    function foo(): void;
+    SOCKS4 = 4,
+    /**
+     * The SOCKS5 protocol.
+     * 
+     * @see - https://tools.ietf.org/html/rfc1928
+     */
+    SOCKS5 = 5
+}
+
+/**
+ * A network endpoint.
+ */
+export interface Endpoint {
+    /** The hostname of the endpoint. */
+    host: string,
+    /** The port number of the endpoint. */
+    port: number
+}
+
+/**
+ * SOCKS proxy.
+ */
+export interface SocksProxy extends Endpoint {
+    type: SocksProtocolVersion
+}
+
+/**
+ * Options to tweak the behavior of a WHOIS lookup.
+ */
+export interface WhoisOptions {
+    /** WHOIS server */
+    server?: string | Endpoint,
+    /** number of times to follow redirects */
+    follow?: number,
+    /** socket timeout in milliseconds */
+    timeout?: number,
+    /** show verbose results */
+    verbose?: boolean,
+    /** bind to a local IP address */
+    bind?: string,
+    /** SOCKS proxy */
+    proxy?: string | SocksProxy
 }
