@@ -91,19 +91,10 @@ declare namespace Whois {
 
     /**
      * The version of SOCKS protocol to exchange network packets between a client and server through a proxy server.
+     * @example 4 (The SOCKS4 protocol)
+     * @example 5 (The SOCKS5 protocol, defined in RFC 1928)
      */
-    enum SocksProtocolVersion {
-        /**
-         * The SOCKS4 protocol.
-         */
-        SOCKS4 = 4,
-        /**
-         * The SOCKS5 protocol.
-         *
-         * @see - https://tools.ietf.org/html/rfc1928
-         */
-        SOCKS5 = 5
-    }
+    type SocksProtocolVersion = 4 | 5;
 }
 
 /**
