@@ -2,7 +2,7 @@
 // Project: https://chartjs-plugin-crosshair.netlify.com
 // Definitions by: Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.7
 
 import * as Chart from 'chart.js';
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/ankane/vue-chartkick#readme
 // Definitions by: CNS Media <https://github.com/cnsmedia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { PluginObject } from "vue";
 
