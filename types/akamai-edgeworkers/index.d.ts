@@ -1,9 +1,6 @@
 // Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
 // Project: https://developer.akamai.com/akamai-edgeworkers-overview
 // Definitions by: Evan Hughes <https://github.com/evan-hughes>
-//                 Will Bain <https://github.com/wabain>
-//                 Swathi Bala <https://github.com/swathimr>
-//                 Aman Nanner <https://github.com/ananner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace EW {
@@ -12,6 +9,15 @@ declare namespace EW {
          * Provides header values by header name
          */
         getHeader(name: string): string[] | null;
+    }
+
+    // This is what we return from the API. Hence the type is string[]
+    interface Headers {
+        [others: string]: string[];
+    }
+
+    interface ReadAllHeader {
+        getHeaders(): Headers;
     }
 
     interface MutatesHeaders {
@@ -227,7 +233,8 @@ declare namespace EW {
     }
 
     // responseProvider
-    interface ResponseProviderRequest extends Request, ReadsHeaders {
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader {
+
     }
 
     interface Destination {
@@ -516,15 +523,16 @@ declare module "cookies" {
 }
 
 /**
- * Creates a response that can be returned from the `responseProvider()`
- * callback in a promise.
+ * Creates a response that can be returned from the `responseProvider()` 
+ * callback in a promise. 
  */
 declare module "create-response" {
+
     import { ReadableStream } from "streams";
 
     /**
-     * Specifies headers for createResponse(). Keys are treated as header
-     * names, and values are treated as header values.
+     * Specifies headers for createResponse(). Keys are treated as header 
+     * names, and values are treated as header values. 
      */
     interface Headers {
         [others: string]: string | string[];
@@ -536,44 +544,46 @@ declare module "create-response" {
     type CreateResponseBody = string | ReadableStream;
 
     /**
-     * Generates a return value for responseProvider(). It validates the
-     * passed values and returns an opaque object. Callers should be
-     * prepared for the function to throw exceptions if they specify invalid
-     * arguments.
-     *
-     * @param status The HTTP status code of the outgoing response. Must be
+     * Generates a return value for responseProvider(). It validates the 
+     * passed values and returns an opaque object. Callers should be 
+     * prepared for the function to throw exceptions if they specify invalid 
+     * arguments. 
+     * 
+     * @param status The HTTP status code of the outgoing response. Must be 
      *          in the range of 100-599.
-     * @param headers Properties used as key:value pairs for the response
-     *          headers. Keys are strings that contain header names, values
+     * @param headers Properties used as key:value pairs for the response 
+     *          headers. Keys are strings that contain header names, values 
      *          are either strings or arrays of strings.
-     * @param body Content of the response body. When specified as a
-     *          string, the body is limited to 100,000 bytes. When specified
+     * @param body Content of the response body. When specified as a 
+     *          string, the body is limited to 100,000 bytes. When specified 
      *          as a ReadableStream, there is no limit.
-     * @param denyReason Deny reason when the status code is 403.
+     * @param denyReason Deny reason when the status code is 403. 
      */
-    function createResponse(status: number, headers: Headers, body: CreateResponseBody, denyReason?: string): object;
-    function createResponse(body?: CreateResponseBody, opts?: {
+    export function createResponse(status: number, headers: Headers, body: CreateResponseBody, denyReason?: string): object;
+    export function createResponse(body?: CreateResponseBody, opts?: {
         status?: number, headers?: Headers, body?: object, denyReason?: string
     }): object;
+
 }
 
 declare module "http-request" {
+
     import { ReadableStream } from "streams";
 
     /**
-     * Performs a subrequest, fetching the requested resource asynchronously.
-     *
-     * @param url A String containing the URL to fetch. Can be an absolute
-     *      or relative URL. Relative URLs will use the parent request as
-     *      the base URL. Only "http" and "https" are supported for the
+     * Performs a subrequest, fetching the requested resource asynchronously. 
+     * 
+     * @param url A String containing the URL to fetch. Can be an absolute 
+     *      or relative URL. Relative URLs will use the parent request as 
+     *      the base URL. Only "http" and "https" are supported for the 
      *      scheme. Specifying port numbers is not supported.
      * @param options May include
-     *  - `method` The HTTP method to use.
+     *  - `method` The HTTP method to use. 
      *  - `headers` Request headers to specify.
-     *  - `body` The request payload.
-     *  - `timeout` The request timeout, in milliseconds.
+     *  - `body` The request payload. 
+     *  - `timeout` The request timeout, in milliseconds. 
      */
-    function httpRequest(url: string, options?: {
+    export function httpRequest(url: string, options?: {
         method?: string,
         headers?: { [others: string]: string | string[] },
         body?: string,
@@ -581,13 +591,13 @@ declare module "http-request" {
     }): Promise<HttpResponse>;
 
     /**
-     * Describes the result of a `httpRequest()`.
+     * Describes the result of a `httpRequest()`. 
      */
-    interface HttpResponse extends EW.ReadsHeaders {
+    interface HttpResponse extends EW.ReadsHeaders, EW.ReadAllHeader {
         /**
          * The HTTP status code
          */
-        readonly status: number;
+        readonly status: number,
 
         /**
          * A boolean which is true for 2XX responses
@@ -597,25 +607,26 @@ declare module "http-request" {
         body: ReadableStream;
 
         /**
-         * Returns a Promise that resolves to a string containing the
-         * response body. Note that the body is buffered in memory.
+         * Returns a Promise that resolves to a string containing the 
+         * response body. Note that the body is buffered in memory. 
          */
         text(): Promise<string>;
 
         /**
          * Parses the body of the response as JSON. The response is buffered
-         * and `JSON.parse()` is run on the text.
+         * and `JSON.parse()` is run on the text. 
          */
         json(): Promise<any>;
     }
 }
 
 /**
- * Provides implementations of the [WHATWG Streams Standard].
- *
+ * Provides implementations of the [WHATWG Streams Standard]. 
+ * 
  * [WHATWG Streams Standard]: https://streams.spec.whatwg.org
  */
 declare module "streams" {
+
     interface ReadableStreamBYOBRequest {
         readonly view: ArrayBufferView;
         respond(bytesWritten: number): void;
@@ -696,8 +707,8 @@ declare module "streams" {
     }
 
     interface ReadableStreamReadResult<T> {
-        readonly done: boolean;
-        readonly value: T;
+        readonly done: boolean,
+        readonly value: T,
     }
 
     interface PipeOptions {
@@ -733,9 +744,9 @@ declare module "streams" {
         getWriter(): WritableStreamDefaultWriter<W>;
     }
 
-    const WritableStream: {
+    var WritableStream: {
         prototype: WritableStream;
-        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
+        new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
     };
 
     interface ReadableStream<R = any> {
@@ -748,10 +759,10 @@ declare module "streams" {
         tee(): [ReadableStream<R>, ReadableStream<R>];
     }
 
-    const ReadableStream: {
+    var ReadableStream: {
         prototype: ReadableStream;
         new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
-        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
+        new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };
 
     interface ReadableStreamBYOBReader {
@@ -782,8 +793,8 @@ declare module "streams" {
         highWaterMark: number;
         size(chunk: ArrayBufferView): number;
     }
-
-    const ByteLengthQueuingStrategy: {
+    
+    var ByteLengthQueuingStrategy: {
         prototype: ByteLengthQueuingStrategy;
         new(options: { highWaterMark: number }): ByteLengthQueuingStrategy;
     };
@@ -800,13 +811,13 @@ declare module "text-encode-transform" {
          */
         readonly encoding: string;
     }
-
+    
     interface TextEncoderStream extends GenericTransformStream, TextEncoderCommon {
         readonly readable: ReadableStream<Uint8Array>;
         readonly writable: WritableStream<string>;
     }
-
-    const TextEncoderStream: {
+    
+    var TextEncoderStream: {
         prototype: TextEncoderStream;
         new(): TextEncoderStream;
     };
@@ -825,16 +836,16 @@ declare module "text-encode-transform" {
         readonly readable: ReadableStream;
         /**
          * Returns a writable stream which accepts [AllowShared] BufferSource chunks and runs them through encoding's decoder before making them available to readable.
-         *
+         * 
          * Typically this will be used via the pipeThrough() method on a ReadableStream source.
-         *
+         * 
          * ```
          * var decoder = new TextDecoderStream(encoding);
          * byteReadable
          *   .pipeThrough(decoder)
          *   .pipeTo(textWritable);
          * ```
-         *
+         * 
          * If the error mode is "fatal" and encoding's decoder returns error, both readable and writable will be errored with a TypeError.
          */
         readonly writable: WritableStream;
@@ -859,8 +870,8 @@ declare module "text-encode-transform" {
         readonly readable: ReadableStream<string>;
         readonly writable: WritableStream<BufferSource>;
     }
-
-    const TextDecoderStream: {
+    
+    var TextDecoderStream: {
         prototype: TextDecoderStream;
         new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
@@ -869,31 +880,32 @@ declare module "text-encode-transform" {
 }
 
 /**
- * Provides a debug logging facility. When debugging is enabled, log
- * messages are written to response headers or the responseProvider()
- * multipart output.
+ * Provides a debug logging facility. When debugging is enabled, log 
+ * messages are written to response headers or the responseProvider() 
+ * multipart output. 
  */
 declare module "log" {
+
     interface Logger {
         /**
-         * Emit a message to the log. If logging is not enabled, this is a noop.
-         *
-         * When logging is enabled, the format string indicates how to display
+         * Emit a message to the log. If logging is not enabled, this is a noop. 
+         * 
+         * When logging is enabled, the format string indicates how to display 
          * the arguments. Format specifiers are:
-         *
-         * - %s - Call `Value::ToString()` on the corresponding argument.
-         * - %d or %i - Convert the argument to an integer.
-         * - %f - Convert the argument to a float.
-         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
-         *
-         * See https://console.spec.whatwg.org/#formatter.
-         *
-         * When logging is disabled, the format string is not processed, which
-         * makes it more efficient than string arithmatic in production
-         * environments.
-         *
-         * @param format A format string, containing zero or more specifiers.
-         * @param values Zero or more values to record in the log.
+         * 
+         * - %s - Call `Value::ToString()` on the corresponding argument. 
+         * - %d or %i - Convert the argument to an integer. 
+         * - %f - Convert the argument to a float. 
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`. 
+         * 
+         * See https://console.spec.whatwg.org/#formatter. 
+         * 
+         * When logging is disabled, the format string is not processed, which 
+         * makes it more efficient than string arithmatic in production 
+         * environments. 
+         * 
+         * @param format A format string, containing zero or more specifiers. 
+         * @param values Zero or more values to record in the log. 
          */
         log(format: string, ...values: any): void;
     }
