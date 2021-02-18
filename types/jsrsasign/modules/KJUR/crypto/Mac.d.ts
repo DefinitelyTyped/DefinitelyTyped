@@ -63,7 +63,7 @@ declare namespace jsrsasign.KJUR.crypto {
         doFinal(): string;
 
         /**
-         *  performs final update on the digest using string, then completes the digest computation
+         * performs final update on the digest using string, then completes the digest computation
          * @param str string to final update
          * @example
          * var mac = new KJUR.crypto.Mac({alg: "HmacSHA256", "pass": "pass"});
