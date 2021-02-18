@@ -515,7 +515,7 @@ declare namespace Chart {
 
     interface ChartArcOptions {
         angle?: number | Scriptable<number>;
-        backgroundColor?: ChartColor | Scriptable<ChartColor>;
+        backgroundColor?: ChartDataSets["backgroundColor"];
         borderAlign?: BorderAlignment | Scriptable<BorderAlignment>;
         borderColor?: ChartColor | Scriptable<ChartColor>;
         borderWidth?: number | Scriptable<number>;
@@ -527,7 +527,7 @@ declare namespace Chart {
     interface ChartLineOptions {
         cubicInterpolationMode?: CubicInterpolationMode | Scriptable<CubicInterpolationMode>;
         tension?: number | Scriptable<number>;
-        backgroundColor?: ChartColor | Scriptable<ChartColor>;
+        backgroundColor?: ChartDataSets["backgroundColor"];
         borderWidth?: number | Scriptable<number>;
         borderColor?: ChartColor | Scriptable<ChartColor>;
         borderCapStyle?: string | Scriptable<string>;
@@ -543,7 +543,7 @@ declare namespace Chart {
         radius?: number | Scriptable<number>;
         pointStyle?: PointStyle | Scriptable<PointStyle>;
         rotation?: number | Scriptable<number>;
-        backgroundColor?: ChartColor | Scriptable<ChartColor>;
+        backgroundColor?: ChartDataSets["backgroundColor"];
         borderWidth?: number | Scriptable<number>;
         borderColor?: ChartColor | Scriptable<ChartColor>;
         hitRadius?: number | Scriptable<number>;
@@ -552,7 +552,7 @@ declare namespace Chart {
     }
 
     interface ChartRectangleOptions {
-        backgroundColor?: ChartColor | Scriptable<ChartColor>;
+        backgroundColor?: ChartDataSets["backgroundColor"];
         borderWidth?: number | Scriptable<number>;
         borderColor?: ChartColor | Scriptable<ChartColor>;
         borderSkipped?: string | Scriptable<string>;
