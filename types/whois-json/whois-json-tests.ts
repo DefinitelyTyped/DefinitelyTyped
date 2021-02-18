@@ -1,4 +1,4 @@
-import whois from 'whois-json';
+import whois = require('whois-json');
 
 const lookupTestDomain = async () => {
     const result = await whois('https://codecademy.com');
