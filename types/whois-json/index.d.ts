@@ -68,7 +68,7 @@ export enum SocksProtocolVersion {
     SOCKS4 = 4,
     /**
      * The SOCKS5 protocol.
-     * 
+     *
      * @see - https://tools.ietf.org/html/rfc1928
      */
     SOCKS5 = 5
@@ -79,16 +79,17 @@ export enum SocksProtocolVersion {
  */
 export interface Endpoint {
     /** The hostname of the endpoint. */
-    host: string,
+    host: string;
+
     /** The port number of the endpoint. */
-    port: number
+    port: number;
 }
 
 /**
  * SOCKS proxy.
  */
 export interface SocksProxy extends Endpoint {
-    type: SocksProtocolVersion
+    type: SocksProtocolVersion;
 }
 
 /**
@@ -96,15 +97,15 @@ export interface SocksProxy extends Endpoint {
  */
 export interface WhoisOptions {
     /** WHOIS server */
-    server?: string | Endpoint,
+    server?: string | Endpoint;
     /** number of times to follow redirects */
-    follow?: number,
+    follow?: number;
     /** socket timeout in milliseconds */
-    timeout?: number,
+    timeout?: number;
     /** show verbose results */
-    verbose?: boolean,
+    verbose?: boolean;
     /** bind to a local IP address */
-    bind?: string,
+    bind?: string;
     /** SOCKS proxy */
-    proxy?: string | SocksProxy
+    proxy?: string | SocksProxy;
 }
