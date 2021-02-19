@@ -1,12 +1,14 @@
-// Type definitions for Koa 2.11.0
+// Type definitions for Koa 2.13.0
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
 //                 jKey Lu <https://github.com/jkeylu>
 //                 Brice Bernard <https://github.com/brikou>
 //                 harryparkdotio <https://github.com/harryparkdotio>
 //                 Wooram Jun <https://github.com/chatoo2412>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
+//                 Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /* =================== USAGE ===================
 
@@ -22,26 +24,27 @@
 import * as accepts from 'accepts';
 import * as Cookies from 'cookies';
 import { EventEmitter } from 'events';
-import { IncomingMessage, ServerResponse, Server } from 'http';
+import { IncomingMessage, ServerResponse, Server, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import httpAssert = require('http-assert');
+import * as httpAssert from 'http-assert';
 import * as HttpErrors from 'http-errors';
 import * as Keygrip from 'keygrip';
 import * as compose from 'koa-compose';
 import { Socket, ListenOptions } from 'net';
 import * as url from 'url';
 import * as contentDisposition from 'content-disposition';
+import { ParsedUrlQuery } from 'querystring';
 
 declare interface ContextDelegatedRequest {
     /**
      * Return request header.
      */
-    header: any;
+    header: IncomingHttpHeaders;
 
     /**
      * Return request header, alias as request.header
      */
-    headers: any;
+    headers: IncomingHttpHeaders;
 
     /**
      * Get/Set request URL.
@@ -73,7 +76,7 @@ declare interface ContextDelegatedRequest {
      * Get parsed query-string.
      * Set query-string as an object.
      */
-    query: any;
+    query: ParsedUrlQuery;
 
     /**
      * Get/Set query string.
@@ -314,7 +317,7 @@ declare interface ContextDelegatedResponse {
     /**
      * Get/Set response body.
      */
-    body: any;
+    body: unknown;
 
     /**
      * Return parsed response Content-Length when present.
@@ -439,15 +442,15 @@ declare interface ContextDelegatedResponse {
 
 declare class Application<
     StateT = Application.DefaultState,
-    CustomT = Application.DefaultContext
+    ContextT = Application.DefaultContext
 > extends EventEmitter {
     proxy: boolean;
     proxyIpHeader: string;
     maxIpsCount: number;
-    middleware: Application.Middleware<StateT, CustomT>[];
+    middleware: Application.Middleware<StateT, ContextT>[];
     subdomainOffset: number;
     env: string;
-    context: Application.BaseContext & CustomT;
+    context: Application.BaseContext & ContextT;
     request: Application.BaseRequest;
     response: Application.BaseResponse;
     silent: boolean;
@@ -487,9 +490,9 @@ declare class Application<
      *
      * Old-style middleware will be converted.
      */
-    use<NewStateT = {}, NewCustomT = {}>(
-        middleware: Application.Middleware<StateT & NewStateT, CustomT & NewCustomT>,
-    ): Application<StateT & NewStateT, CustomT & NewCustomT>;
+    use<NewStateT = {}, NewContextT = {}>(
+        middleware: Application.Middleware<StateT & NewStateT, ContextT & NewContextT>
+    ): Application<StateT & NewStateT, ContextT & NewContextT>;
 
     /**
      * Return a request handler callback
@@ -533,8 +536,8 @@ declare namespace Application {
         [key: string]: any;
     }
 
-    type Middleware<StateT = DefaultState, CustomT = DefaultContext> = compose.Middleware<
-        ParameterizedContext<StateT, CustomT>
+    type Middleware<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = any> = compose.Middleware<
+        ParameterizedContext<StateT, ContextT, ResponseBodyT>
     >;
 
     interface BaseRequest extends ContextDelegatedRequest {
@@ -577,12 +580,12 @@ declare namespace Application {
         /**
          * Return response header.
          */
-        header: any;
+        header: OutgoingHttpHeaders;
 
         /**
          * Return response header, alias as response.header
          */
-        headers: any;
+        headers: OutgoingHttpHeaders;
 
         /**
          * Check whether the response is one of the listed types.
@@ -711,9 +714,10 @@ declare namespace Application {
         respond?: boolean;
     }
 
-    type ParameterizedContext<StateT = DefaultState, CustomT = DefaultContext> = ExtendableContext & {
-        state: StateT;
-    } & CustomT;
+    type ParameterizedContext<StateT = DefaultState, ContextT = DefaultContext, ResponseBodyT = unknown> = ExtendableContext
+        & { state: StateT; }
+        & ContextT
+        & { body: ResponseBodyT; response: { body: ResponseBodyT }; };
 
     interface Context extends ParameterizedContext {}
 

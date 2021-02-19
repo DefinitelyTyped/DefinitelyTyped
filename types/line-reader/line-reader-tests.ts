@@ -27,7 +27,7 @@ eachLine('line-reader-tests.ts', {}, function(line) {
         console.error(err);
     });
 
-lineReader.open('line-reader-tests.ts', function(err: Error, reader: LineReader) {
+lineReader.open('line-reader-tests.ts', function(err: Error, reader) {
     if (err) throw err;
     if (reader.hasNextLine()) {
         try {

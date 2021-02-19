@@ -1,9 +1,10 @@
-// Type definitions for simple-icons 2.5
-// Project: https://www.simpleicons.org
+// Type definitions for simple-icons 4.10
+// Project: https://simpleicons.org
 // Definitions by: Eric Cornelissen <https://github.com/ericcornelissen>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface SimpleIcon {
+interface SimpleIcon {
     title: string;
     slug: string;
     svg: string;
@@ -12,4 +13,18 @@ export interface SimpleIcon {
     hex: string;
 }
 
-export function get(name: string): SimpleIcon;
+declare const icons: Record<string, SimpleIcon> & {
+    get(name: string): SimpleIcon;
+};
+
+declare const icon: SimpleIcon;
+
+// tslint:disable-next-line no-declare-current-package we cannot declare 1000+ exports
+declare module 'simple-icons' {
+    export = icons;
+}
+
+// tslint:disable-next-line no-declare-current-package we cannot declare 1000+ exports
+declare module 'simple-icons/icons/*' {
+    export = icon;
+}

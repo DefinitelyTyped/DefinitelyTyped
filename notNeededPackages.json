@@ -2152,6 +2152,11 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "json5",
+            "typingsPackageName": "json5",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "jsonata",
             "typingsPackageName": "jsonata",
             "asOfVersion": "1.5.0"
@@ -3346,6 +3351,11 @@
             "libraryName": "phonegap-plugin-push",
             "typingsPackageName": "phonegap-plugin-push",
             "asOfVersion": "2.1.2"
+        },
+        {
+            "libraryName": "physijs",
+            "typingsPackageName": "physijs",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "pixi-spine",
@@ -4681,11 +4691,6 @@
             "libraryName": "theming",
             "typingsPackageName": "theming",
             "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "three",
-            "typingsPackageName": "three",
-            "asOfVersion": "0.103.0"
         },
         {
             "libraryName": "tildify",

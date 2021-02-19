@@ -1,4 +1,8 @@
-declare module "buffer" {
+declare module 'node:buffer' {
+    export * from 'buffer';
+}
+
+declare module 'buffer' {
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;

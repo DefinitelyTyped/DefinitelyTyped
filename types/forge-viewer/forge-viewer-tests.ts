@@ -29,17 +29,26 @@ Autodesk.Viewing.Initializer(options, () => {
 
         const model = await viewer.loadDocumentNode(doc, defaultModel);
 
+        globalTests();
         bubbleNodeTests();
         fragListTests(model);
         modelTests(model);
         await dataVizTests(viewer);
         await edit2DTests(viewer);
+        await measureTests(viewer);
     }
 
     function onDocumentLoadFailure() {
         console.error('Failed fetching Forge manifest');
     }
 });
+
+function globalTests(): void {
+    const urn = 'urn:adsk.wipdm:fs.file:vf.vSenZnaYQAOAZqzHB54kLQ?version=1';
+    const urnBase64 = Autodesk.Viewing.toUrlSafeBase64(urn);
+
+    const urn2 = Autodesk.Viewing.fromUrlSafeBase64(urnBase64);
+}
 
 function bubbleNodeTests(): void {
     // $ExpectType string
@@ -123,4 +132,11 @@ function fragListTests(model: Autodesk.Viewing.Model): void {
 
     // $ExpectType boolean
     fragList.getAnimTransform(fragId, s, r, t);
+}
+
+async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Measure') as Autodesk.Extensions.Measure.MeasureExtension;
+
+    ext.sharedMeasureConfig.units = 'in';
+    ext.calibrateByScale('in', 0.0254);
 }

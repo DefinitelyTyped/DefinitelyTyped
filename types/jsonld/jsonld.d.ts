@@ -31,8 +31,8 @@ export interface NodeObject {
     '@id'?: Keyword['@id'];
     '@included'?: Keyword['@included'];
     '@graph'?: OrArray<NodeObject>;
-    '@nest'?: OrArray<object>;
-    '@type'?: Keyword['@type'];
+    '@nest'?: OrArray<JsonObject>;
+    '@type'?: OrArray<Keyword['@type']>;
     '@reverse'?: {[key: string]: Keyword['@reverse']};
     '@index'?: Keyword['@index'];
     [key: string]:
@@ -82,7 +82,7 @@ export type ValueObject = {
     '@value': Keyword['@value'];
     '@type': Keyword['@type'];
 } | {
-    '@value': Keyword['@value'] | object | any[];
+    '@value': Keyword['@value'] | JsonObject | JsonArray;
     '@type': '@json';
 });
 
@@ -258,3 +258,12 @@ type ContainerTypeArray =
     | ['@set', ContainerType]
     | [ContainerType, '@set']
 ;
+
+/*
+ * JSON Types
+ * (not for export)
+ */
+type JsonPrimitive = string | number | boolean | null;
+interface JsonArray extends Array<JsonValue> {}
+interface JsonObject { [key: string]: JsonValue | undefined; }
+type JsonValue = JsonPrimitive | JsonArray | JsonObject;

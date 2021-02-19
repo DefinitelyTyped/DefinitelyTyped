@@ -1,4 +1,8 @@
-declare module "util" {
+declare module 'node:util' {
+    export * from 'util';
+}
+
+declare module 'util' {
     interface InspectOptions extends NodeJS.InspectOptions { }
     type Style = 'special' | 'number' | 'bigint' | 'boolean' | 'undefined' | 'null' | 'string' | 'symbol' | 'date' | 'regexp' | 'module';
     type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => string;

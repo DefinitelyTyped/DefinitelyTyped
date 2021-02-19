@@ -1165,9 +1165,9 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
   interface MatrixRequest {
     points: Point[];
     profile?: DirectionsProfile;
-    sources?: number[];
-    destinations?: number[];
-    annotations?: DirectionsAnnotation;
+    sources?: number[] | 'all';
+    destinations?: number[] | 'all';
+    annotations?: DirectionsAnnotation[];
   }
 
   interface MatrixResponse {

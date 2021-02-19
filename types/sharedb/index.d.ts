@@ -91,9 +91,11 @@ declare class sharedb extends EventEmitter {
     ): void;
 
     on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
+    on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
 
     addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
+    addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
     static types: ShareDB.Types;
