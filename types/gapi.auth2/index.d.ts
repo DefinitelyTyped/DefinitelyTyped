@@ -290,14 +290,6 @@ declare namespace gapi.auth2 {
     hasGrantedScopes(scopes: string): boolean;
 
     /**
-     * Signs in the user. Use this method to request additional scopes for incremental
-     * authorization or to sign in a user after the user has signed out.
-     * When you use GoogleUser.signIn(), the sign-in flow skips the account chooser step.
-     * See GoogleAuth.signIn().
-     */
-    signIn(options?: SigninOptions | SigninOptionsBuilder): Promise<any>;
-
-    /**
      * See GoogleUser.signIn()
      */
     grant(options?: SigninOptions | SigninOptionsBuilder): Promise<any>;
