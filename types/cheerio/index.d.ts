@@ -9,6 +9,7 @@
 //                 AzSiAz <https://github.com/AzSiAz>
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Hiroki Osame <https://github.com/privatenumber>
+//                 Artishevskiy Alexey <https://github.com/dhvcc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -31,6 +32,8 @@ declare namespace cheerio {
         type: 'tag';
         name: string;
         attribs: { [attr: string]: string };
+        'x-attribsNamespace': { [attr: string]: string };
+        'x-prefixNamespace': { [attr: string]: string };
         children: Element[];
         childNodes: Element[] | null;
         lastChild: Element | null;
