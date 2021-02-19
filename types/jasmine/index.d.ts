@@ -742,7 +742,17 @@ declare namespace jasmine {
     type MatchableArgs<Fn> = Fn extends (...args: infer P) => any ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> } : never;
 
     interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
+        /**
+         * Expects the actual (a spy) to have been called with the particular arguments at least once
+         * @param params The arguments to look for
+         */
         toHaveBeenCalledWith(...params: MatchableArgs<Fn>): boolean;
+
+        /**
+         * Expects the actual (a spy) to have been called exactly once, and exactly with the particular arguments
+         * @param params The arguments to look for
+         */
+        toHaveBeenCalledOnceWith(...params: MatchableArgs<Fn>): boolean;
 
         /**
          * Add some context for an expect.
