@@ -176,7 +176,7 @@ export = Rax;
 export as namespace Rax;
 
 declare namespace Rax {
-  interface shared {
+  export const shared: {
     Host: any;
     Instance: RaxInstance;
     Element: RaxElement;
