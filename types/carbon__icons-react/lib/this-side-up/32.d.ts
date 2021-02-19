@@ -1,1 +1,3 @@
-export { ThisSideUp32 as default } from "../../";
+import { ThisSideUp32 } from "../../";
+
+export = ThisSideUp32;

@@ -1,1 +1,3 @@
-export { Hashtag32 as default } from "../../";
+import { Hashtag32 } from "../../";
+
+export = Hashtag32;

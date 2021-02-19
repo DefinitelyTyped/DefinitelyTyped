@@ -1,1 +1,3 @@
-export { IncreaseLevel20 as default } from "../../";
+import { IncreaseLevel20 } from "../../";
+
+export = IncreaseLevel20;

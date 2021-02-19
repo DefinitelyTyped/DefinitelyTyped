@@ -1,1 +1,3 @@
-export { AlignBoxBottomCenter16 as default } from "../../";
+import { AlignBoxBottomCenter16 } from "../../";
+
+export = AlignBoxBottomCenter16;

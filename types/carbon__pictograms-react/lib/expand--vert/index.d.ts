@@ -1,1 +1,3 @@
-export { ExpandVert as default } from "../../";
+import { ExpandVert } from "../../";
+
+export = ExpandVert;

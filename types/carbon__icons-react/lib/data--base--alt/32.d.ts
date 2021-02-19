@@ -1,1 +1,3 @@
-export { DataBaseAlt32 as default } from "../../";
+import { DataBaseAlt32 } from "../../";
+
+export = DataBaseAlt32;

@@ -5,6 +5,7 @@ import Pulsar = require('pulsar-client');
         serviceUrl: 'pulsar://localhost:6650',
         ioThreads: 5,
         messageListenerThreads: 5,
+        log: (level, file, line, message) => console.log({ level, file, line, message }),
     });
 
     const producer = await client.createProducer({

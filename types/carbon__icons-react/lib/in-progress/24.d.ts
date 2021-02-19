@@ -1,1 +1,3 @@
-export { InProgress24 as default } from "../../";
+import { InProgress24 } from "../../";
+
+export = InProgress24;

@@ -1,1 +1,3 @@
-export { AnalyticsReference24 as default } from "../../";
+import { AnalyticsReference24 } from "../../";
+
+export = AnalyticsReference24;

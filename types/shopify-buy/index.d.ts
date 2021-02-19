@@ -93,7 +93,7 @@ declare namespace ShopifyBuy {
         removeDiscount(checkoutId: string | number): Promise<Cart>;
 
         /**
-         * Update a line item quantity based on line item id
+         * Update line item quantities based on an array of line item ids
          */
         updateLineItems(checkoutId: string | number, lineItems: AttributeInput[]): Promise<Cart>;
     }

@@ -1,1 +1,3 @@
-export { FireAlarm as default } from "../../";
+import { FireAlarm } from "../../";
+
+export = FireAlarm;

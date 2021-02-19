@@ -1,1 +1,3 @@
-export { UvIndexFilled24 as default } from "../../";
+import { UvIndexFilled24 } from "../../";
+
+export = UvIndexFilled24;

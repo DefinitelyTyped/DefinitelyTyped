@@ -1,9 +1,7 @@
 /** An alias of `assert.ok()`. */
 declare function assert(value: any, message?: string | Error): void;
 declare namespace assert {
-    class AssertionError implements Error {
-        name: string;
-        message: string;
+    class AssertionError extends Error {
         actual: any;
         expected: any;
         operator: string;

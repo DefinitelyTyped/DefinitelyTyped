@@ -9,6 +9,10 @@ const onChangeTest = (value: string) => {
     console.log(value);
 };
 
+const onChangeTest = (value: string) => {
+    console.log(value);
+};
+
 <EditText />;
 <EditText id="firstName" />;
 <EditText name="firstName" />;

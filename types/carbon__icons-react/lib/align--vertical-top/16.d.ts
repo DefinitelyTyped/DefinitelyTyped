@@ -1,1 +1,3 @@
-export { AlignVerticalTop16 as default } from "../../";
+import { AlignVerticalTop16 } from "../../";
+
+export = AlignVerticalTop16;

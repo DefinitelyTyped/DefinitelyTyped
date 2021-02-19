@@ -1,1 +1,3 @@
-export { IbmSecurity32 as default } from "../../";
+import { IbmSecurity32 } from "../../";
+
+export = IbmSecurity32;

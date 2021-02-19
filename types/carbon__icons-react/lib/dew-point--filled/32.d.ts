@@ -1,1 +1,3 @@
-export { DewPointFilled32 as default } from "../../";
+import { DewPointFilled32 } from "../../";
+
+export = DewPointFilled32;

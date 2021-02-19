@@ -1,1 +1,3 @@
-export { CoatHanger as default } from "../../";
+import { CoatHanger } from "../../";
+
+export = CoatHanger;

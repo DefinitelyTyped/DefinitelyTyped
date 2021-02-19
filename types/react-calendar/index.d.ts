@@ -75,6 +75,7 @@ export interface CalendarTileProperties {
 
 export interface ViewCallbackProperties {
   activeStartDate: Date;
+  value: Date;
   view: Detail;
 }
 

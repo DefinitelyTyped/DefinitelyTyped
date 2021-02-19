@@ -22,7 +22,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#package.json)
+    - [`package.json`](#packagejson)
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [Erros comuns](#erros-comuns)
     </details>
@@ -453,7 +453,7 @@ e adicione os tipos e testes específicos para a nova versão do TypeScript. Voc
 }
 ```
 
-Você pode verificar [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) e [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) para exemplos.
+Você pode verificar [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) e [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) para exemplos.
 
 #### Eu quero adicionar uma API da DOM não presente no TypeScript por padrão.
 

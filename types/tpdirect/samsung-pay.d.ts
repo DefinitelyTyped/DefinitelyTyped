@@ -21,7 +21,7 @@ interface SamsungPay {
 
     getPrime(callback: (
         result: BaseResult & MerchantReferenceInfo & {
-            card_info: CardInfoV2;
+            card_info: CardInfoV1;
             card: Card;
             total_amount: string;
         }

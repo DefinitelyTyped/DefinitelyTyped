@@ -1,1 +1,3 @@
-export { UvIndex16 as default } from "../../";
+import { UvIndex16 } from "../../";
+
+export = UvIndex16;

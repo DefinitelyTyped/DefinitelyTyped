@@ -61,6 +61,11 @@ export interface SharedProps {
      */
     onChange?: (value: string) => void;
     /**
+     * onChange is called when the input value changes and
+     * returns a string which corresponds to the new input value
+     */
+    onChange?: (value: string) => void;
+    /**
      * Sets the css styling for both input and div elements
      */
     style?: React.CSSProperties;

@@ -1,1 +1,3 @@
-export { TropicalStorm20 as default } from "../../";
+import { TropicalStorm20 } from "../../";
+
+export = TropicalStorm20;

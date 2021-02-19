@@ -1,1 +1,3 @@
-export { Category20 as default } from "../../";
+import { Category20 } from "../../";
+
+export = Category20;

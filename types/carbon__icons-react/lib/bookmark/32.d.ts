@@ -1,1 +1,3 @@
-export { Bookmark32 as default } from "../../";
+import { Bookmark32 } from "../../";
+
+export = Bookmark32;

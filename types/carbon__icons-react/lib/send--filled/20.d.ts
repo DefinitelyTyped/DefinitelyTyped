@@ -1,1 +1,3 @@
-export { SendFilled20 as default } from "../../";
+import { SendFilled20 } from "../../";
+
+export = SendFilled20;

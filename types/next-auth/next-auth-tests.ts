@@ -134,8 +134,10 @@ const allConfig = {
         secret: 'secret-thing',
         maxAge: 365,
         encryption: true,
+        signingKey: 'some-key',
+        encryptionKey: 'some-key',
         encode: () => Promise.resolve('foo'),
-        decode: () => Promise.resolve('foo'),
+        decode: () => Promise.resolve({}),
     },
     pages: pageOptions,
     callbacks: {
@@ -408,6 +410,19 @@ Providers.Auth0({
 });
 
 // $ExpectType GenericReturnConfig
+Providers.Auth0({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+    domain: 'https://foo.auth0.com',
+    profile: () => ({
+      id: 'foo123',
+      name: 'foo',
+      email: 'foo@bar.io',
+      image: 'https://foo.auth0.com/image/1.png',
+    })
+});
+
+// $ExpectType GenericReturnConfig
 Providers.IdentityServer4({
     id: 'identity-server4',
     name: 'IdentityServer4',
@@ -421,6 +436,7 @@ Providers.IdentityServer4({
 Providers.Discord({
     clientId: 'foo123',
     clientSecret: 'bar123',
+    scope: 'identify', // This tests the `extends GenericObject`
 });
 
 // $ExpectType GenericReturnConfig

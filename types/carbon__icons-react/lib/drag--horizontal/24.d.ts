@@ -1,1 +1,3 @@
-export { DragHorizontal24 as default } from "../../";
+import { DragHorizontal24 } from "../../";
+
+export = DragHorizontal24;

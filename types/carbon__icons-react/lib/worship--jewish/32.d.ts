@@ -1,1 +1,3 @@
-export { WorshipJewish32 as default } from "../../";
+import { WorshipJewish32 } from "../../";
+
+export = WorshipJewish32;

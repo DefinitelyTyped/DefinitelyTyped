@@ -2611,7 +2611,7 @@ declare namespace math {
      * Factory and Dependencies
      ************************************************************************/
     interface FactoryDependencies {
-        create: (factories: FactoryFunctionMap, config: ConfigOptions) => Partial<MathJsStatic>;
+        create: (factories: FactoryFunctionMap, config?: ConfigOptions) => Partial<MathJsStatic>;
         factory: <T>(
             name: string,
             dependencies: MathJsFunctionName[],

@@ -1,1 +1,3 @@
-export { Time32 as default } from "../../";
+import { Time32 } from "../../";
+
+export = Time32;

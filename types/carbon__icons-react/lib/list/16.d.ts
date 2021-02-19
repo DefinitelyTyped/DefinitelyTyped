@@ -1,1 +1,3 @@
-export { List16 as default } from "../../";
+import { List16 } from "../../";
+
+export = List16;

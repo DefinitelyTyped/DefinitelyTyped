@@ -1,1 +1,3 @@
-export { RefEvapotranspiration32 as default } from "../../";
+import { RefEvapotranspiration32 } from "../../";
+
+export = RefEvapotranspiration32;

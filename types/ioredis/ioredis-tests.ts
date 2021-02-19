@@ -70,6 +70,11 @@ redis.sinter('keya', 'keyb', cb);
 redis.sunion('keya', 'keyb').then(console.log);
 redis.sunion('keya', 'keyb', cb);
 
+// Test list index command
+redis.rpush('lposlist', 'foo', 'bar', 'baz');
+redis.lpos('lposlist', 'foo').then(console.log);
+redis.lpos('lposlist', 'baz', 0, 1, 3).then(console.log);
+
 // Test OverloadedKeyCommand
 redis.hdel('foo', 'bar').then(console.log);
 redis.hdel('foo', 'bar', cbNumber);
@@ -431,6 +436,13 @@ redis
     .hscan('hash', '0')
     .zscan('zset', 0)
     .zscan('zset', '0')
+    .zadd('key', 1, 'a')
+    .zadd('key', 1, 'a', 2, 'b')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e', 6, 'f')
+    .zadd('key', '1', 'a', '2', 'b', '3', 'c', '4', 'd', '5', 'e', '6', 'f')
     .exec((err, results) => {
         // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
     });

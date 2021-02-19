@@ -1,1 +1,3 @@
-export { NextFilled16 as default } from "../../";
+import { NextFilled16 } from "../../";
+
+export = NextFilled16;

@@ -1,1 +1,3 @@
-export { Coronavirus16 as default } from "../../";
+import { Coronavirus16 } from "../../";
+
+export = Coronavirus16;

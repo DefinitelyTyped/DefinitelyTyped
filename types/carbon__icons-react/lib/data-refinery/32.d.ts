@@ -1,1 +1,3 @@
-export { DataRefinery32 as default } from "../../";
+import { DataRefinery32 } from "../../";
+
+export = DataRefinery32;

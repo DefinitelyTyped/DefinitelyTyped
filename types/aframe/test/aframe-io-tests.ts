@@ -465,7 +465,6 @@ AFRAME.registerComponent('audioanalyser-waveform', {
         // Create ring geometries.
         loopShape = new THREE.Shape();
         loopShape.absarc(0, 0, data.radius, 0, Math.PI * 2, false);
-        this.geometry = loopShape.createPointsGeometry(SEGMENTS / 2);
         this.geometry.dynamic = true;
 
         // Create container object.

@@ -1,1 +1,3 @@
-export { FlightInternational24 as default } from "../../";
+import { FlightInternational24 } from "../../";
+
+export = FlightInternational24;

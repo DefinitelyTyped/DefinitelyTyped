@@ -1,1 +1,3 @@
-export { GlobalStrategy as default } from "../../";
+import { GlobalStrategy } from "../../";
+
+export = GlobalStrategy;

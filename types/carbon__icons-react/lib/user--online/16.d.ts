@@ -1,1 +1,3 @@
-export { UserOnline16 as default } from "../../";
+import { UserOnline16 } from "../../";
+
+export = UserOnline16;

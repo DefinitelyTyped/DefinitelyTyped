@@ -1,1 +1,3 @@
-export { ChartRadar32 as default } from "../../";
+import { ChartRadar32 } from "../../";
+
+export = ChartRadar32;
