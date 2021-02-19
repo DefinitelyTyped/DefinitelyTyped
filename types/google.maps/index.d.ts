@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.43
+// Type definitions for non-npm package Google Maps JavaScript API 3.44
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
@@ -7,7 +7,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.43
+// Google Maps JS API Version: 3.44
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -3183,9 +3183,13 @@ declare namespace google.maps {
      * <code>target</code>, <code>currentTarget</code>,
      * <code>relatedTarget</code> and <code>path</code> properties being defined
      * and consistent. Developers should not also rely on the DOM structure of
-     * the internal implementation of the Maps API.
+     * the internal implementation of the Maps API. Due to internal event
+     * mapping, the <code>domEvent</code> may have different semantics from
+     * the {@link google.maps.MapMouseEvent} (e.g. a {@link
+     * google.maps.MapMouseEvent} &quot;click&quot; may have a
+     * <code>domEvent</code> of type <code>KeyboardEvent</code>).
      */
-    domEvent: MouseEvent|TouchEvent|PointerEvent|Event;
+    domEvent: MouseEvent|TouchEvent|PointerEvent|KeyboardEvent|Event;
     /**
      * The latitude/longitude that was below the cursor when the event occurred.
      */
@@ -3797,10 +3801,12 @@ declare namespace google.maps {
      */
     opacity?: number|null;
     /**
-     * Optimization renders many markers as a single static element. Optimized
-     * rendering is enabled by default. Disable optimized rendering for animated
-     * GIFs or PNGs, or when each marker must be rendered as a separate DOM
-     * element (advanced usage only).
+     * Optimization renders many markers as a single static element. Disable
+     * optimized rendering for animated GIFs or PNGs, or when each marker must
+     * be rendered as a separate DOM element (advanced usage only). By default,
+     * the Maps JavaScript API will decide whether or not a Marker will be
+     * optimized. Not all Markers can be optimized; in some situations, the Maps
+     * JavaScript API may need to render Markers without optimization.
      */
     optimized?: boolean|null;
     /**
