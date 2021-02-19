@@ -45,5 +45,6 @@ declare namespace debug {
         namespace: string;
         destroy: () => boolean;
         extend: (namespace: string, delimiter?: string) => Debugger;
+        disable: () => string;
     }
 }
