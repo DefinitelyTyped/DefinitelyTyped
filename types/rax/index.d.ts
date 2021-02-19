@@ -181,7 +181,7 @@ declare namespace Rax {
     Instance: RaxInstance;
     Element: RaxElement;
     flattenChildren: any;
-  }
+  };
   /**
    * ======================================================================
    * Rax Elements
