@@ -2967,10 +2967,14 @@ declare global {
       'scroll-view': any;
       'cover-view': any;
       'cover-image': any;
+      'camera': any;
       'movable-view': any;
       'movable-area': any;
+      'match-media': any;
       icon: any;
       'rich-text': any;
+      'radio': any;
+      'radio-group': any;
       'picker-view': any;
       picker: any;
       navigator: any;
@@ -2980,10 +2984,14 @@ declare global {
       'aria-component': any;
       'functional-page-navigator': any;
       'live-player': any;
-      'ive-pusher': any;
+      'live-pusher': any;
       ad: any;
+      'ad-custom': any;
       'open-data': any;
+      'voip-room': any;
       'page-meta': any;
+      'picker-view-column': any;
+      'official-account': any;
       'navigation-bar': any;
     }
   }
