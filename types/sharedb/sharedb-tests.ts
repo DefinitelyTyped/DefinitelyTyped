@@ -168,6 +168,10 @@ backend.use('readSnapshots', (context, callback) => {
     callback();
 });
 
+backend.on('submitRequestEnd', (error, request) => {
+    console.log(request.op);
+});
+
 const connection = backend.connect();
 const netRequest = {};  // Passed through to 'connect' middleware, not used by sharedb itself
 const connectionWithReq = backend.connect(null, netRequest);

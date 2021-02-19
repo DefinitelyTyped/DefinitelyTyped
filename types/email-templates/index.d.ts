@@ -114,7 +114,7 @@ declare namespace Email {
          /**
           * The message <Nodemailer.com/message/>
           */
-         message: Mail.Options;
+         message?: Mail.Options;
          /**
           * The nodemailer Transport created via nodemailer.createTransport
           */
@@ -191,13 +191,13 @@ declare namespace Email {
         /**
          * The template name
          */
-        template: string;
+        template?: string;
         /**
          * Nodemailer Message <Nodemailer.com/message/>
          *
          * Overrides what is given for constructor
          */
-        message: Mail.Options;
+        message?: Mail.Options;
         /**
          * The Template Variables
          */
@@ -239,7 +239,7 @@ declare class Email<T = any> {
     /**
      * Send the Email
      */
-    send(options: Email.EmailOptions<T>): Promise<any>;
+    send(options?: Email.EmailOptions<T>): Promise<any>;
 }
 
 export = Email;

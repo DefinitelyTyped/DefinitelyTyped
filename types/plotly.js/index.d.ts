@@ -27,9 +27,10 @@ import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
 import { OhclData } from './lib/traces/ohcl';
 import { CandlestickData } from './lib/traces/candlestick';
+import { PieData } from './lib/traces/pie';
 
 export as namespace Plotly;
-export { BoxPlotData, ViolinData, OhclData, CandlestickData };
+export { BoxPlotData, ViolinData, OhclData, CandlestickData, PieData };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -1082,7 +1083,8 @@ export type Data =
     | Partial<BoxPlotData>
     | Partial<ViolinData>
     | Partial<OhclData>
-    | Partial<CandlestickData>;
+    | Partial<CandlestickData>
+    | Partial<PieData>;
 
 export type Color =
     | string

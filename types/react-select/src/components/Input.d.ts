@@ -16,6 +16,8 @@ export interface InputProps {
     /** Whether the input is disabled */
     isDisabled?: boolean;
     className?: string;
+    /** Autocomplete value for the Select Input */
+    autoComplete?: string;
 }
 
 export function inputCSS(props: InputProps): CSSObject;

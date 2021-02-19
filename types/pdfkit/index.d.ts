@@ -1,4 +1,4 @@
-// Type definitions for Pdfkit v0.10.0
+// Type definitions for Pdfkit v0.11.0
 // Project: http://pdfkit.org
 // Definitions by: Eric Hillah <https://github.com/erichillah>
 //                 Erik Berreßem <https://github.com/she11sh0cked>
@@ -228,6 +228,43 @@ declare namespace PDFKit.Mixins {
         rotate(angle: number, options?: { origin?: number[] }): this;
         scale(xFactor: number, yFactor?: number, options?: { origin?: number[] }): this;
     }
+
+    interface PDFAcroForm {
+        /**
+         * Must call if adding AcroForms to a document. Must also call font() before
+         * this method to set the default font.
+         */
+        initForm(): this;
+
+        /**
+         * Called automatically by document.js
+         */
+        endAcroForm(): this;
+
+        /**
+         * Creates and adds a form field to the document. Form fields are intermediate
+         * nodes in a PDF form that are used to specify form name heirarchy and form
+         * value defaults.
+         * @param name - field name (T attribute in field dictionary)
+         * @param options  - other attributes to include in field dictionary
+         */
+        formField(name: string, options?: Record<string, any>): PDFKitReference;
+
+        /**
+         * Creates and adds a Form Annotation to the document. Form annotations are
+         * called Widget annotations internally within a PDF file.
+         * @param name - form field name (T attribute of widget annotation
+         * dictionary)
+         */
+        formAnnotation(name: string, type: string, x: number, y: number, w: number, h: number, options?: object): this;
+
+        formText(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formPushButton(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formCombo(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formList(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formRadioButton(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+        formCheckbox(name: string, x: number, y: number, w: number, h: number, options?: object): this;
+    }
 }
 
 declare namespace PDFKit {
@@ -313,7 +350,8 @@ declare namespace PDFKit {
             Mixins.PDFImage,
             Mixins.PDFText,
             Mixins.PDFVector,
-            Mixins.PDFFont {
+            Mixins.PDFFont,
+            Mixins.PDFAcroForm {
         /**
          * PDF Version
          */

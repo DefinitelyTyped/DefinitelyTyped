@@ -8,6 +8,7 @@ svgo = new SVGO({ plugins: [{ cleanupAttrs: {} }] });
 svgo = new SVGO({ datauri: "base64" });
 svgo = new SVGO({ floatPrecision: 2 });
 svgo = new SVGO({ full: true });
+svgo = new SVGO({ multipass: true });
 svgo = new SVGO({
     plugins: [
         {

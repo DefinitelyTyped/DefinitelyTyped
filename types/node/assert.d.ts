@@ -1,3 +1,8 @@
+declare module 'node:assert' {
+    import assert = require('assert');
+    export = assert;
+}
+
 declare module 'assert' {
     /** An alias of `assert.ok()`. */
     function assert(value: any, message?: string | Error): asserts value;

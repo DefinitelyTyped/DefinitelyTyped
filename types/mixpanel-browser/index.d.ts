@@ -4,6 +4,7 @@
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
 //                 Kristian Randall <https://github.com/randak>
 //                 Dan Wilt <https://github.com/dwilt>
+//                 Lee Dogeon <https://github.com/moreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -153,7 +154,7 @@ export interface Mixpanel {
     has_opted_in_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
     has_opted_out_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
     identify(unique_id?: string): any;
-    init(token: string, config?: Partial<Config>, name?: string): Mixpanel;
+    init(token: string, config: Partial<Config>, name: string): Mixpanel;
     opt_in_tracking(options?: Partial<InTrackingOptions>): void;
     opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
     push(item: PushItem): void;
@@ -188,7 +189,8 @@ export function get_property(property_name: string): any;
 export function has_opted_in_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
 export function has_opted_out_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
 export function identify(unique_id?: string): any;
-export function init(token: string, config?: Partial<Config>, name?: string): Mixpanel;
+export function init(token: string, config: Partial<Config>, name: string): Mixpanel;
+export function init(token: string, config?: Partial<Config>): undefined;
 export function opt_in_tracking(options?: Partial<InTrackingOptions>): void;
 export function opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
 export function push(item: PushItem): void;

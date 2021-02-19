@@ -273,6 +273,12 @@ declare namespace Faker {
             vin(): string;
             color(): string;
         };
+
+        unique<T extends (...args: any) => any>(
+            method: T,
+            args?: Parameters<T>,
+            opts?: { maxTime?: number; maxRetries?: number },
+        ): ReturnType<T>;
     }
 
     interface Card {

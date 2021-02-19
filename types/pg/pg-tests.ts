@@ -1,4 +1,5 @@
 import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool } from 'pg';
+import { NoticeMessage } from 'pg-protocol/dist/messages';
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -20,6 +21,7 @@ const host: string = client.host;
 const password: string | undefined = client.password;
 const ssl: boolean = client.ssl;
 
+client.on('notice', (notice: NoticeMessage) => console.warn(`${notice.severity}: ${notice.message}`));
 client.connect(err => {
     if (err) {
         console.error('Could not connect to postgres', err);
