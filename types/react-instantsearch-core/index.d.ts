@@ -524,6 +524,7 @@ export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, SearchBoxProvided, SearchBoxExposed>;
 
+export function connectSmartSort(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface StateResultsProvided<TDoc = BasicDoc> {
@@ -559,7 +560,9 @@ export function connectStateResults<TProps extends Partial<StateResultsProvided<
 
 interface StatsProvided {
   nbHits: number;
+  nbSortedHits: number;
   processingTimeMS: number;
+  isSmartSorted: boolean;
 }
 
 export function connectStats(stateless: React.FunctionComponent<StatsProvided>): React.ComponentClass;
@@ -602,6 +605,7 @@ export interface SearchState {
     aroundLatLng: boolean;
     [key: string]: any;
   };
+  relevancyStrictness?: number;
   refinementList?: {
     [key: string]: string[];
   };
@@ -650,6 +654,8 @@ export interface SearchResults<TDoc = BasicDoc> {
   index: string;
   hitsPerPage: number;
   nbHits: number;
+  nbSortedHits?:number;
+  appliedRelevancyStrictness?:number;
   nbPages: number;
   page: number;
   processingTimeMS: number;

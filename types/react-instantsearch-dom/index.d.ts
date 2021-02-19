@@ -43,6 +43,7 @@ export { connectRange } from 'react-instantsearch-core';
 export { connectRefinementList } from 'react-instantsearch-core';
 export { connectScrollTo } from 'react-instantsearch-core';
 export { connectSearchBox } from 'react-instantsearch-core';
+export { connectSmartSort } from 'react-instantsearch-core';
 export { connectSortBy } from 'react-instantsearch-core';
 export { connectStateResults } from 'react-instantsearch-core';
 export { connectStats } from 'react-instantsearch-core';
@@ -116,13 +117,23 @@ export interface SearchBoxProps extends CommonWidgetProps {
  */
 export class SearchBox extends React.Component<SearchBoxProps> {}
 export class Snippet extends React.Component<any> {}
+export interface SmartSortComponentProps {
+  isSmartSorted: boolean;
+}
+/**
+ * The SmartSort component displays an informative banner and a button that toggle the `relevancyStrictness` between 0 and the value setted on the dashboard.
+ */
+export class SmartSort extends React.Component<{
+  buttonTextComponent:React.FunctionComponent<SmartSortComponentProps>;
+  textComponent: React.FunctionComponent<SmartSortComponentProps>;
+}> {}
 export class SortBy extends React.Component<any> {}
 /**
  * The Stats component displays the total number of matching hits and the time it took to get them (time spent in the Algolia server).
  */
 export class Stats extends React.Component<{
   translations?: {
-    [key: string]: (n: number, ms: number) => string;
+    [key: string]: (n: number, ms: number, nSortedHits: number, isSmartSorted: boolean) => string;
   };
 }> {}
 export class ToggleRefinement extends React.Component<any> {}
