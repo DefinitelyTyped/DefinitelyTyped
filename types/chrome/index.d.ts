@@ -12,6 +12,7 @@
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
 //                 pokutuna <https://github.com/pokutuna>
+//                 Jason Xian <https://github.com/JasonXian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -146,7 +147,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function disable(tabId: number, callback: () => void): void;
+    export function disable(tabId: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -154,7 +155,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function enable(tabId: number, callback: () => void): void;
+    export function enable(tabId: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -204,7 +205,7 @@ declare namespace chrome.action {
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
+    export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -213,7 +214,7 @@ declare namespace chrome.action {
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setIcon(details: TabIconDetails, callback?: Function): void;
+    export function setIcon(details: TabIconDetails, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -221,7 +222,7 @@ declare namespace chrome.action {
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setPopup(details: PopupDetails, callback: () => void): void;
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -6556,6 +6557,74 @@ declare namespace chrome.runtime {
      * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.
      */
     export var onBrowserUpdateAvailable: RuntimeEvent;
+}
+
+////////////////////
+// Scripting
+////////////////////
+/**
+ * Use the chrome.scripting API to execute script in different contexts.
+ * Permissions: "scripting", Manifest v3+
+ * @since Chrome 88.
+ */
+declare namespace chrome.scripting {
+
+    /* The CSS style origin for a style change. */
+    export type StyleOrigin = "AUTHOR" | "USER";
+
+    export interface InjectionResult {
+        /* The frame associated with the injection. */
+        frameId: number;
+        /* The result of the script execution. */
+        result?: any;
+    }
+
+    export interface InjectionTarget {
+        /* Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if frameIds is specified. */
+        allFrames?: boolean;
+        /* The IDs of specific frames to inject into. */
+        frameIds?: number[];
+        /* The ID of the tab into which to inject. */
+        tabId: number;
+    }
+
+    export interface CSSInjection {
+        /* A string containing the CSS to inject. Exactly one of files and css must be specified. */
+        css?: string;
+        /* The path of the CSS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and css must be specified. */
+        files?: string[];
+        /* The style origin for the injection. Defaults to 'AUTHOR'. */
+        origin?: StyleOrigin;
+        /* Details specifying the target into which to insert the CSS. */
+        target: InjectionTarget;
+    }
+
+    export interface ScriptInjection {
+        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
+        files?: string[];
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        function?: () => void;
+        /* Details specifying the target into which to inject the script. */
+        target: InjectionTarget;
+    }
+
+    /**
+     * Injects a script into a target context. The script will be run at document_end.
+     * @param injection
+     * The details of the script which to inject.
+     * @param callback
+     * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
+     */
+    export function executeScript(injection: ScriptInjection, callback?: (results: InjectionResult[]) => void): void;
+
+    /**
+     * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
+     * @param injection
+     * The details of the styles to insert.
+     * @param callback
+     * Invoked upon completion of the injection.
+     */
+    export function insertCSS(injection: CSSInjection, callback?: () => void): void;
 }
 
 ////////////////////
