@@ -654,8 +654,8 @@ export interface SearchResults<TDoc = BasicDoc> {
   index: string;
   hitsPerPage: number;
   nbHits: number;
-  nbSortedHits?:number;
-  appliedRelevancyStrictness?:number;
+  nbSortedHits?: number;
+  appliedRelevancyStrictness?: number;
   nbPages: number;
   page: number;
   processingTimeMS: number;
