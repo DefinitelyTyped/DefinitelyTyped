@@ -298,6 +298,10 @@ declare namespace TelegramBot {
         inline_message_id?: string;
     }
 
+    interface EditMessageMediaOptions extends EditMessageReplyMarkupOptions {
+        reply_markup?: InlineKeyboardMarkup;
+    }
+
     interface GetUserProfilePhotosOptions {
         offset?: number;
         limit?: number;
@@ -1178,6 +1182,8 @@ declare class TelegramBot extends EventEmitter {
     editMessageText(text: string, options?: TelegramBot.EditMessageTextOptions): Promise<TelegramBot.Message | boolean>;
 
     editMessageCaption(caption: string, options?: TelegramBot.EditMessageCaptionOptions): Promise<TelegramBot.Message | boolean>;
+
+    editMessageMedia(media: TelegramBot.InputMedia, options?: TelegramBot.EditMessageMediaOptions): Promise<TelegramBot.Message | boolean>;
 
     editMessageReplyMarkup(replyMarkup: TelegramBot.InlineKeyboardMarkup, options?: TelegramBot.EditMessageReplyMarkupOptions): Promise<TelegramBot.Message | boolean>;
 
