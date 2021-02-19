@@ -26,6 +26,8 @@
         "test/lights/lights-pointlights2.ts",
         "test/lights/lights-rectarealight.ts",
         "test/lights/lights-spotlight.ts",
+        "test/loaders/loaders-obj-mtl.ts",
+        "test/materials/materials-envmaps-hdr.ts",
         "test/materials/materials-variations-basic.ts",
         "test/materials/materials-variations-lambert.ts",
         "test/materials/materials-variations-phong.ts",

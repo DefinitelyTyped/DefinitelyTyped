@@ -55,7 +55,7 @@ function init() {
 
     const geometry = new THREE.PlaneGeometry(2000, 2000);
 
-    let mesh = new THREE.Mesh(geometry, material);
+    const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(0, -1, 0);
     mesh.rotation.x = -Math.PI * 0.5;
     mesh.receiveShadow = true;
@@ -67,10 +67,10 @@ function init() {
 
     const clyGeometry = new THREE.CylinderGeometry(5, 5, 2, 32, 1, false);
 
-    mesh = new THREE.Mesh(clyGeometry, material);
-    mesh.position.set(0, 5, 0);
-    mesh.castShadow = true;
-    scene.add(mesh);
+    const clyMesh = new THREE.Mesh(clyGeometry, material);
+    clyMesh.position.set(0, 5, 0);
+    clyMesh.castShadow = true;
+    scene.add(clyMesh);
 
     render();
 

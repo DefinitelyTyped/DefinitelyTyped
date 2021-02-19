@@ -1,7 +1,7 @@
 import { Matrix3 } from './Matrix3';
 import { BufferAttribute } from './../core/BufferAttribute';
 
-export type Vector2tuple = [number, number];
+export type Vector2Tuple = [number, number];
 
 /**
  * ( interface Vector<T> )
@@ -415,7 +415,7 @@ export class Vector2 implements Vector {
      * @return The created or provided array.
      */
     toArray(array?: number[], offset?: number): number[];
-    toArray(array?: Vector2tuple, offset?: 0): Vector2tuple;
+    toArray(array?: Vector2Tuple, offset?: 0): Vector2Tuple;
 
     /**
      * Copies x and y into the provided array-like.
