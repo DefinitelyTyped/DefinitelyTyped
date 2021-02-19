@@ -1,6 +1,7 @@
 // Type definitions for react-edit-text 4.0
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
+//                 sakana15 <https://github.com/sakana15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
