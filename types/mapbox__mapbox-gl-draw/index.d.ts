@@ -6,8 +6,20 @@
 import { Feature, GeoJSON, FeatureCollection, Geometry, Point, Position, BBox } from 'geojson';
 import { IControl } from 'mapbox-gl';
 
-declare namespace mapboxdraw {
-    type DrawMode = typeof MapboxDraw.modes;
+export = MapboxDraw;
+export as namespace MapboxDraw;
+
+declare namespace MapboxDraw {
+    type DrawMode = DrawModes[keyof DrawModes];
+
+    interface DrawModes {
+        DRAW_LINE_STRING: 'draw_line_string';
+        DRAW_POLYGON: 'draw_polygon';
+        DRAW_POINT: 'draw_point';
+        SIMPLE_SELECT: 'simple_select';
+        DIRECT_SELECT: 'direct_select';
+        STATIC: 'static';
+    }
 
     interface MapboxDrawControls {
         point?: boolean;
@@ -162,14 +174,7 @@ declare namespace mapboxdraw {
 }
 
 declare class MapboxDraw implements IControl {
-    static modes: {
-        DRAW_LINE_STRING: 'draw_line_string';
-        DRAW_POLYGON: 'draw_polygon';
-        DRAW_POINT: 'draw_point';
-        SIMPLE_SELECT: 'simple_select';
-        DIRECT_SELECT: 'direct_select';
-        STATIC: 'static';
-    };
+    static modes: MapboxDraw.DrawModes;
 
     getDefaultPosition: () => string;
 
@@ -180,9 +185,9 @@ declare class MapboxDraw implements IControl {
         boxSelect?: boolean;
         clickBuffer?: number;
         touchBuffer?: number;
-        controls?: mapboxdraw.MapboxDrawControls;
+        controls?: MapboxDraw.MapboxDrawControls;
         styles?: object[];
-        modes?: { [modeKey: string]: mapboxdraw.DrawMode | mapboxdraw.DrawCustomMode };
+        modes?: { [modeKey: string]: MapboxDraw.DrawMode | MapboxDraw.DrawCustomMode };
         defaultMode?: string;
         userProperties?: boolean;
     });
@@ -213,15 +218,15 @@ declare class MapboxDraw implements IControl {
 
     uncombineFeatures(): this;
 
-    getMode(): mapboxdraw.DrawMode;
+    getMode(): MapboxDraw.DrawMode;
 
-    changeMode(mode: mapboxdraw.DrawMode): this;
     changeMode(mode: 'simple_select', options?: { featureIds: string[] }): this;
     changeMode(mode: 'direct_select', options: { featureId: string }): this;
     changeMode(
         mode: 'draw_line_string',
         options?: { featureId: string; from: Feature<Point> | Point | number[] },
     ): this;
+    changeMode(mode: Exclude<MapboxDraw.DrawMode, 'direct_select' | 'simple_select' | 'draw_line_string'>): this;
 
     setFeatureProperty(featureId: string, property: string, value: any): this;
 
@@ -229,5 +234,3 @@ declare class MapboxDraw implements IControl {
 
     onRemove(map: mapboxgl.Map): any;
 }
-
-export = MapboxDraw;
