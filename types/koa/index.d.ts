@@ -26,7 +26,7 @@ import * as Cookies from 'cookies';
 import { EventEmitter } from 'events';
 import { IncomingMessage, ServerResponse, Server, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import * as httpAssert from 'http-assert';
+import httpAssert = require('http-assert');
 import * as HttpErrors from 'http-errors';
 import * as Keygrip from 'keygrip';
 import * as compose from 'koa-compose';
@@ -724,7 +724,7 @@ declare namespace Application {
     type Next = () => Promise<any>;
 
     /**
-     * A re-export of `HttpError` from the `http-assert` package.
+     * A re-export of `HttpError` from the `http-error` package.
      *
      * This is the error type that is thrown by `ctx.assert()` and `ctx.throw()`.
      */
