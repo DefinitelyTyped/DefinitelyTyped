@@ -89,13 +89,13 @@ declare namespace AceAjax {
 
     export interface Annotation {
 
-         row: number;
+        row?: number;
 
-         column: number;
+        column?: number;
 
-         text: string;
-
-         type: string;
+        text: string;
+        
+        type: string;
     }
 
     export interface TokenInfo {
