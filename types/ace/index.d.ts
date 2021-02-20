@@ -100,6 +100,8 @@ declare namespace AceAjax {
 
     export interface TokenInfo {
 
+        type: string;
+
         value: string;
 
         index?: number;
