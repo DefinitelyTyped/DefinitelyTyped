@@ -154,6 +154,8 @@ const defaultLocale = getDefaultLocale();
 
 <DatePicker minDate={null} maxDate={null} startDate={null} endDate={null} locale={enUS} onChange={() => null} />;
 
+<DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
+
 function handleRef(ref: DatePicker | null) {
     if (ref) {
         ref.setBlur();
