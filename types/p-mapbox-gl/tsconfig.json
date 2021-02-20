@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "mapbox-gl-tests.ts"
+        "test/tests.ts"
     ]
 }
