@@ -349,6 +349,9 @@ declare namespace AceAjax {
      * Contains the text of the document. Document can be attached to several [[EditSession `EditSession`]]s.
      * At its core, `Document`s are just an array of strings, with each row in the document matching up to the array index.
     **/
+
+    type NewLineMode = "auto" | "unix" | "windows";
+
     export interface Document {
 
         on(event: string, fn: (e: any) => any): void;
@@ -380,12 +383,12 @@ declare namespace AceAjax {
          * [Sets the new line mode.]{: #Document.setNewLineMode.desc}
          * @param newLineMode [The newline mode to use; can be either `windows`, `unix`, or `auto`]{: #Document.setNewLineMode.param}
         **/
-        setNewLineMode(newLineMode: string): void;
+        setNewLineMode(newLineMode: NewLineMode): void;
 
         /**
          * [Returns the type of newlines being used; either `windows`, `unix`, or `auto`]{: #Document.getNewLineMode}
         **/
-        getNewLineMode(): string;
+        getNewLineMode(): NewLineMode;
 
         /**
          * Returns `true` if `text` is a newline character (either `\r\n`, `\r`, or `\n`).
@@ -422,17 +425,19 @@ declare namespace AceAjax {
         **/
         getTextRange(range: Range): string;
 
+        getLinesForRange(range: Range): string[];
+
         /**
          * Inserts a block of `text` and the indicated `position`.
          * @param position The position to start inserting at
          * @param text A chunk of text to insert
         **/
-        insert(position: Position, text: string): any;
+        insert(position: Position, text: string): Position;
 
         /**
          * @deprecated Use the insertFullLines method instead.
          */
-        insertLines(row: number, lines: string[]): any;
+        insertLines(row: number, lines: string[]): Position;
 
         /**
          * Inserts the elements in `lines` into the document as full lines (does not merge with existing line), starting at the row index given by `row`. This method also triggers the `"change"` event.
@@ -448,12 +453,12 @@ declare namespace AceAjax {
          *   ```
          *
          **/
-        insertFullLines(row: number, lines: string[]): any;
+        insertFullLines(row: number, lines: string[]): void;
 
         /**
          * @deprecated Use insertMergedLines(position, ['', '']) instead.
          */
-        insertNewLine(position: Position): any;
+        insertNewLine(position: Position): Position;
 
         /**
          * Inserts the elements in `lines` into the document, starting at the position index given by `row`. This method also triggers the `"change"` event.
@@ -469,20 +474,24 @@ declare namespace AceAjax {
          *   ```
          *
          **/
-        insertMergedLines(row: number, lines: string[]): any;
+        insertMergedLines(row: number, lines: string[]): Position;
 
         /**
          * Inserts `text` into the `position` at the current row. This method also triggers the `'change'` event.
          * @param position The position to insert at
          * @param text A chunk of text
         **/
-        insertInLine(position: any, text: string): any;
+        insertInLine(position: Position, text: string): Position;
+
+        clippedPos(row: number, column: number): Position;
+        clonePos(pos: Position): Position;
+        pos(row: number, column: number): Position;
 
         /**
          * Removes the `range` from the document.
          * @param range A specified Range to remove
         **/
-        remove(range: Range): any;
+        remove(range: Range): Position;
 
         /**
          * Removes the specified columns from the `row`. This method also triggers the `'change'` event.
@@ -490,7 +499,7 @@ declare namespace AceAjax {
          * @param startColumn The column to start removing at
          * @param endColumn The column to stop removing at
         **/
-        removeInLine(row: number, startColumn: number, endColumn: number): any;
+        removeInLine(row: number, startColumn: number, endColumn: number): Position;
 
         /**
          * @deprecated Use the removeFullLines method instead.
@@ -517,7 +526,7 @@ declare namespace AceAjax {
          * @param range A specified Range to replace
          * @param text The new text to use as a replacement
         **/
-        replace(range: Range, text: string): any;
+        replace(range: Range, text: string): Position;
 
         /**
          * Applies all the changes previously accumulated. These can be either `'includeText'`, `'insertLines'`, `'removeText'`, and `'removeLines'`.
@@ -553,7 +562,7 @@ declare namespace AceAjax {
          * @param pos The `{row, column}` to convert
          * @param startRow=0 The row from which to start the conversion
         **/
-        positionToIndex(pos: Position, startRow: number): number;
+        positionToIndex(pos: Position, startRow?: number): number;
     }
     var Document: {
         /**
