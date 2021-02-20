@@ -167,17 +167,17 @@ declare namespace AceAjax {
         /**
          * Sets Configuration Options
         **/
-        setOptions(keyValueTuples: any): void;
+        setOptions(keyValueTuples: { [key: string]: any }): void;
 
         /**
          * Get a Configuration Option
         **/
-        getOption(name: string):any;
+        getOption(name: string): any;
 
         /**
          * Get Configuration Options
         **/
-        getOptions():any;
+        getOptions(optionNames?: string[] | { [key: string]: any }): { [key: string]: any };
     }
 
     ////////////////
