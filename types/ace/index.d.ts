@@ -13,13 +13,9 @@ declare namespace AceAjax {
     }
 
     export interface EditorCommand {
-
         name?: string;
-
         bindKey?: string | { mac?: string, win?: string };
-
         exec: (editor: Editor, args?: any) => void;
-
         readOnly?: boolean;
     }
 
@@ -36,78 +32,46 @@ declare namespace AceAjax {
     type CommandLike = EditorCommand | ((editor: Editor) => void);
 
     export interface CommandManager {
-
         byName: CommandMap;
-
         commands: CommandMap;
-
         on(name: 'exec', callback: execEventHandler): Function;
-
         on(name: 'afterExec', callback: execEventHandler): Function;
-
         once(name: string, callback: Function): void;
-
         setDefaultHandler(name: string, callback: Function): void;
-
         removeDefaultHandler(name: string, callback: Function): void;
-
         on(name: string, callback: Function, capturing?: boolean): Function;
-
         addEventListener(name: string, callback: Function, capturing?: boolean): void;
-
         off(name: string, callback: Function): void;
-
         removeListener(name: string, callback: Function): void;
-
         removeEventListener(name: string, callback: Function): void;
-
         exec(command: string, editor: Editor, args: any): boolean;
-
         toggleRecording(editor: Editor): void;
-
         replay(editor: Editor): void;
-
         addCommand(command: EditorCommand): void;
-
         addCommands(commands: EditorCommand[]): void;
-
         removeCommand(command: EditorCommand | string, keepCommand?: boolean): void;
-
         bindKey(key: string | { mac?: string, win?: string },
-
         command: CommandLike,
-
         position?: number): void;
-
         platform: string;
     }
 
     export interface Annotation {
-
         row?: number;
-
         column?: number;
-
         text: string;
-        
         type: string;
     }
 
     export interface TokenInfo {
-
         type: string;
-
         value: string;
-
         index?: number;
-
         start?: number;
     }
 
     export interface Position {
-
         row: number;
-
         column: number;
     }
 
@@ -116,44 +80,26 @@ declare namespace AceAjax {
     }
 
     export interface KeyBinding {
-
         setDefaultHandler(kb: KeyboardHandler): void;
-
         setKeyboardHandler(kb: KeyboardHandler): void;
-
         addKeyboardHandler(kb: KeyboardHandler, pos: number): void;
-
         removeKeyboardHandler(kb: KeyboardHandler): boolean;
-
         getKeyboardHandler(): KeyboardHandler;
-
         onCommandKey(e: any, hashId: number, keyCode: number): boolean;
-
         onTextInput(text: string): boolean;
     }
 
     export interface TextMode {
-
         getTokenizer(): Tokenizer;
-
         toggleCommentLines(state: any, session: IEditSession, startRow: number, endRow: number): void;
-
         toggleBlockComment(state: any, session: IEditSession, range: Range, cursor: Position): void;
-
         getNextLineIndent (state: any, line: string, tab: string): string;
-
         checkOutdent(state: any, line: string, input: string): boolean;
-
         autoOutdent(state: any, doc: Document, row: number): void;
-
         createWorker(session: IEditSession): any;
-
         createModeDelegates (mapping: { [key: string]: string }): void;
-
         transformAction(state: string, action: string, editor: Editor, session: IEditSession, text: string): any;
-
         getKeywords(append?: boolean): Array<string | RegExp>;
-
         getCompletions(state: string, session: IEditSession, pos: Position, prefix: string): Completion[];
     }
 
