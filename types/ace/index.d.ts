@@ -5,10 +5,15 @@
 
 declare namespace AceAjax {
 
+    export interface Point {
+        row: number;
+        column: number;
+    }
+
     export interface Delta {
-        action: string;
-        range: Range;
-        text: string;
+        action: 'insert' | 'remove';
+        start: Point;
+        end: Point;
         lines: string[];
     }
 
