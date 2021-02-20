@@ -259,12 +259,14 @@ declare namespace AceAjax {
          * @param column The column index to move the anchor to
          * @param noClip Identifies if you want the position to be clipped
         **/
-        setPosition(row: number, column: number, noClip: boolean): void;
+        setPosition(row: number, column: number, noClip?: boolean): void;
 
         /**
          * When called, the `'change'` event listener is removed.
         **/
         detach(): void;
+
+        attach(doc: Document): void;
     }
     var Anchor: {
         /**
