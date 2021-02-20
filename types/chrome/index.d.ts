@@ -8279,6 +8279,7 @@ declare namespace chrome.tabs {
      * @since Chrome 16.
      */
     export function query(queryInfo: QueryInfo, callback: (result: Tab[]) => void): void;
+    export function query(queryInfo: QueryInfo): Promise<Tab[]>;
     /**
      * Detects the primary language of the content in a tab.
      * @param callback
