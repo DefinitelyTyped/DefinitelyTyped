@@ -28,19 +28,63 @@ declare namespace AceAjax {
         readOnly?: boolean;
     }
 
+    interface CommandMap {
+        [name: string]: EditorCommand;
+    }
+
+    type execEventHandler = (obj: {
+        editor: Editor,
+        command: EditorCommand,
+        args: any[]
+    }) => void;
+
+    type CommandLike = EditorCommand | ((editor: Editor) => void);
+
     export interface CommandManager {
 
-        byName: any;
+        byName: CommandMap;
 
-        commands: any;
+        commands: CommandMap;
+
+        on(name: 'exec', callback: execEventHandler): Function;
+
+        on(name: 'afterExec', callback: execEventHandler): Function;
+
+        once(name: string, callback: Function): void;
+
+        setDefaultHandler(name: string, callback: Function): void;
+
+        removeDefaultHandler(name: string, callback: Function): void;
+
+        on(name: string, callback: Function, capturing?: boolean): Function;
+
+        addEventListener(name: string, callback: Function, capturing?: boolean): void;
+
+        off(name: string, callback: Function): void;
+
+        removeListener(name: string, callback: Function): void;
+
+        removeEventListener(name: string, callback: Function): void;
+
+        exec(command: string, editor: Editor, args: any): boolean;
+
+        toggleRecording(editor: Editor): void;
+
+        replay(editor: Editor): void;
+
+        addCommand(command: EditorCommand): void;
+
+        addCommands(commands: EditorCommand[]): void;
+
+        removeCommand(command: EditorCommand | string, keepCommand?: boolean): void;
+
+        bindKey(key: string | { mac?: string, win?: string },
+
+        command: CommandLike,
+
+        position?: number): void;
 
         platform: string;
-
-        addCommands(commands:EditorCommand[]): void;
-
-        addCommand(command:EditorCommand): void;
-
-        exec(name: string, editor: Editor, args: any): void;
     }
 
     export interface Annotation {
