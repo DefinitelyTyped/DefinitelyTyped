@@ -19,11 +19,11 @@ declare namespace AceAjax {
 
     export interface EditorCommand {
 
-        name:string;
+        name?: string;
 
-        bindKey:any;
+        bindKey?: string | { mac?: string, win?: string };
 
-        exec: Function;
+        exec: (editor: Editor, args?: any) => void;
 
         readOnly?: boolean;
     }
