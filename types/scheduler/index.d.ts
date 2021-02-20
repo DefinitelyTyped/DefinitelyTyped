@@ -23,7 +23,7 @@ export function unstable_runWithPriority<T>(priorityLevel: number, eventHandler:
 export function unstable_scheduleCallback(priorityLevel: number, callback: FrameCallbackType, options?: { delay?: number, timeout?: number}): CallbackNode;
 export function unstable_next<T>(eventHandler: () => T): T;
 export function unstable_cancelCallback(callbackNode: CallbackNode): void;
-export function unstable_wrapCallback(callback: FrameCallbackType): () => FrameCallbackType;
+export function unstable_wrapCallback(callback: () => void): () => void;
 export function unstable_getCurrentPriorityLevel(): number;
 export function unstable_shouldYield(): boolean;
 export function unstable_continueExecution(): void;
