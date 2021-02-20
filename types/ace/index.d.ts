@@ -134,7 +134,7 @@ declare namespace AceAjax {
 
     export interface TextMode {
 
-        getTokenizer(): any;
+        getTokenizer(): Tokenizer;
 
         toggleCommentLines(state: any, doc: any, startRow: any, endRow: any): void;
 
@@ -2619,6 +2619,13 @@ declare namespace AceAjax {
         new(): Split;
     }
 
+    export interface Token {
+        type: string;
+        value: string;
+        index?: number;
+        start?: number;
+    }
+
     //////////////////
     /// TokenIterator
     //////////////////
@@ -2676,7 +2683,9 @@ declare namespace AceAjax {
         /**
          * Returns an object containing two properties: `tokens`, which contains all the tokens; and `state`, the current state.
         **/
-        getLineTokens(): any;
+       removeCapturingGroups(src: string): string;
+       createSplitterRegexp(src: string, flag?: string): RegExp;
+       getLineTokens(line: string, startState: string | string[]): Token[];
     }
     var Tokenizer: {
         /**
