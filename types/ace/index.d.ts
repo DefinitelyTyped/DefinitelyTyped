@@ -136,19 +136,25 @@ declare namespace AceAjax {
 
         getTokenizer(): Tokenizer;
 
-        toggleCommentLines(state: any, doc: any, startRow: any, endRow: any): void;
+        toggleCommentLines(state: any, session: IEditSession, startRow: number, endRow: number): void;
 
-        getNextLineIndent (state: any, line: any, tab: any): string;
+        toggleBlockComment(state: any, session: IEditSession, range: Range, cursor: Position): void;
 
-        checkOutdent(state: any, line: any, input: any): boolean;
+        getNextLineIndent (state: any, line: string, tab: string): string;
 
-        autoOutdent(state: any, doc: any, row: any): void;
+        checkOutdent(state: any, line: string, input: string): boolean;
 
-        createWorker(session: any): any;
+        autoOutdent(state: any, doc: Document, row: number): void;
 
-        createModeDelegates (mapping: any): void;
+        createWorker(session: IEditSession): any;
 
-        transformAction(state: any, action: any, editor: any, session: any, param: any): any;
+        createModeDelegates (mapping: { [key: string]: string }): void;
+
+        transformAction(state: string, action: string, editor: Editor, session: IEditSession, text: string): any;
+
+        getKeywords(append?: boolean): Array<string | RegExp>;
+
+        getCompletions(state: string, session: IEditSession, pos: Position, prefix: string): Completion[];
     }
 
     export interface OptionProvider {
