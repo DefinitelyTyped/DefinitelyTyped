@@ -2619,13 +2619,6 @@ declare namespace AceAjax {
         new(): Split;
     }
 
-    export interface Token {
-        type: string;
-        value: string;
-        index?: number;
-        start?: number;
-    }
-
     //////////////////
     /// TokenIterator
     //////////////////
@@ -2685,7 +2678,7 @@ declare namespace AceAjax {
         **/
        removeCapturingGroups(src: string): string;
        createSplitterRegexp(src: string, flag?: string): RegExp;
-       getLineTokens(line: string, startState: string | string[]): Token[];
+       getLineTokens(line: string, startState: string | string[]): TokenInfo[];
     }
     var Tokenizer: {
         /**
