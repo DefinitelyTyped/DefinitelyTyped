@@ -111,21 +111,25 @@ declare namespace AceAjax {
         column: number;
     }
 
+    export interface KeyboardHandler {
+        handleKeyboard: Function;
+    }
+
     export interface KeyBinding {
 
-        setDefaultHandler(kb: any): void;
+        setDefaultHandler(kb: KeyboardHandler): void;
 
-        setKeyboardHandler(kb: any): void;
+        setKeyboardHandler(kb: KeyboardHandler): void;
 
-        addKeyboardHandler(kb: any, pos: any): void;
+        addKeyboardHandler(kb: KeyboardHandler, pos: number): void;
 
-        removeKeyboardHandler(kb: any): boolean;
+        removeKeyboardHandler(kb: KeyboardHandler): boolean;
 
-        getKeyboardHandler(): any;
+        getKeyboardHandler(): KeyboardHandler;
 
-        onCommandKey(e: any, hashId: any, keyCode: any): void;
+        onCommandKey(e: any, hashId: number, keyCode: number): boolean;
 
-        onTextInput(text: any): void;
+        onTextInput(text: string): boolean;
     }
 
     export interface TextMode {
