@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.0.0
+// Type definitions for Mapbox GL JS 1.0
 // Project: https://github.com/zsjjs/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
