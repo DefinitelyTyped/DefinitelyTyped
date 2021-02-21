@@ -585,7 +585,11 @@ slider.updateOptions(
 var callback: noUiSlider.Callback = (values, handle, unencoded) => {};
 (<noUiSlider.Instance>testHtmlElement).noUiSlider.on('event', callback);
 
+// Remove specific event
 (<noUiSlider.Instance>testHtmlElement).noUiSlider.off('event');
+
+// Remove all events
+(<noUiSlider.Instance>testHtmlElement).noUiSlider.off();
 
 (<noUiSlider.Instance>testHtmlElement).noUiSlider.destroy();
 
