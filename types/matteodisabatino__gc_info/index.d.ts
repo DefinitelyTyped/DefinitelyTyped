@@ -64,23 +64,17 @@ export interface gcStats {
     numberOfDetachedContexts: number;
 
     /**
-     * Number of bytes of memory allocated outside of v8's heap.
-     *
-     * @requires Node.js-12+
+     * Number of bytes of memory allocated outside of v8's heap. (Node.js 12+)
      */
     externalMemory?: number;
 
     /**
-     * Size of all global handles in the heap.
-     *
-     * @requires Node.js-14+
+     * Size of all global handles in the heap. (Node.js 14+)
      */
     totalGlobalHandlesSize?: number;
 
     /**
-     * Size of all allocated/used global handles in the heap.
-     *
-     * @requires Node.js-14+
+     * Size of all allocated/used global handles in the heap. (Node.js 14+)
      */
     usedGlobalHandlesSize?: number;
 }
