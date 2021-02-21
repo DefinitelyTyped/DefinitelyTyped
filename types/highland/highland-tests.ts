@@ -463,7 +463,7 @@ fooStream.pipe(readwritable);
 // $ExpectType WritableStream
 fooStream.pipe(writable, { end: false });
 
-fooStream.pull((err: Error, x: Foo) => {});
+fooStream.pull((err: Error, x: Foo | Highland.Nil) => {});
 
 fooStream.pull((err, x) => {});
 
