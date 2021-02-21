@@ -1,7 +1,7 @@
 import * as gcInfo from '@matteodisabatino/gc_info';
 
 const listener = (
-    info // $ExpectType gcInfo
+    info // $ExpectType GcInfo
 ) => {};
 
 gcInfo.on('data', listener); // $ExpectType void

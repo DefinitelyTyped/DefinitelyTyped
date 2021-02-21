@@ -3,7 +3,7 @@
 // Definitions by: Matteo Di Sabatino <https://github.com/matteodisabatino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export enum gcType {
+export enum GcType {
     Scavenge = 1,
     'Mark/Sweep/Compact' = 2,
     IncrementalMarking = 4,
@@ -11,7 +11,7 @@ export enum gcType {
     All = 15,
 }
 
-export interface gcStats {
+export interface GcStats {
     /**
      * Number of bytes V8 has allocated for the heap. This can grow if usedHeap
      * needs more.
@@ -79,7 +79,7 @@ export interface gcStats {
     usedGlobalHandlesSize?: number;
 }
 
-export interface gcInfo {
+export interface GcInfo {
     /**
      * The moment the GC started (Unix timestamp in milliseconds).
      */
@@ -99,23 +99,23 @@ export interface gcInfo {
     /**
      * Memory allocation type.
      */
-    gctype: gcType;
+    gctype: GcType;
 
     /**
      * Stats at the moment the GC started
      */
-    pre: gcStats;
+    pre: GcStats;
 
     /**
      * Stats at the moment the GC ended
      */
-    post: gcStats;
+    post: GcStats;
 
     /**
      * Effective stats (difference between post and pre).
      */
-    diff: gcStats;
+    diff: GcStats;
 }
 
-export function on(event: string, callback: (stats: gcInfo) => void): void;
-export function off(event: string, callback?: (stats: gcInfo) => void): void;
+export function on(event: string, callback: (stats: GcInfo) => void): void;
+export function off(event: string, callback?: (stats: GcInfo) => void): void;
