@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.43
+// Type definitions for non-npm package Google Maps JavaScript API 3.44
 // Project: https://developers.google.com/maps/
 // Definitions by: Justin Poehnelt <https://github.com/jpoehnelt>
 //                 Alex Muramoto <https://github.com/amuramoto>
@@ -7,7 +7,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.43
+// Google Maps JS API Version: 3.44
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -1873,7 +1873,7 @@ declare namespace google.maps {
      * of valid types can be found <a
      * href="/maps/documentation/javascript/geocoding#GeocodingAddressTypes">here</a>
      */
-    types: string[]|null;
+    types: string[];
   }
 }
 declare namespace google.maps {
@@ -1916,11 +1916,11 @@ declare namespace google.maps {
     /**
      * The precise bounds of this <code>GeocoderResult</code>, if applicable
      */
-    bounds: google.maps.LatLngBounds|null;
+    bounds?: google.maps.LatLngBounds;
     /**
      * The latitude/longitude coordinates of this result
      */
-    location: google.maps.LatLng|null;
+    location: google.maps.LatLng;
     /**
      * The type of location returned in <code>location</code>
      */
@@ -1929,7 +1929,7 @@ declare namespace google.maps {
      * The bounds of the recommended viewport for displaying this
      * <code>GeocoderResult</code>
      */
-    viewport: google.maps.LatLngBounds|null;
+    viewport: google.maps.LatLngBounds;
   }
 }
 declare namespace google.maps {
@@ -2020,7 +2020,7 @@ declare namespace google.maps {
     /**
      * An array of <code>GeocoderAddressComponent</code>s
      */
-    address_components: (google.maps.GeocoderAddressComponent|null)[]|null;
+    address_components: google.maps.GeocoderAddressComponent[];
     /**
      * A string containing the human-readable address of this location.
      */
@@ -2028,12 +2028,13 @@ declare namespace google.maps {
     /**
      * A <code>GeocoderGeometry</code> object
      */
-    geometry: google.maps.GeocoderGeometry|null;
+    geometry: google.maps.GeocoderGeometry;
     /**
      * Whether the geocoder did not return an exact match for the original
-     * request, though it was able to match part of the requested address.
+     * request, though it was able to match part of the requested address. If an
+     * exact match, the value will be undefined.
      */
-    partial_match: boolean;
+    partial_match?: boolean;
     /**
      * The place ID associated with the location. Place IDs uniquely identify a
      * place in the Google Places database and on Google Maps. Learn more about
@@ -2046,14 +2047,14 @@ declare namespace google.maps {
      * code. This is only present when the result is a postal code that contains
      * multiple localities. This array can contain up to 10 localities.
      */
-    postcode_localities: string[]|null;
+    postcode_localities?: string[];
     /**
      * An array of strings denoting the type of the returned geocoded element.
      * For a list of possible strings, refer to the <a href=
      * "/maps/documentation/javascript/geocoding#GeocodingAddressTypes"> Address
      * Component Types</a> section of the Developer&#39;s Guide.
      */
-    types: string[]|null;
+    types: string[];
   }
 }
 declare namespace google.maps {
@@ -3183,9 +3184,13 @@ declare namespace google.maps {
      * <code>target</code>, <code>currentTarget</code>,
      * <code>relatedTarget</code> and <code>path</code> properties being defined
      * and consistent. Developers should not also rely on the DOM structure of
-     * the internal implementation of the Maps API.
+     * the internal implementation of the Maps API. Due to internal event
+     * mapping, the <code>domEvent</code> may have different semantics from
+     * the {@link google.maps.MapMouseEvent} (e.g. a {@link
+     * google.maps.MapMouseEvent} &quot;click&quot; may have a
+     * <code>domEvent</code> of type <code>KeyboardEvent</code>).
      */
-    domEvent: MouseEvent|TouchEvent|PointerEvent|Event;
+    domEvent: MouseEvent|TouchEvent|PointerEvent|KeyboardEvent|Event;
     /**
      * The latitude/longitude that was below the cursor when the event occurred.
      */
@@ -3797,10 +3802,12 @@ declare namespace google.maps {
      */
     opacity?: number|null;
     /**
-     * Optimization renders many markers as a single static element. Optimized
-     * rendering is enabled by default. Disable optimized rendering for animated
-     * GIFs or PNGs, or when each marker must be rendered as a separate DOM
-     * element (advanced usage only).
+     * Optimization renders many markers as a single static element. Disable
+     * optimized rendering for animated GIFs or PNGs, or when each marker must
+     * be rendered as a separate DOM element (advanced usage only). By default,
+     * the Maps JavaScript API will decide whether or not a Marker will be
+     * optimized. Not all Markers can be optimized; in some situations, the Maps
+     * JavaScript API may need to render Markers without optimization.
      */
     optimized?: boolean|null;
     /**

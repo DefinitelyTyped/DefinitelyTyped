@@ -878,6 +878,39 @@ describe("A spy, when created manually", () => {
     });
 });
 
+describe("a spy on a typed method", () => {
+    class Test {
+        method(arg: number): string { return '42'; }
+    }
+
+    let t: Test;
+
+    beforeEach(() => {
+        t = new Test();
+    });
+
+    it("should match only call arguments with the correct type", () => {
+        const spy = spyOn(t, 'method');
+        t.method(1);
+
+        expect(t.method).toHaveBeenCalledWith(1);
+        expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
+        expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+        expect(spy).toHaveBeenCalledWith(1);
+        expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
+        expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+        expect(t.method).toHaveBeenCalledOnceWith(1);
+        expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
+        expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+
+        expect(spy).toHaveBeenCalledOnceWith(1);
+        expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
+        expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+    });
+});
+
 describe("Spy for generic method", () => {
     interface Test {
         method<T>(): Array<Box<T>>;

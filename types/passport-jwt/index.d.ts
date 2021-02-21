@@ -48,7 +48,7 @@ export interface JwtFromRequestFunction {
 }
 
 export interface SecretOrKeyProvider {
-    (request: Request, rawJwtToken: any, done: (err: any, secretOrKey: string | Buffer) => void): void;
+    (request: Request, rawJwtToken: any, done: (err: any, secretOrKey?: string | Buffer) => void): void;
 }
 
 export declare namespace ExtractJwt {

@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.25
+// Type definitions for luxon 1.26
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -67,7 +67,11 @@ export interface ToSQLOptions {
 
 export type ToISOFormat = 'basic' | 'extended';
 
-export interface ToISOTimeOptions {
+export interface ToISOTimeDurationOptions {
+    /**
+     * @default false
+     */
+    includePrefix?: boolean;
     /**
      * @default false
      */
@@ -77,9 +81,25 @@ export interface ToISOTimeOptions {
      */
     suppressSeconds?: boolean;
     /**
+     * choose between the basic and extended format
+     * @default 'extended'
+     */
+    format?: ToISOFormat;
+}
+
+export interface ToISOTimeOptions {
+    /**
      * @default true
      */
     includeOffset?: boolean;
+    /**
+     * @default false
+     */
+    suppressMilliseconds?: boolean;
+    /**
+     * @default false
+     */
+    suppressSeconds?: boolean;
     /**
      * choose between the basic and extended format
      * @default 'extended'
@@ -337,6 +357,7 @@ export interface DurationToFormatOptions extends DateTimeFormatOptions {
 
 export class Duration {
     static fromISO(text: string, options?: DurationOptions): Duration;
+    static fromISOTime(text: string, options?: DurationOptions): Duration;
     static fromMillis(count: number, options?: DurationOptions): Duration;
     static fromObject(Object: DurationObject): Duration;
     static invalid(reason?: string): Duration;
@@ -368,7 +389,9 @@ export class Duration {
     mapUnits(fn: (x: number, u: DurationUnit) => number): Duration;
     toFormat(format: string, options?: DurationToFormatOptions): string;
     toISO(): string;
+    toISOTime(options?: ToISOTimeDurationOptions): string;
     toJSON(): string;
+    toMillis(): number;
     toObject(options?: { includeConfig?: boolean }): DurationObject;
     toString(): string;
     valueOf(): number;

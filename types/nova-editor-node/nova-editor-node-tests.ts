@@ -285,10 +285,21 @@ task.setAction(
 /// https://docs.nova.app/api-reference/task-command-action/
 
 const action = new TaskCommandAction('myextension.runAction', {
-    args: ["I'm Running!"]
+    args: ["I'm Running!"],
 });
 
 task.setAction(Task.Run, action);
+
+/// https://docs.nova.app/api-reference/task-resolvable-action/
+
+const action2 = new TaskResolvableAction({
+    data: [1, 2, 3],
+});
+
+task.setAction(Task.Run, action2);
+
+// $ExpectType number[]
+action2.data;
 
 /// https://novadocs.panic.com/api-reference/text-editor/
 

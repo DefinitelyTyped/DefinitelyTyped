@@ -622,6 +622,8 @@ export interface LayoutAnimationTypes {
 
 export interface LayoutAnimationProperties {
     opacity: string;
+    scaleX: string;
+    scaleY: string;
     scaleXY: string;
 }
 
