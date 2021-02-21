@@ -21,7 +21,7 @@ declare namespace concurrently {
     }
     interface Options {
         /**
-         * The working directory to be used by all commands. Can be overriden per command.
+         * The working directory to be used by all commands. Can be overridden per command.
          * @default process.cwd()
          */
         cwd?: string;
