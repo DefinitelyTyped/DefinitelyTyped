@@ -28,7 +28,7 @@ interface InitOptions {
     events?: Events;
     useSecureCookies?: boolean;
     cookies?: Cookies;
-    theme?: string;
+    theme?: 'light' | 'dark' | 'auto';
 }
 
 interface AppOptions {
