@@ -2,7 +2,7 @@ import { Vector3 } from './../math/Vector3';
 import { Object3D } from './Object3D';
 import { Vector2 } from './../math/Vector2';
 import { Ray } from './../math/Ray';
-import { Color } from './../math/Ray';
+import { Color } from './../math/Color';
 import { Camera } from './../cameras/Camera';
 import { Layers } from './Layers';
 
