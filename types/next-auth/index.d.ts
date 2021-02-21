@@ -1,10 +1,10 @@
-// Type definitions for next-auth 3.1
+// Type definitions for next-auth 3.5
 // Project: https://github.com/iaincollins/next-auth#readme
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>
 //                 Juan <https://github.com/JuanM04>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
