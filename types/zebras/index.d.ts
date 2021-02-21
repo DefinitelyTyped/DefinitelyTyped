@@ -1,3 +1,5 @@
+// Type definitions for https://github.com/nickslevine/zebras/
+
 declare module "zebras" {
     // Data types
 
