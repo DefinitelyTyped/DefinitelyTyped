@@ -14,7 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@matteodisabatino/gc_info": [
+                "matteodisabatino__gc_info"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
