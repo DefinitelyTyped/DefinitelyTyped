@@ -11,6 +11,7 @@
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Danilo Fuchs <https://github.com/danilofuchs>
+//                 Junya Kani <https://github.com/ka2jun8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // forward declarations
