@@ -1,8 +1,6 @@
 import * as gcInfo from '@matteodisabatino/gc_info';
 
-const listener = (
-    info // $ExpectType GcInfo
-) => {};
+const listener = (info: gcInfo.GcInfo) => {};
 
 gcInfo.on('data', listener); // $ExpectType void
 gcInfo.off('data', listener); // $ExpectType void
