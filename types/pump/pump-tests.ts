@@ -1,6 +1,5 @@
 import pump = require('pump');
 import { createReadStream, createWriteStream } from 'fs';
-import * as Gulp from "gulp";
 import { Transform } from 'stream';
 
 const rs = createReadStream('/dev/random');
@@ -54,15 +53,17 @@ pump(createReadStream('/dev/random'), toHex(), createWriteStream('/dev/null'));
 // $ExpectType Stream
 pump([createReadStream('/dev/random'), toHex(), createWriteStream('/dev/null')]);
 
-const copy: Gulp.TaskFunction = (cb) => {
+let lastErr: Error | undefined;
+const copy = (cb: (err: Error) => void) => {
     pump([
-        Gulp.src('/dev/random'),
-        Gulp.dest('/dev/null'),
+        createReadStream('/dev/random'),
+        createWriteStream('/dev/null')
     ], (err) => {
         if (err) {
+            lastErr = err;
             cb(err);
             return;
         }
-        console.log('Copy done with err = ' + err);
+        lastErr = err;
     });
 };
