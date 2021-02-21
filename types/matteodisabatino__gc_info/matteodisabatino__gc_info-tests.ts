@@ -1,6 +1,6 @@
 import * as gcInfo from '@matteodisabatino/gc_info';
 
-const listener = info => {
+const listener = (info: gcInfo) => {
     info; // $ExpectType gcInfo
 }; // $ExpectType (stats: gcInfo) => void
 
