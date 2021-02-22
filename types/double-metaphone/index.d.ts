@@ -7,5 +7,5 @@
  * Compute the double metaphone representation of a word.
  * @param value The input word.
  */
-declare function doubleMetaphone(value: string): any;
+declare function doubleMetaphone(value: string): [string, string];
 export = doubleMetaphone;
