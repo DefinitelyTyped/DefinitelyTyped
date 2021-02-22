@@ -1275,10 +1275,19 @@ declare namespace Autodesk {
               PERSPECTIVE_ORTHO_FACES = 3
             }
 
+            enum ModelUnits {
+              METER = 'm',
+              CENTIMETER = 'cm',
+              MILLIMETER = 'mm',
+              FOOT = 'ft',
+              INCH = 'in',
+              POINT = 'pt'
+            }
+
             function calculatePrecision(value: string|number): number;
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
             function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
-            function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
+            function formatValueWithUnits(value: number, units: string, type: number, precision: number, options?: { noMixedArea?: boolean; noMixedVolume?: boolean, preferLetters?: boolean; }): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
 
