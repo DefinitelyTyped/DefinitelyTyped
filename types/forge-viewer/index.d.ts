@@ -500,9 +500,19 @@ declare namespace Autodesk {
             options: any;
             constructor(viewer: GuiViewer3D, options: any);
 
+            activate(mode: string): boolean;
+            deactivate(): boolean;
+            extendLocalization(locales: object): boolean;
+            getCache(): object;
+            getName(): string;
+            getModes(): string[];
+            getState(viewerState: object): void;
+            isActive(mode: string): boolean;
             load(): boolean | Promise<boolean>;
             unload(): boolean;
             onToolbarCreated(toolbar?: UI.ToolBar): void;
+            restoreState(viewerState: object, immediate: boolean): boolean;
+            setActive(enable: boolean, mode: string): void;
         }
 
         class ExtensionManager {
