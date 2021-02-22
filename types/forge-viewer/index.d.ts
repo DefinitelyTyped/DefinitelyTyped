@@ -22,7 +22,7 @@
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
 //
-/// <reference types="THREE" />
+/// <reference path="./three/three.d.ts" />
 
 declare namespace Autodesk {
     namespace Viewing {
@@ -665,7 +665,7 @@ declare namespace Autodesk {
             getCamera(): any;
             getCameraRightVector(worldAligned: boolean): THREE.Vector3;
             getCameraUpVector(): THREE.Vector3;
-            setCameraUpVector(up: THREE.Vector): void;
+            setCameraUpVector(up: THREE.Vector3): void;
             getEyeVector(): THREE.Vector3;
             getFovMin(): number;
             getFovMax(): number;
