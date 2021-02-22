@@ -4,13 +4,16 @@
         "lib": [
             "es6"
         ],
+        "paths": {
+            "svgo": ["svgo/v1"],
+        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
