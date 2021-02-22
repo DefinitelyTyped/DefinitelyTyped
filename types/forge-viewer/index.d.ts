@@ -702,7 +702,12 @@ declare namespace Autodesk {
 
           forEach(callback: (key: string, properties: object[]) => void): void;
           getAggregation(properties: object[]|string): any[];
+          getDbIds(): number[];
+          getKeysWithCategories(): string[];
+          getValidIds(displayName: string, displayCategory: string): string[];
           getValue2PropertiesMap(properties: object[]|string): any[];
+          getVisibleKeys(): string[];
+          merge(propertySet: PropertySet): this;
         }
 
         class Navigation {
