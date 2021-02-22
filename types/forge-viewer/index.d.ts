@@ -587,7 +587,8 @@ declare namespace Autodesk {
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
-            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
+            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): void;
+            getPropertySetAsync(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
