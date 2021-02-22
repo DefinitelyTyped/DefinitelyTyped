@@ -197,3 +197,6 @@ CardService.newDecoratedText().setSwitchControl(CardService.newSwitch()); // $Ex
 CardService.newDecoratedText().setText(''); // $ExpectType DecoratedText
 CardService.newDecoratedText().setTopLabel(''); // $ExpectType DecoratedText
 CardService.newDecoratedText().setWrapText(true); // $ExpectType DecoratedText
+
+DriveApp.createShortcut('').getTargetId();
+DriveApp.createFile('', '').moveTo(DriveApp.getFolderById(''));
