@@ -576,6 +576,8 @@ declare namespace Autodesk {
             getPageToModelTransform(vpId: number): THREE.Matrix4;
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
+            getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
+            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
@@ -682,6 +684,14 @@ declare namespace Autodesk {
             hidden: boolean;
             type: number;
             units: string;
+        }
+
+        class PropertySet {
+          constructor(result: any);
+
+          forEach(callback: (key: string, properties: object[]) => void): void;
+          getAggregation(properties: object[]|string): any[];
+          getValue2PropertiesMap(properties: object[]|string): any[];
         }
 
         class Navigation {
