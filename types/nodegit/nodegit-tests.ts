@@ -100,3 +100,8 @@ revwalk.push(id);
 const commitList: Promise<Git.Commit[]> = revwalk.getCommitsUntil((commit: Git.Commit) => {
     return true;
 });
+
+Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then((remote) => {
+    remote.connect(Git.Enums.DIRECTION.FETCH, {});
+    remote.defaultBranch(); // $ExpectType Promise<string>
+});
