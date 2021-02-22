@@ -237,7 +237,7 @@ export class Session {
     set(
         options: {
             oid: OID;
-            type?: number | null;
+            type?: DataTypes[keyof DataTypes] | null,
             value?: any;
         } & Options,
         callback?: ResponseCallback
@@ -361,7 +361,7 @@ export interface VarBind {
     /**
      * The integer type code for the returned value.
      */
-    type: number;
+    type: DataTypes[keyof DataTypes];
     /**
      * The value, in decoded form. This will be an integer for integer,
      * gauge, counter and timetick types, a string for an octet string
