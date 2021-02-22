@@ -589,7 +589,7 @@ declare namespace Autodesk {
             isSVF2(): boolean;
             pageToModel(): void;
             pointInClip(): void;
-            search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
+            search(text: string, onSuccessCallback: (dbIds: number[]) => void, onErrorCallback: (err?: any) => void, attributeNames?: string[], options?: { searchHidden: boolean }): void;
             setData(data: object): void;
             setDoNotCut(materialsManager: Private.MaterialManager, doNotCut: boolean): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
@@ -1499,7 +1499,7 @@ declare namespace Autodesk {
           }
 
           interface AddControlOptions {
-            index?: object;
+            index?: number;
             [key: string]: any;
           }
 
@@ -1513,11 +1513,12 @@ declare namespace Autodesk {
             target: () => void | MenuItem[];
           }
 
-          const COLLAPSED_CHANGED = 'Control.VisibilityChanged';
-          const VISIBILITY_CHANGED = 'Control.CollapsedChanged';
+          const COLLAPSED_CHANGED = 'Control.CollapsedChanged';
+          const VISIBILITY_CHANGED = 'Control.VisibilityChanged';
           const CONTROL_ADDED = 'ControlGroup.ControlAdded';
           const CONTROL_REMOVED = 'ControlGroup.ControlRemoved';
           const SIZE_CHANGED = 'ControlGroup.SizeChanged';
+          const STATE_CHANGED = 'Button.StateChanged';
 
           class DockingPanel {
             constructor(parentContainer: HTMLElement, id: string, title: string, options?: DockingPanelOptions);
@@ -1667,7 +1668,9 @@ declare namespace Autodesk {
             isCollapsible(): boolean;
             isVisible(): boolean;
             removeClass(cssClass: string): void;
+            removeFromParent(): void;
             setCollapsed(collapsed: boolean): boolean;
+            setDisplay(value: string): void;
             setToolTip(toolTipText: string): boolean;
             setVisible(visible: boolean): boolean;
 
@@ -1728,7 +1731,8 @@ declare namespace Autodesk {
           class ComboButton extends Button {
             constructor(id: string, options?: object);
 
-            addControl(): void;
+            addControl(button: Button): void;
+            removeControl(button: Button): void;
             restoreDefault(): void;
             saveAsDefault(): void;
           }
@@ -2083,7 +2087,7 @@ declare namespace Autodesk {
           setFreeMeasureModel(allow: boolean, useLastViewport: boolean): void;
           setIsolateMeasure(enable: boolean): void;
           setMeasurements(measurements: object[]|object): void;
-          setPrecision(): number;
+          setPrecision(precision: number): void;
           setRestoreSessionMeasurements(enable: boolean): void;
           setUnits(units: string): void;
           showAddCalibrationLabel(): void;
