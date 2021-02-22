@@ -1,4 +1,4 @@
-import { extendDefaultPlugins, optimize, OptimizedSvg, OptimizeOptions, Plugin } from 'svgo';
+import { extendDefaultPlugins, loadConfig, optimize, OptimizedSvg, OptimizeOptions, Plugin } from 'svgo';
 
 // Various optimize options
 let optimized: OptimizedSvg;
@@ -296,3 +296,8 @@ optimize('', options);
 
 declare const plugins: Plugin[];
 optimize('', { plugins: extendDefaultPlugins(plugins) });
+
+// $ExpectType Promise<OptimizeOptions>
+loadConfig('foo.js');
+// $ExpectType Promise<OptimizeOptions>
+loadConfig('foo.js', '/home/user');

@@ -741,3 +741,10 @@ export interface OptimizeOptions {
 
 /* The core of SVGO is optimize function. */
 export function optimize(svgString: string, options?: OptimizeOptions): OptimizedSvg;
+
+/**
+ * If you write a tool on top of svgo you might need a way to load svgo config.
+ *
+ * You can also specify relative or absolute path and customize current working directory.
+ */
+export function loadConfig(configFile: string, cwd?: string): Promise<OptimizeOptions>;
