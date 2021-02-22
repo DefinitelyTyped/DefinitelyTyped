@@ -608,6 +608,9 @@ declare namespace mapboxgl {
          * @default true
          */
         crossSourceCollisions?: boolean;
+        
+        /** Reference coordinate system for map display */
+        crs?: 'EPSG:3857' | 'EPSG:4326';
 
         /** ID of the container element */
         container: string | HTMLElement;
