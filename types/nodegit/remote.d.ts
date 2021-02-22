@@ -42,7 +42,7 @@ export class Remote {
     autotag(): number;
     connect(direction: Enums.DIRECTION, callbacks: RemoteCallbacks, callback?: Function): Promise<number>;
     connected(): number;
-    defaultBranch(): Promise<Buf>;
+    defaultBranch(): Promise<string>;
     disconnect(): Promise<void>;
     download(refSpecs: any[], opts?: FetchOptions, callback?: Function): Promise<number>;
     dup(): Promise<Remote>;
