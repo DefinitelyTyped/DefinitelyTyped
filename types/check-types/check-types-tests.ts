@@ -34,6 +34,16 @@ check.assert.not.inRange(1, 2, 3);
 
 check.assert.not.inRange(1, 2, 3, 'With a message');
 
+check.assert.array.of.string(['']);
+
+check.assert.array.of.string([''], 'With a message');
+
+check.assert.not.array.of.string(['']);
+
+check.assert.not.array.of.string([''], 'With a message');
+
+check.array.of.string(['']);
+
 check.assert(
     function a(): any {
         return {};

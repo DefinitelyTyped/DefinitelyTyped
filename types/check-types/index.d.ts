@@ -8,43 +8,71 @@ type NegationFunction = (val: any) => boolean;
 
 type MaybeFunction = <T>(val: T) => boolean | T;
 
+type Predicates = Pick<
+    CheckType,
+    | 'equal'
+    | 'undefined'
+    | 'null'
+    | 'assigned'
+    | 'primitive'
+    | 'zero'
+    | 'infinity'
+    | 'number'
+    | 'integer'
+    | 'even'
+    | 'odd'
+    | 'greater'
+    | 'less'
+    | 'between'
+    | 'greaterOrEqual'
+    | 'lessOrEqual'
+    | 'inRange'
+    | 'positive'
+    | 'negative'
+    | 'string'
+    | 'emptyString'
+    | 'nonEmptyString'
+    | 'contains'
+    | 'match'
+    | 'boolean'
+    | 'object'
+    | 'emptyObject'
+    | 'nonEmptyObject'
+    | 'instanceStrict'
+    | 'instance'
+    | 'like'
+    | 'array'
+    | 'emptyArray'
+    | 'nonEmptyArray'
+    | 'arrayLike'
+    | 'iterable'
+    | 'date'
+    | 'function'
+    | 'hasLength'
+>;
+
 interface ArrayFunction {
     (a: any): a is any[];
 
-    // TODO: Maybe there is a way to create type guards for array type checks
-    // Since syntax is like check.array.of.number(2) - it's not yet clear to me how this even works, so...
-    // I might use of: CheckType, but it will just return type guards for primitives and object type
-    // and will make variable simply non array type in conditionals.
-    of: {
-        [method: string]: boolean;
-    };
+    of: Predicates;
 }
 
 interface ArrayLikeFunction {
     (a: any): a is ArrayLike<any>;
 
-    // See in array explanation of this type
-    of: {
-        [method: string]: boolean;
-    };
+    of: Predicates;
 }
 
 interface IterableFunction {
     (a: any): a is Iterable<any>;
 
-    // See in array explanation of this type
-    of: {
-        [method: string]: boolean;
-    };
+    of: Predicates;
 }
 
 interface ObjectFunction {
     (a: any): a is object;
 
-    // See in array explanation of this type
-    of: {
-        [method: string]: boolean;
-    };
+    of: Predicates;
 }
 
 type AssertExtended<T extends any[], R> = (...args: [...T, string?]) => R;
@@ -139,8 +167,8 @@ interface CheckType {
     function(a: any): a is (...args: any[]) => any;
 
     /* Modifiers (some of them in their respected sections) */
-    not: CheckType & NegationFunction;
-    maybe: CheckType & MaybeFunction;
+    not: Predicates & NegationFunction;
+    maybe: Predicates & MaybeFunction;
     assert: AssertFunction;
 
     /* Batch operations */
