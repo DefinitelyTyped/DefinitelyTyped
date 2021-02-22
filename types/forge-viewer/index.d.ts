@@ -1518,6 +1518,7 @@ declare namespace Autodesk {
           const CONTROL_ADDED = 'ControlGroup.ControlAdded';
           const CONTROL_REMOVED = 'ControlGroup.ControlRemoved';
           const SIZE_CHANGED = 'ControlGroup.SizeChanged';
+          const STATE_CHANGED = 'Button.StateChanged';
 
           class DockingPanel {
             constructor(parentContainer: HTMLElement, id: string, title: string, options?: DockingPanelOptions);
