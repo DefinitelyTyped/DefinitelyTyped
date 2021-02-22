@@ -48,12 +48,13 @@
 /// <reference path="apis/adsense_v1_4.d.ts"/>
 /// <reference path="apis/analytics_v3.d.ts"/>
 /// <reference path="apis/analyticsreporting_v4.d.ts"/>
+/// <reference path="apis/area120tables_v1alpha1.d.ts"/>
 /// <reference path="apis/appsactivity_v1.d.ts"/>
 /// <reference path="apis/bigquery_v2.d.ts"/>
 /// <reference path="apis/calendar_v3.d.ts"/>
 /// <reference path="apis/classroom_v1.d.ts"/>
 /// <reference path="apis/content_v2.d.ts"/>
-/// <reference path="apis/dfareporting_v3_3.d.ts"/>
+/// <reference path="apis/dfareporting_v3_4.d.ts"/>
 /// <reference path="apis/directory_v1.d.ts"/>
 /// <reference path="apis/docs_v1.d.ts"/>
 /// <reference path="apis/drive_v2.d.ts"/>
