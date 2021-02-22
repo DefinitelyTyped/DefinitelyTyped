@@ -108,10 +108,10 @@ historyEntries.then((entries: Git.Revwalk.HistoryEntry[]) => {
         const status: Git.Diff.DELTA = entry.status;
         const newName: string = entry.newName;
         const oldName: string = entry.oldName;
-        entry; // $ExpectType Git.Revwalk.HistoryEntry
-        commit; // $ExpectType Git.Commit
-        status; // $ExpectType Git.Diff.DELTA
+        entry; // $ExpectType HistoryEntry
+        commit; // $ExpectType Commit
+        status; // $ExpectType DELTA
         newName; // $ExpectType string
         oldName; // $ExpectType string
     }
-})
+});
