@@ -133,7 +133,7 @@ export class SortBy extends React.Component<any> {}
  */
 export class Stats extends React.Component<{
   translations?: {
-    [key: string]: (n: number, ms: number, nSortedHits: number, isSmartSorted: boolean) => string;
+    [key: string]: (n: number, ms: number, nSortedHits: number, areHitsSorted: boolean) => string;
   };
 }> {}
 export class ToggleRefinement extends React.Component<any> {}

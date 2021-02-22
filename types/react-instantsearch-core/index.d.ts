@@ -562,7 +562,7 @@ interface StatsProvided {
   nbHits: number;
   nbSortedHits: number;
   processingTimeMS: number;
-  isSmartSorted: boolean;
+  areHitsSorted: boolean;
 }
 
 export function connectStats(stateless: React.FunctionComponent<StatsProvided>): React.ComponentClass;
