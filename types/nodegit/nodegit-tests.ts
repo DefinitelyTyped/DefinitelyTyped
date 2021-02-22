@@ -100,3 +100,18 @@ revwalk.push(id);
 const commitList: Promise<Git.Commit[]> = revwalk.getCommitsUntil((commit: Git.Commit) => {
     return true;
 });
+const historyEntries: Promise<Git.Revwalk.HistoryEntry[]> = revwalk.fileHistoryWalk('path', 100);
+historyEntries.then((entries: Git.Revwalk.HistoryEntry[]) => {
+    if (entries.length > 0) {
+        const entry = entries[0];
+        const commit: Git.Commit = entry.commit;
+        const status: Git.Diff.DELTA = entry.status;
+        const newName: string = entry.newName;
+        const oldName: string = entry.oldName;
+        entry; // $ExpectType Git.Revwalk.HistoryEntry
+        commit; // $ExpectType Git.Commit
+        status; // $ExpectType Git.Diff.DELTA
+        newName; // $ExpectType string
+        oldName; // $ExpectType string
+    }
+})
