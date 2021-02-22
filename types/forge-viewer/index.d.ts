@@ -1731,7 +1731,8 @@ declare namespace Autodesk {
           class ComboButton extends Button {
             constructor(id: string, options?: object);
 
-            addControl(): void;
+            addControl(button: Button): void;
+            removeControl(button: Button): void;
             restoreDefault(): void;
             saveAsDefault(): void;
           }
