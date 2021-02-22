@@ -278,6 +278,7 @@ declare namespace Autodesk {
         const MODEL_REMOVED_EVENT = 'modelRemoved';
         const MODEL_LAYERS_LOADED_EVENT = 'modelLayersLoaded';
         const MODEL_UNLOADED_EVENT = 'modelUnloaded';
+        const MODEL_VIEWPORT_BOUNDS_CHANGED_EVENT = 'viewportBoundsChanged';
         const NAVIGATION_MODE_CHANGED_EVENT = 'navigationModeChanged';
         const OBJECT_TREE_CREATED_EVENT = 'objectTreeCreated';
         const OBJECT_TREE_UNAVAILABLE_EVENT = 'objectTreeUnavailable';
