@@ -147,7 +147,7 @@ export type ExtractRouteOptionalParam<T extends string, U = string | number | bo
     ? { [k in Param]?: U }
     : { [k in T]: U };
 
-export type ExtractRouteParams<T extends string, U> = string extends T
+export type ExtractRouteParams<T extends string, U = string | number | boolean> = string extends T
     ? { [k in string]?: U }
     : T extends `${infer _Start}:${infer Param}/${infer Rest}`
     ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
@@ -157,7 +157,7 @@ export type ExtractRouteParams<T extends string, U> = string extends T
 
 export function generatePath<S extends string>(
     path: S,
-    params?: ExtractRouteParams<S, string | number | boolean>,
+    params?: ExtractRouteParams<S>,
 ): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
