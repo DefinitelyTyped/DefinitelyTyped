@@ -951,6 +951,7 @@ declare namespace Autodesk {
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
             getAllModels(): Model[];
+            getUnderlayRaster(bubbleNode: BubbleNode): Model[];
             hide(node: number|number[], model?: Model): void;
             show(node: number|number[], model?: Model): void;
             showAll(): void;
