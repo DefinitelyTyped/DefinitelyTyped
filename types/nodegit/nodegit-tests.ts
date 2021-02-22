@@ -100,6 +100,7 @@ revwalk.push(id);
 const commitList: Promise<Git.Commit[]> = revwalk.getCommitsUntil((commit: Git.Commit) => {
     return true;
 });
+
 const historyEntries: Promise<Git.Revwalk.HistoryEntry[]> = revwalk.fileHistoryWalk('path', 100);
 historyEntries.then((entries: Git.Revwalk.HistoryEntry[]) => {
     if (entries.length > 0) {
@@ -114,4 +115,9 @@ historyEntries.then((entries: Git.Revwalk.HistoryEntry[]) => {
         newName; // $ExpectType string
         oldName; // $ExpectType string
     }
+});
+
+Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then((remote) => {
+    remote.connect(Git.Enums.DIRECTION.FETCH, {});
+    remote.defaultBranch(); // $ExpectType Promise<string>
 });

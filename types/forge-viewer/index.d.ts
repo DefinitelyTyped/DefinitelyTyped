@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.35
+// Type definitions for non-npm package Forge Viewer 7.36
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -22,7 +22,7 @@
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
 //
-/// <reference types="THREE" />
+/// <reference path="./three/three.d.ts" />
 
 declare namespace Autodesk {
     namespace Viewing {
@@ -278,6 +278,7 @@ declare namespace Autodesk {
         const MODEL_REMOVED_EVENT = 'modelRemoved';
         const MODEL_LAYERS_LOADED_EVENT = 'modelLayersLoaded';
         const MODEL_UNLOADED_EVENT = 'modelUnloaded';
+        const MODEL_VIEWPORT_BOUNDS_CHANGED_EVENT = 'viewportBoundsChanged';
         const NAVIGATION_MODE_CHANGED_EVENT = 'navigationModeChanged';
         const OBJECT_TREE_CREATED_EVENT = 'objectTreeCreated';
         const OBJECT_TREE_UNAVAILABLE_EVENT = 'objectTreeUnavailable';
@@ -314,25 +315,41 @@ declare namespace Autodesk {
         }
 
         interface AggregatedViewInitOptions {
+          cameraValidator?: boolean;
+          clusterfck?: any;
+          createModelAlignmentService?: any;
+          disableBookmarks?: boolean;
+          getCustomLoadOptions?: any;
           ignoreGlobalOffset?: boolean;
-          headlessViewer?: boolean;
+          multiViewerFactory?: any;
+          propagateInputEvents?: boolean;
+          unloadUnfinishedModels?: boolean;
           useDynamicGlobalOffset?: boolean;
+          viewerConfig?: any;
+          viewerStartOptions?: any;
         }
 
         class AggregatedView {
           viewer: Viewer3D | GuiViewer3D;
 
+          static findDiffSupportModel(sheetNode: BubbleNode): BubbleNode;
+          static findDiffSupportModels(diffConfig: any): void;
+
           areAllNodes2D(): boolean;
+          fetchAlignments(urns: string[]): any;
+          fetchAlignmentsForNodes(nodes: BubbleNode[]): any;
           getFloorSelector(): any;
           getModel(node: BubbleNode): Model;
           getModelAndWait(node: BubbleNode): Promise<Model>;
-          getVisibleNodes(): Model[];
+          getVisibleNodes(): BubbleNode[];
           hide(node: BubbleNode): void;
           hideAll(): void;
           init(parentDiv: HTMLElement, options?: AggregatedViewInitOptions): Promise<Extension[]>;
+          initViewerInstance(parentDiv: HTMLDivElement, options?: AggregatedViewInitOptions): void;
           isBimWalkActive(): boolean;
           isEmpty(): boolean;
           isLoadDone(): boolean;
+          isOtgManifestMissing(bubbleNode: BubbleNode): boolean;
           isVisible(node: BubbleNode): boolean;
           load(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
           reset(): void;
@@ -405,6 +422,15 @@ declare namespace Autodesk {
             getApiEndpoint(): string;
             getEndpointAndApi(): string;
             setEndpointAndApi(endpoint: string, api: string): void;
+        }
+
+        namespace EventUtils {
+          function isMiddleClick(event: any): boolean;
+          function isRightClick(event: any): boolean;
+          function setUseLeftHandedInput(value: boolean): void;
+          function waitUntilGeometryLoaded(viewer: Viewer3D, model?: Model): Promise<void>;
+          function waitUntilModelAdded(viewer: Viewer3D, model?: Model): Promise<void>;
+          function waitUntilTransitionEnded(viewer: Viewer3D): Promise<void>;
         }
 
         let endpoint: Endpoint;
@@ -550,6 +576,8 @@ declare namespace Autodesk {
             getPageToModelTransform(vpId: number): THREE.Matrix4;
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
+            getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
+            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
@@ -589,7 +617,7 @@ declare namespace Autodesk {
             isSVF2(): boolean;
             pageToModel(): void;
             pointInClip(): void;
-            search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
+            search(text: string, onSuccessCallback: (dbIds: number[]) => void, onErrorCallback: (err?: any) => void, attributeNames?: string[], options?: { searchHidden: boolean }): void;
             setData(data: object): void;
             setDoNotCut(materialsManager: Private.MaterialManager, doNotCut: boolean): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
@@ -658,6 +686,14 @@ declare namespace Autodesk {
             units: string;
         }
 
+        class PropertySet {
+          constructor(result: any);
+
+          forEach(callback: (key: string, properties: object[]) => void): void;
+          getAggregation(properties: object[]|string): any[];
+          getValue2PropertiesMap(properties: object[]|string): any[];
+        }
+
         class Navigation {
             dollyFromPoint(distance: number, point: THREE.Vector3): void;
             fitBounds(immediate: boolean, bounds: THREE.Box3, reorient?: boolean, force?: boolean): { position: THREE.Vector3, target: THREE.Vector3 };
@@ -665,7 +701,7 @@ declare namespace Autodesk {
             getCamera(): any;
             getCameraRightVector(worldAligned: boolean): THREE.Vector3;
             getCameraUpVector(): THREE.Vector3;
-            setCameraUpVector(up: THREE.Vector): void;
+            setCameraUpVector(up: THREE.Vector3): void;
             getEyeVector(): THREE.Vector3;
             getFovMin(): number;
             getFovMax(): number;
@@ -777,6 +813,22 @@ declare namespace Autodesk {
             worldup: THREE.Vector3;
             worldUpTransform: THREE.Matrix4;
             zoom: number;
+        }
+
+        class ContextMenu {
+          constructor(viewer: GuiViewer3D, options?: { onHide?: boolean; });
+
+          addCallbackToMenuItem(menuItem: ContextMenuItem, target: () => void): void;
+          addSubmenuCallbackToMenuItem(menuItem: ContextMenuItem, menu: any, x: number, y: number, shiftLeft: boolean): void;
+          createMenuItem(text: string, icon?: string, shortcut?: string, expand?: boolean): ContextMenuItem;
+          hide(menu: any): boolean;
+          hideMenu(menu: any): void;
+          setMenuExpand(menuItem: ContextMenuItem, shiftLeft: boolean, show: boolean): void;
+          setMenuItemIcon(menuItem: ContextMenuItem, iconClass: string): void;
+          setMenuItemShortcut(menuItem: ContextMenuItem, shortcut: string): void;
+          setMenuItemText(menuItem: ContextMenuItem, text: string): void;
+          show(event: any, menu: any): void;
+          showMenu(menu: any, x: number, y: number, shiftLeft?: boolean): void;
         }
 
         interface ContextMenuCallbackStatus {
@@ -1223,10 +1275,20 @@ declare namespace Autodesk {
               PERSPECTIVE_ORTHO_FACES = 3
             }
 
+            enum ModelUnits {
+              METER = 'm',
+              CENTIMETER = 'cm',
+              MILLIMETER = 'mm',
+              FOOT = 'ft',
+              INCH = 'in',
+              POINT = 'pt'
+            }
+
             function calculatePrecision(value: string|number): number;
             function convertUnits(fromUnits: string, toUnits: string, calibrationFactor: number, d: number, type: string): number;
             function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
-            function formatValueWithUnits(value: number, units: string, type: number, precision: number): string;
+            function formatValueWithUnits(value: number, units: string, type: number, precision: number,
+              options?: { noMixedArea?: boolean; noMixedVolume?: boolean, preferLetters?: boolean; }): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
             function lerp(x: number, y: number, t: number): number;
 
@@ -1499,7 +1561,7 @@ declare namespace Autodesk {
           }
 
           interface AddControlOptions {
-            index?: object;
+            index?: number;
             [key: string]: any;
           }
 
@@ -1513,11 +1575,12 @@ declare namespace Autodesk {
             target: () => void | MenuItem[];
           }
 
-          const COLLAPSED_CHANGED = 'Control.VisibilityChanged';
-          const VISIBILITY_CHANGED = 'Control.CollapsedChanged';
+          const COLLAPSED_CHANGED = 'Control.CollapsedChanged';
+          const VISIBILITY_CHANGED = 'Control.VisibilityChanged';
           const CONTROL_ADDED = 'ControlGroup.ControlAdded';
           const CONTROL_REMOVED = 'ControlGroup.ControlRemoved';
           const SIZE_CHANGED = 'ControlGroup.SizeChanged';
+          const STATE_CHANGED = 'Button.StateChanged';
 
           class DockingPanel {
             constructor(parentContainer: HTMLElement, id: string, title: string, options?: DockingPanelOptions);
@@ -1667,7 +1730,9 @@ declare namespace Autodesk {
             isCollapsible(): boolean;
             isVisible(): boolean;
             removeClass(cssClass: string): void;
+            removeFromParent(): void;
             setCollapsed(collapsed: boolean): boolean;
+            setDisplay(value: string): void;
             setToolTip(toolTipText: string): boolean;
             setVisible(visible: boolean): boolean;
 
@@ -1728,7 +1793,8 @@ declare namespace Autodesk {
           class ComboButton extends Button {
             constructor(id: string, options?: object);
 
-            addControl(): void;
+            addControl(button: Button): void;
+            removeControl(button: Button): void;
             restoreDefault(): void;
             saveAsDefault(): void;
           }
@@ -2083,7 +2149,7 @@ declare namespace Autodesk {
           setFreeMeasureModel(allow: boolean, useLastViewport: boolean): void;
           setIsolateMeasure(enable: boolean): void;
           setMeasurements(measurements: object[]|object): void;
-          setPrecision(): number;
+          setPrecision(precision: number): void;
           setRestoreSessionMeasurements(enable: boolean): void;
           setUnits(units: string): void;
           showAddCalibrationLabel(): void;
