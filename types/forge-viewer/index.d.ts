@@ -315,25 +315,41 @@ declare namespace Autodesk {
         }
 
         interface AggregatedViewInitOptions {
+          cameraValidator?: boolean;
+          clusterfck?: any;
+          createModelAlignmentService?: any;
+          disableBookmarks?: boolean;
+          getCustomLoadOptions?: any;
           ignoreGlobalOffset?: boolean;
-          headlessViewer?: boolean;
+          multiViewerFactory?: any;
+          propagateInputEvents?: boolean;
+          unloadUnfinishedModels?: boolean;
           useDynamicGlobalOffset?: boolean;
+          viewerConfig?: any;
+          viewerStartOptions?: any;
         }
 
         class AggregatedView {
           viewer: Viewer3D | GuiViewer3D;
 
+          static findDiffSupportModel(sheetNode: BubbleNode): BubbleNode;
+          static findDiffSupportModels(diffConfig: any): void;
+
           areAllNodes2D(): boolean;
+          fetchAlignments(urns: string[]): any;
+          fetchAlignmentsForNodes(nodes: BubbleNode[]): any;
           getFloorSelector(): any;
           getModel(node: BubbleNode): Model;
           getModelAndWait(node: BubbleNode): Promise<Model>;
-          getVisibleNodes(): Model[];
+          getVisibleNodes(): BubbleNode[];
           hide(node: BubbleNode): void;
           hideAll(): void;
           init(parentDiv: HTMLElement, options?: AggregatedViewInitOptions): Promise<Extension[]>;
+          initViewerInstance(parentDiv: HTMLDivElement, options?: AggregatedViewInitOptions): void;
           isBimWalkActive(): boolean;
           isEmpty(): boolean;
           isLoadDone(): boolean;
+          isOtgManifestMissing(bubbleNode: BubbleNode): boolean;
           isVisible(node: BubbleNode): boolean;
           load(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
           reset(): void;
