@@ -424,6 +424,15 @@ declare namespace Autodesk {
             setEndpointAndApi(endpoint: string, api: string): void;
         }
 
+        namespace EventUtils {
+          function isMiddleClick(event: any): boolean;
+          function isRightClick(event: any): boolean;
+          function setUseLeftHandedInput(value: boolean): void;
+          function waitUntilGeometryLoaded(viewer: Viewer3D, model?: Model): Promise<void>;
+          function waitUntilModelAdded(viewer: Viewer3D, model?: Model): Promise<void>;
+          function waitUntilTransitionEnded(viewer: Viewer3D): Promise<void>;
+        }
+
         let endpoint: Endpoint;
         let theExtensionManager: ExtensionManager;
 
