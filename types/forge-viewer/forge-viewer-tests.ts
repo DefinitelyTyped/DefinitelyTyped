@@ -32,11 +32,13 @@ Autodesk.Viewing.Initializer(options, () => {
         globalTests();
         bubbleNodeTests();
         cameraTests(viewer);
+        formattingTests();
         fragListTests(model);
         modelTests(model);
         await dataVizTests(viewer);
         await edit2DTests(viewer);
         await measureTests(viewer);
+        await propertyTests(viewer);
         await searchTests(viewer);
     }
 
@@ -99,6 +101,16 @@ function modelTests(model: Autodesk.Viewing.Model): void {
     model.isSVF2();
 }
 
+async function propertyTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        viewer.model.getProperties2([ 2120, 2121 ], (results) => {
+            resolve();
+        }, (err) => {
+            reject(err);
+        });
+    });
+}
+
 async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.Edit2D') as Autodesk.Extensions.Edit2D;
 
@@ -140,6 +152,11 @@ function fragListTests(model: Autodesk.Viewing.Model): void {
 
     // $ExpectType boolean
     fragList.getAnimTransform(fragId, s, r, t);
+}
+
+function formattingTests(): void {
+    // $ExpectType string
+    Autodesk.Viewing.Private.formatValueWithUnits(10, Autodesk.Viewing.Private.ModelUnits.CENTIMETER, 3, 2);
 }
 
 async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
