@@ -1332,7 +1332,8 @@ declare namespace Autodesk {
               nextMaterialId: number;
               originalColors: any[];
               pointsHidden: boolean;
-              themingOrGhostingNeedsUpdate: any[];
+              themingOrGhostingNeedsUpdate: object;
+              themingOrGhostingNeedsUpdateByDbId: object;
               transforms: any;
               useThreeMesh: boolean;
               vizflags: Uint32Array;
