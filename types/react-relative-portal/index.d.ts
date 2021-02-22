@@ -14,7 +14,7 @@ declare namespace RelativePortal {
         component: string;
         fullWidth?: boolean;
         left?: number;
-        onOutClick?: () => void;
+        onOutClick?: (e: MouseEvent) => void;
         right?: number;
         top?: number;
     }
