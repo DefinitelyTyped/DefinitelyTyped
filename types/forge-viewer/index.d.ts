@@ -1513,8 +1513,8 @@ declare namespace Autodesk {
             target: () => void | MenuItem[];
           }
 
-          const COLLAPSED_CHANGED = 'Control.VisibilityChanged';
-          const VISIBILITY_CHANGED = 'Control.CollapsedChanged';
+          const COLLAPSED_CHANGED = 'Control.CollapsedChanged';
+          const VISIBILITY_CHANGED = 'Control.VisibilityChanged';
           const CONTROL_ADDED = 'ControlGroup.ControlAdded';
           const CONTROL_REMOVED = 'ControlGroup.ControlRemoved';
           const SIZE_CHANGED = 'ControlGroup.SizeChanged';
