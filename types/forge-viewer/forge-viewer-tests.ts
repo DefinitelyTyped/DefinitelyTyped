@@ -31,6 +31,7 @@ Autodesk.Viewing.Initializer(options, () => {
 
         globalTests();
         bubbleNodeTests();
+        cameraTests(viewer);
         fragListTests(model);
         modelTests(model);
         await dataVizTests(viewer);
@@ -53,6 +54,12 @@ function globalTests(): void {
 function bubbleNodeTests(): void {
     // $ExpectType string
     const lineageUrn = Autodesk.Viewing.BubbleNode.parseLineageUrnFromEncodedUrn('dXJuOmFkc2sud2lwc3RnOmZzLmZpbGU6dmYuM3Q4QlBZQXJSSkNpZkFZUnhOSnM0QT92ZXJzaW9uPTI');
+}
+
+function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const up = new THREE.Vector3(0, 0, 1);
+
+    viewer.navigation.setCameraUpVector(up);
 }
 
 async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
