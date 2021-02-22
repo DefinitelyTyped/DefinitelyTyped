@@ -37,6 +37,7 @@ Autodesk.Viewing.Initializer(options, () => {
         await dataVizTests(viewer);
         await edit2DTests(viewer);
         await measureTests(viewer);
+        await searchTests(viewer);
     }
 
     function onDocumentLoadFailure() {
@@ -146,4 +147,14 @@ async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
 
     ext.sharedMeasureConfig.units = 'in';
     ext.calibrateByScale('in', 0.0254);
+}
+
+async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {
+    return new Promise<number[]>((resolve, reject) => {
+        viewer.model.search('text', (dbIds) => {
+            resolve(dbIds);
+        }, (err) => {
+            reject(err);
+        });
+    });
 }
