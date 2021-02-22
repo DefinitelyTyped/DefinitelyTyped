@@ -8,7 +8,7 @@ type NegationFunction = (val: any) => boolean;
 
 type MaybeFunction = <T>(val: T) => boolean | T;
 
-type Predicates = Pick<
+type CheckTypePredicates = Pick<
     CheckType,
     | 'equal'
     | 'undefined'
@@ -54,25 +54,25 @@ type Predicates = Pick<
 interface ArrayFunction {
     (a: any): a is any[];
 
-    of: Predicates;
+    of: CheckTypePredicates;
 }
 
 interface ArrayLikeFunction {
     (a: any): a is ArrayLike<any>;
 
-    of: Predicates;
+    of: CheckTypePredicates;
 }
 
 interface IterableFunction {
     (a: any): a is Iterable<any>;
 
-    of: Predicates;
+    of: CheckTypePredicates;
 }
 
 interface ObjectFunction {
     (a: any): a is object;
 
-    of: Predicates;
+    of: CheckTypePredicates;
 }
 
 type AssertExtended<T extends any[], R> = (...args: [...T, string?]) => R;
@@ -82,7 +82,7 @@ type ExtendWithAssert<T> = {
         ? AssertExtended<U, R> & ExtendWithAssert<T[K]>
         : ExtendWithAssert<T[K]>;
 };
-interface AssertFunction extends ExtendWithAssert<CheckType> {
+interface AssertFunction {
     <T>(possibleFalsy: T, message?: string, errorType?: { new (...args: any[]): any }): T;
 }
 
@@ -167,9 +167,9 @@ interface CheckType {
     function(a: any): a is (...args: any[]) => any;
 
     /* Modifiers (some of them in their respected sections) */
-    not: Predicates & NegationFunction;
-    maybe: Predicates & MaybeFunction;
-    assert: AssertFunction;
+    not: CheckTypePredicates & NegationFunction;
+    maybe: CheckTypePredicates & MaybeFunction;
+    assert: ExtendWithAssert<CheckTypePredicates> & ExtendWithAssert<Pick<CheckType, 'not' | 'maybe'>> & AssertFunction;
 
     /* Batch operations */
 
