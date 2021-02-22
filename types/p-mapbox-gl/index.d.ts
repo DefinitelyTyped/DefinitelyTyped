@@ -1,14 +1,6 @@
 // Type definitions for Mapbox GL JS 1.0
 // Project: https://github.com/zsjjs/mapbox-gl-js
-// Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Patrick Reames <https://github.com/patrickr>
-//                 Karl-Aksel Puulmann <https://github.com/macobo>
-//                 Dmytro Gokun <https://github.com/dmytro-gokun>
-//                 Liam Clarke <https://github.com/LiamAttClarke>
-//                 Vladimir Dashukevich <https://github.com/life777>
-//                 Marko Klopets <https://github.com/mklopets>
-//                 André Fonseca <https://github.com/amxfonseca>
-//                 makspetrov <https://github.com/Nosfit>
+// Definitions by: jason zhou <https://github.com/zsjjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
