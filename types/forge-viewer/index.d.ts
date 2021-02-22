@@ -815,6 +815,22 @@ declare namespace Autodesk {
             zoom: number;
         }
 
+        class ContextMenu {
+          constructor(viewer: GuiViewer3D, options?: { onHide?: boolean; });
+
+          addCallbackToMenuItem(menuItem: ContextMenuItem, target: () => void): void;
+          addSubmenuCallbackToMenuItem(menuItem: ContextMenuItem, menu: any, x: number, y: number, shiftLeft: boolean): void;
+          createMenuItem(text: string, icon?: string, shortcut?: string, expand?: boolean): ContextMenuItem;
+          hide(menu: any): boolean;
+          hideMenu(menu: any): void;
+          setMenuExpand(menuItem: ContextMenuItem, shiftLeft: boolean, show: boolean): void;
+          setMenuItemIcon(menuItem: ContextMenuItem, iconClass: string): void;
+          setMenuItemShortcut(menuItem: ContextMenuItem, shortcut: string): void;
+          setMenuItemText(menuItem: ContextMenuItem, text: string): void;
+          show(event: any, menu: any): void;
+          showMenu(menu: any, x: number, y: number, shiftLeft?: boolean): void;
+        }
+
         interface ContextMenuCallbackStatus {
             hasHidden: boolean;
             hasSelected: boolean;
