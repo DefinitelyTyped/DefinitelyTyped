@@ -135,7 +135,7 @@ export interface match<Params extends { [K in keyof Params]?: string } = {}> {
 export type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
 // Newer Omit type: as the previous one is being exported, removing it would be a breaking change
-export type OmitNative<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P]; };
+export type OmitNative<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P] };
 
 export function matchPath<Params extends { [K in keyof Params]?: string }>(
     pathname: string,
@@ -155,10 +155,7 @@ export type ExtractRouteParams<T extends string, U = string | number | boolean> 
     ? ExtractRouteOptionalParam<Param, U>
     : {};
 
-export function generatePath<S extends string>(
-    path: S,
-    params?: ExtractRouteParams<S>,
-): string;
+export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
     ? { wrappedComponentRef?: React.Ref<InstanceType<C>> }
