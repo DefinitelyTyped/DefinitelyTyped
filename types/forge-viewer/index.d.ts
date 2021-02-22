@@ -1668,7 +1668,9 @@ declare namespace Autodesk {
             isCollapsible(): boolean;
             isVisible(): boolean;
             removeClass(cssClass: string): void;
+            removeFromParent(): void;
             setCollapsed(collapsed: boolean): boolean;
+            setDisplay(value: string): void;
             setToolTip(toolTipText: string): boolean;
             setVisible(visible: boolean): boolean;
 
