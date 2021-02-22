@@ -589,7 +589,7 @@ declare namespace Autodesk {
             isSVF2(): boolean;
             pageToModel(): void;
             pointInClip(): void;
-            search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
+            search(text: string, onSuccessCallback: (dbIds: number[]) => void, onErrorCallback: (err: any) => void, attributeNames?: string[], options?: { searchHidden: boolean }): void;
             setData(data: object): void;
             setDoNotCut(materialsManager: Private.MaterialManager, doNotCut: boolean): void;
             setThemingColor(dbId: number, color: THREE.Vector4, recursive?: boolean): void;
