@@ -5,11 +5,12 @@
 
 /// <reference types="node" />
 import { Agent } from 'http';
+import { Agent as httpsAgent } from 'https';
 
 export function httpOverHttp(options?: HttpOptions): Agent;
 export function httpsOverHttp(options?: HttpsOverHttpOptions): Agent;
-export function httpOverHttps(options?: HttpOverHttpsOptions): Agent;
-export function httpsOverHttps(options?: HttpsOverHttpsOptions): Agent;
+export function httpOverHttps(options?: HttpOverHttpsOptions): httpsAgent;
+export function httpsOverHttps(options?: HttpsOverHttpsOptions): httpsAgent;
 
 export interface HttpOptions {
     maxSockets?: number;
