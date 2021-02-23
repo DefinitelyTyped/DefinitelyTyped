@@ -1,6 +1,7 @@
 import * as Popper from '@popperjs/core';
+import BaseComponent from './base-component';
 
-declare class Tooltip {
+declare class Tooltip extends BaseComponent {
     constructor(element: Element, options?: Partial<Tooltip.Options>);
 
     /**
@@ -25,13 +26,6 @@ declare class Tooltip {
      * considered a “manual” triggering of the tooltip.
      */
     toggle(): void;
-
-    /**
-     * Hides and destroys an element’s tooltip. Tooltips that use delegation
-     * (which are created using the selector option) cannot be individually
-     * destroyed on descendant trigger elements.
-     */
-    dispose(): void;
 
     /**
      * Gives an element’s tooltip the ability to be shown. Tooltips are
@@ -62,6 +56,13 @@ declare class Tooltip {
     static getInstance(element: Element): Tooltip;
 
     static NAME: 'tooltip';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Record<string, any>;
 }
 
 declare namespace Tooltip {

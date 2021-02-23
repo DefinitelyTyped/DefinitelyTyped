@@ -1,17 +1,12 @@
-declare class Alert {
-    constructor(element: Element);
+import BaseComponent from './base-component';
 
+declare class Alert extends BaseComponent {
     /**
      * Closes an alert by removing it from the DOM. If the .fade and .show
      * classes are present on the element, the alert will fade out before it
      * is removed.
      */
     close(): void;
-
-    /**
-     * Destroys an element's alert.
-     */
-    dispose(): void;
 
     /**
      * Static method which allows you to get the alert instance associated to a

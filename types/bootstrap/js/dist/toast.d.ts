@@ -1,4 +1,6 @@
-declare class Toast {
+import BaseComponent from './base-component';
+
+declare class Toast extends BaseComponent {
     constructor(element: Element, options?: Partial<Toast.Options>);
 
     /**
@@ -16,17 +18,19 @@ declare class Toast {
     hide(): void;
 
     /**
-     * Hides an element’s toast. Your toast will remain on the DOM but won’t show anymore.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the toast instance associated
      * with a DOM element
      */
-    static getInstance(element: Element): Toast;
+    static getInstance(element: Element, options?: Partial<Toast.Options>): Toast;
 
     // static NAME: 'toast';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Record<string, any>;
 }
 
 declare namespace Toast {
