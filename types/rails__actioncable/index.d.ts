@@ -27,9 +27,11 @@ declare module '@rails/actioncable' {
     type ChannelName = string | ChannelNameWithParams;
 
     interface CreateMixin {
+        initialized?(): void;
         connected?(): void;
         disconnected?(): void;
-        received?(obj: any): void;
+        rejected?(): void;
+        received?(message: any): void;
         [key: string]: any;
     }
 
