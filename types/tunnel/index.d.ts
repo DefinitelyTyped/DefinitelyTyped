@@ -9,8 +9,8 @@ import { Agent as HttpsAgent } from 'https';
 
 export function httpOverHttp(options?: HttpOptions): Agent;
 export function httpsOverHttp(options?: HttpsOverHttpOptions): Agent;
-export function httpOverHttps(options?: HttpOverHttpsOptions): httpsAgent;
-export function httpsOverHttps(options?: HttpsOverHttpsOptions): httpsAgent;
+export function httpOverHttps(options?: HttpOverHttpsOptions): HttpsAgent;
+export function httpsOverHttps(options?: HttpsOverHttpsOptions): HttpsAgent;
 
 export interface HttpOptions {
     maxSockets?: number;
