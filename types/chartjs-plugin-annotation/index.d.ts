@@ -2,7 +2,7 @@
 // Project: https://github.com/chartjs/chartjs-plugin-annotation#readme
 // Definitions by: Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 2.4
 
 import * as Chart from 'chart.js';
 import { Moment } from 'moment';

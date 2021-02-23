@@ -103,15 +103,19 @@ const chart: Chart = new Chart(ctx, {
         elements: {
             rectangle: {
                 backgroundColor(ctx) {
-                    if (typeof ctx.dataset?.backgroundColor === "function") {
-                        return ctx.dataset?.backgroundColor(ctx);
+                    if (ctx.dataset && typeof ctx.dataset.backgroundColor === "function") {
+                        return ctx.dataset.backgroundColor(ctx);
                     }
 
-                    if (Array.isArray(ctx.dataset?.backgroundColor)) {
-                        return ctx.dataset?.backgroundColor[0] ?? "red";
+                    if (ctx.dataset && Array.isArray(ctx.dataset.backgroundColor)) {
+                        return ctx.dataset.backgroundColor[0] || "red";
                     }
 
-                    return ctx.dataset?.backgroundColor ?? "red";
+                    if (!ctx.dataset) {
+                        return "red";
+                    }
+
+                    return (ctx.dataset.backgroundColor as ChartColor | string) || "red";
                 }
             }
         },

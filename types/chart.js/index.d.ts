@@ -29,7 +29,7 @@
 //                 Mathias Helminger <https://github.com/Ilmarinen100>
 //                 Mostafa Sameti <https://github.com/IVIosi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 2.3
 
 import { Moment } from 'moment';
 
