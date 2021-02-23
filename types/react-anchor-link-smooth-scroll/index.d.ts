@@ -1,3 +1,8 @@
+// Type definitions for react-anchor-link-smooth-scroll 1.0
+// Project: https://github.com/mauricevancooten/react-anchor-link-smooth-scroll#readme
+// Definitions by: Nicholas Newman <https://github.com/me>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import * as React from 'react';
 
 export interface AnchorLinkProps extends React.HTMLProps<HTMLAnchorElement> {
