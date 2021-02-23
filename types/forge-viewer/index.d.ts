@@ -1819,6 +1819,35 @@ declare namespace Autodesk {
         }
     }
 
+    namespace AEC {
+      class FloorSelector {
+        currentFloor: number;
+        floorData: any;
+        floorFilterData: any;
+
+        constructor(viewer: Viewing.GuiViewer3D);
+
+        enterHoverMode(): void;
+        exitHoverMode(force: boolean): void;
+        floorSelectionValid(newFloor: number): boolean;
+        isVisible(model: Viewing.Model, dbId: number): boolean;
+        rollOverFloor(index?: number): void;
+        selectFloor(index: number, useTransition: boolean): void;
+      }
+
+      class LevelsExtension extends Viewing.Extension {
+        static LEVEL_CHANGED: string;
+
+        aecModelData: any;
+        floorSelector: FloorSelector;
+
+        constructor(viewer: Viewing.GuiViewer3D, options?: { autoDetectAecModelData?: boolean; ifcLevelsEnabled?: boolean; });
+
+        getCurrentLevel(): object;
+        getZRange(index: number): { zMin: number; zMax: number; };
+      }
+    }
+
     namespace DataVisualization {
       const MOUSE_CLICK = 'HYPERION_OBJECT_CLICK';
       const MOUSE_HOVERING = 'HYPERION_OBJECT_HOVERING';
