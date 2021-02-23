@@ -127,6 +127,7 @@ export interface ReactDatePickerProps {
         date: Date;
         changeYear(year: number): void;
         changeMonth(month: number): void;
+        customHeaderCount: number;
         decreaseMonth(): void;
         increaseMonth(): void;
         prevMonthButtonDisabled: boolean;
