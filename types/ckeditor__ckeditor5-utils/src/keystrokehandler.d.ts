@@ -1,6 +1,6 @@
-import { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import { KeystrokeInfo } from "@ckeditor/ckeditor5-utils/src/keyboard";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+import { Emitter } from "./emittermixin";
+import { KeystrokeInfo } from "./keyboard";
+import { PriorityString } from "./priorities";
 
 /**
  * Keystroke handler allows registering callbacks for given keystrokes.

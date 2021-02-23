@@ -1,7 +1,7 @@
-import { EmitterMixinDelegateChain, Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+import { EmitterMixinDelegateChain, Emitter } from "./emittermixin";
+import EventInfo from "./eventinfo";
+import { BindChain, Observable } from "./observablemixin";
+import { PriorityString } from "./priorities";
 
 /**
  * Allows observing a group of `HTMLElement`s whether at least one of them is focused.

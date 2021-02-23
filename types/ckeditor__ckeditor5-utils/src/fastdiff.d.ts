@@ -1,4 +1,4 @@
-import { DeleteChange, InsertChange } from "@ckeditor/ckeditor5-utils/src/difftochanges";
+import { DeleteChange, InsertChange } from "./difftochanges";
 
 /**
  * Finds positions of the first and last change in the given string/array and generates a set of changes:

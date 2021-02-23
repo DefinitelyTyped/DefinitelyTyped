@@ -1,4 +1,4 @@
-import Emitter from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import Emitter from './emittermixin';
 
 interface BindChain {
     to(observable: Observable, ...bindProperties: Array<Observable | string | Function>): void;
