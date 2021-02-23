@@ -60,6 +60,8 @@ declare class Tooltip {
      * with a DOM element
      */
     static getInstance(element: Element): Tooltip;
+
+    static NAME: 'tooltip';
 }
 
 declare namespace Tooltip {
@@ -276,6 +278,19 @@ declare namespace Tooltip {
          */
         popperConfig: Partial<Popper.Options> | null;
     }
+
+    type jQueryInterface = (
+        config?:
+            | Partial<Options>
+            | 'show'
+            | 'hide'
+            | 'toggle'
+            | 'enable'
+            | 'disable'
+            | 'toggleEnabled'
+            | 'update'
+            | 'dispose',
+    ) => void;
 }
 
 export default Tooltip;

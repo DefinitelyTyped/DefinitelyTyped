@@ -36,6 +36,8 @@ declare class Modal {
      * a DOM element
      */
     static getInstance(element: Element, options?: Partial<Modal.Options>): Modal;
+
+    // static NAME: 'modal';
 }
 
 declare namespace Modal {
@@ -98,6 +100,10 @@ declare namespace Modal {
          */
         focus: boolean;
     }
+
+    type jQueryInterface = (
+        config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'handleUpdate' | 'dispose',
+    ) => void;
 }
 
 export default Modal;

@@ -40,6 +40,8 @@ declare class Carousel {
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel;
+
+    // static NAME: 'carousel';
 }
 
 declare namespace Carousel {
@@ -106,6 +108,10 @@ declare namespace Carousel {
          */
         slid = 'slid.bs.carousel',
     }
+
+    type jQueryInterface = (
+        config?: Partial<Options> | number | 'cycle' | 'pause' | 'prev' | 'next' | 'nextWhenVisible' | 'dispose',
+    ) => void;
 }
 
 export default Carousel;
