@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 import { Agent } from 'http';
-import { Agent as httpsAgent } from 'https';
+import { Agent as HttpsAgent } from 'https';
 
 export function httpOverHttp(options?: HttpOptions): Agent;
 export function httpsOverHttp(options?: HttpsOverHttpOptions): Agent;
