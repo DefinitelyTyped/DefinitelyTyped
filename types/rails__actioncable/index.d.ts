@@ -36,7 +36,7 @@ declare module '@rails/actioncable' {
     }
 
     interface Subscriptions {
-        create(channel: ChannelName, obj?: CreateMixin): Subscription;
+        create(channel: ChannelName, mixin?: CreateMixin): Subscription;
     }
 
     function createConsumer(url?: string | (() => string)): Consumer;
