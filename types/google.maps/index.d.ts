@@ -7655,14 +7655,14 @@ declare namespace google.maps.visualization {
     /**
      * Returns the data points currently displayed by this heatmap.
      */
-    getData(): google.maps.MVCArray<any>|null;
-    getMap(): google.maps.Map|null;
+    getData(): google.maps.MVCArray<any>;
+    getMap(): google.maps.Map|undefined;
     /**
      * Sets the data points to be displayed by this heatmap.
      */
-    setData(data: google.maps.MVCArray<any>|null|
-            (google.maps.LatLng|null|
-             google.maps.visualization.WeightedLocation)[]): void;
+    setData(data: google.maps.MVCArray<any>|
+            (google.maps.LatLng|google.maps.visualization.WeightedLocation)[]):
+        void;
     /**
      * Renders the heatmap on the specified map. If map is set to null, the
      * heatmap will be removed.
