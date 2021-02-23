@@ -1,4 +1,4 @@
-// Type definitions for PDF.js v2.1
+// Type definitions for PDF.js v2.7
 // Project: https://github.com/mozilla/pdf.js
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 //                 Dmitrii Sorin <https://github.com/1999>
