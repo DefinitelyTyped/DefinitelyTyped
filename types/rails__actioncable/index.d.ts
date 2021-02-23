@@ -41,7 +41,7 @@ declare module '@rails/actioncable' {
 
     function createConsumer(url?: string | (() => string)): Consumer;
 
-    function getConfig(name: string): string | void;
+    function getConfig(name: string): string | undefined;
 
     function createWebSocketURL(url: string | (() => string)): string;
 
