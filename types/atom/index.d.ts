@@ -19,7 +19,7 @@ import { ChildProcess } from "child_process";
 import { Config } from "./src/config";
 import { ConfigValues } from "./src/config-schema";
 import { CommandRegistry } from "./src/command-registry";
-import { Disposable, DisposableLike } from "./src/event-kit";
+import { Disposable, DisposableLike } from "./dependencies/event-kit";
 import { Decoration, DecorationOptions, DecorationLayerOptions } from "./src/decoration";
 
 declare global {
@@ -309,7 +309,7 @@ export * from "./src/color";
 
 export * from "./src/command-registry";
 
-export { CompositeDisposable } from "./src/event-kit";
+export { CompositeDisposable } from "./dependencies/event-kit";
 
 export * from "./src/decoration";
 
@@ -557,7 +557,7 @@ export interface DisplayMarkerLayer {
     findMarkers(properties: FindDisplayMarkerOptions): DisplayMarker[];
 }
 
-export { Disposable, Emitter } from "./src/event-kit";
+export { Disposable, Emitter } from "./dependencies/event-kit";
 
 /**
  *  Represents a decoration that applies to every marker on a given layer. Created via
@@ -6225,7 +6225,7 @@ export interface Deserializer {
     deserialize(state: object): object;
 }
 
-export { DisposableLike } from "./src/event-kit";
+export { DisposableLike } from "./dependencies/event-kit";
 
 export interface JQueryCompatible<Element extends Node = HTMLElement> extends Iterable<Element> {
     jquery: string;
