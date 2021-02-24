@@ -545,9 +545,7 @@ declare namespace Rax {
     defaultProps?: Partial<P>;
   }
 
-  function forwardRef<T, P = {}>(
-    Component: RefForwardingComponent<T, P>
-  ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+  function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
   /** Ensures that the props do not include ref at all */
   type PropsWithoutRef<P> =
