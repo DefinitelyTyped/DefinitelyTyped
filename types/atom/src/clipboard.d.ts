@@ -10,5 +10,5 @@ export interface Clipboard {
      *  Read the text from the clipboard and return both the text and the associated
      *  metadata.
      */
-    readWithMetadata(): { text: string, metadata: object };
+    readWithMetadata(): { text: string; metadata: object };
 }
