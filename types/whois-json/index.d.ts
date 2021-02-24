@@ -11,8 +11,8 @@ declare namespace Whois {
     type Result = ResultArrayElement[] | RegistrationData;
 
     interface ResultArrayElement {
-        server: string,
-        data: RegistrationData
+        server: string;
+        data: RegistrationData;
     }
 
     interface RegistrationData {
