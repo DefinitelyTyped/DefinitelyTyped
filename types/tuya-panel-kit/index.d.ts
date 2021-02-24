@@ -10700,10 +10700,10 @@ export let TYSdk: {
             sendEvent(props: any): void;
             /**
              * 跳转面板, 等同于jumpSubPage, 只是传参形式的区别
-             * @param uiId 
+             * @param uiId uiid
              * @param props 携带参数
              */
-            pushWithUiID(uiId: string, props: any): void
+            pushWithUiID(uiId: string, props: any): void;
         };
 
         /**
