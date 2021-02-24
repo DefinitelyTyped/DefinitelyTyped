@@ -364,7 +364,7 @@ export interface HostedFields {
      *   if (focusErr) {
      *     console.error(focusErr);
      *   }
-     * }); 
+     * });
      */
     focus(field: HostedFieldsHostedFieldsFieldName, callback?: callback): void;
 }
