@@ -31,9 +31,10 @@ import {
     RangeLike,
     TextBuffer,
 } from "./dependencies/text-buffer";
-import { Decoration, DecorationOptions } from "./src/decoration";
+import { DecorationOptions } from "./src/decoration";
 import { NotificationManager } from "./src/notification-manager";
 import { TextEditor } from "./src/text-editor";
+import { TextEditorComponent } from "./src/text-editor-component";
 
 declare global {
     const atom: AtomEnvironment;
@@ -345,18 +346,7 @@ export interface PixelPosition {
     top: number;
 }
 
-/**
- *  Undocumented: Rendering component for TextEditor
- */
-export interface TextEditorComponent {
-  /** Does not clip screenPosition, unlike similar method on TextEditorElement */
-  pixelPositionForScreenPosition(screenPosition: PointLike): PixelPosition;
-  screenPositionForPixelPosition(pos: PixelPosition): Point;
-  pixelPositionForMouseEvent(event: {
-    clientX: number, clientY: number
-  }): PixelPosition;
-  screenPositionForMouseEvent(event: {clientX: number, clientY: number}): Point;
-}
+export * from "./src/text-editor-component";
 
 /**
  *  Undocumented: Custom HTML elemnent for TextEditor, atom-text-editor
