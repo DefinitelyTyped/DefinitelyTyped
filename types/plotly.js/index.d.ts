@@ -20,6 +20,7 @@
 //                 Jessica Blizzard <https://github.com/blizzardjessica>
 //                 Oleg Shilov <https://github.com/olegshilov>
 //                 Pablo Gracia <https://github.com/PabloGracia>
+//                 Jeffrey van Gogh <https://github.com/jvgogh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from 'd3';
@@ -1284,6 +1285,10 @@ export interface PlotData {
     level: string;
     cliponaxis: boolean;
     automargin: boolean;
+    locationmode: 'ISO-3' | 'USA-states' | 'country names' | 'geojson-id';
+    locations: Datum[];
+    reversescale: boolean;
+    colorbar: Partial<ColorBar>;
 }
 
 /**
@@ -2141,33 +2146,7 @@ export interface Slider {
      */
     yanchor: 'auto' | 'top' | 'middle' | 'bottom';
     transition: Transition;
-    currentvalue: {
-        /**
-         * Shows the currently-selected value above the slider.
-         */
-        visible: boolean;
-        /**
-         * The alignment of the value readout relative to the length of the slider.
-         */
-        xanchor: 'left' | 'center' | 'right';
-        /**
-         * The amount of space, in pixels, between the current value label
-         * and the slider.
-         */
-        offset: number;
-        /**
-         * When currentvalue.visible is true, this sets the prefix of the label.
-         */
-        prefix: string;
-        /**
-         * When currentvalue.visible is true, this sets the suffix of the label.
-         */
-        suffix: string;
-        /**
-         * Sets the font of the current value label text.
-         */
-        font: Partial<Font>;
-    };
+    currentvalue: Partial<CurrentValue>;
     /**
      * Sets the font of the slider step labels.
      */
@@ -2205,4 +2184,32 @@ export interface Slider {
      * Sets the length in pixels of minor step tick marks
      */
     minorticklen: number;
+}
+
+export interface CurrentValue {
+  /**
+   * Shows the currently-selected value above the slider.
+   */
+  visible: boolean;
+  /**
+   * The alignment of the value readout relative to the length of the slider.
+   */
+  xanchor: 'left' | 'center' | 'right';
+  /**
+   * The amount of space, in pixels, between the current value label
+   * and the slider.
+   */
+  offset: number;
+  /**
+   * When currentvalue.visible is true, this sets the prefix of the label.
+   */
+  prefix: string;
+  /**
+   * When currentvalue.visible is true, this sets the suffix of the label.
+   */
+  suffix: string;
+  /**
+   * Sets the font of the current value label text.
+   */
+  font: Partial<Font>;
 }
