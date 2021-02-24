@@ -4,7 +4,6 @@ import {
     Point,
     PointCompatible,
     MarkerChangedEvent,
-    CopyMarkerOptions,
 } from "../../../index";
 
 /**
@@ -120,4 +119,24 @@ export interface Marker {
      *  Returns "1" if this marker follows the argument.
      */
     compare(other: Marker): number;
+}
+
+export interface CopyMarkerOptions {
+    /** Whether or not the marker should be tailed. */
+    tailed?: boolean;
+
+    /** Creates the marker in a reversed orientation. */
+    reversed?: boolean;
+
+    /** Determines the rules by which changes to the buffer invalidate the marker. */
+    invalidate?: "never"|"surround"|"overlap"|"inside"|"touch";
+
+    /**
+     *  Indicates whether insertions at the start or end of the marked range should
+     *  be interpreted as happening outside the marker.
+     */
+    exclusive?: boolean;
+
+    /** Custom properties to be associated with the marker. */
+    properties?: object;
 }
