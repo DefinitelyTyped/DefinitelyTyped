@@ -363,16 +363,9 @@ export * from "./src/workspace-center";
 
 export * from "./src/buffered-process";
 
-// Extended Classes ===========================================================
+export * from "./src/buffered-node-process";
 
-/**
- *  Like BufferedProcess, but accepts a Node script as the command to run.
- *  This is necessary on Windows since it doesn't support shebang #! lines.
- */
-export class BufferedNodeProcess extends BufferedProcess {
-    /** Runs the given Node script by spawning a new child process. */
-    constructor(options: NodeProcessOptions);
-}
+// Extended Classes ===========================================================
 
 /** Represents the clipboard used for copying and pasting in Atom. */
 export interface Clipboard {
