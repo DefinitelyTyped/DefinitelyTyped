@@ -117,7 +117,8 @@ export type HostedFieldsHostedFieldsFieldName =
     | 'expirationDate'
     | 'expirationMonth'
     | 'expirationYear'
-    | 'postalCode';
+    | 'postalCode'
+    | 'cardholderName';
 
 export type HostedFieldsFieldDataFields = {
     [key in HostedFieldsHostedFieldsFieldName]: HostedFieldsHostedFieldsFieldData;
