@@ -1,4 +1,5 @@
-import { Disposable, Marker, RangeCompatible, PointCompatible } from "../../../index";
+import { Disposable } from "../../../index";
+import { Marker, PointCompatible, RangeCompatible } from "./text-buffer";
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {

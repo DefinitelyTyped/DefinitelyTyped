@@ -1,10 +1,5 @@
-import {
-    Disposable,
-    Marker,
-    RangeCompatible,
-    PointCompatible,
-    DisplayMarker,
-} from "../../../index";
+import { Disposable } from "../../../index";
+import { DisplayMarker, Marker, PointCompatible, RangeCompatible } from "./text-buffer";
 
 /**
  *  Experimental: A container for a related set of markers at the DisplayLayer level.

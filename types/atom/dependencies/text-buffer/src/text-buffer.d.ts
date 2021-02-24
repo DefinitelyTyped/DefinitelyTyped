@@ -1,31 +1,30 @@
+import { ReadStream, WriteStream } from "fs";
 import {
     Disposable,
     FileSavedEvent,
-    TextEditOptions,
     HandleableErrorEvent,
-    FindMarkerOptions,
-    HistoryTraversalOptions,
     HistoryTransactionOptions,
+    HistoryTraversalOptions,
+    TextEditOptions,
 } from "../../../index";
-
 import {
-    Point,
+    FindMarkerOptions,
     Marker,
-    RangeCompatible,
-    PointCompatible,
     MarkerLayer,
+    Point,
+    PointCompatible,
+    Range,
+    RangeCompatible,
     TextChange,
 } from "./text-buffer";
 
-import { ReadStream, WriteStream } from "fs";
-
 export * from "./display-marker";
 export * from "./display-marker-layer";
+export * from "./helpers";
 export * from "./marker";
 export * from "./marker-layer";
 export * from "./point";
 export * from "./range";
-export * from "./helpers";
 
 /**
  *  A mutable text container with undo/redo support and the ability to

@@ -1,11 +1,12 @@
+import { Disposable } from "../../../index";
 import {
     CopyMarkerOptions,
-    Point,
-    Disposable,
     FindDisplayMarkerOptions,
-    RangeCompatible,
+    Point,
     PointCompatible,
-} from "../../../index";
+    Range,
+    RangeCompatible,
+} from "./text-buffer";
 
 /**
  *  Represents a buffer annotation that remains logically stationary even as the

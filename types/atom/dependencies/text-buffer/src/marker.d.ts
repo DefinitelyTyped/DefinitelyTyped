@@ -1,4 +1,5 @@
-import { Disposable, RangeCompatible, Point, PointCompatible } from "../../../index";
+import { Disposable } from "../../../index";
+import { Point, PointCompatible, Range, RangeCompatible } from "./text-buffer";
 
 /**
  *  Represents a buffer annotation that remains logically stationary even as
