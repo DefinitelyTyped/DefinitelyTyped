@@ -8,6 +8,8 @@ import htmlParser = require('prettier/parser-html');
 import markdownParser = require('prettier/parser-markdown');
 import postcssParser = require('prettier/parser-postcss');
 import yamlParser = require('prettier/parser-yaml');
+import meriyahParser = require('prettier/parser-meriyah');
+import espreeParser = require('prettier/parser-espree');
 import * as doc from 'prettier/doc';
 
 const formatted = prettier.format('foo ( );', { semi: false });
@@ -81,6 +83,8 @@ htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserN
 markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+meriyahParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+espreeParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 
 prettier.format('hello world', {
     plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser],
@@ -98,7 +102,7 @@ doc.utils.isEmpty;
 doc.debug.printDocToDebug;
 
 interface PluginAST {
-    kind: "line";
+    kind: 'line';
     value: string;
 }
 
@@ -106,18 +110,18 @@ const plugin: prettier.Plugin<PluginAST> = {
     parsers: {
         lines: {
             parse(text, parsers, options) {
-                return { kind: "line", value: "This is a line" };
+                return { kind: 'line', value: 'This is a line' };
             },
-            astFormat: "lines",
-            locStart: (node) => {
+            astFormat: 'lines',
+            locStart: node => {
                 node; // $ExpectType PluginAST
                 return 0;
             },
-            locEnd: (node) => {
+            locEnd: node => {
                 node; // $ExpectType PluginAST
                 return 0;
-            }
-        }
+            },
+        },
     },
     printers: {
         lines: {
@@ -129,9 +133,13 @@ const plugin: prettier.Plugin<PluginAST> = {
                 node; // $ExpectType PluginAST
 
                 return node.value;
-            }
-        }
-    }
+            },
+            printComment(commentPath, options) {
+                const comment = commentPath.getValue();
+                return comment.value;
+            },
+        },
+    },
 };
 
-prettier.format("a line!", { parser: "lines", plugins: [plugin] });
+prettier.format('a line!', { parser: 'lines', plugins: [plugin] });

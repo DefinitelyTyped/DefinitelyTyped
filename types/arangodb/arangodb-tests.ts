@@ -86,6 +86,28 @@ router.get("/", (req, res) => {
     }
 });
 
+router.put(
+    (request: Foxx.Request, response: Foxx.Response) => {
+        try {
+            // $ExpectType string
+            const id = db._executeTransaction({
+                collections: {
+                    read: "users",
+                    write: ["groups", "member"],
+                    allowImplicit: false,
+                },
+                action: (params) => {
+                    return "1234";
+                },
+                params: JSON.parse(request.body),
+            });
+            response.json({id});
+        } catch (e) {
+            e.error = true;
+            response.json(e);
+        }
+    });
+
 router.use((req, res, next) => {
     if (req.is("json")) res.throw("too many requests");
     next();

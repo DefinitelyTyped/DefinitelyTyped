@@ -326,7 +326,7 @@ declare namespace marked {
         }
 
         interface List {
-            type: 'list_start';
+            type: 'list';
             raw: string;
             ordered: boolean;
             start: boolean;

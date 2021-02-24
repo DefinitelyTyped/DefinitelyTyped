@@ -91,9 +91,11 @@ declare class sharedb extends EventEmitter {
     ): void;
 
     on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
+    on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
 
     addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
+    addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
     static types: ShareDB.Types;
@@ -105,7 +107,7 @@ declare namespace sharedb {
         projectsSnapshots: boolean;
         disableSubscribe: boolean;
         close(callback?: BasicCallback): void;
-        commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
+        commit(collection: string, id: string, op: any, snapshot: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
         getSnapshotBulk(collection: string, ids: string[], fields: any, options: any, callback: (...args: any[]) => any): void;
         getOps(collection: string, id: string, from: number | null, to: number | null, options: any, callback: (...args: any[]) => any): void;
@@ -166,7 +168,7 @@ declare namespace sharedb {
      *   lives in the actual source code.
      */
     class Connection {
-        constructor(ws: WebSocket);
+        constructor(socket: ShareDB.Socket);
         get(collectionName: string, documentID: string): ShareDB.Doc;
         createFetchQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
         createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
@@ -241,7 +243,7 @@ declare namespace sharedb {
         interface OpContext extends BaseContext {
             collection: string;
             id: string;
-            op: ShareDB.Op;
+            op: any;
         }
 
         interface QueryContext extends BaseContext {
@@ -295,6 +297,9 @@ interface SubmitRequest {
     op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
     options: any;
     start: number;
+    extra: {
+        source?: any;
+    };
 
     saveMilestoneSnapshot: boolean | null;
     suppressPublish: boolean | null;
@@ -302,7 +307,7 @@ interface SubmitRequest {
     retries: number;
 
     snapshot: ShareDB.Snapshot | null;
-    ops: ShareDB.Op[];
+    ops: any[];
     channels: string[] | null;
 }
 

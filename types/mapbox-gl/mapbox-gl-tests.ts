@@ -75,6 +75,7 @@ let map = new mapboxgl.Map({
         'FullscreenControl.Enter': 'Розгорнути на весь екран',
         'FullscreenControl.Exit': 'Вийти з повоноеранного режиму',
     },
+    optimizeForTerrain: false,
 });
 
 /**
@@ -449,6 +450,24 @@ popup.toggleClassName('class3');
 popup.setOffset([10, 20]);
 
 /**
+ * Add terrain
+ */
+const terrainStyle: mapboxgl.Style = {
+    version: 8,
+    name: 'terrain',
+    sources: {
+        dem: {
+            type: 'raster-dem',
+            url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        }
+    },
+    terrain: {
+        source: 'dem',
+        exaggeration: 1.5,
+    }
+};
+
+/**
  * Add an image
  */
 var mapStyle: mapboxgl.Style = {
@@ -644,6 +663,9 @@ map = new mapboxgl.Map({
     container: 'map',
     hash: 'customHash',
 });
+
+const syncOnce: mapboxgl.Map = map.once('load', () => {});
+const asyncOnce: Promise<mapboxgl.Map> = map.once('load');
 
 /**
  * Marker

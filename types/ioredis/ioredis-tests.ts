@@ -521,6 +521,11 @@ redis.xrevrange('streamName', '+', '-', 'COUNT', 1, cb);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000).then(console.log);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000, cbNumber);
 
+redis.scanStream({match: "pattern"});
+redis.scanStream({type: "del"});
+redis.scanStream({count: 100});
+redis.scanStream({key: "foo"});
+
 redis.zrangebyscore('set', 0, 100).then(console.log);
 redis.zrangebyscore('set', 0, 100);
 redis.zrangebyscore('set', 0, 100, 'WITHSCORES').then(console.log);

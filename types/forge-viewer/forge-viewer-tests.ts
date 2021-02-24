@@ -29,11 +29,17 @@ Autodesk.Viewing.Initializer(options, () => {
 
         const model = await viewer.loadDocumentNode(doc, defaultModel);
 
+        globalTests();
         bubbleNodeTests();
+        cameraTests(viewer);
+        formattingTests();
         fragListTests(model);
         modelTests(model);
         await dataVizTests(viewer);
         await edit2DTests(viewer);
+        await measureTests(viewer);
+        await propertyTests(viewer);
+        await searchTests(viewer);
     }
 
     function onDocumentLoadFailure() {
@@ -41,9 +47,22 @@ Autodesk.Viewing.Initializer(options, () => {
     }
 });
 
+function globalTests(): void {
+    const urn = 'urn:adsk.wipdm:fs.file:vf.vSenZnaYQAOAZqzHB54kLQ?version=1';
+    const urnBase64 = Autodesk.Viewing.toUrlSafeBase64(urn);
+
+    const urn2 = Autodesk.Viewing.fromUrlSafeBase64(urnBase64);
+}
+
 function bubbleNodeTests(): void {
     // $ExpectType string
     const lineageUrn = Autodesk.Viewing.BubbleNode.parseLineageUrnFromEncodedUrn('dXJuOmFkc2sud2lwc3RnOmZzLmZpbGU6dmYuM3Q4QlBZQXJSSkNpZkFZUnhOSnM0QT92ZXJzaW9uPTI');
+}
+
+function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const up = new THREE.Vector3(0, 0, 1);
+
+    viewer.navigation.setCameraUpVector(up);
 }
 
 async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
@@ -80,6 +99,16 @@ function modelTests(model: Autodesk.Viewing.Model): void {
     model.isPdf();
     model.isSceneBuilder();
     model.isSVF2();
+}
+
+async function propertyTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        viewer.model.getProperties2([ 2120, 2121 ], (results) => {
+            resolve();
+        }, (err) => {
+            reject(err);
+        });
+    });
 }
 
 async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
@@ -123,4 +152,26 @@ function fragListTests(model: Autodesk.Viewing.Model): void {
 
     // $ExpectType boolean
     fragList.getAnimTransform(fragId, s, r, t);
+}
+
+function formattingTests(): void {
+    // $ExpectType string
+    Autodesk.Viewing.Private.formatValueWithUnits(10, Autodesk.Viewing.Private.ModelUnits.CENTIMETER, 3, 2);
+}
+
+async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Measure') as Autodesk.Extensions.Measure.MeasureExtension;
+
+    ext.sharedMeasureConfig.units = 'in';
+    ext.calibrateByScale('in', 0.0254);
+}
+
+async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {
+    return new Promise<number[]>((resolve, reject) => {
+        viewer.model.search('text', (dbIds) => {
+            resolve(dbIds);
+        }, (err) => {
+            reject(err);
+        });
+    });
 }

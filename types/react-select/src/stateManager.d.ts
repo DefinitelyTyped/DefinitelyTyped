@@ -6,7 +6,7 @@ import { ActionMeta, GroupTypeBase, InputActionMeta, OptionTypeBase, ValueType }
 export interface DefaultProps {
     defaultInputValue: string;
     defaultMenuIsOpen: boolean;
-    defaultValue: ValueType<OptionTypeBase, boolean>;
+    defaultValue: readonly OptionTypeBase[] | OptionTypeBase | null;
 }
 
 export const defaultProps: DefaultProps;
@@ -18,10 +18,10 @@ export interface Props<
 > {
     defaultInputValue?: string;
     defaultMenuIsOpen?: boolean;
-    defaultValue?: IsMulti extends true ? ValueType<OptionType, boolean> : ValueType<OptionType, false>;
+    defaultValue?: readonly OptionType[] | OptionType | null;
     inputValue?: string;
     menuIsOpen?: boolean;
-    value?: ValueType<OptionType, IsMulti>;
+    value?: readonly OptionType[] | OptionType | null;
     onChange?: (value: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
 }
 
@@ -36,7 +36,7 @@ type StateProps<T extends SelectProps<any, boolean, any>> = Pick<
 interface State<OptionType extends OptionTypeBase, IsMulti extends boolean> {
     inputValue: string;
     menuIsOpen: boolean;
-    value: ValueType<OptionType, IsMulti>;
+    value: readonly OptionType[] | OptionType | null;
 }
 
 type GetOptionType<T> = T extends SelectBase<infer OT> ? OT : never;

@@ -1,7 +1,8 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactElement, ReactNode } from 'react';
 import { CSSObject } from '@emotion/serialize';
 import { colors, spacing } from '../theme';
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
+import { ContainerProps } from './containers';
 
 interface State {
     /** Whether this is disabled */
@@ -22,6 +23,10 @@ export type SingleValueProps<
 
 export function css(props: SingleValueProps<any>): CSSObject;
 
-export const SingleValue: ComponentType<SingleValueProps<any>>;
+declare function SingleValue<
+    OptionType extends OptionTypeBase,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: SingleValueProps<OptionType, GroupType>): ReactElement;
 
 export default SingleValue;

@@ -1,4 +1,4 @@
-import { ComponentType, Component, ReactNode } from 'react';
+import { ComponentType, Component, ReactNode, ReactElement } from 'react';
 import { CSSObject } from '@emotion/serialize';
 
 import { borderRadius, colors, spacing } from '../theme';
@@ -32,7 +32,10 @@ export interface MultiValueGenericProps<OptionType extends OptionTypeBase> {
     innerProps: { className?: string };
     selectProps: any;
 }
-export const MultiValueGeneric: ComponentType<MultiValueGenericProps<any>>;
+export function MultiValueGeneric<OptionType extends OptionTypeBase>(
+    // tslint:disable-next-line:no-unnecessary-generics
+    props: MultiValueGenericProps<OptionType>,
+): ReactElement;
 
 export const MultiValueContainer: typeof MultiValueGeneric;
 export const MultiValueLabel: typeof MultiValueGeneric;
@@ -50,22 +53,16 @@ export type MultiValueRemoveProps<
     };
     selectProps: any;
 };
-export class MultiValueRemove<
+export function MultiValueRemove<
     OptionType extends OptionTypeBase,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-> extends Component<MultiValueRemoveProps<OptionType, GroupType>> {
-    static defaultProps: {
-        children: ReactNode;
-    };
-}
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: MultiValueRemoveProps<OptionType, GroupType>): ReactElement;
 
-export class MultiValue<
+declare function MultiValue<
     OptionType extends OptionTypeBase,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
-> extends Component<MultiValueProps<OptionType, GroupType>> {
-    static defaultProps: {
-        cropWithEllipsis: boolean;
-    };
-}
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: MultiValueProps<OptionType, GroupType>): ReactElement;
 
 export default MultiValue;

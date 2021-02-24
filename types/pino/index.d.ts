@@ -539,6 +539,8 @@ declare namespace P {
         };
     }
 
+    type MessageFormatFunc = (log: LogDescriptor, messageKey: string, levelLabel: string) => string;
+
     interface PrettyOptions {
         /**
          * Translate the epoch time value into a human readable date and time string.
@@ -561,8 +563,19 @@ declare namespace P {
         timestampKey?: string;
         /**
          * Format output of message, e.g. {level} - {pid} will output message: INFO - 1123 Default: `false`.
+         *
+         * @example
+         * ```typescript
+         * {
+         *   messageFormat: (log, messageKey) => {
+         *     const message = log[messageKey];
+         *     if (log.requestId) return `[${log.requestId}] ${message}`;
+         *     return message;
+         *   }
+         * }
+         * ```
          */
-        messageFormat?: false | string;
+        messageFormat?: false | string | MessageFormatFunc;
         /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */

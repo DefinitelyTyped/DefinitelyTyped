@@ -1,4 +1,4 @@
-// Type definitions for karma 5.0
+// Type definitions for karma 6.1
 // Project: https://github.com/karma-runner/karma, http://karma-runner.github.io
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
@@ -639,7 +639,7 @@ export interface ClientOptions {
 }
 
 /** type to use when including a file */
-export type FilePatternTypes = 'css' | 'html' | 'js' | 'dart' | 'module' | 'dom';
+export type FilePatternTypes = 'css' | 'html' | 'js' | 'module' | 'dom';
 
 export interface FilePattern {
     /**
@@ -667,7 +667,7 @@ export interface FilePattern {
      * Choose the type to use when including a file
      * @default 'js'
      * @description  The type determines the mechanism for including the file.
-     * The css and html types create link elements; the js, dart, and module elements create script elements.
+     * The css and html types create link elements; the js and module elements create script elements.
      * The dom type includes the file content in the page, used, for example, to test components combining HTML and JS.
      */
     type?: FilePatternTypes;

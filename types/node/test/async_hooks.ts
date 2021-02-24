@@ -1,4 +1,12 @@
-import { AsyncResource, createHook, triggerAsyncId, executionAsyncId, executionAsyncResource, HookCallbacks, AsyncLocalStorage } from 'async_hooks';
+import {
+    AsyncResource,
+    createHook,
+    triggerAsyncId,
+    executionAsyncId,
+    executionAsyncResource,
+    HookCallbacks,
+    AsyncLocalStorage,
+} from 'node:async_hooks';
 
 {
     const hooks: HookCallbacks = {
