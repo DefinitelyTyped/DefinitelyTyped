@@ -1,0 +1,123 @@
+import {
+    Disposable,
+    RangeCompatible,
+    Point,
+    PointCompatible,
+    MarkerChangedEvent,
+    CopyMarkerOptions,
+} from "../../../index";
+
+/**
+ *  Represents a buffer annotation that remains logically stationary even as
+ *  the buffer changes.
+ */
+export interface Marker {
+    /** The identifier for this Marker. */
+    readonly id: number;
+
+    // Lifecycle
+    /**
+     *  Creates and returns a new Marker with the same properties as this
+     *  marker.
+     */
+    copy(options?: CopyMarkerOptions): Marker;
+
+    /** Destroys the marker, causing it to emit the "destroyed" event. */
+    destroy(): void;
+
+    // Event Subscription
+    /** Invoke the given callback when the marker is destroyed. */
+    onDidDestroy(callback: () => void): Disposable;
+
+    /** Invoke the given callback when the state of the marker changes. */
+    onDidChange(callback: (event: MarkerChangedEvent) => void): Disposable;
+
+    // Marker Details
+    /** Returns the current range of the marker. The range is immutable. */
+    getRange(): Range;
+
+    /** Returns a point representing the marker's current head position. */
+    getHeadPosition(): Point;
+
+    /** Returns a point representing the marker's current tail position. */
+    getTailPosition(): Point;
+
+    /**
+     *  Returns a point representing the start position of the marker, which
+     *  could be the head or tail position, depending on its orientation.
+     */
+    getStartPosition(): Point;
+
+    /**
+     *  Returns a point representing the end position of the marker, which
+     *  could be the head or tail position, depending on its orientation.
+     */
+    getEndPosition(): Point;
+
+    /** Returns a boolean indicating whether the head precedes the tail. */
+    isReversed(): boolean;
+
+    /** Returns a boolean indicating whether the marker has a tail. */
+    hasTail(): boolean;
+
+    /** Is the marker valid? */
+    isValid(): boolean;
+
+    /** Is the marker destroyed? */
+    isDestroyed(): boolean;
+
+    /**
+     *  Returns a boolean indicating whether changes that occur exactly at
+     *  the marker's head or tail cause it to move.
+     */
+    isExclusive(): boolean;
+
+    /** Get the invalidation strategy for this marker. */
+    getInvalidationStrategy(): string;
+
+    // Mutating Markers
+    /**
+     *  Sets the range of the marker.
+     *  Returns a boolean indicating whether or not the marker was updated.
+     */
+    setRange(range: RangeCompatible, params?: { reversed?: boolean; exclusive?: boolean }): boolean;
+
+    /**
+     *  Sets the head position of the marker.
+     *  Returns a boolean indicating whether or not the marker was updated.
+     */
+    setHeadPosition(position: PointCompatible): boolean;
+
+    /**
+     *  Sets the tail position of the marker.
+     *  Returns a boolean indicating whether or not the marker was updated.
+     */
+    setTailPosition(position: PointCompatible): boolean;
+
+    /**
+     *  Removes the marker's tail.
+     *  Returns a boolean indicating whether or not the marker was updated.
+     */
+    clearTail(): boolean;
+
+    /**
+     *  Plants the marker's tail at the current head position.
+     *  Returns a boolean indicating whether or not the marker was updated.
+     */
+    plantTail(): boolean;
+
+    // Comparison
+    /**
+     *  Returns a boolean indicating whether this marker is equivalent to
+     *  another marker, meaning they have the same range and options.
+     */
+    isEqual(other: Marker): boolean;
+
+    /**
+     *  Compares this marker to another based on their ranges.
+     *  Returns "-1" if this marker precedes the argument.
+     *  Returns "0" if this marker is equivalent to the argument.
+     *  Returns "1" if this marker follows the argument.
+     */
+    compare(other: Marker): number;
+}
