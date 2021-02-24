@@ -39,6 +39,7 @@ import {
 } from "./dependencies/text-buffer";
 import { Decoration, DecorationOptions, DecorationLayerOptions } from "./src/decoration";
 import { LayerDecoration } from "./src/layer-decoration";
+import { ErrorNotificationOptions } from "./src/notification";
 
 declare global {
     const atom: AtomEnvironment;
@@ -337,32 +338,7 @@ export { Disposable, Emitter } from "./dependencies/event-kit";
 
 export * from "./src/layer-decoration";
 
-/** A notification to the user containing a message and type. */
-export class Notification {
-    constructor(type: "warning"|"info"|"success", message: string,
-        options?: NotificationOptions);
-    constructor(type: "fatal"|"error", message: string, options?: ErrorNotificationOptions);
-
-    // Event Subscription
-    /** Invoke the given callback when the notification is dismissed. */
-    onDidDismiss(callback: (notification: Notification) => void): Disposable;
-
-    /** Invoke the given callback when the notification is displayed. */
-    onDidDisplay(callback: (notification: Notification) => void): Disposable;
-
-    // Methods
-    /** Returns the Notification's type. */
-    getType(): string;
-
-    /** Returns the Notification's message. */
-    getMessage(): string;
-
-    /**
-     *  Dismisses the notification, removing it from the UI. Calling this
-     *  programmatically will call all callbacks added via onDidDismiss.
-     */
-    dismiss(): void;
-}
+export * from "./src/notification";
 
 /** A notification manager used to create Notifications to be shown to the user. */
 export interface NotificationManager {
@@ -4515,10 +4491,6 @@ export interface ContextMenuItemOptions {
 
 export type ContextMenuOptions = ContextMenuItemOptions | { type: "separator" };
 
-export interface ErrorNotificationOptions extends NotificationOptions {
-    stack?: string;
-}
-
 export interface HistoryTransactionOptions {
     /** When provided, skip taking snapshot for other selections markerLayers except given one. */
     selectionsMarkerLayer?: MarkerLayer;
@@ -4564,18 +4536,6 @@ export interface NodeProcessOptions {
 
     /** The callback which receives a single argument containing the exit status. */
     exit?(code: number): void;
-}
-
-export interface NotificationOptions {
-    buttons?: Array<{
-        className?: string;
-        onDidClick?(event: MouseEvent): void;
-        text?: string;
-    }>;
-    description?: string;
-    detail?: string;
-    dismissable?: boolean;
-    icon?: string;
 }
 
 export interface ProcessOptions extends NodeProcessOptions {
