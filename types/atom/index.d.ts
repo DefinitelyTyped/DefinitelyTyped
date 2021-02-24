@@ -35,7 +35,8 @@ import {
     TextBuffer,
     ScanContextOptions,
     BufferScanResult,
-    ContextualBufferScanResult
+    ContextualBufferScanResult,
+    FindDisplayMarkerOptions
 } from "./dependencies/text-buffer";
 
 import { Decoration, DecorationOptions, DecorationLayerOptions } from "./src/decoration";
@@ -4658,74 +4659,6 @@ export interface CopyMarkerOptions {
 
 export interface ErrorNotificationOptions extends NotificationOptions {
     stack?: string;
-}
-
-export interface FindDisplayMarkerOptions {
-    /** Only include markers starting at this Point in buffer coordinates. */
-    startBufferPosition?: PointCompatible;
-
-    /** Only include markers ending at this Point in buffer coordinates. */
-    endBufferPosition?: PointCompatible;
-
-    /** Only include markers starting at this Point in screen coordinates. */
-    startScreenPosition?: PointCompatible;
-
-    /** Only include markers ending at this Point in screen coordinates. */
-    endScreenPosition?: PointCompatible;
-
-    /** Only include markers starting inside this Range in buffer coordinates. */
-    startsInBufferRange?: RangeCompatible;
-
-    /** Only include markers ending inside this Range in buffer coordinates. */
-    endsInBufferRange?: RangeCompatible;
-
-    /** Only include markers starting inside this Range in screen coordinates. */
-    startsInScreenRange?: RangeCompatible;
-
-    /** Only include markers ending inside this Range in screen coordinates. */
-    endsInScreenRange?: RangeCompatible;
-
-    /** Only include markers starting at this row in buffer coordinates. */
-    startBufferRow?: number;
-
-    /** Only include markers ending at this row in buffer coordinates. */
-    endBufferRow?: number;
-
-    /** Only include markers starting at this row in screen coordinates. */
-    startScreenRow?: number;
-
-    /** Only include markers ending at this row in screen coordinates. */
-    endScreenRow?: number;
-
-    /**
-     *  Only include markers intersecting this Array of [startRow, endRow] in
-     *  buffer coordinates.
-     */
-    intersectsBufferRowRange?: [number, number];
-
-    /**
-     *  Only include markers intersecting this Array of [startRow, endRow] in
-     *  screen coordinates.
-     */
-    intersectsScreenRowRange?: [number, number];
-
-    /** Only include markers containing this Range in buffer coordinates. */
-    containsBufferRange?: RangeCompatible;
-
-    /** Only include markers containing this Point in buffer coordinates. */
-    containsBufferPosition?: PointCompatible;
-
-    /** Only include markers contained in this Range in buffer coordinates. */
-    containedInBufferRange?: RangeCompatible;
-
-    /** Only include markers contained in this Range in screen coordinates. */
-    containedInScreenRange?: RangeCompatible;
-
-    /** Only include markers intersecting this Range in buffer coordinates. */
-    intersectsBufferRange?: RangeCompatible;
-
-    /** Only include markers intersecting this Range in screen coordinates. */
-    intersectsScreenRange?: RangeCompatible;
 }
 
 export interface FindMarkerOptions {
