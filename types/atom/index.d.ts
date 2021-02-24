@@ -39,7 +39,7 @@ import {
 } from "./dependencies/text-buffer";
 import { Decoration, DecorationOptions, DecorationLayerOptions } from "./src/decoration";
 import { LayerDecoration } from "./src/layer-decoration";
-import { ErrorNotificationOptions } from "./src/notification";
+import { NotificationManager } from "./src/notification-manager";
 
 declare global {
     const atom: AtomEnvironment;
@@ -340,39 +340,7 @@ export * from "./src/layer-decoration";
 
 export * from "./src/notification";
 
-/** A notification manager used to create Notifications to be shown to the user. */
-export interface NotificationManager {
-    // Events
-    /** Invoke the given callback after a notification has been added. */
-    onDidAddNotification(callback: (notification: Notification) => void): Disposable;
-
-    /** Invoke the given callback after the notifications have been cleared. */
-    onDidClearNotifications(callback: () => void): Disposable;
-
-    // Adding Notifications
-    /** Add a success notification. */
-    addSuccess(message: string, options?: NotificationOptions): Notification;
-
-    /** Add an informational notification. */
-    addInfo(message: string, options?: NotificationOptions): Notification;
-
-    /** Add a warning notification. */
-    addWarning(message: string, options?: NotificationOptions): Notification;
-
-    /** Add an error notification. */
-    addError(message: string, options?: ErrorNotificationOptions): Notification;
-
-    /** Add a fatal error notification. */
-    addFatalError(message: string, options?: ErrorNotificationOptions): Notification;
-
-    // Getting Notifications
-    /** Get all the notifications. */
-    getNotifications(): ReadonlyArray<Notification>;
-
-    // Managing Notifications
-    /** Clear all the notifications. */
-    clear(): void;
-}
+export * from "./src/notification-manager";
 
 /**
  *  This class represents all essential editing state for a single TextBuffer,
