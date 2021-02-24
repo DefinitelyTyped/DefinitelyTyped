@@ -36,6 +36,7 @@ import { TextEditor } from "./src/text-editor";
 import { TextEditorElement } from "./src/text-editor-element";
 import { TextEditorRegistry } from "./src/text-editor-registry";
 import { TooltipManager } from "./src/tooltip-manager";
+import { ViewRegistry } from "./src/view-registry";
 
 declare global {
     const atom: AtomEnvironment;
@@ -355,30 +356,7 @@ export * from "./src/text-editor-registry";
 
 export * from "./src/tooltip-manager";
 
-/**
- *  ViewRegistry handles the association between model and view types in Atom.
- *  We call this association a View Provider. As in, for a given model, this class
- *  can provide a view via ::getView, as long as the model/view association was
- *  registered via ::addViewProvider.
- */
-export interface ViewRegistry {
-    /**
-     *  Add a provider that will be used to construct views in the workspace's view
-     *  layer based on model objects in its model layer.
-     */
-    addViewProvider(createView: (model: object) => HTMLElement|undefined): Disposable;
-    /**
-     *  Add a provider that will be used to construct views in the workspace's view
-     *  layer based on model objects in its model layer.
-     */
-    // tslint:disable-next-line:no-any
-    addViewProvider<T>(modelConstructor: { new (...args: any[]): T }, createView:
-        (instance: T) => HTMLElement|undefined): Disposable;
-
-    /** Get the view associated with an object in the workspace. */
-    getView(obj: TextEditor): TextEditorElement;
-    getView(obj: object): HTMLElement;
-}
+export * from "./src/view-registry";
 
 /** Represents the state of the user interface for the entire window. */
 export interface Workspace {
