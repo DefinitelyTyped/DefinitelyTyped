@@ -985,7 +985,7 @@ declare namespace Rax {
   }
 
   interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-    relatedTarget: EventTarget;
+    relatedTarget: EventTarget | null;
     target: EventTarget & T;
   }
 
@@ -1001,8 +1001,10 @@ declare namespace Rax {
 
   interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
     altKey: boolean;
+    /** @deprecated */
     charCode: number;
     ctrlKey: boolean;
+    code: string;
     /**
      * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
      */
@@ -1011,12 +1013,14 @@ declare namespace Rax {
      * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
      */
     key: string;
+    /** @deprecated */
     keyCode: number;
     locale: string;
     location: number;
     metaKey: boolean;
     repeat: boolean;
     shiftKey: boolean;
+    /** @deprecated */
     which: number;
   }
 
