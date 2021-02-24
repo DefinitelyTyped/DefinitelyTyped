@@ -232,6 +232,7 @@ export interface HostedFields {
     VERSION: string;
 
     on(event: HostedFieldEventType, handler: (event: HostedFieldsStateObject) => void): void;
+    off(event: HostedFieldEventType, handler: (event: HostedFieldsStateObject) => void): void;
 
     teardown(callback?: callback): void;
     teardown(): Promise<void>;
