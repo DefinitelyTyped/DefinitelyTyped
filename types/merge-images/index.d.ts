@@ -28,5 +28,6 @@ declare namespace mergeImages {
         height?: number;
         Canvas?: any;
         Image?: any;
+        crossOrigin?: string;
     }
 }
