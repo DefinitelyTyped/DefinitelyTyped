@@ -326,13 +326,11 @@ export * from "./src/color";
 
 export * from "./src/command-registry";
 
-export { CompositeDisposable } from "./dependencies/event-kit";
+export * from "./dependencies/event-kit";
 
 export * from "./src/decoration";
 
 export * from "./dependencies/text-buffer";
-
-export { Disposable, Emitter } from "./dependencies/event-kit";
 
 export * from "./src/layer-decoration";
 
@@ -2835,8 +2833,6 @@ export interface Deserializer {
     name: string;
     deserialize(state: object): object;
 }
-
-export { DisposableLike } from "./dependencies/event-kit";
 
 /** An interface which all custom test runners should implement. */
 export type TestRunner = (params: TestRunnerParams) => Promise<number>;
