@@ -4223,62 +4223,6 @@ export interface DecorationPropsChangedEvent {
     newProperties: DecorationOptions;
 }
 
-export interface DisplayMarkerChangedEvent {
-    /** Point representing the former head buffer position. */
-    oldHeadBufferPosition: Point;
-
-    /** Point representing the new head buffer position. */
-    newHeadBufferPosition: Point;
-
-    // Point representing the former tail buffer position. */
-    oldTailBufferPosition: Point;
-
-    /** Point representing the new tail buffer position. */
-    newTailBufferPosition: Point;
-
-    /** Point representing the former head screen position. */
-    oldHeadScreenPosition: Point;
-
-    /** Point representing the new head screen position. */
-    newHeadScreenPosition: Point;
-
-    /** Point representing the former tail screen position. */
-    oldTailScreenPosition: Point;
-
-    /** Point representing the new tail screen position. */
-    newTailScreenPosition: Point;
-
-    /** Boolean indicating whether the marker was valid before the change. */
-    wasValid: boolean;
-
-    /** Boolean indicating whether the marker is now valid. */
-    isValid: boolean;
-
-    /** Boolean indicating whether the marker had a tail before the change. */
-    hadTail: boolean;
-
-    /** Boolean indicating whether the marker now has a tail */
-    hasTail: boolean;
-
-    /**
-     *  -DEPRECATED- Object containing the marker's custom properties before the change.
-     *  @deprecated
-     */
-    oldProperties: object;
-
-    /**
-     *  -DEPRECATED- Object containing the marker's custom properties after the change.
-     *  @deprecated
-     */
-    newProperties: object;
-
-    /**
-     *  Boolean indicating whether this change was caused by a textual change to the
-     *  buffer or whether the marker was manipulated directly via its public API.
-     */
-    textChanged: boolean;
-}
-
 export interface EditorChangedEvent {
     /** A Point representing where the change started. */
     start: Point;
