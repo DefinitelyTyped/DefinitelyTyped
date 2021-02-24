@@ -55,9 +55,9 @@ import Module = require('node:module');
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
-            host: "google.com",
+            host: 'google.com',
             pathname: 'search',
-            query: { q: "you're a lizard, gary" }
+            query: { q: "you're a lizard, gary" },
         });
 
         const myURL = new url.URL('https://a:b@你好你好?abc#foo');
@@ -75,9 +75,11 @@ import Module = require('node:module');
         strUrl = url.parse('http://example.com/?hello=world', false);
         queryStr = strUrl.query!;
 
-        function getBoolean(): boolean { return false; }
+        function getBoolean(): boolean {
+            return false;
+        }
         const urlUrl = url.parse('http://example.com/?hello=world', getBoolean());
-        if (typeof(urlUrl.query) === 'string') {
+        if (typeof urlUrl.query === 'string') {
             queryStr = urlUrl.query;
         } else if (urlUrl.query) {
             helloQuery = urlUrl.query['hello'];
@@ -99,9 +101,9 @@ import Module = require('node:module');
         assert.equal(myURL.password, 'thepwd');
         assert.equal(myURL.username, 'theuser');
         assert.equal(myURL.pathname, '/foo/path');
-        assert.equal(myURL.port, "81");
-        assert.equal(myURL.protocol, "https:");
-        assert.equal(myURL.search, "?query=string");
+        assert.equal(myURL.port, '81');
+        assert.equal(myURL.protocol, 'https:');
+        assert.equal(myURL.search, '?query=string');
         assert.equal(myURL.toString(), 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
         assert(myURL.searchParams instanceof url.URLSearchParams);
 
@@ -109,12 +111,12 @@ import Module = require('node:module');
         myURL.hostname = 'example.com';
         myURL.href = 'http://other.com';
         myURL.hash = 'baz';
-        myURL.password = "otherpwd";
-        myURL.username = "otheruser";
-        myURL.pathname = "/otherPath";
-        myURL.port = "82";
-        myURL.protocol = "http";
-        myURL.search = "a=b";
+        myURL.password = 'otherpwd';
+        myURL.username = 'otheruser';
+        myURL.pathname = '/otherPath';
+        myURL.port = '82';
+        myURL.protocol = 'http';
+        myURL.search = 'a=b';
         assert.equal(myURL.href, 'http://otheruser:otherpwd@other.com:82/otherPath?a=b#baz');
 
         myURL = new url.URL('/foo', 'https://example.org/');
@@ -139,18 +141,18 @@ import Module = require('node:module');
         assert.deepEqual(searchParams.getAll('abc'), ['123', 'xyz']);
 
         const entries = searchParams.entries();
-        assert.deepEqual(entries.next(), { value: ["abc", "123"], done: false });
-        assert.deepEqual(entries.next(), { value: ["abc", "xyz"], done: false });
+        assert.deepEqual(entries.next(), { value: ['abc', '123'], done: false });
+        assert.deepEqual(entries.next(), { value: ['abc', 'xyz'], done: false });
         assert.deepEqual(entries.next(), { value: undefined, done: true });
 
         const keys = searchParams.keys();
-        assert.deepEqual(keys.next(), { value: "abc", done: false });
-        assert.deepEqual(keys.next(), { value: "abc", done: false });
+        assert.deepEqual(keys.next(), { value: 'abc', done: false });
+        assert.deepEqual(keys.next(), { value: 'abc', done: false });
         assert.deepEqual(keys.next(), { value: undefined, done: true });
 
         const values = searchParams.values();
-        assert.deepEqual(values.next(), { value: "123", done: false });
-        assert.deepEqual(values.next(), { value: "xyz", done: false });
+        assert.deepEqual(values.next(), { value: '123', done: false });
+        assert.deepEqual(values.next(), { value: 'xyz', done: false });
         assert.deepEqual(values.next(), { value: undefined, done: true });
 
         searchParams.set('abc', 'b');
@@ -166,7 +168,7 @@ import Module = require('node:module');
     {
         const searchParams = new url.URLSearchParams({
             user: 'abc',
-            query: ['first', 'second'] as ReadonlyArray<string>
+            query: ['first', 'second'] as ReadonlyArray<string>,
         });
 
         assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
@@ -204,19 +206,19 @@ import Module = require('node:module');
         maxSockets: Infinity,
         maxFreeSockets: 256,
         maxCachedSessions: 100,
-        timeout: 15000
+        timeout: 15000,
     });
 
     agent = https.globalAgent;
 
     https.request({
-        agent: false
+        agent: false,
     });
     https.request({
-        agent
+        agent,
     });
     https.request({
-        agent: undefined
+        agent: undefined,
     });
 
     https.get('http://www.example.com/xyz');
@@ -232,7 +234,7 @@ import Module = require('node:module');
     https.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
 
     const opts: https.RequestOptions = {
-        path: '/some/path'
+        path: '/some/path',
     };
     https.get(new url.URL('http://www.example.com'), opts);
     https.request(new url.URL('http://www.example.com'), opts);
@@ -256,12 +258,15 @@ import Module = require('node:module');
 
         server = new https.Server();
         server = new https.Server(reqListener);
-        server = new https.Server({ IncomingMessage: MyIncomingMessage});
+        server = new https.Server({ IncomingMessage: MyIncomingMessage });
 
-        server = new https.Server({
-            IncomingMessage: MyIncomingMessage,
-            ServerResponse: MyServerResponse
-        }, reqListener);
+        server = new https.Server(
+            {
+                IncomingMessage: MyIncomingMessage,
+                ServerResponse: MyServerResponse,
+            },
+            reqListener,
+        );
 
         server = https.createServer();
         server = https.createServer(reqListener);
@@ -273,7 +278,11 @@ import Module = require('node:module');
         const keepAliveTimeout: number = server.keepAliveTimeout;
         const maxHeadersCount: number | null = server.maxHeadersCount;
         const headersTimeout: number = server.headersTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+        server
+            .setTimeout()
+            .setTimeout(1000)
+            .setTimeout(() => {})
+            .setTimeout(100, () => {});
     }
 }
 
@@ -317,11 +326,11 @@ import Module = require('node:module');
     async function testPromisify() {
         const setTimeout = util.promisify(timers.setTimeout);
         let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
-        let s: string = await setTimeout(100, "");
+        let s: string = await setTimeout(100, '');
 
         const setImmediate = util.promisify(timers.setImmediate);
         v = await setImmediate();
-        s = await setImmediate("");
+        s = await setImmediate('');
     }
 }
 
@@ -344,14 +353,14 @@ import Module = require('node:module');
     {
         const frame: NodeJS.CallSite = null!;
         const frameThis: any = frame.getThis();
-        const typeName: string | null  = frame.getTypeName();
-        const func: Function | undefined  = frame.getFunction();
+        const typeName: string | null = frame.getTypeName();
+        const func: Function | undefined = frame.getFunction();
         const funcName: string | null = frame.getFunctionName();
-        const meth: string | null  = frame.getMethodName();
-        const fname: string | null  = frame.getFileName();
-        const lineno: number | null  = frame.getLineNumber();
-        const colno: number | null  = frame.getColumnNumber();
-        const evalOrigin: string | undefined  = frame.getEvalOrigin();
+        const meth: string | null = frame.getMethodName();
+        const fname: string | null = frame.getFileName();
+        const lineno: number | null = frame.getLineNumber();
+        const colno: number | null = frame.getColumnNumber();
+        const evalOrigin: string | undefined = frame.getEvalOrigin();
         const isTop: boolean = frame.isToplevel();
         const isEval: boolean = frame.isEval();
         const isNative: boolean = frame.isNative();
@@ -378,14 +387,14 @@ import Module = require('node:module');
             stdout: writeStream,
             stderr: writeStream,
             colorMode: 'auto',
-            ignoreErrors: true
+            ignoreErrors: true,
         });
         consoleInstance = new console.Console({
             stdout: writeStream,
-            colorMode: false
+            colorMode: false,
         });
         consoleInstance = new console.Console({
-            stdout: writeStream
+            stdout: writeStream,
         });
     }
     {
@@ -607,7 +616,7 @@ import * as constants from 'node:constants';
 
 {
     {
-        const b: inspector.Console.ConsoleMessage = {source: 'test', text: 'test', level: 'error' };
+        const b: inspector.Console.ConsoleMessage = { source: 'test', text: 'test', level: 'error' };
         inspector.open();
         inspector.open(0);
         inspector.open(0, 'localhost');
@@ -626,8 +635,11 @@ import * as constants from 'node:constants';
         session.post('A.b');
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
-        session.post('Runtime.evaluate', parameter,
-            (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {});
+        session.post(
+            'Runtime.evaluate',
+            parameter,
+            (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {},
+        );
         session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
             const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails!;
             const resultClassName: string = params.result.className!;
@@ -639,15 +651,21 @@ import * as constants from 'node:constants';
             message; // $ExpectType InspectorNotification<{}>
         });
         // Known events
-        session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
-            const method: string = message.method;
-            const pauseReason: string = message.params.reason;
-        });
+        session.on(
+            'Debugger.paused',
+            (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
+                const method: string = message.method;
+                const pauseReason: string = message.params.reason;
+            },
+        );
         session.on('Debugger.resumed', () => {});
         // Node Inspector events
-        session.on('NodeTracing.dataCollected', (message: inspector.InspectorNotification<inspector.NodeTracing.DataCollectedEventDataType>) => {
-          const value: Array<{}> = message.params.value;
-        });
+        session.on(
+            'NodeTracing.dataCollected',
+            (message: inspector.InspectorNotification<inspector.NodeTracing.DataCollectedEventDataType>) => {
+                const value: Array<{}> = message.params.value;
+            },
+        );
     }
 }
 
@@ -670,13 +688,13 @@ import * as constants from 'node:constants';
 import moduleModule = require('node:module');
 
 {
-    require.extensions[".ts"] = () => "";
+    require.extensions['.ts'] = () => '';
 
     Module.runMain();
-    const s: string = Module.wrap("some code");
+    const s: string = Module.wrap('some code');
 
-    const m1: Module = new Module("moduleId");
-    const m2: Module = new Module.Module("moduleId");
+    const m1: Module = new Module('moduleId');
+    const m2: Module = new Module.Module('moduleId');
     const b: string[] = Module.builtinModules;
     let paths: string[] = module.paths;
     const path: string = module.path;
@@ -691,8 +709,8 @@ import moduleModule = require('node:module');
     const resolved1: string = customRequire1.resolve('test');
     const resolved2: string = customRequire2.resolve('test');
 
-    const paths1: string[] | null  = customRequire1.resolve.paths('test');
-    const paths2: string[] | null  = customRequire2.resolve.paths('test');
+    const paths1: string[] | null = customRequire1.resolve.paths('test');
+    const paths2: string[] | null = customRequire2.resolve.paths('test');
 
     const cachedModule1: Module = customRequire1.cache['/path/to/module.js'];
     const cachedModule2: Module = customRequire2.cache['/path/to/module.js'];
@@ -724,22 +742,22 @@ import tty = require('node:tty');
 /// dgram tests : https://nodejs.org/api/dgram.html ///
 /////////////////////////////////////////////////////////
 {
-    let sock: dgram.Socket = dgram.createSocket("udp4");
-    sock = dgram.createSocket({ type: "udp4" });
+    let sock: dgram.Socket = dgram.createSocket('udp4');
+    sock = dgram.createSocket({ type: 'udp4' });
     sock = dgram.createSocket({
-        type: "udp4",
+        type: 'udp4',
         reuseAddr: true,
         ipv6Only: false,
         recvBufferSize: 4096,
         sendBufferSize: 4096,
         lookup: dns.lookup,
     });
-    sock = dgram.createSocket("udp6", (msg, rinfo) => {
+    sock = dgram.createSocket('udp6', (msg, rinfo) => {
         msg; // $ExpectType Buffer
         rinfo; // $ExpectType RemoteInfo
     });
-    sock.addMembership("233.252.0.0");
-    sock.addMembership("233.252.0.0", "192.0.2.1");
+    sock.addMembership('233.252.0.0');
+    sock.addMembership('233.252.0.0', '192.0.2.1');
     sock.address().address; // $ExpectType string
     sock.address().family; // $ExpectType string
     sock.address().port; // $ExpectType number
@@ -747,39 +765,39 @@ import tty = require('node:tty');
     sock.bind(() => undefined);
     sock.bind(8000);
     sock.bind(8000, () => undefined);
-    sock.bind(8000, "192.0.2.1");
-    sock.bind(8000, "192.0.2.1", () => undefined);
+    sock.bind(8000, '192.0.2.1');
+    sock.bind(8000, '192.0.2.1', () => undefined);
     sock.bind({}, () => undefined);
-    sock.bind({ port: 8000, address: "192.0.2.1", exclusive: true });
+    sock.bind({ port: 8000, address: '192.0.2.1', exclusive: true });
     sock.bind({ fd: 7, exclusive: true });
     sock.close();
     sock.close(() => undefined);
     sock.connect(8000);
-    sock.connect(8000, "192.0.2.1");
+    sock.connect(8000, '192.0.2.1');
     sock.connect(8000, () => undefined);
-    sock.connect(8000, "192.0.2.1", () => undefined);
+    sock.connect(8000, '192.0.2.1', () => undefined);
     sock.disconnect();
-    sock.dropMembership("233.252.0.0");
-    sock.dropMembership("233.252.0.0", "192.0.2.1");
+    sock.dropMembership('233.252.0.0');
+    sock.dropMembership('233.252.0.0', '192.0.2.1');
     sock.getRecvBufferSize(); // $ExpectType number
     sock.getSendBufferSize(); // $ExpectType number
     sock = sock.ref();
     sock.remoteAddress().address; // $ExpectType string
     sock.remoteAddress().family; // $ExpectType string
     sock.remoteAddress().port; // $ExpectType number
-    sock.send("datagram");
-    sock.send(new Uint8Array(256), 8000, (err) => {
+    sock.send('datagram');
+    sock.send(new Uint8Array(256), 8000, err => {
         err; // $ExpectType Error | null
     });
-    sock.send(Buffer.alloc(256), 8000, "192.0.2.1");
+    sock.send(Buffer.alloc(256), 8000, '192.0.2.1');
     sock.send(new Uint8Array(256), 128, 64);
-    sock.send("datagram", 128, 64, (err) => undefined);
+    sock.send('datagram', 128, 64, err => undefined);
     sock.send(new Uint8Array(256), 128, 64, 8000);
-    sock.send(new Uint8Array(256), 128, 64, 8000, (err) => undefined);
-    sock.send(Buffer.alloc(256), 128, 64, 8000, "192.0.2.1");
-    sock.send("datagram", 128, 64, 8000, "192.0.2.1", (err) => undefined);
+    sock.send(new Uint8Array(256), 128, 64, 8000, err => undefined);
+    sock.send(Buffer.alloc(256), 128, 64, 8000, '192.0.2.1');
+    sock.send('datagram', 128, 64, 8000, '192.0.2.1', err => undefined);
     sock.setBroadcast(true);
-    sock.setMulticastInterface("192.0.2.1");
+    sock.setMulticastInterface('192.0.2.1');
     sock.setMulticastLoopback(false);
     sock.setMulticastTTL(128);
     sock.setRecvBufferSize(4096);
@@ -787,13 +805,13 @@ import tty = require('node:tty');
     sock.setTTL(128);
     sock = sock.unref();
 
-    sock.on("close", () => undefined);
-    sock.on("connect", () => undefined);
-    sock.on("error", (exception) => {
+    sock.on('close', () => undefined);
+    sock.on('connect', () => undefined);
+    sock.on('error', exception => {
         exception; // $ExpectType Error
     });
-    sock.on("listening", () => undefined);
-    sock.on("message", (msg, rinfo) => {
+    sock.on('listening', () => undefined);
+    sock.on('message', (msg, rinfo) => {
         msg; // $ExpectType Buffer
         rinfo.address; // $ExpectType string
         rinfo.family; // $ExpectType "IPv4" | "IPv6"
@@ -837,8 +855,12 @@ import tty = require('node:tty');
         const b = value;
     }
 
-    const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: unknown, result: number) => void): void => { });
-    const arg1AnyError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: any, result: number) => void): void => { });
+    const arg1UnknownError: (
+        arg: string,
+    ) => Promise<number> = util.promisify((arg: string, cb: (err: unknown, result: number) => void): void => {});
+    const arg1AnyError: (
+        arg: string,
+    ) => Promise<number> = util.promisify((arg: string, cb: (err: any, result: number) => void): void => {});
 }
 
 // FS Tests

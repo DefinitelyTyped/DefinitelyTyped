@@ -52,8 +52,8 @@ import {
     new AsyncResource('', {});
     new AsyncResource('', { triggerAsyncId: 0 });
     new AsyncResource('', {
-      triggerAsyncId: 0,
-      requireManualDestroy: true
+        triggerAsyncId: 0,
+        requireManualDestroy: true,
     });
 }
 
@@ -66,8 +66,12 @@ import {
     const esRet: number = ctx.exitSyncAndReturn((a: number) => {
         return 123;
     }, 1);
-    ctx.run('test', (a: number) => {
-        const store: string | undefined = ctx.getStore();
-    }, 1);
+    ctx.run(
+        'test',
+        (a: number) => {
+            const store: string | undefined = ctx.getStore();
+        },
+        1,
+    );
     ctx.enterWith('test');
 }

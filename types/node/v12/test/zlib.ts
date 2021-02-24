@@ -25,48 +25,37 @@ import {
 } from 'node:zlib';
 import { promisify } from 'node:util';
 
-const compressMe = new Buffer("some data");
-const compressMeString = "compress me!";
+const compressMe = new Buffer('some data');
+const compressMeString = 'compress me!';
 
 // Deflate / Inflate
 
-deflate(compressMe, (err: Error | null, result: Buffer) => inflate(result, (err: Error | null, result: Buffer) => result));
-deflate(
-    compressMe,
-    { finishFlush: constants.Z_SYNC_FLUSH },
-    (err: Error | null, result: Buffer) => inflate(
-        result,
-        { finishFlush: constants.Z_SYNC_FLUSH },
-        (err: Error | null, result: Buffer) => result
-    )
+deflate(compressMe, (err: Error | null, result: Buffer) =>
+    inflate(result, (err: Error | null, result: Buffer) => result),
 );
-deflate(compressMeString, (err: Error | null, result: Buffer) => inflate(result, (err: Error | null, result: Buffer) => result));
-deflate(
-    compressMeString,
-    { finishFlush: constants.Z_SYNC_FLUSH },
-    (err: Error | null, result: Buffer) => inflate(
-        result,
-        { finishFlush: constants.Z_SYNC_FLUSH },
-        (err: Error | null, result: Buffer) => result
-    )
+deflate(compressMe, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) =>
+    inflate(result, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result),
+);
+deflate(compressMeString, (err: Error | null, result: Buffer) =>
+    inflate(result, (err: Error | null, result: Buffer) => result),
+);
+deflate(compressMeString, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) =>
+    inflate(result, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result),
 );
 const inflated = inflateSync(deflateSync(compressMe));
 const inflatedString = inflateSync(deflateSync(compressMeString));
 
-deflateRaw(compressMe, (err: Error | null, result: Buffer) => inflateRaw(result, (err: Error | null, result: Buffer) => result));
-deflateRaw(
-    compressMe,
-    { finishFlush: constants.Z_SYNC_FLUSH },
-    (err: Error | null, result: Buffer) => inflateRaw(
-        result, { finishFlush: constants.Z_SYNC_FLUSH },
-        (err: Error | null, result: Buffer) => result
-    )
+deflateRaw(compressMe, (err: Error | null, result: Buffer) =>
+    inflateRaw(result, (err: Error | null, result: Buffer) => result),
 );
-deflateRaw(compressMeString, (err: Error | null, result: Buffer) => inflateRaw(result, (err: Error | null, result: Buffer) => result));
-deflateRaw(
-    compressMeString,
-    { finishFlush: constants.Z_SYNC_FLUSH },
-    (err: Error | null, result: Buffer) => inflateRaw(result, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result),
+deflateRaw(compressMe, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) =>
+    inflateRaw(result, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result),
+);
+deflateRaw(compressMeString, (err: Error | null, result: Buffer) =>
+    inflateRaw(result, (err: Error | null, result: Buffer) => result),
+);
+deflateRaw(compressMeString, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) =>
+    inflateRaw(result, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result),
 );
 const inflatedRaw: Buffer = inflateRawSync(deflateRawSync(compressMe));
 const inflatedRawString: Buffer = inflateRawSync(deflateRawSync(compressMeString));
@@ -74,13 +63,8 @@ const inflatedRawString: Buffer = inflateRawSync(deflateRawSync(compressMeString
 // gzip
 
 gzip(compressMe, (err: Error | null, result: Buffer) => gunzip(result, (err: Error | null, result: Buffer) => result));
-gzip(
-    compressMe,
-    { finishFlush: constants.Z_SYNC_FLUSH },
-    (err: Error | null, result: Buffer) => gunzip(
-        result, { finishFlush: constants.Z_SYNC_FLUSH },
-        (err: Error | null, result: Buffer) => result
-    )
+gzip(compressMe, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) =>
+    gunzip(result, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result),
 );
 const gunzipped: Buffer = gunzipSync(gzipSync(compressMe));
 
@@ -106,19 +90,20 @@ let bD: BrotliDecompress = createBrotliDecompress();
 bD = createBrotliDecompress(bOpts);
 // gzip
 
-brotliCompress(compressMe, (err: Error | null, result: Buffer) => gunzip(result, (err: Error | null, result: Buffer) => result));
-brotliCompress(
-    compressMe,
-    { finishFlush: constants.BROTLI_OPERATION_FINISH },
-    (err: Error | null, result: Buffer) => gunzip(
-        result, { finishFlush: constants.Z_SYNC_FLUSH },
-        (err: Error | null, result: Buffer) => result
-    )
+brotliCompress(compressMe, (err: Error | null, result: Buffer) =>
+    gunzip(result, (err: Error | null, result: Buffer) => result),
+);
+brotliCompress(compressMe, { finishFlush: constants.BROTLI_OPERATION_FINISH }, (err: Error | null, result: Buffer) =>
+    gunzip(result, { finishFlush: constants.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result),
 );
 const brotlied: Buffer = brotliDecompressSync(brotliDecompressSync(compressMe));
 
 brotliDecompress(compressMe, (err: Error | null, result: Buffer) => result);
-brotliDecompress(compressMe, { finishFlush: constants.BROTLI_OPERATION_FINISH }, (err: Error | null, result: Buffer) => result);
+brotliDecompress(
+    compressMe,
+    { finishFlush: constants.BROTLI_OPERATION_FINISH },
+    (err: Error | null, result: Buffer) => result,
+);
 
 {
     // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer>

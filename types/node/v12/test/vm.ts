@@ -4,7 +4,7 @@ import { inspect } from 'node:util';
 {
     const sandbox = {
         animal: 'cat',
-        count: 2
+        count: 2,
     };
 
     const context = createContext(sandbox, {
@@ -33,7 +33,7 @@ import { inspect } from 'node:util';
 
     const script = new Script('globalVar = "set"');
 
-    sandboxes.forEach((sandbox) => {
+    sandboxes.forEach(sandbox => {
         script.runInNewContext(sandbox);
         script.runInThisContext();
     });
@@ -53,9 +53,11 @@ import { inspect } from 'node:util';
 {
     const fn: Function = compileFunction('console.log("test")', [] as ReadonlyArray<string>, {
         parsingContext: createContext(),
-        contextExtensions: [{
-            a: 1,
-        }],
+        contextExtensions: [
+            {
+                a: 1,
+            },
+        ],
         produceCachedData: false,
         cachedData: Buffer.from('nope'),
     });

@@ -12,10 +12,20 @@ declare module 'querystring' {
         decodeURIComponent?: (str: string) => string;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery {
+        [key: string]: string | string[];
+    }
 
     interface ParsedUrlQueryInput {
-        [key: string]: string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | undefined | null;
+        [key: string]:
+            | string
+            | number
+            | boolean
+            | ReadonlyArray<string>
+            | ReadonlyArray<number>
+            | ReadonlyArray<boolean>
+            | undefined
+            | null;
     }
 
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;

@@ -67,15 +67,15 @@ declare module 'zlib' {
         reset(): void;
     }
 
-    interface BrotliCompress extends stream.Transform, Zlib { }
-    interface BrotliDecompress extends stream.Transform, Zlib { }
-    interface Gzip extends stream.Transform, Zlib { }
-    interface Gunzip extends stream.Transform, Zlib { }
-    interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
-    interface Inflate extends stream.Transform, Zlib, ZlibReset { }
-    interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
-    interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
-    interface Unzip extends stream.Transform, Zlib { }
+    interface BrotliCompress extends stream.Transform, Zlib {}
+    interface BrotliDecompress extends stream.Transform, Zlib {}
+    interface Gzip extends stream.Transform, Zlib {}
+    interface Gunzip extends stream.Transform, Zlib {}
+    interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    interface Inflate extends stream.Transform, Zlib, ZlibReset {}
+    interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
+    interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
+    interface Unzip extends stream.Transform, Zlib {}
 
     function createBrotliCompress(options?: BrotliOptions): BrotliCompress;
     function createBrotliDecompress(options?: BrotliOptions): BrotliDecompress;

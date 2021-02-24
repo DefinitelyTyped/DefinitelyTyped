@@ -7,13 +7,12 @@ import { createContext } from 'node:vm';
         module.exports = async function parseJSAsync(script: string) {
             return new Promise((resolve, reject) => {
                 const worker = new workerThreads.Worker(__filename, {
-                    workerData: script
+                    workerData: script,
                 });
                 worker.on('message', resolve);
                 worker.on('error', reject);
-                worker.on('exit', (code) => {
-                    if (code !== 0)
-                        reject(new Error(`Worker stopped with exit code ${code}`));
+                worker.on('exit', code => {
+                    if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`));
                 });
             });
         };
@@ -25,7 +24,7 @@ import { createContext } from 'node:vm';
 
 {
     const { port1, port2 } = new workerThreads.MessageChannel();
-    port1.on('message', (message) => console.log('received', message));
+    port1.on('message', message => console.log('received', message));
     port2.postMessage({ foo: 'bar' });
 }
 
@@ -33,15 +32,16 @@ import { createContext } from 'node:vm';
     if (workerThreads.isMainThread) {
         const worker = new workerThreads.Worker(__filename);
         const subChannel = new workerThreads.MessageChannel();
-        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1] as ReadonlyArray<workerThreads.TransferListItem>);
-        subChannel.port2.on('message', (value) => {
+        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [
+            subChannel.port1,
+        ] as ReadonlyArray<workerThreads.TransferListItem>);
+        subChannel.port2.on('message', value => {
             console.log('received:', value);
         });
-        const movedPort = workerThreads.moveMessagePortToContext(
-            new workerThreads.MessagePort(), createContext());
+        const movedPort = workerThreads.moveMessagePortToContext(new workerThreads.MessagePort(), createContext());
         workerThreads.receiveMessageOnPort(movedPort);
     } else {
-        workerThreads.parentPort!.once('message', (value) => {
+        workerThreads.parentPort!.once('message', value => {
             assert(value.hereIsYourPort instanceof workerThreads.MessagePort);
             value.hereIsYourPort.postMessage('the worker is sending this');
             value.hereIsYourPort.close();

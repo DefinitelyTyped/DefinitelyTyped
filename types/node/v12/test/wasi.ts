@@ -6,8 +6,8 @@ import * as fs from 'node:fs';
         args: process.argv,
         env: process.env,
         preopens: {
-            '/sandbox': '/some/real/path/that/wasm/can/access'
-        }
+            '/sandbox': '/some/real/path/that/wasm/can/access',
+        },
     });
     const importObject = { wasi_snapshot_preview1: wasi.wasiImport };
 
