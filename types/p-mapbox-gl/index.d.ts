@@ -1,5 +1,5 @@
-// Type definitions for Mapbox GL JS 1.0
-// Project: https://github.com/zsjjs/mapbox-gl-js
+// Type definitions for p-mapbox-gl 1.0
+// Project: https://github.com/zsjjs/p-mapbox-gl-js
 // Definitions by: jason zhou <https://github.com/zsjjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
