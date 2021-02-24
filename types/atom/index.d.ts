@@ -30,7 +30,8 @@ import {
     PointCompatible,
     Range,
     RangeCompatible,
-    RangeLike
+    RangeLike,
+    TextChange
 } from "./dependencies/text-buffer";
 
 import { Decoration, DecorationOptions, DecorationLayerOptions } from "./src/decoration";
@@ -5809,16 +5810,6 @@ export interface TestRunnerParams {
      *  line via atom --test.
      */
     headless: boolean;
-}
-
-export interface TextChange {
-    newExtent: Point;
-    oldExtent: Point;
-    newRange: Range;
-    oldRange: Range;
-    newText: string;
-    oldText: string;
-    start: Point;
 }
 
 export interface TimingMarker {
