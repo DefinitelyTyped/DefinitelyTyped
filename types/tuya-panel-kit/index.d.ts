@@ -10687,6 +10687,25 @@ export let TYSdk: {
          */
         hideLoading(): void;
         is24Hour(): boolean;
+
+        /**
+         * 面板跳面板支持
+         * Wiki: https://wiki.tuya-inc.com:7799/pages/viewpage.action?pageId=41463150
+         */
+        uiIdNavEventEmitter: {
+            createEmitter(): void;
+            addListener(listener: AnyFunction): void;
+            removeEmitter(): void;
+            registerEventListener(): void;
+            sendEvent(props: any): void;
+            /**
+             * 跳转面板, 等同于jumpSubPage, 只是传参形式的区别
+             * @param uiId 
+             * @param props 携带参数
+             */
+            pushWithUiID(uiId: string, props: any): void
+        };
+
         /**
          * @desc 根据 uiId 跳转二级页面
          */
