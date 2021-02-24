@@ -1,3 +1,7 @@
+export interface GetPluralForm {
+    (n: number): boolean | number;
+}
+
 /**
  * Adds translations to existing ones or overrides the existing translations. These translations will later
  * be available for the {@link module:utils/locale~Locale#t `t()`} function.
@@ -68,4 +72,4 @@
  *
  * For each message ID the value should be either a translation or an array of translations if the message should support plural forms.
  */
-export function add(language: string, translations: Record<string, string>, getPluralForm?: Function): void;
+export function add(language: string, translations: Record<string, string>, getPluralForm?: GetPluralForm): void;
