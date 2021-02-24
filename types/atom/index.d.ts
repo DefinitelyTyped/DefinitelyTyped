@@ -4369,51 +4369,6 @@ export interface KeymapLoadedEvent {
     path: string;
 }
 
-export interface MarkerChangedEvent {
-    /** Point representing the former head position. */
-    oldHeadPosition: Point;
-
-    /** Point representing the new head position. */
-    newHeadPosition: Point;
-
-    /** Point representing the former tail position. */
-    oldTailPosition: Point;
-
-    /** Point representing the new tail position. */
-    newTailPosition: Point;
-
-    /** Boolean indicating whether the marker was valid before the change. */
-    wasValid: boolean;
-
-    /** Boolean indicating whether the marker is now valid. */
-    isValid: boolean;
-
-    /** Boolean indicating whether the marker had a tail before the change. */
-    hadTail: boolean;
-
-    /** Boolean indicating whether the marker now has a tail. */
-    hasTail: boolean;
-
-    /**
-     *  -DEPRECATED- Object containing the marker's custom properties before the change.
-     *  @deprecated
-     */
-    oldProperties: object;
-
-    /**
-     *  -DEPRECATED- Object containing the marker's custom properties after the change.
-     *  @deprecated
-     */
-    newProperties: object;
-
-    /**
-     *  Boolean indicating whether this change was caused by a textual
-     *  change to the buffer or whether the marker was manipulated directly
-     *  via its public API.
-     */
-    textChanged: boolean;
-}
-
 export interface PaneItemObservedEvent {
     item: object;
     pane: Pane;
