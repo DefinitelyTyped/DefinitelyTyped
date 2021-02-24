@@ -23,7 +23,6 @@ import { Disposable, DisposableLike } from "./dependencies/event-kit";
 import {
     DisplayMarker,
     DisplayMarkerLayer,
-    Marker,
     MarkerLayer,
     Point,
     PointLike,
@@ -38,8 +37,8 @@ import {
     ContextualBufferScanResult,
     FindDisplayMarkerOptions
 } from "./dependencies/text-buffer";
-
 import { Decoration, DecorationOptions, DecorationLayerOptions } from "./src/decoration";
+import { LayerDecoration } from "./src/layer-decoration";
 
 declare global {
     const atom: AtomEnvironment;
@@ -336,27 +335,7 @@ export * from "./dependencies/text-buffer";
 
 export { Disposable, Emitter } from "./dependencies/event-kit";
 
-/**
- *  Represents a decoration that applies to every marker on a given layer. Created via
- *  TextEditor::decorateMarkerLayer.
- */
-export interface LayerDecoration {
-    /** Destroys the decoration. */
-    destroy(): void;
-
-    /** Determine whether this decoration is destroyed. */
-    isDestroyed(): boolean;
-
-    /** Get this decoration's properties. */
-    getProperties(): DecorationLayerOptions;
-
-    /** Set this decoration's properties. */
-    setProperties(newProperties: DecorationLayerOptions): void;
-
-    /** Override the decoration properties for a specific marker. */
-    setPropertiesForMarker(marker: DisplayMarker|Marker, properties: DecorationLayerOptions):
-        void;
-}
+export * from "./src/layer-decoration";
 
 /** A notification to the user containing a message and type. */
 export class Notification {
