@@ -37,7 +37,7 @@ import { TextEditorRegistry } from "./src/text-editor-registry";
 import { TooltipManager } from "./src/tooltip-manager";
 import { ViewRegistry } from "./src/view-registry";
 import { Workspace } from "./src/workspace";
-import { BufferedProcess } from "./src/buffered-process";
+import { Clipboard } from "./src/clipboard";
 
 declare global {
     const atom: AtomEnvironment;
@@ -365,22 +365,9 @@ export * from "./src/buffered-process";
 
 export * from "./src/buffered-node-process";
 
+export * from "./src/clipboard";
+
 // Extended Classes ===========================================================
-
-/** Represents the clipboard used for copying and pasting in Atom. */
-export interface Clipboard {
-    /** Write the given text to the clipboard. */
-    write(text: string, metadata?: object): void;
-
-    /** Read the text from the clipboard. */
-    read(): string;
-
-    /**
-     *  Read the text from the clipboard and return both the text and the associated
-     *  metadata.
-     */
-    readWithMetadata(): { text: string, metadata: object };
-}
 
 /** Provides a registry for commands that you'd like to appear in the context menu. */
 export interface ContextMenuManager {
