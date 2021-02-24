@@ -1,4 +1,4 @@
-// Type definitions for are.na 0.1.5
+// Type definitions for are.na 0.1
 // Project: https://github.com/ivangreene/arena-js
 // Definitions by: Hunter Caron <https://github.com/huntercaron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -93,11 +93,14 @@ declare class Arena {
          */
         delete(slug: string): Promise<void>;
         /**
-         * Update the channel's attributes. params should be an object and can include title and/or status. Currently it appears that the are.na API requires both values. If title is not set, an error will occur. If status is not set, it will default to "public".
+         * Update the channel's attributes. params should be an object and can include title and/or status.
+         * Currently it appears that the are.na API requires both values.
+         * If title is not set, an error will occur.
+         * If status is not set, it will default to "public".
          */
         update(params: { title?: string; status?: Arena.ChannelStatus }): Promise<Arena.Channel>;
         /**
-         * Add collaborators to a channel. Pass userIds as an Array or multiple arguments. channel(slug).addCollaborators(123, 456) or channel(slug).addCollaborators([123, 456]) works.
+         * Add collaborators to a channel. Pass userIds as an Array or multiple arguments.
          */
         addCollaborators(userIDs: string[]): Promise<Arena.User[]>;
         /**
@@ -138,11 +141,13 @@ declare class Arena {
          */
         channels(params?: Params): Promise<Arena.Channel[]>;
         /**
-         * Create a block and add it to the channel. Specify textual content or a source link
+         * Create a block and add it to the channel.
+         * Specify textual content or a source link.
          */
         create(channelSlug: string, content: any): Promise<Arena.Channel>;
         /**
-         * Update a block. Pass an object with one or more of content, title or description fields to update those fields.
+         * Update a block. Pass an object with one or more of content,
+         * title or description fields to update those fields.
          */
         update(params: { content?: any; title?: string; description?: string }): Promise<void>;
     };
@@ -173,7 +178,7 @@ declare class Arena {
         /**
          * Get a list of users and/or blocks the user is following. Supports pagination.
          */
-        following(params?: PaginationParams): Promise<(Arena.Block | Arena.User)[]>;
+        following(params?: PaginationParams): Promise<Array<Arena.Block | Arena.User>>;
         /**
          * Get a list of the user's followers. Supports pagination.
          */
@@ -227,22 +232,24 @@ declare namespace Arena {
     /**
      * The type of block.
      */
-    export type BlockType = 'Image' | 'Text' | 'Link' | 'Media' | 'Attachment';
+    type BlockType = 'Image' | 'Text' | 'Link' | 'Media' | 'Attachment';
 
     /**
      * Either "default" (a standard channel) or "profile" the default channel of a user
      */
-    export type ChannelKind = 'default' | 'profile';
+    type ChannelKind = 'default' | 'profile';
 
     /**
-     * Can be "private" (only open for reading and adding to the channel by channel author and collaborators), "closed" (open for reading by everyone, only channel author and collaborators can add) or "public" (everyone can read and add to the channel)
+     * Can be "private" (only open for reading and adding to the channel by channel author and collaborators),
+     * "closed" (open for reading by everyone, only channel author and collaborators can add) or "public"
+     * (everyone can read and add to the channel)
      */
-    export type ChannelStatus = 'private' | 'closed' | 'open';
+    type ChannelStatus = 'private' | 'closed' | 'open';
 
     /**
      * Representation of a block's source
      */
-    export interface Source {
+    interface Source {
         provider?: { name?: string; url?: string };
         title?: string;
         url?: string;
@@ -251,14 +258,14 @@ declare namespace Arena {
     /**
      * Representation of a channel the block appears in
      */
-    export interface Connection extends Partial<Channel> {
+    interface Connection extends Partial<Channel> {
         id?: number;
         title?: string;
         added_to_at?: Timestamp;
         updated_at?: Timestamp;
     }
 
-    export interface Image {
+    interface Image {
         /**
          * Name of the file as it appears on the Arena filesystem
          */
@@ -276,19 +283,26 @@ declare namespace Arena {
          */
         thumb: { url: string };
         /**
-         * Only contains url which is a URL of the display sized image (same aspect ratio as original image but with a maximim width of 600px or a maximum height of 600px, whichever comes first)
+         * Only contains url which is a URL of the display sized image
+         * (same aspect ratio as original image but with a maximim width
+         * of 600px or a maximum height of 600px, whichever comes first)
          */
         display: { url: string };
         /**
-         * Contains url which is a URL of the original image as well file_size (an integer representation in bytes) and file_size_display (a nicer string representation of the file_size)
+         * Contains url which is a URL of the original image as well file_size
+         * (an integer representation in bytes) and file_size_display
+         * (a nicer string representation of the file_size)
          */
         original: { url: string; file_size: number; file_size_display: string };
     }
 
     /**
-     * Blocks are modular and reusable pieces of data or content. A block has primary user (indicated by user_id) and can only be edited by the user who created it. However, any block can be reused in multiple channels (this is called a connection). The channels a block appears in across Arena are listed in the blocks' connections attribute.
+     * Blocks are modular and reusable pieces of data or content. A block has primary user
+     * (indicated by user_id) and can only be edited by the user who created it.
+     * However, any block can be reused in multiple channels (this is called a connection).
+     * The channels a block appears in across Arena are listed in the blocks' connections attribute.
      */
-    export interface Block {
+    interface Block {
         /**
          * The internal ID of the block
          */
@@ -306,7 +320,8 @@ declare namespace Arena {
          */
         created_at: Timestamp;
         /**
-         * Represents the state of the blocks processing lifecycle (this will most often "Available" but can also be "Failure", "Processed", "Processing")
+         * Represents the state of the blocks processing lifecycle.
+         * (this will most often "Available" but can also be "Failure", "Processed", "Processing")
          */
         state: string;
         /**
@@ -314,7 +329,9 @@ declare namespace Arena {
          */
         comment_count: number;
         /**
-         * If the title is present on the block, this will be identical to the title. Otherwise it will be a truncated string of the *description* or *content*. If neither of those are present, it will be "Untitled"
+         * If the title is present on the block, this will be identical to the title.
+         * Otherwise it will be a truncated string of the *description* or *content*.
+         * If neither of those are present, it will be "Untitled"
          */
         generated_title: string;
         /**
@@ -342,11 +359,14 @@ declare namespace Arena {
          */
         description_html: string | null;
         /**
-         * If the Block is saved from somewhere on the web, this returns a User representation of the source
+         * If the Block is saved from somewhere on the web,
+         * this returns a User representation of the source
          */
         source: Source | null;
         /**
-         * If the Block is of class "Image" or "Link", this will be a User representation of the various sizes of images that Arena provides (in the case of a "Link" it will be a screenshot of the website).
+         * If the Block is of class "Image" or "Link",
+         * this will be a User representation of the various sizes of images that Arena provides
+         * (in the case of a "Link" it will be a screenshot of the website).
          */
         image: Image | null;
         /**
@@ -362,7 +382,7 @@ declare namespace Arena {
     /**
      * Block of type "Text"
      */
-    export interface TextBlock extends Block {
+    interface TextBlock extends Block {
         class: 'Text';
         content: string;
         content_html: string;
@@ -372,7 +392,7 @@ declare namespace Arena {
     /**
      * Block of type "Image"
      */
-    export interface ImageBlock extends Block {
+    interface ImageBlock extends Block {
         class: 'Image';
         content: null;
         content_html: null;
@@ -382,7 +402,7 @@ declare namespace Arena {
     /**
      * Block of type "Link"
      */
-    export interface LinkBlock extends Block {
+    interface LinkBlock extends Block {
         class: 'Link';
         content: null;
         content_html: null;
@@ -392,7 +412,7 @@ declare namespace Arena {
     /**
      * Block of type "Media"
      */
-    export interface MediaBlock extends Block {
+    interface MediaBlock extends Block {
         class: 'Media';
         content: null;
         content_html: null;
@@ -402,7 +422,7 @@ declare namespace Arena {
     /**
      * Block of type "Attachment"
      */
-    export interface AttachmentBlock extends Block {
+    interface AttachmentBlock extends Block {
         class: 'Attachment';
         content: null;
         content_html: null;
@@ -410,9 +430,13 @@ declare namespace Arena {
     }
 
     /**
-     * Channels are organizational structures for content. This means blocks but also sometimes other channels. Channels have a primary user (indicated by the user_id) but can also have collaborators (an array of users). Channels can be public (anyone can view and add), closed (only the channel's author and collaborators can add but everyone can view) and private (only the channels authors and collaborators can view and add).
+     * Channels are organizational structures for content. This means blocks but also sometimes other channels.
+     * Channels have a primary user (indicated by the user_id) but can also have collaborators (an array of users).
+     * Channels can be public (anyone can view and add),
+     * closed (only the channel's author and collaborators can add but everyone can view)
+     * and private (only the channels authors and collaborators can view and add).
      */
-    export interface Channel {
+    interface Channel {
         /**
          * The internal ID of the channel
          */
@@ -432,15 +456,15 @@ declare namespace Arena {
         /**
          * If channel is visible to all members of arena or not
          */
-        published: Boolean;
+        published: boolean;
         /**
          * If channel is open to other members of arena for adding blocks
          */
-        open: Boolean;
+        open: boolean;
         /**
          * If the channel has collaborators or not
          */
-        collaboration: Boolean;
+        collaboration: boolean;
         /**
          * The slug of the channel used in the url (e.g. http:re.na/arena-influences)
          */
@@ -454,7 +478,9 @@ declare namespace Arena {
          */
         kind: ChannelKind;
         /**
-         * Can be "private" (only open for reading and adding to the channel by channel author and collaborators), "closed" (open for reading by everyone, only channel author and collaborators can add) or "public" (everyone can read and add to the channel)
+         * Can be "private" (only open for reading and adding to the channel by channel author and collaborators),
+         * "closed" (open for reading by everyone, only channel author and collaborators can add)
+         * or "public" (everyone can read and add to the channel)
          */
         status: ChannelStatus;
         /**
@@ -470,7 +496,7 @@ declare namespace Arena {
          */
         base_class: string;
         /**
-         * More information on the channel author. Contains id, slug, first_name, last_name, full_name, avatar, email, channel_count, following_count, follower_count, and profile_id
+         * More information on the channel author.
          */
         user: User;
         /**
@@ -490,7 +516,9 @@ declare namespace Arena {
          */
         follower_count: number;
         /**
-         * Array of blocks and other channels in the channel. Note: If the request is authenticated, this will include any private channels included in the requested channel that you have access to. If not, only public channels included in the requested channel will be shown.
+         * Array of blocks and other channels in the channel.
+         * Note: If the request is authenticated, this will include any private channels included in the requested
+         * channel that you have access to. If not, only public channels included in the requested channel will be shown.
          */
         contents: Block[] | null;
         /**
@@ -500,7 +528,8 @@ declare namespace Arena {
     }
 
     /**
-     * Users are representations of any account on Arena. Users can have channels, followers, blocks and they can also follow both channels and users.
+     * Users are representations of any account on Arena.
+     * Users can have channels, followers, blocks and they can also follow both channels and users.
      */
     interface User {
         /**
@@ -557,7 +586,7 @@ declare namespace Arena {
         initials?: string;
     }
 
-    export interface Search {
+    interface Search {
         /**
          * A string representation of your search query
          */
@@ -589,6 +618,4 @@ declare namespace Arena {
     }
 }
 
-declare module 'are.na' {
-    export = Arena;
-}
+export = Arena;
