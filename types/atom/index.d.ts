@@ -4661,35 +4661,6 @@ export interface ErrorNotificationOptions extends NotificationOptions {
     stack?: string;
 }
 
-export interface FindMarkerOptions {
-    /** Only include markers that start at the given Point. */
-    startPosition?: PointCompatible;
-
-    /** Only include markers that end at the given Point. */
-    endPosition?: PointCompatible;
-
-    /** Only include markers that start inside the given Range. */
-    startsInRange?: RangeCompatible;
-
-    /** Only include markers that end inside the given Range. */
-    endsInRange?: RangeCompatible;
-
-    /** Only include markers that contain the given Point, inclusive. */
-    containsPoint?: PointCompatible;
-
-    /** Only include markers that contain the given Range, inclusive. */
-    containsRange?: RangeCompatible;
-
-    /** Only include markers that start at the given row number. */
-    startRow?: number;
-
-    /** Only include markers that end at the given row number. */
-    endRow?: number;
-
-    /** Only include markers that intersect the given row number. */
-    intersectsRow?: number;
-}
-
 export interface HistoryTransactionOptions {
     /** When provided, skip taking snapshot for other selections markerLayers except given one. */
     selectionsMarkerLayer?: MarkerLayer;

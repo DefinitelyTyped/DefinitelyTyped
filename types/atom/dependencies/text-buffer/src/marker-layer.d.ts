@@ -1,10 +1,4 @@
-import {
-    Disposable,
-    Marker,
-    RangeCompatible,
-    PointCompatible,
-    FindMarkerOptions,
-} from "../../../index";
+import { Disposable, Marker, RangeCompatible, PointCompatible } from "../../../index";
 
 /** Experimental: A container for a related set of markers. */
 export interface MarkerLayer {
@@ -75,4 +69,33 @@ export interface MarkerLayer {
 
     /** Subscribe to be notified synchronously when this layer is destroyed. */
     onDidDestroy(callback: () => void): Disposable;
+}
+
+export interface FindMarkerOptions {
+    /** Only include markers that start at the given Point. */
+    startPosition?: PointCompatible;
+
+    /** Only include markers that end at the given Point. */
+    endPosition?: PointCompatible;
+
+    /** Only include markers that start inside the given Range. */
+    startsInRange?: RangeCompatible;
+
+    /** Only include markers that end inside the given Range. */
+    endsInRange?: RangeCompatible;
+
+    /** Only include markers that contain the given Point, inclusive. */
+    containsPoint?: PointCompatible;
+
+    /** Only include markers that contain the given Range, inclusive. */
+    containsRange?: RangeCompatible;
+
+    /** Only include markers that start at the given row number. */
+    startRow?: number;
+
+    /** Only include markers that end at the given row number. */
+    endRow?: number;
+
+    /** Only include markers that intersect the given row number. */
+    intersectsRow?: number;
 }
