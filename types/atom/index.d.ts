@@ -38,6 +38,7 @@ import { ViewRegistry } from "./src/view-registry";
 import { Workspace } from "./src/workspace";
 import { Clipboard } from "./src/clipboard";
 import { ContextMenuManager } from "./src/context-menu-manager";
+import { DeserializerManager } from "./src/deserializer-manager";
 
 declare global {
     const atom: AtomEnvironment;
@@ -371,16 +372,9 @@ export * from "./src/context-menu-manager";
 
 export * from "./src/cursor";
 
+export * from "./src/deserializer-manager";
+
 // Extended Classes ===========================================================
-
-/** Manages the deserializers used for serialized state. */
-export interface DeserializerManager {
-    /** Register the given class(es) as deserializers. */
-    add(...deserializers: Deserializer[]): Disposable;
-
-    /** Deserialize the state and params. */
-    deserialize(state: object): object|undefined;
-}
 
 /** Represents a directory on disk that can be watched for changes. */
 export class Directory {
@@ -2429,11 +2423,6 @@ export interface TooltipOptions {
 
 // Interfaces =================================================================
 // The requirements placed on object parameters for specific API calls.
-
-export interface Deserializer {
-    name: string;
-    deserialize(state: object): object;
-}
 
 /** An interface which all custom test runners should implement. */
 export type TestRunner = (params: TestRunnerParams) => Promise<number>;
