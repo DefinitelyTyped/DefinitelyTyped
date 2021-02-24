@@ -62,6 +62,8 @@ assert['fail'](true, true, 'works like a charm');
 
 {
     const o = {
-        [util.inspect.custom](): string { return "hi"; }
+        [util.inspect.custom](): string {
+            return 'hi';
+        },
     };
 }

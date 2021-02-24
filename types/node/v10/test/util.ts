@@ -70,11 +70,13 @@ function testUtilTypes(
             new SyntaxError(),
             new TypeError(),
             new URIError(),
-        ] as const).forEach((nativeError: EvalError | RangeError | ReferenceError | SyntaxError | TypeError | URIError) => {
-            if (!util.types.isNativeError(nativeError)) {
-                nativeError; // $ExpectType never
-            }
-        });
+        ] as const).forEach(
+            (nativeError: EvalError | RangeError | ReferenceError | SyntaxError | TypeError | URIError) => {
+                if (!util.types.isNativeError(nativeError)) {
+                    nativeError; // $ExpectType never
+                }
+            },
+        );
     }
     if (util.types.isNumberObject(object)) {
         object; // $ExpectType Number

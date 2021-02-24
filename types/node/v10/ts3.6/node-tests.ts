@@ -2,7 +2,7 @@ import '../test/events';
 import '../test/util';
 import '../test/zlib';
 
-import * as util from "util";
+import * as util from 'util';
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///

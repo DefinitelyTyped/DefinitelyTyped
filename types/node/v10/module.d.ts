@@ -1,3 +1,3 @@
-declare module "module" {
+declare module 'module' {
     export = NodeJS.Module;
 }
