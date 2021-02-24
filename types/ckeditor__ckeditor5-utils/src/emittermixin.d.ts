@@ -53,7 +53,7 @@ export default abstract class Emitter {
         emitter: Emitter,
         event: string,
         callback: Function,
-        options?: { priority?: PriorityString | number }
+        options?: { priority?: PriorityString | number },
     ): void;
     /**
      * Stops listening for events. It can be used at different levels:
@@ -105,6 +105,6 @@ export default abstract class Emitter {
     stopDelegating(event?: string, emitter?: Emitter): void;
 }
 
-interface EmitterMixinDelegateChain {
+export interface EmitterMixinDelegateChain {
     to(emitter: Emitter, nameOrFunction?: string | ((name: string) => string)): void;
 }

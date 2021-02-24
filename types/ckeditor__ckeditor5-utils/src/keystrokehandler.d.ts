@@ -1,4 +1,4 @@
-import { Emitter } from "./emittermixin";
+import Emitter from "./emittermixin";
 import { KeystrokeInfo } from "./keyboard";
 import { PriorityString } from "./priorities";
 
@@ -51,7 +51,7 @@ export default class KeystrokeHandler {
     set(
         keystroke: string | Array<string | number>,
         callback: (keyEvtData: KeystrokeInfo, cancel: () => void) => void,
-        options?: { priority?: PriorityString | number }
+        options?: { priority?: PriorityString | number },
     ): void;
     /**
      * Triggers a keystroke handler for a specified key combination, if such a keystroke was {@link #set defined}.

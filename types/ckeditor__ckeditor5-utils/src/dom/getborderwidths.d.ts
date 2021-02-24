@@ -2,5 +2,5 @@
  * Returns an object containing CSS border widths of a specified HTML element.
  */
 export default function getBorderWidths(
-    element: HTMLElement
+    element: HTMLElement,
 ): { top: number; left: number; right: number; bottom: number };

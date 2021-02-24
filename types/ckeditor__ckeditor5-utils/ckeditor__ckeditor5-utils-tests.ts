@@ -1,6 +1,6 @@
 import createElement from "@ckeditor/ckeditor5-utils/src/dom/createelement";
 import Locale from "@ckeditor/ckeditor5-utils/src/locale";
-import EmitterMixin, { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import Emitter from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import Rect from "@ckeditor/ckeditor5-utils/src/dom/rect";
 import getAncestors from "@ckeditor/ckeditor5-utils/src/dom/getancestors";
 import getBorderWidths from "@ckeditor/ckeditor5-utils/src/dom/getborderwidths";
@@ -32,14 +32,20 @@ import fastDiff from "@ckeditor/ckeditor5-utils/src/fastdiff";
 import first from "@ckeditor/ckeditor5-utils/src/first";
 import FocusTracker from "@ckeditor/ckeditor5-utils/src/focustracker";
 import isIterable from "@ckeditor/ckeditor5-utils/src/isiterable";
-import { getCode, keyCodes, getEnvKeystrokeText, parseKeystroke, KeystrokeInfo } from "@ckeditor/ckeditor5-utils/src/keyboard";
+import {
+    getCode,
+    keyCodes,
+    getEnvKeystrokeText,
+    parseKeystroke,
+    KeystrokeInfo,
+} from "@ckeditor/ckeditor5-utils/src/keyboard";
 import KeystrokeHandler from "@ckeditor/ckeditor5-utils/src/keystrokehandler";
 import spy from "@ckeditor/ckeditor5-utils/src/spy";
 import mapsEqual from "@ckeditor/ckeditor5-utils/src/mapsequal";
 import mix from "@ckeditor/ckeditor5-utils/src/mix";
 import nth from "@ckeditor/ckeditor5-utils/src/nth";
 import objectToMap from "@ckeditor/ckeditor5-utils/src/objecttomap";
-import ObservableMixin, { Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
+import Observable from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import priorities from "@ckeditor/ckeditor5-utils/src/priorities";
 import toMap from "@ckeditor/ckeditor5-utils/src/tomap";
 import { add } from "@ckeditor/ckeditor5-utils/src/translation-service";
@@ -119,7 +125,7 @@ position = getOptimalPosition({
     element: htmlElement,
     target: htmlElement,
     positions: [
-        (targetRect) => ({
+        targetRect => ({
             top: targetRect.bottom,
             left: targetRect.left,
             name: "mySouthEastPosition",
@@ -216,13 +222,13 @@ coll.add(item1).add(item2);
 
 coll.clear();
 
-items = collStr.filter((item) => item.name === "yy");
+items = collStr.filter(item => item.name === "yy");
 items = collStr.filter((_, idx) => idx > 0);
 items = collStr.filter(function(this: Foo, _, idx) {
     return this.foo > 0 && idx === 0;
 }, foo);
 
-itemOrUndef = collStr.find((item) => item.name === "yy");
+itemOrUndef = collStr.find(item => item.name === "yy");
 itemOrUndef = collStr.find((_, idx) => idx === 3);
 itemOrUndef = collStr.find(function(this: Foo, _, idx) {
     return this.foo > 0 && idx === 0;
@@ -238,7 +244,7 @@ coll.remove(0);
 coll.remove("id1");
 coll.remove(item1);
 
-const strings: string[] = collStr.map((item) => item.name);
+const strings: string[] = collStr.map(item => item.name);
 const nums: number[] = collStr.map((_, idx) => idx);
 const bools: boolean[] = collStr.map(function(this: Foo, _, idx) {
     return this.foo === idx;
@@ -294,7 +300,7 @@ class BarClass {
 const source2 = new Collection<LabelObj>({ idProperty: "label" });
 const target2 = new Collection<FooClass | BarClass>();
 
-target2.bindTo(source2).using((item) => {
+target2.bindTo(source2).using(item => {
     if (item.label === "foo") {
         return new FooClass(item);
     } else {
@@ -324,7 +330,7 @@ console.log(target3.get(1)!.value);
 const source4 = new Collection<HiddenObj>();
 const target4 = new Collection<HiddenObj | null>();
 
-target4.bindTo(source4).using((item) => {
+target4.bindTo(source4).using(item => {
     if (item.hidden) {
         return null;
     }
@@ -385,7 +391,7 @@ changes = diff(Array.from("aba"), Array.from("acca"));
 const input = Array.from("abc");
 const output = Array.from("xaby");
 const allChanges = diffToChanges(diff(input, output), output);
-allChanges.forEach((change) => {
+allChanges.forEach(change => {
     if (change.type === "insert") {
         input.splice(change.index, 0, ...change.values);
     } else if (change.type === "delete") {
@@ -404,14 +410,13 @@ replacer.restore();
 
 // utils/emittermixin
 
-emitter = EmitterMixin;
-emitter = Object.create(EmitterMixin);
+emitter = Object.create(Emitter);
 
 emitter.delegate("foo");
 emitter.delegate("foo", "bar");
 emitter.delegate("foo").to(emitter);
 emitter.delegate("foo").to(emitter, "bar");
-emitter.delegate("foo").to(emitter, (name) => name + "-delegated");
+emitter.delegate("foo").to(emitter, name => name + "-delegated");
 
 emitter.fire("foo");
 emitter.fire("foo", 1, "b", true);
@@ -464,7 +469,7 @@ bool = event.off.called;
 
 // utils/fastdiff =============================================================
 
-fastDiff(str, "2ab").forEach((change) => {
+fastDiff(str, "2ab").forEach(change => {
     if (change.type === "insert") {
         str = str.substring(0, change.index) + change.values.join("") + str.substring(change.index);
     } else if (change.type === "delete") {
@@ -518,7 +523,7 @@ keystrokes.set(["Ctrl", "A"], mySpy);
 keystrokes.set(["Ctrl", "A"], mySpy, { priority: "high" });
 keystrokes.set(["Ctrl", 33], mySpy, { priority: 10 });
 
-const emitterMixxin = Object.create(EmitterMixin) as Emitter;
+const emitterMixxin = Object.create(Emitter) as Emitter;
 keystrokes.listenTo(emitterMixxin);
 
 bool = keystrokes.press(keystroke);
@@ -583,10 +588,8 @@ num = objMap.get("foo")!;
 
 // utils/observablemixin ======================================================
 
-const observable: Observable = ObservableMixin;
-
-const vehicle = Object.create(ObservableMixin) as Observable;
-const car = Object.create(ObservableMixin) as Observable;
+const vehicle = Object.create(Observable);
+const car = Object.create(Observable);
 
 vehicle.bind("color");
 vehicle.bind("color", "year");

@@ -15,7 +15,7 @@ export default function diff(a: string, b: string, cmp?: (a: string, b: string) 
 export default function diff(
     a: ReadonlyArray<string>,
     b: ReadonlyArray<string>,
-    cmp?: (a: string, b: string) => boolean
+    cmp?: (a: string, b: string) => boolean,
 ): Change[];
 
 export type Change = "equal" | "insert" | "delete";

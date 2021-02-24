@@ -1,6 +1,5 @@
-import { Emitter } from "../emittermixin";
+import Emitter from "../emittermixin";
 
-export default DomEmitterMixin;
 /**
  * Mixin that injects the DOM events API into its host. It provides the API
  * compatible with {@link module:utils/emittermixin~EmitterMixin}.
@@ -20,4 +19,4 @@ export default DomEmitterMixin;
  *  } );
  *
  */
-declare const DomEmitterMixin: Emitter;
+export default abstract class DomEmitterMixin extends Emitter {}

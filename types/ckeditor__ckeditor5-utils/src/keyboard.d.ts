@@ -52,7 +52,7 @@ export function isArrowKeyCode(keyCode: number): boolean;
  */
 export function getLocalizedArrowKeyCodeDirection(
     keyCode: number,
-    contentLanguageDirection: "ltr" | "rtl"
+    contentLanguageDirection: "ltr" | "rtl",
 ): "left" | "up" | "right" | "down";
 /**
  * Determines if the provided key code moves the {@link module:engine/model/documentselection~DocumentSelection selection}

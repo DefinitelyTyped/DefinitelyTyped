@@ -1,4 +1,4 @@
-import EmitterMixin, { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import Emitter, { EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 
@@ -232,7 +232,7 @@ export default class Collection<T> implements Iterable<T>, Emitter {
         emitter: Emitter,
         event: string,
         callback: Function,
-        options?: { priority?: PriorityString | number }
+        options?: { priority?: PriorityString | number },
     ): void;
     off(event: string, callback?: Function): void;
     on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;

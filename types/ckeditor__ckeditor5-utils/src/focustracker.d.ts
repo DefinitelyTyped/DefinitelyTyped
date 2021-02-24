@@ -1,6 +1,6 @@
-import { EmitterMixinDelegateChain, Emitter } from "./emittermixin";
+import Emitter, { EmitterMixinDelegateChain } from "./emittermixin";
 import EventInfo from "./eventinfo";
-import { BindChain, Observable } from "./observablemixin";
+import Observable, { BindChain } from "./observablemixin";
 import { PriorityString } from "./priorities";
 
 /**
@@ -50,7 +50,7 @@ export default class FocusTracker implements Observable {
         emitter: Emitter,
         event: string,
         callback: Function,
-        options?: { priority?: PriorityString | number }
+        options?: { priority?: PriorityString | number },
     ): void;
     off(event: string, callback?: Function): void;
     on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;

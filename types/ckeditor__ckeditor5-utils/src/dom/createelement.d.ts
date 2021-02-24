@@ -12,5 +12,5 @@ export default function createElement(
     doc: Document,
     name: string,
     attributes?: Record<string, unknown> | null,
-    children?: Node | string | Array<Node | string>
+    children?: Node | string | Array<Node | string>,
 ): Element;
