@@ -354,4 +354,15 @@ export interface HostedFields {
      * });
      */
     getState(): any;
+
+    /**
+     * Programmatically focus a {@link module:braintree-web/hosted-fields-field field}.     *
+     * @example
+     * hostedFieldsInstance.focus('number', function (focusErr) {
+     *   if (focusErr) {
+     *     console.error(focusErr);
+     *   }
+     * }); 
+     */
+    focus(field: HostedFieldsHostedFieldsFieldName, callback?: callback): void;
 }
