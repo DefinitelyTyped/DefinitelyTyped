@@ -20,7 +20,7 @@ import { Config } from "./src/config";
 import { ConfigValues } from "./src/config-schema";
 import { CommandRegistry } from "./src/command-registry";
 import { Disposable, DisposableLike } from "./dependencies/event-kit";
-import { DisplayMarker, DisplayMarkerLayer, Marker } from "./dependencies/text-buffer";
+import { DisplayMarker, DisplayMarkerLayer, Marker, MarkerLayer } from "./dependencies/text-buffer";
 import { Decoration, DecorationOptions, DecorationLayerOptions } from "./src/decoration";
 
 declare global {
@@ -338,66 +338,6 @@ export interface LayerDecoration {
     /** Override the decoration properties for a specific marker. */
     setPropertiesForMarker(marker: DisplayMarker|Marker, properties: DecorationLayerOptions):
         void;
-}
-
-/** Experimental: A container for a related set of markers. */
-export interface MarkerLayer {
-    /** The identifier for this MarkerLayer. */
-    readonly id: string;
-
-    // Lifecycle
-    /** Create a copy of this layer with markers in the same state and locations. */
-    copy(): MarkerLayer;
-
-    /** Destroy this layer. */
-    destroy(): boolean;
-
-    /** Remove all markers from this layer. */
-    clear(): void;
-
-    /** Determine whether this layer has been destroyed. */
-    isDestroyed(): boolean;
-
-    // Querying
-    /** Get an existing marker by its id. */
-    getMarker(id: number): Marker|undefined;
-
-    /** Get all existing markers on the marker layer. */
-    getMarkers(): Marker[];
-
-    /** Get the number of markers in the marker layer. */
-    getMarkerCount(): number;
-
-    /** Find markers in the layer conforming to the given parameters. */
-    findMarkers(params: FindMarkerOptions): Marker[];
-
-    /** Get the role of the marker layer e.g. "atom.selection". */
-    getRole(): string | undefined;
-
-    // Marker Creation
-    /** Create a marker with the given range. */
-    markRange(range: RangeCompatible, options?: { reversed?: boolean, invalidate?:
-        "never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean }): Marker;
-
-    /** Create a marker at with its head at the given position with no tail. */
-    markPosition(position: PointCompatible, options?: { invalidate?: "never"|"surround"
-        |"overlap"|"inside"|"touch", exclusive?: boolean }): Marker;
-
-    // Event Subscription
-    /**
-     *  Subscribe to be notified asynchronously whenever markers are created,
-     *  updated, or destroyed on this layer.
-     */
-    onDidUpdate(callback: () => void): Disposable;
-
-    /**
-     *  Subscribe to be notified synchronously whenever markers are created on
-     *  this layer.
-     */
-    onDidCreateMarker(callback: (marker: Marker) => void): Disposable;
-
-    /** Subscribe to be notified synchronously when this layer is destroyed. */
-    onDidDestroy(callback: () => void): Disposable;
 }
 
 /** A notification to the user containing a message and type. */
