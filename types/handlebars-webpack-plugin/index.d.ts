@@ -10,8 +10,8 @@ import { Options } from 'html-webpack-plugin';
 
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 
-declare class HandlebarsPlugin implements WebpackPluginInstance {
-    constructor(options?: HandlebarsPlugin.PluginOptions);
+declare class HandlebarsWebpackPlugin implements WebpackPluginInstance {
+    constructor(options?: HandlebarsWebpackPlugin.PluginOptions);
 
     /**
      * Apply the plugin
@@ -19,7 +19,7 @@ declare class HandlebarsPlugin implements WebpackPluginInstance {
     apply(compiler: Compiler): void;
 }
 
-declare namespace HandlebarsPlugin {
+declare namespace HandlebarsWebpackPlugin {
     /**
      * Type for the object partials that the plugin creates in other to process all partials
      */
@@ -111,4 +111,4 @@ declare namespace HandlebarsPlugin {
     }
 }
 
-export = HandlebarsPlugin;
+export = HandlebarsWebpackPlugin;
