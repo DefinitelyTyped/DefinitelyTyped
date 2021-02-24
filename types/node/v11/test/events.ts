@@ -58,7 +58,7 @@ declare const any: any;
         constructor() {
             super();
 
-            this.emit("mingling");
+            this.emit('mingling');
         }
     }
 }
@@ -68,9 +68,12 @@ declare const any: any;
 }
 
 {
-    events.once({
-        addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
-            setTimeout(() => listener(123), 100);
-        }
-    }, 'name');
+    events.once(
+        {
+            addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
+                setTimeout(() => listener(123), 100);
+            },
+        },
+        'name',
+    );
 }

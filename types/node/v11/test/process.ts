@@ -1,10 +1,10 @@
-import * as p from "process";
-import { ok } from "assert";
-import { EventEmitter } from "events";
+import * as p from 'process';
+import { ok } from 'assert';
+import { EventEmitter } from 'events';
 
 {
     let eventEmitter: EventEmitter;
-    eventEmitter = process;                // Test that process implements EventEmitter...
+    eventEmitter = process; // Test that process implements EventEmitter...
 
     let _p: NodeJS.Process = process;
     _p = p;
@@ -17,27 +17,26 @@ import { EventEmitter } from "events";
     module = process.mainModule;
 }
 {
-    process.on("message", (req: any) => { });
-    process.addListener("beforeExit", (code: number) => { });
-    process.once("disconnect", () => { });
-    process.prependListener("exit", (code: number) => { });
-    process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
-    process.on("uncaughtException", (error: Error) => { });
-    process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
-    process.once("warning", (warning: Error) => { });
-    process.prependListener("message", (message: any, sendHandle: any) => { });
-    process.prependOnceListener("SIGBREAK", () => { });
-    process.on("newListener", (event: string | symbol, listener: Function) => { });
-    process.once("removeListener", (event: string | symbol, listener: Function) => { });
-    process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
+    process.on('message', (req: any) => {});
+    process.addListener('beforeExit', (code: number) => {});
+    process.once('disconnect', () => {});
+    process.prependListener('exit', (code: number) => {});
+    process.prependOnceListener('rejectionHandled', (promise: Promise<any>) => {});
+    process.on('uncaughtException', (error: Error) => {});
+    process.addListener('unhandledRejection', (reason: {} | null | undefined, promise: Promise<any>) => {});
+    process.once('warning', (warning: Error) => {});
+    process.prependListener('message', (message: any, sendHandle: any) => {});
+    process.prependOnceListener('SIGBREAK', () => {});
+    process.on('newListener', (event: string | symbol, listener: Function) => {});
+    process.once('removeListener', (event: string | symbol, listener: Function) => {});
+    process.on('multipleResolves', (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
 
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];
     process.addListener('uncaughtException', oldHandler);
 }
 {
-    function myCb(err: Error): void {
-    }
+    function myCb(err: Error): void {}
     process.setUncaughtExceptionCaptureCallback(myCb);
     process.setUncaughtExceptionCaptureCallback(null);
     const b: boolean = process.hasUncaughtExceptionCaptureCallback();
@@ -59,9 +58,9 @@ import { EventEmitter } from "events";
 {
     if (process.send) {
         let r: boolean = process.send('aMessage');
-        r = process.send({ msg: "foo"}, {});
-        r = process.send({ msg: "foo"}, {}, { swallowErrors: true });
-        r = process.send({ msg: "foo"}, {}, { swallowErrors: true }, (err: Error | null) => {});
+        r = process.send({ msg: 'foo' }, {});
+        r = process.send({ msg: 'foo' }, {}, { swallowErrors: true });
+        r = process.send({ msg: 'foo' }, {}, { swallowErrors: true }, (err: Error | null) => {});
     }
 }
 

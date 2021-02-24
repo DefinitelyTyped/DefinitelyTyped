@@ -1,4 +1,4 @@
-declare module "url" {
+declare module 'url' {
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
     interface UrlObjectCommon {
@@ -37,7 +37,11 @@ declare module "url" {
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string): UrlWithStringQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlStr: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
@@ -92,7 +96,14 @@ declare module "url" {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | ReadonlyArray<string> | undefined } | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | { [key: string]: string | ReadonlyArray<string> | undefined }
+                | Iterable<[string, string]>
+                | ReadonlyArray<[string, string]>,
+        );
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
