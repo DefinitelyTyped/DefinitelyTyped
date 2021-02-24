@@ -91,5 +91,5 @@ export default class Locale {
      * properties instead.
      *
      */
-    get language(): string;
+    readonly language: string;
 }

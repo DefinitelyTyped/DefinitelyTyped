@@ -57,17 +57,17 @@ export default class Collection<T> implements Iterable<T>, Emitter {
      * The number of items available in the collection.
      *
      */
-    get length(): number;
+    readonly length: number;
     /**
      * Returns the first item from the collection or null when collection is empty.
      *
      */
-    get first(): T | null;
+    readonly first: T | null;
     /**
      * Returns the last item from the collection or null when collection is empty.
      *
      */
-    get last(): T | null;
+    readonly last: T | null;
     /**
      * Adds an item into the collection.
      *
