@@ -141,6 +141,19 @@ async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> 
     const resXor = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Xor);
 }
 
+async function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Measure');
+
+    // $ExpectType string
+    ext.getName();
+    const modes = ext.getModes();
+
+    modes.forEach((m) => {
+        // $ExpectType boolean
+        ext.isActive(m);
+    });
+}
+
 function fragListTests(model: Autodesk.Viewing.Model): void {
     const fragId = 1; // hard coded value for testing
     const fragList = model.getFragmentList();

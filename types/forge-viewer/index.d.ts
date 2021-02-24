@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.36
+// Type definitions for non-npm package Forge Viewer 7.37
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -480,7 +480,7 @@ declare namespace Autodesk {
             getViewableItems(document: Document): void;
             getViewablePath(item: object, outLoadOptions?: object): string;
             getViewGeometry(item: object): object;
-            load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object): void;
+            load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object, options?: object): void;
             requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
         }
 
@@ -500,9 +500,19 @@ declare namespace Autodesk {
             options: any;
             constructor(viewer: GuiViewer3D, options: any);
 
+            activate(mode: string): boolean;
+            deactivate(): boolean;
+            extendLocalization(locales: object): boolean;
+            getCache(): object;
+            getName(): string;
+            getModes(): string[];
+            getState(viewerState: object): void;
+            isActive(mode: string): boolean;
             load(): boolean | Promise<boolean>;
             unload(): boolean;
             onToolbarCreated(toolbar?: UI.ToolBar): void;
+            restoreState(viewerState: object, immediate: boolean): boolean;
+            setActive(enable: boolean, mode: string): void;
         }
 
         class ExtensionManager {
@@ -577,7 +587,8 @@ declare namespace Autodesk {
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
-            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
+            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): void;
+            getPropertySetAsync(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
@@ -691,7 +702,12 @@ declare namespace Autodesk {
 
           forEach(callback: (key: string, properties: object[]) => void): void;
           getAggregation(properties: object[]|string): any[];
+          getDbIds(): number[];
+          getKeysWithCategories(): string[];
+          getValidIds(displayName: string, displayCategory: string): string[];
           getValue2PropertiesMap(properties: object[]|string): any[];
+          getVisibleKeys(): string[];
+          merge(propertySet: PropertySet): this;
         }
 
         class Navigation {
@@ -935,6 +951,7 @@ declare namespace Autodesk {
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
             getAllModels(): Model[];
+            getUnderlayRaster(bubbleNode: BubbleNode): Model[];
             hide(node: number|number[], model?: Model): void;
             show(node: number|number[], model?: Model): void;
             showAll(): void;
@@ -1315,7 +1332,8 @@ declare namespace Autodesk {
               nextMaterialId: number;
               originalColors: any[];
               pointsHidden: boolean;
-              themingOrGhostingNeedsUpdate: any[];
+              themingOrGhostingNeedsUpdate: object;
+              themingOrGhostingNeedsUpdateByDbId: object;
               transforms: any;
               useThreeMesh: boolean;
               vizflags: Uint32Array;
@@ -1799,6 +1817,35 @@ declare namespace Autodesk {
             saveAsDefault(): void;
           }
         }
+    }
+
+    namespace AEC {
+      class FloorSelector {
+        currentFloor: number;
+        floorData: any;
+        floorFilterData: any;
+
+        constructor(viewer: Viewing.GuiViewer3D);
+
+        enterHoverMode(): void;
+        exitHoverMode(force: boolean): void;
+        floorSelectionValid(newFloor: number): boolean;
+        isVisible(model: Viewing.Model, dbId: number): boolean;
+        rollOverFloor(index?: number): void;
+        selectFloor(index: number, useTransition: boolean): void;
+      }
+
+      class LevelsExtension extends Viewing.Extension {
+        static LEVEL_CHANGED: string;
+
+        aecModelData: any;
+        floorSelector: FloorSelector;
+
+        constructor(viewer: Viewing.GuiViewer3D, options?: { autoDetectAecModelData?: boolean; ifcLevelsEnabled?: boolean; });
+
+        getCurrentLevel(): object;
+        getZRange(index: number): { zMin: number; zMax: number; };
+      }
     }
 
     namespace DataVisualization {
