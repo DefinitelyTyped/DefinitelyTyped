@@ -295,7 +295,7 @@ export interface QueryOptions {
     attemptTimeout?: number;
     givenPortOnly?: boolean;
     debug?: boolean;
-    requestRules? :boolean;
+    requestRules?: boolean;
 }
 
 export interface QueryResult {
