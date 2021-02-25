@@ -20,7 +20,7 @@ declare namespace convict {
     interface ValidateOptions {
         /**
          * If set to warn, any properties specified in config files that are not declared in
-         * the schema will print a warning. This is the dƒefault behavior. If set to strict,
+         * the schema will print a warning. This is the default behavior. If set to strict,
          * any properties specified in config files that are not declared in the schema will
          * throw errors. This is to ensure that the schema and the config files are in sync.
          */
@@ -200,13 +200,13 @@ declare namespace convict {
          */
         getArgs(): string[];
     }
-  }
+}
 
-  interface convict {
+interface convict {
     addFormat(format: convict.Format): void;
     addFormats(formats: { [name: string]: convict.Format }): void;
     addParser(parsers: convict.Parser | convict.Parser[]): void;
     <T>(config: convict.Schema<T> | string, opts?: convict.Options): convict.Config<T>;
-  }
-  declare var convict: convict;
-  export = convict;
+}
+declare var convict: convict;
+export = convict;
