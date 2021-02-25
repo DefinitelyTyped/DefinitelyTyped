@@ -432,10 +432,13 @@ function testTypedSpy() {
 
 function testInstanceSpy() {
     const obj: {
-        foo(): string
+        foo(arg: number): string
     } = <any> {};
 
-    const spy: sinon.SinonStubbedInstance<typeof obj> = sinon.spy(obj);
+    const spy = sinon.spy(obj); // $ExpectType SinonSpiedInstance<{ foo(arg: number): string; }>
+
+    spy.foo.calledWith(5);
+    spy.foo.returns('bar'); // $ExpectError
 }
 
 function testSpy() {
