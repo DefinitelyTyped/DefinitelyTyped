@@ -3,7 +3,7 @@
 // Definitions by: Alexander Polyankin <https://github.com/alexanderpolyankin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface SnapshotOptions {
+export interface ScreenshotOptions {
     component?: string;
     variant?: string;
     targets?: ReadonlyArray<string>;
@@ -27,7 +27,7 @@ export interface HideDynamicElementsOptions {
 declare global {
     namespace Cypress {
         interface Chainable {
-            happoSnapshot(options?: SnapshotOptions): void;
+            happoScreenshot(options?: ScreenshotOptions): void;
             happoHideDynamicElements(options?: HideDynamicElementsOptions): void;
         }
     }
