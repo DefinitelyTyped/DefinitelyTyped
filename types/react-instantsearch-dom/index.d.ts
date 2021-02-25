@@ -124,8 +124,8 @@ export interface SmartSortComponentProps {
  * The SmartSort component displays an informative banner and a button that toggle the `relevancyStrictness` between 0 and the value setted on the dashboard.
  */
 export class SmartSort extends React.Component<{
-  buttonTextComponent: React.FunctionComponent<SmartSortComponentProps>;
-  textComponent: React.FunctionComponent<SmartSortComponentProps>;
+  buttonTextComponent?: React.FunctionComponent<SmartSortComponentProps>;
+  textComponent?: React.FunctionComponent<SmartSortComponentProps>;
 }> {}
 export class SortBy extends React.Component<any> {}
 /**
