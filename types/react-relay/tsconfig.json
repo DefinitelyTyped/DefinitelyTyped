@@ -19,8 +19,6 @@
         "jsx": "react"
     },
     "files": [
-        "index.d.ts",
-        "test/react-relay-tests.tsx",
-        "test/relay-experimental-tests.tsx"
+        "index.d.ts"
     ]
 }
