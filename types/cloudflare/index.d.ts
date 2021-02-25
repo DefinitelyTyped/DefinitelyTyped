@@ -41,11 +41,11 @@ export interface DNSRecords {
             ttl: number;
             proxied?: boolean;
         },
-    ): Promise<Record<string, unknown>>;
-    browse(zone_id: string): Promise<Record<string, unknown>>;
-    export(zone_id: string): Promise<Record<string, unknown>>;
-    del(zone_id: string, id: string): Promise<Record<string, unknown>>;
-    read(zone_id: string, id: string): Promise<Record<string, unknown>>;
+    ): Promise<any>;
+    browse(zone_id: string): Promise<any>;
+    export(zone_id: string): Promise<any>;
+    del(zone_id: string, id: string): Promise<any>;
+    read(zone_id: string, id: string): Promise<any>;
     add(
         zone_id: string,
         record: {
@@ -56,46 +56,46 @@ export interface DNSRecords {
             priority: number;
             proxied?: boolean;
         },
-    ): Promise<Record<string, unknown>>;
+    ): Promise<any>;
 }
 
 export interface EnterpriseZoneWorkerScripts {
-    read(account_id: string, name: string): Promise<Record<string, unknown>>;
-    browse(account_id: string, name: string): Promise<Record<string, unknown>>;
-    edit(account_id: string, name: string, script: string): Promise<Record<string, unknown>>;
-    del(account_id: string, name: string): Promise<Record<string, unknown>>;
+    read(account_id: string, name: string): Promise<any>;
+    browse(account_id: string, name: string): Promise<any>;
+    edit(account_id: string, name: string, script: string): Promise<any>;
+    del(account_id: string, name: string): Promise<any>;
 }
 
 export interface EnterpriseZoneWorkersRoutes {
-    browse(zone_id: string): Promise<Record<string, unknown>>;
-    del(zone_id: string, id: string): Promise<Record<string, unknown>>;
-    add(zone_id: string, config: { pattern: string; script: string }): Promise<Record<string, unknown>>;
-    edit(zone_id: string, id: string, config: { pattern: string; script: string }): Promise<Record<string, unknown>>;
-    read(zone_id: string, id: string): Promise<Record<string, unknown>>;
+    browse(zone_id: string): Promise<any>;
+    del(zone_id: string, id: string): Promise<any>;
+    add(zone_id: string, config: { pattern: string; script: string }): Promise<any>;
+    edit(zone_id: string, id: string, config: { pattern: string; script: string }): Promise<any>;
+    read(zone_id: string, id: string): Promise<any>;
 }
 
 export interface EnterpriseZoneWorkersKVNamespaces {
-    edit(account_id: string, id: string, config: { title: string }): Promise<Record<string, unknown>>;
-    browse(account_id: string): Promise<Record<string, unknown>>;
-    add(account_id: string, config: { title: string }): Promise<Record<string, unknown>>;
-    del(account_id: string, id: string): Promise<Record<string, unknown>>;
+    edit(account_id: string, id: string, config: { title: string }): Promise<any>;
+    browse(account_id: string): Promise<any>;
+    add(account_id: string, config: { title: string }): Promise<any>;
+    del(account_id: string, id: string): Promise<any>;
 }
 
 export interface EnterpriseZoneWorkersKV {
-    browse(account_id: string, namespace_id: string): Promise<Record<string, unknown>>;
-    add(account_id: string, namespace_id: string, value: string): Promise<Record<string, unknown>>;
-    read(account_id: string, namespace_id: string, key_name: string): Promise<Record<string, unknown>>;
-    del(account_id: string, namespace_id: string, key_name: string): Promise<Record<string, unknown>>;
+    browse(account_id: string, namespace_id: string): Promise<any>;
+    add(account_id: string, namespace_id: string, value: string): Promise<any>;
+    read(account_id: string, namespace_id: string, key_name: string): Promise<any>;
+    del(account_id: string, namespace_id: string, key_name: string): Promise<any>;
     addMulti(
         account_id: string,
         namespace_id: string,
         data: Array<{ pattern: string; script: string }>,
-    ): Promise<Record<string, unknown>>;
-    delMulti(account_id: string, namespace_id: string, data: string[]): Promise<Record<string, unknown>>;
+    ): Promise<any>;
+    delMulti(account_id: string, namespace_id: string, data: string[]): Promise<any>;
 }
 
 export interface CFIPs {
-    browse(): Promise<Record<string, unknown>>;
+    browse(): Promise<any>;
 }
 
 export interface PageRules {
@@ -120,7 +120,7 @@ export interface PageRules {
             priority?: number;
             status?: string;
         },
-    ): Promise<Record<string, unknown>>;
+    ): Promise<any>;
     add(zone: {
         tragets: [
             {
@@ -139,21 +139,21 @@ export interface PageRules {
         ];
         priority?: number;
         status?: string;
-    }): Promise<Record<string, unknown>>;
-    del(id: string): Promise<Record<string, unknown>>;
-    browse(): Promise<Record<string, unknown>>;
-    read(id: string): Promise<Record<string, unknown>>;
+    }): Promise<any>;
+    del(id: string): Promise<any>;
+    browse(): Promise<any>;
+    read(id: string): Promise<any>;
 }
 
 export interface Zones {
-    activationCheck(id: string): Promise<Record<string, unknown>>;
-    del(id: string): Promise<Record<string, unknown>>;
+    activationCheck(id: string): Promise<any>;
+    del(id: string): Promise<any>;
     add(zone: {
         name: string;
         action: { id: string };
         jump_start?: boolean;
         type?: 'full' | 'partial';
-    }): Promise<Record<string, unknown>>;
+    }): Promise<any>;
     edit(
         id: string,
         zone: {
@@ -162,8 +162,8 @@ export interface Zones {
             jump_start?: boolean;
             type?: 'full' | 'partial';
         },
-    ): Promise<Record<string, unknown>>;
-    read(id: string): Promise<Record<string, unknown>>;
+    ): Promise<any>;
+    read(id: string): Promise<any>;
     purgeCache(
         id: string,
         params: {
@@ -173,20 +173,20 @@ export interface Zones {
             tags?: string[];
             hosts: string[];
         },
-    ): Promise<Record<string, unknown>>;
-    browse(): Promise<Record<string, unknown>>;
+    ): Promise<any>;
+    browse(): Promise<any>;
 }
 
 export interface ZoneSettings {
-    read(id: string, setting: string): Promise<Record<string, unknown>>;
-    edit(id: string, setting: string, value: string | Record<string, unknown>): Promise<Record<string, unknown>>;
-    editAll(id: string, settings: Record<string, unknown>): Promise<Record<string, unknown>>;
-    browse(id: string): Promise<Record<string, unknown>>;
+    read(id: string, setting: string): Promise<any>;
+    edit(id: string, setting: string, value: string | Record<string, unknown>): Promise<any>;
+    editAll(id: string, settings: any): Promise<any>;
+    browse(id: string): Promise<any>;
 }
 
 export interface ZoneCustomHostNames {
-    browse(zone_id: string): Promise<Record<string, unknown>>;
-    read(zone_id: string, id: string): Promise<Record<string, unknown>>;
+    browse(zone_id: string): Promise<any>;
+    read(zone_id: string, id: string): Promise<any>;
     edit(
         zone_id: string,
         id: string,
@@ -208,7 +208,7 @@ export interface ZoneCustomHostNames {
                 custom_key: string;
             };
         },
-    ): Promise<Record<string, unknown>>;
+    ): Promise<any>;
     add(
         zone_id: string,
         config: {
@@ -229,42 +229,42 @@ export interface ZoneCustomHostNames {
                 custom_key: string;
             };
         },
-    ): Promise<Record<string, unknown>>;
-    del(zone_id: string, id: string): Promise<Record<string, unknown>>;
+    ): Promise<any>;
+    del(zone_id: string, id: string): Promise<any>;
 }
 
 export interface ZoneWorkers {
-    validate(zone_id: string, script: string): Promise<Record<string, unknown>>;
+    validate(zone_id: string, script: string): Promise<any>;
 }
 
 export interface ZoneWorkersScript {
-    read(zone_id: string, script?: string): Promise<Record<string, unknown>>;
-    del(): Promise<Record<string, unknown>>;
+    read(zone_id: string, script?: string): Promise<any>;
+    del(): Promise<any>;
 }
 
 export interface ZoneWorkersRoutes {
-    browse(zone_id: string): Promise<Record<string, unknown>>;
-    edit(zone_id: string, id: string, config: { pattern: string; script: string }): Promise<Record<string, unknown>>;
-    read(zone_id: string, id: string): Promise<Record<string, unknown>>;
-    add(zone_id: string, config: { pattern: string; script: string }): Promise<Record<string, unknown>>;
-    del(zone_id: string, id: string): Promise<Record<string, unknown>>;
+    browse(zone_id: string): Promise<any>;
+    edit(zone_id: string, id: string, config: { pattern: string; script: string }): Promise<any>;
+    read(zone_id: string, id: string): Promise<any>;
+    add(zone_id: string, config: { pattern: string; script: string }): Promise<any>;
+    del(zone_id: string, id: string): Promise<any>;
 }
 
 export interface User {
-    read(): Promise<Record<string, unknown>>;
+    read(): Promise<any>;
     edit(user: {
         first_name: string;
         last_name: string;
         telephone: string;
         country: string;
         zipcode: string;
-    }): Promise<Record<string, unknown>>;
+    }): Promise<any>;
 }
 
 export interface Stream {
-    listVideos(accountId: string): Promise<Record<string, unknown>>;
-    videoDetails(accountId: string, id: string): Promise<Record<string, unknown>>;
-    deleteVideo(accountId: string, id: string): Promise<Record<string, unknown>>;
+    listVideos(accountId: string): Promise<any>;
+    videoDetails(accountId: string, id: string): Promise<any>;
+    deleteVideo(accountId: string, id: string): Promise<any>;
 }
 
 export class Cloudflare {
