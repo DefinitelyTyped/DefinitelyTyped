@@ -1,6 +1,6 @@
-declare class Button {
-    constructor(element: Element);
+import BaseComponent from './base-component';
 
+declare class Button extends BaseComponent {
     /**
      * Toggles push state. Gives the button the appearance that it has been activated.
      */

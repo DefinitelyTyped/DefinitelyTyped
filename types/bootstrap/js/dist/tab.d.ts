@@ -1,6 +1,6 @@
-declare class Tab {
-    constructor(element: Element);
+import BaseComponent from './base-component';
 
+declare class Tab extends BaseComponent {
     /**
      * Selects the given list item and shows its associated pane. Any other
      * list item that was previously selected becomes unselected and its
@@ -9,11 +9,6 @@ declare class Tab {
      * occurs).
      */
     show(): void;
-
-    /**
-     * Destroys an element’s tab.
-     */
-    dispose(): void;
 
     /**
      * Static method which allows you to get the tab instance associated with a

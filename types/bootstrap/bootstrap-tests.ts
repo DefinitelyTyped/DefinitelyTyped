@@ -13,6 +13,9 @@ let instanceAlert = new Alert(element);
 // $ExpectType Alert
 instanceAlert = Alert.getInstance(element);
 
+// $ExpectType string
+Alert.VERSION;
+
 element.addEventListener(Alert.Events.close, event => {
     // do something…
 });
@@ -50,6 +53,12 @@ const carousel = new Carousel(element, { interval: 1000 });
 // $ExpectType Carousel
 const instanceCarousel = Carousel.getInstance(element);
 
+// $ExpectType string
+Carousel.VERSION;
+
+// $ExpectType Record<string, any>
+Carousel.Default;
+
 element.addEventListener(Carousel.Events.slid, event => {
     // do something…
 });
@@ -82,6 +91,12 @@ const collapse = new Collapse(element, { parent: '.parent' });
 
 // $ExpectType Collapse
 const instanceCollapse = Collapse.getInstance(element);
+
+// $ExpectType string
+Collapse.VERSION;
+
+// $ExpectType Record<string, any>
+Collapse.Default;
 
 element.addEventListener(Collapse.Events.show, event => {
     // do something…
@@ -119,6 +134,12 @@ const dropdown = new Dropdown(element, { flip: true });
 // $ExpectType Dropdown
 const instanceDropdown = Dropdown.getInstance(element);
 
+// $ExpectType string
+Dropdown.VERSION;
+
+// $ExpectType Record<string, any>
+Dropdown.Default;
+
 element.addEventListener(Dropdown.Events.show, event => {
     // do something…
 });
@@ -155,6 +176,12 @@ const modal = new Modal(element, { backdrop: 'static' });
 
 // $ExpectType Modal
 const instanceModal = Modal.getInstance(element);
+
+// $ExpectType string
+Modal.VERSION;
+
+// $ExpectType Record<string, any>
+Modal.Default;
 
 element.addEventListener(Modal.Events.show, event => {
     // do something…
@@ -196,6 +223,12 @@ const popover = new Popover(element, { delay: 0.5, animation: true });
 
 // $ExpectType Popover
 const instancePopover = Popover.getInstance(element);
+
+// $ExpectType string
+Popover.VERSION;
+
+// $ExpectType Record<string, any>
+Popover.Default;
 
 element.addEventListener(Popover.Events.show, event => {
     // do something…
@@ -240,6 +273,12 @@ const scrollSpy = new ScrollSpy(element, { offset: 10 });
 
 // $ExpectType ScrollSpy
 const instanceScrollSpy = ScrollSpy.getInstance(element);
+
+// $ExpectType string
+ScrollSpy.VERSION;
+
+// $ExpectType Record<string, any>
+ScrollSpy.Default;
 
 element.addEventListener(ScrollSpy.Events.activate, event => {
     // do something…
@@ -294,6 +333,12 @@ const toast = new Toast(element, { animation: false });
 // $ExpectType Toast
 const instanceToast = Toast.getInstance(element);
 
+// $ExpectType string
+Toast.VERSION;
+
+// $ExpectType Record<string, any>
+Toast.Default;
+
 element.addEventListener(Toast.Events.hidden, event => {
     // do something…
 });
@@ -328,6 +373,12 @@ const tooltip = new Tooltip(element, { delay: 0.5, title: () => 'foo', customCla
 
 // $ExpectType Tooltip
 const instanceTooltip = Tooltip.getInstance(element);
+
+// $ExpectType string
+Tooltip.VERSION;
+
+// $ExpectType Record<string, any>
+Tooltip.Default;
 
 element.addEventListener(Tooltip.Events.hidden, event => {
     // do something…
