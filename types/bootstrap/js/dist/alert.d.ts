@@ -18,6 +18,8 @@ declare class Alert {
      * DOM element, you can use it like this: getInstance(alert)
      */
     static getInstance(element: Element): Alert;
+
+    // static NAME: 'alert';
 }
 
 declare namespace Alert {
@@ -33,6 +35,8 @@ declare namespace Alert {
          */
         closed = 'closed.bs.alert',
     }
+
+    type jQueryInterface = (config?: 'close' | 'dispose') => void;
 }
 
 export default Alert;

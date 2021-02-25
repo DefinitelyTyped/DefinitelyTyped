@@ -1,4 +1,5 @@
 import { Alert, Button, Carousel, Collapse, Dropdown, Modal, Popover, ScrollSpy, Tab, Toast, Tooltip } from 'bootstrap';
+import * as $ from 'jquery';
 
 const element = new Element();
 
@@ -20,12 +21,24 @@ element.addEventListener(Alert.Events.closed, event => {
     // do something…
 });
 
+// $ExpectType void
+$('.alert').alert();
+
+// $ExpectType void
+$('.alert').alert('close');
+
 /**
  * Button
  */
 
 // $ExpectType Button
 const button = new Button(element);
+
+// $ExpectType void
+$('.alert').button();
+
+// $ExpectType void
+$('.alert').button('toggle');
 
 /**
  * Carousel
@@ -44,6 +57,21 @@ element.addEventListener(Carousel.Events.slid, event => {
 element.addEventListener(Carousel.Events.slide, event => {
     // do something…
 });
+
+// $ExpectType void
+$('.alert').carousel();
+
+// $ExpectType void
+$('.alert').carousel({ interval: 1000 });
+
+// $ExpectType void
+$('.alert').carousel(0);
+
+$('.alert').carousel('cycle'); // $ExpectType void
+$('.alert').carousel('pause'); // $ExpectType void
+$('.alert').carousel('prev'); // $ExpectType void
+$('.alert').carousel('next'); // $ExpectType void
+$('.alert').carousel('nextWhenVisible'); // $ExpectType void
 
 /**
  * Collapse
@@ -71,6 +99,16 @@ element.addEventListener(Collapse.Events.hidden, event => {
     // do something…
 });
 
+// $ExpectType void
+$('.alert').collapse();
+
+// $ExpectType void
+$('.alert').collapse({ parent: '.parent' });
+
+$('.alert').collapse('show'); // $ExpectType void
+$('.alert').collapse('hide'); // $ExpectType void
+$('.alert').collapse('toggle'); // $ExpectType void
+
 /**
  * Dropdown
  */
@@ -96,6 +134,17 @@ element.addEventListener(Dropdown.Events.hide, event => {
 element.addEventListener(Dropdown.Events.hidden, event => {
     // do something…
 });
+
+// $ExpectType void
+$('.alert').dropdown();
+
+// $ExpectType void
+$('.alert').dropdown({ flip: true });
+
+$('.alert').dropdown('show'); // $ExpectType void
+$('.alert').dropdown('hide'); // $ExpectType void
+$('.alert').dropdown('toggle'); // $ExpectType void
+$('.alert').dropdown('update'); // $ExpectType void
 
 /**
  * Modal
@@ -127,6 +176,17 @@ element.addEventListener(Modal.Events.hidePrevented, event => {
     // do something…
 });
 
+// $ExpectType void
+$('.alert').modal();
+
+// $ExpectType void
+$('.alert').modal({ backdrop: 'static' });
+
+$('.alert').modal('show'); // $ExpectType void
+$('.alert').modal('hide'); // $ExpectType void
+$('.alert').modal('toggle'); // $ExpectType void
+$('.alert').modal('handleUpdate'); // $ExpectType void
+
 /**
  * Popover
  */
@@ -157,6 +217,20 @@ element.addEventListener(Popover.Events.inserted, event => {
     // do something…
 });
 
+// $ExpectType void
+$('.alert').popover();
+
+// $ExpectType void
+$('.alert').popover({ delay: 0.5, animation: true });
+
+$('.alert').popover('show'); // $ExpectType void
+$('.alert').popover('hide'); // $ExpectType void
+$('.alert').popover('toggle'); // $ExpectType void
+$('.alert').popover('enable'); // $ExpectType void
+$('.alert').popover('disable'); // $ExpectType void
+$('.alert').popover('toggleEnable'); // $ExpectType void
+$('.alert').popover('update'); // $ExpectType void
+
 /**
  * ScrollSpy
  */
@@ -170,6 +244,14 @@ const instanceScrollSpy = ScrollSpy.getInstance(element);
 element.addEventListener(ScrollSpy.Events.activate, event => {
     // do something…
 });
+
+// $ExpectType void
+$('.alert').scrollspy();
+
+// $ExpectType void
+$('.alert').scrollspy({ offset: 10 });
+
+$('.alert').scrollspy('refresh'); // $ExpectType void
 
 /**
  * Tab
@@ -197,6 +279,11 @@ element.addEventListener(Tab.Events.shown, event => {
     // do something…
 });
 
+// $ExpectType void
+$('.alert').tab();
+
+$('.alert').tab('show'); // $ExpectType void
+
 /**
  * Toast
  */
@@ -223,12 +310,21 @@ element.addEventListener(Toast.Events.shown, event => {
     // do something…
 });
 
+// $ExpectType void
+$('.alert').toast();
+
+// $ExpectType void
+$('.alert').toast({ animation: false });
+
+$('.alert').toast('hide'); // $ExpectType void
+$('.alert').toast('show'); // $ExpectType void
+
 /**
  * Tooltip
  */
 
 // $ExpectType Tooltip
-const tooltip = new Tooltip(element, { delay: 0.5, title: () => "foo", customClass: () => "custom-class" });
+const tooltip = new Tooltip(element, { delay: 0.5, title: () => 'foo', customClass: () => 'custom-class' });
 
 // $ExpectType Tooltip
 const instanceTooltip = Tooltip.getInstance(element);
@@ -248,6 +344,20 @@ element.addEventListener(Tooltip.Events.show, event => {
 element.addEventListener(Tooltip.Events.shown, event => {
     // do something…
 });
+
+// $ExpectType void
+$('.alert').tooltip();
+
+// $ExpectType void
+$('.alert').tooltip({ delay: 0.5, title: () => 'foo', customClass: () => 'custom-class' });
+
+$('.alert').tooltip('hide'); // $ExpectType void
+$('.alert').tooltip('show'); // $ExpectType void
+$('.alert').tooltip('toggle'); // $ExpectType void
+$('.alert').tooltip('enable'); // $ExpectType void
+$('.alert').tooltip('disable'); // $ExpectType void
+$('.alert').tooltip('toggleEnabled'); // $ExpectType void
+$('.alert').tooltip('update'); // $ExpectType void
 
 import DistAlert from 'bootstrap/js/dist/alert';
 import DistButton from 'bootstrap/js/dist/button';

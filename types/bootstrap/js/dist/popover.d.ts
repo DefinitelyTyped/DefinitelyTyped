@@ -61,6 +61,8 @@ declare class Popover {
      * with a DOM element
      */
     static getInstance(element: Element, options?: Partial<Popover.Options>): Popover;
+
+    static NAME: 'popover';
 }
 
 declare namespace Popover {
@@ -256,6 +258,19 @@ declare namespace Popover {
          */
         popperConfig: Partial<Popper.Options> | null;
     }
+
+    type jQueryInterface = (
+        config?:
+            | Partial<Options>
+            | 'show'
+            | 'hide'
+            | 'toggle'
+            | 'enable'
+            | 'disable'
+            | 'toggleEnable'
+            | 'update'
+            | 'dispose',
+    ) => void;
 }
 
 export default Popover;

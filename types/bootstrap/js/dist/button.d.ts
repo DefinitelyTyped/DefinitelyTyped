@@ -10,6 +10,12 @@ declare class Button {
      * Destroys an element's button.
      */
     dispose(): void;
+
+    // static NAME: 'button';
+}
+
+declare namespace Button {
+    type jQueryInterface = (config?: 'toggle' | 'dispose') => void;
 }
 
 export default Button;

@@ -33,6 +33,8 @@ declare class Dropdown {
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown;
+
+    // static NAME: 'dropdown';
 }
 
 declare namespace Dropdown {
@@ -108,6 +110,8 @@ declare namespace Dropdown {
          */
         popperConfig: Partial<Popper.Options> | null;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => void;
 }
 
 export default Dropdown;

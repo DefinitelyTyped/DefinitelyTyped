@@ -18,6 +18,8 @@ declare class ScrollSpy {
      * with a DOM element
      */
     static getInstance(element: Element, options?: Partial<ScrollSpy.Options>): ScrollSpy;
+
+    // static NAME: 'scrollspy';
 }
 
 declare namespace ScrollSpy {
@@ -53,6 +55,8 @@ declare namespace ScrollSpy {
          */
         target: string | Element | JQuery;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'refresh' | 'dispose') => void;
 }
 
 export default ScrollSpy;

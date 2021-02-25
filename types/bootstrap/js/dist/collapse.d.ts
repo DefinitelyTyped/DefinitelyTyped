@@ -34,6 +34,8 @@ declare class Collapse {
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Collapse.Options>): Collapse;
+
+    // static NAME: 'collapse';
 }
 
 declare namespace Collapse {
@@ -78,6 +80,8 @@ declare namespace Collapse {
          */
         toggle: boolean;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'toggle' | 'dispose') => void;
 }
 
 export default Collapse;

@@ -25,6 +25,8 @@ declare class Toast {
      * with a DOM element
      */
     static getInstance(element: Element): Toast;
+
+    // static NAME: 'toast';
 }
 
 declare namespace Toast {
@@ -74,6 +76,8 @@ declare namespace Toast {
          */
         delay: number;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'dispose') => void;
 }
 
 export default Toast;

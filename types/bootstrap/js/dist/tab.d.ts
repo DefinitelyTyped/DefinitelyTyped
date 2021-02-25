@@ -20,6 +20,8 @@ declare class Tab {
      * DOM element
      */
     static getInstance(element: Element): Tab;
+
+    // static NAME: 'tab';
 }
 
 declare namespace Tab {
@@ -53,6 +55,8 @@ declare namespace Tab {
          */
         hidden = 'hidden.bs.tab',
     }
+
+    type jQueryInterface = (config?: 'show' | 'dispose') => void;
 }
 
 export default Tab;
