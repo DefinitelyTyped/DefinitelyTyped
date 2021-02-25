@@ -12,6 +12,8 @@ import {
 } from 'luxon';
 
 /* DateTime */
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
 DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
