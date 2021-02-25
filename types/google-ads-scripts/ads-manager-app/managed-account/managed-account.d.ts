@@ -1,0 +1,115 @@
+// Type definitions for Google Ads Scripts 2021-02-24
+// Project: https://developers.google.com/google-ads/scripts
+// Definitions by: JJPell <https://github.com/JJPell>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="../../base.d.ts" />
+
+declare namespace GoogleAdsScripts {
+    namespace AdsManagerApp {
+        interface ManagedAccount {
+            /** Applies an account label to the managed account. */
+            applyLabel(name: string): void;
+            /**
+             * Returns the currency code of the account. The returned values are in the three-letter ISO 4217 format, e.g. 'USD', 'CAD', 'JPY', etc.
+             *
+             * Please refer to [AdWords API Currency Codes](https://developers.google.com/adwords/api/docs/appendix/codes-formats#currency-codes) for the full list of possible return values.
+             */
+            getCurrencyCode(): string; // TODO: Add currency code enum
+            /** Returns the customer ID of the account. */
+            getCustomerId(): string;
+            /** Returns the type of this entity as a String, in this case, "Account". */
+            getEntityType(): string;
+            /** Returns the name of the account. */
+            getName(): string;
+            /** Returns stats for the specified date range. */
+            getStatsFor(): AdsApp.Stats;
+            /**
+             * Returns the POSIX time zone of the account.
+             *
+             * Returned values are in the standard time zone identifier form, such as 'America/Los_Angeles'.
+             *
+             * Please refer to [AdWords API Timezones](https://developers.google.com/adwords/api/docs/appendix/codes-formats#timezone-ids) for the full list of possible return values.
+             */
+            getTimeZone(): string; // TODO: Add timezone enum
+            /** Creates a selector of all account labels that exist in the MCC account. */
+            labels(): AccountLabelSelector;
+            /** Removes an account label from the managed account. */
+            removeLabel(name: string): void;
+        }
+
+        interface ManagedAccountIterator extends Base.Iterator<ManagedAccount> {}
+
+        interface ManagedAccountSelector extends Base.Selector<ManagedAccountIterator> {
+            /**
+             * Executes the function specified by functionName on each ManagedAccount that the AccountSelector matches. Once all the accounts have been processed, the callback function, if specified by `optionalCallbackFunctionName`, is executed once. The input, if specified by `optionalInput`, will be passed into the function specified by `functionName`. For example,
+             *
+             *      accountSelector.executeInParallel(functionName, optionalCallbackFunctionName, optionalInput)
+             *
+             * The input can then be accessed in the function like this:
+             *
+             *      function functionName(optionalInput) {
+             *        Logger.log(optionalInput);
+             *      }
+             * The function specified by functionName can optionally return a string. For example,
+             *
+             *      return "Account name";
+             *      return "$100.22";
+             *      return "client@companyA.com";
+             *      return "5";
+             *
+             * `JSON.stringify(value)` can be used to convert a value to JSON and then return the string. For example,
+             *
+             *
+             *       return JSON.stringify({value:10, list:[1,2,3,4,5,6], name: "Joe Smith"});
+             * These will be passed into the callback function in a list of ExecutionResult objects. If `JSON.stringify(value)` is used in the callback function, the value can then be turned back into a JavaScript object with `JSON.parse(returnValue)`. For example,
+             *
+             *
+             *      function optionalCallbackFunctionName(results) {
+             *        for (var i = 0; i < results.length; i++) {
+             *          object = JSON.parse(results[i].getReturnValue());
+             *        }
+             *      }
+             *
+             * `executeInParallel` can operate simultaneously on up to 50 accounts. If the selector contains more than 50 accounts, an exception is thrown and no accounts are processed. You can limit the number of accounts for the executeInParallel method using `accountSelector.withLimit(accountLimit)`.
+             *
+             * The signature for the optionalCallbackFunctionName should be:
+             *
+             *
+             *      function callbackMethod(results: ExecutionResult[]) {
+             *
+             *      }
+             *
+             * @param functionName The name of the function to execute for each ManagedAccount in the selector.
+             * @param optionalCallbackFunctionName Optional. The name of the function to execute, in the scope of the MCC account, once processing of the accounts in the selector has completed. This function will only be executed once.
+             * @param optionalInput Optional. A string that can be specified that will be passed into the function being executed for each account.
+             */
+            executeInParallel(
+                functionName: string,
+                optionalCallbackFunctionName?: string,
+                optionalInput?: string,
+            ): void;
+            /**
+             * Sets a predefined date range onto the selector. Supported values:
+             * `TODAY`, `YESTERDAY`, `LAST_7_DAYS`, `THIS_WEEK_SUN_TODAY`, `LAST_WEEK`, `LAST_14_DAYS`, `LAST_30_DAYS`, `LAST_BUSINESS_WEEK`, `LAST_WEEK_SUN_SAT`, `THIS_MONTH`, `LAST_MONTH`, `ALL_TIME`. Example:
+             *
+             *      selector.forDateRange("THIS_WEEK_SUN_TODAY");
+             *
+             * Date range must be specified if the selector has conditions or ordering for a stat field. Note that only the last date range specified for the selector will take effect.
+             */
+            forDateRange(dateRange: Base.DateRange): this;
+            /**
+             * Sets a custom date range onto the selector.
+             *
+             * Both parameters can be either an object containing year, month, and day fields, or an 8-digit string in YYYYMMDD form. For instance, March 24th, 2013 is represented as either {year: 2013, month: 3, day: 24} or "20130324". The date range is inclusive on both ends, so forDateRange("20130324", "20130324") sets the range of one day.
+             *
+             * Date range must be specified if the selector has conditions or ordering for a stat field. Note that only the last date range specified for the selector will take effect.
+             */
+            forDateRange(dateFrom: string | Base.GoogleAdsDate, dateTo: string | Base.GoogleAdsDate): this;
+            /** Specifies the ordering of the resulting entities. */
+            orderBy(orderBy: string): this;
+            /** Specifies limit for the selector to use. For instance, withLimit(50) returns only the first 50 entities. */
+            withLimit(limit: number): this;
+        }
+    }
+}
