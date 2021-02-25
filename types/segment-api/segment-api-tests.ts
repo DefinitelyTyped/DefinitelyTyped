@@ -27,6 +27,7 @@ group('a', { x: 1 }, { y: 1 }, err => console.log(err));
 ready(() => console.log('ready'));
 debug();
 debug(false);
+debug(true);
 alias('x', 'y', { x: 1 }, err => console.log(err));
 on('track', () => console.log('track fired'));
 timeout(100);
