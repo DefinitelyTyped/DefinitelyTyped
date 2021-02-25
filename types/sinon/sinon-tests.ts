@@ -430,6 +430,14 @@ function testTypedSpy() {
     setterSpy.set.calledWith(100);
 }
 
+function testInstanceSpy() {
+    const obj: {
+        foo(): string
+    } = <any> {};
+
+    const spy: sinon.SinonStubbedInstance<typeof obj> = sinon.spy(obj);
+}
+
 function testSpy() {
     let fn = (arg: string, arg2: number): boolean => true;
     const obj = class {

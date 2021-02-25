@@ -369,6 +369,10 @@ declare namespace Sinon {
          */
         <F extends (...args: any[]) => any>(func: F): SinonSpy<Parameters<F>, ReturnType<F>>;
         /**
+         * Spies on all the object’s methods.
+         */
+        <T>(obj: T): SinonStubbedInstance<T>;
+        /**
          * Creates a spy for object.method and replaces the original method with the spy.
          * An exception is thrown if the property is not already a function.
          * The spy acts exactly like the original method in all cases.
