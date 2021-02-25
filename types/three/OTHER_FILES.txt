@@ -86,7 +86,6 @@ examples/jsm/loaders/TDSLoader.d.ts
 examples/jsm/loaders/TGALoader.d.ts
 examples/jsm/loaders/TiltLoader.d.ts
 examples/jsm/loaders/TTFLoader.d.ts
-examples/jsm/loaders/VOXLoader.d.ts
 examples/jsm/loaders/VRMLLoader.d.ts
 examples/jsm/loaders/VRMLoader.d.ts
 examples/jsm/loaders/VTKLoader.d.ts
@@ -95,7 +94,6 @@ examples/jsm/loaders/XYZLoader.d.ts
 examples/jsm/math/Capsule.d.ts
 examples/jsm/math/ColorConverter.d.ts
 examples/jsm/math/ConvexHull.d.ts
-examples/jsm/math/ImprovedNoise.d.ts
 examples/jsm/math/Lut.d.ts
 examples/jsm/math/MeshSurfaceSampler.d.ts
 examples/jsm/math/OBB.d.ts
@@ -108,7 +106,6 @@ examples/jsm/misc/MD2Character.d.ts
 examples/jsm/misc/MD2CharacterComplex.d.ts
 examples/jsm/misc/MorphAnimMesh.d.ts
 examples/jsm/misc/MorphBlendMesh.d.ts
-examples/jsm/misc/Ocean.d.ts
 examples/jsm/misc/RollerCoaster.d.ts
 examples/jsm/misc/TubePainter.d.ts
 examples/jsm/misc/Volume.d.ts
@@ -213,19 +210,16 @@ examples/jsm/postprocessing/BokehPass.d.ts
 examples/jsm/postprocessing/ClearPass.d.ts
 examples/jsm/postprocessing/CubeTexturePass.d.ts
 examples/jsm/postprocessing/DotScreenPass.d.ts
-examples/jsm/postprocessing/EffectComposer.d.ts
 examples/jsm/postprocessing/FilmPass.d.ts
 examples/jsm/postprocessing/GlitchPass.d.ts
 examples/jsm/postprocessing/HalftonePass.d.ts
 examples/jsm/postprocessing/LUTPass.d.ts
 examples/jsm/postprocessing/MaskPass.d.ts
 examples/jsm/postprocessing/OutlinePass.d.ts
-examples/jsm/postprocessing/Pass.d.ts
 examples/jsm/postprocessing/RenderPass.d.ts
 examples/jsm/postprocessing/BloomPass.d.ts
 examples/jsm/postprocessing/SAOPass.d.ts
 examples/jsm/postprocessing/SavePass.d.ts
-examples/jsm/postprocessing/ShaderPass.d.ts
 examples/jsm/postprocessing/SMAAPass.d.ts
 examples/jsm/postprocessing/SSAARenderPass.d.ts
 examples/jsm/postprocessing/SSAOPass.d.ts
@@ -266,7 +260,6 @@ examples/jsm/shaders/LuminosityHighPassShader.d.ts
 examples/jsm/shaders/LuminosityShader.d.ts
 examples/jsm/shaders/MirrorShader.d.ts
 examples/jsm/shaders/NormalMapShader.d.ts
-examples/jsm/shaders/OceanShaders.d.ts
 examples/jsm/shaders/ParallaxShader.d.ts
 examples/jsm/shaders/PixelShader.d.ts
 examples/jsm/shaders/RGBShiftShader.d.ts
@@ -275,6 +268,7 @@ examples/jsm/shaders/SepiaShader.d.ts
 examples/jsm/shaders/SMAAShader.d.ts
 examples/jsm/shaders/SobelOperatorShader.d.ts
 examples/jsm/shaders/SSAOShader.d.ts
+examples/jsm/shaders/SSRShader.d.ts
 examples/jsm/shaders/SubsurfaceScatteringShader.d.ts
 examples/jsm/shaders/TechnicolorShader.d.ts
 examples/jsm/shaders/ToneMapShader.d.ts
@@ -294,8 +288,3 @@ examples/jsm/utils/SceneUtils.d.ts
 examples/jsm/utils/ShadowMapViewer.d.ts
 examples/jsm/utils/SkeletonUtils.d.ts
 examples/jsm/utils/UVsDebug.d.ts
-examples/jsm/webxr/ARButton.d.ts
-examples/jsm/webxr/VRButton.d.ts
-examples/jsm/webxr/XRControllerModelFactory.d.ts
-examples/jsm/webxr/XRHandModelFactory.d.ts
-examples/jsm/WebGL.d.ts
