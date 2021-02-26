@@ -1196,7 +1196,7 @@ declare class BannerAd extends ResizableAdObject {
     /**
      * banner 广告组件的样式。style 上的属性的值仅为开发者设置的值，banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的真实尺寸需要通过 BannerAd.onResize() 事件获得。
      */
-    style: wx.types.AdStyle & {    
+    style: wx.types.AdStyle & {
         /**
          * banner 广告组件经过缩放后真实的宽度
          */
