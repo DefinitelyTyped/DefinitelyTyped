@@ -71,7 +71,7 @@ declare var module: NodeModule;
 declare var exports: any;
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "base64url" | "latin1" | "binary" | "hex";
 
 type WithImplicitCoercion<T> = T | { valueOf(): T };
 
