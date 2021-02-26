@@ -152,12 +152,14 @@ tagify.getTagElms();
 tagify.getTagElms('blue', 'green');
 
 const tagElement = tagify.getTagElmByValue('foo');
-tagify.tagData(tagElement);
-tagify.tagData(tagElement, { value: 'bar' });
+if (tagElement) {
+    tagify.tagData(tagElement);
+    tagify.tagData(tagElement, {value: 'bar'});
+    tagify.editTag(tagElement);
+    tagify.replaceTag(tagElement, { value: 'bar' });
+    tagify.tagLoading(tagElement, true);
+}
 tagify.editTag();
-tagify.editTag(tagElement);
-tagify.replaceTag(tagElement, { value: 'bar' });
-tagify.tagLoading(tagElement, true);
 tagify.loading(true);
 
 const newTag = tagify.createTagElem({ value: 'hello' });

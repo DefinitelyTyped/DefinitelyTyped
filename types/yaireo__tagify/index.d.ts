@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 3.22
+// Type definitions for @yaireo/tagify 3.23
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
