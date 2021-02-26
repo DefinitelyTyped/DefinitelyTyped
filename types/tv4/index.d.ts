@@ -50,14 +50,14 @@ declare namespace tv4 {
     export interface MultiResult extends BaseResult {
         errors: ValidationError[];
     }
-    export type FormatValidationFunction = (data: any, schema: JsonSchema) => string;
+    export type FormatValidationFunction = (data: any, schema: JsonSchema) => null | string;
     // documentation doesnt agree with code in tv4, this type agrees with code
     export type KeywordValidationFunction = (
         data: any,
         value: any,
         schema: JsonSchema,
         dataPointerPath: string,
-    ) => string | ValidationError;
+    ) => null | string | ValidationError;
     export type AsyncValidationCallback = (isValid: boolean, error: ValidationError) => void;
     export interface TV4 {
         error: ErrorVar;

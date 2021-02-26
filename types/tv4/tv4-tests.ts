@@ -1,14 +1,18 @@
 import tv4 = require('tv4');
-var str: string;
-var strArr: string[];
+var str = '';
+var nullableStr: null | string = '';
+var optionalStr: undefined | string = '';
+var strArr: string[] = [];
 var bool: boolean;
 var num: number;
 var obj: any;
-var validator: tv4.TV4;
+var validator: tv4.TV4 = tv4;
 var err: tv4.ValidationError;
 var errs: tv4.ValidationError[];
 var single: tv4.SingleResult;
 var multi: tv4.MultiResult;
+var validator: tv4.TV4 = tv4;
+var uri = '';
 
 single = validator.validateResult(obj, obj);
 bool = single.valid;
@@ -16,9 +20,9 @@ strArr = single.missing;
 err = single.error;
 
 num = err.code;
-str = err.message;
-str = err.dataPath;
-str = err.schemaPath;
+nullableStr = err.message;
+optionalStr = err.dataPath;
+optionalStr = err.schemaPath;
 
 multi = validator.validateMultiple(obj, obj);
 bool = multi.valid;
@@ -97,7 +101,7 @@ validator.addFormat('decimal-digits', function (data, schema) {
     return 'must be string of decimal digits';
 });
 validator.addFormat({
-    'my-format': function (data: any, schema: any): string {
+    'my-format': function (data: any, schema: any): null | string {
         return null;
     },
     'other-format': function (data: any, schema: any): string {
@@ -171,5 +175,4 @@ schema = {
 }
 
 // undocumented functions
-var uri = '';
 obj = validator.normSchema(schema, uri);
