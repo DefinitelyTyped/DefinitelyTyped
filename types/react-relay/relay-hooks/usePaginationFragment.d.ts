@@ -3,7 +3,7 @@ import { KeyType, KeyTypeData } from './helpers';
 import { LoadMoreFn } from './useLoadMoreFunction';
 import { RefetchFnDynamic } from './useRefetchableFragmentNode';
 
-export interface ReturnType<TQuery extends OperationType, TKey extends KeyType | null, TFragmentData> {
+export interface usePaginationFragmentHookType<TQuery extends OperationType, TKey extends KeyType | null, TFragmentData> {
     data: TFragmentData;
     loadNext: LoadMoreFn<TQuery>;
     loadPrevious: LoadMoreFn<TQuery>;
@@ -18,10 +18,10 @@ export function usePaginationFragment<TQuery extends OperationType, TKey extends
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
 ): // tslint:disable-next-line no-unnecessary-generics
-ReturnType<TQuery, TKey, KeyTypeData<TKey>>;
+usePaginationFragmentHookType<TQuery, TKey, KeyTypeData<TKey>>;
 
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null,
 ): // tslint:disable-next-line no-unnecessary-generics
-ReturnType<TQuery, TKey | null, KeyTypeData<TKey> | null>;
+usePaginationFragmentHookType<TQuery, TKey | null, KeyTypeData<TKey> | null>;

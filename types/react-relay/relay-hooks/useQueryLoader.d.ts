@@ -13,4 +13,5 @@ export type UseQueryLoaderLoadQueryOptions = LoadQueryOptions & Readonly<{
 
 export function useQueryLoader<TQuery extends OperationType>(
     preloadableRequest: GraphQLTaggedNode | PreloadableConcreteRequest<TQuery>,
+    initialQueryReference?: PreloadedQuery<TQuery> | null,
 ): useQueryLoaderHookType<TQuery>;

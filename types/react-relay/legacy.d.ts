@@ -13,14 +13,6 @@ import {
     FetchPolicy,
 } from 'relay-runtime';
 
-// These types are exported, but have not been added to the Typescript definitions:
-// export {
-//     RelayProps,
-//     RelayFragmentContainer,
-//     RelayPaginationContainer,
-//     RelayRefetchContainer,
-// } from './ReactRelayTypes';
-
 export {
     FragmentRef,
     RelayPaginationProp,
@@ -86,7 +78,22 @@ export { commitLocalUpdate } from 'relay-runtime';
 export { commitMutation } from 'relay-runtime';
 
 export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, 'relay'>>>;
+export type RelayProps<Props> = ContainerProps<Props>; // TODO: validate this
 export type Container<Props> = React.ComponentType<ContainerProps<Props> & { componentRef?: (ref: any) => void }>;
+
+// TODO: validate the bellow three
+export type RelayFragmentContainer<TComponent extends React.ElementType> = React.ComponentType<
+    ContainerProps<React.ComponentPropsWithoutRef<TComponent>>
+>;
+
+export type RelayPaginationContainer<TComponent extends React.ElementType> = React.ComponentType<
+    ContainerProps<React.ComponentPropsWithoutRef<TComponent>>
+>;
+
+export type RelayRefetchContainer<TComponent extends React.ElementType> = React.ComponentType<
+    ContainerProps<React.ComponentPropsWithoutRef<TComponent>>
+>;
+
 export function createFragmentContainer<Props>(
     Component: React.ComponentType<Props & { relay?: RelayProp }>,
     fragmentSpec: Record<string, GraphQLTaggedNode>,

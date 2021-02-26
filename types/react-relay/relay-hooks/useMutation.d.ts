@@ -19,7 +19,7 @@ export interface UseMutationConfig<TMutation extends MutationParameters> {
     optimisticResponse?: TMutation['rawResponse'];
     configs?: DeclarativeMutationConfig[];
     onError?: (error: Error) => void | null;
-    onCompleted?: (response: TMutation['response'], errors: PayloadError[]) => void | null;
+    onCompleted?: (response: TMutation['response'], errors: PayloadError[] | null) => void | null;
     onUnsubscribe?: () => void | null;
 }
 

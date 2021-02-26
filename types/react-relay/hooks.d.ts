@@ -53,18 +53,19 @@ export {
 //  * The public interface for Relay Hooks.
 //  */
 
+export { graphql } from 'relay-runtime';
+
 export { ConnectionHandler } from 'relay-runtime';
+
 export { applyOptimisticMutation } from 'relay-runtime';
 export { commitLocalUpdate } from 'relay-runtime';
-
 export { commitMutation } from 'relay-runtime';
-export { graphql } from 'relay-runtime';
+
 export { readInlineData } from 'relay-runtime';
 export { requestSubscription } from 'relay-runtime';
 
-export { EntryPointContainer } from './relay-hooks/EntryPointContainer.react';
-
 export { RelayEnvironmentProvider } from './relay-hooks/RelayEnvironmentProvider.react';
+export { EntryPointContainer } from './relay-hooks/EntryPointContainer.react';
 
 export { fetchQuery } from 'relay-runtime';
 
