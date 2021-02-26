@@ -907,9 +907,9 @@ declare namespace ArangoDB {
         write?: string | string[];
         allowImplicit?: boolean;
     }
-    interface Transaction {
+    interface Transaction<ReturnType = any> {
         collections: TransactionCollections | string[];
-        action: (params: object) => void | string;
+        action: (params: object) => ReturnType;
         waitForSync?: boolean;
         lockTimeout?: number;
         params?: object;
@@ -993,7 +993,7 @@ declare namespace ArangoDB {
         // Global
         _engine(): EngineType;
         _engineStats(): { [key: string]: any };
-        _executeTransaction(transaction: Transaction): void;
+        _executeTransaction<T>(transaction: Transaction<T>): T;
     }
 }
 

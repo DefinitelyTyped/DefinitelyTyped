@@ -1,1 +1,3 @@
-export { WeatherStation32 as default } from "../../";
+import { WeatherStation32 } from "../../";
+
+export = WeatherStation32;

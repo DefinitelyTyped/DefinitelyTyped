@@ -1,1 +1,3 @@
-export { LetterUu32 as default } from "../../";
+import { LetterUu32 } from "../../";
+
+export = LetterUu32;

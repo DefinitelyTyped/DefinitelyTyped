@@ -1,1 +1,3 @@
-export { GlobalFinanceEuro as default } from "../../";
+import { GlobalFinanceEuro } from "../../";
+
+export = GlobalFinanceEuro;

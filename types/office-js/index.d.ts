@@ -1169,10 +1169,12 @@ declare namespace Office {
 
        /**
         * Check if the specified requirement set is supported by the host Office application.
+        *
+        * **Warning**: This overload of `isSetSupported` (where `minVersionNumber` is a number) has been deprecated. Use the string overload of `isSetSupported` instead.
+        *
         * @deprecated Use the string overload of `isSetSupported` instead.
         * @param name - The requirement set name (e.g., "ExcelApi").
         * @param minVersionNumber - The minimum required version (e.g., 1.4). 
-        * **Warning**: This overload of `isSetSupported` (where `minVersionNumber` is a number) is deprecated. Use the string overload of `isSetSupported` instead.
         */
        isSetSupported(name: string, minVersionNumber?: number): boolean;
     }
@@ -1182,11 +1184,11 @@ declare namespace Office {
      */
     interface DialogOptions {
         /**
-         * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
+         * Defines the height of the dialog as a percentage of the current display. Defaults to 80%. 250px minimum.
          */
         height?: number,
         /**
-         * Defines the height of the dialog as a percentage of the current display. Defaults to 80%. 150px minimum.
+         * Defines the width of the dialog as a percentage of the current display. Defaults to 80%. 150px minimum.
          */
         width?: number,
         /**
@@ -1218,10 +1220,12 @@ declare namespace Office {
          * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
          * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
          *
-         * @deprecated Use Office.auth.getAccessToken instead.
-         * 
          * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
-         * 
+         *
+         * **Warning**: `getAccessTokenAsync` has been deprecated. Use `Office.auth.getAccessToken` instead.
+         *
+         * @deprecated Use `Office.auth.getAccessToken` instead.
+         *
          * @remarks
          *
          * **Hosts**: Excel, OneNote, Outlook, PowerPoint, Word
@@ -1241,9 +1245,11 @@ declare namespace Office {
          * Server-side code can use this token to access Microsoft Graph for the add-in's web application by using the
          * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
          *
-         * @deprecated Use `Office.auth.getAccessToken` instead.
-         * 
          * **Important**: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
+         *
+         * **Warning**: `getAccessTokenAsync` has been deprecated. Use `Office.auth.getAccessToken` instead.
+         *
+         * @deprecated Use `Office.auth.getAccessToken` instead.
          *
          * @remarks
          *
@@ -1298,12 +1304,16 @@ declare namespace Office {
         /**
          * Prompts the user to add their Office account (or to switch to it, if it is already added). Default value is `false`.
          *
+         * **Warning**: `forceAddAccount` has been deprecated. Use `allowSignInPrompt` instead.
+         *
          * @deprecated Use `allowSignInPrompt` instead.
          */
         forceAddAccount?: boolean;
         /**
          * Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has
          * been revoked. Default value is `false`.
+         *
+         * **Warning**: `forceConsent` has been deprecated. Use `allowConsentPrompt` instead.
          *
          * @deprecated Use `allowConsentPrompt` instead.
          */
@@ -1674,7 +1684,9 @@ declare namespace Office {
      */
     interface SaveSettingsOptions {
         /**
-         * Indicates whether the setting will be replaced if stale.
+         * **Warning**: This setting has been deprecated and should not be used. It has no effect on most platforms and will cause errors if set to `false` in Excel on the web.
+         * 
+         * @deprecated `overwriteIfStale` is no longer supported.
          */
         overwriteIfStale?: boolean
         /**
@@ -1723,6 +1735,8 @@ declare namespace Office {
     interface Dialog {
         /**
          * Called from a parent page to close the corresponding dialog box. 
+         * 
+         * This method is asynchronous. It does not take a callback parameter and it does not return a Promise object, so it cannot be awaited with either the `await` keyword or the `then` function. See this best practice for more information: {@link https://docs.microsoft.com/office/dev/add-ins/develop/dialog-best-practices#opening-another-dialog-immediately-after-closing-one | Opening another dialog immediately after closing one}
          */
         close(): void;
         /**
@@ -1821,9 +1835,24 @@ declare namespace Office {
      *
      * @remarks
      * 
-     * PowerPoint supports only `Office.CoercionType.Text`, `Office.CoercionType.Image`, `Office.CoercionType.SlideRange`, and `Office.CoercionType.XmlSvg`.
+     * Application and platform support for each `CoercionType` is specified in the following requirement set descriptions.
      * 
-     * Project supports only `Office.CoercionType.Text`.
+     * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`)
+     * 
+     * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/image-coercion-requirement-sets | ImageCoercion 1.1} (when using `Office.CoercionType.Image`)
+     * 
+     * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
+     * 
+     * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#ooxmlcoercion | OoxmlCoercion} (when using `Office.CoercionType.Ooxml`)
+     * 
+     * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#selection | Selection}
+     * 
+     * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
+     * 
+     * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+     * 
+     * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/image-coercion-requirement-sets#imagecoercion-12 | ImageCoercion 1.2} (when using `Office.CoercionType.XmlSvg`)
+     * 
      */
     enum CoercionType {
         /**
@@ -9675,7 +9704,7 @@ declare namespace Office {
          */
         getSelectedDataAsync(coercionType: Office.CoercionType | string, callback: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
-         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         * Gets the properties of an appointment or message in a shared folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -9698,7 +9727,7 @@ declare namespace Office {
          */
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
-         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         * Gets the properties of an appointment or message in a shared folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -9763,7 +9792,7 @@ declare namespace Office {
          * - `InvalidAttachmentId`: The attachment identifier does not exist.
          *
          * @param attachmentId - The identifier of the attachment to remove. The maximum string length of the `attachmentId`
-         *                       is 200 characters in Outlook on the web, and 100 characters in Outlook on Windows.
+         *                       is 200 characters in Outlook on the web and on Windows.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
@@ -10749,7 +10778,7 @@ declare namespace Office {
          */
         getSelectedRegExMatches(): any;
         /**
-         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         * Gets the properties of an appointment or message in a shared folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -10772,7 +10801,7 @@ declare namespace Office {
          */
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
-         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         * Gets the properties of an appointment or message in a shared folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -13439,7 +13468,7 @@ declare namespace Office {
          */
         getSelectedDataAsync(coercionType: Office.CoercionType | string, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
         /**
-         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         * Gets the properties of an appointment or message in a shared folder.
          *
          * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
          *
@@ -13469,7 +13498,7 @@ declare namespace Office {
          */
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
-         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         * Gets the properties of an appointment or message in a shared folder.
          *
          * **Important**: In Message Compose mode, this API is not supported in Outlook on the web or Windows unless the following conditions are met.
          *
@@ -13541,7 +13570,7 @@ declare namespace Office {
          * - `InvalidAttachmentId`: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment to remove. The maximum string length of the `attachmentId`
-         *                       is 200 characters in Outlook on the web, and 100 characters in Outlook on Windows.
+         *                       is 200 characters in Outlook on the web and on Windows.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
@@ -14420,7 +14449,7 @@ declare namespace Office {
          */
         getSelectedRegExMatches(): any;
         /**
-         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         * Gets the properties of an appointment or message in a shared folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -14442,7 +14471,7 @@ declare namespace Office {
          */
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
-         * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         * Gets the properties of an appointment or message in a shared folder.
          *
          * For more information around using this API, see the
          * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -15501,7 +15530,7 @@ declare namespace Office {
         setStartTime(time: string): void;
     }
     /**
-     * Represents the properties of an appointment or message in a shared folder, mailbox, or calendar.
+     * Represents the properties of an appointment or message in a shared folder.
      *
      * For more information on how this object is used, see the
      * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
@@ -20803,8 +20832,7 @@ declare namespace Excel {
          */
         getEntireRow(): Excel.Range;
         /**
-         * Renders the range as a base64-encoded png image.
-                    **Important**: This API is currently unsupported in Excel for Mac. Visit {@link https://github.com/OfficeDev/office-js/issues/235 | OfficeDev/office-js Issue #235} for the current status.
+         * Renders the range as a base64-encoded png image. **Important**: This API is currently unsupported in Excel for Mac. Visit {@link https://github.com/OfficeDev/office-js/issues/235 | OfficeDev/office-js Issue #235} for the current status.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -39829,7 +39857,7 @@ declare namespace Excel {
          */
         linkedDataTypeLinkedDataTypeAdded = "LinkedDataTypeLinkedDataTypeAdded",
         /**
-         * WorksheetFormulaChanged represents the type of event registered on worksheet, and occurs when formula is changed.
+         * WorksheetFormulaChanged represents the type of event registered on worksheet, and occurs when a formula is changed.
          *
          */
         worksheetFormulaChanged = "WorksheetFormulaChanged"
@@ -71024,11 +71052,15 @@ declare namespace Word {
          */
         none = "None",
         /**
-         * @deprecated Hidden is no longer supported.
+         * **Warning**: `hidden` has been deprecated.
+         *
+         * @deprecated `hidden` is no longer supported.
          */
         hidden = "Hidden",
         /**
-         * @deprecated DotLine is no longer supported.
+         * **Warning**: `dotLine` has been deprecated.
+         *
+         * @deprecated `dotLine` is no longer supported.
          */
         dotLine = "DotLine",
         /**
@@ -71098,6 +71130,8 @@ declare namespace Word {
          */
         page = "Page",
         /**
+         * **Warning**: `next` has been deprecated. Use `sectionNext` instead.
+         *
          * @deprecated Use sectionNext instead.
          */
         next = "Next",

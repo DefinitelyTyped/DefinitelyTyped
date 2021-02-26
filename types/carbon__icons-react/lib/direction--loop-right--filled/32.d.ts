@@ -1,1 +1,3 @@
-export { DirectionLoopRightFilled32 as default } from "../../";
+import { DirectionLoopRightFilled32 } from "../../";
+
+export = DirectionLoopRightFilled32;

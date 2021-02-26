@@ -1,1 +1,3 @@
-export { PhoneIncomingFilled24 as default } from "../../";
+import { PhoneIncomingFilled24 } from "../../";
+
+export = PhoneIncomingFilled24;

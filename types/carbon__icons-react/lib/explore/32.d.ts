@@ -1,1 +1,3 @@
-export { Explore32 as default } from "../../";
+import { Explore32 } from "../../";
+
+export = Explore32;

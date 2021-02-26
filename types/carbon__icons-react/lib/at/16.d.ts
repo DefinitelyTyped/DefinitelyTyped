@@ -1,1 +1,3 @@
-export { At16 as default } from "../../";
+import { At16 } from "../../";
+
+export = At16;

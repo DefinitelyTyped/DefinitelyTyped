@@ -5268,8 +5268,8 @@ fp.now(); // $ExpectType number
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
 
-    fp.get(Symbol.iterator, []); // $ExpectType any
-    fp.get(Symbol.iterator)([]); // $ExpectType any
+    fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
+    fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>
     fp.get([Symbol.iterator], []); // $ExpectType any
     fp.get(1)("abc"); // $ExpectType string
     fp.get("1")("abc"); // $ExpectType any
@@ -6960,7 +6960,7 @@ fp.now(); // $ExpectType number
     _.chain("a.b[0]").property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     _.chain(["a", "b", 0]).property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     fp.property(Symbol.iterator)([]); // $ExpectType any
-    fp.property([Symbol.iterator], []); // $ExpectType any
+    fp.property([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
     fp.property(1)("abc"); // $ExpectType string
 }
 
@@ -6971,7 +6971,7 @@ fp.now(); // $ExpectType number
     _.chain({}).propertyOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
 
     fp.propertyOf(Symbol.iterator)([]); // $ExpectType any
-    fp.propertyOf([Symbol.iterator], []); // $ExpectType any
+    fp.propertyOf([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
     fp.propertyOf(1)("abc"); // $ExpectType string
 }
 

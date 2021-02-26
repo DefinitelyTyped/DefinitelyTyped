@@ -1,1 +1,3 @@
-export { ChartWaterfall32 as default } from "../../";
+import { ChartWaterfall32 } from "../../";
+
+export = ChartWaterfall32;

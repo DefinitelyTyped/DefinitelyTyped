@@ -1,1 +1,3 @@
-export { ChartAverage32 as default } from "../../";
+import { ChartAverage32 } from "../../";
+
+export = ChartAverage32;

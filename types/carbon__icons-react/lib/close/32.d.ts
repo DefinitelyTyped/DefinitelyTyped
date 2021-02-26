@@ -1,1 +1,3 @@
-export { Close32 as default } from "../../";
+import { Close32 } from "../../";
+
+export = Close32;

@@ -609,3 +609,13 @@ function valueRangeTest() {
           }
       );
 }
+
+function resize() {
+    const d = new Dygraph(
+        document.getElementById('demo'),
+        'dummy-data',
+        {},
+    );
+    d.resize();
+    d.resize(300, 200);
+}

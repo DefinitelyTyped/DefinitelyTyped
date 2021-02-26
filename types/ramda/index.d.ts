@@ -30,8 +30,9 @@
 //                 Nicholai Nissen <https://github.com/Nicholaiii>
 //                 Mike Deverell <https://github.com/devrelm>
 //                 Jorge Santana <https://github.com/LORDBABUINO>
+//                 Mikael Couzic <https://github.com/couzic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 4.2
 
 import * as _ from "ts-toolbelt";
 import {
@@ -366,13 +367,18 @@ export function composeWith(composer: (...args: any[]) => any): <V0, T>(fns: Com
 /**
  * Returns the result of concatenating the given lists or strings.
  */
-export function concat<T extends string | readonly any[]>(placeholder: Placeholder): (list2: T, list1: T) => T;
-export function concat<T>(placeholder: Placeholder, list2: readonly T[]): (list1: readonly T[]) => T[];
-export function concat(placeholder: Placeholder, list2: string): (list1: string) => string;
-export function concat<T>(list1: readonly T[], list2: readonly T[]): T[];
-export function concat<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
-export function concat(list1: string, list2: string): string;
-export function concat(list1: string): (list2: string) => string;
+export function concat(
+    placeholder: Placeholder,
+): (<L1 extends any[], L2 extends any[]>(list1: L1, list2: L2) => [...L1, ...L2]) &
+    (<S1 extends string, S2 extends string>(s1: S1, s2: S2) => `${S1}${S2}`);
+export function concat<L2 extends any[]>(placeholder: Placeholder, list2: L2): <L1 extends any[]>(list1: L1) => [...L1, ...L2];
+export function concat<S2 extends string>(placeholder: Placeholder, s2: S2): <S1 extends string>(s1: S1) => `${S1}${S2}`;
+export function concat<L1 extends any[]>(list1: L1): <L2 extends any[]>(list2: L2) => [...L1, ...L2];
+export function concat<S1 extends string>(s1: S1): <S2 extends string>(s2: S2) => `${S1}${S2}`;
+export function concat<L1 extends any[], L2 extends any[]>(list1: L1, list2: L2): [...L1, ...L2];
+export function concat<S1 extends string, S2 extends string>(s1: S1, s2: S2): `${S1}${S2}`;
+export function concat(s1: string, s2: string): string;
+export function concat(s1: string): (s2: string) => string;
 
 /**
  * Returns a function, fn, which encapsulates if/else-if/else logic. R.cond takes a list of [predicate, transform] pairs.
@@ -474,11 +480,10 @@ export function differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1:
 export function differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: readonly T1[]): (list2: readonly T2[]) => T1[];
 
 /*
-    * Returns a new object that does not contain a prop property.
-    */
-// It seems impossible to infer the return type, so this may to be specified explicitely
-export function dissoc<T>(prop: string, obj: any): T;
-export function dissoc(prop: string): <U>(obj: any) => U;
+ * Returns a new object that does not contain a prop property.
+ */
+export function dissoc<T extends object, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
+export function dissoc<K extends string | number>(prop: K): <T extends object>(obj: T) => Omit<T, K>;
 
 /**
  * Makes a shallow clone of an object, omitting the property at the given path.
@@ -669,8 +674,8 @@ export function fromPairs<V>(pairs: Array<KeyValuePair<number, V>>): { [index: n
  * calling a String-returning function
  * on each element, and grouping the results according to values returned.
  */
-export function groupBy<T>(fn: (a: T) => string, list: readonly T[]): { [index: string]: T[] };
-export function groupBy<T>(fn: (a: T) => string): (list: readonly T[]) => { [index: string]: T[] };
+export function groupBy<T, K extends string = string>(fn: (a: T) => K, list: readonly T[]): Record<K, T[]>;
+export function groupBy<T, K extends string = string>(fn: (a: T) => K): (list: readonly T[]) => Record<K, T[]>;
 
 /**
  * Takes a list and returns a list of lists where each sublist's elements are all "equal" according to the provided equality function
@@ -933,6 +938,7 @@ export function lens<S, A>(getter: (s: S) => A, setter: (a: A, s: S) => S): Lens
  * Creates a lens that will focus on index n of the source array.
  */
 export function lensIndex<A>(n: number): Lens<A[], A>;
+export function lensIndex<A extends any[], N extends number>(n: N): Lens<A, A[N]>;
 
 /**
  * Returns a lens whose focus is the specified path.
@@ -1917,6 +1923,7 @@ export function times<T>(fn: (i: number) => T): (n: number) => T[];
 /**
  * The lower case version of a string.
  */
+export function toLower<S extends string>(str: S): Lowercase<S>;
 export function toLower(str: string): string;
 
 /**
@@ -1925,7 +1932,8 @@ export function toLower(str: string): string;
  * Note that the order of the output array is not guaranteed to be
  * consistent across different JS platforms.
  */
-export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
+export function toPairs<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
+export function toPairs<S>(obj: Record<string | number, S>): Array<[string, S]>;
 
 /**
  * Converts an object into an array of key, value arrays.
@@ -1933,7 +1941,8 @@ export function toPairs<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<
  * Note that the order of the output array is not guaranteed to be
  * consistent across different JS platforms.
  */
-export function toPairsIn<S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[string, S]>;
+export function toPairsIn<O extends object, K extends Extract<keyof O, string | number>>(obj: O): Array<{ [key in K]: [`${key}`, O[key]] }[K]>;
+export function toPairsIn<S>(obj: Record<string | number, S>): Array<[string, S]>;
 
 /**
  * Returns the string representation of the given value. eval'ing the output should
@@ -1950,6 +1959,7 @@ export function toString<T>(val: T): string;
 /**
  * The upper case version of a string.
  */
+export function toUpper<S extends string>(str: S): Uppercase<S>;
 export function toUpper(str: string): string;
 
 /**

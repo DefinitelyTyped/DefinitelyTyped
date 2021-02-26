@@ -1,1 +1,3 @@
-export { ScriptReference32 as default } from "../../";
+import { ScriptReference32 } from "../../";
+
+export = ScriptReference32;

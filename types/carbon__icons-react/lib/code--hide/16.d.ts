@@ -1,1 +1,3 @@
-export { CodeHide16 as default } from "../../";
+import { CodeHide16 } from "../../";
+
+export = CodeHide16;

@@ -1,1 +1,3 @@
-export { SystemsDevopsAnalyze as default } from "../../";
+import { SystemsDevopsAnalyze } from "../../";
+
+export = SystemsDevopsAnalyze;

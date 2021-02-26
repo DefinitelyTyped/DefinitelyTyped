@@ -1,1 +1,3 @@
-export { NavaidVor32 as default } from "../../";
+import { NavaidVor32 } from "../../";
+
+export = NavaidVor32;

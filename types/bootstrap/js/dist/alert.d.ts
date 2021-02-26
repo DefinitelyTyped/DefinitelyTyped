@@ -1,6 +1,6 @@
-declare class Alert {
-    constructor(element: Element);
+import BaseComponent from './base-component';
 
+declare class Alert extends BaseComponent {
     /**
      * Closes an alert by removing it from the DOM. If the .fade and .show
      * classes are present on the element, the alert will fade out before it
@@ -9,15 +9,12 @@ declare class Alert {
     close(): void;
 
     /**
-     * Destroys an element's alert.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the alert instance associated to a
      * DOM element, you can use it like this: getInstance(alert)
      */
     static getInstance(element: Element): Alert;
+
+    // static NAME: 'alert';
 }
 
 declare namespace Alert {
@@ -33,6 +30,8 @@ declare namespace Alert {
          */
         closed = 'closed.bs.alert',
     }
+
+    type jQueryInterface = (config?: 'close' | 'dispose') => void;
 }
 
 export default Alert;

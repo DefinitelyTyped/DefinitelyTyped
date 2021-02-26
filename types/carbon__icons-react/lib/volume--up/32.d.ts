@@ -1,1 +1,3 @@
-export { VolumeUp32 as default } from "../../";
+import { VolumeUp32 } from "../../";
+
+export = VolumeUp32;

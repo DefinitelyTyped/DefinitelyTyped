@@ -1,1 +1,3 @@
-export { ChartPie32 as default } from "../../";
+import { ChartPie32 } from "../../";
+
+export = ChartPie32;

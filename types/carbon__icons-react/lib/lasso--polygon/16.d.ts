@@ -1,1 +1,3 @@
-export { LassoPolygon16 as default } from "../../";
+import { LassoPolygon16 } from "../../";
+
+export = LassoPolygon16;

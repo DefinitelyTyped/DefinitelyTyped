@@ -1,1 +1,3 @@
-export { UserCertification20 as default } from "../../";
+import { UserCertification20 } from "../../";
+
+export = UserCertification20;

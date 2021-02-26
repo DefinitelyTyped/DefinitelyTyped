@@ -23,6 +23,7 @@ export interface DropdownProps<ItemType = string> extends
     inline?: boolean,
     invalid?: boolean;
     invalidText?: React.ReactNode;
+    hideLabel?: boolean;
     helperText?: React.ReactNode,
     items: readonly ItemType[],
     itemToElement?: ItemType extends object ? React.ComponentType<ItemType> : never,

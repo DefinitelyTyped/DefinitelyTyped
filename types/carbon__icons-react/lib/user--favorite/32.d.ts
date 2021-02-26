@@ -1,1 +1,3 @@
-export { UserFavorite32 as default } from "../../";
+import { UserFavorite32 } from "../../";
+
+export = UserFavorite32;

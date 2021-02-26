@@ -4,6 +4,7 @@
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Andrej Mihajlov <https://github.com/pronebird>
 //                 Victor Alencar <https://github.com/valencar>
+//                 Luis Felipe Zaguini <https://github.com/zaguiini>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'opentok' {
@@ -187,7 +188,7 @@ declare module 'opentok' {
       options: OpenTok.DialOptions,
     ): OpenTok.SipInterconnect;
     public forceDisconnect(sessionId: string, connectionId: string, callback: (error: Error | null) => void): void;
-    public generateToken(sessionId: string, options: OpenTok.TokenOptions): OpenTok.Token;
+    public generateToken(sessionId: string, options?: OpenTok.TokenOptions): OpenTok.Token;
     public getArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
     public getBroadcast(
       broadcastId: string,

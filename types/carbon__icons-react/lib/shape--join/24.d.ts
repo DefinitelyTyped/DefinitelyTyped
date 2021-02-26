@@ -1,1 +1,3 @@
-export { ShapeJoin24 as default } from "../../";
+import { ShapeJoin24 } from "../../";
+
+export = ShapeJoin24;

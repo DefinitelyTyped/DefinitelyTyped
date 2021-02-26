@@ -1,1 +1,3 @@
-export { Servers as default } from "../../";
+import { Servers } from "../../";
+
+export = Servers;

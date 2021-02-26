@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 16.3
+// Type definitions for non-npm package frida-gum 16.4
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -2975,7 +2975,8 @@ declare class DebugSymbol {
 }
 
 /**
- * Compiles C source code to machine code, straight to memory.
+ * Compiles C source code to machine code, straight to memory. May also be
+ * constructed from a precompiled shared library.
  *
  * Useful for implementing hot callbacks, e.g. for `Interceptor` and `Stalker`,
  * but also useful when needing to start new threads in order to call functions
@@ -2985,9 +2986,11 @@ declare class DebugSymbol {
  * named exactly like in the C source code. This means you can pass them to
  * `Interceptor` and `Stalker`, or call them using `NativeFunction`.
  *
- * Symbols can also be plugged in at creation, e.g. memory allocated using
- * `Memory.alloc()`, or `NativeCallback` for receiving callbacks from the C
- * module.
+ * In addition to accessing a curated subset of Gum, GLib, and standard C APIs,
+ * the code being mapped in can also communicate with JavaScript through the
+ * symbols exposed to it. These can be plugged in at creation, e.g. to share
+ * memory allocated using `Memory.alloc()`, or `NativeCallback` values for
+ * receiving callbacks from the C module.
  *
  * To perform initialization and cleanup, you may define functions with the
  * following names and signatures:
@@ -3001,13 +3004,16 @@ declare class DebugSymbol {
  */
 declare class CModule {
   /**
-   * Creates a new C module by compiling the provided C source code to machine
-   * code, straight to memory.
+   * Creates a new C module from the provided `code`.
    *
-   * @param source C source code to compile.
+   * @param code C source code to compile, or a precompiled shared library.
    * @param symbols Symbols to expose to the C module. Declare them as `extern`.
+   *    This may for example be one or more memory blocks allocated using
+   *     `Memory.alloc()`, and/or `NativeCallback` values for receiving
+   *     callbacks from the C module.
+   * @param options Options for customizing the construction.
    */
-  constructor(source: string, symbols?: CSymbols);
+  constructor(code: string | ArrayBuffer, symbols?: CSymbols, options?: CModuleOptions);
 
   /**
    * Eagerly unmaps the module from memory. Useful for short-lived modules
@@ -3016,10 +3022,62 @@ declare class CModule {
   dispose(): void;
 
   readonly [name: string]: any;
+
+  static builtins: CModuleBuiltins;
 }
+
+interface CModuleOptions {
+    toolchain?: CModuleToolchain;
+}
+
+/**
+ * Toolchain to use when constructing a CModule from C source code.
+ *
+ * `internal`: Use TinyCC, which is statically linked into the runtime.
+ *     Never touches the filesystem and works even in sandboxed processes.
+ *     The generated code is however not optimized, as TinyCC optimizes for
+ *     small compiler footprint and short compilation times.
+ * `external`: Use toolchain provided by the target system, assuming it is
+ *     accessible to the process we're executing inside.
+ * `any`: Same as `internal` if `Process.arch` is supported by TinyCC, and
+ *     `external` otherwise.
+ */
+type CModuleToolchain = "any" | "internal" | "external";
 
 interface CSymbols {
     [name: string]: NativePointerValue;
+}
+
+/**
+ * Builtins present when constructing a CModule from C source code.
+ *
+ * This is typically used by a scaffolding tool such as `frida-create` in order
+ * to set up a build environment that matches what CModule uses.
+ */
+interface CModuleBuiltins {
+    defines: CModuleDefines;
+    headers: CModuleHeaders;
+}
+
+/**
+ * Preprocessor defines present when constructing a CModule from C source code.
+ *
+ * The mapping to GCC-style command-line arguments depends on the type of the value:
+ * `string`: `-Dname=value`
+ * `true`: `-Dname`
+ */
+interface CModuleDefines {
+    readonly [name: string]: string | true;
+}
+
+/**
+ * C headers present when constructing a CModule from C source code.
+ *
+ * The `name` is a relative filesystem path, and the value is the contents of
+ * the header.
+ */
+interface CModuleHeaders {
+    readonly [name: string]: string;
 }
 
 declare class Instruction {

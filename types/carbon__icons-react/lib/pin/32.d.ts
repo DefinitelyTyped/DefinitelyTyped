@@ -1,1 +1,3 @@
-export { Pin32 as default } from "../../";
+import { Pin32 } from "../../";
+
+export = Pin32;

@@ -1,1 +1,3 @@
-export { SystemsDevopsRelease as default } from "../../";
+import { SystemsDevopsRelease } from "../../";
+
+export = SystemsDevopsRelease;

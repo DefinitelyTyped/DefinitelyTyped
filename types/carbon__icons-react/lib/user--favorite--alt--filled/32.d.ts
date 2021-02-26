@@ -1,1 +1,3 @@
-export { UserFavoriteAltFilled32 as default } from "../../";
+import { UserFavoriteAltFilled32 } from "../../";
+
+export = UserFavoriteAltFilled32;

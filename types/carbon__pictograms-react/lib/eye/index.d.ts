@@ -1,1 +1,3 @@
-export { Eye as default } from "../../";
+import { Eye } from "../../";
+
+export = Eye;

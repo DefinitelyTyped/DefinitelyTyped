@@ -1,5 +1,14 @@
-import { createContext, isContext, Script, runInNewContext, runInThisContext, compileFunction, measureMemory, MemoryMeasurement } from 'vm';
-import { inspect } from 'util';
+import {
+    createContext,
+    isContext,
+    Script,
+    runInNewContext,
+    runInThisContext,
+    compileFunction,
+    measureMemory,
+    MemoryMeasurement,
+} from 'node:vm';
+import { inspect } from 'node:util';
 
 {
     const sandbox = {
@@ -74,4 +83,9 @@ import { inspect } from 'util';
       { },
       { timeout: 5, microtaskMode: 'afterEvaluate' }
     );
+}
+
+{
+    const script = new Script('foo()', { cachedData: Buffer.from([]) });
+    console.log(script.cachedDataRejected);
 }

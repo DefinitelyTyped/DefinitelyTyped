@@ -1,1 +1,3 @@
-export { PenFountain16 as default } from "../../";
+import { PenFountain16 } from "../../";
+
+export = PenFountain16;

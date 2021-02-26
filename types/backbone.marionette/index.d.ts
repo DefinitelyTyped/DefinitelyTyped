@@ -1010,7 +1010,7 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
      * Overrides Backbone.View.delegateEvents. By default Marionette uses
      * this to add handlers for events and triggers. (undocumented)
      */
-    delegateEvents(eventsArg: any): View<TModel>;
+    delegateEvents(eventsArg: any): this;
 
     /**
      * Get the triggers that are currently attached to this view.
@@ -1144,14 +1144,14 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
      * setElement to handle if an element was previously defined.
      * (undocumented)
      */
-    setElement(element: any): View<TModel>;
+    setElement(element: any): this;
 
     /**
      * Renders the view. Given a template this method will build your HTML
      * from that template, mixing in model information and any extra
      * template context.
      */
-    render(): View<TModel>;
+    render(): this;
 
     /**
      * Used to determine which template to use. Override this method to add
@@ -1404,7 +1404,7 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
      * the entire collection. It loops through each of the children in the
      * collection and renders them individually as an childView.
      */
-    render(): CollectionView<TModel, TView, TCollection>;
+    render(): this;
 
     /**
      * This method is used move the HTML from the element buffer into the

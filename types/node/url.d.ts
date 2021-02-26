@@ -1,5 +1,9 @@
-declare module "url" {
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
+declare module 'node:url' {
+    export * from 'url';
+}
+
+declare module 'url' {
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
 
     // Input to `url.format`
     interface UrlObject {

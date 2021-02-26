@@ -1,1 +1,3 @@
-export { Undefined16 as default } from "../../";
+import { Undefined16 } from "../../";
+
+export = Undefined16;

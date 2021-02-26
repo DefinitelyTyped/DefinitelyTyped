@@ -1,1 +1,3 @@
-export { Transpose24 as default } from "../../";
+import { Transpose24 } from "../../";
+
+export = Transpose24;

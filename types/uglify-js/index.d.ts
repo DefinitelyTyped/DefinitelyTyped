@@ -1,4 +1,4 @@
-// Type definitions for UglifyJS 3.11
+// Type definitions for UglifyJS 3.12
 // Project: https://github.com/mishoo/UglifyJS
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
@@ -240,6 +240,11 @@ export interface CompressOptions {
      * @default true
      */
     switches?: boolean;
+    /**
+     * Compact template literals by embedding expressions and/or converting to string literals, e.g. `foo ${42}` → "foo 42"
+     * @default true
+     */
+    templates?: boolean;
     /**
      * Drop unreferenced functions ("funcs") and/or variables ("vars") in the top level scope (false by default,
      * true to drop both unreferenced functions and variables)

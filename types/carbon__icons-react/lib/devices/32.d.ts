@@ -1,1 +1,3 @@
-export { Devices32 as default } from "../../";
+import { Devices32 } from "../../";
+
+export = Devices32;

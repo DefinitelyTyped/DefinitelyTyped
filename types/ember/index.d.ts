@@ -525,7 +525,8 @@ export namespace Ember {
      * internals encounter an error. This is useful for specialized error handling
      * and reporting code.
      */
-    function onerror(error: Error): void;
+    let onerror: ((error: Error) => void) | undefined;
+
     /**
      * The semantic version
      */

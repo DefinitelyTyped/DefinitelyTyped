@@ -1,1 +1,3 @@
-export { AccumulationIce32 as default } from "../../";
+import { AccumulationIce32 } from "../../";
+
+export = AccumulationIce32;

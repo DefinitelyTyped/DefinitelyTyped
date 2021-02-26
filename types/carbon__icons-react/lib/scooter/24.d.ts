@@ -1,1 +1,3 @@
-export { Scooter24 as default } from "../../";
+import { Scooter24 } from "../../";
+
+export = Scooter24;

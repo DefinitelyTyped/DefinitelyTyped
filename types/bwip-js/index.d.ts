@@ -1,4 +1,4 @@
-// Type definitions for bwip-js  2.0.10
+// Type definitions for bwip-js  2.0.11
 // Project: https://github.com/metafloor/bwip-js
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 //                 Guillaume VanderEst <https://github.com/gvanderest>
@@ -18,7 +18,7 @@ declare namespace BwipJs {
         text: string;
 
         parse?: boolean;
-        parsefunc?: boolean;
+        parsefnc?: boolean;
 
         height?: number;
         width?: number;

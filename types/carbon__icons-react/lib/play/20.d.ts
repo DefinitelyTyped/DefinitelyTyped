@@ -1,1 +1,3 @@
-export { Play20 as default } from "../../";
+import { Play20 } from "../../";
+
+export = Play20;

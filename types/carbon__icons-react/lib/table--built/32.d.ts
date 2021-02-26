@@ -1,1 +1,3 @@
-export { TableBuilt32 as default } from "../../";
+import { TableBuilt32 } from "../../";
+
+export = TableBuilt32;

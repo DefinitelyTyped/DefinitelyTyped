@@ -1,1 +1,3 @@
-export { LogoGlassdoor16 as default } from "../../";
+import { LogoGlassdoor16 } from "../../";
+
+export = LogoGlassdoor16;

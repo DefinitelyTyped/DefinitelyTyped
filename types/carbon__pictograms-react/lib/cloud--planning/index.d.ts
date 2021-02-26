@@ -1,1 +1,3 @@
-export { CloudPlanning as default } from "../../";
+import { CloudPlanning } from "../../";
+
+export = CloudPlanning;

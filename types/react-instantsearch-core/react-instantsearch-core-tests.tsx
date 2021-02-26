@@ -26,6 +26,8 @@ import {
   ConnectorSearchResults,
   BasicDoc,
   AllSearchResults,
+  connectStats,
+  StatsProvided
 } from 'react-instantsearch-core';
 
 () => {
@@ -625,4 +627,14 @@ import {
   });
 
   const asConnectStateResults: typeof connectStateResults = csr;
+};
+
+() => {
+  const TotalHits = ({ nbHits }: StatsProvided) => {
+      return <span>Your search returned {nbHits} results.</span>;
+  };
+
+  const ConnectedTotalHits = connectStats(TotalHits);
+
+  <ConnectedTotalHits />;
 };

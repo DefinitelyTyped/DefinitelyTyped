@@ -1,1 +1,3 @@
-export { WatsonHealthAutoScroll24 as default } from "../../../";
+import { WatsonHealthAutoScroll24 } from "../../../";
+
+export = WatsonHealthAutoScroll24;

@@ -1,1 +1,3 @@
-export { FireExtinguisher as default } from "../../";
+import { FireExtinguisher } from "../../";
+
+export = FireExtinguisher;

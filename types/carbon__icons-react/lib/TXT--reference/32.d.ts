@@ -1,1 +1,3 @@
-export { TxtReference32 as default } from "../../";
+import { TxtReference32 } from "../../";
+
+export = TxtReference32;

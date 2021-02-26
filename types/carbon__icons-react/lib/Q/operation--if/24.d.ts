@@ -1,1 +1,3 @@
-export { QOperationIf24 as default } from "../../../";
+import { QOperationIf24 } from "../../../";
+
+export = QOperationIf24;

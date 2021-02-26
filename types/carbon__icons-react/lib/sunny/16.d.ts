@@ -1,1 +1,3 @@
-export { Sunny16 as default } from "../../";
+import { Sunny16 } from "../../";
+
+export = Sunny16;

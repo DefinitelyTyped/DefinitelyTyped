@@ -1,1 +1,3 @@
-export { TimePlot16 as default } from "../../";
+import { TimePlot16 } from "../../";
+
+export = TimePlot16;

@@ -1,1 +1,3 @@
-export { Column24 as default } from "../../";
+import { Column24 } from "../../";
+
+export = Column24;

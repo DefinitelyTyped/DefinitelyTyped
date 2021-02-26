@@ -1,1 +1,3 @@
-export { ShapeExclude32 as default } from "../../";
+import { ShapeExclude32 } from "../../";
+
+export = ShapeExclude32;

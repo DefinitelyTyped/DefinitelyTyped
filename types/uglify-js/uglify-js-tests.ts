@@ -62,6 +62,7 @@ const compressOptions: CompressOptions = {
     merge_vars: true,
     negate_iife: true,
     side_effects: true,
+    templates: false,
     unused: true,
     varify: true,
 };

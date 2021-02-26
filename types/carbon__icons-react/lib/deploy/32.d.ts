@@ -1,1 +1,3 @@
-export { Deploy32 as default } from "../../";
+import { Deploy32 } from "../../";
+
+export = Deploy32;

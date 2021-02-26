@@ -1319,6 +1319,7 @@ declare namespace echarts {
                  */
                 context?: CONTEXT;
 
+
                 /**
                  * The id of this series.
                  */

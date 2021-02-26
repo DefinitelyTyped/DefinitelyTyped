@@ -77,6 +77,11 @@ console.log(textRenderer.strong(text));
 
 const parseTestText = '- list1\n  - list1.1\n\n listend';
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
+
+/* List type is `list`. */
+const listToken = parseTestTokens[0] as marked.Tokens.List;
+console.log(listToken.type === 'list');
+
 const parser = new marked.Parser();
 console.log(parser.parse(parseTestTokens));
 console.log(marked.Parser.parse(parseTestTokens));

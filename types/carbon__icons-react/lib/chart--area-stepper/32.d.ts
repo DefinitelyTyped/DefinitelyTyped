@@ -1,1 +1,3 @@
-export { ChartAreaStepper32 as default } from "../../";
+import { ChartAreaStepper32 } from "../../";
+
+export = ChartAreaStepper32;

@@ -1,10 +1,9 @@
 /// <reference path="sharedb.d.ts" />
-import * as WS from 'ws';
 import * as ShareDB from './sharedb';
 import Agent = require('./agent');
 
 export class Connection {
-    constructor(ws: WebSocket | WS);
+    constructor(ws: ShareDB.Socket);
 
     // This direct reference from connection to agent is not used internal to
     // ShareDB, but it is handy for server-side only user code that may cache

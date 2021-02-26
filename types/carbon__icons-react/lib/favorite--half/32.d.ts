@@ -1,1 +1,3 @@
-export { FavoriteHalf32 as default } from "../../";
+import { FavoriteHalf32 } from "../../";
+
+export = FavoriteHalf32;

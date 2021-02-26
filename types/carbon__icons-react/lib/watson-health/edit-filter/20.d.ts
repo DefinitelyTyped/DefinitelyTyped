@@ -1,1 +1,3 @@
-export { WatsonHealthEditFilter20 as default } from "../../../";
+import { WatsonHealthEditFilter20 } from "../../../";
+
+export = WatsonHealthEditFilter20;
