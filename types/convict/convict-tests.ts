@@ -93,14 +93,6 @@ const conf = convict({
             sensitive: true,
         },
     },
-    primeNumber: {
-        format: 'prime',
-        default: 17,
-    },
-    percentNumber: {
-        format: 'float-percent',
-        default: 0.5,
-    },
 });
 
 // load environment dependent configuration
@@ -114,8 +106,13 @@ const env = conf.get('env');
 conf.loadFile(`./config/${env}.json`);
 conf.loadFile(['./configs/always.json', './configs/sometimes.json']);
 
+// Test loaded config.
+
+// @ts-expect-error Trying to access no existing property
+conf.get('primeNumber');
 // tslint:disable-next-line:no-invalid-template-strings
-conf.loadFile<LoadType>('./config/${env}.yaml');
+const newConf = conf.loadFile<LoadType>('./config/${env}.yaml');
+newConf.get('primeNumber');
 
 // perform validation
 
@@ -151,13 +148,13 @@ const schema = conf.getSchema();
 const schemaVal = conf.getSchema().properties.db.properties.port.default;
 
 conf.get();
+
 // @ts-expect-error Trying to access no existing property
 conf.get('unknownkey');
+
 conf.get('db');
 conf.get('db.ip');
-conf.get('db.ip');
 conf.default('env');
-conf.default('db.ip');
 conf.default('db.ip');
 conf.getSchema();
 conf.getProperties();
