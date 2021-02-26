@@ -23,6 +23,8 @@ declare class Toast extends BaseComponent {
      */
     static getInstance(element: Element, options?: Partial<Toast.Options>): Toast;
 
+    static jQueryInterface: Toast.jQueryInterface;
+
     // static NAME: 'toast';
 
     /**
@@ -30,7 +32,7 @@ declare class Toast extends BaseComponent {
      *
      * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
-    static Default: Record<string, any>;
+    static Default: Toast.Options;
 }
 
 declare namespace Toast {
