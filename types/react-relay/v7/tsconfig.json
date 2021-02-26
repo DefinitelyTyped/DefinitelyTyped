@@ -9,18 +9,20 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react",
+        "paths": {
+            "react-relay/*": [ "react-relay/v7/*" ],
+            "react-relay": [ "react-relay/v7" ]
+        }
     },
     "files": [
-        "index.d.ts",
-        "test/react-relay-tests.tsx",
-        "test/relay-experimental-tests.tsx"
+        "index.d.ts"
     ]
 }
