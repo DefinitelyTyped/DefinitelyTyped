@@ -81,6 +81,23 @@ declare namespace jsrsasign {
         getIssuerString(): string;
 
         /**
+         * get JSON object of subject field<br/>
+         * @name getSubject
+         * @memberOf X509#
+         * @function
+         * @return {Array} JSON object of subject field
+         * @since jsrsasign 9.0.0 x509 2.0.0
+         * @see X509#getX500Name
+         * @description
+         * @example
+         * var x = new X509(sCertPEM);
+         * x.getSubject() &rarr;
+         * { array: [[{type:'C',value:'JP',ds:'prn'}],...],
+         *   str: "/C=JP/..." }
+         */
+        getSubject(): { array: { type: string; value: string; ds: string }[][]; str: string };
+
+        /**
          * get hexadecimal string of subject field of certificate.
          * @return hexadecial string of subject DN ASN.1
          * @example
@@ -296,18 +313,41 @@ declare namespace jsrsasign {
         getExtKeyUsageString(): string;
 
         /**
-         * get subjectKeyIdentifier value as hexadecimal string in the certificate
-         * @return hexadecimal string of subject key identifier or null
+         * get subjectKeyIdentifier value as hexadecimal string in the certificate<br/>
+         * @name getExtSubjectKeyIdentifier
+         * @memberOf X509#
+         * @function
+         * @param {String} hExtV hexadecimal string of extension value (OPTIONAL)
+         * @param {Boolean} critical flag (OPTIONAL)
+         * @return {Array} JSON object of SubjectKeyIdentifier parameter or undefined
+         * @since jsrsasign 7.2.0 x509 1.1.14
          * @description
-         * This method will get subject key identifier extension value
-         * as hexadecimal string.
-         * If there is this in the certificate, it returns undefined;
+         * This method will get
+         * <a href="https://tools.ietf.org/html/rfc5280#section-4.2.1.2">
+         * SubjectKeyIdentifier extension</a> value as JSON object.
+         * <br>
+         * When hExtV and critical specified as arguments, return value
+         * will be generated from them.
+         * If there is no such extension in the certificate, it returns undefined.
+         * <br>
+         * Result of this method can be passed to
+         * {@link KJUR.asn1.x509.SubjectKeyIdentifier} constructor.
+         * <pre>
+         * id-ce-subjectKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 14 }
+         * SubjectKeyIdentifier ::= KeyIdentifier
+         * </pre>
+         * <br>
+         * CAUTION:
+         * Returned JSON value format have been changed without
+         * backward compatibility since jsrsasign 9.0.0 x509 2.0.0.
+         *
          * @example
          * x = new X509();
          * x.readCertPEM(sCertPEM); // parseExt() will also be called internally.
-         * x.getExtSubjectKeyIdentifier() → "1b3347ab...";
+         * x.getExtSubjectKeyIdentifier() &rarr;
+         * { kid: {hex: "1b3347ab..."}, critical: true };
          */
-        getExtSubjectKeyIdentifier(): string;
+        getExtSubjectKeyIdentifier(): { kid: { hex: string } | string; critical: boolean };
 
         /**
          * get authorityKeyIdentifier value as JSON object in the certificate

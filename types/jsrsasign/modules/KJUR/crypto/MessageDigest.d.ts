@@ -91,7 +91,7 @@ declare namespace jsrsasign.KJUR.crypto {
          * @example
          * md.digest()
          */
-        digest(): void;
+        digest(): string;
 
         /**
          * performs final update on the digest using string, then completes the digest computation
