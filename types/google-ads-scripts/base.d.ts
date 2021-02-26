@@ -50,6 +50,8 @@ declare namespace GoogleAdsScripts {
             isSuccessful(): boolean;
         }
 
+        type DateRangeType = `${DateRange}`;
+
         enum DateRange {
             Today = 'TODAY',
             Yesterday = 'YESTERDAY',
