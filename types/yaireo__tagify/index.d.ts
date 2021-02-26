@@ -188,12 +188,12 @@ declare namespace Tagify {
             accentedSearch?: boolean;
             /**
              * - `manual` - will not render the dropdown, and you would need to do it yourself.
-             * - `text` - will place the dropdown next to the caret
-             * - `input` - will place the dropdown next to the input
+             * - `text` - places the dropdown next to the caret
+             * - `input` - places the dropdown next to the input
              * - `all` - normal, full-width design
-             * @default null
+             * @default 'all'
              */
-            position?: 'manual' | 'text' | 'input' | 'all' | null;
+            position?: 'manual' | 'text' | 'input' | 'all';
             /**
              * When a suggestions list is shown, highlight the first item,
              * and also suggest it in the input (The suggestion can be accepted with → key).
@@ -226,6 +226,14 @@ declare namespace Tagify {
              * Target node which the suggestions dropdown is appended to (only when rendered).
              */
             appendTarget?: HTMLElement;
+            /**
+             * If defined, will force the placement of the dropdown in respect to the Boolean value:
+             * `true` will always show the suggestions dropdown above the input field and
+             * `false` will always show it below. By default this setting is not defined and the
+             * placement of the dropdown is automatically decided according to the space available,
+             * where opening it *below* the input is preferred.
+             */
+            placeAbove?: boolean;
         };
     }
 
