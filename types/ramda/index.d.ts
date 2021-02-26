@@ -745,8 +745,8 @@ export function identity<T>(a: T): T;
  * Creates a function that will process either the onTrue or the onFalse function depending upon the result
  * of the condition predicate.
  */
-export function ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
-export function ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
+export function ifElse<K, T, U>(fn: (a: K) => boolean, onTrue: (a: K) => T, onFalse: (a: K) => U): (a: K) => T | U
+export function ifElse<K, L, T, U>(fn: (a: K, b: L) => boolean, onTrue: (a: K, b: L) => T, onFalse: (a: K, b: L) => U): (a: K, b: L) => T | U;
 
 /**
  * Increments its argument.
