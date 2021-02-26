@@ -357,7 +357,7 @@ declare class Tagify {
     /**
      * Return a specific tag DOM node by value.
      */
-    getTagElmByValue(value: string): HTMLElement;
+    getTagElmByValue(value: string): HTMLElement | undefined;
 
     /**
      * Return the indices of tags by value.
