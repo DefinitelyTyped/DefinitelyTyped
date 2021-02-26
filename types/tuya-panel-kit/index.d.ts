@@ -1860,23 +1860,27 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 图片资源
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description image source
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     imageSource?: object | number;
     /**
      * @language zh-CN
      * @description 图片样式
+     * @addVersion 4.3.0
      * @defaultValue undefined
      * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      */
     /**
      * @language en-US
      * @description image style
+     * @addVersion 4.3.0
      * @defaultValue undefined
      * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      */
@@ -1884,22 +1888,26 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 图标路径
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description icon path
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     iconPath?: string;
     /**
      * @language zh-CN
      * @description 图标尺寸
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description icon size
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     iconSize?: number;
@@ -6135,6 +6143,19 @@ export interface SliderProps {
         touchArea?: StyleProp<ViewStyle>;
         debugThumbTouchArea?: StyleProp<ViewStyle>;
     };
+    /**
+     * @language zh-CN
+     * @description 滑块的类型，parcel：包裹类型
+     * @addVersion 4.4.0
+     * @defaultValue normal
+     */
+    /**
+     * @language en-US
+     * @description The type of slider, parcel: package type
+     * * @addVersion 4.4.0
+     * @defaultValue normal
+     */
+    type?: 'normal' | 'parcel';
 }
 export class Slider extends React.Component<SliderProps> {
     static Horizontal: React.ElementType<SliderProps>;
