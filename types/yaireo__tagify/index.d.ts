@@ -295,7 +295,7 @@ declare class Tagify {
     /**
      * Removes all tags and resets the original input tag's value property.
      */
-    removeAllTags(): void;
+    removeAllTags(opts?: { withoutChangeEvent: boolean }): void;
 
     /**
      * Parse and add tags.
