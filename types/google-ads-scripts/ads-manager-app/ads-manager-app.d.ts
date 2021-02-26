@@ -32,6 +32,8 @@ declare namespace GoogleAdsScripts {
         TimeOut = 'TIMEOUT',
     }
 
+    type ExecutionResultStatusType = `${ExecutionResultStatus}`;
+
     interface ExecutionResult {
         /** Returns the customer ID of the account. */
         getCustomerId(): string;
@@ -40,7 +42,7 @@ declare namespace GoogleAdsScripts {
         /** Returns null if no value was returned by the function that executed on the account. */
         getReturnValue(): string;
         /** Returns the status of the execution.. */
-        getStatus(): ExecutionResultStatus;
+        getStatus(): ExecutionResultStatusType;
     }
 }
 
