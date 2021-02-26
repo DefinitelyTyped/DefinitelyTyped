@@ -3,6 +3,9 @@
 // Definitions by: JJPell <https://github.com/JJPell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./google-ads-date.d.ts" />
+/// <reference path="./stats.d.ts" />
+
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Miscellaneous information about Google Ads Accounts. When accessed by `AdsApp.currentAccount()`, it will provide information about the account in which the script is currently running. */
@@ -30,7 +33,7 @@ declare namespace GoogleAdsScripts {
             /** Returns stats for the specified date range. */
             getStatsFor(dateRange: Base.DateRange): Stats;
             /** Returns stats for the specified date range. */
-            getStatsFor(dateFrom: string | Base.GoogleAdsDate, dateTo: string | Base.GoogleAdsDate): Stats;
+            getStatsFor(dateFrom: string | GoogleAdsDate, dateTo: string | GoogleAdsDate): Stats;
             /** Returns the POSIX time zone of the account. */
             getTimeZone(): string; // TODO: Add Timezone Enum
             /** Removes a callout extension from this account. */
