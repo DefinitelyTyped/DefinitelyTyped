@@ -7,20 +7,20 @@
 /// <reference path="./callout.d.ts" />
 
 declare namespace GoogleAdsScripts {
-  // TODO: Add doc comments
-  namespace AdsApp {
-      interface AdGroupCallout extends Callout {
-          getBaseCampaign(): Campaign;
-          getCampaign(): Campaign;
-      }
+    // TODO: Add doc comments
+    namespace AdsApp {
+        interface CampaignCallout extends Callout {
+            getBaseCampaign(): Campaign;
+            getCampaign(): Campaign;
+        }
 
-      interface AdGroupCalloutIterator extends Base.Iterator<AccountCallout> {}
+        interface CampaignCalloutIterator extends Base.Iterator<CampaignCallout> {}
 
-      interface AdGroupCalloutSelector
-          extends Base.Selector<CalloutIterator>,
-              Base.SelectorForDateRange,
-              Base.SelectorOrderBy,
-              Base.SelectorWithCondition,
-              Base.SelectorWithLimit {}
-  }
+        interface CampaignCalloutSelector
+            extends Base.Selector<CampaignCalloutIterator>,
+                Base.SelectorForDateRange,
+                Base.SelectorOrderBy,
+                Base.SelectorWithCondition,
+                Base.SelectorWithLimit {}
+    }
 }
