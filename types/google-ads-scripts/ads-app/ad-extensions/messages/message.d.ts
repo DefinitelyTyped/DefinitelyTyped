@@ -52,12 +52,12 @@ declare namespace GoogleAdsScripts {
             withStartDate(date: string | GoogleAdsDate): this;
         }
 
-        interface MessageIterator extends Base.Iterator<Callout> {}
+        interface MessageIterator extends Base.Iterator<Message> {}
 
-        interface MessageOperation extends Base.Operation<Callout> {}
+        interface MessageOperation extends Base.Operation<Message> {}
 
         interface MessageSelector
-            extends Base.Selector<CalloutIterator>,
+            extends Base.Selector<MessageIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
