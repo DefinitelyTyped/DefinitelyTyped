@@ -1,4 +1,4 @@
-// Type definitions for arcgis-to-geojson-utils 1.0
+// Type definitions for arcgis-to-geojson-utils 1.3.0
 // Project: https://github.com/Esri/arcgis-to-geojson-utils
 // Definitions by: Jeff Jacobson <https://github.com/JeffJacobson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,9 +11,9 @@ import * as ArcGis from "arcgis-rest-api";
 /**
  * Converts an ArcGIS geometry into a GeoJSON geometry.
  */
-export function arcgisToGeoJSON<T extends ArcGis.Geometry>(arcgis: T): GeoJSON.GeometryObject;
+export function arcgisToGeoJSON<T extends ArcGis.Geometry>(arcgis: T): GeoJSON.GeoJSON;
 
 /**
  * Converts a GeoJSON geometry into a ArcGIS geometry.
  */
-export function geojsonToArcGIS(geojson: GeoJSON.GeometryObject): ArcGis.Geometry;
+export function geojsonToArcGIS(geojson: GeoJSON.GeoJSON): ArcGis.Geometry;
