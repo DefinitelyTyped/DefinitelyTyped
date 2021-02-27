@@ -39,6 +39,7 @@ import { ContextMenuManager } from "./src/context-menu-manager";
 import { DeserializerManager } from "./src/deserializer-manager";
 import { Directory } from "./dependencies/pathwatcher";
 import { GitRepository } from "./src/git-repository";
+import { HistoryManager } from "./src/history-manager";
 
 declare global {
     const atom: AtomEnvironment;
@@ -380,6 +381,8 @@ export * from "./src/dock";
 
 export * from "./src/git-repository";
 
+export * from "./src/history-manager";
+
 // Extended Classes ===========================================================
 
 /** Grammar that tokenizes lines of text. */
@@ -570,26 +573,6 @@ export interface GrammarRegistry {
      *  @param contents A string of text for that file path.
      */
     getGrammarScore(grammar: Grammar, filePath: string, contents: string): number;
-}
-
-/**
- *  History manager for remembering which projects have been opened.
- *  An instance of this class is always available as the atom.history global.
- *  The project history is used to enable the 'Reopen Project' menu.
- */
-export interface HistoryManager {
-    /** Obtain a list of previously opened projects. */
-    getProjects(): ProjectHistory[];
-
-    /**
-     *  Clear all projects from the history.
-     *  Note: This is not a privacy function - other traces will still exist, e.g.
-     *  window state.
-     */
-    clearProjects(): void;
-
-    /** Invoke the given callback when the list of projects changes. */
-    onDidChangeProjects(callback: (args: { reloaded: boolean }) => void): Disposable;
 }
 
 /**
@@ -2073,11 +2056,6 @@ export interface KeyBinding {
      *  Returns >= 1 if the argument is considered greater or of higher priority.
      */
     compare(other: KeyBinding): number;
-}
-
-export interface ProjectHistory {
-    paths: string[];
-    lastOpened: Date;
 }
 
 export interface ProjectSpecification {
