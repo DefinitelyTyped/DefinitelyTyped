@@ -16,6 +16,8 @@ declare class Tab extends BaseComponent {
      */
     static getInstance(element: Element): Tab;
 
+    static jQueryInterface: Tab.jQueryInterface;
+
     // static NAME: 'tab';
 }
 

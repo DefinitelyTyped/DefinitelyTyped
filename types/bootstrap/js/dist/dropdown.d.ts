@@ -30,6 +30,8 @@ declare class Dropdown extends BaseComponent {
      */
     static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown;
 
+    static jQueryInterface: Dropdown.jQueryInterface;
+
     // static NAME: 'dropdown';
 
     /**
@@ -37,7 +39,7 @@ declare class Dropdown extends BaseComponent {
      *
      * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
-    static Default: Record<string, any>;
+    static Default: Dropdown.Options;
 }
 
 declare namespace Dropdown {

@@ -14,6 +14,8 @@ declare class Alert extends BaseComponent {
      */
     static getInstance(element: Element): Alert;
 
+    static jQueryInterface: Alert.jQueryInterface;
+
     // static NAME: 'alert';
 }
 

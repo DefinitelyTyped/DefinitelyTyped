@@ -11,6 +11,8 @@ declare class Button extends BaseComponent {
      */
     dispose(): void;
 
+    static jQueryInterface: Button.jQueryInterface;
+
     // static NAME: 'button';
 }
 

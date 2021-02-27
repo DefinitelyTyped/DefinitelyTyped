@@ -38,6 +38,8 @@ declare class Carousel extends BaseComponent {
      */
     static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel;
 
+    static jQueryInterface: Carousel.jQueryInterface;
+
     // static NAME: 'carousel';
 
     /**
@@ -45,7 +47,7 @@ declare class Carousel extends BaseComponent {
      *
      * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
-    static Default: Record<string, any>;
+    static Default: Carousel.Options;
 }
 
 declare namespace Carousel {
