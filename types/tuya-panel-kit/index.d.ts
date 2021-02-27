@@ -4281,7 +4281,7 @@ export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 
 }
 export interface PopupNumberSelectorProps
     extends Omit<PopupProps, 'onLayout' | 'animationType'>,
-        Omit<SliderProps, 'theme'> {
+        Omit<SliderProps, 'theme' | 'type'> {
     /**
      * @language zh-CN
      * @description numberSelector弹框样式
@@ -6152,7 +6152,7 @@ export interface SliderProps {
     /**
      * @language en-US
      * @description The type of slider, parcel: package type
-     * * @addVersion 4.4.0
+     * @addVersion 4.4.0
      * @defaultValue normal
      */
     type?: 'normal' | 'parcel';
