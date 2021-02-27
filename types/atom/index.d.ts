@@ -41,6 +41,7 @@ import { Directory } from "./dependencies/pathwatcher";
 import { GitRepository } from "./src/git-repository";
 import { HistoryManager } from "./src/history-manager";
 import { KeymapManager } from "./src/keymap-extensions";
+import { Package } from "./src/package";
 
 declare global {
     const atom: AtomEnvironment;
@@ -386,6 +387,8 @@ export * from "./src/history-manager";
 
 export * from "./src/keymap-extensions";
 
+export * from "./src/package";
+
 // Extended Classes ===========================================================
 
 /** Grammar that tokenizes lines of text. */
@@ -585,38 +588,6 @@ export interface MenuManager {
 
     /** Refreshes the currently visible menu. */
     update(): void;
-}
-
-/**
- *  Loads and activates a package's main module and resources such as stylesheets,
- *  keymaps, grammar, editor properties, and menus.
- */
-export interface Package {
-    /** The name of the Package. */
-    readonly name: string;
-
-    /** The path to the Package on disk. */
-    readonly path: string;
-
-    // Event Subscription
-    /** Invoke the given callback when all packages have been activated. */
-    onDidDeactivate(callback: () => void): Disposable;
-
-    // Native Module Compatibility
-    /**
-     *  Are all native modules depended on by this package correctly compiled
-     *  against the current version of Atom?
-     */
-    isCompatible(): boolean;
-
-    /**
-     *  Rebuild native modules in this package's dependencies for the current
-     *  version of Atom.
-     */
-    rebuild(): Promise<{ code: number, stdout: string, stderr: string }>;
-
-    /** If a previous rebuild failed, get the contents of stderr. */
-    getBuildFailureOutput(): string|null;
 }
 
 /** Package manager for coordinating the lifecycle of Atom packages. */
