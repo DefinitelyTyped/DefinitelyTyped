@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../../../base.d.ts" />
-/// <reference path="./MobileApp.d.ts" />
+/// <reference path="./mobile-app.d.ts" />
 
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
