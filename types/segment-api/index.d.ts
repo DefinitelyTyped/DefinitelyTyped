@@ -4,9 +4,43 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-export interface Traits {
-  [key: string]: any;
+export interface Address {
+  city?: string;
+  country?: string;
+  postalCode?: string;
+  state?: string;
+  street?: string;
 }
+
+export type ISO8601Date = string;
+
+export interface Company {
+  name?: string;
+  id?: string|number;
+  industry?: string;
+  employee_count?: number;
+  plan?: string;
+}
+
+export interface Traits {
+  address?: Address;
+  age?: number;
+  avatar?: string;
+  birthday?: ISO8601Date;
+  company?: Company;
+  createdAt?: ISO8601Date;
+  description?: string;
+  email?: string;
+  firstName?: string;
+  gender?: string;
+  id?: string;
+  lastName?: string;
+  name?: string;
+  title?: string;
+  username?: string;
+  website?: string;
+}
+
 export interface Options {
   [key: string]: any;
 }
