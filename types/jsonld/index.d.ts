@@ -132,9 +132,7 @@ export function normalize(input: JsonLdDocument, options: Options.Normalize, cal
 export function normalize(input: JsonLdDocument, callback: Callback<string>): void;
 export function normalize(input: JsonLdDocument, options?: Options.Normalize): Promise<string>;
 
-export function canonize(input: JsonLdDocument, options: Options.Normalize, callback: Callback<string>): void;
-export function canonize(input: JsonLdDocument, callback: Callback<string>): void;
-export function canonize(input: JsonLdDocument, options?: Options.Normalize): Promise<string>;
+export const canonize: typeof normalize;
 
 export function fromRDF(dataset: RdfDataSet, options: Options.FromRdf, callback: Callback<JsonLdArray>): void;
 export function fromRDF(dataset: RdfDataSet, callback: Callback<JsonLdArray>): void;
