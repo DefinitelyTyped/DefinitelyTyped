@@ -16,7 +16,7 @@
 import { Config } from "./src/config";
 import { ConfigValues } from "./src/config-schema";
 import { CommandRegistry } from "./src/command-registry";
-import { Disposable, DisposableLike } from "./dependencies/event-kit";
+import { Disposable } from "./dependencies/event-kit";
 import {
     MarkerLayer,
     Point,
@@ -45,6 +45,7 @@ import { Package } from "./src/package";
 import { PackageManager } from "./src/package-manager";
 import { MenuManager } from "./src/menu-manager";
 import { Pane } from "./src/pane";
+import { PathWatcher } from "./src/path-watcher";
 
 declare global {
     const atom: AtomEnvironment;
@@ -400,6 +401,8 @@ export * from "./src/pane";
 
 export * from "./src/panel";
 
+export * from "./src/path-watcher";
+
 // Extended Classes ===========================================================
 
 /** Grammar that tokenizes lines of text. */
@@ -590,25 +593,6 @@ export interface GrammarRegistry {
      *  @param contents A string of text for that file path.
      */
     getGrammarScore(grammar: Grammar, filePath: string, contents: string): number;
-}
-
-/** Manage a subscription to filesystem events that occur beneath a root directory. */
-export interface PathWatcher extends DisposableLike {
-    /**
-     *  Return a Promise that will resolve when the underlying native watcher is
-     *  ready to begin sending events.
-     */
-    getStartPromise(): Promise<void>;
-
-    /** Invokes a function when any errors related to this watcher are reported. */
-    onDidError(callback: (error: Error) => void): Disposable;
-
-    /**
-     *  Unsubscribe all subscribers from filesystem events. Native resources will be
-     *  released asynchronously, but this watcher will stop broadcasting events
-     *  immediately.
-     */
-    dispose(): void;
 }
 
 /** Represents a project that's opened in Atom. */
