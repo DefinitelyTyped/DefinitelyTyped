@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../../../base.d.ts" />
+/// <reference path="../../common/google-ads-date.d.ts" />
 /// <reference path="../../common/stats.d.ts" />
+/// <reference path="../extension-schedule.d.ts" />
 
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
