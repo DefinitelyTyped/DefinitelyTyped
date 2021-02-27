@@ -39,7 +39,7 @@ declare namespace GoogleAdsScripts {
             urls(): MobileAppUrls;
         }
 
-        interface MobileAppBuilder extends Base.Builder<MessageOperation> {
+        interface MobileAppBuilder extends Base.Builder<MobileAppOperation> {
             withAppId(appId: string): this;
             withCustomParameters(customParameters: string): this;
             withEndDate(date: string | GoogleAdsDate): this;
