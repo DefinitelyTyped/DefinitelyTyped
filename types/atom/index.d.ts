@@ -43,6 +43,7 @@ import { HistoryManager } from "./src/history-manager";
 import { KeymapManager } from "./src/keymap-extensions";
 import { Package } from "./src/package";
 import { PackageManager } from "./src/package-manager";
+import { MenuManager } from "./src/menu-manager";
 
 declare global {
     const atom: AtomEnvironment;
@@ -374,6 +375,8 @@ export * from "./src/clipboard";
 
 export * from "./src/context-menu-manager";
 
+export * from "./src/menu-manager";
+
 export * from "./src/cursor";
 
 export * from "./src/deserializer-manager";
@@ -582,15 +585,6 @@ export interface GrammarRegistry {
      *  @param contents A string of text for that file path.
      */
     getGrammarScore(grammar: Grammar, filePath: string, contents: string): number;
-}
-
-/** Provides a registry for menu items that you'd like to appear in the application menu. */
-export interface MenuManager {
-    /** Adds the given items to the application menu. */
-    add(items: ReadonlyArray<MenuOptions>): Disposable;
-
-    /** Refreshes the currently visible menu. */
-    update(): void;
 }
 
 /** A container for presenting content in the center of the workspace. */
@@ -1573,17 +1567,6 @@ export interface HistoryTransactionOptions {
 export interface HistoryTraversalOptions {
     /** Restore snapshot of selections marker layer to given selectionsMarkerLayer. */
     selectionsMarkerLayer?: MarkerLayer;
-}
-
-export interface MenuOptions {
-    /** The menu itme's label. */
-    label: string;
-
-    /** An array of sub menus. */
-    submenu?: ReadonlyArray<MenuOptions>;
-
-    /** The command to trigger when the item is clicked. */
-    command?: string;
 }
 
 export interface ReadonlyEditOptions {
