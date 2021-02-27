@@ -1,4 +1,6 @@
-declare class Carousel {
+import BaseComponent from './base-component';
+
+declare class Carousel extends BaseComponent {
     constructor(element: Element, options?: Partial<Carousel.Options>);
 
     /**
@@ -31,15 +33,19 @@ declare class Carousel {
     nextWhenVisible(): void;
 
     /**
-     * Destroys an element's carousel.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the carousel instance associated
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel;
+
+    // static NAME: 'carousel';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Record<string, any>;
 }
 
 declare namespace Carousel {
@@ -106,6 +112,10 @@ declare namespace Carousel {
          */
         slid = 'slid.bs.carousel',
     }
+
+    type jQueryInterface = (
+        config?: Partial<Options> | number | 'cycle' | 'pause' | 'prev' | 'next' | 'nextWhenVisible' | 'dispose',
+    ) => void;
 }
 
 export default Carousel;

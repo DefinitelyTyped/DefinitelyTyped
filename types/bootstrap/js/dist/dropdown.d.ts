@@ -1,6 +1,7 @@
 import * as Popper from '@popperjs/core';
+import BaseComponent from './base-component';
 
-declare class Dropdown {
+declare class Dropdown extends BaseComponent {
     constructor(element: Element, options?: Partial<Dropdown.Options>);
 
     /**
@@ -24,15 +25,19 @@ declare class Dropdown {
     update(): void;
 
     /**
-     * Destroys an element's dropdown.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the dropdown instance associated
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown;
+
+    // static NAME: 'dropdown';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Record<string, any>;
 }
 
 declare namespace Dropdown {
@@ -108,6 +113,8 @@ declare namespace Dropdown {
          */
         popperConfig: Partial<Popper.Options> | null;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => void;
 }
 
 export default Dropdown;

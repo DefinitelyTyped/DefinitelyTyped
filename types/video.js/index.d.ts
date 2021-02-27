@@ -6071,7 +6071,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return The current value of autoplay when getting
      */
-    autoplay(value?: boolean | string): void;
+    autoplay(value: boolean | string): void;
 
     autoplay(): boolean | string;
 
@@ -6179,7 +6179,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return The current value of controls when getting
      */
-    controls(bool?: boolean): void;
+    controls(bool: boolean): void;
 
     controls(): boolean;
 
@@ -6549,7 +6549,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return The current value of loop when getting
      */
-    loop(value?: boolean): void;
+    loop(value: boolean): void;
 
     loop(): boolean;
 

@@ -1,6 +1,8 @@
 /// <reference types="jquery"/>
 
-declare class Collapse {
+import BaseComponent from './base-component';
+
+declare class Collapse extends BaseComponent {
     constructor(element: Element, options?: Partial<Collapse.Options>);
 
     /**
@@ -25,15 +27,19 @@ declare class Collapse {
     hide(): void;
 
     /**
-     * Destroys an element's collapse.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the collapse instance associated
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Collapse.Options>): Collapse;
+
+    // static NAME: 'collapse';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Record<string, any>;
 }
 
 declare namespace Collapse {
@@ -78,6 +84,8 @@ declare namespace Collapse {
          */
         toggle: boolean;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'toggle' | 'dispose') => void;
 }
 
 export default Collapse;

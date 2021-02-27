@@ -1,6 +1,7 @@
 import * as Popper from '@popperjs/core';
+import BaseComponent from './base-component';
 
-declare class Popover {
+declare class Popover extends BaseComponent {
     constructor(element: Element, options?: Partial<Popover.Options>);
 
     /**
@@ -50,17 +51,19 @@ declare class Popover {
     update(): void;
 
     /**
-     * Hides and destroys an element’s popover. Popovers that use delegation
-     * (which are created using the selector option) cannot be individually
-     * destroyed on descendant trigger elements.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the popover instance associated
      * with a DOM element
      */
     static getInstance(element: Element, options?: Partial<Popover.Options>): Popover;
+
+    static NAME: 'popover';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Record<string, any>;
 }
 
 declare namespace Popover {
@@ -256,6 +259,19 @@ declare namespace Popover {
          */
         popperConfig: Partial<Popper.Options> | null;
     }
+
+    type jQueryInterface = (
+        config?:
+            | Partial<Options>
+            | 'show'
+            | 'hide'
+            | 'toggle'
+            | 'enable'
+            | 'disable'
+            | 'toggleEnable'
+            | 'update'
+            | 'dispose',
+    ) => void;
 }
 
 export default Popover;

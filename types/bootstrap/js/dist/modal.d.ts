@@ -1,4 +1,6 @@
-declare class Modal {
+import BaseComponent from './base-component';
+
+declare class Modal extends BaseComponent {
     constructor(element: Element, options?: Partial<Modal.Options>);
 
     /**
@@ -27,15 +29,19 @@ declare class Modal {
     handleUpdate(): void;
 
     /**
-     * Destroys an element's dropdown.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the modal instance associated with
      * a DOM element
      */
     static getInstance(element: Element, options?: Partial<Modal.Options>): Modal;
+
+    // static NAME: 'modal';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Record<string, any>;
 }
 
 declare namespace Modal {
@@ -98,6 +104,10 @@ declare namespace Modal {
          */
         focus: boolean;
     }
+
+    type jQueryInterface = (
+        config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'handleUpdate' | 'dispose',
+    ) => void;
 }
 
 export default Modal;
