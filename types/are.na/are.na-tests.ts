@@ -10,8 +10,10 @@ const makeRequests = async () => {
     const user = await arena.user(16).get();
     // Search request
     const search = await arena.search('fruit').all();
+    // Group request
+    const group = await arena.group('are-na-team').get();
 
-    return { channel, block, user, search };
+    return { channel, block, user, search, group };
 };
 
 Promise.resolve(makeRequests()).then(_ => {});

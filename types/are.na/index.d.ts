@@ -175,7 +175,7 @@ declare class Arena {
      * @param params - Additional parameters
      */
     block(
-        id: string,
+        id: string | number,
         params?: Params,
     ): {
         /**
@@ -210,7 +210,7 @@ declare class Arena {
      * @param params - Additional parameters
      */
     user(
-        id: string,
+        id: string | number,
         params?: Params,
     ): {
         /**
