@@ -13,7 +13,7 @@ declare namespace GoogleAdsScripts {
 
         interface AccountSitelinkIterator extends Base.Iterator<AccountSitelink> {}
 
-        interface AcctountSitelinkSelector
+        interface AccountSitelinkSelector
             extends Base.Selector<AccountSitelinkIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,

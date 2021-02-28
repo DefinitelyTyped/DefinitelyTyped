@@ -13,7 +13,7 @@ declare namespace GoogleAdsScripts {
 
         interface AccountSnippetIterator extends Base.Iterator<AccountSnippet> {}
 
-        interface AcctountSnippetSelector
+        interface AccountSnippetSelector
             extends Base.Selector<AccountSnippetIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,

@@ -13,7 +13,7 @@ declare namespace GoogleAdsScripts {
 
         interface AccountMobileAppIterator extends Base.Iterator<AccountMobileApp> {}
 
-        interface AcctountMobileAppSelector
+        interface AccountMobileAppSelector
             extends Base.Selector<AccountMobileAppIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
