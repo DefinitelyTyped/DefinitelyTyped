@@ -62,6 +62,31 @@ declare class Arena {
     });
 
     /**
+     * Base object for Group related API requests
+     *
+     * ```js
+     * // Basic usage
+     * arena.group("are-na-team").get()
+     * ```
+     *
+     * @param indentifier - Group slug such as "are-na-team"
+     * @param params - Additional parameters
+     */
+    group(
+        indentifier: string,
+        params?: Params,
+    ): {
+        /**
+         * Get the group as an Object.
+         */
+        get(params?: PaginationParams): Promise<Arena.Group>;
+        /**
+         * Get a group's channels, as an array. Supports pagination.
+         */
+        channels(params?: PaginationParams): Promise<Arena.Channel[]>;
+    };
+
+    /**
      * Base object for channel related API requests
      *
      * ```js
@@ -314,6 +339,50 @@ declare namespace Arena {
          * (a nicer string representation of the file_size)
          */
         original: { url: string; file_size: number; file_size_display: string };
+    }
+
+    /**
+     * Groups allow multiple people to collaborate, access, and upload shared blocks and channels.
+     * Groups have their own group profile pages and are public by default.
+     */
+    interface Group {
+        /**
+         * The internal ID of the group
+         */
+        id: number;
+        /**
+         * The title of the group
+         */
+        title: string | null;
+        /**
+         * The description of the group
+         */
+        description: string | null;
+        /**
+         * Timestamp when the group was created
+         */
+        created_at: Timestamp;
+        /**
+         * Timestamp when the group was last updated
+         */
+        updated_at: Timestamp;
+        /**
+         * Will always be "Group"
+         */
+        class: string;
+        /**
+         * More information on the group admin
+         */
+        user: User;
+        /**
+         * More information on the group members
+         */
+        users: User[];
+        /**
+         * UserIds of the group members
+         */
+        member_ids: number[];
+        accessible_by_ids: number[];
     }
 
     /**
