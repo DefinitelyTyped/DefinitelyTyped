@@ -34,13 +34,13 @@ import { ContextMenuManager } from "./src/context-menu-manager";
 import { DeserializerManager } from "./src/deserializer-manager";
 import { HistoryManager } from "./src/history-manager";
 import { KeymapManager } from "./src/keymap-extensions";
-import { Package } from "./src/package";
 import { PackageManager } from "./src/package-manager";
 import { MenuManager } from "./src/menu-manager";
 import { Pane } from "./src/pane";
 import { PathWatcher } from "./src/path-watcher";
 import { Project } from "./src/project";
 import { StyleManager } from "./src/style-manager";
+import { ThemeManager } from "./src/theme-manager";
 
 declare global {
     const atom: AtomEnvironment;
@@ -408,6 +408,8 @@ export * from "./src/style-manager";
 
 export * from "./src/task";
 
+export * from "./src/theme-manager";
+
 // Extended Classes ===========================================================
 
 /** Grammar that tokenizes lines of text. */
@@ -598,34 +600,6 @@ export interface GrammarRegistry {
      *  @param contents A string of text for that file path.
      */
     getGrammarScore(grammar: Grammar, filePath: string, contents: string): number;
-}
-
-/** Handles loading and activating available themes. */
-export interface ThemeManager {
-    // Event Subscription
-    /**
-     *  Invoke callback when style sheet changes associated with updating the
-     *  list of active themes have completed.
-     */
-    onDidChangeActiveThemes(callback: () => void): Disposable;
-
-    // Accessing Loaded Themes
-    /** Returns an Array of strings of all the loaded theme names. */
-    getLoadedThemeNames(): string[]|undefined;
-
-    /** Returns an Array of all the loaded themes. */
-    getLoadedThemes(): Package[]|undefined;
-
-    // Managing Enabled Themes
-    /** Returns an Array of strings all the active theme names. */
-    getActiveThemeNames(): string[]|undefined;
-
-    /** Returns an Array of all the active themes. */
-    getActiveThemes(): Package[]|undefined;
-
-    // Managing Enabled Themes
-    /** Get the enabled theme names from the config. */
-    getEnabledThemeNames(): string[];
 }
 
 // Events =====================================================================
