@@ -7,7 +7,7 @@
 
 /// <reference types="google.visualization" />
 
-declare namespace dygraphs {
+export namespace dygraphs {
     type DataArray = Array<Array<number | Date | null>>;
 
     type Data = string | DataArray | google.visualization.DataTable;
@@ -1149,7 +1149,7 @@ declare namespace dygraphs {
     type Axis = 'x' | 'y' | 'y2';
 }
 
-declare class Dygraph {
+export default class Dygraph {
     /**
      * Creates an interactive, zoomable chart.
      * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#constructor}
