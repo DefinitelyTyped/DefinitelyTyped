@@ -25,6 +25,19 @@ interface PaginationParams extends Params {
 }
 
 /**
+ * Custom request handler function
+ */
+interface CustomRequestHandler {
+    /**
+     * Request method (GET, POST, etc.)
+     */
+    method: string;
+    url: string;
+    data?: any;
+    options?: Params;
+}
+
+/**
  * Arena class, organized hierarchically as nested objects
  */
 declare class Arena {
@@ -38,8 +51,15 @@ declare class Arena {
      * ```
      * @param accessToken - Your are.na API access token
      * @param baseURL - Base URL to make requests on (default: https://api.are.na/v2/)
+     * @param authToken - Optional auth token request header
+     * @param requestHandler - Custom request handler
      */
-    constructor(config?: { accessToken?: string; baseURL?: string });
+    constructor(config?: {
+        accessToken?: string;
+        baseURL?: string;
+        authToken?: string;
+        requestHandler?: CustomRequestHandler;
+    });
 
     /**
      * Base object for channel related API requests
@@ -114,7 +134,7 @@ declare class Arena {
         /**
          * Remove a block from the channel
          */
-        deleteBlock(blockID: number): Promise<void>;
+        deleteBlock(blockID: string): Promise<void>;
     };
 
     /**
@@ -129,7 +149,7 @@ declare class Arena {
      * @param params - Additional parameters
      */
     block(
-        id: number,
+        id: string,
         params?: Params,
     ): {
         /**
@@ -164,7 +184,7 @@ declare class Arena {
      * @param params - Additional parameters
      */
     user(
-        id: number,
+        id: string,
         params?: Params,
     ): {
         /**
