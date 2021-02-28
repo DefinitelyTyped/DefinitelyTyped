@@ -25,27 +25,39 @@ export interface AppProvider extends Pick<Provider, 'id' | 'name' | 'type'> {
 
 export interface DefaultProviders {
     Apple: Apple;
+    Attlassian: Atlassian;
     Auth0: Auth0;
+    AzureADB2C: AzureADB2C;
     Basecamp: Basecamp;
     BattleNet: BattleNet;
     Box: Box;
+    Bungie: Bungie;
     Cognito: Cognito;
     Credentials: Credentials;
     Discord: Discord;
     Email: Email;
+    EVEOnline: EVEOnline;
     Facebook: Facebook;
+    Foursquare: Foursquare;
+    FusionAuth: FusionAuth;
     GitHub: GitHub;
     GitLab: GitLab;
     Google: Google;
     IdentityServer4: IdentityServer4;
+    LINE: LINE;
     LinkedIn: LinkedIn;
-    Mixer: Mixer;
+    MailRu: MailRu;
+    Medium: Medium;
+    Netlify: Netlify;
     Okta: Okta;
     Reddit: Reddit;
+    Salesforce: Salesforce;
     Slack: Slack;
     Spotify: Spotify;
+    Strava: Strava;
     Twitch: Twitch;
     Twitter: Twitter;
+    VK: VK;
     Yandex: Yandex;
 }
 
@@ -212,11 +224,6 @@ type Discord = (options: ProviderCommonOptions) => Provider<'discord'>;
 type Twitch = (options: ProviderCommonOptions) => Provider<'twitch'>;
 
 /**
- * Mixer
- */
-type Mixer = (options: ProviderCommonOptions) => Provider<'mixer'>;
-
-/**
  * Okta
  */
 type Okta = (options: ProviderOktaOptions) => Provider<'okta'> & { domain: string };
@@ -280,3 +287,68 @@ type Basecamp = (options: ProviderCommonOptions) => Provider<'basecamp'>;
  * Reddit
  */
 type Reddit = (options: ProviderCommonOptions) => Provider<'reddit'>;
+
+/**
+ * Atlassian
+ */
+type Atlassian = (options: ProviderCommonOptions) => Provider<'atlassian'>;
+
+/**
+ * AzureADB2C
+ */
+type AzureADB2C = (options: ProviderCommonOptions) => Provider<'azure-ad-b2c'>;
+
+/**
+ * Bungie
+ */
+type Bungie = (options: ProviderCommonOptions) => Provider<'bungie'>;
+
+/**
+ * EVEOnline
+ */
+type EVEOnline = (options: ProviderCommonOptions) => Provider<'eveonline'>;
+
+/**
+ *
+ */
+type Foursquare = (options: ProviderCommonOptions) => Provider<'foursquare'>;
+
+/**
+ * FusionAuth
+ */
+type FusionAuth = (options: ProviderCommonOptions) => Provider<'fusionauth'>;
+
+/**
+ * LINE
+ */
+type LINE = (options: ProviderCommonOptions) => Provider<'line'>;
+
+/**
+ *
+ */
+type MailRu = (options: ProviderCommonOptions) => Provider<'mailru'>;
+
+/**
+ *
+ */
+type Medium = (options: ProviderCommonOptions) => Provider<'medium'>;
+
+/**
+ *
+ */
+type Netlify = (options: ProviderCommonOptions) => Provider<'netlify'>;
+
+/**
+ * Salesforce
+ */
+type Salesforce = (options: ProviderCommonOptions) => Provider<'salesforce'>;
+
+/**
+ * Strava
+ */
+type Strava = (options: ProviderCommonOptions) => Provider<'strava'>;
+
+/**
+ * VK
+ */
+type VK = (options: ProviderCommonOptions) => Provider<'vk'>;
