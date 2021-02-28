@@ -41,6 +41,7 @@ import { Project } from "./src/project";
 import { StyleManager } from "./src/style-manager";
 import { ThemeManager } from "./src/theme-manager";
 import { GrammarRegistry } from "./src/grammar-registry";
+import { WindowLoadSettings } from "./src/get-window-load-settings";
 
 declare global {
     const atom: AtomEnvironment;
@@ -413,6 +414,8 @@ export * from "./src/theme-manager";
 export * from "./src/grammar-registry";
 
 export * from "./src/tooltip";
+
+export * from "./src/get-window-load-settings";
 
 // Extended Classes ===========================================================
 
@@ -841,14 +844,4 @@ export interface TokenizeLineResult {
      *  in the file.
      */
     ruleStack: GrammarRule[];
-}
-
-export interface WindowLoadSettings {
-    readonly appVersion: string;
-    readonly atomHome: string;
-    readonly devMode: boolean;
-    readonly resourcePath: string;
-    readonly safeMode: boolean;
-    readonly env?: { [key: string]: string|undefined };
-    readonly profileStartup?: boolean;
 }
