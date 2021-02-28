@@ -491,6 +491,7 @@ export class Overlay extends React.Component<OverlayProps> {}
                     Token Props and Component
 --------------------------------------------------------------------------- */
 export interface TokenProps extends React.HTMLProps<HTMLDivElement> {
+    option: Option;
     active?: boolean;
     children?: React.ReactNode;
     className?: string;

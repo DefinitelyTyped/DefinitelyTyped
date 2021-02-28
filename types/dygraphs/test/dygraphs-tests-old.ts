@@ -1,6 +1,8 @@
 // Tests that were present in the old 1.1 type declarations
 // These tests are copied more or less directly from http://dygraphs.com/tests/
 
+import Dygraph, { dygraphs } from 'dygraphs';
+
 function demo() {
     const g14 = new Dygraph(document.getElementById('div_g14')!, 'data', {
         rollPeriod: 14,
