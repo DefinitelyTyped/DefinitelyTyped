@@ -43,7 +43,7 @@
         {
             "libraryName": "agenda",
             "typingsPackageName": "agenda",
-            "asOfVersion": "5.0.0"
+            "asOfVersion": "4.1.0"
         },
         {
             "libraryName": "aggregate-error",
