@@ -1,7 +1,8 @@
-// Type definitions for i18n-node 0.12
+// Type definitions for i18n-node 0.13
 // Project: http://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 FindQ <https://github.com/FindQ>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
@@ -32,10 +33,22 @@ declare namespace i18n {
         defaultLocale?: string;
 
         /**
+         * Will return translation from defaultLocale in case current locale doesn't provide it
+         * @default false
+         */
+        retryInDefaultLocale?: boolean;
+
+        /**
          * Sets a custom cookie name to parse locale settings from
          * @default null
          */
         cookie?: string;
+
+        /**
+         * Sets a custom header name to read the language preference from - accept-language header by default
+         * @default 'accept-language'
+         */
+        header?: string;
 
         /**
          * Query parameter to switch locale (ie. /home?lang=ch)
@@ -150,6 +163,20 @@ declare namespace i18n {
          * @since 0.10.0
          */
         staticCatalog?: GlobalCatalog;
+
+        /**
+         * Use mustache with customTags (https://www.npmjs.com/package/mustache#custom-delimiters) or disable mustache entirely
+         */
+        mustacheConfig?: {
+            /**
+             * @default ['{{', '}}']
+             */
+            tags?: [string, string];
+            /**
+             * @default false
+             */
+            disable?: boolean;
+        };
     }
     interface TranslateOptions {
         phrase: string;
