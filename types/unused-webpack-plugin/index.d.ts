@@ -11,29 +11,33 @@ export = UnusedWebpackPlugin;
 declare namespace UnusedWebpackPlugin {
     interface UnusedWebpackPluginOptions {
         /**
-         * array of directories where to look for unused source files.
+         * Array of directories where to look for unused source files.
+         *
+         * @default []
          */
-        directories: string[];
+        directories?: string[];
 
         /**
-         * array of exclude patterns when looking for unused source files.
+         * Array of exclude patterns when looking for unused source files.
+         *
+         * @default []
          */
         exclude?: string[];
 
         /**
-         * Root directory that will be use to display relative paths instead of absolute ones
+         * Root directory that will be use to display relative paths instead of absolute ones.
          */
         root?: string;
 
         /**
-         * whether or not the build should fail if unused files are found.
+         * Whether or not the build should fail if unused files are found.
          *
          * @default false
          */
         failOnUnused?: boolean;
 
         /**
-         * Whether or not to respect .gitignore file
+         * Whether or not to respect .gitignore file.
          *
          * @default true
          */
