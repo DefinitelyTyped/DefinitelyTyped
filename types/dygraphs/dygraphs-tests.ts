@@ -1,3 +1,5 @@
+import Dygraph from 'dygraphs';
+
 Dygraph.Plotters;
 
 Dygraph.PointType;
