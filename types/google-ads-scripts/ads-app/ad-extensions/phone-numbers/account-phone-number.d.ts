@@ -13,7 +13,7 @@ declare namespace GoogleAdsScripts {
 
         interface AccountPhoneNumberIterator extends Base.Iterator<AccountPhoneNumber> {}
 
-        interface AcctountPhoneNumberSelector
+        interface AccountPhoneNumberSelector
             extends Base.Selector<AccountPhoneNumberIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,

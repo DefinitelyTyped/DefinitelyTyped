@@ -13,7 +13,7 @@ declare namespace GoogleAdsScripts {
 
         interface AccountPriceIterator extends Base.Iterator<AccountPrice> {}
 
-        interface AcctountPriceSelector
+        interface AccountPriceSelector
             extends Base.Selector<AccountPriceIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
