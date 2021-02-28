@@ -148,6 +148,7 @@ declare class Arena {
          * Add collaborators to a channel. Pass userIds as an Array or multiple arguments.
          */
         addCollaborators(userIDs: string[]): Promise<Arena.User[]>;
+        addCollaborators(...userIDs: string[]): Promise<Arena.User[]>;
         /**
          * Remove collaborators from a channel. Accepts userIds in the same format as addCollaborators.
          */
