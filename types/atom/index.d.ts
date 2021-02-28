@@ -843,10 +843,6 @@ export interface TokenizeLineResult {
     ruleStack: GrammarRule[];
 }
 
-export interface ViewModel {
-    getTitle: () => string;
-}
-
 export interface WindowLoadSettings {
     readonly appVersion: string;
     readonly atomHome: string;

@@ -26,3 +26,7 @@ export interface ViewRegistry {
     getView(obj: TextEditor): TextEditorElement;
     getView(obj: object): HTMLElement;
 }
+
+export interface ViewModel {
+    getTitle: () => string;
+}
