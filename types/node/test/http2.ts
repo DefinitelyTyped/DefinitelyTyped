@@ -396,32 +396,30 @@ import { URL } from 'node:url';
         bar: string;
     }
 
-    function reqListener(req: Http2ServerRequest, res: Http2ServerResponse): void {}
+    function reqListener(req: MyHttp2ServerRequest, res: MyHttp2ServerResponse): void {}
+    function reqListener2(req: MyHttp2ServerRequest, res: Http2ServerResponse): void {}
+    function reqListener3(req: Http2ServerRequest, res: MyHttp2ServerResponse): void {}
 
-    let server: Http2Server;
-
-    server = createServer({
+    const server1 = createServer<MyHttp2ServerRequest, MyHttp2ServerResponse>({
         Http2ServerRequest: MyHttp2ServerRequest,
         Http2ServerResponse: MyHttp2ServerResponse
     });
-    server = createServer({
-        Http2ServerRequest: MyHttp2ServerRequest,
-        Http2ServerResponse: MyHttp2ServerResponse
-    }, reqListener);
+    const server2 = createServer<MyHttp2ServerRequest>({ Http2ServerRequest: MyHttp2ServerRequest});
+    const server3 = createServer<MyHttp2ServerRequest>({ Http2ServerRequest: MyHttp2ServerRequest }, reqListener2);
+    const server4 = createServer<Http2ServerRequest, MyHttp2ServerResponse>({ Http2ServerResponse: MyHttp2ServerResponse });
+    const server5 = createServer<Http2ServerRequest, MyHttp2ServerResponse>({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener3);
 
-    server = createServer({ Http2ServerRequest: MyHttp2ServerRequest });
-    server = createServer({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener);
-
-    server = createSecureServer({
+    const server6 = createSecureServer<MyHttp2ServerRequest, MyHttp2ServerResponse>({
         Http2ServerRequest: MyHttp2ServerRequest,
         Http2ServerResponse: MyHttp2ServerResponse
     });
-    server = createSecureServer({
+    const server7 = createSecureServer<MyHttp2ServerRequest, MyHttp2ServerResponse>({
         Http2ServerRequest: MyHttp2ServerRequest,
         Http2ServerResponse: MyHttp2ServerResponse
     }, reqListener);
-    server = createSecureServer({ Http2ServerRequest: MyHttp2ServerRequest });
-    server = createSecureServer({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener);
+    const server8 = createSecureServer<MyHttp2ServerRequest>({ Http2ServerRequest: MyHttp2ServerRequest });
+    const server9 = createSecureServer<MyHttp2ServerRequest>({ Http2ServerRequest: MyHttp2ServerRequest }, reqListener2);
+    const server10 = createSecureServer<Http2ServerRequest, MyHttp2ServerResponse>({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener3);
 }
 
 // constants

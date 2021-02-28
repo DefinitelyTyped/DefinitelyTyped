@@ -2,30 +2,16 @@ import * as http from 'node:http';
 import * as url from 'node:url';
 import * as net from 'node:net';
 
-// http Server
+// test default http Server
 {
+    let server: http.Server = new http.Server();
     function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {}
 
-    let server: http.Server = new http.Server();
-
-    class MyIncomingMessage extends http.IncomingMessage {
-        foo: number;
-    }
-
-    class MyServerResponse extends http.ServerResponse {
-        foo: string;
-    }
-
-    server = new http.Server({ IncomingMessage: MyIncomingMessage});
-
-    server = new http.Server({
-        IncomingMessage: MyIncomingMessage,
-        ServerResponse: MyServerResponse
-    }, reqListener);
+    server = new http.Server();
 
     server = http.createServer(reqListener);
-    server = http.createServer({ IncomingMessage: MyIncomingMessage });
-    server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
+    server = http.createServer();
+    server = http.createServer({}, reqListener);
     server = http.createServer({ insecureHTTPParser: true }, reqListener);
 
     // test public props
@@ -36,6 +22,43 @@ import * as net from 'node:net';
     const keepAliveTimeout: number = server.keepAliveTimeout;
     const requestTimeout: number = server.requestTimeout;
     server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+}
+// test custom req, res
+{
+    class MyIncomingMessage extends http.IncomingMessage {
+        foo: number;
+    }
+
+    class MyServerResponse extends http.ServerResponse {
+        bar: string;
+    }
+
+    function reqListener(req: MyIncomingMessage, res: MyServerResponse): void {}
+    function reqListener2(req: MyIncomingMessage, res: http.ServerResponse): void {}
+    function reqListener3(req: http.IncomingMessage, res: MyServerResponse): void {}
+
+    const server1 = new http.Server<MyIncomingMessage, MyServerResponse>();
+    const server2 = new http.Server<MyIncomingMessage>({
+        IncomingMessage: MyIncomingMessage
+    });
+    const server3 = new http.Server<MyIncomingMessage>({
+        IncomingMessage: MyIncomingMessage
+    }, reqListener2);
+    const server4 = new http.Server<MyIncomingMessage, MyServerResponse>({
+        IncomingMessage: MyIncomingMessage,
+        ServerResponse: MyServerResponse
+    }, reqListener);
+
+    const server5 = http.createServer(reqListener);
+    const server6 = http.createServer<MyIncomingMessage>({
+        IncomingMessage: MyIncomingMessage
+    });
+    const server7 = http.createServer<http.IncomingMessage, MyServerResponse>({
+        ServerResponse: MyServerResponse
+    }, reqListener3);
+    const server8 = http.createServer({
+        insecureHTTPParser: true
+    }, reqListener);
 }
 
 // http IncomingMessage

@@ -123,7 +123,7 @@ declare module 'http' {
         insecureHTTPParser?: boolean;
     }
 
-    type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
+    type RequestListener<Request extends IncomingMessage = IncomingMessage, Response extends ServerResponse = ServerResponse> = (req: Request, res: Response) => void;
 
     interface HttpBase {
         setTimeout(msecs?: number, callback?: () => void): this;
@@ -151,9 +151,9 @@ declare module 'http' {
     }
 
     interface Server extends HttpBase {}
-    class Server extends NetServer {
-        constructor(requestListener?: RequestListener);
-        constructor(options: ServerOptions, requestListener?: RequestListener);
+    class Server<Request extends IncomingMessage = IncomingMessage, Response extends ServerResponse = ServerResponse> extends NetServer {
+        constructor(requestListener?: RequestListener<Request, Response>);
+        constructor(options: ServerOptions, requestListener?: RequestListener<Request, Response>);
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
@@ -407,8 +407,12 @@ declare module 'http' {
         [errorCode: string]: string | undefined;
     };
 
-    function createServer(requestListener?: RequestListener): Server;
-    function createServer(options: ServerOptions, requestListener?: RequestListener): Server;
+    function createServer<Request extends IncomingMessage = IncomingMessage, Response extends ServerResponse = ServerResponse>(
+        requestListener?: RequestListener<Request, Response>
+    ): Server<Request, Response>;
+    function createServer<Request extends IncomingMessage = IncomingMessage, Response extends ServerResponse = ServerResponse>(
+        options: ServerOptions, requestListener?: RequestListener<Request, Response>
+    ): Server<Request, Response>;
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers

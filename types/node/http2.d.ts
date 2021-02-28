@@ -470,49 +470,49 @@ declare module 'http2' {
         origins?: string[];
     }
 
-    export interface Http2Server extends net.Server {
-        addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+    export interface Http2Server<Request extends Http2ServerRequest = Http2ServerRequest, Response extends Http2ServerResponse = Http2ServerResponse> extends net.Server {
+        addListener(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        addListener(event: "request", listener: (request: Request, response: Response) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
         addListener(event: "sessionError", listener: (err: Error) => void): this;
         addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         addListener(event: "timeout", listener: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
-        emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
+        emit(event: "checkContinue", request: Request, response: Response): boolean;
+        emit(event: "request", request: Request, response: Response): boolean;
         emit(event: "session", session: ServerHttp2Session): boolean;
         emit(event: "sessionError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "timeout"): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
 
-        on(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        on(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        on(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        on(event: "request", listener: (request: Request, response: Response) => void): this;
         on(event: "session", listener: (session: ServerHttp2Session) => void): this;
         on(event: "sessionError", listener: (err: Error) => void): this;
         on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         on(event: "timeout", listener: () => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        once(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        once(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        once(event: "request", listener: (request: Request, response: Response) => void): this;
         once(event: "session", listener: (session: ServerHttp2Session) => void): this;
         once(event: "sessionError", listener: (err: Error) => void): this;
         once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         once(event: "timeout", listener: () => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        prependListener(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        prependListener(event: "request", listener: (request: Request, response: Response) => void): this;
         prependListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
         prependListener(event: "sessionError", listener: (err: Error) => void): this;
         prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
         prependListener(event: "timeout", listener: () => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependOnceListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        prependOnceListener(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        prependOnceListener(event: "request", listener: (request: Request, response: Response) => void): this;
         prependOnceListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
         prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
         prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
@@ -522,9 +522,9 @@ declare module 'http2' {
         setTimeout(msec?: number, callback?: () => void): this;
     }
 
-    export interface Http2SecureServer extends tls.Server {
-        addListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        addListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+    export interface Http2SecureServer<Request extends Http2ServerRequest = Http2ServerRequest, Response extends Http2ServerResponse = Http2ServerResponse> extends tls.Server {
+        addListener(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        addListener(event: "request", listener: (request: Request, response: Response) => void): this;
         addListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
         addListener(event: "sessionError", listener: (err: Error) => void): this;
         addListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
@@ -532,8 +532,8 @@ declare module 'http2' {
         addListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
-        emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
+        emit(event: "checkContinue", request: Request, response: Response): boolean;
+        emit(event: "request", request: Request, response: Response): boolean;
         emit(event: "session", session: ServerHttp2Session): boolean;
         emit(event: "sessionError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
@@ -541,8 +541,8 @@ declare module 'http2' {
         emit(event: "unknownProtocol", socket: tls.TLSSocket): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
 
-        on(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        on(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        on(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        on(event: "request", listener: (request: Request, response: Response) => void): this;
         on(event: "session", listener: (session: ServerHttp2Session) => void): this;
         on(event: "sessionError", listener: (err: Error) => void): this;
         on(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
@@ -550,8 +550,8 @@ declare module 'http2' {
         on(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        once(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        once(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        once(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        once(event: "request", listener: (request: Request, response: Response) => void): this;
         once(event: "session", listener: (session: ServerHttp2Session) => void): this;
         once(event: "sessionError", listener: (err: Error) => void): this;
         once(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
@@ -559,8 +559,8 @@ declare module 'http2' {
         once(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        prependListener(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        prependListener(event: "request", listener: (request: Request, response: Response) => void): this;
         prependListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
         prependListener(event: "sessionError", listener: (err: Error) => void): this;
         prependListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
@@ -568,8 +568,8 @@ declare module 'http2' {
         prependListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: "checkContinue", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
-        prependOnceListener(event: "request", listener: (request: Http2ServerRequest, response: Http2ServerResponse) => void): this;
+        prependOnceListener(event: "checkContinue", listener: (request: Request, response: Response) => void): this;
+        prependOnceListener(event: "request", listener: (request: Request, response: Response) => void): this;
         prependOnceListener(event: "session", listener: (session: ServerHttp2Session) => void): this;
         prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
         prependOnceListener(event: "stream", listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void): this;
@@ -947,11 +947,19 @@ declare module 'http2' {
     export function getPackedSettings(settings: Settings): Buffer;
     export function getUnpackedSettings(buf: Uint8Array): Settings;
 
-    export function createServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
-    export function createServer(options: ServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2Server;
+    export function createServer<Request extends Http2ServerRequest = Http2ServerRequest, Response extends Http2ServerResponse = Http2ServerResponse>(
+        onRequestHandler?: (request: Request, response: Response) => void
+    ): Http2Server<Request, Response>;
+    export function createServer<Request extends Http2ServerRequest = Http2ServerRequest, Response extends Http2ServerResponse = Http2ServerResponse>(
+        options: ServerOptions, onRequestHandler?: (request: Request, response: Response) => void
+    ): Http2Server<Request, Response>;
 
-    export function createSecureServer(onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
-    export function createSecureServer(options: SecureServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
+    export function createSecureServer<Request extends Http2ServerRequest = Http2ServerRequest, Response extends Http2ServerResponse = Http2ServerResponse>(
+        onRequestHandler?: (request: Request, response: Response) => void
+    ): Http2SecureServer<Request, Response>;
+    export function createSecureServer<Request extends Http2ServerRequest = Http2ServerRequest, Response extends Http2ServerResponse = Http2ServerResponse>(
+        options: SecureServerOptions, onRequestHandler?: (request: Request, response: Response) => void
+    ): Http2SecureServer<Request, Response>;
 
     export function connect(authority: string | url.URL, listener: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
     export function connect(

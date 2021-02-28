@@ -25,13 +25,17 @@ declare module 'https' {
     }
 
     interface Server extends http.HttpBase {}
-    class Server extends tls.Server {
-        constructor(requestListener?: http.RequestListener);
-        constructor(options: ServerOptions, requestListener?: http.RequestListener);
+    class Server<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> extends tls.Server {
+        constructor(requestListener?: http.RequestListener<Request, Response>);
+        constructor(options: ServerOptions, requestListener?: http.RequestListener<Request, Response>);
     }
 
-    function createServer(requestListener?: http.RequestListener): Server;
-    function createServer(options: ServerOptions, requestListener?: http.RequestListener): Server;
+    function createServer<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+        requestListener?: http.RequestListener<Request, Response>
+    ): Server<Request, Response>;
+    function createServer<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+        options: ServerOptions, requestListener?: http.RequestListener<Request, Response>
+    ): Server<Request, Response>;
     function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     function request(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
