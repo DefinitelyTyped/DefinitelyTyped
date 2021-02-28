@@ -1,6 +1,29 @@
-import { GenericObject } from './_utils';
+import { User } from '.';
+import { JWT } from './jwt';
+import { NonNullParams, NullableParams, WithAdditionalParams } from './_utils';
 
-export interface Providers {
+export interface Provider<T extends string | undefined = undefined, U = T extends string ? 'oauth' : string> {
+    id: T;
+    name: string;
+    type: U extends string ? U : 'oauth' | 'email' | 'credentials';
+    version: string;
+    scope: string;
+    params: { grant_type: string };
+    accessTokenUrl: string;
+    requestTokenUrl: string;
+    authorizationUrl: string;
+    profileUrl: string;
+    profile: (profile: Record<string, unknown>, tokens: unknown) => User & { id: string };
+    clientId: string;
+    clientSecret: string | Record<string, unknown>;
+}
+
+export interface AppProvider extends Pick<Provider, 'id' | 'name' | 'type'> {
+    signinUrl: string;
+    callbackUrl: string;
+}
+
+export interface DefaultProviders {
     Apple: Apple;
     Auth0: Auth0;
     Basecamp: Basecamp;
@@ -26,23 +49,18 @@ export interface Providers {
     Yandex: Yandex;
 }
 
-type PossibleProviders = Providers[keyof Providers];
+export type Providers = Array<ReturnType<DefaultProviders[keyof DefaultProviders]>>;
 
-// TODO: type return objects from providers properly
-interface GenericReturnConfig {
-    [key: string]: any;
-}
+declare const Providers: DefaultProviders;
 
-declare const Providers: Providers;
 export default Providers;
-export { PossibleProviders };
 
 /**
  * Email
  */
-type Email = (options: ProviderEmailOptions) => GenericReturnConfig;
+type Email = (options: ProviderEmailOptions) => NonNullParams<ProviderEmailOptions> & { id: 'email'; type: 'email'; };
 
-interface VerificationRequestParams {
+interface VerificationRequestParams extends Provider {
     identifier: string;
     url: string;
     baseUrl: string;
@@ -50,7 +68,7 @@ interface VerificationRequestParams {
     provider: ProviderEmailOptions;
 }
 
-interface ProviderEmailOptions extends GenericObject {
+interface ProviderEmailOptions {
     name?: string;
     server?: string | ProviderEmailServer;
     from?: string;
@@ -61,24 +79,22 @@ interface ProviderEmailOptions extends GenericObject {
 interface ProviderEmailServer {
     host: string;
     port: number;
-    auth: ProviderEmailAuth;
-}
-
-interface ProviderEmailAuth {
-    user: string;
-    pass: string;
+    auth: {
+        user: string;
+        pass: string;
+    };
 }
 
 /**
  * Credentials
  */
-type Credentials = (options: ProviderCredentialsOptions) => GenericReturnConfig;
+type Credentials = (options: ProviderCredentialsOptions) => NonNullParams<ProviderCredentialsOptions> & { id: 'credentials'; type: 'credentials'; };
 
 interface ProviderCredentialsOptions {
     id?: string;
     name: string;
     credentials: CredentialInput;
-    authorize(credentials: Record<string, string>): Promise<GenericReturnConfig | null>;
+    authorize(credentials: Record<string, string>): Promise<User | null>;
 }
 
 interface CredentialInput {
@@ -90,18 +106,28 @@ interface CredentialInput {
     };
 }
 
+type OptionsBase = {
+    [K in keyof Omit<Provider, 'id'>]?: Provider[K]
+};
+
+interface ProviderCommonOptions extends OptionsBase {
+    name?: string;
+    clientId: string;
+    clientSecret: string;
+}
+
 /**
  * Apple
  */
-type Apple = (options: ProviderAppleOptions) => GenericReturnConfig;
+type Apple = (options: ProviderAppleOptions) => Provider<'apple'> & { protection: 'none' };
 
-interface ProviderAppleOptions extends GenericObject {
+interface ProviderAppleOptions extends Omit<ProviderCommonOptions, 'clientSecret'> {
     name?: string;
     clientId: string;
-    clientSecret: ProviderAppleSecret;
+    clientSecret: Record<'appleId' | 'teamId' | 'privateKey' | 'keyId', string>;
 }
 
-interface ProviderAppleSecret extends GenericObject {
+interface ProviderAppleSecret {
     appleId: string;
     teamId: string;
     privateKey: string;
@@ -111,239 +137,146 @@ interface ProviderAppleSecret extends GenericObject {
 /**
  * Twitter
  */
-type Twitter = (options: ProviderTwitterOptions) => GenericReturnConfig;
-
-interface ProviderTwitterOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Twitter = (options: ProviderCommonOptions) => Provider<'twitter'>;
 
 /**
  * Facebook
  */
-type Facebook = (options: ProviderFacebookOptions) => GenericReturnConfig;
-
-interface ProviderFacebookOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Facebook = (options: ProviderCommonOptions) => Provider<'facebook'>;
 
 /**
  * GitHub
  */
-type GitHub = (options: ProviderGitHubOptions) => GenericReturnConfig;
+type GitHub = (options: ProviderGitHubOptions) => Provider<'github'>;
 
-interface ProviderGitHubOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
+interface ProviderGitHubOptions extends Omit<ProviderCommonOptions, 'scope'> {
     scope?: string;
 }
 
 /**
  * GitLab
  */
-type GitLab = (options: ProviderGitLabOptions) => GenericReturnConfig;
-
-interface ProviderGitLabOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type GitLab = (options: ProviderCommonOptions) => Provider<'gitlab'>;
 
 /**
  * Slack
  */
-type Slack = (options: ProviderSlackOptions) => GenericReturnConfig;
-
-interface ProviderSlackOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Slack = (options: ProviderCommonOptions) => Provider<'slack'>;
 
 /**
  * Google
  */
-type Google = (options: ProviderGoogleOptions) => GenericReturnConfig;
+type Google = (options: ProviderGoogleOptions) => Provider<'google'>;
 
-interface ProviderGoogleOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
+interface ProviderGoogleOptions extends ProviderCommonOptions {
     authorizationUrl?: string;
 }
 
 /**
  * Auth0
  */
-type Auth0 = (options: ProviderAuth0Options) => GenericReturnConfig;
+type Auth0 = (options: ProviderAuth0Options) => Provider<'auth0'> & { domain: string };
 
-interface Auth0Profile extends GenericObject {
+interface ProviderAuth0Options extends Omit<ProviderCommonOptions, 'profile'> {
+    domain: string;
+    profile?: (profile: Auth0Profile) => User & { id: string };
+}
+
+interface Auth0Profile {
     sub: string;
     nickname: string;
     email: string;
     picture: string;
 }
 
-interface ProviderAuth0Options extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-    domain: string;
-    profile?: (profile: Auth0Profile) => GenericObject;
-}
-
 /**
  * IS4
  */
 
-type IdentityServer4 = (options: ProviderIS4Options) => GenericReturnConfig;
+type IdentityServer4 = (options: ProviderIS4Options) => Provider<'identity-server4' | string> & { domain: string };
 
-interface ProviderIS4Options extends GenericObject {
+interface ProviderIS4Options extends Omit<ProviderCommonOptions, 'id'> {
     id: string;
-    name: string;
     scope: string;
     domain: string;
-    clientId: string;
-    clientSecret: string;
 }
 
 /**
  * Discord
  */
-type Discord = (options: ProviderDiscordOptions) => GenericReturnConfig;
-
-interface ProviderDiscordOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Discord = (options: ProviderCommonOptions) => Provider<'discord'>;
 
 /**
  * Twitch
  */
-type Twitch = (options: ProviderTwitchOptions) => GenericReturnConfig;
-
-interface ProviderTwitchOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Twitch = (options: ProviderCommonOptions) => Provider<'twitch'>;
 
 /**
  * Mixer
  */
-type Mixer = (options: ProviderMixerOptions) => GenericReturnConfig;
-
-interface ProviderMixerOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Mixer = (options: ProviderCommonOptions) => Provider<'mixer'>;
 
 /**
  * Okta
  */
-type Okta = (options: ProviderOktaOptions) => GenericReturnConfig;
+type Okta = (options: ProviderOktaOptions) => Provider<'okta'> & { domain: string };
 
-interface ProviderOktaOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
+interface ProviderOktaOptions extends ProviderCommonOptions {
     domain: string;
 }
 
 /**
  * Battle.net
  */
-type BattleNet = (options: ProviderBattleNetOptions) => GenericReturnConfig;
+type BattleNet = (options: ProviderBattleNetOptions) => Provider<'battlenet'> & { region: string };
 
-interface ProviderBattleNetOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
+interface ProviderBattleNetOptions extends ProviderCommonOptions {
     region: string;
 }
 
 /**
  * Box
  */
-type Box = (options: ProviderBoxOptions) => GenericReturnConfig;
-
-interface ProviderBoxOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Box = (options: ProviderCommonOptions) => Provider<'box'>;
 
 /**
  * Cognito
  */
-type Cognito = (options: ProviderCognitoOptions) => GenericReturnConfig;
+type Cognito = (options: ProviderCognitoOptions) => Provider<'cognito'> & { domain: string };
 
-interface ProviderCognitoOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
+interface ProviderCognitoOptions extends ProviderCommonOptions {
     domain: string;
 }
 
 /**
  * Yandex
  */
-type Yandex = (options: ProviderYandexOptions) => GenericReturnConfig;
-
-interface ProviderYandexOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Yandex = (options: ProviderCommonOptions) => Provider<'yandex'>;
 
 /**
  * LinkedIn
  */
-type LinkedIn = (options: ProviderLinkedInOptions) => GenericReturnConfig;
+type LinkedIn = (options: ProviderLinkedInOptions) => Provider<'linkedin'>;
 
-interface ProviderLinkedInOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
+interface ProviderLinkedInOptions extends ProviderCommonOptions {
     scope?: string;
 }
 
 /**
  * Spotify
  */
-type Spotify = (options: ProviderSpotifyOptions) => GenericReturnConfig;
+type Spotify = (options: ProviderSpotifyOptions) => Provider<'spotify'>;
 
-interface ProviderSpotifyOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
+interface ProviderSpotifyOptions extends ProviderCommonOptions {
     scope?: string;
 }
 
 /**
  * Basecamp
  */
-type Basecamp = (options: ProviderBasecampOptions) => GenericReturnConfig;
-
-interface ProviderBasecampOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Basecamp = (options: ProviderCommonOptions) => Provider<'basecamp'>;
 
 /**
  * Reddit
  */
-type Reddit = (options: ProviderRedditOptions) => GenericReturnConfig;
-
-interface ProviderRedditOptions extends GenericObject {
-    name?: string;
-    clientId: string;
-    clientSecret: string;
-}
+type Reddit = (options: ProviderCommonOptions) => Provider<'reddit'>;

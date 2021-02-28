@@ -1,23 +1,11 @@
 import { FC } from 'react';
 import { IncomingMessage } from 'http';
-import { GenericObject, SessionBase  } from './_utils';
-
-type Session = SessionBase & GenericObject;
-
-interface GetProvidersResponse {
-    [provider: string]: SessionProvider;
-}
-
-interface SessionProvider extends GenericObject {
-    id: string;
-    name: string;
-    type: string;
-    signinUrl: string;
-    callbackUrl: string;
-}
+import { WithAdditionalParams } from './_utils';
+import { Session } from '.';
+import { AppProvider, Providers } from './providers';
 
 interface ContextProviderProps {
-    session: Session | null | undefined;
+    session: WithAdditionalParams<Session> | null | undefined;
     options?: SetOptionsParams;
 }
 
@@ -36,7 +24,8 @@ interface NextContext {
 }
 
 declare function useSession(): [Session | null | undefined, boolean];
-declare function providers(): Promise<GetProvidersResponse | null>;
+
+declare function providers(): Promise<Record<keyof Providers, AppProvider> | null>;
 declare const getProviders: typeof providers;
 declare function session(
     context?: NextContext & {
@@ -48,7 +37,7 @@ declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
     provider?: string,
-    data?: GenericObject & {
+    data?: Record<string, unknown> & {
         callbackUrl?: string;
     },
 ): Promise<void>;
@@ -74,6 +63,4 @@ export {
     options,
     setOptions,
     Provider,
-    Session,
-    SessionProvider,
 };

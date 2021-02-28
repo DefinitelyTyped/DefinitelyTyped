@@ -1,7 +1,9 @@
 {
   "private": true,
   "dependencies": {
+    "@prisma/client": "^2.17.0",
     "jose": "^1.28.0",
+    "next": "^10.0.7",
     "typeorm": "^0.2.24"
   }
 }
