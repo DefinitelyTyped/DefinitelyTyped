@@ -40,6 +40,7 @@ import { MenuManager } from "./src/menu-manager";
 import { Pane } from "./src/pane";
 import { PathWatcher } from "./src/path-watcher";
 import { Project } from "./src/project";
+import { StyleManager } from "./src/style-manager";
 
 declare global {
     const atom: AtomEnvironment;
@@ -403,6 +404,8 @@ export * from "./src/scope-descriptor";
 
 export * from "./src/selection";
 
+export * from "./src/style-manager";
+
 // Extended Classes ===========================================================
 
 /** Grammar that tokenizes lines of text. */
@@ -595,36 +598,6 @@ export interface GrammarRegistry {
     getGrammarScore(grammar: Grammar, filePath: string, contents: string): number;
 }
 
-/**
- *  A singleton instance of this class available via atom.styles, which you can
- *  use to globally query and observe the set of active style sheets.
- */
-export interface StyleManager {
-    // Event Subscription
-    /** Invoke callback for all current and future style elements. */
-    observeStyleElements(callback: (styleElement: StyleElementObservedEvent) =>
-        void): Disposable;
-
-    /** Invoke callback when a style element is added. */
-    onDidAddStyleElement(callback: (styleElement: StyleElementObservedEvent) =>
-        void): Disposable;
-
-    /** Invoke callback when a style element is removed. */
-    onDidRemoveStyleElement(callback: (styleElement: HTMLStyleElement) => void): Disposable;
-
-    /** Invoke callback when an existing style element is updated. */
-    onDidUpdateStyleElement(callback: (styleElement: StyleElementObservedEvent) =>
-        void): Disposable;
-
-    // Reading Style Elements
-    /** Get all loaded style elements. */
-    getStyleElements(): HTMLStyleElement[];
-
-    // Paths
-    /** Get the path of the user style sheet in ~/.atom. */
-    getUserStyleSheetPath(): string;
-}
-
 /** Run a node script in a separate process. */
 export class Task {
     // NOTE: this is actually the best we can do here with the REST parameter for
@@ -786,11 +759,6 @@ export interface HandleableErrorEvent {
 
 export interface PreventableExceptionThrownEvent extends ExceptionThrownEvent {
     preventDefault(): void;
-}
-
-export interface StyleElementObservedEvent extends HTMLStyleElement {
-    sourcePath: string;
-    context: string;
 }
 
 export interface TextEditorObservedEvent {
