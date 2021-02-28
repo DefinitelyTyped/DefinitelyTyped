@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "handlebars": ">=4.7.7"
+        "handlebars": ">=4.0.3"
     }
 }
