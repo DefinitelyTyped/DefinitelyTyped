@@ -5,7 +5,7 @@
 
 import { RefObject, MutableRefObject, MouseEvent } from 'react';
 
-export default function useDoubleClick<T = unknown>(options: {
+declare function useDoubleClick<T = unknown>(options: {
   /** Dom node to watch for double clicks */
   ref: RefObject<T> | MutableRefObject<T>;
   /** The amount of time (in milliseconds) to wait before differentiating a single from a double click. Defaults to 300. */
@@ -15,3 +15,5 @@ export default function useDoubleClick<T = unknown>(options: {
   /** A callback function for double click events */
   onDoubleClick?: (e: MouseEvent) => void;
 }): void;
+
+export = useDoubleClick;
