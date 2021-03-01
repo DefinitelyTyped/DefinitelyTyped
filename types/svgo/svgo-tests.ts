@@ -110,9 +110,12 @@ optimized = optimize('', {
         { name: 'reusePaths' },
         { name: 'sortAttrs' },
         { name: 'sortDefsChildren' },
-
         { name: 'addAttributesToSVGElement' },
         { name: 'addClassesToSVGElement' },
+
+        { active: true, name: 'addAttributesToSVGElement' },
+        { active: false, name: 'addClassesToSVGElement' },
+
         { name: 'cleanupAttrs', params: { newlines: true, trim: true, spaces: true } },
         { name: 'cleanupEnableBackground' },
         {

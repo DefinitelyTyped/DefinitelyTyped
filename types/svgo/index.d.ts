@@ -11,6 +11,7 @@
 // TypeScript Version: 2.2
 
 export interface DefaultPlugin<N extends string, P = never> {
+    active?: boolean;
     name: N;
     params?: P;
 }
