@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.25
+// Type definitions for Azure Data Studio 1.26
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.25 Extension API
+ * Type Definition for Azure Data Studio 1.26 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -4703,8 +4703,8 @@ declare module 'azdata' {
         }
 
         /**
-        * @deprecated Use IKernelSpec instead
-        */
+         * @deprecated Use IKernelSpec instead
+         */
         export interface IKernelInfo {
             name: string;
             language?: string;
