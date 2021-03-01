@@ -9,7 +9,7 @@
 export interface Params {
     progress: number;
     eta: number;
-    startTime: Date;
+    startTime: number;
     total: number;
     value: number;
     maxWidth: number;
