@@ -2248,6 +2248,7 @@ type IconFontName =
     | 'volumeMax'
     | 'volumeMuteBorder'
     | 'volumeMaxBorder'
+    | 'pen'
     | 'help';
 
 export interface IconFontProps {
@@ -10060,6 +10061,7 @@ export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 // i18n
 export class I18N {
     constructor(...args: any[]);
+    language: string;
     getDpLang: (code: string, value?: string | boolean) => string;
     getLang: (key: string, defaultString?: string) => string;
     getRangeStrings: (dpCode: string) => Record<string, string>;
