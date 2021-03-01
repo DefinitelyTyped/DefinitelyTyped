@@ -31,13 +31,18 @@ declare class WebSocket extends events.EventEmitter {
     bufferedAmount: number;
     extensions: string;
     protocol: string;
-    readyState: number;
+    /** The current state of the connection */
+    readyState: WebSocket.ReadyState;
     url: string;
 
-    CONNECTING: number;
-    OPEN: number;
-    CLOSING: number;
-    CLOSED: number;
+    /** The connection is not yet open. */
+    CONNECTING: WebSocket.ReadyState.CONNECTING;
+    /** The connection is open and ready to communicate. */
+    OPEN: WebSocket.ReadyState.OPEN;
+    /** The connection is in the process of closing. */
+    CLOSING: WebSocket.ReadyState.CLOSING;
+    /** The connection is closed. */
+    CLOSED: WebSocket.ReadyState.CLOSED;
 
     onopen: (event: WebSocket.OpenEvent) => void;
     onerror: (event: WebSocket.ErrorEvent) => void;
@@ -116,6 +121,14 @@ declare namespace WebSocket {
      * Data represents the message payload received over the WebSocket.
      */
     type Data = string | Buffer | ArrayBuffer | Buffer[];
+
+    /** The current state of the connection */
+    enum ReadyState {
+        CONNECTING = 0,
+        OPEN = 1,
+        CLOSING = 2,
+        CLOSED = 3,
+    }
 
     /**
      * CertMeta represents the accepted types for certificate & key data.

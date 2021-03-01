@@ -169,6 +169,35 @@ import * as url from 'url';
 {
     const ws = new WebSocket('ws://www.host.com/path');
     ws.addEventListener('message', (event: WebSocket.MessageEvent) => {
-        console.log(event.data, event.target, event.type);
+            console.log(event.data, event.target, event.type);
     }, { once: true });
+}
+
+function f() {
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    // $ExpectError
+    const a: 5 = ws.readyState;
+
+    if (ws.readyState === ws.OPEN) {
+        // $ExpectError
+        const a: 2 = ws.readyState;
+        const x: 1 = ws.readyState;
+        return;
+    }
+    if (ws.readyState === ws.CONNECTING) {
+        const x: 0 = ws.readyState;
+        return;
+    }
+    if (ws.readyState === ws.CLOSING) {
+        const x: 2 = ws.readyState;
+        return;
+    }
+    if (ws.readyState === ws.CLOSED) {
+        const x: 3 = ws.readyState;
+        return;
+    }
+
+    // $ExpectType never
+    const x: never = ws.readyState;
 }
