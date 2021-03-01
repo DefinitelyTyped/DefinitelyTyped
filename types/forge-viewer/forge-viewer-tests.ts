@@ -31,6 +31,7 @@ Autodesk.Viewing.Initializer(options, () => {
 
         globalTests();
         bubbleNodeTests();
+        callbackTests(viewer);
         cameraTests(viewer);
         formattingTests();
         fragListTests(model);
@@ -57,6 +58,20 @@ function globalTests(): void {
 function bubbleNodeTests(): void {
     // $ExpectType string
     const lineageUrn = Autodesk.Viewing.BubbleNode.parseLineageUrnFromEncodedUrn('dXJuOmFkc2sud2lwc3RnOmZzLmZpbGU6dmYuM3Q4QlBZQXJSSkNpZkFZUnhOSnM0QT92ZXJzaW9uPTI');
+}
+
+function callbackTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const id = 2120;
+    const fragId = viewer.model.getData().fragments.dbId2fragId[id];
+    const mesh = viewer.model.getFragmentList().getVizmesh(fragId);
+
+    if (mesh && mesh.geometry) {
+        const vbr = new Autodesk.Viewing.Private.VertexBufferReader(mesh.geometry);
+        const bounds = new THREE.Box3();
+        const boundsCallback = new Autodesk.Viewing.Private.BoundsCallback(bounds);
+
+        vbr.enumGeomsForObject(id, boundsCallback);
+    }
 }
 
 function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
