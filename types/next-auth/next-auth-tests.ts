@@ -256,13 +256,13 @@ client.getCsrfToken({ req });
 client.csrfToken({ req });
 
 // $ExpectType Promise<void>
-client.signin('github', { data: 'foo' });
+client.signin('github', { data: 'foo', redirect: false });
 
 // $ExpectType Promise<void>
 client.signout();
 
 // $ExpectType Promise<void>
-client.signout({ callbackUrl: 'https://foo.com/callback' });
+client.signout({ callbackUrl: 'https://foo.com/callback', redirect: true });
 
 // $ExpectType ReactElement<any, any> | null
 client.Provider({

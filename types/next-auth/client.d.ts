@@ -55,9 +55,9 @@ declare function signin(
 ): Promise<void>;
 declare const signIn: typeof signin;
 declare function signout(
-    data?: { 
-        callbackUrl?: string; 
-        redirect?: boolean; 
+    data?: {
+        callbackUrl?: string;
+        redirect?: boolean;
     }
 ): Promise<void>;
 declare const signOut: typeof signout;
