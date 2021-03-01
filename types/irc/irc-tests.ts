@@ -82,3 +82,10 @@ function test_connect() {
 
     bot.connect(function() {});
 }
+
+function test_retries() {
+    var bot = new irc.Client('chat.us.freenode.net', 'nodebot', {
+        retryCount: 5,
+        retryDelay: 1000
+    });
+}

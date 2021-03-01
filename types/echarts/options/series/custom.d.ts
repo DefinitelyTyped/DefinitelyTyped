@@ -1317,7 +1317,7 @@ declare namespace echarts {
                 /**
                  * An object that developers can store something temporarily here. Life cycle: current round of rendering.
                  */
-                context?: string;
+                context?: Record<string, any>;
 
                 /**
                  * The id of this series.

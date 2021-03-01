@@ -42,21 +42,24 @@ function test2() {
     // Example 2 - Change Styles defined by Preset
     // uee shades preset
     // change the barsize
-    const bar = new progress.SingleBar({
-        barsize: 65
-    }, progress.Presets.shades_grey);
+    const bar = new progress.SingleBar(
+        {
+            barsize: 65,
+        },
+        progress.Presets.shades_grey,
+    );
 }
 
 function test3() {
     // Example 3 - Custom Payload
     // create new progress bar with custom token "speed"
     const bar = new progress.SingleBar({
-        format: 'progress [{bar}] {percentage}% | ETA: {eta}s | {value}/{total} | Speed: {speed} kbit'
+        format: 'progress [{bar}] {percentage}% | ETA: {eta}s | {value}/{total} | Speed: {speed} kbit',
     });
 
     // initialize the bar - set payload token "speed" with the default value "N/A"
     bar.start(200, 0, {
-        speed: "N/A"
+        speed: 'N/A',
     });
 
     // some code/update loop
@@ -64,7 +67,7 @@ function test3() {
 
     // update bar value. set custom token "speed" to 125
     bar.update(5, {
-        speed: '125'
+        speed: '125',
     });
 
     // process finished
@@ -80,7 +83,7 @@ function test4() {
     module.exports = {
         format: _colors.red(' {bar}') + ' {percentage}% | ETA: {eta}s | {value}/{total} | Speed: {speed} kbit',
         barCompleteChar: '\u2588',
-        barIncompleteChar: '\u2591'
+        barIncompleteChar: '\u2591',
     };
 }
 
@@ -89,9 +92,12 @@ function test5() {
 
     const _mypreset = require('./mypreset.js');
 
-    const bar = new progress.SingleBar({
-        barsize: 65
-    }, _mypreset);
+    const bar = new progress.SingleBar(
+        {
+            barsize: 65,
+        },
+        _mypreset,
+    );
 }
 
 function test6() {
@@ -137,3 +143,8 @@ function test7() {
         hideCursor: null,
     });
 }
+
+progress.Format.BarFormat; // $ExpectType BarFormatter
+progress.Format.Formatter; // $ExpectType GenericFormatter
+progress.Format.TimeFormat; // $ExpectType TimeFormatter
+progress.Format.ValueFormat; // $ExpectType ValueFormatter

@@ -64,7 +64,6 @@ examples/jsm/loaders/ColladaLoader.d.ts
 examples/jsm/loaders/EXRLoader.d.ts
 examples/jsm/loaders/FBXLoader.d.ts
 examples/jsm/loaders/GCodeLoader.d.ts
-examples/jsm/loaders/HDRCubeTextureLoader.d.ts
 examples/jsm/loaders/KMZLoader.d.ts
 examples/jsm/loaders/KTXLoader.d.ts
 examples/jsm/loaders/LDrawLoader.d.ts
@@ -81,7 +80,6 @@ examples/jsm/loaders/PDBLoader.d.ts
 examples/jsm/loaders/PLYLoader.d.ts
 examples/jsm/loaders/PRWMLoader.d.ts
 examples/jsm/loaders/PVRLoader.d.ts
-examples/jsm/loaders/RGBMLoader.d.ts
 examples/jsm/loaders/STLLoader.d.ts
 examples/jsm/loaders/SVGLoader.d.ts
 examples/jsm/loaders/TDSLoader.d.ts

@@ -1,4 +1,6 @@
-import mixpanel = require('mixpanel-browser');
+import mixpanel from "mixpanel-browser";
+
+mixpanel; // $ExpectType OverridedMixpanel
 
 const lib = mixpanel.init('new token', { secure_cookie: true }, 'library_name'); // $ExpectType Mixpanel
 lib.track('event name');

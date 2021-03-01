@@ -177,6 +177,14 @@ class Example extends React.Component {
                         externalInput
                     />
                 </div>
+                <div>
+                    <PDFViewer
+                        document={{
+                            url: 'https://somewrongurl/tsjydyd.pdf',
+                        }}
+                        password="docPassword"
+                    />
+                </div>
             </div>
         );
     }

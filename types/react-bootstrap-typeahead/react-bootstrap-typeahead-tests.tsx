@@ -143,16 +143,17 @@ class BasicExample extends React.Component {
                     labelKey="name"
                     options={options}
                     placeholder="Choose a state..."
-                    renderToken={(selectedItem, props) => {
+                    renderToken={(option, props) => {
                         return (
                             <Token
+                                option={option}
                                 active
                                 disabled={false}
                                 tabIndex={5}
                                 href="https://test.com"
                                 onRemove={() => console.log(props.value)}
                             >
-                                {selectedItem.name}
+                                {option.name}
                                 <ClearButton onClick={() => { }} />
                             </Token>
                         );
