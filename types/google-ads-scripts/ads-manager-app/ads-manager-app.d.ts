@@ -3,6 +3,9 @@
 // Definitions by: JJPell <https://github.com/JJPell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./account-label/account-label.d.ts" />
+/// <reference path="./managed-account/managed-account.d.ts" />
+
 declare namespace GoogleAdsScripts {
     namespace AdsManagerApp {
         interface AdsManagerApp {
