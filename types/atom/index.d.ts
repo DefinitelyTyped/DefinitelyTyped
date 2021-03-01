@@ -29,13 +29,6 @@ declare global {
     }
 }
 
-/**
- *  Invoke a callback with each filesystem event that occurs beneath a specified path.
- *  If you only need to watch events within the project's root paths, use
- *  Project::onDidChangeFiles instead.
- */
-export function watchPath(rootPath: string, options: {}, eventCallback: (events:
-    FilesystemChangeEvent) => void): Promise<PathWatcher>;
 
 // Essential Classes ==========================================================
 
