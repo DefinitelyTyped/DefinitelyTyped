@@ -1,4 +1,4 @@
-import { Cloudflare } from 'cloudflare';
+import Cloudflare = require("cloudflare");
 
 // $ExpectType Cloudflare
 const cf = new Cloudflare({ token: 'abvd' });

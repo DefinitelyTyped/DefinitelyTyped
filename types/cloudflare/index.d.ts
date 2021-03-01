@@ -3,7 +3,7 @@
 // Definitions by: Samuel Corsi-House <https://github.com/Xenfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type RecordTypes =
+type RecordTypes =
     | 'A'
     | 'AAAA'
     | 'CNAME'
@@ -24,13 +24,13 @@ export type RecordTypes =
     | 'TLSA'
     | 'URI read only';
 
-export interface AuthObject {
+interface AuthObject {
     email?: string;
     key?: string;
     token?: string;
 }
 
-export interface DNSRecords {
+interface DNSRecords {
     edit(
         zone_id: string,
         id: string,
@@ -59,14 +59,14 @@ export interface DNSRecords {
     ): Promise<any>;
 }
 
-export interface EnterpriseZoneWorkerScripts {
+interface EnterpriseZoneWorkerScripts {
     read(account_id: string, name: string): Promise<any>;
     browse(account_id: string, name: string): Promise<any>;
     edit(account_id: string, name: string, script: string): Promise<any>;
     del(account_id: string, name: string): Promise<any>;
 }
 
-export interface EnterpriseZoneWorkersRoutes {
+interface EnterpriseZoneWorkersRoutes {
     browse(zone_id: string): Promise<any>;
     del(zone_id: string, id: string): Promise<any>;
     add(zone_id: string, config: { pattern: string; script: string }): Promise<any>;
@@ -74,14 +74,14 @@ export interface EnterpriseZoneWorkersRoutes {
     read(zone_id: string, id: string): Promise<any>;
 }
 
-export interface EnterpriseZoneWorkersKVNamespaces {
+interface EnterpriseZoneWorkersKVNamespaces {
     edit(account_id: string, id: string, config: { title: string }): Promise<any>;
     browse(account_id: string): Promise<any>;
     add(account_id: string, config: { title: string }): Promise<any>;
     del(account_id: string, id: string): Promise<any>;
 }
 
-export interface EnterpriseZoneWorkersKV {
+interface EnterpriseZoneWorkersKV {
     browse(account_id: string, namespace_id: string): Promise<any>;
     add(account_id: string, namespace_id: string, value: string): Promise<any>;
     read(account_id: string, namespace_id: string, key_name: string): Promise<any>;
@@ -94,11 +94,11 @@ export interface EnterpriseZoneWorkersKV {
     delMulti(account_id: string, namespace_id: string, data: string[]): Promise<any>;
 }
 
-export interface CFIPs {
+interface CFIPs {
     browse(): Promise<any>;
 }
 
-export interface PageRules {
+interface PageRules {
     edit(
         id: string,
         page_rule: {
@@ -145,7 +145,7 @@ export interface PageRules {
     read(id: string): Promise<any>;
 }
 
-export interface Zones {
+interface Zones {
     activationCheck(id: string): Promise<any>;
     del(id: string): Promise<any>;
     add(zone: {
@@ -177,14 +177,14 @@ export interface Zones {
     browse(): Promise<any>;
 }
 
-export interface ZoneSettings {
+interface ZoneSettings {
     read(id: string, setting: string): Promise<any>;
     edit(id: string, setting: string, value: string | Record<string, unknown>): Promise<any>;
     editAll(id: string, settings: any): Promise<any>;
     browse(id: string): Promise<any>;
 }
 
-export interface ZoneCustomHostNames {
+interface ZoneCustomHostNames {
     browse(zone_id: string): Promise<any>;
     read(zone_id: string, id: string): Promise<any>;
     edit(
@@ -233,16 +233,16 @@ export interface ZoneCustomHostNames {
     del(zone_id: string, id: string): Promise<any>;
 }
 
-export interface ZoneWorkers {
+interface ZoneWorkers {
     validate(zone_id: string, script: string): Promise<any>;
 }
 
-export interface ZoneWorkersScript {
+interface ZoneWorkersScript {
     read(zone_id: string, script?: string): Promise<any>;
     del(): Promise<any>;
 }
 
-export interface ZoneWorkersRoutes {
+interface ZoneWorkersRoutes {
     browse(zone_id: string): Promise<any>;
     edit(zone_id: string, id: string, config: { pattern: string; script: string }): Promise<any>;
     read(zone_id: string, id: string): Promise<any>;
@@ -250,7 +250,7 @@ export interface ZoneWorkersRoutes {
     del(zone_id: string, id: string): Promise<any>;
 }
 
-export interface User {
+interface User {
     read(): Promise<any>;
     edit(user: {
         first_name: string;
@@ -261,13 +261,13 @@ export interface User {
     }): Promise<any>;
 }
 
-export interface Stream {
+interface Stream {
     listVideos(accountId: string): Promise<any>;
     videoDetails(accountId: string, id: string): Promise<any>;
     deleteVideo(accountId: string, id: string): Promise<any>;
 }
 
-export class Cloudflare {
+declare class Cloudflare {
     constructor(auth: AuthObject);
 
     dnsRecords: DNSRecords;
@@ -285,3 +285,5 @@ export class Cloudflare {
     user: User;
     stream: Stream;
 }
+
+export = Cloudflare;
