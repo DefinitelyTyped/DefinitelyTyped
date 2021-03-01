@@ -226,6 +226,17 @@ export function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, 
 export function realpath(path: PathLike, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
 export function realpath(path: PathLike, cache?: { [path: string]: string }): Promise<string>;
 
+/* tslint:disable:unified-signatures */
+export namespace realpath {
+    const native: {
+        (path: PathLike, options: fs.BaseEncodingOptions | BufferEncoding | undefined | null): Promise<string>;
+        (path: PathLike, options: fs.BufferEncodingOption): Promise<Buffer>;
+        (path: PathLike, options: fs.BaseEncodingOptions | string | undefined | null): Promise<string | Buffer>;
+        (path: PathLike): Promise<string>;
+    } & typeof fs.realpath.native;
+}
+/* tslint:enable:unified-signatures */
+
 export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
 
