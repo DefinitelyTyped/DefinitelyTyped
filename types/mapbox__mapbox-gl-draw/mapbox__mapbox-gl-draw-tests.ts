@@ -1,4 +1,4 @@
-import MapboxDraw, { DrawMode } from '@mapbox/mapbox-gl-draw';
+import MapboxDraw, { DrawMode, DrawUpdateEvent } from '@mapbox/mapbox-gl-draw';
 
 const draw = new MapboxDraw({});
 
@@ -31,3 +31,8 @@ draw.changeMode('simple_select');
 const drawLineSelect: DrawMode = 'draw_line_string';
 // $ExpectType MapboxDraw
 draw.changeMode(drawLineSelect, { featureId: '1', from: [1] });
+
+function callback(event: DrawUpdateEvent) {
+    // $ExpectType "draw.update"
+    event.type;
+}

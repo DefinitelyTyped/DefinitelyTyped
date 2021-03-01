@@ -4,13 +4,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Feature, GeoJSON, FeatureCollection, Geometry, Point, Position, BBox } from 'geojson';
-import { IControl } from 'mapbox-gl';
+import { IControl, Map } from 'mapbox-gl';
 
 export = MapboxDraw;
 export as namespace MapboxDraw;
 
 declare namespace MapboxDraw {
     type DrawMode = DrawModes[keyof DrawModes];
+
+    type DrawEventType =
+        | 'draw.create'
+        | 'draw.delete'
+        | 'draw.update'
+        | 'draw.render'
+        | 'draw.combine'
+        | 'draw.uncombine'
+        | 'draw.modechange'
+        | 'draw.actionable'
+        | 'draw.selectionchange';
 
     interface DrawModes {
         DRAW_LINE_STRING: 'draw_line_string';
@@ -50,41 +61,59 @@ declare namespace MapboxDraw {
         toGeoJSON(): GeoJSON;
     }
 
-    interface DrawCreateEvent {
+    interface DrawEvent {
+        target: Map;
+        type: DrawEventType;
+    }
+
+    interface DrawCreateEvent extends DrawEvent {
         // Array of GeoJSON objects representing the features that were created
         features: Feature[];
+        type: 'draw.create';
     }
 
-    interface DrawDeleteEvent {
+    interface DrawDeleteEvent extends DrawEvent {
         // Array of GeoJSON objects representing the features that were deleted
         features: Feature[];
+        type: 'draw.delete';
     }
 
-    interface DrawCombineEvent {
+    interface DrawCombineEvent extends DrawEvent {
         deletedFeatures: Feature[]; // Array of deleted features (those incorporated into new multifeatures)
         createdFeatures: Feature[]; // Array of created multifeatures
+        type: 'draw.combine';
     }
 
-    interface DrawUncombineEvent {
+    interface DrawUncombineEvent extends DrawEvent {
         deletedFeatures: Feature[]; // Array of deleted multifeatures (split into features)
         createdFeatures: Feature[]; // Array of created features
+        type: 'draw.uncombine';
     }
 
-    interface DrawUpdateEvent {
+    interface DrawUpdateEvent extends DrawEvent {
         features: Feature[]; // Array of features that were updated
         action: string; // Name of the action that triggered the update
+        type: 'draw.update';
     }
 
-    interface DrawSelectionChangeEvent {
+    interface DrawSelectionChangeEvent extends DrawEvent {
         features: Feature[]; // Array of features that are selected after the change
+        points: Array<Feature<Point>>;
+        type: 'draw.selectionchange';
     }
 
-    interface DrawModeChageEvent {
+    interface DrawModeChageEvent extends DrawEvent {
         mode: DrawMode; // The next mode, i.e. the mode that Draw is changing to
+        type: 'draw.modechange';
     }
 
-    interface DrawActionableEvent {
+    interface DrawRenderEvent extends DrawEvent {
+        type: 'draw.render';
+    }
+
+    interface DrawActionableEvent extends DrawEvent {
         actions: DrawActionableState;
+        type: 'draw.actionable';
     }
 
     interface DrawCustomModeThis {
