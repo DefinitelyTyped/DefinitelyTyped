@@ -557,7 +557,7 @@ export function connectStateResults<TProps extends Partial<StateResultsProvided<
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, StateResultsProvided>;
 
-interface StatsProvided {
+export interface StatsProvided {
   nbHits: number;
   processingTimeMS: number;
 }

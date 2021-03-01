@@ -5,9 +5,29 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import Document from './dist/Document';
-import Page from './dist/Page';
-import Outline from './dist/Outline';
+import Document, { Props as DocumentProps } from './dist/Document';
+import Outline, { Props as OutlineProps } from './dist/Outline';
+import Page, {
+    Props as PageProps,
+    PDFPageItem,
+    TextLayerItemInternal,
+    LoadingProcessData,
+    TextItem,
+    PDFPageProxy,
+} from './dist/Page';
 import pdfjs from './dist/pdfjs-dist';
 
-export { pdfjs, Document, Page, Outline };
+export {
+    pdfjs,
+    Document,
+    Page,
+    Outline,
+    DocumentProps,
+    PageProps,
+    OutlineProps,
+    PDFPageItem,
+    TextLayerItemInternal,
+    LoadingProcessData,
+    TextItem,
+    PDFPageProxy,
+};

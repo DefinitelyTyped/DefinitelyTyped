@@ -1,1 +1,3 @@
-export { DeploymentPattern32 as default } from "../../";
+import { DeploymentPattern32 } from "../../";
+
+export = DeploymentPattern32;

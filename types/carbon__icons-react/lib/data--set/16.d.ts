@@ -1,1 +1,3 @@
-export { DataSet16 as default } from "../../";
+import { DataSet16 } from "../../";
+
+export = DataSet16;

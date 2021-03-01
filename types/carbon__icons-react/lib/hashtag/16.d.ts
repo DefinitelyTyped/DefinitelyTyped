@@ -1,1 +1,3 @@
-export { Hashtag16 as default } from "../../";
+import { Hashtag16 } from "../../";
+
+export = Hashtag16;

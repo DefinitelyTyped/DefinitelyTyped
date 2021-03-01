@@ -16,15 +16,19 @@ export type TagTypeName =
 
 export declare const types: TagTypeName[];
 
-export interface FilterTagProps extends ReactDivAttr {
-    filter: true,
-    onClose?(event: React.MouseEvent<HTMLButtonElement>): void,
+interface SharedProps {
+    size?: "sm";
     type?: TagTypeName,
 }
 
-export interface ChipTagProps extends ReactAttr<HTMLSpanElement> {
+export interface FilterTagProps extends ReactDivAttr, SharedProps {
+    filter: true,
+    onClose?(event: React.MouseEvent<HTMLButtonElement>): void,
+}
+
+export interface ChipTagProps extends ReactAttr<HTMLSpanElement>, SharedProps {
     filter?: false,
-    type?: TagTypeName,
+    renderIcon?: React.ComponentType<any>;
 }
 
 declare function Tag(props: FCProps<FilterTagProps>): FCReturn;

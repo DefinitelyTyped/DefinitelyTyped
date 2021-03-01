@@ -1,1 +1,3 @@
-export { Windows as default } from "../../";
+import { Windows } from "../../";
+
+export = Windows;

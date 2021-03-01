@@ -1,1 +1,3 @@
-export { WorkspaceImport32 as default } from "../../";
+import { WorkspaceImport32 } from "../../";
+
+export = WorkspaceImport32;

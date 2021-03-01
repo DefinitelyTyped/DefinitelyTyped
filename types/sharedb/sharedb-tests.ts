@@ -35,10 +35,17 @@ class CustomExtraDb {
     close() {}
 }
 
+class MyMilestoneDB extends ShareDB.MilestoneDB {}
+
 const backend = new ShareDB({
-    extraDbs: {myDb: new CustomExtraDb()}
+    extraDbs: {myDb: new CustomExtraDb()},
+    milestoneDb: new MyMilestoneDB(),
+    suppressPublish: false,
+    maxSubmitRetries: 3,
 });
 console.log(backend.db);
+backend.on('error', (error) => console.error(error));
+backend.addListener('timing', (type, time, request) => console.log(type, new Date(time), request));
 
 // getOps allows for `from` and `to` to both be `null`:
 // https://github.com/share/sharedb/blob/960f5d152f6a8051ed2dcb00a57681a3ebbd7dc2/README.md#getops
@@ -50,16 +57,9 @@ console.log(backend.extraDbs);
 
 backend.addProjection('notes_minimal', 'notes', {title: true, creator: true, lastUpdateTime: true});
 
-// Test module augmentation to attach custom typed properties to `agent.custom`.
-import _ShareDbAgent = require('sharedb/lib/agent');
-declare module 'sharedb/lib/agent' {
-    interface Custom {
-        user?: {id: string};
-    }
-}
 // Exercise middleware (backend.use)
-type SubmitRelatedActions = 'afterSubmit' | 'apply' | 'commit' | 'submit';
-const submitRelatedActions: SubmitRelatedActions[] = ['afterSubmit', 'apply', 'commit', 'submit'];
+type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
+const submitRelatedActions: SubmitRelatedActions[] = ['afterWrite', 'apply', 'commit', 'submit'];
 for (const action of submitRelatedActions) {
     backend.use(action, (request, callback) => {
         if (request.agent.custom.user) {
@@ -81,6 +81,7 @@ for (const action of submitRelatedActions) {
             request.op.op,
             request.op.create,
             request.op.del,
+            request.extra.source,
         );
         callback();
     });
@@ -167,6 +168,10 @@ backend.use('readSnapshots', (context, callback) => {
     callback();
 });
 
+backend.on('submitRequestEnd', (error, request) => {
+    console.log(request.op);
+});
+
 const connection = backend.connect();
 const netRequest = {};  // Passed through to 'connect' middleware, not used by sharedb itself
 const connectionWithReq = backend.connect(null, netRequest);
@@ -191,6 +196,8 @@ function startServer() {
     wss.on('connection', (ws, req) => {
       const stream = new WebSocketJSONStream(ws);
       backend.listen(stream);
+      // Test type definition for 2-argument version
+      backend.listen(stream, req);
     });
 
     server.listen(8080);
@@ -220,14 +227,45 @@ const op1 = [{ insert: 'Hello' }];
 const op2 = [{ retain: 5 }, { insert: ' world!' }];
 const op3 = ShareDBClient.types.map['rich-text'].compose(op1, op2);
 
+ShareDB.logger.setMethods({
+    warn: (...args: any[]) => console.log(...args),
+});
+
+ShareDBClient.logger.setMethods({
+    info: () => {},
+    error: (message: string) => console.error(message),
+});
+
 function startClient(callback) {
     const socket = new WebSocket('ws://localhost:8080');
     const connection = new ShareDBClient.Connection(socket);
     const doc = connection.get('examples', 'counter');
+    doc.preventCompose = true;
+    if (doc.subscribed) return;
+    if (doc.paused) doc.resume();
     doc.subscribe(() => {
         doc.submitOp([{p: ['numClicks'], na: 1}]);
-        callback();
+        doc.unsubscribe((error) => {
+            if (error) console.error(error);
+            doc.pause();
+            doc.flush();
+            doc.destroy((error) => {
+                if (error) console.error(error);
+                callback();
+            });
+        });
     });
+
+    interface MyDoc {
+        foo: number;
+        bar: string;
+    }
+    const typedDoc: ShareDBClient.Doc<MyDoc> = connection.get('example', 'my-doc');
+    typedDoc.create({
+        foo: 123,
+        bar: 'abc',
+    });
+
     // sharedb-mongo query object
     connection.createSubscribeQuery('examples', {numClicks: {$gte: 5}}, null, (err, results) => {
         console.log(err, results);
@@ -245,4 +283,47 @@ function startClient(callback) {
     if (anotherDoc.version !== null) {
       Math.round(anotherDoc.version);
     }
+
+    doc.whenNothingPending(() => {
+        if (doc.hasPending()) throw new Error();
+        if (doc.hasWritePending()) throw new Error();
+    });
+
+    doc.submitOp([{insert: 'foo', attributes: {bold: true}}], {source: {deep: true}});
+
+    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
+    connection.fetchSnapshotByTimestamp('examples', 'bar', Date.now(), (error, snapshot) => {
+        if (error) throw error;
+        console.log(snapshot.data);
+    });
+
+    interface PresenceValue {
+        foo: number;
+    }
+    const presence: ShareDBClient.Presence<PresenceValue> = connection.getDocPresence('foo', 'bar');
+    presence.subscribe((error) => console.log(error));
+    presence.on('receive', (id, value) => console.log(id, value.foo.toLocaleString()));
+    const localPresence = presence.create('123');
+    localPresence.submit({foo: 123});
+
+    connection.close();
 }
+
+class SocketLike {
+    readyState = 1;
+
+    close(reason?: number): void {}
+    send(data: any): void {}
+
+    onmessage: (event: any) => void;
+    onclose: (event: any) => void;
+    onerror: (event: any) => void;
+    onopen: (event: any) => void;
+}
+
+const socketLike = new SocketLike();
+new ShareDBClient.Connection(socketLike);

@@ -1,1 +1,3 @@
-export { ImageReference16 as default } from "../../";
+import { ImageReference16 } from "../../";
+
+export = ImageReference16;

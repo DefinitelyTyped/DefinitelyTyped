@@ -1,1 +1,3 @@
-export { MobileLandscape16 as default } from "../../";
+import { MobileLandscape16 } from "../../";
+
+export = MobileLandscape16;

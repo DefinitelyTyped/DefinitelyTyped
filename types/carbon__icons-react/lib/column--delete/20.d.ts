@@ -1,1 +1,3 @@
-export { ColumnDelete20 as default } from "../../";
+import { ColumnDelete20 } from "../../";
+
+export = ColumnDelete20;

@@ -1,1 +1,3 @@
-export { Cafe20 as default } from "../../";
+import { Cafe20 } from "../../";
+
+export = Cafe20;

@@ -1,6 +1,7 @@
-import * as Popper from 'popper.js';
+import * as Popper from '@popperjs/core';
+import BaseComponent from './base-component';
 
-declare class Popover {
+declare class Popover extends BaseComponent {
     constructor(element: Element, options?: Partial<Popover.Options>);
 
     /**
@@ -50,17 +51,21 @@ declare class Popover {
     update(): void;
 
     /**
-     * Hides and destroys an element’s popover. Popovers that use delegation
-     * (which are created using the selector option) cannot be individually
-     * destroyed on descendant trigger elements.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the popover instance associated
      * with a DOM element
      */
     static getInstance(element: Element, options?: Partial<Popover.Options>): Popover;
+
+    static jQueryInterface: Popover.jQueryInterface;
+
+    static NAME: 'popover';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Popover.Options;
 }
 
 declare namespace Popover {
@@ -202,7 +207,7 @@ declare namespace Popover {
         /**
          * Offset of the popover relative to its target.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..offset.offset}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/offset}
          * @default 0
          */
         offset: number | string;
@@ -210,17 +215,17 @@ declare namespace Popover {
         /**
          * Allow to specify which position Popper will use on fallback.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..flip.behavior}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements}
          * @default 'flip'
          */
-        fallbackPlacement: Popper.Behavior | Popper.Position[];
+        fallbackPlacement: string | string[];
 
         /**
          * Overflow constraint boundary of the popover. Accepts the values of
          * 'viewport', 'window', 'scrollParent', or an HTMLElement reference
          * (JavaScript only).
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#boundary}
          * @default 'scrollParent'
          */
         boundary: 'viewport' | 'window' | 'scrollParent' | Element;
@@ -251,11 +256,24 @@ declare namespace Popover {
         /**
          * To change Bootstrap's default Popper.js config
          *
-         * @see {@link https://popper.js.org/docs/v1/#Popper.Defaults}
+         * @see {@link https://popper.js.org/docs/v2}
          * @default null
          */
-        popperConfig: Popper.PopperOptions | null;
+        popperConfig: Partial<Popper.Options> | null;
     }
+
+    type jQueryInterface = (
+        config?:
+            | Partial<Options>
+            | 'show'
+            | 'hide'
+            | 'toggle'
+            | 'enable'
+            | 'disable'
+            | 'toggleEnable'
+            | 'update'
+            | 'dispose',
+    ) => void;
 }
 
 export default Popover;

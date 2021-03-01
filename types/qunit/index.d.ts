@@ -387,6 +387,8 @@ declare global {
     type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
     type moduleFunc2 = (name: string, nested?: (hooks: NestedHooks) => void) => void;
     type ModuleOnly = { only: moduleFunc1 & moduleFunc2 };
+    type ModuleSkip = { skip: moduleFunc1 & moduleFunc2 };
+    type ModuleTodo = { todo: moduleFunc1 & moduleFunc2 };
 
     namespace QUnit {
         interface BeginDetails {
@@ -550,7 +552,7 @@ declare global {
          * @param hookds Callbacks to run during test execution
          * @param nested A callback with grouped tests and nested modules to run under the current module label
          */
-        module: moduleFunc1 & moduleFunc2 & ModuleOnly;
+        module: moduleFunc1 & moduleFunc2 & ModuleOnly & ModuleSkip & ModuleTodo;
 
         /**
          * Register a callback to fire whenever a module ends.

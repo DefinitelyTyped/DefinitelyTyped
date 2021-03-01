@@ -1,1 +1,3 @@
-export { SendToBack32 as default } from "../../";
+import { SendToBack32 } from "../../";
+
+export = SendToBack32;

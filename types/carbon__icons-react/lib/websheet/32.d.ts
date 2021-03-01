@@ -1,1 +1,3 @@
-export { Websheet32 as default } from "../../";
+import { Websheet32 } from "../../";
+
+export = Websheet32;

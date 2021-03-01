@@ -1,4 +1,7 @@
 import UAParser = require('ua-parser-js');
+// tslint:disable-next-line:no-duplicate-imports testing imports
+import { UAParser as UAParserAlias } from 'ua-parser-js';
+// tslint:disable-next-line:no-duplicate-imports testing imports
 import { IBrowser, ICPU, IDevice, IEngine, IOS, IResult, BROWSER, CPU, DEVICE, ENGINE, OS } from 'ua-parser-js';
 
 const ua = 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6';
@@ -45,3 +48,6 @@ parser.getCPU().architecture; // $ExpectType string | undefined
 const uaString = 'ownbrowser/1.3';
 const ownBrowser = [[/(ownbrowser)\/([\w\.]+)/i], [UAParser.BROWSER.NAME, UAParser.BROWSER.VERSION]];
 parser = new UAParser(uaString, { browser: ownBrowser }); // $ExpectType UAParser
+
+// alias
+parser = new UAParserAlias(uaString, { browser: ownBrowser }); // $ExpectType UAParser

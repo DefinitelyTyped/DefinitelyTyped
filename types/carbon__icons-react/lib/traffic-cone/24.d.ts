@@ -1,1 +1,3 @@
-export { TrafficCone24 as default } from "../../";
+import { TrafficCone24 } from "../../";
+
+export = TrafficCone24;

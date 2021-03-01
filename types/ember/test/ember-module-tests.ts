@@ -130,6 +130,7 @@ Ember.VERSION; // $ExpectType string
 
 Ember.onerror = (err: Error) => console.error(err);
 Ember.onerror = (num: number, err: Error) => console.error(err); // $ExpectError
+Ember.onerror = undefined;
 
 // Classes
 // TODO ContainerProxyMixin

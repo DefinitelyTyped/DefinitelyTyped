@@ -1,1 +1,3 @@
-export { UserAvatar32 as default } from "../../";
+import { UserAvatar32 } from "../../";
+
+export = UserAvatar32;

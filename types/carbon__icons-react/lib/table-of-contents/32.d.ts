@@ -1,1 +1,3 @@
-export { TableOfContents32 as default } from "../../";
+import { TableOfContents32 } from "../../";
+
+export = TableOfContents32;

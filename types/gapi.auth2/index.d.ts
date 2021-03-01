@@ -295,19 +295,19 @@ declare namespace gapi.auth2 {
      * When you use GoogleUser.signIn(), the sign-in flow skips the account chooser step.
      * See GoogleAuth.signIn().
      */
-    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
+    signIn(options?: SigninOptions | SigninOptionsBuilder): Promise<any>;
 
     /**
      * See GoogleUser.signIn()
      */
-    grant(options?: SigninOptions | SigninOptionsBuilder): any;
+    grant(options?: SigninOptions | SigninOptionsBuilder): Promise<any>;
 
     /**
      * Get permission from the user to access the specified scopes offline.
      * When you use GoogleUser.grantOfflineAccess(), the sign-in flow skips the account chooser step.
      * See GoogleUser.grantOfflineAccess().
      */
-    grantOfflineAccess(scopes: string): void;
+    grantOfflineAccess(scopes: string): Promise<{code: string}>;
 
     /**
      * Revokes all of the scopes that the user granted.

@@ -31,7 +31,8 @@ passport.use(new linkedin.Strategy(
     {
         callbackURL,
         clientID,
-        clientSecret
+        clientSecret,
+        scope: ["r_emailaddress", "r_liteprofile"]
     },
     (accessToken: string, refreshToken: string, profile: linkedin.Profile, done: (error: any, user?: any) => void) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {

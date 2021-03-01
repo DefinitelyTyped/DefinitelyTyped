@@ -1,1 +1,3 @@
-export { NonCertified20 as default } from "../../";
+import { NonCertified20 } from "../../";
+
+export = NonCertified20;

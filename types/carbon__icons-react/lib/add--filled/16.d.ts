@@ -1,1 +1,3 @@
-export { AddFilled16 as default } from "../../";
+import { AddFilled16 } from "../../";
+
+export = AddFilled16;

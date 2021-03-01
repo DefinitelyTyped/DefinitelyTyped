@@ -1,1 +1,3 @@
-export { WindGusts32 as default } from "../../";
+import { WindGusts32 } from "../../";
+
+export = WindGusts32;

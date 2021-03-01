@@ -1,1 +1,3 @@
-export { Quotes16 as default } from "../../";
+import { Quotes16 } from "../../";
+
+export = Quotes16;

@@ -1,1 +1,3 @@
-export { DirectionRight_01Filled24 as default } from "../../";
+import { DirectionRight_01Filled24 } from "../../";
+
+export = DirectionRight_01Filled24;

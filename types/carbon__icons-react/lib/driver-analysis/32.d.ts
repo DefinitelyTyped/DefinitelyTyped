@@ -1,1 +1,3 @@
-export { DriverAnalysis32 as default } from "../../";
+import { DriverAnalysis32 } from "../../";
+
+export = DriverAnalysis32;

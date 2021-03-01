@@ -1,1 +1,3 @@
-export { WintryMix32 as default } from "../../";
+import { WintryMix32 } from "../../";
+
+export = WintryMix32;

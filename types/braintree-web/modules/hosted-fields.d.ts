@@ -17,7 +17,11 @@ export interface HostedFieldsFieldMaskInput {
  * Fields used in {@link module:braintree-web/hosted-fields~fieldOptions fields options}
  */
 export interface HostedFieldsField {
-    selector: string;
+    /**
+     * @deprecated Now an alias for `container`.
+     */
+    selector?: string;
+    container?: string | HTMLElement;
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
@@ -34,11 +38,12 @@ export interface HostedFieldsField {
  * An object that has {@link module:braintree-web/hosted-fields~field field objects} for each field. Used in {@link module:braintree-web/hosted-fields~create create}.
  */
 export interface HostedFieldFieldOptions {
-    number: HostedFieldsField;
+    cardholderName?: HostedFieldsField;
+    cvv: HostedFieldsField;
     expirationDate?: HostedFieldsField;
     expirationMonth?: HostedFieldsField;
     expirationYear?: HostedFieldsField;
-    cvv: HostedFieldsField;
+    number: HostedFieldsField;
     postalCode?: HostedFieldsField;
 }
 
@@ -112,7 +117,8 @@ export type HostedFieldsHostedFieldsFieldName =
     | 'expirationDate'
     | 'expirationMonth'
     | 'expirationYear'
-    | 'postalCode';
+    | 'postalCode'
+    | 'cardholderName';
 
 export type HostedFieldsFieldDataFields = {
     [key in HostedFieldsHostedFieldsFieldName]: HostedFieldsHostedFieldsFieldData;
@@ -124,7 +130,8 @@ export interface HostedFieldsStateObject {
     fields: HostedFieldsFieldDataFields;
 }
 
-export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty' | 'cardTypeChange' | 'validityChange';
+export type HostedFieldEventType = 'blur' | 'focus' | 'empty' | 'notEmpty'
+    | 'cardTypeChange' | 'validityChange' | 'inputSubmitRequest';
 
 export interface HostedFieldsAccountDetails {
     bin: string;
@@ -226,6 +233,7 @@ export interface HostedFields {
     VERSION: string;
 
     on(event: HostedFieldEventType, handler: (event: HostedFieldsStateObject) => void): void;
+    off(event: HostedFieldEventType, handler: (event: HostedFieldsStateObject) => void): void;
 
     teardown(callback?: callback): void;
     teardown(): Promise<void>;
@@ -348,4 +356,15 @@ export interface HostedFields {
      * });
      */
     getState(): any;
+
+    /**
+     * Programmatically focus a {@link module:braintree-web/hosted-fields-field field}.     *
+     * @example
+     * hostedFieldsInstance.focus('number', function (focusErr) {
+     *   if (focusErr) {
+     *     console.error(focusErr);
+     *   }
+     * });
+     */
+    focus(field: HostedFieldsHostedFieldsFieldName, callback?: callback): void;
 }

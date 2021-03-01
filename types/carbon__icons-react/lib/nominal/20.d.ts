@@ -1,1 +1,3 @@
-export { Nominal20 as default } from "../../";
+import { Nominal20 } from "../../";
+
+export = Nominal20;

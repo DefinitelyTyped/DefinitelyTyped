@@ -140,7 +140,13 @@ declare namespace UAParser {
         NAME: string;
         VERSION: string;
     }
+
+    // alias for older syntax
+    const UAParser: typeof UAParserAlias;
 }
+
+// support re-export
+declare const UAParserAlias: typeof UAParser;
 
 declare class UAParser {
     static VERSION: string;

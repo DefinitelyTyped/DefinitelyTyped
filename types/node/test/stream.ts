@@ -1,8 +1,8 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from "stream";
-import { promisify } from "util";
-import { createReadStream, createWriteStream } from "fs";
-import { createGzip, constants } from "zlib";
-import { ok as assert } from 'assert';
+import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'node:stream';
+import { promisify } from 'node:util';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createGzip, constants } from 'node:zlib';
+import assert = require('node:assert');
 
 // Simplified constructors
 function simplified_stream_ctor_test() {

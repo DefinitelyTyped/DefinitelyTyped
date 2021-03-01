@@ -1,1 +1,3 @@
-export { MacCommand16 as default } from "../../";
+import { MacCommand16 } from "../../";
+
+export = MacCommand16;

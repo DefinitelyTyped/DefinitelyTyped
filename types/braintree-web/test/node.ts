@@ -98,6 +98,9 @@ braintree.client.create(
                         selector: '#cvv',
                         type: 'password',
                     },
+                    cardholderName: {
+                        container: '#cardholder-name',
+                    },
                     expirationMonth: {
                         selector: '#expiration-month',
                         select: {
@@ -259,6 +262,20 @@ braintree.client.create(
                 const formValid = Object.keys(state.fields).every(key => {
                     return state.fields[key].isValid;
                 });
+
+                hostedFieldsInstance.focus('cardholderName');
+                hostedFieldsInstance.focus('number', (focusErr: braintree.BraintreeError) => {
+                    if (focusErr) {
+                        console.error(focusErr);
+                    }
+                });
+
+                function onValidityChange(fieldState: braintree.HostedFieldsStateObject): void {
+                    console.log(fieldState);
+                }
+
+                hostedFieldsInstance.on('validityChange', onValidityChange);
+                hostedFieldsInstance.off('validityChange', onValidityChange);
             },
         );
 
@@ -547,6 +564,7 @@ braintree.threeDSecure.verifyCard(
     {
         nonce: existingNonce,
         amount: 123.45, // $ExpectType number
+        bin: "1234",
         addFrame: (err, iframe) => {
             // Set up your UI and add the iframe.
             const my3DSContainer = document.createElement('div');

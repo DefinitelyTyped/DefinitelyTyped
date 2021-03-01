@@ -1,1 +1,3 @@
-export { Cloudy32 as default } from "../../";
+import { Cloudy32 } from "../../";
+
+export = Cloudy32;

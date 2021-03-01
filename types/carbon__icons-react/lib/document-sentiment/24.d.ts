@@ -1,1 +1,3 @@
-export { DocumentSentiment24 as default } from "../../";
+import { DocumentSentiment24 } from "../../";
+
+export = DocumentSentiment24;

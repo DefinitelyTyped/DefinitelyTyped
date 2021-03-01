@@ -1,1 +1,3 @@
-export { CloudLightning24 as default } from "../../";
+import { CloudLightning24 } from "../../";
+
+export = CloudLightning24;

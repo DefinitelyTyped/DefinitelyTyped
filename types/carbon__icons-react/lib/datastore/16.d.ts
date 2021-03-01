@@ -1,1 +1,3 @@
-export { Datastore16 as default } from "../../";
+import { Datastore16 } from "../../";
+
+export = Datastore16;
