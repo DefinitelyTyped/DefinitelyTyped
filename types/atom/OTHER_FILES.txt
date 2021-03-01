@@ -1,5 +1,3 @@
-community-packages/**/*.d.ts
-packages/**/*.d.ts
 autocomplete-plus/config.d.ts
 autocomplete-plus/index.d.ts
 linter/config.d.ts
