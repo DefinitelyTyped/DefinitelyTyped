@@ -211,58 +211,64 @@ Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);
 // Demonstrate lookupObject
 
 async function xrmUtility() {
-    await Xrm.Utility.lookupObjects({
+    const lookedUp = await Xrm.Utility.lookupObjects({
         allowMultiSelect: false,
-        defaultEntityType: 'account',
-        defaultViewId: 'abc-deo',
+        defaultEntityType: "account",
+        defaultViewId: "abc-deo",
         disableMru: true,
-        searchText: 'text',
+        searchText: "text",
         showBarcodeScanner: true,
-        entityTypes: ['contact', 'account'],
-        viewIds: ['abc'],
+        entityTypes: ["contact", "account"],
+        viewIds: ["abc"],
         filters: [{
-            entityLogicalName: 'contact',
-            filterXml: '<xml>goes</xml>'
+            entityLogicalName: "contact",
+            filterXml: "<xml>goes</xml>"
         }]
     });
+
+    const lookedUpItem = lookedUp[0]; 
+    if (lookedUpItem.entityType === "contact"){
+        
+    }
 
     Xrm.Utility.showProgressIndicator("doing things");
     Xrm.Utility.closeProgressIndicator();
 }
 
 async function xrmNavigation() {
-    await Xrm.Navigation.openAlertDialog({
+    await Promise.resolve(Xrm.Navigation.openAlertDialog({
         title: "title of dialog",
         text: "text of dialog",
-        confirmButtonLabel: 'confim the thing',
+        confirmButtonLabel: "confim the thing",
     }, {
         height: 100,
         width: 100,
-    });
+    }));
 
-    await Xrm.Navigation.openAlertDialog({
+    await Promise.resolve(await Xrm.Navigation.openAlertDialog({
         title: "title of dialog",
         text: "text of dialog",
-    });
+    }));
 
-    const confirmResult = await Xrm.Navigation.openConfirmDialog({
+    const confirmResult = await Promise.resolve(Xrm.Navigation.openConfirmDialog({
         title: "title of dialog",
-        subtitle: 'subtitle of dialog',
+        subtitle: "subtitle of dialog",
         text: "text of dialog",
-        cancelButtonLabel: 'cancel the thing',
-        confirmButtonLabel: 'confim the thing',
+        cancelButtonLabel: "cancel the thing",
+        confirmButtonLabel: "confim the thing",
     }, {
         height: 100,
         width: 100,
-    });
+    }));
 
-    if (confirmResult.confirmed === true) {
+    const trueConst = true;
+    if (confirmResult.confirmed === trueConst) {
         // confirmed
     }
 
-    await Xrm.Navigation.openErrorDialog({
-        message: '',
-        details: '',
+    Promise.resolve(await Xrm.Navigation.openErrorDialog({
+        message: "",
+        details: "",
         errorCode: 12344,
-    });
+    }));
 }
