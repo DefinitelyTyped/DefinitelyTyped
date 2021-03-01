@@ -327,7 +327,7 @@ export namespace DS {
      * Holds validation errors for a given record, organized by attribute names.
      */
     interface Errors extends Ember.Enumerable<any>, Evented {}
-    class Errors extends Ember.Object {
+    class Errors extends Ember.ArrayProxy<any> {
         /**
          * DEPRECATED:
          * Register with target handler
@@ -474,7 +474,7 @@ export namespace DS {
          * contains keys corresponding to the invalid property names
          * and values which are arrays of Javascript objects with two keys:
          */
-        errors: Ember.ComputedProperty<Errors>;
+        errors: Errors;
         /**
          * This property holds the `DS.AdapterError` object with which
          * last adapter operation was rejected.
