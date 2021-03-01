@@ -211,7 +211,7 @@ Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);
 // Demonstrate lookupObject
 
 async function xrmUtility() {
-    const lookedUp = await Xrm.Utility.lookupObjects({
+    const lookedUp = await Promise.resolve(Xrm.Utility.lookupObjects({
         allowMultiSelect: false,
         defaultEntityType: "account",
         defaultViewId: "abc-deo",
@@ -224,11 +224,10 @@ async function xrmUtility() {
             entityLogicalName: "contact",
             filterXml: "<xml>goes</xml>"
         }]
-    });
+    }));
 
-    const lookedUpItem = lookedUp[0]; 
-    if (lookedUpItem.entityType === "contact"){
-        
+    const lookedUpItem = lookedUp[0];
+    if (lookedUpItem.entityType === "contact") {
     }
 
     Xrm.Utility.showProgressIndicator("doing things");
@@ -245,7 +244,7 @@ async function xrmNavigation() {
         width: 100,
     }));
 
-    await Promise.resolve(await Xrm.Navigation.openAlertDialog({
+    await Promise.resolve(Xrm.Navigation.openAlertDialog({
         title: "title of dialog",
         text: "text of dialog",
     }));
@@ -266,7 +265,7 @@ async function xrmNavigation() {
         // confirmed
     }
 
-    Promise.resolve(await Xrm.Navigation.openErrorDialog({
+    await Promise.resolve(Xrm.Navigation.openErrorDialog({
         message: "",
         details: "",
         errorCode: 12344,
