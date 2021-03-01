@@ -772,12 +772,12 @@ declare module _ {
          **/
         flatten<V extends List<any>>(
             list: V,
-            depth?: false
-        ): DeepestListItemOrSelf<TypeOfList<V>>[];
+            depth: 1 | true
+        ): ListItemOrSelf<TypeOfList<V>>[];
         flatten<V extends List<any>>(
             list: V,
-            depth: number | true
-        ): ListItemOrSelf<TypeOfList<V>>[];
+            depth?: number | false
+        ): DeepestListItemOrSelf<TypeOfList<V>>[];
 
         /**
          * Returns a copy of `list` with all instances of `values` removed.
@@ -4504,8 +4504,8 @@ declare module _ {
          * default = false.
          * @returns The flattened list.
          **/
-        flatten(depth?: false): DeepestListItemOrSelf<T>[];
-        flatten(depth: true | number): ListItemOrSelf<T>[];
+        flatten(depth: 1 | true): ListItemOrSelf<T>[];
+        flatten(depth?: number | false): DeepestListItemOrSelf<T>[];
 
         /**
          * Returns a copy of the wrapped list with all instances of `values`
@@ -5729,8 +5729,8 @@ declare module _ {
          * default = false.
          * @returns A chain wrapper around the flattened list.
          **/
-        flatten(depth?: false): _Chain<DeepestListItemOrSelf<T>>;
-        flatten(depth: true | number): _Chain<ListItemOrSelf<T>>;
+        flatten(depth: 1 | true): _Chain<ListItemOrSelf<T>>;
+        flatten(depth?: number | false): _Chain<DeepestListItemOrSelf<T>>;
 
         /**
          * Returns a copy of the wrapped list with all instances of `values`

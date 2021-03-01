@@ -2109,8 +2109,8 @@ _.flatten([[[1, 2], [3]], [[4, 5]]]); // $ExpectType any[]
 // shallow flattening an array
 _.flatten([[[1, 2], [3]], [[4, 5]]], true); // $ExpectType number[][]
 
-// shallow flattening an array
-_.flatten([[[1, 2], [3]], [[4, 5]]], 2); // $ExpectType number[][]
+// flattening an array to a particular depth
+_.flatten([[[1, 2], [3]], [[4, 5]]], 2); // $ExpectType any[]
 
 {
     // one dimension, deep
