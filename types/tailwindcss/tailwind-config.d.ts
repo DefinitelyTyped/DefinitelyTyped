@@ -27,6 +27,7 @@ export interface TailwindColorGroup {
     readonly '700': string;
     readonly '800': string;
     readonly '900': string;
+    readonly [key: string]: string;
 }
 
 export interface TailwindStandardSpacing {
