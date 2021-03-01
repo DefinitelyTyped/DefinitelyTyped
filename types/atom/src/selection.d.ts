@@ -6,7 +6,7 @@ import {
     RangeLike,
     ReadonlyEditOptions,
     TextInsertionOptions,
-} from "../index";
+} from '../index';
 
 /** Represents a selection in the TextEditor. */
 export interface Selection {
@@ -313,10 +313,7 @@ export interface Selection {
      *  Combines the given selection into this selection and then destroys the
      *  given selection.
      */
-    merge(
-        otherSelection: Selection,
-        options?: { preserveFolds?: boolean; autoscroll?: boolean },
-    ): void;
+    merge(otherSelection: Selection, options?: { preserveFolds?: boolean; autoscroll?: boolean }): void;
 
     // Comparing to other selections
     /**

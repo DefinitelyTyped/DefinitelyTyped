@@ -1,4 +1,4 @@
-import { Disposable, Pane, PaneItemObservedEvent } from "../index";
+import { Disposable, Pane, PaneItemObservedEvent } from '../index';
 
 /** A container at the edges of the editor window capable of holding items. */
 export interface Dock {
@@ -86,9 +86,7 @@ export interface Dock {
      *      If this function returns a Promise, then the item will not be destroyed
      *      until the promise resolves.
      */
-    onWillDestroyPaneItem(
-        callback: (event: PaneItemObservedEvent) => void | Promise<void>,
-    ): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void | Promise<void>): Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
     onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;

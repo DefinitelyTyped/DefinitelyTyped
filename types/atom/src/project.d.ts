@@ -6,7 +6,7 @@ import {
     GitRepository,
     PathWatcher,
     TextBuffer,
-} from "../index";
+} from '../index';
 
 /** Represents a project that's opened in Atom. */
 export interface Project {
@@ -27,9 +27,7 @@ export interface Project {
     onDidChangeFiles(callback: (events: FilesystemChangeEvent) => void): Disposable;
 
     /** Invoke a callback whenever the project's configuration has been replaced. */
-    onDidReplace(
-        callback: (projectSpec: ProjectSpecification | null | undefined) => void,
-    ): Disposable;
+    onDidReplace(callback: (projectSpec: ProjectSpecification | null | undefined) => void): Disposable;
 
     // Accessing the Git Repository
     /**

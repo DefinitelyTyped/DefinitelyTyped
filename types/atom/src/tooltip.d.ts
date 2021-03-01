@@ -6,7 +6,7 @@ export interface Tooltip {
     readonly options: TooltipOptions;
     readonly enabled: boolean;
     readonly timeout: number;
-    readonly hoverState: "in" | "out" | null;
+    readonly hoverState: 'in' | 'out' | null;
     readonly element: HTMLElement;
 
     getTitle(): string;
@@ -37,7 +37,7 @@ export interface TooltipOptions {
     html?: boolean;
 
     /** How to position the tooltip. */
-    placement?: "top" | "bottom" | "left" | "right" | "auto";
+    placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
 
     /**
      *  If a selector is provided, tooltip objects will be delegated to the

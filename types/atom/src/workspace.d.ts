@@ -10,7 +10,7 @@ import {
     TextEditorObservedEvent,
     ViewModel,
     WorkspaceCenter,
-} from "../index";
+} from '../index';
 
 /** Represents the state of the user interface for the entire window. */
 export interface Workspace {
@@ -89,9 +89,7 @@ export interface Workspace {
      *      If this function returns a Promise, then the item will not be destroyed
      *      until the promise resolves.
      */
-    onWillDestroyPaneItem(
-        callback: (event: PaneItemObservedEvent) => void | Promise<void>,
-    ): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void | Promise<void>): Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
     onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
@@ -149,9 +147,7 @@ export interface Workspace {
     reopenItem(): Promise<object | undefined>;
 
     /** Register an opener for a URI. */
-    addOpener(
-        opener: (uri: string, options?: WorkspaceOpenOptions) => ViewModel | undefined,
-    ): Disposable;
+    addOpener(opener: (uri: string, options?: WorkspaceOpenOptions) => ViewModel | undefined): Disposable;
 
     /** Create a new text editor. */
     buildTextEditor(params: object): TextEditor;
@@ -269,10 +265,7 @@ export interface Workspace {
 
     // Searching and Replacing
     /** Performs a search across all files in the workspace. */
-    scan(
-        regex: RegExp,
-        iterator: (result: ScandalResult) => void,
-    ): CancellablePromise<string | null>;
+    scan(regex: RegExp, iterator: (result: ScandalResult) => void): CancellablePromise<string | null>;
     /** Performs a search across all files in the workspace. */
     scan(
         regex: RegExp,
@@ -305,7 +298,7 @@ export interface WorkspaceOpenOptions {
      *  opened in the bottommost pane of the current active pane's column. If only one pane
      *  exists in the column, a new pane will be created.
      */
-    split?: "left" | "right" | "up" | "down";
+    split?: 'left' | 'right' | 'up' | 'down';
 
     /**
      *  A boolean indicating whether to call Pane::activate on containing pane.
@@ -340,7 +333,7 @@ export interface WorkspaceOpenOptions {
      *  by the item.
      *  NOTE: This option should almost always be omitted to honor user preference.
      */
-    location?: "left" | "right" | "bottom" | "center";
+    location?: 'left' | 'right' | 'bottom' | 'center';
 }
 
 export interface WorkspaceScanOptions {

@@ -1,5 +1,5 @@
-import { Disposable } from "../../../index";
-import { DisplayMarker, Marker, PointCompatible, RangeCompatible } from "./text-buffer";
+import { Disposable } from '../../../index';
+import { DisplayMarker, Marker, PointCompatible, RangeCompatible } from './text-buffer';
 
 /**
  *  Experimental: A container for a related set of markers at the DisplayLayer level.
@@ -45,9 +45,9 @@ export interface DisplayMarkerLayer {
         range: RangeCompatible,
         options?: {
             reversed?: boolean;
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
             exclusive?: boolean;
-            clipDirection?: "backward" | "forward" | "closest";
+            clipDirection?: 'backward' | 'forward' | 'closest';
         },
     ): DisplayMarker;
 
@@ -58,9 +58,9 @@ export interface DisplayMarkerLayer {
     markScreenPosition(
         screenPosition: PointCompatible,
         options?: {
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
             exclusive?: boolean;
-            clipDirection?: "backward" | "forward" | "closest";
+            clipDirection?: 'backward' | 'forward' | 'closest';
         },
     ): DisplayMarker;
 
@@ -69,7 +69,7 @@ export interface DisplayMarkerLayer {
         range: RangeCompatible,
         options?: {
             reversed?: boolean;
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
             exclusive?: boolean;
         },
     ): DisplayMarker;
@@ -81,7 +81,7 @@ export interface DisplayMarkerLayer {
     markBufferPosition(
         bufferPosition: PointCompatible,
         options?: {
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
             exclusive?: boolean;
         },
     ): DisplayMarker;

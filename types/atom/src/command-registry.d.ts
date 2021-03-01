@@ -1,4 +1,4 @@
-import { CommandEvent, CompositeDisposable, Disposable } from "../index";
+import { CommandEvent, CompositeDisposable, Disposable } from '../index';
 
 export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
     [key: string]: EventTarget;
@@ -25,11 +25,7 @@ export interface CommandRegistry {
         listener: CommandRegistryListener<CommandRegistryTargetMap[T]>,
     ): Disposable;
     /** Register a single command. */
-    add<T extends Node>(
-        target: T,
-        commandName: string,
-        listener: CommandRegistryListener<T>,
-    ): Disposable;
+    add<T extends Node>(target: T, commandName: string, listener: CommandRegistryListener<T>): Disposable;
 
     /** Register multiple commands. */
     add<T extends keyof CommandRegistryTargetMap>(

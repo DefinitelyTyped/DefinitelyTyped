@@ -30,7 +30,7 @@ import {
     TextBuffer,
     TextEditOptions,
     TextInsertionOptions,
-} from "../index";
+} from '../index';
 
 /**
  *  This class represents all essential editing state for a single TextBuffer,
@@ -264,11 +264,7 @@ export class TextEditor {
     setText(text: string, options?: ReadonlyEditOptions): void;
 
     /** Set the text in the given Range in buffer coordinates. */
-    setTextInBufferRange(
-        range: RangeCompatible,
-        text: string,
-        options?: TextEditOptions & ReadonlyEditOptions,
-    ): Range;
+    setTextInBufferRange(range: RangeCompatible, text: string, options?: TextEditOptions & ReadonlyEditOptions): Range;
 
     /* For each selection, replace the selected text with the given text. */
     insertText(text: string, options?: TextInsertionOptions & ReadonlyEditOptions): Range | false;
@@ -433,13 +429,13 @@ export class TextEditor {
     /** Convert a position in buffer-coordinates to screen-coordinates. */
     screenPositionForBufferPosition(
         bufferPosition: PointCompatible,
-        options?: { clipDirection?: "backward" | "forward" | "closest" },
+        options?: { clipDirection?: 'backward' | 'forward' | 'closest' },
     ): Point;
 
     /** Convert a position in screen-coordinates to buffer-coordinates. */
     bufferPositionForScreenPosition(
         bufferPosition: PointCompatible,
-        options?: { clipDirection?: "backward" | "forward" | "closest" },
+        options?: { clipDirection?: 'backward' | 'forward' | 'closest' },
     ): Point;
 
     /** Convert a range in buffer-coordinates to screen-coordinates. */
@@ -460,17 +456,14 @@ export class TextEditor {
     /** Clip the given Point to a valid position on screen. */
     clipScreenPosition(
         screenPosition: PointCompatible,
-        options?: { clipDirection?: "backward" | "forward" | "closest" },
+        options?: { clipDirection?: 'backward' | 'forward' | 'closest' },
     ): Point;
 
     /**
      *  Clip the start and end of the given range to valid positions on screen.
      *  See ::clipScreenPosition for more information.
      */
-    clipScreenRange(
-        range: RangeCompatible,
-        options?: { clipDirection?: "backward" | "forward" | "closest" },
-    ): Range;
+    clipScreenRange(range: RangeCompatible, options?: { clipDirection?: 'backward' | 'forward' | 'closest' }): Range;
 
     // Decorations
     /**
@@ -517,7 +510,7 @@ export class TextEditor {
         properties?: {
             maintainHistory?: boolean;
             reversed?: boolean;
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
         },
     ): DisplayMarker;
 
@@ -532,7 +525,7 @@ export class TextEditor {
         properties?: {
             maintainHistory?: boolean;
             reversed?: boolean;
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
         },
     ): DisplayMarker;
 
@@ -543,7 +536,7 @@ export class TextEditor {
     markBufferPosition(
         bufferPosition: PointCompatible,
         options?: {
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
         },
     ): DisplayMarker;
 
@@ -554,8 +547,8 @@ export class TextEditor {
     markScreenPosition(
         screenPosition: PointCompatible,
         options?: {
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
-            clipDirection?: "backward" | "forward" | "closest";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
+            clipDirection?: 'backward' | 'forward' | 'closest';
         },
     ): DisplayMarker;
 
@@ -570,10 +563,7 @@ export class TextEditor {
     findMarkers(properties: FindDisplayMarkerOptions): DisplayMarker[];
 
     /** Create a marker layer to group related markers. */
-    addMarkerLayer(options?: {
-        maintainHistory?: boolean;
-        persistent?: boolean;
-    }): DisplayMarkerLayer;
+    addMarkerLayer(options?: { maintainHistory?: boolean; persistent?: boolean }): DisplayMarkerLayer;
 
     /** Get a DisplayMarkerLayer by id. */
     getMarkerLayer(id: number): DisplayMarkerLayer | undefined;
@@ -622,10 +612,7 @@ export class TextEditor {
     setCursorScreenPosition(position: PointCompatible, options?: { autoscroll?: boolean }): void;
 
     /** Add a cursor at the given position in buffer coordinates. */
-    addCursorAtBufferPosition(
-        bufferPosition: PointCompatible,
-        options?: { autoscroll?: boolean },
-    ): Cursor;
+    addCursorAtBufferPosition(bufferPosition: PointCompatible, options?: { autoscroll?: boolean }): Cursor;
 
     /** Add a cursor at the position in screen coordinates. */
     addCursorAtScreenPosition(screenPosition: PointCompatible): Cursor;
@@ -768,10 +755,7 @@ export class TextEditor {
      *  Set the selected ranges in screen coordinates. If there are multiple selections,
      *  they are replaced by new selections with the given ranges.
      */
-    setSelectedScreenRanges(
-        screenRanges: ReadonlyArray<RangeCompatible>,
-        options?: { reversed?: boolean },
-    ): void;
+    setSelectedScreenRanges(screenRanges: ReadonlyArray<RangeCompatible>, options?: { reversed?: boolean }): void;
 
     /** Add a selection for the given range in buffer coordinates. */
     addSelectionForBufferRange(
@@ -971,11 +955,7 @@ export class TextEditor {
      *
      *  ::scan functions as the replace method as well via the replace.
      */
-    scan(
-        regex: RegExp,
-        options: ScanContextOptions,
-        iterator: (params: ContextualBufferScanResult) => void,
-    ): void;
+    scan(regex: RegExp, options: ScanContextOptions, iterator: (params: ContextualBufferScanResult) => void): void;
     /**
      *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
@@ -988,11 +968,7 @@ export class TextEditor {
      *  Scan regular expression matches in a given range, calling the given iterator.
      *  function on each match.
      */
-    scanInBufferRange(
-        regex: RegExp,
-        range: RangeCompatible,
-        iterator: (params: BufferScanResult) => void,
-    ): void;
+    scanInBufferRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult) => void): void;
 
     /**
      *  Scan regular expression matches in a given range in reverse order, calling the

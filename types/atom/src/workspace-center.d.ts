@@ -1,10 +1,4 @@
-import {
-    Disposable,
-    Pane,
-    PaneItemObservedEvent,
-    TextEditor,
-    TextEditorObservedEvent,
-} from "../index";
+import { Disposable, Pane, PaneItemObservedEvent, TextEditor, TextEditorObservedEvent } from '../index';
 
 // https://github.com/atom/atom/blob/master/src/workspace-center.js
 /** The central container for the editor window capable of holding items. */
@@ -65,9 +59,7 @@ export interface WorkspaceCenter {
      *      If this function returns a Promise, then the item will not be destroyed
      *      until the promise resolves.
      */
-    onWillDestroyPaneItem(
-        callback: (event: PaneItemObservedEvent) => void | Promise<void>,
-    ): Disposable;
+    onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void | Promise<void>): Disposable;
 
     /** Invoke the given callback when a pane item is destroyed. */
     onDidDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;

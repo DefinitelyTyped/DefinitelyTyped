@@ -1,4 +1,4 @@
-import { Disposable } from "../index";
+import { Disposable } from '../index';
 
 /**
  *  A singleton instance of this class available via atom.styles, which you can
@@ -16,9 +16,7 @@ export interface StyleManager {
     onDidRemoveStyleElement(callback: (styleElement: HTMLStyleElement) => void): Disposable;
 
     /** Invoke callback when an existing style element is updated. */
-    onDidUpdateStyleElement(
-        callback: (styleElement: StyleElementObservedEvent) => void,
-    ): Disposable;
+    onDidUpdateStyleElement(callback: (styleElement: StyleElementObservedEvent) => void): Disposable;
 
     // Reading Style Elements
     /** Get all loaded style elements. */

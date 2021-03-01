@@ -1,4 +1,4 @@
-import { Disposable } from "../index";
+import { Disposable } from '../index';
 
 /**
  *  Allows commands to be associated with keystrokes in a context-sensitive way.
@@ -32,18 +32,10 @@ export interface KeymapManager {
 
     // Adding and Removing Bindings
     /** Construct KeyBindings from an object grouping them by CSS selector. */
-    build(
-        source: string,
-        bindings: { [key: string]: { [key: string]: string } },
-        priority?: number,
-    ): KeyBinding[];
+    build(source: string, bindings: { [key: string]: { [key: string]: string } }, priority?: number): KeyBinding[];
 
     /** Add sets of key bindings grouped by CSS selector. */
-    add(
-        source: string,
-        bindings: { [key: string]: { [key: string]: string } },
-        priority?: number,
-    ): Disposable;
+    add(source: string, bindings: { [key: string]: { [key: string]: string } }, priority?: number): Disposable;
 
     // Accessing Bindings
     /** Get all current key bindings. */

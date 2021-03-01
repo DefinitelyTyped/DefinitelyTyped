@@ -1,4 +1,4 @@
-import { Disposable, Grammar, GrammarToken, TextBuffer } from "../index";
+import { Disposable, Grammar, GrammarToken, TextBuffer } from '../index';
 
 /** Registry containing one or more grammars. */
 export interface GrammarRegistry {
@@ -75,10 +75,7 @@ export interface GrammarRegistry {
      *  @param grammarPath The absolute file path to the grammar.
      *  @param callback The function to be invoked once the Grammar has been read in.
      */
-    readGrammar(
-        grammarPath: string,
-        callback: (error: Error | null, grammar?: Grammar) => void,
-    ): void;
+    readGrammar(grammarPath: string, callback: (error: Error | null, grammar?: Grammar) => void): void;
 
     /**
      *  Read a grammar synchronously and add it to this registry.
@@ -93,10 +90,7 @@ export interface GrammarRegistry {
      *  @param callback The function to be invoked once the Grammar has been read in
      *  and added to the registry.
      */
-    loadGrammar(
-        grammarPath: string,
-        callback: (error: Error | null, grammar?: Grammar) => void,
-    ): void;
+    loadGrammar(grammarPath: string, callback: (error: Error | null, grammar?: Grammar) => void): void;
 
     /**
      *  Convert compact tags representation into convenient, space-inefficient tokens.

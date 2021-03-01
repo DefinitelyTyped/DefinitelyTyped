@@ -55,8 +55,7 @@ export class CompositeDisposable implements DisposableLike {
  *  for handlers registered via ::on to be invoked with calls to ::emit.
  */
 // tslint:disable-next-line:no-any
-export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissions = {}>
-    implements DisposableLike {
+export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissions = {}> implements DisposableLike {
     /** Construct an emitter. */
     constructor();
 
@@ -68,32 +67,20 @@ export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissio
 
     // Event Subscription
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    on<T extends keyof OptionalEmissions>(
-        eventName: T,
-        handler: (value?: OptionalEmissions[T]) => void,
-    ): Disposable;
+    on<T extends keyof OptionalEmissions>(eventName: T, handler: (value?: OptionalEmissions[T]) => void): Disposable;
     /** Registers a handler to be invoked whenever the given event is emitted. */
-    on<T extends keyof RequiredEmissions>(
-        eventName: T,
-        handler: (value: RequiredEmissions[T]) => void,
-    ): Disposable;
+    on<T extends keyof RequiredEmissions>(eventName: T, handler: (value: RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof OptionalEmissions>(
-        eventName: T,
-        handler: (value?: OptionalEmissions[T]) => void,
-    ): Disposable;
+    once<T extends keyof OptionalEmissions>(eventName: T, handler: (value?: OptionalEmissions[T]) => void): Disposable;
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof RequiredEmissions>(
-        eventName: T,
-        handler: (value: RequiredEmissions[T]) => void,
-    ): Disposable;
+    once<T extends keyof RequiredEmissions>(eventName: T, handler: (value: RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked before all other

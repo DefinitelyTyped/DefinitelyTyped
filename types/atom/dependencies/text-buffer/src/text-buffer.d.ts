@@ -1,4 +1,4 @@
-import { ReadStream, WriteStream } from "fs";
+import { ReadStream, WriteStream } from 'fs';
 import {
     Disposable,
     FileSavedEvent,
@@ -6,7 +6,7 @@ import {
     HistoryTransactionOptions,
     HistoryTraversalOptions,
     TextEditOptions,
-} from "../../../index";
+} from '../../../index';
 import {
     FindMarkerOptions,
     Marker,
@@ -16,15 +16,15 @@ import {
     Range,
     RangeCompatible,
     TextChange,
-} from "./text-buffer";
+} from './text-buffer';
 
-export * from "./display-marker";
-export * from "./display-marker-layer";
-export * from "./helpers";
-export * from "./marker";
-export * from "./marker-layer";
-export * from "./point";
-export * from "./range";
+export * from './display-marker';
+export * from './display-marker-layer';
+export * from './helpers';
+export * from './marker';
+export * from './marker-layer';
+export * from './point';
+export * from './range';
 
 /**
  *  A mutable text container with undo/redo support and the ability to
@@ -41,10 +41,7 @@ export class TextBuffer {
     readonly destroyed: boolean;
 
     /** Create a new buffer backed by the given file path. */
-    static load(
-        filePath: string | TextBufferFileBackend,
-        params?: BufferLoadOptions,
-    ): Promise<TextBuffer>;
+    static load(filePath: string | TextBufferFileBackend, params?: BufferLoadOptions): Promise<TextBuffer>;
 
     /**
      *  Create a new buffer backed by the given file path. For better performance,
@@ -287,11 +284,7 @@ export class TextBuffer {
 
     // Markers
     /** Create a layer to contain a set of related markers. */
-    addMarkerLayer(options?: {
-        maintainHistory?: boolean;
-        persistent?: boolean;
-        role?: string;
-    }): MarkerLayer;
+    addMarkerLayer(options?: { maintainHistory?: boolean; persistent?: boolean; role?: string }): MarkerLayer;
 
     /**
      *  Get a MarkerLayer by id.
@@ -307,7 +300,7 @@ export class TextBuffer {
         range: RangeCompatible,
         properties?: {
             reversed?: boolean;
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
             exclusive?: boolean;
         },
     ): Marker;
@@ -316,7 +309,7 @@ export class TextBuffer {
     markPosition(
         position: PointCompatible,
         options?: {
-            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch";
+            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch';
             exclusive?: boolean;
         },
     ): Marker;
@@ -424,11 +417,7 @@ export class TextBuffer {
      *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
      */
-    scan(
-        regex: RegExp,
-        options: ScanContextOptions,
-        iterator: (params: ContextualBufferScanResult) => void,
-    ): void;
+    scan(regex: RegExp, options: ScanContextOptions, iterator: (params: ContextualBufferScanResult) => void): void;
 
     /**
      *  Scan regular expression matches in the entire buffer in reverse order,
@@ -449,11 +438,7 @@ export class TextBuffer {
      *  Scan regular expression matches in a given range , calling the given
      *  iterator function on each match.
      */
-    scanInRange(
-        regex: RegExp,
-        range: RangeCompatible,
-        iterator: (params: BufferScanResult) => void,
-    ): void;
+    scanInRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult) => void): void;
     /**
      *  Scan regular expression matches in a given range , calling the given
      *  iterator function on each match.
@@ -469,11 +454,7 @@ export class TextBuffer {
      *  Scan regular expression matches in a given range in reverse order,
      *  calling the given iterator function on each match.
      */
-    backwardsScanInRange(
-        regex: RegExp,
-        range: RangeCompatible,
-        iterator: (params: BufferScanResult) => void,
-    ): void;
+    backwardsScanInRange(regex: RegExp, range: RangeCompatible, iterator: (params: BufferScanResult) => void): void;
     /**
      *  Scan regular expression matches in a given range in reverse order,
      *  calling the given iterator function on each match.

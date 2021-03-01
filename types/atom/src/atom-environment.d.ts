@@ -19,7 +19,7 @@ import {
     ViewRegistry,
     WindowLoadSettings,
     Workspace,
-} from "../index";
+} from '../index';
 
 /**
  *  Atom global for dealing with packages, themes, menus, and the window.
@@ -120,7 +120,7 @@ export interface AtomEnvironment {
      *  Gets the release channel of the Atom application.
      *  Returns the release channel, which can be 'dev', 'nightly', 'beta', or 'stable'.
      */
-    getReleaseChannel(): "dev" | "nightly" | "beta" | "stable";
+    getReleaseChannel(): 'dev' | 'nightly' | 'beta' | 'stable';
 
     /** Returns a boolean that is true if the current version is an official release. */
     isReleasedVersion(): boolean;
@@ -204,12 +204,7 @@ export interface AtomEnvironment {
     getWindowDimensions(): { x: number; y: number; width: number; height: number };
 
     /** Set the dimensions of the window. */
-    setWindowDimensions(dimensions: {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-    }): Promise<object>;
+    setWindowDimensions(dimensions: { x?: number; y?: number; width?: number; height?: number }): Promise<object>;
 
     // Messaging the User
     /** Visually and audibly trigger a beep. */
@@ -229,10 +224,7 @@ export interface AtomEnvironment {
      *  @param checkboxChecked The checked state of the checkbox if `checkboxLabel` was set.
      *  Otherwise false.
      */
-    confirm(
-        options: ConfirmationOptions,
-        callback: (response: number, checkboxChecked: boolean) => void,
-    ): void;
+    confirm(options: ConfirmationOptions, callback: (response: number, checkboxChecked: boolean) => void): void;
 
     /**
      *  A flexible way to open a dialog akin to an alert dialog. If a callback
@@ -245,11 +237,7 @@ export interface AtomEnvironment {
      *
      *  Returns the chosen button index number if the buttons option was an array.
      */
-    confirm(options: {
-        message: string;
-        detailedMessage?: string;
-        buttons?: ReadonlyArray<string>;
-    }): void;
+    confirm(options: { message: string; detailedMessage?: string; buttons?: ReadonlyArray<string> }): void;
 
     /**
      *  A flexible way to open a dialog akin to an alert dialog. If a callback
@@ -298,7 +286,7 @@ export interface PreventableExceptionThrownEvent extends ExceptionThrownEvent {
 
 export interface ConfirmationOptions {
     /** The type of the confirmation prompt. */
-    type?: "none" | "info" | "error" | "question" | "warning";
+    type?: 'none' | 'info' | 'error' | 'question' | 'warning';
 
     /** The text for the buttons. */
     buttons?: ReadonlyArray<string>;

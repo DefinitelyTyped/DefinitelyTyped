@@ -1,5 +1,5 @@
-import { Disposable, ScopeDescriptor } from "../index";
-import { ConfigValues } from "./config-schema";
+import { Disposable, ScopeDescriptor } from '../index';
+import { ConfigValues } from './config-schema';
 
 /** Used to access all of Atom's configuration details. */
 export interface Config {
@@ -8,10 +8,7 @@ export interface Config {
      *  Add a listener for changes to a given key path. This is different than ::onDidChange in
      *  that it will immediately call your callback with the current value of the config entry.
      */
-    observe<T extends keyof ConfigValues>(
-        keyPath: T,
-        callback: (value: ConfigValues[T]) => void,
-    ): Disposable;
+    observe<T extends keyof ConfigValues>(keyPath: T, callback: (value: ConfigValues[T]) => void): Disposable;
     /**
      *  Add a listener for changes to a given key path. This is different than ::onDidChange in
      *  that it will immediately call your callback with the current value of the config entry.
