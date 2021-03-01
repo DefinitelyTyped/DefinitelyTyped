@@ -1,5 +1,5 @@
 import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool } from 'pg';
-import TypeOverrides from 'pg/lib/type-overrides';
+import TypeOverrides = require('pg/lib/type-overrides');
 import { NoticeMessage } from 'pg-protocol/dist/messages';
 
 // https://github.com/brianc/node-pg-types
