@@ -1,4 +1,4 @@
-// Type definitions for react-leaflet 2.5
+// Type definitions for react-leaflet 2.8
 // Project: https://github.com/PaulLeCam/react-leaflet
 // Definitions by: Dave Leaver <https://github.com/danzel>
 //                 David Schneider <https://github.com/davschne>
