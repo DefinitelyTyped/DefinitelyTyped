@@ -3,16 +3,27 @@
 // Definitions by: Zhang Nan <https://github.com/anyone-developer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference lib="esnext.asynciterable" />
+/// <reference types="node" />
+
+import * as fs from "fs";
+import { PicomatchOptions } from "picomatch/picomatch-options";
+
 interface rrdir {
-    async(dir: string, options?: options): Promise<entry[]>;
-    sync(dir: string, options?: options): entry[];
-    (dir: string, options?: options): Promise<entry[]>;
+    async(dir: string, options?: Options): Promise<StringEntry[]>;
+    async(dir: Buffer, options?: Options): Promise<BufferEntry[]>;
+
+    sync(dir: string, options?: Options): StringEntry[];
+    sync(dir: Buffer, options?: Options): BufferEntry[];
+
+    (dir: string, options?: Options): AsyncIterable<StringEntry>;
+    (dir: Buffer, options?: Options): AsyncIterable<BufferEntry>;
 }
 
 declare const c: rrdir;
 export = c;
 
-interface options {
+interface Options {
     stats?: boolean;
     followSymlinks?: boolean;
     exclude?: string[];
@@ -21,51 +32,12 @@ interface options {
     match?: PicomatchOptions;
 }
 
-interface entry {
-    path: string;
+interface Entry<T> {
+    path: T;
     directory?: boolean;
     symlink?: boolean;
-    stats?: object;
+    stats?: fs.Stats;
     err?: Error;
 }
-
-interface PicomatchOptions {
-    basename?: boolean;
-    bash?: boolean;
-    capture?: boolean;
-    contains?: boolean;
-    cwd?: string;
-    debug?: boolean;
-    dot?: boolean;
-    expandRange?: (a: string, b: string) => string;
-    failglob?: boolean;
-    fastpaths?: boolean;
-    flags?: boolean;
-    format?: (str: string) => string;
-    ignore?: string[];
-    keepQuotes?: boolean;
-    literalBrackets?: boolean;
-    lookbehinds?: boolean;
-    matchBase?: boolean;
-    maxLength?: boolean;
-    nobrace?: boolean;
-    nobracket?: boolean;
-    nocase?: boolean;
-    nodupes?: boolean;
-    noext?: boolean;
-    noextglob?: boolean;
-    noglobstar?: boolean;
-    nonegate?: boolean;
-    noquantifiers?: boolean;
-    onIgnore?: (glob: any, regex: any, input: any, output: any) => void;
-    onMatch?: (glob: any, regex: any, input: any, output: any) => void;
-    onResult?: (glob: any, regex: any, input: any, output: any) => void;
-    posix?: boolean;
-    posixSlashes?: boolean;
-    prepend?: boolean;
-    regex?: boolean;
-    strictBrackets?: boolean;
-    strictSlashes?: boolean;
-    unescape?: boolean;
-    unixify?: boolean;
-}
+interface StringEntry extends Entry<string> {}
+interface BufferEntry extends Entry<Buffer> {}
