@@ -5,6 +5,7 @@
 
 /// <reference path="../../base.d.ts" />
 /// <reference path="../account-label/account-label.d.ts" />
+/// <reference path="../../ads-app/common/stats.d.ts" />
 
 declare namespace GoogleAdsScripts {
     namespace AdsManagerApp {
