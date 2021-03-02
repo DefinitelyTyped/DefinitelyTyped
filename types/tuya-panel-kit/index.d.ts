@@ -2229,8 +2229,15 @@ type IconFontName =
     | 9
     | 'power'
     | 'arrow'
+    | '+'
+    | '-'
+    | '.'
+    | ':'
+    | ','
     | 'celsius'
     | 'fahrenheit'
+    | '%'
+    | 'edit'
     | 'minus'
     | 'plus'
     | 'error'
@@ -2248,8 +2255,17 @@ type IconFontName =
     | 'volumeMax'
     | 'volumeMuteBorder'
     | 'volumeMaxBorder'
+    | 'help'
     | 'pen'
-    | 'help';
+    | 'notice-sharp'
+    | 'selected-sharp'
+    | 'unselected-sharp'
+    | 'volume-sharp-off'
+    | 'volume-sharp-max'
+    | 'volume-border-2'
+    | 'volume-border-1'
+    | 'volume-border-off'
+    | 'help-sharp';
 
 export interface IconFontProps {
     /**
