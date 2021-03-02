@@ -1711,7 +1711,11 @@ var myReporter: jasmine.CustomReporter = {
     },
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
-        console.log(`Suite: ${result.description} was ${result.status}`);
+        console.log(`Suite: ${result.description} was ${result.status} (${result.duration})`);
+        console.log(`Suite has properties: ${Object.keys(result.properties || {})}`);
+        if (result.deprecationWarnings) {
+            console.log(`Suite has deprecations: ${result.deprecationWarnings.map(w => w.message)}`);
+        }
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
