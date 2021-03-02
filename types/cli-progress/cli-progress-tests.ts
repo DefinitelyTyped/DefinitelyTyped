@@ -149,9 +149,9 @@ function test8() {
     const singleBar = new progress.SingleBar({
         stopOnComplete: true,
         format: (options, params, payload) => {
-            const elapsedTime = Math.round((Date.now() - params.startTime) / 1000)
-            const speed = params.value / elapsedTime
-            payload.speed = isFinite(speed) ? speed.toFixed(2) : 0
+            const elapsedTime = Math.round((Date.now() - params.startTime) / 1000);
+            const speed = params.value / elapsedTime;
+            payload.speed = isFinite(speed) ? speed.toFixed(2) : 0;
 
             return progress.Format.Formatter(
                 {
@@ -160,17 +160,17 @@ function test8() {
                 },
                 params,
                 payload
-            )
+            );
         }
     });
 
     singleBar.start(1000, 0);
     const interval = setInterval(() => {
         singleBar.increment(100);
-    }, 100)
+    }, 100);
     singleBar.on('stop', () => {
-        clearInterval(interval)
-    })
+        clearInterval(interval);
+    });
 }
 
 progress.Format.BarFormat; // $ExpectType BarFormatter
