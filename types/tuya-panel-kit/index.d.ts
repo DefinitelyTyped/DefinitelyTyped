@@ -10396,6 +10396,8 @@ export interface DevInfo<S = Record<string, DpType>> {
     vendorInfo: string;
     verSw: string;
     virtual: boolean;
+    parentId?: string;
+    groupId?: string;
 }
 
 export type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
