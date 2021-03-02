@@ -9,7 +9,6 @@
 import { IncomingMessage } from 'http';
 import { Stream, Transform, PassThrough } from 'stream';
 import { EventEmitter } from 'events';
-import { type } from 'os';
 import { Domain } from 'domain';
 
 declare namespace Formidable {
