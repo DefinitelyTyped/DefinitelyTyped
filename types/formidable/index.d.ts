@@ -9,7 +9,6 @@
 import { IncomingMessage } from 'http';
 import { Stream, Transform, PassThrough } from 'stream';
 import { EventEmitter } from 'events';
-import { Domain } from 'domain';
 
 declare namespace Formidable {
     type BufferEncoding =
