@@ -1,5 +1,5 @@
-import parse = require('./parse');
-import constants = require('./constants');
+import { constants } from './constants';
+import { parse } from './parse';
 import { PicomatchOptions } from './picomatch-options';
 
 type Matcher = (test: string) => boolean;
@@ -31,9 +31,9 @@ export interface Picomatch {
         regex: RegExp,
         options?: PicomatchOptions,
         test?: {},
-    ): { isMatch: boolean; match: boolean; output: any };
+    ): { isMatch: boolean; match?: (boolean | RegExpExecArray | null); output: string };
 
-    matchBase(input: string, glob: RegExp | string, options: {}, posix?: any): boolean;
+    matchBase(input: string, glob: RegExp | string, options?: {}, posix?: any): boolean;
 
     isMatch(str: string | string[], patterns: string | string[], options?: {}): boolean;
 
@@ -57,7 +57,7 @@ export interface Picomatch {
 
     toRegex(source: string | RegExp, options?: { flags?: string; nocase?: boolean; debug?: boolean }): RegExp;
 
-    constants: typeof constants;
+    constants: constants;
 }
 
 // Shut off automatic exporting
