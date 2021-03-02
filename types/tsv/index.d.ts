@@ -9,7 +9,7 @@ export class Parser {
 
     constructor(sep: string, options?: { header?: boolean });
 
-    stringify(data: any[]): string;
+    stringify(data: ReadonlyArray<any>): string;
     parse(tsv: string): any[];
 }
 
