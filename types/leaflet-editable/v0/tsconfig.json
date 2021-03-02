@@ -17,6 +17,9 @@
         "paths": {
             "leaflet": [
                 "leaflet/v0"
+            ],
+            "leaflet-editable": [
+                "leaflet-editable/v0"
             ]
         },
         "noEmit": true,
