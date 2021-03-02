@@ -2,7 +2,7 @@ import Formidable = require('formidable');
 import {
     defaultOptions,
     enabledPlugins,
-    FileType,
+    File,
     formidable,
     IncomingForm,
     MultipartParser,
@@ -27,7 +27,7 @@ const options: Options = {
     uploadDir: '/dir',
 };
 
-const file: FileType = {
+const file: File = {
     hash: 'sha1',
     lastModifiedDate: new Date(),
     name: 'name',
@@ -61,6 +61,9 @@ new VolatileFile(file);
 
 // $ExpectType PersistentFile
 new PersistentFile(file);
+
+// $ExpectType PersistentFile
+new File(file);
 
 MultipartParser.stateToString;
 
@@ -98,7 +101,7 @@ function evaluateTypes(form: Formidable) {
     form.on('fileBegin', (formname, file) => {
         // $ExpectType string
         formname;
-        // $ExpectType FileType
+        // $ExpectType File
         file;
 
         form.emit('data', { name: 'fileBegin', formname, value: file });
@@ -106,7 +109,7 @@ function evaluateTypes(form: Formidable) {
     form.on('file', (formname, file) => {
         // $ExpectType string
         formname;
-        // $ExpectType FileType
+        // $ExpectType File
         file;
 
         form.emit('data', { name: 'file', formname, value: file });

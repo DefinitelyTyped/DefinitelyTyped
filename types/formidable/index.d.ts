@@ -175,7 +175,7 @@ declare namespace Formidable {
     }
 
     interface Files {
-        [key: string]: FileType | FileType[]; // is an array when multiples is true
+        [key: string]: File | File[]; // is an array when multiples is true
     }
 
     interface Part extends Stream {
@@ -188,14 +188,14 @@ declare namespace Formidable {
     /**
      * @link https://github.com/node-formidable/formidable#file
      */
-    interface FileJSON extends Pick<FileType, 'size' | 'path' | 'name' | 'type' | 'hash'> {
+    interface FileJSON extends Pick<File, 'size' | 'path' | 'name' | 'type' | 'hash'> {
         filename: string;
         length: number;
         mime: string;
         mtime: Date | null;
     }
 
-    interface FileType {
+    interface File {
         /**
          * The size of the uploaded file in bytes. If the file is still being uploaded (see `'fileBegin'`
          * event), this property says how many bytes of the file have been written to disk yet.
@@ -244,7 +244,7 @@ declare namespace Formidable {
         formname: any;
         key?: string | number;
         name: 'fileBegin' | 'file';
-        value: FileType | string;
+        value: File | string;
     }
 
     interface EventData {
@@ -297,7 +297,7 @@ declare namespace Formidable {
      * Persistent File
      */
     class PersistentFile extends EventEmitter {
-        constructor(properties: FileType);
+        constructor(properties: File);
         open(): void;
         toJSON(): FileJSON;
         toString(): string;
@@ -310,6 +310,11 @@ declare namespace Formidable {
      * Volatile File
      */
     const VolatileFile: typeof PersistentFile;
+
+    /**
+     * File
+     */
+    const File: typeof PersistentFile;
 
     /**
      * Plugins
@@ -415,7 +420,7 @@ declare class Formidable {
     on(name: 'data', callback: (data: Formidable.EventData) => void): void;
     on(name: 'error', callback: (err: any) => void): void;
     on(name: 'field', callback: (name: string, value: string) => void): void;
-    on(name: 'fileBegin' | 'file', callback: (formName: string, file: Formidable.FileType) => void): void;
+    on(name: 'fileBegin' | 'file', callback: (formName: string, file: Formidable.File) => void): void;
     on(name: 'progress', callback: (bytesReceived: number, bytesExpected: number) => void): void;
     on(name: string, callback: () => void): void;
 
