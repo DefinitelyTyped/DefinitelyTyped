@@ -30,6 +30,9 @@ export const version: string;
 export const render: Renderer;
 export const hydrate: Renderer;
 
+export function flushSync<R>(fn: () => R): R;
+export function flushSync<A, R>(fn: (a: A) => R, a: A): R;
+
 export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
 export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
 export function unstable_batchedUpdates(callback: () => any): void;
