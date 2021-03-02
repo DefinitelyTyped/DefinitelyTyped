@@ -1340,7 +1340,17 @@ declare namespace Autodesk {
               vizmeshes: THREE.Mesh[];
 
               getAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): boolean;
+              getVizmesh(fragId: number): any;
               updateAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): void;
+            }
+
+            interface GeometryCallback {
+              onCircularArc?(cx: number, cy: number, start: number, end: number, radius: number, vpId: number): void;
+              onEllipticalArc?(cx: number, cy: number, start: number, end: number, major: number, minor: number, tilt: number, vpId: number): void;
+              onLineSegment?(x1: number, y1: number, x2: number, y2: number, vpId: number): void;
+              onOneTriangle?(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, vpId: number): void;
+              onTexQuad?(centerX: number, centerY: number, width: number, height: number, rotation: number, vpId: number): void;
+              onVertex?(cx: number, cy: number, vpId: number): void;
             }
 
             interface GeometryList {
@@ -1405,7 +1415,7 @@ declare namespace Autodesk {
               untag(tag: string, names?: string[]|string): void;
             }
 
-            class BoundsCallback {
+            class BoundsCallback implements GeometryCallback {
               constructor(bounds: THREE.Box3);
 
               onCircularArc(cx: number, cy: number, start: number, end: number, radius: number, vpId: number): void;
@@ -1419,9 +1429,9 @@ declare namespace Autodesk {
             class VertexBufferReader {
               constructor(geometry: any, use2dInstancing?: boolean);
 
-              enumGeoms(filter: any, callback: any): void;
-              enumGeomsForObject(dbId: number, callback: any): void;
-              enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: any): void;
+              enumGeoms(filter: any, callback: GeometryCallback): void;
+              enumGeomsForObject(dbId: number, callback: GeometryCallback): void;
+              enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: GeometryCallback): void;
             }
 
             namespace VertexEnumerator {
