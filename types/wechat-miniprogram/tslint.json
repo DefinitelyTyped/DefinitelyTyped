@@ -1,6 +1,7 @@
 { 
   "extends": "dtslint/dt.json",
   "rules": {
+    "ban-types": false,
     "jsdoc-format": false,
     "semicolon": false,
     "interface-name": false,
