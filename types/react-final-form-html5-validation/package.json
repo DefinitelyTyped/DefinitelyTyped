@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "final-form": "4.20.1",
+        "react-final-form": ">=6.5.2"
+    }
+}
