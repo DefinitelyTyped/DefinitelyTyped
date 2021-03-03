@@ -304,7 +304,9 @@ declare namespace google.maps {
             stop(): void;
         }
 
-        // TODO find source documentation
-        class MapsEventListener {}
+        // https://developers.google.com/maps/documentation/javascript/reference/event#MapsEventListener
+        class MapsEventListener {
+            remove(): void;
+        }
     }
 }

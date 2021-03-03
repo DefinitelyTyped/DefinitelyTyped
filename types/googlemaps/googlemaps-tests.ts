@@ -574,3 +574,7 @@ directionsService.route(
         steps[0].steps; // $ExpectType BaseDirectionsStep[]
     },
 );
+
+/***** google.maps.MapsEventListener *****/
+let mapOnClickEventListener = map.addListener("click", event => {}); // $ExpectType MapsEventListener
+mapOnClickEventListener.remove(); // $ExpectType void
