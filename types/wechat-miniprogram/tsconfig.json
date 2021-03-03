@@ -17,12 +17,12 @@
   },
   "files": [
     "index.d.ts",
-    "tests/api-promisify.test.ts",
-    "tests/api.test.ts",
-    "tests/app.test.ts",
-    "tests/behavior.test.ts",
-    "tests/component.test.ts",
-    "tests/issue.test.ts",
-    "tests/page.test.ts"
+    "test/api-promisify.test.ts",
+    "test/api.test.ts",
+    "test/app.test.ts",
+    "test/behavior.test.ts",
+    "test/component.test.ts",
+    "test/issue.test.ts",
+    "test/page.test.ts"
   ]
 }
