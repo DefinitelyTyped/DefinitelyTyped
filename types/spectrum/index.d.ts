@@ -476,7 +476,7 @@ declare namespace Spectrum {
          * ]]
          * ```
          */
-        palette?: string[][];
+        palette?: ReadonlyArray<ReadonlyArray<string>>;
 
         /**
          * Spectrum can show a palette below the color picker to make it
@@ -551,12 +551,14 @@ declare namespace Spectrum {
         togglePaletteOnly?: boolean;
 
         /**
-         * Changes the text on the open-toggle color picker button.
+         * Changes the text on the open-toggle color picker button. Defaults to
+         * `more`.
          */
         togglePaletteMoreText?: string;
 
         /**
-         * Changes the text on the close-toggle color picker button.
+         * Changes the text on the close-toggle color picker button. Defaults to
+         * `less`.
          */
         togglePaletteLessText?: string;
 
@@ -630,14 +632,26 @@ declare namespace Spectrum {
         clickoutFiresChange?: boolean;
 
         /**
-         * Sets the text on the cancel button.
+         * Sets the text on the cancel button. Defaults to `cancel`.
          */
         cancelText?: string;
 
         /**
-         * Sets the text on the choose button.
+         * Sets the text on the choose button. Defaults to `choose`.
          */
         chooseText?: string;
+
+        /**
+         * Sets the text on the clear button. Defaults to
+         * `Clear Color Selection`.
+         */
+        clearText?: string;
+
+        /**
+         * Sets the text for when no color has been selected. Defaults to
+         * `No Color Selected`.
+         */
+        noColorSelectedText?: string;
 
         /**
          * Adds an additional class name to the just the container element.
@@ -741,7 +755,7 @@ declare namespace Spectrum {
          * Changing this can help resolve issues with opening the color picker
          * in a modal dialog or fixed position container, for instance.
          */
-        appendTo?: Parameters<JQuery["appendTo"]>[0];
+        appendTo?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | DocumentFragment> | JQuery;
 
         /**
          * Sets the max size for the palette.
@@ -783,7 +797,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        selectionPalette?: string[];
+        selectionPalette?: ReadonlyArray<string>;
 
         /**
          * Additional offset to apply as a CSS unit to the container.
