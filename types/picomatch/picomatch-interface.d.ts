@@ -31,7 +31,7 @@ export interface Picomatch {
         regex: RegExp,
         options?: PicomatchOptions,
         test?: {},
-    ): { isMatch: boolean; match?: (boolean | RegExpExecArray | null); output: string };
+    ): { isMatch: boolean; match?: boolean | RegExpExecArray | null; output: string };
 
     matchBase(input: string, glob: RegExp | string, options?: {}, posix?: any): boolean;
 
