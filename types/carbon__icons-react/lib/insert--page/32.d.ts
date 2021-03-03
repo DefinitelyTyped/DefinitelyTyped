@@ -1,1 +1,3 @@
-export { InsertPage32 as default } from "../../";
+import { InsertPage32 } from "../../";
+
+export = InsertPage32;

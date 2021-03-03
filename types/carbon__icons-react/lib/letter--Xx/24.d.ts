@@ -1,1 +1,3 @@
-export { LetterXx24 as default } from "../../";
+import { LetterXx24 } from "../../";
+
+export = LetterXx24;

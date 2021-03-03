@@ -1,1 +1,3 @@
-export { Construction32 as default } from "../../";
+import { Construction32 } from "../../";
+
+export = Construction32;

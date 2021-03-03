@@ -165,7 +165,10 @@ function TestAnimatedAPI() {
             <AnimatedComp ref={AnimatedCompRef} width={v1} />
             <ForwardComp ref={ForwardCompRef} width={1} />
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
-            <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
+            <Animated.Image
+                style={{ transform: position.getTranslateTransform() }}
+                source={{ uri: 'https://picsum.photos/200' }}
+            />
             <Animated.View
                 testID="expect-type-animated-view"
                 style={{ opacity: v1 }}

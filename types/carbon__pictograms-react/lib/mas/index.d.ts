@@ -1,1 +1,3 @@
-export { Mas as default } from "../../";
+import { Mas } from "../../";
+
+export = Mas;

@@ -10,9 +10,8 @@ const headers = new Headers({ 'Content-Type': 'application/json' });
 const request = new Request('https://github.com', { headers });
 const reply: Promise<Response> = fetch(request);
 
-function foo(x: number) {
-    // tslint:disable-next-line:no-unnecessary-type-assertion
-    return `${x}` as string;
+function foo(x: string | number) {
+    return `${x}`;
 }
 
 // $ExpectType Promise<string>

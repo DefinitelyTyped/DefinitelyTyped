@@ -1,1 +1,3 @@
-export { LogoVmware24 as default } from "../../";
+import { LogoVmware24 } from "../../";
+
+export = LogoVmware24;

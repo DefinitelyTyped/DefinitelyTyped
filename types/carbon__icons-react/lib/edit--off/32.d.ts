@@ -1,1 +1,3 @@
-export { EditOff32 as default } from "../../";
+import { EditOff32 } from "../../";
+
+export = EditOff32;

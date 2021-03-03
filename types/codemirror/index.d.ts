@@ -145,22 +145,22 @@ declare namespace CodeMirror {
 
     /** Fired when the cursor enters the marked range. From this event handler, the editor state may be inspected but not modified,
     with the exception that the range on which the event fires may be cleared. */
-    function on(marker: TextMarker, eventName: 'beforeCursorEnter', handler: () => void): void;
-    function off(marker: TextMarker, eventName: 'beforeCursorEnter', handler: () => void): void;
+    function on<T>(marker: TextMarker<T>, eventName: 'beforeCursorEnter', handler: () => void): void;
+    function off<T>(marker: TextMarker<T>, eventName: 'beforeCursorEnter', handler: () => void): void;
 
     /** Fired when the range is cleared, either through cursor movement in combination with clearOnEnter or through a call to its clear() method.
     Will only be fired once per handle. Note that deleting the range through text editing does not fire this event,
     because an undo action might bring the range back into existence. */
-    function on(marker: TextMarker, eventName: 'clear', handler: () => void): void;
-    function off(marker: TextMarker, eventName: 'clear', handler: () => void): void;
+    function on<T>(marker: TextMarker<T>, eventName: 'clear', handler: () => void): void;
+    function off<T>(marker: TextMarker<T>, eventName: 'clear', handler: () => void): void;
 
     /** Fired when the last part of the marker is removed from the document by editing operations. */
-    function on(marker: TextMarker, eventName: 'hide', handler: () => void): void;
-    function off(marker: TextMarker, eventName: 'hide', handler: () => void): void;
+    function on<T>(marker: TextMarker<T>, eventName: 'hide', handler: () => void): void;
+    function off<T>(marker: TextMarker<T>, eventName: 'hide', handler: () => void): void;
 
     /** Fired when, after the marker was removed by editing, a undo operation brought the marker back. */
-    function on(marker: TextMarker, eventName: 'unhide', handler: () => void): void;
-    function off(marker: TextMarker, eventName: 'unhide', handler: () => void): void;
+    function on<T>(marker: TextMarker<T>, eventName: 'unhide', handler: () => void): void;
+    function off<T>(marker: TextMarker<T>, eventName: 'unhide', handler: () => void): void;
 
     /** Fired whenever the editor re-adds the widget to the DOM. This will happen once right after the widget is added (if it is scrolled into view),
     and then again whenever it is scrolled out of view and back in again, or when changes to the editor options
@@ -873,7 +873,7 @@ declare namespace CodeMirror {
             from: CodeMirror.Position,
             to: CodeMirror.Position,
             options?: CodeMirror.TextMarkerOptions,
-        ): TextMarker;
+        ): TextMarker<MarkerRange>;
 
         /** Inserts a bookmark, a handle that follows the text around it as it is being edited, at the given position.
         A bookmark has two methods find() and clear(). The first returns the current position of the bookmark, if it is still in the document,
@@ -894,7 +894,7 @@ declare namespace CodeMirror {
                 /** As with markText, this determines whether mouse events on the widget inserted for this bookmark are handled by CodeMirror. The default is false. */
                 handleMouseEvents?: boolean;
             },
-        ): CodeMirror.TextMarker;
+        ): CodeMirror.TextMarker<Position>;
 
         /** Returns an array of all the bookmarks and marked ranges found between the given positions. */
         findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker[];
@@ -945,13 +945,18 @@ declare namespace CodeMirror {
         clientHeight: any;
     }
 
-    interface TextMarker extends Partial<TextMarkerOptions> {
+    interface MarkerRange {
+        from: CodeMirror.Position;
+        to: CodeMirror.Position;
+    }
+
+    interface TextMarker<T = MarkerRange | Position> extends Partial<TextMarkerOptions> {
         /** Remove the mark. */
         clear(): void;
 
         /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
         or undefined if the marker is no longer in the document. */
-        find(): { from: CodeMirror.Position; to: CodeMirror.Position };
+        find(): T | undefined;
 
         /**  Called when you've done something that might change the size of the marker and want to cheaply update the display*/
         changed(): void;
@@ -1135,9 +1140,6 @@ declare namespace CodeMirror {
         May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
         (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
         gutters?: (string | { className: string; style?: string })[];
-
-        /** Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded. */
-        foldGutter?: boolean;
 
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */
@@ -1835,7 +1837,7 @@ declare namespace CodeMirror {
             /**
              * Callback for when stretches of unchanged text are collapsed.
              */
-            onCollapse?(mergeView: MergeViewEditor, line: number, size: number, mark: TextMarker): void;
+            onCollapse?(mergeView: MergeViewEditor, line: number, size: number, mark: TextMarker<MarkerRange>): void;
 
             /**
              * Provides original version of the document to be shown on the right of the editor.

@@ -1,1 +1,3 @@
-export { MapBoundary24 as default } from "../../";
+import { MapBoundary24 } from "../../";
+
+export = MapBoundary24;

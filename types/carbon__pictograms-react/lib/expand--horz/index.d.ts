@@ -1,1 +1,3 @@
-export { ExpandHorz as default } from "../../";
+import { ExpandHorz } from "../../";
+
+export = ExpandHorz;

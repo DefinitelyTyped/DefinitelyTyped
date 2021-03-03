@@ -1,1 +1,3 @@
-export { ObservedHail32 as default } from "../../";
+import { ObservedHail32 } from "../../";
+
+export = ObservedHail32;

@@ -67,7 +67,7 @@ interface PaymentRequestApi {
         shippingOption: string;
         methodName: string;
         requestId: string;
-        card_info: CardInfoV2;
+        card_info: CardInfoV1;
         /**
          * Real Card Info
          */

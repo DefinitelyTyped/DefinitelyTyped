@@ -355,6 +355,9 @@ declare namespace SVGO {
         /** Use full set of plugins. */
         full?: boolean;
 
+        /** Pass over SVGs multiple times to ensure all optimizations are applied */
+        multipass?: boolean;
+
         /** Options for rendering optimized SVG from AST. */
         js2svg?: Js2SvgOptions;
 

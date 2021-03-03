@@ -1,4 +1,4 @@
-// Type definitions for pino-http 5.0
+// Type definitions for pino-http 5.4
 // Project: https://github.com/pinojs/pino-http#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
@@ -35,7 +35,7 @@ declare namespace PinoHttp {
         customErrorMessage?: (error: Error, res: ServerResponse) => string;
         customAttributeKeys?: CustomAttributeKeys;
         wrapSerializers?: boolean;
-        reqCustomProps?: (req: IncomingMessage) => object;
+        reqCustomProps?: (req: IncomingMessage, res: ServerResponse) => object;
     }
 
     interface GenReqId {

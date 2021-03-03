@@ -1,1 +1,3 @@
-export { Campsite16 as default } from "../../";
+import { Campsite16 } from "../../";
+
+export = Campsite16;

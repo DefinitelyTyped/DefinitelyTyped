@@ -281,7 +281,7 @@ export interface LanguageMapProtocol {
         inside: string,
         before: string,
         insert: Grammar,
-        root: LanguageMap
+        root?: LanguageMap
     ): Grammar;
 }
 

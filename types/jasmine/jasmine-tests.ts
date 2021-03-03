@@ -878,6 +878,39 @@ describe("A spy, when created manually", () => {
     });
 });
 
+describe("a spy on a typed method", () => {
+    class Test {
+        method(arg: number): string { return '42'; }
+    }
+
+    let t: Test;
+
+    beforeEach(() => {
+        t = new Test();
+    });
+
+    it("should match only call arguments with the correct type", () => {
+        const spy = spyOn(t, 'method');
+        t.method(1);
+
+        expect(t.method).toHaveBeenCalledWith(1);
+        expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
+        expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+        expect(spy).toHaveBeenCalledWith(1);
+        expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
+        expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+        expect(t.method).toHaveBeenCalledOnceWith(1);
+        expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
+        expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+
+        expect(spy).toHaveBeenCalledOnceWith(1);
+        expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
+        expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+    });
+});
+
 describe("Spy for generic method", () => {
     interface Test {
         method<T>(): Array<Box<T>>;
@@ -1885,6 +1918,28 @@ describe("User scenarios", () => {
             const spy2 = spyOn(obj, "f");
             spy2.and.returnValue("can return string" as any);
         });
+    });
+});
+
+describe('setDefaultSpyStrategy', () => {
+    // https://jasmine.github.io/tutorials/default_spy_strategy
+    beforeEach(() => {
+        jasmine.setDefaultSpyStrategy(and => and.returnValue("Hello World"));
+    });
+
+    it("returns the value Hello World", () => {
+        const spy = jasmine.createSpy();
+        expect(spy()).toEqual("Hello World");
+    });
+
+    it("throws if you call any methods", () => {
+        jasmine.setDefaultSpyStrategy(and => and.throwError(new Error("Do Not Call Me")));
+        const program = jasmine.createSpyObj(["start", "stop", "examine"]);
+        jasmine.setDefaultSpyStrategy();
+
+        expect(() => {
+            program.start();
+        }).toThrowError("Do Not Call Me");
     });
 });
 

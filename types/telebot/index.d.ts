@@ -1,6 +1,7 @@
 // Type definitions for telebot 1.2
 // Project: https://github.com/mullwar/telebot
 // Definitions by: Simone Mariotti <https://github.com/mariotsi>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -364,7 +365,10 @@ declare class telebot {
             messageId?: number;
             inlineMsgId: number;
         },
-        text: string
+        text: string,
+        opt?: {
+            parseMode?: string;
+        }
     ): any | boolean;
 
     editMessageCaption(

@@ -1,1 +1,3 @@
-export { LocationCompanyFilled16 as default } from "../../";
+import { LocationCompanyFilled16 } from "../../";
+
+export = LocationCompanyFilled16;

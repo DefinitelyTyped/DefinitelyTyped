@@ -1,1 +1,3 @@
-export { Taste32 as default } from "../../";
+import { Taste32 } from "../../";
+
+export = Taste32;

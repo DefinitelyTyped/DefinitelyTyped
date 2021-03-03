@@ -1,1 +1,3 @@
-export { Opacity16 as default } from "../../";
+import { Opacity16 } from "../../";
+
+export = Opacity16;

@@ -1,1 +1,3 @@
-export { Pin24 as default } from "../../";
+import { Pin24 } from "../../";
+
+export = Pin24;

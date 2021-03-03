@@ -23,6 +23,9 @@ navigator.getUserMedia(
         instance.stopRecording(() => {
             const blob = instance.getBlob();
         });
+
+        // $ExpectType string
+        instance.getState();
     },
     console.error,
 );

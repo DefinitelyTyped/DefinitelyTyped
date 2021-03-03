@@ -1,1 +1,3 @@
-export { QCcX32 as default } from "../../../";
+import { QCcX32 } from "../../../";
+
+export = QCcX32;

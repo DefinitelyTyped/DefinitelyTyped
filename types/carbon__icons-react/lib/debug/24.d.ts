@@ -1,1 +1,3 @@
-export { Debug24 as default } from "../../";
+import { Debug24 } from "../../";
+
+export = Debug24;

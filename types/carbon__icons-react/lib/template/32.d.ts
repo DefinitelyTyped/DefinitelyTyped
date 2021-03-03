@@ -1,1 +1,3 @@
-export { Template32 as default } from "../../";
+import { Template32 } from "../../";
+
+export = Template32;

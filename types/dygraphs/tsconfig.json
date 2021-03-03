@@ -7,8 +7,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "dygraphs-tests.ts"
+        "dygraphs-tests.ts",
+        "test/dygraphs-tests-old.ts"
     ]
 }

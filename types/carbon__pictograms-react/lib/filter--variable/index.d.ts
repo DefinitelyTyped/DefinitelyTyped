@@ -1,1 +1,3 @@
-export { FilterVariable as default } from "../../";
+import { FilterVariable } from "../../";
+
+export = FilterVariable;

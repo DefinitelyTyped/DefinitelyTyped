@@ -1,1 +1,3 @@
-export { ViewMode_220 as default } from "../../";
+import { ViewMode_220 } from "../../";
+
+export = ViewMode_220;

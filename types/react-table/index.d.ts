@@ -18,6 +18,7 @@
 // The changelog for the important changes is located in the Readme.md
 
 import {
+    ChangeEvent,
     ComponentType,
     DependencyList,
     EffectCallback,
@@ -139,7 +140,7 @@ export interface TableRowProps extends TableKeyedProps {}
 export interface TableCellProps extends TableKeyedProps {}
 
 export interface TableToggleCommonProps extends TableCommonProps {
-    onChange?: () => void;
+    onChange?: (e: ChangeEvent) => void;
     checked?: boolean;
     title?: string;
     indeterminate?: boolean;
@@ -414,6 +415,7 @@ export interface UseExpandedRowProps<D extends object> {
     subRows: Array<Row<D>>;
     toggleRowExpanded: (value?: boolean) => void;
     getToggleRowExpandedProps: (props?: Partial<TableExpandedToggleProps>) => TableExpandedToggleProps;
+    depth: number;
 }
 
 //#endregion

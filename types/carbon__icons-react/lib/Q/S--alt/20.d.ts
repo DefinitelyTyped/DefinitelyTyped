@@ -1,1 +1,3 @@
-export { QSAlt20 as default } from "../../../";
+import { QSAlt20 } from "../../../";
+
+export = QSAlt20;

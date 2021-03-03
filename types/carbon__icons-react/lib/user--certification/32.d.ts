@@ -1,1 +1,3 @@
-export { UserCertification32 as default } from "../../";
+import { UserCertification32 } from "../../";
+
+export = UserCertification32;

@@ -1,1 +1,3 @@
-export { ChartSunburst20 as default } from "../../";
+import { ChartSunburst20 } from "../../";
+
+export = ChartSunburst20;

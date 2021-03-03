@@ -1,1 +1,3 @@
-export { DownToBottom32 as default } from "../../";
+import { DownToBottom32 } from "../../";
+
+export = DownToBottom32;

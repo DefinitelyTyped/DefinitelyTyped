@@ -1,1 +1,3 @@
-export { LightFilled32 as default } from "../../";
+import { LightFilled32 } from "../../";
+
+export = LightFilled32;

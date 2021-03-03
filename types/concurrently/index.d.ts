@@ -1,10 +1,9 @@
-// Type definitions for concurrently 5.2
+// Type definitions for concurrently 6.0
 // Project: https://github.com/kimmobrunfeldt/concurrently#readme
 // Definitions by: Michael B. <https://github.com/Blasz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Ryan Ling <https://github.com/72636c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare function concurrently(
@@ -15,11 +14,17 @@ declare function concurrently(
 declare namespace concurrently {
     interface CommandObj {
         command: string;
+        cwd?: Options['cwd'];
         env?: NodeJS.ProcessEnv;
         name?: string;
         prefixColor?: string;
     }
     interface Options {
+        /**
+         * The working directory to be used by all commands. Can be overridden per command.
+         * @default process.cwd()
+         */
+        cwd?: string;
         /** the default input target when reading from `inputStream`. Default: `0`. */
         defaultInputTarget?: number;
         /** a Readable stream to read the input from, eg `process.stdin` */

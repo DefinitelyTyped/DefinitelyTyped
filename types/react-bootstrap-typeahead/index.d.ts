@@ -281,7 +281,14 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
 }
 
 export type AllTypeaheadOwnAndInjectedProps<T extends TypeaheadModel> = TypeaheadProps<T> & TypeaheadContainerProps<T>;
-export class Typeahead<T extends TypeaheadModel> extends React.Component<TypeaheadProps<T>> {}
+export class Typeahead<T extends TypeaheadModel> extends React.Component<TypeaheadProps<T>> {
+    blur: () => void;
+    clear: () => void;
+    focus: () => void;
+    getInput: () => HTMLInputElement;
+    hideMenu: () => void;
+    toggleMenu: () => void;
+}
 
 /* ---------------------------------------------------------------------------
                     AsyncTypeahead Props and Component
@@ -484,6 +491,7 @@ export class Overlay extends React.Component<OverlayProps> {}
                     Token Props and Component
 --------------------------------------------------------------------------- */
 export interface TokenProps extends React.HTMLProps<HTMLDivElement> {
+    option: Option;
     active?: boolean;
     children?: React.ReactNode;
     className?: string;

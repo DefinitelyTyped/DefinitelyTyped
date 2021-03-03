@@ -1,6 +1,7 @@
 import { OnfleetDestination, CreateDestinationProps } from './Destinations';
 import { OnfleetMetadata } from '../metadata';
 import { OnfleetRecipient, CreateRecipientProps } from './Recipients';
+import Container = require('./Containers');
 
 declare class Task {
   autoAssign(tasks: Task.OnfleetTask[]): Promise<any>; // TODO need to confirm response
@@ -30,10 +31,7 @@ declare namespace Task {
       lastLocation: any[];
       unavailableAttachments: any[];
     };
-    container: {
-      organization: string;
-      type: string;
-    };
+    container: TaskContainer;
     creator: string;
     dependencies: string[];
     destination: OnfleetDestination;
@@ -79,6 +77,7 @@ declare namespace Task {
     recipients: string[] | CreateRecipientProps[];
     autoAssign?: TaskAutoAssign;
     capacity?: number;
+    container?: TaskContainer;
     completeAfter?: number;
     completeBefore?: number;
     dependencies?: string[];
@@ -164,6 +163,23 @@ declare namespace Task {
     eta: number;
     trackingViewed: boolean;
   }
+
+  interface WorkerTaskContainer {
+    type: 'WORKER';
+    worker: string;
+  }
+
+  interface OrganizationTaskContainer {
+    type: 'ORGANIZATION';
+    organization: string;
+  }
+
+  interface TeamTaskContainer {
+    type: 'TEAM';
+    team: string;
+  }
+
+  type TaskContainer = WorkerTaskContainer | OrganizationTaskContainer | TeamTaskContainer;
 }
 
 export = Task;

@@ -1,1 +1,3 @@
-export { Help16 as default } from "../../";
+import { Help16 } from "../../";
+
+export = Help16;

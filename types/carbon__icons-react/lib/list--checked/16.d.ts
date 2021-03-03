@@ -1,1 +1,3 @@
-export { ListChecked16 as default } from "../../";
+import { ListChecked16 } from "../../";
+
+export = ListChecked16;

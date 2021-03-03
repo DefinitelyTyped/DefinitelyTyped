@@ -1,14 +1,14 @@
-import nodes = require("ast-types/gen/nodes");
-import recast = require("recast");
+import astTypes = require("ast-types");
+import nodePath = require("ast-types/lib/node-path");
 import Collection = require("../Collection");
 
-type ASTPath<N> = recast.NodePath<N, N>;
+type ASTPath<N> = nodePath.NodePath<N, N>;
 
 export interface GlobalMethods {
     /**
      * Finds all variable declarators, optionally filtered by name.
      */
-    findVariableDeclarators(name?: string): Collection.Collection<nodes.VariableDeclarator>;
+    findVariableDeclarators(name?: string): Collection.Collection<astTypes.namedTypes.VariableDeclarator>;
 }
 
 export interface TransformMethods<N> {

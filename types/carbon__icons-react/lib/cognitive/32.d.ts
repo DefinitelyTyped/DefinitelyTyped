@@ -1,1 +1,3 @@
-export { Cognitive32 as default } from "../../";
+import { Cognitive32 } from "../../";
+
+export = Cognitive32;

@@ -1,1 +1,3 @@
-export { WorkspaceImport16 as default } from "../../";
+import { WorkspaceImport16 } from "../../";
+
+export = WorkspaceImport16;

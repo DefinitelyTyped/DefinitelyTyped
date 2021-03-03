@@ -1,1 +1,3 @@
-export { Attachment16 as default } from "../../";
+import { Attachment16 } from "../../";
+
+export = Attachment16;

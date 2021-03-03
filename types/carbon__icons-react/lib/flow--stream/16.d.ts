@@ -1,1 +1,3 @@
-export { FlowStream16 as default } from "../../";
+import { FlowStream16 } from "../../";
+
+export = FlowStream16;

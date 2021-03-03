@@ -1,1 +1,3 @@
-export { NavaidNdb32 as default } from "../../";
+import { NavaidNdb32 } from "../../";
+
+export = NavaidNdb32;

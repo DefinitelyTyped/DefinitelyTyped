@@ -1,9 +1,9 @@
-import * as events from 'events';
+import events = require('node:events');
 
-const emitter: events.EventEmitter = new events.EventEmitter();
-const event: string | symbol = '';
-const listener: (...args: any[]) => void = () => {};
-const any: any = 1;
+const emitter: events = new events.EventEmitter();
+declare const listener: (...args: any[]) => void;
+declare const event: string | symbol;
+declare const any: any;
 
 {
     let result: events.EventEmitter;
@@ -72,7 +72,7 @@ const any: any = 1;
 }
 
 {
-    new events();
+    const emitter2: events.EventEmitter = new events();
 }
 
 {
@@ -86,4 +86,27 @@ const any: any = 1;
 {
     emitter.on(events.errorMonitor, listener);
     emitter.on(events.EventEmitter.errorMonitor, listener);
+}
+
+async function test() {
+    for await (const e of events.on(new events.EventEmitter(), 'test')) {
+        console.log(e);
+    }
+}
+
+{
+    let errorMonitor1: typeof events.errorMonitor = events.errorMonitor;
+    errorMonitor1 = events.EventEmitter.errorMonitor;
+
+    let errorMonitor2: typeof events.EventEmitter.errorMonitor = events.EventEmitter.errorMonitor;
+    errorMonitor2 = events.errorMonitor;
+}
+
+{
+    let captureRejectionSymbol1: typeof events.captureRejectionSymbol = events.captureRejectionSymbol;
+    captureRejectionSymbol1 = events.EventEmitter.captureRejectionSymbol;
+
+    let captureRejectionSymbol2: typeof events.EventEmitter.captureRejectionSymbol =
+        events.EventEmitter.captureRejectionSymbol;
+    captureRejectionSymbol2 = events.captureRejectionSymbol;
 }

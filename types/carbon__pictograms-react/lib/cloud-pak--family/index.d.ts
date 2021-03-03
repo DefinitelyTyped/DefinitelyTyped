@@ -1,1 +1,3 @@
-export { CloudPakFamily as default } from "../../";
+import { CloudPakFamily } from "../../";
+
+export = CloudPakFamily;

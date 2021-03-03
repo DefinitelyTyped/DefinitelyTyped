@@ -1,1 +1,3 @@
-export { Locked32 as default } from "../../";
+import { Locked32 } from "../../";
+
+export = Locked32;

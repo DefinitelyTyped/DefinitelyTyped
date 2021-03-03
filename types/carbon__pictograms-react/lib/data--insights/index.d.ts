@@ -1,1 +1,3 @@
-export { DataInsights as default } from "../../";
+import { DataInsights } from "../../";
+
+export = DataInsights;

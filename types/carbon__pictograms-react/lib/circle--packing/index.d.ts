@@ -1,1 +1,3 @@
-export { CirclePacking as default } from "../../";
+import { CirclePacking } from "../../";
+
+export = CirclePacking;

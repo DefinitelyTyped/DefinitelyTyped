@@ -25,6 +25,7 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     },
     publicPath: '/assets/',
     serverSideRender: false,
+    stats: 'errors-only',
     outputFileSystem: compiler.outputFileSystem,
     index: 'index.html',
 });

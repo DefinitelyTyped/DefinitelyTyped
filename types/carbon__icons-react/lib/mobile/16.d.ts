@@ -1,1 +1,3 @@
-export { Mobile16 as default } from "../../";
+import { Mobile16 } from "../../";
+
+export = Mobile16;

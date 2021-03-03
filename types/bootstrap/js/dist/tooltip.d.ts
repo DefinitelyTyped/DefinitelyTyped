@@ -1,6 +1,7 @@
 import * as Popper from '@popperjs/core';
+import BaseComponent from './base-component';
 
-declare class Tooltip {
+declare class Tooltip extends BaseComponent {
     constructor(element: Element, options?: Partial<Tooltip.Options>);
 
     /**
@@ -27,13 +28,6 @@ declare class Tooltip {
     toggle(): void;
 
     /**
-     * Hides and destroys an element’s tooltip. Tooltips that use delegation
-     * (which are created using the selector option) cannot be individually
-     * destroyed on descendant trigger elements.
-     */
-    dispose(): void;
-
-    /**
      * Gives an element’s tooltip the ability to be shown. Tooltips are
      * enabled by default.
      */
@@ -56,10 +50,21 @@ declare class Tooltip {
     update(): void;
 
     /**
-     * Static method which allows you to get the scrollspy instance associated
+     * Static method which allows you to get the tooltip instance associated
      * with a DOM element
      */
     static getInstance(element: Element): Tooltip;
+
+    static jQueryInterface: Tooltip.jQueryInterface;
+
+    static NAME: 'tooltip';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Tooltip.Options;
 }
 
 declare namespace Tooltip {
@@ -239,6 +244,13 @@ declare namespace Tooltip {
         boundary: 'viewport' | 'window' | 'scrollParent' | Element;
 
         /**
+         * Add classes to the tooltip when it is shown. Note that these classes will be added in addition to any classes specified in the template.
+         * To add multiple classes, separate them with spaces: 'class-1 class-2'.
+         * @default ''
+         */
+        customClass?: string | (() => string);
+
+        /**
          * Enable or disable the sanitization. If activated 'template' and
          * 'title' options will be sanitized.
          *
@@ -269,6 +281,19 @@ declare namespace Tooltip {
          */
         popperConfig: Partial<Popper.Options> | null;
     }
+
+    type jQueryInterface = (
+        config?:
+            | Partial<Options>
+            | 'show'
+            | 'hide'
+            | 'toggle'
+            | 'enable'
+            | 'disable'
+            | 'toggleEnabled'
+            | 'update'
+            | 'dispose',
+    ) => void;
 }
 
 export default Tooltip;

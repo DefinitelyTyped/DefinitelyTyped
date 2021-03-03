@@ -102,8 +102,18 @@ const MyWrapperComponent: React.FC = () => {
     return (
         <ReactModal isOpen
             onAfterOpen={onAfterOpenOptionalObjFn}
+            overlayElement={(props, contentElement) => <StyledOverlay {...props}>{contentElement}</StyledOverlay>}
+            contentElement={(props, children) => <StyledContent {...props}>{children}</StyledContent>}
             ref={reactModaRef}>
             Hello, World!
         </ReactModal>
     );
 };
+
+const StyledContent = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(({ children, className, ...props }, ref) => {
+  return <div {...props} className={`sc-content ${className}`} ref={ref}>{children}</div>;
+});
+
+const StyledOverlay = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(({ children, className, ...props }, ref) => {
+  return <div {...props} className={`sc-overlay ${className}`} ref={ref}>{children}</div>;
+});

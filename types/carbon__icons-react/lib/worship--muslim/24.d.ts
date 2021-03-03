@@ -1,1 +1,3 @@
-export { WorshipMuslim24 as default } from "../../";
+import { WorshipMuslim24 } from "../../";
+
+export = WorshipMuslim24;
