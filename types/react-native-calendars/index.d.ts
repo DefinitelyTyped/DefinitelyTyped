@@ -8,7 +8,11 @@
 
 import * as React from 'react';
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-export import LocaleConfig = require('xdate');
+import XDateLocaleConfig = require('xdate');
+
+declare class LocaleConfig extends XDateLocaleConfig {
+    public static locales: { [key: string]: typeof XDateLocaleConfig.locales[string] & { today: string } };
+}
 
 export interface DateObject {
     day: number;
