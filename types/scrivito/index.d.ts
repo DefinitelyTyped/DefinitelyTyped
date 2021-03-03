@@ -165,6 +165,7 @@ interface ConfigOptions {
     constraintsValidation?: (constraints: any) => any;
     endpoint?: string;
     priority?: 'foreground' | 'background';
+    adoptUi: boolean;
 }
 
 /**
