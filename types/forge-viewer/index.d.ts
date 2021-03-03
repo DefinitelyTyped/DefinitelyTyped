@@ -141,9 +141,16 @@ declare namespace Autodesk {
         }
 
         interface Viewer3DConfig {
+          [key: string]: any;
+
+          addFooter?: boolean;
+          extensions?: string[];
+          heightAdjustment?: number;
+          left?: boolean;
+          localizeTitle?: boolean;
+          marginTop?: number;
           startOnInitialize?: boolean;
           theme?: 'dark-theme'|'light-theme'|string;
-          [key: string]: any;
         }
 
         interface ViewerConfig {
@@ -888,6 +895,7 @@ declare namespace Autodesk {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
             canvas: HTMLCanvasElement;
+            config: Viewer3DConfig;
             container: Element;
             navigation: Navigation;
             id: number;
