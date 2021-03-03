@@ -169,7 +169,14 @@ declare namespace googletag {
         setTargeting(key: string, value: string | string[]): PubAdsService;
         setVideoContent(videoContentId: string, videoCmsId: string): void;
         updateCorrelator(): PubAdsService;
-        setPrivacySettings(settings: { restrictDataProcessing: boolean }): Slot;
+        setPrivacySettings(settings: PrivacySettingsConfig): Slot;
+    }
+
+    interface PrivacySettingsConfig {
+        childDirectedTreatment?: boolean;
+        limitedAds: boolean;
+        restrictDataProcessing: boolean;
+        underAgeOfConsent?: boolean;
     }
 
     interface SizeMappingBuilder {
