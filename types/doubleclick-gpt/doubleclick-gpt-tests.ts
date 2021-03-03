@@ -352,6 +352,13 @@ slot.clearTargeting("color");
 slot.clearTargeting();
 // All targeting has been cleared.
 
+// Targeting can also be set from an object:
+slot.updateTargetingFromMap({
+    allow_expandable: "true",
+    interests: ["sports", "music", "movies"],
+    color: "red"
+});
+
 slot = googletag.defineSlot("/1234567/sports", [160, 600], "div-1").
         addService(googletag.pubads());
 let mapping = googletag.sizeMapping().
