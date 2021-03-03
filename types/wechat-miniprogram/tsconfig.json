@@ -16,6 +16,13 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "tests/api-promisify.test.ts",
+    "tests/api.test.ts",
+    "tests/app.test.ts",
+    "tests/behavior.test.ts",
+    "tests/component.test.ts",
+    "tests/issue.test.ts",
+    "tests/page.test.ts"
   ]
 }
