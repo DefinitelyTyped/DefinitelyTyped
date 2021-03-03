@@ -524,7 +524,7 @@ export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, SearchBoxProvided, SearchBoxExposed>;
 
-export function connectSmartSort(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectRelevantSort(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface StateResultsProvided<TDoc = BasicDoc> {

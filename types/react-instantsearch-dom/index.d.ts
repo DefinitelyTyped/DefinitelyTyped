@@ -43,7 +43,7 @@ export { connectRange } from 'react-instantsearch-core';
 export { connectRefinementList } from 'react-instantsearch-core';
 export { connectScrollTo } from 'react-instantsearch-core';
 export { connectSearchBox } from 'react-instantsearch-core';
-export { connectSmartSort } from 'react-instantsearch-core';
+export { connectRelevantSort } from 'react-instantsearch-core';
 export { connectSortBy } from 'react-instantsearch-core';
 export { connectStateResults } from 'react-instantsearch-core';
 export { connectStats } from 'react-instantsearch-core';
@@ -117,15 +117,15 @@ export interface SearchBoxProps extends CommonWidgetProps {
  */
 export class SearchBox extends React.Component<SearchBoxProps> {}
 export class Snippet extends React.Component<any> {}
-export interface SmartSortComponentProps {
-  isSmartSorted: boolean;
+export interface RelevantSortComponentProps {
+  isRelevantSorted: boolean;
 }
 /**
- * The SmartSort component displays an informative banner and a button that toggle the `relevancyStrictness` between 0 and the value setted on the dashboard.
+ * The RelevantSort component displays an informative banner and a button that toggle the `relevancyStrictness` between 0 and the value setted on the dashboard.
  */
-export class SmartSort extends React.Component<{
-  buttonTextComponent?: React.FunctionComponent<SmartSortComponentProps>;
-  textComponent?: React.FunctionComponent<SmartSortComponentProps>;
+export class RelevantSort extends React.Component<{
+  buttonTextComponent?: React.FunctionComponent<RelevantSortComponentProps>;
+  textComponent?: React.FunctionComponent<RelevantSortComponentProps>;
 }> {}
 export class SortBy extends React.Component<any> {}
 /**
