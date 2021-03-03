@@ -6,6 +6,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Daniel Nixon <https://github.com/danielnixon>
 //                 Tony Ward <https://github.com/ynotdraw>
+//                 Mikael Roos <https://github.com/livedo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -39,6 +40,7 @@ export {
     useLocation,
     useParams,
     useRouteMatch,
+    __RouterContext,
 } from 'react-router';
 
 export interface BrowserRouterProps {
