@@ -3,13 +3,14 @@
 // Definitions by: G3ru1a <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'damerau-levenshtein';
+declare function levenshtein(__this: string, that: string, limit?: number): levenshtein.DamerauLevenshteinResponse;
 
-export interface DamerauLevenshteinResponse {
-    steps: number;
-    relative: number;
-    similarity: number;
+declare namespace levenshtein {
+    interface DamerauLevenshteinResponse {
+        steps: number;
+        relative: number;
+        similarity: number;
+    }
 }
 
-
-export default function(__this: string, that: string, limit?: number): DamerauLevenshteinResponse;
+export = levenshtein;
