@@ -4,13 +4,13 @@ import 'leaflet-textpath';
 
 // Tests copied directly from demo code from https://github.com/makinacorpus/Leaflet.TextPath
 
-var osm = L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+const osm = L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; 2013 OpenStreetMap contributors',
 });
 
-var map = L.map('map').fitWorld().addLayer(osm);
+const map = L.map('map').fitWorld().addLayer(osm);
 
-var wind = L.polyline(
+const wind = L.polyline(
     [
         [59.3556, -31.99219],
         [55.17887, -42.89062],
@@ -40,7 +40,7 @@ wind.setText(') ', {
     attributes: { fill: '#007DEF', 'font-weight': 'bold', 'font-size': '24' },
 });
 
-var danger = L.polyline(
+const danger = L.polyline(
     [
         [-40.311, -31.952],
         [-12.086, -18.727],
@@ -53,7 +53,7 @@ var danger = L.polyline(
 ).addTo(map);
 danger.setText('\u25BA', { repeat: true, offset: 6, attributes: { fill: 'red' } });
 
-var plane = L.polyline(
+const plane = L.polyline(
     [
         [-49.38237, -37.26562],
         [-1.75754, -14.41406],
@@ -68,7 +68,7 @@ var plane = L.polyline(
 plane.setText('\u2708     ', { repeat: true, offset: 8, attributes: { 'font-weight': 'bold', 'font-size': '24' } });
 
 // We have to explicitly cast this value.
-var flightsWE: FeatureCollection = {
+const flightsWE: FeatureCollection = {
     type: 'FeatureCollection',
     features: [
         {
@@ -106,7 +106,7 @@ var flightsWE: FeatureCollection = {
 };
 
 // We have to explicitly cast this value.
-var flightsEW: FeatureCollection = {
+const flightsEW: FeatureCollection = {
     type: 'FeatureCollection',
     features: [
         {
@@ -128,7 +128,7 @@ var flightsEW: FeatureCollection = {
 };
 
 L.geoJSON(flightsWE, {
-    onEachFeature: function (feature, layer) {
+    onEachFeature: (feature, layer) => {
         // We have to add a check here. This is why TypeScript is useful!
         if (layer instanceof L.Polyline) {
             layer.setText(feature.properties.flight, { offset: -5 });
@@ -142,7 +142,7 @@ L.geoJSON(flightsWE, {
 }).addTo(map);
 
 L.geoJSON(flightsEW, {
-    onEachFeature: function (feature, layer) {
+    onEachFeature: (feature, layer) => {
         // We have to add a check here. This is why TypeScript is useful!
         if (layer instanceof L.Polyline) {
             layer.setText(feature.properties.flight, { offset: -5, orientation: 'flip' });
@@ -155,8 +155,8 @@ L.geoJSON(flightsEW, {
     },
 }).addTo(map);
 
-var pos1: L.LatLngTuple = [40.418075, -3.704643],
-    pos2: L.LatLngTuple = [40.413119, -3.702369];
-var line = L.polyline([pos1, pos2]);
+const pos1: L.LatLngTuple = [40.418075, -3.704643];
+const pos2: L.LatLngTuple = [40.413119, -3.702369];
+const line = L.polyline([pos1, pos2]);
 line.setText('HOLA', { center: true, attributes: { fill: 'red' } });
 line.addTo(map);
