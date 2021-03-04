@@ -10730,8 +10730,7 @@ export let TYSdk: {
         is24Hour(): boolean;
 
         /**
-         * 面板跳面板支持
-         * Wiki: https://wiki.tuya-inc.com:7799/pages/viewpage.action?pageId=41463150
+         * 跳转面板原生事件
          */
         uiIdNavEventEmitter: {
             createEmitter(): void;
