@@ -399,7 +399,9 @@ declare namespace Autodesk {
           findPropertyDbPath(): string;
           findViewableParent(): BubbleNode;
           getDefaultGeometry(): any;
+          getInputFileType(): string;
           getLodNode(): boolean;
+          getModelName(): string;
           getNamedViews(): string[];
           getPlacementTransform(): object;
           getRootNode(): BubbleNode;
@@ -413,6 +415,7 @@ declare namespace Autodesk {
           isGeometry(): boolean;
           isGeomLeaf(): boolean;
           isMetadata(): boolean;
+          isRevitPdf(): boolean;
           isViewable(): boolean;
           isViewPreset(): boolean;
           lineageUrn(encode?: boolean): string;
