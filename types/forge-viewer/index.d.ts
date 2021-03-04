@@ -1144,6 +1144,22 @@ declare namespace Autodesk {
             currentNodeIds: object[];
           }
 
+          namespace PDF {
+            class PDFExtension extends Extension {
+              constructor(viewer: Viewer3D, options?: {
+                enableBrowserNavigation?: boolean;
+                enableHyperlinks?: boolean;
+                enableMSDFText?: boolean;
+                enableTextSearch?: boolean;
+                useTextLayer?: boolean;
+              })
+            }
+
+            class PDFLoader {
+              constructor(parent: Private.Viewer3DImpl);
+            }
+          }
+
           namespace Snapping {
             class Snapper {
               constructor(viewer: Viewer3D, options?: {
