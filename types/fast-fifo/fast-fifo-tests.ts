@@ -1,4 +1,4 @@
-import FIFO from 'fast-fifo';
+import FIFO = require('fast-fifo');
 
 const stringQueue = new FIFO<string>();
 stringQueue.push('hello');
