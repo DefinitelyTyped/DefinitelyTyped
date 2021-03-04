@@ -14,7 +14,7 @@
         ],
         "paths": {
             "copy-webpack-plugin": [
-                "copy-webpack-plugin/v5"
+                "copy-webpack-plugin/v6"
             ],
             "webpack": [
                 "webpack/v4"
