@@ -2297,6 +2297,11 @@
             "asOfVersion": "1.1.11"
         },
         {
+            "libraryName": "leaflet-geosearch",
+            "typingsPackageName": "leaflet-geosearch",
+            "asOfVersion": "3.0"
+        },
+        {
             "libraryName": "leap-year",
             "typingsPackageName": "leap-year",
             "asOfVersion": "3.0.0"
