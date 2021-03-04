@@ -403,4 +403,179 @@ declare module 'leaflet' {
     interface Polygon extends EditableMixin, PolygonEditor {}
     interface Rectangle extends EditableMixin, RectangleEditor {}
     interface Circle extends EditableMixin, CircleEditor {}
+
+    interface CancelableEvent extends LeafletEvent {
+        /**
+         * Cancel any subsequent action.
+         */
+        cancel(): void;
+    }
+    interface VertexEvent extends LeafletEvent {
+        /**
+         * The vertex that fired the event.
+         */
+        vertex: VertexMarker;
+    }
+    interface ShapeEvent extends LeafletEvent {
+        /**
+         * The shape (LatLngs array) subject of the action.
+         */
+        shape: LatLng[];
+    }
+    interface CancelableVertexEvent extends CancelableEvent, VertexEvent {}
+    interface CancelableShapeEvent extends CancelableEvent, ShapeEvent {}
+
+    /**
+     * Custom event handler functions.
+     */
+    type VertexEventHandlerFn = (event: VertexEvent) => void;
+    type ShapeEventHandlerFn = (event: ShapeEvent) => void;
+    type CancelableEventHandlerFn = (event: CancelableEvent) => void;
+    type CancelableVertexEventHandlerFn = (event: CancelableVertexEvent) => void;
+    type CancelableShapeEventHandlerFn = (event: CancelableShapeEvent) => void;
+
+    /**
+     * Extend the existing event handler function map,
+     * to include
+     */
+    interface LeafletEventHandlerFnMap {
+        /**
+         * Fired when a new feature (Marker, Polyline…) is created.
+         */
+        'editable:created'?: LayerEventHandlerFn;
+        /**
+         * Fired when an existing feature is ready to be edited.
+         */
+        'editable:enable'?: LeafletEventHandlerFn;
+        /**
+         * Fired when an existing feature is not ready anymore to be edited.
+         */
+        'editable:disable'?: LeafletEventHandlerFn;
+        /**
+         * Fired as soon as any change is made to the feature geometry.
+         */
+        'editable:editing'?: LeafletEventHandlerFn;
+        /**
+         * Fired before a path feature is dragged.
+         */
+        'editable:dragstart'?: LeafletEventHandlerFn;
+        /**
+         * Fired when a path feature is being dragged.
+         */
+        'editable:drag'?: LeafletEventHandlerFn;
+        /**
+         * Fired after a path feature has been dragged.
+         */
+        'editable:dragend'?: LeafletEventHandlerFn;
+        /**
+         * Fired when a feature is to be drawn.
+         */
+        'editable:drawing:start'?: LeafletEventHandlerFn;
+        /**
+         * Fired when a feature is not drawn anymore.
+         */
+        'editable:drawing:end'?: LeafletEventHandlerFn;
+        /**
+         * Fired when user cancel drawing while a feature is being drawn.
+         */
+        'editable:drawing:cancel'?: LeafletEventHandlerFn;
+        /**
+         * Fired when user finish drawing a feature.
+         */
+        'editable:drawing:commit'?: LeafletEventHandlerFn;
+        /**
+         * Fired when user mousedown while drawing.
+         */
+        'editable:drawing:mousedown'?: LeafletEventHandlerFn;
+        /**
+         * Fired when user mouseup while drawing.
+         */
+        'editable:drawing:mouseup'?: LeafletEventHandlerFn;
+        /**
+         * Fired when user click while drawing, before any internal action is being processed.
+         */
+        'editable:drawing:click'?: CancelableEventHandlerFn;
+        /**
+         * Fired when move mouse while drawing, while dragging a marker, and while dragging a vertex.
+         */
+        'editable:drawing:move'?: LeafletEventHandlerFn;
+        /**
+         * Fired when user click while drawing, after all internal actions.
+         */
+        'editable:drawing:clicked'?: LeafletEventHandlerFn;
+        /**
+         * Fired when a new vertex is created.
+         */
+        'editable:vertex:new'?: VertexEventHandlerFn;
+        /**
+         * Fired when a click is issued on a vertex, before any internal action is being processed.
+         */
+        'editable:vertex:click'?: CancelableVertexEventHandlerFn;
+        /**
+         * Fired when a click is issued on a vertex, after all internal actions.
+         */
+        'editable:vertex:clicked'?: VertexEventHandlerFn;
+        /**
+         * Fired when a click is issued on a vertex without any special key and without being in drawing mode.
+         */
+        'editable:vertex:rawclick'?: CancelableVertexEvent;
+        /**
+         * Fired after a vertex has been deleted by user.
+         */
+        'editable:vertex:deleted'?: VertexEventHandlerFn;
+        /**
+         * Fired when a click with ctrlKey is issued on a vertex.
+         */
+        'editable:vertex:ctrlclick'?: VertexEventHandlerFn;
+        /**
+         * Fired when a click with shiftKey is issued on a vertex.
+         */
+        'editable:vertex:shiftclick'?: VertexEventHandlerFn;
+        /**
+         * Fired when a click with metaKey is issued on a vertex.
+         */
+        'editable:vertex:metakeyclick'?: VertexEventHandlerFn;
+        /**
+         * Fired when a click with altKey is issued on a vertex.
+         */
+        'editable:vertex:altclick'?: VertexEventHandlerFn;
+        /**
+         * Fired when a contextmenu is issued on a vertex.
+         */
+        'editable:vertex:contextmenu'?: VertexEventHandlerFn;
+        /**
+         * Fired when user mousedown a vertex.
+         */
+        'editable:vertex:mousedown'?: VertexEventHandlerFn;
+        /**
+         * Fired when a vertex is dragged by user.
+         */
+        'editable:vertex:drag'?: VertexEventHandlerFn;
+        /**
+         * Fired before a vertex is dragged by user.
+         */
+        'editable:vertex:dragstart'?: VertexEventHandlerFn;
+        /**
+         * Fired after a vertex is dragged by user.
+         */
+        'editable:vertex:dragend'?: VertexEventHandlerFn;
+        /**
+         * Fired when user mousedown a middle marker.
+         */
+        'editable:middlemarker:mousedown'?: VertexEventHandlerFn;
+        /**
+         * Fired when a new shape is created in a multi (Polygon or Polyline).
+         */
+        'editable:shape:new'?: ShapeEventHandlerFn;
+        /**
+         * Fired before a new shape is deleted in a multi (Polygon or Polyline).
+         */
+        'editable:shape:delete'?: CancelableShapeEventHandlerFn;
+        /**
+         * Fired after a new shape is deleted in a multi (Polygon or Polyline).
+         */
+        'editable:shape:deleted'?: ShapeEventHandlerFn;
+    }
+
+    // abstract class Evented extends Class {}
 }
