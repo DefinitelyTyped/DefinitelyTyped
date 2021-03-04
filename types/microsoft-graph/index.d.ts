@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.31
+// Type definitions for non-npm package microsoft-graph 1.32
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -226,6 +226,7 @@ export type Sensitivity = "normal" | "personal" | "private" | "confidential";
 export type TimeZoneStandard = "windows" | "iana";
 export type WebsiteType = "other" | "home" | "work" | "blog" | "profile";
 export type WeekIndex = "first" | "second" | "third" | "fourth" | "last";
+export type AgreementAcceptanceState = "accepted" | "declined" | "unknownFutureValue";
 export type CloudAppSecuritySessionControlType =
     | "mcasConfigured"
     | "monitorOnly"
@@ -825,6 +826,102 @@ export type OnenotePatchInsertPosition = "After" | "Before";
 export type OnenoteSourceService = "Unknown" | "OneDrive" | "OneDriveForBusiness" | "OnPremOneDriveForBusiness";
 export type OnenoteUserRole = "None" | "Owner" | "Contributor" | "Reader";
 export type OperationStatus = "NotStarted" | "Running" | "Completed" | "Failed";
+export type PrintColorMode = "blackAndWhite" | "grayscale" | "color" | "auto" | "unknownFutureValue";
+export type PrintDuplexMode = "flipOnLongEdge" | "flipOnShortEdge" | "oneSided" | "unknownFutureValue";
+export type PrinterFeedOrientation = "longEdgeFirst" | "shortEdgeFirst" | "unknownFutureValue";
+export type PrinterProcessingState = "unknown" | "idle" | "processing" | "stopped" | "unknownFutureValue";
+export type PrinterProcessingStateDetail =
+    | "paused"
+    | "mediaJam"
+    | "mediaNeeded"
+    | "mediaLow"
+    | "mediaEmpty"
+    | "coverOpen"
+    | "interlockOpen"
+    | "outputTrayMissing"
+    | "outputAreaFull"
+    | "markerSupplyLow"
+    | "markerSupplyEmpty"
+    | "inputTrayMissing"
+    | "outputAreaAlmostFull"
+    | "markerWasteAlmostFull"
+    | "markerWasteFull"
+    | "fuserOverTemp"
+    | "fuserUnderTemp"
+    | "other"
+    | "none"
+    | "movingToPaused"
+    | "shutdown"
+    | "connectingToDevice"
+    | "timedOut"
+    | "stopping"
+    | "stoppedPartially"
+    | "tonerLow"
+    | "tonerEmpty"
+    | "spoolAreaFull"
+    | "doorOpen"
+    | "opticalPhotoConductorNearEndOfLife"
+    | "opticalPhotoConductorLifeOver"
+    | "developerLow"
+    | "developerEmpty"
+    | "interpreterResourceUnavailable"
+    | "unknownFutureValue";
+export type PrintEvent = "jobStarted" | "unknownFutureValue";
+export type PrintFinishing =
+    | "none"
+    | "staple"
+    | "punch"
+    | "cover"
+    | "bind"
+    | "saddleStitch"
+    | "stitchEdge"
+    | "stapleTopLeft"
+    | "stapleBottomLeft"
+    | "stapleTopRight"
+    | "stapleBottomRight"
+    | "stitchLeftEdge"
+    | "stitchTopEdge"
+    | "stitchRightEdge"
+    | "stitchBottomEdge"
+    | "stapleDualLeft"
+    | "stapleDualTop"
+    | "stapleDualRight"
+    | "stapleDualBottom"
+    | "unknownFutureValue";
+export type PrintJobProcessingState =
+    | "unknown"
+    | "pending"
+    | "processing"
+    | "paused"
+    | "stopped"
+    | "completed"
+    | "canceled"
+    | "aborted"
+    | "unknownFutureValue";
+export type PrintJobStateDetail =
+    | "uploadPending"
+    | "transforming"
+    | "completedSuccessfully"
+    | "completedWithWarnings"
+    | "completedWithErrors"
+    | "releaseWait"
+    | "interpreting"
+    | "unknownFutureValue";
+export type PrintMultipageLayout =
+    | "clockwiseFromTopLeft"
+    | "counterclockwiseFromTopLeft"
+    | "counterclockwiseFromTopRight"
+    | "clockwiseFromTopRight"
+    | "counterclockwiseFromBottomLeft"
+    | "clockwiseFromBottomLeft"
+    | "counterclockwiseFromBottomRight"
+    | "clockwiseFromBottomRight"
+    | "unknownFutureValue";
+export type PrintOperationProcessingState = "notStarted" | "running" | "succeeded" | "failed" | "unknownFutureValue";
+export type PrintOrientation = "portrait" | "landscape" | "reverseLandscape" | "reversePortrait" | "unknownFutureValue";
+export type PrintQuality = "low" | "medium" | "high" | "unknownFutureValue";
+export type PrintScaling = "auto" | "shrinkToFit" | "fill" | "fit" | "none" | "unknownFutureValue";
+export type PrintTaskProcessingState = "pending" | "processing" | "completed" | "aborted" | "unknownFutureValue";
 export type Status = "active" | "updated" | "deleted" | "ignored" | "unknownFutureValue";
 export type DataPolicyOperationStatus = "notStarted" | "running" | "complete" | "failed" | "unknownFutureValue";
 export type AlertFeedback = "unknown" | "truePositive" | "falsePositive" | "benignPositive" | "unknownFutureValue";
@@ -981,9 +1078,11 @@ export type ChatMessagePolicyViolationVerdictDetailsTypes =
     | "allowOverrideWithoutJustification"
     | "allowOverrideWithJustification";
 export type ChatMessageType = "message" | "chatEvent" | "typing" | "unknownFutureValue";
+export type ChatType = "oneOnOne" | "group" | "meeting" | "unknownFutureValue";
 export type ClonableTeamParts = "apps" | "tabs" | "settings" | "channels" | "members";
 export type GiphyRatingType = "strict" | "moderate" | "unknownFutureValue";
 export type TeamsAppDistributionMethod = "store" | "organization" | "sideloaded" | "unknownFutureValue";
+export type TeamsAppPublishingState = "submitted" | "rejected" | "published" | "unknownFutureValue";
 export type TeamsAsyncOperationStatus =
     | "invalid"
     | "notStarted"
@@ -1355,8 +1454,8 @@ export interface User extends DirectoryObject {
     jobTitle?: NullableOption<string>;
     /**
      * The time when this Azure AD user last changed their password. The Timestamp type represents date and time information
-     * using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this:
-     * '2014-01-01T00:00:00Z' Returned only on $select.
+     * using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is '2014-01-01T00:00:00Z'
+     * Returned only on $select. Read-only.
      */
     lastPasswordChangeDateTime?: NullableOption<string>;
     /**
@@ -1415,8 +1514,7 @@ export interface User extends DirectoryObject {
     /**
      * Indicates the last time at which the object was synced with the on-premises directory; for example:
      * '2013-02-16T03:04:54Z'. The Timestamp type represents date and time information using ISO 8601 format and is always in
-     * UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Returned only on
-     * $select. Read-only.
+     * UTC time. For example, midnight UTC on Jan 1, 2014 is '2014-01-01T00:00:00Z'. Returned only on $select. Read-only.
      */
     onPremisesLastSyncDateTime?: NullableOption<string>;
     // Errors when using Microsoft synchronization product during provisioning. Returned only on $select.
@@ -1524,15 +1622,14 @@ export interface User extends DirectoryObject {
     aboutMe?: NullableOption<string>;
     /**
      * The birthday of the user. The Timestamp type represents date and time information using ISO 8601 format and is always
-     * in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z' Returned only on
-     * $select.
+     * in UTC time. For example, midnight UTC on Jan 1, 2014 is '2014-01-01T00:00:00Z' Returned only on $select.
      */
     birthday?: string;
     /**
      * The hire date of the user. The Timestamp type represents date and time information using ISO 8601 format and is always
-     * in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'. Returned only on
-     * $select. Note: This property is specific to SharePoint Online. We recommend using the native employeeHireDate property
-     * to set and update hire date values using Microsoft Graph APIs.
+     * in UTC time. For example, midnight UTC on Jan 1, 2014 is '2014-01-01T00:00:00Z'. Returned only on $select. Note: This
+     * property is specific to SharePoint Online. We recommend using the native employeeHireDate property to set and update
+     * hire date values using Microsoft Graph APIs.
      */
     hireDate?: string;
     // A list for the user to describe their interests. Returned only on $select.
@@ -1549,6 +1646,7 @@ export interface User extends DirectoryObject {
     schools?: NullableOption<string[]>;
     // A list for the user to enumerate their skills. Returned only on $select.
     skills?: NullableOption<string[]>;
+    // Represents the app roles a user has been granted for an application.
     appRoleAssignments?: NullableOption<AppRoleAssignment[]>;
     // Directory objects that were created by the user. Read-only. Nullable.
     createdObjects?: NullableOption<DirectoryObject[]>;
@@ -1615,6 +1713,8 @@ export interface User extends DirectoryObject {
     followedSites?: NullableOption<Site[]>;
     // The collection of open extensions defined for the user. Nullable.
     extensions?: NullableOption<Extension[]>;
+    // The user's terms of use acceptance statuses. Read-only. Nullable.
+    agreementAcceptances?: NullableOption<AgreementAcceptance[]>;
     // The managed devices associated with the user.
     managedDevices?: NullableOption<ManagedDevice[]>;
     // Zero or more managed app registrations that belong to the user.
@@ -2330,6 +2430,40 @@ export interface Site extends BaseItem {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface Extension extends Entity {}
+export interface AgreementAcceptance extends Entity {
+    // ID of the agreement file accepted by the user.
+    agreementFileId?: NullableOption<string>;
+    // ID of the agreement.
+    agreementId?: NullableOption<string>;
+    // The display name of the device used for accepting the agreement.
+    deviceDisplayName?: NullableOption<string>;
+    // The unique identifier of the device used for accepting the agreement.
+    deviceId?: NullableOption<string>;
+    // The operating system used for accepting the agreement.
+    deviceOSType?: NullableOption<string>;
+    // The operating system version of the device used for accepting the agreement.
+    deviceOSVersion?: NullableOption<string>;
+    /**
+     * The expiration date time of the acceptance. The Timestamp type represents date and time information using ISO 8601
+     * format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+     */
+    expirationDateTime?: NullableOption<string>;
+    /**
+     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 would look like this: '2014-01-01T00:00:00Z'
+     */
+    recordedDateTime?: NullableOption<string>;
+    // Possible values are: accepted, declined.
+    state?: NullableOption<AgreementAcceptanceState>;
+    // Display name of the user when the acceptance was recorded.
+    userDisplayName?: NullableOption<string>;
+    // Email of the user when the acceptance was recorded.
+    userEmail?: NullableOption<string>;
+    // ID of the user who accepted the agreement.
+    userId?: NullableOption<string>;
+    // UPN of the user when the acceptance was recorded.
+    userPrincipalName?: NullableOption<string>;
+}
 export interface ManagedDevice extends Entity {
     // Code that allows the Activation Lock on a device to be bypassed. This property is read-only.
     activationLockBypassCode?: NullableOption<string>;
@@ -2938,9 +3072,9 @@ export interface ServicePrincipal extends DirectoryObject {
      * token must use the matching private key to decrypt the token before it can be used for the signed-in user.
      */
     tokenEncryptionKeyId?: NullableOption<string>;
-    // Principals (users, groups, and service principals) that are assigned to this service principal. Read-only.
+    // App role assignments for this app or service, granted to users, groups, and other service principals.
     appRoleAssignedTo?: NullableOption<AppRoleAssignment[]>;
-    // Applications that this service principal is assigned to. Read-only. Nullable.
+    // App role assignment for another app or service, granted to this service principal.
     appRoleAssignments?: NullableOption<AppRoleAssignment[]>;
     // The claimsMappingPolicies assigned to this service principal.
     claimsMappingPolicies?: NullableOption<ClaimsMappingPolicy[]>;
@@ -3700,6 +3834,7 @@ export interface Group extends DirectoryObject {
      */
     unseenCount?: NullableOption<number>;
     isArchived?: NullableOption<boolean>;
+    // Represents the app roles a group has been granted for an application.
     appRoleAssignments?: NullableOption<AppRoleAssignment[]>;
     // The user (or application) that created the group. Note: This is not set if the user is an administrator. Read-only.
     createdOnBehalfOf?: NullableOption<DirectoryObject>;
@@ -3905,6 +4040,7 @@ export interface Organization extends DirectoryObject {
     verifiedDomains?: VerifiedDomain[];
     // Mobile device management authority. Possible values are: unknown, intune, sccm, office365.
     mobileDeviceManagementAuthority?: MdmAuthority;
+    branding?: NullableOption<OrganizationalBranding>;
     /**
      * Navigation property to manage certificate-based authentication configuration. Only a single instance of
      * certificateBasedAuthConfiguration can be created in the collection.
@@ -3913,6 +4049,45 @@ export interface Organization extends DirectoryObject {
     // The collection of open extensions defined for the organization resource. Nullable.
     extensions?: NullableOption<Extension[]>;
 }
+export interface OrganizationalBrandingProperties extends Entity {
+    /**
+     * Color that will appear in place of the background image in low-bandwidth connections. The primary color of your banner
+     * logo or your organization color is recommended to be used here. Specify this in hexadecimal (for example, white is
+     * #FFFFFF).
+     */
+    backgroundColor?: NullableOption<string>;
+    /**
+     * Image that appears as the background of the sign in page. .png or .jpg not larger than 1920x1080 and smaller than
+     * 300kb. A smaller image will reduce bandwidth requirements and make page loads more performant.
+     */
+    backgroundImage?: NullableOption<any>;
+    /**
+     * A banner version of your company logo which appears appears on the sign-in page. .png or .jpg no larger than 36x245px.
+     * We recommend using a transparent image with no padding around the logo.
+     */
+    bannerLogo?: NullableOption<any>;
+    /**
+     * Text that appears at the bottom of the sign-in box. You can use this to communicate additional information, such as the
+     * phone number to your help desk or a legal statement. This text must be Unicode and not exceed 1024 characters.
+     */
+    signInPageText?: NullableOption<string>;
+    /**
+     * Square version of your company logo. This appears in Windows 10 out-of-box (OOBE) experiences and when Windows
+     * Autopilot is enabled for deployment. .png or .jpg no larger than 240x240px and no more than 10kb in size. We recommend
+     * using a transparent image with no padding around the logo.
+     */
+    squareLogo?: NullableOption<any>;
+    /**
+     * String that shows as the hint in the username textbox on the sign in screen. This text must be Unicode, without links
+     * or code, and can't exceed 64 characters.
+     */
+    usernameHintText?: NullableOption<string>;
+}
+export interface OrganizationalBranding extends OrganizationalBrandingProperties {
+    localizations?: NullableOption<OrganizationalBrandingLocalization[]>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface OrganizationalBrandingLocalization extends OrganizationalBrandingProperties {}
 export interface OrgContact extends DirectoryObject {
     // Postal addresses for this organizational contact. For now a contact can only have one physical address.
     addresses?: NullableOption<PhysicalOfficeAddress[]>;
@@ -4037,6 +4212,8 @@ export interface SubscribedSku extends Entity {
 export interface EducationClass extends Entity {
     // Class code used by the school to identify the class.
     classCode?: NullableOption<string>;
+    // Course information for the class
+    course?: NullableOption<EducationCourse>;
     // Entity who created the class
     createdBy?: NullableOption<IdentitySet>;
     // Description of the class.
@@ -4052,6 +4229,10 @@ export interface EducationClass extends Entity {
      * Possible values are: sis, lms, or manual.
      */
     externalSource?: NullableOption<EducationExternalSource>;
+    // The name of the external source this resources was generated from.
+    externalSourceDetail?: NullableOption<string>;
+    // Grade level of the class.
+    grade?: NullableOption<string>;
     // Mail name for sending email to all members, if this is enabled.
     mailNickname?: string;
     // Term for the class.
@@ -4088,6 +4269,8 @@ export interface EducationUser extends Entity {
      * Possible values are: sis, lms, or manual.
      */
     externalSource?: NullableOption<EducationExternalSource>;
+    // The name of the external source this resources was generated from.
+    externalSourceDetail?: NullableOption<string>;
     // The given name (first name) of the user. Supports /$filter.
     givenName?: NullableOption<string>;
     // The SMTP address for the user; for example, 'jeff@contoso.onmicrosoft.com'. Read-Only. Supports /$filter.
@@ -4101,6 +4284,8 @@ export interface EducationUser extends Entity {
     // The primary cellular telephone number for the user.
     mobilePhone?: NullableOption<string>;
     officeLocation?: NullableOption<string>;
+    // Additional information used to associate the AAD user with it's Active Directory counterpart.
+    onPremisesInfo?: NullableOption<EducationOnPremisesInfo>;
     // Specifies password policies for the user. See standard [user] resource for additional details.
     passwordPolicies?: NullableOption<string>;
     /**
@@ -4146,6 +4331,8 @@ export interface EducationUser extends Entity {
     classes?: NullableOption<EducationClass[]>;
     // Schools to which the user belongs. Nullable.
     schools?: NullableOption<EducationSchool[]>;
+    // Classes for which the user is a teacher.
+    taughtClasses?: NullableOption<EducationClass[]>;
     // The directory user corresponding to this user.
     user?: NullableOption<User>;
 }
@@ -4156,6 +4343,7 @@ export interface EducationOrganization extends Entity {
     displayName?: string;
     // Where this user was created from. Possible values are: sis, lms, or manual.
     externalSource?: NullableOption<EducationExternalSource>;
+    externalSourceDetail?: NullableOption<string>;
 }
 export interface EducationSchool extends EducationOrganization {
     // Address of the school.
@@ -4179,6 +4367,7 @@ export interface EducationSchool extends EducationOrganization {
     principalName?: NullableOption<string>;
     // School Number.
     schoolNumber?: NullableOption<string>;
+    administrativeUnit?: NullableOption<AdministrativeUnit>;
     // Classes taught at the school. Nullable.
     classes?: NullableOption<EducationClass[]>;
     // Users in the school. Nullable.
@@ -5455,6 +5644,60 @@ export interface Call extends Entity {
     operations?: NullableOption<CommsOperation[]>;
     // Read-only. Nullable.
     participants?: NullableOption<Participant[]>;
+}
+export interface Agreement extends Entity {
+    /**
+     * Display name of the agreement. The display name is used for internal tracking of the agreement but is not shown to end
+     * users who view the agreement.
+     */
+    displayName?: NullableOption<string>;
+    /**
+     * This setting enables you to require end users to accept this agreement on every device that they are accessing it from.
+     * The end user will be required to register their device in Azure AD, if they haven't already done so.
+     */
+    isPerDeviceAcceptanceRequired?: NullableOption<boolean>;
+    // Indicates whether the user has to expand the agreement before accepting.
+    isViewingBeforeAcceptanceRequired?: NullableOption<boolean>;
+    // Expiration schedule and frequency of agreement for all users.
+    termsExpiration?: NullableOption<TermsExpiration>;
+    /**
+     * The duration after which the user must re-accept the terms of use. The value is represented in ISO 8601 format for
+     * durations.
+     */
+    userReacceptRequiredFrequency?: NullableOption<string>;
+    // Read-only. Information about acceptances of this agreement.
+    acceptances?: NullableOption<AgreementAcceptance[]>;
+    // Default PDF linked to this agreement.
+    file?: NullableOption<AgreementFile>;
+    /**
+     * PDFs linked to this agreement. Note: This property is in the process of being deprecated. Use the file property
+     * instead.
+     */
+    files?: NullableOption<AgreementFileLocalization[]>;
+}
+export interface AgreementFileProperties extends Entity {
+    createdDateTime?: NullableOption<string>;
+    fileData?: NullableOption<AgreementFileData>;
+    fileName?: NullableOption<string>;
+    isDefault?: NullableOption<boolean>;
+    isMajorVersion?: NullableOption<boolean>;
+    language?: NullableOption<string>;
+}
+export interface AgreementFile extends AgreementFileProperties {
+    localizations?: NullableOption<AgreementFileLocalization[]>;
+}
+export interface AgreementFileLocalization extends AgreementFileProperties {
+    versions?: NullableOption<AgreementFileVersion[]>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface AgreementFileVersion extends AgreementFileProperties {}
+// tslint:disable-next-line: interface-name
+export interface IdentityGovernance {
+    termsOfUse?: NullableOption<TermsOfUseContainer>;
+}
+export interface TermsOfUseContainer extends Entity {
+    agreementAcceptances?: NullableOption<AgreementAcceptance[]>;
+    agreements?: NullableOption<Agreement[]>;
 }
 export interface NamedLocation extends Entity {
     /**
@@ -8042,8 +8285,24 @@ export interface MacOSGeneralDeviceConfiguration extends DeviceConfiguration {
     // Type of password that is required. Possible values are: deviceDefault, alphanumeric, numeric.
     passwordRequiredType?: RequiredPasswordType;
 }
-// tslint:disable-next-line: no-empty-interface
-export interface ReportRoot extends Entity {}
+export interface ReportRoot extends Entity {
+    dailyPrintUsageByPrinter?: NullableOption<PrintUsageByPrinter[]>;
+    dailyPrintUsageByUser?: NullableOption<PrintUsageByUser[]>;
+    monthlyPrintUsageByPrinter?: NullableOption<PrintUsageByPrinter[]>;
+    monthlyPrintUsageByUser?: NullableOption<PrintUsageByUser[]>;
+}
+export interface PrintUsage extends Entity {
+    completedBlackAndWhiteJobCount?: number;
+    completedColorJobCount?: number;
+    incompleteJobCount?: number;
+    usageDate?: string;
+}
+export interface PrintUsageByPrinter extends PrintUsage {
+    printerId?: string;
+}
+export interface PrintUsageByUser extends PrintUsage {
+    userPrincipalName?: string;
+}
 export interface SharedPCConfiguration extends DeviceConfiguration {
     // Specifies how accounts are managed on a shared PC. Only applies when disableAccountManager is false.
     accountManagerPolicy?: NullableOption<SharedPCAccountManagerPolicy>;
@@ -9669,6 +9928,162 @@ export interface OnenoteResource extends OnenoteEntityBaseModel {
     // The URL for downloading the content
     contentUrl?: NullableOption<string>;
 }
+export interface Print {
+    // Tenant-wide settings for the Universal Print service.
+    settings?: NullableOption<PrintSettings>;
+    // The list of available print connectors.
+    connectors?: NullableOption<PrintConnector[]>;
+    operations?: NullableOption<PrintOperation[]>;
+    // The list of printers registered in the tenant.
+    printers?: NullableOption<Printer[]>;
+    // The list of available Universal Print service endpoints.
+    services?: NullableOption<PrintService[]>;
+    // The list of printer shares registered in the tenant.
+    shares?: NullableOption<PrinterShare[]>;
+    taskDefinitions?: NullableOption<PrintTaskDefinition[]>;
+}
+export interface PrintConnector extends Entity {
+    // The connector's version.
+    appVersion?: string;
+    // The name of the connector.
+    displayName?: string;
+    // The connector machine's hostname.
+    fullyQualifiedDomainName?: string;
+    // The physical and/or organizational location of the connector.
+    location?: NullableOption<PrinterLocation>;
+    // The connector machine's operating system version.
+    operatingSystem?: string;
+    // The DateTimeOffset when the connector was registered.
+    registeredDateTime?: string;
+}
+export interface PrintOperation extends Entity {
+    // The DateTimeOffset when the operation was created. Read-only.
+    createdDateTime?: string;
+    // The status of the operation. Read-only.
+    status?: PrintOperationStatus;
+}
+export interface PrinterBase extends Entity {
+    capabilities?: NullableOption<PrinterCapabilities>;
+    defaults?: NullableOption<PrinterDefaults>;
+    displayName?: string;
+    isAcceptingJobs?: NullableOption<boolean>;
+    location?: NullableOption<PrinterLocation>;
+    manufacturer?: NullableOption<string>;
+    model?: NullableOption<string>;
+    status?: PrinterStatus;
+    jobs?: NullableOption<PrintJob[]>;
+}
+export interface Printer extends PrinterBase {
+    // True if the printer has a physical device for printing. Read-only.
+    hasPhysicalDevice?: boolean;
+    // True if the printer is shared; false otherwise. Read-only.
+    isShared?: boolean;
+    // The DateTimeOffset when the printer was registered. Read-only.
+    registeredDateTime?: string;
+    // The connectors that are associated with the printer.
+    connectors?: NullableOption<PrintConnector[]>;
+    /**
+     * The list of printerShares that are associated with the printer. Currently, only one printerShare can be associated with
+     * the printer. Read-only. Nullable.
+     */
+    shares?: NullableOption<PrinterShare[]>;
+    // A list of task triggers that are associated with the printer.
+    taskTriggers?: NullableOption<PrintTaskTrigger[]>;
+}
+export interface PrintService extends Entity {
+    // Endpoints that can be used to access the service. Read-only. Nullable.
+    endpoints?: NullableOption<PrintServiceEndpoint[]>;
+}
+export interface PrinterShare extends PrinterBase {
+    /**
+     * If true, all users and groups will be granted access to this printer share. This supersedes the allow lists defined by
+     * the allowedUsers and allowedGroups navigation properties.
+     */
+    allowAllUsers?: boolean;
+    // The DateTimeOffset when the printer share was created. Read-only.
+    createdDateTime?: string;
+    // The groups whose users have access to print using the printer.
+    allowedGroups?: NullableOption<Group[]>;
+    // The users who have access to print using the printer.
+    allowedUsers?: NullableOption<User[]>;
+    // The printer that this printer share is related to.
+    printer?: NullableOption<Printer>;
+}
+export interface PrintTaskDefinition extends Entity {
+    // The application that created the printTaskDefinition. Read-only.
+    createdBy?: AppIdentity;
+    // The name of the printTaskDefinition.
+    displayName?: string;
+    /**
+     * A list of tasks that have been created based on this definition. The list includes currently running tasks and recently
+     * completed tasks. Read-only.
+     */
+    tasks?: NullableOption<PrintTask[]>;
+}
+export interface PrintDocument extends Entity {
+    // The document's content (MIME) type. Read-only.
+    contentType?: NullableOption<string>;
+    // The document's name. Read-only.
+    displayName?: NullableOption<string>;
+    // The document's size in bytes. Read-only.
+    size?: number;
+}
+export interface PrintTaskTrigger extends Entity {
+    /**
+     * The Universal Print event that will cause a new printTask to be triggered. Valid values are described in the following
+     * table.
+     */
+    event?: PrintEvent;
+    // An abstract definition that will be used to create a printTask when triggered by a print event. Read-only.
+    definition?: PrintTaskDefinition;
+}
+export interface PrintJob extends Entity {
+    // A group of settings that a printer should use to print a job.
+    configuration?: PrintJobConfiguration;
+    createdBy?: NullableOption<UserIdentity>;
+    // The DateTimeOffset when the job was created. Read-only.
+    createdDateTime?: string;
+    // If true, document can be fetched by printer.
+    isFetchable?: boolean;
+    // Contains the source job URL, if the job has been redirected from another printer.
+    redirectedFrom?: NullableOption<string>;
+    // Contains the destination job URL, if the job has been redirected to another printer.
+    redirectedTo?: NullableOption<string>;
+    // The status of the print job. Read-only.
+    status?: PrintJobStatus;
+    // Read-only.
+    documents?: NullableOption<PrintDocument[]>;
+    // A list of printTasks that were triggered by this print job.
+    tasks?: NullableOption<PrintTask[]>;
+}
+export interface PrinterCreateOperation extends PrintOperation {
+    // The signed certificate created during the registration process. Read-only.
+    certificate?: NullableOption<string>;
+    printer?: NullableOption<Printer>;
+}
+export interface PrintTask extends Entity {
+    /**
+     * The URL for the print entity that triggered this task. For example,
+     * https://graph.microsoft.com/beta/print/printers/{printerId}/jobs/{jobId}. Read-only.
+     */
+    parentUrl?: string;
+    /**
+     * The current execution status of this printTask. The calling application is responsible for updating this status when
+     * processing is finished, unless the related printJob has been redirected to another printer. Failure to report
+     * completion will result in the related print job being blocked from printing and eventually deleted.
+     */
+    status?: PrintTaskStatus;
+    // The printTaskDefinition that was used to create this task. Read-only.
+    definition?: PrintTaskDefinition;
+    // The printTaskTrigger that triggered this task's execution. Read-only.
+    trigger?: PrintTaskTrigger;
+}
+export interface PrintServiceEndpoint extends Entity {
+    // A human-readable display name for the endpoint.
+    displayName?: string;
+    // The URI that can be used to access the service.
+    uri?: string;
+}
 export interface ActivityHistoryItem extends Entity {
     /**
      * Optional. The duration of active user engagement. if not supplied, this is calculated from the startedDateTime and
@@ -9998,10 +10413,17 @@ export interface ConversationMember extends Entity {
     displayName?: NullableOption<string>;
     // The roles for that user.
     roles?: NullableOption<string[]>;
+    /**
+     * The timestamp denoting how far back a conversation's history is shared with the conversation member. This property is
+     * settable only for members of a chat.
+     */
+    visibleHistoryStartDateTime?: NullableOption<string>;
 }
 export interface AadUserConversationMember extends ConversationMember {
     // The email address of the user.
     email?: NullableOption<string>;
+    // TenantId which the Azure AD user belongs to.
+    tenantId?: NullableOption<string>;
     // The GUID of the user.
     userId?: NullableOption<string>;
     user?: NullableOption<User>;
@@ -10112,8 +10534,27 @@ export interface TeamsTab extends Entity {
     // The application that is linked to the tab.
     teamsApp?: NullableOption<TeamsApp>;
 }
-// tslint:disable-next-line: no-empty-interface
-export interface Chat extends Entity {}
+export interface Chat extends Entity {
+    // Specifies the type of chat. Possible values are:group, oneOnOne and meeting.
+    chatType?: ChatType;
+    // Date and time at which the chat was created. Read-only.
+    createdDateTime?: NullableOption<string>;
+    // Date and time at which the chat was renamed or list of members were last changed. Read-only.
+    lastUpdatedDateTime?: NullableOption<string>;
+    // (Optional) Subject or topic for the chat. Only available for group chats.
+    topic?: NullableOption<string>;
+    // A collection of all the apps in the chat. Nullable.
+    installedApps?: NullableOption<TeamsAppInstallation[]>;
+    // A collection of all the members in the chat. Nullable.
+    members?: NullableOption<ConversationMember[]>;
+    tabs?: NullableOption<TeamsTab[]>;
+}
+export interface TeamsAppInstallation extends Entity {
+    // The app that is installed.
+    teamsApp?: NullableOption<TeamsApp>;
+    // The details of this version of the app.
+    teamsAppDefinition?: NullableOption<TeamsAppDefinition>;
+}
 // tslint:disable-next-line: no-empty-interface
 export interface ChatMessageHostedContent extends Entity {}
 export interface Schedule extends Entity {
@@ -10150,12 +10591,6 @@ export interface Schedule extends Entity {
     // The instances of times off in the schedule.
     timesOff?: NullableOption<TimeOff[]>;
 }
-export interface TeamsAppInstallation extends Entity {
-    // The app that is installed.
-    teamsApp?: NullableOption<TeamsApp>;
-    // The details of this version of the app.
-    teamsAppDefinition?: NullableOption<TeamsAppDefinition>;
-}
 export interface TeamsAsyncOperation extends Entity {
     // Number of times the operation was attempted before being marked successful or failed.
     attemptsCount?: number;
@@ -10180,13 +10615,28 @@ export interface TeamsAsyncOperation extends Entity {
 // tslint:disable-next-line: no-empty-interface
 export interface TeamsTemplate extends Entity {}
 export interface TeamsAppDefinition extends Entity {
+    createdBy?: NullableOption<IdentitySet>;
+    description?: NullableOption<string>;
     // The name of the app provided by the app developer.
     displayName?: NullableOption<string>;
+    lastModifiedDateTime?: NullableOption<string>;
+    /**
+     * The published status of a specific version of a Teams app. Possible values are:submitted — The specific version of the
+     * Teams app has been submitted and is under review. published — The request to publish the specific version of the Teams
+     * app has been approved by the admin and the app is published. rejected — The request to publish the specific version of
+     * the Teams app was rejected by the admin.
+     */
+    publishingState?: NullableOption<TeamsAppPublishingState>;
+    shortDescription?: NullableOption<string>;
     // The id from the Teams App manifest.
     teamsAppId?: NullableOption<string>;
     // The version number of the application.
     version?: NullableOption<string>;
+    // The details of the bot specified in the Teams App manifest.
+    bot?: NullableOption<TeamworkBot>;
 }
+// tslint:disable-next-line: no-empty-interface
+export interface TeamworkBot extends Entity {}
 export interface Teamwork extends Entity {
     workforceIntegrations?: NullableOption<WorkforceIntegration[]>;
 }
@@ -11262,6 +11712,22 @@ export interface VerifiedDomain {
     name?: NullableOption<string>;
     // For example, 'Managed'.
     type?: NullableOption<string>;
+}
+export interface EducationCourse {
+    // Unique identifier for the course.
+    courseNumber?: NullableOption<string>;
+    // Description of the course.
+    description?: NullableOption<string>;
+    // Name of the course.
+    displayName?: NullableOption<string>;
+    // ID of the course from the syncing system.
+    externalId?: NullableOption<string>;
+    // Subject of the course.
+    subject?: NullableOption<string>;
+}
+export interface EducationOnPremisesInfo {
+    // Unique identifier for the user object in Active Directory.
+    immutableId?: NullableOption<string>;
 }
 export interface EducationStudent {
     // Birth date of the student.
@@ -12592,6 +13058,22 @@ export interface ExtensionSchemaProperty {
      * Integer or String. See the table below for more details.
      */
     type?: NullableOption<string>;
+}
+export interface AgreementFileData {
+    data?: NullableOption<number>;
+}
+export interface TermsExpiration {
+    /**
+     * Represents the frequency at which the terms will expire, after its first expiration as set in startDateTime. The value
+     * is represented in ISO 8601 format for durations. For example, PT1M represents a time period of 1 month.
+     */
+    frequency?: NullableOption<string>;
+    /**
+     * The DateTime when the agreement is set to expire for all users. The Timestamp type represents date and time information
+     * using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 would look like this:
+     * '2014-01-01T00:00:00Z'.
+     */
+    startDateTime?: NullableOption<string>;
 }
 export interface ConditionalAccessSessionControl {
     // Specifies whether the session control is enabled.
@@ -14091,6 +14573,298 @@ export interface SectionLinks {
     oneNoteClientUrl?: NullableOption<ExternalLink>;
     // Opens the section in OneNote on the web.
     oneNoteWebUrl?: NullableOption<ExternalLink>;
+}
+export interface ArchivedPrintJob {
+    // True if the job was acquired by a printer; false otherwise. Read-only.
+    acquiredByPrinter?: boolean;
+    // The dateTimeOffset when the job was acquired by the printer, if any. Read-only.
+    acquiredDateTime?: NullableOption<string>;
+    // The dateTimeOffset when the job was completed, canceled or aborted. Read-only.
+    completionDateTime?: NullableOption<string>;
+    // The number of copies that were printed. Read-only.
+    copiesPrinted?: number;
+    // The user who created the print job. Read-only.
+    createdBy?: NullableOption<UserIdentity>;
+    // The dateTimeOffset when the job was created. Read-only.
+    createdDateTime?: string;
+    // The archived print job's GUID. Read-only.
+    id?: string;
+    // The printer ID that the job was queued for. Read-only.
+    printerId?: NullableOption<string>;
+    // The print job's final processing state. Read-only.
+    processingState?: PrintJobProcessingState;
+}
+// tslint:disable-next-line: interface-name
+export interface IntegerRange {
+    // The inclusive upper bound of the integer range.
+    end?: NullableOption<number>;
+    // The inclusive lower bound of the integer range.
+    start?: NullableOption<number>;
+}
+export interface PrintCertificateSigningRequest {
+    // A base64-encoded pkcs10 certificate request. Read-only.
+    content?: string;
+    // The base64-encoded public portion of an asymmetric key that is generated by the client. Read-only.
+    transportKey?: string;
+}
+export interface PrintDocumentUploadProperties {
+    // The document's content (MIME) type.
+    contentType?: string;
+    // The document's name.
+    documentName?: string;
+    // The document's size in bytes.
+    size?: number;
+}
+export interface PrinterCapabilities {
+    // A list of supported bottom margins(in microns) for the printer.
+    bottomMargins?: NullableOption<number[]>;
+    // True if the printer supports collating when printing muliple copies of a multi-page document; false otherwise.
+    collation?: NullableOption<boolean>;
+    // The color modes supported by the printer. Valid values are described in the following table.
+    colorModes?: NullableOption<PrintColorMode[]>;
+    /**
+     * A list of supported content (MIME) types that the printer supports. It is not guaranteed that the Universal Print
+     * service supports printing all of these MIME types.
+     */
+    contentTypes?: NullableOption<string[]>;
+    // The range of copies per job supported by the printer.
+    copiesPerJob?: NullableOption<IntegerRange>;
+    // The list of print resolutions in DPI that are supported by the printer.
+    dpis?: NullableOption<number[]>;
+    // The list of duplex modes that are supported by the printer. Valid values are described in the following table.
+    duplexModes?: NullableOption<PrintDuplexMode[]>;
+    // The list of feed orientations that are supported by the printer.
+    feedOrientations?: NullableOption<PrinterFeedOrientation[]>;
+    // Finishing processes the printer supports for a printed document.
+    finishings?: NullableOption<PrintFinishing[]>;
+    // Supported input bins for the printer.
+    inputBins?: NullableOption<string[]>;
+    // True if color printing is supported by the printer; false otherwise. Read-only.
+    isColorPrintingSupported?: NullableOption<boolean>;
+    // True if the printer supports printing by page ranges; false otherwise.
+    isPageRangeSupported?: NullableOption<boolean>;
+    // A list of supported left margins(in microns) for the printer.
+    leftMargins?: NullableOption<number[]>;
+    // The media (i.e., paper) colors supported by the printer.
+    mediaColors?: NullableOption<string[]>;
+    /**
+     * The media sizes supported by the printer. Supports standard size names for ISO and ANSI media sizes, along with any
+     * custom sizes supported by the associated printer.
+     */
+    mediaSizes?: NullableOption<string[]>;
+    // The media types supported by the printer. Valid values are described in the following table.
+    mediaTypes?: NullableOption<string[]>;
+    // The presentation directions supported by the printer. Supported values are described in the following table.
+    multipageLayouts?: NullableOption<PrintMultipageLayout[]>;
+    // The print orientations supported by the printer. Valid values are described in the following table.
+    orientations?: NullableOption<PrintOrientation[]>;
+    // The printer's supported output bins (trays).
+    outputBins?: NullableOption<string[]>;
+    // Supported number of Input Pages to impose upon a single Impression.
+    pagesPerSheet?: NullableOption<number[]>;
+    // The print qualities supported by the printer.
+    qualities?: NullableOption<PrintQuality[]>;
+    // A list of supported right margins(in microns) for the printer.
+    rightMargins?: NullableOption<number[]>;
+    // Supported print scalings.
+    scalings?: NullableOption<PrintScaling[]>;
+    // True if the printer supports scaling PDF pages to match the print media size; false otherwise.
+    supportsFitPdfToPage?: NullableOption<boolean>;
+    // A list of supported top margins(in microns) for the printer.
+    topMargins?: NullableOption<number[]>;
+}
+export interface PrinterDefaults {
+    // The default color mode to use when printing the document. Valid values are described in the following table.
+    colorMode?: NullableOption<PrintColorMode>;
+    // The default content (MIME) type to use when processing documents.
+    contentType?: NullableOption<string>;
+    // The default number of copies printed per job.
+    copiesPerJob?: NullableOption<number>;
+    // The default resolution in DPI to use when printing the job.
+    dpi?: NullableOption<number>;
+    /**
+     * The default duplex (double-sided) configuration to use when printing a document. Valid values are described in the
+     * following table.
+     */
+    duplexMode?: NullableOption<PrintDuplexMode>;
+    // The default set of finishings to apply to print jobs. Valid values are described in the following table.
+    finishings?: NullableOption<PrintFinishing[]>;
+    /**
+     * The default fitPdfToPage setting. True to fit each page of a PDF document to a physical sheet of media; false to let
+     * the printer decide how to lay out impressions.
+     */
+    fitPdfToPage?: NullableOption<boolean>;
+    // The default input bin that serves as the paper source.
+    inputBin?: NullableOption<string>;
+    // The default media (such as paper) color to print the document on.
+    mediaColor?: NullableOption<string>;
+    /**
+     * The default media size to use. Supports standard size names for ISO and ANSI media sizes, along with any custom sizes
+     * supported by the associated printer.
+     */
+    mediaSize?: NullableOption<string>;
+    // The default media (such as paper) type to print the document on. Valid values are described in the following table.
+    mediaType?: NullableOption<string>;
+    /**
+     * The default direction to lay out pages when multiple pages are being printed per sheet. Valid values are described in
+     * the following table.
+     */
+    multipageLayout?: NullableOption<PrintMultipageLayout>;
+    // The default orientation to use when printing the document. Valid values are described in the following table.
+    orientation?: NullableOption<PrintOrientation>;
+    /**
+     * The default output bin to place completed prints into. See the printer's capabilities for a list of supported output
+     * bins.
+     */
+    outputBin?: NullableOption<string>;
+    // The default number of document pages to print on each sheet.
+    pagesPerSheet?: NullableOption<number>;
+    // The default quality to use when printing the document. Valid values are described in the following table.
+    quality?: NullableOption<PrintQuality>;
+    /**
+     * Specifies how the printer scales the document data to fit the requested media. Valid values are described in the
+     * following table.
+     */
+    scaling?: NullableOption<PrintScaling>;
+}
+export interface PrinterLocation {
+    // The altitude, in meters, that the printer is located at.
+    altitudeInMeters?: NullableOption<number>;
+    // The building that the printer is located in.
+    building?: NullableOption<string>;
+    // The city that the printer is located in.
+    city?: NullableOption<string>;
+    // The country or region that the printer is located in.
+    countryOrRegion?: NullableOption<string>;
+    // The floor that the printer is located on. Only numerical values are supported right now.
+    floor?: NullableOption<string>;
+    // The description of the floor that the printer is located on.
+    floorDescription?: NullableOption<string>;
+    // The latitude that the printer is located at.
+    latitude?: NullableOption<number>;
+    // The longitude that the printer is located at.
+    longitude?: NullableOption<number>;
+    // The organizational hierarchy that the printer belongs to. The elements should be in hierarchical order.
+    organization?: NullableOption<string[]>;
+    // The postal code that the printer is located in.
+    postalCode?: NullableOption<string>;
+    // The description of the room that the printer is located in.
+    roomDescription?: NullableOption<string>;
+    // The room that the printer is located in. Only numerical values are supported right now.
+    roomName?: NullableOption<string>;
+    // The site that the printer is located in.
+    site?: NullableOption<string>;
+    // The state or province that the printer is located in.
+    stateOrProvince?: NullableOption<string>;
+    // The street address where the printer is located.
+    streetAddress?: NullableOption<string>;
+    // The subdivision that the printer is located in. The elements should be in hierarchical order.
+    subdivision?: NullableOption<string[]>;
+    subunit?: NullableOption<string[]>;
+}
+export interface PrinterStatus {
+    // A human-readable description of the printer's current processing state. Read-only.
+    description?: NullableOption<string>;
+    /**
+     * The list of details describing why the printer is in the current state. Valid values are described in the following
+     * table. Read-only.
+     */
+    details?: PrinterProcessingStateDetail[];
+    // The current processing state. Valid values are described in the following table. Read-only.
+    state?: PrinterProcessingState;
+}
+export interface PrintJobConfiguration {
+    // Whether the printer should collate pages wehen printing multiple copies of a multi-page document.
+    collate?: NullableOption<boolean>;
+    // The color mode the printer should use to print the job. Valid values are described in the table below. Read-only.
+    colorMode?: NullableOption<PrintColorMode>;
+    // The number of copies that should be printed. Read-only.
+    copies?: NullableOption<number>;
+    // The resolution to use when printing the job, expressed in dots per inch (DPI). Read-only.
+    dpi?: NullableOption<number>;
+    // The duplex mode the printer should use when printing the job. Valid values are described in the table below. Read-only.
+    duplexMode?: NullableOption<PrintDuplexMode>;
+    /**
+     * The orientation to use when feeding media into the printer. Valid values are described in the following table.
+     * Read-only.
+     */
+    feedOrientation?: NullableOption<PrinterFeedOrientation>;
+    // Finishing processes to use when printing.
+    finishings?: NullableOption<PrintFinishing[]>;
+    fitPdfToPage?: NullableOption<boolean>;
+    // The input bin (tray) to use when printing. See the printer's capabilities for a list of supported input bins.
+    inputBin?: NullableOption<string>;
+    // The margin settings to use when printing.
+    margin?: NullableOption<PrintMargin>;
+    /**
+     * The media sizeto use when printing. Supports standard size names for ISO and ANSI media sizes, along with any custom
+     * sizes supported by the associated printer.
+     */
+    mediaSize?: NullableOption<string>;
+    // The default media (such as paper) type to print the document on. Valid values are described in the following table.
+    mediaType?: NullableOption<string>;
+    /**
+     * The direction to lay out pages when multiple pages are being printed per sheet. Valid values are described in the
+     * following table.
+     */
+    multipageLayout?: NullableOption<PrintMultipageLayout>;
+    /**
+     * The orientation setting the printer should use when printing the job. Valid values are described in the following
+     * table.
+     */
+    orientation?: NullableOption<PrintOrientation>;
+    // The output bin to place completed prints into. See the printer's capabilities for a list of supported output bins.
+    outputBin?: NullableOption<string>;
+    // The page ranges to print. Read-only.
+    pageRanges?: NullableOption<IntegerRange[]>;
+    // The number of document pages to print on each sheet.
+    pagesPerSheet?: NullableOption<number>;
+    // The print quality to use when printing the job. Valid values are described in the table below. Read-only.
+    quality?: NullableOption<PrintQuality>;
+    /**
+     * Specifies how the printer should scale the document data to fit the requested media. Valid values are described in the
+     * following table.
+     */
+    scaling?: NullableOption<PrintScaling>;
+}
+export interface PrintMargin {
+    // The margin in microns from the bottom edge.
+    bottom?: NullableOption<number>;
+    // The margin in microns from the left edge.
+    left?: NullableOption<number>;
+    // The margin in microns from the right edge.
+    right?: NullableOption<number>;
+    // The margin in microns from the top edge.
+    top?: NullableOption<number>;
+}
+export interface PrintJobStatus {
+    // A human-readable description of the print job's current processing state. Read-only.
+    description?: string;
+    // Additional details for print job state. Valid values are described in the following table. Read-only.
+    details?: PrintJobStateDetail[];
+    // True if the job was acknowledged by a printer; false otherwise. Read-only.
+    isAcquiredByPrinter?: boolean;
+    // The print job's current processing state. Valid values are described in the following table. Read-only.
+    state?: PrintJobProcessingState;
+}
+export interface PrintOperationStatus {
+    // A human-readable description of the printOperation's current processing state. Read-only.
+    description?: string;
+    // The printOperation's current processing state. Valid values are described in the following table. Read-only.
+    state?: PrintOperationProcessingState;
+}
+export interface PrintSettings {
+    /**
+     * Specifies whether document conversion is enabled for the tenant. If document conversion is enabled, Universal Print
+     * service will automatically convert documents into a format compatible with the printer (xps to pdf) when needed.
+     */
+    documentConversionEnabled?: boolean;
+}
+export interface PrintTaskStatus {
+    // A human-readable description of the current processing state of the printTask.
+    description?: string;
+    // The current processing state of the printTask. Valid values are described in the following table.
+    state?: PrintTaskProcessingState;
 }
 // tslint:disable-next-line: interface-name
 export interface ImageInfo {
