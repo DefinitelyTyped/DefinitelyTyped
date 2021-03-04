@@ -1,21 +1,21 @@
 import * as L from 'leaflet';
 import 'leaflet-editable';
 
-class MarkerClass { }
-class MarkerEditorClass { }
-class MiddleMarkerClass { }
-class PolygonClass { }
-class PolygonEditorClass { }
-class PolylineClass { }
-class PolylineEditorClass { }
-class VertexMarkerClass { }
+class MarkerClass {}
+class MarkerEditorClass {}
+class MiddleMarkerClass {}
+class PolygonClass {}
+class PolygonEditorClass {}
+class PolylineClass {}
+class PolylineEditorClass {}
+class VertexMarkerClass {}
 
 const map: L.Map = L.map('div', {
     editable: true,
     editOptions: {
         drawingCSSClass: 'css-class',
         editLayer: L.layerGroup(),
-        featuresLayer: L.layerGroup<L.Marker|L.Polyline|L.Polygon>(),
+        featuresLayer: L.layerGroup<L.Marker | L.Polyline | L.Polygon>(),
         lineGuideOptions: {},
         markerClass: MarkerClass,
         markerEditorClass: MarkerEditorClass,
@@ -25,11 +25,11 @@ const map: L.Map = L.map('div', {
         polylineClass: PolylineClass,
         polylineEditorClass: PolylineEditorClass,
         skipMiddleMarkers: true,
-        vertexMarkerClass: VertexMarkerClass
-    }
+        vertexMarkerClass: VertexMarkerClass,
+    },
 });
 
-const currentPoly: L.Polygon|L.Polyline| L.Marker = map.editTools.currentPolygon;
+const currentPoly: L.Polygon | L.Polyline | L.Marker = map.editTools.currentPolygon;
 map.editTools.stopDrawing();
 map.editTools.commitDrawing();
 

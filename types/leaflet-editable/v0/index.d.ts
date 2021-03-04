@@ -49,7 +49,7 @@ declare module 'leaflet' {
         /**
          * Default layer used to store drawn features (marker, polyline…).
          */
-        featuresLayer?: LayerGroup<Polyline|Polygon|Marker>;
+        featuresLayer?: LayerGroup<Polyline | Polygon | Marker>;
 
         /**
          * Class to be used as vertex, for path editing.
@@ -99,7 +99,7 @@ declare module 'leaflet' {
          */
         options: EditOptions;
 
-        currentPolygon: Polyline|Polygon|Marker;
+        currentPolygon: Polyline | Polygon | Marker;
 
         /**
          * Start drawing a polyline. If latlng is given, a first point will be added. In any case, continuing on user
@@ -202,12 +202,12 @@ declare module 'leaflet' {
         /**
          * Set up the drawing tools for the feature to be editable.
          */
-        enable(): MarkerEditor|PolylineEditor|PolygonEditor;
+        enable(): MarkerEditor | PolylineEditor | PolygonEditor;
 
         /**
          * Remove editing tools.
          */
-        disable(): MarkerEditor|PolylineEditor|PolygonEditor;
+        disable(): MarkerEditor | PolylineEditor | PolygonEditor;
     }
 
     /**
