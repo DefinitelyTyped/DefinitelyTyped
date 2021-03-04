@@ -50,8 +50,6 @@ export type Props<
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = SelectProps<OptionType, IsMulti, GroupType> & CreatableProps<OptionType, IsMulti, GroupType>;
 
-export const defaultProps: Props<any, boolean>;
-
 export interface State<OptionType extends OptionTypeBase> {
     newOption: OptionType | undefined;
     options: OptionsType<OptionType>;
@@ -61,7 +59,6 @@ export class Creatable<OptionType extends OptionTypeBase, IsMulti extends boolea
     Props<OptionType, IsMulti>,
     State<OptionType>
 > {
-    static defaultProps: Props<any, boolean>;
     select: React.Ref<any>;
 
     onChange: (newValue: ValueType<OptionType, IsMulti>, actionMeta: ActionMeta<OptionType>) => void;
