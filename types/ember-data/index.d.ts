@@ -919,10 +919,10 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseArray` that will be
      * updated when the promise resolves.
      */
-    interface PromiseArray<T>
+    interface PromiseArray<T, ArrayType extends Ember.ArrayProxy<T>['content'] = Ember.Array<T>>
         extends Ember.ArrayProxy<T>,
-            PromiseProxyMixin<Ember.ArrayProxy<T>> {}
-    class PromiseArray<T> {}
+            PromiseProxyMixin<ArrayType> {}
+    class PromiseArray<T> extends Ember.ArrayProxy<T> {}
     /**
      * A `PromiseObject` is an object that acts like both an `Ember.Object`
      * and a promise. When the promise is resolved, then the resulting value
@@ -932,14 +932,14 @@ export namespace DS {
      */
     interface PromiseObject<T extends object>
         extends ObjectProxy<T>,
-            PromiseProxyMixin<T & ObjectProxy> {}
-    class PromiseObject<T> {}
+            PromiseProxyMixin<T> {}
+    class PromiseObject<T> extends ObjectProxy<T> {}
     /**
      * A PromiseManyArray is a PromiseArray that also proxies certain method calls
      * to the underlying manyArray.
      * Right now we proxy:
      */
-    class PromiseManyArray<T extends Model> extends PromiseArray<T> {
+    class PromiseManyArray<T extends Model> extends PromiseArray<T, Ember.ArrayProxy<T>> {
         /**
          * Reloads all of the records in the manyArray. If the manyArray
          * holds a relationship that was originally fetched using a links url
@@ -1131,7 +1131,7 @@ export namespace DS {
             query: object,
             options?: { adapterOptions?: object }
         ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
-            PromiseArray<ModelRegistry[K]>;
+            PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
         /**
          * This method makes a request for one record, where the `id` is not known
          * beforehand (if the `id` is known, use [`findRecord`](#method_findRecord)
@@ -1156,7 +1156,7 @@ export namespace DS {
                 include?: string;
                 adapterOptions?: any;
             }
-        ): PromiseArray<ModelRegistry[K]>;
+        ): PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
         /**
          * This method returns a filtered array that contains all of the
          * known records for a given type in the store.

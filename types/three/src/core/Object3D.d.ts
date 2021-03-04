@@ -138,7 +138,8 @@ export class Object3D extends EventDispatcher {
     receiveShadow: boolean;
 
     /**
-     * When this is set, it checks every frame if the object is in the frustum of the camera. Otherwise the object gets drawn every frame even if it isn't visible.
+     * When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.
+     * If set to false the object gets rendered every frame even if it is not in the frustum of the camera.
      * @default true
      */
     frustumCulled: boolean;

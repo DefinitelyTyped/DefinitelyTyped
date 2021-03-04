@@ -39,7 +39,6 @@ export interface MaterialParameters {
     precision?: 'highp' | 'mediump' | 'lowp' | null;
     premultipliedAlpha?: boolean;
     dithering?: boolean;
-    flatShading?: boolean;
     side?: Side;
     shadowSide?: Side;
     toneMapped?: boolean;
@@ -287,12 +286,6 @@ export class Material extends EventDispatcher {
      * @default false
      */
     dithering: boolean;
-
-    /**
-     * Define whether the material is rendered with flat shading. Default is false.
-     * @default false
-     */
-    flatShading: boolean;
 
     /**
      * Defines which of the face sides will be rendered - front, back or both.

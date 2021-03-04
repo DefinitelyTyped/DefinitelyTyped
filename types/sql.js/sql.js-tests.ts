@@ -92,4 +92,13 @@ initSqlJs().then(SQL => {
     db2.run("INSERT INTO hello VALUES (add_js(7, 3), add_js('Hello ', 'world'));"); // Inserts 10 and 'Hello world'
 
     new SQL.Database(null);
+
+    const it = db2.iterateStatements(selectRecordStatement);
+
+    let x = it.next();
+
+    x = it.next();
+    x.value.step();
+
+    db.run('DROP TABLE test;');
 });

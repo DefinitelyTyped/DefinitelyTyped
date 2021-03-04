@@ -50,10 +50,16 @@ declare function signin(
     provider?: string,
     data?: GenericObject & {
         callbackUrl?: string;
+        redirect?: boolean;
     },
 ): Promise<void>;
 declare const signIn: typeof signin;
-declare function signout(data?: { callbackUrl?: string }): Promise<void>;
+declare function signout(
+    data?: {
+        callbackUrl?: string;
+        redirect?: boolean;
+    }
+): Promise<void>;
 declare const signOut: typeof signout;
 declare function options(options: SetOptionsParams): void;
 declare const setOptions: typeof options;

@@ -91,7 +91,8 @@ export class WebGLRenderTarget extends EventDispatcher {
      */
     generateMipmaps: any;
 
-    setSize(width: number, height: number): void;
+    setTexture(texture: Texture): void;
+    setSize(width: number, height: number, depth?: number): void;
     clone(): WebGLRenderTarget;
     copy(source: WebGLRenderTarget): this;
     dispose(): void;

@@ -11,6 +11,8 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export const VERSION: string;
+
 export type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
 export interface ZoneOptions {

@@ -2,13 +2,13 @@
 import 'happo-cypress';
 
 // $ExpectType void
-cy.get('foo').happoSnapshot();
+cy.get('foo').happoScreenshot();
 
 // $ExpectType void
-cy.get('foo').happoSnapshot({});
+cy.get('foo').happoScreenshot({});
 
 // $ExpectType void
-cy.get('foo').happoSnapshot({
+cy.get('foo').happoScreenshot({
     component: 'Header',
     variant: 'dark',
     targets: ['chrome-desktop'],
