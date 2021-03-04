@@ -2299,7 +2299,7 @@
         {
             "libraryName": "leaflet-geosearch",
             "typingsPackageName": "leaflet-geosearch",
-            "asOfVersion": "3.0"
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "leap-year",
