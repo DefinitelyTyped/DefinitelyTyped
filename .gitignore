@@ -31,7 +31,7 @@ _infrastructure/tests/build
 *.iml
 
 *.js.map
-!*.js/
+!/*.js
 !scripts/new-package.js
 !scripts/not-needed.js
 !scripts/lint.js
