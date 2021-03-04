@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.53
+// Type definitions for Visual Studio Code 1.54
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.53 Extension API
+ * Type Definition for Visual Studio Code 1.54 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -12298,6 +12298,9 @@ declare module 'vscode' {
          * on the accounts activity bar icon. An entry for the extension will be added under the menu to sign in. This
          * allows quietly prompting the user to sign in.
          *
+         * If there is a matching session but the extension has not been granted access to it, setting this to true
+         * will also result in an immediate modal dialog, and false will add a numbered badge to the accounts icon.
+         *
          * Defaults to false.
          */
         createIfNone?: boolean;
@@ -12340,6 +12343,84 @@ declare module 'vscode' {
     }
 
     /**
+     * Options for creating an [AuthenticationProvider](#AuthenticationProvider).
+     */
+    export interface AuthenticationProviderOptions {
+        /**
+         * Whether it is possible to be signed into multiple accounts at once with this provider.
+         * If not specified, will default to false.
+        */
+        readonly supportsMultipleAccounts?: boolean;
+    }
+
+    /**
+    * An [event](#Event) which fires when an [AuthenticationSession](#AuthenticationSession) is added, removed, or changed.
+    */
+    export interface AuthenticationProviderAuthenticationSessionsChangeEvent {
+        /**
+         * The [AuthenticationSession](#AuthenticationSession)s of the [AuthenticationProvider](#AuthentiationProvider) that have been added.
+        */
+        readonly added?: ReadonlyArray<AuthenticationSession>;
+
+        /**
+         * The [AuthenticationSession](#AuthenticationSession)s of the [AuthenticationProvider](#AuthentiationProvider) that have been removed.
+         */
+        readonly removed?: ReadonlyArray<AuthenticationSession>;
+
+        /**
+         * The [AuthenticationSession](#AuthenticationSession)s of the [AuthenticationProvider](#AuthentiationProvider) that have been changed.
+         * A session changes when its data excluding the id are updated. An example of this is a session refresh that results in a new
+         * access token being set for the session.
+         */
+        readonly changed?: ReadonlyArray<AuthenticationSession>;
+    }
+
+    /**
+     * A provider for performing authentication to a service.
+     */
+    export interface AuthenticationProvider {
+        /**
+         * An [event](#Event) which fires when the array of sessions has changed, or data
+         * within a session has changed.
+         */
+        readonly onDidChangeSessions: Event<AuthenticationProviderAuthenticationSessionsChangeEvent>;
+
+        /**
+         * Get a list of sessions.
+         * @param scopes An optional list of scopes. If provided, the sessions returned should match
+         * these permissions, otherwise all sessions should be returned.
+         * @returns A promise that resolves to an array of authentication sessions.
+         */
+        getSessions(scopes?: string[]): Thenable<ReadonlyArray<AuthenticationSession>>;
+
+        /**
+         * Prompts a user to login.
+         *
+         * If login is successful, the onDidChangeSessions event should be fired.
+         *
+         * If login fails, a rejected promise should be returned.
+         *
+         * If the provider has specified that it does not support multiple accounts,
+         * then this should never be called if there is already an existing session matching these
+         * scopes.
+         * @param scopes A list of scopes, permissions, that the new session should be created with.
+         * @returns A promise that resolves to an authentication session.
+         */
+        createSession(scopes: string[]): Thenable<AuthenticationSession>;
+
+        /**
+         * Removes the session corresponding to session id.
+         *
+         * If the removal is successful, the onDidChangeSessions event should be fired.
+         *
+         * If a session cannot be removed, the provider should reject with an error message.
+         * @param sessionId The id of the session to remove.
+         */
+        removeSession(sessionId: string): Thenable<void>;
+    }
+
+
+    /**
      * Namespace for authentication.
      */
     export namespace authentication {
@@ -12378,6 +12459,20 @@ declare module 'vscode' {
          * been added, removed, or changed.
          */
         export const onDidChangeSessions: Event<AuthenticationSessionsChangeEvent>;
+
+        /**
+         * Register an authentication provider.
+         *
+         * There can only be one provider per id and an error is being thrown when an id
+         * has already been used by another provider. Ids are case-sensitive.
+         *
+         * @param id The unique identifier of the provider.
+         * @param label The human-readable name of the provider.
+         * @param provider The authentication provider provider.
+         * @params options Additional options for the provider.
+         * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+         */
+        export function registerAuthenticationProvider(id: string, label: string, provider: AuthenticationProvider, options?: AuthenticationProviderOptions): Disposable;
     }
 }
 
