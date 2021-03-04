@@ -1,4 +1,4 @@
-// Type definitions for mcping-js 1.0
+// Type definitions for mcping-js 1.5
 // Project: https://github.com/Cryptkeeper/mcping-js
 // Definitions by: Inrix <https://github.com/Inrixia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
