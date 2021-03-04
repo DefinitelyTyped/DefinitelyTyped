@@ -174,10 +174,10 @@ declare namespace googletag {
     }
 
     interface PrivacySettingsConfig {
-        childDirectedTreatment?: boolean;
-        limitedAds: boolean;
-        restrictDataProcessing: boolean;
-        underAgeOfConsent?: boolean;
+        childDirectedTreatment?: boolean | null;
+        limitedAds?: boolean | null;
+        restrictDataProcessing?: boolean | null;
+        underAgeOfConsent?: boolean | null;
     }
 
     interface SizeMappingBuilder {

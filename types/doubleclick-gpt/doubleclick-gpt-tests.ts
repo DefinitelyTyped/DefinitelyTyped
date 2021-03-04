@@ -490,14 +490,21 @@ googletag.pubads().setRequestNonPersonalizedAds(1);
 
 // Set Privacy Settings
 googletag.pubads().setPrivacySettings({
-    restrictDataProcessing: true,
-    limitedAds: false
+  restrictDataProcessing: true,
 });
 
-// More Privacy Settings
+// Request limited ads
 googletag.pubads().setPrivacySettings({
-    childDirectedTreatment: true,
-    restrictDataProcessing: true,
-    limitedAds: false,
-    underAgeOfConsent: true
+  limitedAds: true
+});
+
+// Set multiple privacy settings at the same time.
+googletag.pubads().setPrivacySettings({
+  childDirectedTreatment: true,
+  underAgeOfConsent: true
+});
+
+// Clear the configuration for childDirectedTreatment.
+googletag.pubads().setPrivacySettings({
+  childDirectedTreatment: null
 });
