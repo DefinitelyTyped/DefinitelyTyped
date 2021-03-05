@@ -1,4 +1,4 @@
-// Type definitions for N3 1.4
+// Type definitions for N3 1.8.1
 // Project: https://github.com/rdfjs/n3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
@@ -139,10 +139,13 @@ export interface ParserOptions {
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
 
+export type PrefixCallback = (prefix: string, prefixNode: RDF.NamedNode) => void;
+
 export class Parser<Q extends BaseQuad = Quad> {
     constructor(options?: ParserOptions);
     parse(input: string): Q[];
-    parse(input: string, callback: ParseCallback<Q>): void;
+    parse(input: string, callback: null | undefined, prefixCallback: PrefixCallback): Q[];
+    parse(input: string, callback: ParseCallback<Q>, prefixCallback?: PrefixCallback): void;
 }
 
 export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform implements RDF.Stream<Q>, RDF.Sink<EventEmitter, RDF.Stream<Q>> {

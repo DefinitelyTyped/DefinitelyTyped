@@ -66,6 +66,23 @@ function test_doc_rdf_to_triples_1() {
         });
 }
 
+function test_doc_rdf_to_triples_and_prefixes() {
+    const parser: N3.Parser = new N3.Parser();
+    parser.parse(`@prefix c: <http://example.org/cartoons#>.
+        c:Tom a c:Cat.
+        c:Jerry a c:Mouse;
+                c:smarterThan c:Tom.`,
+        (error: Error, quad: RDF.Quad) => {
+            if (quad)
+                console.log(quad.subject, quad.predicate, quad.object, quad.graph, '.');
+            else
+                console.log("# That's all, folks!");
+        },
+        (prefix: string, prefixNode: RDF.NamedNode) => {
+            console.log("@prefix#", prefix, prefixNode.value);
+        });
+}
+
 function test_doc_rdf_to_triples_2() {
     const parser1: N3.Parser = new N3.Parser({ format: 'N-Triples' });
     const parser2: N3.Parser = new N3.Parser({ format: 'application/trig' });
@@ -82,6 +99,17 @@ function test_doc_rdf_sync_to_triples_1() {
       c:Tom a c:Cat.
       c:Jerry a c:Mouse;
       c:smarterThan c:Tom.`);
+    result.forEach((s) => console.log(s));
+}
+
+function test_doc_rdf_sync_to_triples_and_prefixes() {
+    const parser: N3.Parser = new N3.Parser();
+    const result = parser.parse(`@prefix c: <http://example.org/cartoons#>.
+      c:Tom a c:Cat.
+      c:Jerry a c:Mouse;
+      c:smarterThan c:Tom.`, null, (prefix: string, prefixNode: RDF.NamedNode) => {
+        console.log("@prefix#", prefix, prefixNode.value);
+    });
     result.forEach((s) => console.log(s));
 }
 
