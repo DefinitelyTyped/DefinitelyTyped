@@ -711,13 +711,13 @@ type InsightsClient = (method: InsightsClientMethod, payload: InsightsClientPayl
 
 type InsightsClientMethod = 'clickedObjectIDsAfterSearch' | 'convertedObjectIDsAfterSearch';
 
-type InsightsClientPayload = {
+export interface InsightsClientPayload {
     index: string;
     queryID: string;
     eventName: string;
     objectIDs: string[];
     positions?: number[];
-};
+}
 
 export function EXPERIMENTAL_connectConfigureRelatedItems(
   Composed: React.ComponentType<any>
