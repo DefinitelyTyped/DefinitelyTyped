@@ -300,3 +300,7 @@ function test_parser_options() {
         blankNodePrefix: '',
     });
 }
+
+function test_term_to_and_from_id() {
+    const label: string = N3.termToId(N3.termFromId('http://www.w3.org/2000/01/rdf-schema#label', N3.DataFactory));
+}

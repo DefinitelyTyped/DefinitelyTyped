@@ -228,3 +228,6 @@ export namespace Util {
       factory?: RDF.DataFactory
     ): (prefix: string) => PrefixedToIri;
 }
+
+export function termToId(term: Term): string
+export function termFromId(id: string, factory: RDF.DataFactory): Term
