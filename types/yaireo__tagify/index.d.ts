@@ -10,7 +10,7 @@ declare namespace Tagify {
      * - `select`: Single-value dropdown-like select box.
      * - `mix`: Allow mixed-content. Requires the `pattern` setting to be set.
      */
-    type Mode = 'select' | 'mix';
+    type TagifyMode = 'select' | 'mix';
 
     /**
      * Where the dropdown menu will appear:
@@ -483,7 +483,7 @@ declare namespace Tagify {
          * See `mix` as value to allow mixed-content. The `pattern` setting must be set to some character.
          * @default null
          */
-        mode?: Mode | null;
+        mode?: TagifyMode | null;
 
         /**
          * Interpolation for mix mode. Everything between these will become a
@@ -986,10 +986,12 @@ declare namespace Tagify {
         'remove': RemoveEventData<T>;
     }
 
+    // types for the tagify instance
+
     /**
      * References to DOM elements used by an active tagify instance.
      */
-    interface Dom {
+    interface DomReference {
         /**
          * The dropdown container with the `tagify__dropdown` class.
          */
@@ -1011,6 +1013,21 @@ declare namespace Tagify {
          */
         scope: HTMLElement;
     }
+
+    /**
+     * Optional settings that can be passed to {@link Tagify.update}.
+     */
+    interface UpdateOptions {
+        /**
+         * When `true`, no change is event triggered and the change is applied
+         * silently. When `false` or not given, a change event is triggered
+         * normally as if the user had made the change. Note that no event is
+         * triggered when the value of the INPUT or TEXTAREA element did not
+         * change.
+         * @default false
+         */
+        withoutChangeEvent?: boolean;
+    }
 }
 
 /**
@@ -1030,7 +1047,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     /**
      * References to DOM elements used by this tagify instance.
      */
-    DOM: Tagify.Dom;
+    DOM: Tagify.DomReference;
 
     /**
      * Dropdown specific methods.
@@ -1098,13 +1115,41 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     removeAllTags(): void;
 
     /**
+     * Update the value of the original (hidden) INPUT or TEXTAREA field so that
+     * it reflects the currently selected tags.
+     * @param opts Optional settings that affect how the update is performed.
+     * Can be used to suppress the change event.
+     */
+    update(opts?: Tagify.UpdateOptions): void;
+
+    /**
+     * Should only be used when in mixed mode.
+     *
+     * Creates a string representing the current value entered in the tagify
+     * input field. In mixed mode, both tags and plain text content may be
+     * entered. The string that is returned will have tags enclosed in the
+     * delimiters as specified by `mixTagsInterpolator`. For example, when is
+     * ``mixTagsInterpolator` was not changed from its default:
+     *
+     * ```text
+     * [[{"id":101,"value":"cartman","title":"Eric Cartman"}]] does not know [[{"value":"homer simpson","readonly":true}]] because he's a relic.
+     * ```
+     *
+     * @return When not in mixed mode: the empty string. When in mixed mode: a
+     * string with the entire content currently entered in the tagify input
+     * fields, with tags enclosed in the delimiters as specified by the
+     * `mixTagsInterpolator` setting.
+     */
+    getMixedTagsAsString(): string;
+
+    /**
      * Parse and add tags.
      * @param tags Tags to add. When a string, it can be either a single word or
      * multiple words separated with a delimiter.
      * @param clearInput If `true`, the input's value gets cleared after
      * adding tags.
      * @param skipInvalid If `true`, do not add, mark & remove invalid tags
-     * (defaults to Tagify settings).
+     * (defaults to the current tagify settings).
      * @return List of HTML elements representing the tags that were added.
      */
     addTags(tags: string | string[] | T[], clearInput?: boolean, skipInvalid?: boolean): HTMLElement[];

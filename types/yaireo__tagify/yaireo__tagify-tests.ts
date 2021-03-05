@@ -779,37 +779,50 @@ typedTagify.addEmptyTag({ active: false });
 typedTagify.addEmptyTag({ label: "Apple" });
 tagify.loadOriginalValues('banana');
 tagify.loadOriginalValues(['banana', 'orange']);
+// $ExpectType TagData[]
 tagify.getWhitelistItem("foo");
+// $ExpectType TagData[]
 tagify.getWhitelistItem("foo", 'banana');
+// $ExpectType TagData[]
 tagify.getWhitelistItem("foo", 'banana', [{ value: "boo" }]);
+// $ExpectType MyTagData[]
 typedTagify.getWhitelistItem("foo");
+// $ExpectType MyTagData[]
 typedTagify.getWhitelistItem("foo", "title");
+// $ExpectType MyTagData[]
 typedTagify.getWhitelistItem("foo", "title", [{ value: 'foo', active: false, name: "", title: "" }]);
 // $ExpectError
 typedTagify.getWhitelistItem("foo", "banana");
+// $ExpectType number[]
 tagify.getTagIndexByValue('foo');
 // $ExpectType number | false
 tagify.isTagDuplicate('foo');
 // $ExpectType number | false
 tagify.isTagDuplicate('foo', true);
+// $ExpectType string
 tagify.parseMixTags('[[foo]] and [[bar]] are...');
+// $ExpectType HTMLElement[]
 tagify.getTagElms();
+// $ExpectType HTMLElement[]
 tagify.getTagElms('blue', 'green');
+
+// $ExpectType string
+tagify.getMixedTagsAsString();
 
 // $ExpectType HTMLElement | undefined
 const tagElement = tagify.getTagElmByValue('foo');
 if (tagElement !== undefined) {
+    // $ExpectType TagData | undefined
     tagify.tagData(tagElement);
     tagify.tagData(tagElement, { value: 'bar' });
     tagify.tagData(tagElement, { value: 'bar' }, false);
     tagify.tagData(tagElement, { value: 'bar' }, true);
     // $ExpectType Tagify<TagData>
     tagify.editTag();
+    // $ExpectType Tagify<TagData>
     tagify.editTag(tagElement);
     tagify.replaceTag(tagElement, { value: 'bar' });
-    // $ExpectError
-    typedTagify.replaceTag(tagElement, { value: 'bar' });
-    typedTagify.replaceTag(tagElement, { value: 'bar', title: "", name: "", active: false });
+    // $ExpectType Tagify<TagData>
     tagify.tagLoading(tagElement, true);
 }
 tagify.loading(true);
@@ -828,6 +841,9 @@ if (typedTagElement !== undefined) {
     typedTagify.tagData(typedTagElement, { active: true, name: '', title: '', value: '' }, true);
     // $ExpectError
     typedTagify.tagData(typedTagElement, { active: true }, true);
+    // $ExpectError
+    typedTagify.replaceTag(typedTagElement, { value: 'bar' });
+    typedTagify.replaceTag(typedTagElement, { value: 'bar', title: "", name: "", active: false });
 }
 
 const newTag = tagify.createTagElem({ value: 'hello' });
@@ -876,4 +892,7 @@ tagify.dropdown.refilter.call(this);
 tagify.dropdown.refilter.call(this, "filter value");
 
 tagify.removeAllTags();
+tagify.update();
+tagify.update({});
+tagify.update({withoutChangeEvent: true});
 tagify.destroy();
