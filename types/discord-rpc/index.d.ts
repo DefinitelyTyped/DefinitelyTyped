@@ -199,4 +199,5 @@ export interface Presence {
     matchSecret?: string;
     spectateSecret?: string;
     joinSecret?: string;
+    buttons?: { label: string, url: string }[];
 }
