@@ -3,6 +3,7 @@
 // Definitions by: Inrix <https://github.com/Inrixia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// TypeScript Version: 3.8
 export interface PingResponse {
     version: {
         name: string;
