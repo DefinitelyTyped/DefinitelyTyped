@@ -15,7 +15,7 @@ import * as RDF from "rdf-js";
 import { EventEmitter } from "events";
 
 export interface Prefixes<I = RDF.NamedNode> {
-  [key: string]: I;
+    [key: string]: I;
 }
 
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
@@ -42,7 +42,7 @@ export class BlankNode implements RDF.BlankNode {
     static subclass(type: any): void;
 }
 
-export class Variable  implements RDF.Variable {
+export class Variable implements RDF.Variable {
     readonly termType: "Variable";
     readonly value: string;
     constructor(name: string);
@@ -103,7 +103,7 @@ export class Quad extends BaseQuad implements RDF.Quad {
     toJSON(): string;
 }
 
-export class Triple extends Quad implements RDF.Quad {}
+export class Triple extends Quad implements RDF.Quad { }
 
 export namespace DataFactory {
     function namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
@@ -130,13 +130,11 @@ export interface BlankTriple<Q extends RDF.BaseQuad = RDF.Quad> {
     object: Q['object'];
 }
 
-
-export type Token = {
+export interface Token {
     type: string;
     value?: string;
     line: number;
 }
-
 export interface LexerOptions {
     lineMode?: boolean;
     n3?: boolean;
@@ -187,7 +185,7 @@ export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
     addQuad(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'] | Array<Q['object']>, graph?: Q['graph'], done?: () => void): void;
     addQuad(quad: RDF.Quad): void;
     addQuads(quads: RDF.Quad[]): void;
-    addPrefix(prefix: string, iri: RDF.NamedNode | string , done?: () => void): void;
+    addPrefix(prefix: string, iri: RDF.NamedNode | string, done?: () => void): void;
     addPrefixes(prefixes: Prefixes<RDF.NamedNode | string>, done?: () => void): void;
     end(err?: ErrorCallback, result?: string): void;
     blank(predicate: Q['predicate'], object: Q['object']): BlankNode;
@@ -196,9 +194,9 @@ export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
 }
 
 export class StreamWriter<Q extends RDF.BaseQuad = RDF.Quad> extends stream.Transform implements RDF.Sink<RDF.Stream<Q>, EventEmitter> {
-  constructor(options?: WriterOptions);
-  constructor(fd: any, options?: WriterOptions);
-  import(stream: RDF.Stream<Q>): EventEmitter;
+    constructor(options?: WriterOptions);
+    constructor(fd: any, options?: WriterOptions);
+    import(stream: RDF.Stream<Q>): EventEmitter;
 }
 
 export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> implements RDF.Store<Q_RDF> {
@@ -242,12 +240,12 @@ export namespace Util {
     function isVariable(value: RDF.Term | null): boolean;
     function isDefaultGraph(value: RDF.Term | null): boolean;
     function inDefaultGraph(value: RDF.Quad): boolean;
-    function prefix(iri: RDF.NamedNode|string, factory?: RDF.DataFactory): PrefixedToIri;
+    function prefix(iri: RDF.NamedNode | string, factory?: RDF.DataFactory): PrefixedToIri;
     function prefixes(
-      defaultPrefixes: Prefixes<RDF.NamedNode|string>,
-      factory?: RDF.DataFactory
+        defaultPrefixes: Prefixes<RDF.NamedNode | string>,
+        factory?: RDF.DataFactory
     ): (prefix: string) => PrefixedToIri;
 }
 
-export function termToId(term: Term): string
-export function termFromId(id: string, factory: RDF.DataFactory): Term
+export function termToId(term: Term): string;
+export function termFromId(id: string, factory: RDF.DataFactory): Term;
