@@ -1532,6 +1532,7 @@ declare namespace Autodesk {
                 disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
                 getFragmentProxy(model: Model, fragId: number): any;
+                getLayersRoot(): any;
                 hitTest(clientX: number, clientY: number, ignoreTransparent?: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
