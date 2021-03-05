@@ -581,12 +581,51 @@ declare module 'leaflet' {
      * Extend Evented to add new events.
      */
     interface Evented {
-        on(type: 'editable:disable' | 'editable:drag' | 'editable:dragend' | 'editable:dragstart' | 'editable:drawing:cancel' | 'editable:drawing:clicked' | 'editable:drawing:commit' | 'editable:drawing:end' | 'editable:drawing:mousedown' | 'editable:drawing:mouseup' | 'editable:drawing:move' | 'editable:drawing:start' | 'editable:editing' | 'editable:enable', fn: LeafletEventHandlerFn, context?: any): this;
+        on(
+            type:
+                | 'editable:disable'
+                | 'editable:drag'
+                | 'editable:dragend'
+                | 'editable:dragstart'
+                | 'editable:drawing:cancel'
+                | 'editable:drawing:clicked'
+                | 'editable:drawing:commit'
+                | 'editable:drawing:end'
+                | 'editable:drawing:mousedown'
+                | 'editable:drawing:mouseup'
+                | 'editable:drawing:move'
+                | 'editable:drawing:start'
+                | 'editable:editing'
+                | 'editable:enable',
+            fn: LeafletEventHandlerFn,
+            context?: any,
+        ): this;
         on(type: 'editable:drawing:click', fn: CancelableEventHandlerFn, context?: any): this;
         on(type: 'editable:shape:delete', fn: CancelableShapeEventHandlerFn, context?: any): this;
-        on(type: 'editable:vertex:rawclick' | 'editable:vertex:click', fn: CancelableVertexEventHandlerFn, context?: any): this;
+        on(
+            type: 'editable:vertex:rawclick' | 'editable:vertex:click',
+            fn: CancelableVertexEventHandlerFn,
+            context?: any,
+        ): this;
         on(type: 'editable:created', fn: LayerEventHandlerFn, context?: any): this;
         on(type: 'editable:shape:deleted' | 'editable:shape:new', fn: ShapeEventHandlerFn, context?: any): this;
-        on(type: 'editable:middlemarker:mousedown' | 'editable:vertex:altclick' | 'editable:vertex:clicked' | 'editable:vertex:contextmenu' | 'editable:vertex:ctrlclick' | 'editable:vertex:deleted' | 'editable:vertex:drag' | 'editable:vertex:dragend' | 'editable:vertex:dragstart' | 'editable:vertex:metakeyclick' | 'editable:vertex:mousedown' | 'editable:vertex:new' | 'editable:vertex:shiftclick', fn: VertexEventHandlerFn, context?: any): this;
+        on(
+            type:
+                | 'editable:middlemarker:mousedown'
+                | 'editable:vertex:altclick'
+                | 'editable:vertex:clicked'
+                | 'editable:vertex:contextmenu'
+                | 'editable:vertex:ctrlclick'
+                | 'editable:vertex:deleted'
+                | 'editable:vertex:drag'
+                | 'editable:vertex:dragend'
+                | 'editable:vertex:dragstart'
+                | 'editable:vertex:metakeyclick'
+                | 'editable:vertex:mousedown'
+                | 'editable:vertex:new'
+                | 'editable:vertex:shiftclick',
+            fn: VertexEventHandlerFn,
+            context?: any,
+        ): this;
     }
 }
