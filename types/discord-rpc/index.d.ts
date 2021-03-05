@@ -194,6 +194,7 @@ export interface Presence {
     smallImageKey?: string;
     smallImageText?: string;
     instance?: boolean;
+    partyId?: string;
     partySize?: number;
     partyMax?: number;
     matchSecret?: string;
