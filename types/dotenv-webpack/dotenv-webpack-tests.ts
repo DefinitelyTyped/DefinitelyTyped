@@ -1,4 +1,3 @@
-import webpack = require('webpack');
 import Dotenv = require('dotenv-webpack');
 import { Options } from 'dotenv-webpack';
 import { Configuration } from 'webpack';

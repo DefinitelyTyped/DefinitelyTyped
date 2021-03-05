@@ -1,17 +1,17 @@
-// Type definitions for dotenv-webpack 5.0
+// Type definitions for dotenv-webpack 6.0
 // Project: https://github.com/mrsteele/dotenv-webpack
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Compiler, WebpackPluginInstance } from 'webpack';
+import { Compiler } from 'webpack';
 
 /**
  * A secure webpack plugin that supports dotenv and other environment variables
  * and only exposes what you choose and use.
  */
-declare class DotenvWebpackPlugin implements WebpackPluginInstance {
+declare class DotenvWebpackPlugin {
     constructor(options?: DotenvWebpackPlugin.Options);
     apply(compiler: Compiler): void;
 }
