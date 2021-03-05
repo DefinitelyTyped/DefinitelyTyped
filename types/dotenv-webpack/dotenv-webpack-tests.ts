@@ -14,6 +14,7 @@ const optionsFull: Options = {
     silent: true,
     expand: true,
     defaults: true,
+    ignoreStub: true,
 };
 
 const optionsStrings: Options = {

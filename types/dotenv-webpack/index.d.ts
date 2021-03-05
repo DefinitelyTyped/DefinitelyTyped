@@ -1,4 +1,4 @@
-// Type definitions for dotenv-webpack 6.0
+// Type definitions for dotenv-webpack 7.0
 // Project: https://github.com/mrsteele/dotenv-webpack
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 //                 Dave Cardwell <https://github.com/davecardwell>
@@ -61,6 +61,12 @@ declare namespace DotenvWebpackPlugin {
          * @default false
          */
         defaults?: boolean | string;
+
+        /**
+         * Override the automatic check whether to stub `process.env`.
+         * @dfault false
+         */
+        ignoreStub?: boolean;
     }
 }
 
