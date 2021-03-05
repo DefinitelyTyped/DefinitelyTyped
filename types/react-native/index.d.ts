@@ -8,7 +8,6 @@
 //                 Alex Dunne <https://github.com/alexdunne>
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
-//                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
 //                 Kacper Wiszczuk <https://github.com/esemesek>
 //                 Ryan Nickel <https://github.com/mrnickel>
