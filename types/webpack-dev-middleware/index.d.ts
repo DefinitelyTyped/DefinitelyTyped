@@ -66,7 +66,7 @@ declare namespace WebpackDevMiddleware {
         callbacks: Callback[];
         options: Options;
         compiler: webpack.Compiler;
-        watching: webpack.Compiler["watching"] | null;
+        watching: webpack.Watching | null;
     }
 
     interface WebpackDevMiddleware {

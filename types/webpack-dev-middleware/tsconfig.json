@@ -10,7 +10,10 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "webpack": ["../../node_modules/webpack"]
+        }
     },
     "files": [
         "index.d.ts",
