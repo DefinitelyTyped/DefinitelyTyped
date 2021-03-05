@@ -707,11 +707,23 @@ interface HighlightResultPrimitive {
   fullyHighlighted?: boolean;
 }
 
+type InsightsClient = (method: InsightsClientMethod, payload: InsightsClientPayload) => void;
+
+type InsightsClientMethod = 'clickedObjectIDsAfterSearch' | 'convertedObjectIDsAfterSearch';
+
+type InsightsClientPayload = {
+    index: string;
+    queryID: string;
+    eventName: string;
+    objectIDs: string[];
+    positions?: number[];
+};
+
 export function EXPERIMENTAL_connectConfigureRelatedItems(
   Composed: React.ComponentType<any>
 ): React.ComponentClass<any>;
 export function connectQueryRules(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-export function connectHitInsights(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectHitInsights(insightsClient: InsightsClient): React.FC<any>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 // Turn off automatic exports - so we don't export internal types like Omit<>
