@@ -130,6 +130,26 @@ export interface BlankTriple<Q extends RDF.BaseQuad = RDF.Quad> {
     object: Q['object'];
 }
 
+
+export type Token = {
+    type: string;
+    value?: string;
+    line: number;
+}
+
+export interface LexerOptions {
+    lineMode?: boolean;
+    n3?: boolean;
+    comments?: boolean;
+}
+
+export type TokenCallback = (error: Error, token: Token) => void;
+
+export class Lexer {
+    constructor(options?: LexerOptions);
+    tokenize(input: string | EventEmitter): Token[];
+    tokenize(input: string | EventEmitter, callback: TokenCallback): void;
+}
 export interface ParserOptions {
     format?: string;
     factory?: RDF.DataFactory;

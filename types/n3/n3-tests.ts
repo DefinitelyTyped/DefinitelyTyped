@@ -304,3 +304,36 @@ function test_parser_options() {
 function test_term_to_and_from_id() {
     const label: string = N3.termToId(N3.termFromId('http://www.w3.org/2000/01/rdf-schema#label', N3.DataFactory));
 }
+
+function test_lexer_sync() {
+    const lexer: N3.Lexer = new N3.Lexer();
+    const result = lexer.tokenize(`@prefix c: <http://example.org/cartoons#>.
+      c:Tom a c:Cat.
+      c:Jerry a c:Mouse;
+      c:smarterThan c:Tom.`);
+    result.forEach((s) => console.log(s));
+}
+
+function test_lexer_async() {
+    const lexer: N3.Lexer = new N3.Lexer();
+    const result = lexer.tokenize(`@prefix c: <http://example.org/cartoons#>.
+      c:Tom a c:Cat.
+      c:Jerry a c:Mouse;
+      c:smarterThan c:Tom.`, (error: Error, token: N3.Token) => {
+        if (error) {
+            console.log(error);
+        }
+        if (token)
+            console.log(token);
+        else
+            console.log("# That's all, folks!");
+    });
+}
+
+function test_lexer_options() {
+    const options: N3.LexerOptions = {
+        lineMode: true,
+        n3: true,
+        comments: true
+    };
+}
