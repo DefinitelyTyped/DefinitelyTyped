@@ -1,4 +1,7 @@
-import { AppSyncResolverHandler, AppSyncIdentityIAM, AppSyncIdentityCognito } from "aws-lambda";
+import { AppSyncIdentityCognito, AppSyncIdentityIAM, AppSyncResolverHandler } from 'aws-lambda';
+
+declare let objectOrNull: {} | null;
+declare let prevResultOrNull: { result: { [key: string]: any } } | null;
 
 interface TestArguments {
     id: string;
@@ -39,7 +42,10 @@ const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event,
     anyObj = event.info.variables;
     str = event.info.selectionSetList[0];
 
-    objectOrUndefined = event.source;
+    objectOrNull = event.source;
+    prevResultOrNull = event.prev;
+    anyObj = (event.prev as { result: { [key: string]: any } }).result;
+    anyObj = event.stash;
 
     return {
         id: '',
