@@ -19,7 +19,7 @@ const settings: TagifyConstructorSettings = {
     duplicates: false,
     trim: false,
     enforceWhitelist: true,
-    autocomplete: {
+    autoComplete: {
         enabled: true,
         rightKey: true
     },

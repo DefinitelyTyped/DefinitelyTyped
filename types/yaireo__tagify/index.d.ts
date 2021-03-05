@@ -26,7 +26,7 @@ declare namespace Tagify {
      * Settings for the autocomplete feature that can be configured via the
      * `autocomplete` option of the settings that are passed to tagify.
      */
-    interface AutocompleteSettings {
+    interface AutoCompleteSettings {
         /**
          * Tries to suggest the input's value while typing (match from
          * whitelist) by adding the rest of term as grayed-out text.
@@ -521,7 +521,7 @@ declare namespace Tagify {
         /**
          * Options for offering autocomplete suggestions as the user types.
          */
-        autocomplete?: AutocompleteSettings;
+        autoComplete?: AutoCompleteSettings;
 
         /**
          * An array of allowed tags.
