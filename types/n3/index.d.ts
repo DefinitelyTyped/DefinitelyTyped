@@ -1,4 +1,4 @@
-// Type definitions for N3 1.8.1
+// Type definitions for N3 1.8
 // Project: https://github.com/rdfjs/n3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
