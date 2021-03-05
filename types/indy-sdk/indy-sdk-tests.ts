@@ -19,7 +19,14 @@ const credDef: indy.CredDef = {
     value: { primary: {}, revocation: true },
     ver: '1.0',
 };
-const schema: indy.Schema = { attrNames: ['name'], name: 'schemaName', id: 'id', version: '1.0', ver: '1.0' };
+const schema: indy.Schema = {
+    attrNames: ['name'],
+    name: 'schemaName',
+    id: 'id',
+    version: '1.0',
+    ver: '1.0',
+    seqNo: 10,
+};
 const ledgerRequest: indy.LedgerRequest = { identifier: '', operation: {}, protocolVersion: 1, reqId: 100 };
 const response: indy.LedgerResponse = { op: '', result: { data: '' } };
 const credOffer: indy.CredOffer = ({} as unknown) as indy.CredOffer;

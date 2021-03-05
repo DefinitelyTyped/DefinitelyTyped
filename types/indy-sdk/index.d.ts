@@ -260,7 +260,10 @@ export interface SignedLedgerRequest extends LedgerRequest {
 export interface LedgerResponse {
     op: string;
     result: {
-        data: unknown;
+        data?: unknown;
+        txnMetadata?: {
+            seqNo?: number;
+        };
     };
 }
 
@@ -270,6 +273,7 @@ export interface Schema {
     name: string;
     version: string;
     ver: string;
+    seqNo: number;
 }
 
 export interface CredDef {
