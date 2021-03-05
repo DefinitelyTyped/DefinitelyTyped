@@ -307,7 +307,7 @@ function test_term_to_and_from_id() {
 
 function test_lexer_sync() {
     const lexer: N3.Lexer = new N3.Lexer();
-    const result = lexer.tokenize(`@prefix c: <http://example.org/cartoons#>.
+    const result: N3.Token[] = lexer.tokenize(`@prefix c: <http://example.org/cartoons#>.
       c:Tom a c:Cat.
       c:Jerry a c:Mouse;
       c:smarterThan c:Tom.`);
@@ -316,7 +316,7 @@ function test_lexer_sync() {
 
 function test_lexer_async() {
     const lexer: N3.Lexer = new N3.Lexer();
-    const result = lexer.tokenize(`@prefix c: <http://example.org/cartoons#>.
+    lexer.tokenize(`@prefix c: <http://example.org/cartoons#>.
       c:Tom a c:Cat.
       c:Jerry a c:Mouse;
       c:smarterThan c:Tom.`, (error: Error, token: N3.Token) => {
