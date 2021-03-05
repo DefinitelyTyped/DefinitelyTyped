@@ -3,7 +3,7 @@
 // Definitions by: Tom Picton <https://github.com/tpict>, Jason Maurer <https://github.com/jsonmaur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type genericShouldForwardProp = (prop: string) => boolean;
+type genericShouldForwardProp = (prop: string | ReactText) => boolean;
 
 export const props: string[];
 export function createShouldForwardProp(props: string[]): genericShouldForwardProp;
