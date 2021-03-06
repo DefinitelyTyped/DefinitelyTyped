@@ -55,6 +55,8 @@ export interface ActivationCardProps {
             | React.KeyboardEvent<HTMLButtonElement>
         >;
         onNavigationOptions?: OnNavigationOptionsType;
+        rel?: 'none' | 'nofollow';
+        target?: null | 'self' | 'blank';
     };
 }
 
@@ -250,6 +252,8 @@ export interface ActionData {
         | React.KeyboardEvent<HTMLButtonElement>
     >;
     onNavigationOptions?: OnNavigationOptionsType;
+    rel?: 'none' | 'nofollow';
+    target?: null | 'self' | 'blank';
 }
 
 /**
