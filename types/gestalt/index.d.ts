@@ -28,9 +28,11 @@ export type FourDirections = 'up' | 'right' | 'down' | 'left';
 
 export type EventHandlerType = (args: { readonly event: React.SyntheticEvent }) => void;
 
-export type OnNavigationOptionsType = { readonly [key: string]: React.ReactNode | EventHandlerType }
+export interface OnNavigationOptionsType {
+    readonly [key: string]: React.ReactNode | EventHandlerType;
+}
 
-export type OnNavigationType = (args: { href: string, onNavigationOptions?: OnNavigationOptionsType }) => EventHandlerType
+export type OnNavigationType = (args: { href: string, onNavigationOptions?: OnNavigationOptionsType }) => EventHandlerType;
 
 /**
  * ActivationCard Props Interface
@@ -1434,10 +1436,10 @@ export interface UpsellFormProps {
         | React.MouseEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLAnchorElement>
-    >,
-    submitButtonText: string,
-    submitButtonAccessibilityLabel: string,
-    submitButtonDisabled?: boolean,
+    >;
+    submitButtonText: string;
+    submitButtonAccessibilityLabel: string;
+    submitButtonDisabled?: boolean;
 }
 
 /**
