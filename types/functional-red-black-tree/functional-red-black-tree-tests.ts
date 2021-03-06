@@ -1,7 +1,7 @@
 import createTree = require('functional-red-black-tree');
 
 // Comparator is optional:
-createTree(); // $ExpectType Tree<unknown, unknown>
+createTree();
 
 // Comparator must return a number:
 createTree(() => {}); // $ExpectError
@@ -31,8 +31,8 @@ tree.le(''); // $ExpectError
 tree.find(''); // $ExpectError
 
 // Check that only keys and values of the correct type are passed:
-tree.insert("foo", 1); // $ExpectError
-tree.remove("foo"); // $ExpectError
+tree.insert('foo', 1); // $ExpectError
+tree.remove('foo'); // $ExpectError
 
 // Check that operations that modify the tree return a tree of the same type.
 tree.insert(1, 'foo'); // $ExpectType Tree<number, string>
@@ -87,7 +87,7 @@ iterator.next(); // $ExpectType void
 iterator.hasNext; // $ExpectType boolean
 iterator.hasPrev; // $ExpectType boolean
 
-iterator.update(""); // $ExpectType Tree<number, string>
+iterator.update(''); // $ExpectType Tree<number, string>
 
 iterator.prev(); // $ExpectType void
 

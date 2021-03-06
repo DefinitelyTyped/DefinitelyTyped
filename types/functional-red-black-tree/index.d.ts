@@ -7,7 +7,7 @@ declare namespace createRBTree {
     /** Represents a functional red-black tree. */
     interface Tree<K, V> {
         /** Returns the root node of the tree. */
-        readonly root: Node<K, V>;
+        root: Node<K, V>;
 
         /** A sorted array of all keys in the tree. */
         readonly keys: K[];
@@ -38,6 +38,7 @@ declare namespace createRBTree {
          */
         forEach: {
             <T>(visitor: (key: K, value: V) => T): T;
+            // tslint:disable-next-line:unified-signatures
             <T>(visitor: (key: K, value: V) => T, lo: K, hi?: K): T;
         };
 
@@ -112,7 +113,7 @@ declare namespace createRBTree {
     /** Iterates through the nodes in a red-black tree. */
     interface Iterator<K, V> {
         /** The tree associated with the iterator. */
-        readonly tree: Tree<K, V>;
+        tree: Tree<K, V>;
 
         /** Checks if the iterator is valid. */
         readonly valid: boolean;
@@ -134,10 +135,10 @@ declare namespace createRBTree {
         remove: () => Tree<K, V>;
 
         /** The key of the iterator's current item. */
-        readonly key: K | undefined;
+        readonly key?: K;
 
         /** The value of the iterator's current item. */
-        readonly value: V | undefined;
+        readonly value?: V;
 
         /** Returns the position of the iterator in the sequence. */
         readonly index: number;
