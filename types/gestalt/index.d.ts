@@ -1,4 +1,4 @@
-// Type definitions for gestalt 18.1
+// Type definitions for gestalt 19
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -669,6 +669,7 @@ export type Icons =
     | 'view-type-default'
     | 'view-type-dense'
     | 'view-type-list'
+    | "visit"
     | 'workflow-status-all'
     | 'workflow-status-halted'
     | 'workflow-status-in-progress'
