@@ -907,7 +907,7 @@ async () => {
 };
 
 // Token manager
-const tokenManager = new auth0.TokenManager({
+const tokenManager = new auth0.TokensManager({
     baseUrl: 'baseUrl',
     clientId: '{OPTIONAL_CLIENT_ID}',
     clientSecret: '{OPTIONAL_CLIENT_SECRET}',
