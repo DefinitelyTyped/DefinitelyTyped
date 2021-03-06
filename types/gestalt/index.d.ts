@@ -1,4 +1,4 @@
-// Type definitions for gestalt 16.5
+// Type definitions for gestalt 16.7
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -855,7 +855,18 @@ export interface ModalProps {
  * Module Props Interface
  * https://gestalt.netlify.app/Module
  */
+export interface ModuleProps {
+    id: string;
+    icon?: Icons;
+    iconAccessibilityLabel?: string;
+    title?: string;
+    type: "error" | "info";
+}
 
+/**
+ * Module.Expandable Props Interface
+ * https://gestalt.netlify.app/Module
+ */
 export interface ModuleExpandableProps {
     accessibilityCollapseLabel: string;
     accessibilityExpandLabel: string;
@@ -868,6 +879,8 @@ export interface ModuleExpandableProps {
         iconAccessibilityLabel?: string;
         children?: React.ReactNode;
     }>;
+    expandedIndex?: number | null;
+    onExpandedChange?: (expandedIndex: number | null) => void;
 }
 
 /**
@@ -1488,7 +1501,7 @@ export const Link: ReactForwardRef<HTMLAnchorElement, LinkProps>;
 export class Mask extends React.Component<MaskProps, any> {}
 export class Masonry extends React.Component<MasonryProps, any> {}
 export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
-export class Module extends React.Component<{}, any> {
+export class Module extends React.Component<ModuleProps, any> {
     static Expandable: React.FC<ModuleExpandableProps>;
 }
 export class Pog extends React.Component<PogProps, any> {}
