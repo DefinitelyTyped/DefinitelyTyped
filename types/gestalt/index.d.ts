@@ -1,4 +1,4 @@
-// Type definitions for gestalt 16.4
+// Type definitions for gestalt 16.5
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -549,6 +549,7 @@ export type Icons =
     | 'ellipsis-circle-outline'
     | 'envelope'
     | 'eye'
+    | 'eye-hide'
     | 'facebook'
     | 'face-happy'
     | 'face-sad'
