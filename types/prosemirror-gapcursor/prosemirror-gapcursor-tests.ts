@@ -1,10 +1,10 @@
 import { gapCursor } from 'prosemirror-gapcursor';
 import { Plugin } from 'prosemirror-state';
-import * as model from 'prosemirror-model';
+import { NodeSpec } from 'prosemirror-model';
 
 const gapCursorPlugin: Plugin = gapCursor();
 
-export const nodeSpec: model.NodeSpec = {
+export const nodeSpec: NodeSpec = {
     attrs: {
         name: { default: '' },
     },
