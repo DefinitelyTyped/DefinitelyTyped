@@ -1,4 +1,4 @@
-// Type definitions for gestalt 16.8
+// Type definitions for gestalt 17
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -154,14 +154,6 @@ export interface BoxProps {
     smMarginEnd?: SignedUpTo12 | 'auto';
     mdMarginEnd?: SignedUpTo12 | 'auto';
     lgMarginEnd?: SignedUpTo12 | 'auto';
-    marginLeft?: SignedUpTo12 | 'auto';
-    smMarginLeft?: SignedUpTo12 | 'auto';
-    mdMarginLeft?: SignedUpTo12 | 'auto';
-    lgMarginLeft?: SignedUpTo12 | 'auto';
-    marginRight?: SignedUpTo12 | 'auto';
-    smMarginRight?: SignedUpTo12 | 'auto';
-    mdMarginRight?: SignedUpTo12 | 'auto';
-    lgMarginRight?: SignedUpTo12 | 'auto';
     marginStart?: SignedUpTo12 | 'auto';
     smMarginStart?: SignedUpTo12 | 'auto';
     mdMarginStart?: SignedUpTo12 | 'auto';
