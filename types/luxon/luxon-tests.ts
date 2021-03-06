@@ -196,8 +196,6 @@ if (Interval.isInterval(anything)) {
 
 /* Info */
 Info.months();
-// // $ExpectError
-// Info.months('2-digit', { outputCalendar: 'unknown' });
 Info.weekdays('long');
 // $ExpectError
 Info.weekdays('2-digit');
