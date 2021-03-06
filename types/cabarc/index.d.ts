@@ -2,7 +2,6 @@
 // Project: https://github.com/jhermsmeier/node-cabarc
 // Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
 
 /// <reference types="node" />
 
@@ -106,23 +105,12 @@ export class CFFile {
 
     static parse(buffer: Buffer, offset?: number): CFFile;
 
-    get readOnly(): number;
-    set readOnly(value: number);
-
-    get hidden(): number;
-    set hidden(value: number);
-
-    get system(): number;
-    set system(value: number);
-
-    get arch(): number;
-    set arch(value: number);
-
-    get exec(): number;
-    set exec(value: number);
-
-    get utfName(): number;
-    set utfName(value: number);
+    readOnly: number;
+    hidden: number;
+    system: number;
+    arch: number;
+    exec: number;
+    utfName: number;
 
     getFlag(mask: number): number;
     setFlag(mask: number, value: number): number;
