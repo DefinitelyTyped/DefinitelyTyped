@@ -7,6 +7,7 @@
 //                 Kyle Hensel <https://github.com/k-yle>
 //                 Francisco Jimenez <https://github.com/jimenezff>
 //                 Charlie Gu <https://github.com/czgu>
+//                 Jay Kim <https://github.com/keyworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
