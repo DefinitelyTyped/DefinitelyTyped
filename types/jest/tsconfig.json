@@ -17,7 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "global-types.d.ts",
         "jest-tests.ts",
         "test/global-types-tests.ts"
     ]
