@@ -433,6 +433,11 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
     controllerName: string;
 
     /**
+     * The name of the route, dot-delimited, including the engine prefix if applicable.
+     */
+    fullRouteName: string;
+
+    /**
      * Configuration hash for this route's queryParams.
      */
     queryParams: { [key: string]: RouteQueryParam };
