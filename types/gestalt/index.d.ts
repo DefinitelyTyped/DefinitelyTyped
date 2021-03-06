@@ -1,4 +1,4 @@
-// Type definitions for gestalt 17
+// Type definitions for gestalt 17.1
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -24,6 +24,13 @@ export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | E
 export type ReactForwardRef<T, P> = React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<T>>;
 
 export type FourDirections = 'up' | 'right' | 'down' | 'left';
+
+export type EventHandlerType = (args: { readonly event: React.SyntheticEvent }) => void;
+
+export type OnNavigationOptionsType = { readonly [key: string]: React.ReactNode | EventHandlerType }
+
+export type OnNavigationType = (args: { href: string, onNavigationOptions?: OnNavigationOptionsType }) => EventHandlerType
+
 /**
  * ActivationCard Props Interface
  * https://gestalt.netlify.app/ActivationCard
@@ -47,6 +54,7 @@ export interface ActivationCardProps {
             | React.KeyboardEvent<HTMLAnchorElement>
             | React.KeyboardEvent<HTMLButtonElement>
         >;
+        onNavigationOptions?: OnNavigationOptionsType;
     };
 }
 
@@ -220,6 +228,7 @@ export interface ButtonProps {
     tabIndex?: -1 | 0;
     target?: null | 'self' | 'blank';
     type?: 'submit' | 'button';
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
@@ -240,6 +249,7 @@ export interface ActionData {
         | React.MouseEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLButtonElement>
     >;
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
@@ -392,6 +402,7 @@ export interface DropdownItemProps {
      * used to determine when the "selected" icon appears on an item
      */
     selected?: DropdownOption | ReadonlyArray<DropdownOption>;
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 export interface DropdownSectionProps {
@@ -707,6 +718,7 @@ export interface IconButtonProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     tabIndex?: -1 | 0;
     target?: null | 'self' | 'blank';
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
@@ -778,6 +790,7 @@ export interface LinkProps {
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
     tapStyle?: 'none' | 'compress';
     target?: null | 'self' | 'blank';
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
@@ -900,6 +913,7 @@ export interface PogProps {
 export interface ProviderProps {
     colorScheme?: 'light' | 'dark' | 'userPreference';
     id?: string;
+    onNavigation?: OnNavigationType;
 }
 
 /**
@@ -1208,6 +1222,7 @@ export interface TapAreaProps {
     tabIndex?: -1 | 0;
     tapStyle?: 'none' | 'compress';
     target?: null | 'self' | 'blank';
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
 /**
