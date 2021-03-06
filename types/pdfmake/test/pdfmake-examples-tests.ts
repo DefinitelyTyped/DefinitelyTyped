@@ -368,6 +368,12 @@ const images: TDocumentDefinitions = {
             fit: [100, 100],
             pageBreak: 'after',
         },
+        'You can also cover the image inside a rectangle',
+        {
+            image: 'fonts/sampleImage.jpg',
+            cover: { width: 100, height: 100, valign: "bottom", align: "right" },
+            pageBreak: 'after'
+        },
         'Images can be also provided in dataURL format\n(the one below was taken from http://www.clipartbest.com/clipart-dT7zx5rT9)',
         {
             image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==',
