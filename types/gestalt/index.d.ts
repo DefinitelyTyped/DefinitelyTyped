@@ -1,4 +1,4 @@
-// Type definitions for gestalt 17.1
+// Type definitions for gestalt 18
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -338,6 +338,15 @@ export interface ColumnProps {
  */
 export interface ContainerProps {
     children?: React.ReactNode;
+}
+
+/**
+ * ScrollBoundaryContainer Props Interface
+ * https://gestalt.netlify.app/ScrollBoundaryContainer
+ */
+export interface ScrollBoundaryContainerProps {
+    height?: number | string;
+    overflow?: 'scroll' | 'scrollX' | 'scrollY' | 'auto';
 }
 
 export interface DropdownOption {
@@ -1494,6 +1503,7 @@ export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
 export class Collage extends React.Component<CollageProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
+export class ScrollBoundaryContainer extends React.Component<ScrollBoundaryContainerProps, any> {}
 export class Divider extends React.Component<{}, any> {}
 export class Dropdown extends React.Component<DropdownProps, any> {
     static Item: React.FC<DropdownItemProps>;
