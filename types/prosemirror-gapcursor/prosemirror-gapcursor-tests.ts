@@ -29,3 +29,22 @@ export const nodeSpec: model.NodeSpec = {
     },
     allowGapCursor: false,
 };
+
+/**
+ * We want to make sure the type of spec.allowGapCursor is defined, i.e., not any, and
+ * I couldn't find another straightforward way to write a test that fails.
+ */
+type IsAnyOrUnknownTest = <T>(x: T) => unknown extends typeof x ? true : false;
+const isAnyOrUnknown = {} as IsAnyOrUnknownTest
+
+// Proof of concept to convince the reader the above type works
+const testAny: true =  isAnyOrUnknown({} as any);
+const testUnknown: true = isAnyOrUnknown({} as unknown);
+
+const testNull: false = isAnyOrUnknown(null);
+const testBoolean: false = isAnyOrUnknown(true);
+const testBooleanOrUndefined: false = isAnyOrUnknown(false as boolean | undefined);
+const testUndefined: false = isAnyOrUnknown(undefined);
+
+const spec: NodeSpec = {} as NodeSpec;
+const allowGapCursorIsDefined: false = isAnyOrUnknown(spec.allowGapCursor)
