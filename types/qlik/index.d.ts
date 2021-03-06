@@ -834,8 +834,8 @@ export interface App {
     // getAppobjectList(type: 'sheet' | 'masterobject', callback: (list: ))
     getFullPropertyTree(id: string): Promise<any>;
     // getList(type: ListTypes, callback): Promise<any>;
-    getobject(elem?: HTMLElement | string, id?: string | 'CurrentSelections', options?: { noInteraction?: boolean, noSelections?: boolean }): Promise<any>;
-    getobjectProperties(id: string): Promise<any>;
+    getObject(elem?: HTMLElement | string, id?: string | 'CurrentSelections', options?: { noInteraction?: boolean, noSelections?: boolean }): Promise<any>;
+    getObjectProperties(id: string): Promise<any>;
     getSnapshot(elem?: HTMLElement | string, id?: string): Promise<any>;
     lockAll(state?: string): Promise<any>;
     removeAlternateState(qStateName: string): Promise<any>;
