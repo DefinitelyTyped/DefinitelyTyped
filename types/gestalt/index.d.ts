@@ -1,4 +1,4 @@
-// Type definitions for gestalt 19
+// Type definitions for gestalt 19.2
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -1427,6 +1427,18 @@ export interface UpsellProps {
     title?: string;
 }
 
+export interface UpsellFormProps {
+    onSubmit: AbstractEventHandler<
+        | React.MouseEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+    >,
+    submitButtonText: string,
+    submitButtonAccessibilityLabel: string,
+    submitButtonDisabled?: boolean,
+}
+
 /**
  * Video Props Interface
  * https://gestalt.netlify.app/Video
@@ -1560,7 +1572,9 @@ export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
 export const Typeahead: ReactForwardRef<HTMLInputElement, TypeaheadProps>;
-export class Upsell extends React.Component<UpsellProps, any> {}
+export class Upsell extends React.Component<UpsellProps, any> {
+    static Form: React.FC<UpsellFormProps>;
+}
 export class Video extends React.Component<VideoProps, any> {}
 
 export function useReducedMotion(): boolean;
