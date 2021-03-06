@@ -1,4 +1,4 @@
-// Type definitions for gestalt 16.7
+// Type definitions for gestalt 16.8
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -1379,6 +1379,7 @@ export interface TypeaheadProps {
      */
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
     value?: string;
+    zIndex?: Indexable;
 }
 
 /**
