@@ -1,5 +1,5 @@
 import qs = require('qs');
-import * as assert from 'power-assert';
+import * as assert from "power-assert";
 
 qs.stringify({ a: 'b' });
 qs.stringify({ a: 'b', c: 'd' }, { delimiter: '&' });
@@ -21,10 +21,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
     let obj = qs.parse('a=c', {
         decoder: (str, defaultDecoder, charset, type) => {
             switch (type) {
-                case 'key':
-                    return str;
-                case 'value':
-                    return parseFloat(str);
+                case 'key': return str;
+                case 'value': return parseFloat(str);
             }
         },
     });
@@ -36,10 +34,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
     const options: qs.IParseOptions = {
         decoder: (str, defaultDecoder, charset, type) => {
             switch (type) {
-                case 'key':
-                    return str;
-                case 'value':
-                    return parseFloat(str);
+                case 'key': return str;
+                case 'value': return parseFloat(str);
             }
         },
     };
@@ -51,28 +47,28 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 () => {
     var plainObject = qs.parse('a[hasOwnProperty]=b', { plainObjects: true });
     assert.deepEqual(plainObject, { a: { hasOwnProperty: 'b' } });
-};
+}
 
 () => {
     var protoObject = qs.parse('a[hasOwnProperty]=b', { allowPrototypes: true });
     assert.deepEqual(protoObject, { a: { hasOwnProperty: 'b' } });
-};
+}
 
 () => {
     assert.deepEqual(qs.parse('a%5Bb%5D=c'), {
-        a: { b: 'c' },
+        a: { b: 'c' }
     });
-};
+}
 
 () => {
     assert.deepEqual(qs.parse('foo[bar][baz]=foobarbaz'), {
         foo: {
             bar: {
-                baz: 'foobarbaz',
-            },
-        },
+                baz: 'foobarbaz'
+            }
+        }
     });
-};
+}
 
 () => {
     var expected = {
@@ -82,57 +78,57 @@ qs.parse('a=b&c=d', { delimiter: '&' });
                     d: {
                         e: {
                             f: {
-                                '[g][h][i]': 'j',
-                            },
-                        },
-                    },
-                },
-            },
-        },
+                                '[g][h][i]': 'j'
+                            }
+                        }
+                    }
+                }
+            }
+        }
     };
     var string = 'a[b][c][d][e][f][g][h][i]=j';
     assert.deepEqual(qs.parse(string), expected);
-};
+}
 
 () => {
     var deep = qs.parse('a[b][c][d][e][f][g][h][i]=j', { depth: 1 });
     assert.deepEqual(deep, { a: { b: { '[c][d][e][f][g][h][i]': 'j' } } });
-};
+}
 
 () => {
     var limited = qs.parse('a=b&c=d', { parameterLimit: 1 });
     assert.deepEqual(limited, { a: 'b' });
-};
+}
 
 () => {
     var delimited = qs.parse('a=b;c=d', { delimiter: ';' });
     assert.deepEqual(delimited, { a: 'b', c: 'd' });
-};
+}
 
 () => {
     var regexed = qs.parse('a=b;c=d,e=f', { delimiter: /[;,]/ });
     assert.deepEqual(regexed, { a: 'b', c: 'd', e: 'f' });
-};
+}
 
 () => {
     var withDots = qs.parse('a.b=c', { allowDots: true });
     assert.deepEqual(withDots, { a: { b: 'c' } });
-};
+}
 
 () => {
     var withArray = qs.parse('a[]=b&a[]=c');
     assert.deepEqual(withArray, { a: ['b', 'c'] });
-};
+}
 
 () => {
     var withIndexes = qs.parse('a[1]=c&a[0]=b');
     assert.deepEqual(withIndexes, { a: ['b', 'c'] });
-};
+}
 
 () => {
     var noSparse = qs.parse('a[1]=b&a[15]=c');
     assert.deepEqual(noSparse, { a: ['b', 'c'] });
-};
+}
 
 () => {
     var withEmptyString = qs.parse('a[]=&a[]=b');
@@ -140,59 +136,56 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 
     var withIndexedEmptyString = qs.parse('a[0]=b&a[1]=&a[2]=c');
     assert.deepEqual(withIndexedEmptyString, { a: ['b', '', 'c'] });
-};
+}
 
 () => {
     var withMaxIndex = qs.parse('a[100]=b');
     assert.deepEqual(withMaxIndex, { a: { '100': 'b' } });
-};
+}
 
 () => {
     var withArrayLimit = qs.parse('a[1]=b', { arrayLimit: 0 });
     assert.deepEqual(withArrayLimit, { a: { '1': 'b' } });
-};
+}
 
 () => {
     var noParsingArrays = qs.parse('a[]=b', { parseArrays: false });
     assert.deepEqual(noParsingArrays, { a: { '0': 'b' } });
-};
+}
 
 () => {
     var mixedNotation = qs.parse('a[0]=b&a[b]=c');
     assert.deepEqual(mixedNotation, { a: { '0': 'b', b: 'c' } });
-};
+}
 
 () => {
     var arraysOfObjects = qs.parse('a[][b]=c');
     assert.deepEqual(arraysOfObjects, { a: [{ b: 'c' }] });
-};
+}
 
 () => {
     assert.equal(qs.stringify({ a: 'b' }), 'a=b');
     assert.equal(qs.stringify({ a: { b: 'c' } }), 'a%5Bb%5D=c');
-};
+}
 
 () => {
     var unencoded = qs.stringify({ a: { b: 'c' } }, { encode: false });
     assert.equal(unencoded, 'a[b]=c');
-};
+}
 
 () => {
     var toBeCalled = new Set(['key', 'value']);
-    var encoded = qs.stringify(
-        { a: 12 },
-        {
-            encoder: function (str, defaultEncoder, charset, type) {
-                assert.ok(toBeCalled.has(type));
-                toBeCalled.delete(type);
-                if (typeof str === 'number') return 'Number(' + str + ')';
-                return defaultEncoder(str, defaultEncoder, charset);
-            },
-        },
-    );
+    var encoded = qs.stringify({ a: 12 }, {
+        encoder: function (str, defaultEncoder, charset, type) {
+            assert.ok(toBeCalled.has(type));
+            toBeCalled.delete(type);
+            if (typeof str === 'number') return 'Number('+str+')';
+            return defaultEncoder(str, defaultEncoder, charset);
+        }
+    });
     assert.equal(toBeCalled.size, 0);
     assert.equal(encoded, 'a=Number(12)');
-};
+}
 
 () => {
     var decoded = qs.parse('a=Number(12)&b=foo', {
