@@ -1128,8 +1128,8 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Creates a string representing the current value entered in the tagify
      * input field. In mixed mode, both tags and plain text content may be
      * entered. The string that is returned will have tags enclosed in the
-     * delimiters as specified by `mixTagsInterpolator`. For example, when is
-     * ``mixTagsInterpolator` was not changed from its default:
+     * delimiters as specified by `mixTagsInterpolator`. For example, when
+     * `mixTagsInterpolator` was not changed from its default:
      *
      * ```text
      * [[{"id":101,"value":"cartman","title":"Eric Cartman"}]] does not know [[{"value":"homer simpson","readonly":true}]] because he's a relic.
