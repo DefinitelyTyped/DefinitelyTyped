@@ -1431,6 +1431,27 @@ const stylingProperties: TDocumentDefinitions = {
         { text: 'Hello World', opacity: 0.4 },
         { text: 'Hello World', opacity: 0.2 },
         { text: 'Hello World', opacity: 0.1 },
+        '\n\n Subscript, superscript:',
+        {
+            text: [
+                'Hello World.',
+                {
+                    text: '1, 2',
+                    sup: true,
+                },
+                ' Let\'s continue our sentence. Notice the leading space.'
+            ]
+        },
+        {
+            text: [
+                'Hello',
+                {
+                    text: '1, 2',
+                    sub: true,
+                },
+                ' World'
+            ]
+        }
     ],
 };
 

@@ -158,6 +158,8 @@ export interface Style {
     fillOpacity?: number;
     /** optional space between columns */
     columnGap?: Size;
+    sup?: boolean;
+    sub?: boolean;
     // These properties appear in the documentation but don't do anything:
     // tableCellPadding?: unknown;
     // cellBorder?: unknown;
