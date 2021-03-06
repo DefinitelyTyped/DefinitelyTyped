@@ -1,4 +1,4 @@
-// Type definitions for gestalt 18
+// Type definitions for gestalt 18.1
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -591,6 +591,7 @@ export type Icons =
     | 'heart'
     | 'heart-outline'
     | 'heart-broken'
+    | "history"
     | 'impressum'
     | 'info-circle'
     | 'key'
