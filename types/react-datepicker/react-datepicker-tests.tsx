@@ -96,6 +96,7 @@ const defaultLocale = getDefaultLocale();
         date,
         changeYear,
         changeMonth,
+        customHeaderCount,
         decreaseMonth,
         increaseMonth,
         decreaseYear,
