@@ -117,7 +117,7 @@ declare namespace InboxSDK {
     interface ComposeView {
       addButton(buttonDescriptor: ComposeButtonDescriptor): void;
 
-      addComposeNotice(composeNoticeDescriptor: ComposeNoticeDescriptor): ComposeNoticeView;
+      addComposeNotice(composeNoticeDescriptor: ComposeNoticeDescriptor): Common.SimpleElementView;
 
       addStatusBar(statusBarDescriptor: StatusBarDescriptor): StatusBarView;
 
@@ -250,8 +250,6 @@ declare namespace InboxSDK {
     interface ComposeNoticeDescriptor {
       orderHint?: number;
     }
-
-    interface ComposeNoticeView extends Common.SimpleElementView {}
 
     interface ComposeButtonClickEvent {
       composeView: ComposeView;

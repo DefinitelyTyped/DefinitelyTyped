@@ -181,7 +181,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 
     composeView.addComposeNotice({
         orderHint: 1
-    })
+    });
 
     composeView.addStatusBar({
       height: 1,
