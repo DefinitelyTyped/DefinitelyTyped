@@ -1,5 +1,9 @@
+declare module 'node:crypto' {
+    export * from 'crypto';
+}
+
 declare module 'crypto' {
-    import * as stream from 'stream';
+    import * as stream from 'node:stream';
 
     interface Certificate {
         /**

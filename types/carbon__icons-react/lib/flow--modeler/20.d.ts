@@ -1,1 +1,3 @@
-export { FlowModeler20 as default } from "../../";
+import { FlowModeler20 } from "../../";
+
+export = FlowModeler20;

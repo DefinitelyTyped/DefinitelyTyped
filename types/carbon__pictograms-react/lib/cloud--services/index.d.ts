@@ -1,1 +1,3 @@
-export { CloudServices as default } from "../../";
+import { CloudServices } from "../../";
+
+export = CloudServices;

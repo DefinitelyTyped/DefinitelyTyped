@@ -1,1 +1,3 @@
-export { Aperture16 as default } from "../../";
+import { Aperture16 } from "../../";
+
+export = Aperture16;

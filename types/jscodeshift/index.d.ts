@@ -1,4 +1,4 @@
-// Type definitions for jscodeshift 0.7
+// Type definitions for jscodeshift 0.11
 // Project: https://github.com/facebook/jscodeshift#readme
 // Definitions by: Brie Bunge <https://github.com/brieb>
 //                 Brian Jacobel <https://github.com/bjacobel>

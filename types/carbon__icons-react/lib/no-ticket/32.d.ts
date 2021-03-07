@@ -1,1 +1,3 @@
-export { NoTicket32 as default } from "../../";
+import { NoTicket32 } from "../../";
+
+export = NoTicket32;

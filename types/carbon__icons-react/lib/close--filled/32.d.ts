@@ -1,1 +1,3 @@
-export { CloseFilled32 as default } from "../../";
+import { CloseFilled32 } from "../../";
+
+export = CloseFilled32;

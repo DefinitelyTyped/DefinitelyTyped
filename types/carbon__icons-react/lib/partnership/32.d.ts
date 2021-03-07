@@ -1,1 +1,3 @@
-export { Partnership32 as default } from "../../";
+import { Partnership32 } from "../../";
+
+export = Partnership32;

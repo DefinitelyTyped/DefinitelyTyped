@@ -1,1 +1,3 @@
-export { SingleSignOn as default } from "../../";
+import { SingleSignOn } from "../../";
+
+export = SingleSignOn;

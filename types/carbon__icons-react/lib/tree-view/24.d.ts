@@ -1,1 +1,3 @@
-export { TreeView24 as default } from "../../";
+import { TreeView24 } from "../../";
+
+export = TreeView24;

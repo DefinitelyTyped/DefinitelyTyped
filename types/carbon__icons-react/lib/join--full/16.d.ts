@@ -1,1 +1,3 @@
-export { JoinFull16 as default } from "../../";
+import { JoinFull16 } from "../../";
+
+export = JoinFull16;

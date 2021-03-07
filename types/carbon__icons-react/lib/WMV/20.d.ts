@@ -1,1 +1,3 @@
-export { Wmv20 as default } from "../../";
+import { Wmv20 } from "../../";
+
+export = Wmv20;

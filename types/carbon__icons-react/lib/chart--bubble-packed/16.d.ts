@@ -1,1 +1,3 @@
-export { ChartBubblePacked16 as default } from "../../";
+import { ChartBubblePacked16 } from "../../";
+
+export = ChartBubblePacked16;

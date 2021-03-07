@@ -1,1 +1,3 @@
-export { Explore16 as default } from "../../";
+import { Explore16 } from "../../";
+
+export = Explore16;

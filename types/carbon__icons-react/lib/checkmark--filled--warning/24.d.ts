@@ -1,1 +1,3 @@
-export { CheckmarkFilledWarning24 as default } from "../../";
+import { CheckmarkFilledWarning24 } from "../../";
+
+export = CheckmarkFilledWarning24;

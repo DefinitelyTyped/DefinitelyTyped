@@ -1,1 +1,3 @@
-export { SampleFile as default } from "../../";
+import { SampleFile } from "../../";
+
+export = SampleFile;

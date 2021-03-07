@@ -1,1 +1,3 @@
-export { WatsonHealthRegionAnalysisArea20 as default } from "../../../";
+import { WatsonHealthRegionAnalysisArea20 } from "../../../";
+
+export = WatsonHealthRegionAnalysisArea20;

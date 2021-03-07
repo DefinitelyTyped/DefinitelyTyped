@@ -1,1 +1,3 @@
-export { Milestone20 as default } from "../../";
+import { Milestone20 } from "../../";
+
+export = Milestone20;

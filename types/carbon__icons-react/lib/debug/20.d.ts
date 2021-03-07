@@ -1,1 +1,3 @@
-export { Debug20 as default } from "../../";
+import { Debug20 } from "../../";
+
+export = Debug20;

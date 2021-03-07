@@ -1,1 +1,3 @@
-export { ChartCombo16 as default } from "../../";
+import { ChartCombo16 } from "../../";
+
+export = ChartCombo16;

@@ -1,1 +1,3 @@
-export { PhoneBlockFilled16 as default } from "../../";
+import { PhoneBlockFilled16 } from "../../";
+
+export = PhoneBlockFilled16;

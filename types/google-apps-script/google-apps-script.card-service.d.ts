@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2021-01-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
@@ -264,6 +264,7 @@ declare namespace GoogleAppsScript {
       newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
       newDatePicker(): DatePicker;
       newDateTimePicker(): DateTimePicker;
+      newDecoratedText(): DecoratedText;
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
       newFixedFooter(): FixedFooter;
       newImage(): Image;
@@ -745,6 +746,29 @@ declare namespace GoogleAppsScript {
       setTitle(title: string): DateTimePicker;
       setValueInMsSinceEpoch(valueMsEpoch: number): DateTimePicker;
       setValueInMsSinceEpoch(valueMsEpoch: string): DateTimePicker;
+    }
+
+    /**
+     * A widget that displays text with optional decorations. Possible keys include an icon, a label
+     * above and a label below. Setting the text content and one of the keys is required using setText(text)
+     * and one of setIcon(icon), setIconUrl(url), setTopLabel(text), or setBottomLabel(text).
+     * This class is intended to replace KeyValue.
+     */
+    interface DecoratedText {
+      setAuthorizationAction(action: AuthorizationAction): DecoratedText;
+      setBottomLabel(text: string): DecoratedText;
+      setButton(button: Button): DecoratedText;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
+      setIcon(icon: Icon): DecoratedText;
+      setIconAltText(altText: string): DecoratedText;
+      setIconUrl(url: string): DecoratedText;
+      setOnClickAction(action: Action): DecoratedText;
+      setOnClickOpenLinkAction(action: Action): DecoratedText;
+      setOpenLink(openLink: OpenLink): DecoratedText;
+      setSwitchControl(switchToSet: Switch): DecoratedText;
+      setText(text: string): DecoratedText;
+      setTopLabel(text: string): DecoratedText;
+      setWrapText(wrapText: boolean): DecoratedText;
     }
 
     /**

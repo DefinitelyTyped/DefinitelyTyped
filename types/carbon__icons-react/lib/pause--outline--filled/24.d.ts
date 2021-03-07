@@ -1,1 +1,3 @@
-export { PauseOutlineFilled24 as default } from "../../";
+import { PauseOutlineFilled24 } from "../../";
+
+export = PauseOutlineFilled24;

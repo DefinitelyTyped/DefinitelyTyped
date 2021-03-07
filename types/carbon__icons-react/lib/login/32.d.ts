@@ -1,1 +1,3 @@
-export { Login32 as default } from "../../";
+import { Login32 } from "../../";
+
+export = Login32;

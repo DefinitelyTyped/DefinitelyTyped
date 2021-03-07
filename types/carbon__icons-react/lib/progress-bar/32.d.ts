@@ -1,1 +1,3 @@
-export { ProgressBar32 as default } from "../../";
+import { ProgressBar32 } from "../../";
+
+export = ProgressBar32;

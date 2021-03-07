@@ -196,6 +196,11 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "autoprefixer",
+            "typingsPackageName": "autoprefixer",
+            "asOfVersion": "10.2.0"
+        },
+        {
             "libraryName": "aws-lambda-mock-context",
             "typingsPackageName": "aws-lambda-mock-context",
             "asOfVersion": "3.2.0"
@@ -354,6 +359,11 @@
             "libraryName": "broccoli-plugin",
             "typingsPackageName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "browserslist",
+            "typingsPackageName": "browserslist",
+            "asOfVersion": "4.15.0"
         },
         {
             "libraryName": "bugsnag-js",
@@ -2142,6 +2152,11 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "json5",
+            "typingsPackageName": "json5",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "jsonata",
             "typingsPackageName": "jsonata",
             "asOfVersion": "1.5.0"
@@ -2737,6 +2752,11 @@
             "asOfVersion": "0.7.2"
         },
         {
+            "libraryName": "multiaddr",
+            "typingsPackageName": "multiaddr",
+            "asOfVersion": "7.4.0"
+        },
+        {
             "libraryName": "multibase",
             "typingsPackageName": "multibase",
             "asOfVersion": "3.1.0"
@@ -2745,11 +2765,6 @@
             "libraryName": "multicodec",
             "typingsPackageName": "multicodec",
             "asOfVersion": "2.1.0"
-        },
-        {
-            "libraryName": "multiaddr",
-            "typingsPackageName": "multiaddr",
-            "asOfVersion": "7.4.0"
         },
         {
             "libraryName": "multimatch",
@@ -3336,6 +3351,11 @@
             "libraryName": "phonegap-plugin-push",
             "typingsPackageName": "phonegap-plugin-push",
             "asOfVersion": "2.1.2"
+        },
+        {
+            "libraryName": "physijs",
+            "typingsPackageName": "physijs",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "pixi-spine",
@@ -4643,6 +4663,11 @@
             "asOfVersion": "10.2.0"
         },
         {
+            "libraryName": "@testing-library/react-hooks",
+            "typingsPackageName": "testing-library__react-hooks",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "@testing-library/user-event",
             "typingsPackageName": "testing-library__user-event",
             "asOfVersion": "4.2.0"
@@ -4666,11 +4691,6 @@
             "libraryName": "theming",
             "typingsPackageName": "theming",
             "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "three",
-            "typingsPackageName": "three",
-            "asOfVersion": "0.103.0"
         },
         {
             "libraryName": "tildify",

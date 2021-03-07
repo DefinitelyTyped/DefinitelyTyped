@@ -104,8 +104,10 @@ interface JWTOptions {
     secret?: string;
     maxAge?: number;
     encryption?: boolean;
+    signingKey?: string;
+    encryptionKey?: string;
     encode?(options: JWTEncodeParams): Promise<string>;
-    decode?(options: JWTDecodeParams): Promise<string>;
+    decode?(options: JWTDecodeParams): Promise<GenericObject>;
 }
 
 // TODO: Improve callback typings

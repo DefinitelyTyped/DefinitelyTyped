@@ -111,6 +111,12 @@ export type ColumnFormatter<R, E = any, C = any> = (
     formatExtraData: E,
 ) => JSX.Element | string | boolean | React.ReactText;
 
+export interface ValidationResult {
+    async?: boolean;
+    valid?: boolean;
+    message?: string;
+}
+
 export interface ColumnDescription<T extends object = any, E = any> {
     /**
      * If set the column will not use cell values
@@ -158,6 +164,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
     footerTitle?: boolean;
     footerEvents?: { onClick: (e: any, column: ColumnDescription<T, E>, columnIndex: number) => void };
     footerAlign?: CellAlignment | ((column: ColumnDescription<T, E>, colIndex: number) => CellAlignment);
+    validator?: (newValue: any, row: T, column: ColumnDescription<T, E>, done: (result?: ValidationResult) => any) => boolean | ValidationResult;
 
     /**
      * CSV Column options only used with the toolkit provider

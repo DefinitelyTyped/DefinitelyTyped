@@ -8,14 +8,12 @@
 //                 Alex Dunne <https://github.com/alexdunne>
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
-//                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
 //                 Kacper Wiszczuk <https://github.com/esemesek>
 //                 Ryan Nickel <https://github.com/mrnickel>
 //                 Souvik Ghosh <https://github.com/souvik-ghosh>
 //                 Cheng Gibson <https://github.com/nossbigg>
 //                 Saransh Kataria <https://github.com/saranshkataria>
-//                 Francesco Moro <https://github.com/franzmoro>
 //                 Wojciech Tyczynski <https://github.com/tykus160>
 //                 Jake Bloom <https://github.com/jakebloom>
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
@@ -623,6 +621,8 @@ export interface LayoutAnimationTypes {
 
 export interface LayoutAnimationProperties {
     opacity: string;
+    scaleX: string;
+    scaleY: string;
     scaleXY: string;
 }
 
@@ -5953,10 +5953,14 @@ export interface PixelRatioStatic {
  * @see https://reactnative.dev/docs/platform-specific-code#content
  */
 export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
-
+type PlatformConstants = {
+    isTesting: boolean;
+    reactNativeVersion: { major: number; minor: number; patch: number; prerelease?: number };
+};
 interface PlatformStatic {
     isTV: boolean;
     Version: number | string;
+    constants: PlatformConstants;
 
     /**
      * @see https://reactnative.dev/docs/platform-specific-code#content
@@ -5968,12 +5972,29 @@ interface PlatformStatic {
 }
 
 interface PlatformIOSStatic extends PlatformStatic {
+    constants: PlatformConstants & {
+        forceTouchAvailable: boolean;
+        interfaceIdiom: string;
+        osVersion: string;
+        systemName: string;
+    };
     OS: 'ios';
     isPad: boolean;
     isTVOS: boolean;
 }
 
 interface PlatformAndroidStatic extends PlatformStatic {
+    constants: PlatformConstants & {
+        Version: number;
+        Release: string;
+        Serial: string;
+        Fingerprint: string;
+        Model: string;
+        Brand: string;
+        Manufacturer: string;
+        ServerHost?: string;
+        uiMode: 'car' | 'desk' | 'normal' | 'tv' | 'watch' | 'unknown';
+    };
     OS: 'android';
 }
 
@@ -8852,7 +8873,7 @@ export namespace Animated {
          *  }}
          *```
          */
-        getTranslateTransform(): { [key: string]: AnimatedValue }[];
+        getTranslateTransform(): [{ translateX: AnimatedValue }, { translateY: AnimatedValue }];
     }
 
     type EndResult = { finished: boolean };

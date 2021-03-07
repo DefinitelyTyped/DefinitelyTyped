@@ -1,1 +1,3 @@
-export { Equalizer20 as default } from "../../";
+import { Equalizer20 } from "../../";
+
+export = Equalizer20;

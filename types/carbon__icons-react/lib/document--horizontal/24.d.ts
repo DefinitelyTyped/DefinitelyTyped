@@ -1,1 +1,3 @@
-export { DocumentHorizontal24 as default } from "../../";
+import { DocumentHorizontal24 } from "../../";
+
+export = DocumentHorizontal24;

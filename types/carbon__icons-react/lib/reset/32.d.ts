@@ -1,1 +1,3 @@
-export { Reset32 as default } from "../../";
+import { Reset32 } from "../../";
+
+export = Reset32;

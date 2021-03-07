@@ -1,1 +1,3 @@
-export { TradeoffAnalytics as default } from "../../";
+import { TradeoffAnalytics } from "../../";
+
+export = TradeoffAnalytics;

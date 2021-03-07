@@ -1,1 +1,3 @@
-export { ReplyAll32 as default } from "../../";
+import { ReplyAll32 } from "../../";
+
+export = ReplyAll32;

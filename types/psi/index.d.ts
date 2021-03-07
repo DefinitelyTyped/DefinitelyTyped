@@ -1,4 +1,4 @@
-// Type definitions for psi 4.0
+// Type definitions for psi 4.1
 // Project: https://github.com/GoogleChromeLabs/psi#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,6 +36,12 @@ declare namespace psi {
          * @default 70
          */
         treshold?: number;
+        /**
+         * If passed adds links with more info about opportunities.
+         * Useful for checking documentation about opportunities.
+         * @default false
+         */
+        links?: boolean;
     }
 
     interface Experience {

@@ -1,1 +1,3 @@
-export { JoinRight24 as default } from "../../";
+import { JoinRight24 } from "../../";
+
+export = JoinRight24;

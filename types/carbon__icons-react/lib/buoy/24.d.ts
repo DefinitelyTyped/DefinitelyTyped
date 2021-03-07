@@ -1,1 +1,3 @@
-export { Buoy24 as default } from "../../";
+import { Buoy24 } from "../../";
+
+export = Buoy24;

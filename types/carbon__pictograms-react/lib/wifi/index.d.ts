@@ -1,1 +1,3 @@
-export { Wifi as default } from "../../";
+import { Wifi } from "../../";
+
+export = Wifi;

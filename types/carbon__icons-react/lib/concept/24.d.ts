@@ -1,1 +1,3 @@
-export { Concept24 as default } from "../../";
+import { Concept24 } from "../../";
+
+export = Concept24;

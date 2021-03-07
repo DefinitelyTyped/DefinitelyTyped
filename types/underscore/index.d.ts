@@ -1,11 +1,11 @@
-// Type definitions for Underscore 1.10
-// Project: http://underscorejs.org/
+// Type definitions for Underscore 1.11
+// Project: https://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>,
 //                 Josh Baldwin <https://github.com/jbaldwin>,
 //                 Christopher Currens <https://github.com/ccurrens>,
 //                 Ard Timmerman <https://github.com/confususs>,
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>,
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Imdahl <https://github.com/ffflorian>
 //                 Regev Brody <https://github.com/regevbr>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Michael Ness <https://github.com/reubenrybnik>
@@ -175,6 +175,8 @@ declare module _ {
         : Pick<V, Exclude<keyof V, K>>;
 
     type _ChainSingle<V> = _Chain<TypeOfCollection<V>, V>;
+
+    type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
     interface Cancelable {
         cancel(): void;
@@ -758,20 +760,24 @@ declare module _ {
 
         /**
          * Flattens a nested `list` (the nesting can be to any depth). If you
-         * pass shallow, the `list` will only be flattened a single level.
+         * pass true or 1 as the depth, the `list` will only be flattened a
+         * single level. Passing a greater number will cause the flattening to
+         * descend deeper into the nesting hierarchy. Omitting the depth
+         * argument, or passing false or Infinity, flattens the `list` all the
+         * way to the deepest nesting level.
          * @param list The list to flatten.
-         * @param shallow True to only flatten one level, optional,
+         * @param depth True to only flatten one level, optional,
          * default = false.
          * @returns The flattened `list`.
          **/
         flatten<V extends List<any>>(
             list: V,
-            shallow?: false
-        ): DeepestListItemOrSelf<TypeOfList<V>>[];
+            depth: 1 | true
+        ): ListItemOrSelf<TypeOfList<V>>[];
         flatten<V extends List<any>>(
             list: V,
-            shallow: true
-        ): ListItemOrSelf<TypeOfList<V>>[];
+            depth?: number | false
+        ): DeepestListItemOrSelf<TypeOfList<V>>[];
 
         /**
          * Returns a copy of `list` with all instances of `values` removed.
@@ -859,11 +865,12 @@ declare module _ {
          * The opposite of zip. Given a list of lists, returns a series of new
          * arrays, the first of which contains all of the first elements in the
          * input lists, the second of which contains all of the second
-         * elements, and so on.
+         * elements, and so on. (alias: transpose)
          * @param lists The lists to unzip.
          * @returns The unzipped version of `lists`.
          **/
         unzip(lists: List<List<any>>): any[][];
+        transpose(lists: List<List<any>>): any[][];
 
         /**
          * Converts lists into objects. Pass either a single `list` of
@@ -3760,6 +3767,27 @@ declare module _ {
         isArray(object: any): object is any[];
 
         /**
+         * Returns true if `object` is an ArrayBuffer.
+         * @param object The object to check.
+         * @returns True if `object` is an ArrayBuffer, otherwise false.
+         **/
+        isArrayBuffer(object: any): object is ArrayBuffer;
+
+        /**
+         * Returns true if `object` is a DataView.
+         * @param object The object to check.
+         * @returns True if `object` is a DataView, otherwise false.
+         **/
+        isDataView(object: any): object is DataView;
+
+        /**
+         * Returns true if `object` is a TypedArray.
+         * @param object The object to check.
+         * @returns True if `object` is a TypedArray, otherwise false.
+         **/
+        isTypedArray(object: any): object is TypedArray;
+
+        /**
          * Returns true if `object` is a Symbol.
          * @param object The object to check.
          * @returns True if `object` is a Symbol, otherwise false.
@@ -4470,14 +4498,14 @@ declare module _ {
 
         /**
          * Flattens a nested list (the nesting can be to any depth). If you
-         * pass shallow, the wrapped list will only be flattened a single
+         * pass depth, the wrapped list will only be flattened a single
          * level.
-         * @param shallow True to only flatten one level, optional,
+         * @param depth True to only flatten one level, optional,
          * default = false.
          * @returns The flattened list.
          **/
-        flatten(shallow?: false): DeepestListItemOrSelf<T>[];
-        flatten(shallow: true): ListItemOrSelf<T>[];
+        flatten(depth: 1 | true): ListItemOrSelf<T>[];
+        flatten(depth?: number | false): DeepestListItemOrSelf<T>[];
 
         /**
          * Returns a copy of the wrapped list with all instances of `values`
@@ -4561,10 +4589,11 @@ declare module _ {
          * The opposite of zip. Given the wrapped list of lists, returns a
          * series of new arrays, the first of which contains all of the first
          * elements in the wrapped lists, the second of which contains all of
-         * the second elements, and so on.
+         * the second elements, and so on. (alias: transpose)
          * @returns The unzipped version of the wrapped lists.
          **/
         unzip(): any[][];
+        transpose(): any[][];
 
         /**
          * Converts lists into objects. Call on either a wrapped list of
@@ -4995,6 +5024,24 @@ declare module _ {
          * @returns True if the wrapped object is an Array, otherwise false.
          **/
         isArray(): boolean;
+
+        /**
+         * Returns true if the wrapped object is an ArrayBuffer.
+         * @returns True if the wrapped object is an ArrayBuffer, otherwise false.
+         **/
+        isArrayBuffer(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a DataView.
+         * @returns True if the wrapped object is a DataView, otherwise false.
+         **/
+        isDataView(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a TypedArray.
+         * @returns True if the wrapped object is a TypedArray, otherwise false.
+         **/
+        isTypedArray(): boolean;
 
         /**
          * Returns true if the wrapped object is a Symbol.
@@ -5673,14 +5720,17 @@ declare module _ {
 
         /**
          * Flattens a nested list (the nesting can be to any depth). If you
-         * pass shallow, the wrapped list will only be flattened a single
-         * level.
-         * @param shallow True to only flatten one level, optional,
+         * pass true or 1 as the depth, the list will only be flattened a single
+         * level. Passing a greater number will cause the flattening to descend
+         * deeper into the nesting hierarchy. Omitting the depth argument, or
+         * passing false or Infinity, flattens the list all the way to the
+         * deepest nesting level.
+         * @param depth True to only flatten one level, optional,
          * default = false.
          * @returns A chain wrapper around the flattened list.
          **/
-        flatten(shallow?: false): _Chain<DeepestListItemOrSelf<T>>;
-        flatten(shallow: true): _Chain<ListItemOrSelf<T>>;
+        flatten(depth: 1 | true): _Chain<ListItemOrSelf<T>>;
+        flatten(depth?: number | false): _Chain<DeepestListItemOrSelf<T>>;
 
         /**
          * Returns a copy of the wrapped list with all instances of `values`
@@ -5767,11 +5817,12 @@ declare module _ {
          * The opposite of zip. Given the wrapped list of lists, returns a
          * series of new arrays, the first of which contains all of the first
          * elements in the wrapped lists, the second of which contains all of
-         * the second elements, and so on.
-         * @returns A chain wrapper aoround the unzipped version of the wrapped
+         * the second elements, and so on. (alias: transpose)
+         * @returns A chain wrapper around the unzipped version of the wrapped
          * lists.
          **/
         unzip(): _Chain<any[]>;
+        transpose(): _Chain<any[]>;
 
         /**
          * Converts lists into objects. Call on either a wrapped list of
@@ -6212,6 +6263,27 @@ declare module _ {
          * The result will be wrapped in a chain wrapper.
          **/
         isArray(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is an ArrayBuffer.
+         * @returns True if the wrapped object is an ArrayBuffer, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isArrayBuffer(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a DataView.
+         * @returns True if the wrapped object is a DataView, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isDataView(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a TypedArray.
+         * @returns True if the wrapped object is a TypedArray, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         **/
+        isTypedArray(): _ChainSingle<boolean>;
 
         /**
          * Returns true if the wrapped object is a Symbol.

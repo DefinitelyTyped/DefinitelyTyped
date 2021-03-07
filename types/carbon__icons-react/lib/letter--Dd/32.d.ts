@@ -1,1 +1,3 @@
-export { LetterDd32 as default } from "../../";
+import { LetterDd32 } from "../../";
+
+export = LetterDd32;

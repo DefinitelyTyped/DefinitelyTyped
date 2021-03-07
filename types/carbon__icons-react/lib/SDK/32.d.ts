@@ -1,1 +1,3 @@
-export { Sdk32 as default } from "../../";
+import { Sdk32 } from "../../";
+
+export = Sdk32;

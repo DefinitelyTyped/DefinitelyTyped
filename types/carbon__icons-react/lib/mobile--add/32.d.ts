@@ -1,1 +1,3 @@
-export { MobileAdd32 as default } from "../../";
+import { MobileAdd32 } from "../../";
+
+export = MobileAdd32;

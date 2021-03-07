@@ -1,1 +1,3 @@
-export { CloudTutorials as default } from "../../";
+import { CloudTutorials } from "../../";
+
+export = CloudTutorials;

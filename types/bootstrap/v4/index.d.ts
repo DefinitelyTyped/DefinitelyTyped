@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap 4.5
+// Type definitions for Bootstrap 4.6
 // Project: https://github.com/twbs/bootstrap/, https://getbootstrap.com
 // Definitions by: denisname <https://github.com/denisname>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -350,6 +350,14 @@ export interface TooltipOption {
      * @default "flip"
      */
     fallbackPlacement?: Popper.Behavior | ReadonlyArray<Popper.Behavior>;
+
+    /**
+     * Add classes to the tooltip when it is shown. Note that these classes will be added in addition to any classes specified in the template.
+     * To add multiple classes, separate them with spaces: 'a b'.
+     * You can also pass a function that should return a single string containing additional class names.
+     * @default ''
+     */
+    customClass?: string | (() => string);
 
     /**
      * Overflow constraint boundary of the tooltip or popover.

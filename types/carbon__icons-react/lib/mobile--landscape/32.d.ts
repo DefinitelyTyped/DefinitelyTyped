@@ -1,1 +1,3 @@
-export { MobileLandscape32 as default } from "../../";
+import { MobileLandscape32 } from "../../";
+
+export = MobileLandscape32;

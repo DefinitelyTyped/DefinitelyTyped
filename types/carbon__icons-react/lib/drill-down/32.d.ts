@@ -1,1 +1,3 @@
-export { DrillDown32 as default } from "../../";
+import { DrillDown32 } from "../../";
+
+export = DrillDown32;

@@ -1,1 +1,3 @@
-export { PetriCulture as default } from "../../";
+import { PetriCulture } from "../../";
+
+export = PetriCulture;

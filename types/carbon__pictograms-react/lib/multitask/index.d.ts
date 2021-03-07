@@ -1,1 +1,3 @@
-export { Multitask as default } from "../../";
+import { Multitask } from "../../";
+
+export = Multitask;

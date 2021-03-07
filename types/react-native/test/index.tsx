@@ -1425,6 +1425,16 @@ const PlatformTest = () => {
     }
 };
 
+const PlatformConstantsTest = () => {
+    const testing: boolean = Platform.constants.isTesting;
+    if (Platform.OS === 'ios') {
+        const hasForceTouch: boolean = Platform.constants.forceTouchAvailable;
+    } else if (Platform.OS === 'android') {
+        const { major, prerelease } = Platform.constants.reactNativeVersion;
+        const v = Platform.constants.Version;
+        const host: string | undefined = Platform.constants.ServerHost;
+    }
+};
 Platform.select({ native: 1 }); // $ExpectType number | undefined
 Platform.select({ native: 1, web: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1 }); // $ExpectType number | undefined

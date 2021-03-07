@@ -66,4 +66,17 @@ class MyLoader extends nunjucks.Loader implements nunjucks.ILoader {
 
 env = new nunjucks.Environment(new MyLoader());
 
+// $ExpectType typeof FileSystemLoader
+const MyOtherLoader = nunjucks.FileSystemLoader.extend({
+    getSource(name: string): nunjucks.LoaderSource {
+        return {
+            src: "Amadala",
+            path: "The Right One",
+            noCache: false
+        };
+    }
+});
+
+env = new nunjucks.Environment(new MyOtherLoader());
+
 new nunjucks.runtime.SafeString("an unsafe string");

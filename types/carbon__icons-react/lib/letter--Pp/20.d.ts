@@ -1,1 +1,3 @@
-export { LetterPp20 as default } from "../../";
+import { LetterPp20 } from "../../";
+
+export = LetterPp20;

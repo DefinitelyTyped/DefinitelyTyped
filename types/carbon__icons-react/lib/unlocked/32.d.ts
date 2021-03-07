@@ -1,1 +1,3 @@
-export { Unlocked32 as default } from "../../";
+import { Unlocked32 } from "../../";
+
+export = Unlocked32;

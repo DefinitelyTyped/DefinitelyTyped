@@ -1,1 +1,3 @@
-export { StarFilled16 as default } from "../../";
+import { StarFilled16 } from "../../";
+
+export = StarFilled16;

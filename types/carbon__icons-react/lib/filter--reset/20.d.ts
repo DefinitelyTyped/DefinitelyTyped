@@ -1,1 +1,3 @@
-export { FilterReset20 as default } from "../../";
+import { FilterReset20 } from "../../";
+
+export = FilterReset20;

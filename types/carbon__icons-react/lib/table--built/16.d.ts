@@ -1,1 +1,3 @@
-export { TableBuilt16 as default } from "../../";
+import { TableBuilt16 } from "../../";
+
+export = TableBuilt16;

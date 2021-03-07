@@ -1,1 +1,3 @@
-export { JoinFull32 as default } from "../../";
+import { JoinFull32 } from "../../";
+
+export = JoinFull32;

@@ -1,1 +1,3 @@
-export { Bus32 as default } from "../../";
+import { Bus32 } from "../../";
+
+export = Bus32;

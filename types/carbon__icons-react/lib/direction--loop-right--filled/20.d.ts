@@ -1,1 +1,3 @@
-export { DirectionLoopRightFilled20 as default } from "../../";
+import { DirectionLoopRightFilled20 } from "../../";
+
+export = DirectionLoopRightFilled20;

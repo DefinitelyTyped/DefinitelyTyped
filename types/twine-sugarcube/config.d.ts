@@ -368,6 +368,18 @@ export interface ConfigAPI {
         slots: number;
 
         /**
+         * Determines whether saving to disk is enabled on mobile devices — i.e., smartphones, tablets, etc.
+         *
+         * WARNING: Mobile browsers can be fickle, so saving to disk may not work as expected in all browsers.
+         * @default true
+         * @since 2.34.0
+         * @example
+         * // To disable saving to disk on mobile devices.
+         * Config.saves.tryDiskOnMobile = false;
+         */
+        tryDiskOnMobile: boolean;
+
+        /**
          * Sets the version property of saves.
          *
          * **NOTE**: This setting is only used to set the version property of saves. Thus, it is only truly useful if you plan

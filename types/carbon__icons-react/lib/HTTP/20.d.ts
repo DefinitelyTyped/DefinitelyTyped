@@ -1,1 +1,3 @@
-export { Http20 as default } from "../../";
+import { Http20 } from "../../";
+
+export = Http20;

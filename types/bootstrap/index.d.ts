@@ -6,6 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="jquery" />
+
 export as namespace Bootstrap;
 
 import Alert from './js/dist/alert';
@@ -19,5 +21,21 @@ import Popover from './js/dist/popover';
 import ScrollSpy from './js/dist/scrollspy';
 import Toast from './js/dist/toast';
 import Tooltip from './js/dist/tooltip';
+
+declare global {
+    interface JQuery {
+        alert: Alert.jQueryInterface;
+        button: Button.jQueryInterface;
+        carousel: Carousel.jQueryInterface;
+        collapse: Collapse.jQueryInterface;
+        dropdown: Dropdown.jQueryInterface;
+        tab: Tab.jQueryInterface;
+        modal: Modal.jQueryInterface;
+        [Popover.NAME]: Popover.jQueryInterface;
+        scrollspy: ScrollSpy.jQueryInterface;
+        toast: Toast.jQueryInterface;
+        [Tooltip.NAME]: Tooltip.jQueryInterface;
+    }
+}
 
 export { Alert, Button, Carousel, Collapse, Dropdown, Tab, Modal, Popover, ScrollSpy, Toast, Tooltip };

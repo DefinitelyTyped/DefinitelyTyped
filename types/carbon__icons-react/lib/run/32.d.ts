@@ -1,1 +1,3 @@
-export { Run32 as default } from "../../";
+import { Run32 } from "../../";
+
+export = Run32;

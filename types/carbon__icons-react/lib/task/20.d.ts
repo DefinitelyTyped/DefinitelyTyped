@@ -1,1 +1,3 @@
-export { Task20 as default } from "../../";
+import { Task20 } from "../../";
+
+export = Task20;

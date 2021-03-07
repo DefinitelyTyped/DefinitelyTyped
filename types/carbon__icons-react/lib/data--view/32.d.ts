@@ -1,1 +1,3 @@
-export { DataView32 as default } from "../../";
+import { DataView32 } from "../../";
+
+export = DataView32;

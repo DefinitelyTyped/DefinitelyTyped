@@ -1,1 +1,3 @@
-export { DirectionCurveFilled32 as default } from "../../";
+import { DirectionCurveFilled32 } from "../../";
+
+export = DirectionCurveFilled32;
