@@ -442,10 +442,10 @@ export interface BabelFile {
     code: string;
 }
 
-export interface PluginPass {
+export interface PluginPass<T extends PluginOptions = undefined> {
     file: BabelFile;
     key: string;
-    opts: PluginOptions;
+    opts: T;
     cwd: string;
     filename: string;
     [key: string]: unknown;
