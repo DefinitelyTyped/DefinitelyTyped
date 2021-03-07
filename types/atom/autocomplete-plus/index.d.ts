@@ -113,7 +113,7 @@ export interface SnippetSuggestion extends SuggestionBase {
 }
 
 export type AnySuggestion = TextSuggestion | SnippetSuggestion;
-export type Suggestion =  AnySuggestion;
+export type Suggestion = AnySuggestion;
 export type Suggestions = AnySuggestion[];
 
 /** The interface that all Autocomplete+ providers must implement. */
