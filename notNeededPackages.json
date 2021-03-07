@@ -486,6 +486,11 @@
             "asOfVersion": "0.2.2"
         },
         {
+            "libraryName": "ci-info",
+            "typingsPackageName": "ci-info",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "clean-stack",
             "typingsPackageName": "clean-stack",
             "asOfVersion": "2.1.0"
