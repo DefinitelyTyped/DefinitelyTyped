@@ -41,6 +41,11 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "agenda",
+            "typingsPackageName": "agenda",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "aggregate-error",
             "typingsPackageName": "aggregate-error",
             "asOfVersion": "2.2.0"
@@ -479,6 +484,11 @@
             "libraryName": "chunked-dc",
             "typingsPackageName": "chunked-dc",
             "asOfVersion": "0.2.2"
+        },
+        {
+            "libraryName": "ci-info",
+            "typingsPackageName": "ci-info",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "clean-stack",
@@ -2295,6 +2305,11 @@
             "libraryName": "ldclient-js",
             "typingsPackageName": "ldclient-js",
             "asOfVersion": "1.1.11"
+        },
+        {
+            "libraryName": "leaflet-geosearch",
+            "typingsPackageName": "leaflet-geosearch",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "leap-year",

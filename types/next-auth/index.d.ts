@@ -5,7 +5,7 @@
 //                 Juan <https://github.com/JuanM04>
 //                 Balázs <https://github.com/balazsorban44>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
@@ -29,6 +29,7 @@ interface InitOptions {
     events?: Events;
     useSecureCookies?: boolean;
     cookies?: Cookies;
+    theme?: 'light' | 'dark' | 'auto';
 }
 
 interface AppOptions {
@@ -113,7 +114,7 @@ interface JWTOptions {
 
 // TODO: Improve callback typings
 interface Callbacks {
-    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean>;
+    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean | string>;
     redirect?(url: string, baseUrl: string): Promise<string>;
     session?(session: SessionBase, user: User): Promise<GenericObject>;
     jwt?(

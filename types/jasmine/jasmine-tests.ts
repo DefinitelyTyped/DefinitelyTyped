@@ -1380,6 +1380,15 @@ describe("Manually ticking the Jasmine Clock", () => {
             jasmine.clock().tick(50);
             expect(new Date().getTime()).toEqual(baseTime.getTime() + 50);
         });
+
+        it("can be chained off the install method", () => {
+            const baseTime = new Date(2013, 9, 23);
+
+            jasmine.clock().install().mockDate(baseTime);
+
+            jasmine.clock().tick(50);
+            expect(new Date().getTime()).toEqual(baseTime.getTime() + 50);
+        });
     });
 });
 

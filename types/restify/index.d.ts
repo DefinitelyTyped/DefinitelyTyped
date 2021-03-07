@@ -373,7 +373,7 @@ export class Router {
      * @param    options an options object
      * @returns  returns the route name if creation is successful.
      */
-    mount(options: RouteOptions, ...handlers: RequestHandlerType[]): string;
+    mount(options: MountOptions, ...handlers: RequestHandlerType[]): string;
 
     /**
      * unmounts a route.
