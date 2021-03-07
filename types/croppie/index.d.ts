@@ -58,7 +58,8 @@ declare namespace Croppie {
         enableOrientation?: boolean;
         enableZoom?: boolean;
         enforceBoundary?: boolean;
-        mouseWheelZoom?: boolean;
+        enableResize?: boolean;
+        mouseWheelZoom?: boolean | 'ctrl';
         showZoomer?: boolean;
         viewport?: { width: number, height: number, type?: CropType };
     }
