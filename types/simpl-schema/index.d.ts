@@ -148,13 +148,21 @@ interface SimpleSchemaValidationError {
 type IntegerSchema = "SimpleSchema.Integer";
 
 export type SimpleSchemaDefinition = {
-    [key: string]: SchemaDefinition
-      | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
+    [key: string]:
+      | SchemaDefinition
+      | BooleanConstructor
+      | StringConstructor
+      | NumberConstructor
+      | DateConstructor
       | ArrayConstructor
       | IntegerSchema
-      | StringConstructor[] | NumberConstructor[] | IntegerSchema[]
-      | string | RegExp
-      | SimpleSchema
+      | [StringConstructor]
+      | [NumberConstructor]
+      | [IntegerSchema]
+      | [SimpleSchema]
+      | string
+      | RegExp
+      | SimpleSchema;
   } | any[];
 
 type SimpleSchemaCreateFunc = (options: { label: string; regExp: string }) => string;

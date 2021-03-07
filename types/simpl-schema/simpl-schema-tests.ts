@@ -132,6 +132,7 @@ new SimpleSchema({
     arrayOfString: [String],
     arrayOfNumber: [Number],
     arrayOfInteger: [SimpleSchema.Integer],
+    arrayOfSchema: [StringSchema],
     oneOfTest: SimpleSchema.oneOf(String, SimpleSchema.Integer, Number, Boolean, /regextest/),
     subSchema: StringSchemaWithOptions
 });
