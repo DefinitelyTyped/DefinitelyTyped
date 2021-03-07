@@ -122,6 +122,7 @@ const awsServerless: Aws.Serverless = {
     },
     frameworkVersion: 'testFrameworkVersion',
     configValidationMode: 'error',
+    variablesResolutionMode: '20210219',
     provider: {
         name: 'aws',
         runtime: 'testRuntime',
