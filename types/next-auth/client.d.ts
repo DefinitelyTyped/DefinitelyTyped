@@ -52,7 +52,7 @@ declare function signin(
         callbackUrl?: string;
         redirect?: boolean;
     },
-    authorizationParams?: GenericObject
+    authorizationParams?: string | string[][] | GenericObject | URLSearchParams
 ): Promise<void>;
 declare const signIn: typeof signin;
 declare function signout(
