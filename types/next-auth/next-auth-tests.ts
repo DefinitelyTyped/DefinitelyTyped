@@ -258,6 +258,9 @@ client.csrfToken({ req });
 // $ExpectType Promise<void>
 client.signin('github', { data: 'foo', redirect: false });
 
+// $ExpectType Promise<CredentialsSignInReturn>
+client.signin('credentials', { data: 'foo', redirect: false });
+
 // $ExpectType Promise<void>
 client.signout();
 
