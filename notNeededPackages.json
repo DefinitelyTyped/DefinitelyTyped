@@ -5033,6 +5033,11 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "webpack-merge",
+            "typingsPackageName": "webpack-merge",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "typescript",
             "typingsPackageName": "whatwg-streams",
             "asOfVersion": "3.2.1"
