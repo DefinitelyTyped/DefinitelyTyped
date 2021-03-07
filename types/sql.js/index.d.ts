@@ -1,7 +1,6 @@
 // Type definitions for sql.js 1.4
 // Project: https://github.com/sql-js/sql.js
-// Definitions by: George Wu <https://github.com/Hozuki>,
-//                 Florian Imdahl <https://github.com/ffflorian>
+// Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
