@@ -8,4 +8,4 @@
 // This file enables users to specify `types: ["jest/global-types"]` in tsconfig.json
 // to clarify their intention.
 
-import "./index";
+/// <reference path="./index.d.ts" />
