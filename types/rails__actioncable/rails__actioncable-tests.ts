@@ -34,6 +34,75 @@ consumer.connect(); // $ExpectType boolean
 consumer.disconnect(); // $ExpectType any
 consumer.ensureActiveConnection(); // $ExpectType boolean | void
 
+{
+    const subscription = consumer.subscriptions.create(
+        { channel: 'channel', room: 'room' },
+        {
+            received(data) {
+                this.appendLine(data);
+            },
+            appendLine(data: any) {
+                const html = this.createLine(data);
+                const element = document.querySelector("[data-chat-room='Best Room']");
+
+                if (element) {
+                    element.insertAdjacentHTML('beforeend', html);
+                }
+            },
+            createLine(data: any) {
+                return `
+                    <article class="chat-line">
+                        <span class="speaker">${data['sent_by']}</span>
+                        <span class="body">${data['body']}</span>
+                    </article>
+                `;
+            },
+            initialized() {
+                this.update = this.update.bind(this);
+            },
+            connected() {
+                this.install();
+                this.update();
+            },
+            disconnected() {
+                this.uninstall();
+            },
+            rejected() {
+                this.uninstall();
+            },
+            update() {
+                if (this.documentIsActive) {
+                    this.appear();
+                } else {
+                    this.away();
+                }
+            },
+            appear() {
+                this.perform('appear', { appearing_on: this.appearingOn });
+            },
+            away() {
+                this.perform('away');
+            },
+            install() {
+                window.addEventListener('focus', this.update);
+                window.addEventListener('blur', this.update);
+                document.addEventListener('turbolinks:load', this.update);
+                document.addEventListener('visibilitychange', this.update);
+            },
+            uninstall() {
+                window.removeEventListener('focus', this.update);
+                window.removeEventListener('blur', this.update);
+                document.removeEventListener('turbolinks:load', this.update);
+                document.removeEventListener('visibilitychange', this.update);
+            },
+        },
+    );
+
+    subscription.uninstall();
+    subscription.away();
+    subscription.update();
+}
+
 /**
  * Connection
  */
@@ -52,7 +121,7 @@ Connection.events.open(); // $ExpectType void
 Connection.events.close(); // $ExpectType void
 Connection.events.error(); // $ExpectType void
 
-const connection = new Connection(consumer); // $ExpectType Connection
+const connection = new Connection(consumer); // $ExpectType Connection<Consumer>
 
 connection.send({}); // $ExpectType boolean
 connection.open(); // $ExpectType boolean
@@ -69,7 +138,7 @@ connection.isActive(); // $ExpectType boolean
 ConnectionMonitor.staleThreshold; // $ExpectType number
 ConnectionMonitor.reconnectionBackoffRate; // $ExpectType number
 
-const connectionMonitor = new ConnectionMonitor(connection); // $ExpectType ConnectionMonitor
+const connectionMonitor = new ConnectionMonitor(connection); // $ExpectType ConnectionMonitor<Connection<Consumer>>
 
 connectionMonitor.start(); // $ExpectType void
 connectionMonitor.stop(); // $ExpectType void
@@ -81,17 +150,17 @@ connectionMonitor.recordDisconnect(); // $ExpectType void
 /**
  * Subscription
  */
-const subscription = new Subscription(consumer); // $ExpectType Subscription
+const subscription = new Subscription(consumer); // $ExpectType Subscription<Consumer>
 
 subscription.perform('action'); // $ExpectType boolean
 subscription.perform('action', {}); // $ExpectType boolean
 subscription.send({}); // $ExpectType boolean
-subscription.unsubscribe(); // $ExpectType Subscription
+subscription.unsubscribe(); // $ExpectType Subscription<Consumer>
 
 /**
  * Subscriptions
  */
-const subscriptions = new Subscriptions(consumer); // $ExpectType Subscriptions
+const subscriptions = new Subscriptions(consumer); // $ExpectType Subscriptions<Consumer>
 
-subscriptions.create('channel'); // $ExpectType Subscription
-subscriptions.create({ channel: 'channel' }); // $ExpectType Subscription
+subscriptions.create('channel'); // $ExpectType Subscription<Consumer> & Mixin
+subscriptions.create({ channel: 'channel', room: 'room' }); // $ExpectType Subscription<Consumer> & Mixin

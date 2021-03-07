@@ -2,6 +2,7 @@
 // Project: https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.6
 
 export as namespace ActionCable;
 
@@ -19,6 +20,25 @@ export enum DisconnectReasons {
     unauthorized = 'unauthorized',
 }
 
+export interface Mixin {
+    appear?(): void;
+    away?(): void;
+    connected?(): void;
+    disconnected?(): void;
+    initialized?(): void;
+    install?(): void;
+    rejected?(): void;
+    uninstall?(): void;
+    update?(): void;
+
+    received?(data: any): void;
+
+    readonly documentIsActive?: boolean;
+    readonly appearingOn?: string | null;
+
+    [key: string]: any;
+}
+
 /**
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/internal.js
  */
@@ -32,12 +52,20 @@ export const INTERNAL: {
 /**
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/connection.js
  */
-export class Connection {
-    constructor(consumer: Consumer);
+export class Connection<C = Consumer> {
+    constructor(consumer: C);
+
+    readonly consumer: C;
+
+    readonly subscriptions: Subscriptions<C>;
+
+    readonly monitor: ConnectionMonitor<C>;
+
+    readonly disconnected: boolean;
 
     send(data: object): boolean;
 
-    open(): boolean;
+    open(this: Connection<C>): boolean;
 
     close(options?: { allowReconnect: boolean }): any;
 
@@ -73,8 +101,12 @@ export class Connection {
 /**
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/connection_monitor.js
  */
-export class ConnectionMonitor {
-    constructor(connection: Connection);
+export class ConnectionMonitor<C = Consumer> {
+    constructor(connection: C);
+
+    readonly connection: C;
+
+    readonly reconnectAttempts: number;
 
     start(): void;
 
@@ -88,6 +120,8 @@ export class ConnectionMonitor {
 
     recordDisconnect(): void;
 
+    visibilityDidChange(this: ConnectionMonitor<C>): void;
+
     static readonly staleThreshold: number;
 
     static readonly reconnectionBackoffRate: number;
@@ -99,7 +133,11 @@ export class ConnectionMonitor {
 export class Consumer {
     constructor(url: string);
 
-    url: string;
+    readonly subscriptions: Subscriptions<this>;
+
+    readonly connection: Connection<this>;
+
+    get url(): string;
 
     send(data: object): boolean;
 
@@ -113,8 +151,12 @@ export class Consumer {
 /**
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/subscription.js
  */
-export class Subscription {
-    constructor(consumer: Consumer, params?: object, mixin?: any);
+export class Subscription<C = Consumer> {
+    constructor(consumer: C, params?: object, mixin?: Mixin);
+
+    readonly consumer: C;
+
+    readonly identifier: string;
 
     perform(action: string, data?: object): boolean;
 
@@ -126,10 +168,14 @@ export class Subscription {
 /**
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/subscriptions.js
  */
-export class Subscriptions {
-    constructor(consumer: Consumer);
+export class Subscriptions<C = Consumer> {
+    constructor(consumer: C);
 
-    create(channelName: string | { channel: string }, mixin?: any): Subscription;
+    readonly consumer: C;
+
+    readonly subscriptions: Array<Subscription<C>>;
+
+    create<M>(channelName: string | { channel: string; room?: string }, mixin?: Mixin & M): Subscription<C> & Mixin & M;
 }
 
 /**
