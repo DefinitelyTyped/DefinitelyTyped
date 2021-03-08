@@ -97,6 +97,13 @@ export interface BigConstructor {
      * Default value: 21
      */
     PE: number;
+    /**
+     * The strict value determines if arguments and return values should be strictly string types.
+     * A number type as an argument will throw an error, and the toNumber method will return a string (effectively doesn't work) 
+     *
+     * Default value: false
+     */
+    strict: boolean;
 }
 
 export interface Big {
