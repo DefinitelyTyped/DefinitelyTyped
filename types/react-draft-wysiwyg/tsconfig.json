@@ -28,6 +28,6 @@
         "test/uncontrolled-raw-draft-content-state.tsx",
         "test/custom-style-map-tests.tsx",
         "test/render-with-test-id.tsx",
-        "test/render-with-handle-key-command.tsx",
+        "test/render-with-handle-key-command.tsx"
     ]
 }
