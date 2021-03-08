@@ -18,6 +18,8 @@ cheerio(html);
 cheerio('ul', html);
 cheerio('li', 'ul', html);
 
+cheerio.load([$('ul').get(0)]);
+
 const $fromElement = cheerio.load($('ul').get(0));
 
 if ($fromElement('ul > li').length !== 3) {

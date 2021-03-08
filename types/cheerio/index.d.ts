@@ -313,7 +313,7 @@ declare namespace cheerio {
     interface CheerioAPI extends Root {
         version: string;
         load(html: string | Buffer, options?: CheerioParserOptions): Root;
-        load(element: Element, options?: CheerioParserOptions): Root;
+        load(element: Element | Element[], options?: CheerioParserOptions): Root;
     }
 }
 
