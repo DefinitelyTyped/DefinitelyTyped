@@ -7,20 +7,21 @@ import * as React from 'react';
 
 import { TextFieldProps } from '@material-ui/core/TextField';
 
-type Region =
-    | 'america'
-    | 'europe'
-    | 'asia'
-    | 'oceania'
-    | 'africa'
-    | 'north-america'
-    | 'south-america'
-    | 'central-america'
-    | 'carribean'
-    | 'european-union'
-    | 'ex-ussr'
-    | 'middle-east'
-    | 'north-africa';
+export enum Region {
+    America = 'america',
+    Europe = 'europe',
+    Asia = 'asia',
+    Oceania = 'oceania',
+    Africa = 'africa',
+    NorthAmerica = 'north-america',
+    SouthAmerica = 'south-america',
+    CentralAmerica = 'central-america',
+    Carribean = 'carribean',
+    EuropeanUnion = 'european-union',
+    ExUSSR = 'ex-ussr',
+    MiddleEast = 'middle-east',
+    NorthAfrica = 'north-africa',
+}
 
 export type Localization = Record<string, string>;
 
