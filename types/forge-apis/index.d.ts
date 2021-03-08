@@ -1,6 +1,6 @@
-// Type definitions for Forge-apis 0.7
+// Type definitions for Forge-apis 0.8.5
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>
+// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>, Cyrille Fauvel <https://github.com/cyrillef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -93,193 +93,6 @@ export class AuthClientThreeLegged {
 
 export type AuthClient = AuthClientTwoLegged | AuthClientThreeLegged;
 
-export interface Activity {
-    Id: string;
-    Instruction: object;
-    AppPackages: string[];
-    RequiredEngineVersion: string;
-    Parameters: object;
-    AllowedChildProcesses: object[];
-    Version: number;
-    Description?: string;
-    HostApplication?: string;
-    IsPublic: boolean;
-}
-
-export interface ActivityOptional {
-    Id?: string;
-    Instruction?: object;
-    AppPackages?: string[];
-    RequiredEngineVersion?: string;
-    Parameters?: object;
-    AllowedChildProcesses?: object[];
-    Version?: number;
-    Description?: string;
-    HostApplication?: string;
-    IsPublic?: boolean;
-}
-
-export interface ActivityVersion {
-    Version?: number;
-}
-
-export class ActivitiesApi {
-    /**
-     * Creates a new Activity.
-     */
-    createActivity(activity: Activity, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Removes a specific Activity.
-     */
-    deleteActivity(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Removes the version history of the specified Activity.
-     */
-    deleteActivityHistory(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of a specific Activity.
-     */
-    getActivity(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns all old versions of a specified Activity.
-     */
-    getActivityVersions(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of all Activities.
-     */
-    getAllActivities(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Updates an Activity by specifying only the changed attributes.
-     */
-    patchActivity(
-        id: string,
-        activity: ActivityOptional,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-
-    /**
-     * Sets the Activity to the specified version.
-     */
-    setActivityVersion(
-        id: string,
-        activity: ActivityOptional,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-}
-
-export interface AppPackage {
-    id: string;
-    resource: string;
-    references: string[];
-    requiredEngineVersion: string;
-    version: number;
-    description?: string;
-    isPublic?: boolean;
-    isObjectEnabler?: boolean;
-}
-
-export interface AppPackageOptional {
-    id?: string;
-    resource?: string;
-    references?: string[];
-    requiredEngineVersion?: string;
-    version?: number;
-    description?: string;
-    isPublic?: boolean;
-    isObjectEnabler?: boolean;
-}
-
-export interface AppPackageVersion {
-    version?: number;
-}
-
-export class AppPackagesApi {
-    /**
-     * Creates an AppPackage module.
-     */
-    createAppPackage(appPackage: AppPackage, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Removes a specific AppPackage.
-     */
-    deleteAppPackage(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Removes the version history of the specified AppPackage.
-     */
-    deleteAppPackageHistory(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of all AppPackages.
-     */
-    getAllAppPackages(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of a specific AppPackage.
-     */
-    getAppPackage(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns all old versions of a specified AppPackage.
-     */
-    getAppPackageVersions(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
-     */
-    getUploadUrl(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
-     * Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request
-     * that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require
-     * Content-Type=binary/octet-stream.
-     */
-    getUploadUrlWithRequireContentType(
-        require: boolean,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-
-    /**
-     * Updates an AppPackage by specifying only the changed attributes.
-     */
-    patchAppPackage(
-        id: string,
-        appPackage: AppPackageOptional,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-
-    /**
-     * Sets the AppPackage to the specified version.
-     */
-    setAppPackageVersion(
-        id: string,
-        appPackageVersion: AppPackageVersion,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-
-    /**
-     * Updates an AppPackage by redefining the entire Activity object.
-     */
-    updateAppPackage(
-        id: string,
-        appPackage: AppPackage,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-}
-
 export interface PostBucketsPayloadAllow {
     authId: string;
     access: string;
@@ -292,6 +105,7 @@ export interface PostBucketsPayload {
 }
 
 export class BucketsApi {
+    constructor(apiClient?: any);
     /**
      * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications.
      * Bucket keys are globally unique across all regions, regardless of where they were created, and they
@@ -352,6 +166,7 @@ export interface JobPayload {
 }
 
 export class CommandsApi {
+    constructor(apiClient?: any);
     /**
      * Checks if a user has permission to perform specified actions on specified resources.
      */
@@ -383,7 +198,19 @@ export class CommandsApi {
     getPublishModelJob(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
 }
 
+export namespace DerivativesApi {
+
+    export enum RegionEnum {
+        US = 'US',
+        EMEA = 'EMEA',
+        EU = 'EMEA'
+    }
+
+}
+
 export class DerivativesApi {
+    constructor(apiClient?: any, region?: string);
+
     /**
      * Deletes the manifest and all its translated output files (derivatives). However, it does not delete the design source file.
      */
@@ -399,6 +226,17 @@ export class DerivativesApi {
         urn: string,
         derivativeUrn: string,
         opts: { range?: number },
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
+
+    /**
+     * Returns information about the specified derivative.
+     */
+    getDerivativeManifestInfo(
+        urn: string,
+        derivativeUrn: string,
+        opts: any,
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -453,7 +291,7 @@ export class DerivativesApi {
     getModelviewMetadata(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string },
+        opts: { acceptEncoding?: string, xAdsForce?: boolean, forceget?: boolean },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -468,7 +306,7 @@ export class DerivativesApi {
     getModelviewProperties(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string },
+        opts: { acceptEncoding?: string, xAdsForce?: boolean, forceget?: boolean, objectid?: number },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -484,6 +322,18 @@ export class DerivativesApi {
     ): Promise<ApiResponse>;
 
     /**
+     * To create references for a composite design in Model Derivative. The description of references is stored in 
+     * Model Derivative. To use it with the POST job endpoint, you need to set checkReferences to true.
+     */
+    setReferences(
+        urn: string,
+        body: any,
+        opts: any,
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
+
+    /**
      * Translate a source file from one format to another. Derivatives are stored in a manifest that is updated each time this endpoint
      * is used on a source file. Note that this endpoint is asynchronous and initiates a process that runs in the background, rather
      * than keeping an open HTTP connection until completion. Use the GET {urn}/manifest endpoint to poll for the job’s completion.
@@ -494,18 +344,6 @@ export class DerivativesApi {
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
-}
-
-export class EnginesApi {
-    /**
-     * Returns the details of all available AutoCAD core engines.
-     */
-    getAllEngines(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of a specific AutoCAD core engine.
-     */
-    getEngine(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
 }
 
 export interface JsonApiVersionJsonapi {
@@ -610,6 +448,7 @@ export interface CommandsBodyObjectData {
 }
 
 export class FoldersApi {
+    constructor(apiClient?: any);
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project
      * are associated with their own unique ID, including the root folder.
@@ -706,6 +545,7 @@ export class FoldersApi {
 }
 
 export class HubsApi {
+    constructor(apiClient?: any);
     /**
      * Returns data on a specific `hub_id`.
      */
@@ -782,6 +622,7 @@ export interface CreateItem {
 }
 
 export class ItemsApi {
+    constructor(apiClient?: any);
     /**
      * Returns a resource item by ID for any item within a given project. Resource items represent word documents, fusion design files, drawings, spreadsheets, etc.
      */
@@ -882,6 +723,7 @@ export interface PostBucketsSigned {
 }
 
 export class ObjectsApi {
+    constructor(apiClient?: any);
     /**
      * Copies an object to another object name in the same bucket.
      */
@@ -922,9 +764,7 @@ export class ObjectsApi {
      */
     deleteSignedResource(
         id: string,
-        region: string,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
+        region: string
     ): Promise<ApiResponse>;
 
     /**
@@ -970,9 +810,7 @@ export class ObjectsApi {
             ifModifiedSince?: string;
             acceptEncoding?: string;
             region?: string;
-        },
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
+        }
     ): Promise<ApiResponse>;
 
     /**
@@ -1023,9 +861,7 @@ export class ObjectsApi {
         id: string,
         contentLength: number,
         body: string | Buffer,
-        opts: { contentDisposition?: string; xAdsRegion?: string; ifMatch?: string },
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
+        opts: { contentDisposition?: string; xAdsRegion?: string; ifMatch?: string }
     ): Promise<ApiResponse>;
 
     /**
@@ -1033,12 +869,10 @@ export class ObjectsApi {
      */
     uploadSignedResourcesChunk(
         id: string,
-        contentLength: number,
+        contentRange: number,
         sessionId: string,
         body: string | Buffer,
-        opts: { contentDisposition?: string; ifMatch?: string },
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
+        opts: { contentDisposition?: string; xAdsRegion?: string; ifMatch?: string }
     ): Promise<ApiResponse>;
 }
 
@@ -1058,6 +892,7 @@ export interface CreateStorage {
 }
 
 export class ProjectsApi {
+    constructor(apiClient?: any);
     /**
      * Returns a collection of projects for a given `hub_id`. A project represents an A360 project or a BIM 360 project which
      * is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be
@@ -1112,6 +947,7 @@ export class ProjectsApi {
 }
 
 export class UserProfileApi {
+    constructor(apiClient?: any);
     /**
      * Returns the profile information of an authorizing end user.
      */
@@ -1144,6 +980,7 @@ export interface CreateVersion {
 }
 
 export class VersionsApi {
+    constructor(apiClient?: any);
     /**
      * Returns the version with the given `version_id`.
      */
@@ -1217,35 +1054,101 @@ export class VersionsApi {
     ): Promise<ApiResponse>;
 }
 
-export interface WorkItem {
-    Id: string;
-    Arguments: object;
-    Status?: string;
-    StatusDetail?: object;
-    AvailabilityZone?: string;
-    ActivityId: string;
-    Version?: number;
-    Timestamp?: string;
+export namespace WebhooksApi {
+
+    export enum RegionEnum {
+        US = 'US',
+        EMEA = 'EMEA',
+        EU = 'EMEA'
+    }
+
+    export enum StatusEnum {
+        Active = 'active',
+        Inactive = 'inactive',
+    }
+
+    export enum WebhooksSystemEnum {
+        derivative = 'derivative',
+        data = 'data',
+        c4r = 'adsk.c4r'
+    }
+
+    export enum WebhookEventEnum {
+        // Data Management
+        VersionAdded = 'dm.version.added',
+        VersionModified = 'dm.version.modified',
+        VersionDeleted = 'dm.version.deleted',
+        VersionMoved = 'dm.version.moved',
+        VersionCopied = 'dm.version.copied',
+        FolderAdded = 'dm.folder.added',
+        FolderModified = 'dm.folder.modified',
+        FolderDeleted = 'dm.folder.deleted',
+        FolderMoved = 'dm.folder.moved',
+        FolderCopied = 'dm.folder.copied',
+
+        // Model Derivatives
+        ExtractionFinished = 'extraction.finished',
+        ExtractionUpdated = 'extraction.updated',
+
+        // Revit Cloud Worksharing
+        ModelSync = 'model.sync',
+        ModelPublish = 'model.publish',
+
+        // Fusion Lifecycle
+        ItemClone = 'item.clone',
+        ItemCreate = 'item.create',
+        ItemLock = 'item.lock',
+        ItemRelease = 'item.release',
+        ItemUnlock = 'item.unlock',
+        ItemUpdate = 'item.update',
+        WorkflowTransition = 'workflow.transition'
+    }
+
+    export interface HooksOptions {
+        acceptEncoding?: string;
+        xAdsRegion?: RegionEnum;
+        status?: StatusEnum;
+        pageState?: string;
+        scopeName?: string;
+        scopeValue?: string;
+        hookAttribute?: any;
+        tenant?: string;
+        filter?: string;
+        hubId: string;
+        projectId?: string;
+    }
+
 }
 
-export class WorkItemsApi {
-    /**
-     * Creates a new WorkItem.
-     */
-    createWorkItem(workItem: WorkItem, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+export class WebhooksApi {
+    constructor(apiClient?: any, region?: WebhooksApi.RegionEnum);
+    GetHooks(opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    GetSystemHooks(webhooksSystem: WebhooksApi.WebhooksSystemEnum, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    GetSystemEventsHooks(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    GetHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, hookId: string, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    CreateSystemHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, callbackUrl: string, scope: any, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    CreateSystemEventHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, callbackUrl: string, scope: any, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    UpdateSystemEventHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, hookId: string, payload: string, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    DeleteHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, hookId: string, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+}
 
-    /**
-     * Removes a specific WorkItem.
-     */
-    deleteWorkItem(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+export namespace TokensApi {
 
-    /**
-     * Returns the details of all WorkItems.
-     */
-    getAllWorkItems(skip: number, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    export enum RegionEnum {
+        US = 'US',
+        EMEA = 'EMEA',
+        EU = 'EMEA'
+    }
 
-    /**
-     * Returns the details of a specific WorkItem.
-     */
-    getWorkItem(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    export interface TokensOptions {
+        xAdsRegion?: RegionEnum;
+    }
+
+}
+
+export class TokensApi {
+    constructor(apiClient?: any, region?: WebhooksApi.RegionEnum);
+    CreateToken(token: string, opts: TokensApi.TokensOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    UpdateToken(token: string, opts: TokensApi.TokensOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    DeleteToken(opts: TokensApi.TokensOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
 }
