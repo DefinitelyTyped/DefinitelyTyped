@@ -858,14 +858,60 @@ declare namespace jasmine {
     interface PassedExpectation extends CustomReportExpectation {
     }
 
+    interface DeprecatedExpectation {
+        message: string;
+    }
+
     interface CustomReporterResult {
-        description: string;
-        failedExpectations?: FailedExpectation[];
-        fullName: string;
+        /**
+         * The unique id of this spec.
+         */
         id: string;
+
+        /**
+         * The description passed to the {@link it} that created this spec.
+         */
+        description: string;
+
+        /**
+         * The full description including all ancestors of this spec.
+         */
+        fullName: string;
+
+        /**
+         * The list of expectations that failed during execution of this spec.
+         */
+        failedExpectations?: FailedExpectation[];
+
+        /**
+         * The list of expectations that passed during execution of this spec.
+         */
         passedExpectations?: PassedExpectation[];
+
+        /**
+         * The list of deprecation warnings that occurred during execution this spec.
+         */
+        deprecationWarnings?: DeprecatedExpectation[];
+
+        /**
+         * If the spec is pending, this will be the reason.
+         */
         pendingReason?: string;
+
+        /**
+         * Once the spec has completed, this string represents the pass/fail status of this spec.
+         */
         status?: string;
+
+        /**
+         * The time in ms used by the spec execution, including any before/afterEach.
+         */
+        duration: number | null;
+
+        /**
+         * User-supplied properties, if any, that were set using {@link Env.setSpecProperty}
+         */
+        properties: { [key: string]: unknown } | null;
     }
 
     interface RunDetails {
