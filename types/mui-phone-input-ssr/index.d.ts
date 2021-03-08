@@ -5,7 +5,7 @@
 
 import * as React from 'react';
 
-import { StandardTextFieldProps } from '@material-ui/core/TextField';
+import { TextFieldProps } from '@material-ui/core/TextField';
 
 type Region =
     | 'america'
@@ -277,4 +277,4 @@ export interface Options {
     localization?: Localization;
 }
 
-export function MuiPhoneNumber(props: Options & StandardTextFieldProps): JSX.Element;
+export function MuiPhoneNumber(props: Options & TextFieldProps): JSX.Element;
