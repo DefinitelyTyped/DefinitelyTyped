@@ -65,7 +65,11 @@ export interface EditorProps {
     wrapperId?: number;
     customDecorators?: object[];
     editorRef?(ref: object): void;
-    handleKeyCommand?(command: string, editorState: EditorState, eventTimeStamp: number): Draft.DraftHandleValue;
+    handleKeyCommand?(
+        command: Draft.DraftEditorCommand,
+        editorState: EditorState,
+        eventTimeStamp: number,
+    ): Draft.DraftHandleValue;
     handlePastedText?(
         text: string,
         html: string,
