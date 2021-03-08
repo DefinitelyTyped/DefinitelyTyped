@@ -1,8 +1,9 @@
-// Type definitions for next-auth 3.5
+// Type definitions for next-auth 3.7
 // Project: https://github.com/iaincollins/next-auth#readme
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>
 //                 Juan <https://github.com/JuanM04>
+//                 Balázs <https://github.com/balazsorban44>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -125,6 +126,7 @@ interface Callbacks {
     ): Promise<GenericObject>;
 }
 
-declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
+declare function NextAuth(options: InitOptions): Promise<void>;
+declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options: InitOptions): Promise<void>;
 export default NextAuth;
 export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, User, Callbacks };
