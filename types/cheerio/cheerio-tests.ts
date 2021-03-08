@@ -344,7 +344,7 @@ cheerio.html($el);
 cheerio.version;
 
 const doSomething = (element: cheerio.Element): void => {
-    if (element.type !== 'text' && element.type !== 'comment') {
+    if (element.type !== 'text' && element.type !== 'comment' && element.type !== 'script' && element.type !== 'style') {
         // $ExpectType { [attr: string]: string; }
         element.attribs;
         // $ExpectType Element[]
@@ -355,8 +355,8 @@ const doSomething = (element: cheerio.Element): void => {
     let a = element.firstChild;
     // $ExpectError
     let b = element.lastChild;
-    // $ExpectType Element | null
+    // $ExpectType TextElement | TagElement | CommentElement | null
     let c = element.next;
-    // $ExpectType Element | null
+    // $ExpectType TextElement | TagElement | CommentElement | null
     let d = element.prev;
 };
