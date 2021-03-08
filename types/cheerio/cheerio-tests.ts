@@ -355,8 +355,8 @@ const doSomething = (element: cheerio.Element): void => {
     let a = element.firstChild;
     // $ExpectError
     let b = element.lastChild;
-    // $ExpectType TextElement | TagElement | CommentElement | null
+    // $ExpectType Element | null
     let c = element.next;
-    // $ExpectType TextElement | TagElement | CommentElement | null
+    // $ExpectType Element | null
     let d = element.prev;
 };
