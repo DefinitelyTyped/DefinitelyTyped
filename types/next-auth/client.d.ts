@@ -65,6 +65,7 @@ declare function signin(
     provider?: string,
     data?: GenericObject & {
         callbackUrl?: string;
+        redirect?: boolean;
       },
     authorizationParams?: string | string[][] | GenericObject | URLSearchParams
 ): Promise<void>;
