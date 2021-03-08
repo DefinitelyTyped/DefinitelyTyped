@@ -32,6 +32,7 @@ declare module "http" {
         'content-type'?: string;
         'cookie'?: string;
         'date'?: string;
+        'etag'?: string;
         'expect'?: string;
         'expires'?: string;
         'forwarded'?: string;
