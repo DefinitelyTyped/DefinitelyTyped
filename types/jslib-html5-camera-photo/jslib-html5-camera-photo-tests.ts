@@ -98,3 +98,7 @@ cameraPhoto
     .catch(error => {
         /* ... */
     });
+
+if (cameraPhoto.mediaDevices) {
+    cameraPhoto.mediaDevices.getUserMedia();
+}
