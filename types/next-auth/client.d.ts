@@ -58,7 +58,7 @@ declare function signin(
     data?: GenericObject & {
         callbackUrl?: string;
         redirect?: false;
-      },
+    },
     authorizationParams?: string | string[][] | GenericObject | URLSearchParams
   ): Promise<SignInResponse>;
 declare function signin(
@@ -66,7 +66,7 @@ declare function signin(
     data?: GenericObject & {
         callbackUrl?: string;
         redirect?: boolean;
-      },
+    },
     authorizationParams?: string | string[][] | GenericObject | URLSearchParams
 ): Promise<void>;
 declare const signIn: typeof signin;
