@@ -59,7 +59,7 @@ export interface CaptureConfigOption {
 declare class CameraPhoto {
     videoElement: HTMLVideoElement;
     windowURL: URL;
-    mediaDevices: MediaDevices;
+    mediaDevices: MediaDevices | null;
     settings: MediaTrackSettings | null;
     numberOfMaxResolutionTry: number;
     stream: MediaStream | null;
