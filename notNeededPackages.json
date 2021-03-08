@@ -1687,6 +1687,11 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "http-proxy-middleware",
+            "typingsPackageName": "http-proxy-middleware",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "http-status",
             "typingsPackageName": "http-status",
             "asOfVersion": "1.1.1"
