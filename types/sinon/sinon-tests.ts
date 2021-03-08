@@ -430,6 +430,17 @@ function testTypedSpy() {
     setterSpy.set.calledWith(100);
 }
 
+function testInstanceSpy() {
+    const obj: {
+        foo(arg: number): string
+    } = <any> {};
+
+    const spy = sinon.spy(obj); // $ExpectType SinonSpiedInstance<{ foo(arg: number): string; }>
+
+    spy.foo.calledWith(5);
+    spy.foo.returns('bar'); // $ExpectError
+}
+
 function testSpy() {
     let fn = (arg: string, arg2: number): boolean => true;
     const obj = class {

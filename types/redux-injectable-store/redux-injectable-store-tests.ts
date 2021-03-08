@@ -1,5 +1,5 @@
 import { createInjectableStore } from "redux-injectable-store";
-import { applyMiddleware, compose, AnyAction, Middleware } from "redux";
+import { applyMiddleware, Middleware } from "redux";
 
 interface State {
     foo: string;
@@ -14,9 +14,11 @@ const enhancer = applyMiddleware(...middleware);
 const store = createInjectableStore<State>(initialState, enhancer);
 const anotherStore = createInjectableStore<State>(initialState, enhancer, reducer => reducer);
 
-const dummyReducer = (state: string) => state;
+const dummyReducer = (state: State) => state;
 
 store.inject("foo", dummyReducer);
+store.inject("bar", dummyReducer, true);
+store.clearReducers();
 
 anotherStore.injectAll({
     bar: dummyReducer,

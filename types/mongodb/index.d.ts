@@ -1903,7 +1903,7 @@ export type PullAllOperator<TSchema> = ({
 /** @see https://docs.mongodb.com/manual/reference/operator/update */
 export type UpdateQuery<TSchema> = {
     /** @see https://docs.mongodb.com/manual/reference/operator/update-field/ */
-    $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
+    $currentDate?: OnlyFieldsOfType<TSchema, Date | Timestamp, true | { $type: 'date' | 'timestamp' }>;
     $inc?: OnlyFieldsOfType<TSchema, NumericTypes | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;

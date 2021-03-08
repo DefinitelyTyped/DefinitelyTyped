@@ -555,4 +555,11 @@ export class CometD {
         isListener: boolean,
         message: string,
     ) => void;
+
+    /**
+     * Shorthand property to enable or disable websocket transport.
+     * Must be set before performing the initial CometD handshake.
+     * Functionally equivelant to cometd.unregisterTransport('websocket');
+     */
+    websocketEnabled: boolean;
 }

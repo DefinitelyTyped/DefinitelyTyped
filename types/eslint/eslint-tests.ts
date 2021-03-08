@@ -538,6 +538,7 @@ linter.defineParser('custom-parser', {
 
 let eslint: ESLint;
 
+eslint = new ESLint();
 eslint = new ESLint({ allowInlineConfig: false });
 eslint = new ESLint({ baseConfig: {} });
 eslint = new ESLint({ overrideConfig: {} });

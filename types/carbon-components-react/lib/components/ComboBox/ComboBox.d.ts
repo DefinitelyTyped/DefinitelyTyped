@@ -31,6 +31,8 @@ export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<I
     size?: ListBoxSize,
     titleText?: React.ReactNode,
     type?: ListBoxProps["type"],
+    warn?: boolean;
+    warnText?: React.ReactNode;
 }
 
 declare class ComboBox<T = string> extends React.Component<ComboBoxProps<T>> { }

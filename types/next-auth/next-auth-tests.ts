@@ -189,6 +189,12 @@ const allConfig = {
 };
 
 // $ExpectType Promise<void>
+NextAuth(simpleConfig);
+
+// $ExpectType Promise<void>
+NextAuth(allConfig);
+
+// $ExpectType Promise<void>
 NextAuth(req, res, simpleConfig);
 
 // $ExpectType Promise<void>
@@ -256,7 +262,7 @@ client.getCsrfToken({ req });
 client.csrfToken({ req });
 
 // $ExpectType Promise<void>
-client.signin('github', { data: 'foo', redirect: false });
+client.signin('github', { data: 'foo', redirect: false }, { login: 'username' });
 
 // $ExpectType Promise<CredentialsSignInReturn>
 client.signin('credentials', { data: 'foo', redirect: false });
@@ -418,11 +424,11 @@ Providers.Auth0({
     clientSecret: 'bar123',
     domain: 'https://foo.auth0.com',
     profile: () => ({
-      id: 'foo123',
-      name: 'foo',
-      email: 'foo@bar.io',
-      image: 'https://foo.auth0.com/image/1.png',
-    })
+        id: 'foo123',
+        name: 'foo',
+        email: 'foo@bar.io',
+        image: 'https://foo.auth0.com/image/1.png',
+    }),
 });
 
 // $ExpectType GenericReturnConfig

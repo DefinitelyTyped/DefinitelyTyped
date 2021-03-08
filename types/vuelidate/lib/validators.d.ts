@@ -49,7 +49,7 @@ export function integer(): ValidationRule
 export function decimal(): ValidationRule
 export function email(): ValidationRule
 export function ipAddress(): ValidationRule
-export function macAddress(): ValidationRule
+export function macAddress(separator: string): ValidationRule
 export function sameAs(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
 export function url(): ValidationRule
 export function not(validator: ValidationRule | CustomRule): ValidationRule
