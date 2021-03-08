@@ -69,3 +69,7 @@ const res3_2: state.Selection = state.Selection.findFrom({} as model.ResolvedPos
 
 const res4_1 = new state.PluginKey<string>();
 const res4_2: string = res4_1.getState({} as state.EditorState)!;
+
+const res5_1 = new state.PluginKey();
+// // $ExpectType unknown
+res5_1.getState({} as state.EditorState);

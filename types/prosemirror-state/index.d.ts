@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-state 1.2
+// Type definitions for prosemirror-state 1.3
 // Project: https://github.com/ProseMirror/prosemirror-state, https://github.com/prosemirror/prosemirror
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -16,7 +16,7 @@ import { EditorProps, EditorView } from 'prosemirror-view';
  * This is the type passed to the [`Plugin`](#state.Plugin)
  * constructor. It provides a definition for a plugin.
  */
-export interface PluginSpec<T = any, S extends Schema = any> {
+export interface PluginSpec<T = unknown, S extends Schema = any> {
     /**
      * The [view props](#view.EditorProps) added by this plugin. Props
      * that are functions will be bound to have the plugin instance as
@@ -76,7 +76,7 @@ export interface PluginSpec<T = any, S extends Schema = any> {
  * They are part of the [editor state](#state.EditorState) and
  * may influence that state and the view that contains it.
  */
-export class Plugin<T = any, S extends Schema = any> {
+export class Plugin<T = unknown, S extends Schema = any> {
     /**
      * Create a plugin.
      */
@@ -100,7 +100,7 @@ export class Plugin<T = any, S extends Schema = any> {
  * describes the state it wants to keep. Functions provided here are
  * always called with the plugin instance as their `this` binding.
  */
-export interface StateField<T = any, S extends Schema = Schema> {
+export interface StateField<T = unknown, S extends Schema = Schema> {
     /**
      * Initialize the value of the field. `config` will be the object
      * passed to [`EditorState.create`](#state.EditorState^create). Note
@@ -132,7 +132,7 @@ export interface StateField<T = any, S extends Schema = Schema> {
  * editor state. Assigning a key does mean only one plugin of that
  * type can be active in a state.
  */
-export class PluginKey<T = any, S extends Schema = any> {
+export class PluginKey<T = unknown, S extends Schema = any> {
     /**
      * Create a plugin key.
      */
@@ -141,11 +141,11 @@ export class PluginKey<T = any, S extends Schema = any> {
      * Get the active plugin with this key, if any, from an editor
      * state.
      */
-    get(state: EditorState<S>): Plugin<T, S> | null | undefined;
+    get(state: EditorState<S>): Plugin<T, S> | undefined;
     /**
      * Get the plugin's state from an editor state.
      */
-    getState(state: EditorState<S>): T | null | undefined;
+    getState(state: EditorState<S>): T | undefined;
 }
 /**
  * Superclass for editor selections. Every selection type should
