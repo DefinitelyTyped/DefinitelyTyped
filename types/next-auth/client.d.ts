@@ -28,7 +28,7 @@ interface SetOptionsParams {
     keepAlive?: number;
 }
 
-interface CredentialsSignInReturn {
+interface SignInObjectReturn {
     error: string | undefined;
     status: number;
     ok: boolean;
@@ -38,6 +38,8 @@ interface CredentialsSignInReturn {
 type SignInDataParams = GenericObject & {
   callbackUrl?: string;
 };
+
+type SignInAuthorizationParams = string | string[][] | GenericObject | URLSearchParams;
 
 type ContextProvider = FC<ContextProviderProps>;
 
@@ -58,15 +60,15 @@ declare const getSession: typeof session;
 declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
+    provider: 'credentials' | 'email' | 'string',
+    data?: SignInDataParams,
+    authorizationParams?: SignInAuthorizationParams
+  ): Promise<SignInObjectReturn>;
+declare function signin(
     provider?: string,
     data?: SignInDataParams,
-    authorizationParams?: string | string[][] | GenericObject | URLSearchParams
+    authorizationParams?: SignInAuthorizationParams
 ): Promise<void>;
-declare function signin(
-  provider: 'credentials',
-  data?: SignInDataParams,
-  authorizationParams?: string | string[][] | GenericObject | URLSearchParams
-): Promise<CredentialsSignInReturn>;
 declare const signIn: typeof signin;
 declare function signout(data?: { callbackUrl?: string, redirect?: boolean }): Promise<void>;
 declare const signOut: typeof signout;
