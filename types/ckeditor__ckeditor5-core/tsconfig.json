@@ -22,6 +22,9 @@
             "@ckeditor/ckeditor5-utils": [
                 "ckeditor__ckeditor5-utils/v10"
             ],
+            "@ckeditor/ckeditor5-engine": [
+                "ckeditor__ckeditor5-engine/v11"
+            ],
             "@ckeditor/*": [
                 "ckeditor__*"
             ]

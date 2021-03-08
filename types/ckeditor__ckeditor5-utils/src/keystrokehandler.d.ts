@@ -1,6 +1,7 @@
 import Emitter from "./emittermixin";
 import { KeystrokeInfo } from "./keyboard";
 import { PriorityString } from "./priorities";
+import { KeyEventData } from "@ckeditor/ckeditor5-engine/src/view/observer/keyobserver";
 
 /**
  * Keystroke handler allows registering callbacks for given keystrokes.
@@ -41,16 +42,10 @@ export default class KeystrokeHandler {
     listenTo(emitter: Emitter): void;
     /**
      * Registers a handler for the specified keystroke.
-     *
-     * the {@link module:utils/keyboard~parseKeystroke} function.
-     * {@link module:engine/view/observer/keyobserver~KeyEventData key event data} object and
-     * a helper funcion to call both `preventDefault()` and `stopPropagation()` on the underlying event.
-     * callback. The higher the priority value the sooner the callback will be executed. Keystrokes having the same priority
-     * are called in the order they were added.
      */
     set(
         keystroke: string | Array<string | number>,
-        callback: (keyEvtData: KeystrokeInfo, cancel: () => void) => void,
+        callback: (keyEvtData: KeyEventData, cancel: () => void) => void,
         options?: { priority?: PriorityString | number },
     ): void;
     /**

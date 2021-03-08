@@ -1,81 +1,64 @@
 import * as engine from "@ckeditor/ckeditor5-engine";
+import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
+import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
+import Document from "@ckeditor/ckeditor5-engine/src/model/document";
+import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
+import MarkerCollection from "@ckeditor/ckeditor5-engine/src/model/markercollection";
+import Node from "@ckeditor/ckeditor5-engine/src/model/node";
+import Position from "@ckeditor/ckeditor5-engine/src/model/position";
 
-declare let pattern: engine.view.MatcherPattern;
+const model: engine.Model = new engine.Model();
+const modelMarks: MarkerCollection = model.markers;
+model.createRange;
 
-pattern = {name: /^p/};
+// $ExpectError
+let markerOperation: engine.MarkerOperation = new engine.MarkerOperation();
+markerOperation = new engine.MarkerOperation(
+    "name",
+    model.createRange(model.createPositionFromPath(new DocumentFragment(new Node()), [1])),
+    model.createRange(model.createPositionAt(model.createPositionFromPath(new DocumentFragment(new Node()), [1]))),
+    model.markers,
+    false,
+    1,
+);
 
-pattern = {
-    attributes: {
-        title: "foobar",
-        foo: /^\w+/,
-        bar: true,
-    }
-};
+const range: engine.Range = new engine.Range(
+    model.createPositionAt(new Position(new DocumentFragment([new Node()]), [1])),
+);
+const modelRange: engine.Range = model.createRange(
+    model.createPositionAt(new Position(new DocumentFragment([new Node()]), [1])),
+);
 
-pattern = {
-    classes: "foobar"
-};
+// $ExpectError
+const element: engine.Element = new engine.Element();
 
-pattern = {
-    classes: /foo.../
-};
+const matcher: engine.Matcher = new engine.Matcher("foo", /bar/, () => null);
 
-pattern = {
-    classes: ["baz", "bar", /foo.../]
-};
+// $ExpectError
+const observer: engine.Observer = new engine.Observer();
 
-pattern = {
-    styles: {
-        position: "absolute",
-        color: /^\w*blue$/
-    }
-};
+const treeWalker: engine.TreeWalker = new engine.TreeWalker();
 
-pattern = {
-    name: "span",
-    styles: {
-        "font-weight": "bold"
-    },
-    classes: "highlighted"
-};
+// $ExpectError
+let editingController: engine.EditingController = new engine.EditingController();
+editingController = new engine.EditingController(model, new engine.StylesProcessor());
 
-pattern = (element: engine.view.Element) => {
-    if (element.name === "div" && element.childCount > 0) {
-        return {name: true};
-    }
+// $ExpectError
+let dataController: engine.DataController = new engine.DataController();
+dataController = new engine.DataController(model, new engine.StylesProcessor());
 
-    return null;
-};
+// $ExpectError
+let conversion: engine.Conversion = new engine.Conversion();
+conversion = new engine.Conversion(new DowncastDispatcher(), new UpcastDispatcher());
 
-pattern = (element: engine.view.Element) => {
-    if (element.name === "p") {
-        const fontSize = element.getStyle("font-size")!;
-        const size = fontSize.match(/(\d+)/px);
+// $ExpectError
+let htmlDataProcessor: engine.HtmlDataProcessor = new engine.HtmlDataProcessor();
+htmlDataProcessor = new engine.HtmlDataProcessor(new engine.ViewDocument(new engine.StylesProcessor()));
 
-        if (size && Number(size[1]) > 26) {
-            return {name: true, attribute: ["font-size"]};
-        }
-    }
+// $ExpectError
+let insertOperation: engine.InsertOperation = new engine.InsertOperation();
+insertOperation = new engine.InsertOperation(new Position(new DocumentFragment([new Node()]), [1]), "div", 1);
 
-    return null;
-};
-
-declare let viewDefinition: engine.view.ElementDefinition;
-
-viewDefinition = "p";
-
-viewDefinition = {
-    name: "h1",
-    classes: ["foo", "bar"],
-};
-
-viewDefinition = {
-    name: "span",
-    styles: {
-        "font-size": "12px",
-        "font-weight": "bold",
-    },
-    attributes: {
-        "data-id": "123",
-    }
-};
+// $ExpectError
+let documentSelection: engine.DocumentSelection = new engine.DocumentSelection();
+documentSelection = new engine.DocumentSelection(new Document());

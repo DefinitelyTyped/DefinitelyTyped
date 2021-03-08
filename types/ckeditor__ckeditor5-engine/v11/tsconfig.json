@@ -10,18 +10,26 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../../",
-        "paths": {
-            "@ckeditor/ckeditor5-utils": ["ckeditor__ckeditor5-utils/v10"]
-        },
         "typeRoots": [
             "../../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ckeditor/ckeditor5-utils": [
+                "ckeditor__ckeditor5-utils/v10"
+            ],
+            "@ckeditor/ckeditor5-engine": [
+                "ckeditor__ckeditor5-engine/v11"
+            ],
+            "@ckeditor/*": [
+                "ckeditor__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "ckeditor__ckeditor5-utils-tests.ts"
+        "ckeditor__ckeditor5-engine-tests.ts"
     ]
 }
