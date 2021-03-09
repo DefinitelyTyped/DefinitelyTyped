@@ -243,3 +243,16 @@ Xrm.Utility.lookupObjects({
     entityTypes: ["contact"],
     disableMru: true
 });
+
+// Demonstrate visibility for grid control
+const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
+    const formContext = context.getFormContext();
+    const gridControl = formContext.getControl<Xrm.Controls.GridControl>("myGrid");
+
+    // getVisible
+    const visibility = gridControl.getVisible();
+
+    // setVisible
+    gridControl.setVisible(!visibility);
+
+};

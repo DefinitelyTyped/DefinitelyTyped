@@ -3034,7 +3034,7 @@ declare namespace Xrm {
          *
          * @see {@link Control}
          */
-        interface GridControl extends Control {
+        interface GridControl extends Control, UiCanSetVisibleElement {
             /**
              * Use this method to add event handlers to the GridControl's OnLoad event.
              *
