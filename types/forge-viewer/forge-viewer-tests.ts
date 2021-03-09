@@ -30,7 +30,7 @@ Autodesk.Viewing.Initializer(options, () => {
         const model = await viewer.loadDocumentNode(doc, defaultModel);
 
         globalTests();
-        bubbleNodeTests();
+        bubbleNodeTests(model);
         callbackTests(viewer);
         cameraTests(viewer);
         formattingTests();
@@ -55,9 +55,15 @@ function globalTests(): void {
     const urn2 = Autodesk.Viewing.fromUrlSafeBase64(urnBase64);
 }
 
-function bubbleNodeTests(): void {
+function bubbleNodeTests(model: Autodesk.Viewing.Model): void {
     // $ExpectType string
     const lineageUrn = Autodesk.Viewing.BubbleNode.parseLineageUrnFromEncodedUrn('dXJuOmFkc2sud2lwc3RnOmZzLmZpbGU6dmYuM3Q4QlBZQXJSSkNpZkFZUnhOSnM0QT92ZXJzaW9uPTI');
+    const node: Autodesk.Viewing.BubbleNode = model.getDocumentNode();
+
+    // $ExpectType string
+    node.getModelName();
+    // $ExpectType string
+    node.getInputFileType();
 }
 
 function callbackTests(viewer: Autodesk.Viewing.GuiViewer3D): void {

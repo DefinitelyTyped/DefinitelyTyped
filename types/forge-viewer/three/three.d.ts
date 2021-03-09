@@ -105,6 +105,31 @@ declare namespace THREE {
     class Material {
     }
 
+    class Matrix3 {
+        elements: Float32Array;
+
+        constructor(n11?: number, n12?: number, n13?: number,
+            n21?: number, n22?: number, n23?: number,
+            n31?: number, n32?: number, n33?: number);
+
+        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+        clone(): Matrix3;
+        copy(m: Matrix3): Matrix3;
+        determinant(): number;
+        flattenToArrayOffset(array: number[], offset: number): number[];
+        fromArray(array: number[]): Matrix3;
+        getInverse(matrix: Matrix3 | Matrix4, throwOnInvertible?: boolean): Matrix3;
+        getNormalMatrix(m: Matrix4): Matrix3;
+        identity(): Matrix3;
+        multiplyScalar(s: number): Matrix3;
+        set(n11: number, n12: number, n13: number,
+            n21: number, n22: number, n23: number,
+            n31: number, n32: number, n33: number): Matrix3;
+        toArray(): number[];
+        transpose(): Matrix3;
+        transposeIntoArray(r: number[]): number[];
+    }
+
     class Matrix4 {
         elements: Float32Array;
 
@@ -247,17 +272,64 @@ declare namespace THREE {
 
         constructor(x?: number, y?: number, z?: number);
 
+        add(a: Vector3): Vector3;
+        addScalar(s: number): Vector3;
+        addVectors(a: Vector3, b: Vector3): Vector3;
         angleTo(v: Vector3): number;
+        applyEuler(euler: Euler): Vector3;
+        applyAxisAngle(axis: Vector3, angle: number): Vector3;
+        applyMatrix3(m: Matrix3): Vector3;
         applyMatrix4(m: Matrix4): Vector3;
+        applyProjection(m: Matrix4): Vector3;
+        applyQuaternion(q: Quaternion): Vector3;
+        ceil(): Vector3;
+        clamp(min: Vector3, max: Vector3): Vector3;
+        clampScalar(min: number, max: number): Vector3;
         clone(): Vector3;
         copy(v: Vector3): Vector3;
+        cross(a: Vector3): Vector3;
+        crossVectors(a: Vector3, b: Vector3): Vector3;
         distanceTo(v: Vector3): number;
+        distanceToSquared(v: Vector3): number;
+        divide(v: Vector3): Vector3;
+        divideScalar(s: number): Vector3;
+        dot(v: Vector3): number;
+        equals(v: Vector3): boolean;
+        floor(): Vector3;
+        fromArray(xyz: number[], offset?: number): Vector3;
+        fromAttribute(attribute: BufferAttribute, index: number, offset?: number): Vector3;
+        length(): number;
+        lengthManhattan(): number;
+        lengthSq(): number;
         lerp(v: Vector3, alpha: number): Vector3;
+        lerpVectors(v1: Vector3, v2: Vector3, alpha: number): Vector3;
+        max(v: Vector3): Vector3;
+        min(v: Vector3): Vector3;
+        multiply(v: Vector3): Vector3;
+        multiplyScalar(s: number): Vector3;
+        multiplyVectors(a: Vector3, b: Vector3): Vector3;
+        negate(): Vector3;
+        normalize(): Vector3;
+        project(camera: Camera): Vector3;
+        projectOnPlane(planeNormal: Vector3): Vector3;
+        projectOnVector(v: Vector3): Vector3;
+        reflect(vector: Vector3): Vector3;
+        round(): Vector3;
+        roundToZero(): Vector3;
         set(x: number, y: number, z: number): Vector3;
+        setFromMatrixColumn(index: number, matrix: Matrix4): Vector3;
+        setFromMatrixPosition(m: Matrix4): Vector3;
+        setFromMatrixScale(m: Matrix4): Vector3;
+        setLength(l: number): Vector3;
         setX(x: number): Vector3;
         setY(y: number): Vector3;
         setZ(z: number): Vector3;
         sub(a: Vector3): Vector3;
+        subScalar(s: number): Vector3;
+        subVectors(a: Vector3, b: Vector3): Vector3;
+        toArray(xyz?: number[], offset?: number): number[];
+        transformDirection(m: Matrix4): Vector3;
+        unproject(camera: Camera): Vector3;
     }
 
     class Vector4 {
