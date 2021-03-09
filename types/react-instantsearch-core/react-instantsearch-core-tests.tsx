@@ -644,10 +644,16 @@ import { Hits } from 'react-instantsearch-dom';
 };
 
 () => {
-    const HitComponent = ({ hit, insights }: { hit: Hit; insights: InsightsClient }) => (
-        <article>
-            <h1>{hit.name}</h1>
-        </article>
+    const HitComponent = ({ hit, insights }: ConnectHitInsightsProvided) => (
+        <button
+            onClick={() => {
+                insights('clickedObjectIDsAfterSearch', { eventName: 'hit clicked' });
+            }}
+        >
+            <article>
+                <h1>{hit.name}</h1>
+            </article>
+        </button>
     );
 
     const HitWithInsights = connectHitInsights(() => {})(HitComponent);

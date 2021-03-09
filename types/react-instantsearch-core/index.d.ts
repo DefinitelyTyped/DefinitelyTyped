@@ -719,9 +719,10 @@ export interface InsightsClientPayload {
     positions?: number[];
 }
 
+export type WrappedInsightsClient = (method: InsightsClientMethod, payload: Partial<InsightsClientPayload>) => void;
 export interface ConnectHitInsightsProvided {
     hit: Hit;
-    insights?: InsightsClient;
+    insights: WrappedInsightsClient;
 }
 
 export function EXPERIMENTAL_connectConfigureRelatedItems(
@@ -730,7 +731,9 @@ export function EXPERIMENTAL_connectConfigureRelatedItems(
 export function connectQueryRules(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectHitInsights(
     insightsClient: InsightsClient,
-): (hitComponent: React.ComponentType<any>) => React.ComponentType<ConnectHitInsightsProvided>;
+): (
+    hitComponent: React.ComponentType<any>,
+) => React.ComponentType<Omit<ConnectHitInsightsProvided, { insights: WrappedInsightsClient }>>;
 export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 // Turn off automatic exports - so we don't export internal types like Omit<>
