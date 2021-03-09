@@ -208,6 +208,13 @@ const contextHandler = (context: Xrm.Page.EventContext) => {
 Xrm.Page.ui.tabs.get("tabName").addTabStateChange(contextHandler);
 Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);
 
+// Demonstrate addOnLoad/removeOnLoad methods
+const saveOptionsSaveMode = (context: Xrm.Events.SaveEventContext) => {
+    const saveMode = context.getEventArgs().getSaveMode();
+    context.getFormContext().data.save({
+        saveMode
+    });
+};
 
 // Demonstrate addOnLoad/removeOnLoad methods
 const formContextDataOnLoadMethods = (context: Xrm.Events.EventContext) => {
@@ -254,5 +261,4 @@ const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
 
     // setVisible
     gridControl.setVisible(!visibility);
-
 };

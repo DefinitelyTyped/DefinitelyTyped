@@ -653,8 +653,8 @@ declare namespace Xrm {
      */
     interface SaveOptions {
         /**
-         * Specify a value indicating how the save event was initiated. 
-         * @remarks For a list of supported values, see the return value of the getSaveMode method. 
+         * Specify a value indicating how the save event was initiated.
+         * @remarks For a list of supported values, see the return value of the getSaveMode method.
          * @remarks Note that setting the saveMode does not actually take the corresponding action; it is just to provide information to the OnSave event handlers about the reason for the save operation.
          */
         saveMode: XrmEnum.SaveMode;
