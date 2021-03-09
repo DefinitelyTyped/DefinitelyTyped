@@ -2189,6 +2189,13 @@ declare namespace Autodesk {
 
         function apply(path1: PolyBase, path2: PolyBase, operator: Operator, extraOperands?: PolyBase[]): PolyBase;
       }
+
+      namespace Selection {
+        namespace Events {
+          const SELECTION_CHANGED = 'selectionChanged';
+          const SELECTION_HOVER_CHANGED = 'selectionHoverChanged';
+        }
+      }
     }
 
     namespace Extensions {
