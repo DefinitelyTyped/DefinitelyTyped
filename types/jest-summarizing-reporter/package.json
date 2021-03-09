@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@jest/reporters": "^26.6.2",
+        "@jest/test-result": "^26.6.2"
+    }
+}
