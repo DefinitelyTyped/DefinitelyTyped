@@ -54,7 +54,7 @@ declare const getSession: typeof session;
 declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
-    provider: 'credentials' | 'email' | 'string',
+    provider: 'credentials' | 'email',
     data?: GenericObject & {
         callbackUrl?: string;
         redirect?: false;
