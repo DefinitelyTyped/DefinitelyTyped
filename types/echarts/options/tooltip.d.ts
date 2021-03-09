@@ -1,3 +1,4 @@
+// Type definitions for ECharts v5.0.0
 declare namespace echarts {
     namespace EChartOption {
         interface BaseTooltip {
@@ -314,7 +315,6 @@ declare namespace echarts {
             transitionDuration?: number;
 
             /**
-             * Type definitions for ECharts 4.7.0
              * Since v4.7.0
              *
              * Whether to append the tooltip DOM element as a child of the <body> of the HTML page,
@@ -336,7 +336,6 @@ declare namespace echarts {
             appendToBody?: boolean;
 
             /**
-             * Type definitions for ECharts 5.0.0
              * Since v5.0.0
              *
              * Specify the classes for the tooltip root DOM. (Only works in html render mode).
@@ -346,7 +345,6 @@ declare namespace echarts {
             className?: string;
 
             /**
-             * Type definitions for ECharts 5.0.0
              * Since v5.0.0
              *
              * Tooltip order for multiple series.
