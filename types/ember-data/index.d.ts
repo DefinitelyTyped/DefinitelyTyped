@@ -77,7 +77,7 @@ export namespace DS {
         async?: true;
     }
 
-    type AsyncBelongsTo<T extends Model> = T & PromiseObject<T>;
+    type AsyncBelongsTo<T extends Model> = PromiseObject<T>;
     /**
      * `DS.belongsTo` is used to define One-To-One and One-To-Many
      * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -85,13 +85,16 @@ export namespace DS {
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options: RelationshipOptions<ModelRegistry[K]> & Sync
-    ): Ember.ComputedProperty<ModelRegistry[K]>;
+    ): Ember.ComputedProperty<
+        ModelRegistry[K],
+        ModelRegistry[K] | PromiseObject<ModelRegistry[K]>
+    >;
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async
     ): Ember.ComputedProperty<
         AsyncBelongsTo<ModelRegistry[K]>,
-        ModelRegistry[K]
+        ModelRegistry[K] | PromiseObject<ModelRegistry[K]>
     >;
     type AsyncHasMany<T extends Model> = PromiseManyArray<T>;
     type SyncHasMany<T extends Model> = ManyArray<T>;
@@ -861,7 +864,7 @@ export namespace DS {
          * normalized hash of data and the object represented by the reference
          * will update.
          */
-        push(payload: RSVP.Promise<any> | {}): PromiseObject<T> & T;
+        push(payload: RSVP.Promise<any> | {}): PromiseObject<T>;
         /**
          * If the entity referred to by the reference is already loaded, it is
          * present as `reference.value`. Otherwise the value returned by this function
@@ -872,12 +875,12 @@ export namespace DS {
          * Triggers a fetch for the backing entity based on its `remoteType`
          * (see `remoteType` definitions per reference type).
          */
-        load(): PromiseObject<T> & T;
+        load(): PromiseObject<T>;
         /**
          * Reloads the record if it is already loaded. If the record is not
          * loaded it will load the record via `store.findRecord`
          */
-        reload(): PromiseObject<T> & T;
+        reload(): PromiseObject<T>;
     }
     /**
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
@@ -1098,7 +1101,7 @@ export namespace DS {
             modelName: K,
             id: string | number,
             options?: {}
-        ): PromiseObject<ModelRegistry[K]> & ModelRegistry[K];
+        ): PromiseObject<ModelRegistry[K]>;
         /**
          * Get the reference for the specified record.
          */
