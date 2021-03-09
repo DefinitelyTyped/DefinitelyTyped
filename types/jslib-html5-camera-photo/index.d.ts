@@ -16,9 +16,9 @@ interface ImageTypes {
 type FacingMode = 'user' | 'environment';
 type ImageType = 'png' | 'jpg';
 
-interface Resolution {
-    height?: number;
-    width?: number;
+interface PartialMediaTrackConstraints {
+    height?: MediaTrackConstraints['height'];
+    width?: MediaTrackConstraints['width'];
 }
 
 export const FACING_MODES: FacingModes;
@@ -67,7 +67,7 @@ declare class CameraPhoto {
     constructor(videoElement: HTMLVideoElement);
     getCameraSettings(): MediaTrackSettings | null;
     getInputVideoDeviceInfos(): MediaDeviceInfo[];
-    startCamera(idealFacingMode?: FacingMode, idealResolution?: Resolution): Promise<MediaStream>;
+    startCamera(idealFacingMode?: FacingMode, idealResolution?: PartialMediaTrackConstraints): Promise<MediaStream>;
     startCameraMaxResolution(idealFacingMode?: FacingMode | {}): Promise<MediaStream>;
     getDataUri(userConfig: CaptureConfigOption): string;
     stopCamera(): Promise<void>;
