@@ -674,11 +674,23 @@ declare namespace Xrm {
      */
     interface Data {
         /**
+         * Adds a function to be called when form data is loaded.
+         * @param handler The function to be executed when the form data loads. The function will be added to the bottom of the event handler pipeline.
+         */
+        addOnLoad(handler: Events.ContextSensitiveHandler): void;
+
+        /**
          * Asynchronously refreshes data on the form, without reloading the page.
          * @param save true to save the record, after the refresh.
          * @returns Returns an asynchronous promise.
          */
         refresh(save: boolean): Async.PromiseLike<undefined>;
+
+        /**
+         * Removes a function to be called when form data is loaded.
+         * @param handler The function to be removed when the form data loads.
+         */
+        removeOnLoad(handler: Events.ContextSensitiveHandler): void;
 
         /**
          * Asynchronously saves the record.

@@ -207,3 +207,11 @@ const contextHandler = (context: Xrm.Page.EventContext) => {
 
 Xrm.Page.ui.tabs.get("tabName").addTabStateChange(contextHandler);
 Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);
+
+
+// Demonstrate addOnLoad/removeOnLoad methods
+const formContextDataOnLoadMethods = (context: Xrm.Events.EventContext) => {
+    const formContext = context.getFormContext();
+    formContext.data.addOnLoad(contextHandler);
+    formContext.data.removeOnLoad(contextHandler);
+};
