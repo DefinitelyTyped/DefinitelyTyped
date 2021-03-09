@@ -93,32 +93,32 @@ interface locale {
 }
 
 interface colors {
-    default: string;
-    background: string;
-    background_warning: string;
-    string: string;
-    number: string;
-    colon: string;
-    keys: string;
-    keys_whiteSpace: string;
-    primitive: string;
+    default?: string;
+    background?: string;
+    background_warning?: string;
+    string?: string;
+    number?: string;
+    colon?: string;
+    keys?: string;
+    keys_whiteSpace?: string;
+    primitive?: string;
 }
 
 interface error {
-    reason: string;
-    line: number;
-    theme: string;
+    reason?: string;
+    line?: number;
+    theme?: string;
 }
 
 interface style {
-    outerBox: any;
-    container: any;
-    warningBox: any;
-    errorMessage: any;
-    body: any;
-    labelColumn: any;
-    labels: any;
-    contentBox: any;
+    outerBox?: any;
+    container?: any;
+    warningBox?: any;
+    errorMessage?: any;
+    body?: any;
+    labelColumn?: any;
+    labels?: any;
+    contentBox?: any;
 }
 
 interface JSONInputProperties {
