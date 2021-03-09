@@ -25,4 +25,4 @@ const TestComponent: React.ComponentType<TestProps> = ({ foo, width, height }) =
     );
 };
 
-WithSizes<ReturnType<typeof mapSizesToProps>, TestProps>(mapSizesToProps)(TestComponent); // $ExpectType ComponentType<Pick<TestProps, "foo">>
+WithSizes<ReturnType<typeof mapSizesToProps>, TestProps>(mapSizesToProps)(TestComponent); // $ExpectType ComponentType<Omit<TestProps, "width" | "height">>
