@@ -647,14 +647,22 @@ declare namespace Xrm {
     }
 
     /**
-     * Defines save options to control how appointment, recurring appointment, or service activity records are processed.
+     * Defines save options for saving the record.
      *
      * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data/save External Link: save(Client API reference)}
      */
     interface SaveOptions {
         /**
+         * Specify a value indicating how the save event was initiated. 
+         * @remarks For a list of supported values, see the return value of the getSaveMode method. 
+         * @remarks Note that setting the saveMode does not actually take the corresponding action; it is just to provide information to the OnSave event handlers about the reason for the save operation.
+         */
+        saveMode: XrmEnum.SaveMode;
+
+        /**
          * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
          * Applicable to appointment, recurring appointment, or service activity records.
+         * @remarks This property is not supported in Unified Interface.
          */
         UseSchedulingEngine?: boolean;
     }
