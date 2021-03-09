@@ -14,16 +14,16 @@ const localeEn = {
         slash: "slash",           // /  relevant for comment syntax support
         backslash: "backslash",   // \  relevant for escaping character
         brackets: {
-        round: "round brackets",   // ( )
-        square: "square brackets", // [ ]
-        curly: "curly brackets",   // { }
-        angle: "angle brackets"    // < >
+            round: "round brackets",   // ( )
+            square: "square brackets", // [ ]
+            curly: "curly brackets",   // { }
+            angle: "angle brackets"    // < >
         },
         period: "period",          // . Also known as full point, full stop, or dot
         quotes: {
-        single: "single quote", // '
-        double: "double quote", // "
-        grave: "grave accent"   // ` used on Javascript ES6 Syntax for String Templates
+            single: "single quote", // '
+            double: "double quote", // "
+            grave: "grave accent"   // ` used on Javascript ES6 Syntax for String Templates
         },
         space: "space",           //
         ampersand: "ampersand",   // &
@@ -54,12 +54,12 @@ const localeEn = {
     },
     invalidToken: {
         tokenSequence: {
-        prohibited: "'{firstToken}' token cannot be followed by '{secondToken}' token(s)",
-        permitted: "'{firstToken}' token can only be followed by '{secondToken}' token(s)"
+            prohibited: "'{firstToken}' token cannot be followed by '{secondToken}' token(s)",
+            permitted: "'{firstToken}' token can only be followed by '{secondToken}' token(s)"
         },
         termSequence: {
-        prohibited: "A {firstTerm} cannot be followed by a {secondTerm}",
-        permitted: "A {firstTerm} can only be followed by a {secondTerm}"
+            prohibited: "A {firstTerm} cannot be followed by a {secondTerm}",
+            permitted: "A {firstTerm} can only be followed by a {secondTerm}"
         },
         double: "'{token}' token cannot be followed by another '{token}' token",
         useInstead: "'{badToken}' token is not accepted. Use '{goodToken}' instead",
@@ -67,14 +67,14 @@ const localeEn = {
     },
     brace: {
         curly: {
-        missingOpen: "Missing '{' open curly brace",
-        missingClose: "Open '{' curly brace is missing closing '}' curly brace",
-        cannotWrap: "'{token}' token cannot be wrapped in '{}' curly braces"
+            missingOpen: "Missing '{' open curly brace",
+            missingClose: "Open '{' curly brace is missing closing '}' curly brace",
+            cannotWrap: "'{token}' token cannot be wrapped in '{}' curly braces"
         },
         square: {
-        missingOpen: "Missing '[' open square brace",
-        missingClose: "Open '[' square brace is missing closing ']' square brace",
-        cannotWrap: "'{token}' token cannot be wrapped in '[]' square braces"
+            missingOpen: "Missing '[' open square brace",
+            missingClose: "Open '[' square brace is missing closing ']' square brace",
+            cannotWrap: "'{token}' token cannot be wrapped in '[]' square braces"
         }
     },
     string: {
