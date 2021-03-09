@@ -1,4 +1,4 @@
-// Type definitions for ECharts v5.0.0
+// Type definitions for ECharts v4.7.0
 declare namespace echarts {
     namespace EChartOption {
         interface BaseTooltip {
@@ -334,30 +334,6 @@ declare namespace echarts {
              * @default false
              */
             appendToBody?: boolean;
-
-            /**
-             * Since v5.0.0
-             *
-             * Specify the classes for the tooltip root DOM. (Only works in html render mode).
-             *
-             * @example className: 'echarts-tooltip echarts-tooltip-dark'
-             */
-            className?: string;
-
-            /**
-             * Since v5.0.0
-             *
-             * Tooltip order for multiple series.
-             *
-             * Conditions to order tooltip. Options:
-             * 'seriesAsc' - Base on series declaration, ascending order tooltip.
-             * 'seriesDesc'- Base on series declaration, descending order tooltip.
-             * 'valueAsc'  - Base on value, ascending order tooltip, only for numberic value.
-             * 'valueDesc' - Base on value, descending order tooltip, only for numberic value.
-             *
-             * @default seriesAsc
-             */
-            order?: string;
         }
 
         namespace Tooltip {
