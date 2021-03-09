@@ -947,9 +947,23 @@ declare namespace Xrm {
          */
         defaultViewId?: string;
         /**
+         * Decides whether to display the most recently used(MRU) item.
+         * @remarks Available only for Unified Interface.
+         */
+        disableMru?: boolean;
+        /**
          * The entity types to display.
          */
-        entityTypes?: string[];
+        entityTypes: string[];
+        /**
+         * Used to filter the results.
+         */
+        filters?: Utility.LookupOptionsFilter[];
+        /**
+         * Indicates the default search term for the lookup control.
+         * @remarks This is supported only on Unified Interface.
+         */
+        searchText?: string;
         /**
          * Indicates whether the lookup control should show the barcode scanner in mobile clients.
          */
@@ -4248,6 +4262,20 @@ declare namespace Xrm {
              * Direct the form to open in a new window.
              */
             openInNewWindow: boolean;
+        }
+
+        /**
+         * Interface for the Xrm.LookupOptions.filters property.
+         */
+        interface LookupOptionsFilter {
+            /**
+             * The FetchXML filter element to apply.
+             */
+            filterXml: string;
+            /**
+             * The entity type to which to apply this filter.
+             */
+            entityLogicalName: string;
         }
     }
 

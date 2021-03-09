@@ -215,3 +215,31 @@ const formContextDataOnLoadMethods = (context: Xrm.Events.EventContext) => {
     formContext.data.addOnLoad(contextHandler);
     formContext.data.removeOnLoad(contextHandler);
 };
+
+// Demonstrate Xrm.Utility.lookupObjects parameters
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"]
+});
+
+// filters property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    filters: [{
+        entityLogicalName: "contact",
+        filterXml: `<filter>
+            <condition attribute="contactid" operator="neq" value="b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
+        </filter>`
+    }]
+});
+
+// searchText property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    searchText: "Doe, John"
+});
+
+// disableMru property
+Xrm.Utility.lookupObjects({
+    entityTypes: ["contact"],
+    disableMru: true
+});
