@@ -1523,16 +1523,18 @@ declare namespace Autodesk {
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
+                castRay(clientX: number, clientY: number, ignoreTransparent: boolean, options: any): any;
                 clearHighlight(): void;
                 clearOverlay(name: string): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
-                createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
+                createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any, needIdTarget?: boolean, needSeparateDepth?: boolean): any;
                 disableHighlight(disable: boolean): void;
                 disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
                 getFragmentProxy(model: Model, fragId: number): any;
                 getLayersRoot(): any;
+                hasModels(): boolean;
                 hitTest(clientX: number, clientY: number, ignoreTransparent?: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
@@ -1548,7 +1550,7 @@ declare namespace Autodesk {
                 removeOverlayScene(name: string): any;
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
-                rayIntersect(ray: THREE.Ray): HitTestResult;
+                rayIntersect(ray: THREE.Ray, ignoreTransparent: boolean, dbIds?: number[], modelId?: number[], intersections?: any[], options?: any): HitTestResult;
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setDoNotCut(model: Model, doNotCut: boolean): void;
