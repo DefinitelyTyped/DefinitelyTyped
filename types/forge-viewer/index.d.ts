@@ -2252,7 +2252,10 @@ declare namespace Autodesk {
       }
 
       class DataVisualization extends Viewing.Extension {
-        sceneModel: Viewing.Model;
+        deviceDepthOcclusion: boolean;
+        pointsOverlay: any;
+
+        constructor(viewer: Autodesk.Viewing.Viewer3D, options?: any);
 
         addViewables(data: DataVisualization.ViewableData): void;
         clearHighlightedViewables(): void;
