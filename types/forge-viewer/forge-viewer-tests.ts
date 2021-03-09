@@ -118,7 +118,7 @@ async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
     const ext = await viewer.loadExtension('Autodesk.Viewing.PixelCompare') as Autodesk.Extensions.PixelCompare.PixelCompare;
     const secondDoc = await loadDocument('urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LW90aGVyLWZvcmdlLWZpbGUucnZ0');
     const viewable = secondDoc.getRoot().getDefaultGeometry();
-    const secondaryModel = await viewer.loadDocumentNode(secondDoc, viewable);
+    const secondaryModel = await viewer.loadDocumentNode(secondDoc, viewable, { keepCurrentModels: true });
     const mainModel = viewer.model;
 
     ext.compareTwoModels(mainModel, secondaryModel);
