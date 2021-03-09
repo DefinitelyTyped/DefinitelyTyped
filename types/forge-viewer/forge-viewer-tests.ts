@@ -58,10 +58,12 @@ function globalTests(): void {
 function bubbleNodeTests(model: Autodesk.Viewing.Model): void {
     // $ExpectType string
     const lineageUrn = Autodesk.Viewing.BubbleNode.parseLineageUrnFromEncodedUrn('dXJuOmFkc2sud2lwc3RnOmZzLmZpbGU6dmYuM3Q4QlBZQXJSSkNpZkFZUnhOSnM0QT92ZXJzaW9uPTI');
+    const node: Autodesk.Viewing.BubbleNode = model.getDocumentNode();
+
     // $ExpectType string
-    model.getDocumentNode().getModelName();
+    node.getModelName();
     // $ExpectType string
-    model.getDocumentNode().getInputFileType();
+    node.getInputFileType();
 }
 
 function callbackTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
