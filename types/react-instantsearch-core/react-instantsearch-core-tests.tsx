@@ -30,6 +30,7 @@ import {
     StatsProvided,
     connectHitInsights,
     InsightsClient,
+    ConnectHitInsightsProvided,
 } from 'react-instantsearch-core';
 
 import { Hits } from 'react-instantsearch-dom';
