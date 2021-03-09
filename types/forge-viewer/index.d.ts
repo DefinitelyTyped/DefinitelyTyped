@@ -4,6 +4,7 @@
 //                 Alan Smith <https://github.com/alansmithnbs>
 //                 Jan Liska <https://github.com/liskaj>
 //                 Petr Broz <https://github.com/petrbroz>
+//                 Cyrille Fauvel <https://github.com/cyrillef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
