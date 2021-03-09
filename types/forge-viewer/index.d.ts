@@ -1158,6 +1158,9 @@ declare namespace Autodesk {
 
             class PDFLoader {
               constructor(parent: Private.Viewer3DImpl);
+
+              createPDFDocument(pdf: any): Document;
+              getDocument(): any;
             }
           }
 
@@ -2256,7 +2259,7 @@ declare namespace Autodesk {
         deviceDepthOcclusion: boolean;
         pointsOverlay: any;
 
-        constructor(viewer: Autodesk.Viewing.Viewer3D, options?: any);
+        constructor(viewer: Viewing.Viewer3D, options?: any);
 
         addViewables(data: DataVisualization.ViewableData): void;
         clearHighlightedViewables(): void;
