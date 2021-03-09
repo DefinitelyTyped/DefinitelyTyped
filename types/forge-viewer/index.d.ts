@@ -691,6 +691,19 @@ declare namespace Autodesk {
           }
         }
 
+        namespace PixelCompare {
+          enum DIFF_MODES {
+            OVERLAY = 'overlay',
+            SIDE_BY_SIDE = 'sidebyside'
+          }
+
+          enum EVENTS {
+            DIFF_TOOL_DIFF_MODE_CHANGED = 'diff.tool.diff.mode.changed',
+            DIFF_TOOL_DEACTIVATED = 'diff.tool.deactivated',
+            DIFF_TOOL_MODEL_VISIBILITY_CHANGED = 'diff.tool.model.visibility.changed'
+          }
+        }
+
         interface PropertyResult {
             dbId: number;
             externalId?: string;
@@ -2252,6 +2265,30 @@ declare namespace Autodesk {
           setUnits(units: string): void;
           showAddCalibrationLabel(): void;
           toggle(): boolean;
+        }
+      }
+
+      namespace PixelCompare {
+        class PixelCompare extends Viewing.Extension {
+          constructor(viewer: Viewing.GuiViewer3D, options?: {
+            diffMode?: Viewing.PixelCompare.DIFF_MODES;
+            restoreModelVisibilityOnExit?: boolean;
+          });
+
+          changeColorIntensity(value: number): void;
+          changeMainModelVisibility(visible: boolean): void;
+          changeSecondaryModelVisibility(visible: boolean): void;
+          compareTwoModels(mainModel: Viewing.Model|number, secondaryModel: Viewing.Model|number, mainModelInfo?: any, secondaryModelInfo?: any): void;
+          getDiffMode(): Viewing.PixelCompare.DIFF_MODES;
+          getMainModelVisibility(): boolean;
+          getSecondaryModelVisibility(): boolean;
+          getSplitPosition(): number;
+          resetOffset(): void;
+          setChangeOffsetMode(enable: boolean): void;
+          setDiffMode(value: Viewing.PixelCompare.DIFF_MODES): void;
+          setSplitLineColor(value: number): void;
+          setSplitLineWidth(value: number): void;
+          setSplitPosition(value: number): void;
         }
       }
 
