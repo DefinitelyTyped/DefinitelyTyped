@@ -52,9 +52,9 @@ export interface LintData {
     json?: any;
 }
 
-type ModuleFunction = (api: ExtensionAPI) => void;
+export type ModuleFunction = (api: ExtensionAPI) => void;
 
-interface ExtensionAPI {
+export interface ExtensionAPI {
     readonly isJSON: boolean;
     getOption(name: string): unknown | null;
 }
