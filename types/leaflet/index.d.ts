@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.5
+// Type definitions for Leaflet.js 1.7
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
@@ -30,11 +30,21 @@ export class Transformation {
     untransform(point: Point, scale?: number): Point;
 }
 
+/**
+ * @see https://github.com/Leaflet/Leaflet/blob/bc918d4bdc2ba189807bc207c77080fb41ecc196/src/geometry/LineUtil.js#L118
+ */
 export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
     function isFlat(latlngs: LatLngExpression[]): boolean;
+    function clipSegment(
+        a: Point,
+        b: Point,
+        bounds: Bounds,
+        useLastCode?: boolean,
+        round?: boolean,
+    ): [Point, Point] | false;
 }
 
 export namespace PolyUtil {
