@@ -40,11 +40,11 @@ export interface LintUnused {
 }
 
 export interface LintData {
-    functions: LintFunction[];
-    options: LintOptions;
-    errors: LintError[];
-    globals: string[];
-    unused: LintUnused[];
+    functions?: LintFunction[];
+    options?: LintOptions;
+    errors?: LintError[];
+    globals?: string[];
+    unused?: LintUnused[];
     member?: any;
     implieds?: any;
     /* istanbul ignore next */
@@ -71,7 +71,7 @@ export namespace JSHINT {
     const errors: LintError[];
 
     /** Generate a report containing details about the most recent invocation of JSHINT. */
-    function data(): LintData;
+    function data(): LintData | null | undefined;
 
     function addModule(func: any): void;
 

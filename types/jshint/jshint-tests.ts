@@ -16,9 +16,11 @@ JSHINT(source, { undef: true });
 
 JSHINT(source, options, { jQuery: false });
 
-const data: LintData = JSHINT.data();
+const data = JSHINT.data();
 
-data.errors;
+if (data) {
+    data.errors;
+}
 
 const data2: LintData = {
     functions: [
