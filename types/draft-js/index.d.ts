@@ -13,7 +13,6 @@
 //                 Kevin Hawkinson <https://github.com/khawkinson>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Ben Salili-James <https://github.com/benhjames>
-//                 Peter Dekkers <https://github.com/PeterDekkers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
