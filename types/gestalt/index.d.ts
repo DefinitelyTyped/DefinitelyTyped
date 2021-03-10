@@ -1,4 +1,4 @@
-// Type definitions for gestalt 19.2.1
+// Type definitions for gestalt 19.2
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>

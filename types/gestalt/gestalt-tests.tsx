@@ -216,6 +216,8 @@ const CheckUseReducedMotion = () => {
     <div>Hello World</div>
 </Sticky>;
 <Switch id="id" onChange={() => {}} />;
+<Table maxHeight={1}/>;
+<Table maxHeight="75vh"/>;
 <Table>
     <Table.Header>
         <Table.Row>
