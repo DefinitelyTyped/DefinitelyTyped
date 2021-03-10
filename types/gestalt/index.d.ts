@@ -1112,7 +1112,7 @@ export interface SwitchProps {
 export interface TableProps {
     borderStyle?: 'sm' | 'none';
     children?: React.ReactNode;
-    maxHeight?: 'number' | 'string';
+    maxHeight?: number | string;
 }
 
 export interface TableBodyProps {
