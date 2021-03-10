@@ -28,6 +28,13 @@ interface SetOptionsParams {
     keepAlive?: number;
 }
 
+interface SignInResponse {
+    error: string | undefined;
+    status: number;
+    ok: boolean;
+    url: string | null;
+}
+
 type ContextProvider = FC<ContextProviderProps>;
 
 interface NextContext {
@@ -47,6 +54,14 @@ declare const getSession: typeof session;
 declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
+    provider: 'credentials' | 'email',
+    data?: GenericObject & {
+        callbackUrl?: string;
+        redirect?: false;
+    },
+    authorizationParams?: string | string[][] | GenericObject | URLSearchParams
+  ): Promise<SignInResponse>;
+declare function signin(
     provider?: string,
     data?: GenericObject & {
         callbackUrl?: string;
@@ -55,12 +70,7 @@ declare function signin(
     authorizationParams?: string | string[][] | GenericObject | URLSearchParams
 ): Promise<void>;
 declare const signIn: typeof signin;
-declare function signout(
-    data?: {
-        callbackUrl?: string;
-        redirect?: boolean;
-    }
-): Promise<void>;
+declare function signout(data?: { callbackUrl?: string, redirect?: boolean }): Promise<void>;
 declare const signOut: typeof signout;
 declare function options(options: SetOptionsParams): void;
 declare const setOptions: typeof options;
