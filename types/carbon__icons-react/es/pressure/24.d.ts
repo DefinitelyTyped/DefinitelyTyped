@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const Pressure24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default Pressure24;
+export { Pressure24 as default } from "../../";

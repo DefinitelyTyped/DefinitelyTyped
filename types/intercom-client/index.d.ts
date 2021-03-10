@@ -17,7 +17,12 @@ import {
     UserIdentifier,
     CreateUpdateUser,
 } from './User';
-import { List as LeadList, Lead, LeadIdentifier } from './Lead';
+import {
+    List as LeadList,
+    Lead,
+    LeadIdentifier,
+    LeadIdIdentifier,
+} from './Lead';
 import { Visitor, VisitorIdentifier } from './Visitor';
 import { CompanyIdentifier, List as CompanyList, Company } from './Company';
 import { TagIdentifier, List as TagList, Tag, TagOper } from './Tag';
@@ -114,8 +119,8 @@ export class Leads {
     find(identifier: LeadIdentifier): Promise<ApiResponse<Lead>>;
     find(identifier: LeadIdentifier, cb: callback<ApiResponse<Lead>>): void;
 
-    delete(id: string): Promise<ApiResponse<Lead>>;
-    delete(id: string, cb: callback<ApiResponse<Lead>>): void;
+    delete(identifier: LeadIdIdentifier): Promise<ApiResponse<Lead>>;
+    delete(identifier: LeadIdIdentifier, cb: callback<ApiResponse<Lead>>): void;
 
     convert(params: { contact: LeadIdentifier; user: UserIdentifier }): Promise<ApiResponse<Lead>>;
     convert(params: { contact: LeadIdentifier; user: UserIdentifier }, cb: callback<ApiResponse<Lead>>): void;

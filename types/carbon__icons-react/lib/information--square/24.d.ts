@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const InformationSquare24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default InformationSquare24;
+import { InformationSquare24 } from "../../";
+
+export = InformationSquare24;

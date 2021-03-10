@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const BuildingInsights_124: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default BuildingInsights_124;
+import { BuildingInsights_124 } from "../../";
+
+export = BuildingInsights_124;

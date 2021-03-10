@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const Development16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default Development16;
+import { Development16 } from "../../";
+
+export = Development16;

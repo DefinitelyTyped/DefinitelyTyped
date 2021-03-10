@@ -46,6 +46,7 @@ const _ = webpack({
                     compress: {},
                     mangle: true, // Note `mangle.properties` is `false` by default.
                     module: false,
+                    // deprecated
                     output: undefined,
                     toplevel: false,
                     nameCache: undefined,
@@ -94,7 +95,7 @@ const _ = webpack({
             // varia
             new TerserPlugin({
                 terserOptions: {
-                    output: {
+                    format: {
                         comments: /@license/i,
                     },
                 },
@@ -102,7 +103,7 @@ const _ = webpack({
             }),
             new TerserPlugin({
                 terserOptions: {
-                    output: {
+                    format: {
                         comments: false,
                     },
                 },
@@ -115,6 +116,7 @@ const _ = webpack({
                     compress: {},
                     mangle: true, // Note `mangle.properties` is `false` by default.
                     module: false,
+                    // deprecated
                     output: undefined,
                     toplevel: false,
                     nameCache: undefined,

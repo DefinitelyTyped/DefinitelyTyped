@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const WatsonHealthBrushPolygon32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WatsonHealthBrushPolygon32;
+import { WatsonHealthBrushPolygon32 } from "../../../";
+
+export = WatsonHealthBrushPolygon32;

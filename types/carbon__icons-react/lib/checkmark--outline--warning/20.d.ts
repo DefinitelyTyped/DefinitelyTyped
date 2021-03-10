@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CheckmarkOutlineWarning20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CheckmarkOutlineWarning20;
+import { CheckmarkOutlineWarning20 } from "../../";
+
+export = CheckmarkOutlineWarning20;

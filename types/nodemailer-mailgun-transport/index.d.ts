@@ -15,8 +15,13 @@ declare namespace mailgunTransport {
         domain?: string;
     }
 
+    interface AliasAuthOptions {
+        apiKey: string;
+        domain?: string;
+    }
+
     interface Options {
-        auth: AuthOptions;
+        auth: AuthOptions | AliasAuthOptions;
         proxy?: string | boolean;
         host?: string;
         protocol?: string;

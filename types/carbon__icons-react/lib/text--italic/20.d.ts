@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TextItalic20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TextItalic20;
+import { TextItalic20 } from "../../";
+
+export = TextItalic20;

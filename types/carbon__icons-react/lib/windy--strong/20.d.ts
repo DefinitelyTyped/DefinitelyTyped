@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const WindyStrong20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WindyStrong20;
+import { WindyStrong20 } from "../../";
+
+export = WindyStrong20;

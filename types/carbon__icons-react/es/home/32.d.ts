@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const Home32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default Home32;
+export { Home32 as default } from "../../";

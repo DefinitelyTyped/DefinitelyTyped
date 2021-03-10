@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CloudApp24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CloudApp24;
+export { CloudApp24 as default } from "../../";

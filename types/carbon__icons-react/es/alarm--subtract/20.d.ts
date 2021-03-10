@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const AlarmSubtract20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default AlarmSubtract20;
+export { AlarmSubtract20 as default } from "../../";

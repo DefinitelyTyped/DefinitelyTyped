@@ -96,6 +96,9 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                 onBlur: (e) => { console.log(e.relatedTarget); },
                 ref: this.inputRef
             }}
+            containerProps={{
+                className: 'some-css-class'
+            }}
             theme={theme}/>;
     }
 
@@ -388,11 +391,10 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         return <strong>{section.title}</strong>;
     }
 
-    protected renderInputComponent(inputProps: Autosuggest.InputProps<Language>): JSX.Element {
-        const { onChange, onBlur, ...restInputProps } = inputProps;
+    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): JSX.Element {
         return (
             <div>
-                <input {...restInputProps} />
+                <input {...inputProps} />
             </div>
         );
     }

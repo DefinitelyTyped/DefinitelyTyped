@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const VolumeMute20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default VolumeMute20;
+import { VolumeMute20 } from "../../";
+
+export = VolumeMute20;

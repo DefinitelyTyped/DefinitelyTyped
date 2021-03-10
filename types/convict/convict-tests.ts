@@ -14,7 +14,7 @@ const format: convict.Format = {
     },
     coerce(val) {
         return parseFloat(val);
-    }
+    },
 };
 
 convict.addFormat(format);
@@ -32,14 +32,14 @@ convict.addFormats({
         },
         coerce(val) {
             return parseInt(val, 10);
-        }
-    }
+        },
+    },
 });
 
 convict.addParser({ extension: 'json', parse: JSON.parse });
 convict.addParser([
     { extension: 'json', parse: JSON.parse },
-    { extension: ['yml', 'yaml'], parse: safeLoad }
+    { extension: ['yml', 'yaml'], parse: safeLoad },
 ]);
 
 const conf = convict({
@@ -64,13 +64,13 @@ const conf = convict({
         arg: 'port',
     },
     key: {
-        doc: "API key",
+        doc: 'API key',
         format: (val: string) => {
             if (!validator.isUUID(val)) {
                 throw new Error('must be a valid UUID');
             }
         },
-        default: '01527E56-8431-11E4-AF91-47B661C210CA'
+        default: '01527E56-8431-11E4-AF91-47B661C210CA',
     },
     db: {
         ip: {
@@ -93,14 +93,6 @@ const conf = convict({
             sensitive: true,
         },
     },
-    primeNumber: {
-        format: 'prime',
-        default: 17
-    },
-    percentNumber: {
-        format: 'float-percent',
-        default: 0.5
-    },
 });
 
 // load environment dependent configuration
@@ -114,8 +106,13 @@ const env = conf.get('env');
 conf.loadFile(`./config/${env}.json`);
 conf.loadFile(['./configs/always.json', './configs/sometimes.json']);
 
+// Test loaded config.
+
+// @ts-expect-error Trying to access no existing property
+conf.get('primeNumber');
 // tslint:disable-next-line:no-invalid-template-strings
-conf.loadFile<LoadType>('./config/${env}.yaml');
+const newConf = conf.loadFile<LoadType>('./config/${env}.yaml');
+newConf.get('primeNumber');
 
 // perform validation
 
@@ -125,9 +122,7 @@ conf.validate({ allowed: 'warn' });
 
 // Chaining
 
-conf
-    .loadFile(['./configs/always.json', './configs/sometimes.json'])
-    .loadFile<{ envVar: any }>(`./config/${env}.json`)
+conf.loadFile(['./configs/always.json', './configs/sometimes.json'])
     .load({ jsonKey: 'jsonValue' })
     .set('key', 'value')
     .validate({ allowed: 'warn' })
@@ -139,26 +134,28 @@ if (conf.has('key')) {
     conf.set('the.awesome', true);
     conf.load({
         thing: {
-            a: 'b'
-        }
+            a: 'b',
+        },
     });
 }
 
+// @ts-expect-error Trying to access no existing property
 conf.has('unknow.key');
-conf.has<'db', 'ip'>('db.ip');
+conf.has('db.ip');
 
 const schema = conf.getSchema();
 
 const schemaVal = conf.getSchema().properties.db.properties.port.default;
 
 conf.get();
+
+// @ts-expect-error Trying to access no existing property
 conf.get('unknownkey');
+
 conf.get('db');
 conf.get('db.ip');
-conf.get<'db', 'ip'>('db.ip');
 conf.default('env');
 conf.default('db.ip');
-conf.default<'db', 'ip'>('db.ip');
 conf.getSchema();
 conf.getProperties();
 conf.getSchemaString();
@@ -172,14 +169,14 @@ const conf2 = convict(
             default: 0,
             env: 'PORT',
             arg: 'port',
-        }
+        },
     },
     {
         env: {
-            PORT: '12345'
+            PORT: '12345',
         },
-        args: []
-    }
+        args: [],
+    },
 );
 
 const port2 = conf2.get('port');

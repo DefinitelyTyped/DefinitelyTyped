@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.21
+// Type definitions for carbon-components-react 7.29
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -11,6 +11,7 @@ export as namespace CarbonReact;
 // This group is primarily for type exports but will cover non-default exports as well.
 export * from "./lib/components/Accordion";
 export * from "./lib/components/AccordionItem";
+export * from "./lib/components/AspectRatio";
 export * from "./lib/components/Breadcrumb";
 export * from "./lib/components/BreadcrumbItem";
 export * from "./lib/components/Button";
@@ -96,6 +97,7 @@ export * from "./lib/components/UnorderedList";
 
 export { default as Accordion } from "./lib/components/Accordion";
 export { default as AccordionItem } from "./lib/components/AccordionItem";
+export { AspectRatio } from "./lib/components/AspectRatio";
 export { Breadcrumb, BreadcrumbItem } from "./lib/components/Breadcrumb";
 export { default as Button } from "./lib/components/Button";
 export { default as ButtonSet } from "./lib/components/ButtonSet";
@@ -156,6 +158,7 @@ export { default as OrderedList } from "./lib/components/OrderedList";
 export { default as OverflowMenu } from "./lib/components/OverflowMenu";
 export { default as OverflowMenuItem } from "./lib/components/OverflowMenuItem";
 export { default as Pagination } from "./lib/components/Pagination";
+export { default as PaginationSkeleton } from "./lib/components/Pagination/Pagination.Skeleton";
 export { default as PaginationNav } from "./lib/components/PaginationNav";
 export { PageSelector as unstable_PageSelector } from "./lib/components/Pagination/experimental";
 export { Pagination as unstable_Pagination } from "./lib/components/Pagination/experimental";

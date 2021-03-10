@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChartVennDiagram24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChartVennDiagram24;
+import { ChartVennDiagram24 } from "../../";
+
+export = ChartVennDiagram24;

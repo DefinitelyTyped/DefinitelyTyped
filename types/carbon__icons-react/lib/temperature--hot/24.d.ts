@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TemperatureHot24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TemperatureHot24;
+import { TemperatureHot24 } from "../../";
+
+export = TemperatureHot24;

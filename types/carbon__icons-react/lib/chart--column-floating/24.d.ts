@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChartColumnFloating24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChartColumnFloating24;
+import { ChartColumnFloating24 } from "../../";
+
+export = ChartColumnFloating24;

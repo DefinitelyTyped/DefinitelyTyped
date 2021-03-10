@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DriverAnalysis20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DriverAnalysis20;
+import { DriverAnalysis20 } from "../../";
+
+export = DriverAnalysis20;

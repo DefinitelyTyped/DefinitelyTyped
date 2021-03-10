@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PreviousOutline20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PreviousOutline20;
+import { PreviousOutline20 } from "../../";
+
+export = PreviousOutline20;

@@ -1,4 +1,4 @@
-// Type definitions for @hapi/yar 9.2
+// Type definitions for @hapi/yar 10.1
 // Project: https://github.com/hapijs/yar#readme
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 //                 Silas Rech <https://github.com/lenovouser>
@@ -6,13 +6,7 @@
 // TypeScript Version: 2.8
 // From https://github.com/hapijs/yar/blob/master/API.md
 
-import {
-    Server,
-    ServerOptionsCache,
-    Request,
-    Plugin,
-    CachePolicyOptions,
-} from '@hapi/hapi';
+import { Server, ServerOptionsCache, Request, Plugin, CachePolicyOptions, ResponseToolkit } from '@hapi/hapi';
 import { PolicyOptions, Id } from '@hapi/catbox';
 declare namespace yar {
     interface YarOptions {
@@ -84,7 +78,7 @@ declare namespace yar {
              * enables the same-site cookie parameter.
              * Default to 'Lax'.
              */
-            isSameSite?: 'Lax' | 'Strict' | false;
+            isSameSite?: 'Lax' | 'Strict' | 'None' | false;
             /**
              * determines whether or not to transfer using TLS/SSL.
              * Defaults to true.
@@ -149,7 +143,7 @@ declare namespace yar {
          * 'isOverride' used to indicate that the message provided should replace
          * any existing value instead of being appended to it (defaults to false).
          */
-        flash(type: string, message?: any, isOverride?: boolean): any[];
+        flash(type?: string, message?: any, isOverride?: boolean): any[];
 
         /**
          * if set to 'true', enables lazy mode.
@@ -159,6 +153,14 @@ declare namespace yar {
          * it has to store the session state on every responses regardless of any changes being made.
          */
         lazy(enabled: boolean): void;
+
+        /**
+         * used to manually prepare the session state and commit it into the response when the response is taken
+         * over in an onPreResponse handler. Normally, the yar onPreRespinse handler performs the commit, but if
+         * an application extension handler takes over, yar doesn't get a chance to commit the state before the
+         * response goes out. The method requires the hapi h toolkit argument available in the extension handler.
+         */
+        commit(h: ResponseToolkit): Promise<void>;
     }
 
     interface ServerYar {

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const StackLimitation16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default StackLimitation16;
+import { StackLimitation16 } from "../../";
+
+export = StackLimitation16;

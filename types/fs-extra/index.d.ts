@@ -10,6 +10,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
@@ -42,6 +43,7 @@ export function createSymlink(src: string, dest: string, type: SymlinkType, call
 export function createSymlinkSync(src: string, dest: string, type: SymlinkType): void;
 
 export function ensureDir(path: string, options?: EnsureOptions | number): Promise<void>;
+export function ensureDir(path: string, callback?: (err: Error) => void): void;
 export function ensureDir(path: string, options?: EnsureOptions | number, callback?: (err: Error) => void): void;
 export function ensureDirSync(path: string, options?: EnsureOptions | number): void;
 
@@ -67,8 +69,8 @@ export function readJSON(file: string, options: ReadOptions, callback: (err: Err
 export function readJsonSync(file: string, options?: ReadOptions): any;
 export function readJSONSync(file: string, options?: ReadOptions): any;
 
-export function remove(dir: string): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
+export function remove(dir: string, callback?: (err: Error) => void): Promise<void>;
 export function removeSync(dir: string): void;
 
 export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;
@@ -109,7 +111,10 @@ export function ensureSymlinkSync(src: string, dest: string, type?: SymlinkType)
 
 export function emptyDir(path: string): Promise<void>;
 export function emptyDir(path: string, callback: (err: Error) => void): void;
+export const emptydir: typeof emptyDir;
+
 export function emptyDirSync(path: string): void;
+export const emptydirSync: typeof emptyDirSync;
 
 export function pathExists(path: string): Promise<boolean>;
 export function pathExists(path: string, callback: (err: Error, exists: boolean) => void): void;
@@ -181,7 +186,8 @@ export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => 
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function mkdir(path: PathLike, options: Mode | fs.MakeDirectoryOptions | null, callback: (err: NodeJS.ErrnoException) => void): void;
-export function mkdir(path: PathLike): Promise<void>;
+export function mkdir(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): Promise<void>;
+export function mkdirSync(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): void;
 
 export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
 export function open(path: PathLike, flags: string | number, mode: Mode, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
@@ -220,6 +226,17 @@ export function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, 
 export function realpath(path: PathLike, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
 export function realpath(path: PathLike, cache?: { [path: string]: string }): Promise<string>;
 
+/* tslint:disable:unified-signatures */
+export namespace realpath {
+    const native: {
+        (path: PathLike, options: fs.BaseEncodingOptions | BufferEncoding | undefined | null): Promise<string>;
+        (path: PathLike, options: fs.BufferEncodingOption): Promise<Buffer>;
+        (path: PathLike, options: fs.BaseEncodingOptions | string | undefined | null): Promise<string | Buffer>;
+        (path: PathLike): Promise<string>;
+    } & typeof fs.realpath.native;
+}
+/* tslint:enable:unified-signatures */
+
 export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
 
@@ -234,9 +251,9 @@ export function rmdir(path: PathLike): Promise<void>;
 export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: PathLike): Promise<Stats>;
 
-export function symlink(target: PathLike, path: PathLike, type: FsSymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(target: PathLike, path: PathLike, type: SymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
 export function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function symlink(target: PathLike, path: PathLike, type?: FsSymlinkType): Promise<void>;
+export function symlink(target: PathLike, path: PathLike, type?: SymlinkType): Promise<void>;
 
 export function truncate(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function truncate(path: PathLike, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -297,8 +314,7 @@ export interface PathEntryStream {
 export type CopyFilterSync = (src: string, dest: string) => boolean;
 export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
-export type SymlinkType = "dir" | "file";
-export type FsSymlinkType = "dir" | "file" | "junction";
+export type SymlinkType = "dir" | "file" | "junction";
 
 export type Mode = string | number;
 

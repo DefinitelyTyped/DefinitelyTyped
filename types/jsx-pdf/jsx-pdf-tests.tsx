@@ -116,6 +116,8 @@ const doc5 = (
           </svg>
         `}
             />
+            <svg content="..." width={10} height={10} />
+            <svg content="..." fit={[150, 150]} />
         </content>
     </document>
 );
@@ -229,11 +231,23 @@ const doc12 = (
     </document>
 );
 
+const doc13 = (
+    <document>
+        <content>
+            <qr content="hi" />
+            <qr content="hi" foreground="#f9c7bf" />
+        </content>
+    </document>
+);
+
 // @ts-expect-error image can't have children
 const invalid1 = <image>children</image>;
 
 // @ts-expect-error svg can't have children
 const invalid1 = <svg>children</svg>;
+
+// @ts-expect-error qr can't have children
+const invalid2 = <qr content="hi">children</qr>;
 
 // @ts-expect-error header doesn't accept props
 const invalid1 = <header color="green">children</header>;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PhraseSentiment32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PhraseSentiment32;
+import { PhraseSentiment32 } from "../../";
+
+export = PhraseSentiment32;

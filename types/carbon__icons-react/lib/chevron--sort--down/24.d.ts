@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChevronSortDown24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChevronSortDown24;
+import { ChevronSortDown24 } from "../../";
+
+export = ChevronSortDown24;

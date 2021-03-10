@@ -878,6 +878,39 @@ describe("A spy, when created manually", () => {
     });
 });
 
+describe("a spy on a typed method", () => {
+    class Test {
+        method(arg: number): string { return '42'; }
+    }
+
+    let t: Test;
+
+    beforeEach(() => {
+        t = new Test();
+    });
+
+    it("should match only call arguments with the correct type", () => {
+        const spy = spyOn(t, 'method');
+        t.method(1);
+
+        expect(t.method).toHaveBeenCalledWith(1);
+        expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
+        expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+        expect(spy).toHaveBeenCalledWith(1);
+        expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
+        expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+        expect(t.method).toHaveBeenCalledOnceWith(1);
+        expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
+        expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+
+        expect(spy).toHaveBeenCalledOnceWith(1);
+        expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
+        expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+    });
+});
+
 describe("Spy for generic method", () => {
     interface Test {
         method<T>(): Array<Box<T>>;
@@ -1063,6 +1096,39 @@ describe("jasmine.any", () => {
             expect(foo).toHaveBeenCalledWith(jasmine.any(Number), jasmine.any(Function));
         });
     });
+});
+
+describe('DiffBuilder', function() {
+  it('can be passed to matchersUtil.equals', () => {
+      const differ = jasmine.DiffBuilder();
+      jasmine.matchersUtil.equals(1, 1, undefined, differ);
+  });
+
+  it('records the actual and expected objects', () => {
+      const diffBuilder = jasmine.DiffBuilder();
+      diffBuilder.setRoots({ x: 'actual' }, { x: 'expected' });
+      diffBuilder.recordMismatch();
+
+      expect(diffBuilder.getMessage()).toEqual(
+          "Expected Object({ x: 'actual' }) to equal Object({ x: 'expected' }).",
+      );
+  });
+
+  it("allows customization of the message", function() {
+      const diffBuilder = jasmine.DiffBuilder();
+      diffBuilder.setRoots({x: 'bar'}, {x: 'foo'});
+
+      function darthVaderFormatter(actual: any, expected: any, path: any) {
+          return `I find your lack of ${expected} disturbing. (was ${actual}, at ${path})`;
+      }
+
+      diffBuilder.withPath('x', () => {
+          diffBuilder.recordMismatch(darthVaderFormatter);
+      });
+
+      expect(diffBuilder.getMessage())
+          .toEqual("I find your lack of foo disturbing. (was bar, at $.x)");
+  });
 });
 
 describe('custom asymmetry', function() {
@@ -1314,6 +1380,15 @@ describe("Manually ticking the Jasmine Clock", () => {
             jasmine.clock().tick(50);
             expect(new Date().getTime()).toEqual(baseTime.getTime() + 50);
         });
+
+        it("can be chained off the install method", () => {
+            const baseTime = new Date(2013, 9, 23);
+
+            jasmine.clock().install().mockDate(baseTime);
+
+            jasmine.clock().tick(50);
+            expect(new Date().getTime()).toEqual(baseTime.getTime() + 50);
+        });
     });
 });
 
@@ -1511,7 +1586,6 @@ describe("Custom async matcher: 'toBeEight'", () => {
         jasmine.addAsyncMatchers({
             toBeEight: () => {
                 return {
-                    // tslint:disable-next-line:no-any
                     compare: async (input: any) => {
                         return {
                             pass: input === 8,
@@ -1553,7 +1627,7 @@ describe("Custom async matcher: 'toBeEight'", () => {
 
 describe('better typed spys', () => {
     describe('a typed spy', () => {
-        const spy = jasmine.createSpy('spy', (num: number, str: string) => {
+        const spy = jasmine.createSpy('spy', (num: number, str: string): string => {
             return `${num} and ${str}`;
         });
         it('has a typed returnValue', () => {
@@ -1636,7 +1710,6 @@ var myReporter: jasmine.CustomReporter = {
 
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log(`Spec: ${result.description} was ${result.status}`);
-        // tslint:disable-next-line:prefer-for-of
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
@@ -1647,8 +1720,11 @@ var myReporter: jasmine.CustomReporter = {
     },
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
-        console.log(`Suite: ${result.description} was ${result.status}`);
-        // tslint:disable-next-line:prefer-for-of
+        console.log(`Suite: ${result.description} was ${result.status} (${result.duration})`);
+        console.log(`Suite has properties: ${Object.keys(result.properties || {})}`);
+        if (result.deprecationWarnings) {
+            console.log(`Suite has deprecations: ${result.deprecationWarnings.map(w => w.message)}`);
+        }
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
@@ -1855,6 +1931,28 @@ describe("User scenarios", () => {
             const spy2 = spyOn(obj, "f");
             spy2.and.returnValue("can return string" as any);
         });
+    });
+});
+
+describe('setDefaultSpyStrategy', () => {
+    // https://jasmine.github.io/tutorials/default_spy_strategy
+    beforeEach(() => {
+        jasmine.setDefaultSpyStrategy(and => and.returnValue("Hello World"));
+    });
+
+    it("returns the value Hello World", () => {
+        const spy = jasmine.createSpy();
+        expect(spy()).toEqual("Hello World");
+    });
+
+    it("throws if you call any methods", () => {
+        jasmine.setDefaultSpyStrategy(and => and.throwError(new Error("Do Not Call Me")));
+        const program = jasmine.createSpyObj(["start", "stop", "examine"]);
+        jasmine.setDefaultSpyStrategy();
+
+        expect(() => {
+            program.start();
+        }).toThrowError("Do Not Call Me");
     });
 });
 

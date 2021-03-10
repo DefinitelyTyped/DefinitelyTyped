@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FetchUpload32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FetchUpload32;
+import { FetchUpload32 } from "../../";
+
+export = FetchUpload32;

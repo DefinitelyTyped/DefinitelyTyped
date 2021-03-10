@@ -1,6 +1,1 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const QS20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default QS20;
+export { QS20 as default } from "../../../";

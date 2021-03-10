@@ -1,22 +1,13 @@
-import express = require("express");
-import expressbrute = require("express-brute");
-import expressbruteredis = require("express-brute-redis");
+import redis = require('redis');
+import ExpressBrute = require('express-brute');
+import RedisStore = require('express-brute-redis');
 
-const store: expressbruteredis = new expressbruteredis({
-    host: "localhost",
+const store = new RedisStore({
+    host: 'localhost',
     port: 6379,
-    db: "0"
+    db: '0',
 });
+new ExpressBrute(store);
 
-const bruteforce: expressbrute = new expressbrute(store, {
-    failCallback: (req: express.Request, res: express.Response, next: express.NextFunction, validTime: Date) => {
-        // Don't send a message back to the user in production
-        res.send("You cannot submit a request again until: " + validTime);
-    }
-});
-
-const app: express.Express = express();
-
-app.post("/", bruteforce.prevent, (req, res, next) => {
-    res.send("Success!");
-});
+const clientStore = new RedisStore({ client: redis.createClient(), prefix: 'brute:' });
+new ExpressBrute(clientStore);

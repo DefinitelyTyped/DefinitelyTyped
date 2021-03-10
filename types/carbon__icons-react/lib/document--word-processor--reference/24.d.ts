@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DocumentWordProcessorReference24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DocumentWordProcessorReference24;
+import { DocumentWordProcessorReference24 } from "../../";
+
+export = DocumentWordProcessorReference24;

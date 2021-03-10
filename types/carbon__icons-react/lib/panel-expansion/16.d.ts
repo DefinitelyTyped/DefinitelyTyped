@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PanelExpansion16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PanelExpansion16;
+import { PanelExpansion16 } from "../../";
+
+export = PanelExpansion16;

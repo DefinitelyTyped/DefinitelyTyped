@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const NumberSmall_620: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default NumberSmall_620;
+import { NumberSmall_620 } from "../../";
+
+export = NumberSmall_620;

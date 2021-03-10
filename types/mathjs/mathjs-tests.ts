@@ -12,7 +12,7 @@ import {
 Basic usage examples
 */
 {
-    const math = create(all, {});
+    const math = create(all);
 
     // functions and constants
     math.round(math.e, 3);
@@ -317,6 +317,12 @@ Matrices examples
             return x > 0;
         }); // returns [6, 4, 3]
         math.filter(['23', 'foo', '100', '55', 'bar'], /[0-9]+/); // returns ["23", "100", "55"]
+    }
+
+    // concat matrix
+    {
+        math.concat([[0, 1, 2]], [[1, 2, 3]]); // returns [[ 0, 1, 2, 1, 2, 3 ]]
+        math.concat([[0, 1, 2]], [[1, 2, 3]], 0); // returns [[ 0, 1, 2 ], [ 1, 2, 3 ]]
     }
 }
 

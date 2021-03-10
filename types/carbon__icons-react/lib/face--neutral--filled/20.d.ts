@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FaceNeutralFilled20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FaceNeutralFilled20;
+import { FaceNeutralFilled20 } from "../../";
+
+export = FaceNeutralFilled20;

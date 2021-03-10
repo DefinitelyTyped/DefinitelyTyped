@@ -203,6 +203,10 @@ export interface AuthCredentials {
     [key: string]: unknown;
 }
 
+export interface AuthArtifacts {
+    [key: string]: unknown;
+}
+
 export type AuthMode = 'required' | 'optional' | 'try';
 
 /**
@@ -219,7 +223,7 @@ export type AuthMode = 'required' | 'optional' | 'try';
  */
 export interface RequestAuth {
     /** an artifact object received from the authentication strategy and used in authentication-related actions. */
-    artifacts: object;
+    artifacts: AuthArtifacts;
     /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
     credentials: AuthCredentials;
     /** the authentication error is failed and mode set to 'try'. */
@@ -972,7 +976,7 @@ export type ResponseValue = string | object;
 
 export interface AuthenticationData {
     credentials: AuthCredentials;
-    artifacts?: object;
+    artifacts?: AuthArtifacts;
 }
 
 export interface Auth {
@@ -2700,7 +2704,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
          * The artifacts are used to bypass the default authentication strategies,
          * and are validated directly as if they were received via an authentication scheme. Defaults to no artifacts.
          */
-        artifacts?: object;
+        artifacts?: AuthArtifacts;
     };
     /**
      * sets the initial value of request.app, defaults to {}.
@@ -3386,7 +3390,6 @@ export interface PluginProperties {
 /**
  * An empty interface to allow typings of custom server.methods.
  */
-/* tslint:disable-next-line:no-empty-interface */
 export interface ServerMethods extends Util.Dictionary<ServerMethod> {
 }
 
@@ -4064,7 +4067,8 @@ export namespace Lifecycle {
         (stream.Stream) |
         (object | object[]) |
         symbol |
-        ResponseToolkit;
+        Auth |
+        ResponseObject;
 
     /**
      * Various configuration options allows defining how errors are handled. For example, when invalid payload is received or malformed cookie, instead of returning an error, the framework can be

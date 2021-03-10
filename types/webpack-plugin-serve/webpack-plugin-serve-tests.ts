@@ -1,4 +1,12 @@
-import { WebpackPluginServe } from 'webpack-plugin-serve';
+import { Builtins, WebpackPluginServe } from 'webpack-plugin-serve';
+
+const proxy: Builtins['proxy'] = ({ logLevel }) => {
+    if (logLevel === 'debug') {
+        console.debug('debugging logs activated!');
+    }
+
+    return (req, res, next) => next();
+};
 
 interface Configuration {
     entry: string[];

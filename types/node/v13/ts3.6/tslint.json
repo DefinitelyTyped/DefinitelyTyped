@@ -1,6 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-bad-reference": false
+        "ban-types": false,
+        "no-bad-reference": false,
+        "no-single-declare-module": false,
+        "no-outside-dependencies": false
     }
 }

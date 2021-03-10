@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ContainerSoftware32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ContainerSoftware32;
+import { ContainerSoftware32 } from "../../";
+
+export = ContainerSoftware32;

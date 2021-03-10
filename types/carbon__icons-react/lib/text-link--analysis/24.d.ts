@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TextLinkAnalysis24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TextLinkAnalysis24;
+import { TextLinkAnalysis24 } from "../../";
+
+export = TextLinkAnalysis24;

@@ -22,7 +22,8 @@ export interface DropdownProps<ItemType = string> extends
      */
     inline?: boolean,
     invalid?: boolean;
-    invalidText?: string;
+    invalidText?: React.ReactNode;
+    hideLabel?: boolean;
     helperText?: React.ReactNode,
     items: readonly ItemType[],
     itemToElement?: ItemType extends object ? React.ComponentType<ItemType> : never,
@@ -34,6 +35,8 @@ export interface DropdownProps<ItemType = string> extends
     size?: ListBoxProps["size"],
     titleText: NonNullable<React.ReactNode>,
     type?: ListBoxProps["type"],
+    warn?: boolean,
+    warnText?: React.ReactNode,
 }
 
 declare function Dropdown<ItemType = string>(props: ForwardRefProps<HTMLButtonElement, DropdownProps<ItemType>>): FCReturn;

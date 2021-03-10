@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChartAreaStepper32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChartAreaStepper32;
+import { ChartAreaStepper32 } from "../../";
+
+export = ChartAreaStepper32;

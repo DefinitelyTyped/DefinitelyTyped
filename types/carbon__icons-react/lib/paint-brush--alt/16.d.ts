@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PaintBrushAlt16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PaintBrushAlt16;
+import { PaintBrushAlt16 } from "../../";
+
+export = PaintBrushAlt16;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const UserMultiple24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default UserMultiple24;
+import { UserMultiple24 } from "../../";
+
+export = UserMultiple24;

@@ -1,4 +1,3 @@
-// tslint:disable: no-async-without-await
 import tapeSync = require('tape');
 import tapePromise = require('tape-promise');
 

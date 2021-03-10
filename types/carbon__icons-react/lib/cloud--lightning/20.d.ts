@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CloudLightning20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CloudLightning20;
+import { CloudLightning20 } from "../../";
+
+export = CloudLightning20;

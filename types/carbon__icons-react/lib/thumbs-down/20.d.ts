@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ThumbsDown20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ThumbsDown20;
+import { ThumbsDown20 } from "../../";
+
+export = ThumbsDown20;

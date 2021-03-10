@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const QueryQueue20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default QueryQueue20;
+import { QueryQueue20 } from "../../";
+
+export = QueryQueue20;

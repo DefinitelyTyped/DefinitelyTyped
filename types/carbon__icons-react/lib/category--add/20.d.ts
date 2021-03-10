@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CategoryAdd20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CategoryAdd20;
+import { CategoryAdd20 } from "../../";
+
+export = CategoryAdd20;

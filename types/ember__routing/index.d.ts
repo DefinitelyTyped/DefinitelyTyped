@@ -12,7 +12,6 @@ export { default as Router } from '@ember/routing/router';
 import RouterService from '@ember/routing/router-service';
 import '@ember/routing/-private/router-dsl';
 import '@ember/routing/-private/transition';
-// tslint:disable-next-line:strict-export-declare-modifiers
 interface Registry {
     'router': RouterService;
 }

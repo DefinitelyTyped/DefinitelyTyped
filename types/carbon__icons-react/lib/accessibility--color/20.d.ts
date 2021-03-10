@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const AccessibilityColor20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default AccessibilityColor20;
+import { AccessibilityColor20 } from "../../";
+
+export = AccessibilityColor20;

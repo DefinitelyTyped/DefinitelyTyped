@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PlugFilled20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PlugFilled20;
+import { PlugFilled20 } from "../../";
+
+export = PlugFilled20;

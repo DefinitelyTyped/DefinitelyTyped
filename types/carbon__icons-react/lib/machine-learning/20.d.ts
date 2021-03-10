@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const MachineLearning20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default MachineLearning20;
+import { MachineLearning20 } from "../../";
+
+export = MachineLearning20;

@@ -165,3 +165,10 @@ import * as url from 'url';
     ws.addEventListener('other', () => {}, { once: true });
     ws.addEventListener('other', () => {}, { once: true });
 }
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+    ws.addEventListener('message', (event: WebSocket.MessageEvent) => {
+        console.log(event.data, event.target, event.type);
+    }, { once: true });
+}

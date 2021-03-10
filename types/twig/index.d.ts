@@ -5,6 +5,7 @@
 //                 Maik Tizziani <https://github.com/mtizziani>
 //                 Daniel Melcer <https://github.com/dmelcer9>
 //                 Chris Frewin <https://github.com/princefishthrower>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/twig.d.ts
@@ -44,13 +45,21 @@ export interface CompileOptions {
     };
 }
 
+export interface RenderOptions {
+    allowAsync?: boolean;
+    settings?: {
+        views: any;
+        'twig options': any;
+    };
+}
+
 export function twig(params: Parameters): Template;
 export function extendFilter(name: string, definition: (left: any, ...params: any[]) => string): void;
 export function extendFunction(name: string, definition: (...params: any[]) => string): void;
 export function extendTest(name: string, definition: (value: any) => boolean): void;
 export function extendTag(definition: any): void;
 export function compile(markup: string, options: CompileOptions): (context: any) => any;
-export function renderFile(path: string, options: (err: Error, result: any) => void, fn: null): void;
-export function renderFile(path: string, options: {} | CompileOptions, fn: (err: Error, result: any) => void): void;
+export function renderFile(path: string, options: RenderOptions, fn: (err: Error, result: any) => void): void;
+export function renderFile(path: string, fn: (err: Error, result: any) => void): void;
 export function __express(path: string, options: CompileOptions, fn: (err: Error, result: any) => void): void;
 export function cache(value: boolean): void;

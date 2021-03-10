@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DataTableReference16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DataTableReference16;
+import { DataTableReference16 } from "../../";
+
+export = DataTableReference16;

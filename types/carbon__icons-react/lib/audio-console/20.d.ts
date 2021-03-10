@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const AudioConsole20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default AudioConsole20;
+import { AudioConsole20 } from "../../";
+
+export = AudioConsole20;

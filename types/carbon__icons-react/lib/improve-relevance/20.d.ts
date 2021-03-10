@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ImproveRelevance20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ImproveRelevance20;
+import { ImproveRelevance20 } from "../../";
+
+export = ImproveRelevance20;

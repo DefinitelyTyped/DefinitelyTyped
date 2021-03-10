@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DocumentDownload32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DocumentDownload32;
+import { DocumentDownload32 } from "../../";
+
+export = DocumentDownload32;

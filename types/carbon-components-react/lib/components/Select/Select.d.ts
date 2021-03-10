@@ -14,7 +14,7 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
     id: string,
     inline?: boolean,
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     labelText?: React.ReactNode,
     light?: boolean,
     noLabel?: boolean,

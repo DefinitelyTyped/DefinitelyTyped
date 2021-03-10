@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DocumentSubtract20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DocumentSubtract20;
+import { DocumentSubtract20 } from "../../";
+
+export = DocumentSubtract20;

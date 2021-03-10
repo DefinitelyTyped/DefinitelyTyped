@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DirectionRotaryFirstRight24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DirectionRotaryFirstRight24;
+import { DirectionRotaryFirstRight24 } from "../../";
+
+export = DirectionRotaryFirstRight24;

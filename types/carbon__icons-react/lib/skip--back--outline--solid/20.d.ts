@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const SkipBackOutlineSolid20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default SkipBackOutlineSolid20;
+import { SkipBackOutlineSolid20 } from "../../";
+
+export = SkipBackOutlineSolid20;

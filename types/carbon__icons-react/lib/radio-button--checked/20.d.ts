@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const RadioButtonChecked20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default RadioButtonChecked20;
+import { RadioButtonChecked20 } from "../../";
+
+export = RadioButtonChecked20;

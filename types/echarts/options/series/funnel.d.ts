@@ -911,7 +911,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.labelLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -957,7 +957,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.labelLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -1024,7 +1024,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.labelLine.emphasis.lineStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -1070,7 +1070,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.labelLine.emphasis.lineStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -1137,7 +1137,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-funnel.itemStyle.color
                  */
-                color?: string | Function;
+                color?: EChartOption.Color | Function;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -1147,7 +1147,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-funnel.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -1188,7 +1188,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-funnel.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1932,7 +1932,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -1942,7 +1942,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -1983,7 +1983,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2055,7 +2055,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.labelLine.lineStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -2101,7 +2101,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.labelLine.lineStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -2168,7 +2168,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.labelLine.emphasis.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -2214,7 +2214,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.emphasis.labelLine.emphasis.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -4080,7 +4080,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4090,7 +4090,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -4131,7 +4131,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4180,7 +4180,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4191,7 +4191,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4232,7 +4232,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4436,7 +4436,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4447,7 +4447,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4488,7 +4488,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4537,7 +4537,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.itemStyle.emphasis.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -4548,7 +4548,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.itemStyle.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -4590,7 +4590,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markPoint.data.itemStyle.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -6493,7 +6493,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.lineStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -6539,7 +6539,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -6599,7 +6599,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.lineStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -6645,7 +6645,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.lineStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -6863,7 +6863,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -6909,7 +6909,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -6972,7 +6972,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -7020,7 +7020,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -7384,7 +7384,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -7430,7 +7430,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -7493,7 +7493,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -7541,7 +7541,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -9404,7 +9404,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -9414,7 +9414,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -9455,7 +9455,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -9504,7 +9504,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -9515,7 +9515,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -9556,7 +9556,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -9677,7 +9677,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -9688,7 +9688,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -9730,7 +9730,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -9781,7 +9781,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -9792,7 +9792,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -9836,7 +9836,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -11497,7 +11497,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -11508,7 +11508,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -11550,7 +11550,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -11601,7 +11601,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -11612,7 +11612,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -11656,7 +11656,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -13514,7 +13514,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -13524,7 +13524,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -13565,7 +13565,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-funnel.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -14320,7 +14320,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.labelLine.lineStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -14366,7 +14366,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.labelLine.lineStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -14433,7 +14433,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.data.labelLine.emphasis.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -14479,7 +14479,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.data.labelLine.emphasis.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -14537,7 +14537,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -14548,7 +14548,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -14589,7 +14589,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -15323,7 +15323,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.labelLine.lineStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -15369,7 +15369,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.labelLine.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -15438,7 +15438,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.labelLine.emphasis.lineStyle.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -15486,7 +15486,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-funnel.data.emphasis.labelLine.emphasis.lineStyle.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction

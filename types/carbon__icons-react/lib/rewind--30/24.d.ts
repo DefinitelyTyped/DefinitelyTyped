@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const Rewind_3024: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default Rewind_3024;
+import { Rewind_3024 } from "../../";
+
+export = Rewind_3024;

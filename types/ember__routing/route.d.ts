@@ -433,6 +433,11 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
     controllerName: string;
 
     /**
+     * The name of the route, dot-delimited, including the engine prefix if applicable.
+     */
+    fullRouteName: string;
+
+    /**
      * Configuration hash for this route's queryParams.
      */
     queryParams: { [key: string]: RouteQueryParam };
@@ -493,4 +498,34 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * redirecting, or decorating the transition from the currently active routes.
      */
     willTransition(transition: Transition): void;
+
+    /**
+     * Allows you to produce custom metadata for the route.
+     * The return value of this method will be attached to
+     * its corresponding RouteInfoWithAttributes object.
+     * Example
+     * ```app/routes/posts/index.js
+     * import Route from '@ember/routing/route';
+     * export default class PostsIndexRoute extends Route {
+     *   buildRouteInfoMetadata() {
+     *     return { title: 'Posts Page' }
+     *   }
+     * }
+     * ```
+     * ```app/routes/application.js
+     * import Route from '@ember/routing/route';
+     * import { inject as service } from '@ember/service';
+     * export default class ApplicationRoute extends Route {
+     *   @service router
+     *   constructor() {
+     *     super(...arguments);
+     *     this.router.on('routeDidChange', transition => {
+     *       document.title = transition.to.metadata.title;
+     *       // would update document's title to "Posts Page"
+     *     });
+     *   }
+     * }
+     * ```
+     */
+    buildRouteInfoMetadata(): unknown;
 }

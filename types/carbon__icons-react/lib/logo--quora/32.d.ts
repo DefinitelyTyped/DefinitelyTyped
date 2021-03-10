@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const LogoQuora32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default LogoQuora32;
+import { LogoQuora32 } from "../../";
+
+export = LogoQuora32;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const Stethoscope20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default Stethoscope20;
+import { Stethoscope20 } from "../../";
+
+export = Stethoscope20;

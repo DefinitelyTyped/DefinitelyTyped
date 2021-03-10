@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const Pedestrian32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default Pedestrian32;
+import { Pedestrian32 } from "../../";
+
+export = Pedestrian32;

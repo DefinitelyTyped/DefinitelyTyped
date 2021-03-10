@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const StopOutlineFilled24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default StopOutlineFilled24;
+import { StopOutlineFilled24 } from "../../";
+
+export = StopOutlineFilled24;

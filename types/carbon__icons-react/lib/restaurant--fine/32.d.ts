@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const RestaurantFine32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default RestaurantFine32;
+import { RestaurantFine32 } from "../../";
+
+export = RestaurantFine32;

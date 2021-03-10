@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const LogoSkype20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default LogoSkype20;
+import { LogoSkype20 } from "../../";
+
+export = LogoSkype20;

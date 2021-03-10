@@ -1,4 +1,6 @@
-import { types, Client, QueryArrayConfig, Pool } from 'pg';
+import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool } from 'pg';
+import TypeOverrides = require('pg/lib/type-overrides');
+import { NoticeMessage } from 'pg-protocol/dist/messages';
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -12,6 +14,15 @@ const client = new Client({
     application_name: 'DefinitelyTyped',
     keepAlive: true,
 });
+
+const user: string | undefined = client.user;
+const database: string | undefined = client.database;
+const port: number = client.port;
+const host: string = client.host;
+const password: string | undefined = client.password;
+const ssl: boolean = client.ssl;
+
+client.on('notice', (notice: NoticeMessage) => console.warn(`${notice.severity}: ${notice.message}`));
 client.connect(err => {
     if (err) {
         console.error('Could not connect to postgres', err);
@@ -120,6 +131,25 @@ client
     })
     .then(res => console.log(res.fields[0]));
 
+const customTypes: CustomTypesConfig = {
+    getTypeParser: () => () => 'aCustomTypeParser!'
+};
+
+const queryCustomTypes = {
+    name: 'get-name',
+    text: 'SELECT $1::text',
+    values: ['brianc'],
+    types: customTypes
+};
+client.query(queryCustomTypes, (err, res) => {
+    if (err) {
+        console.error(err.stack);
+    } else {
+        console.log(res.rows);
+        console.log(res.fields.map(f => f.name));
+    }
+});
+
 client.end(err => {
     console.log('client has disconnected');
     if (err) {
@@ -131,6 +161,36 @@ client
     .end()
     .then(() => console.log('client has disconnected'))
     .catch(err => console.error('error during disconnection', err.stack));
+
+const clientCustomQueryTypes = new Client({
+    host: 'my.database-server.com',
+    port: 5334,
+    user: 'database-user',
+    password: 'secretpassword!!',
+    application_name: 'DefinitelyTyped',
+    keepAlive: true,
+    types: customTypes
+});
+
+clientCustomQueryTypes.query(query, (err, res) => {
+    if (err) {
+        console.error(err.stack);
+    } else {
+        console.log(res.rows);
+        console.log(res.fields.map(f => f.name));
+    }
+});
+
+clientCustomQueryTypes
+    .end()
+    .then(() => console.log('client has disconnected'))
+    .catch(err => console.error('error during disconnection', err.stack));
+
+const customTypeOverrides = new TypeOverrides();
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
+const customCustomTypeOverrides = new TypeOverrides(customTypes);
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 // pg.Pool
 // https://node-postgres.com/api/pool
@@ -229,3 +289,13 @@ c = new Client({
     connectionString: 'connectionString',
     connectionTimeoutMillis: 1000, // connection timeout optionally specified
 });
+
+const dynamicPasswordSync = new Client({
+    password: () => 'sync-secret',
+});
+dynamicPasswordSync.connect();
+
+const dynamicPasswordAsync = new Client({
+    password: async () => 'sync-secret',
+});
+dynamicPasswordAsync.connect();

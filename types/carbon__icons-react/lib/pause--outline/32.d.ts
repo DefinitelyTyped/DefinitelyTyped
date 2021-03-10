@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PauseOutline32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PauseOutline32;
+import { PauseOutline32 } from "../../";
+
+export = PauseOutline32;

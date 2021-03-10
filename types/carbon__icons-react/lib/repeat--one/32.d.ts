@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const RepeatOne32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default RepeatOne32;
+import { RepeatOne32 } from "../../";
+
+export = RepeatOne32;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TabletLandscape24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TabletLandscape24;
+import { TabletLandscape24 } from "../../";
+
+export = TabletLandscape24;

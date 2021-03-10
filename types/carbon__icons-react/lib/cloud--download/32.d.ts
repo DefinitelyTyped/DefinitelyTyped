@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CloudDownload32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CloudDownload32;
+import { CloudDownload32 } from "../../";
+
+export = CloudDownload32;

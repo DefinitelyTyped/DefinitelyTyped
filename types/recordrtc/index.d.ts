@@ -1,6 +1,7 @@
 // Type definitions for recordrtc 5.6
 // Project: http://RecordRTC.org/
 // Definitions by: Kyle Hensel <https://github.com/k-yle>
+//                 moonrailgun <https://github.com/moonrailgun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace RecordRTC {
@@ -12,7 +13,7 @@ declare namespace RecordRTC {
         gif?: Blob;
     }
 
-    type MediaStreamKind = "videoinput" | "audioinput" | "audiooutput";
+    type MediaStreamKind = 'videoinput' | 'audioinput' | 'audiooutput';
 
     /* tslint:disable:no-unnecessary-class */
     class MediaStreamRecorder {
@@ -34,10 +35,108 @@ declare namespace RecordRTC {
         constructor(stream: any, config: any);
     }
 
+    class MultiStreamsMixer {
+        constructor(arrayOfMediaStreams: MediaStream[], elementClass: string);
+    }
+
+    class MultiStreamRecorder {
+        /**
+         * MultiStreamRecorder can record multiple videos in single container.
+         * @summary Multi-videos recorder.
+         * @license {@link https://github.com/muaz-khan/RecordRTC/blob/master/LICENSE|MIT}
+         * @example
+         * var options = {
+         *     mimeType: 'video/webm'
+         * }
+         * var recorder = new MultiStreamRecorder(ArrayOfMediaStreams, options);
+         * recorder.record();
+         * recorder.stop(function(blob) {
+         *     video.src = URL.createObjectURL(blob);
+         *
+         *     // or
+         *     var blob = recorder.blob;
+         * });
+         * @see {@link https://github.com/muaz-khan/RecordRTC|RecordRTC Source Code}
+         * @param mediaStreams - Array of MediaStreams.
+         * @param config - {disableLogs:true, frameInterval: 1, mimeType: "video/webm"}
+         */
+
+        constructor(stream?: MediaStream[], config?: any);
+
+        /**
+         * This method records all MediaStreams.
+         * @example
+         * recorder.record();
+         */
+        record(): void;
+
+        /**
+         * This method stops recording MediaStream.
+         * @param callback - Callback function, that is used to pass recorded blob back to the callee.
+         * @example
+         * recorder.stop(function(blob) {
+         *     video.src = URL.createObjectURL(blob);
+         * });
+         */
+        stop(callback: (blob: Blob) => void): void;
+
+        /**
+         * This method pauses the recording process.
+         * @example
+         * recorder.pause();
+         */
+        pause(): void;
+
+        /**
+         * This method resumes the recording process.
+         * @example
+         * recorder.resume();
+         */
+        resume(): void;
+
+        /**
+         * This method resets currently recorded data.
+         * @example
+         * recorder.clearRecordedData();
+         */
+        clearRecordedData(): void;
+
+        /**
+         * Add extra media-streams to existing recordings.
+         * @param mediaStreams - Array of MediaStreams
+         * @example
+         * recorder.addStreams([newAudioStream, newVideoStream]);
+         */
+        addStreams(streams: MediaStream[]): void;
+
+        /**
+         * Reset videos during live recording. Replace old videos e.g. replace cameras with full-screen.
+         * @param mediaStreams - Array of MediaStreams
+         * @example
+         * recorder.resetVideoStreams([newVideo1, newVideo2]);
+         */
+        resetVideoStreams(streams: MediaStream[]): void;
+
+        /**
+         * Returns MultiStreamsMixer
+         * @param mediaStreams - Array of MediaStreams
+         * @example
+         * let mixer = recorder.getMixer();
+         * mixer.appendStreams([newStream]);
+         */
+        getMixer(): MultiStreamsMixer;
+    }
+
     interface Options {
         type?: 'video' | 'audio' | 'canvas' | 'gif';
 
-        recorderType?: MediaStreamRecorder | StereoAudioRecorder | WebAssemblyRecorder | CanvasRecorder | GifRecorder | WhammyRecorder;
+        recorderType?:
+            | MediaStreamRecorder
+            | StereoAudioRecorder
+            | WebAssemblyRecorder
+            | CanvasRecorder
+            | GifRecorder
+            | WhammyRecorder;
 
         mimeType?:
             | 'audio/webm'
@@ -175,7 +274,7 @@ declare class RecordRTC {
     destroy(): void;
 
     /** get recorder's state */
-    getState(): void;
+    getState(): string;
 
     /** recorder's state */
     readonly state: string;

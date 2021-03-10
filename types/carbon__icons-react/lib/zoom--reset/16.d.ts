@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ZoomReset16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ZoomReset16;
+import { ZoomReset16 } from "../../";
+
+export = ZoomReset16;

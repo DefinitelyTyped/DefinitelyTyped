@@ -9,3 +9,8 @@ gulp.task('default', () =>
 
 csso(true);
 csso(false);
+csso({
+    sourceMap: true,
+    restructure: true,
+    debug: true,
+});

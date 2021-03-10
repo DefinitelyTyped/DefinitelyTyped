@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const IotPlatform20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default IotPlatform20;
+import { IotPlatform20 } from "../../";
+
+export = IotPlatform20;

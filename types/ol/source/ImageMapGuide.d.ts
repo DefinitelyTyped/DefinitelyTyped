@@ -25,7 +25,14 @@ export interface Options {
 export default class ImageMapGuide extends ImageSource {
     constructor(options: Options);
     getImageInternal(extent: Extent, resolution: number, pixelRatio: number, projection: Projection): ImageWrapper;
+    /**
+     * Return the image load function of the source.
+     */
     getImageLoadFunction(): LoadFunction;
+    /**
+     * Get the user-provided params, i.e. those passed to the constructor through
+     * the "params" option, and possibly updated using the updateParams method.
+     */
     getParams(): any;
     getUrl(
         baseUrl: string,
@@ -34,7 +41,13 @@ export default class ImageMapGuide extends ImageSource {
         size: Size,
         projection: Projection,
     ): string;
+    /**
+     * Set the image load function of the MapGuide source.
+     */
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
+    /**
+     * Update the user-provided params.
+     */
     updateParams(params: any): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

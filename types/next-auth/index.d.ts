@@ -1,10 +1,11 @@
-// Type definitions for next-auth 3.1
+// Type definitions for next-auth 3.7
 // Project: https://github.com/iaincollins/next-auth#readme
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>
 //                 Juan <https://github.com/JuanM04>
+//                 Balázs <https://github.com/balazsorban44>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
@@ -16,7 +17,7 @@ import { SessionProvider } from './client';
 import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
 interface InitOptions {
-    providers: Array<ReturnType<PossibleProviders>>;
+    providers: ReadonlyArray<ReturnType<PossibleProviders>>;
     database?: string | ConnectionOptions;
     secret?: string;
     session?: Session;
@@ -28,6 +29,7 @@ interface InitOptions {
     events?: Events;
     useSecureCookies?: boolean;
     cookies?: Cookies;
+    theme?: 'light' | 'dark' | 'auto';
 }
 
 interface AppOptions {
@@ -75,6 +77,7 @@ interface CookieOptions {
     path?: string;
     secure?: boolean;
     maxAge?: number;
+    domain?: string;
 }
 
 interface Events {
@@ -94,22 +97,24 @@ interface Session {
 }
 
 interface User {
-    name: string;
-    email: string;
-    image: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
 }
 
 interface JWTOptions {
     secret?: string;
     maxAge?: number;
     encryption?: boolean;
+    signingKey?: string;
+    encryptionKey?: string;
     encode?(options: JWTEncodeParams): Promise<string>;
-    decode?(options: JWTDecodeParams): Promise<string>;
+    decode?(options: JWTDecodeParams): Promise<GenericObject>;
 }
 
 // TODO: Improve callback typings
 interface Callbacks {
-    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean>;
+    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean | string>;
     redirect?(url: string, baseUrl: string): Promise<string>;
     session?(session: SessionBase, user: User): Promise<GenericObject>;
     jwt?(
@@ -121,6 +126,7 @@ interface Callbacks {
     ): Promise<GenericObject>;
 }
 
-declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
+declare function NextAuth(options: InitOptions): Promise<void>;
+declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options: InitOptions): Promise<void>;
 export default NextAuth;
 export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, User, Callbacks };

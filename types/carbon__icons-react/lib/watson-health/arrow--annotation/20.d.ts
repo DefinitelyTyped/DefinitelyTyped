@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const WatsonHealthArrowAnnotation20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WatsonHealthArrowAnnotation20;
+import { WatsonHealthArrowAnnotation20 } from "../../../";
+
+export = WatsonHealthArrowAnnotation20;

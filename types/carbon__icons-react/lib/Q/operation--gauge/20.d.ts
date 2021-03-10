@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const QOperationGauge20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default QOperationGauge20;
+import { QOperationGauge20 } from "../../../";
+
+export = QOperationGauge20;

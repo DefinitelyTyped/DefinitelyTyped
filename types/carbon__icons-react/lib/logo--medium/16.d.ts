@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const LogoMedium16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default LogoMedium16;
+import { LogoMedium16 } from "../../";
+
+export = LogoMedium16;

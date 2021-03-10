@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ScreenOff32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ScreenOff32;
+import { ScreenOff32 } from "../../";
+
+export = ScreenOff32;

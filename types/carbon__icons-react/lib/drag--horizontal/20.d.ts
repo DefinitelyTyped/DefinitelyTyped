@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const DragHorizontal20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default DragHorizontal20;
+import { DragHorizontal20 } from "../../";
+
+export = DragHorizontal20;

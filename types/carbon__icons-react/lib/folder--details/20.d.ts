@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FolderDetails20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FolderDetails20;
+import { FolderDetails20 } from "../../";
+
+export = FolderDetails20;

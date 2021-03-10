@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PhoneOff16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PhoneOff16;
+import { PhoneOff16 } from "../../";
+
+export = PhoneOff16;

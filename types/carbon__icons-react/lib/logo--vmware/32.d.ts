@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const LogoVmware32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default LogoVmware32;
+import { LogoVmware32 } from "../../";
+
+export = LogoVmware32;

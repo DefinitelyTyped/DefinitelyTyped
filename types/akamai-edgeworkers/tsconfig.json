@@ -19,9 +19,14 @@
     },
     "files": [
         "index.d.ts",
-    "test/akamai-edgeworkers-global.test.ts",
-    "test/cookies-tests.ts",
-    "test/set_variable.ts", 
-    "test/url-search-params-tests.ts"
+        "test/akamai-edgeworkers-global.test.ts",
+        "test/cookies-tests.ts",
+        "test/create-response-tests.ts",
+        "test/http-request-tests.ts",
+        "test/log-tests.ts",
+        "test/set_variable.ts", 
+        "test/scenario-stream.ts",
+        "test/stream.ts",
+        "test/url-search-params-tests.ts"
     ]
 }

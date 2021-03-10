@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ListNumbered16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ListNumbered16;
+import { ListNumbered16 } from "../../";
+
+export = ListNumbered16;

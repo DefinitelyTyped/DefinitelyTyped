@@ -7,9 +7,7 @@
 
 import { RequestHandler } from "express";
 import { ClientOpts } from "redis";
-import Bull = require("bull");
-import Bee = require("bee-queue");
-import { Queue } from "bullmq";
+import { Redis } from "ioredis";
 
 declare function Arena(
     options: BullArena.MiddlewareOptions,
@@ -18,10 +16,22 @@ declare function Arena(
 
 declare namespace BullArena {
     interface MiddlewareOptions {
-        Bull?: typeof Bull;
-        Bee?: typeof Bee;
-        BullMQ?: typeof Queue;
+        Bull?: QueueConstructor;
+        Bee?: QueueConstructor;
+        BullMQ?: QueueConstructor;
         queues: Array<QueueOptions & ConnectionOptions>;
+    }
+
+    interface QueueConstructor {
+        new (queueName: string, opts?: QueueOptions): Queue;
+    }
+
+    interface Queue {
+        // Interface of Queue is much larger and
+        // inconsistent between different packages.
+        // We are using an example method here
+        // that is consistent across all providers.
+        getJob(jobId: string): Promise<unknown>;
     }
 
     interface MiddlewareListenOptions {
@@ -56,7 +66,7 @@ declare namespace BullArena {
     }
 
     interface RedisClientConnectionOptions {
-        redis: ClientOpts;
+        redis: ClientOpts | Redis;
     }
 }
 

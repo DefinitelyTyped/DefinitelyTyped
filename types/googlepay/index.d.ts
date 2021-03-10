@@ -8,7 +8,11 @@
 //                 Soc Sieng <https://github.com/socsieng>
 //                 Jose L Ugia <https://github.com/JlUgia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.1
 
+/**
+ * Spec for the Google Pay APIs.
+ */
 declare namespace google.payments.api {
     /**
      * Request for payment data.
@@ -1663,19 +1667,52 @@ declare namespace google.payments.api {
         onClick: (event: Event) => void;
 
         /**
+         * Specifies the button color of the Google Pay button.
+         *
          * @default "default"
          */
         buttonColor?: ButtonColor;
 
         /**
+         * Specifies the text to be displayed within the Google Pay button.
+         *
          * @default "buy"
          */
         buttonType?: ButtonType;
 
         /**
+         * Determines how the button's size should change relative to the
+         * button's parent element.
+         *
          * @default "static"
          */
         buttonSizeMode?: ButtonSizeMode;
+
+        /**
+         * Specifies how to append Google Pay resources, such as `<style>` tags,
+         * in the DOM. Its default value is document.
+         *
+         * Use this property to integrate Google Pay with Web Components and the
+         * shadow DOM. Set its value to the result of
+         * [`container.getRootNode()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/getRootNode).
+         *
+         * @default document
+         */
+        buttonRootNode?: HTMLDocument | ShadowRoot;
+
+        /**
+         * The [ISO
+         * 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code
+         * representing the desired button language.
+         *
+         * Supported locales include `en`, `ar`, `bg`, `ca`, `cs`, `da`, `de`,
+         * `el`, `es`, `et`, `fi`, `fr`, `hr`, `id`, `it`, `ja`, `ko`, `ms`,
+         * `nl`, `no`, `pl`, `pt`, `ru`, `sk`, `sl`, `sr`, `sv`, `th`, `tr`,
+         * `uk`, and `zh`.
+         *
+         * @default browser or operating system language
+         */
+        buttonLocale?: string;
     }
 
     /**

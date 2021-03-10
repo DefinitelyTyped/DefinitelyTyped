@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const MostlyCloudy16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default MostlyCloudy16;
+import { MostlyCloudy16 } from "../../";
+
+export = MostlyCloudy16;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CheckmarkFilled20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CheckmarkFilled20;
+import { CheckmarkFilled20 } from "../../";
+
+export = CheckmarkFilled20;

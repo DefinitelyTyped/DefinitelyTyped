@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const PillsSubtract32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default PillsSubtract32;
+import { PillsSubtract32 } from "../../";
+
+export = PillsSubtract32;

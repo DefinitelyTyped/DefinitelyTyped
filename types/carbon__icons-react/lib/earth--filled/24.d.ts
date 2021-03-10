@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const EarthFilled24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default EarthFilled24;
+import { EarthFilled24 } from "../../";
+
+export = EarthFilled24;

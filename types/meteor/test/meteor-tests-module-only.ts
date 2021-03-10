@@ -10,15 +10,15 @@ const headers = new Headers({ 'Content-Type': 'application/json' });
 const request = new Request('https://github.com', { headers });
 const reply: Promise<Response> = fetch(request);
 
-function foo(x: number) {
+function foo(x: string | number) {
     return `${x}`;
 }
 
 // $ExpectType Promise<string>
-MeteorPromise.async(foo, null)(1);
+MeteorPromise.async(foo, false)(1);
 
 // $ExpectType string
-MeteorPromise.async(foo, null)(1).await();
+MeteorPromise.async(foo, false)(1).await();
 
 // $ExpectType Promise<string>
 MeteorPromise.asyncApply(foo, null, [1]);

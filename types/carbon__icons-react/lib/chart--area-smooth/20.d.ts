@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChartAreaSmooth20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChartAreaSmooth20;
+import { ChartAreaSmooth20 } from "../../";
+
+export = ChartAreaSmooth20;

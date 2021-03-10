@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const GeneratePdf16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default GeneratePdf16;
+import { GeneratePdf16 } from "../../";
+
+export = GeneratePdf16;

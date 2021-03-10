@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const UvIndexFilled32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default UvIndexFilled32;
+import { UvIndexFilled32 } from "../../";
+
+export = UvIndexFilled32;

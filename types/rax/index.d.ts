@@ -1,6 +1,8 @@
 // Type definitions for Rax 1.0.0
 // Project: https://rax.js.org
 // Definitions by: Solo Jiang <https://github.com/solojiang>
+//                 chenjun1011 <https://github.com/chenjun1011>
+//                 imsobear <https://github.com/imsobear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -10,142 +12,6 @@
 
 import * as CSS from 'csstype';
 import * as PropTypes from 'prop-types';
-interface AnimationEvent extends Event {}
-interface ClipboardEvent extends Event {}
-interface CompositionEvent extends Event {}
-interface DragEvent extends Event {}
-interface FocusEvent extends Event {}
-interface KeyboardEvent extends Event {}
-interface MouseEvent extends Event {}
-interface TouchEvent extends Event {}
-interface PointerEvent extends Event {}
-interface TransitionEvent extends Event {}
-interface UIEvent extends Event {}
-interface WheelEvent extends Event {}
-
-interface EventTarget {}
-interface Document {}
-interface DataTransfer {}
-interface StyleMedia {}
-
-interface Element {}
-
-interface HTMLElement extends Element {}
-interface HTMLAnchorElement extends HTMLElement {}
-interface HTMLAreaElement extends HTMLElement {}
-interface HTMLAudioElement extends HTMLElement {}
-interface HTMLBaseElement extends HTMLElement {}
-interface HTMLBodyElement extends HTMLElement {}
-interface HTMLBRElement extends HTMLElement {}
-interface HTMLButtonElement extends HTMLElement {}
-interface HTMLCanvasElement extends HTMLElement {}
-interface HTMLDataListElement extends HTMLElement {}
-interface HTMLDialogElement extends HTMLElement {}
-interface HTMLDivElement extends HTMLElement {}
-interface HTMLDListElement extends HTMLElement {}
-interface HTMLEmbedElement extends HTMLElement {}
-interface HTMLFieldSetElement extends HTMLElement {}
-interface HTMLFormElement extends HTMLElement {}
-interface HTMLHeadingElement extends HTMLElement {}
-interface HTMLHeadElement extends HTMLElement {}
-interface HTMLHRElement extends HTMLElement {}
-interface HTMLHtmlElement extends HTMLElement {}
-interface HTMLIFrameElement extends HTMLElement {}
-interface HTMLImageElement extends HTMLElement {}
-interface HTMLInputElement extends HTMLElement {}
-interface HTMLModElement extends HTMLElement {}
-interface HTMLLabelElement extends HTMLElement {}
-interface HTMLLegendElement extends HTMLElement {}
-interface HTMLLIElement extends HTMLElement {}
-interface HTMLLinkElement extends HTMLElement {}
-interface HTMLMapElement extends HTMLElement {}
-interface HTMLMetaElement extends HTMLElement {}
-interface HTMLObjectElement extends HTMLElement {}
-interface HTMLOListElement extends HTMLElement {}
-interface HTMLOptGroupElement extends HTMLElement {}
-interface HTMLOptionElement extends HTMLElement {}
-interface HTMLParagraphElement extends HTMLElement {}
-interface HTMLParamElement extends HTMLElement {}
-interface HTMLPreElement extends HTMLElement {}
-interface HTMLProgressElement extends HTMLElement {}
-interface HTMLQuoteElement extends HTMLElement {}
-interface HTMLScriptElement extends HTMLElement {}
-interface HTMLSelectElement extends HTMLElement {}
-interface HTMLSourceElement extends HTMLElement {}
-interface HTMLSpanElement extends HTMLElement {}
-interface HTMLStyleElement extends HTMLElement {}
-interface HTMLTableElement extends HTMLElement {}
-interface HTMLTableColElement extends HTMLElement {}
-interface HTMLTableDataCellElement extends HTMLElement {}
-interface HTMLTableHeaderCellElement extends HTMLElement {}
-interface HTMLTableRowElement extends HTMLElement {}
-interface HTMLTableSectionElement extends HTMLElement {}
-interface HTMLTextAreaElement extends HTMLElement {}
-interface HTMLTitleElement extends HTMLElement {}
-interface HTMLTrackElement extends HTMLElement {}
-interface HTMLUListElement extends HTMLElement {}
-interface HTMLVideoElement extends HTMLElement {}
-interface HTMLWebViewElement extends HTMLElement {}
-
-interface SVGElement extends Element {}
-interface SVGSVGElement extends SVGElement {}
-interface SVGCircleElement extends SVGElement {}
-interface SVGClipPathElement extends SVGElement {}
-interface SVGDefsElement extends SVGElement {}
-interface SVGDescElement extends SVGElement {}
-interface SVGEllipseElement extends SVGElement {}
-interface SVGFEBlendElement extends SVGElement {}
-interface SVGFEColorMatrixElement extends SVGElement {}
-interface SVGFEComponentTransferElement extends SVGElement {}
-interface SVGFECompositeElement extends SVGElement {}
-interface SVGFEConvolveMatrixElement extends SVGElement {}
-interface SVGFEDiffuseLightingElement extends SVGElement {}
-interface SVGFEDisplacementMapElement extends SVGElement {}
-interface SVGFEDistantLightElement extends SVGElement {}
-interface SVGFEDropShadowElement extends SVGElement {}
-interface SVGFEFloodElement extends SVGElement {}
-interface SVGFEFuncAElement extends SVGElement {}
-interface SVGFEFuncBElement extends SVGElement {}
-interface SVGFEFuncGElement extends SVGElement {}
-interface SVGFEFuncRElement extends SVGElement {}
-interface SVGFEGaussianBlurElement extends SVGElement {}
-interface SVGFEImageElement extends SVGElement {}
-interface SVGFEMergeElement extends SVGElement {}
-interface SVGFEMergeNodeElement extends SVGElement {}
-interface SVGFEMorphologyElement extends SVGElement {}
-interface SVGFEOffsetElement extends SVGElement {}
-interface SVGFEPointLightElement extends SVGElement {}
-interface SVGFESpecularLightingElement extends SVGElement {}
-interface SVGFESpotLightElement extends SVGElement {}
-interface SVGFETileElement extends SVGElement {}
-interface SVGFETurbulenceElement extends SVGElement {}
-interface SVGFilterElement extends SVGElement {}
-interface SVGForeignObjectElement extends SVGElement {}
-interface SVGGElement extends SVGElement {}
-interface SVGImageElement extends SVGElement {}
-interface SVGLineElement extends SVGElement {}
-interface SVGLinearGradientElement extends SVGElement {}
-interface SVGMarkerElement extends SVGElement {}
-interface SVGMaskElement extends SVGElement {}
-interface SVGMetadataElement extends SVGElement {}
-interface SVGPathElement extends SVGElement {}
-interface SVGPatternElement extends SVGElement {}
-interface SVGPolygonElement extends SVGElement {}
-interface SVGPolylineElement extends SVGElement {}
-interface SVGRadialGradientElement extends SVGElement {}
-interface SVGRectElement extends SVGElement {}
-interface SVGStopElement extends SVGElement {}
-interface SVGSwitchElement extends SVGElement {}
-interface SVGSymbolElement extends SVGElement {}
-interface SVGTextElement extends SVGElement {}
-interface SVGTextPathElement extends SVGElement {}
-interface SVGTSpanElement extends SVGElement {}
-interface SVGUseElement extends SVGElement {}
-interface SVGViewElement extends SVGElement {}
-
-interface Text {}
-interface TouchList {}
-interface WebGLRenderingContext {}
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -159,6 +25,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type Booleanish = boolean | 'true' | 'false';
 
 /**
  * defined in scheduler/tracing
@@ -174,6 +41,12 @@ export = Rax;
 export as namespace Rax;
 
 declare namespace Rax {
+  export const shared: {
+    Host: any;
+    Instance: RaxInstance;
+    Element: RaxElement;
+    flattenChildren: any;
+  };
   /**
    * ======================================================================
    * Rax Elements
@@ -203,10 +76,41 @@ declare namespace Rax {
     | null;
   type LegacyRef<T> = string | Ref<T>;
 
+  /**
+   * Gets the instance type for a Rax element. The instance will be different for various component types:
+   *
+   * - Rax class components will be the class instance. So if you had `class Foo extends Component<{}> {}`
+   *   and used `ElementRef<typeof Foo>` then the type would be the instance of `Foo`.
+   * - Rax stateless functional components do not have a backing instance and so `ElementRef<typeof Bar>`
+   *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
+   * - JSX intrinsics like `div` will give you their DOM instance. For `ElementRef<'div'>` that would be
+   *   `HTMLDivElement`. For `ElementRef<'input'>` that would be `HTMLInputElement`.
+   * - Rax stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
+   *   to component.
+   *
+   * `C` must be the type _of_ a Rax component so you need to use typeof as in ElementRef<typeof MyComponent>.
+   */
+  type ElementRef<
+      C extends
+          | ForwardRefExoticComponent<any>
+          | { new (props: any): Component<any> }
+          | ((props: any, context?: any) => RaxElement | null)
+          | keyof JSX.IntrinsicElements
+  > =
+      // need to check first if `ref` is a valid prop for ts@3.0
+      // otherwise it will infer `{}` instead of `never`
+      "ref" extends keyof ComponentPropsWithRef<C>
+          ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends Ref<
+              infer Instance
+          >
+              ? Instance
+              : never
+          : never;
+
   type ComponentState = any;
 
   interface Attributes {
-    key?: Key;
+    key?: Key | null;
   }
 
   interface RefAttributes<T> extends Attributes {
@@ -294,7 +198,6 @@ declare namespace Rax {
     ...children: RaxNode[]
   ) => DOMElement<P, T>;
 
-  // tslint:disable-next-line:no-empty-interface
   interface HTMLFactory<T extends HTMLElement>
     extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
@@ -428,12 +331,58 @@ declare namespace Rax {
   interface RenderOption {
     driver: any;
   }
-  function render<T>(
-    element: Element,
-    parent: Element | Document,
-    options?: RenderOption,
-    callback?: () => void
-  ): void;
+  export const render: Renderer;
+
+  export interface Renderer {
+    <T extends Element>(
+        element: DOMElement<DOMAttributes<T>, T>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): T;
+
+    (
+        element: Array<DOMElement<DOMAttributes<any>, any>>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): Element;
+
+    (
+        element: FunctionComponentElement<any> | Array<FunctionComponentElement<any>>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): void;
+
+    <P, T extends Component<P, ComponentState>>(
+        element: CElement<P, T>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): T;
+
+    (
+        element: Array<CElement<any, Component<any, ComponentState>>>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): Component<any, ComponentState>;
+
+    <P>(
+        element: RaxElement<P>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): Component<P, ComponentState> | Element | void;
+
+    (
+        element: RaxElement[],
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): Component<any, ComponentState> | Element | void;
+  }
 
   /**
    * ======================================================================
@@ -443,7 +392,6 @@ declare namespace Rax {
   type RaxInstance = Component<any> | Element;
 
   // Base component for plain JS classes
-  // tslint:disable-next-line:no-empty-interface
   interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> {}
   class Component<P, S> {
     readonly props: Readonly<P> & Readonly<{ children?: RaxNode }>;
@@ -485,13 +433,28 @@ declare namespace Rax {
     displayName?: string;
   }
 
-  interface RefForwardingComponent<T, P = {}> {
-    (props: PropsWithChildren<P>, ref: Ref<T>): RaxElement | null;
-    propTypes?: WeakValidationMap<P>;
-    contextTypes?: ValidationMap<any>;
-    defaultProps?: Partial<P>;
-    displayName?: string;
+  type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+
+  interface ForwardRefRenderFunction<T, P = {}> {
+      (props: PropsWithChildren<P>, ref: ForwardedRef<T>): RaxElement | null;
+      displayName?: string;
+      // explicit rejected with `never` required due to
+      // https://github.com/microsoft/TypeScript/issues/36826
+      /**
+       * defaultProps are not supported on render functions
+       */
+      defaultProps?: never;
+      /**
+       * propTypes are not supported on render functions
+       */
+      propTypes?: never;
   }
+
+  /**
+   * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
+   *             "real" component.
+   */
+  interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
 
   interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
     new (props: P, context?: any): Component<P, S>;
@@ -628,9 +591,7 @@ declare namespace Rax {
     defaultProps?: Partial<P>;
   }
 
-  function forwardRef<T, P = {}>(
-    Component: RefForwardingComponent<T, P>
-  ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+  function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
   /** Ensures that the props do not include ref at all */
   type PropsWithoutRef<P> =
@@ -933,11 +894,10 @@ declare namespace Rax {
   }
 
   interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-    relatedTarget: EventTarget;
+    relatedTarget: EventTarget | null;
     target: EventTarget & T;
   }
 
-  // tslint:disable-next-line:no-empty-interface
   interface FormEvent<T = Element> extends SyntheticEvent<T> {}
 
   interface InvalidEvent<T = Element> extends SyntheticEvent<T> {
@@ -950,8 +910,10 @@ declare namespace Rax {
 
   interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
     altKey: boolean;
+    /** @deprecated */
     charCode: number;
     ctrlKey: boolean;
+    code: string;
     /**
      * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
      */
@@ -960,12 +922,14 @@ declare namespace Rax {
      * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
      */
     key: string;
+    /** @deprecated */
     keyCode: number;
     locale: string;
     location: number;
     metaKey: boolean;
     repeat: boolean;
     shiftKey: boolean;
+    /** @deprecated */
     which: number;
   }
 
@@ -1652,7 +1616,6 @@ declare namespace Rax {
     referrerPolicy?: string;
   }
 
-  // tslint:disable-next-line:no-empty-interface
   interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
 
   interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1938,6 +1901,7 @@ declare namespace Rax {
 
   interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
     async?: boolean;
+    /** @deprecated */
     charSet?: string;
     crossOrigin?: string;
     defer?: boolean;
@@ -2662,7 +2626,6 @@ type RaxManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: 
 
 declare global {
   namespace JSX {
-    // tslint:disable-next-line:no-empty-interface
     interface Element extends Rax.RaxElement<any, any> {}
     interface ElementClass extends Rax.Component<any> {
       render(): Rax.RaxNode;
@@ -2682,9 +2645,7 @@ declare global {
         : RaxManagedAttributes<T, P>
       : RaxManagedAttributes<C, P>;
 
-    // tslint:disable-next-line:no-empty-interface
     interface IntrinsicAttributes extends Rax.Attributes {}
-    // tslint:disable-next-line:no-empty-interface
     interface IntrinsicClassAttributes<T> extends Rax.ClassAttributes<T> {}
 
     interface IntrinsicElements {
@@ -2919,10 +2880,14 @@ declare global {
       'scroll-view': any;
       'cover-view': any;
       'cover-image': any;
+      'camera': any;
       'movable-view': any;
       'movable-area': any;
+      'match-media': any;
       icon: any;
       'rich-text': any;
+      'radio': any;
+      'radio-group': any;
       'picker-view': any;
       picker: any;
       navigator: any;
@@ -2932,10 +2897,14 @@ declare global {
       'aria-component': any;
       'functional-page-navigator': any;
       'live-player': any;
-      'ive-pusher': any;
+      'live-pusher': any;
       ad: any;
+      'ad-custom': any;
       'open-data': any;
+      'voip-room': any;
       'page-meta': any;
+      'picker-view-column': any;
+      'official-account': any;
       'navigation-bar': any;
     }
   }

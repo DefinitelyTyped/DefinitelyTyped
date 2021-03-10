@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const WatsonHealthInteractiveSegmentationCursor20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WatsonHealthInteractiveSegmentationCursor20;
+import { WatsonHealthInteractiveSegmentationCursor20 } from "../../../";
+
+export = WatsonHealthInteractiveSegmentationCursor20;

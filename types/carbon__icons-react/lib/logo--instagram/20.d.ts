@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const LogoInstagram20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default LogoInstagram20;
+import { LogoInstagram20 } from "../../";
+
+export = LogoInstagram20;

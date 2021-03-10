@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ArrowDownRight16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ArrowDownRight16;
+import { ArrowDownRight16 } from "../../";
+
+export = ArrowDownRight16;

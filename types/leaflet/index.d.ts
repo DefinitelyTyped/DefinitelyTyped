@@ -210,6 +210,8 @@ export class Bounds {
     extend(point: PointExpression): this;
     getCenter(round?: boolean): Point;
     getBottomLeft(): Point;
+    getBottomRight(): Point;
+    getTopLeft(): Point;
     getTopRight(): Point;
     getSize(): Point;
     contains(pointOrBounds: BoundsExpression | PointExpression): boolean;
@@ -987,7 +989,7 @@ export interface PolylineOptions extends PathOptions {
 
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
     constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
-    toGeoJSON(): geojson.Feature<T, P>;
+    toGeoJSON(precision?: number): geojson.Feature<T, P>;
     getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
     setLatLngs(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][]): this;
     isEmpty(): boolean;
@@ -1021,7 +1023,7 @@ export interface CircleMarkerOptions extends PathOptions {
 
 export class CircleMarker<P = any> extends Path {
     constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
-    toGeoJSON(): geojson.Feature<geojson.Point, P>;
+    toGeoJSON(precision?: number): geojson.Feature<geojson.Point, P>;
     setLatLng(latLng: LatLngExpression): this;
     getLatLng(): LatLng;
     setRadius(radius: number): this;
@@ -1078,7 +1080,7 @@ export class LayerGroup<P = any> extends Layer {
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
      */
-    toGeoJSON(): geojson.FeatureCollection<geojson.GeometryObject, P> | geojson.Feature<geojson.MultiPoint, P> | geojson.GeometryCollection;
+    toGeoJSON(precision?: number): geojson.FeatureCollection<geojson.GeometryObject, P> | geojson.Feature<geojson.MultiPoint, P> | geojson.GeometryCollection;
 
     /**
      * Adds the given layer to the group.
@@ -1174,7 +1176,7 @@ export function featureGroup(layers?: Layer[]): FeatureGroup;
 
 export type StyleFunction<P = any> = (feature?: geojson.Feature<geojson.GeometryObject, P>) => PathOptions;
 
-export interface GeoJSONOptions<P = any> extends LayerOptions {
+export interface GeoJSONOptions<P = any> extends InteractiveLayerOptions {
     /**
      * A Function defining how GeoJSON points spawn Leaflet layers.
      * It is internally called when data is added, passing the GeoJSON point
@@ -1731,7 +1733,7 @@ export class Map extends Evented {
     closeTooltip(tooltip?: Tooltip): this;
 
     // Methods for modifying map state
-    setView(center: LatLngExpression, zoom: number, options?: ZoomPanOptions): this;
+    setView(center: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
     setZoom(zoom: number, options?: ZoomPanOptions): this;
     zoomIn(delta?: number, options?: ZoomOptions): this;
     zoomOut(delta?: number, options?: ZoomOptions): this;
@@ -1778,10 +1780,10 @@ export class Map extends Evented {
     getPixelWorldBounds(zoom?: number): Bounds;
 
     // Conversion methods
-    getZoomScale(toZoom: number, fromZoom: number): number;
-    getScaleZoom(scale: number, fromZoom: number): number;
-    project(latlng: LatLngExpression, zoom: number): Point;
-    unproject(point: PointExpression, zoom: number): LatLng;
+    getZoomScale(toZoom: number, fromZoom?: number): number;
+    getScaleZoom(scale: number, fromZoom?: number): number;
+    project(latlng: LatLngExpression, zoom?: number): Point;
+    unproject(point: PointExpression, zoom?: number): LatLng;
     layerPointToLatLng(point: PointExpression): LatLng;
     latLngToLayerPoint(latlng: LatLngExpression): Point;
     wrapLatLng(latlng: LatLngExpression): LatLng;
@@ -1902,7 +1904,7 @@ export interface MarkerOptions extends InteractiveLayerOptions {
 
 export class Marker<P = any> extends Layer {
     constructor(latlng: LatLngExpression, options?: MarkerOptions);
-    toGeoJSON(): geojson.Feature<geojson.Point, P>;
+    toGeoJSON(precision?: number): geojson.Feature<geojson.Point, P>;
     getLatLng(): LatLng;
     setLatLng(latlng: LatLngExpression): this;
     setZIndexOffset(offset: number): this;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const BatteryEmpty20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default BatteryEmpty20;
+import { BatteryEmpty20 } from "../../";
+
+export = BatteryEmpty20;

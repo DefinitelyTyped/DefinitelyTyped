@@ -45,6 +45,11 @@ export declare const ModalBody: React.FC<ModalBodyProps>;
 
 // Footer
 
+export interface ModalFooterSecondaryButtonConfig {
+    buttonText: NonNullable<React.ReactNode>;
+    onClick?: ButtonProps["onClick"];
+}
+
 export interface ModalFooterProps extends ReactDivAttr {
     closeModal?: ButtonProps["onClick"];
     danger?: boolean,
@@ -54,6 +59,7 @@ export interface ModalFooterProps extends ReactDivAttr {
     primaryButtonDisabled?: boolean,
     secondaryClassName?: string,
     secondaryButtonText?: string,
+    secondaryButtons?: readonly ModalFooterSecondaryButtonConfig[];
     onRequestClose?: ButtonProps["onClick"],
     onRequestSubmit?: ButtonProps["onClick"],
 }

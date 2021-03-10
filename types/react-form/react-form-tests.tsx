@@ -1,678 +1,520 @@
+// Demo from https://github.com/tannerlinsley/react-form/blob/7c187f2e1fc13b437f0e21c3747cf6ac56c51f6c/docs/examples.md
+// https://codesandbox.io/s/react-form-demo-950ww
+
 import * as React from 'react';
-import {
-    Form,
-    Text,
-    TextArea,
-    Radio,
-    RadioGroup,
-    Select,
-    Checkbox,
-    NestedForm,
-    FormValues,
-    FormErrors,
-    StyledText,
-    StyledRadioGroup,
-    StyledRadio,
-    StyledTextArea,
-    StyledCheckbox,
-    StyledSelect,
-    FieldApi,
-    FormField,
-    FormApi
-} from 'react-form';
 
-// Form Api
-class FormApiMethods extends React.Component {
-    state = {};
+import { splitFormProps, useField, UseFieldInstance, UseFieldInstanceMeta, UseFieldOptions, useForm } from 'react-form';
 
-    render() {
-        const FormContent = (props: { formApi?: FormApi }) => (
-            <form onSubmit={props.formApi ? props.formApi.submitForm : () => {}}>
-                <Text field="hello" id="hello" />
-                <button type="submit">Submit</button>
-            </form>
-        );
-
-        return (
-            <div>
-                <Form>
-                    { formApi => (
-                        <form onSubmit={formApi.submitForm}>
-                            <Text field="hello" id="hello" />
-                            <button type="submit">Submit</button>
-                        </form>
-                    )}
-                </Form>
-
-                <Form render={ formApi => (
-                    <form onSubmit={formApi.submitForm}>
-                        <Text field="hello" id="hello" />
-                        <button type="submit">Submit</button>
-                    </form>
-                )}>
-                </Form>
-
-                <Form>
-                    <FormContent />
-                </Form>
-
-                <Form component={FormContent} />
-            </div>
-        );
-    }
+async function sendToFakeServer(values: Record<string, string>) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return values;
 }
 
-// Basic Form Example
-const statusOptions = [
-    {
-        label: 'Single',
-        value: 'single'
-    },
-    {
-        label: 'In a Relationship',
-        value: 'relationship'
-    },
-    {
-        label: "It's Complicated",
-        value: 'complicated'
+function validateAddressStreet(value: string): string | false {
+    if (!value) {
+        return 'A street is required';
     }
-];
-
-class BasicForm extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form onSubmit={submittedValues => this.setState({ submittedValues })}>
-                    { formApi => (
-                        <form onSubmit={formApi.submitForm} id="form2">
-                            <label htmlFor="firstName">First name</label>
-                            <Text field="firstName" id="firstName" />
-                            <label htmlFor="lastName">Last name</label>
-                            <Text field="lastName" id="lastName" />
-                            <RadioGroup field="gender">
-                                { group => (
-                                    <div>
-                                        <label htmlFor="male" className="mr-2">Male</label>
-                                        <Radio group={group} value="male" id="male" className="mr-3 d-inline-block" />
-                                        <label htmlFor="female" className="mr-2">Female</label>
-                                        <Radio group={group} value="female" id="female" className="d-inline-block" />
-                                    </div>
-                                )}
-                            </RadioGroup>
-                            <label htmlFor="bio">Bio</label>
-                            <TextArea field="bio" id="bio" />
-                            <label htmlFor="authorize" className="mr-2">Authorize</label>
-                            <Checkbox field="authorize" id="authorize" className="d-inline-block" />
-                            <label htmlFor="status" className="d-block">Relationship status</label>
-                            <Select field="status" id="status" options={statusOptions} />
-                            <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                        </form>
-                    )}
-                </Form>
-            </div>
-        );
-    }
+    return false;
 }
 
-// Form with Arrays
-class FormWithArrays extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form
-                    onSubmit={submittedValues => this.setState({ submittedValues })}>
-                    { formApi => (
-                        <form onSubmit={formApi.submitForm} id="form3">
-                            <label htmlFor="firstName2">First name</label>
-                            <Text field="firstName" id="firstName2" />
-                            <label htmlFor="friend1">Friend1</label>
-                            <Text field={['friends', 0]} id="friend1" />
-                            <label htmlFor="friend2">Friend2</label>
-                            <Text field={['friends', 1]} id="friend2" />
-                            <label htmlFor="friend3">Friend3</label>
-                            <Text field={['friends', 2]} id="friend3" />
-                            <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                        </form>
-                    )}
-                </Form>
-            </div>
-        );
+async function validateName(name: string, instance: UseFieldInstance<any, any, any, any, any, any>): Promise<any> {
+    if (!name) {
+        return 'A name is required';
     }
+
+    return instance.debounce(async () => {
+        console.log('checking name');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        // All names are valid, so return a false error
+        return false;
+    }, 500);
 }
 
-// Field Syntax
-const Friend = ({ i }: {i: number}) => (
-    <div>
-        <h2>Friend</h2>
-        <label htmlFor={`friend-first-${i}`}>First name</label>
-        <Text field={['friends', i, 'firstName']} id={`friend-first-${i}`} />
-        <label htmlFor={`friend-last-${i}`}>Last name</label>
-        <Text field={[['friends', i], 'lastName']} id={`friend-last-${i}`} />
-        <label htmlFor={`friend-street-${i}`}>Street</label>
-        <Text field={['friends', i, 'address', 'street']} id={`friend-street-${i}`} />
-        <label htmlFor={`friend-zip-${i}`}>Zipcode</label>
-        <Text field={['friends', i, 'lastName.zip']} id={`friend-zip-${i}`} />
-    </div>
-);
+function NameField() {
+    const {
+        meta: { error, isTouched, isValidating },
+        getInputProps,
+    } = useField('name', {
+        validate: validateName as any,
+    });
 
-class FormWithSpecialFieldSyntax extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form
-                    onSubmit={submittedValues => this.setState({ submittedValues })}>
-                    { formApi => (
-                        <form onSubmit={formApi.submitForm} id="syntax-form">
-                            <label htmlFor="nickname1">Nickname</label>
-                            <Text field={['nicknames', 0]} id="nickname1" />
-                            <label htmlFor="nickname2">Nickname</label>
-                            <Text field={['nicknames', 1]} id="nickname2" />
-                            <Friend i={0} />
-                            <Friend i={1} />
-                            <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                        </form>
-                    )}
-                </Form>
-            </div>
-        );
-    }
+    return (
+        <>
+            <input {...getInputProps()} />{' '}
+            {isValidating ? <em>Validating...</em> : isTouched && error ? <em>{error}</em> : null}
+        </>
+    );
 }
 
-// Nested Form
-const Questions = () => (
-    <NestedForm field="questions">
+function AddressStreetField() {
+    const {
+        meta: { error, isTouched, isValidating },
+        getInputProps,
+    } = useField('address.street', {
+        validate: validateAddressStreet,
+    });
+
+    return (
+        <>
+            <input {...getInputProps()} />{' '}
+            {isValidating ? <em>Validating...</em> : isTouched && error ? <em>{error}</em> : null}
+        </>
+    );
+}
+
+function MyForm() {
+    // Use the useForm hook to create a form instance
+    const {
+        Form,
+        meta: { isSubmitting, canSubmit },
+    } = useForm({
+        onSubmit: async (values, instance) => {
+            // onSubmit (and everything else in React Form)
+            // has async support out-of-the-box
+            await sendToFakeServer(values);
+            console.log('Huzzah!');
+        },
+        debugForm: true,
+    });
+
+    return (
         <Form>
-            { formApi => (
+            <div>
+                <label>
+                    Name: <NameField />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Address Street: <AddressStreetField />
+                </label>
+            </div>
+
+            <div>
+                <button type="submit" disabled={!canSubmit}>
+                    Submit
+                </button>
+            </div>
+
+            <div>
+                <em>{isSubmitting ? 'Submitting...' : null}</em>
+            </div>
+        </Form>
+    );
+}
+
+function App() {
+    return <MyForm />;
+}
+
+// https://codesandbox.io/s/react-form-demo-wrybd?file=/src/index.js:86-2387
+
+async function fakeCheckValidName(name: string, instance: UseFieldInstance<any, any, any, any, any, any>) {
+    if (!name) {
+        return 'A name is required';
+    }
+
+    return instance.debounce(async () => {
+        console.log('checking name');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        // All names are valid, so return a false error
+        return false;
+    }, 500);
+}
+
+type InputFieldProps = React.PropsWithChildren<{
+    field: string;
+    validate?: UseFieldOptions<any, any, any, any, any, any>['validate'];
+}>;
+
+const InputField = React.forwardRef((props: InputFieldProps, ref) => {
+    // Let's use splitFormProps to get form-specific props
+    const [field, fieldOptions, rest] = splitFormProps(props);
+
+    // Use the useField hook with a field and field options
+    // to access field state
+    const {
+        meta: { error, isTouched, isValidating },
+        getInputProps,
+    } = useField(field, fieldOptions);
+
+    // Build the field
+    return (
+        <>
+            <input {...getInputProps({ ref, ...rest })} />{' '}
+            {isValidating ? <em>Validating...</em> : isTouched && error ? <em>{error}</em> : null}
+        </>
+    );
+});
+
+function SecondMyForm() {
+    // Use the useForm hook to create a form instance
+    const {
+        Form,
+        meta: { isSubmitting, canSubmit },
+    } = useForm({
+        onSubmit: async (values, instance) => {
+            // onSubmit (and everything else in React Form)
+            // has async support out-of-the-box
+            await sendToFakeServer(values);
+            console.log('Huzzah!');
+        },
+        debugForm: true,
+    });
+
+    return (
+        <Form>
+            <div>
+                <label>
+                    Name: <InputField field="name" validate={fakeCheckValidName as any} />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Address Street: <InputField field="address.street" validate={validateAddressStreet} />
+                </label>
+            </div>
+
+            <div>
+                <button type="submit" disabled={!canSubmit}>
+                    Submit
+                </button>
+            </div>
+
+            <div>
+                <em>{isSubmitting ? 'Submitting...' : null}</em>
+            </div>
+        </Form>
+    );
+}
+
+function SecondApp() {
+    return <SecondMyForm />;
+}
+
+// https://codesandbox.io/s/react-form-demo-q9mgm?file=/src/index.js:0-5176
+
+interface InputFieldThirdMeta extends UseFieldInstanceMeta<string> {
+    message: string;
+}
+
+interface InputFieldThirdProps extends InputFieldProps {
+    type?: string;
+    defaultValue?: string;
+    min?: string;
+}
+
+const InputFieldThird = React.forwardRef((props: InputFieldThirdProps, ref) => {
+    // Let's use splitFormProps to get form-specific props
+    const [field, fieldOptions, rest] = splitFormProps(props);
+
+    // Use the useField hook with a field and field options
+    // to access field state
+    const {
+        meta: { error, isTouched, isValidating, message },
+        getInputProps,
+    } = useField<string, string, unknown, InputFieldThirdMeta>(field, fieldOptions);
+
+    // Build the field
+    return (
+        <>
+            <input {...getInputProps({ ref, ...rest })} />
+
+            {/*
+        Let's inline some validation and error information
+        for our field
+      */}
+
+            {isValidating ? (
+                <em>Validating...</em>
+            ) : isTouched && error ? (
+                <strong>{error}</strong>
+            ) : message ? (
+                <small>{message}</small>
+            ) : null}
+        </>
+    );
+});
+
+function ThirdApp() {
+    const defaultValues = React.useMemo(
+        () => ({
+            name: 'tanner',
+            age: '29',
+            email: 'tanner@gmail.com',
+            friends: ['jaylen'],
+        }),
+        [],
+    );
+    const {
+        Form,
+        values,
+        pushFieldValue,
+        removeFieldValue,
+        meta: { isSubmitting, isSubmitted, canSubmit, error },
+    } = useForm<string | string[]>({
+        defaultValues,
+        validate: values => {
+            if (values.name === 'tanner' && values.age !== '29') {
+                return "This is not tanner's correct age";
+            }
+            return false;
+        },
+        onSubmit: async (values, instance) => {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log(values);
+        },
+        debugForm: true,
+    });
+
+    return (
+        <Form>
+            <div>
+                <label>
+                    Name: <InputFieldThird field="name" validate={value => (!value ? 'Required' : false)} />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Age:{' '}
+                    <InputFieldThird
+                        field="age"
+                        type="number"
+                        validate={value => (value < 10 ? 'You must be at least 10 years old' : false)}
+                        min="1"
+                    />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Email:{' '}
+                    <InputFieldThird
+                        field="email"
+                        validate={async value => {
+                            if (!value) {
+                                return 'Email is required';
+                            }
+
+                            if (!validateEmail(value)) {
+                                return 'Please enter a valid email addresss';
+                            }
+
+                            console.log(`Checking email: ${value}...`);
+
+                            // We're going to mock that for now
+                            await new Promise(resolve => setTimeout(resolve, 2000));
+
+                            return value === 'tanner@gmail.com' ? 'Email is already being used' : false;
+                        }}
+                    />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Username:{' '}
+                    <InputFieldThird
+                        field="username"
+                        validate={
+                            ((value: string, { debounce, setMeta }: any) => {
+                                console.log('checkusername');
+                                if (!value) {
+                                    return 'Username is required';
+                                }
+
+                                return debounce(async () => {
+                                    console.log('Checking username...');
+                                    await new Promise(resolve => setTimeout(resolve, 2000));
+                                    if (value === 'tanner') {
+                                        setMeta({ error: 'Username is unavailable', message: null });
+                                        return;
+                                    }
+
+                                    setMeta({ error: null, message: 'Username is available!' });
+                                }, 2000);
+                            }) as any
+                        }
+                    />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Notes: <InputFieldThird field="other.notes" defaultValue="This is a note." />
+                </label>
+            </div>
+            <div>
+                Friends
+                <div
+                    style={{
+                        border: '1px solid black',
+                        padding: '1rem',
+                    }}
+                >
+                    {(values.friends as string[]).map((friend, i) => (
+                        <div key={i}>
+                            <label>
+                                Friend: <InputFieldThird field={`friends.${i}`} />{' '}
+                                <button type="button" onClick={() => removeFieldValue('friends', i)}>
+                                    X
+                                </button>
+                            </label>
+                        </div>
+                    ))}
+                    <button type="button" onClick={() => pushFieldValue('friends', '')}>
+                        Add Friend
+                    </button>
+                </div>
+            </div>
+
+            {isSubmitted ? <em>Thanks for submitting!</em> : null}
+
+            {error ? <strong>{error}</strong> : null}
+
+            {isSubmitting ? (
+                'Submitting...'
+            ) : (
                 <div>
-                    <label htmlFor="color">Whats your favorite color?</label>
-                    <Text field="color" id="color" />
-                    <label htmlFor="food">Whats your favorite food?</label>
-                    <Text field="food" id="food" />
-                    <label htmlFor="car">Whats type of car do you drive?</label>
-                    <Text field="car" id="car" />
+                    <button type="submit" disabled={!canSubmit}>
+                        Submit
+                    </button>
                 </div>
             )}
         </Form>
-    </NestedForm>
-);
-
-class NestedFormExample extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form onSubmit={submittedValues => this.setState({ submittedValues })}>
-                    { formApi => (
-                        <form onSubmit={formApi.submitForm} id="form4">
-                            <label htmlFor="firstName3">First name</label>
-                            <Text field="firstName" id="firstName3" />
-                            <Questions />
-                            <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                        </form>
-                    )}
-                </Form>
-            </div>
-        );
-    }
+    );
 }
 
-// Dynamic Forms
-class DynamicForm extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form
-                    onSubmit={submittedValues => this.setState({ submittedValues })}>
-                    { formApi => (
-                        <div>
-                            <button
-                                onClick={() => formApi.addValue('siblings', '')}
-                                type="button"
-                                className="mb-4 mr-4 btn btn-success">Add Sibling</button>
-                            <form onSubmit={formApi.submitForm} id="dynamic-form">
-                                <label htmlFor="dynamic-first">First name</label>
-                                <Text field="firstName" id="dynamic-first" />
-                                { formApi.values.siblings && formApi.values.siblings.map((sibling: string, i: number) => (
-                                    <div key={`sibling${i}`}>
-                                        <label htmlFor={`sibling-name-${i}`}>Name</label>
-                                        <Text field={['siblings', i]} id={`sibling-name-${i}`} />
-                                        <button
-                                            onClick={() => formApi.removeValue('siblings', i)}
-                                            type="button"
-                                            className="mb-4 btn btn-danger">Remove</button>
-                                    </div>
-                                ))}
-                                <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    )}
-                </Form>
-            </div>
-        );
-    }
+function validateEmail(email: string) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
-// Array of Nested Forms
-const MyFriend = ({ i }: {i: number}) => (
-    <NestedForm field={['friends', i]} key={`nested-friend-${i}`}>
+// https://codesandbox.io/s/react-form-custom-select-multi-select-inputs-q5ixs?file=/src/index.js
+
+function SelectField(props: any) {
+    const [field, fieldOptions, { options, ...rest }] = splitFormProps(props);
+
+    const {
+        value = '',
+        setValue,
+        meta: { error, isTouched },
+    } = useField(field, fieldOptions);
+
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setValue(e.target.value);
+    };
+
+    return (
+        <>
+            <select {...rest} value={value} onChange={handleSelectChange}>
+                <option disabled value="" />
+                {options.map((option: string) => (
+                    <option key={option} value={option}>
+                        {option}
+                    </option>
+                ))}
+            </select>{' '}
+            {isTouched && error ? <em>{error}</em> : null}
+        </>
+    );
+}
+
+function MultiSelectField(props: any) {
+    const [field, fieldOptions, { options, ...rest }] = splitFormProps(props);
+
+    const {
+        value = [],
+        setValue,
+        meta: { isTouched, error },
+    } = useField<string[]>(field, fieldOptions);
+
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selected = Array.from(e.target.options)
+            .filter(option => option.selected)
+            .map(option => option.value);
+
+        setValue(selected);
+    };
+
+    return (
+        <>
+            <select {...rest} value={value} onChange={handleSelectChange} multiple>
+                <option disabled value="" />
+                {options.map((option: string) => (
+                    <option key={option} value={option}>
+                        {option}
+                    </option>
+                ))}
+            </select>
+            {isTouched && error ? <em>{error}</em> : null}
+        </>
+    );
+}
+
+function FourthMyForm() {
+    const {
+        Form,
+        meta: { canSubmit },
+    } = useForm({
+        debugForm: true,
+        onSubmit: values => {
+            console.log('Huzzah!', values);
+        },
+    });
+
+    return (
         <Form>
-            { formApi => (
-                <div>
-                    <h2>Friend</h2>
-                    <label htmlFor={`nested-friend-first-${i}`}>First name</label>
-                    <Text field="firstName" id={`nested-friend-first-${i}`} />
-                    <label htmlFor={`nested-friend-last-${i}`}>Last name</label>
-                    <Text field="lastName" id={`nested-friend-last-${i}`} />
-                </div>
-            )}
+            <div>
+                <label>
+                    Favorite Color:{' '}
+                    <SelectField
+                        field="favoriteColor"
+                        options={['Red', 'Blue', 'Green', 'Yellow']}
+                        validate={(value: string) => (!value ? 'This is required!' : false)}
+                    />
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    Favorite Colors:{' '}
+                    <MultiSelectField
+                        field="favoriteColors"
+                        options={['Red', 'Blue', 'Green', 'Yellow']}
+                        validate={(value: string) => (value.length < 2 ? 'At least 2 colors are required!' : false)}
+                    />
+                </label>
+            </div>
+
+            <div>
+                <button type="submit" disabled={!canSubmit}>
+                    Submit
+                </button>
+            </div>
         </Form>
-    </NestedForm>
-);
-
-class FormWithArrayOfNestedForms extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form
-                    onSubmit={submittedValues => this.setState({ submittedValues })}>
-                    { formApi => (
-                        <div>
-                            <form onSubmit={formApi.submitForm} id="form3">
-                                <MyFriend i={0} />
-                                <MyFriend i={1} />
-                                <MyFriend i={2} />
-                                <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    )}
-                </Form>
-            </div>
-        );
-    }
-}
-
-// Styled Form
-class StyledForm extends React.Component {
-    errorValidator = (values: FormValues) => {
-        const validateFirstName = (firstName: string) => {
-            return !firstName ? 'First name is required.' : undefined;
-        };
-        const validateLastName = (lastName: string) => {
-            return !lastName ? 'Last name is required.' : undefined;
-        };
-        const validateGender = (gender: string) => {
-            return !gender ? 'Gender is required.' : undefined;
-        };
-        const validateBio = (bio: string) => {
-            return !bio ? 'Bio is required.' : undefined;
-        };
-        const validateAuthorize = (authorize: boolean) => {
-            return !authorize ? 'Please check authorize.' : undefined;
-        };
-        const validateStatus = (status: string) => {
-            return !status ? 'Status is required.' : undefined;
-        };
-        return {
-            firstName: validateFirstName(values.firstName),
-            lastName: validateLastName(values.lastName),
-            gender: validateGender(values.gender),
-            bio: validateBio(values.bio),
-            authorize: validateAuthorize(values.authorize),
-            status: validateStatus(values.status)
-        };
-    }
-
-    warningValidator = (values: FormValues) => {
-        const validateFirstName = (firstName: string) => {
-            return firstName && firstName.length < 2 ? 'First name must be longer than 2 characters.' : undefined;
-        };
-        const validateLastName = (lastName: string) => {
-            return lastName && lastName.length < 2 ? 'Last name must be longer than 2 characters.' : undefined;
-        };
-        const validateBio = (bio: string) => {
-            return bio && bio.replace(/s+/g, ' ').trim().split(' ').length < 5 ? 'Bio should have more than 5 words.' : undefined;
-        };
-        return {
-            firstName: validateFirstName(values.firstName),
-            lastName: validateLastName(values.lastName),
-            gender: undefined,
-            bio: validateBio(values.bio),
-            authorize: undefined,
-            status: undefined
-        };
-    }
-
-    successValidator = (values: FormValues, errors: FormErrors) => {
-        const validateFirstName = () => {
-            return !errors['firstName'] ? 'Nice name!' : undefined;
-        };
-        const validateLastName = () => {
-            return !errors['lastName'] ? 'Your last name is sick!' : undefined;
-        };
-        const validateGender = () => {
-            return !errors['gender'] ? 'Thanks for entering your gender.' : undefined;
-        };
-        const validateBio = () => {
-            return !errors['bio'] ? 'Cool Bio!' : undefined;
-        };
-        const validateAuthorize = () => {
-            return !errors['authorize'] ? 'You are now authorized.' : undefined;
-        };
-        const validateStatus = () => {
-            return !errors['status'] ? 'Thanks for entering your status.' : undefined;
-        };
-        return {
-            firstName: validateFirstName(),
-            lastName: validateLastName(),
-            gender: validateGender(),
-            bio: validateBio(),
-            authorize: validateAuthorize(),
-            status: validateStatus()
-        };
-    }
-
-    render() {
-        return <Form
-            validateError={this.errorValidator}
-            validateWarning={this.warningValidator}
-            validateSuccess={this.successValidator}
-            onSubmit={submittedValues => this.setState({ submittedValues })}>
-            { formApi => (
-                <form onSubmit={formApi.submitForm} id="form2">
-                    <label htmlFor="firstName">First name</label>
-                    <StyledText field="firstName" id="firstName" />
-                    <label htmlFor="lastName">Last name</label>
-                    <StyledText field="lastName" id="lastName" />
-                    <label>Choose Gender</label>
-                    <StyledRadioGroup field="gender">
-                        { group => (
-                            <div>
-                                <StyledRadio group={group} value="male" id="male" label="Male" className="mr-3 d-inline-block" />
-                                <StyledRadio group={group} value="female" id="female" label="Female" className="d-inline-block" />
-                            </div>
-                        )}
-                    </StyledRadioGroup>
-                    <label htmlFor="bio">Bio</label>
-                    <StyledTextArea field="bio" id="bio" />
-                    <StyledCheckbox field="authorize" id="authorize" label="Authorize" className="d-inline-block" />
-                    <label htmlFor="status" className="d-block">Relationship status</label>
-                    <StyledSelect field="status" id="status" options={statusOptions} />
-                    <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                </form>
-            )}
-        </Form>;
-    }
-}
-
-// Define a custom message component
-const Message = ({ color, message }: {color: string, message: string}) => {
-    return (
-        <div className="mb-4" style={{ color }}>
-            <small>{message}</small>
-        </div>
     );
-};
-
-// Define your custom input
-// Note, the ...rest is important because it allows you to pass any
-// additional fields to the internal <input>.
-class CustomTextWrapper extends React.Component<{
-    fieldApi: FieldApi
-    onInput: any
-}> {
-    render() {
-        const {
-            fieldApi,
-            onInput,
-            ...rest
-        } = this.props;
-
-        const {
-            getValue,
-            getError,
-            getWarning,
-            getSuccess,
-            setValue,
-            setTouched,
-        } = fieldApi;
-
-        const error = getError();
-        const warning = getWarning();
-        const success = getSuccess();
-
-        return (
-            <div>
-                <input
-                    value={getValue()}
-                    onInput={(e) => {
-                        setValue(e.currentTarget.value);
-                        if (onInput) {
-                            onInput(e);
-                        }
-                    }}
-                    onBlur={() => {
-                        setTouched(true);
-                    }}
-                    {...rest} />
-                { error ? <Message color="red" message={error} /> : null }
-                { !error && warning ? <Message color="orange" message={warning} /> : null }
-                { !error && !warning && success ? <Message color="green" message={success} /> : null }
-            </div>
-        );
-    }
 }
 
-// Use the form field and your custom input together to create your very own input!
-const CustomText = FormField(CustomTextWrapper);
+// Few tests
 
-const errorValidator = (values: FormValues) => {
-    return {
-        hello: !values.hello || !values.hello.match(/Hello World/) ? "Input must contain 'Hello World'" : undefined
-    };
-};
+export function EmailField(props: any): JSX.Element {
+    const data = useField('email', {
+        defaultValue: props.defaultValue,
+        defaultError: props.defaultError,
+    });
 
-const warningValidator = (values: FormValues) => {
-    return {
-        hello: !values.hello ||
-                     !values.hello.match(/^Hello World$/) ? "Input should equal 'Hello World'" : undefined
-    };
-};
+    const inputProps = data.getInputProps({
+        onChange: () => {
+            data.form.setMeta({
+                error: undefined,
+            });
+        },
+    });
 
-const successValidator = (values: FormValues) => {
-    return {
-        hello: values.hello && values.hello.match(/Hello World/) ? "Thanks for entering 'Hello World'!" : undefined
-    };
-};
-
-class FormWithCustomInput extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form
-                    validateWarning={warningValidator}
-                    validateSuccess={successValidator}
-                    validateError={errorValidator}>
-                    { formApi => (
-                        <form onSubmit={formApi.submitForm} id="form5">
-                            <label htmlFor="firstName4">First name</label>
-                            <Text field="firstName" id="firstName4" />
-                            <label htmlFor="hello2">Custom hello world</label>
-                            <CustomText field="hello" id="hello2" />
-                            <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                        </form>
-                    )}
-                </Form>
-            </div>
-        );
-    }
-}
-
-// Async Validators
-const aserrorValidator = (values: FormValues) => {
-    return {
-        username: !values.username || values.username.trim() === '' ? 'Username is a required field' : undefined
-    };
-};
-
-const assuccessValidator = (values: FormValues, errors: FormErrors) => {
-    return {
-        username: !errors.username ? 'Awesome! your username is good to go!' : undefined
-    };
-};
-
-const doesUsernameExist = (username: string) => new Promise((resolve, reject) => setTimeout(() => {
-    // Simulate username check
-    if (['joe', 'tanner', 'billy', 'bob'].indexOf(username)) {
-        resolve({ error: 'That username is taken', success: null });
-    }
-    // Simulate request faulure
-    if (username === 'reject') {
-        reject('Failure while making call to validate username does not exist');
-    }
-    // Sumulate username success check
-    resolve({});
-}, 2000));
-
-const asyncValidators = {
-    username: async (username: string) => {
-        const validations = await doesUsernameExist(username);
-        return validations;
-    }
-};
-
-class AsynchronousFormValidation extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form
-                    validateError={aserrorValidator}
-                    validateSuccess={assuccessValidator}
-                    asyncValidators={asyncValidators}>
-                    { formApi => (
-                        <form onSubmit={formApi.submitForm} id="form6">
-                            <label htmlFor="username">Username</label>
-                            <Text field="username" id="username" />
-                            <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-                        </form>
-                    )}
-                </Form>
-            </div>
-        );
-    }
-}
-
-// Nested Async Validators
-const NestedNestedFormContent = ({ formApi }: {formApi: FormApi}) => {
     return (
         <div>
-            <label htmlFor="username4">Nested Username</label>
-            <Text field="username" id="username4" />
+            <input {...inputProps} />
+            {data.meta.error || props.defaultError ? (
+                <div className="error">{data.meta.error || props.defaultError}</div>
+            ) : null}
         </div>
     );
-};
-
-const NestedFormContent = ({ formApi }: {formApi: FormApi}) => {
-    return (
-        <div>
-            <label htmlFor="username3">Nested Username</label>
-            <Text field="username" id="username3" />
-            <NestedForm field="nestednested">
-                <Form
-                    validateError={errorValidator}
-                    validateSuccess={successValidator}
-                    asyncValidators={asyncValidators3}>
-                    {
-                        formApi =>
-                            <NestedNestedFormContent formApi={formApi} />
-                    }
-                </Form>
-            </NestedForm>
-        </div>
-    );
-};
-
-const FormContent = ({ formApi }: {formApi: FormApi}) => {
-    return (
-        <div>
-            <form onSubmit={formApi.submitForm} id="form7">
-                <label htmlFor="username2">Username</label>
-                <Text field="username" id="username2" />
-                <NestedForm field="nested">
-                    <Form
-                        validateError={errorValidator}
-                        validateSuccess={successValidator}
-                        asyncValidators={asyncValidators2}>
-                        {
-                            formApi =>
-                                <NestedFormContent formApi={formApi} />
-                        }
-                    </Form>
-                </NestedForm>
-                <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-            </form>
-        </div>
-    );
-};
-
-const naserrorValidator = (values: FormValues) => {
-    return {
-        username: !values.username || values.username.trim() === '' ? 'Username is a required field' : undefined
-    };
-};
-
-const nassuccessValidator = (values: FormValues, errors: FormErrors) => {
-    return {
-        username: !errors.username ? 'Awesome! your username is good to go!' : undefined
-    };
-};
-
-const nasdoesUsernameExist = (username: string, ms: number) => new Promise((resolve, reject) => setTimeout(() => {
-    // Simulate username check
-    if (['joe', 'tanner', 'billy', 'bob'].indexOf(username)) {
-        resolve({ error: 'That username is taken', success: null });
-    }
-    // Simulate request faulure
-    if (username === 'reject') {
-        reject('Failure while making call to validate username does not exist');
-    }
-    // Sumulate username success check
-    resolve({});
-}, ms));
-
-const nasasyncValidators = {
-    username: async (username: string) => {
-        const validations = await nasdoesUsernameExist(username, 2000);
-        return validations;
-    }
-};
-
-const asyncValidators2 = {
-    username: async (username: string) => {
-        const validations = await nasdoesUsernameExist(username, 4000);
-        return validations;
-    }
-};
-
-const asyncValidators3 = {
-    username: async (username: string) => {
-        const validations = await nasdoesUsernameExist(username, 6000);
-        return validations;
-    }
-};
-
-class NestedAsynchronousFormValidation extends React.Component {
-    render() {
-        return (
-            <div>
-                <Form
-                    validateError={naserrorValidator}
-                    validateSuccess={nassuccessValidator}
-                    asyncValidators={nasasyncValidators}>
-                    {
-                        formApi =>
-                            <FormContent formApi={formApi} />
-                    }
-                </Form>
-            </div>
-        );
-    }
 }

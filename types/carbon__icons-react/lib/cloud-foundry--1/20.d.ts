@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CloudFoundry_120: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CloudFoundry_120;
+import { CloudFoundry_120 } from "../../";
+
+export = CloudFoundry_120;

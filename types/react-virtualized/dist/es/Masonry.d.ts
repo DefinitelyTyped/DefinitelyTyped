@@ -106,6 +106,8 @@ export class Masonry extends PureComponent<MasonryProps, MasonryState> {
     static getDerivedStateFromProps(nextProps: MasonryProps, prevState: MasonryState): MasonryState | null;
 }
 
+export default Masonry;
+
 export type emptyObject = {};
 
 export type identity = <T>(value: T) => T;

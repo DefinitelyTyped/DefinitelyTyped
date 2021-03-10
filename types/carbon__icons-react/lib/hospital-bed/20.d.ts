@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const HospitalBed20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default HospitalBed20;
+import { HospitalBed20 } from "../../";
+
+export = HospitalBed20;

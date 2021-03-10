@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const IbmCloud20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default IbmCloud20;
+import { IbmCloud20 } from "../../";
+
+export = IbmCloud20;

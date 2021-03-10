@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ClosedCaptionAlt24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ClosedCaptionAlt24;
+import { ClosedCaptionAlt24 } from "../../";
+
+export = ClosedCaptionAlt24;

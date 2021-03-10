@@ -1,4 +1,4 @@
-// tslint:disable:rulename strict-export-declare-modifiers
+// tslint:disable:strict-export-declare-modifiers
 /** Creates an empty stream. */
 declare function Stream<T>(): Stream<T>; // tslint:disable-line no-unnecessary-generics
 /** Creates a stream with an initial value. */

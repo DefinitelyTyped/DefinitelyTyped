@@ -29,6 +29,7 @@ declare namespace Share {
     }
     enum InstagramStories {
         SHARE_BACKGROUND_IMAGE = 'shareBackgroundImage',
+        SHARE_BACKGROUND_VIDEO = 'shareBackgroundVideo',
         SHARE_STICKER_IMAGE = 'shareStickerImage',
         SHARE_BACKGROUND_AND_STICKER_IMAGE = 'shareBackgroundAndStickerImage',
     }

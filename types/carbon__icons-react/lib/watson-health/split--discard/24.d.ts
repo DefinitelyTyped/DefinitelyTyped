@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../../";
-declare const WatsonHealthSplitDiscard24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default WatsonHealthSplitDiscard24;
+import { WatsonHealthSplitDiscard24 } from "../../../";
+
+export = WatsonHealthSplitDiscard24;

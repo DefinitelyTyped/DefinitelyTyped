@@ -10,6 +10,7 @@
 //                 kylesferrazza <https://github.com/kylesferrazza>
 //                 fityocsaba96 <https://github.com/fityocsaba96>
 //                 koddsson <https://github.com/koddsson>
+//                 ficristo <https://github.com/ficristo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -113,8 +114,16 @@ declare namespace CodeMirror {
     function off(doc: Doc, eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void): void;
 
     /** Equivalent to the event by the same name as fired on editor instances. */
-    function on(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
-    function off(doc: Doc, eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
+    function on(
+        doc: Doc,
+        eventName: 'beforeSelectionChange',
+        handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
+    ): void;
+    function off(
+        doc: Doc,
+        eventName: 'beforeSelectionChange',
+        handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
+    ): void;
 
     /** Will be fired when the line object is deleted. A line object is associated with the start of the line.
     Mostly useful when you need to find out when your gutter markers on a given line are removed. */
@@ -136,22 +145,22 @@ declare namespace CodeMirror {
 
     /** Fired when the cursor enters the marked range. From this event handler, the editor state may be inspected but not modified,
     with the exception that the range on which the event fires may be cleared. */
-    function on(marker: TextMarker, eventName: 'beforeCursorEnter', handler: () => void): void;
-    function off(marker: TextMarker, eventName: 'beforeCursorEnter', handler: () => void): void;
+    function on<T>(marker: TextMarker<T>, eventName: 'beforeCursorEnter', handler: () => void): void;
+    function off<T>(marker: TextMarker<T>, eventName: 'beforeCursorEnter', handler: () => void): void;
 
     /** Fired when the range is cleared, either through cursor movement in combination with clearOnEnter or through a call to its clear() method.
     Will only be fired once per handle. Note that deleting the range through text editing does not fire this event,
     because an undo action might bring the range back into existence. */
-    function on(marker: TextMarker, eventName: 'clear', handler: () => void): void;
-    function off(marker: TextMarker, eventName: 'clear', handler: () => void): void;
+    function on<T>(marker: TextMarker<T>, eventName: 'clear', handler: () => void): void;
+    function off<T>(marker: TextMarker<T>, eventName: 'clear', handler: () => void): void;
 
     /** Fired when the last part of the marker is removed from the document by editing operations. */
-    function on(marker: TextMarker, eventName: 'hide', handler: () => void): void;
-    function off(marker: TextMarker, eventName: 'hide', handler: () => void): void;
+    function on<T>(marker: TextMarker<T>, eventName: 'hide', handler: () => void): void;
+    function off<T>(marker: TextMarker<T>, eventName: 'hide', handler: () => void): void;
 
     /** Fired when, after the marker was removed by editing, a undo operation brought the marker back. */
-    function on(marker: TextMarker, eventName: 'unhide', handler: () => void): void;
-    function off(marker: TextMarker, eventName: 'unhide', handler: () => void): void;
+    function on<T>(marker: TextMarker<T>, eventName: 'unhide', handler: () => void): void;
+    function off<T>(marker: TextMarker<T>, eventName: 'unhide', handler: () => void): void;
 
     /** Fired whenever the editor re-adds the widget to the DOM. This will happen once right after the widget is added (if it is scrolled into view),
     and then again whenever it is scrolled out of view and back in again, or when changes to the editor options
@@ -543,8 +552,14 @@ declare namespace CodeMirror {
 
         /** This event is fired before the selection is moved. Its handler may modify the resulting selection head and anchor.
         Handlers for this event have the same restriction as "beforeChange" handlers they should not do anything to directly update the state of the editor. */
-        on(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
-        off(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void ): void;
+        on(
+            eventName: 'beforeSelectionChange',
+            handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
+        ): void;
+        off(
+            eventName: 'beforeSelectionChange',
+            handler: (instance: CodeMirror.Editor, obj: EditorSelectionChange) => void,
+        ): void;
 
         /** Fires whenever the view port of the editor changes (due to scrolling, editing, or any other factor).
         The from and to arguments give the new start and end of the viewport. */
@@ -687,7 +702,12 @@ declare namespace CodeMirror {
 
         /** Replace the part of the document between from and to with the given string.
         from and to must be {line, ch} objects. to can be left off to simply insert the string at position from. */
-        replaceRange(replacement: string | string[], from: CodeMirror.Position, to?: CodeMirror.Position, origin?: string): void;
+        replaceRange(
+            replacement: string | string[],
+            from: CodeMirror.Position,
+            to?: CodeMirror.Position,
+            origin?: string,
+        ): void;
 
         /** Get the content of line n. */
         getLine(n: number): string;
@@ -747,6 +767,11 @@ declare namespace CodeMirror {
         /** Replace the selection with the given string. By default, the new selection will span the inserted text.
         The optional collapse argument can be used to change this -- passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
         replaceSelection(replacement: string, collapse?: string): void;
+
+        /** Replaces the content of the selections with the strings in the array.
+        The length of the given array should be the same as the number of active selections.
+        The collapse argument works the same as in replaceSelection. */
+        replaceSelections(replacements: Array<string>, collapse?: string): void;
 
         /** start is a an optional string indicating which end of the selection to return.
         It may be "from", "to", "head" (the side of the selection that moves when you press shift+arrow),
@@ -848,7 +873,7 @@ declare namespace CodeMirror {
             from: CodeMirror.Position,
             to: CodeMirror.Position,
             options?: CodeMirror.TextMarkerOptions,
-        ): TextMarker;
+        ): TextMarker<MarkerRange>;
 
         /** Inserts a bookmark, a handle that follows the text around it as it is being edited, at the given position.
         A bookmark has two methods find() and clear(). The first returns the current position of the bookmark, if it is still in the document,
@@ -862,8 +887,14 @@ declare namespace CodeMirror {
                 /** By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
             Set this option to true to make it go to the left instead. */
                 insertLeft?: boolean;
+
+                /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents. By default, a marker appears only in its target document. */
+                shared?: boolean;
+
+                /** As with markText, this determines whether mouse events on the widget inserted for this bookmark are handled by CodeMirror. The default is false. */
+                handleMouseEvents?: boolean;
             },
-        ): CodeMirror.TextMarker;
+        ): CodeMirror.TextMarker<Position>;
 
         /** Returns an array of all the bookmarks and marked ranges found between the given positions. */
         findMarks(from: CodeMirror.Position, to: CodeMirror.Position): TextMarker[];
@@ -914,13 +945,18 @@ declare namespace CodeMirror {
         clientHeight: any;
     }
 
-    interface TextMarker extends Partial<TextMarkerOptions> {
+    interface MarkerRange {
+        from: CodeMirror.Position;
+        to: CodeMirror.Position;
+    }
+
+    interface TextMarker<T = MarkerRange | Position> extends Partial<TextMarkerOptions> {
         /** Remove the mark. */
         clear(): void;
 
         /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
         or undefined if the marker is no longer in the document. */
-        find(): { from: CodeMirror.Position; to: CodeMirror.Position };
+        find(): T | undefined;
 
         /**  Called when you've done something that might change the size of the marker and want to cheaply update the display*/
         changed(): void;
@@ -1034,6 +1070,9 @@ declare namespace CodeMirror {
         with a name property that names the mode (for example {name: "javascript", json: true}). */
         mode?: any;
 
+        /** Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well as lone CRs and LFs, and a single LF will be used as line separator in all output (such as getValue). When a specific string is given, lines will only be split on that string, and output will, by default, use that same separator. */
+        lineSeparator?: string | null;
+
         /** The theme to style the editor with. You must make sure the CSS file defining the corresponding .cm-s-[name] styles is loaded.
         The default is "default". */
         theme?: string;
@@ -1054,6 +1093,15 @@ declare namespace CodeMirror {
         that might change its proper indentation (only works if the mode supports indentation). Default is true. */
         electricChars?: boolean;
 
+        /** A regular expression used to determine which characters should be replaced by a special placeholder. Mostly useful for non-printing special characters. The default is /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff\ufff9-\ufffc]/. */
+        specialChars?: RegExp;
+
+        /** A function that, given a special character identified by the specialChars option, produces a DOM node that is used to represent the character. By default, a red dot (•) is shown, with a title tooltip to indicate the character code. */
+        specialCharPlaceholder?: (char: string) => HTMLElement;
+
+        /** Flips overall layout and selects base paragraph direction to be left-to-right or right-to-left. Default is "ltr". CodeMirror applies the Unicode Bidirectional Algorithm to each line, but does not autodetect base direction — it's set to the editor direction for all lines. The resulting order is sometimes wrong when base direction doesn't match user intent (for example, leading and trailing punctuation jumps to the wrong side of the line). Therefore, it's helpful for multilingual input to let users toggle this option. */
+        direction?: "ltr" | "rtl"
+
         /** Determines whether horizontal cursor movement through right-to-left (Arabic, Hebrew) text
         is visual (pressing the left arrow moves the cursor left)
         or logical (pressing the left arrow moves to the next lower index in the string, which is visually right in right-to-left text).
@@ -1067,6 +1115,13 @@ declare namespace CodeMirror {
         /** Can be used to specify extra keybindings for the editor, alongside the ones defined by keyMap. Should be either null, or a valid keymap value. */
         extraKeys?: string | KeyMap;
 
+        /** Allows you to configure the behavior of mouse selection and dragging. The function is called when the left mouse button is pressed. */
+        configureMouse?: (
+            cm: CodeMirror.Editor,
+            repeat: 'single' | 'double' | 'triple',
+            event: Event,
+        ) => MouseSelectionConfiguration;
+        
         /** Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll). */
         lineWrapping?: boolean;
 
@@ -1084,10 +1139,7 @@ declare namespace CodeMirror {
         and which will be used to draw the background of the gutters.
         May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
         (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
-        gutters?: string[];
-
-        /** Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded. */
-        foldGutter?: boolean;
+        gutters?: (string | { className: string; style?: string })[];
 
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */
@@ -1240,15 +1292,21 @@ declare namespace CodeMirror {
         /** Determines whether text inserted on the left of the marker will end up inside or outside of it. */
         inclusiveLeft?: boolean;
 
-        /** Like inclusiveLeft , but for the right side. */
+        /** Like inclusiveLeft, but for the right side. */
         inclusiveRight?: boolean;
 
+        /** For atomic ranges, determines whether the cursor is allowed to be placed directly to the left of the range. Has no effect on non-atomic ranges. */
+        selectLeft?: boolean;
+
+        /** Like selectLeft, but for the right side. */
+        selectRight?: boolean;
+
         /** Atomic ranges act as a single unit when cursor movement is concerned — i.e. it is impossible to place the cursor inside of them.
-        In atomic ranges, inclusiveLeft and inclusiveRight have a different meaning — they will prevent the cursor from being placed
-        respectively directly before and directly after the range. */
+        You can control whether the cursor is allowed to be placed directly before or after them using selectLeft or selectRight.
+        If selectLeft (or right) is not provided, then inclusiveLeft (or right) will control this behavior. */
         atomic?: boolean;
 
-        /** Collapsed ranges do not show up in the display.Setting a range to be collapsed will automatically make it atomic. */
+        /** Collapsed ranges do not show up in the display. Setting a range to be collapsed will automatically make it atomic. */
         collapsed?: boolean;
 
         /** When enabled, will cause the mark to clear itself whenever the cursor enters its range.
@@ -1259,8 +1317,8 @@ declare namespace CodeMirror {
         /** Determines whether the mark is automatically cleared when it becomes empty. Default is true. */
         clearWhenEmpty?: boolean;
 
-        /** Use a given node to display this range.Implies both collapsed and atomic.
-        The given DOM node must be an inline element(as opposed to a block element). */
+        /** Use a given node to display this range. Implies both collapsed and atomic.
+        The given DOM node must be an inline element (as opposed to a block element). */
         replacedWith?: HTMLElement;
 
         /** When replacedWith is given, this determines whether the editor will
@@ -1274,7 +1332,7 @@ declare namespace CodeMirror {
         because existing undo events being partially nullified by read - only spans would corrupt the history (in the current implementation). */
         readOnly?: boolean;
 
-        /** When set to true (default is false), adding this marker will create an event in the undo history that can be individually undone(clearing the marker). */
+        /** When set to true (default is false), adding this marker will create an event in the undo history that can be individually undone (clearing the marker). */
         addToHistory?: boolean;
 
         /** Can be used to specify an extra CSS class to be applied to the leftmost span that is part of the marker. */
@@ -1288,6 +1346,9 @@ declare namespace CodeMirror {
 
         /** When given, will give the nodes created for this span a HTML title attribute with the given value. */
         title?: string;
+
+        /** When given, add the attributes in the given object to the elements created for the marked text. Adding class or style attributes this way is not supported. */
+        attributes?: { [name: string]: string };
 
         /** When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
         By default, a marker appears only in its target document. */
@@ -1677,12 +1738,12 @@ declare namespace CodeMirror {
         delay?: number;
 
         /** callback to modify an annotation before display */
-        formatAnnotation?: (annotation: Annotation) => Annotation
+        formatAnnotation?: (annotation: Annotation) => Annotation;
 
         /** custom linting function provided by the user */
         getAnnotations?: Linter | AsyncLinter;
 
-        /** 
+        /**
          * specifies that lint errors should be displayed in the CodeMirror
          * gutter, note that you must use this in conjunction with [ "CodeMirror-lint-markers" ] as an element in the gutters argument on
          * initialization of the CodeMirror instance. */
@@ -1701,14 +1762,16 @@ declare namespace CodeMirror {
         options?: any;
 
         /** controls display of lint tooltips */
-        tooltips?: boolean | 'gutter'
+        tooltips?: boolean | 'gutter';
     }
 
     /**
      * A function that return errors found during the linting process.
      */
     interface Linter {
-        (content: string, options: LintStateOptions | any, codeMirror: Editor): Annotation[] | PromiseLike<Annotation[]>;
+        (content: string, options: LintStateOptions | any, codeMirror: Editor):
+            | Annotation[]
+            | PromiseLike<Annotation[]>;
     }
 
     /**
@@ -1774,7 +1837,7 @@ declare namespace CodeMirror {
             /**
              * Callback for when stretches of unchanged text are collapsed.
              */
-            onCollapse?(mergeView: MergeViewEditor, line: number, size: number, mark: TextMarker): void;
+            onCollapse?(mergeView: MergeViewEditor, line: number, size: number, mark: TextMarker<MarkerRange>): void;
 
             /**
              * Provides original version of the document to be shown on the right of the editor.
@@ -1851,5 +1914,33 @@ declare namespace CodeMirror {
              */
             setShowDifferences(showDifferences: boolean): void;
         }
+    }
+
+    interface MouseSelectionConfiguration {
+        /** The unit by which to select. May be one of the built-in units
+        or a function that takes a position and returns a range around
+        that, for a custom unit. The default is to return "word" for
+        double clicks, "line" for triple clicks, "rectangle" for alt-clicks
+        (or, on Chrome OS, meta-shift-clicks), and "single" otherwise. */
+        unit?:
+            | 'char'
+            | 'word'
+            | 'line'
+            | 'rectangle'
+            | ((cm: CodeMirror.Editor, pos: Position) => { from: Position; to: Position });
+
+        /** Whether to extend the existing selection range or start
+        a new one. By default, this is enabled when shift clicking. */
+        extend?: boolean;
+
+        /** When enabled, this adds a new range to the existing selection,
+        rather than replacing it. The default behavior is to enable this
+        for command-click on Mac OS, and control-click on other platforms. */
+        addNew?: boolean;
+
+        /** When the mouse even drags content around inside the editor, this
+        controls whether it is copied (false) or moved (true). By default, this
+        is enabled by alt-clicking on Mac OS, and ctrl-clicking elsewhere. */
+        moveOnDrag?: boolean;
     }
 }

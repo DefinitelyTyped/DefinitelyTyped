@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const EdgeCluster24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default EdgeCluster24;
+import { EdgeCluster24 } from "../../";
+
+export = EdgeCluster24;

@@ -281,7 +281,7 @@ export interface LanguageMapProtocol {
         inside: string,
         before: string,
         insert: Grammar,
-        root: LanguageMap
+        root?: LanguageMap
     ): Grammar;
 }
 
@@ -416,7 +416,6 @@ export class Token {
      */
     greedy: boolean;
 
-    // tslint:disable:no-redundant-jsdoc-2
     /**
      * Converts the given token or token stream to an HTML representation.
      *

@@ -8,7 +8,7 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     helperText?: React.ReactNode,
     hideLabel?: boolean,
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     labelText: React.ReactNode,
     light?: boolean,
     value?: string | number,

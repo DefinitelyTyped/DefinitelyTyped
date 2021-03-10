@@ -17,12 +17,15 @@ navigator.getUserMedia(
             },
             previewStream: (stream: MediaStream) => {
                 console.log(stream);
-            }
+            },
         });
 
         instance.stopRecording(() => {
             const blob = instance.getBlob();
         });
+
+        // $ExpectType string
+        instance.getState();
     },
     console.error,
 );
@@ -35,3 +38,10 @@ const instance2 = new RecordRTC(canvas, {
 instance2.stopRecording();
 
 console.log(RecordRTC.version);
+
+const multiStreamRecorder = new RecordRTC.MultiStreamRecorder([]);
+multiStreamRecorder.record();
+multiStreamRecorder.stop((blob: Blob) => {});
+multiStreamRecorder.pause();
+multiStreamRecorder.resume();
+multiStreamRecorder.clearRecordedData();

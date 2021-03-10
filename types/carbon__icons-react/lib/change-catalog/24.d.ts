@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const ChangeCatalog24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default ChangeCatalog24;
+import { ChangeCatalog24 } from "../../";
+
+export = ChangeCatalog24;

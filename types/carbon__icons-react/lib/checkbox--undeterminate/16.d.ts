@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CheckboxUndeterminate16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CheckboxUndeterminate16;
+import { CheckboxUndeterminate16 } from "../../";
+
+export = CheckboxUndeterminate16;

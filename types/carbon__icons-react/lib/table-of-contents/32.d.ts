@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const TableOfContents32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default TableOfContents32;
+import { TableOfContents32 } from "../../";
+
+export = TableOfContents32;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const IncompleteError16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default IncompleteError16;
+import { IncompleteError16 } from "../../";
+
+export = IncompleteError16;

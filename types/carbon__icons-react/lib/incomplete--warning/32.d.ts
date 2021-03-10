@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const IncompleteWarning32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default IncompleteWarning32;
+import { IncompleteWarning32 } from "../../";
+
+export = IncompleteWarning32;

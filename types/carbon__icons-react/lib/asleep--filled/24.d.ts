@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const AsleepFilled24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default AsleepFilled24;
+import { AsleepFilled24 } from "../../";
+
+export = AsleepFilled24;

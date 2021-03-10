@@ -15,6 +15,10 @@ export interface Options {
     text?: boolean;
     dpi?: number;
 }
+/**
+ * Units for the scale line. Supported values are 'degrees', 'imperial',
+ * 'nautical', 'metric', 'us'.
+ */
 export enum Units {
     DEGREES = 'degrees',
     IMPERIAL = 'imperial',
@@ -24,11 +28,29 @@ export enum Units {
 }
 export default class ScaleLine extends Control {
     constructor(opt_options?: Options);
+    /**
+     * Creates a marker at given position
+     */
     createMarker(position: string, i: number): string;
+    /**
+     * Creates the label for a marker marker at given position
+     */
     createStepText(i: number, width: number, isLast: boolean, scale: number, suffix: string): string;
+    /**
+     * Returns the appropriate scale for the given resolution and units.
+     */
     getScaleForResolution(): number;
+    /**
+     * Return the units to use in the scale line.
+     */
     getUnits(): Units;
+    /**
+     * Specify the dpi of output device such as printer.
+     */
     setDpi(dpi: number | undefined): void;
+    /**
+     * Set the units to use in the scale line.
+     */
     setUnits(units: Units): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const Eyedropper20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default Eyedropper20;
+import { Eyedropper20 } from "../../";
+
+export = Eyedropper20;

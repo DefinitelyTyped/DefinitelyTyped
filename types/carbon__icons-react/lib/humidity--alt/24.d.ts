@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const HumidityAlt24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default HumidityAlt24;
+import { HumidityAlt24 } from "../../";
+
+export = HumidityAlt24;

@@ -1,4 +1,13 @@
-import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver, PerformanceEntry, EntryType, constants, EventLoopUtilization } from 'perf_hooks';
+import {
+    performance,
+    monitorEventLoopDelay,
+    PerformanceObserverCallback,
+    PerformanceObserver,
+    PerformanceEntry,
+    EntryType,
+    constants,
+    EventLoopUtilization,
+} from 'node:perf_hooks';
 
 performance.mark('start');
 (

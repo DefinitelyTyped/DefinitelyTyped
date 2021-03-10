@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const MicrophoneFilled32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default MicrophoneFilled32;
+import { MicrophoneFilled32 } from "../../";
+
+export = MicrophoneFilled32;

@@ -18,6 +18,8 @@ cheerio(html);
 cheerio('ul', html);
 cheerio('li', 'ul', html);
 
+cheerio.load([$('ul').get(0)]);
+
 const $fromElement = cheerio.load($('ul').get(0));
 
 if ($fromElement('ul > li').length !== 3) {
@@ -60,7 +62,9 @@ $el.cheerio;
 $el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
+// $ExpectError
 $el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
+// $ExpectError
 $el.attr('id', el => el.tagName).html();
 $el.attr({ id: 'uniq', class: 'big' }).html();
 
@@ -340,3 +344,25 @@ cheerio.html($el);
 
 // $ExpectType string
 cheerio.version;
+
+const doSomething = (element: cheerio.Element): void => {
+    if (element.type !== 'text' && element.type !== 'comment') {
+        // $ExpectType { [attr: string]: string; }
+        element.attribs;
+        // $ExpectType { [attr: string]: string; }
+        element['x-attribsNamespace'];
+        // $ExpectType { [attr: string]: string; }
+        element['x-prefixNamespace'];
+        // $ExpectType Element[]
+        element.children;
+    }
+
+    // $ExpectError
+    let a = element.firstChild;
+    // $ExpectError
+    let b = element.lastChild;
+    // $ExpectType TextElement | TagElement | CommentElement | null
+    let c = element.next;
+    // $ExpectType TextElement | TagElement | CommentElement | null
+    let d = element.prev;
+};

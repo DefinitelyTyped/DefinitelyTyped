@@ -1,6 +1,7 @@
-// Type definitions for react-cytoscapejs 1.1
+// Type definitions for react-cytoscapejs 1.2
 // Project: https://github.com/plotly/react-cytoscapejs
 // Definitions by:  Emmanuel COunasse <https://github.com/manuc66/>
+//                  newraina <https://github.com/newraina/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import cytoscape = require('cytoscape');
@@ -23,6 +24,21 @@ interface CytoscapeComponentProps {
     boxSelectionEnabled?: boolean;
     autoungrabify?: boolean;
     autounselectify?: boolean;
+    panningEnabled?: boolean;
+    userPanningEnabled?: boolean;
+    autolock?: boolean;
+    get?: (obj: Record<string, any>, key: string) => any;
+    toJson?: (obj: Record<string, any>) => any;
+    diff?: (objA: Record<string, any>, objB: Record<string, any>) => boolean;
+    forEach?: <T>(list: T[], iterator: (value: T, index: number, array: T[]) => void) => void;
+    headless?: boolean;
+    styleEnabled?: boolean;
+    hideEdgesOnViewport?: boolean;
+    textureOnViewport?: boolean;
+    motionBlur?: boolean;
+    motionBlurOpacity?: number;
+    wheelSensitivity?: number;
+    pixelRatio?: number | string;
 }
 
 declare class CytoscapeComponent extends Component<CytoscapeComponentProps> {

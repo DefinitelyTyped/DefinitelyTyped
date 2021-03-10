@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const UserFavoriteAlt32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default UserFavoriteAlt32;
+import { UserFavoriteAlt32 } from "../../";
+
+export = UserFavoriteAlt32;

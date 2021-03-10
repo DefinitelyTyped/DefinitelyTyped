@@ -170,3 +170,39 @@ function onChange(e: GoogleAppsScript.Events.SheetsOnChange) {
     console.log('Formatting change detected');
   }
 }
+
+const createFileAndGetDescription = () => {
+  // Create file.
+  const file = DriveApp.createFile('New Text File', 'Hello, world!');
+  // Get description. Expect null.
+  Logger.log(file.getDescription());
+  // Set description.
+  file.setDescription('desc');
+  // Get description. Expect 'DESC'.
+  Logger.log(file.getDescription().toUpperCase());
+};
+
+function timeDriven(e: GoogleAppsScript.Events.TimeDriven) {
+  if (typeof e.hour === 'number') {
+      console.log('Time driven event detected');
+  }
+}
+
+CardService.newDecoratedText(); // $ExpectType DecoratedText
+CardService.newDecoratedText().setAuthorizationAction(CardService.newAuthorizationAction()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setBottomLabel(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setButton(CardService.newTextButton()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setComposeAction(CardService.newAction(), CardService.ComposedEmailType.REPLY_AS_DRAFT); // $ExpectType DecoratedText
+CardService.newDecoratedText().setIcon(CardService.Icon.AIRPLANE); // $ExpectType DecoratedText
+CardService.newDecoratedText().setIconAltText(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setIconUrl(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setOnClickAction(CardService.newAction()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setOnClickOpenLinkAction(CardService.newAction()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setOpenLink(CardService.newOpenLink()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setSwitchControl(CardService.newSwitch()); // $ExpectType DecoratedText
+CardService.newDecoratedText().setText(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setTopLabel(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setWrapText(true); // $ExpectType DecoratedText
+
+DriveApp.createShortcut('').getTargetId();
+DriveApp.createFile('', '').moveTo(DriveApp.getFolderById(''));

@@ -1104,7 +1104,7 @@ export function read<TBuffer extends NodeJS.ArrayBufferView>(
     offset: number,
     length: number,
     position: number | null
-): Promise<{ bytesRead: number; buffer: TBuffer }>;
+): Promise<[number, TBuffer]>;
 
 /**
  * Asynchronously reads the entire contents of a file.

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const HelpDesk24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default HelpDesk24;
+import { HelpDesk24 } from "../../";
+
+export = HelpDesk24;

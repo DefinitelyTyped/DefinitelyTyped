@@ -6,6 +6,7 @@
 //                 Matt Bishop <https://github.com/mattbishop>,
 //                 Leonardo Testa <https://github.com/testica>
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
+//                 Daniel Montesinos <https://github.com/damonpam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -36,7 +37,7 @@ declare namespace Faker {
             direction(useAbbr?: boolean): string;
             cardinalDirection(useAbbr?: boolean): string;
             ordinalDirection(useAbbr?: boolean): string;
-            nearbyGPSCoordinate(coordinate?: string, radius?: number, isMetric?: boolean): string;
+            nearbyGPSCoordinate(coordinate?: ReadonlyArray<string>, radius?: number, isMetric?: boolean): string[];
             timeZone(): string;
         };
 
@@ -198,6 +199,7 @@ declare namespace Faker {
             middleName(gender?: number): string;
             findName(firstName?: string, lastName?: string, gender?: number): string;
             jobTitle(): string;
+            gender(): string;
             prefix(): string;
             suffix(): string;
             title(): string;
@@ -271,6 +273,12 @@ declare namespace Faker {
             vin(): string;
             color(): string;
         };
+
+        unique<T extends (...args: any) => any>(
+            method: T,
+            args?: Parameters<T>,
+            opts?: { maxTime?: number; maxRetries?: number },
+        ): ReturnType<T>;
     }
 
     interface Card {

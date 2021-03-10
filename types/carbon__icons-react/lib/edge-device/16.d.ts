@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const EdgeDevice16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default EdgeDevice16;
+import { EdgeDevice16 } from "../../";
+
+export = EdgeDevice16;

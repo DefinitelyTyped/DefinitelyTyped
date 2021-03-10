@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const StemLeafPlot20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default StemLeafPlot20;
+import { StemLeafPlot20 } from "../../";
+
+export = StemLeafPlot20;

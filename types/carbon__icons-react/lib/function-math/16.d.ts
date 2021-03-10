@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const FunctionMath16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default FunctionMath16;
+import { FunctionMath16 } from "../../";
+
+export = FunctionMath16;

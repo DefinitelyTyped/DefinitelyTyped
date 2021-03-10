@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const NotAvailable16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default NotAvailable16;
+import { NotAvailable16 } from "../../";
+
+export = NotAvailable16;

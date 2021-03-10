@@ -43,3 +43,7 @@ const resizeBufferOptions: pica.PicaResizeBufferOptions = {
 };
 resizer.resizeBuffer(resizeBufferOptions);
 resizerWithOptions.resizeBuffer(resizeBufferOptions);
+
+resizer.resize(image, canvas, {
+    cancelToken: new Promise((resolve, reject) => setTimeout(resolve, 1_000)),
+});

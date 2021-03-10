@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const UserAvatarFilledAlt32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default UserAvatarFilledAlt32;
+import { UserAvatarFilledAlt32 } from "../../";
+
+export = UserAvatarFilledAlt32;

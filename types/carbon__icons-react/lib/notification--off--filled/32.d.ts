@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const NotificationOffFilled32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default NotificationOffFilled32;
+import { NotificationOffFilled32 } from "../../";
+
+export = NotificationOffFilled32;

@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const VirtualColumn32: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default VirtualColumn32;
+import { VirtualColumn32 } from "../../";
+
+export = VirtualColumn32;

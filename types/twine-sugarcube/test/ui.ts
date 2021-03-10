@@ -87,6 +87,7 @@ UIBar.stow(); // $ExpectType UIBarAPI
 UIBar.stow(b); // $ExpectType UIBarAPI
 UIBar.unstow(); // $ExpectType UIBarAPI
 UIBar.unstow(b); // $ExpectType UIBarAPI
+UIBar.update(); // $ExpectType void
 b = UIBar.isHidden();
 b = UIBar.isStowed();
 //#endregion

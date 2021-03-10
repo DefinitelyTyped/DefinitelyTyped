@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const BoxPlot20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default BoxPlot20;
+import { BoxPlot20 } from "../../";
+
+export = BoxPlot20;

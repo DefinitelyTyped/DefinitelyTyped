@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const Bluetooth20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default Bluetooth20;
+import { Bluetooth20 } from "../../";
+
+export = Bluetooth20;

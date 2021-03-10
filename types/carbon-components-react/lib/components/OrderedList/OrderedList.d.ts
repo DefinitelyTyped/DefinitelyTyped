@@ -1,6 +1,7 @@
 import * as React from "react";
 
 export interface OrderedListProps extends React.OlHTMLAttributes<HTMLOListElement> {
+    native?: boolean,
     nested?: boolean,
 }
 

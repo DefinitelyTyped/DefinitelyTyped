@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const VideoAdd20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default VideoAdd20;
+import { VideoAdd20 } from "../../";
+
+export = VideoAdd20;

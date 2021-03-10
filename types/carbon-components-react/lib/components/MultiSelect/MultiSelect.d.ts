@@ -26,21 +26,24 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     itemToString?(item: T | null | undefined): string;
     inline?: boolean,
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     label?: React.ReactNode,
     light?: boolean,
     locale?: string,
     onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
+    onMenuChange?(open: boolean): void;
     open?: boolean,
     selectionFeedback?: "fixed" | "top" | "top-after-reopen",
     size?: ListBoxSize,
-    titleText?: string,
+    titleText?: React.ReactNode,
     type?: ListBoxProps["type"],
     useTitleInItem?: boolean,
+    warn?: boolean,
+    warnText?: React.ReactNode,
 }
 
-interface MultiSelect<T extends ListBoxBaseItemType = string> {
-    (props: ForwardRefProps<HTMLButtonElement, MultiSelectProps<T>>): FCReturn
+interface MultiSelect {
+    <T extends ListBoxBaseItemType = string>(props: ForwardRefProps<HTMLButtonElement, MultiSelectProps<T>>): FCReturn;
     readonly Filterable: typeof FilterableMultiSelect;
 }
 

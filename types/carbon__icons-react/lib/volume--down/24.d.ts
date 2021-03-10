@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const VolumeDown24: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default VolumeDown24;
+import { VolumeDown24 } from "../../";
+
+export = VolumeDown24;

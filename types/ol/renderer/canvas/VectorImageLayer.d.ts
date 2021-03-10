@@ -12,6 +12,9 @@ import CanvasImageLayerRenderer from './ImageLayer';
 
 export default class CanvasVectorImageLayerRenderer extends CanvasImageLayerRenderer {
     constructor(layer: VectorImageLayer);
+    /**
+     * Clean up.
+     */
     disposeInternal(): void;
     forEachFeatureAtCoordinate<T>(
         coordinate: Coordinate,
@@ -20,9 +23,18 @@ export default class CanvasVectorImageLayerRenderer extends CanvasImageLayerRend
         callback: (p0: FeatureLike, p1: Layer<Source>) => T,
         declutteredFeatures: FeatureLike[],
     ): T;
+    /**
+     * Asynchronous layer level hit detection.
+     */
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
+    /**
+     * Perform action necessary to get the layer rendered after new fonts have loaded
+     */
     handleFontsChanged(): void;
     postRender(): void;
+    /**
+     * Determine whether render should be called.
+     */
     prepareFrame(frameState: FrameState): boolean;
     preRender(): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

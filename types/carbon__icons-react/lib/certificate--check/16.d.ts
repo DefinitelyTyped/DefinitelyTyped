@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const CertificateCheck16: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default CertificateCheck16;
+import { CertificateCheck16 } from "../../";
+
+export = CertificateCheck16;

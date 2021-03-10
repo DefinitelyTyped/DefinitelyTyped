@@ -1,6 +1,3 @@
-import * as React from "react";
-import { CarbonIconProps } from "../../";
-declare const AlignVerticalCenter20: React.ForwardRefExoticComponent<
-  CarbonIconProps & React.RefAttributes<SVGSVGElement>
->;
-export default AlignVerticalCenter20;
+import { AlignVerticalCenter20 } from "../../";
+
+export = AlignVerticalCenter20;

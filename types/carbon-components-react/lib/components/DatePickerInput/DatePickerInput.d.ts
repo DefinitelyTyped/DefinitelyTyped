@@ -11,11 +11,13 @@ export interface DatePickerInputProps extends Omit<ReactInputAttr, ExcludedAttri
     id: string,
     iconDescription?: string,
     invalid?: boolean,
-    invalidText?: string,
+    invalidText?: React.ReactNode,
     labelText: NonNullable<React.ReactNode>,
     openCalendar?: React.MouseEventHandler,
     pattern?: string,
     size?: Extract<CarbonInputSize, "sm" | "xl">,
+    warn?: boolean;
+    warnText?: React.ReactNode,
 }
 
 declare class DatePickerInput extends React.Component<DatePickerInputProps> { }
