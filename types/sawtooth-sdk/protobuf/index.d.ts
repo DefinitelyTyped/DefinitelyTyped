@@ -5,29 +5,904 @@
 
 /// <reference types="long" />
 
-import * as $protobuf from 'protobufjs';
-/** Properties of a BatchHeader. */
-export interface IBatchHeader {
-    /** BatchHeader signerPublicKey */
-    signerPublicKey?: string | null;
+import * as $protobuf from "protobufjs";
+/** Properties of a ConnectionRequest. */
+export interface IConnectionRequest {
 
-    /** BatchHeader transactionIds */
-    transactionIds?: string[] | null;
+    /** ConnectionRequest endpoint */
+    endpoint?: (string|null);
+}
+
+/** Represents a ConnectionRequest. */
+export class ConnectionRequest implements IConnectionRequest {
+
+    /**
+     * Constructs a new ConnectionRequest.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IConnectionRequest);
+
+    /** ConnectionRequest endpoint. */
+    public endpoint: string;
+
+    /**
+     * Creates a new ConnectionRequest instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns ConnectionRequest instance
+     */
+    public static create(properties?: IConnectionRequest): ConnectionRequest;
+
+    /**
+     * Encodes the specified ConnectionRequest message. Does not implicitly {@link ConnectionRequest.verify|verify} messages.
+     * @param message ConnectionRequest message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IConnectionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified ConnectionRequest message, length delimited. Does not implicitly {@link ConnectionRequest.verify|verify} messages.
+     * @param message ConnectionRequest message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IConnectionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a ConnectionRequest message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns ConnectionRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConnectionRequest;
+
+    /**
+     * Decodes a ConnectionRequest message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns ConnectionRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConnectionRequest;
+
+    /**
+     * Verifies a ConnectionRequest message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a ConnectionRequest message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns ConnectionRequest
+     */
+    public static fromObject(object: { [k: string]: any }): ConnectionRequest;
+
+    /**
+     * Creates a plain object from a ConnectionRequest message. Also converts values to other types if specified.
+     * @param message ConnectionRequest
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: ConnectionRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this ConnectionRequest to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** RoleType enum. */
+export enum RoleType {
+    ROLE_TYPE_UNSET = 0,
+    ALL = 1,
+    NETWORK = 2
+}
+
+/** Represents a ConnectionResponse. */
+export class ConnectionResponse implements IConnectionResponse {
+
+    /**
+     * Constructs a new ConnectionResponse.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IConnectionResponse);
+
+    /** ConnectionResponse roles. */
+    public roles: ConnectionResponse.IRoleEntry[];
+
+    /** ConnectionResponse status. */
+    public status: ConnectionResponse.Status;
+
+    /**
+     * Creates a new ConnectionResponse instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns ConnectionResponse instance
+     */
+    public static create(properties?: IConnectionResponse): ConnectionResponse;
+
+    /**
+     * Encodes the specified ConnectionResponse message. Does not implicitly {@link ConnectionResponse.verify|verify} messages.
+     * @param message ConnectionResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IConnectionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified ConnectionResponse message, length delimited. Does not implicitly {@link ConnectionResponse.verify|verify} messages.
+     * @param message ConnectionResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IConnectionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a ConnectionResponse message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns ConnectionResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConnectionResponse;
+
+    /**
+     * Decodes a ConnectionResponse message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns ConnectionResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConnectionResponse;
+
+    /**
+     * Verifies a ConnectionResponse message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a ConnectionResponse message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns ConnectionResponse
+     */
+    public static fromObject(object: { [k: string]: any }): ConnectionResponse;
+
+    /**
+     * Creates a plain object from a ConnectionResponse message. Also converts values to other types if specified.
+     * @param message ConnectionResponse
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: ConnectionResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this ConnectionResponse to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+export namespace ConnectionResponse {
+
+    /** Status enum. */
+    enum Status {
+        STATUS_UNSET = 0,
+        OK = 1,
+        ERROR = 2
+    }
+
+    /** AuthorizationType enum. */
+    enum AuthorizationType {
+        AUTHORIZATION_TYPE_UNSET = 0,
+        TRUST = 1,
+        CHALLENGE = 2
+    }
+
+    /** Properties of a RoleEntry. */
+    interface IRoleEntry {
+
+        /** RoleEntry role */
+        role?: (RoleType|null);
+
+        /** RoleEntry auth_type */
+        auth_type?: (ConnectionResponse.AuthorizationType|null);
+    }
+
+    /** Represents a RoleEntry. */
+    class RoleEntry implements IRoleEntry {
+
+        /**
+         * Constructs a new RoleEntry.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: ConnectionResponse.IRoleEntry);
+
+        /** RoleEntry role. */
+        public role: RoleType;
+
+        /** RoleEntry auth_type. */
+        public auth_type: ConnectionResponse.AuthorizationType;
+
+        /**
+         * Creates a new RoleEntry instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RoleEntry instance
+         */
+        public static create(properties?: ConnectionResponse.IRoleEntry): ConnectionResponse.RoleEntry;
+
+        /**
+         * Encodes the specified RoleEntry message. Does not implicitly {@link ConnectionResponse.RoleEntry.verify|verify} messages.
+         * @param message RoleEntry message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: ConnectionResponse.IRoleEntry, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RoleEntry message, length delimited. Does not implicitly {@link ConnectionResponse.RoleEntry.verify|verify} messages.
+         * @param message RoleEntry message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: ConnectionResponse.IRoleEntry, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RoleEntry message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RoleEntry
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConnectionResponse.RoleEntry;
+
+        /**
+         * Decodes a RoleEntry message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RoleEntry
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConnectionResponse.RoleEntry;
+
+        /**
+         * Verifies a RoleEntry message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RoleEntry message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RoleEntry
+         */
+        public static fromObject(object: { [k: string]: any }): ConnectionResponse.RoleEntry;
+
+        /**
+         * Creates a plain object from a RoleEntry message. Also converts values to other types if specified.
+         * @param message RoleEntry
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: ConnectionResponse.RoleEntry, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RoleEntry to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Represents an AuthorizationTrustRequest. */
+export class AuthorizationTrustRequest implements IAuthorizationTrustRequest {
+
+    /**
+     * Constructs a new AuthorizationTrustRequest.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IAuthorizationTrustRequest);
+
+    /** AuthorizationTrustRequest roles. */
+    public roles: RoleType[];
+
+    /** AuthorizationTrustRequest public_key. */
+    public public_key: string;
+
+    /**
+     * Creates a new AuthorizationTrustRequest instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns AuthorizationTrustRequest instance
+     */
+    public static create(properties?: IAuthorizationTrustRequest): AuthorizationTrustRequest;
+
+    /**
+     * Encodes the specified AuthorizationTrustRequest message. Does not implicitly {@link AuthorizationTrustRequest.verify|verify} messages.
+     * @param message AuthorizationTrustRequest message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IAuthorizationTrustRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified AuthorizationTrustRequest message, length delimited. Does not implicitly {@link AuthorizationTrustRequest.verify|verify} messages.
+     * @param message AuthorizationTrustRequest message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IAuthorizationTrustRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an AuthorizationTrustRequest message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns AuthorizationTrustRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationTrustRequest;
+
+    /**
+     * Decodes an AuthorizationTrustRequest message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns AuthorizationTrustRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationTrustRequest;
+
+    /**
+     * Verifies an AuthorizationTrustRequest message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an AuthorizationTrustRequest message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns AuthorizationTrustRequest
+     */
+    public static fromObject(object: { [k: string]: any }): AuthorizationTrustRequest;
+
+    /**
+     * Creates a plain object from an AuthorizationTrustRequest message. Also converts values to other types if specified.
+     * @param message AuthorizationTrustRequest
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: AuthorizationTrustRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this AuthorizationTrustRequest to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Represents an AuthorizationTrustResponse. */
+export class AuthorizationTrustResponse implements IAuthorizationTrustResponse {
+
+    /**
+     * Constructs a new AuthorizationTrustResponse.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IAuthorizationTrustResponse);
+
+    /** AuthorizationTrustResponse roles. */
+    public roles: RoleType[];
+
+    /**
+     * Creates a new AuthorizationTrustResponse instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns AuthorizationTrustResponse instance
+     */
+    public static create(properties?: IAuthorizationTrustResponse): AuthorizationTrustResponse;
+
+    /**
+     * Encodes the specified AuthorizationTrustResponse message. Does not implicitly {@link AuthorizationTrustResponse.verify|verify} messages.
+     * @param message AuthorizationTrustResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IAuthorizationTrustResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified AuthorizationTrustResponse message, length delimited. Does not implicitly {@link AuthorizationTrustResponse.verify|verify} messages.
+     * @param message AuthorizationTrustResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IAuthorizationTrustResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an AuthorizationTrustResponse message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns AuthorizationTrustResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationTrustResponse;
+
+    /**
+     * Decodes an AuthorizationTrustResponse message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns AuthorizationTrustResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationTrustResponse;
+
+    /**
+     * Verifies an AuthorizationTrustResponse message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an AuthorizationTrustResponse message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns AuthorizationTrustResponse
+     */
+    public static fromObject(object: { [k: string]: any }): AuthorizationTrustResponse;
+
+    /**
+     * Creates a plain object from an AuthorizationTrustResponse message. Also converts values to other types if specified.
+     * @param message AuthorizationTrustResponse
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: AuthorizationTrustResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this AuthorizationTrustResponse to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Represents an AuthorizationViolation. */
+export class AuthorizationViolation implements IAuthorizationViolation {
+
+    /**
+     * Constructs a new AuthorizationViolation.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IAuthorizationViolation);
+
+    /** AuthorizationViolation violation. */
+    public violation: RoleType;
+
+    /**
+     * Creates a new AuthorizationViolation instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns AuthorizationViolation instance
+     */
+    public static create(properties?: IAuthorizationViolation): AuthorizationViolation;
+
+    /**
+     * Encodes the specified AuthorizationViolation message. Does not implicitly {@link AuthorizationViolation.verify|verify} messages.
+     * @param message AuthorizationViolation message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IAuthorizationViolation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified AuthorizationViolation message, length delimited. Does not implicitly {@link AuthorizationViolation.verify|verify} messages.
+     * @param message AuthorizationViolation message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IAuthorizationViolation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an AuthorizationViolation message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns AuthorizationViolation
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationViolation;
+
+    /**
+     * Decodes an AuthorizationViolation message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns AuthorizationViolation
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationViolation;
+
+    /**
+     * Verifies an AuthorizationViolation message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an AuthorizationViolation message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns AuthorizationViolation
+     */
+    public static fromObject(object: { [k: string]: any }): AuthorizationViolation;
+
+    /**
+     * Creates a plain object from an AuthorizationViolation message. Also converts values to other types if specified.
+     * @param message AuthorizationViolation
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: AuthorizationViolation, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this AuthorizationViolation to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Represents an AuthorizationChallengeRequest. */
+export class AuthorizationChallengeRequest implements IAuthorizationChallengeRequest {
+
+    /**
+     * Constructs a new AuthorizationChallengeRequest.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IAuthorizationChallengeRequest);
+
+    /**
+     * Creates a new AuthorizationChallengeRequest instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns AuthorizationChallengeRequest instance
+     */
+    public static create(properties?: IAuthorizationChallengeRequest): AuthorizationChallengeRequest;
+
+    /**
+     * Encodes the specified AuthorizationChallengeRequest message. Does not implicitly {@link AuthorizationChallengeRequest.verify|verify} messages.
+     * @param message AuthorizationChallengeRequest message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IAuthorizationChallengeRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified AuthorizationChallengeRequest message, length delimited. Does not implicitly {@link AuthorizationChallengeRequest.verify|verify} messages.
+     * @param message AuthorizationChallengeRequest message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IAuthorizationChallengeRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an AuthorizationChallengeRequest message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns AuthorizationChallengeRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationChallengeRequest;
+
+    /**
+     * Decodes an AuthorizationChallengeRequest message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns AuthorizationChallengeRequest
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationChallengeRequest;
+
+    /**
+     * Verifies an AuthorizationChallengeRequest message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an AuthorizationChallengeRequest message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns AuthorizationChallengeRequest
+     */
+    public static fromObject(object: { [k: string]: any }): AuthorizationChallengeRequest;
+
+    /**
+     * Creates a plain object from an AuthorizationChallengeRequest message. Also converts values to other types if specified.
+     * @param message AuthorizationChallengeRequest
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: AuthorizationChallengeRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this AuthorizationChallengeRequest to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Represents an AuthorizationChallengeResponse. */
+export class AuthorizationChallengeResponse implements IAuthorizationChallengeResponse {
+
+    /**
+     * Constructs a new AuthorizationChallengeResponse.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IAuthorizationChallengeResponse);
+
+    /** AuthorizationChallengeResponse payload. */
+    public payload: Uint8Array;
+
+    /**
+     * Creates a new AuthorizationChallengeResponse instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns AuthorizationChallengeResponse instance
+     */
+    public static create(properties?: IAuthorizationChallengeResponse): AuthorizationChallengeResponse;
+
+    /**
+     * Encodes the specified AuthorizationChallengeResponse message. Does not implicitly {@link AuthorizationChallengeResponse.verify|verify} messages.
+     * @param message AuthorizationChallengeResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IAuthorizationChallengeResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified AuthorizationChallengeResponse message, length delimited. Does not implicitly {@link AuthorizationChallengeResponse.verify|verify} messages.
+     * @param message AuthorizationChallengeResponse message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IAuthorizationChallengeResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an AuthorizationChallengeResponse message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns AuthorizationChallengeResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationChallengeResponse;
+
+    /**
+     * Decodes an AuthorizationChallengeResponse message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns AuthorizationChallengeResponse
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationChallengeResponse;
+
+    /**
+     * Verifies an AuthorizationChallengeResponse message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an AuthorizationChallengeResponse message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns AuthorizationChallengeResponse
+     */
+    public static fromObject(object: { [k: string]: any }): AuthorizationChallengeResponse;
+
+    /**
+     * Creates a plain object from an AuthorizationChallengeResponse message. Also converts values to other types if specified.
+     * @param message AuthorizationChallengeResponse
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: AuthorizationChallengeResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this AuthorizationChallengeResponse to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Represents an AuthorizationChallengeSubmit. */
+export class AuthorizationChallengeSubmit implements IAuthorizationChallengeSubmit {
+
+    /**
+     * Constructs a new AuthorizationChallengeSubmit.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IAuthorizationChallengeSubmit);
+
+    /** AuthorizationChallengeSubmit public_key. */
+    public public_key: string;
+
+    /** AuthorizationChallengeSubmit signature. */
+    public signature: string;
+
+    /** AuthorizationChallengeSubmit roles. */
+    public roles: RoleType[];
+
+    /**
+     * Creates a new AuthorizationChallengeSubmit instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns AuthorizationChallengeSubmit instance
+     */
+    public static create(properties?: IAuthorizationChallengeSubmit): AuthorizationChallengeSubmit;
+
+    /**
+     * Encodes the specified AuthorizationChallengeSubmit message. Does not implicitly {@link AuthorizationChallengeSubmit.verify|verify} messages.
+     * @param message AuthorizationChallengeSubmit message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IAuthorizationChallengeSubmit, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified AuthorizationChallengeSubmit message, length delimited. Does not implicitly {@link AuthorizationChallengeSubmit.verify|verify} messages.
+     * @param message AuthorizationChallengeSubmit message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IAuthorizationChallengeSubmit, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an AuthorizationChallengeSubmit message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns AuthorizationChallengeSubmit
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationChallengeSubmit;
+
+    /**
+     * Decodes an AuthorizationChallengeSubmit message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns AuthorizationChallengeSubmit
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationChallengeSubmit;
+
+    /**
+     * Verifies an AuthorizationChallengeSubmit message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an AuthorizationChallengeSubmit message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns AuthorizationChallengeSubmit
+     */
+    public static fromObject(object: { [k: string]: any }): AuthorizationChallengeSubmit;
+
+    /**
+     * Creates a plain object from an AuthorizationChallengeSubmit message. Also converts values to other types if specified.
+     * @param message AuthorizationChallengeSubmit
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: AuthorizationChallengeSubmit, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this AuthorizationChallengeSubmit to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Represents an AuthorizationChallengeResult. */
+export class AuthorizationChallengeResult implements IAuthorizationChallengeResult {
+
+    /**
+     * Constructs a new AuthorizationChallengeResult.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IAuthorizationChallengeResult);
+
+    /** AuthorizationChallengeResult roles. */
+    public roles: RoleType[];
+
+    /**
+     * Creates a new AuthorizationChallengeResult instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns AuthorizationChallengeResult instance
+     */
+    public static create(properties?: IAuthorizationChallengeResult): AuthorizationChallengeResult;
+
+    /**
+     * Encodes the specified AuthorizationChallengeResult message. Does not implicitly {@link AuthorizationChallengeResult.verify|verify} messages.
+     * @param message AuthorizationChallengeResult message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IAuthorizationChallengeResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified AuthorizationChallengeResult message, length delimited. Does not implicitly {@link AuthorizationChallengeResult.verify|verify} messages.
+     * @param message AuthorizationChallengeResult message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IAuthorizationChallengeResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an AuthorizationChallengeResult message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns AuthorizationChallengeResult
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationChallengeResult;
+
+    /**
+     * Decodes an AuthorizationChallengeResult message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns AuthorizationChallengeResult
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationChallengeResult;
+
+    /**
+     * Verifies an AuthorizationChallengeResult message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an AuthorizationChallengeResult message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns AuthorizationChallengeResult
+     */
+    public static fromObject(object: { [k: string]: any }): AuthorizationChallengeResult;
+
+    /**
+     * Creates a plain object from an AuthorizationChallengeResult message. Also converts values to other types if specified.
+     * @param message AuthorizationChallengeResult
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: AuthorizationChallengeResult, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this AuthorizationChallengeResult to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
 }
 
 /** Represents a BatchHeader. */
 export class BatchHeader implements IBatchHeader {
+
     /**
      * Constructs a new BatchHeader.
      * @param [properties] Properties to set
      */
     constructor(properties?: IBatchHeader);
 
-    /** BatchHeader signerPublicKey. */
-    public signerPublicKey: string;
+    /** BatchHeader signer_public_key. */
+    public signer_public_key: string;
 
-    /** BatchHeader transactionIds. */
-    public transactionIds: string[];
+    /** BatchHeader transaction_ids. */
+    public transaction_ids: string[];
 
     /**
      * Creates a new BatchHeader instance using the specified properties.
@@ -60,7 +935,7 @@ export class BatchHeader implements IBatchHeader {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): BatchHeader;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): BatchHeader;
 
     /**
      * Decodes a BatchHeader message from the specified reader or buffer, length delimited.
@@ -69,14 +944,14 @@ export class BatchHeader implements IBatchHeader {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): BatchHeader;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): BatchHeader;
 
     /**
      * Verifies a BatchHeader message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a BatchHeader message from a plain object. Also converts values to their respective internal types.
@@ -100,23 +975,9 @@ export class BatchHeader implements IBatchHeader {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a Batch. */
-export interface IBatch {
-    /** Batch header */
-    header?: Uint8Array | null;
-
-    /** Batch headerSignature */
-    headerSignature?: string | null;
-
-    /** Batch transactions */
-    transactions?: ITransaction[] | null;
-
-    /** Batch trace */
-    trace?: boolean | null;
-}
-
 /** Represents a Batch. */
 export class Batch implements IBatch {
+
     /**
      * Constructs a new Batch.
      * @param [properties] Properties to set
@@ -126,8 +987,8 @@ export class Batch implements IBatch {
     /** Batch header. */
     public header: Uint8Array;
 
-    /** Batch headerSignature. */
-    public headerSignature: string;
+    /** Batch header_signature. */
+    public header_signature: string;
 
     /** Batch transactions. */
     public transactions: ITransaction[];
@@ -166,7 +1027,7 @@ export class Batch implements IBatch {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Batch;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Batch;
 
     /**
      * Decodes a Batch message from the specified reader or buffer, length delimited.
@@ -175,14 +1036,14 @@ export class Batch implements IBatch {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Batch;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Batch;
 
     /**
      * Verifies a Batch message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a Batch message from a plain object. Also converts values to their respective internal types.
@@ -206,14 +1067,9 @@ export class Batch implements IBatch {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a BatchList. */
-export interface IBatchList {
-    /** BatchList batches */
-    batches?: IBatch[] | null;
-}
-
 /** Represents a BatchList. */
 export class BatchList implements IBatchList {
+
     /**
      * Constructs a new BatchList.
      * @param [properties] Properties to set
@@ -254,7 +1110,7 @@ export class BatchList implements IBatchList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): BatchList;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): BatchList;
 
     /**
      * Decodes a BatchList message from the specified reader or buffer, length delimited.
@@ -263,14 +1119,14 @@ export class BatchList implements IBatchList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): BatchList;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): BatchList;
 
     /**
      * Verifies a BatchList message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a BatchList message from a plain object. Also converts values to their respective internal types.
@@ -294,55 +1150,26 @@ export class BatchList implements IBatchList {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TransactionHeader. */
-export interface ITransactionHeader {
-    /** TransactionHeader batcherPublicKey */
-    batcherPublicKey?: string | null;
-
-    /** TransactionHeader dependencies */
-    dependencies?: string[] | null;
-
-    /** TransactionHeader familyName */
-    familyName?: string | null;
-
-    /** TransactionHeader familyVersion */
-    familyVersion?: string | null;
-
-    /** TransactionHeader inputs */
-    inputs?: string[] | null;
-
-    /** TransactionHeader nonce */
-    nonce?: string | null;
-
-    /** TransactionHeader outputs */
-    outputs?: string[] | null;
-
-    /** TransactionHeader payloadSha512 */
-    payloadSha512?: string | null;
-
-    /** TransactionHeader signerPublicKey */
-    signerPublicKey?: string | null;
-}
-
 /** Represents a TransactionHeader. */
 export class TransactionHeader implements ITransactionHeader {
+
     /**
      * Constructs a new TransactionHeader.
      * @param [properties] Properties to set
      */
     constructor(properties?: ITransactionHeader);
 
-    /** TransactionHeader batcherPublicKey. */
-    public batcherPublicKey: string;
+    /** TransactionHeader batcher_public_key. */
+    public batcher_public_key: string;
 
     /** TransactionHeader dependencies. */
     public dependencies: string[];
 
-    /** TransactionHeader familyName. */
-    public familyName: string;
+    /** TransactionHeader family_name. */
+    public family_name: string;
 
-    /** TransactionHeader familyVersion. */
-    public familyVersion: string;
+    /** TransactionHeader family_version. */
+    public family_version: string;
 
     /** TransactionHeader inputs. */
     public inputs: string[];
@@ -353,11 +1180,11 @@ export class TransactionHeader implements ITransactionHeader {
     /** TransactionHeader outputs. */
     public outputs: string[];
 
-    /** TransactionHeader payloadSha512. */
-    public payloadSha512: string;
+    /** TransactionHeader payload_sha512. */
+    public payload_sha512: string;
 
-    /** TransactionHeader signerPublicKey. */
-    public signerPublicKey: string;
+    /** TransactionHeader signer_public_key. */
+    public signer_public_key: string;
 
     /**
      * Creates a new TransactionHeader instance using the specified properties.
@@ -390,7 +1217,7 @@ export class TransactionHeader implements ITransactionHeader {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TransactionHeader;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TransactionHeader;
 
     /**
      * Decodes a TransactionHeader message from the specified reader or buffer, length delimited.
@@ -399,14 +1226,14 @@ export class TransactionHeader implements ITransactionHeader {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TransactionHeader;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TransactionHeader;
 
     /**
      * Verifies a TransactionHeader message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TransactionHeader message from a plain object. Also converts values to their respective internal types.
@@ -430,20 +1257,9 @@ export class TransactionHeader implements ITransactionHeader {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a Transaction. */
-export interface ITransaction {
-    /** Transaction header */
-    header?: Uint8Array | null;
-
-    /** Transaction headerSignature */
-    headerSignature?: string | null;
-
-    /** Transaction payload */
-    payload?: Uint8Array | null;
-}
-
 /** Represents a Transaction. */
 export class Transaction implements ITransaction {
+
     /**
      * Constructs a new Transaction.
      * @param [properties] Properties to set
@@ -453,8 +1269,8 @@ export class Transaction implements ITransaction {
     /** Transaction header. */
     public header: Uint8Array;
 
-    /** Transaction headerSignature. */
-    public headerSignature: string;
+    /** Transaction header_signature. */
+    public header_signature: string;
 
     /** Transaction payload. */
     public payload: Uint8Array;
@@ -490,7 +1306,7 @@ export class Transaction implements ITransaction {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Transaction;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Transaction;
 
     /**
      * Decodes a Transaction message from the specified reader or buffer, length delimited.
@@ -499,14 +1315,14 @@ export class Transaction implements ITransaction {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Transaction;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Transaction;
 
     /**
      * Verifies a Transaction message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a Transaction message from a plain object. Also converts values to their respective internal types.
@@ -530,14 +1346,9 @@ export class Transaction implements ITransaction {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TransactionList. */
-export interface ITransactionList {
-    /** TransactionList transactions */
-    transactions?: ITransaction[] | null;
-}
-
 /** Represents a TransactionList. */
 export class TransactionList implements ITransactionList {
+
     /**
      * Constructs a new TransactionList.
      * @param [properties] Properties to set
@@ -578,7 +1389,7 @@ export class TransactionList implements ITransactionList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TransactionList;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TransactionList;
 
     /**
      * Decodes a TransactionList message from the specified reader or buffer, length delimited.
@@ -587,14 +1398,14 @@ export class TransactionList implements ITransactionList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TransactionList;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TransactionList;
 
     /**
      * Verifies a TransactionList message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TransactionList message from a plain object. Also converts values to their respective internal types.
@@ -618,52 +1429,32 @@ export class TransactionList implements ITransactionList {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a BlockHeader. */
-export interface IBlockHeader {
-    /** BlockHeader blockNum */
-    blockNum?: number | Long | null;
-
-    /** BlockHeader previousBlockId */
-    previousBlockId?: string | null;
-
-    /** BlockHeader signerPublicKey */
-    signerPublicKey?: string | null;
-
-    /** BlockHeader batchIds */
-    batchIds?: string[] | null;
-
-    /** BlockHeader consensus */
-    consensus?: Uint8Array | null;
-
-    /** BlockHeader stateRootHash */
-    stateRootHash?: string | null;
-}
-
 /** Represents a BlockHeader. */
 export class BlockHeader implements IBlockHeader {
+
     /**
      * Constructs a new BlockHeader.
      * @param [properties] Properties to set
      */
     constructor(properties?: IBlockHeader);
 
-    /** BlockHeader blockNum. */
-    public blockNum: number | Long;
+    /** BlockHeader block_num. */
+    public block_num: (number|Long);
 
-    /** BlockHeader previousBlockId. */
-    public previousBlockId: string;
+    /** BlockHeader previous_block_id. */
+    public previous_block_id: string;
 
-    /** BlockHeader signerPublicKey. */
-    public signerPublicKey: string;
+    /** BlockHeader signer_public_key. */
+    public signer_public_key: string;
 
-    /** BlockHeader batchIds. */
-    public batchIds: string[];
+    /** BlockHeader batch_ids. */
+    public batch_ids: string[];
 
     /** BlockHeader consensus. */
     public consensus: Uint8Array;
 
-    /** BlockHeader stateRootHash. */
-    public stateRootHash: string;
+    /** BlockHeader state_root_hash. */
+    public state_root_hash: string;
 
     /**
      * Creates a new BlockHeader instance using the specified properties.
@@ -696,7 +1487,7 @@ export class BlockHeader implements IBlockHeader {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): BlockHeader;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): BlockHeader;
 
     /**
      * Decodes a BlockHeader message from the specified reader or buffer, length delimited.
@@ -705,14 +1496,14 @@ export class BlockHeader implements IBlockHeader {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): BlockHeader;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): BlockHeader;
 
     /**
      * Verifies a BlockHeader message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a BlockHeader message from a plain object. Also converts values to their respective internal types.
@@ -736,20 +1527,9 @@ export class BlockHeader implements IBlockHeader {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a Block. */
-export interface IBlock {
-    /** Block header */
-    header?: Uint8Array | null;
-
-    /** Block headerSignature */
-    headerSignature?: string | null;
-
-    /** Block batches */
-    batches?: IBatch[] | null;
-}
-
 /** Represents a Block. */
 export class Block implements IBlock {
+
     /**
      * Constructs a new Block.
      * @param [properties] Properties to set
@@ -759,8 +1539,8 @@ export class Block implements IBlock {
     /** Block header. */
     public header: Uint8Array;
 
-    /** Block headerSignature. */
-    public headerSignature: string;
+    /** Block header_signature. */
+    public header_signature: string;
 
     /** Block batches. */
     public batches: IBatch[];
@@ -796,7 +1576,7 @@ export class Block implements IBlock {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Block;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Block;
 
     /**
      * Decodes a Block message from the specified reader or buffer, length delimited.
@@ -805,14 +1585,14 @@ export class Block implements IBlock {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Block;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Block;
 
     /**
      * Verifies a Block message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a Block message from a plain object. Also converts values to their respective internal types.
@@ -836,37 +1616,23 @@ export class Block implements IBlock {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBatchListRequest. */
-export interface IClientBatchListRequest {
-    /** ClientBatchListRequest headId */
-    headId?: string | null;
-
-    /** ClientBatchListRequest batchIds */
-    batchIds?: string[] | null;
-
-    /** ClientBatchListRequest paging */
-    paging?: IClientPagingControls | null;
-
-    /** ClientBatchListRequest sorting */
-    sorting?: IClientSortControls[] | null;
-}
-
 /** Represents a ClientBatchListRequest. */
 export class ClientBatchListRequest implements IClientBatchListRequest {
+
     /**
      * Constructs a new ClientBatchListRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBatchListRequest);
 
-    /** ClientBatchListRequest headId. */
-    public headId: string;
+    /** ClientBatchListRequest head_id. */
+    public head_id: string;
 
-    /** ClientBatchListRequest batchIds. */
-    public batchIds: string[];
+    /** ClientBatchListRequest batch_ids. */
+    public batch_ids: string[];
 
     /** ClientBatchListRequest paging. */
-    public paging?: IClientPagingControls | null;
+    public paging?: (IClientPagingControls|null);
 
     /** ClientBatchListRequest sorting. */
     public sorting: IClientSortControls[];
@@ -902,7 +1668,7 @@ export class ClientBatchListRequest implements IClientBatchListRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchListRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchListRequest;
 
     /**
      * Decodes a ClientBatchListRequest message from the specified reader or buffer, length delimited.
@@ -911,14 +1677,14 @@ export class ClientBatchListRequest implements IClientBatchListRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchListRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchListRequest;
 
     /**
      * Verifies a ClientBatchListRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchListRequest message from a plain object. Also converts values to their respective internal types.
@@ -933,10 +1699,7 @@ export class ClientBatchListRequest implements IClientBatchListRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBatchListRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBatchListRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBatchListRequest to JSON.
@@ -945,23 +1708,9 @@ export class ClientBatchListRequest implements IClientBatchListRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBatchListResponse. */
-export interface IClientBatchListResponse {
-    /** ClientBatchListResponse status */
-    status?: ClientBatchListResponse.Status | null;
-
-    /** ClientBatchListResponse batches */
-    batches?: IBatch[] | null;
-
-    /** ClientBatchListResponse headId */
-    headId?: string | null;
-
-    /** ClientBatchListResponse paging */
-    paging?: IClientPagingResponse | null;
-}
-
 /** Represents a ClientBatchListResponse. */
 export class ClientBatchListResponse implements IClientBatchListResponse {
+
     /**
      * Constructs a new ClientBatchListResponse.
      * @param [properties] Properties to set
@@ -974,11 +1723,11 @@ export class ClientBatchListResponse implements IClientBatchListResponse {
     /** ClientBatchListResponse batches. */
     public batches: IBatch[];
 
-    /** ClientBatchListResponse headId. */
-    public headId: string;
+    /** ClientBatchListResponse head_id. */
+    public head_id: string;
 
     /** ClientBatchListResponse paging. */
-    public paging?: IClientPagingResponse | null;
+    public paging?: (IClientPagingResponse|null);
 
     /**
      * Creates a new ClientBatchListResponse instance using the specified properties.
@@ -1011,7 +1760,7 @@ export class ClientBatchListResponse implements IClientBatchListResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchListResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchListResponse;
 
     /**
      * Decodes a ClientBatchListResponse message from the specified reader or buffer, length delimited.
@@ -1020,14 +1769,14 @@ export class ClientBatchListResponse implements IClientBatchListResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchListResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchListResponse;
 
     /**
      * Verifies a ClientBatchListResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchListResponse message from a plain object. Also converts values to their respective internal types.
@@ -1042,10 +1791,7 @@ export class ClientBatchListResponse implements IClientBatchListResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBatchListResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBatchListResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBatchListResponse to JSON.
@@ -1055,6 +1801,7 @@ export class ClientBatchListResponse implements IClientBatchListResponse {
 }
 
 export namespace ClientBatchListResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -1065,26 +1812,21 @@ export namespace ClientBatchListResponse {
         NO_RESOURCE = 5,
         INVALID_PAGING = 6,
         INVALID_SORT = 7,
-        INVALID_ID = 8,
+        INVALID_ID = 8
     }
-}
-
-/** Properties of a ClientBatchGetRequest. */
-export interface IClientBatchGetRequest {
-    /** ClientBatchGetRequest batchId */
-    batchId?: string | null;
 }
 
 /** Represents a ClientBatchGetRequest. */
 export class ClientBatchGetRequest implements IClientBatchGetRequest {
+
     /**
      * Constructs a new ClientBatchGetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBatchGetRequest);
 
-    /** ClientBatchGetRequest batchId. */
-    public batchId: string;
+    /** ClientBatchGetRequest batch_id. */
+    public batch_id: string;
 
     /**
      * Creates a new ClientBatchGetRequest instance using the specified properties.
@@ -1117,7 +1859,7 @@ export class ClientBatchGetRequest implements IClientBatchGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchGetRequest;
 
     /**
      * Decodes a ClientBatchGetRequest message from the specified reader or buffer, length delimited.
@@ -1126,14 +1868,14 @@ export class ClientBatchGetRequest implements IClientBatchGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchGetRequest;
 
     /**
      * Verifies a ClientBatchGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -1148,10 +1890,7 @@ export class ClientBatchGetRequest implements IClientBatchGetRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBatchGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBatchGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBatchGetRequest to JSON.
@@ -1160,17 +1899,9 @@ export class ClientBatchGetRequest implements IClientBatchGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBatchGetResponse. */
-export interface IClientBatchGetResponse {
-    /** ClientBatchGetResponse status */
-    status?: ClientBatchGetResponse.Status | null;
-
-    /** ClientBatchGetResponse batch */
-    batch?: IBatch | null;
-}
-
 /** Represents a ClientBatchGetResponse. */
 export class ClientBatchGetResponse implements IClientBatchGetResponse {
+
     /**
      * Constructs a new ClientBatchGetResponse.
      * @param [properties] Properties to set
@@ -1181,7 +1912,7 @@ export class ClientBatchGetResponse implements IClientBatchGetResponse {
     public status: ClientBatchGetResponse.Status;
 
     /** ClientBatchGetResponse batch. */
-    public batch?: IBatch | null;
+    public batch?: (IBatch|null);
 
     /**
      * Creates a new ClientBatchGetResponse instance using the specified properties.
@@ -1214,7 +1945,7 @@ export class ClientBatchGetResponse implements IClientBatchGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchGetResponse;
 
     /**
      * Decodes a ClientBatchGetResponse message from the specified reader or buffer, length delimited.
@@ -1223,14 +1954,14 @@ export class ClientBatchGetResponse implements IClientBatchGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchGetResponse;
 
     /**
      * Verifies a ClientBatchGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -1245,10 +1976,7 @@ export class ClientBatchGetResponse implements IClientBatchGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBatchGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBatchGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBatchGetResponse to JSON.
@@ -1258,27 +1986,20 @@ export class ClientBatchGetResponse implements IClientBatchGetResponse {
 }
 
 export namespace ClientBatchGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INTERNAL_ERROR = 2,
         NO_RESOURCE = 5,
-        INVALID_ID = 8,
+        INVALID_ID = 8
     }
-}
-
-/** Properties of a ClientPagingControls. */
-export interface IClientPagingControls {
-    /** ClientPagingControls start */
-    start?: string | null;
-
-    /** ClientPagingControls limit */
-    limit?: number | null;
 }
 
 /** Represents a ClientPagingControls. */
 export class ClientPagingControls implements IClientPagingControls {
+
     /**
      * Constructs a new ClientPagingControls.
      * @param [properties] Properties to set
@@ -1322,7 +2043,7 @@ export class ClientPagingControls implements IClientPagingControls {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientPagingControls;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientPagingControls;
 
     /**
      * Decodes a ClientPagingControls message from the specified reader or buffer, length delimited.
@@ -1331,14 +2052,14 @@ export class ClientPagingControls implements IClientPagingControls {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientPagingControls;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientPagingControls;
 
     /**
      * Verifies a ClientPagingControls message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientPagingControls message from a plain object. Also converts values to their respective internal types.
@@ -1362,20 +2083,9 @@ export class ClientPagingControls implements IClientPagingControls {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientPagingResponse. */
-export interface IClientPagingResponse {
-    /** ClientPagingResponse next */
-    next?: string | null;
-
-    /** ClientPagingResponse start */
-    start?: string | null;
-
-    /** ClientPagingResponse limit */
-    limit?: number | null;
-}
-
 /** Represents a ClientPagingResponse. */
 export class ClientPagingResponse implements IClientPagingResponse {
+
     /**
      * Constructs a new ClientPagingResponse.
      * @param [properties] Properties to set
@@ -1422,7 +2132,7 @@ export class ClientPagingResponse implements IClientPagingResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientPagingResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientPagingResponse;
 
     /**
      * Decodes a ClientPagingResponse message from the specified reader or buffer, length delimited.
@@ -1431,14 +2141,14 @@ export class ClientPagingResponse implements IClientPagingResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientPagingResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientPagingResponse;
 
     /**
      * Verifies a ClientPagingResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientPagingResponse message from a plain object. Also converts values to their respective internal types.
@@ -1462,17 +2172,9 @@ export class ClientPagingResponse implements IClientPagingResponse {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientSortControls. */
-export interface IClientSortControls {
-    /** ClientSortControls keys */
-    keys?: string[] | null;
-
-    /** ClientSortControls reverse */
-    reverse?: boolean | null;
-}
-
 /** Represents a ClientSortControls. */
 export class ClientSortControls implements IClientSortControls {
+
     /**
      * Constructs a new ClientSortControls.
      * @param [properties] Properties to set
@@ -1516,7 +2218,7 @@ export class ClientSortControls implements IClientSortControls {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientSortControls;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientSortControls;
 
     /**
      * Decodes a ClientSortControls message from the specified reader or buffer, length delimited.
@@ -1525,14 +2227,14 @@ export class ClientSortControls implements IClientSortControls {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientSortControls;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientSortControls;
 
     /**
      * Verifies a ClientSortControls message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientSortControls message from a plain object. Also converts values to their respective internal types.
@@ -1556,34 +2258,23 @@ export class ClientSortControls implements IClientSortControls {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBatchStatus. */
-export interface IClientBatchStatus {
-    /** ClientBatchStatus batchId */
-    batchId?: string | null;
-
-    /** ClientBatchStatus status */
-    status?: ClientBatchStatus.Status | null;
-
-    /** ClientBatchStatus invalidTransactions */
-    invalidTransactions?: ClientBatchStatus.IInvalidTransaction[] | null;
-}
-
 /** Represents a ClientBatchStatus. */
 export class ClientBatchStatus implements IClientBatchStatus {
+
     /**
      * Constructs a new ClientBatchStatus.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBatchStatus);
 
-    /** ClientBatchStatus batchId. */
-    public batchId: string;
+    /** ClientBatchStatus batch_id. */
+    public batch_id: string;
 
     /** ClientBatchStatus status. */
     public status: ClientBatchStatus.Status;
 
-    /** ClientBatchStatus invalidTransactions. */
-    public invalidTransactions: ClientBatchStatus.IInvalidTransaction[];
+    /** ClientBatchStatus invalid_transactions. */
+    public invalid_transactions: ClientBatchStatus.IInvalidTransaction[];
 
     /**
      * Creates a new ClientBatchStatus instance using the specified properties.
@@ -1616,7 +2307,7 @@ export class ClientBatchStatus implements IClientBatchStatus {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchStatus;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchStatus;
 
     /**
      * Decodes a ClientBatchStatus message from the specified reader or buffer, length delimited.
@@ -1625,14 +2316,14 @@ export class ClientBatchStatus implements IClientBatchStatus {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchStatus;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchStatus;
 
     /**
      * Verifies a ClientBatchStatus message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchStatus message from a plain object. Also converts values to their respective internal types.
@@ -1657,43 +2348,46 @@ export class ClientBatchStatus implements IClientBatchStatus {
 }
 
 export namespace ClientBatchStatus {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         COMMITTED = 1,
         INVALID = 2,
         PENDING = 3,
-        UNKNOWN = 4,
+        UNKNOWN = 4
     }
 
     /** Properties of an InvalidTransaction. */
     interface IInvalidTransaction {
-        /** InvalidTransaction transactionId */
-        transactionId?: string | null;
+
+        /** InvalidTransaction transaction_id */
+        transaction_id?: (string|null);
 
         /** InvalidTransaction message */
-        message?: string | null;
+        message?: (string|null);
 
-        /** InvalidTransaction extendedData */
-        extendedData?: Uint8Array | null;
+        /** InvalidTransaction extended_data */
+        extended_data?: (Uint8Array|null);
     }
 
     /** Represents an InvalidTransaction. */
     class InvalidTransaction implements IInvalidTransaction {
+
         /**
          * Constructs a new InvalidTransaction.
          * @param [properties] Properties to set
          */
         constructor(properties?: ClientBatchStatus.IInvalidTransaction);
 
-        /** InvalidTransaction transactionId. */
-        public transactionId: string;
+        /** InvalidTransaction transaction_id. */
+        public transaction_id: string;
 
         /** InvalidTransaction message. */
         public message: string;
 
-        /** InvalidTransaction extendedData. */
-        public extendedData: Uint8Array;
+        /** InvalidTransaction extended_data. */
+        public extended_data: Uint8Array;
 
         /**
          * Creates a new InvalidTransaction instance using the specified properties.
@@ -1708,10 +2402,7 @@ export namespace ClientBatchStatus {
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(
-            message: ClientBatchStatus.IInvalidTransaction,
-            writer?: $protobuf.Writer,
-        ): $protobuf.Writer;
+        public static encode(message: ClientBatchStatus.IInvalidTransaction, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
          * Encodes the specified InvalidTransaction message, length delimited. Does not implicitly {@link ClientBatchStatus.InvalidTransaction.verify|verify} messages.
@@ -1719,10 +2410,7 @@ export namespace ClientBatchStatus {
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(
-            message: ClientBatchStatus.IInvalidTransaction,
-            writer?: $protobuf.Writer,
-        ): $protobuf.Writer;
+        public static encodeDelimited(message: ClientBatchStatus.IInvalidTransaction, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
          * Decodes an InvalidTransaction message from the specified reader or buffer.
@@ -1732,10 +2420,7 @@ export namespace ClientBatchStatus {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(
-            reader: $protobuf.Reader | Uint8Array,
-            length?: number,
-        ): ClientBatchStatus.InvalidTransaction;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchStatus.InvalidTransaction;
 
         /**
          * Decodes an InvalidTransaction message from the specified reader or buffer, length delimited.
@@ -1744,14 +2429,14 @@ export namespace ClientBatchStatus {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchStatus.InvalidTransaction;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchStatus.InvalidTransaction;
 
         /**
          * Verifies an InvalidTransaction message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: { [k: string]: any }): string | null;
+        public static verify(message: { [k: string]: any }): (string|null);
 
         /**
          * Creates an InvalidTransaction message from a plain object. Also converts values to their respective internal types.
@@ -1766,10 +2451,7 @@ export namespace ClientBatchStatus {
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(
-            message: ClientBatchStatus.InvalidTransaction,
-            options?: $protobuf.IConversionOptions,
-        ): { [k: string]: any };
+        public static toObject(message: ClientBatchStatus.InvalidTransaction, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
          * Converts this InvalidTransaction to JSON.
@@ -1779,14 +2461,9 @@ export namespace ClientBatchStatus {
     }
 }
 
-/** Properties of a ClientBatchSubmitRequest. */
-export interface IClientBatchSubmitRequest {
-    /** ClientBatchSubmitRequest batches */
-    batches?: IBatch[] | null;
-}
-
 /** Represents a ClientBatchSubmitRequest. */
 export class ClientBatchSubmitRequest implements IClientBatchSubmitRequest {
+
     /**
      * Constructs a new ClientBatchSubmitRequest.
      * @param [properties] Properties to set
@@ -1827,7 +2504,7 @@ export class ClientBatchSubmitRequest implements IClientBatchSubmitRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchSubmitRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchSubmitRequest;
 
     /**
      * Decodes a ClientBatchSubmitRequest message from the specified reader or buffer, length delimited.
@@ -1836,14 +2513,14 @@ export class ClientBatchSubmitRequest implements IClientBatchSubmitRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchSubmitRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchSubmitRequest;
 
     /**
      * Verifies a ClientBatchSubmitRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchSubmitRequest message from a plain object. Also converts values to their respective internal types.
@@ -1858,10 +2535,7 @@ export class ClientBatchSubmitRequest implements IClientBatchSubmitRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBatchSubmitRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBatchSubmitRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBatchSubmitRequest to JSON.
@@ -1870,14 +2544,9 @@ export class ClientBatchSubmitRequest implements IClientBatchSubmitRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBatchSubmitResponse. */
-export interface IClientBatchSubmitResponse {
-    /** ClientBatchSubmitResponse status */
-    status?: ClientBatchSubmitResponse.Status | null;
-}
-
 /** Represents a ClientBatchSubmitResponse. */
 export class ClientBatchSubmitResponse implements IClientBatchSubmitResponse {
+
     /**
      * Constructs a new ClientBatchSubmitResponse.
      * @param [properties] Properties to set
@@ -1918,7 +2587,7 @@ export class ClientBatchSubmitResponse implements IClientBatchSubmitResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchSubmitResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchSubmitResponse;
 
     /**
      * Decodes a ClientBatchSubmitResponse message from the specified reader or buffer, length delimited.
@@ -1927,14 +2596,14 @@ export class ClientBatchSubmitResponse implements IClientBatchSubmitResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchSubmitResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchSubmitResponse;
 
     /**
      * Verifies a ClientBatchSubmitResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchSubmitResponse message from a plain object. Also converts values to their respective internal types.
@@ -1949,10 +2618,7 @@ export class ClientBatchSubmitResponse implements IClientBatchSubmitResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBatchSubmitResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBatchSubmitResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBatchSubmitResponse to JSON.
@@ -1962,38 +2628,28 @@ export class ClientBatchSubmitResponse implements IClientBatchSubmitResponse {
 }
 
 export namespace ClientBatchSubmitResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INTERNAL_ERROR = 2,
         INVALID_BATCH = 3,
-        QUEUE_FULL = 4,
+        QUEUE_FULL = 4
     }
-}
-
-/** Properties of a ClientBatchStatusRequest. */
-export interface IClientBatchStatusRequest {
-    /** ClientBatchStatusRequest batchIds */
-    batchIds?: string[] | null;
-
-    /** ClientBatchStatusRequest wait */
-    wait?: boolean | null;
-
-    /** ClientBatchStatusRequest timeout */
-    timeout?: number | null;
 }
 
 /** Represents a ClientBatchStatusRequest. */
 export class ClientBatchStatusRequest implements IClientBatchStatusRequest {
+
     /**
      * Constructs a new ClientBatchStatusRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBatchStatusRequest);
 
-    /** ClientBatchStatusRequest batchIds. */
-    public batchIds: string[];
+    /** ClientBatchStatusRequest batch_ids. */
+    public batch_ids: string[];
 
     /** ClientBatchStatusRequest wait. */
     public wait: boolean;
@@ -2032,7 +2688,7 @@ export class ClientBatchStatusRequest implements IClientBatchStatusRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchStatusRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchStatusRequest;
 
     /**
      * Decodes a ClientBatchStatusRequest message from the specified reader or buffer, length delimited.
@@ -2041,14 +2697,14 @@ export class ClientBatchStatusRequest implements IClientBatchStatusRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchStatusRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchStatusRequest;
 
     /**
      * Verifies a ClientBatchStatusRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchStatusRequest message from a plain object. Also converts values to their respective internal types.
@@ -2063,10 +2719,7 @@ export class ClientBatchStatusRequest implements IClientBatchStatusRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBatchStatusRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBatchStatusRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBatchStatusRequest to JSON.
@@ -2075,17 +2728,9 @@ export class ClientBatchStatusRequest implements IClientBatchStatusRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBatchStatusResponse. */
-export interface IClientBatchStatusResponse {
-    /** ClientBatchStatusResponse status */
-    status?: ClientBatchStatusResponse.Status | null;
-
-    /** ClientBatchStatusResponse batchStatuses */
-    batchStatuses?: IClientBatchStatus[] | null;
-}
-
 /** Represents a ClientBatchStatusResponse. */
 export class ClientBatchStatusResponse implements IClientBatchStatusResponse {
+
     /**
      * Constructs a new ClientBatchStatusResponse.
      * @param [properties] Properties to set
@@ -2095,8 +2740,8 @@ export class ClientBatchStatusResponse implements IClientBatchStatusResponse {
     /** ClientBatchStatusResponse status. */
     public status: ClientBatchStatusResponse.Status;
 
-    /** ClientBatchStatusResponse batchStatuses. */
-    public batchStatuses: IClientBatchStatus[];
+    /** ClientBatchStatusResponse batch_statuses. */
+    public batch_statuses: IClientBatchStatus[];
 
     /**
      * Creates a new ClientBatchStatusResponse instance using the specified properties.
@@ -2129,7 +2774,7 @@ export class ClientBatchStatusResponse implements IClientBatchStatusResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBatchStatusResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBatchStatusResponse;
 
     /**
      * Decodes a ClientBatchStatusResponse message from the specified reader or buffer, length delimited.
@@ -2138,14 +2783,14 @@ export class ClientBatchStatusResponse implements IClientBatchStatusResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBatchStatusResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBatchStatusResponse;
 
     /**
      * Verifies a ClientBatchStatusResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBatchStatusResponse message from a plain object. Also converts values to their respective internal types.
@@ -2160,10 +2805,7 @@ export class ClientBatchStatusResponse implements IClientBatchStatusResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBatchStatusResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBatchStatusResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBatchStatusResponse to JSON.
@@ -2173,47 +2815,34 @@ export class ClientBatchStatusResponse implements IClientBatchStatusResponse {
 }
 
 export namespace ClientBatchStatusResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INTERNAL_ERROR = 2,
         NO_RESOURCE = 5,
-        INVALID_ID = 8,
+        INVALID_ID = 8
     }
-}
-
-/** Properties of a ClientBlockListRequest. */
-export interface IClientBlockListRequest {
-    /** ClientBlockListRequest headId */
-    headId?: string | null;
-
-    /** ClientBlockListRequest blockIds */
-    blockIds?: string[] | null;
-
-    /** ClientBlockListRequest paging */
-    paging?: IClientPagingControls | null;
-
-    /** ClientBlockListRequest sorting */
-    sorting?: IClientSortControls[] | null;
 }
 
 /** Represents a ClientBlockListRequest. */
 export class ClientBlockListRequest implements IClientBlockListRequest {
+
     /**
      * Constructs a new ClientBlockListRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBlockListRequest);
 
-    /** ClientBlockListRequest headId. */
-    public headId: string;
+    /** ClientBlockListRequest head_id. */
+    public head_id: string;
 
-    /** ClientBlockListRequest blockIds. */
-    public blockIds: string[];
+    /** ClientBlockListRequest block_ids. */
+    public block_ids: string[];
 
     /** ClientBlockListRequest paging. */
-    public paging?: IClientPagingControls | null;
+    public paging?: (IClientPagingControls|null);
 
     /** ClientBlockListRequest sorting. */
     public sorting: IClientSortControls[];
@@ -2249,7 +2878,7 @@ export class ClientBlockListRequest implements IClientBlockListRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBlockListRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBlockListRequest;
 
     /**
      * Decodes a ClientBlockListRequest message from the specified reader or buffer, length delimited.
@@ -2258,14 +2887,14 @@ export class ClientBlockListRequest implements IClientBlockListRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBlockListRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBlockListRequest;
 
     /**
      * Verifies a ClientBlockListRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBlockListRequest message from a plain object. Also converts values to their respective internal types.
@@ -2280,10 +2909,7 @@ export class ClientBlockListRequest implements IClientBlockListRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBlockListRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBlockListRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBlockListRequest to JSON.
@@ -2292,23 +2918,9 @@ export class ClientBlockListRequest implements IClientBlockListRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBlockListResponse. */
-export interface IClientBlockListResponse {
-    /** ClientBlockListResponse status */
-    status?: ClientBlockListResponse.Status | null;
-
-    /** ClientBlockListResponse blocks */
-    blocks?: IBlock[] | null;
-
-    /** ClientBlockListResponse headId */
-    headId?: string | null;
-
-    /** ClientBlockListResponse paging */
-    paging?: IClientPagingResponse | null;
-}
-
 /** Represents a ClientBlockListResponse. */
 export class ClientBlockListResponse implements IClientBlockListResponse {
+
     /**
      * Constructs a new ClientBlockListResponse.
      * @param [properties] Properties to set
@@ -2321,11 +2933,11 @@ export class ClientBlockListResponse implements IClientBlockListResponse {
     /** ClientBlockListResponse blocks. */
     public blocks: IBlock[];
 
-    /** ClientBlockListResponse headId. */
-    public headId: string;
+    /** ClientBlockListResponse head_id. */
+    public head_id: string;
 
     /** ClientBlockListResponse paging. */
-    public paging?: IClientPagingResponse | null;
+    public paging?: (IClientPagingResponse|null);
 
     /**
      * Creates a new ClientBlockListResponse instance using the specified properties.
@@ -2358,7 +2970,7 @@ export class ClientBlockListResponse implements IClientBlockListResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBlockListResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBlockListResponse;
 
     /**
      * Decodes a ClientBlockListResponse message from the specified reader or buffer, length delimited.
@@ -2367,14 +2979,14 @@ export class ClientBlockListResponse implements IClientBlockListResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBlockListResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBlockListResponse;
 
     /**
      * Verifies a ClientBlockListResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBlockListResponse message from a plain object. Also converts values to their respective internal types.
@@ -2389,10 +3001,7 @@ export class ClientBlockListResponse implements IClientBlockListResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBlockListResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBlockListResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBlockListResponse to JSON.
@@ -2402,6 +3011,7 @@ export class ClientBlockListResponse implements IClientBlockListResponse {
 }
 
 export namespace ClientBlockListResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -2412,26 +3022,21 @@ export namespace ClientBlockListResponse {
         NO_RESOURCE = 5,
         INVALID_PAGING = 6,
         INVALID_SORT = 7,
-        INVALID_ID = 8,
+        INVALID_ID = 8
     }
-}
-
-/** Properties of a ClientBlockGetByIdRequest. */
-export interface IClientBlockGetByIdRequest {
-    /** ClientBlockGetByIdRequest blockId */
-    blockId?: string | null;
 }
 
 /** Represents a ClientBlockGetByIdRequest. */
 export class ClientBlockGetByIdRequest implements IClientBlockGetByIdRequest {
+
     /**
      * Constructs a new ClientBlockGetByIdRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBlockGetByIdRequest);
 
-    /** ClientBlockGetByIdRequest blockId. */
-    public blockId: string;
+    /** ClientBlockGetByIdRequest block_id. */
+    public block_id: string;
 
     /**
      * Creates a new ClientBlockGetByIdRequest instance using the specified properties.
@@ -2464,7 +3069,7 @@ export class ClientBlockGetByIdRequest implements IClientBlockGetByIdRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBlockGetByIdRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBlockGetByIdRequest;
 
     /**
      * Decodes a ClientBlockGetByIdRequest message from the specified reader or buffer, length delimited.
@@ -2473,14 +3078,14 @@ export class ClientBlockGetByIdRequest implements IClientBlockGetByIdRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBlockGetByIdRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBlockGetByIdRequest;
 
     /**
      * Verifies a ClientBlockGetByIdRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBlockGetByIdRequest message from a plain object. Also converts values to their respective internal types.
@@ -2495,10 +3100,7 @@ export class ClientBlockGetByIdRequest implements IClientBlockGetByIdRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBlockGetByIdRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBlockGetByIdRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBlockGetByIdRequest to JSON.
@@ -2507,22 +3109,17 @@ export class ClientBlockGetByIdRequest implements IClientBlockGetByIdRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBlockGetByNumRequest. */
-export interface IClientBlockGetByNumRequest {
-    /** ClientBlockGetByNumRequest blockNum */
-    blockNum?: number | Long | null;
-}
-
 /** Represents a ClientBlockGetByNumRequest. */
 export class ClientBlockGetByNumRequest implements IClientBlockGetByNumRequest {
+
     /**
      * Constructs a new ClientBlockGetByNumRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBlockGetByNumRequest);
 
-    /** ClientBlockGetByNumRequest blockNum. */
-    public blockNum: number | Long;
+    /** ClientBlockGetByNumRequest block_num. */
+    public block_num: (number|Long);
 
     /**
      * Creates a new ClientBlockGetByNumRequest instance using the specified properties.
@@ -2555,7 +3152,7 @@ export class ClientBlockGetByNumRequest implements IClientBlockGetByNumRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBlockGetByNumRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBlockGetByNumRequest;
 
     /**
      * Decodes a ClientBlockGetByNumRequest message from the specified reader or buffer, length delimited.
@@ -2564,14 +3161,14 @@ export class ClientBlockGetByNumRequest implements IClientBlockGetByNumRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBlockGetByNumRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBlockGetByNumRequest;
 
     /**
      * Verifies a ClientBlockGetByNumRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBlockGetByNumRequest message from a plain object. Also converts values to their respective internal types.
@@ -2586,10 +3183,7 @@ export class ClientBlockGetByNumRequest implements IClientBlockGetByNumRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBlockGetByNumRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBlockGetByNumRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBlockGetByNumRequest to JSON.
@@ -2598,22 +3192,17 @@ export class ClientBlockGetByNumRequest implements IClientBlockGetByNumRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBlockGetByTransactionIdRequest. */
-export interface IClientBlockGetByTransactionIdRequest {
-    /** ClientBlockGetByTransactionIdRequest transactionId */
-    transactionId?: string | null;
-}
-
 /** Represents a ClientBlockGetByTransactionIdRequest. */
 export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTransactionIdRequest {
+
     /**
      * Constructs a new ClientBlockGetByTransactionIdRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBlockGetByTransactionIdRequest);
 
-    /** ClientBlockGetByTransactionIdRequest transactionId. */
-    public transactionId: string;
+    /** ClientBlockGetByTransactionIdRequest transaction_id. */
+    public transaction_id: string;
 
     /**
      * Creates a new ClientBlockGetByTransactionIdRequest instance using the specified properties.
@@ -2636,10 +3225,7 @@ export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTr
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IClientBlockGetByTransactionIdRequest,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IClientBlockGetByTransactionIdRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ClientBlockGetByTransactionIdRequest message from the specified reader or buffer.
@@ -2649,7 +3235,7 @@ export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTr
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBlockGetByTransactionIdRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBlockGetByTransactionIdRequest;
 
     /**
      * Decodes a ClientBlockGetByTransactionIdRequest message from the specified reader or buffer, length delimited.
@@ -2658,14 +3244,14 @@ export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTr
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBlockGetByTransactionIdRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBlockGetByTransactionIdRequest;
 
     /**
      * Verifies a ClientBlockGetByTransactionIdRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBlockGetByTransactionIdRequest message from a plain object. Also converts values to their respective internal types.
@@ -2680,10 +3266,7 @@ export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTr
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBlockGetByTransactionIdRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBlockGetByTransactionIdRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBlockGetByTransactionIdRequest to JSON.
@@ -2692,22 +3275,17 @@ export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTr
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBlockGetByBatchIdRequest. */
-export interface IClientBlockGetByBatchIdRequest {
-    /** ClientBlockGetByBatchIdRequest batchId */
-    batchId?: string | null;
-}
-
 /** Represents a ClientBlockGetByBatchIdRequest. */
 export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdRequest {
+
     /**
      * Constructs a new ClientBlockGetByBatchIdRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientBlockGetByBatchIdRequest);
 
-    /** ClientBlockGetByBatchIdRequest batchId. */
-    public batchId: string;
+    /** ClientBlockGetByBatchIdRequest batch_id. */
+    public batch_id: string;
 
     /**
      * Creates a new ClientBlockGetByBatchIdRequest instance using the specified properties.
@@ -2730,10 +3308,7 @@ export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdR
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IClientBlockGetByBatchIdRequest,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IClientBlockGetByBatchIdRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ClientBlockGetByBatchIdRequest message from the specified reader or buffer.
@@ -2743,7 +3318,7 @@ export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdR
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBlockGetByBatchIdRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBlockGetByBatchIdRequest;
 
     /**
      * Decodes a ClientBlockGetByBatchIdRequest message from the specified reader or buffer, length delimited.
@@ -2752,14 +3327,14 @@ export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdR
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBlockGetByBatchIdRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBlockGetByBatchIdRequest;
 
     /**
      * Verifies a ClientBlockGetByBatchIdRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBlockGetByBatchIdRequest message from a plain object. Also converts values to their respective internal types.
@@ -2774,10 +3349,7 @@ export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdR
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBlockGetByBatchIdRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBlockGetByBatchIdRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBlockGetByBatchIdRequest to JSON.
@@ -2786,17 +3358,9 @@ export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdR
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientBlockGetResponse. */
-export interface IClientBlockGetResponse {
-    /** ClientBlockGetResponse status */
-    status?: ClientBlockGetResponse.Status | null;
-
-    /** ClientBlockGetResponse block */
-    block?: IBlock | null;
-}
-
 /** Represents a ClientBlockGetResponse. */
 export class ClientBlockGetResponse implements IClientBlockGetResponse {
+
     /**
      * Constructs a new ClientBlockGetResponse.
      * @param [properties] Properties to set
@@ -2807,7 +3371,7 @@ export class ClientBlockGetResponse implements IClientBlockGetResponse {
     public status: ClientBlockGetResponse.Status;
 
     /** ClientBlockGetResponse block. */
-    public block?: IBlock | null;
+    public block?: (IBlock|null);
 
     /**
      * Creates a new ClientBlockGetResponse instance using the specified properties.
@@ -2840,7 +3404,7 @@ export class ClientBlockGetResponse implements IClientBlockGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientBlockGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientBlockGetResponse;
 
     /**
      * Decodes a ClientBlockGetResponse message from the specified reader or buffer, length delimited.
@@ -2849,14 +3413,14 @@ export class ClientBlockGetResponse implements IClientBlockGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientBlockGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientBlockGetResponse;
 
     /**
      * Verifies a ClientBlockGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientBlockGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -2871,10 +3435,7 @@ export class ClientBlockGetResponse implements IClientBlockGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientBlockGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientBlockGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientBlockGetResponse to JSON.
@@ -2884,27 +3445,20 @@ export class ClientBlockGetResponse implements IClientBlockGetResponse {
 }
 
 export namespace ClientBlockGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INTERNAL_ERROR = 2,
         NO_RESOURCE = 5,
-        INVALID_ID = 8,
+        INVALID_ID = 8
     }
-}
-
-/** Properties of a ClientEventsSubscribeRequest. */
-export interface IClientEventsSubscribeRequest {
-    /** ClientEventsSubscribeRequest subscriptions */
-    subscriptions?: IEventSubscription[] | null;
-
-    /** ClientEventsSubscribeRequest lastKnownBlockIds */
-    lastKnownBlockIds?: string[] | null;
 }
 
 /** Represents a ClientEventsSubscribeRequest. */
 export class ClientEventsSubscribeRequest implements IClientEventsSubscribeRequest {
+
     /**
      * Constructs a new ClientEventsSubscribeRequest.
      * @param [properties] Properties to set
@@ -2914,8 +3468,8 @@ export class ClientEventsSubscribeRequest implements IClientEventsSubscribeReque
     /** ClientEventsSubscribeRequest subscriptions. */
     public subscriptions: IEventSubscription[];
 
-    /** ClientEventsSubscribeRequest lastKnownBlockIds. */
-    public lastKnownBlockIds: string[];
+    /** ClientEventsSubscribeRequest last_known_block_ids. */
+    public last_known_block_ids: string[];
 
     /**
      * Creates a new ClientEventsSubscribeRequest instance using the specified properties.
@@ -2948,7 +3502,7 @@ export class ClientEventsSubscribeRequest implements IClientEventsSubscribeReque
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientEventsSubscribeRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientEventsSubscribeRequest;
 
     /**
      * Decodes a ClientEventsSubscribeRequest message from the specified reader or buffer, length delimited.
@@ -2957,14 +3511,14 @@ export class ClientEventsSubscribeRequest implements IClientEventsSubscribeReque
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientEventsSubscribeRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientEventsSubscribeRequest;
 
     /**
      * Verifies a ClientEventsSubscribeRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientEventsSubscribeRequest message from a plain object. Also converts values to their respective internal types.
@@ -2979,10 +3533,7 @@ export class ClientEventsSubscribeRequest implements IClientEventsSubscribeReque
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientEventsSubscribeRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientEventsSubscribeRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientEventsSubscribeRequest to JSON.
@@ -2991,17 +3542,9 @@ export class ClientEventsSubscribeRequest implements IClientEventsSubscribeReque
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientEventsSubscribeResponse. */
-export interface IClientEventsSubscribeResponse {
-    /** ClientEventsSubscribeResponse status */
-    status?: ClientEventsSubscribeResponse.Status | null;
-
-    /** ClientEventsSubscribeResponse responseMessage */
-    responseMessage?: string | null;
-}
-
 /** Represents a ClientEventsSubscribeResponse. */
 export class ClientEventsSubscribeResponse implements IClientEventsSubscribeResponse {
+
     /**
      * Constructs a new ClientEventsSubscribeResponse.
      * @param [properties] Properties to set
@@ -3011,8 +3554,8 @@ export class ClientEventsSubscribeResponse implements IClientEventsSubscribeResp
     /** ClientEventsSubscribeResponse status. */
     public status: ClientEventsSubscribeResponse.Status;
 
-    /** ClientEventsSubscribeResponse responseMessage. */
-    public responseMessage: string;
+    /** ClientEventsSubscribeResponse response_message. */
+    public response_message: string;
 
     /**
      * Creates a new ClientEventsSubscribeResponse instance using the specified properties.
@@ -3045,7 +3588,7 @@ export class ClientEventsSubscribeResponse implements IClientEventsSubscribeResp
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientEventsSubscribeResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientEventsSubscribeResponse;
 
     /**
      * Decodes a ClientEventsSubscribeResponse message from the specified reader or buffer, length delimited.
@@ -3054,14 +3597,14 @@ export class ClientEventsSubscribeResponse implements IClientEventsSubscribeResp
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientEventsSubscribeResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientEventsSubscribeResponse;
 
     /**
      * Verifies a ClientEventsSubscribeResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientEventsSubscribeResponse message from a plain object. Also converts values to their respective internal types.
@@ -3076,10 +3619,7 @@ export class ClientEventsSubscribeResponse implements IClientEventsSubscribeResp
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientEventsSubscribeResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientEventsSubscribeResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientEventsSubscribeResponse to JSON.
@@ -3089,20 +3629,19 @@ export class ClientEventsSubscribeResponse implements IClientEventsSubscribeResp
 }
 
 export namespace ClientEventsSubscribeResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INVALID_FILTER = 2,
-        UNKNOWN_BLOCK = 3,
+        UNKNOWN_BLOCK = 3
     }
 }
 
-/** Properties of a ClientEventsUnsubscribeRequest. */
-export interface IClientEventsUnsubscribeRequest {}
-
 /** Represents a ClientEventsUnsubscribeRequest. */
 export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeRequest {
+
     /**
      * Constructs a new ClientEventsUnsubscribeRequest.
      * @param [properties] Properties to set
@@ -3130,10 +3669,7 @@ export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeR
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IClientEventsUnsubscribeRequest,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IClientEventsUnsubscribeRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ClientEventsUnsubscribeRequest message from the specified reader or buffer.
@@ -3143,7 +3679,7 @@ export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeR
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientEventsUnsubscribeRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientEventsUnsubscribeRequest;
 
     /**
      * Decodes a ClientEventsUnsubscribeRequest message from the specified reader or buffer, length delimited.
@@ -3152,14 +3688,14 @@ export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeR
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientEventsUnsubscribeRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientEventsUnsubscribeRequest;
 
     /**
      * Verifies a ClientEventsUnsubscribeRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientEventsUnsubscribeRequest message from a plain object. Also converts values to their respective internal types.
@@ -3174,10 +3710,7 @@ export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeR
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientEventsUnsubscribeRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientEventsUnsubscribeRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientEventsUnsubscribeRequest to JSON.
@@ -3186,14 +3719,9 @@ export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeR
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientEventsUnsubscribeResponse. */
-export interface IClientEventsUnsubscribeResponse {
-    /** ClientEventsUnsubscribeResponse status */
-    status?: ClientEventsUnsubscribeResponse.Status | null;
-}
-
 /** Represents a ClientEventsUnsubscribeResponse. */
 export class ClientEventsUnsubscribeResponse implements IClientEventsUnsubscribeResponse {
+
     /**
      * Constructs a new ClientEventsUnsubscribeResponse.
      * @param [properties] Properties to set
@@ -3224,10 +3752,7 @@ export class ClientEventsUnsubscribeResponse implements IClientEventsUnsubscribe
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IClientEventsUnsubscribeResponse,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IClientEventsUnsubscribeResponse, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ClientEventsUnsubscribeResponse message from the specified reader or buffer.
@@ -3237,7 +3762,7 @@ export class ClientEventsUnsubscribeResponse implements IClientEventsUnsubscribe
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientEventsUnsubscribeResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientEventsUnsubscribeResponse;
 
     /**
      * Decodes a ClientEventsUnsubscribeResponse message from the specified reader or buffer, length delimited.
@@ -3246,14 +3771,14 @@ export class ClientEventsUnsubscribeResponse implements IClientEventsUnsubscribe
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientEventsUnsubscribeResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientEventsUnsubscribeResponse;
 
     /**
      * Verifies a ClientEventsUnsubscribeResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientEventsUnsubscribeResponse message from a plain object. Also converts values to their respective internal types.
@@ -3268,10 +3793,7 @@ export class ClientEventsUnsubscribeResponse implements IClientEventsUnsubscribe
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientEventsUnsubscribeResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientEventsUnsubscribeResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientEventsUnsubscribeResponse to JSON.
@@ -3281,25 +3803,18 @@ export class ClientEventsUnsubscribeResponse implements IClientEventsUnsubscribe
 }
 
 export namespace ClientEventsUnsubscribeResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        INTERNAL_ERROR = 2,
+        INTERNAL_ERROR = 2
     }
-}
-
-/** Properties of a ClientEventsGetRequest. */
-export interface IClientEventsGetRequest {
-    /** ClientEventsGetRequest subscriptions */
-    subscriptions?: IEventSubscription[] | null;
-
-    /** ClientEventsGetRequest blockIds */
-    blockIds?: string[] | null;
 }
 
 /** Represents a ClientEventsGetRequest. */
 export class ClientEventsGetRequest implements IClientEventsGetRequest {
+
     /**
      * Constructs a new ClientEventsGetRequest.
      * @param [properties] Properties to set
@@ -3309,8 +3824,8 @@ export class ClientEventsGetRequest implements IClientEventsGetRequest {
     /** ClientEventsGetRequest subscriptions. */
     public subscriptions: IEventSubscription[];
 
-    /** ClientEventsGetRequest blockIds. */
-    public blockIds: string[];
+    /** ClientEventsGetRequest block_ids. */
+    public block_ids: string[];
 
     /**
      * Creates a new ClientEventsGetRequest instance using the specified properties.
@@ -3343,7 +3858,7 @@ export class ClientEventsGetRequest implements IClientEventsGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientEventsGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientEventsGetRequest;
 
     /**
      * Decodes a ClientEventsGetRequest message from the specified reader or buffer, length delimited.
@@ -3352,14 +3867,14 @@ export class ClientEventsGetRequest implements IClientEventsGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientEventsGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientEventsGetRequest;
 
     /**
      * Verifies a ClientEventsGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientEventsGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -3374,10 +3889,7 @@ export class ClientEventsGetRequest implements IClientEventsGetRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientEventsGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientEventsGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientEventsGetRequest to JSON.
@@ -3386,17 +3898,9 @@ export class ClientEventsGetRequest implements IClientEventsGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientEventsGetResponse. */
-export interface IClientEventsGetResponse {
-    /** ClientEventsGetResponse status */
-    status?: ClientEventsGetResponse.Status | null;
-
-    /** ClientEventsGetResponse events */
-    events?: IEvent[] | null;
-}
-
 /** Represents a ClientEventsGetResponse. */
 export class ClientEventsGetResponse implements IClientEventsGetResponse {
+
     /**
      * Constructs a new ClientEventsGetResponse.
      * @param [properties] Properties to set
@@ -3440,7 +3944,7 @@ export class ClientEventsGetResponse implements IClientEventsGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientEventsGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientEventsGetResponse;
 
     /**
      * Decodes a ClientEventsGetResponse message from the specified reader or buffer, length delimited.
@@ -3449,14 +3953,14 @@ export class ClientEventsGetResponse implements IClientEventsGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientEventsGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientEventsGetResponse;
 
     /**
      * Verifies a ClientEventsGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientEventsGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -3471,10 +3975,7 @@ export class ClientEventsGetResponse implements IClientEventsGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientEventsGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientEventsGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientEventsGetResponse to JSON.
@@ -3484,38 +3985,28 @@ export class ClientEventsGetResponse implements IClientEventsGetResponse {
 }
 
 export namespace ClientEventsGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INTERNAL_ERROR = 2,
         INVALID_FILTER = 3,
-        UNKNOWN_BLOCK = 4,
+        UNKNOWN_BLOCK = 4
     }
-}
-
-/** Properties of an Event. */
-export interface IEvent {
-    /** Event eventType */
-    eventType?: string | null;
-
-    /** Event attributes */
-    attributes?: Event.IAttribute[] | null;
-
-    /** Event data */
-    data?: Uint8Array | null;
 }
 
 /** Represents an Event. */
 export class Event implements IEvent {
+
     /**
      * Constructs a new Event.
      * @param [properties] Properties to set
      */
     constructor(properties?: IEvent);
 
-    /** Event eventType. */
-    public eventType: string;
+    /** Event event_type. */
+    public event_type: string;
 
     /** Event attributes. */
     public attributes: Event.IAttribute[];
@@ -3554,7 +4045,7 @@ export class Event implements IEvent {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Event;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Event;
 
     /**
      * Decodes an Event message from the specified reader or buffer, length delimited.
@@ -3563,14 +4054,14 @@ export class Event implements IEvent {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Event;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Event;
 
     /**
      * Verifies an Event message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates an Event message from a plain object. Also converts values to their respective internal types.
@@ -3595,17 +4086,20 @@ export class Event implements IEvent {
 }
 
 export namespace Event {
+
     /** Properties of an Attribute. */
     interface IAttribute {
+
         /** Attribute key */
-        key?: string | null;
+        key?: (string|null);
 
         /** Attribute value */
-        value?: string | null;
+        value?: (string|null);
     }
 
     /** Represents an Attribute. */
     class Attribute implements IAttribute {
+
         /**
          * Constructs a new Attribute.
          * @param [properties] Properties to set
@@ -3649,7 +4143,7 @@ export namespace Event {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Event.Attribute;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Event.Attribute;
 
         /**
          * Decodes an Attribute message from the specified reader or buffer, length delimited.
@@ -3658,14 +4152,14 @@ export namespace Event {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Event.Attribute;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Event.Attribute;
 
         /**
          * Verifies an Attribute message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: { [k: string]: any }): string | null;
+        public static verify(message: { [k: string]: any }): (string|null);
 
         /**
          * Creates an Attribute message from a plain object. Also converts values to their respective internal types.
@@ -3690,14 +4184,9 @@ export namespace Event {
     }
 }
 
-/** Properties of an EventList. */
-export interface IEventList {
-    /** EventList events */
-    events?: IEvent[] | null;
-}
-
 /** Represents an EventList. */
 export class EventList implements IEventList {
+
     /**
      * Constructs a new EventList.
      * @param [properties] Properties to set
@@ -3738,7 +4227,7 @@ export class EventList implements IEventList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): EventList;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): EventList;
 
     /**
      * Decodes an EventList message from the specified reader or buffer, length delimited.
@@ -3747,14 +4236,14 @@ export class EventList implements IEventList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): EventList;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): EventList;
 
     /**
      * Verifies an EventList message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates an EventList message from a plain object. Also converts values to their respective internal types.
@@ -3778,20 +4267,9 @@ export class EventList implements IEventList {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of an EventFilter. */
-export interface IEventFilter {
-    /** EventFilter key */
-    key?: string | null;
-
-    /** EventFilter matchString */
-    matchString?: string | null;
-
-    /** EventFilter filterType */
-    filterType?: EventFilter.FilterType | null;
-}
-
 /** Represents an EventFilter. */
 export class EventFilter implements IEventFilter {
+
     /**
      * Constructs a new EventFilter.
      * @param [properties] Properties to set
@@ -3801,11 +4279,11 @@ export class EventFilter implements IEventFilter {
     /** EventFilter key. */
     public key: string;
 
-    /** EventFilter matchString. */
-    public matchString: string;
+    /** EventFilter match_string. */
+    public match_string: string;
 
-    /** EventFilter filterType. */
-    public filterType: EventFilter.FilterType;
+    /** EventFilter filter_type. */
+    public filter_type: EventFilter.FilterType;
 
     /**
      * Creates a new EventFilter instance using the specified properties.
@@ -3838,7 +4316,7 @@ export class EventFilter implements IEventFilter {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): EventFilter;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): EventFilter;
 
     /**
      * Decodes an EventFilter message from the specified reader or buffer, length delimited.
@@ -3847,14 +4325,14 @@ export class EventFilter implements IEventFilter {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): EventFilter;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): EventFilter;
 
     /**
      * Verifies an EventFilter message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates an EventFilter message from a plain object. Also converts values to their respective internal types.
@@ -3879,35 +4357,28 @@ export class EventFilter implements IEventFilter {
 }
 
 export namespace EventFilter {
+
     /** FilterType enum. */
     enum FilterType {
         FILTER_TYPE_UNSET = 0,
         SIMPLE_ANY = 1,
         SIMPLE_ALL = 2,
         REGEX_ANY = 3,
-        REGEX_ALL = 4,
+        REGEX_ALL = 4
     }
-}
-
-/** Properties of an EventSubscription. */
-export interface IEventSubscription {
-    /** EventSubscription eventType */
-    eventType?: string | null;
-
-    /** EventSubscription filters */
-    filters?: IEventFilter[] | null;
 }
 
 /** Represents an EventSubscription. */
 export class EventSubscription implements IEventSubscription {
+
     /**
      * Constructs a new EventSubscription.
      * @param [properties] Properties to set
      */
     constructor(properties?: IEventSubscription);
 
-    /** EventSubscription eventType. */
-    public eventType: string;
+    /** EventSubscription event_type. */
+    public event_type: string;
 
     /** EventSubscription filters. */
     public filters: IEventFilter[];
@@ -3943,7 +4414,7 @@ export class EventSubscription implements IEventSubscription {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): EventSubscription;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): EventSubscription;
 
     /**
      * Decodes an EventSubscription message from the specified reader or buffer, length delimited.
@@ -3952,14 +4423,14 @@ export class EventSubscription implements IEventSubscription {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): EventSubscription;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): EventSubscription;
 
     /**
      * Verifies an EventSubscription message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates an EventSubscription message from a plain object. Also converts values to their respective internal types.
@@ -3983,11 +4454,9 @@ export class EventSubscription implements IEventSubscription {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientPeersGetRequest. */
-export interface IClientPeersGetRequest {}
-
 /** Represents a ClientPeersGetRequest. */
 export class ClientPeersGetRequest implements IClientPeersGetRequest {
+
     /**
      * Constructs a new ClientPeersGetRequest.
      * @param [properties] Properties to set
@@ -4025,7 +4494,7 @@ export class ClientPeersGetRequest implements IClientPeersGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientPeersGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientPeersGetRequest;
 
     /**
      * Decodes a ClientPeersGetRequest message from the specified reader or buffer, length delimited.
@@ -4034,14 +4503,14 @@ export class ClientPeersGetRequest implements IClientPeersGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientPeersGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientPeersGetRequest;
 
     /**
      * Verifies a ClientPeersGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientPeersGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -4056,10 +4525,7 @@ export class ClientPeersGetRequest implements IClientPeersGetRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientPeersGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientPeersGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientPeersGetRequest to JSON.
@@ -4068,17 +4534,9 @@ export class ClientPeersGetRequest implements IClientPeersGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientPeersGetResponse. */
-export interface IClientPeersGetResponse {
-    /** ClientPeersGetResponse status */
-    status?: ClientPeersGetResponse.Status | null;
-
-    /** ClientPeersGetResponse peers */
-    peers?: string[] | null;
-}
-
 /** Represents a ClientPeersGetResponse. */
 export class ClientPeersGetResponse implements IClientPeersGetResponse {
+
     /**
      * Constructs a new ClientPeersGetResponse.
      * @param [properties] Properties to set
@@ -4122,7 +4580,7 @@ export class ClientPeersGetResponse implements IClientPeersGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientPeersGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientPeersGetResponse;
 
     /**
      * Decodes a ClientPeersGetResponse message from the specified reader or buffer, length delimited.
@@ -4131,14 +4589,14 @@ export class ClientPeersGetResponse implements IClientPeersGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientPeersGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientPeersGetResponse;
 
     /**
      * Verifies a ClientPeersGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientPeersGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -4153,10 +4611,7 @@ export class ClientPeersGetResponse implements IClientPeersGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientPeersGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientPeersGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientPeersGetResponse to JSON.
@@ -4166,30 +4621,26 @@ export class ClientPeersGetResponse implements IClientPeersGetResponse {
 }
 
 export namespace ClientPeersGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        ERROR = 2,
+        ERROR = 2
     }
-}
-
-/** Properties of a ClientReceiptGetRequest. */
-export interface IClientReceiptGetRequest {
-    /** ClientReceiptGetRequest transactionIds */
-    transactionIds?: string[] | null;
 }
 
 /** Represents a ClientReceiptGetRequest. */
 export class ClientReceiptGetRequest implements IClientReceiptGetRequest {
+
     /**
      * Constructs a new ClientReceiptGetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientReceiptGetRequest);
 
-    /** ClientReceiptGetRequest transactionIds. */
-    public transactionIds: string[];
+    /** ClientReceiptGetRequest transaction_ids. */
+    public transaction_ids: string[];
 
     /**
      * Creates a new ClientReceiptGetRequest instance using the specified properties.
@@ -4222,7 +4673,7 @@ export class ClientReceiptGetRequest implements IClientReceiptGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientReceiptGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientReceiptGetRequest;
 
     /**
      * Decodes a ClientReceiptGetRequest message from the specified reader or buffer, length delimited.
@@ -4231,14 +4682,14 @@ export class ClientReceiptGetRequest implements IClientReceiptGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientReceiptGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientReceiptGetRequest;
 
     /**
      * Verifies a ClientReceiptGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientReceiptGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -4253,10 +4704,7 @@ export class ClientReceiptGetRequest implements IClientReceiptGetRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientReceiptGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientReceiptGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientReceiptGetRequest to JSON.
@@ -4265,17 +4713,9 @@ export class ClientReceiptGetRequest implements IClientReceiptGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientReceiptGetResponse. */
-export interface IClientReceiptGetResponse {
-    /** ClientReceiptGetResponse status */
-    status?: ClientReceiptGetResponse.Status | null;
-
-    /** ClientReceiptGetResponse receipts */
-    receipts?: ITransactionReceipt[] | null;
-}
-
 /** Represents a ClientReceiptGetResponse. */
 export class ClientReceiptGetResponse implements IClientReceiptGetResponse {
+
     /**
      * Constructs a new ClientReceiptGetResponse.
      * @param [properties] Properties to set
@@ -4319,7 +4759,7 @@ export class ClientReceiptGetResponse implements IClientReceiptGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientReceiptGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientReceiptGetResponse;
 
     /**
      * Decodes a ClientReceiptGetResponse message from the specified reader or buffer, length delimited.
@@ -4328,14 +4768,14 @@ export class ClientReceiptGetResponse implements IClientReceiptGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientReceiptGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientReceiptGetResponse;
 
     /**
      * Verifies a ClientReceiptGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientReceiptGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -4350,10 +4790,7 @@ export class ClientReceiptGetResponse implements IClientReceiptGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientReceiptGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientReceiptGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientReceiptGetResponse to JSON.
@@ -4363,41 +4800,28 @@ export class ClientReceiptGetResponse implements IClientReceiptGetResponse {
 }
 
 export namespace ClientReceiptGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INTERNAL_ERROR = 2,
         NO_RESOURCE = 5,
-        INVALID_ID = 8,
+        INVALID_ID = 8
     }
-}
-
-/** Properties of a TransactionReceipt. */
-export interface ITransactionReceipt {
-    /** TransactionReceipt stateChanges */
-    stateChanges?: IStateChange[] | null;
-
-    /** TransactionReceipt events */
-    events?: IEvent[] | null;
-
-    /** TransactionReceipt data */
-    data?: Uint8Array[] | null;
-
-    /** TransactionReceipt transactionId */
-    transactionId?: string | null;
 }
 
 /** Represents a TransactionReceipt. */
 export class TransactionReceipt implements ITransactionReceipt {
+
     /**
      * Constructs a new TransactionReceipt.
      * @param [properties] Properties to set
      */
     constructor(properties?: ITransactionReceipt);
 
-    /** TransactionReceipt stateChanges. */
-    public stateChanges: IStateChange[];
+    /** TransactionReceipt state_changes. */
+    public state_changes: IStateChange[];
 
     /** TransactionReceipt events. */
     public events: IEvent[];
@@ -4405,8 +4829,8 @@ export class TransactionReceipt implements ITransactionReceipt {
     /** TransactionReceipt data. */
     public data: Uint8Array[];
 
-    /** TransactionReceipt transactionId. */
-    public transactionId: string;
+    /** TransactionReceipt transaction_id. */
+    public transaction_id: string;
 
     /**
      * Creates a new TransactionReceipt instance using the specified properties.
@@ -4439,7 +4863,7 @@ export class TransactionReceipt implements ITransactionReceipt {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TransactionReceipt;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TransactionReceipt;
 
     /**
      * Decodes a TransactionReceipt message from the specified reader or buffer, length delimited.
@@ -4448,14 +4872,14 @@ export class TransactionReceipt implements ITransactionReceipt {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TransactionReceipt;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TransactionReceipt;
 
     /**
      * Verifies a TransactionReceipt message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TransactionReceipt message from a plain object. Also converts values to their respective internal types.
@@ -4479,20 +4903,9 @@ export class TransactionReceipt implements ITransactionReceipt {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a StateChange. */
-export interface IStateChange {
-    /** StateChange address */
-    address?: string | null;
-
-    /** StateChange value */
-    value?: Uint8Array | null;
-
-    /** StateChange type */
-    type?: StateChange.Type | null;
-}
-
 /** Represents a StateChange. */
 export class StateChange implements IStateChange {
+
     /**
      * Constructs a new StateChange.
      * @param [properties] Properties to set
@@ -4539,7 +4952,7 @@ export class StateChange implements IStateChange {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): StateChange;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): StateChange;
 
     /**
      * Decodes a StateChange message from the specified reader or buffer, length delimited.
@@ -4548,14 +4961,14 @@ export class StateChange implements IStateChange {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): StateChange;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): StateChange;
 
     /**
      * Verifies a StateChange message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a StateChange message from a plain object. Also converts values to their respective internal types.
@@ -4580,30 +4993,26 @@ export class StateChange implements IStateChange {
 }
 
 export namespace StateChange {
+
     /** Type enum. */
     enum Type {
         TYPE_UNSET = 0,
         SET = 1,
-        DELETE = 2,
+        DELETE = 2
     }
-}
-
-/** Properties of a StateChangeList. */
-export interface IStateChangeList {
-    /** StateChangeList stateChanges */
-    stateChanges?: IStateChange[] | null;
 }
 
 /** Represents a StateChangeList. */
 export class StateChangeList implements IStateChangeList {
+
     /**
      * Constructs a new StateChangeList.
      * @param [properties] Properties to set
      */
     constructor(properties?: IStateChangeList);
 
-    /** StateChangeList stateChanges. */
-    public stateChanges: IStateChange[];
+    /** StateChangeList state_changes. */
+    public state_changes: IStateChange[];
 
     /**
      * Creates a new StateChangeList instance using the specified properties.
@@ -4636,7 +5045,7 @@ export class StateChangeList implements IStateChangeList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): StateChangeList;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): StateChangeList;
 
     /**
      * Decodes a StateChangeList message from the specified reader or buffer, length delimited.
@@ -4645,14 +5054,14 @@ export class StateChangeList implements IStateChangeList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): StateChangeList;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): StateChangeList;
 
     /**
      * Verifies a StateChangeList message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a StateChangeList message from a plain object. Also converts values to their respective internal types.
@@ -4676,37 +5085,23 @@ export class StateChangeList implements IStateChangeList {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientStateListRequest. */
-export interface IClientStateListRequest {
-    /** ClientStateListRequest stateRoot */
-    stateRoot?: string | null;
-
-    /** ClientStateListRequest address */
-    address?: string | null;
-
-    /** ClientStateListRequest paging */
-    paging?: IClientPagingControls | null;
-
-    /** ClientStateListRequest sorting */
-    sorting?: IClientSortControls[] | null;
-}
-
 /** Represents a ClientStateListRequest. */
 export class ClientStateListRequest implements IClientStateListRequest {
+
     /**
      * Constructs a new ClientStateListRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientStateListRequest);
 
-    /** ClientStateListRequest stateRoot. */
-    public stateRoot: string;
+    /** ClientStateListRequest state_root. */
+    public state_root: string;
 
     /** ClientStateListRequest address. */
     public address: string;
 
     /** ClientStateListRequest paging. */
-    public paging?: IClientPagingControls | null;
+    public paging?: (IClientPagingControls|null);
 
     /** ClientStateListRequest sorting. */
     public sorting: IClientSortControls[];
@@ -4742,7 +5137,7 @@ export class ClientStateListRequest implements IClientStateListRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientStateListRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientStateListRequest;
 
     /**
      * Decodes a ClientStateListRequest message from the specified reader or buffer, length delimited.
@@ -4751,14 +5146,14 @@ export class ClientStateListRequest implements IClientStateListRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientStateListRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientStateListRequest;
 
     /**
      * Verifies a ClientStateListRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientStateListRequest message from a plain object. Also converts values to their respective internal types.
@@ -4773,10 +5168,7 @@ export class ClientStateListRequest implements IClientStateListRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientStateListRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientStateListRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientStateListRequest to JSON.
@@ -4785,23 +5177,9 @@ export class ClientStateListRequest implements IClientStateListRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientStateListResponse. */
-export interface IClientStateListResponse {
-    /** ClientStateListResponse status */
-    status?: ClientStateListResponse.Status | null;
-
-    /** ClientStateListResponse entries */
-    entries?: ClientStateListResponse.IEntry[] | null;
-
-    /** ClientStateListResponse stateRoot */
-    stateRoot?: string | null;
-
-    /** ClientStateListResponse paging */
-    paging?: IClientPagingResponse | null;
-}
-
 /** Represents a ClientStateListResponse. */
 export class ClientStateListResponse implements IClientStateListResponse {
+
     /**
      * Constructs a new ClientStateListResponse.
      * @param [properties] Properties to set
@@ -4814,11 +5192,11 @@ export class ClientStateListResponse implements IClientStateListResponse {
     /** ClientStateListResponse entries. */
     public entries: ClientStateListResponse.IEntry[];
 
-    /** ClientStateListResponse stateRoot. */
-    public stateRoot: string;
+    /** ClientStateListResponse state_root. */
+    public state_root: string;
 
     /** ClientStateListResponse paging. */
-    public paging?: IClientPagingResponse | null;
+    public paging?: (IClientPagingResponse|null);
 
     /**
      * Creates a new ClientStateListResponse instance using the specified properties.
@@ -4851,7 +5229,7 @@ export class ClientStateListResponse implements IClientStateListResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientStateListResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientStateListResponse;
 
     /**
      * Decodes a ClientStateListResponse message from the specified reader or buffer, length delimited.
@@ -4860,14 +5238,14 @@ export class ClientStateListResponse implements IClientStateListResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientStateListResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientStateListResponse;
 
     /**
      * Verifies a ClientStateListResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientStateListResponse message from a plain object. Also converts values to their respective internal types.
@@ -4882,10 +5260,7 @@ export class ClientStateListResponse implements IClientStateListResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientStateListResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientStateListResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientStateListResponse to JSON.
@@ -4895,6 +5270,7 @@ export class ClientStateListResponse implements IClientStateListResponse {
 }
 
 export namespace ClientStateListResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -4906,20 +5282,22 @@ export namespace ClientStateListResponse {
         INVALID_PAGING = 6,
         INVALID_SORT = 7,
         INVALID_ADDRESS = 8,
-        INVALID_ROOT = 9,
+        INVALID_ROOT = 9
     }
 
     /** Properties of an Entry. */
     interface IEntry {
+
         /** Entry address */
-        address?: string | null;
+        address?: (string|null);
 
         /** Entry data */
-        data?: Uint8Array | null;
+        data?: (Uint8Array|null);
     }
 
     /** Represents an Entry. */
     class Entry implements IEntry {
+
         /**
          * Constructs a new Entry.
          * @param [properties] Properties to set
@@ -4953,10 +5331,7 @@ export namespace ClientStateListResponse {
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(
-            message: ClientStateListResponse.IEntry,
-            writer?: $protobuf.Writer,
-        ): $protobuf.Writer;
+        public static encodeDelimited(message: ClientStateListResponse.IEntry, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
          * Decodes an Entry message from the specified reader or buffer.
@@ -4966,7 +5341,7 @@ export namespace ClientStateListResponse {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientStateListResponse.Entry;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientStateListResponse.Entry;
 
         /**
          * Decodes an Entry message from the specified reader or buffer, length delimited.
@@ -4975,14 +5350,14 @@ export namespace ClientStateListResponse {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientStateListResponse.Entry;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientStateListResponse.Entry;
 
         /**
          * Verifies an Entry message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: { [k: string]: any }): string | null;
+        public static verify(message: { [k: string]: any }): (string|null);
 
         /**
          * Creates an Entry message from a plain object. Also converts values to their respective internal types.
@@ -4997,10 +5372,7 @@ export namespace ClientStateListResponse {
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(
-            message: ClientStateListResponse.Entry,
-            options?: $protobuf.IConversionOptions,
-        ): { [k: string]: any };
+        public static toObject(message: ClientStateListResponse.Entry, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
          * Converts this Entry to JSON.
@@ -5010,25 +5382,17 @@ export namespace ClientStateListResponse {
     }
 }
 
-/** Properties of a ClientStateGetRequest. */
-export interface IClientStateGetRequest {
-    /** ClientStateGetRequest stateRoot */
-    stateRoot?: string | null;
-
-    /** ClientStateGetRequest address */
-    address?: string | null;
-}
-
 /** Represents a ClientStateGetRequest. */
 export class ClientStateGetRequest implements IClientStateGetRequest {
+
     /**
      * Constructs a new ClientStateGetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientStateGetRequest);
 
-    /** ClientStateGetRequest stateRoot. */
-    public stateRoot: string;
+    /** ClientStateGetRequest state_root. */
+    public state_root: string;
 
     /** ClientStateGetRequest address. */
     public address: string;
@@ -5064,7 +5428,7 @@ export class ClientStateGetRequest implements IClientStateGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientStateGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientStateGetRequest;
 
     /**
      * Decodes a ClientStateGetRequest message from the specified reader or buffer, length delimited.
@@ -5073,14 +5437,14 @@ export class ClientStateGetRequest implements IClientStateGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientStateGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientStateGetRequest;
 
     /**
      * Verifies a ClientStateGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientStateGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -5095,10 +5459,7 @@ export class ClientStateGetRequest implements IClientStateGetRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientStateGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientStateGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientStateGetRequest to JSON.
@@ -5107,20 +5468,9 @@ export class ClientStateGetRequest implements IClientStateGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientStateGetResponse. */
-export interface IClientStateGetResponse {
-    /** ClientStateGetResponse status */
-    status?: ClientStateGetResponse.Status | null;
-
-    /** ClientStateGetResponse value */
-    value?: Uint8Array | null;
-
-    /** ClientStateGetResponse stateRoot */
-    stateRoot?: string | null;
-}
-
 /** Represents a ClientStateGetResponse. */
 export class ClientStateGetResponse implements IClientStateGetResponse {
+
     /**
      * Constructs a new ClientStateGetResponse.
      * @param [properties] Properties to set
@@ -5133,8 +5483,8 @@ export class ClientStateGetResponse implements IClientStateGetResponse {
     /** ClientStateGetResponse value. */
     public value: Uint8Array;
 
-    /** ClientStateGetResponse stateRoot. */
-    public stateRoot: string;
+    /** ClientStateGetResponse state_root. */
+    public state_root: string;
 
     /**
      * Creates a new ClientStateGetResponse instance using the specified properties.
@@ -5167,7 +5517,7 @@ export class ClientStateGetResponse implements IClientStateGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientStateGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientStateGetResponse;
 
     /**
      * Decodes a ClientStateGetResponse message from the specified reader or buffer, length delimited.
@@ -5176,14 +5526,14 @@ export class ClientStateGetResponse implements IClientStateGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientStateGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientStateGetResponse;
 
     /**
      * Verifies a ClientStateGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientStateGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -5198,10 +5548,7 @@ export class ClientStateGetResponse implements IClientStateGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientStateGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientStateGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientStateGetResponse to JSON.
@@ -5211,6 +5558,7 @@ export class ClientStateGetResponse implements IClientStateGetResponse {
 }
 
 export namespace ClientStateGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -5220,15 +5568,13 @@ export namespace ClientStateGetResponse {
         NO_ROOT = 4,
         NO_RESOURCE = 5,
         INVALID_ADDRESS = 6,
-        INVALID_ROOT = 7,
+        INVALID_ROOT = 7
     }
 }
 
-/** Properties of a ClientStatusGetRequest. */
-export interface IClientStatusGetRequest {}
-
 /** Represents a ClientStatusGetRequest. */
 export class ClientStatusGetRequest implements IClientStatusGetRequest {
+
     /**
      * Constructs a new ClientStatusGetRequest.
      * @param [properties] Properties to set
@@ -5266,7 +5612,7 @@ export class ClientStatusGetRequest implements IClientStatusGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientStatusGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientStatusGetRequest;
 
     /**
      * Decodes a ClientStatusGetRequest message from the specified reader or buffer, length delimited.
@@ -5275,14 +5621,14 @@ export class ClientStatusGetRequest implements IClientStatusGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientStatusGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientStatusGetRequest;
 
     /**
      * Verifies a ClientStatusGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientStatusGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -5297,10 +5643,7 @@ export class ClientStatusGetRequest implements IClientStatusGetRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientStatusGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientStatusGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientStatusGetRequest to JSON.
@@ -5309,20 +5652,9 @@ export class ClientStatusGetRequest implements IClientStatusGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientStatusGetResponse. */
-export interface IClientStatusGetResponse {
-    /** ClientStatusGetResponse status */
-    status?: ClientStatusGetResponse.Status | null;
-
-    /** ClientStatusGetResponse peers */
-    peers?: ClientStatusGetResponse.IPeer[] | null;
-
-    /** ClientStatusGetResponse endpoint */
-    endpoint?: string | null;
-}
-
 /** Represents a ClientStatusGetResponse. */
 export class ClientStatusGetResponse implements IClientStatusGetResponse {
+
     /**
      * Constructs a new ClientStatusGetResponse.
      * @param [properties] Properties to set
@@ -5369,7 +5701,7 @@ export class ClientStatusGetResponse implements IClientStatusGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientStatusGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientStatusGetResponse;
 
     /**
      * Decodes a ClientStatusGetResponse message from the specified reader or buffer, length delimited.
@@ -5378,14 +5710,14 @@ export class ClientStatusGetResponse implements IClientStatusGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientStatusGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientStatusGetResponse;
 
     /**
      * Verifies a ClientStatusGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientStatusGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -5400,10 +5732,7 @@ export class ClientStatusGetResponse implements IClientStatusGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientStatusGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientStatusGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientStatusGetResponse to JSON.
@@ -5413,21 +5742,24 @@ export class ClientStatusGetResponse implements IClientStatusGetResponse {
 }
 
 export namespace ClientStatusGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        ERROR = 2,
+        ERROR = 2
     }
 
     /** Properties of a Peer. */
     interface IPeer {
+
         /** Peer endpoint */
-        endpoint?: string | null;
+        endpoint?: (string|null);
     }
 
     /** Represents a Peer. */
     class Peer implements IPeer {
+
         /**
          * Constructs a new Peer.
          * @param [properties] Properties to set
@@ -5458,10 +5790,7 @@ export namespace ClientStatusGetResponse {
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(
-            message: ClientStatusGetResponse.IPeer,
-            writer?: $protobuf.Writer,
-        ): $protobuf.Writer;
+        public static encodeDelimited(message: ClientStatusGetResponse.IPeer, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
          * Decodes a Peer message from the specified reader or buffer.
@@ -5471,7 +5800,7 @@ export namespace ClientStatusGetResponse {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientStatusGetResponse.Peer;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientStatusGetResponse.Peer;
 
         /**
          * Decodes a Peer message from the specified reader or buffer, length delimited.
@@ -5480,14 +5809,14 @@ export namespace ClientStatusGetResponse {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientStatusGetResponse.Peer;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientStatusGetResponse.Peer;
 
         /**
          * Verifies a Peer message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: { [k: string]: any }): string | null;
+        public static verify(message: { [k: string]: any }): (string|null);
 
         /**
          * Creates a Peer message from a plain object. Also converts values to their respective internal types.
@@ -5502,10 +5831,7 @@ export namespace ClientStatusGetResponse {
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(
-            message: ClientStatusGetResponse.Peer,
-            options?: $protobuf.IConversionOptions,
-        ): { [k: string]: any };
+        public static toObject(message: ClientStatusGetResponse.Peer, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
          * Converts this Peer to JSON.
@@ -5515,37 +5841,23 @@ export namespace ClientStatusGetResponse {
     }
 }
 
-/** Properties of a ClientTransactionListRequest. */
-export interface IClientTransactionListRequest {
-    /** ClientTransactionListRequest headId */
-    headId?: string | null;
-
-    /** ClientTransactionListRequest transactionIds */
-    transactionIds?: string[] | null;
-
-    /** ClientTransactionListRequest paging */
-    paging?: IClientPagingControls | null;
-
-    /** ClientTransactionListRequest sorting */
-    sorting?: IClientSortControls[] | null;
-}
-
 /** Represents a ClientTransactionListRequest. */
 export class ClientTransactionListRequest implements IClientTransactionListRequest {
+
     /**
      * Constructs a new ClientTransactionListRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientTransactionListRequest);
 
-    /** ClientTransactionListRequest headId. */
-    public headId: string;
+    /** ClientTransactionListRequest head_id. */
+    public head_id: string;
 
-    /** ClientTransactionListRequest transactionIds. */
-    public transactionIds: string[];
+    /** ClientTransactionListRequest transaction_ids. */
+    public transaction_ids: string[];
 
     /** ClientTransactionListRequest paging. */
-    public paging?: IClientPagingControls | null;
+    public paging?: (IClientPagingControls|null);
 
     /** ClientTransactionListRequest sorting. */
     public sorting: IClientSortControls[];
@@ -5581,7 +5893,7 @@ export class ClientTransactionListRequest implements IClientTransactionListReque
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientTransactionListRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientTransactionListRequest;
 
     /**
      * Decodes a ClientTransactionListRequest message from the specified reader or buffer, length delimited.
@@ -5590,14 +5902,14 @@ export class ClientTransactionListRequest implements IClientTransactionListReque
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientTransactionListRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientTransactionListRequest;
 
     /**
      * Verifies a ClientTransactionListRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientTransactionListRequest message from a plain object. Also converts values to their respective internal types.
@@ -5612,10 +5924,7 @@ export class ClientTransactionListRequest implements IClientTransactionListReque
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientTransactionListRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientTransactionListRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientTransactionListRequest to JSON.
@@ -5624,23 +5933,9 @@ export class ClientTransactionListRequest implements IClientTransactionListReque
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientTransactionListResponse. */
-export interface IClientTransactionListResponse {
-    /** ClientTransactionListResponse status */
-    status?: ClientTransactionListResponse.Status | null;
-
-    /** ClientTransactionListResponse transactions */
-    transactions?: ITransaction[] | null;
-
-    /** ClientTransactionListResponse headId */
-    headId?: string | null;
-
-    /** ClientTransactionListResponse paging */
-    paging?: IClientPagingResponse | null;
-}
-
 /** Represents a ClientTransactionListResponse. */
 export class ClientTransactionListResponse implements IClientTransactionListResponse {
+
     /**
      * Constructs a new ClientTransactionListResponse.
      * @param [properties] Properties to set
@@ -5653,11 +5948,11 @@ export class ClientTransactionListResponse implements IClientTransactionListResp
     /** ClientTransactionListResponse transactions. */
     public transactions: ITransaction[];
 
-    /** ClientTransactionListResponse headId. */
-    public headId: string;
+    /** ClientTransactionListResponse head_id. */
+    public head_id: string;
 
     /** ClientTransactionListResponse paging. */
-    public paging?: IClientPagingResponse | null;
+    public paging?: (IClientPagingResponse|null);
 
     /**
      * Creates a new ClientTransactionListResponse instance using the specified properties.
@@ -5690,7 +5985,7 @@ export class ClientTransactionListResponse implements IClientTransactionListResp
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientTransactionListResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientTransactionListResponse;
 
     /**
      * Decodes a ClientTransactionListResponse message from the specified reader or buffer, length delimited.
@@ -5699,14 +5994,14 @@ export class ClientTransactionListResponse implements IClientTransactionListResp
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientTransactionListResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientTransactionListResponse;
 
     /**
      * Verifies a ClientTransactionListResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientTransactionListResponse message from a plain object. Also converts values to their respective internal types.
@@ -5721,10 +6016,7 @@ export class ClientTransactionListResponse implements IClientTransactionListResp
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientTransactionListResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientTransactionListResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientTransactionListResponse to JSON.
@@ -5734,6 +6026,7 @@ export class ClientTransactionListResponse implements IClientTransactionListResp
 }
 
 export namespace ClientTransactionListResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -5744,26 +6037,21 @@ export namespace ClientTransactionListResponse {
         NO_RESOURCE = 5,
         INVALID_PAGING = 6,
         INVALID_SORT = 7,
-        INVALID_ID = 8,
+        INVALID_ID = 8
     }
-}
-
-/** Properties of a ClientTransactionGetRequest. */
-export interface IClientTransactionGetRequest {
-    /** ClientTransactionGetRequest transactionId */
-    transactionId?: string | null;
 }
 
 /** Represents a ClientTransactionGetRequest. */
 export class ClientTransactionGetRequest implements IClientTransactionGetRequest {
+
     /**
      * Constructs a new ClientTransactionGetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IClientTransactionGetRequest);
 
-    /** ClientTransactionGetRequest transactionId. */
-    public transactionId: string;
+    /** ClientTransactionGetRequest transaction_id. */
+    public transaction_id: string;
 
     /**
      * Creates a new ClientTransactionGetRequest instance using the specified properties.
@@ -5796,7 +6084,7 @@ export class ClientTransactionGetRequest implements IClientTransactionGetRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientTransactionGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientTransactionGetRequest;
 
     /**
      * Decodes a ClientTransactionGetRequest message from the specified reader or buffer, length delimited.
@@ -5805,14 +6093,14 @@ export class ClientTransactionGetRequest implements IClientTransactionGetRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientTransactionGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientTransactionGetRequest;
 
     /**
      * Verifies a ClientTransactionGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientTransactionGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -5827,10 +6115,7 @@ export class ClientTransactionGetRequest implements IClientTransactionGetRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientTransactionGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientTransactionGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientTransactionGetRequest to JSON.
@@ -5839,17 +6124,9 @@ export class ClientTransactionGetRequest implements IClientTransactionGetRequest
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ClientTransactionGetResponse. */
-export interface IClientTransactionGetResponse {
-    /** ClientTransactionGetResponse status */
-    status?: ClientTransactionGetResponse.Status | null;
-
-    /** ClientTransactionGetResponse transaction */
-    transaction?: ITransaction | null;
-}
-
 /** Represents a ClientTransactionGetResponse. */
 export class ClientTransactionGetResponse implements IClientTransactionGetResponse {
+
     /**
      * Constructs a new ClientTransactionGetResponse.
      * @param [properties] Properties to set
@@ -5860,7 +6137,7 @@ export class ClientTransactionGetResponse implements IClientTransactionGetRespon
     public status: ClientTransactionGetResponse.Status;
 
     /** ClientTransactionGetResponse transaction. */
-    public transaction?: ITransaction | null;
+    public transaction?: (ITransaction|null);
 
     /**
      * Creates a new ClientTransactionGetResponse instance using the specified properties.
@@ -5893,7 +6170,7 @@ export class ClientTransactionGetResponse implements IClientTransactionGetRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ClientTransactionGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ClientTransactionGetResponse;
 
     /**
      * Decodes a ClientTransactionGetResponse message from the specified reader or buffer, length delimited.
@@ -5902,14 +6179,14 @@ export class ClientTransactionGetResponse implements IClientTransactionGetRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ClientTransactionGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ClientTransactionGetResponse;
 
     /**
      * Verifies a ClientTransactionGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ClientTransactionGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -5924,10 +6201,7 @@ export class ClientTransactionGetResponse implements IClientTransactionGetRespon
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ClientTransactionGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ClientTransactionGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ClientTransactionGetResponse to JSON.
@@ -5937,41 +6211,28 @@ export class ClientTransactionGetResponse implements IClientTransactionGetRespon
 }
 
 export namespace ClientTransactionGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INTERNAL_ERROR = 2,
         NO_RESOURCE = 5,
-        INVALID_ID = 8,
+        INVALID_ID = 8
     }
-}
-
-/** Properties of a ConsensusPeerMessage. */
-export interface IConsensusPeerMessage {
-    /** ConsensusPeerMessage messageType */
-    messageType?: string | null;
-
-    /** ConsensusPeerMessage content */
-    content?: Uint8Array | null;
-
-    /** ConsensusPeerMessage name */
-    name?: string | null;
-
-    /** ConsensusPeerMessage version */
-    version?: string | null;
 }
 
 /** Represents a ConsensusPeerMessage. */
 export class ConsensusPeerMessage implements IConsensusPeerMessage {
+
     /**
      * Constructs a new ConsensusPeerMessage.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusPeerMessage);
 
-    /** ConsensusPeerMessage messageType. */
-    public messageType: string;
+    /** ConsensusPeerMessage message_type. */
+    public message_type: string;
 
     /** ConsensusPeerMessage content. */
     public content: Uint8Array;
@@ -6013,7 +6274,7 @@ export class ConsensusPeerMessage implements IConsensusPeerMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusPeerMessage;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusPeerMessage;
 
     /**
      * Decodes a ConsensusPeerMessage message from the specified reader or buffer, length delimited.
@@ -6022,14 +6283,14 @@ export class ConsensusPeerMessage implements IConsensusPeerMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusPeerMessage;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusPeerMessage;
 
     /**
      * Verifies a ConsensusPeerMessage message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusPeerMessage message from a plain object. Also converts values to their respective internal types.
@@ -6053,46 +6314,26 @@ export class ConsensusPeerMessage implements IConsensusPeerMessage {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusBlock. */
-export interface IConsensusBlock {
-    /** ConsensusBlock blockId */
-    blockId?: Uint8Array | null;
-
-    /** ConsensusBlock previousId */
-    previousId?: Uint8Array | null;
-
-    /** ConsensusBlock signerId */
-    signerId?: Uint8Array | null;
-
-    /** ConsensusBlock blockNum */
-    blockNum?: number | Long | null;
-
-    /** ConsensusBlock payload */
-    payload?: Uint8Array | null;
-
-    /** ConsensusBlock summary */
-    summary?: Uint8Array | null;
-}
-
 /** Represents a ConsensusBlock. */
 export class ConsensusBlock implements IConsensusBlock {
+
     /**
      * Constructs a new ConsensusBlock.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusBlock);
 
-    /** ConsensusBlock blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusBlock block_id. */
+    public block_id: Uint8Array;
 
-    /** ConsensusBlock previousId. */
-    public previousId: Uint8Array;
+    /** ConsensusBlock previous_id. */
+    public previous_id: Uint8Array;
 
-    /** ConsensusBlock signerId. */
-    public signerId: Uint8Array;
+    /** ConsensusBlock signer_id. */
+    public signer_id: Uint8Array;
 
-    /** ConsensusBlock blockNum. */
-    public blockNum: number | Long;
+    /** ConsensusBlock block_num. */
+    public block_num: (number|Long);
 
     /** ConsensusBlock payload. */
     public payload: Uint8Array;
@@ -6131,7 +6372,7 @@ export class ConsensusBlock implements IConsensusBlock {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusBlock;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusBlock;
 
     /**
      * Decodes a ConsensusBlock message from the specified reader or buffer, length delimited.
@@ -6140,14 +6381,14 @@ export class ConsensusBlock implements IConsensusBlock {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusBlock;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusBlock;
 
     /**
      * Verifies a ConsensusBlock message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusBlock message from a plain object. Also converts values to their respective internal types.
@@ -6171,22 +6412,17 @@ export class ConsensusBlock implements IConsensusBlock {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusPeerInfo. */
-export interface IConsensusPeerInfo {
-    /** ConsensusPeerInfo peerId */
-    peerId?: Uint8Array | null;
-}
-
 /** Represents a ConsensusPeerInfo. */
 export class ConsensusPeerInfo implements IConsensusPeerInfo {
+
     /**
      * Constructs a new ConsensusPeerInfo.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusPeerInfo);
 
-    /** ConsensusPeerInfo peerId. */
-    public peerId: Uint8Array;
+    /** ConsensusPeerInfo peer_id. */
+    public peer_id: Uint8Array;
 
     /**
      * Creates a new ConsensusPeerInfo instance using the specified properties.
@@ -6219,7 +6455,7 @@ export class ConsensusPeerInfo implements IConsensusPeerInfo {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusPeerInfo;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusPeerInfo;
 
     /**
      * Decodes a ConsensusPeerInfo message from the specified reader or buffer, length delimited.
@@ -6228,14 +6464,14 @@ export class ConsensusPeerInfo implements IConsensusPeerInfo {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusPeerInfo;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusPeerInfo;
 
     /**
      * Verifies a ConsensusPeerInfo message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusPeerInfo message from a plain object. Also converts values to their respective internal types.
@@ -6259,17 +6495,9 @@ export class ConsensusPeerInfo implements IConsensusPeerInfo {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusSettingsEntry. */
-export interface IConsensusSettingsEntry {
-    /** ConsensusSettingsEntry key */
-    key?: string | null;
-
-    /** ConsensusSettingsEntry value */
-    value?: string | null;
-}
-
 /** Represents a ConsensusSettingsEntry. */
 export class ConsensusSettingsEntry implements IConsensusSettingsEntry {
+
     /**
      * Constructs a new ConsensusSettingsEntry.
      * @param [properties] Properties to set
@@ -6313,7 +6541,7 @@ export class ConsensusSettingsEntry implements IConsensusSettingsEntry {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusSettingsEntry;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusSettingsEntry;
 
     /**
      * Decodes a ConsensusSettingsEntry message from the specified reader or buffer, length delimited.
@@ -6322,14 +6550,14 @@ export class ConsensusSettingsEntry implements IConsensusSettingsEntry {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusSettingsEntry;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusSettingsEntry;
 
     /**
      * Verifies a ConsensusSettingsEntry message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusSettingsEntry message from a plain object. Also converts values to their respective internal types.
@@ -6344,10 +6572,7 @@ export class ConsensusSettingsEntry implements IConsensusSettingsEntry {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusSettingsEntry,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusSettingsEntry, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusSettingsEntry to JSON.
@@ -6356,17 +6581,9 @@ export class ConsensusSettingsEntry implements IConsensusSettingsEntry {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusStateEntry. */
-export interface IConsensusStateEntry {
-    /** ConsensusStateEntry address */
-    address?: string | null;
-
-    /** ConsensusStateEntry data */
-    data?: Uint8Array | null;
-}
-
 /** Represents a ConsensusStateEntry. */
 export class ConsensusStateEntry implements IConsensusStateEntry {
+
     /**
      * Constructs a new ConsensusStateEntry.
      * @param [properties] Properties to set
@@ -6410,7 +6627,7 @@ export class ConsensusStateEntry implements IConsensusStateEntry {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusStateEntry;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusStateEntry;
 
     /**
      * Decodes a ConsensusStateEntry message from the specified reader or buffer, length delimited.
@@ -6419,14 +6636,14 @@ export class ConsensusStateEntry implements IConsensusStateEntry {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusStateEntry;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusStateEntry;
 
     /**
      * Verifies a ConsensusStateEntry message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusStateEntry message from a plain object. Also converts values to their respective internal types.
@@ -6450,17 +6667,9 @@ export class ConsensusStateEntry implements IConsensusStateEntry {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusRegisterRequest. */
-export interface IConsensusRegisterRequest {
-    /** ConsensusRegisterRequest name */
-    name?: string | null;
-
-    /** ConsensusRegisterRequest version */
-    version?: string | null;
-}
-
 /** Represents a ConsensusRegisterRequest. */
 export class ConsensusRegisterRequest implements IConsensusRegisterRequest {
+
     /**
      * Constructs a new ConsensusRegisterRequest.
      * @param [properties] Properties to set
@@ -6504,7 +6713,7 @@ export class ConsensusRegisterRequest implements IConsensusRegisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusRegisterRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusRegisterRequest;
 
     /**
      * Decodes a ConsensusRegisterRequest message from the specified reader or buffer, length delimited.
@@ -6513,14 +6722,14 @@ export class ConsensusRegisterRequest implements IConsensusRegisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusRegisterRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusRegisterRequest;
 
     /**
      * Verifies a ConsensusRegisterRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusRegisterRequest message from a plain object. Also converts values to their respective internal types.
@@ -6535,10 +6744,7 @@ export class ConsensusRegisterRequest implements IConsensusRegisterRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusRegisterRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusRegisterRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusRegisterRequest to JSON.
@@ -6547,20 +6753,9 @@ export class ConsensusRegisterRequest implements IConsensusRegisterRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusRegisterResponse. */
-export interface IConsensusRegisterResponse {
-    /** ConsensusRegisterResponse status */
-    status?: ConsensusRegisterResponse.Status | null;
-
-    /** ConsensusRegisterResponse chainHead */
-    chainHead?: IConsensusBlock | null;
-
-    /** ConsensusRegisterResponse peers */
-    peers?: IConsensusPeerInfo[] | null;
-}
-
 /** Represents a ConsensusRegisterResponse. */
 export class ConsensusRegisterResponse implements IConsensusRegisterResponse {
+
     /**
      * Constructs a new ConsensusRegisterResponse.
      * @param [properties] Properties to set
@@ -6570,8 +6765,8 @@ export class ConsensusRegisterResponse implements IConsensusRegisterResponse {
     /** ConsensusRegisterResponse status. */
     public status: ConsensusRegisterResponse.Status;
 
-    /** ConsensusRegisterResponse chainHead. */
-    public chainHead?: IConsensusBlock | null;
+    /** ConsensusRegisterResponse chain_head. */
+    public chain_head?: (IConsensusBlock|null);
 
     /** ConsensusRegisterResponse peers. */
     public peers: IConsensusPeerInfo[];
@@ -6607,7 +6802,7 @@ export class ConsensusRegisterResponse implements IConsensusRegisterResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusRegisterResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusRegisterResponse;
 
     /**
      * Decodes a ConsensusRegisterResponse message from the specified reader or buffer, length delimited.
@@ -6616,14 +6811,14 @@ export class ConsensusRegisterResponse implements IConsensusRegisterResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusRegisterResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusRegisterResponse;
 
     /**
      * Verifies a ConsensusRegisterResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusRegisterResponse message from a plain object. Also converts values to their respective internal types.
@@ -6638,10 +6833,7 @@ export class ConsensusRegisterResponse implements IConsensusRegisterResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusRegisterResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusRegisterResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusRegisterResponse to JSON.
@@ -6651,32 +6843,28 @@ export class ConsensusRegisterResponse implements IConsensusRegisterResponse {
 }
 
 export namespace ConsensusRegisterResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
-        NOT_READY = 4,
+        NOT_READY = 4
     }
-}
-
-/** Properties of a ConsensusNotifyPeerConnected. */
-export interface IConsensusNotifyPeerConnected {
-    /** ConsensusNotifyPeerConnected peerInfo */
-    peerInfo?: IConsensusPeerInfo | null;
 }
 
 /** Represents a ConsensusNotifyPeerConnected. */
 export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnected {
+
     /**
      * Constructs a new ConsensusNotifyPeerConnected.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusNotifyPeerConnected);
 
-    /** ConsensusNotifyPeerConnected peerInfo. */
-    public peerInfo?: IConsensusPeerInfo | null;
+    /** ConsensusNotifyPeerConnected peer_info. */
+    public peer_info?: (IConsensusPeerInfo|null);
 
     /**
      * Creates a new ConsensusNotifyPeerConnected instance using the specified properties.
@@ -6709,7 +6897,7 @@ export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnect
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusNotifyPeerConnected;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusNotifyPeerConnected;
 
     /**
      * Decodes a ConsensusNotifyPeerConnected message from the specified reader or buffer, length delimited.
@@ -6718,14 +6906,14 @@ export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnect
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusNotifyPeerConnected;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusNotifyPeerConnected;
 
     /**
      * Verifies a ConsensusNotifyPeerConnected message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusNotifyPeerConnected message from a plain object. Also converts values to their respective internal types.
@@ -6740,10 +6928,7 @@ export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnect
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusNotifyPeerConnected,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusNotifyPeerConnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusNotifyPeerConnected to JSON.
@@ -6752,22 +6937,17 @@ export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnect
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusNotifyPeerDisconnected. */
-export interface IConsensusNotifyPeerDisconnected {
-    /** ConsensusNotifyPeerDisconnected peerId */
-    peerId?: Uint8Array | null;
-}
-
 /** Represents a ConsensusNotifyPeerDisconnected. */
 export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisconnected {
+
     /**
      * Constructs a new ConsensusNotifyPeerDisconnected.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusNotifyPeerDisconnected);
 
-    /** ConsensusNotifyPeerDisconnected peerId. */
-    public peerId: Uint8Array;
+    /** ConsensusNotifyPeerDisconnected peer_id. */
+    public peer_id: Uint8Array;
 
     /**
      * Creates a new ConsensusNotifyPeerDisconnected instance using the specified properties.
@@ -6790,10 +6970,7 @@ export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisc
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IConsensusNotifyPeerDisconnected,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IConsensusNotifyPeerDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ConsensusNotifyPeerDisconnected message from the specified reader or buffer.
@@ -6803,7 +6980,7 @@ export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisc
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusNotifyPeerDisconnected;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusNotifyPeerDisconnected;
 
     /**
      * Decodes a ConsensusNotifyPeerDisconnected message from the specified reader or buffer, length delimited.
@@ -6812,14 +6989,14 @@ export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisc
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusNotifyPeerDisconnected;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusNotifyPeerDisconnected;
 
     /**
      * Verifies a ConsensusNotifyPeerDisconnected message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusNotifyPeerDisconnected message from a plain object. Also converts values to their respective internal types.
@@ -6834,10 +7011,7 @@ export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisc
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusNotifyPeerDisconnected,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusNotifyPeerDisconnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusNotifyPeerDisconnected to JSON.
@@ -6846,17 +7020,9 @@ export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisc
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusNotifyPeerMessage. */
-export interface IConsensusNotifyPeerMessage {
-    /** ConsensusNotifyPeerMessage message */
-    message?: IConsensusPeerMessage | null;
-
-    /** ConsensusNotifyPeerMessage senderId */
-    senderId?: Uint8Array | null;
-}
-
 /** Represents a ConsensusNotifyPeerMessage. */
 export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
+
     /**
      * Constructs a new ConsensusNotifyPeerMessage.
      * @param [properties] Properties to set
@@ -6864,10 +7030,10 @@ export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
     constructor(properties?: IConsensusNotifyPeerMessage);
 
     /** ConsensusNotifyPeerMessage message. */
-    public message?: IConsensusPeerMessage | null;
+    public message?: (IConsensusPeerMessage|null);
 
-    /** ConsensusNotifyPeerMessage senderId. */
-    public senderId: Uint8Array;
+    /** ConsensusNotifyPeerMessage sender_id. */
+    public sender_id: Uint8Array;
 
     /**
      * Creates a new ConsensusNotifyPeerMessage instance using the specified properties.
@@ -6900,7 +7066,7 @@ export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusNotifyPeerMessage;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusNotifyPeerMessage;
 
     /**
      * Decodes a ConsensusNotifyPeerMessage message from the specified reader or buffer, length delimited.
@@ -6909,14 +7075,14 @@ export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusNotifyPeerMessage;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusNotifyPeerMessage;
 
     /**
      * Verifies a ConsensusNotifyPeerMessage message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusNotifyPeerMessage message from a plain object. Also converts values to their respective internal types.
@@ -6931,10 +7097,7 @@ export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusNotifyPeerMessage,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusNotifyPeerMessage, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusNotifyPeerMessage to JSON.
@@ -6943,14 +7106,9 @@ export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusNotifyBlockNew. */
-export interface IConsensusNotifyBlockNew {
-    /** ConsensusNotifyBlockNew block */
-    block?: IConsensusBlock | null;
-}
-
 /** Represents a ConsensusNotifyBlockNew. */
 export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
+
     /**
      * Constructs a new ConsensusNotifyBlockNew.
      * @param [properties] Properties to set
@@ -6958,7 +7116,7 @@ export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
     constructor(properties?: IConsensusNotifyBlockNew);
 
     /** ConsensusNotifyBlockNew block. */
-    public block?: IConsensusBlock | null;
+    public block?: (IConsensusBlock|null);
 
     /**
      * Creates a new ConsensusNotifyBlockNew instance using the specified properties.
@@ -6991,7 +7149,7 @@ export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusNotifyBlockNew;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusNotifyBlockNew;
 
     /**
      * Decodes a ConsensusNotifyBlockNew message from the specified reader or buffer, length delimited.
@@ -7000,14 +7158,14 @@ export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusNotifyBlockNew;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusNotifyBlockNew;
 
     /**
      * Verifies a ConsensusNotifyBlockNew message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusNotifyBlockNew message from a plain object. Also converts values to their respective internal types.
@@ -7022,10 +7180,7 @@ export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusNotifyBlockNew,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusNotifyBlockNew, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusNotifyBlockNew to JSON.
@@ -7034,22 +7189,17 @@ export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusNotifyBlockValid. */
-export interface IConsensusNotifyBlockValid {
-    /** ConsensusNotifyBlockValid blockId */
-    blockId?: Uint8Array | null;
-}
-
 /** Represents a ConsensusNotifyBlockValid. */
 export class ConsensusNotifyBlockValid implements IConsensusNotifyBlockValid {
+
     /**
      * Constructs a new ConsensusNotifyBlockValid.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusNotifyBlockValid);
 
-    /** ConsensusNotifyBlockValid blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusNotifyBlockValid block_id. */
+    public block_id: Uint8Array;
 
     /**
      * Creates a new ConsensusNotifyBlockValid instance using the specified properties.
@@ -7082,7 +7232,7 @@ export class ConsensusNotifyBlockValid implements IConsensusNotifyBlockValid {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusNotifyBlockValid;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusNotifyBlockValid;
 
     /**
      * Decodes a ConsensusNotifyBlockValid message from the specified reader or buffer, length delimited.
@@ -7091,14 +7241,14 @@ export class ConsensusNotifyBlockValid implements IConsensusNotifyBlockValid {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusNotifyBlockValid;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusNotifyBlockValid;
 
     /**
      * Verifies a ConsensusNotifyBlockValid message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusNotifyBlockValid message from a plain object. Also converts values to their respective internal types.
@@ -7113,10 +7263,7 @@ export class ConsensusNotifyBlockValid implements IConsensusNotifyBlockValid {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusNotifyBlockValid,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusNotifyBlockValid, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusNotifyBlockValid to JSON.
@@ -7125,22 +7272,17 @@ export class ConsensusNotifyBlockValid implements IConsensusNotifyBlockValid {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusNotifyBlockInvalid. */
-export interface IConsensusNotifyBlockInvalid {
-    /** ConsensusNotifyBlockInvalid blockId */
-    blockId?: Uint8Array | null;
-}
-
 /** Represents a ConsensusNotifyBlockInvalid. */
 export class ConsensusNotifyBlockInvalid implements IConsensusNotifyBlockInvalid {
+
     /**
      * Constructs a new ConsensusNotifyBlockInvalid.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusNotifyBlockInvalid);
 
-    /** ConsensusNotifyBlockInvalid blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusNotifyBlockInvalid block_id. */
+    public block_id: Uint8Array;
 
     /**
      * Creates a new ConsensusNotifyBlockInvalid instance using the specified properties.
@@ -7173,7 +7315,7 @@ export class ConsensusNotifyBlockInvalid implements IConsensusNotifyBlockInvalid
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusNotifyBlockInvalid;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusNotifyBlockInvalid;
 
     /**
      * Decodes a ConsensusNotifyBlockInvalid message from the specified reader or buffer, length delimited.
@@ -7182,14 +7324,14 @@ export class ConsensusNotifyBlockInvalid implements IConsensusNotifyBlockInvalid
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusNotifyBlockInvalid;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusNotifyBlockInvalid;
 
     /**
      * Verifies a ConsensusNotifyBlockInvalid message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusNotifyBlockInvalid message from a plain object. Also converts values to their respective internal types.
@@ -7204,10 +7346,7 @@ export class ConsensusNotifyBlockInvalid implements IConsensusNotifyBlockInvalid
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusNotifyBlockInvalid,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusNotifyBlockInvalid, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusNotifyBlockInvalid to JSON.
@@ -7216,22 +7355,17 @@ export class ConsensusNotifyBlockInvalid implements IConsensusNotifyBlockInvalid
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusNotifyBlockCommit. */
-export interface IConsensusNotifyBlockCommit {
-    /** ConsensusNotifyBlockCommit blockId */
-    blockId?: Uint8Array | null;
-}
-
 /** Represents a ConsensusNotifyBlockCommit. */
 export class ConsensusNotifyBlockCommit implements IConsensusNotifyBlockCommit {
+
     /**
      * Constructs a new ConsensusNotifyBlockCommit.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusNotifyBlockCommit);
 
-    /** ConsensusNotifyBlockCommit blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusNotifyBlockCommit block_id. */
+    public block_id: Uint8Array;
 
     /**
      * Creates a new ConsensusNotifyBlockCommit instance using the specified properties.
@@ -7264,7 +7398,7 @@ export class ConsensusNotifyBlockCommit implements IConsensusNotifyBlockCommit {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusNotifyBlockCommit;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusNotifyBlockCommit;
 
     /**
      * Decodes a ConsensusNotifyBlockCommit message from the specified reader or buffer, length delimited.
@@ -7273,14 +7407,14 @@ export class ConsensusNotifyBlockCommit implements IConsensusNotifyBlockCommit {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusNotifyBlockCommit;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusNotifyBlockCommit;
 
     /**
      * Verifies a ConsensusNotifyBlockCommit message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusNotifyBlockCommit message from a plain object. Also converts values to their respective internal types.
@@ -7295,10 +7429,7 @@ export class ConsensusNotifyBlockCommit implements IConsensusNotifyBlockCommit {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusNotifyBlockCommit,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusNotifyBlockCommit, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusNotifyBlockCommit to JSON.
@@ -7307,11 +7438,9 @@ export class ConsensusNotifyBlockCommit implements IConsensusNotifyBlockCommit {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusNotifyAck. */
-export interface IConsensusNotifyAck {}
-
 /** Represents a ConsensusNotifyAck. */
 export class ConsensusNotifyAck implements IConsensusNotifyAck {
+
     /**
      * Constructs a new ConsensusNotifyAck.
      * @param [properties] Properties to set
@@ -7349,7 +7478,7 @@ export class ConsensusNotifyAck implements IConsensusNotifyAck {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusNotifyAck;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusNotifyAck;
 
     /**
      * Decodes a ConsensusNotifyAck message from the specified reader or buffer, length delimited.
@@ -7358,14 +7487,14 @@ export class ConsensusNotifyAck implements IConsensusNotifyAck {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusNotifyAck;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusNotifyAck;
 
     /**
      * Verifies a ConsensusNotifyAck message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusNotifyAck message from a plain object. Also converts values to their respective internal types.
@@ -7389,17 +7518,9 @@ export class ConsensusNotifyAck implements IConsensusNotifyAck {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusSendToRequest. */
-export interface IConsensusSendToRequest {
-    /** ConsensusSendToRequest message */
-    message?: IConsensusPeerMessage | null;
-
-    /** ConsensusSendToRequest peerId */
-    peerId?: Uint8Array | null;
-}
-
 /** Represents a ConsensusSendToRequest. */
 export class ConsensusSendToRequest implements IConsensusSendToRequest {
+
     /**
      * Constructs a new ConsensusSendToRequest.
      * @param [properties] Properties to set
@@ -7407,10 +7528,10 @@ export class ConsensusSendToRequest implements IConsensusSendToRequest {
     constructor(properties?: IConsensusSendToRequest);
 
     /** ConsensusSendToRequest message. */
-    public message?: IConsensusPeerMessage | null;
+    public message?: (IConsensusPeerMessage|null);
 
-    /** ConsensusSendToRequest peerId. */
-    public peerId: Uint8Array;
+    /** ConsensusSendToRequest peer_id. */
+    public peer_id: Uint8Array;
 
     /**
      * Creates a new ConsensusSendToRequest instance using the specified properties.
@@ -7443,7 +7564,7 @@ export class ConsensusSendToRequest implements IConsensusSendToRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusSendToRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusSendToRequest;
 
     /**
      * Decodes a ConsensusSendToRequest message from the specified reader or buffer, length delimited.
@@ -7452,14 +7573,14 @@ export class ConsensusSendToRequest implements IConsensusSendToRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusSendToRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusSendToRequest;
 
     /**
      * Verifies a ConsensusSendToRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusSendToRequest message from a plain object. Also converts values to their respective internal types.
@@ -7474,10 +7595,7 @@ export class ConsensusSendToRequest implements IConsensusSendToRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusSendToRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusSendToRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusSendToRequest to JSON.
@@ -7486,14 +7604,9 @@ export class ConsensusSendToRequest implements IConsensusSendToRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusSendToResponse. */
-export interface IConsensusSendToResponse {
-    /** ConsensusSendToResponse status */
-    status?: ConsensusSendToResponse.Status | null;
-}
-
 /** Represents a ConsensusSendToResponse. */
 export class ConsensusSendToResponse implements IConsensusSendToResponse {
+
     /**
      * Constructs a new ConsensusSendToResponse.
      * @param [properties] Properties to set
@@ -7534,7 +7647,7 @@ export class ConsensusSendToResponse implements IConsensusSendToResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusSendToResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusSendToResponse;
 
     /**
      * Decodes a ConsensusSendToResponse message from the specified reader or buffer, length delimited.
@@ -7543,14 +7656,14 @@ export class ConsensusSendToResponse implements IConsensusSendToResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusSendToResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusSendToResponse;
 
     /**
      * Verifies a ConsensusSendToResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusSendToResponse message from a plain object. Also converts values to their respective internal types.
@@ -7565,10 +7678,7 @@ export class ConsensusSendToResponse implements IConsensusSendToResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusSendToResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusSendToResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusSendToResponse to JSON.
@@ -7578,6 +7688,7 @@ export class ConsensusSendToResponse implements IConsensusSendToResponse {
 }
 
 export namespace ConsensusSendToResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -7585,18 +7696,13 @@ export namespace ConsensusSendToResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        UNKNOWN_PEER = 5,
+        UNKNOWN_PEER = 5
     }
-}
-
-/** Properties of a ConsensusBroadcastRequest. */
-export interface IConsensusBroadcastRequest {
-    /** ConsensusBroadcastRequest message */
-    message?: IConsensusPeerMessage | null;
 }
 
 /** Represents a ConsensusBroadcastRequest. */
 export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
+
     /**
      * Constructs a new ConsensusBroadcastRequest.
      * @param [properties] Properties to set
@@ -7604,7 +7710,7 @@ export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
     constructor(properties?: IConsensusBroadcastRequest);
 
     /** ConsensusBroadcastRequest message. */
-    public message?: IConsensusPeerMessage | null;
+    public message?: (IConsensusPeerMessage|null);
 
     /**
      * Creates a new ConsensusBroadcastRequest instance using the specified properties.
@@ -7637,7 +7743,7 @@ export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusBroadcastRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusBroadcastRequest;
 
     /**
      * Decodes a ConsensusBroadcastRequest message from the specified reader or buffer, length delimited.
@@ -7646,14 +7752,14 @@ export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusBroadcastRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusBroadcastRequest;
 
     /**
      * Verifies a ConsensusBroadcastRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusBroadcastRequest message from a plain object. Also converts values to their respective internal types.
@@ -7668,10 +7774,7 @@ export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusBroadcastRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusBroadcastRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusBroadcastRequest to JSON.
@@ -7680,14 +7783,9 @@ export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusBroadcastResponse. */
-export interface IConsensusBroadcastResponse {
-    /** ConsensusBroadcastResponse status */
-    status?: ConsensusBroadcastResponse.Status | null;
-}
-
 /** Represents a ConsensusBroadcastResponse. */
 export class ConsensusBroadcastResponse implements IConsensusBroadcastResponse {
+
     /**
      * Constructs a new ConsensusBroadcastResponse.
      * @param [properties] Properties to set
@@ -7728,7 +7826,7 @@ export class ConsensusBroadcastResponse implements IConsensusBroadcastResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusBroadcastResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusBroadcastResponse;
 
     /**
      * Decodes a ConsensusBroadcastResponse message from the specified reader or buffer, length delimited.
@@ -7737,14 +7835,14 @@ export class ConsensusBroadcastResponse implements IConsensusBroadcastResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusBroadcastResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusBroadcastResponse;
 
     /**
      * Verifies a ConsensusBroadcastResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusBroadcastResponse message from a plain object. Also converts values to their respective internal types.
@@ -7759,10 +7857,7 @@ export class ConsensusBroadcastResponse implements IConsensusBroadcastResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusBroadcastResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusBroadcastResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusBroadcastResponse to JSON.
@@ -7772,32 +7867,28 @@ export class ConsensusBroadcastResponse implements IConsensusBroadcastResponse {
 }
 
 export namespace ConsensusBroadcastResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
-        NOT_READY = 4,
+        NOT_READY = 4
     }
-}
-
-/** Properties of a ConsensusInitializeBlockRequest. */
-export interface IConsensusInitializeBlockRequest {
-    /** ConsensusInitializeBlockRequest previousId */
-    previousId?: Uint8Array | null;
 }
 
 /** Represents a ConsensusInitializeBlockRequest. */
 export class ConsensusInitializeBlockRequest implements IConsensusInitializeBlockRequest {
+
     /**
      * Constructs a new ConsensusInitializeBlockRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusInitializeBlockRequest);
 
-    /** ConsensusInitializeBlockRequest previousId. */
-    public previousId: Uint8Array;
+    /** ConsensusInitializeBlockRequest previous_id. */
+    public previous_id: Uint8Array;
 
     /**
      * Creates a new ConsensusInitializeBlockRequest instance using the specified properties.
@@ -7820,10 +7911,7 @@ export class ConsensusInitializeBlockRequest implements IConsensusInitializeBloc
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IConsensusInitializeBlockRequest,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IConsensusInitializeBlockRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ConsensusInitializeBlockRequest message from the specified reader or buffer.
@@ -7833,7 +7921,7 @@ export class ConsensusInitializeBlockRequest implements IConsensusInitializeBloc
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusInitializeBlockRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusInitializeBlockRequest;
 
     /**
      * Decodes a ConsensusInitializeBlockRequest message from the specified reader or buffer, length delimited.
@@ -7842,14 +7930,14 @@ export class ConsensusInitializeBlockRequest implements IConsensusInitializeBloc
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusInitializeBlockRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusInitializeBlockRequest;
 
     /**
      * Verifies a ConsensusInitializeBlockRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusInitializeBlockRequest message from a plain object. Also converts values to their respective internal types.
@@ -7864,10 +7952,7 @@ export class ConsensusInitializeBlockRequest implements IConsensusInitializeBloc
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusInitializeBlockRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusInitializeBlockRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusInitializeBlockRequest to JSON.
@@ -7876,14 +7961,9 @@ export class ConsensusInitializeBlockRequest implements IConsensusInitializeBloc
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusInitializeBlockResponse. */
-export interface IConsensusInitializeBlockResponse {
-    /** ConsensusInitializeBlockResponse status */
-    status?: ConsensusInitializeBlockResponse.Status | null;
-}
-
 /** Represents a ConsensusInitializeBlockResponse. */
 export class ConsensusInitializeBlockResponse implements IConsensusInitializeBlockResponse {
+
     /**
      * Constructs a new ConsensusInitializeBlockResponse.
      * @param [properties] Properties to set
@@ -7914,10 +7994,7 @@ export class ConsensusInitializeBlockResponse implements IConsensusInitializeBlo
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IConsensusInitializeBlockResponse,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IConsensusInitializeBlockResponse, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ConsensusInitializeBlockResponse message from the specified reader or buffer.
@@ -7927,7 +8004,7 @@ export class ConsensusInitializeBlockResponse implements IConsensusInitializeBlo
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusInitializeBlockResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusInitializeBlockResponse;
 
     /**
      * Decodes a ConsensusInitializeBlockResponse message from the specified reader or buffer, length delimited.
@@ -7936,14 +8013,14 @@ export class ConsensusInitializeBlockResponse implements IConsensusInitializeBlo
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusInitializeBlockResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusInitializeBlockResponse;
 
     /**
      * Verifies a ConsensusInitializeBlockResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusInitializeBlockResponse message from a plain object. Also converts values to their respective internal types.
@@ -7958,10 +8035,7 @@ export class ConsensusInitializeBlockResponse implements IConsensusInitializeBlo
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusInitializeBlockResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusInitializeBlockResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusInitializeBlockResponse to JSON.
@@ -7971,6 +8045,7 @@ export class ConsensusInitializeBlockResponse implements IConsensusInitializeBlo
 }
 
 export namespace ConsensusInitializeBlockResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -7979,15 +8054,13 @@ export namespace ConsensusInitializeBlockResponse {
         SERVICE_ERROR = 3,
         NOT_READY = 4,
         INVALID_STATE = 5,
-        UNKNOWN_BLOCK = 6,
+        UNKNOWN_BLOCK = 6
     }
 }
 
-/** Properties of a ConsensusSummarizeBlockRequest. */
-export interface IConsensusSummarizeBlockRequest {}
-
 /** Represents a ConsensusSummarizeBlockRequest. */
 export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockRequest {
+
     /**
      * Constructs a new ConsensusSummarizeBlockRequest.
      * @param [properties] Properties to set
@@ -8015,10 +8088,7 @@ export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockR
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IConsensusSummarizeBlockRequest,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IConsensusSummarizeBlockRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ConsensusSummarizeBlockRequest message from the specified reader or buffer.
@@ -8028,7 +8098,7 @@ export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockR
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusSummarizeBlockRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusSummarizeBlockRequest;
 
     /**
      * Decodes a ConsensusSummarizeBlockRequest message from the specified reader or buffer, length delimited.
@@ -8037,14 +8107,14 @@ export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockR
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusSummarizeBlockRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusSummarizeBlockRequest;
 
     /**
      * Verifies a ConsensusSummarizeBlockRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusSummarizeBlockRequest message from a plain object. Also converts values to their respective internal types.
@@ -8059,10 +8129,7 @@ export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockR
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusSummarizeBlockRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusSummarizeBlockRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusSummarizeBlockRequest to JSON.
@@ -8071,17 +8138,9 @@ export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockR
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusSummarizeBlockResponse. */
-export interface IConsensusSummarizeBlockResponse {
-    /** ConsensusSummarizeBlockResponse status */
-    status?: ConsensusSummarizeBlockResponse.Status | null;
-
-    /** ConsensusSummarizeBlockResponse summary */
-    summary?: Uint8Array | null;
-}
-
 /** Represents a ConsensusSummarizeBlockResponse. */
 export class ConsensusSummarizeBlockResponse implements IConsensusSummarizeBlockResponse {
+
     /**
      * Constructs a new ConsensusSummarizeBlockResponse.
      * @param [properties] Properties to set
@@ -8115,10 +8174,7 @@ export class ConsensusSummarizeBlockResponse implements IConsensusSummarizeBlock
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IConsensusSummarizeBlockResponse,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IConsensusSummarizeBlockResponse, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ConsensusSummarizeBlockResponse message from the specified reader or buffer.
@@ -8128,7 +8184,7 @@ export class ConsensusSummarizeBlockResponse implements IConsensusSummarizeBlock
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusSummarizeBlockResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusSummarizeBlockResponse;
 
     /**
      * Decodes a ConsensusSummarizeBlockResponse message from the specified reader or buffer, length delimited.
@@ -8137,14 +8193,14 @@ export class ConsensusSummarizeBlockResponse implements IConsensusSummarizeBlock
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusSummarizeBlockResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusSummarizeBlockResponse;
 
     /**
      * Verifies a ConsensusSummarizeBlockResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusSummarizeBlockResponse message from a plain object. Also converts values to their respective internal types.
@@ -8159,10 +8215,7 @@ export class ConsensusSummarizeBlockResponse implements IConsensusSummarizeBlock
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusSummarizeBlockResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusSummarizeBlockResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusSummarizeBlockResponse to JSON.
@@ -8172,6 +8225,7 @@ export class ConsensusSummarizeBlockResponse implements IConsensusSummarizeBlock
 }
 
 export namespace ConsensusSummarizeBlockResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -8180,18 +8234,13 @@ export namespace ConsensusSummarizeBlockResponse {
         SERVICE_ERROR = 3,
         NOT_READY = 4,
         INVALID_STATE = 5,
-        BLOCK_NOT_READY = 6,
+        BLOCK_NOT_READY = 6
     }
-}
-
-/** Properties of a ConsensusFinalizeBlockRequest. */
-export interface IConsensusFinalizeBlockRequest {
-    /** ConsensusFinalizeBlockRequest data */
-    data?: Uint8Array | null;
 }
 
 /** Represents a ConsensusFinalizeBlockRequest. */
 export class ConsensusFinalizeBlockRequest implements IConsensusFinalizeBlockRequest {
+
     /**
      * Constructs a new ConsensusFinalizeBlockRequest.
      * @param [properties] Properties to set
@@ -8232,7 +8281,7 @@ export class ConsensusFinalizeBlockRequest implements IConsensusFinalizeBlockReq
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusFinalizeBlockRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusFinalizeBlockRequest;
 
     /**
      * Decodes a ConsensusFinalizeBlockRequest message from the specified reader or buffer, length delimited.
@@ -8241,14 +8290,14 @@ export class ConsensusFinalizeBlockRequest implements IConsensusFinalizeBlockReq
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusFinalizeBlockRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusFinalizeBlockRequest;
 
     /**
      * Verifies a ConsensusFinalizeBlockRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusFinalizeBlockRequest message from a plain object. Also converts values to their respective internal types.
@@ -8263,10 +8312,7 @@ export class ConsensusFinalizeBlockRequest implements IConsensusFinalizeBlockReq
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusFinalizeBlockRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusFinalizeBlockRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusFinalizeBlockRequest to JSON.
@@ -8275,17 +8321,9 @@ export class ConsensusFinalizeBlockRequest implements IConsensusFinalizeBlockReq
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusFinalizeBlockResponse. */
-export interface IConsensusFinalizeBlockResponse {
-    /** ConsensusFinalizeBlockResponse status */
-    status?: ConsensusFinalizeBlockResponse.Status | null;
-
-    /** ConsensusFinalizeBlockResponse blockId */
-    blockId?: Uint8Array | null;
-}
-
 /** Represents a ConsensusFinalizeBlockResponse. */
 export class ConsensusFinalizeBlockResponse implements IConsensusFinalizeBlockResponse {
+
     /**
      * Constructs a new ConsensusFinalizeBlockResponse.
      * @param [properties] Properties to set
@@ -8295,8 +8333,8 @@ export class ConsensusFinalizeBlockResponse implements IConsensusFinalizeBlockRe
     /** ConsensusFinalizeBlockResponse status. */
     public status: ConsensusFinalizeBlockResponse.Status;
 
-    /** ConsensusFinalizeBlockResponse blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusFinalizeBlockResponse block_id. */
+    public block_id: Uint8Array;
 
     /**
      * Creates a new ConsensusFinalizeBlockResponse instance using the specified properties.
@@ -8319,10 +8357,7 @@ export class ConsensusFinalizeBlockResponse implements IConsensusFinalizeBlockRe
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IConsensusFinalizeBlockResponse,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IConsensusFinalizeBlockResponse, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a ConsensusFinalizeBlockResponse message from the specified reader or buffer.
@@ -8332,7 +8367,7 @@ export class ConsensusFinalizeBlockResponse implements IConsensusFinalizeBlockRe
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusFinalizeBlockResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusFinalizeBlockResponse;
 
     /**
      * Decodes a ConsensusFinalizeBlockResponse message from the specified reader or buffer, length delimited.
@@ -8341,14 +8376,14 @@ export class ConsensusFinalizeBlockResponse implements IConsensusFinalizeBlockRe
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusFinalizeBlockResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusFinalizeBlockResponse;
 
     /**
      * Verifies a ConsensusFinalizeBlockResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusFinalizeBlockResponse message from a plain object. Also converts values to their respective internal types.
@@ -8363,10 +8398,7 @@ export class ConsensusFinalizeBlockResponse implements IConsensusFinalizeBlockRe
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusFinalizeBlockResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusFinalizeBlockResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusFinalizeBlockResponse to JSON.
@@ -8376,6 +8408,7 @@ export class ConsensusFinalizeBlockResponse implements IConsensusFinalizeBlockRe
 }
 
 export namespace ConsensusFinalizeBlockResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -8384,15 +8417,13 @@ export namespace ConsensusFinalizeBlockResponse {
         SERVICE_ERROR = 3,
         NOT_READY = 4,
         INVALID_STATE = 5,
-        BLOCK_NOT_READY = 6,
+        BLOCK_NOT_READY = 6
     }
 }
 
-/** Properties of a ConsensusCancelBlockRequest. */
-export interface IConsensusCancelBlockRequest {}
-
 /** Represents a ConsensusCancelBlockRequest. */
 export class ConsensusCancelBlockRequest implements IConsensusCancelBlockRequest {
+
     /**
      * Constructs a new ConsensusCancelBlockRequest.
      * @param [properties] Properties to set
@@ -8430,7 +8461,7 @@ export class ConsensusCancelBlockRequest implements IConsensusCancelBlockRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusCancelBlockRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusCancelBlockRequest;
 
     /**
      * Decodes a ConsensusCancelBlockRequest message from the specified reader or buffer, length delimited.
@@ -8439,14 +8470,14 @@ export class ConsensusCancelBlockRequest implements IConsensusCancelBlockRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusCancelBlockRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusCancelBlockRequest;
 
     /**
      * Verifies a ConsensusCancelBlockRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusCancelBlockRequest message from a plain object. Also converts values to their respective internal types.
@@ -8461,10 +8492,7 @@ export class ConsensusCancelBlockRequest implements IConsensusCancelBlockRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusCancelBlockRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusCancelBlockRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusCancelBlockRequest to JSON.
@@ -8473,14 +8501,9 @@ export class ConsensusCancelBlockRequest implements IConsensusCancelBlockRequest
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusCancelBlockResponse. */
-export interface IConsensusCancelBlockResponse {
-    /** ConsensusCancelBlockResponse status */
-    status?: ConsensusCancelBlockResponse.Status | null;
-}
-
 /** Represents a ConsensusCancelBlockResponse. */
 export class ConsensusCancelBlockResponse implements IConsensusCancelBlockResponse {
+
     /**
      * Constructs a new ConsensusCancelBlockResponse.
      * @param [properties] Properties to set
@@ -8521,7 +8544,7 @@ export class ConsensusCancelBlockResponse implements IConsensusCancelBlockRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusCancelBlockResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusCancelBlockResponse;
 
     /**
      * Decodes a ConsensusCancelBlockResponse message from the specified reader or buffer, length delimited.
@@ -8530,14 +8553,14 @@ export class ConsensusCancelBlockResponse implements IConsensusCancelBlockRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusCancelBlockResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusCancelBlockResponse;
 
     /**
      * Verifies a ConsensusCancelBlockResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusCancelBlockResponse message from a plain object. Also converts values to their respective internal types.
@@ -8552,10 +8575,7 @@ export class ConsensusCancelBlockResponse implements IConsensusCancelBlockRespon
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusCancelBlockResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusCancelBlockResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusCancelBlockResponse to JSON.
@@ -8565,6 +8585,7 @@ export class ConsensusCancelBlockResponse implements IConsensusCancelBlockRespon
 }
 
 export namespace ConsensusCancelBlockResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -8572,26 +8593,21 @@ export namespace ConsensusCancelBlockResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        INVALID_STATE = 5,
+        INVALID_STATE = 5
     }
-}
-
-/** Properties of a ConsensusCheckBlocksRequest. */
-export interface IConsensusCheckBlocksRequest {
-    /** ConsensusCheckBlocksRequest blockIds */
-    blockIds?: Uint8Array[] | null;
 }
 
 /** Represents a ConsensusCheckBlocksRequest. */
 export class ConsensusCheckBlocksRequest implements IConsensusCheckBlocksRequest {
+
     /**
      * Constructs a new ConsensusCheckBlocksRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusCheckBlocksRequest);
 
-    /** ConsensusCheckBlocksRequest blockIds. */
-    public blockIds: Uint8Array[];
+    /** ConsensusCheckBlocksRequest block_ids. */
+    public block_ids: Uint8Array[];
 
     /**
      * Creates a new ConsensusCheckBlocksRequest instance using the specified properties.
@@ -8624,7 +8640,7 @@ export class ConsensusCheckBlocksRequest implements IConsensusCheckBlocksRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusCheckBlocksRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusCheckBlocksRequest;
 
     /**
      * Decodes a ConsensusCheckBlocksRequest message from the specified reader or buffer, length delimited.
@@ -8633,14 +8649,14 @@ export class ConsensusCheckBlocksRequest implements IConsensusCheckBlocksRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusCheckBlocksRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusCheckBlocksRequest;
 
     /**
      * Verifies a ConsensusCheckBlocksRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusCheckBlocksRequest message from a plain object. Also converts values to their respective internal types.
@@ -8655,10 +8671,7 @@ export class ConsensusCheckBlocksRequest implements IConsensusCheckBlocksRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusCheckBlocksRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusCheckBlocksRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusCheckBlocksRequest to JSON.
@@ -8667,14 +8680,9 @@ export class ConsensusCheckBlocksRequest implements IConsensusCheckBlocksRequest
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusCheckBlocksResponse. */
-export interface IConsensusCheckBlocksResponse {
-    /** ConsensusCheckBlocksResponse status */
-    status?: ConsensusCheckBlocksResponse.Status | null;
-}
-
 /** Represents a ConsensusCheckBlocksResponse. */
 export class ConsensusCheckBlocksResponse implements IConsensusCheckBlocksResponse {
+
     /**
      * Constructs a new ConsensusCheckBlocksResponse.
      * @param [properties] Properties to set
@@ -8715,7 +8723,7 @@ export class ConsensusCheckBlocksResponse implements IConsensusCheckBlocksRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusCheckBlocksResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusCheckBlocksResponse;
 
     /**
      * Decodes a ConsensusCheckBlocksResponse message from the specified reader or buffer, length delimited.
@@ -8724,14 +8732,14 @@ export class ConsensusCheckBlocksResponse implements IConsensusCheckBlocksRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusCheckBlocksResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusCheckBlocksResponse;
 
     /**
      * Verifies a ConsensusCheckBlocksResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusCheckBlocksResponse message from a plain object. Also converts values to their respective internal types.
@@ -8746,10 +8754,7 @@ export class ConsensusCheckBlocksResponse implements IConsensusCheckBlocksRespon
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusCheckBlocksResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusCheckBlocksResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusCheckBlocksResponse to JSON.
@@ -8759,6 +8764,7 @@ export class ConsensusCheckBlocksResponse implements IConsensusCheckBlocksRespon
 }
 
 export namespace ConsensusCheckBlocksResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -8766,26 +8772,21 @@ export namespace ConsensusCheckBlocksResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        UNKNOWN_BLOCK = 5,
+        UNKNOWN_BLOCK = 5
     }
-}
-
-/** Properties of a ConsensusCommitBlockRequest. */
-export interface IConsensusCommitBlockRequest {
-    /** ConsensusCommitBlockRequest blockId */
-    blockId?: Uint8Array | null;
 }
 
 /** Represents a ConsensusCommitBlockRequest. */
 export class ConsensusCommitBlockRequest implements IConsensusCommitBlockRequest {
+
     /**
      * Constructs a new ConsensusCommitBlockRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusCommitBlockRequest);
 
-    /** ConsensusCommitBlockRequest blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusCommitBlockRequest block_id. */
+    public block_id: Uint8Array;
 
     /**
      * Creates a new ConsensusCommitBlockRequest instance using the specified properties.
@@ -8818,7 +8819,7 @@ export class ConsensusCommitBlockRequest implements IConsensusCommitBlockRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusCommitBlockRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusCommitBlockRequest;
 
     /**
      * Decodes a ConsensusCommitBlockRequest message from the specified reader or buffer, length delimited.
@@ -8827,14 +8828,14 @@ export class ConsensusCommitBlockRequest implements IConsensusCommitBlockRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusCommitBlockRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusCommitBlockRequest;
 
     /**
      * Verifies a ConsensusCommitBlockRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusCommitBlockRequest message from a plain object. Also converts values to their respective internal types.
@@ -8849,10 +8850,7 @@ export class ConsensusCommitBlockRequest implements IConsensusCommitBlockRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusCommitBlockRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusCommitBlockRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusCommitBlockRequest to JSON.
@@ -8861,14 +8859,9 @@ export class ConsensusCommitBlockRequest implements IConsensusCommitBlockRequest
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusCommitBlockResponse. */
-export interface IConsensusCommitBlockResponse {
-    /** ConsensusCommitBlockResponse status */
-    status?: ConsensusCommitBlockResponse.Status | null;
-}
-
 /** Represents a ConsensusCommitBlockResponse. */
 export class ConsensusCommitBlockResponse implements IConsensusCommitBlockResponse {
+
     /**
      * Constructs a new ConsensusCommitBlockResponse.
      * @param [properties] Properties to set
@@ -8909,7 +8902,7 @@ export class ConsensusCommitBlockResponse implements IConsensusCommitBlockRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusCommitBlockResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusCommitBlockResponse;
 
     /**
      * Decodes a ConsensusCommitBlockResponse message from the specified reader or buffer, length delimited.
@@ -8918,14 +8911,14 @@ export class ConsensusCommitBlockResponse implements IConsensusCommitBlockRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusCommitBlockResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusCommitBlockResponse;
 
     /**
      * Verifies a ConsensusCommitBlockResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusCommitBlockResponse message from a plain object. Also converts values to their respective internal types.
@@ -8940,10 +8933,7 @@ export class ConsensusCommitBlockResponse implements IConsensusCommitBlockRespon
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusCommitBlockResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusCommitBlockResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusCommitBlockResponse to JSON.
@@ -8953,6 +8943,7 @@ export class ConsensusCommitBlockResponse implements IConsensusCommitBlockRespon
 }
 
 export namespace ConsensusCommitBlockResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -8960,26 +8951,21 @@ export namespace ConsensusCommitBlockResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        UNKNOWN_BLOCK = 5,
+        UNKNOWN_BLOCK = 5
     }
-}
-
-/** Properties of a ConsensusIgnoreBlockRequest. */
-export interface IConsensusIgnoreBlockRequest {
-    /** ConsensusIgnoreBlockRequest blockId */
-    blockId?: Uint8Array | null;
 }
 
 /** Represents a ConsensusIgnoreBlockRequest. */
 export class ConsensusIgnoreBlockRequest implements IConsensusIgnoreBlockRequest {
+
     /**
      * Constructs a new ConsensusIgnoreBlockRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusIgnoreBlockRequest);
 
-    /** ConsensusIgnoreBlockRequest blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusIgnoreBlockRequest block_id. */
+    public block_id: Uint8Array;
 
     /**
      * Creates a new ConsensusIgnoreBlockRequest instance using the specified properties.
@@ -9012,7 +8998,7 @@ export class ConsensusIgnoreBlockRequest implements IConsensusIgnoreBlockRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusIgnoreBlockRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusIgnoreBlockRequest;
 
     /**
      * Decodes a ConsensusIgnoreBlockRequest message from the specified reader or buffer, length delimited.
@@ -9021,14 +9007,14 @@ export class ConsensusIgnoreBlockRequest implements IConsensusIgnoreBlockRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusIgnoreBlockRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusIgnoreBlockRequest;
 
     /**
      * Verifies a ConsensusIgnoreBlockRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusIgnoreBlockRequest message from a plain object. Also converts values to their respective internal types.
@@ -9043,10 +9029,7 @@ export class ConsensusIgnoreBlockRequest implements IConsensusIgnoreBlockRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusIgnoreBlockRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusIgnoreBlockRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusIgnoreBlockRequest to JSON.
@@ -9055,14 +9038,9 @@ export class ConsensusIgnoreBlockRequest implements IConsensusIgnoreBlockRequest
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusIgnoreBlockResponse. */
-export interface IConsensusIgnoreBlockResponse {
-    /** ConsensusIgnoreBlockResponse status */
-    status?: ConsensusIgnoreBlockResponse.Status | null;
-}
-
 /** Represents a ConsensusIgnoreBlockResponse. */
 export class ConsensusIgnoreBlockResponse implements IConsensusIgnoreBlockResponse {
+
     /**
      * Constructs a new ConsensusIgnoreBlockResponse.
      * @param [properties] Properties to set
@@ -9103,7 +9081,7 @@ export class ConsensusIgnoreBlockResponse implements IConsensusIgnoreBlockRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusIgnoreBlockResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusIgnoreBlockResponse;
 
     /**
      * Decodes a ConsensusIgnoreBlockResponse message from the specified reader or buffer, length delimited.
@@ -9112,14 +9090,14 @@ export class ConsensusIgnoreBlockResponse implements IConsensusIgnoreBlockRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusIgnoreBlockResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusIgnoreBlockResponse;
 
     /**
      * Verifies a ConsensusIgnoreBlockResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusIgnoreBlockResponse message from a plain object. Also converts values to their respective internal types.
@@ -9134,10 +9112,7 @@ export class ConsensusIgnoreBlockResponse implements IConsensusIgnoreBlockRespon
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusIgnoreBlockResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusIgnoreBlockResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusIgnoreBlockResponse to JSON.
@@ -9147,6 +9122,7 @@ export class ConsensusIgnoreBlockResponse implements IConsensusIgnoreBlockRespon
 }
 
 export namespace ConsensusIgnoreBlockResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -9154,26 +9130,21 @@ export namespace ConsensusIgnoreBlockResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        UNKNOWN_BLOCK = 5,
+        UNKNOWN_BLOCK = 5
     }
-}
-
-/** Properties of a ConsensusFailBlockRequest. */
-export interface IConsensusFailBlockRequest {
-    /** ConsensusFailBlockRequest blockId */
-    blockId?: Uint8Array | null;
 }
 
 /** Represents a ConsensusFailBlockRequest. */
 export class ConsensusFailBlockRequest implements IConsensusFailBlockRequest {
+
     /**
      * Constructs a new ConsensusFailBlockRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusFailBlockRequest);
 
-    /** ConsensusFailBlockRequest blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusFailBlockRequest block_id. */
+    public block_id: Uint8Array;
 
     /**
      * Creates a new ConsensusFailBlockRequest instance using the specified properties.
@@ -9206,7 +9177,7 @@ export class ConsensusFailBlockRequest implements IConsensusFailBlockRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusFailBlockRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusFailBlockRequest;
 
     /**
      * Decodes a ConsensusFailBlockRequest message from the specified reader or buffer, length delimited.
@@ -9215,14 +9186,14 @@ export class ConsensusFailBlockRequest implements IConsensusFailBlockRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusFailBlockRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusFailBlockRequest;
 
     /**
      * Verifies a ConsensusFailBlockRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusFailBlockRequest message from a plain object. Also converts values to their respective internal types.
@@ -9237,10 +9208,7 @@ export class ConsensusFailBlockRequest implements IConsensusFailBlockRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusFailBlockRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusFailBlockRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusFailBlockRequest to JSON.
@@ -9249,14 +9217,9 @@ export class ConsensusFailBlockRequest implements IConsensusFailBlockRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusFailBlockResponse. */
-export interface IConsensusFailBlockResponse {
-    /** ConsensusFailBlockResponse status */
-    status?: ConsensusFailBlockResponse.Status | null;
-}
-
 /** Represents a ConsensusFailBlockResponse. */
 export class ConsensusFailBlockResponse implements IConsensusFailBlockResponse {
+
     /**
      * Constructs a new ConsensusFailBlockResponse.
      * @param [properties] Properties to set
@@ -9297,7 +9260,7 @@ export class ConsensusFailBlockResponse implements IConsensusFailBlockResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusFailBlockResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusFailBlockResponse;
 
     /**
      * Decodes a ConsensusFailBlockResponse message from the specified reader or buffer, length delimited.
@@ -9306,14 +9269,14 @@ export class ConsensusFailBlockResponse implements IConsensusFailBlockResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusFailBlockResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusFailBlockResponse;
 
     /**
      * Verifies a ConsensusFailBlockResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusFailBlockResponse message from a plain object. Also converts values to their respective internal types.
@@ -9328,10 +9291,7 @@ export class ConsensusFailBlockResponse implements IConsensusFailBlockResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusFailBlockResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusFailBlockResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusFailBlockResponse to JSON.
@@ -9341,6 +9301,7 @@ export class ConsensusFailBlockResponse implements IConsensusFailBlockResponse {
 }
 
 export namespace ConsensusFailBlockResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -9348,26 +9309,21 @@ export namespace ConsensusFailBlockResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        UNKNOWN_BLOCK = 5,
+        UNKNOWN_BLOCK = 5
     }
-}
-
-/** Properties of a ConsensusBlocksGetRequest. */
-export interface IConsensusBlocksGetRequest {
-    /** ConsensusBlocksGetRequest blockIds */
-    blockIds?: Uint8Array[] | null;
 }
 
 /** Represents a ConsensusBlocksGetRequest. */
 export class ConsensusBlocksGetRequest implements IConsensusBlocksGetRequest {
+
     /**
      * Constructs a new ConsensusBlocksGetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusBlocksGetRequest);
 
-    /** ConsensusBlocksGetRequest blockIds. */
-    public blockIds: Uint8Array[];
+    /** ConsensusBlocksGetRequest block_ids. */
+    public block_ids: Uint8Array[];
 
     /**
      * Creates a new ConsensusBlocksGetRequest instance using the specified properties.
@@ -9400,7 +9356,7 @@ export class ConsensusBlocksGetRequest implements IConsensusBlocksGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusBlocksGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusBlocksGetRequest;
 
     /**
      * Decodes a ConsensusBlocksGetRequest message from the specified reader or buffer, length delimited.
@@ -9409,14 +9365,14 @@ export class ConsensusBlocksGetRequest implements IConsensusBlocksGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusBlocksGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusBlocksGetRequest;
 
     /**
      * Verifies a ConsensusBlocksGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusBlocksGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -9431,10 +9387,7 @@ export class ConsensusBlocksGetRequest implements IConsensusBlocksGetRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusBlocksGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusBlocksGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusBlocksGetRequest to JSON.
@@ -9443,17 +9396,9 @@ export class ConsensusBlocksGetRequest implements IConsensusBlocksGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusBlocksGetResponse. */
-export interface IConsensusBlocksGetResponse {
-    /** ConsensusBlocksGetResponse status */
-    status?: ConsensusBlocksGetResponse.Status | null;
-
-    /** ConsensusBlocksGetResponse blocks */
-    blocks?: IConsensusBlock[] | null;
-}
-
 /** Represents a ConsensusBlocksGetResponse. */
 export class ConsensusBlocksGetResponse implements IConsensusBlocksGetResponse {
+
     /**
      * Constructs a new ConsensusBlocksGetResponse.
      * @param [properties] Properties to set
@@ -9497,7 +9442,7 @@ export class ConsensusBlocksGetResponse implements IConsensusBlocksGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusBlocksGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusBlocksGetResponse;
 
     /**
      * Decodes a ConsensusBlocksGetResponse message from the specified reader or buffer, length delimited.
@@ -9506,14 +9451,14 @@ export class ConsensusBlocksGetResponse implements IConsensusBlocksGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusBlocksGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusBlocksGetResponse;
 
     /**
      * Verifies a ConsensusBlocksGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusBlocksGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -9528,10 +9473,7 @@ export class ConsensusBlocksGetResponse implements IConsensusBlocksGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusBlocksGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusBlocksGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusBlocksGetResponse to JSON.
@@ -9541,6 +9483,7 @@ export class ConsensusBlocksGetResponse implements IConsensusBlocksGetResponse {
 }
 
 export namespace ConsensusBlocksGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -9548,15 +9491,13 @@ export namespace ConsensusBlocksGetResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        UNKNOWN_BLOCK = 5,
+        UNKNOWN_BLOCK = 5
     }
 }
 
-/** Properties of a ConsensusChainHeadGetRequest. */
-export interface IConsensusChainHeadGetRequest {}
-
 /** Represents a ConsensusChainHeadGetRequest. */
 export class ConsensusChainHeadGetRequest implements IConsensusChainHeadGetRequest {
+
     /**
      * Constructs a new ConsensusChainHeadGetRequest.
      * @param [properties] Properties to set
@@ -9594,7 +9535,7 @@ export class ConsensusChainHeadGetRequest implements IConsensusChainHeadGetReque
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusChainHeadGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusChainHeadGetRequest;
 
     /**
      * Decodes a ConsensusChainHeadGetRequest message from the specified reader or buffer, length delimited.
@@ -9603,14 +9544,14 @@ export class ConsensusChainHeadGetRequest implements IConsensusChainHeadGetReque
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusChainHeadGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusChainHeadGetRequest;
 
     /**
      * Verifies a ConsensusChainHeadGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusChainHeadGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -9625,10 +9566,7 @@ export class ConsensusChainHeadGetRequest implements IConsensusChainHeadGetReque
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusChainHeadGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusChainHeadGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusChainHeadGetRequest to JSON.
@@ -9637,17 +9575,9 @@ export class ConsensusChainHeadGetRequest implements IConsensusChainHeadGetReque
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusChainHeadGetResponse. */
-export interface IConsensusChainHeadGetResponse {
-    /** ConsensusChainHeadGetResponse status */
-    status?: ConsensusChainHeadGetResponse.Status | null;
-
-    /** ConsensusChainHeadGetResponse block */
-    block?: IConsensusBlock | null;
-}
-
 /** Represents a ConsensusChainHeadGetResponse. */
 export class ConsensusChainHeadGetResponse implements IConsensusChainHeadGetResponse {
+
     /**
      * Constructs a new ConsensusChainHeadGetResponse.
      * @param [properties] Properties to set
@@ -9658,7 +9588,7 @@ export class ConsensusChainHeadGetResponse implements IConsensusChainHeadGetResp
     public status: ConsensusChainHeadGetResponse.Status;
 
     /** ConsensusChainHeadGetResponse block. */
-    public block?: IConsensusBlock | null;
+    public block?: (IConsensusBlock|null);
 
     /**
      * Creates a new ConsensusChainHeadGetResponse instance using the specified properties.
@@ -9691,7 +9621,7 @@ export class ConsensusChainHeadGetResponse implements IConsensusChainHeadGetResp
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusChainHeadGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusChainHeadGetResponse;
 
     /**
      * Decodes a ConsensusChainHeadGetResponse message from the specified reader or buffer, length delimited.
@@ -9700,14 +9630,14 @@ export class ConsensusChainHeadGetResponse implements IConsensusChainHeadGetResp
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusChainHeadGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusChainHeadGetResponse;
 
     /**
      * Verifies a ConsensusChainHeadGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusChainHeadGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -9722,10 +9652,7 @@ export class ConsensusChainHeadGetResponse implements IConsensusChainHeadGetResp
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusChainHeadGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusChainHeadGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusChainHeadGetResponse to JSON.
@@ -9735,6 +9662,7 @@ export class ConsensusChainHeadGetResponse implements IConsensusChainHeadGetResp
 }
 
 export namespace ConsensusChainHeadGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -9742,29 +9670,21 @@ export namespace ConsensusChainHeadGetResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        NO_CHAIN_HEAD = 5,
+        NO_CHAIN_HEAD = 5
     }
-}
-
-/** Properties of a ConsensusSettingsGetRequest. */
-export interface IConsensusSettingsGetRequest {
-    /** ConsensusSettingsGetRequest blockId */
-    blockId?: Uint8Array | null;
-
-    /** ConsensusSettingsGetRequest keys */
-    keys?: string[] | null;
 }
 
 /** Represents a ConsensusSettingsGetRequest. */
 export class ConsensusSettingsGetRequest implements IConsensusSettingsGetRequest {
+
     /**
      * Constructs a new ConsensusSettingsGetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusSettingsGetRequest);
 
-    /** ConsensusSettingsGetRequest blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusSettingsGetRequest block_id. */
+    public block_id: Uint8Array;
 
     /** ConsensusSettingsGetRequest keys. */
     public keys: string[];
@@ -9800,7 +9720,7 @@ export class ConsensusSettingsGetRequest implements IConsensusSettingsGetRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusSettingsGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusSettingsGetRequest;
 
     /**
      * Decodes a ConsensusSettingsGetRequest message from the specified reader or buffer, length delimited.
@@ -9809,14 +9729,14 @@ export class ConsensusSettingsGetRequest implements IConsensusSettingsGetRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusSettingsGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusSettingsGetRequest;
 
     /**
      * Verifies a ConsensusSettingsGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusSettingsGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -9831,10 +9751,7 @@ export class ConsensusSettingsGetRequest implements IConsensusSettingsGetRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusSettingsGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusSettingsGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusSettingsGetRequest to JSON.
@@ -9843,17 +9760,9 @@ export class ConsensusSettingsGetRequest implements IConsensusSettingsGetRequest
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusSettingsGetResponse. */
-export interface IConsensusSettingsGetResponse {
-    /** ConsensusSettingsGetResponse status */
-    status?: ConsensusSettingsGetResponse.Status | null;
-
-    /** ConsensusSettingsGetResponse entries */
-    entries?: IConsensusSettingsEntry[] | null;
-}
-
 /** Represents a ConsensusSettingsGetResponse. */
 export class ConsensusSettingsGetResponse implements IConsensusSettingsGetResponse {
+
     /**
      * Constructs a new ConsensusSettingsGetResponse.
      * @param [properties] Properties to set
@@ -9897,7 +9806,7 @@ export class ConsensusSettingsGetResponse implements IConsensusSettingsGetRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusSettingsGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusSettingsGetResponse;
 
     /**
      * Decodes a ConsensusSettingsGetResponse message from the specified reader or buffer, length delimited.
@@ -9906,14 +9815,14 @@ export class ConsensusSettingsGetResponse implements IConsensusSettingsGetRespon
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusSettingsGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusSettingsGetResponse;
 
     /**
      * Verifies a ConsensusSettingsGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusSettingsGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -9928,10 +9837,7 @@ export class ConsensusSettingsGetResponse implements IConsensusSettingsGetRespon
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusSettingsGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusSettingsGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusSettingsGetResponse to JSON.
@@ -9941,6 +9847,7 @@ export class ConsensusSettingsGetResponse implements IConsensusSettingsGetRespon
 }
 
 export namespace ConsensusSettingsGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -9948,29 +9855,21 @@ export namespace ConsensusSettingsGetResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        UNKNOWN_BLOCK = 5,
+        UNKNOWN_BLOCK = 5
     }
-}
-
-/** Properties of a ConsensusStateGetRequest. */
-export interface IConsensusStateGetRequest {
-    /** ConsensusStateGetRequest blockId */
-    blockId?: Uint8Array | null;
-
-    /** ConsensusStateGetRequest addresses */
-    addresses?: string[] | null;
 }
 
 /** Represents a ConsensusStateGetRequest. */
 export class ConsensusStateGetRequest implements IConsensusStateGetRequest {
+
     /**
      * Constructs a new ConsensusStateGetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IConsensusStateGetRequest);
 
-    /** ConsensusStateGetRequest blockId. */
-    public blockId: Uint8Array;
+    /** ConsensusStateGetRequest block_id. */
+    public block_id: Uint8Array;
 
     /** ConsensusStateGetRequest addresses. */
     public addresses: string[];
@@ -10006,7 +9905,7 @@ export class ConsensusStateGetRequest implements IConsensusStateGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusStateGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusStateGetRequest;
 
     /**
      * Decodes a ConsensusStateGetRequest message from the specified reader or buffer, length delimited.
@@ -10015,14 +9914,14 @@ export class ConsensusStateGetRequest implements IConsensusStateGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusStateGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusStateGetRequest;
 
     /**
      * Verifies a ConsensusStateGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusStateGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -10037,10 +9936,7 @@ export class ConsensusStateGetRequest implements IConsensusStateGetRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusStateGetRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusStateGetRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusStateGetRequest to JSON.
@@ -10049,17 +9945,9 @@ export class ConsensusStateGetRequest implements IConsensusStateGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ConsensusStateGetResponse. */
-export interface IConsensusStateGetResponse {
-    /** ConsensusStateGetResponse status */
-    status?: ConsensusStateGetResponse.Status | null;
-
-    /** ConsensusStateGetResponse entries */
-    entries?: IConsensusStateEntry[] | null;
-}
-
 /** Represents a ConsensusStateGetResponse. */
 export class ConsensusStateGetResponse implements IConsensusStateGetResponse {
+
     /**
      * Constructs a new ConsensusStateGetResponse.
      * @param [properties] Properties to set
@@ -10103,7 +9991,7 @@ export class ConsensusStateGetResponse implements IConsensusStateGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ConsensusStateGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConsensusStateGetResponse;
 
     /**
      * Decodes a ConsensusStateGetResponse message from the specified reader or buffer, length delimited.
@@ -10112,14 +10000,14 @@ export class ConsensusStateGetResponse implements IConsensusStateGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ConsensusStateGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConsensusStateGetResponse;
 
     /**
      * Verifies a ConsensusStateGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ConsensusStateGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -10134,10 +10022,7 @@ export class ConsensusStateGetResponse implements IConsensusStateGetResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: ConsensusStateGetResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: ConsensusStateGetResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this ConsensusStateGetResponse to JSON.
@@ -10147,6 +10032,7 @@ export class ConsensusStateGetResponse implements IConsensusStateGetResponse {
 }
 
 export namespace ConsensusStateGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
@@ -10154,18 +10040,13 @@ export namespace ConsensusStateGetResponse {
         BAD_REQUEST = 2,
         SERVICE_ERROR = 3,
         NOT_READY = 4,
-        UNKNOWN_BLOCK = 5,
+        UNKNOWN_BLOCK = 5
     }
-}
-
-/** Properties of a GenesisData. */
-export interface IGenesisData {
-    /** GenesisData batches */
-    batches?: IBatch[] | null;
 }
 
 /** Represents a GenesisData. */
 export class GenesisData implements IGenesisData {
+
     /**
      * Constructs a new GenesisData.
      * @param [properties] Properties to set
@@ -10206,7 +10087,7 @@ export class GenesisData implements IGenesisData {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GenesisData;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GenesisData;
 
     /**
      * Decodes a GenesisData message from the specified reader or buffer, length delimited.
@@ -10215,14 +10096,14 @@ export class GenesisData implements IGenesisData {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GenesisData;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GenesisData;
 
     /**
      * Verifies a GenesisData message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GenesisData message from a plain object. Also converts values to their respective internal types.
@@ -10246,17 +10127,9 @@ export class GenesisData implements IGenesisData {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a Policy. */
-export interface IPolicy {
-    /** Policy name */
-    name?: string | null;
-
-    /** Policy entries */
-    entries?: Policy.IEntry[] | null;
-}
-
 /** Represents a Policy. */
 export class Policy implements IPolicy {
+
     /**
      * Constructs a new Policy.
      * @param [properties] Properties to set
@@ -10300,7 +10173,7 @@ export class Policy implements IPolicy {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Policy;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Policy;
 
     /**
      * Decodes a Policy message from the specified reader or buffer, length delimited.
@@ -10309,14 +10182,14 @@ export class Policy implements IPolicy {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Policy;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Policy;
 
     /**
      * Verifies a Policy message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a Policy message from a plain object. Also converts values to their respective internal types.
@@ -10341,24 +10214,27 @@ export class Policy implements IPolicy {
 }
 
 export namespace Policy {
+
     /** EntryType enum. */
     enum EntryType {
         ENTRY_TYPE_UNSET = 0,
         PERMIT_KEY = 1,
-        DENY_KEY = 2,
+        DENY_KEY = 2
     }
 
     /** Properties of an Entry. */
     interface IEntry {
+
         /** Entry type */
-        type?: Policy.EntryType | null;
+        type?: (Policy.EntryType|null);
 
         /** Entry key */
-        key?: string | null;
+        key?: (string|null);
     }
 
     /** Represents an Entry. */
     class Entry implements IEntry {
+
         /**
          * Constructs a new Entry.
          * @param [properties] Properties to set
@@ -10402,7 +10278,7 @@ export namespace Policy {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Policy.Entry;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Policy.Entry;
 
         /**
          * Decodes an Entry message from the specified reader or buffer, length delimited.
@@ -10411,14 +10287,14 @@ export namespace Policy {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Policy.Entry;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Policy.Entry;
 
         /**
          * Verifies an Entry message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: { [k: string]: any }): string | null;
+        public static verify(message: { [k: string]: any }): (string|null);
 
         /**
          * Creates an Entry message from a plain object. Also converts values to their respective internal types.
@@ -10443,14 +10319,9 @@ export namespace Policy {
     }
 }
 
-/** Properties of a PolicyList. */
-export interface IPolicyList {
-    /** PolicyList policies */
-    policies?: IPolicy[] | null;
-}
-
 /** Represents a PolicyList. */
 export class PolicyList implements IPolicyList {
+
     /**
      * Constructs a new PolicyList.
      * @param [properties] Properties to set
@@ -10491,7 +10362,7 @@ export class PolicyList implements IPolicyList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): PolicyList;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): PolicyList;
 
     /**
      * Decodes a PolicyList message from the specified reader or buffer, length delimited.
@@ -10500,14 +10371,14 @@ export class PolicyList implements IPolicyList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): PolicyList;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): PolicyList;
 
     /**
      * Verifies a PolicyList message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a PolicyList message from a plain object. Also converts values to their respective internal types.
@@ -10531,17 +10402,9 @@ export class PolicyList implements IPolicyList {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a Role. */
-export interface IRole {
-    /** Role name */
-    name?: string | null;
-
-    /** Role policyName */
-    policyName?: string | null;
-}
-
 /** Represents a Role. */
 export class Role implements IRole {
+
     /**
      * Constructs a new Role.
      * @param [properties] Properties to set
@@ -10551,8 +10414,8 @@ export class Role implements IRole {
     /** Role name. */
     public name: string;
 
-    /** Role policyName. */
-    public policyName: string;
+    /** Role policy_name. */
+    public policy_name: string;
 
     /**
      * Creates a new Role instance using the specified properties.
@@ -10585,7 +10448,7 @@ export class Role implements IRole {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Role;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Role;
 
     /**
      * Decodes a Role message from the specified reader or buffer, length delimited.
@@ -10594,14 +10457,14 @@ export class Role implements IRole {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Role;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Role;
 
     /**
      * Verifies a Role message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a Role message from a plain object. Also converts values to their respective internal types.
@@ -10625,14 +10488,9 @@ export class Role implements IRole {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a RoleList. */
-export interface IRoleList {
-    /** RoleList roles */
-    roles?: IRole[] | null;
-}
-
 /** Represents a RoleList. */
 export class RoleList implements IRoleList {
+
     /**
      * Constructs a new RoleList.
      * @param [properties] Properties to set
@@ -10673,7 +10531,7 @@ export class RoleList implements IRoleList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): RoleList;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): RoleList;
 
     /**
      * Decodes a RoleList message from the specified reader or buffer, length delimited.
@@ -10682,14 +10540,14 @@ export class RoleList implements IRoleList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): RoleList;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): RoleList;
 
     /**
      * Verifies a RoleList message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a RoleList message from a plain object. Also converts values to their respective internal types.
@@ -10713,20 +10571,9 @@ export class RoleList implements IRoleList {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a ChangeLogEntry. */
-export interface IChangeLogEntry {
-    /** ChangeLogEntry parent */
-    parent?: Uint8Array | null;
-
-    /** ChangeLogEntry additions */
-    additions?: Uint8Array[] | null;
-
-    /** ChangeLogEntry successors */
-    successors?: ChangeLogEntry.ISuccessor[] | null;
-}
-
 /** Represents a ChangeLogEntry. */
 export class ChangeLogEntry implements IChangeLogEntry {
+
     /**
      * Constructs a new ChangeLogEntry.
      * @param [properties] Properties to set
@@ -10773,7 +10620,7 @@ export class ChangeLogEntry implements IChangeLogEntry {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ChangeLogEntry;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ChangeLogEntry;
 
     /**
      * Decodes a ChangeLogEntry message from the specified reader or buffer, length delimited.
@@ -10782,14 +10629,14 @@ export class ChangeLogEntry implements IChangeLogEntry {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ChangeLogEntry;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ChangeLogEntry;
 
     /**
      * Verifies a ChangeLogEntry message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a ChangeLogEntry message from a plain object. Also converts values to their respective internal types.
@@ -10814,17 +10661,20 @@ export class ChangeLogEntry implements IChangeLogEntry {
 }
 
 export namespace ChangeLogEntry {
+
     /** Properties of a Successor. */
     interface ISuccessor {
+
         /** Successor successor */
-        successor?: Uint8Array | null;
+        successor?: (Uint8Array|null);
 
         /** Successor deletions */
-        deletions?: Uint8Array[] | null;
+        deletions?: (Uint8Array[]|null);
     }
 
     /** Represents a Successor. */
     class Successor implements ISuccessor {
+
         /**
          * Constructs a new Successor.
          * @param [properties] Properties to set
@@ -10868,7 +10718,7 @@ export namespace ChangeLogEntry {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): ChangeLogEntry.Successor;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ChangeLogEntry.Successor;
 
         /**
          * Decodes a Successor message from the specified reader or buffer, length delimited.
@@ -10877,14 +10727,14 @@ export namespace ChangeLogEntry {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): ChangeLogEntry.Successor;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ChangeLogEntry.Successor;
 
         /**
          * Verifies a Successor message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: { [k: string]: any }): string | null;
+        public static verify(message: { [k: string]: any }): (string|null);
 
         /**
          * Creates a Successor message from a plain object. Also converts values to their respective internal types.
@@ -10899,10 +10749,7 @@ export namespace ChangeLogEntry {
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(
-            message: ChangeLogEntry.Successor,
-            options?: $protobuf.IConversionOptions,
-        ): { [k: string]: any };
+        public static toObject(message: ChangeLogEntry.Successor, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
          * Converts this Successor to JSON.
@@ -10912,11 +10759,9 @@ export namespace ChangeLogEntry {
     }
 }
 
-/** Properties of a DisconnectMessage. */
-export interface IDisconnectMessage {}
-
 /** Represents a DisconnectMessage. */
 export class DisconnectMessage implements IDisconnectMessage {
+
     /**
      * Constructs a new DisconnectMessage.
      * @param [properties] Properties to set
@@ -10954,7 +10799,7 @@ export class DisconnectMessage implements IDisconnectMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): DisconnectMessage;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): DisconnectMessage;
 
     /**
      * Decodes a DisconnectMessage message from the specified reader or buffer, length delimited.
@@ -10963,14 +10808,14 @@ export class DisconnectMessage implements IDisconnectMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): DisconnectMessage;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): DisconnectMessage;
 
     /**
      * Verifies a DisconnectMessage message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a DisconnectMessage message from a plain object. Also converts values to their respective internal types.
@@ -10994,17 +10839,9 @@ export class DisconnectMessage implements IDisconnectMessage {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a PeerRegisterRequest. */
-export interface IPeerRegisterRequest {
-    /** PeerRegisterRequest endpoint */
-    endpoint?: string | null;
-
-    /** PeerRegisterRequest protocolVersion */
-    protocolVersion?: number | null;
-}
-
 /** Represents a PeerRegisterRequest. */
 export class PeerRegisterRequest implements IPeerRegisterRequest {
+
     /**
      * Constructs a new PeerRegisterRequest.
      * @param [properties] Properties to set
@@ -11014,8 +10851,8 @@ export class PeerRegisterRequest implements IPeerRegisterRequest {
     /** PeerRegisterRequest endpoint. */
     public endpoint: string;
 
-    /** PeerRegisterRequest protocolVersion. */
-    public protocolVersion: number;
+    /** PeerRegisterRequest protocol_version. */
+    public protocol_version: number;
 
     /**
      * Creates a new PeerRegisterRequest instance using the specified properties.
@@ -11048,7 +10885,7 @@ export class PeerRegisterRequest implements IPeerRegisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): PeerRegisterRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): PeerRegisterRequest;
 
     /**
      * Decodes a PeerRegisterRequest message from the specified reader or buffer, length delimited.
@@ -11057,14 +10894,14 @@ export class PeerRegisterRequest implements IPeerRegisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): PeerRegisterRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): PeerRegisterRequest;
 
     /**
      * Verifies a PeerRegisterRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a PeerRegisterRequest message from a plain object. Also converts values to their respective internal types.
@@ -11088,11 +10925,9 @@ export class PeerRegisterRequest implements IPeerRegisterRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a PeerUnregisterRequest. */
-export interface IPeerUnregisterRequest {}
-
 /** Represents a PeerUnregisterRequest. */
 export class PeerUnregisterRequest implements IPeerUnregisterRequest {
+
     /**
      * Constructs a new PeerUnregisterRequest.
      * @param [properties] Properties to set
@@ -11130,7 +10965,7 @@ export class PeerUnregisterRequest implements IPeerUnregisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): PeerUnregisterRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): PeerUnregisterRequest;
 
     /**
      * Decodes a PeerUnregisterRequest message from the specified reader or buffer, length delimited.
@@ -11139,14 +10974,14 @@ export class PeerUnregisterRequest implements IPeerUnregisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): PeerUnregisterRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): PeerUnregisterRequest;
 
     /**
      * Verifies a PeerUnregisterRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a PeerUnregisterRequest message from a plain object. Also converts values to their respective internal types.
@@ -11161,10 +10996,7 @@ export class PeerUnregisterRequest implements IPeerUnregisterRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: PeerUnregisterRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: PeerUnregisterRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this PeerUnregisterRequest to JSON.
@@ -11173,11 +11005,9 @@ export class PeerUnregisterRequest implements IPeerUnregisterRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GetPeersRequest. */
-export interface IGetPeersRequest {}
-
 /** Represents a GetPeersRequest. */
 export class GetPeersRequest implements IGetPeersRequest {
+
     /**
      * Constructs a new GetPeersRequest.
      * @param [properties] Properties to set
@@ -11215,7 +11045,7 @@ export class GetPeersRequest implements IGetPeersRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GetPeersRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GetPeersRequest;
 
     /**
      * Decodes a GetPeersRequest message from the specified reader or buffer, length delimited.
@@ -11224,14 +11054,14 @@ export class GetPeersRequest implements IGetPeersRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GetPeersRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GetPeersRequest;
 
     /**
      * Verifies a GetPeersRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GetPeersRequest message from a plain object. Also converts values to their respective internal types.
@@ -11255,22 +11085,17 @@ export class GetPeersRequest implements IGetPeersRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GetPeersResponse. */
-export interface IGetPeersResponse {
-    /** GetPeersResponse peerEndpoints */
-    peerEndpoints?: string[] | null;
-}
-
 /** Represents a GetPeersResponse. */
 export class GetPeersResponse implements IGetPeersResponse {
+
     /**
      * Constructs a new GetPeersResponse.
      * @param [properties] Properties to set
      */
     constructor(properties?: IGetPeersResponse);
 
-    /** GetPeersResponse peerEndpoints. */
-    public peerEndpoints: string[];
+    /** GetPeersResponse peer_endpoints. */
+    public peer_endpoints: string[];
 
     /**
      * Creates a new GetPeersResponse instance using the specified properties.
@@ -11303,7 +11128,7 @@ export class GetPeersResponse implements IGetPeersResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GetPeersResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GetPeersResponse;
 
     /**
      * Decodes a GetPeersResponse message from the specified reader or buffer, length delimited.
@@ -11312,14 +11137,14 @@ export class GetPeersResponse implements IGetPeersResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GetPeersResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GetPeersResponse;
 
     /**
      * Verifies a GetPeersResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GetPeersResponse message from a plain object. Also converts values to their respective internal types.
@@ -11343,11 +11168,9 @@ export class GetPeersResponse implements IGetPeersResponse {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a PingRequest. */
-export interface IPingRequest {}
-
 /** Represents a PingRequest. */
 export class PingRequest implements IPingRequest {
+
     /**
      * Constructs a new PingRequest.
      * @param [properties] Properties to set
@@ -11385,7 +11208,7 @@ export class PingRequest implements IPingRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): PingRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): PingRequest;
 
     /**
      * Decodes a PingRequest message from the specified reader or buffer, length delimited.
@@ -11394,14 +11217,14 @@ export class PingRequest implements IPingRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): PingRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): PingRequest;
 
     /**
      * Verifies a PingRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a PingRequest message from a plain object. Also converts values to their respective internal types.
@@ -11425,11 +11248,9 @@ export class PingRequest implements IPingRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a PingResponse. */
-export interface IPingResponse {}
-
 /** Represents a PingResponse. */
 export class PingResponse implements IPingResponse {
+
     /**
      * Constructs a new PingResponse.
      * @param [properties] Properties to set
@@ -11467,7 +11288,7 @@ export class PingResponse implements IPingResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): PingResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): PingResponse;
 
     /**
      * Decodes a PingResponse message from the specified reader or buffer, length delimited.
@@ -11476,14 +11297,14 @@ export class PingResponse implements IPingResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): PingResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): PingResponse;
 
     /**
      * Verifies a PingResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a PingResponse message from a plain object. Also converts values to their respective internal types.
@@ -11507,20 +11328,9 @@ export class PingResponse implements IPingResponse {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GossipMessage. */
-export interface IGossipMessage {
-    /** GossipMessage content */
-    content?: Uint8Array | null;
-
-    /** GossipMessage contentType */
-    contentType?: GossipMessage.ContentType | null;
-
-    /** GossipMessage timeToLive */
-    timeToLive?: number | null;
-}
-
 /** Represents a GossipMessage. */
 export class GossipMessage implements IGossipMessage {
+
     /**
      * Constructs a new GossipMessage.
      * @param [properties] Properties to set
@@ -11530,11 +11340,11 @@ export class GossipMessage implements IGossipMessage {
     /** GossipMessage content. */
     public content: Uint8Array;
 
-    /** GossipMessage contentType. */
-    public contentType: GossipMessage.ContentType;
+    /** GossipMessage content_type. */
+    public content_type: GossipMessage.ContentType;
 
-    /** GossipMessage timeToLive. */
-    public timeToLive: number;
+    /** GossipMessage time_to_live. */
+    public time_to_live: number;
 
     /**
      * Creates a new GossipMessage instance using the specified properties.
@@ -11567,7 +11377,7 @@ export class GossipMessage implements IGossipMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GossipMessage;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GossipMessage;
 
     /**
      * Decodes a GossipMessage message from the specified reader or buffer, length delimited.
@@ -11576,14 +11386,14 @@ export class GossipMessage implements IGossipMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GossipMessage;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GossipMessage;
 
     /**
      * Verifies a GossipMessage message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GossipMessage message from a plain object. Also converts values to their respective internal types.
@@ -11608,22 +11418,18 @@ export class GossipMessage implements IGossipMessage {
 }
 
 export namespace GossipMessage {
+
     /** ContentType enum. */
     enum ContentType {
         CONTENT_TYPE_UNSET = 0,
         BLOCK = 1,
-        BATCH = 2,
+        BATCH = 2
     }
-}
-
-/** Properties of a NetworkAcknowledgement. */
-export interface INetworkAcknowledgement {
-    /** NetworkAcknowledgement status */
-    status?: NetworkAcknowledgement.Status | null;
 }
 
 /** Represents a NetworkAcknowledgement. */
 export class NetworkAcknowledgement implements INetworkAcknowledgement {
+
     /**
      * Constructs a new NetworkAcknowledgement.
      * @param [properties] Properties to set
@@ -11664,7 +11470,7 @@ export class NetworkAcknowledgement implements INetworkAcknowledgement {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): NetworkAcknowledgement;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): NetworkAcknowledgement;
 
     /**
      * Decodes a NetworkAcknowledgement message from the specified reader or buffer, length delimited.
@@ -11673,14 +11479,14 @@ export class NetworkAcknowledgement implements INetworkAcknowledgement {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): NetworkAcknowledgement;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): NetworkAcknowledgement;
 
     /**
      * Verifies a NetworkAcknowledgement message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a NetworkAcknowledgement message from a plain object. Also converts values to their respective internal types.
@@ -11695,10 +11501,7 @@ export class NetworkAcknowledgement implements INetworkAcknowledgement {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: NetworkAcknowledgement,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: NetworkAcknowledgement, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this NetworkAcknowledgement to JSON.
@@ -11708,42 +11511,32 @@ export class NetworkAcknowledgement implements INetworkAcknowledgement {
 }
 
 export namespace NetworkAcknowledgement {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        ERROR = 2,
+        ERROR = 2
     }
-}
-
-/** Properties of a GossipBlockRequest. */
-export interface IGossipBlockRequest {
-    /** GossipBlockRequest blockId */
-    blockId?: string | null;
-
-    /** GossipBlockRequest nonce */
-    nonce?: string | null;
-
-    /** GossipBlockRequest timeToLive */
-    timeToLive?: number | null;
 }
 
 /** Represents a GossipBlockRequest. */
 export class GossipBlockRequest implements IGossipBlockRequest {
+
     /**
      * Constructs a new GossipBlockRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: IGossipBlockRequest);
 
-    /** GossipBlockRequest blockId. */
-    public blockId: string;
+    /** GossipBlockRequest block_id. */
+    public block_id: string;
 
     /** GossipBlockRequest nonce. */
     public nonce: string;
 
-    /** GossipBlockRequest timeToLive. */
-    public timeToLive: number;
+    /** GossipBlockRequest time_to_live. */
+    public time_to_live: number;
 
     /**
      * Creates a new GossipBlockRequest instance using the specified properties.
@@ -11776,7 +11569,7 @@ export class GossipBlockRequest implements IGossipBlockRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GossipBlockRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GossipBlockRequest;
 
     /**
      * Decodes a GossipBlockRequest message from the specified reader or buffer, length delimited.
@@ -11785,14 +11578,14 @@ export class GossipBlockRequest implements IGossipBlockRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GossipBlockRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GossipBlockRequest;
 
     /**
      * Verifies a GossipBlockRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GossipBlockRequest message from a plain object. Also converts values to their respective internal types.
@@ -11816,14 +11609,9 @@ export class GossipBlockRequest implements IGossipBlockRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GossipBlockResponse. */
-export interface IGossipBlockResponse {
-    /** GossipBlockResponse content */
-    content?: Uint8Array | null;
-}
-
 /** Represents a GossipBlockResponse. */
 export class GossipBlockResponse implements IGossipBlockResponse {
+
     /**
      * Constructs a new GossipBlockResponse.
      * @param [properties] Properties to set
@@ -11864,7 +11652,7 @@ export class GossipBlockResponse implements IGossipBlockResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GossipBlockResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GossipBlockResponse;
 
     /**
      * Decodes a GossipBlockResponse message from the specified reader or buffer, length delimited.
@@ -11873,14 +11661,14 @@ export class GossipBlockResponse implements IGossipBlockResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GossipBlockResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GossipBlockResponse;
 
     /**
      * Verifies a GossipBlockResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GossipBlockResponse message from a plain object. Also converts values to their respective internal types.
@@ -11904,14 +11692,9 @@ export class GossipBlockResponse implements IGossipBlockResponse {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GossipBatchResponse. */
-export interface IGossipBatchResponse {
-    /** GossipBatchResponse content */
-    content?: Uint8Array | null;
-}
-
 /** Represents a GossipBatchResponse. */
 export class GossipBatchResponse implements IGossipBatchResponse {
+
     /**
      * Constructs a new GossipBatchResponse.
      * @param [properties] Properties to set
@@ -11952,7 +11735,7 @@ export class GossipBatchResponse implements IGossipBatchResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GossipBatchResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GossipBatchResponse;
 
     /**
      * Decodes a GossipBatchResponse message from the specified reader or buffer, length delimited.
@@ -11961,14 +11744,14 @@ export class GossipBatchResponse implements IGossipBatchResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GossipBatchResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GossipBatchResponse;
 
     /**
      * Verifies a GossipBatchResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GossipBatchResponse message from a plain object. Also converts values to their respective internal types.
@@ -11992,20 +11775,9 @@ export class GossipBatchResponse implements IGossipBatchResponse {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GossipBatchByBatchIdRequest. */
-export interface IGossipBatchByBatchIdRequest {
-    /** GossipBatchByBatchIdRequest id */
-    id?: string | null;
-
-    /** GossipBatchByBatchIdRequest nonce */
-    nonce?: string | null;
-
-    /** GossipBatchByBatchIdRequest timeToLive */
-    timeToLive?: number | null;
-}
-
 /** Represents a GossipBatchByBatchIdRequest. */
 export class GossipBatchByBatchIdRequest implements IGossipBatchByBatchIdRequest {
+
     /**
      * Constructs a new GossipBatchByBatchIdRequest.
      * @param [properties] Properties to set
@@ -12018,8 +11790,8 @@ export class GossipBatchByBatchIdRequest implements IGossipBatchByBatchIdRequest
     /** GossipBatchByBatchIdRequest nonce. */
     public nonce: string;
 
-    /** GossipBatchByBatchIdRequest timeToLive. */
-    public timeToLive: number;
+    /** GossipBatchByBatchIdRequest time_to_live. */
+    public time_to_live: number;
 
     /**
      * Creates a new GossipBatchByBatchIdRequest instance using the specified properties.
@@ -12052,7 +11824,7 @@ export class GossipBatchByBatchIdRequest implements IGossipBatchByBatchIdRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GossipBatchByBatchIdRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GossipBatchByBatchIdRequest;
 
     /**
      * Decodes a GossipBatchByBatchIdRequest message from the specified reader or buffer, length delimited.
@@ -12061,14 +11833,14 @@ export class GossipBatchByBatchIdRequest implements IGossipBatchByBatchIdRequest
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GossipBatchByBatchIdRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GossipBatchByBatchIdRequest;
 
     /**
      * Verifies a GossipBatchByBatchIdRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GossipBatchByBatchIdRequest message from a plain object. Also converts values to their respective internal types.
@@ -12083,10 +11855,7 @@ export class GossipBatchByBatchIdRequest implements IGossipBatchByBatchIdRequest
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: GossipBatchByBatchIdRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: GossipBatchByBatchIdRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this GossipBatchByBatchIdRequest to JSON.
@@ -12095,20 +11864,9 @@ export class GossipBatchByBatchIdRequest implements IGossipBatchByBatchIdRequest
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GossipBatchByTransactionIdRequest. */
-export interface IGossipBatchByTransactionIdRequest {
-    /** GossipBatchByTransactionIdRequest ids */
-    ids?: string[] | null;
-
-    /** GossipBatchByTransactionIdRequest nonce */
-    nonce?: string | null;
-
-    /** GossipBatchByTransactionIdRequest timeToLive */
-    timeToLive?: number | null;
-}
-
 /** Represents a GossipBatchByTransactionIdRequest. */
 export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransactionIdRequest {
+
     /**
      * Constructs a new GossipBatchByTransactionIdRequest.
      * @param [properties] Properties to set
@@ -12121,8 +11879,8 @@ export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransact
     /** GossipBatchByTransactionIdRequest nonce. */
     public nonce: string;
 
-    /** GossipBatchByTransactionIdRequest timeToLive. */
-    public timeToLive: number;
+    /** GossipBatchByTransactionIdRequest time_to_live. */
+    public time_to_live: number;
 
     /**
      * Creates a new GossipBatchByTransactionIdRequest instance using the specified properties.
@@ -12145,10 +11903,7 @@ export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransact
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(
-        message: IGossipBatchByTransactionIdRequest,
-        writer?: $protobuf.Writer,
-    ): $protobuf.Writer;
+    public static encodeDelimited(message: IGossipBatchByTransactionIdRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
      * Decodes a GossipBatchByTransactionIdRequest message from the specified reader or buffer.
@@ -12158,7 +11913,7 @@ export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransact
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GossipBatchByTransactionIdRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GossipBatchByTransactionIdRequest;
 
     /**
      * Decodes a GossipBatchByTransactionIdRequest message from the specified reader or buffer, length delimited.
@@ -12167,14 +11922,14 @@ export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransact
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GossipBatchByTransactionIdRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GossipBatchByTransactionIdRequest;
 
     /**
      * Verifies a GossipBatchByTransactionIdRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GossipBatchByTransactionIdRequest message from a plain object. Also converts values to their respective internal types.
@@ -12189,10 +11944,7 @@ export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransact
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: GossipBatchByTransactionIdRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: GossipBatchByTransactionIdRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this GossipBatchByTransactionIdRequest to JSON.
@@ -12201,20 +11953,9 @@ export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransact
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a GossipConsensusMessage. */
-export interface IGossipConsensusMessage {
-    /** GossipConsensusMessage message */
-    message?: Uint8Array | null;
-
-    /** GossipConsensusMessage senderId */
-    senderId?: Uint8Array | null;
-
-    /** GossipConsensusMessage timeToLive */
-    timeToLive?: number | null;
-}
-
 /** Represents a GossipConsensusMessage. */
 export class GossipConsensusMessage implements IGossipConsensusMessage {
+
     /**
      * Constructs a new GossipConsensusMessage.
      * @param [properties] Properties to set
@@ -12224,11 +11965,11 @@ export class GossipConsensusMessage implements IGossipConsensusMessage {
     /** GossipConsensusMessage message. */
     public message: Uint8Array;
 
-    /** GossipConsensusMessage senderId. */
-    public senderId: Uint8Array;
+    /** GossipConsensusMessage sender_id. */
+    public sender_id: Uint8Array;
 
-    /** GossipConsensusMessage timeToLive. */
-    public timeToLive: number;
+    /** GossipConsensusMessage time_to_live. */
+    public time_to_live: number;
 
     /**
      * Creates a new GossipConsensusMessage instance using the specified properties.
@@ -12261,7 +12002,7 @@ export class GossipConsensusMessage implements IGossipConsensusMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): GossipConsensusMessage;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GossipConsensusMessage;
 
     /**
      * Decodes a GossipConsensusMessage message from the specified reader or buffer, length delimited.
@@ -12270,14 +12011,14 @@ export class GossipConsensusMessage implements IGossipConsensusMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): GossipConsensusMessage;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GossipConsensusMessage;
 
     /**
      * Verifies a GossipConsensusMessage message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a GossipConsensusMessage message from a plain object. Also converts values to their respective internal types.
@@ -12292,10 +12033,7 @@ export class GossipConsensusMessage implements IGossipConsensusMessage {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: GossipConsensusMessage,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: GossipConsensusMessage, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this GossipConsensusMessage to JSON.
@@ -12304,23 +12042,9 @@ export class GossipConsensusMessage implements IGossipConsensusMessage {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpRegisterRequest. */
-export interface ITpRegisterRequest {
-    /** TpRegisterRequest family */
-    family?: string | null;
-
-    /** TpRegisterRequest version */
-    version?: string | null;
-
-    /** TpRegisterRequest namespaces */
-    namespaces?: string[] | null;
-
-    /** TpRegisterRequest maxOccupancy */
-    maxOccupancy?: number | null;
-}
-
 /** Represents a TpRegisterRequest. */
 export class TpRegisterRequest implements ITpRegisterRequest {
+
     /**
      * Constructs a new TpRegisterRequest.
      * @param [properties] Properties to set
@@ -12336,8 +12060,8 @@ export class TpRegisterRequest implements ITpRegisterRequest {
     /** TpRegisterRequest namespaces. */
     public namespaces: string[];
 
-    /** TpRegisterRequest maxOccupancy. */
-    public maxOccupancy: number;
+    /** TpRegisterRequest max_occupancy. */
+    public max_occupancy: number;
 
     /**
      * Creates a new TpRegisterRequest instance using the specified properties.
@@ -12370,7 +12094,7 @@ export class TpRegisterRequest implements ITpRegisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpRegisterRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpRegisterRequest;
 
     /**
      * Decodes a TpRegisterRequest message from the specified reader or buffer, length delimited.
@@ -12379,14 +12103,14 @@ export class TpRegisterRequest implements ITpRegisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpRegisterRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpRegisterRequest;
 
     /**
      * Verifies a TpRegisterRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpRegisterRequest message from a plain object. Also converts values to their respective internal types.
@@ -12410,14 +12134,9 @@ export class TpRegisterRequest implements ITpRegisterRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpRegisterResponse. */
-export interface ITpRegisterResponse {
-    /** TpRegisterResponse status */
-    status?: TpRegisterResponse.Status | null;
-}
-
 /** Represents a TpRegisterResponse. */
 export class TpRegisterResponse implements ITpRegisterResponse {
+
     /**
      * Constructs a new TpRegisterResponse.
      * @param [properties] Properties to set
@@ -12458,7 +12177,7 @@ export class TpRegisterResponse implements ITpRegisterResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpRegisterResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpRegisterResponse;
 
     /**
      * Decodes a TpRegisterResponse message from the specified reader or buffer, length delimited.
@@ -12467,14 +12186,14 @@ export class TpRegisterResponse implements ITpRegisterResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpRegisterResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpRegisterResponse;
 
     /**
      * Verifies a TpRegisterResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpRegisterResponse message from a plain object. Also converts values to their respective internal types.
@@ -12499,19 +12218,18 @@ export class TpRegisterResponse implements ITpRegisterResponse {
 }
 
 export namespace TpRegisterResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        ERROR = 2,
+        ERROR = 2
     }
 }
 
-/** Properties of a TpUnregisterRequest. */
-export interface ITpUnregisterRequest {}
-
 /** Represents a TpUnregisterRequest. */
 export class TpUnregisterRequest implements ITpUnregisterRequest {
+
     /**
      * Constructs a new TpUnregisterRequest.
      * @param [properties] Properties to set
@@ -12549,7 +12267,7 @@ export class TpUnregisterRequest implements ITpUnregisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpUnregisterRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpUnregisterRequest;
 
     /**
      * Decodes a TpUnregisterRequest message from the specified reader or buffer, length delimited.
@@ -12558,14 +12276,14 @@ export class TpUnregisterRequest implements ITpUnregisterRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpUnregisterRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpUnregisterRequest;
 
     /**
      * Verifies a TpUnregisterRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpUnregisterRequest message from a plain object. Also converts values to their respective internal types.
@@ -12589,14 +12307,9 @@ export class TpUnregisterRequest implements ITpUnregisterRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpUnregisterResponse. */
-export interface ITpUnregisterResponse {
-    /** TpUnregisterResponse status */
-    status?: TpUnregisterResponse.Status | null;
-}
-
 /** Represents a TpUnregisterResponse. */
 export class TpUnregisterResponse implements ITpUnregisterResponse {
+
     /**
      * Constructs a new TpUnregisterResponse.
      * @param [properties] Properties to set
@@ -12637,7 +12350,7 @@ export class TpUnregisterResponse implements ITpUnregisterResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpUnregisterResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpUnregisterResponse;
 
     /**
      * Decodes a TpUnregisterResponse message from the specified reader or buffer, length delimited.
@@ -12646,14 +12359,14 @@ export class TpUnregisterResponse implements ITpUnregisterResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpUnregisterResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpUnregisterResponse;
 
     /**
      * Verifies a TpUnregisterResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpUnregisterResponse message from a plain object. Also converts values to their respective internal types.
@@ -12678,31 +12391,18 @@ export class TpUnregisterResponse implements ITpUnregisterResponse {
 }
 
 export namespace TpUnregisterResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        ERROR = 2,
+        ERROR = 2
     }
-}
-
-/** Properties of a TpProcessRequest. */
-export interface ITpProcessRequest {
-    /** TpProcessRequest header */
-    header?: ITransactionHeader | null;
-
-    /** TpProcessRequest payload */
-    payload?: Uint8Array | null;
-
-    /** TpProcessRequest signature */
-    signature?: string | null;
-
-    /** TpProcessRequest contextId */
-    contextId?: string | null;
 }
 
 /** Represents a TpProcessRequest. */
 export class TpProcessRequest implements ITpProcessRequest {
+
     /**
      * Constructs a new TpProcessRequest.
      * @param [properties] Properties to set
@@ -12710,7 +12410,7 @@ export class TpProcessRequest implements ITpProcessRequest {
     constructor(properties?: ITpProcessRequest);
 
     /** TpProcessRequest header. */
-    public header?: ITransactionHeader | null;
+    public header?: (ITransactionHeader|null);
 
     /** TpProcessRequest payload. */
     public payload: Uint8Array;
@@ -12718,8 +12418,8 @@ export class TpProcessRequest implements ITpProcessRequest {
     /** TpProcessRequest signature. */
     public signature: string;
 
-    /** TpProcessRequest contextId. */
-    public contextId: string;
+    /** TpProcessRequest context_id. */
+    public context_id: string;
 
     /**
      * Creates a new TpProcessRequest instance using the specified properties.
@@ -12752,7 +12452,7 @@ export class TpProcessRequest implements ITpProcessRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpProcessRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpProcessRequest;
 
     /**
      * Decodes a TpProcessRequest message from the specified reader or buffer, length delimited.
@@ -12761,14 +12461,14 @@ export class TpProcessRequest implements ITpProcessRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpProcessRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpProcessRequest;
 
     /**
      * Verifies a TpProcessRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpProcessRequest message from a plain object. Also converts values to their respective internal types.
@@ -12792,20 +12492,9 @@ export class TpProcessRequest implements ITpProcessRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpProcessResponse. */
-export interface ITpProcessResponse {
-    /** TpProcessResponse status */
-    status?: TpProcessResponse.Status | null;
-
-    /** TpProcessResponse message */
-    message?: string | null;
-
-    /** TpProcessResponse extendedData */
-    extendedData?: Uint8Array | null;
-}
-
 /** Represents a TpProcessResponse. */
 export class TpProcessResponse implements ITpProcessResponse {
+
     /**
      * Constructs a new TpProcessResponse.
      * @param [properties] Properties to set
@@ -12818,8 +12507,8 @@ export class TpProcessResponse implements ITpProcessResponse {
     /** TpProcessResponse message. */
     public message: string;
 
-    /** TpProcessResponse extendedData. */
-    public extendedData: Uint8Array;
+    /** TpProcessResponse extended_data. */
+    public extended_data: Uint8Array;
 
     /**
      * Creates a new TpProcessResponse instance using the specified properties.
@@ -12852,7 +12541,7 @@ export class TpProcessResponse implements ITpProcessResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpProcessResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpProcessResponse;
 
     /**
      * Decodes a TpProcessResponse message from the specified reader or buffer, length delimited.
@@ -12861,14 +12550,14 @@ export class TpProcessResponse implements ITpProcessResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpProcessResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpProcessResponse;
 
     /**
      * Verifies a TpProcessResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpProcessResponse message from a plain object. Also converts values to their respective internal types.
@@ -12893,23 +12582,19 @@ export class TpProcessResponse implements ITpProcessResponse {
 }
 
 export namespace TpProcessResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
         INVALID_TRANSACTION = 2,
-        INTERNAL_ERROR = 3,
+        INTERNAL_ERROR = 3
     }
-}
-
-/** Properties of a Setting. */
-export interface ISetting {
-    /** Setting entries */
-    entries?: Setting.IEntry[] | null;
 }
 
 /** Represents a Setting. */
 export class Setting implements ISetting {
+
     /**
      * Constructs a new Setting.
      * @param [properties] Properties to set
@@ -12950,7 +12635,7 @@ export class Setting implements ISetting {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Setting;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Setting;
 
     /**
      * Decodes a Setting message from the specified reader or buffer, length delimited.
@@ -12959,14 +12644,14 @@ export class Setting implements ISetting {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Setting;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Setting;
 
     /**
      * Verifies a Setting message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a Setting message from a plain object. Also converts values to their respective internal types.
@@ -12991,17 +12676,20 @@ export class Setting implements ISetting {
 }
 
 export namespace Setting {
+
     /** Properties of an Entry. */
     interface IEntry {
+
         /** Entry key */
-        key?: string | null;
+        key?: (string|null);
 
         /** Entry value */
-        value?: string | null;
+        value?: (string|null);
     }
 
     /** Represents an Entry. */
     class Entry implements IEntry {
+
         /**
          * Constructs a new Entry.
          * @param [properties] Properties to set
@@ -13045,7 +12733,7 @@ export namespace Setting {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Setting.Entry;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Setting.Entry;
 
         /**
          * Decodes an Entry message from the specified reader or buffer, length delimited.
@@ -13054,14 +12742,14 @@ export namespace Setting {
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Setting.Entry;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Setting.Entry;
 
         /**
          * Verifies an Entry message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: { [k: string]: any }): string | null;
+        public static verify(message: { [k: string]: any }): (string|null);
 
         /**
          * Creates an Entry message from a plain object. Also converts values to their respective internal types.
@@ -13086,17 +12774,9 @@ export namespace Setting {
     }
 }
 
-/** Properties of a TpStateEntry. */
-export interface ITpStateEntry {
-    /** TpStateEntry address */
-    address?: string | null;
-
-    /** TpStateEntry data */
-    data?: Uint8Array | null;
-}
-
 /** Represents a TpStateEntry. */
 export class TpStateEntry implements ITpStateEntry {
+
     /**
      * Constructs a new TpStateEntry.
      * @param [properties] Properties to set
@@ -13140,7 +12820,7 @@ export class TpStateEntry implements ITpStateEntry {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpStateEntry;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpStateEntry;
 
     /**
      * Decodes a TpStateEntry message from the specified reader or buffer, length delimited.
@@ -13149,14 +12829,14 @@ export class TpStateEntry implements ITpStateEntry {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpStateEntry;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpStateEntry;
 
     /**
      * Verifies a TpStateEntry message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpStateEntry message from a plain object. Also converts values to their respective internal types.
@@ -13180,25 +12860,17 @@ export class TpStateEntry implements ITpStateEntry {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpStateGetRequest. */
-export interface ITpStateGetRequest {
-    /** TpStateGetRequest contextId */
-    contextId?: string | null;
-
-    /** TpStateGetRequest addresses */
-    addresses?: string[] | null;
-}
-
 /** Represents a TpStateGetRequest. */
 export class TpStateGetRequest implements ITpStateGetRequest {
+
     /**
      * Constructs a new TpStateGetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: ITpStateGetRequest);
 
-    /** TpStateGetRequest contextId. */
-    public contextId: string;
+    /** TpStateGetRequest context_id. */
+    public context_id: string;
 
     /** TpStateGetRequest addresses. */
     public addresses: string[];
@@ -13234,7 +12906,7 @@ export class TpStateGetRequest implements ITpStateGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpStateGetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpStateGetRequest;
 
     /**
      * Decodes a TpStateGetRequest message from the specified reader or buffer, length delimited.
@@ -13243,14 +12915,14 @@ export class TpStateGetRequest implements ITpStateGetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpStateGetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpStateGetRequest;
 
     /**
      * Verifies a TpStateGetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpStateGetRequest message from a plain object. Also converts values to their respective internal types.
@@ -13274,17 +12946,9 @@ export class TpStateGetRequest implements ITpStateGetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpStateGetResponse. */
-export interface ITpStateGetResponse {
-    /** TpStateGetResponse entries */
-    entries?: ITpStateEntry[] | null;
-
-    /** TpStateGetResponse status */
-    status?: TpStateGetResponse.Status | null;
-}
-
 /** Represents a TpStateGetResponse. */
 export class TpStateGetResponse implements ITpStateGetResponse {
+
     /**
      * Constructs a new TpStateGetResponse.
      * @param [properties] Properties to set
@@ -13328,7 +12992,7 @@ export class TpStateGetResponse implements ITpStateGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpStateGetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpStateGetResponse;
 
     /**
      * Decodes a TpStateGetResponse message from the specified reader or buffer, length delimited.
@@ -13337,14 +13001,14 @@ export class TpStateGetResponse implements ITpStateGetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpStateGetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpStateGetResponse;
 
     /**
      * Verifies a TpStateGetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpStateGetResponse message from a plain object. Also converts values to their respective internal types.
@@ -13369,33 +13033,26 @@ export class TpStateGetResponse implements ITpStateGetResponse {
 }
 
 export namespace TpStateGetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        AUTHORIZATION_ERROR = 2,
+        AUTHORIZATION_ERROR = 2
     }
-}
-
-/** Properties of a TpStateSetRequest. */
-export interface ITpStateSetRequest {
-    /** TpStateSetRequest contextId */
-    contextId?: string | null;
-
-    /** TpStateSetRequest entries */
-    entries?: ITpStateEntry[] | null;
 }
 
 /** Represents a TpStateSetRequest. */
 export class TpStateSetRequest implements ITpStateSetRequest {
+
     /**
      * Constructs a new TpStateSetRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: ITpStateSetRequest);
 
-    /** TpStateSetRequest contextId. */
-    public contextId: string;
+    /** TpStateSetRequest context_id. */
+    public context_id: string;
 
     /** TpStateSetRequest entries. */
     public entries: ITpStateEntry[];
@@ -13431,7 +13088,7 @@ export class TpStateSetRequest implements ITpStateSetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpStateSetRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpStateSetRequest;
 
     /**
      * Decodes a TpStateSetRequest message from the specified reader or buffer, length delimited.
@@ -13440,14 +13097,14 @@ export class TpStateSetRequest implements ITpStateSetRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpStateSetRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpStateSetRequest;
 
     /**
      * Verifies a TpStateSetRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpStateSetRequest message from a plain object. Also converts values to their respective internal types.
@@ -13471,17 +13128,9 @@ export class TpStateSetRequest implements ITpStateSetRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpStateSetResponse. */
-export interface ITpStateSetResponse {
-    /** TpStateSetResponse addresses */
-    addresses?: string[] | null;
-
-    /** TpStateSetResponse status */
-    status?: TpStateSetResponse.Status | null;
-}
-
 /** Represents a TpStateSetResponse. */
 export class TpStateSetResponse implements ITpStateSetResponse {
+
     /**
      * Constructs a new TpStateSetResponse.
      * @param [properties] Properties to set
@@ -13525,7 +13174,7 @@ export class TpStateSetResponse implements ITpStateSetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpStateSetResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpStateSetResponse;
 
     /**
      * Decodes a TpStateSetResponse message from the specified reader or buffer, length delimited.
@@ -13534,14 +13183,14 @@ export class TpStateSetResponse implements ITpStateSetResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpStateSetResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpStateSetResponse;
 
     /**
      * Verifies a TpStateSetResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpStateSetResponse message from a plain object. Also converts values to their respective internal types.
@@ -13566,33 +13215,26 @@ export class TpStateSetResponse implements ITpStateSetResponse {
 }
 
 export namespace TpStateSetResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        AUTHORIZATION_ERROR = 2,
+        AUTHORIZATION_ERROR = 2
     }
-}
-
-/** Properties of a TpStateDeleteRequest. */
-export interface ITpStateDeleteRequest {
-    /** TpStateDeleteRequest contextId */
-    contextId?: string | null;
-
-    /** TpStateDeleteRequest addresses */
-    addresses?: string[] | null;
 }
 
 /** Represents a TpStateDeleteRequest. */
 export class TpStateDeleteRequest implements ITpStateDeleteRequest {
+
     /**
      * Constructs a new TpStateDeleteRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: ITpStateDeleteRequest);
 
-    /** TpStateDeleteRequest contextId. */
-    public contextId: string;
+    /** TpStateDeleteRequest context_id. */
+    public context_id: string;
 
     /** TpStateDeleteRequest addresses. */
     public addresses: string[];
@@ -13628,7 +13270,7 @@ export class TpStateDeleteRequest implements ITpStateDeleteRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpStateDeleteRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpStateDeleteRequest;
 
     /**
      * Decodes a TpStateDeleteRequest message from the specified reader or buffer, length delimited.
@@ -13637,14 +13279,14 @@ export class TpStateDeleteRequest implements ITpStateDeleteRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpStateDeleteRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpStateDeleteRequest;
 
     /**
      * Verifies a TpStateDeleteRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpStateDeleteRequest message from a plain object. Also converts values to their respective internal types.
@@ -13668,17 +13310,9 @@ export class TpStateDeleteRequest implements ITpStateDeleteRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpStateDeleteResponse. */
-export interface ITpStateDeleteResponse {
-    /** TpStateDeleteResponse addresses */
-    addresses?: string[] | null;
-
-    /** TpStateDeleteResponse status */
-    status?: TpStateDeleteResponse.Status | null;
-}
-
 /** Represents a TpStateDeleteResponse. */
 export class TpStateDeleteResponse implements ITpStateDeleteResponse {
+
     /**
      * Constructs a new TpStateDeleteResponse.
      * @param [properties] Properties to set
@@ -13722,7 +13356,7 @@ export class TpStateDeleteResponse implements ITpStateDeleteResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpStateDeleteResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpStateDeleteResponse;
 
     /**
      * Decodes a TpStateDeleteResponse message from the specified reader or buffer, length delimited.
@@ -13731,14 +13365,14 @@ export class TpStateDeleteResponse implements ITpStateDeleteResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpStateDeleteResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpStateDeleteResponse;
 
     /**
      * Verifies a TpStateDeleteResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpStateDeleteResponse message from a plain object. Also converts values to their respective internal types.
@@ -13753,10 +13387,7 @@ export class TpStateDeleteResponse implements ITpStateDeleteResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: TpStateDeleteResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: TpStateDeleteResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this TpStateDeleteResponse to JSON.
@@ -13766,33 +13397,26 @@ export class TpStateDeleteResponse implements ITpStateDeleteResponse {
 }
 
 export namespace TpStateDeleteResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        AUTHORIZATION_ERROR = 2,
+        AUTHORIZATION_ERROR = 2
     }
-}
-
-/** Properties of a TpReceiptAddDataRequest. */
-export interface ITpReceiptAddDataRequest {
-    /** TpReceiptAddDataRequest contextId */
-    contextId?: string | null;
-
-    /** TpReceiptAddDataRequest data */
-    data?: Uint8Array | null;
 }
 
 /** Represents a TpReceiptAddDataRequest. */
 export class TpReceiptAddDataRequest implements ITpReceiptAddDataRequest {
+
     /**
      * Constructs a new TpReceiptAddDataRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: ITpReceiptAddDataRequest);
 
-    /** TpReceiptAddDataRequest contextId. */
-    public contextId: string;
+    /** TpReceiptAddDataRequest context_id. */
+    public context_id: string;
 
     /** TpReceiptAddDataRequest data. */
     public data: Uint8Array;
@@ -13828,7 +13452,7 @@ export class TpReceiptAddDataRequest implements ITpReceiptAddDataRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpReceiptAddDataRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpReceiptAddDataRequest;
 
     /**
      * Decodes a TpReceiptAddDataRequest message from the specified reader or buffer, length delimited.
@@ -13837,14 +13461,14 @@ export class TpReceiptAddDataRequest implements ITpReceiptAddDataRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpReceiptAddDataRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpReceiptAddDataRequest;
 
     /**
      * Verifies a TpReceiptAddDataRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpReceiptAddDataRequest message from a plain object. Also converts values to their respective internal types.
@@ -13859,10 +13483,7 @@ export class TpReceiptAddDataRequest implements ITpReceiptAddDataRequest {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: TpReceiptAddDataRequest,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: TpReceiptAddDataRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this TpReceiptAddDataRequest to JSON.
@@ -13871,14 +13492,9 @@ export class TpReceiptAddDataRequest implements ITpReceiptAddDataRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpReceiptAddDataResponse. */
-export interface ITpReceiptAddDataResponse {
-    /** TpReceiptAddDataResponse status */
-    status?: TpReceiptAddDataResponse.Status | null;
-}
-
 /** Represents a TpReceiptAddDataResponse. */
 export class TpReceiptAddDataResponse implements ITpReceiptAddDataResponse {
+
     /**
      * Constructs a new TpReceiptAddDataResponse.
      * @param [properties] Properties to set
@@ -13919,7 +13535,7 @@ export class TpReceiptAddDataResponse implements ITpReceiptAddDataResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpReceiptAddDataResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpReceiptAddDataResponse;
 
     /**
      * Decodes a TpReceiptAddDataResponse message from the specified reader or buffer, length delimited.
@@ -13928,14 +13544,14 @@ export class TpReceiptAddDataResponse implements ITpReceiptAddDataResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpReceiptAddDataResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpReceiptAddDataResponse;
 
     /**
      * Verifies a TpReceiptAddDataResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpReceiptAddDataResponse message from a plain object. Also converts values to their respective internal types.
@@ -13950,10 +13566,7 @@ export class TpReceiptAddDataResponse implements ITpReceiptAddDataResponse {
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(
-        message: TpReceiptAddDataResponse,
-        options?: $protobuf.IConversionOptions,
-    ): { [k: string]: any };
+    public static toObject(message: TpReceiptAddDataResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
      * Converts this TpReceiptAddDataResponse to JSON.
@@ -13963,36 +13576,29 @@ export class TpReceiptAddDataResponse implements ITpReceiptAddDataResponse {
 }
 
 export namespace TpReceiptAddDataResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        ERROR = 2,
+        ERROR = 2
     }
-}
-
-/** Properties of a TpEventAddRequest. */
-export interface ITpEventAddRequest {
-    /** TpEventAddRequest contextId */
-    contextId?: string | null;
-
-    /** TpEventAddRequest event */
-    event?: IEvent | null;
 }
 
 /** Represents a TpEventAddRequest. */
 export class TpEventAddRequest implements ITpEventAddRequest {
+
     /**
      * Constructs a new TpEventAddRequest.
      * @param [properties] Properties to set
      */
     constructor(properties?: ITpEventAddRequest);
 
-    /** TpEventAddRequest contextId. */
-    public contextId: string;
+    /** TpEventAddRequest context_id. */
+    public context_id: string;
 
     /** TpEventAddRequest event. */
-    public event?: IEvent | null;
+    public event?: (IEvent|null);
 
     /**
      * Creates a new TpEventAddRequest instance using the specified properties.
@@ -14025,7 +13631,7 @@ export class TpEventAddRequest implements ITpEventAddRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpEventAddRequest;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpEventAddRequest;
 
     /**
      * Decodes a TpEventAddRequest message from the specified reader or buffer, length delimited.
@@ -14034,14 +13640,14 @@ export class TpEventAddRequest implements ITpEventAddRequest {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpEventAddRequest;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpEventAddRequest;
 
     /**
      * Verifies a TpEventAddRequest message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpEventAddRequest message from a plain object. Also converts values to their respective internal types.
@@ -14065,14 +13671,9 @@ export class TpEventAddRequest implements ITpEventAddRequest {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a TpEventAddResponse. */
-export interface ITpEventAddResponse {
-    /** TpEventAddResponse status */
-    status?: TpEventAddResponse.Status | null;
-}
-
 /** Represents a TpEventAddResponse. */
 export class TpEventAddResponse implements ITpEventAddResponse {
+
     /**
      * Constructs a new TpEventAddResponse.
      * @param [properties] Properties to set
@@ -14113,7 +13714,7 @@ export class TpEventAddResponse implements ITpEventAddResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): TpEventAddResponse;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): TpEventAddResponse;
 
     /**
      * Decodes a TpEventAddResponse message from the specified reader or buffer, length delimited.
@@ -14122,14 +13723,14 @@ export class TpEventAddResponse implements ITpEventAddResponse {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): TpEventAddResponse;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): TpEventAddResponse;
 
     /**
      * Verifies a TpEventAddResponse message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a TpEventAddResponse message from a plain object. Also converts values to their respective internal types.
@@ -14154,22 +13755,18 @@ export class TpEventAddResponse implements ITpEventAddResponse {
 }
 
 export namespace TpEventAddResponse {
+
     /** Status enum. */
     enum Status {
         STATUS_UNSET = 0,
         OK = 1,
-        ERROR = 2,
+        ERROR = 2
     }
-}
-
-/** Properties of a MessageList. */
-export interface IMessageList {
-    /** MessageList messages */
-    messages?: IMessage[] | null;
 }
 
 /** Represents a MessageList. */
 export class MessageList implements IMessageList {
+
     /**
      * Constructs a new MessageList.
      * @param [properties] Properties to set
@@ -14210,7 +13807,7 @@ export class MessageList implements IMessageList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): MessageList;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): MessageList;
 
     /**
      * Decodes a MessageList message from the specified reader or buffer, length delimited.
@@ -14219,14 +13816,14 @@ export class MessageList implements IMessageList {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): MessageList;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): MessageList;
 
     /**
      * Verifies a MessageList message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a MessageList message from a plain object. Also converts values to their respective internal types.
@@ -14250,31 +13847,20 @@ export class MessageList implements IMessageList {
     public toJSON(): { [k: string]: any };
 }
 
-/** Properties of a Message. */
-export interface IMessage {
-    /** Message messageType */
-    messageType?: Message.MessageType | null;
-
-    /** Message correlationId */
-    correlationId?: string | null;
-
-    /** Message content */
-    content?: Uint8Array | null;
-}
-
 /** Represents a Message. */
 export class Message implements IMessage {
+
     /**
      * Constructs a new Message.
      * @param [properties] Properties to set
      */
     constructor(properties?: IMessage);
 
-    /** Message messageType. */
-    public messageType: Message.MessageType;
+    /** Message message_type. */
+    public message_type: Message.MessageType;
 
-    /** Message correlationId. */
-    public correlationId: string;
+    /** Message correlation_id. */
+    public correlation_id: string;
 
     /** Message content. */
     public content: Uint8Array;
@@ -14310,7 +13896,7 @@ export class Message implements IMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: $protobuf.Reader | Uint8Array, length?: number): Message;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Message;
 
     /**
      * Decodes a Message message from the specified reader or buffer, length delimited.
@@ -14319,14 +13905,14 @@ export class Message implements IMessage {
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: $protobuf.Reader | Uint8Array): Message;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Message;
 
     /**
      * Verifies a Message message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
-    public static verify(message: { [k: string]: any }): string | null;
+    public static verify(message: { [k: string]: any }): (string|null);
 
     /**
      * Creates a Message message from a plain object. Also converts values to their respective internal types.
@@ -14351,6 +13937,7 @@ export class Message implements IMessage {
 }
 
 export namespace Message {
+
     /** MessageType enum. */
     enum MessageType {
         DEFAULT = 0,
@@ -14469,6 +14056,6 @@ export namespace Message {
         CONSENSUS_NOTIFY_BLOCK_VALID = 904,
         CONSENSUS_NOTIFY_BLOCK_INVALID = 905,
         CONSENSUS_NOTIFY_BLOCK_COMMIT = 906,
-        CONSENSUS_NOTIFY_ACK = 999,
+        CONSENSUS_NOTIFY_ACK = 999
     }
 }
