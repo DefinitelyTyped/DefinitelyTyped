@@ -13,7 +13,10 @@ export interface LintError {
     character: number;
     scope: string;
     reason: string;
-    [key: string]: any;
+    a: any | null | undefined;
+    b: any | null | undefined;
+    c: any | null | undefined;
+    d: any | null | undefined;
 }
 
 export type LintOptions = Record<string, any>;
