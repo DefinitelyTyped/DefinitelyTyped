@@ -349,6 +349,10 @@ const doSomething = (element: cheerio.Element): void => {
     if (element.type !== 'text' && element.type !== 'comment') {
         // $ExpectType { [attr: string]: string; }
         element.attribs;
+        // $ExpectType { [attr: string]: string; }
+        element['x-attribsNamespace'];
+        // $ExpectType { [attr: string]: string; }
+        element['x-prefixNamespace'];
         // $ExpectType Element[]
         element.children;
     }
