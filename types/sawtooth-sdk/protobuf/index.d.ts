@@ -2,891 +2,19 @@
 // tslint:disable:interface-name
 // tslint:disable:no-unnecessary-qualifier
 // tslint:disable:no-empty-interface
+// tslint:disable:no-padding
 
 /// <reference types="long" />
 
 import * as $protobuf from "protobufjs";
-/** Properties of a ConnectionRequest. */
-export interface IConnectionRequest {
+/** Properties of a BatchHeader. */
+export interface IBatchHeader {
 
-    /** ConnectionRequest endpoint */
-    endpoint?: (string|null);
-}
+    /** BatchHeader signer_public_key */
+    signer_public_key?: (string|null);
 
-/** Represents a ConnectionRequest. */
-export class ConnectionRequest implements IConnectionRequest {
-
-    /**
-     * Constructs a new ConnectionRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IConnectionRequest);
-
-    /** ConnectionRequest endpoint. */
-    public endpoint: string;
-
-    /**
-     * Creates a new ConnectionRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns ConnectionRequest instance
-     */
-    public static create(properties?: IConnectionRequest): ConnectionRequest;
-
-    /**
-     * Encodes the specified ConnectionRequest message. Does not implicitly {@link ConnectionRequest.verify|verify} messages.
-     * @param message ConnectionRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IConnectionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified ConnectionRequest message, length delimited. Does not implicitly {@link ConnectionRequest.verify|verify} messages.
-     * @param message ConnectionRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IConnectionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a ConnectionRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns ConnectionRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConnectionRequest;
-
-    /**
-     * Decodes a ConnectionRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns ConnectionRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConnectionRequest;
-
-    /**
-     * Verifies a ConnectionRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a ConnectionRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns ConnectionRequest
-     */
-    public static fromObject(object: { [k: string]: any }): ConnectionRequest;
-
-    /**
-     * Creates a plain object from a ConnectionRequest message. Also converts values to other types if specified.
-     * @param message ConnectionRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: ConnectionRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this ConnectionRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** RoleType enum. */
-export enum RoleType {
-    ROLE_TYPE_UNSET = 0,
-    ALL = 1,
-    NETWORK = 2
-}
-
-/** Represents a ConnectionResponse. */
-export class ConnectionResponse implements IConnectionResponse {
-
-    /**
-     * Constructs a new ConnectionResponse.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IConnectionResponse);
-
-    /** ConnectionResponse roles. */
-    public roles: ConnectionResponse.IRoleEntry[];
-
-    /** ConnectionResponse status. */
-    public status: ConnectionResponse.Status;
-
-    /**
-     * Creates a new ConnectionResponse instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns ConnectionResponse instance
-     */
-    public static create(properties?: IConnectionResponse): ConnectionResponse;
-
-    /**
-     * Encodes the specified ConnectionResponse message. Does not implicitly {@link ConnectionResponse.verify|verify} messages.
-     * @param message ConnectionResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IConnectionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified ConnectionResponse message, length delimited. Does not implicitly {@link ConnectionResponse.verify|verify} messages.
-     * @param message ConnectionResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IConnectionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a ConnectionResponse message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns ConnectionResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConnectionResponse;
-
-    /**
-     * Decodes a ConnectionResponse message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns ConnectionResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConnectionResponse;
-
-    /**
-     * Verifies a ConnectionResponse message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a ConnectionResponse message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns ConnectionResponse
-     */
-    public static fromObject(object: { [k: string]: any }): ConnectionResponse;
-
-    /**
-     * Creates a plain object from a ConnectionResponse message. Also converts values to other types if specified.
-     * @param message ConnectionResponse
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: ConnectionResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this ConnectionResponse to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-export namespace ConnectionResponse {
-
-    /** Status enum. */
-    enum Status {
-        STATUS_UNSET = 0,
-        OK = 1,
-        ERROR = 2
-    }
-
-    /** AuthorizationType enum. */
-    enum AuthorizationType {
-        AUTHORIZATION_TYPE_UNSET = 0,
-        TRUST = 1,
-        CHALLENGE = 2
-    }
-
-    /** Properties of a RoleEntry. */
-    interface IRoleEntry {
-
-        /** RoleEntry role */
-        role?: (RoleType|null);
-
-        /** RoleEntry auth_type */
-        auth_type?: (ConnectionResponse.AuthorizationType|null);
-    }
-
-    /** Represents a RoleEntry. */
-    class RoleEntry implements IRoleEntry {
-
-        /**
-         * Constructs a new RoleEntry.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: ConnectionResponse.IRoleEntry);
-
-        /** RoleEntry role. */
-        public role: RoleType;
-
-        /** RoleEntry auth_type. */
-        public auth_type: ConnectionResponse.AuthorizationType;
-
-        /**
-         * Creates a new RoleEntry instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns RoleEntry instance
-         */
-        public static create(properties?: ConnectionResponse.IRoleEntry): ConnectionResponse.RoleEntry;
-
-        /**
-         * Encodes the specified RoleEntry message. Does not implicitly {@link ConnectionResponse.RoleEntry.verify|verify} messages.
-         * @param message RoleEntry message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: ConnectionResponse.IRoleEntry, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified RoleEntry message, length delimited. Does not implicitly {@link ConnectionResponse.RoleEntry.verify|verify} messages.
-         * @param message RoleEntry message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: ConnectionResponse.IRoleEntry, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a RoleEntry message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns RoleEntry
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ConnectionResponse.RoleEntry;
-
-        /**
-         * Decodes a RoleEntry message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns RoleEntry
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ConnectionResponse.RoleEntry;
-
-        /**
-         * Verifies a RoleEntry message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a RoleEntry message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns RoleEntry
-         */
-        public static fromObject(object: { [k: string]: any }): ConnectionResponse.RoleEntry;
-
-        /**
-         * Creates a plain object from a RoleEntry message. Also converts values to other types if specified.
-         * @param message RoleEntry
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: ConnectionResponse.RoleEntry, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this RoleEntry to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-}
-
-/** Represents an AuthorizationTrustRequest. */
-export class AuthorizationTrustRequest implements IAuthorizationTrustRequest {
-
-    /**
-     * Constructs a new AuthorizationTrustRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IAuthorizationTrustRequest);
-
-    /** AuthorizationTrustRequest roles. */
-    public roles: RoleType[];
-
-    /** AuthorizationTrustRequest public_key. */
-    public public_key: string;
-
-    /**
-     * Creates a new AuthorizationTrustRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns AuthorizationTrustRequest instance
-     */
-    public static create(properties?: IAuthorizationTrustRequest): AuthorizationTrustRequest;
-
-    /**
-     * Encodes the specified AuthorizationTrustRequest message. Does not implicitly {@link AuthorizationTrustRequest.verify|verify} messages.
-     * @param message AuthorizationTrustRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IAuthorizationTrustRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified AuthorizationTrustRequest message, length delimited. Does not implicitly {@link AuthorizationTrustRequest.verify|verify} messages.
-     * @param message AuthorizationTrustRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IAuthorizationTrustRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an AuthorizationTrustRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns AuthorizationTrustRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationTrustRequest;
-
-    /**
-     * Decodes an AuthorizationTrustRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns AuthorizationTrustRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationTrustRequest;
-
-    /**
-     * Verifies an AuthorizationTrustRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an AuthorizationTrustRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns AuthorizationTrustRequest
-     */
-    public static fromObject(object: { [k: string]: any }): AuthorizationTrustRequest;
-
-    /**
-     * Creates a plain object from an AuthorizationTrustRequest message. Also converts values to other types if specified.
-     * @param message AuthorizationTrustRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: AuthorizationTrustRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this AuthorizationTrustRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Represents an AuthorizationTrustResponse. */
-export class AuthorizationTrustResponse implements IAuthorizationTrustResponse {
-
-    /**
-     * Constructs a new AuthorizationTrustResponse.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IAuthorizationTrustResponse);
-
-    /** AuthorizationTrustResponse roles. */
-    public roles: RoleType[];
-
-    /**
-     * Creates a new AuthorizationTrustResponse instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns AuthorizationTrustResponse instance
-     */
-    public static create(properties?: IAuthorizationTrustResponse): AuthorizationTrustResponse;
-
-    /**
-     * Encodes the specified AuthorizationTrustResponse message. Does not implicitly {@link AuthorizationTrustResponse.verify|verify} messages.
-     * @param message AuthorizationTrustResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IAuthorizationTrustResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified AuthorizationTrustResponse message, length delimited. Does not implicitly {@link AuthorizationTrustResponse.verify|verify} messages.
-     * @param message AuthorizationTrustResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IAuthorizationTrustResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an AuthorizationTrustResponse message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns AuthorizationTrustResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationTrustResponse;
-
-    /**
-     * Decodes an AuthorizationTrustResponse message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns AuthorizationTrustResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationTrustResponse;
-
-    /**
-     * Verifies an AuthorizationTrustResponse message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an AuthorizationTrustResponse message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns AuthorizationTrustResponse
-     */
-    public static fromObject(object: { [k: string]: any }): AuthorizationTrustResponse;
-
-    /**
-     * Creates a plain object from an AuthorizationTrustResponse message. Also converts values to other types if specified.
-     * @param message AuthorizationTrustResponse
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: AuthorizationTrustResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this AuthorizationTrustResponse to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Represents an AuthorizationViolation. */
-export class AuthorizationViolation implements IAuthorizationViolation {
-
-    /**
-     * Constructs a new AuthorizationViolation.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IAuthorizationViolation);
-
-    /** AuthorizationViolation violation. */
-    public violation: RoleType;
-
-    /**
-     * Creates a new AuthorizationViolation instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns AuthorizationViolation instance
-     */
-    public static create(properties?: IAuthorizationViolation): AuthorizationViolation;
-
-    /**
-     * Encodes the specified AuthorizationViolation message. Does not implicitly {@link AuthorizationViolation.verify|verify} messages.
-     * @param message AuthorizationViolation message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IAuthorizationViolation, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified AuthorizationViolation message, length delimited. Does not implicitly {@link AuthorizationViolation.verify|verify} messages.
-     * @param message AuthorizationViolation message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IAuthorizationViolation, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an AuthorizationViolation message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns AuthorizationViolation
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationViolation;
-
-    /**
-     * Decodes an AuthorizationViolation message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns AuthorizationViolation
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationViolation;
-
-    /**
-     * Verifies an AuthorizationViolation message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an AuthorizationViolation message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns AuthorizationViolation
-     */
-    public static fromObject(object: { [k: string]: any }): AuthorizationViolation;
-
-    /**
-     * Creates a plain object from an AuthorizationViolation message. Also converts values to other types if specified.
-     * @param message AuthorizationViolation
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: AuthorizationViolation, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this AuthorizationViolation to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Represents an AuthorizationChallengeRequest. */
-export class AuthorizationChallengeRequest implements IAuthorizationChallengeRequest {
-
-    /**
-     * Constructs a new AuthorizationChallengeRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IAuthorizationChallengeRequest);
-
-    /**
-     * Creates a new AuthorizationChallengeRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns AuthorizationChallengeRequest instance
-     */
-    public static create(properties?: IAuthorizationChallengeRequest): AuthorizationChallengeRequest;
-
-    /**
-     * Encodes the specified AuthorizationChallengeRequest message. Does not implicitly {@link AuthorizationChallengeRequest.verify|verify} messages.
-     * @param message AuthorizationChallengeRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IAuthorizationChallengeRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified AuthorizationChallengeRequest message, length delimited. Does not implicitly {@link AuthorizationChallengeRequest.verify|verify} messages.
-     * @param message AuthorizationChallengeRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IAuthorizationChallengeRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an AuthorizationChallengeRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns AuthorizationChallengeRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationChallengeRequest;
-
-    /**
-     * Decodes an AuthorizationChallengeRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns AuthorizationChallengeRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationChallengeRequest;
-
-    /**
-     * Verifies an AuthorizationChallengeRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an AuthorizationChallengeRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns AuthorizationChallengeRequest
-     */
-    public static fromObject(object: { [k: string]: any }): AuthorizationChallengeRequest;
-
-    /**
-     * Creates a plain object from an AuthorizationChallengeRequest message. Also converts values to other types if specified.
-     * @param message AuthorizationChallengeRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: AuthorizationChallengeRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this AuthorizationChallengeRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Represents an AuthorizationChallengeResponse. */
-export class AuthorizationChallengeResponse implements IAuthorizationChallengeResponse {
-
-    /**
-     * Constructs a new AuthorizationChallengeResponse.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IAuthorizationChallengeResponse);
-
-    /** AuthorizationChallengeResponse payload. */
-    public payload: Uint8Array;
-
-    /**
-     * Creates a new AuthorizationChallengeResponse instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns AuthorizationChallengeResponse instance
-     */
-    public static create(properties?: IAuthorizationChallengeResponse): AuthorizationChallengeResponse;
-
-    /**
-     * Encodes the specified AuthorizationChallengeResponse message. Does not implicitly {@link AuthorizationChallengeResponse.verify|verify} messages.
-     * @param message AuthorizationChallengeResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IAuthorizationChallengeResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified AuthorizationChallengeResponse message, length delimited. Does not implicitly {@link AuthorizationChallengeResponse.verify|verify} messages.
-     * @param message AuthorizationChallengeResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IAuthorizationChallengeResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an AuthorizationChallengeResponse message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns AuthorizationChallengeResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationChallengeResponse;
-
-    /**
-     * Decodes an AuthorizationChallengeResponse message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns AuthorizationChallengeResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationChallengeResponse;
-
-    /**
-     * Verifies an AuthorizationChallengeResponse message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an AuthorizationChallengeResponse message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns AuthorizationChallengeResponse
-     */
-    public static fromObject(object: { [k: string]: any }): AuthorizationChallengeResponse;
-
-    /**
-     * Creates a plain object from an AuthorizationChallengeResponse message. Also converts values to other types if specified.
-     * @param message AuthorizationChallengeResponse
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: AuthorizationChallengeResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this AuthorizationChallengeResponse to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Represents an AuthorizationChallengeSubmit. */
-export class AuthorizationChallengeSubmit implements IAuthorizationChallengeSubmit {
-
-    /**
-     * Constructs a new AuthorizationChallengeSubmit.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IAuthorizationChallengeSubmit);
-
-    /** AuthorizationChallengeSubmit public_key. */
-    public public_key: string;
-
-    /** AuthorizationChallengeSubmit signature. */
-    public signature: string;
-
-    /** AuthorizationChallengeSubmit roles. */
-    public roles: RoleType[];
-
-    /**
-     * Creates a new AuthorizationChallengeSubmit instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns AuthorizationChallengeSubmit instance
-     */
-    public static create(properties?: IAuthorizationChallengeSubmit): AuthorizationChallengeSubmit;
-
-    /**
-     * Encodes the specified AuthorizationChallengeSubmit message. Does not implicitly {@link AuthorizationChallengeSubmit.verify|verify} messages.
-     * @param message AuthorizationChallengeSubmit message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IAuthorizationChallengeSubmit, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified AuthorizationChallengeSubmit message, length delimited. Does not implicitly {@link AuthorizationChallengeSubmit.verify|verify} messages.
-     * @param message AuthorizationChallengeSubmit message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IAuthorizationChallengeSubmit, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an AuthorizationChallengeSubmit message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns AuthorizationChallengeSubmit
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationChallengeSubmit;
-
-    /**
-     * Decodes an AuthorizationChallengeSubmit message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns AuthorizationChallengeSubmit
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationChallengeSubmit;
-
-    /**
-     * Verifies an AuthorizationChallengeSubmit message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an AuthorizationChallengeSubmit message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns AuthorizationChallengeSubmit
-     */
-    public static fromObject(object: { [k: string]: any }): AuthorizationChallengeSubmit;
-
-    /**
-     * Creates a plain object from an AuthorizationChallengeSubmit message. Also converts values to other types if specified.
-     * @param message AuthorizationChallengeSubmit
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: AuthorizationChallengeSubmit, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this AuthorizationChallengeSubmit to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Represents an AuthorizationChallengeResult. */
-export class AuthorizationChallengeResult implements IAuthorizationChallengeResult {
-
-    /**
-     * Constructs a new AuthorizationChallengeResult.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IAuthorizationChallengeResult);
-
-    /** AuthorizationChallengeResult roles. */
-    public roles: RoleType[];
-
-    /**
-     * Creates a new AuthorizationChallengeResult instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns AuthorizationChallengeResult instance
-     */
-    public static create(properties?: IAuthorizationChallengeResult): AuthorizationChallengeResult;
-
-    /**
-     * Encodes the specified AuthorizationChallengeResult message. Does not implicitly {@link AuthorizationChallengeResult.verify|verify} messages.
-     * @param message AuthorizationChallengeResult message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IAuthorizationChallengeResult, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified AuthorizationChallengeResult message, length delimited. Does not implicitly {@link AuthorizationChallengeResult.verify|verify} messages.
-     * @param message AuthorizationChallengeResult message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IAuthorizationChallengeResult, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an AuthorizationChallengeResult message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns AuthorizationChallengeResult
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AuthorizationChallengeResult;
-
-    /**
-     * Decodes an AuthorizationChallengeResult message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns AuthorizationChallengeResult
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AuthorizationChallengeResult;
-
-    /**
-     * Verifies an AuthorizationChallengeResult message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an AuthorizationChallengeResult message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns AuthorizationChallengeResult
-     */
-    public static fromObject(object: { [k: string]: any }): AuthorizationChallengeResult;
-
-    /**
-     * Creates a plain object from an AuthorizationChallengeResult message. Also converts values to other types if specified.
-     * @param message AuthorizationChallengeResult
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: AuthorizationChallengeResult, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this AuthorizationChallengeResult to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
+    /** BatchHeader transaction_ids */
+    transaction_ids?: (string[]|null);
 }
 
 /** Represents a BatchHeader. */
@@ -973,6 +101,22 @@ export class BatchHeader implements IBatchHeader {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a Batch. */
+export interface IBatch {
+
+    /** Batch header */
+    header?: (Uint8Array|null);
+
+    /** Batch header_signature */
+    header_signature?: (string|null);
+
+    /** Batch transactions */
+    transactions?: (ITransaction[]|null);
+
+    /** Batch trace */
+    trace?: (boolean|null);
 }
 
 /** Represents a Batch. */
@@ -1067,6 +211,13 @@ export class Batch implements IBatch {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a BatchList. */
+export interface IBatchList {
+
+    /** BatchList batches */
+    batches?: (IBatch[]|null);
+}
+
 /** Represents a BatchList. */
 export class BatchList implements IBatchList {
 
@@ -1148,6 +299,37 @@ export class BatchList implements IBatchList {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TransactionHeader. */
+export interface ITransactionHeader {
+
+    /** TransactionHeader batcher_public_key */
+    batcher_public_key?: (string|null);
+
+    /** TransactionHeader dependencies */
+    dependencies?: (string[]|null);
+
+    /** TransactionHeader family_name */
+    family_name?: (string|null);
+
+    /** TransactionHeader family_version */
+    family_version?: (string|null);
+
+    /** TransactionHeader inputs */
+    inputs?: (string[]|null);
+
+    /** TransactionHeader nonce */
+    nonce?: (string|null);
+
+    /** TransactionHeader outputs */
+    outputs?: (string[]|null);
+
+    /** TransactionHeader payload_sha512 */
+    payload_sha512?: (string|null);
+
+    /** TransactionHeader signer_public_key */
+    signer_public_key?: (string|null);
 }
 
 /** Represents a TransactionHeader. */
@@ -1257,6 +439,19 @@ export class TransactionHeader implements ITransactionHeader {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a Transaction. */
+export interface ITransaction {
+
+    /** Transaction header */
+    header?: (Uint8Array|null);
+
+    /** Transaction header_signature */
+    header_signature?: (string|null);
+
+    /** Transaction payload */
+    payload?: (Uint8Array|null);
+}
+
 /** Represents a Transaction. */
 export class Transaction implements ITransaction {
 
@@ -1346,6 +541,13 @@ export class Transaction implements ITransaction {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a TransactionList. */
+export interface ITransactionList {
+
+    /** TransactionList transactions */
+    transactions?: (ITransaction[]|null);
+}
+
 /** Represents a TransactionList. */
 export class TransactionList implements ITransactionList {
 
@@ -1427,6 +629,28 @@ export class TransactionList implements ITransactionList {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a BlockHeader. */
+export interface IBlockHeader {
+
+    /** BlockHeader block_num */
+    block_num?: (number|Long|null);
+
+    /** BlockHeader previous_block_id */
+    previous_block_id?: (string|null);
+
+    /** BlockHeader signer_public_key */
+    signer_public_key?: (string|null);
+
+    /** BlockHeader batch_ids */
+    batch_ids?: (string[]|null);
+
+    /** BlockHeader consensus */
+    consensus?: (Uint8Array|null);
+
+    /** BlockHeader state_root_hash */
+    state_root_hash?: (string|null);
 }
 
 /** Represents a BlockHeader. */
@@ -1527,6 +751,19 @@ export class BlockHeader implements IBlockHeader {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a Block. */
+export interface IBlock {
+
+    /** Block header */
+    header?: (Uint8Array|null);
+
+    /** Block header_signature */
+    header_signature?: (string|null);
+
+    /** Block batches */
+    batches?: (IBatch[]|null);
+}
+
 /** Represents a Block. */
 export class Block implements IBlock {
 
@@ -1614,6 +851,22 @@ export class Block implements IBlock {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBatchListRequest. */
+export interface IClientBatchListRequest {
+
+    /** ClientBatchListRequest head_id */
+    head_id?: (string|null);
+
+    /** ClientBatchListRequest batch_ids */
+    batch_ids?: (string[]|null);
+
+    /** ClientBatchListRequest paging */
+    paging?: (IClientPagingControls|null);
+
+    /** ClientBatchListRequest sorting */
+    sorting?: (IClientSortControls[]|null);
 }
 
 /** Represents a ClientBatchListRequest. */
@@ -1706,6 +959,22 @@ export class ClientBatchListRequest implements IClientBatchListRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBatchListResponse. */
+export interface IClientBatchListResponse {
+
+    /** ClientBatchListResponse status */
+    status?: (ClientBatchListResponse.Status|null);
+
+    /** ClientBatchListResponse batches */
+    batches?: (IBatch[]|null);
+
+    /** ClientBatchListResponse head_id */
+    head_id?: (string|null);
+
+    /** ClientBatchListResponse paging */
+    paging?: (IClientPagingResponse|null);
 }
 
 /** Represents a ClientBatchListResponse. */
@@ -1816,6 +1085,13 @@ export namespace ClientBatchListResponse {
     }
 }
 
+/** Properties of a ClientBatchGetRequest. */
+export interface IClientBatchGetRequest {
+
+    /** ClientBatchGetRequest batch_id */
+    batch_id?: (string|null);
+}
+
 /** Represents a ClientBatchGetRequest. */
 export class ClientBatchGetRequest implements IClientBatchGetRequest {
 
@@ -1897,6 +1173,16 @@ export class ClientBatchGetRequest implements IClientBatchGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBatchGetResponse. */
+export interface IClientBatchGetResponse {
+
+    /** ClientBatchGetResponse status */
+    status?: (ClientBatchGetResponse.Status|null);
+
+    /** ClientBatchGetResponse batch */
+    batch?: (IBatch|null);
 }
 
 /** Represents a ClientBatchGetResponse. */
@@ -1997,6 +1283,16 @@ export namespace ClientBatchGetResponse {
     }
 }
 
+/** Properties of a ClientPagingControls. */
+export interface IClientPagingControls {
+
+    /** ClientPagingControls start */
+    start?: (string|null);
+
+    /** ClientPagingControls limit */
+    limit?: (number|null);
+}
+
 /** Represents a ClientPagingControls. */
 export class ClientPagingControls implements IClientPagingControls {
 
@@ -2081,6 +1377,19 @@ export class ClientPagingControls implements IClientPagingControls {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientPagingResponse. */
+export interface IClientPagingResponse {
+
+    /** ClientPagingResponse next */
+    next?: (string|null);
+
+    /** ClientPagingResponse start */
+    start?: (string|null);
+
+    /** ClientPagingResponse limit */
+    limit?: (number|null);
 }
 
 /** Represents a ClientPagingResponse. */
@@ -2172,6 +1481,16 @@ export class ClientPagingResponse implements IClientPagingResponse {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ClientSortControls. */
+export interface IClientSortControls {
+
+    /** ClientSortControls keys */
+    keys?: (string[]|null);
+
+    /** ClientSortControls reverse */
+    reverse?: (boolean|null);
+}
+
 /** Represents a ClientSortControls. */
 export class ClientSortControls implements IClientSortControls {
 
@@ -2256,6 +1575,19 @@ export class ClientSortControls implements IClientSortControls {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBatchStatus. */
+export interface IClientBatchStatus {
+
+    /** ClientBatchStatus batch_id */
+    batch_id?: (string|null);
+
+    /** ClientBatchStatus status */
+    status?: (ClientBatchStatus.Status|null);
+
+    /** ClientBatchStatus invalid_transactions */
+    invalid_transactions?: (ClientBatchStatus.IInvalidTransaction[]|null);
 }
 
 /** Represents a ClientBatchStatus. */
@@ -2461,6 +1793,13 @@ export namespace ClientBatchStatus {
     }
 }
 
+/** Properties of a ClientBatchSubmitRequest. */
+export interface IClientBatchSubmitRequest {
+
+    /** ClientBatchSubmitRequest batches */
+    batches?: (IBatch[]|null);
+}
+
 /** Represents a ClientBatchSubmitRequest. */
 export class ClientBatchSubmitRequest implements IClientBatchSubmitRequest {
 
@@ -2542,6 +1881,13 @@ export class ClientBatchSubmitRequest implements IClientBatchSubmitRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBatchSubmitResponse. */
+export interface IClientBatchSubmitResponse {
+
+    /** ClientBatchSubmitResponse status */
+    status?: (ClientBatchSubmitResponse.Status|null);
 }
 
 /** Represents a ClientBatchSubmitResponse. */
@@ -2639,6 +1985,19 @@ export namespace ClientBatchSubmitResponse {
     }
 }
 
+/** Properties of a ClientBatchStatusRequest. */
+export interface IClientBatchStatusRequest {
+
+    /** ClientBatchStatusRequest batch_ids */
+    batch_ids?: (string[]|null);
+
+    /** ClientBatchStatusRequest wait */
+    wait?: (boolean|null);
+
+    /** ClientBatchStatusRequest timeout */
+    timeout?: (number|null);
+}
+
 /** Represents a ClientBatchStatusRequest. */
 export class ClientBatchStatusRequest implements IClientBatchStatusRequest {
 
@@ -2726,6 +2085,16 @@ export class ClientBatchStatusRequest implements IClientBatchStatusRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBatchStatusResponse. */
+export interface IClientBatchStatusResponse {
+
+    /** ClientBatchStatusResponse status */
+    status?: (ClientBatchStatusResponse.Status|null);
+
+    /** ClientBatchStatusResponse batch_statuses */
+    batch_statuses?: (IClientBatchStatus[]|null);
 }
 
 /** Represents a ClientBatchStatusResponse. */
@@ -2826,6 +2195,22 @@ export namespace ClientBatchStatusResponse {
     }
 }
 
+/** Properties of a ClientBlockListRequest. */
+export interface IClientBlockListRequest {
+
+    /** ClientBlockListRequest head_id */
+    head_id?: (string|null);
+
+    /** ClientBlockListRequest block_ids */
+    block_ids?: (string[]|null);
+
+    /** ClientBlockListRequest paging */
+    paging?: (IClientPagingControls|null);
+
+    /** ClientBlockListRequest sorting */
+    sorting?: (IClientSortControls[]|null);
+}
+
 /** Represents a ClientBlockListRequest. */
 export class ClientBlockListRequest implements IClientBlockListRequest {
 
@@ -2916,6 +2301,22 @@ export class ClientBlockListRequest implements IClientBlockListRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBlockListResponse. */
+export interface IClientBlockListResponse {
+
+    /** ClientBlockListResponse status */
+    status?: (ClientBlockListResponse.Status|null);
+
+    /** ClientBlockListResponse blocks */
+    blocks?: (IBlock[]|null);
+
+    /** ClientBlockListResponse head_id */
+    head_id?: (string|null);
+
+    /** ClientBlockListResponse paging */
+    paging?: (IClientPagingResponse|null);
 }
 
 /** Represents a ClientBlockListResponse. */
@@ -3026,6 +2427,13 @@ export namespace ClientBlockListResponse {
     }
 }
 
+/** Properties of a ClientBlockGetByIdRequest. */
+export interface IClientBlockGetByIdRequest {
+
+    /** ClientBlockGetByIdRequest block_id */
+    block_id?: (string|null);
+}
+
 /** Represents a ClientBlockGetByIdRequest. */
 export class ClientBlockGetByIdRequest implements IClientBlockGetByIdRequest {
 
@@ -3107,6 +2515,13 @@ export class ClientBlockGetByIdRequest implements IClientBlockGetByIdRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBlockGetByNumRequest. */
+export interface IClientBlockGetByNumRequest {
+
+    /** ClientBlockGetByNumRequest block_num */
+    block_num?: (number|Long|null);
 }
 
 /** Represents a ClientBlockGetByNumRequest. */
@@ -3192,6 +2607,13 @@ export class ClientBlockGetByNumRequest implements IClientBlockGetByNumRequest {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ClientBlockGetByTransactionIdRequest. */
+export interface IClientBlockGetByTransactionIdRequest {
+
+    /** ClientBlockGetByTransactionIdRequest transaction_id */
+    transaction_id?: (string|null);
+}
+
 /** Represents a ClientBlockGetByTransactionIdRequest. */
 export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTransactionIdRequest {
 
@@ -3275,6 +2697,13 @@ export class ClientBlockGetByTransactionIdRequest implements IClientBlockGetByTr
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ClientBlockGetByBatchIdRequest. */
+export interface IClientBlockGetByBatchIdRequest {
+
+    /** ClientBlockGetByBatchIdRequest batch_id */
+    batch_id?: (string|null);
+}
+
 /** Represents a ClientBlockGetByBatchIdRequest. */
 export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdRequest {
 
@@ -3356,6 +2785,16 @@ export class ClientBlockGetByBatchIdRequest implements IClientBlockGetByBatchIdR
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientBlockGetResponse. */
+export interface IClientBlockGetResponse {
+
+    /** ClientBlockGetResponse status */
+    status?: (ClientBlockGetResponse.Status|null);
+
+    /** ClientBlockGetResponse block */
+    block?: (IBlock|null);
 }
 
 /** Represents a ClientBlockGetResponse. */
@@ -3456,6 +2895,16 @@ export namespace ClientBlockGetResponse {
     }
 }
 
+/** Properties of a ClientEventsSubscribeRequest. */
+export interface IClientEventsSubscribeRequest {
+
+    /** ClientEventsSubscribeRequest subscriptions */
+    subscriptions?: (IEventSubscription[]|null);
+
+    /** ClientEventsSubscribeRequest last_known_block_ids */
+    last_known_block_ids?: (string[]|null);
+}
+
 /** Represents a ClientEventsSubscribeRequest. */
 export class ClientEventsSubscribeRequest implements IClientEventsSubscribeRequest {
 
@@ -3540,6 +2989,16 @@ export class ClientEventsSubscribeRequest implements IClientEventsSubscribeReque
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientEventsSubscribeResponse. */
+export interface IClientEventsSubscribeResponse {
+
+    /** ClientEventsSubscribeResponse status */
+    status?: (ClientEventsSubscribeResponse.Status|null);
+
+    /** ClientEventsSubscribeResponse response_message */
+    response_message?: (string|null);
 }
 
 /** Represents a ClientEventsSubscribeResponse. */
@@ -3639,6 +3098,10 @@ export namespace ClientEventsSubscribeResponse {
     }
 }
 
+/** Properties of a ClientEventsUnsubscribeRequest. */
+export interface IClientEventsUnsubscribeRequest {
+}
+
 /** Represents a ClientEventsUnsubscribeRequest. */
 export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeRequest {
 
@@ -3717,6 +3180,13 @@ export class ClientEventsUnsubscribeRequest implements IClientEventsUnsubscribeR
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientEventsUnsubscribeResponse. */
+export interface IClientEventsUnsubscribeResponse {
+
+    /** ClientEventsUnsubscribeResponse status */
+    status?: (ClientEventsUnsubscribeResponse.Status|null);
 }
 
 /** Represents a ClientEventsUnsubscribeResponse. */
@@ -3812,6 +3282,16 @@ export namespace ClientEventsUnsubscribeResponse {
     }
 }
 
+/** Properties of a ClientEventsGetRequest. */
+export interface IClientEventsGetRequest {
+
+    /** ClientEventsGetRequest subscriptions */
+    subscriptions?: (IEventSubscription[]|null);
+
+    /** ClientEventsGetRequest block_ids */
+    block_ids?: (string[]|null);
+}
+
 /** Represents a ClientEventsGetRequest. */
 export class ClientEventsGetRequest implements IClientEventsGetRequest {
 
@@ -3896,6 +3376,16 @@ export class ClientEventsGetRequest implements IClientEventsGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientEventsGetResponse. */
+export interface IClientEventsGetResponse {
+
+    /** ClientEventsGetResponse status */
+    status?: (ClientEventsGetResponse.Status|null);
+
+    /** ClientEventsGetResponse events */
+    events?: (IEvent[]|null);
 }
 
 /** Represents a ClientEventsGetResponse. */
@@ -3994,6 +3484,19 @@ export namespace ClientEventsGetResponse {
         INVALID_FILTER = 3,
         UNKNOWN_BLOCK = 4
     }
+}
+
+/** Properties of an Event. */
+export interface IEvent {
+
+    /** Event event_type */
+    event_type?: (string|null);
+
+    /** Event attributes */
+    attributes?: (Event.IAttribute[]|null);
+
+    /** Event data */
+    data?: (Uint8Array|null);
 }
 
 /** Represents an Event. */
@@ -4184,6 +3687,13 @@ export namespace Event {
     }
 }
 
+/** Properties of an EventList. */
+export interface IEventList {
+
+    /** EventList events */
+    events?: (IEvent[]|null);
+}
+
 /** Represents an EventList. */
 export class EventList implements IEventList {
 
@@ -4265,6 +3775,19 @@ export class EventList implements IEventList {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of an EventFilter. */
+export interface IEventFilter {
+
+    /** EventFilter key */
+    key?: (string|null);
+
+    /** EventFilter match_string */
+    match_string?: (string|null);
+
+    /** EventFilter filter_type */
+    filter_type?: (EventFilter.FilterType|null);
 }
 
 /** Represents an EventFilter. */
@@ -4368,6 +3891,16 @@ export namespace EventFilter {
     }
 }
 
+/** Properties of an EventSubscription. */
+export interface IEventSubscription {
+
+    /** EventSubscription event_type */
+    event_type?: (string|null);
+
+    /** EventSubscription filters */
+    filters?: (IEventFilter[]|null);
+}
+
 /** Represents an EventSubscription. */
 export class EventSubscription implements IEventSubscription {
 
@@ -4454,6 +3987,10 @@ export class EventSubscription implements IEventSubscription {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ClientPeersGetRequest. */
+export interface IClientPeersGetRequest {
+}
+
 /** Represents a ClientPeersGetRequest. */
 export class ClientPeersGetRequest implements IClientPeersGetRequest {
 
@@ -4532,6 +4069,16 @@ export class ClientPeersGetRequest implements IClientPeersGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientPeersGetResponse. */
+export interface IClientPeersGetResponse {
+
+    /** ClientPeersGetResponse status */
+    status?: (ClientPeersGetResponse.Status|null);
+
+    /** ClientPeersGetResponse peers */
+    peers?: (string[]|null);
 }
 
 /** Represents a ClientPeersGetResponse. */
@@ -4630,6 +4177,13 @@ export namespace ClientPeersGetResponse {
     }
 }
 
+/** Properties of a ClientReceiptGetRequest. */
+export interface IClientReceiptGetRequest {
+
+    /** ClientReceiptGetRequest transaction_ids */
+    transaction_ids?: (string[]|null);
+}
+
 /** Represents a ClientReceiptGetRequest. */
 export class ClientReceiptGetRequest implements IClientReceiptGetRequest {
 
@@ -4711,6 +4265,16 @@ export class ClientReceiptGetRequest implements IClientReceiptGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientReceiptGetResponse. */
+export interface IClientReceiptGetResponse {
+
+    /** ClientReceiptGetResponse status */
+    status?: (ClientReceiptGetResponse.Status|null);
+
+    /** ClientReceiptGetResponse receipts */
+    receipts?: (ITransactionReceipt[]|null);
 }
 
 /** Represents a ClientReceiptGetResponse. */
@@ -4811,6 +4375,22 @@ export namespace ClientReceiptGetResponse {
     }
 }
 
+/** Properties of a TransactionReceipt. */
+export interface ITransactionReceipt {
+
+    /** TransactionReceipt state_changes */
+    state_changes?: (IStateChange[]|null);
+
+    /** TransactionReceipt events */
+    events?: (IEvent[]|null);
+
+    /** TransactionReceipt data */
+    data?: (Uint8Array[]|null);
+
+    /** TransactionReceipt transaction_id */
+    transaction_id?: (string|null);
+}
+
 /** Represents a TransactionReceipt. */
 export class TransactionReceipt implements ITransactionReceipt {
 
@@ -4901,6 +4481,19 @@ export class TransactionReceipt implements ITransactionReceipt {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a StateChange. */
+export interface IStateChange {
+
+    /** StateChange address */
+    address?: (string|null);
+
+    /** StateChange value */
+    value?: (Uint8Array|null);
+
+    /** StateChange type */
+    type?: (StateChange.Type|null);
 }
 
 /** Represents a StateChange. */
@@ -5002,6 +4595,13 @@ export namespace StateChange {
     }
 }
 
+/** Properties of a StateChangeList. */
+export interface IStateChangeList {
+
+    /** StateChangeList state_changes */
+    state_changes?: (IStateChange[]|null);
+}
+
 /** Represents a StateChangeList. */
 export class StateChangeList implements IStateChangeList {
 
@@ -5083,6 +4683,22 @@ export class StateChangeList implements IStateChangeList {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientStateListRequest. */
+export interface IClientStateListRequest {
+
+    /** ClientStateListRequest state_root */
+    state_root?: (string|null);
+
+    /** ClientStateListRequest address */
+    address?: (string|null);
+
+    /** ClientStateListRequest paging */
+    paging?: (IClientPagingControls|null);
+
+    /** ClientStateListRequest sorting */
+    sorting?: (IClientSortControls[]|null);
 }
 
 /** Represents a ClientStateListRequest. */
@@ -5175,6 +4791,22 @@ export class ClientStateListRequest implements IClientStateListRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientStateListResponse. */
+export interface IClientStateListResponse {
+
+    /** ClientStateListResponse status */
+    status?: (ClientStateListResponse.Status|null);
+
+    /** ClientStateListResponse entries */
+    entries?: (ClientStateListResponse.IEntry[]|null);
+
+    /** ClientStateListResponse state_root */
+    state_root?: (string|null);
+
+    /** ClientStateListResponse paging */
+    paging?: (IClientPagingResponse|null);
 }
 
 /** Represents a ClientStateListResponse. */
@@ -5382,6 +5014,16 @@ export namespace ClientStateListResponse {
     }
 }
 
+/** Properties of a ClientStateGetRequest. */
+export interface IClientStateGetRequest {
+
+    /** ClientStateGetRequest state_root */
+    state_root?: (string|null);
+
+    /** ClientStateGetRequest address */
+    address?: (string|null);
+}
+
 /** Represents a ClientStateGetRequest. */
 export class ClientStateGetRequest implements IClientStateGetRequest {
 
@@ -5466,6 +5108,19 @@ export class ClientStateGetRequest implements IClientStateGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientStateGetResponse. */
+export interface IClientStateGetResponse {
+
+    /** ClientStateGetResponse status */
+    status?: (ClientStateGetResponse.Status|null);
+
+    /** ClientStateGetResponse value */
+    value?: (Uint8Array|null);
+
+    /** ClientStateGetResponse state_root */
+    state_root?: (string|null);
 }
 
 /** Represents a ClientStateGetResponse. */
@@ -5572,6 +5227,10 @@ export namespace ClientStateGetResponse {
     }
 }
 
+/** Properties of a ClientStatusGetRequest. */
+export interface IClientStatusGetRequest {
+}
+
 /** Represents a ClientStatusGetRequest. */
 export class ClientStatusGetRequest implements IClientStatusGetRequest {
 
@@ -5650,6 +5309,19 @@ export class ClientStatusGetRequest implements IClientStatusGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientStatusGetResponse. */
+export interface IClientStatusGetResponse {
+
+    /** ClientStatusGetResponse status */
+    status?: (ClientStatusGetResponse.Status|null);
+
+    /** ClientStatusGetResponse peers */
+    peers?: (ClientStatusGetResponse.IPeer[]|null);
+
+    /** ClientStatusGetResponse endpoint */
+    endpoint?: (string|null);
 }
 
 /** Represents a ClientStatusGetResponse. */
@@ -5841,6 +5513,22 @@ export namespace ClientStatusGetResponse {
     }
 }
 
+/** Properties of a ClientTransactionListRequest. */
+export interface IClientTransactionListRequest {
+
+    /** ClientTransactionListRequest head_id */
+    head_id?: (string|null);
+
+    /** ClientTransactionListRequest transaction_ids */
+    transaction_ids?: (string[]|null);
+
+    /** ClientTransactionListRequest paging */
+    paging?: (IClientPagingControls|null);
+
+    /** ClientTransactionListRequest sorting */
+    sorting?: (IClientSortControls[]|null);
+}
+
 /** Represents a ClientTransactionListRequest. */
 export class ClientTransactionListRequest implements IClientTransactionListRequest {
 
@@ -5931,6 +5619,22 @@ export class ClientTransactionListRequest implements IClientTransactionListReque
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientTransactionListResponse. */
+export interface IClientTransactionListResponse {
+
+    /** ClientTransactionListResponse status */
+    status?: (ClientTransactionListResponse.Status|null);
+
+    /** ClientTransactionListResponse transactions */
+    transactions?: (ITransaction[]|null);
+
+    /** ClientTransactionListResponse head_id */
+    head_id?: (string|null);
+
+    /** ClientTransactionListResponse paging */
+    paging?: (IClientPagingResponse|null);
 }
 
 /** Represents a ClientTransactionListResponse. */
@@ -6041,6 +5745,13 @@ export namespace ClientTransactionListResponse {
     }
 }
 
+/** Properties of a ClientTransactionGetRequest. */
+export interface IClientTransactionGetRequest {
+
+    /** ClientTransactionGetRequest transaction_id */
+    transaction_id?: (string|null);
+}
+
 /** Represents a ClientTransactionGetRequest. */
 export class ClientTransactionGetRequest implements IClientTransactionGetRequest {
 
@@ -6122,6 +5833,16 @@ export class ClientTransactionGetRequest implements IClientTransactionGetRequest
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ClientTransactionGetResponse. */
+export interface IClientTransactionGetResponse {
+
+    /** ClientTransactionGetResponse status */
+    status?: (ClientTransactionGetResponse.Status|null);
+
+    /** ClientTransactionGetResponse transaction */
+    transaction?: (ITransaction|null);
 }
 
 /** Represents a ClientTransactionGetResponse. */
@@ -6222,6 +5943,22 @@ export namespace ClientTransactionGetResponse {
     }
 }
 
+/** Properties of a ConsensusPeerMessage. */
+export interface IConsensusPeerMessage {
+
+    /** ConsensusPeerMessage message_type */
+    message_type?: (string|null);
+
+    /** ConsensusPeerMessage content */
+    content?: (Uint8Array|null);
+
+    /** ConsensusPeerMessage name */
+    name?: (string|null);
+
+    /** ConsensusPeerMessage version */
+    version?: (string|null);
+}
+
 /** Represents a ConsensusPeerMessage. */
 export class ConsensusPeerMessage implements IConsensusPeerMessage {
 
@@ -6312,6 +6049,28 @@ export class ConsensusPeerMessage implements IConsensusPeerMessage {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusBlock. */
+export interface IConsensusBlock {
+
+    /** ConsensusBlock block_id */
+    block_id?: (Uint8Array|null);
+
+    /** ConsensusBlock previous_id */
+    previous_id?: (Uint8Array|null);
+
+    /** ConsensusBlock signer_id */
+    signer_id?: (Uint8Array|null);
+
+    /** ConsensusBlock block_num */
+    block_num?: (number|Long|null);
+
+    /** ConsensusBlock payload */
+    payload?: (Uint8Array|null);
+
+    /** ConsensusBlock summary */
+    summary?: (Uint8Array|null);
 }
 
 /** Represents a ConsensusBlock. */
@@ -6412,6 +6171,13 @@ export class ConsensusBlock implements IConsensusBlock {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ConsensusPeerInfo. */
+export interface IConsensusPeerInfo {
+
+    /** ConsensusPeerInfo peer_id */
+    peer_id?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusPeerInfo. */
 export class ConsensusPeerInfo implements IConsensusPeerInfo {
 
@@ -6493,6 +6259,16 @@ export class ConsensusPeerInfo implements IConsensusPeerInfo {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusSettingsEntry. */
+export interface IConsensusSettingsEntry {
+
+    /** ConsensusSettingsEntry key */
+    key?: (string|null);
+
+    /** ConsensusSettingsEntry value */
+    value?: (string|null);
 }
 
 /** Represents a ConsensusSettingsEntry. */
@@ -6581,6 +6357,16 @@ export class ConsensusSettingsEntry implements IConsensusSettingsEntry {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ConsensusStateEntry. */
+export interface IConsensusStateEntry {
+
+    /** ConsensusStateEntry address */
+    address?: (string|null);
+
+    /** ConsensusStateEntry data */
+    data?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusStateEntry. */
 export class ConsensusStateEntry implements IConsensusStateEntry {
 
@@ -6667,6 +6453,16 @@ export class ConsensusStateEntry implements IConsensusStateEntry {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ConsensusRegisterRequest. */
+export interface IConsensusRegisterRequest {
+
+    /** ConsensusRegisterRequest name */
+    name?: (string|null);
+
+    /** ConsensusRegisterRequest version */
+    version?: (string|null);
+}
+
 /** Represents a ConsensusRegisterRequest. */
 export class ConsensusRegisterRequest implements IConsensusRegisterRequest {
 
@@ -6751,6 +6547,19 @@ export class ConsensusRegisterRequest implements IConsensusRegisterRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusRegisterResponse. */
+export interface IConsensusRegisterResponse {
+
+    /** ConsensusRegisterResponse status */
+    status?: (ConsensusRegisterResponse.Status|null);
+
+    /** ConsensusRegisterResponse chain_head */
+    chain_head?: (IConsensusBlock|null);
+
+    /** ConsensusRegisterResponse peers */
+    peers?: (IConsensusPeerInfo[]|null);
 }
 
 /** Represents a ConsensusRegisterResponse. */
@@ -6854,6 +6663,13 @@ export namespace ConsensusRegisterResponse {
     }
 }
 
+/** Properties of a ConsensusNotifyPeerConnected. */
+export interface IConsensusNotifyPeerConnected {
+
+    /** ConsensusNotifyPeerConnected peer_info */
+    peer_info?: (IConsensusPeerInfo|null);
+}
+
 /** Represents a ConsensusNotifyPeerConnected. */
 export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnected {
 
@@ -6937,6 +6753,13 @@ export class ConsensusNotifyPeerConnected implements IConsensusNotifyPeerConnect
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ConsensusNotifyPeerDisconnected. */
+export interface IConsensusNotifyPeerDisconnected {
+
+    /** ConsensusNotifyPeerDisconnected peer_id */
+    peer_id?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusNotifyPeerDisconnected. */
 export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisconnected {
 
@@ -7018,6 +6841,16 @@ export class ConsensusNotifyPeerDisconnected implements IConsensusNotifyPeerDisc
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusNotifyPeerMessage. */
+export interface IConsensusNotifyPeerMessage {
+
+    /** ConsensusNotifyPeerMessage message */
+    message?: (IConsensusPeerMessage|null);
+
+    /** ConsensusNotifyPeerMessage sender_id */
+    sender_id?: (Uint8Array|null);
 }
 
 /** Represents a ConsensusNotifyPeerMessage. */
@@ -7106,6 +6939,13 @@ export class ConsensusNotifyPeerMessage implements IConsensusNotifyPeerMessage {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ConsensusNotifyBlockNew. */
+export interface IConsensusNotifyBlockNew {
+
+    /** ConsensusNotifyBlockNew block */
+    block?: (IConsensusBlock|null);
+}
+
 /** Represents a ConsensusNotifyBlockNew. */
 export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
 
@@ -7187,6 +7027,13 @@ export class ConsensusNotifyBlockNew implements IConsensusNotifyBlockNew {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusNotifyBlockValid. */
+export interface IConsensusNotifyBlockValid {
+
+    /** ConsensusNotifyBlockValid block_id */
+    block_id?: (Uint8Array|null);
 }
 
 /** Represents a ConsensusNotifyBlockValid. */
@@ -7272,6 +7119,13 @@ export class ConsensusNotifyBlockValid implements IConsensusNotifyBlockValid {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ConsensusNotifyBlockInvalid. */
+export interface IConsensusNotifyBlockInvalid {
+
+    /** ConsensusNotifyBlockInvalid block_id */
+    block_id?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusNotifyBlockInvalid. */
 export class ConsensusNotifyBlockInvalid implements IConsensusNotifyBlockInvalid {
 
@@ -7353,6 +7207,13 @@ export class ConsensusNotifyBlockInvalid implements IConsensusNotifyBlockInvalid
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusNotifyBlockCommit. */
+export interface IConsensusNotifyBlockCommit {
+
+    /** ConsensusNotifyBlockCommit block_id */
+    block_id?: (Uint8Array|null);
 }
 
 /** Represents a ConsensusNotifyBlockCommit. */
@@ -7438,6 +7299,10 @@ export class ConsensusNotifyBlockCommit implements IConsensusNotifyBlockCommit {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a ConsensusNotifyAck. */
+export interface IConsensusNotifyAck {
+}
+
 /** Represents a ConsensusNotifyAck. */
 export class ConsensusNotifyAck implements IConsensusNotifyAck {
 
@@ -7516,6 +7381,16 @@ export class ConsensusNotifyAck implements IConsensusNotifyAck {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusSendToRequest. */
+export interface IConsensusSendToRequest {
+
+    /** ConsensusSendToRequest message */
+    message?: (IConsensusPeerMessage|null);
+
+    /** ConsensusSendToRequest peer_id */
+    peer_id?: (Uint8Array|null);
 }
 
 /** Represents a ConsensusSendToRequest. */
@@ -7602,6 +7477,13 @@ export class ConsensusSendToRequest implements IConsensusSendToRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusSendToResponse. */
+export interface IConsensusSendToResponse {
+
+    /** ConsensusSendToResponse status */
+    status?: (ConsensusSendToResponse.Status|null);
 }
 
 /** Represents a ConsensusSendToResponse. */
@@ -7700,6 +7582,13 @@ export namespace ConsensusSendToResponse {
     }
 }
 
+/** Properties of a ConsensusBroadcastRequest. */
+export interface IConsensusBroadcastRequest {
+
+    /** ConsensusBroadcastRequest message */
+    message?: (IConsensusPeerMessage|null);
+}
+
 /** Represents a ConsensusBroadcastRequest. */
 export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
 
@@ -7781,6 +7670,13 @@ export class ConsensusBroadcastRequest implements IConsensusBroadcastRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusBroadcastResponse. */
+export interface IConsensusBroadcastResponse {
+
+    /** ConsensusBroadcastResponse status */
+    status?: (ConsensusBroadcastResponse.Status|null);
 }
 
 /** Represents a ConsensusBroadcastResponse. */
@@ -7878,6 +7774,13 @@ export namespace ConsensusBroadcastResponse {
     }
 }
 
+/** Properties of a ConsensusInitializeBlockRequest. */
+export interface IConsensusInitializeBlockRequest {
+
+    /** ConsensusInitializeBlockRequest previous_id */
+    previous_id?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusInitializeBlockRequest. */
 export class ConsensusInitializeBlockRequest implements IConsensusInitializeBlockRequest {
 
@@ -7959,6 +7862,13 @@ export class ConsensusInitializeBlockRequest implements IConsensusInitializeBloc
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusInitializeBlockResponse. */
+export interface IConsensusInitializeBlockResponse {
+
+    /** ConsensusInitializeBlockResponse status */
+    status?: (ConsensusInitializeBlockResponse.Status|null);
 }
 
 /** Represents a ConsensusInitializeBlockResponse. */
@@ -8058,6 +7968,10 @@ export namespace ConsensusInitializeBlockResponse {
     }
 }
 
+/** Properties of a ConsensusSummarizeBlockRequest. */
+export interface IConsensusSummarizeBlockRequest {
+}
+
 /** Represents a ConsensusSummarizeBlockRequest. */
 export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockRequest {
 
@@ -8136,6 +8050,16 @@ export class ConsensusSummarizeBlockRequest implements IConsensusSummarizeBlockR
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusSummarizeBlockResponse. */
+export interface IConsensusSummarizeBlockResponse {
+
+    /** ConsensusSummarizeBlockResponse status */
+    status?: (ConsensusSummarizeBlockResponse.Status|null);
+
+    /** ConsensusSummarizeBlockResponse summary */
+    summary?: (Uint8Array|null);
 }
 
 /** Represents a ConsensusSummarizeBlockResponse. */
@@ -8238,6 +8162,13 @@ export namespace ConsensusSummarizeBlockResponse {
     }
 }
 
+/** Properties of a ConsensusFinalizeBlockRequest. */
+export interface IConsensusFinalizeBlockRequest {
+
+    /** ConsensusFinalizeBlockRequest data */
+    data?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusFinalizeBlockRequest. */
 export class ConsensusFinalizeBlockRequest implements IConsensusFinalizeBlockRequest {
 
@@ -8319,6 +8250,16 @@ export class ConsensusFinalizeBlockRequest implements IConsensusFinalizeBlockReq
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusFinalizeBlockResponse. */
+export interface IConsensusFinalizeBlockResponse {
+
+    /** ConsensusFinalizeBlockResponse status */
+    status?: (ConsensusFinalizeBlockResponse.Status|null);
+
+    /** ConsensusFinalizeBlockResponse block_id */
+    block_id?: (Uint8Array|null);
 }
 
 /** Represents a ConsensusFinalizeBlockResponse. */
@@ -8421,6 +8362,10 @@ export namespace ConsensusFinalizeBlockResponse {
     }
 }
 
+/** Properties of a ConsensusCancelBlockRequest. */
+export interface IConsensusCancelBlockRequest {
+}
+
 /** Represents a ConsensusCancelBlockRequest. */
 export class ConsensusCancelBlockRequest implements IConsensusCancelBlockRequest {
 
@@ -8499,6 +8444,13 @@ export class ConsensusCancelBlockRequest implements IConsensusCancelBlockRequest
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusCancelBlockResponse. */
+export interface IConsensusCancelBlockResponse {
+
+    /** ConsensusCancelBlockResponse status */
+    status?: (ConsensusCancelBlockResponse.Status|null);
 }
 
 /** Represents a ConsensusCancelBlockResponse. */
@@ -8597,6 +8549,13 @@ export namespace ConsensusCancelBlockResponse {
     }
 }
 
+/** Properties of a ConsensusCheckBlocksRequest. */
+export interface IConsensusCheckBlocksRequest {
+
+    /** ConsensusCheckBlocksRequest block_ids */
+    block_ids?: (Uint8Array[]|null);
+}
+
 /** Represents a ConsensusCheckBlocksRequest. */
 export class ConsensusCheckBlocksRequest implements IConsensusCheckBlocksRequest {
 
@@ -8678,6 +8637,13 @@ export class ConsensusCheckBlocksRequest implements IConsensusCheckBlocksRequest
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusCheckBlocksResponse. */
+export interface IConsensusCheckBlocksResponse {
+
+    /** ConsensusCheckBlocksResponse status */
+    status?: (ConsensusCheckBlocksResponse.Status|null);
 }
 
 /** Represents a ConsensusCheckBlocksResponse. */
@@ -8776,6 +8742,13 @@ export namespace ConsensusCheckBlocksResponse {
     }
 }
 
+/** Properties of a ConsensusCommitBlockRequest. */
+export interface IConsensusCommitBlockRequest {
+
+    /** ConsensusCommitBlockRequest block_id */
+    block_id?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusCommitBlockRequest. */
 export class ConsensusCommitBlockRequest implements IConsensusCommitBlockRequest {
 
@@ -8857,6 +8830,13 @@ export class ConsensusCommitBlockRequest implements IConsensusCommitBlockRequest
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusCommitBlockResponse. */
+export interface IConsensusCommitBlockResponse {
+
+    /** ConsensusCommitBlockResponse status */
+    status?: (ConsensusCommitBlockResponse.Status|null);
 }
 
 /** Represents a ConsensusCommitBlockResponse. */
@@ -8955,6 +8935,13 @@ export namespace ConsensusCommitBlockResponse {
     }
 }
 
+/** Properties of a ConsensusIgnoreBlockRequest. */
+export interface IConsensusIgnoreBlockRequest {
+
+    /** ConsensusIgnoreBlockRequest block_id */
+    block_id?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusIgnoreBlockRequest. */
 export class ConsensusIgnoreBlockRequest implements IConsensusIgnoreBlockRequest {
 
@@ -9036,6 +9023,13 @@ export class ConsensusIgnoreBlockRequest implements IConsensusIgnoreBlockRequest
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusIgnoreBlockResponse. */
+export interface IConsensusIgnoreBlockResponse {
+
+    /** ConsensusIgnoreBlockResponse status */
+    status?: (ConsensusIgnoreBlockResponse.Status|null);
 }
 
 /** Represents a ConsensusIgnoreBlockResponse. */
@@ -9134,6 +9128,13 @@ export namespace ConsensusIgnoreBlockResponse {
     }
 }
 
+/** Properties of a ConsensusFailBlockRequest. */
+export interface IConsensusFailBlockRequest {
+
+    /** ConsensusFailBlockRequest block_id */
+    block_id?: (Uint8Array|null);
+}
+
 /** Represents a ConsensusFailBlockRequest. */
 export class ConsensusFailBlockRequest implements IConsensusFailBlockRequest {
 
@@ -9215,6 +9216,13 @@ export class ConsensusFailBlockRequest implements IConsensusFailBlockRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusFailBlockResponse. */
+export interface IConsensusFailBlockResponse {
+
+    /** ConsensusFailBlockResponse status */
+    status?: (ConsensusFailBlockResponse.Status|null);
 }
 
 /** Represents a ConsensusFailBlockResponse. */
@@ -9313,6 +9321,13 @@ export namespace ConsensusFailBlockResponse {
     }
 }
 
+/** Properties of a ConsensusBlocksGetRequest. */
+export interface IConsensusBlocksGetRequest {
+
+    /** ConsensusBlocksGetRequest block_ids */
+    block_ids?: (Uint8Array[]|null);
+}
+
 /** Represents a ConsensusBlocksGetRequest. */
 export class ConsensusBlocksGetRequest implements IConsensusBlocksGetRequest {
 
@@ -9394,6 +9409,16 @@ export class ConsensusBlocksGetRequest implements IConsensusBlocksGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusBlocksGetResponse. */
+export interface IConsensusBlocksGetResponse {
+
+    /** ConsensusBlocksGetResponse status */
+    status?: (ConsensusBlocksGetResponse.Status|null);
+
+    /** ConsensusBlocksGetResponse blocks */
+    blocks?: (IConsensusBlock[]|null);
 }
 
 /** Represents a ConsensusBlocksGetResponse. */
@@ -9495,6 +9520,10 @@ export namespace ConsensusBlocksGetResponse {
     }
 }
 
+/** Properties of a ConsensusChainHeadGetRequest. */
+export interface IConsensusChainHeadGetRequest {
+}
+
 /** Represents a ConsensusChainHeadGetRequest. */
 export class ConsensusChainHeadGetRequest implements IConsensusChainHeadGetRequest {
 
@@ -9573,6 +9602,16 @@ export class ConsensusChainHeadGetRequest implements IConsensusChainHeadGetReque
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusChainHeadGetResponse. */
+export interface IConsensusChainHeadGetResponse {
+
+    /** ConsensusChainHeadGetResponse status */
+    status?: (ConsensusChainHeadGetResponse.Status|null);
+
+    /** ConsensusChainHeadGetResponse block */
+    block?: (IConsensusBlock|null);
 }
 
 /** Represents a ConsensusChainHeadGetResponse. */
@@ -9674,6 +9713,16 @@ export namespace ConsensusChainHeadGetResponse {
     }
 }
 
+/** Properties of a ConsensusSettingsGetRequest. */
+export interface IConsensusSettingsGetRequest {
+
+    /** ConsensusSettingsGetRequest block_id */
+    block_id?: (Uint8Array|null);
+
+    /** ConsensusSettingsGetRequest keys */
+    keys?: (string[]|null);
+}
+
 /** Represents a ConsensusSettingsGetRequest. */
 export class ConsensusSettingsGetRequest implements IConsensusSettingsGetRequest {
 
@@ -9758,6 +9807,16 @@ export class ConsensusSettingsGetRequest implements IConsensusSettingsGetRequest
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusSettingsGetResponse. */
+export interface IConsensusSettingsGetResponse {
+
+    /** ConsensusSettingsGetResponse status */
+    status?: (ConsensusSettingsGetResponse.Status|null);
+
+    /** ConsensusSettingsGetResponse entries */
+    entries?: (IConsensusSettingsEntry[]|null);
 }
 
 /** Represents a ConsensusSettingsGetResponse. */
@@ -9859,6 +9918,16 @@ export namespace ConsensusSettingsGetResponse {
     }
 }
 
+/** Properties of a ConsensusStateGetRequest. */
+export interface IConsensusStateGetRequest {
+
+    /** ConsensusStateGetRequest block_id */
+    block_id?: (Uint8Array|null);
+
+    /** ConsensusStateGetRequest addresses */
+    addresses?: (string[]|null);
+}
+
 /** Represents a ConsensusStateGetRequest. */
 export class ConsensusStateGetRequest implements IConsensusStateGetRequest {
 
@@ -9943,6 +10012,16 @@ export class ConsensusStateGetRequest implements IConsensusStateGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ConsensusStateGetResponse. */
+export interface IConsensusStateGetResponse {
+
+    /** ConsensusStateGetResponse status */
+    status?: (ConsensusStateGetResponse.Status|null);
+
+    /** ConsensusStateGetResponse entries */
+    entries?: (IConsensusStateEntry[]|null);
 }
 
 /** Represents a ConsensusStateGetResponse. */
@@ -10044,6 +10123,13 @@ export namespace ConsensusStateGetResponse {
     }
 }
 
+/** Properties of a GenesisData. */
+export interface IGenesisData {
+
+    /** GenesisData batches */
+    batches?: (IBatch[]|null);
+}
+
 /** Represents a GenesisData. */
 export class GenesisData implements IGenesisData {
 
@@ -10125,6 +10211,16 @@ export class GenesisData implements IGenesisData {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a Policy. */
+export interface IPolicy {
+
+    /** Policy name */
+    name?: (string|null);
+
+    /** Policy entries */
+    entries?: (Policy.IEntry[]|null);
 }
 
 /** Represents a Policy. */
@@ -10319,6 +10415,13 @@ export namespace Policy {
     }
 }
 
+/** Properties of a PolicyList. */
+export interface IPolicyList {
+
+    /** PolicyList policies */
+    policies?: (IPolicy[]|null);
+}
+
 /** Represents a PolicyList. */
 export class PolicyList implements IPolicyList {
 
@@ -10400,6 +10503,16 @@ export class PolicyList implements IPolicyList {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a Role. */
+export interface IRole {
+
+    /** Role name */
+    name?: (string|null);
+
+    /** Role policy_name */
+    policy_name?: (string|null);
 }
 
 /** Represents a Role. */
@@ -10488,6 +10601,13 @@ export class Role implements IRole {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a RoleList. */
+export interface IRoleList {
+
+    /** RoleList roles */
+    roles?: (IRole[]|null);
+}
+
 /** Represents a RoleList. */
 export class RoleList implements IRoleList {
 
@@ -10569,6 +10689,19 @@ export class RoleList implements IRoleList {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a ChangeLogEntry. */
+export interface IChangeLogEntry {
+
+    /** ChangeLogEntry parent */
+    parent?: (Uint8Array|null);
+
+    /** ChangeLogEntry additions */
+    additions?: (Uint8Array[]|null);
+
+    /** ChangeLogEntry successors */
+    successors?: (ChangeLogEntry.ISuccessor[]|null);
 }
 
 /** Represents a ChangeLogEntry. */
@@ -10759,6 +10892,10 @@ export namespace ChangeLogEntry {
     }
 }
 
+/** Properties of a DisconnectMessage. */
+export interface IDisconnectMessage {
+}
+
 /** Represents a DisconnectMessage. */
 export class DisconnectMessage implements IDisconnectMessage {
 
@@ -10837,6 +10974,16 @@ export class DisconnectMessage implements IDisconnectMessage {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a PeerRegisterRequest. */
+export interface IPeerRegisterRequest {
+
+    /** PeerRegisterRequest endpoint */
+    endpoint?: (string|null);
+
+    /** PeerRegisterRequest protocol_version */
+    protocol_version?: (number|null);
 }
 
 /** Represents a PeerRegisterRequest. */
@@ -10925,6 +11072,10 @@ export class PeerRegisterRequest implements IPeerRegisterRequest {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a PeerUnregisterRequest. */
+export interface IPeerUnregisterRequest {
+}
+
 /** Represents a PeerUnregisterRequest. */
 export class PeerUnregisterRequest implements IPeerUnregisterRequest {
 
@@ -11005,6 +11156,10 @@ export class PeerUnregisterRequest implements IPeerUnregisterRequest {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a GetPeersRequest. */
+export interface IGetPeersRequest {
+}
+
 /** Represents a GetPeersRequest. */
 export class GetPeersRequest implements IGetPeersRequest {
 
@@ -11083,6 +11238,13 @@ export class GetPeersRequest implements IGetPeersRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a GetPeersResponse. */
+export interface IGetPeersResponse {
+
+    /** GetPeersResponse peer_endpoints */
+    peer_endpoints?: (string[]|null);
 }
 
 /** Represents a GetPeersResponse. */
@@ -11168,6 +11330,10 @@ export class GetPeersResponse implements IGetPeersResponse {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a PingRequest. */
+export interface IPingRequest {
+}
+
 /** Represents a PingRequest. */
 export class PingRequest implements IPingRequest {
 
@@ -11248,6 +11414,10 @@ export class PingRequest implements IPingRequest {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a PingResponse. */
+export interface IPingResponse {
+}
+
 /** Represents a PingResponse. */
 export class PingResponse implements IPingResponse {
 
@@ -11326,6 +11496,19 @@ export class PingResponse implements IPingResponse {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a GossipMessage. */
+export interface IGossipMessage {
+
+    /** GossipMessage content */
+    content?: (Uint8Array|null);
+
+    /** GossipMessage content_type */
+    content_type?: (GossipMessage.ContentType|null);
+
+    /** GossipMessage time_to_live */
+    time_to_live?: (number|null);
 }
 
 /** Represents a GossipMessage. */
@@ -11427,6 +11610,13 @@ export namespace GossipMessage {
     }
 }
 
+/** Properties of a NetworkAcknowledgement. */
+export interface INetworkAcknowledgement {
+
+    /** NetworkAcknowledgement status */
+    status?: (NetworkAcknowledgement.Status|null);
+}
+
 /** Represents a NetworkAcknowledgement. */
 export class NetworkAcknowledgement implements INetworkAcknowledgement {
 
@@ -11520,6 +11710,19 @@ export namespace NetworkAcknowledgement {
     }
 }
 
+/** Properties of a GossipBlockRequest. */
+export interface IGossipBlockRequest {
+
+    /** GossipBlockRequest block_id */
+    block_id?: (string|null);
+
+    /** GossipBlockRequest nonce */
+    nonce?: (string|null);
+
+    /** GossipBlockRequest time_to_live */
+    time_to_live?: (number|null);
+}
+
 /** Represents a GossipBlockRequest. */
 export class GossipBlockRequest implements IGossipBlockRequest {
 
@@ -11609,6 +11812,13 @@ export class GossipBlockRequest implements IGossipBlockRequest {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a GossipBlockResponse. */
+export interface IGossipBlockResponse {
+
+    /** GossipBlockResponse content */
+    content?: (Uint8Array|null);
+}
+
 /** Represents a GossipBlockResponse. */
 export class GossipBlockResponse implements IGossipBlockResponse {
 
@@ -11692,6 +11902,13 @@ export class GossipBlockResponse implements IGossipBlockResponse {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a GossipBatchResponse. */
+export interface IGossipBatchResponse {
+
+    /** GossipBatchResponse content */
+    content?: (Uint8Array|null);
+}
+
 /** Represents a GossipBatchResponse. */
 export class GossipBatchResponse implements IGossipBatchResponse {
 
@@ -11773,6 +11990,19 @@ export class GossipBatchResponse implements IGossipBatchResponse {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a GossipBatchByBatchIdRequest. */
+export interface IGossipBatchByBatchIdRequest {
+
+    /** GossipBatchByBatchIdRequest id */
+    id?: (string|null);
+
+    /** GossipBatchByBatchIdRequest nonce */
+    nonce?: (string|null);
+
+    /** GossipBatchByBatchIdRequest time_to_live */
+    time_to_live?: (number|null);
 }
 
 /** Represents a GossipBatchByBatchIdRequest. */
@@ -11864,6 +12094,19 @@ export class GossipBatchByBatchIdRequest implements IGossipBatchByBatchIdRequest
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a GossipBatchByTransactionIdRequest. */
+export interface IGossipBatchByTransactionIdRequest {
+
+    /** GossipBatchByTransactionIdRequest ids */
+    ids?: (string[]|null);
+
+    /** GossipBatchByTransactionIdRequest nonce */
+    nonce?: (string|null);
+
+    /** GossipBatchByTransactionIdRequest time_to_live */
+    time_to_live?: (number|null);
+}
+
 /** Represents a GossipBatchByTransactionIdRequest. */
 export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransactionIdRequest {
 
@@ -11953,6 +12196,19 @@ export class GossipBatchByTransactionIdRequest implements IGossipBatchByTransact
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a GossipConsensusMessage. */
+export interface IGossipConsensusMessage {
+
+    /** GossipConsensusMessage message */
+    message?: (Uint8Array|null);
+
+    /** GossipConsensusMessage sender_id */
+    sender_id?: (Uint8Array|null);
+
+    /** GossipConsensusMessage time_to_live */
+    time_to_live?: (number|null);
+}
+
 /** Represents a GossipConsensusMessage. */
 export class GossipConsensusMessage implements IGossipConsensusMessage {
 
@@ -12040,6 +12296,22 @@ export class GossipConsensusMessage implements IGossipConsensusMessage {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpRegisterRequest. */
+export interface ITpRegisterRequest {
+
+    /** TpRegisterRequest family */
+    family?: (string|null);
+
+    /** TpRegisterRequest version */
+    version?: (string|null);
+
+    /** TpRegisterRequest namespaces */
+    namespaces?: (string[]|null);
+
+    /** TpRegisterRequest max_occupancy */
+    max_occupancy?: (number|null);
 }
 
 /** Represents a TpRegisterRequest. */
@@ -12132,6 +12404,13 @@ export class TpRegisterRequest implements ITpRegisterRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpRegisterResponse. */
+export interface ITpRegisterResponse {
+
+    /** TpRegisterResponse status */
+    status?: (TpRegisterResponse.Status|null);
 }
 
 /** Represents a TpRegisterResponse. */
@@ -12227,6 +12506,10 @@ export namespace TpRegisterResponse {
     }
 }
 
+/** Properties of a TpUnregisterRequest. */
+export interface ITpUnregisterRequest {
+}
+
 /** Represents a TpUnregisterRequest. */
 export class TpUnregisterRequest implements ITpUnregisterRequest {
 
@@ -12305,6 +12588,13 @@ export class TpUnregisterRequest implements ITpUnregisterRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpUnregisterResponse. */
+export interface ITpUnregisterResponse {
+
+    /** TpUnregisterResponse status */
+    status?: (TpUnregisterResponse.Status|null);
 }
 
 /** Represents a TpUnregisterResponse. */
@@ -12400,6 +12690,22 @@ export namespace TpUnregisterResponse {
     }
 }
 
+/** Properties of a TpProcessRequest. */
+export interface ITpProcessRequest {
+
+    /** TpProcessRequest header */
+    header?: (ITransactionHeader|null);
+
+    /** TpProcessRequest payload */
+    payload?: (Uint8Array|null);
+
+    /** TpProcessRequest signature */
+    signature?: (string|null);
+
+    /** TpProcessRequest context_id */
+    context_id?: (string|null);
+}
+
 /** Represents a TpProcessRequest. */
 export class TpProcessRequest implements ITpProcessRequest {
 
@@ -12490,6 +12796,19 @@ export class TpProcessRequest implements ITpProcessRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpProcessResponse. */
+export interface ITpProcessResponse {
+
+    /** TpProcessResponse status */
+    status?: (TpProcessResponse.Status|null);
+
+    /** TpProcessResponse message */
+    message?: (string|null);
+
+    /** TpProcessResponse extended_data */
+    extended_data?: (Uint8Array|null);
 }
 
 /** Represents a TpProcessResponse. */
@@ -12590,6 +12909,13 @@ export namespace TpProcessResponse {
         INVALID_TRANSACTION = 2,
         INTERNAL_ERROR = 3
     }
+}
+
+/** Properties of a Setting. */
+export interface ISetting {
+
+    /** Setting entries */
+    entries?: (Setting.IEntry[]|null);
 }
 
 /** Represents a Setting. */
@@ -12774,6 +13100,16 @@ export namespace Setting {
     }
 }
 
+/** Properties of a TpStateEntry. */
+export interface ITpStateEntry {
+
+    /** TpStateEntry address */
+    address?: (string|null);
+
+    /** TpStateEntry data */
+    data?: (Uint8Array|null);
+}
+
 /** Represents a TpStateEntry. */
 export class TpStateEntry implements ITpStateEntry {
 
@@ -12860,6 +13196,16 @@ export class TpStateEntry implements ITpStateEntry {
     public toJSON(): { [k: string]: any };
 }
 
+/** Properties of a TpStateGetRequest. */
+export interface ITpStateGetRequest {
+
+    /** TpStateGetRequest context_id */
+    context_id?: (string|null);
+
+    /** TpStateGetRequest addresses */
+    addresses?: (string[]|null);
+}
+
 /** Represents a TpStateGetRequest. */
 export class TpStateGetRequest implements ITpStateGetRequest {
 
@@ -12944,6 +13290,16 @@ export class TpStateGetRequest implements ITpStateGetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpStateGetResponse. */
+export interface ITpStateGetResponse {
+
+    /** TpStateGetResponse entries */
+    entries?: (ITpStateEntry[]|null);
+
+    /** TpStateGetResponse status */
+    status?: (TpStateGetResponse.Status|null);
 }
 
 /** Represents a TpStateGetResponse. */
@@ -13042,6 +13398,16 @@ export namespace TpStateGetResponse {
     }
 }
 
+/** Properties of a TpStateSetRequest. */
+export interface ITpStateSetRequest {
+
+    /** TpStateSetRequest context_id */
+    context_id?: (string|null);
+
+    /** TpStateSetRequest entries */
+    entries?: (ITpStateEntry[]|null);
+}
+
 /** Represents a TpStateSetRequest. */
 export class TpStateSetRequest implements ITpStateSetRequest {
 
@@ -13126,6 +13492,16 @@ export class TpStateSetRequest implements ITpStateSetRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpStateSetResponse. */
+export interface ITpStateSetResponse {
+
+    /** TpStateSetResponse addresses */
+    addresses?: (string[]|null);
+
+    /** TpStateSetResponse status */
+    status?: (TpStateSetResponse.Status|null);
 }
 
 /** Represents a TpStateSetResponse. */
@@ -13224,6 +13600,16 @@ export namespace TpStateSetResponse {
     }
 }
 
+/** Properties of a TpStateDeleteRequest. */
+export interface ITpStateDeleteRequest {
+
+    /** TpStateDeleteRequest context_id */
+    context_id?: (string|null);
+
+    /** TpStateDeleteRequest addresses */
+    addresses?: (string[]|null);
+}
+
 /** Represents a TpStateDeleteRequest. */
 export class TpStateDeleteRequest implements ITpStateDeleteRequest {
 
@@ -13308,6 +13694,16 @@ export class TpStateDeleteRequest implements ITpStateDeleteRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpStateDeleteResponse. */
+export interface ITpStateDeleteResponse {
+
+    /** TpStateDeleteResponse addresses */
+    addresses?: (string[]|null);
+
+    /** TpStateDeleteResponse status */
+    status?: (TpStateDeleteResponse.Status|null);
 }
 
 /** Represents a TpStateDeleteResponse. */
@@ -13406,6 +13802,16 @@ export namespace TpStateDeleteResponse {
     }
 }
 
+/** Properties of a TpReceiptAddDataRequest. */
+export interface ITpReceiptAddDataRequest {
+
+    /** TpReceiptAddDataRequest context_id */
+    context_id?: (string|null);
+
+    /** TpReceiptAddDataRequest data */
+    data?: (Uint8Array|null);
+}
+
 /** Represents a TpReceiptAddDataRequest. */
 export class TpReceiptAddDataRequest implements ITpReceiptAddDataRequest {
 
@@ -13490,6 +13896,13 @@ export class TpReceiptAddDataRequest implements ITpReceiptAddDataRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpReceiptAddDataResponse. */
+export interface ITpReceiptAddDataResponse {
+
+    /** TpReceiptAddDataResponse status */
+    status?: (TpReceiptAddDataResponse.Status|null);
 }
 
 /** Represents a TpReceiptAddDataResponse. */
@@ -13585,6 +13998,16 @@ export namespace TpReceiptAddDataResponse {
     }
 }
 
+/** Properties of a TpEventAddRequest. */
+export interface ITpEventAddRequest {
+
+    /** TpEventAddRequest context_id */
+    context_id?: (string|null);
+
+    /** TpEventAddRequest event */
+    event?: (IEvent|null);
+}
+
 /** Represents a TpEventAddRequest. */
 export class TpEventAddRequest implements ITpEventAddRequest {
 
@@ -13669,6 +14092,13 @@ export class TpEventAddRequest implements ITpEventAddRequest {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a TpEventAddResponse. */
+export interface ITpEventAddResponse {
+
+    /** TpEventAddResponse status */
+    status?: (TpEventAddResponse.Status|null);
 }
 
 /** Represents a TpEventAddResponse. */
@@ -13764,6 +14194,13 @@ export namespace TpEventAddResponse {
     }
 }
 
+/** Properties of a MessageList. */
+export interface IMessageList {
+
+    /** MessageList messages */
+    messages?: (IMessage[]|null);
+}
+
 /** Represents a MessageList. */
 export class MessageList implements IMessageList {
 
@@ -13845,6 +14282,19 @@ export class MessageList implements IMessageList {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a Message. */
+export interface IMessage {
+
+    /** Message message_type */
+    message_type?: (Message.MessageType|null);
+
+    /** Message correlation_id */
+    correlation_id?: (string|null);
+
+    /** Message content */
+    content?: (Uint8Array|null);
 }
 
 /** Represents a Message. */

@@ -26,7 +26,7 @@ const cryptoContext = createContext('secp256k1') as Secp256k1Context;
 // $ExpectType CryptoFactory
 const cryptoFactory = new CryptoFactory(cryptoContext);
 
-const msg = new Buffer('test');
+const msg = Buffer.from('test');
 
 // $ExpectType Secp256k1PrivateKey
 const privateKey = cryptoContext.newRandomPrivateKey();

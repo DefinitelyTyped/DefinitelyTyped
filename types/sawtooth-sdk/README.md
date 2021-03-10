@@ -38,7 +38,7 @@ If a new protobuf is added to the SDK, follow these steps to re-generate the def
 1. `git clone https://github.com/hyperledger/sawtooth-sdk-javascript.git`
 2. `cd sawtooth-sdk-javascript`
 3. `npm install`
-4. `npx pbjs --keep-case -t static-module -w commonjs $(ls -d protos/*.proto) | npx pbts -o index.d.ts -`
+4. `npx pbjs --keep-case -t static-module -w commonjs $(ls -d protos/*.proto | grep -v "authorization.proto") | npx pbts -o index.d.ts -`
 5. `cp index.d.ts </path/to/DefinitelyTyped>/types/sawtooth-sdk/protobuf`
 6. Add the following linting rules and TypeScript defintion import to the top of `index.d.ts`
 
