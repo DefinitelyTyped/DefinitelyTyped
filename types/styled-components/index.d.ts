@@ -57,6 +57,8 @@ type Defaultize<P, D> = P extends any
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
 
+type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
 export type StyledComponentProps<
     // The Component from whose props are derived
     C extends string | React.ComponentType<any>,
@@ -69,29 +71,32 @@ export type StyledComponentProps<
 > =
     // Distribute O if O is a union type
     O extends object
-        ? WithOptionalTheme<
-              Omit<
-                  ReactDefaultizedProps<
-                      C,
-                      React.ComponentPropsWithRef<
-                          C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                      >
-                  > &
-                      O,
-                  A
-              > &
-                  Partial<
-                      Pick<
-                          React.ComponentPropsWithRef<
-                              C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                          > &
-                              O,
-                          A
-                      >
-                  >,
-              T
-          > &
-              WithChildrenIfReactComponentClass<C>
+    ? Optional<
+        WithOptionalTheme<
+                Omit<
+                    ReactDefaultizedProps<
+                        C,
+                        React.ComponentPropsWithRef<
+                            C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
+                        >
+                    > &
+                        O,
+                    A
+                > &
+                    Partial<
+                        Pick<
+                            React.ComponentPropsWithRef<
+                                C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
+                            > &
+                                O,
+                            A
+                        >
+                    >,
+                T
+            > &
+            WithChildrenIfReactComponentClass<C> &
+            { className: string }
+            , 'className'>
         : never;
 
 // Because of React typing quirks, when getting props from a React.ComponentClass,
