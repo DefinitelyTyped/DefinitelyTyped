@@ -1,4 +1,4 @@
-// Type definitions for gestalt 19.2
+// Type definitions for gestalt 19.2.1
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -1112,7 +1112,7 @@ export interface SwitchProps {
 export interface TableProps {
     borderStyle?: 'sm' | 'none';
     children?: React.ReactNode;
-    maxHeight?: 'number' | 'string';
+    maxHeight?: number | string;
 }
 
 export interface TableBodyProps {
