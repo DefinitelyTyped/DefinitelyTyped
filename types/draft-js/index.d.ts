@@ -13,6 +13,7 @@
 //                 Kevin Hawkinson <https://github.com/khawkinson>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Ben Salili-James <https://github.com/benhjames>
+//                 Peter Dekkers <https://github.com/PeterDekkers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -135,6 +136,13 @@ declare namespace Draft {
                  * autocorrect is enabled as well.
                  */
                 spellCheck?: boolean;
+
+                /**
+                 * When the Editor loses focus (blurs) text selections are cleared
+                 * by default to mimic <textarea> behaviour, however in some situations
+                 * users may wish to preserve native behaviour.
+                 */
+                preserveSelectionOnBlur?: boolean;
 
                 /**
                  * Set whether to remove all style information from pasted content. If your
