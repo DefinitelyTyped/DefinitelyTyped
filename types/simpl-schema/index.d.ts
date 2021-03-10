@@ -153,6 +153,14 @@ export type SimpleSchemaDefinition = {
       | SimpleSchema
   } | any[];
 
+type SimpleSchemaCreateFunc = (options: { label: string; regExp: string }) => string;
+
+interface SimpleSchemaMessageType {
+  [key: string]: string | SimpleSchemaCreateFunc;
+}
+
+type SimpleSchemaMessagesDict = Record<string, SimpleSchemaMessageType>;
+
 export class SimpleSchema {
   constructor(schema: SimpleSchemaDefinition, options?: SimpleSchemaOptions);
   namedContext(name?: string): SimpleSchemaValidationContextStatic;
@@ -212,6 +220,7 @@ export class SimpleSchema {
       FAILED_REGULAR_EXPRESSION: string;
       KEY_NOT_IN_SCHEMA: string;
   };
+  static setDefaultMessages(messages: {messages: SimpleSchemaMessagesDict}): void;
 }
 
 interface ValidationOption {
