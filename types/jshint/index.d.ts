@@ -3,7 +3,6 @@
 // Definitions by: Amin Yahyaabadi <https://github.com/aminya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export interface LintError {
     id: string;
     raw: string;
@@ -53,6 +52,13 @@ export interface LintData {
     json?: any;
 }
 
+type ModuleFunction = (api: ExtensionAPI) => void;
+
+interface ExtensionAPI {
+    readonly isJSON: boolean;
+    getOption(name: string): unknown | null;
+}
+
 /**
  * @param source The input JavaScript source code.
  * Type: string or an array of strings (each element is interpreted as a newline)
@@ -75,7 +81,7 @@ export namespace JSHINT {
     /** Generate a report containing details about the most recent invocation of JSHINT. */
     function data(): LintData | null | undefined;
 
-    function addModule(func: any): void;
+    function addModule(func: ModuleFunction): void;
 
     // Circular reference from jshint.JSHINT
     const jshint: typeof JSHINT;
