@@ -1,6 +1,6 @@
 // Type definitions for jshint 2.12
-// Project: http://jshint.com/
-// Definitions by: Amin Yahyaabadi <https://github.com/me>
+// Project: https://github.com/jshint/jshint
+// Definitions by: Amin Yahyaabadi <https://github.com/aminya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
