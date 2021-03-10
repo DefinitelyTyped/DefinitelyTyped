@@ -3,7 +3,6 @@
 // Definitions by: Amin Yahyaabadi <https://github.com/aminya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 export interface LintError {
     id: string;
