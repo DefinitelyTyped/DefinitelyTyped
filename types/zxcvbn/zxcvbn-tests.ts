@@ -8,7 +8,7 @@ const calcTime: number = testA.calc_time;
 const crackTimeSeconds: zxcvbn.ZXCVBNAttackTime = testA.crack_times_seconds;
 const onlineThrottling100PerHour = crackTimeSeconds.online_throttling_100_per_hour;
 const feedback: zxcvbn.ZXCVBNFeedback = testA.feedback;
-const warning: string = feedback.warning;
+const warning: zxcvbn.ZXCVBNFeedbackWarning = feedback.warning;
 const suggestions: string[] = feedback.suggestions;
 
 const test2: zxcvbn.ZXCVBNResult = zxcvbn('123456', ['abc']);
