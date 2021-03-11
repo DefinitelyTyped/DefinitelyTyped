@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "handlebars": ">=4.0.3"
+        "handlebars": ">=4.0.3",
+        "webpack": "^5.0.0"
     }
 }

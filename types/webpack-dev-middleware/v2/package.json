@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "loglevel": "^1.6.2"
+    "loglevel": "^1.6.2",
+    "webpack": "^5.0.0"
   }
 }

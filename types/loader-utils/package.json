@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "postcss": "7.0.32",
         "webpack": "^5.0.0"
     }
 }

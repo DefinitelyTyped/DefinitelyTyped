@@ -2,6 +2,7 @@
     "private": true,
     "dependencies": {
         "cac": "~6.4.2",
-        "webpack-chain": "^5.2.4"
+        "webpack-chain": "^5.2.4",
+        "webpack": "^5.0.0"
     }
 }
