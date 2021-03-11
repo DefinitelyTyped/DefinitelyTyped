@@ -5,5 +5,7 @@ import {
     NOTIFICATION_RECEIVED as ON_NOTIFICATION_RECEIVED,
     TOKEN_UPDATED,
   } from './src/constants';
+
   
   
+  import {setup, onNotification} from './src/index'

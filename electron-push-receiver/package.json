@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "electron": "^1.7.5",
+        "electron-config": "^1.0.0",
+        "push-receiver": "^2.0.2"
+    }
+}
