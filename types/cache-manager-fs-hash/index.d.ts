@@ -1,7 +1,8 @@
 // Type definitions for cache-manager-fs-hash 0.0
-// Project: https://github.com/rolandstarke/node-cache-manager-fs-hash
+// Project: https://github.com/rolandstarke/node-cache-manager-fs-hash#readme
 // Definitions by: René Schapka <https://github.com/schapka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import { Store, StoreConfig, CacheOptions, Cache } from "cache-manager";
 
 interface FsHashStoreOptions {
