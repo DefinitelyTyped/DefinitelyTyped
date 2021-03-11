@@ -1,4 +1,4 @@
-// Type definitions for bwip-js  2.0.11
+// Type definitions for bwip-js  2.1.1
 // Project: https://github.com/metafloor/bwip-js
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 //                 Guillaume VanderEst <https://github.com/gvanderest>
@@ -12,6 +12,7 @@ import { IncomingMessage as Request, ServerResponse as Response } from 'http';
 declare namespace BwipJs {
     export function loadFont(fontName:string, sizeMulti: number, fontFile: string): void;
     export function toBuffer(opts: ToBufferOptions, callback:(err: string|Error, png: Buffer) => void): void;
+    export function toBuffer(opts: ToBufferOptions): Promise<Buffer>;
     export function toCanvas(canvas: string | HTMLCanvasElement, opts: ToBufferOptions): HTMLCanvasElement;
     interface ToBufferOptions {
         bcid: string;
