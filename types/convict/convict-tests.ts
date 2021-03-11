@@ -18,6 +18,41 @@ const format: convict.Format = {
 };
 
 convict.addFormat(format);
+
+convict.addFormat({
+    name: 'source-array',
+    validate(sources, schema) {
+        if (!Array.isArray(sources)) {
+            throw new Error('must be of type Array');
+        }
+
+        for (const source of sources) {
+            convict(schema.children).load(source).validate();
+        }
+    }
+});
+
+convict({
+    sources: {
+      doc: 'A collection of data sources.',
+      format: 'source-array',
+      default: [],
+
+      children: {
+        type: {
+          doc: 'The source type',
+          format: ['git', 'hg', 'svn'],
+          default: null
+        },
+        url: {
+          doc: 'The source URL',
+          format: 'url',
+          default: null
+        }
+      }
+    }
+});
+
 convict.addFormats({
     prime: {
         validate(val) {

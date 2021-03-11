@@ -32,7 +32,7 @@ declare namespace convict {
 
     interface Format {
         name?: string;
-        validate?(val: any): void;
+        validate?(val: any, schema: SchemaObj): void;
         coerce?(val: any): any;
     }
 
@@ -82,6 +82,7 @@ declare namespace convict {
         env?: string;
         arg?: string;
         sensitive?: boolean;
+        [key: string]: any;
     }
 
     type Schema<T> = {
