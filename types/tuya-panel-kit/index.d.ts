@@ -37,6 +37,115 @@ export { GlobalTheme } from './theme';
 
 export type AnyFunction = (...args: any[]) => void;
 
+// Battery
+export interface BatteryProps {
+    /**
+     * @language zh-CN
+     * @description 电池尺寸
+     * @types number
+     * @defaultValue cx(10)
+     */
+    /**
+     * @language en-US
+     * @description the size of battery
+     * @types number
+     * @defaultValue cx(10)
+     */
+    size?: number;
+    /**
+     * @language zh-CN
+     * @description 电池颜色
+     * @types string
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the color of battery
+     * @types string
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    batteryColor?: string;
+    /**
+     * @language zh-CN
+     * @description 电量
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the value of battery power
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    value?: number;
+    /**
+     * @language zh-CN
+     * @description 高电量颜色
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the color of high power
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    highColor?: string;
+    /**
+     * @language zh-CN
+     * @description 中电量颜色
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the color of middle power
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    middleColor?: string;
+    /**
+     * @language zh-CN
+     * @description 低电量颜色
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the color of low power
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    lowColor?: string;
+    /**
+     * @language zh-CN
+     * @description 自定义电量的颜色分配规则
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description Customize the color distribution rules of the battery
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    onCalcColor?: (...args: any[]) => void;
+    /**
+     * @language zh-CN
+     * @description 主题配置
+     * @defaultValue {}
+     */
+    /**
+     * @language en-US
+     * @description Theme configuration
+     * @defaultValue {}
+     */
+    theme?: {
+        batteryColor: string
+    }
+}
+export class Battery extends React.Component<BatteryProps> {}
+
 // BrickButton
 export interface BrickButtonProps {
     /**
