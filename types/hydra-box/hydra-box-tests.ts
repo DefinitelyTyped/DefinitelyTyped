@@ -1,6 +1,7 @@
 import express = require('express');
 import hydraBox = require('hydra-box');
-import Api = require('hydra-box/Api');
+import ApiImpl = require('hydra-box/Api');
+import { Api } from 'hydra-box/Api';
 import StoreResourceLoader = require('hydra-box/StoreResourceLoader');
 import { Dataset, DatasetCore, NamedNode, Store, Stream } from 'rdf-js';
 import { GraphPointer } from 'clownface';
@@ -15,18 +16,18 @@ const term: NamedNode = <any> {};
 
 function createApi(): Api<Dataset> {
     // no options
-    let api: Api = Api.fromFile('foo').fromFile('bar');
-    api = new Api().fromFile('foo');
+    let api: Api = ApiImpl.fromFile('foo').fromFile('bar');
+    api = new ApiImpl().fromFile('foo');
 
     // with options
-    let withOptions: Api<Dataset> = Api.fromFile('foo', {
+    let withOptions: Api<Dataset> = ApiImpl.fromFile('foo', {
         codePath,
         dataset,
         graph,
         path,
         term,
     });
-    withOptions = new Api({
+    withOptions = new ApiImpl({
         codePath,
         dataset,
         graph,
