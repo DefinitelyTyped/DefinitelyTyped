@@ -1,6 +1,7 @@
 // Type definitions for zxcvbn 4.4
 // Project: https://github.com/dropbox/zxcvbn#readme
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
+//                 Muhun Kim <https://github.com/x86chi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default function zxcvbn(password: string, userInputs?: string[]): ZXCVBNResult;
