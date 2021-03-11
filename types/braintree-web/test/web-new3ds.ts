@@ -779,8 +779,6 @@ braintree.threeDSecure.verifyCard(
     },
 );
 
-
-
 braintree.threeDSecure.cancelVerifyCard(
     (err: braintree.BraintreeError, verifyPayload: braintree.ThreeDSecureVerifyPayload) => {
         if (err) {
