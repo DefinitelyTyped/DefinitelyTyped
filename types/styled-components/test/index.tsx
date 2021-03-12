@@ -16,8 +16,9 @@ import styled, {
     StyledComponent,
     ThemedStyledComponentsModule,
     FlattenSimpleInterpolation,
-    SimpleInterpolation,
     FlattenInterpolation,
+    GlobalStyleComponent,
+    DefaultTheme,
 } from 'styled-components';
 import {} from 'styled-components/cssprop';
 
@@ -1185,4 +1186,12 @@ function unionTest2() {
     <C bar="foobar" />;
     <C />; // $ExpectError
     <C foo={123} bar="foobar" />; // $ExpectError
+}
+
+function createCustomGlobalStyle(style: string): GlobalStyleComponent<null, DefaultTheme> {
+    return createGlobalStyle`
+        ${style}
+        * {
+        box-sizing: border-box;
+    }`;
 }
