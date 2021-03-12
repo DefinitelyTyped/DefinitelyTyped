@@ -143,3 +143,7 @@ map.removePattern(stripePattern);
 
 map.hasPattern(pattern);
 map.hasPattern(stripePattern);
+
+const pathOptions: L.PathOptions = {};
+pathOptions.fillPattern = pattern;
+pathOptions.fillPattern = stripePattern;

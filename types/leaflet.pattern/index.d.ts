@@ -15,6 +15,10 @@ declare module 'leaflet' {
         hasPattern(pattern: Pattern | StripePattern): boolean;
     }
 
+    interface PathOptions {
+        fillPattern?: Pattern | StripePattern;
+    }
+
     interface PatternOptions {
         x?: number;
         y?: number;
