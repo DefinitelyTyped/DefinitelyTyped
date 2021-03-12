@@ -162,6 +162,19 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
  */
 export function cookieJar(): CookieJar;
 
+/**
+ * Returns a callback to be used with setResponseCallback to mark responses
+ * as expected based only on their status codes.
+ * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses
+ */
+export function expectedStatuses(...param: Array<number | ExpectedStatusesObject>): ExpectedStatusesCallback;
+
+/**
+ * Set the response callback to be called to determine if a response was expected/successful or not.
+ * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback
+ */
+export function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
+
 // === SSL/TLS versions ===
 // ------------------------
 
@@ -243,6 +256,9 @@ export interface Params {
 
     /** Request timeout. */
     timeout?: string | number;
+
+    /** Sets a ResponseCallback only for this request. */
+    responseCallback?: ExpectedStatusesCallback;
 }
 
 /**
@@ -709,6 +725,15 @@ export interface CookieOptions {
     http_only?: boolean;
 }
 
+interface ExpectedStatusesCallback {
+    [n: string]: never;
+}
+
+export interface ExpectedStatusesObject {
+    min: number;
+    max: number;
+}
+
 /**
  * The http module contains functionality for performing HTTP transactions.
  * https://k6.io/docs/javascript-api/k6-http
@@ -874,6 +899,18 @@ declare namespace http {
      * let jar = http.cookieJar();
      */
     function cookieJar(): CookieJar;
+    /**
+     * Returns a callback to be used with setResponseCallback to mark responses
+     * as expected based only on their status codes.
+     * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses
+     */
+    function expectedStatuses(...param: Array<number | ExpectedStatusesObject>): ExpectedStatusesCallback;
+
+    /**
+     * Set the response callback to be called to determine if a response was expected/successful or not.
+     * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback
+     */
+    function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
 }
 
 export default http;

@@ -1,6 +1,6 @@
 import { JSONValue } from 'k6';
 import { Selection } from 'k6/html';
-import {
+import http, {
     CookieJar,
     CookieJarCookies,
     FileData,
@@ -17,6 +17,8 @@ import {
     batch,
     file,
     cookieJar,
+    expectedStatuses,
+    setResponseCallback
 } from 'k6/http';
 
 const address = 'http://example.com';
@@ -353,3 +355,22 @@ jar.set(address, 'session', 'abc123', {
 });
 jar.set('session', 'abc123', {}, 5); // $ExpectError
 jar.set(address, 'session', 'abc123', {}, 5); // $ExpectError
+
+// expectedStatuses
+expectedStatuses(200);
+expectedStatuses({min: 200, max: 300});
+expectedStatuses(200, 400);
+expectedStatuses(200, {min: 200, max: 300}, 400);
+expectedStatuses(200, {min: 200, max: 300}, 400, {min: 500, max: 600});
+expectedStatuses(200, {min: 200, max: 300}, 400, {hola: 500, max: 600}); // $ExpectError
+expectedStatuses(406, 500, {min: 200, max: 204}, 302, {min: 305, max: 405});
+
+http.expectedStatuses(200);
+
+setResponseCallback(); // $ExpectError
+setResponseCallback('hola'); // $ExpectError
+setResponseCallback(expectedStatuses(200));
+
+http.setResponseCallback(http.expectedStatuses(200));
+
+request('post', address, {}, {responseCallback: expectedStatuses(200)});
