@@ -8,11 +8,15 @@ import * as L from 'leaflet';
 
 declare module 'leaflet' {
     interface Map {
-        addPattern(pattern: Pattern | StripePattern | PatternShape | PatternCircle | PatternPath | PatternRect): Map;
+        addPattern(pattern: Pattern | StripePattern): Map;
 
-        removePattern(pattern: Pattern | StripePattern | PatternShape | PatternCircle | PatternPath | PatternRect): Map;
+        removePattern(pattern: Pattern | StripePattern): Map;
 
-        hasPattern(pattern: Pattern | StripePattern | PatternShape | PatternCircle | PatternPath | PatternRect): boolean;
+        hasPattern(pattern: Pattern | StripePattern): boolean;
+    }
+
+    interface PathOptions {
+        fillPattern?: Pattern | StripePattern;
     }
 
     interface PatternOptions {
@@ -105,7 +109,7 @@ declare module 'leaflet' {
 
         setStyle(style: PatternShapeOptions): this;
 
-        setShape(shape: this): void;
+        setShape(shape: PatternCircle | PatternPath | PatternRect): void;
     }
 
     class StripePattern extends Pattern {
