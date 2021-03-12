@@ -50,6 +50,7 @@ import priorities from "@ckeditor/ckeditor5-utils/src/priorities";
 import toMap from "@ckeditor/ckeditor5-utils/src/tomap";
 import { add } from "@ckeditor/ckeditor5-utils/src/translation-service";
 import uid from "@ckeditor/ckeditor5-utils/src/uid";
+import toArray from "@ckeditor/ckeditor5-utils/src/toarray";
 
 import {
     isCombiningMark,
@@ -653,14 +654,14 @@ bool = isInsideCombinedSymbol(str, 2);
 bool = isInsideSurrogatePair(str, 2);
 bool = isLowSurrogateHalf(String.fromCharCode(57166));
 
-// src/dom/position.d
+// src/dom/position ===========================================================
 
 let options: Options = {
     element: document.createElement("div"),
     target: () => document.createElement("div"),
     positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
     limiter: () => document.createElement("div"),
-    fitInViewport: true
+    fitInViewport: true,
 };
 
 options = {
@@ -668,3 +669,8 @@ options = {
     target: document.createElement("div"),
     positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
 };
+
+// utils/toArray ==============================================================
+let myArrayOfOneNumber: [number] = toArray(5);
+myArrayOfOneNumber = toArray([5]);
+const myArrayOfThreeNumbers: number[] = toArray([1, 2, 3]);
