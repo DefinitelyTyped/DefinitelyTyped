@@ -81,7 +81,9 @@ patternShape.addTo(new L.Pattern());
 patternShape.addTo(new L.StripePattern());
 patternShape.redraw();
 patternShape.setStyle(patternShapeOptions);
-patternShape.setShape(new L.PatternShape());
+patternShape.setShape(new L.PatternCircle());
+patternShape.setShape(new L.PatternPath());
+patternShape.setShape(new L.PatternRect());
 
 const stripePattern = new L.StripePattern(stripePatternOptions);
 stripePattern.initialize(stripePatternOptions);
@@ -106,6 +108,8 @@ patternCircle.addTo(new L.StripePattern());
 patternCircle.redraw();
 patternCircle.setStyle(patternCircleOptions);
 patternCircle.setShape(new L.PatternCircle());
+patternCircle.setShape(new L.PatternPath());
+patternCircle.setShape(new L.PatternRect());
 
 const patternPath = new L.PatternPath(patternPathOptions);
 patternPath.initialize(patternPathOptions);
@@ -115,7 +119,9 @@ patternPath.addTo(new L.Pattern());
 patternPath.addTo(new L.StripePattern());
 patternPath.redraw();
 patternPath.setStyle(patternPathOptions);
+patternPath.setShape(new L.PatternCircle());
 patternPath.setShape(new L.PatternPath());
+patternPath.setShape(new L.PatternRect());
 
 const patternRect = new L.PatternRect(patternRectOptions);
 patternRect.initialize(patternRectOptions);
@@ -125,25 +131,15 @@ patternRect.addTo(new L.Pattern());
 patternRect.addTo(new L.StripePattern());
 patternRect.redraw();
 patternRect.setStyle(patternRectOptions);
+patternRect.setShape(new L.PatternCircle());
+patternRect.setShape(new L.PatternPath());
 patternRect.setShape(new L.PatternRect());
 
 map.addPattern(pattern);
 map.addPattern(stripePattern);
-map.addPattern(patternShape);
-map.addPattern(patternCircle);
-map.addPattern(patternPath);
-map.addPattern(patternRect);
 
 map.removePattern(pattern);
 map.removePattern(stripePattern);
-map.removePattern(patternShape);
-map.removePattern(patternCircle);
-map.removePattern(patternPath);
-map.removePattern(patternRect);
 
 map.hasPattern(pattern);
 map.hasPattern(stripePattern);
-map.hasPattern(patternShape);
-map.hasPattern(patternCircle);
-map.hasPattern(patternPath);
-map.hasPattern(patternRect);
