@@ -14,7 +14,7 @@ export function randomBytes(size: number): bytes;
  * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding
  * @param algorithm - Hash algorithm.
  * @param secret - Shared secret.
- * @param data - Input data.
+ * @param input - Input data.
  * @param outputEncoding - Output encoding.
  * @returns Produced HMAC.
  * @example
@@ -23,7 +23,7 @@ export function randomBytes(size: number): bytes;
 export function hmac<OE extends OutputEncoding>(
     algorithm: Algorithm,
     secret: string,
-    data: string,
+    input: string,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -263,7 +263,7 @@ declare namespace crypto {
      * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding
      * @param algorithm - Hash algorithm.
      * @param secret - Shared secret.
-     * @param data - Input data.
+     * @param input - Input data.
      * @param outputEncoding - Output encoding.
      * @returns Produced HMAC.
      * @example
@@ -272,7 +272,7 @@ declare namespace crypto {
     function hmac<OE extends OutputEncoding>(
         algorithm: Algorithm,
         secret: string,
-        data: string,
+        input: string,
         outputEncoding: OE
     ): Output<OE>;
 
