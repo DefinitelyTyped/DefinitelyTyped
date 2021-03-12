@@ -28,6 +28,78 @@ export interface PayPalCheckoutTokenizationOptions {
     vault?: boolean;
 }
 
+export interface PayPalCheckoutLoadPayPalSDKOptions {
+    /**
+     * By default, this will be the client id associated with the authorization used to create the
+     * Braintree component. When used in conjunction with passing authorization when creating the
+     * PayPal Checkout component, you can speed up the loading of the PayPal SDK.
+     */
+    'client-id'?: string;
+
+    /**
+     * By default, the PayPal SDK defaults to an intent of capture. Since the default intent when
+     * calling createPayment is authorize, the PayPal SDK will be loaded with intent=authorize. If you
+     * wish to use a different intent when calling createPayment, make sure it matches here. If sale
+     * is used, it will be converted to capture for the PayPal SDK. If the vault: true param is used,
+     * no default intent will be passed.
+     *
+     * @default 'authorize'
+     */
+    intent?: 'authorize' | 'capture' | 'sale';
+
+    /**
+     * If a currency is passed in createPayment, it must match the currency passed here.
+     *
+     * @default 'USD'
+     */
+    currency?: string;
+
+    /**
+     * Must be true when using flow: vault in createPayment.
+     */
+    vault?: boolean;
+
+    /**
+     * By default, the Braintree SDK will only load the PayPal smart buttons component. If you would
+     * like to load just the messages component, pass messages. If you would like to load both, pass
+     * buttons,messages
+     *
+     * @default 'buttons'
+     */
+    components?: 'buttons' | 'messages' | 'buttons,messages';
+
+    /**
+     * The data attributes to apply to the script. Any data attribute can be passed. A subset of the
+     * parameters are listed below. For a full list of data attributes, see the PayPal docs.
+     */
+    dataAttributes?: {
+        /**
+         * CSP nonce used for rendering the button.
+         */
+        'csp-nonce'?: string;
+
+        /**
+         * Client token used for identifying your buyers.
+         */
+        'data-client-token'?: string;
+
+        /**
+         * Order ID used for optimizing the funding that displays.
+         */
+        'data-order-id'?: string;
+
+        /**
+         * Log page type and interactions for the JavaScript SDK.
+         */
+        'data-page-type'?: string;
+
+        /**
+         * Partner attribution ID used for revenue attribution.
+         */
+        'data-partner-attribution-id'?: string;
+    };
+}
+
 export interface PayPalCheckout {
     /**
      * @description There are two ways to integrate the PayPal Checkout component.
@@ -47,6 +119,14 @@ export interface PayPalCheckout {
      */
     create(options: { client?: Client; authorization?: string; merchantAccountId?: string }): Promise<PayPalCheckout>;
     create(options: { client?: Client; authorization?: string; merchantAccountId?: string }, callback?: callback): void;
+
+    /**
+     * Resolves when the PayPal SDK has been succesfully loaded onto the page.
+     *
+     * @link https://braintree.github.io/braintree-web/current/PayPalCheckout.html#loadPayPalSDK
+     */
+    loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions): Promise<void>;
+    loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions, callback?: callback): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.

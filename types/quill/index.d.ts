@@ -5,6 +5,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
 //                 Mohammad Hossein Amri <https://github.com/mhamri>
+//                 Marco Mantovani <https://github.com/TheLand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -112,6 +113,7 @@ export class Quill implements EventEmitter {
     deleteText(index: number, length: number, source?: Sources): Delta;
     disable(): void;
     enable(enabled?: boolean): void;
+    isEnabled(): boolean;
     getContents(index?: number, length?: number): Delta;
     getLength(): number;
     getText(index?: number, length?: number): string;

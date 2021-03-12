@@ -1,1 +1,3 @@
-export { QrCode as default } from "../../";
+import { QrCode } from "../../";
+
+export = QrCode;

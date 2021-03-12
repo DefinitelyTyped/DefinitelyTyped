@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 import Providers from 'next-auth/providers';
-import Adapters from 'next-auth/adapters';
+import Adapters, { Adapter, EmailSessionProvider, Profile, Session, VerificationRequest } from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWT from 'next-auth/jwt';
 import NextAuth, * as NextAuthTypes from 'next-auth';
@@ -50,6 +50,70 @@ const simpleConfig = {
     ],
 };
 
+const exampleUser: NextAuthTypes.User = {
+    name: '',
+    image: '',
+    email: '',
+};
+
+const exampleSession: Session = {
+    userId: '',
+    accessToken: '',
+    sessionToken: '',
+    expires: new Date(),
+};
+
+const exampleVerificatoinRequest: VerificationRequest = {
+    identifier: '',
+    token: '',
+    expires: new Date(),
+};
+
+const adapter: Adapter<NextAuthTypes.User, Profile, Session, VerificationRequest> = {
+    getAdapter(appOptions: NextAuthTypes.AppOptions) {
+        return Promise.resolve({
+            createUser: (profile: Profile) => Promise.resolve(exampleUser),
+            getUser: (id: string) => Promise.resolve(exampleUser),
+            getUserByEmail: (email: string) => Promise.resolve(exampleUser),
+            getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve(exampleUser),
+            updateUser: (user: NextAuthTypes.User) => Promise.resolve(exampleUser),
+            linkAccount: (
+                userId: string,
+                providerId: string,
+                providerType: string,
+                providerAccountId: string,
+                refreshToken: string,
+                accessToken: string,
+                accessTokenExpires: number,
+            ) => Promise.resolve(),
+            createSession: (user: NextAuthTypes.User) => Promise.resolve(exampleSession),
+            getSession: (sessionToken: string) => Promise.resolve(exampleSession),
+            updateSession: (session: Session, force?: boolean) => Promise.resolve(exampleSession),
+            deleteSession: (sessionToken: string) => Promise.resolve(),
+            createVerificationRequest: (
+                email: string,
+                url: string,
+                token: string,
+                secret: string,
+                provider: EmailSessionProvider,
+                options: NextAuthTypes.AppOptions,
+            ) => Promise.resolve(exampleVerificatoinRequest),
+            getVerificationRequest: (
+                email: string,
+                verificationToken: string,
+                secret: string,
+                provider: client.SessionProvider,
+            ) => Promise.resolve(exampleVerificatoinRequest),
+            deleteVerificationRequest: (
+                email: string,
+                verificationToken: string,
+                secret: string,
+                provider: client.SessionProvider,
+            ) => Promise.resolve(),
+        });
+    },
+};
+
 const allConfig = {
     site: 'https://foo.com',
     providers: [
@@ -70,12 +134,14 @@ const allConfig = {
         secret: 'secret-thing',
         maxAge: 365,
         encryption: true,
+        signingKey: 'some-key',
+        encryptionKey: 'some-key',
         encode: () => Promise.resolve('foo'),
-        decode: () => Promise.resolve('foo'),
+        decode: () => Promise.resolve({}),
     },
     pages: pageOptions,
     callbacks: {
-        signIgn: (user: NextAuthTypes.User, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
+        signIn: (user: NextAuthTypes.User, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
         session: (session: SessionBase, user: NextAuthTypes.User) => Promise.resolve<any>(user),
         jwt: (
@@ -106,30 +172,7 @@ const allConfig = {
             return undefined;
         },
     },
-    adapter: {
-        getAdapter: (appOptions: NextAuthTypes.AppOptions) => {
-            return Promise.resolve({
-                createUser: (profile: any) => Promise.resolve({}),
-                getUser: (id: string) => Promise.resolve({}),
-                getUserByEmail: (email: string) => Promise.resolve({}),
-                getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve({}),
-                updateUser: (profile: any) => Promise.resolve({}),
-                linkAccount: (
-                    userId: string,
-                    providerId: string,
-                    providerType: string,
-                    providerAccountId: string,
-                    refreshToken: string,
-                    accessToken: string,
-                    accessTokenExpires: number,
-                ) => Promise.resolve(),
-                createSession: (user: any) => Promise.resolve({}),
-                getSession: (sessionToken: string) => Promise.resolve({}),
-                updateSession: (session: any) => Promise.resolve(),
-                deleteSession: (sessionToken: string) => Promise.resolve(),
-            });
-        },
-    },
+    adapter,
     useSecureCookies: true,
     cookies: {
         sessionToken: {
@@ -139,10 +182,17 @@ const allConfig = {
                 sameSite: true as true,
                 path: '/',
                 secure: true,
+                domain: 'foo.com',
             },
         },
     },
 };
+
+// $ExpectType Promise<void>
+NextAuth(simpleConfig);
+
+// $ExpectType Promise<void>
+NextAuth(allConfig);
 
 // $ExpectType Promise<void>
 NextAuth(req, res, simpleConfig);
@@ -212,13 +262,22 @@ client.getCsrfToken({ req });
 client.csrfToken({ req });
 
 // $ExpectType Promise<void>
-client.signin('github', { data: 'foo' });
+client.signin('github', { data: 'foo', redirect: false }, { login: 'username' });
+
+// $ExpectType Promise<SignInResponse>
+client.signin('credentials', { data: 'foo', redirect: false });
+
+// $ExpectType Promise<SignInResponse>
+client.signin('email', { data: 'foo', redirect: false });
+
+// $ExpectType Promise<void>
+client.signin('email', { data: 'foo', redirect: true });
 
 // $ExpectType Promise<void>
 client.signout();
 
 // $ExpectType Promise<void>
-client.signout({ callbackUrl: 'https://foo.com/callback' });
+client.signout({ callbackUrl: 'https://foo.com/callback', redirect: true });
 
 // $ExpectType ReactElement<any, any> | null
 client.Provider({
@@ -366,6 +425,19 @@ Providers.Auth0({
 });
 
 // $ExpectType GenericReturnConfig
+Providers.Auth0({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+    domain: 'https://foo.auth0.com',
+    profile: () => ({
+        id: 'foo123',
+        name: 'foo',
+        email: 'foo@bar.io',
+        image: 'https://foo.auth0.com/image/1.png',
+    }),
+});
+
+// $ExpectType GenericReturnConfig
 Providers.IdentityServer4({
     id: 'identity-server4',
     name: 'IdentityServer4',
@@ -379,6 +451,7 @@ Providers.IdentityServer4({
 Providers.Discord({
     clientId: 'foo123',
     clientSecret: 'bar123',
+    scope: 'identify', // This tests the `extends GenericObject`
 });
 
 // $ExpectType GenericReturnConfig

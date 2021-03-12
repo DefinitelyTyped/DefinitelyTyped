@@ -1,1 +1,3 @@
-export { Calibrate32 as default } from "../../";
+import { Calibrate32 } from "../../";
+
+export = Calibrate32;

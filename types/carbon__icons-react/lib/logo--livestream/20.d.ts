@@ -1,1 +1,3 @@
-export { LogoLivestream20 as default } from "../../";
+import { LogoLivestream20 } from "../../";
+
+export = LogoLivestream20;

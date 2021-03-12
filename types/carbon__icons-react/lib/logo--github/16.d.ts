@@ -1,1 +1,3 @@
-export { LogoGithub16 as default } from "../../";
+import { LogoGithub16 } from "../../";
+
+export = LogoGithub16;

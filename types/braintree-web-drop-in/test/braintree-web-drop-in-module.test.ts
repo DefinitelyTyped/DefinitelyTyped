@@ -1,6 +1,6 @@
-import * as dropin from "braintree-web-drop-in";
+import * as dropin from 'braintree-web-drop-in';
 
-dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
+dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
     if (error) {
         return;
     }
@@ -11,11 +11,11 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
 
 (async () => {
     const myOptions: dropin.Options = {
-        authorization: "",
-        container: "my-div",
-        locale: "en-US",
+        authorization: '',
+        container: 'my-div',
+        locale: 'en-US',
         translations: {},
-        paymentOptionPriority: ["card", "paypal", "paypalCredit", "venmo", "applePay"],
+        paymentOptionPriority: ['card', 'paypal', 'paypalCredit', 'venmo', 'applePay'],
         card: {
             cardholderName: {
                 required: false,
@@ -31,9 +31,9 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
             },
         },
         paypal: {
-            flow: "checkout",
+            flow: 'checkout',
             amount: 1,
-            currency: "USD",
+            currency: 'USD',
             buttonStyle: {},
             commit: false,
         },
@@ -42,34 +42,34 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
             allowNewBrowserTab: false,
         },
         applePay: {
-            buttonStyle: "white-outline",
-            displayName: "name",
+            buttonStyle: 'white-outline',
+            displayName: 'name',
             applePaySessionVersion: 1,
             paymentRequest: {
-                countryCode: "US",
-                currencyCode: "USD",
-                supportedNetworks: ["visa", "masterCard"],
-                merchantCapabilities: ["supports3DS"],
-                total: { label: "Your Label", amount: "10.00" },
+                countryCode: 'US',
+                currencyCode: 'USD',
+                supportedNetworks: ['visa', 'masterCard'],
+                merchantCapabilities: ['supports3DS'],
+                total: { label: 'Your Label', amount: '10.00' },
             },
         },
         googlePay: {
-            merchantId: "",
-            googlePayVersion: "",
+            merchantId: '',
+            googlePayVersion: '',
             transactionInfo: {
-                currencyCode: "USD",
-                totalPriceStatus: "FINAL",
-                totalPrice: "100.00",
+                currencyCode: 'USD',
+                totalPriceStatus: 'FINAL',
+                totalPrice: '100.00',
             },
             button: {
-                onClick: (event) => {}
+                onClick: event => {},
             },
         },
         dataCollector: {
             kount: false,
         },
         threeDSecure: {
-            amount: "1",
+            amount: '1',
         },
         vaultManager: false,
         preselectVaultedPaymentMethod: false,
@@ -83,20 +83,20 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
         return;
     }
     function onPaymentMethodRequestable({ type, paymentMethodIsSelected }: dropin.PaymentMethodRequestablePayload) {
-        const myType: "CreditCard" | "PayPalAccount" = type;
+        const myType: 'CreditCard' | 'PayPalAccount' = type;
         const myBool: boolean = paymentMethodIsSelected;
     }
     function onPaymentOptionSelected({ paymentOption }: dropin.PaymentOptionSelectedPayload) {
-        const myPaymentOption: "card" | "paypal" | "paypalCredit" = paymentOption;
+        const myPaymentOption: 'card' | 'paypal' | 'paypalCredit' = paymentOption;
     }
 
-    myDropin.on("noPaymentMethodRequestable", onNoPaymentMethodRequestable);
-    myDropin.on("paymentMethodRequestable", onPaymentMethodRequestable);
-    myDropin.on("paymentOptionSelected", onPaymentOptionSelected);
+    myDropin.on('noPaymentMethodRequestable', onNoPaymentMethodRequestable);
+    myDropin.on('paymentMethodRequestable', onPaymentMethodRequestable);
+    myDropin.on('paymentOptionSelected', onPaymentOptionSelected);
 
-    myDropin.off("noPaymentMethodRequestable", onNoPaymentMethodRequestable);
-    myDropin.off("paymentMethodRequestable", onPaymentMethodRequestable);
-    myDropin.off("paymentOptionSelected", onPaymentOptionSelected);
+    myDropin.off('noPaymentMethodRequestable', onNoPaymentMethodRequestable);
+    myDropin.off('paymentMethodRequestable', onPaymentMethodRequestable);
+    myDropin.off('paymentOptionSelected', onPaymentOptionSelected);
 
     myDropin.requestPaymentMethod((error, payload) => {
         if (error) {

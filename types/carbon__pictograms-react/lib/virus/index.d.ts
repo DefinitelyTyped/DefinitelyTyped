@@ -1,1 +1,3 @@
-export { Virus as default } from "../../";
+import { Virus } from "../../";
+
+export = Virus;

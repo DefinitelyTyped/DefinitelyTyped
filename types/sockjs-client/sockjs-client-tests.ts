@@ -7,7 +7,8 @@ sockJs = SockJS('url');
 sockJs = SockJS('url', null, {
     server: '1233445',
     sessionId: 23,
-    transports: 'websocket'
+    transports: 'websocket',
+    timeout: 1000
 });
 sockJs = SockJS('url', null, {
     sessionId: () => 'SID',

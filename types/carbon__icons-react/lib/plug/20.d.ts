@@ -1,1 +1,3 @@
-export { Plug20 as default } from "../../";
+import { Plug20 } from "../../";
+
+export = Plug20;

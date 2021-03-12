@@ -1,1 +1,3 @@
-export { WatsonHealthTextAnnotationToggle20 as default } from "../../../";
+import { WatsonHealthTextAnnotationToggle20 } from "../../../";
+
+export = WatsonHealthTextAnnotationToggle20;

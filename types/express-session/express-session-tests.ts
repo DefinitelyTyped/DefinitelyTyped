@@ -102,6 +102,18 @@ class MyStore extends Store {
         if (callback) callback();
     }
 
+    touch = (sid: string, session: SessionData, callback?: (err?: any) => void) => {
+        const currentSession = this.sessions[sid];
+        const sessionData: SessionData | null = currentSession ? JSON.parse(currentSession) : null;
+
+        if (sessionData) {
+            // Real case could compare cookie timestamps to determine if touch to Store backend is needed
+            sessionData.cookie = session.cookie;
+            this.sessions[sid] = JSON.stringify(sessionData);
+        }
+        if (callback) callback();
+    }
+
     destroy = (sid: string, callback?: (err?: any) => void): void => {
         this.sessions[sid] = undefined;
         this.sessions = JSON.parse(JSON.stringify(this.sessions));

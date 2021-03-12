@@ -1,1 +1,3 @@
-export { ScatterMatrix32 as default } from "../../";
+import { ScatterMatrix32 } from "../../";
+
+export = ScatterMatrix32;

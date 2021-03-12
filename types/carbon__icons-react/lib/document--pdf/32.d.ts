@@ -1,1 +1,3 @@
-export { DocumentPdf32 as default } from "../../";
+import { DocumentPdf32 } from "../../";
+
+export = DocumentPdf32;

@@ -1,1 +1,3 @@
-export { MixedRainHail32 as default } from "../../";
+import { MixedRainHail32 } from "../../";
+
+export = MixedRainHail32;

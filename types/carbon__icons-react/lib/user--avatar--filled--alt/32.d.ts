@@ -1,1 +1,3 @@
-export { UserAvatarFilledAlt32 as default } from "../../";
+import { UserAvatarFilledAlt32 } from "../../";
+
+export = UserAvatarFilledAlt32;

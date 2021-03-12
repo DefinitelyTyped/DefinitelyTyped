@@ -1,1 +1,3 @@
-export { Restart16 as default } from "../../";
+import { Restart16 } from "../../";
+
+export = Restart16;

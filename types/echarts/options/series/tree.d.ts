@@ -400,7 +400,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -410,7 +410,7 @@ declare namespace echarts {
                  * "#c23531"
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -453,7 +453,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-tree.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1377,7 +1377,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -1387,7 +1387,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -1428,7 +1428,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -3156,7 +3156,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -3166,7 +3166,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -3207,7 +3207,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.leaves.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4072,7 +4072,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4083,7 +4083,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4124,7 +4124,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.leaves.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4220,7 +4220,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4230,7 +4230,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -4271,7 +4271,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-tree.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -5840,7 +5840,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -5851,7 +5851,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -5892,7 +5892,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-tree.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.

@@ -1,1 +1,3 @@
-export { LogoPython32 as default } from "../../";
+import { LogoPython32 } from "../../";
+
+export = LogoPython32;

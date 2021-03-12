@@ -1,1 +1,3 @@
-export { Goals as default } from "../../";
+import { Goals } from "../../";
+
+export = Goals;

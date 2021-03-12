@@ -18,17 +18,18 @@ const config: Configuration = {
             minRatio: 0.8,
             test: /\.js$|\.html$/,
             threshold: 10240,
-            deleteOriginalAssets: true
+            deleteOriginalAssets: true,
         }),
         new CompressionPlugin({
-            filename: (info) => {
-                info.file; // $ExpectType string
-                info.path; // $ExpectType string
-                info.query; // $ExpectType string
-                return `${info.path}.gz${info.query}`;
+            filename: pathData => {
+                pathData.file; // $ExpectType string
+                pathData.path; // $ExpectType string
+                pathData.query; // $ExpectType string
+                return `${pathData.path}.gz${pathData.query}`;
             },
-        })
-    ]
+            deleteOriginalAssets: 'keep-source-map',
+        }),
+    ],
 };
 
 const configDefaultAlgo = new CompressionPlugin({
@@ -45,10 +46,10 @@ const zlib: Configuration = {
             compressionOptions: {
                 flush: 5,
                 windowBits: 20,
-                level: 7
-            }
-        })
-    ]
+                level: 7,
+            },
+        }),
+    ],
 };
 
 const badZlib: Configuration = {

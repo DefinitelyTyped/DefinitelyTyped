@@ -1,1 +1,3 @@
-export { ChartArea16 as default } from "../../";
+import { ChartArea16 } from "../../";
+
+export = ChartArea16;

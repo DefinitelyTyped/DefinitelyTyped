@@ -489,7 +489,7 @@ export namespace Linter {
         $schema?: string;
         env?: { [name: string]: boolean };
         extends?: string | string[];
-        globals?: { [name: string]: boolean };
+        globals?: { [name: string]: boolean | 'readonly' | 'readable' | 'writable' | 'writeable' };
         noInlineConfig?: boolean;
         overrides?: ConfigOverride[];
         parser?: string;
@@ -594,7 +594,7 @@ export class ESLint {
 
     static getErrorResults(results: ESLint.LintResult[]): ESLint.LintResult[];
 
-    constructor(options: ESLint.Options);
+    constructor(options?: ESLint.Options);
 
     lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
 

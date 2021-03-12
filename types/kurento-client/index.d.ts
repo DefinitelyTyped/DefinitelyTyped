@@ -19,9 +19,9 @@ declare namespace kurento {
     }
 
     interface ElementConnectionData {
-        source: WebRtcEndpoint;
-        sink: WebRtcEndpoint;
-        type: any;
+        source: MediaElement;
+        sink: MediaElement;
+        type: MediaType;
         sourceDescription: string;
         sinkDescription: string;
     }
@@ -90,7 +90,8 @@ declare namespace kurento {
             },
         ): Promise<PlayerEndpoint>;
         create(type: string, options?: Record<string, unknown>): Promise<MediaElement>;
-        getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
+        // tslint:disable-next-line
+        getMediaobjectById<T extends MediaObject = MediaObject>(objectId: string): Promise<T>;
         getServerManager: (callback?: Callback<ServerManager>) => Promise<ServerManager>;
         close(): void;
     }
@@ -133,19 +134,65 @@ declare namespace kurento {
     }
 
     interface MediaElement extends MediaObject {
-        connect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
-        disconnect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
-        getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
-        getSourceConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
+        connect(sink: MediaElement, callback?: Callback<void>): Promise<void>;
+        connect(sink: MediaElement, mediaType: MediaType, callback?: Callback<void>): Promise<void>;
+        connect(
+            sink: MediaElement,
+            mediaType: MediaType,
+            sourceMediaDescription: string,
+            callback?: Callback<void>,
+        ): Promise<void>;
+        connect(
+            sink: MediaElement,
+            mediaType: MediaType,
+            sourceMediaDescription: string,
+            sinkMediaDescriptionopt: string,
+            callback?: Callback<void>,
+        ): Promise<void>;
+        disconnect(sink: MediaElement, callback?: Callback<void>): Promise<void>;
+        disconnect(sink: MediaElement, mediaType: MediaType, callback?: Callback<void>): Promise<void>;
+        disconnect(
+            sink: MediaElement,
+            mediaType: MediaType,
+            sourceMediaDescription: string,
+            callback?: Callback<void>,
+        ): Promise<void>;
+        disconnect(
+            sink: MediaElement,
+            mediaType: MediaType,
+            sourceMediaDescription: string,
+            sinkMediaDescriptionopt: string,
+            callback?: Callback<void>,
+        ): Promise<void>;
+        getSinkConnections(callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSinkConnections(
+            mediaType: MediaType,
+            callback?: Callback<ElementConnectionData[]>,
+        ): Promise<ElementConnectionData[]>;
+        getSinkConnections(
+            mediaType: MediaType,
+            description: string,
+            callback?: Callback<ElementConnectionData[]>,
+        ): Promise<ElementConnectionData[]>;
+        getSourceConnections(callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSourceConnections(
+            mediaType: MediaType,
+            callback?: Callback<ElementConnectionData[]>,
+        ): Promise<ElementConnectionData[]>;
+        getSourceConnections(
+            mediaType: MediaType,
+            description: string,
+            callback?: Callback<ElementConnectionData[]>,
+        ): Promise<ElementConnectionData[]>;
 
         isMediaFlowingIn(
             mediaType: MediaType,
-            sinkMediaDescriptionopt?: string,
+            sinkMediaDescription?: string,
             callbackopt?: Callback<boolean>,
         ): Promise<boolean>;
         isMediaFlowingOut(
             mediaType: MediaType,
-            sinkMediaDescriptionopt?: string,
+            sinkMediaDescription?: string,
             callbackopt?: Callback<boolean>,
         ): Promise<boolean>;
 
@@ -664,7 +711,7 @@ declare namespace kurento {
     type ConnectionState = 'DISCONNECTED' | 'CONNECTED';
     type MediaState = 'DISCONNECTED' | 'CONNECTED';
     type UriEndpointState = 'STOP' | 'START' | 'PAUSE';
-    type MediaType = 'AUDIO' | ' DATA' | 'VIDEO';
+    type MediaType = 'AUDIO' | 'DATA' | 'VIDEO';
     type MediaFlowState = 'FLOWING' | 'NOT_FLOWING';
     type MediaTranscodingState = 'TRANSCODING' | 'NOT_TRANSCODING';
 

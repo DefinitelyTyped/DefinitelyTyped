@@ -1,1 +1,3 @@
-export { RichTextFormat as default } from "../../";
+import { RichTextFormat } from "../../";
+
+export = RichTextFormat;

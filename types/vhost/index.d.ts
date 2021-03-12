@@ -5,6 +5,6 @@
 
 import express = require('express');
 
-declare function vhost(hostname: string | RegExp, handler: express.Handler): string;
+declare function vhost(hostname: string | RegExp, handler: express.Handler): express.Handler;
 
 export = vhost;

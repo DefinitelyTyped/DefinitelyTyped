@@ -1,1 +1,3 @@
-export { ChevronRightGlyph as default } from "../../";
+import { ChevronRightGlyph } from "../../";
+
+export = ChevronRightGlyph;

@@ -1,1 +1,3 @@
-export { Tif20 as default } from "../../";
+import { Tif20 } from "../../";
+
+export = Tif20;

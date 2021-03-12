@@ -403,6 +403,13 @@ QUnit.test( "deepEqual test", function( assert ) {
   assert.deepEqual( obj, { foo: "bar" }, "Two objects can be the same in value" );
 });
 
+QUnit.test( "false assertion test", function( assert ) {
+  var foo = false;
+
+  assert.false( foo );
+  assert.false( foo, "some message" );
+});
+
 QUnit.test( "ok test", function( assert ) {
   assert.ok( true, "true succeeds" );
   assert.ok( "non-empty", "non-empty string succeeds" );
@@ -589,6 +596,13 @@ QUnit.test( "throws", function( assert ) {
     "raised error instance satisfies the callback function"
   );
 });
+
+QUnit.test( "true assertion test", function( assert ) {
+    var foo = true;
+
+    assert.true( foo );
+    assert.true( foo, "some message" );
+  });
 
 QUnit.test( "rejects", function( assert ) {
 

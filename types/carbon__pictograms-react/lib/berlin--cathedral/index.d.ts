@@ -1,1 +1,3 @@
-export { BerlinCathedral as default } from "../../";
+import { BerlinCathedral } from "../../";
+
+export = BerlinCathedral;

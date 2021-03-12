@@ -8,6 +8,7 @@
 declare namespace Exif {
     interface ExifData {
         image: {
+            Artist?: string;
             Copyright?: string;
             ExifOffset?: number;
             ImageHeight?: number;
@@ -59,6 +60,8 @@ declare namespace Exif {
             ImageUniqueID?: string;
             InteropOffset?: number;
             ISO?: number;
+            LensMake?: string;
+            LensModel?: string;
             MakerNote?: Buffer;
             MaxApertureValue?: number;
             MeteringMode?: number;

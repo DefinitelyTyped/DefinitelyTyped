@@ -1,1 +1,3 @@
-export { Undo24 as default } from "../../";
+import { Undo24 } from "../../";
+
+export = Undo24;

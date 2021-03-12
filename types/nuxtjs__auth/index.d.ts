@@ -13,16 +13,21 @@ export interface Storage {
   setUniversal(key: string, value: any, isJson?: boolean): string;
   getUniversal(key: string, isJson?: boolean): any;
   syncUniversal(key: string, defaultValue: any, isJson?: boolean): any;
+  removeUniversal(key: string): any;
   // Local State
   setState(key: string, val: any): string;
   getState(key: string): string;
   watchState(key: string, handler: (newValue: any) => void): any;
+  removeState(key: string): any;
   // Cookies
+  getCookies(): any;
   setCookie(key: string, val: any, options?: object): any;
   getCookie(key: string, isJson?: boolean): any;
+  removeCookie(key: string, options?: object): any;
   // Local Storage
   setLocalStorage(key: string, val: any, isJson?: boolean): any;
   getLocalStorage(key: string, isJson?: boolean): any;
+  removeLocalStorage(key: string): any;
 }
 
 export interface Auth<T = any> {
@@ -74,6 +79,12 @@ declare module '@nuxt/vue-app' {
 
 declare module '@nuxt/types' {
     interface Context {
+        $auth: Auth;
+    }
+}
+
+declare module 'vuex/types/index' {
+    interface Store<S> {
         $auth: Auth;
     }
 }

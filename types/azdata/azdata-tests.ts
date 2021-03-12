@@ -14,3 +14,30 @@ azdata.dataprotocol.registerConnectionProvider({
     registerOnIntelliSenseCacheComplete(handler: (connectionUri: string) => any): void { },
     registerOnConnectionChanged(handler: (changedConnInfo: azdata.ChangedConnectionInfo) => any): void { }
 });
+
+class StubDisposable {
+    public dispose(): void { }
+}
+
+const testContainerBuilder: azdata.ContainerBuilder<azdata.InputBoxComponent, any, any, azdata.InputBoxProperties> = {
+    component: () => <any> {},
+    withItems: (component: azdata.Component[]) => { throw new Error('Not implemented'); },
+    withLayout: (layout: any) => { throw new Error('Not implemented'); },
+    withProperties: (properties: azdata.InputBoxProperties) => { throw new Error('Not implemented'); },
+    withValidation: (validation: (component: azdata.InputBoxComponent) => boolean | Thenable<boolean>) => { throw new Error('Not implemented'); }
+};
+testContainerBuilder.component();
+
+const testLoadingComponent: azdata.LoadingComponent = {
+    loading: false,
+    component: testContainerBuilder.component(),
+    id: 'my-loading-component',
+    updateProperty: async (key: string, value: any) => { },
+    updateCssStyles: async (cssStyles) => { },
+    updateProperties: async (properties: { [key: string]: any }) => { },
+    valid: false,
+    validate: async () => false,
+    focus: async () => { },
+    onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable()
+};
+testLoadingComponent.validate();

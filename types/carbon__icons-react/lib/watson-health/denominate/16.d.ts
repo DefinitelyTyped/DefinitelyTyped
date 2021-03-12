@@ -1,1 +1,3 @@
-export { WatsonHealthDenominate16 as default } from "../../../";
+import { WatsonHealthDenominate16 } from "../../../";
+
+export = WatsonHealthDenominate16;

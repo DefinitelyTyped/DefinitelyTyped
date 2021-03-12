@@ -1,1 +1,3 @@
-export { Gift as default } from "../../";
+import { Gift } from "../../";
+
+export = Gift;

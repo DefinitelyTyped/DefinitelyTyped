@@ -1,1 +1,3 @@
-export { Omega16 as default } from "../../";
+import { Omega16 } from "../../";
+
+export = Omega16;

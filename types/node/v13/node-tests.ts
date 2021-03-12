@@ -1,3 +1,7 @@
+import './ts3.6/node-tests';
+import './test/querystring';
+import './test/url';
+
 import * as assert from 'assert';
 
 assert(true, "it's working");

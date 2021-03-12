@@ -1,1 +1,3 @@
-export { Api_120 as default } from "../../";
+import { Api_120 } from "../../";
+
+export = Api_120;

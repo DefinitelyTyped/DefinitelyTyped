@@ -1,1 +1,3 @@
-export { ConsoleWireless as default } from "../../";
+import { ConsoleWireless } from "../../";
+
+export = ConsoleWireless;

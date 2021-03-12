@@ -1,1 +1,3 @@
-export { OperationsRecord32 as default } from "../../";
+import { OperationsRecord32 } from "../../";
+
+export = OperationsRecord32;

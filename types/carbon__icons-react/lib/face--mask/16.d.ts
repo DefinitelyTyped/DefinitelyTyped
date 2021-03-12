@@ -1,1 +1,3 @@
-export { FaceMask16 as default } from "../../";
+import { FaceMask16 } from "../../";
+
+export = FaceMask16;

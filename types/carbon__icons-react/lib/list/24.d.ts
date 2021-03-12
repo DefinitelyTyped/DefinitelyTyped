@@ -1,1 +1,3 @@
-export { List24 as default } from "../../";
+import { List24 } from "../../";
+
+export = List24;

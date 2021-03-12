@@ -1,1 +1,3 @@
-export { Development24 as default } from "../../";
+import { Development24 } from "../../";
+
+export = Development24;

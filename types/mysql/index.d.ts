@@ -12,6 +12,7 @@
 
 import stream = require('stream');
 import tls = require('tls');
+import events = require('events');
 
 export interface EscapeFunctions {
     /**
@@ -85,7 +86,7 @@ export function raw(sql: string): {
     toSqlString: () => string
 };
 
-export interface Connection extends EscapeFunctions {
+export interface Connection extends EscapeFunctions, events.EventEmitter {
     config: ConnectionConfig;
 
     state: 'connected' | 'authenticated' | 'disconnected' | 'protocol_error' | string;
@@ -143,32 +144,6 @@ export interface Connection extends EscapeFunctions {
      * Resume the connection.
      */
     resume(): void;
-
-    on(ev: 'drain' | 'connect', callback: () => void): Connection;
-
-    /**
-     * Set handler to be run when the connection is closed.
-     */
-    on(ev: 'end', callback: (err?: MysqlError) => void): Connection;
-
-    on(ev: 'fields', callback: (fields: any[]) => void): Connection;
-
-    /**
-     * Set handler to be run when a a fatal error occurs.
-     */
-    on(ev: 'error', callback: (err: MysqlError) => void): Connection;
-
-    /**
-     * Set handler to be run when a callback has been queued to wait for an
-     * available connection.
-     */
-    // tslint:disable-next-line:unified-signatures
-    on(ev: 'enqueue', callback: (err?: MysqlError) => void): Connection;
-
-    /**
-     * Set handler to be run on a certain event.
-     */
-    on(ev: string, callback: (...args: any[]) => void): Connection;
 }
 
 export interface PoolConnection extends Connection {
@@ -188,7 +163,7 @@ export interface PoolConnection extends Connection {
     destroy(): void;
 }
 
-export interface Pool extends EscapeFunctions {
+export interface Pool extends EscapeFunctions, events.EventEmitter {
     config: PoolActualConfig;
 
     getConnection(callback: (err: MysqlError, connection: PoolConnection) => void): void;
@@ -198,8 +173,6 @@ export interface Pool extends EscapeFunctions {
         callback: (err: MysqlError, connection: PoolConnection) => void,
     ): void;
 
-    releaseConnection(connection: PoolConnection): void;
-
     /**
      * Close the connection. Any queued data (eg queries) will be sent first. If
      * there are any fatal errors, the connection will be immediately closed.
@@ -208,48 +181,9 @@ export interface Pool extends EscapeFunctions {
     end(callback?: (err: MysqlError) => void): void;
 
     query: QueryFunction;
-
-    /**
-     * Set handler to be run when a new connection is made within the pool.
-     */
-    on(ev: 'connection', callback: (connection: PoolConnection) => void): Pool;
-
-    /**
-     * Set handler to be run when a connection is acquired from the pool. This
-     * is called after all acquiring activity has been performed on the
-     * connection, right before the connection is handed to the callback of the
-     * acquiring code.
-     */
-    // tslint:disable-next-line:unified-signatures
-    on(ev: 'acquire', callback: (connection: PoolConnection) => void): Pool;
-
-    /**
-     * Set handler to be run when a connection is released back to the pool.
-     * This is called after all release activity has been performed on the
-     * connection, so the connection will be listed as free at the time of the
-     * event.
-     */
-    // tslint:disable-next-line:unified-signatures
-    on(ev: 'release', callback: (connection: PoolConnection) => void): Pool;
-
-    /**
-     * Set handler to be run when a a fatal error occurs.
-     */
-    on(ev: 'error', callback: (err: MysqlError) => void): Pool;
-
-    /**
-     * Set handler to be run when a callback has been queued to wait for an
-     * available connection.
-     */
-    on(ev: 'enqueue', callback: (err?: MysqlError) => void): Pool;
-
-    /**
-     * Set handler to be run on a certain event.
-     */
-    on(ev: string, callback: (...args: any[]) => void): Pool;
 }
 
-export interface PoolCluster {
+export interface PoolCluster extends events.EventEmitter {
     config: PoolClusterConfig;
 
     add(config: PoolConfig): void;
@@ -280,16 +214,6 @@ export interface PoolCluster {
         selector: string,
         callback: (err: MysqlError, connection: PoolConnection) => void,
     ): void;
-
-    /**
-     * Set handler to be run on a certain event.
-     */
-    on(ev: string, callback: (...args: any[]) => void): PoolCluster;
-
-    /**
-     * Set handler to be run when a node is removed or goes offline.
-     */
-    on(ev: 'remove' | 'offline', callback: (nodeId: string) => void): PoolCluster;
 }
 
 // related to Query
@@ -368,8 +292,8 @@ export type TypeCast =
           field: UntypedFieldInfo & {
               type: string;
               length: number;
-              string(): string;
-              buffer(): Buffer;
+              string(): null | string;
+              buffer(): null | Buffer;
               geometry(): null | GeometryType;
           },
           next: () => void,

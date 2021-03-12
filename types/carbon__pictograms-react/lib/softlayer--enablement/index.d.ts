@@ -1,1 +1,3 @@
-export { SoftlayerEnablement as default } from "../../";
+import { SoftlayerEnablement } from "../../";
+
+export = SoftlayerEnablement;

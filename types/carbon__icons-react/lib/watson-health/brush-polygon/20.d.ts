@@ -1,1 +1,3 @@
-export { WatsonHealthBrushPolygon20 as default } from "../../../";
+import { WatsonHealthBrushPolygon20 } from "../../../";
+
+export = WatsonHealthBrushPolygon20;

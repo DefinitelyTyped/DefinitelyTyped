@@ -223,7 +223,8 @@ googletag.pubads().setForceSafeFrame(true);
 let pageConfig = {
     allowOverlayExpansion: true,
     allowPushExpansion: true,
-    sandbox: true
+    sandbox: true,
+    useUniqueDomain: true
 };
 
 let slotConfig = {allowOverlayExpansion: false};
@@ -350,6 +351,13 @@ slot.clearTargeting("color");
 
 slot.clearTargeting();
 // All targeting has been cleared.
+
+// Targeting can also be set from an object:
+slot.updateTargetingFromMap({
+    allow_expandable: "true",
+    interests: ["sports", "music", "movies"],
+    color: "red"
+});
 
 slot = googletag.defineSlot("/1234567/sports", [160, 600], "div-1").
         addService(googletag.pubads());
@@ -480,7 +488,23 @@ googletag.pubads().display("/1234567/science/physics", [[300, 250], ["fluid"]], 
 // Request non-personalized ads
 googletag.pubads().setRequestNonPersonalizedAds(1);
 
-// Set Privact Settings
+// Set Privacy Settings
 googletag.pubads().setPrivacySettings({
-    restrictDataProcessing: true,
+  restrictDataProcessing: true,
+});
+
+// Request limited ads
+googletag.pubads().setPrivacySettings({
+  limitedAds: true
+});
+
+// Set multiple privacy settings at the same time.
+googletag.pubads().setPrivacySettings({
+  childDirectedTreatment: true,
+  underAgeOfConsent: true
+});
+
+// Clear the configuration for childDirectedTreatment.
+googletag.pubads().setPrivacySettings({
+  childDirectedTreatment: null
 });

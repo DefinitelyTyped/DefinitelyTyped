@@ -157,7 +157,7 @@ declare function expect(): jasmine.NothingMatcher;
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: T|Promise<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: T|PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -213,7 +213,7 @@ declare namespace jasmine {
     // More info: https://stackoverflow.com/a/38642922/2009373
     type Constructor = Function & { prototype: any };
 
-    type ImplementationCallback = (() => PromiseLike<any>) | ((done: DoneFn) => void);
+    type ImplementationCallback = (() => PromiseLike<any>) | (() => void) | ((done: DoneFn) => void);
 
     type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | {
         [K in keyof T]: ExpectedRecursive<T[K]> | Any;
@@ -288,7 +288,7 @@ declare namespace jasmine {
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: {[K in keyof T]?: ExpectedRecursive<T[K]>}): ObjectContaining<T>;
 
-    function setDefaultSpyStrategy<Fn extends Func = Func>(and: SpyAnd<Fn>): void;
+    function setDefaultSpyStrategy<Fn extends Func = Func>(fn?: (and: SpyAnd<Fn>) => void): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
     function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
@@ -361,7 +361,7 @@ declare namespace jasmine {
     }
 
     interface Clock {
-        install(): void;
+        install(): Clock;
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
@@ -381,10 +381,10 @@ declare namespace jasmine {
     }
 
     interface CustomAsyncMatcher {
-        compare<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
-        compare(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
-        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): Promise<CustomMatcherResult>;
-        negativeCompare?(actual: any, ...expected: any[]): Promise<CustomMatcherResult>;
+        compare<T>(actual: T, expected: T, ...args: any[]): PromiseLike<CustomMatcherResult>;
+        compare(actual: any, ...expected: any[]): PromiseLike<CustomMatcherResult>;
+        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): PromiseLike<CustomMatcherResult>;
+        negativeCompare?(actual: any, ...expected: any[]): PromiseLike<CustomMatcherResult>;
     }
 
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomMatcher;
@@ -742,7 +742,17 @@ declare namespace jasmine {
     type MatchableArgs<Fn> = Fn extends (...args: infer P) => any ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> } : never;
 
     interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
+        /**
+         * Expects the actual (a spy) to have been called with the particular arguments at least once
+         * @param params The arguments to look for
+         */
         toHaveBeenCalledWith(...params: MatchableArgs<Fn>): boolean;
+
+        /**
+         * Expects the actual (a spy) to have been called exactly once, and exactly with the particular arguments
+         * @param params The arguments to look for
+         */
+        toHaveBeenCalledOnceWith(...params: MatchableArgs<Fn>): boolean;
 
         /**
          * Add some context for an expect.
@@ -765,44 +775,44 @@ declare namespace jasmine {
          * Expect a promise to be pending, i.e. the promise is neither resolved nor rejected.
          * @param expectationFailOutput
          */
-        toBePending(expectationFailOutput?: any): Promise<void>;
+        toBePending(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved.
          * @param expectationFailOutput
          */
-        toBeResolved(expectationFailOutput?: any): Promise<void>;
+        toBeResolved(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected.
          * @param expectationFailOutput
          */
-        toBeRejected(expectationFailOutput?: any): Promise<void>;
+        toBeRejected(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
          * @param expected Value that the promise is expected to resolve to.
          */
-        toBeResolvedTo(expected: Expected<T>): Promise<void>;
+        toBeResolvedTo(expected: Expected<T>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
          * @param expected Value that the promise is expected to be rejected with.
          */
-        toBeRejectedWith(expected: Expected<U>): Promise<void>;
+        toBeRejectedWith(expected: Expected<U>): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
          * @param expected Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
          * @param message The message that should be set on the thrown Error.
          */
-        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): Promise<void>;
+        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
          * @param message The message that should be set on the thrown Error.
          */
-        toBeRejectedWithError(message?: string | RegExp): Promise<void>;
+        toBeRejectedWithError(message?: string | RegExp): PromiseLike<void>;
 
         /**
          * Add some context for an expect.
@@ -848,14 +858,60 @@ declare namespace jasmine {
     interface PassedExpectation extends CustomReportExpectation {
     }
 
+    interface DeprecatedExpectation {
+        message: string;
+    }
+
     interface CustomReporterResult {
-        description: string;
-        failedExpectations?: FailedExpectation[];
-        fullName: string;
+        /**
+         * The unique id of this spec.
+         */
         id: string;
+
+        /**
+         * The description passed to the {@link it} that created this spec.
+         */
+        description: string;
+
+        /**
+         * The full description including all ancestors of this spec.
+         */
+        fullName: string;
+
+        /**
+         * The list of expectations that failed during execution of this spec.
+         */
+        failedExpectations?: FailedExpectation[];
+
+        /**
+         * The list of expectations that passed during execution of this spec.
+         */
         passedExpectations?: PassedExpectation[];
+
+        /**
+         * The list of deprecation warnings that occurred during execution this spec.
+         */
+        deprecationWarnings?: DeprecatedExpectation[];
+
+        /**
+         * If the spec is pending, this will be the reason.
+         */
         pendingReason?: string;
+
+        /**
+         * Once the spec has completed, this string represents the pass/fail status of this spec.
+         */
         status?: string;
+
+        /**
+         * The time in ms used by the spec execution, including any before/afterEach.
+         */
+        duration: number | null;
+
+        /**
+         * User-supplied properties, if any, that were set using {@link Env.setSpecProperty}
+         */
+        properties: { [key: string]: unknown } | null;
     }
 
     interface RunDetails {

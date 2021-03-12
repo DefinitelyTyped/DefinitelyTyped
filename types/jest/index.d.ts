@@ -27,6 +27,7 @@
 //                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
+//                 Alexandre Germain <https://github.com/gerkindev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
@@ -1044,8 +1045,6 @@ declare namespace jest {
     T['length'] extends 0 ? [] :
         (((...b: T) => void) extends (a: any, ...b: infer I) => void ? I : []);
 
-    type Parameters<T extends (...args: any[]) => any> = T extends (...args: infer P) => any ? P : never;
-
     interface AsymmetricMatcher {
         asymmetricMatch(other: unknown): boolean;
     }
@@ -1078,7 +1077,7 @@ declare namespace jest {
      * Construct a type with the properties of T except for those in type K.
      */
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-    type NonPromiseMatchers<T extends JestMatchersShape> = Omit<T, 'resolves' | 'rejects' | 'not'>;
+    type NonPromiseMatchers<T extends JestMatchersShape<any>> = Omit<T, 'resolves' | 'rejects' | 'not'>;
     type PromiseMatchers<T extends JestMatchersShape> = Omit<T['resolves'], 'not'>;
 
     interface Constructable {
@@ -1191,7 +1190,7 @@ declare namespace jest {
         /**
          * Returns the function that was set as the implementation of the mock (using mockImplementation).
          */
-        getMockImplementation(): (...args: Y) => T | undefined;
+        getMockImplementation(): ((...args: Y) => T) | undefined;
         /**
          * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
          * all calls that go into and instances that come from itself – the only difference is that the implementation

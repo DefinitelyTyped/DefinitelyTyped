@@ -1,1 +1,3 @@
-export { ChargingStationFilled32 as default } from "../../";
+import { ChargingStationFilled32 } from "../../";
+
+export = ChargingStationFilled32;

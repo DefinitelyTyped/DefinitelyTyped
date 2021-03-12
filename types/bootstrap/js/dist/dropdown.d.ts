@@ -1,6 +1,7 @@
-import * as Popper from 'popper.js';
+import * as Popper from '@popperjs/core';
+import BaseComponent from './base-component';
 
-declare class Dropdown {
+declare class Dropdown extends BaseComponent {
     constructor(element: Element, options?: Partial<Dropdown.Options>);
 
     /**
@@ -24,15 +25,21 @@ declare class Dropdown {
     update(): void;
 
     /**
-     * Destroys an element's dropdown.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the dropdown instance associated
      * with a DOM element.
      */
     static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown;
+
+    static jQueryInterface: Dropdown.jQueryInterface;
+
+    // static NAME: 'dropdown';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Dropdown.Options;
 }
 
 declare namespace Dropdown {
@@ -62,25 +69,10 @@ declare namespace Dropdown {
 
     interface Options {
         /**
-         * Offset of the dropdown relative to its target.
-         *
-         * When a function is used to determine the offset, it is called with an
-         * object containing the offset data as its first argument. The function
-         * must return an object with the same structure. The triggering element
-         * DOM node is passed as the second argument.
-         *
-         * For more information refer to Popper.js's offset docs.
-         *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..offset.offset}
-         * @default 0
-         */
-        offset: number;
-
-        /**
          * Allow Dropdown to flip in case of an overlapping on the reference
          * element. For more information refer to Popper.js's flip docs.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..flip.enabled}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/flip}
          * @default true
          */
         flip: boolean;
@@ -91,7 +83,7 @@ declare namespace Dropdown {
          * (JavaScript only). For more information refer to Popper.js's
          * preventOverflow docs.
          *
-         * @see {@link https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement}
+         * @see {@link https://popper.js.org/docs/v2/modifiers/prevent-overflow/#boundary}
          * @default "scrollParent"
          */
         boundary: Popper.Boundary | Element;
@@ -101,7 +93,7 @@ declare namespace Dropdown {
          * 'toggle', 'parent', or an HTMLElement reference. For more information
          * refer to Popper.js's referenceObject docs.
          *
-         * @see {@link https://popper.js.org/docs/v1/#referenceObject}
+         * @see {@link https://popper.js.org/docs/v2/constructors/#createpopper}
          * @default "toggle"
          */
         reference: 'toggle' | 'parent' | Element;
@@ -118,11 +110,13 @@ declare namespace Dropdown {
          * To change Bootstrap's default Popper.js config, see Popper.js's
          * configuration
          *
-         * @see {@link https://popper.js.org/docs/v1/#Popper.Defaults}
+         * @see {@link https://popper.js.org/docs/v2}
          * @default null
          */
-        popperConfig: Popper.PopperOptions | null;
+        popperConfig: Partial<Popper.Options> | null;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => void;
 }
 
 export default Dropdown;

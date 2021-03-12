@@ -1,1 +1,3 @@
-export { Choices32 as default } from "../../";
+import { Choices32 } from "../../";
+
+export = Choices32;

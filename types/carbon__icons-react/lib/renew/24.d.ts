@@ -1,1 +1,3 @@
-export { Renew24 as default } from "../../";
+import { Renew24 } from "../../";
+
+export = Renew24;

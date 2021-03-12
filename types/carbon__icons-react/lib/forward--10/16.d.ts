@@ -1,1 +1,3 @@
-export { Forward_1016 as default } from "../../";
+import { Forward_1016 } from "../../";
+
+export = Forward_1016;

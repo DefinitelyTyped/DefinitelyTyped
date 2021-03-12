@@ -1,1 +1,3 @@
-export { Store32 as default } from "../../";
+import { Store32 } from "../../";
+
+export = Store32;

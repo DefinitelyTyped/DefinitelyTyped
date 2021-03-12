@@ -1,1 +1,3 @@
-export { DewPoint20 as default } from "../../";
+import { DewPoint20 } from "../../";
+
+export = DewPoint20;

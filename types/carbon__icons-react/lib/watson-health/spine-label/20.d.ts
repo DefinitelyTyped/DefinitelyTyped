@@ -1,1 +1,3 @@
-export { WatsonHealthSpineLabel20 as default } from "../../../";
+import { WatsonHealthSpineLabel20 } from "../../../";
+
+export = WatsonHealthSpineLabel20;

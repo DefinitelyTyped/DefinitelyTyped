@@ -1,1 +1,3 @@
-export { MailReply24 as default } from "../../";
+import { MailReply24 } from "../../";
+
+export = MailReply24;
