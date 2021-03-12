@@ -13,6 +13,9 @@ hashed = hash.keys(obj); // $ExpectType string
 hashed = hash.MD5(obj); // $ExpectType string
 hashed = hash.keysMD5(obj); // $ExpectType string
 
+hash(undefined); // $ExpectError
+hash(''); // $ExpectError
+
 const passThroughStream = new stream.PassThrough();
 hash.writeToStream(obj, passThroughStream);
 hashed = passThroughStream.read().toString();

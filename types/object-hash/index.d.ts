@@ -5,19 +5,41 @@
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type BufferEncoding =
-    | 'ascii'
-    | 'base64'
-    | 'binary'
-    | 'hex'
-    | 'latin1'
-    | 'ucs-2'
-    | 'ucs2'
-    | 'utf-8'
-    | 'utf16le'
-    | 'utf8';
+declare namespace objectHash {
+    /**
+     * @see https://github.com/puleos/object-hash#hashsha1value
+     */
+    function sha1(object: object | null): string;
+    /**
+     * @see https://github.com/puleos/object-hash#hashkeysvalue
+     */
+    function keys(object: object | null): string;
+    /**
+     * @see https://github.com/puleos/object-hash#hashmd5value
+     */
+    function MD5(object: object | null): string;
+    /**
+     * @see https://github.com/puleos/object-hash#hashkeysmd5value
+     */
+    function keysMD5(object: object | null): string;
+    /**
+     * @see https://github.com/puleos/object-hash#hashwritetostreamvalue-options-stream
+     */
+    function writeToStream(value: any, stream: Stream): void;
+    function writeToStream(value: any, options: Options, stream: Stream): void;
 
-declare namespace ObjectHash {
+    type BufferEncoding =
+        | 'ascii'
+        | 'base64'
+        | 'binary'
+        | 'hex'
+        | 'latin1'
+        | 'ucs-2'
+        | 'ucs2'
+        | 'utf-8'
+        | 'utf16le'
+        | 'utf8';
+
     interface Stream {
         update?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
         write?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
@@ -71,34 +93,9 @@ declare namespace ObjectHash {
     }
 }
 
-interface ObjectHash {
-    /**
-     * @see https://github.com/puleos/object-hash#hashvalue-options
-     */
-    (object: any, options?: ObjectHash.Options): string;
-    /**
-     * @see https://github.com/puleos/object-hash#hashsha1value
-     */
-    sha1(object: any): string;
-    /**
-     * @see https://github.com/puleos/object-hash#hashkeysvalue
-     */
-    keys(object: any): string;
-    /**
-     * @see https://github.com/puleos/object-hash#hashmd5value
-     */
-    MD5(object: any): string;
-    /**
-     * @see https://github.com/puleos/object-hash#hashkeysmd5value
-     */
-    keysMD5(object: any): string;
-    /**
-     * @see https://github.com/puleos/object-hash#hashwritetostreamvalue-options-stream
-     */
-    writeToStream(value: any, stream: ObjectHash.Stream): void;
-    writeToStream(value: any, options: ObjectHash.Options, stream: ObjectHash.Stream): void;
-}
+/**
+ * @see https://github.com/puleos/object-hash#hashvalue-options
+ */
+declare function objectHash(object: object | null, options?: objectHash.Options): string;
 
-declare const ObjectHash: ObjectHash;
-
-export = ObjectHash;
+export = objectHash;
