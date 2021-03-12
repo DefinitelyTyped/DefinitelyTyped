@@ -17,3 +17,7 @@ b64encode('curry', 5); // $ExpectError
 b64encode('curry', 'badvariant'); // $ExpectError
 b64encode('curry', 'url'); // $ExpectType string
 b64encode('curry', 'url', 5); // $ExpectError
+
+const binary = open('file.bin', 'b');
+b64decode(binary);
+b64encode(binary);
