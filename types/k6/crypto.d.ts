@@ -23,7 +23,7 @@ export function randomBytes(size: number): bytes;
 export function hmac<OE extends OutputEncoding>(
     algorithm: Algorithm,
     secret: string,
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -37,7 +37,7 @@ export function hmac<OE extends OutputEncoding>(
  * crypto.md4('hello world!', 'hex')
  */
 export function md4<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -51,7 +51,7 @@ export function md4<OE extends OutputEncoding>(
  * crypto.md5("hello world!", "hex")
  */
 export function md5<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -65,7 +65,7 @@ export function md5<OE extends OutputEncoding>(
  * crypto.sha1('hello world!', 'hex')
  */
 export function sha1<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -79,7 +79,7 @@ export function sha1<OE extends OutputEncoding>(
  * crypto.sha256('hello world!', 'hex')
  */
 export function sha256<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -93,7 +93,7 @@ export function sha256<OE extends OutputEncoding>(
  * crypto.sha384('hello world!', 'hex')
  */
 export function sha384<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -107,7 +107,7 @@ export function sha384<OE extends OutputEncoding>(
  * crypto.sha512('hello world!', 'hex')
  */
 export function sha512<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -121,7 +121,7 @@ export function sha512<OE extends OutputEncoding>(
  * crypto.sha512_224('hello world!', 'hex')
  */
 export function sha512_224<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -135,7 +135,7 @@ export function sha512_224<OE extends OutputEncoding>(
  * crypto.sha512_256('hello world!', 'hex')
  */
 export function sha512_256<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -149,7 +149,7 @@ export function sha512_256<OE extends OutputEncoding>(
  * crypto.ripemd160('hello world!', 'hex')
  */
 export function ripemd160<OE extends OutputEncoding>(
-    input: string,
+    input: CryptoInput,
     outputEncoding: OE
 ): Output<OE>;
 
@@ -201,6 +201,8 @@ export type BinaryEncoding = 'binary';
  */
 export type OutputEncoding = StringEncoding | BinaryEncoding;
 
+export type CryptoInput = string | bytes;
+
 /**
  * Output type. Varies with output encoding.
  * @typeParam OE - Output encoding.
@@ -228,7 +230,7 @@ export abstract class Hasher {
      * hasher.update('world!');
      * console.log(hasher.digest('hex'));
      */
-    update(input: string): void;
+    update(input: CryptoInput): void;
 
     /**
      * Return a digest from the data added so far.
@@ -272,7 +274,7 @@ declare namespace crypto {
     function hmac<OE extends OutputEncoding>(
         algorithm: Algorithm,
         secret: string,
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -286,7 +288,7 @@ declare namespace crypto {
      * crypto.md4('hello world!', 'hex')
      */
     function md4<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -300,7 +302,7 @@ declare namespace crypto {
      * crypto.md5("hello world!", "hex")
      */
     function md5<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -314,7 +316,7 @@ declare namespace crypto {
      * crypto.sha1('hello world!', 'hex')
      */
     function sha1<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -328,7 +330,7 @@ declare namespace crypto {
      * crypto.sha256('hello world!', 'hex')
      */
     function sha256<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -342,7 +344,7 @@ declare namespace crypto {
      * crypto.sha384('hello world!', 'hex')
      */
     function sha384<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -356,7 +358,7 @@ declare namespace crypto {
      * crypto.sha512('hello world!', 'hex')
      */
     function sha512<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -370,7 +372,7 @@ declare namespace crypto {
      * crypto.sha512_224('hello world!', 'hex')
      */
     function sha512_224<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -384,7 +386,7 @@ declare namespace crypto {
      * crypto.sha512_256('hello world!', 'hex')
      */
     function sha512_256<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 
@@ -398,7 +400,7 @@ declare namespace crypto {
      * crypto.ripemd160('hello world!', 'hex')
      */
     function ripemd160<OE extends OutputEncoding>(
-        input: string,
+        input: CryptoInput,
         outputEncoding: OE
     ): Output<OE>;
 

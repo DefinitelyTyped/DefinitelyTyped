@@ -148,3 +148,16 @@ hasher.digest('bad-encoding'); // $ExpectError
 hasher.digest('hex'); // $ExpectType string
 binary = hasher.digest('binary');
 hasher.digest('hex', 5); // $ExpectError
+
+const binaryInput = open('file.bin', 'b');
+hasher.update(binaryInput); // $ExpectType void
+ripemd160(binaryInput, 'hex'); // $ExpectType string
+sha512_256(binaryInput, 'base64rawurl'); // $ExpectType string
+sha512_224(binaryInput, 'base64rawurl'); // $ExpectType string
+sha512(binaryInput, 'base64'); // $ExpectType string
+sha384(binaryInput, 'hex'); // $ExpectType string
+sha256(binaryInput, 'hex'); // $ExpectType string
+sha1(binaryInput, 'base64url'); // $ExpectType string
+md5(binaryInput, 'base64'); // $ExpectType string
+md4(binaryInput, 'base64'); // $ExpectType string
+hmac('sha256', 'secret', binaryInput, 'hex'); // $ExpectType string
