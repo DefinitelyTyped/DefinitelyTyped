@@ -785,6 +785,7 @@ declare global {
             subscribe(): Promise<LiveQuerySubscription>;
             toJSON(): any;
             withJSON(json: any): this;
+            withCount(): this;
             withinGeoBox<K extends keyof T['attributes'] | keyof BaseAttributes>(
                 key: K,
                 southwest: GeoPoint,
