@@ -102,6 +102,8 @@ export class PushNotificationDeliveredObject {
     body: string;
     tag: string;
     group: string;
+    category?: string;
+    userInfo?: any;
 }
 
 export class PushNotificationScheduledLocalObject {
