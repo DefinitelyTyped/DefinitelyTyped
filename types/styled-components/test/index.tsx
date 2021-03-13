@@ -331,6 +331,9 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: 'h1' })`
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: 'off' })``;
 <AttrsInputExtra />;
 
+const But = styled('button').attrs((a) => ({ type: a.type ?? 'button' }))``;
+const SomeBut: React.FC = () => <But type="submit">I am a button</But>;
+
 /**
  * withConfig
  */
