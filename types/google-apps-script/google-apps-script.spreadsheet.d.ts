@@ -1477,8 +1477,8 @@ declare namespace GoogleAppsScript {
       setFormulaR1C1(formula: string): Range;
       setFormulas(formulas: string[][]): Range;
       setFormulasR1C1(formulas: string[][]): Range;
-      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): Range;
-      setHorizontalAlignments(alignments: ("left" | "center" | "normal" | null)[][]): Range;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): Range;
+      setHorizontalAlignments(alignments: ("left" | "center" | "normal" | "right" | null)[][]): Range;
       setNote(note: string | null): Range;
       setNotes(notes: (string | null)[][]): Range;
       setNumberFormat(numberFormat: string): Range;
@@ -1542,7 +1542,7 @@ declare namespace GoogleAppsScript {
       setFontWeight(fontWeight: FontWeight | null): RangeList;
       setFormula(formula: string): RangeList;
       setFormulaR1C1(formula: string): RangeList;
-      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): RangeList;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): RangeList;
       setNote(note: string | null): RangeList;
       setNumberFormat(numberFormat: string): RangeList;
       setShowHyperlink(showHyperlink: boolean): RangeList;
