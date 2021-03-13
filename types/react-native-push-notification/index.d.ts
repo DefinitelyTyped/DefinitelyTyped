@@ -107,6 +107,7 @@ export class PushNotificationScheduledLocalObject {
     soundName: string;
     repeatInterval: number;
     number: number;
+    data: any;
 }
 
 export class ChannelObject {
