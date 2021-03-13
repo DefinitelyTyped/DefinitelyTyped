@@ -1,14 +1,3 @@
-// Type definitions for @babel/traverse 7.11
-// Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
-//                 Ryan Petrich <https://github.com/rpetrich>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Dean L. <https://github.com/dlgrit>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as t from '@babel/types';
 export import Node = t.Node;
 
@@ -64,7 +53,7 @@ export interface TraverseOptions<S = Node> extends Visitor<S> {
     noScope?: boolean;
 }
 
-export type ArrayKeys<T> = keyof { [P in keyof T as T[P] extends any[] ? P : never]: P };
+export type ArrayKeys<T> = { [P in keyof T]: T[P] extends any[] ? P : never }[keyof T];
 
 export class Scope {
     constructor(path: NodePath, parentScope?: Scope);
