@@ -733,6 +733,261 @@ export interface ButtonProps extends TouchableOpacityProps {
 }
 export class Button extends React.Component<ButtonProps> {}
 
+// Calendar
+export interface CalendarProps {
+    /**
+     * @language zh-CN
+     * @description 日历宽度
+     * @defaultValue
+     */
+    /**
+     * @language en-US
+     * @description the width of calendar
+     * @defaultValue
+     */
+    width?: number;
+    /**
+     * @language zh-CN
+     * @description 多种样式配置(包含head、days、selectedDaysRange)
+     * @defaultValue
+     */
+    /**
+     * @language en-US
+     * @description Multiple style configurations
+     * @defaultValue
+     */
+    styles?: any;
+    /**
+     * @language zh-CN
+     * @description 时间
+     * @defaultValue `moment().valueOf()`
+     */
+    /**
+     * @language en-US
+     * @description  date
+     * @defaultValue `moment().valueOf()`
+     */
+    date?: number | string;
+    /**
+     * @language zh-CN
+     * @description 时间格式
+     * @defaultValue 'YYYY-MM'
+     */
+    /**
+     * @language en-US
+     * @description  date format
+     * @defaultValue 'YYYY-MM'
+     */
+    dateFormat?: string;
+    /**
+     * @language zh-CN
+     * @description 禁用数据
+     * @defaultValue () => false
+     */
+    /**
+     * @language en-US
+     * @description  date format
+     * @defaultValue () => false
+     */
+    disabledData?: any[];
+    /**
+     * @language zh-CN
+     * @description 禁用数据函数配置
+     * @defaultValue () => false
+     */
+    /**
+     * @language en-US
+     * @description  Disable data function configuration
+     * @defaultValue () => false
+     */
+    disabledDataFn?: () => boolean;
+    /**
+     * @language zh-CN
+     * @description 有数据数据
+     * @defaultValue
+     */
+    /**
+     * @language en-US
+     * @description  with data
+     * @defaultValue
+     */
+    withData?: any[];
+    /**
+     * @language zh-CN
+     * @description 有数据函数配置
+     * @defaultValue () => false
+     */
+    /**
+     * @language en-US
+     * @description  with data function
+     * @defaultValue () => false
+     */
+    withDataFn?: () => boolean;
+    /**
+     * @language zh-CN
+     * @description 日期主题
+     * @defaultValue
+     */
+    /**
+     * @language en-US
+     * @description  theme of day
+     * @defaultValue
+     */
+    dayTheme?: {
+        currentText: string,
+        activeText: string,
+        activeView: string,
+        withDataPoint: string,
+        withDataActivePoint: string,
+    },
+    /**
+     * @language zh-CN
+     * @description 月改变函数
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description  function of month change
+     * @defaultValue () => {}
+     */
+    onMonthChange?: () => object;
+    /**
+     * @language zh-CN
+     * @description 日改变函数
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description  function of day change
+     * @defaultValue () => {}
+     */
+    onDayChange?: () => object;
+    /**
+     * @language zh-CN
+     * @description 关闭文案
+     * @defaultValue
+     */
+    /**
+     * @language en-US
+     * @description  text for cancel
+     * @defaultValue
+     */
+    cancelText: string;
+    /**
+     * @language zh-CN
+     * @description 今天文案
+     * @defaultValue
+     */
+    /**
+     * @language en-US
+     * @description  text for today
+     * @defaultValue
+     */
+    todayText: string;
+    /**
+     * @language zh-CN
+     * @description 头部左边箭头是否禁用
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description  Whether the arrow on the left side of the head is disabled
+     * @defaultValue false
+     */
+    headDisabledLeft?: boolean;
+    /**
+     * @language zh-CN
+     * @description 头部右边箭头是否禁用
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description  Whether the arrow on the left side of the head is disabled
+     * @defaultValue false
+     */
+    headDisabledRight?: boolean;
+    /**
+     * @language zh-CN
+     * @description 点击日历头部中间函数
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description  Click the middle function at the head of the calendar
+     * @defaultValue () => {}
+     */
+    onHeadMiddlePress?: () => object;
+    /**
+     * @language zh-CN
+     * @description 关闭函数
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description  cancel function
+     * @defaultValue () => {}
+     */
+    onCancel?: () => object;
+    /**
+     * @language zh-CN
+     * @description 是否隐藏今天文案
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description  Whether to hide today's copy
+     * @defaultValue () => {}
+     */
+    hideToday?: boolean;
+    /**
+     * @language zh-CN
+     * @description 是否隐藏关闭文案
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description  Whether to hide or close the copy
+     * @defaultValue false
+     */
+    hideCancel?: boolean;
+    /**
+     * @language zh-CN
+     * @description 外层样式
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue
+     */
+    /**
+     * @language en-US
+     * @description  style for container
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue
+     */
+    containerStyle?: StyleProp<ViewStyle>;
+    /**
+     * @language zh-CN
+     * @description 选择属性配置
+     * @defaultValue {}
+     */
+    /**
+     * @language en-US
+     * @description  configuration for select property
+     * @defaultValue {}
+     */
+    selectedProps?: object;
+    /**
+     * @language zh-CN
+     * @description 天尺寸
+     * @defaultValue `cx(40)`
+     */
+    /**
+     * @language en-US
+     * @description  size of day
+     * @defaultValue `cx(40)`
+     */
+    daySize?: number,
+}
+export class Calendar extends React.Component<CalendarProps> {}
+
 // Carousel
 export interface CarouselProps extends ViewPagerAndroidProps {
     /**
