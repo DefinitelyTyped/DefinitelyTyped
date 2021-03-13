@@ -1,7 +1,18 @@
 /// <reference types="node" />
-import jsf = require('json-schema-faker');
-import { Chance } from 'chance';
-import { Schema } from 'json-schema-faker';
+import jsf = require("json-schema-faker");
+import { Chance } from "chance";
+import { Schema } from "json-schema-faker";
+
+// $ExpectType any
+jsf({
+    type: "object",
+    properties: {
+        foo: { type: "string" },
+        bar: { type: "string" },
+    },
+    required: [],
+    additionalProperties: true,
+});
 
 // custom chance extension
 jsf.extend('chance', () => {

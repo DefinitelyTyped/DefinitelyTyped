@@ -4,7 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import { JSONSchema4, JSONSchema6, JSONSchema7 } from 'json-schema';
+import { JSONSchema4, JSONSchema6, JSONSchema7 } from "json-schema";
+
+export as namespace jsf;
+
+/**
+ * deprecated: calling JsonSchemaFaker() is deprecated, call either .generate() or .resolve()'
+ */
+declare function jsf(schema: jsf.Schema, refs?: string | jsf.Schema[]): any;
 
 declare namespace jsf {
     const version: string;
@@ -61,7 +68,4 @@ declare namespace jsf {
         | 'replaceEmptyByRandomValue';
 }
 
-/** @deprecated calling JsonSchemaFaker() is deprecated, call either .generate() or .resolve()' */
-declare function jsf(schema: jsf.Schema, refs?: string | jsf.Schema[]): any;
-export as namespace jsf;
 export = jsf;
