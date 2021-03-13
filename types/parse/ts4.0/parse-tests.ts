@@ -1784,7 +1784,7 @@ function testQuery() {
         query.startsWith('nonexistentProp', 'prefix string');
 
         // $ExpectType Query<MySubClass>
-        query.withCount();
+        query.withCount(true);
 
         // $ExpectType Query<MySubClass>
         query.withinGeoBox('attribute1', new Parse.GeoPoint(), new Parse.GeoPoint());
