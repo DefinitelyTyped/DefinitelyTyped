@@ -3,6 +3,6 @@
 // Definitions by: Rajas Paranjpe <https://github.com/ChocolateLoverRaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function last <T>(arr: T[]): T;
+declare function last <T>(arr: readonly T[]): T;
 
 export = last;
