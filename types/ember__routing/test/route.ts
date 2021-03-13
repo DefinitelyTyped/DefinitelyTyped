@@ -187,3 +187,60 @@ class RouteUsingClass extends Route.extend({
         this.intermediateTransitionTo('some.other.route', 1, 2, {});
     }
 }
+
+interface ExampleModel { id: string; }
+
+class TypedRoute extends Route<ExampleModel> {
+    model(params: any): ExampleModel | PromiseLike<ExampleModel> {
+        if (params.usePromise) {
+          return { id: '123' };
+        } else {
+          const promise: PromiseLike<ExampleModel> = new Promise((resolve) => resolve({ id: '123'}));
+          return promise;
+        }
+    }
+
+    serialize(model: ExampleModel): string {
+        return model.id;
+    }
+
+    afterModel(model: ExampleModel): void {
+        if (model.id === 'new') {
+            this.transitionTo('some.other.route');
+        }
+    }
+
+    redirect(model: ExampleModel): void {
+        if (model.id === 'new') {
+            this.transitionTo('some.other.route');
+        }
+    }
+}
+
+interface InvalidModel { id: number; }
+
+class InvalidTypedRoute extends Route<ExampleModel> {
+    // $ExpectError
+    model(params: any): InvalidModel {
+      return { id: 123 };
+    }
+
+    // $ExpectError
+    serialize(model: InvalidModel): number {
+        return model.id;
+    }
+
+    // $ExpectError
+    afterModel(model: InvalidModel): void {
+        if (model.id === 0) {
+            this.transitionTo('some.other.route');
+        }
+    }
+
+    // $ExpectError
+    redirect(model: InvalidModel): void {
+        if (model.id === 0) {
+            this.transitionTo('some.other.route');
+        }
+    }
+}
