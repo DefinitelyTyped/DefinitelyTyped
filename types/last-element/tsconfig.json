@@ -16,5 +16,9 @@
         "esModuleInterop": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "last-element-tests.ts"
+    ]
 }
