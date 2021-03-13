@@ -3823,7 +3823,7 @@ declare namespace chrome.gcm {
 
 	type ColorEnum = "grey" | "blue" | "red" | "yellow" | "green" | "pink" | "purple" | "cyan";
 
-	type TabGroup = {
+	interface TabGroup {
 		/** Whether the group is collapsed. A collapsed group is one whose tabs are hidden. */
 		collapsed: boolean;
 		/** The group's color. */
