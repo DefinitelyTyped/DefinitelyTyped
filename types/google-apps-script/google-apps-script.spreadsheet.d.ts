@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
+//                 Alexander Kuzmenko <https://github.com/eightalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
