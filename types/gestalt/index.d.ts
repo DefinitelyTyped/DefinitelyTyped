@@ -1,4 +1,4 @@
-// Type definitions for gestalt 19.2
+// Type definitions for gestalt 20.1
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -8,6 +8,7 @@
 //                 Francisco Jimenez <https://github.com/jimenezff>
 //                 Charlie Gu <https://github.com/czgu>
 //                 Jay Kim <https://github.com/keyworks>
+//                 Vaibhav Sharma <https://github.com/v4iv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -449,22 +450,6 @@ export interface FlexProps {
 }
 
 /**
- * Flyout Props Interface
- * https://gestalt.netlify.app/Flyout
- */
-export interface FlyoutProps {
-    anchor: HTMLElement; // ideally a HTMLAnchorElement
-    onDismiss: () => void;
-    children?: React.ReactNode;
-    color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
-    idealDirection?: FourDirections;
-    positionRelativeToAnchor?: boolean;
-    shouldFocus?: boolean;
-    showCaret?: boolean;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number;
-}
-
-/**
  * GroupAvatar Props Interface
  * https://gestalt.netlify.app/GroupAvatar
  */
@@ -746,6 +731,7 @@ export interface IconButtonProps {
 export interface ImageProps {
     alt: string;
     color: string;
+    elementTiming?: string;
     naturalHeight: number;
     naturalWidth: number;
     src: string;
@@ -922,6 +908,22 @@ export interface PogProps {
     padding?: 1 | 2 | 3 | 4 | 5;
     selected?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+}
+
+/**
+ * Flyout Props Interface
+ * https://gestalt.netlify.app/Flyout
+ */
+export interface PopoverProps {
+    anchor: HTMLElement; // ideally a HTMLAnchorElement
+    onDismiss: () => void;
+    children?: React.ReactNode;
+    color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
+    idealDirection?: FourDirections;
+    positionRelativeToAnchor?: boolean;
+    shouldFocus?: boolean;
+    showCaret?: boolean;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number;
 }
 
 /**
@@ -1527,7 +1529,6 @@ export class Dropdown extends React.Component<DropdownProps, any> {
     static Section: React.FC<DropdownSectionProps>;
 }
 export class Flex extends React.Component<FlexProps, any> {}
-export class Flyout extends React.Component<FlyoutProps, any> {}
 export class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
 export class Heading extends React.Component<HeaderProps, any> {}
 export class Icon extends React.Component<IconProps, any> {}
@@ -1544,6 +1545,7 @@ export class Module extends React.Component<ModuleProps, any> {
     static Expandable: React.FC<ModuleExpandableProps>;
 }
 export class Pog extends React.Component<PogProps, any> {}
+export class Popover extends React.Component<PopoverProps, any> {}
 export class Provider extends React.Component<ProviderProps, any> {}
 export class Pulsar extends React.Component<PulsarProps, any> {}
 export const RadioButton: ReactForwardRef<HTMLInputElement, RadioButtonProps>;
