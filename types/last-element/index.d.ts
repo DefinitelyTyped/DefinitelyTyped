@@ -3,6 +3,8 @@
 // Definitions by: Rajas Paranjpe <https://github.com/ChocolateLoverRaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace last;
+
 declare function last <T>(arr: readonly T[]): T;
 
 export = last;
