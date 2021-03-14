@@ -7830,6 +7830,11 @@ declare namespace chrome.tabs {
          * @since Chrome 31.
          */
         sessionId?: string;
+		/**
+		 * The ID of the group that the tab belongs to.
+		 * @since Chrome 88
+		 */
+		groupId: number;
     }
 
     /**
@@ -8013,6 +8018,18 @@ declare namespace chrome.tabs {
         frameId?: number;
     }
 
+	export interface GroupOptions {
+		/** Configurations for creating a group. Cannot be used if groupId is already specified. */
+		createProperties?: {
+			/** The window of the new group. Defaults to the current window. */
+			windowId?: number
+		},
+		/** The ID of the group to add the tabs to. If not specified, a new group will be created. */
+		groupId?: number;
+		/** The tab ID or list of tab IDs to add to the specified group. */
+		tabIds?: number | number[];
+	}
+
     export interface HighlightInfo {
         /** One or more tab indices to highlight. */
         tabs: number | number[];
@@ -8080,6 +8097,11 @@ declare namespace chrome.tabs {
          * @since Chrome 45.
          */
         muted?: boolean;
+		/**
+		 * The ID of the group that the tabs are in, or chrome.tabGroups.TAB_GROUP_ID_NONE for ungrouped tabs.
+		 * @since Chrome 88
+		 */
+		groupId?: number;
     }
 
     export interface TabHighlightInfo {
@@ -8495,7 +8517,13 @@ declare namespace chrome.tabs {
      * @param callback Optional. Called after the operation is completed.
      */
     export function goBack(tabId: number, callback?: () => void): void;
-
+	/**
+	 * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+	 * @since Chrome 88
+	 * @param options Configurations object
+	 * @param callback Called with group ID as a parameter
+	 */
+	export function group(options: GroupOptions, callback: (groupId: number) => void): void
     /**
      * Fired when the highlighted or selected tabs in a window changes.
      * @since Chrome 18.
