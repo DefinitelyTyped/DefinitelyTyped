@@ -11,7 +11,7 @@
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
     namespace AdsApp {
-        interface Message {
+        interface Message extends Base.StatsFor {
             clearEndDate(): void;
             clearStartDate(): void;
             getBusinessName(): string;
@@ -24,15 +24,11 @@ declare namespace GoogleAdsScripts {
             getPhoneNumber(): string;
             getSchedules(): ExtensionSchedule[];
             getStartDate(): GoogleAdsDate;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateRange: Base.DateRange): Stats;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateFrom: string | GoogleAdsDate, dateTo: string | GoogleAdsDate): Stats;
             isMobilePreferred(): boolean;
             setBusinessName(businessName: string): void;
             setCountryCode(countryCode: string): void;
             setEndDate(date: string | GoogleAdsDate): void;
-            setExtensionText(extensionText: string):	void;
+            setExtensionText(extensionText: string): void;
             setMessageText(messageText: string): void;
             setMobilePreferred(isMobilePreferred: boolean): void;
             setPhoneNumber(phoneNumber: string): void;

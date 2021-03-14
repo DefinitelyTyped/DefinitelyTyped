@@ -11,7 +11,7 @@
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
     namespace AdsApp {
-        interface Snippet {
+        interface Snippet extends Base.StatsFor {
             clearEndDate(): void;
             clearStartDate(): void;
             getEndDate(): GoogleAdsDate;
@@ -20,10 +20,6 @@ declare namespace GoogleAdsScripts {
             getId(): number;
             getSchedules(): ExtensionSchedule[];
             getStartDate(): GoogleAdsDate;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateRange: Base.DateRange): Stats;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateFrom: string | GoogleAdsDate, dateTo: string | GoogleAdsDate): Stats;
             getValues(): string[];
             isMobilePreferred(): boolean;
             setEndDate(date: string | GoogleAdsDate): void;

@@ -12,7 +12,7 @@
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
     namespace AdsApp {
-        interface Price {
+        interface Price extends Base.StatsFor {
             addPriceItem(priceItem: PriceItem): void;
             clearEndDate(): void;
             clearStartDate(): void;
@@ -26,10 +26,6 @@ declare namespace GoogleAdsScripts {
             getPriceType(): string;
             getSchedules(): ExtensionSchedule[];
             getStartDate(): GoogleAdsDate;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateRange: Base.DateRange): Stats;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateFrom: string | GoogleAdsDate, dateTo: string | GoogleAdsDate): Stats;
             getTrackingTemplate(): string;
             isMobilePreferred(): boolean;
             setEndDate(date: string | GoogleAdsDate): void;

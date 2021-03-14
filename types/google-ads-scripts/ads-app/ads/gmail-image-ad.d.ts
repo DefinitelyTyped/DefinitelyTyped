@@ -10,7 +10,7 @@
 declare namespace GoogleAdsScripts {
   namespace AdsApp {
       /** Represents a Gmail image ad. */
-      interface GmailImageAd {
+      interface GmailImageAd extends Base.StatsFor {
           /** Applies a label to the ad. */
           applyLabel(name: string): void;
           /** Returns an AdViewSpace, which provides access to type-specific fields of the ad. */
@@ -39,10 +39,6 @@ declare namespace GoogleAdsScripts {
           getPolicyApprovalStatus(): string;
           /** Returns the list of policy topics associated with the ad. */
           getPolicyTopics(): PolicyTopic[];
-          /** Returns stats for the specified date range. */
-          getStatsFor(): Stats;
-          /** Returns stats for the specified custom date range. */
-          getStatsFor(): Stats;
           /** Returns the subject of the ad. */
           getSubject(): string;
           /** Returns the type of the ad. */

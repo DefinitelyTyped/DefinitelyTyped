@@ -10,7 +10,7 @@
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads ad group. */
-        interface AdGroup {
+        interface AdGroup extends Base.StatsFor {
             /** Creates a selector of all ad params in the ad group. */
             adParams(): AdParamSelector;
             /** Adds a callout to this ad group. */
@@ -59,10 +59,6 @@ declare namespace GoogleAdsScripts {
             getMobileBidModifier(): number;
             /** Returns the name of the ad group. */
             getName(): string;
-            /** Returns stats for the specified date range. */
-            getStatsFor(): Stats;
-            /** Returns stats for the specified custom date range. */
-            getStatsFor(): Stats;
             /** Returns true if the ad group is enabled. */
             isEnabled(): boolean;
             /** Returns true if the ad group is paused. */
