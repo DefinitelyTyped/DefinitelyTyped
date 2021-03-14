@@ -3891,7 +3891,7 @@ declare namespace chrome.gcm {
      * @param updateProperties The properties to update.
      * @param callback Called with an updated tab group as parameter.
      */
-    export function update(groupId: string, updateProperties: UpdateProperties, callback?: (group: TabGroup) => void): void;
+    export function update(groupId: number, updateProperties: UpdateProperties, callback?: (group: TabGroup) => void): void;
 
     export interface TabGroupCreatedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
 	export interface TabGroupMovedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
