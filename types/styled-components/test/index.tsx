@@ -1190,11 +1190,3 @@ function unionTest2() {
     <C />; // $ExpectError
     <C foo={123} bar="foobar" />; // $ExpectError
 }
-
-function createCustomGlobalStyle(style: string): GlobalStyleComponent<null, DefaultTheme> {
-    return createGlobalStyle`
-        ${style}
-        * {
-        box-sizing: border-box;
-    }`;
-}
