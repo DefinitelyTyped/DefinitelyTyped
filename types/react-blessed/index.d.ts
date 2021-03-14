@@ -53,7 +53,7 @@ export type LayoutElement = Blessed.Widgets.LayoutElement;
 type Prefix<T extends string, P extends string> = `${T}${P}`;
 
 // create event handlers that map to 'blessed' events. see
-// https://github.com/Yomguithereal/react-blessed/blob/master/src/fiber/events.js
+// https://github.com/Yomguithereal/react-blessed/blob/f5e1f791dea1788745695d557040b91f573f9ef5/src/fiber/events.js
 type EventHandlerProp<T extends string, E extends (...args: never) => void> = {
     [key in `on${Capitalize<T>}`]?: E;
 };
@@ -116,8 +116,17 @@ type WarningEventProps = EventHandlerProp<"warning", WarningEventHandler>;
 export type ProgressBarEvent = undefined;
 export type ProgressBarEventHandler = EventHandler<ProgressBarEvent>;
 type ProgressBarEventProps = EventHandlerProp<ProgressBarEventNames, ProgressBarEventHandler>;
+interface EventProps
+    extends ScreenEventProps,
+        GenericEventProps,
+        MouseEventProps,
+        KeyPressEventProps,
+        WarningEventProps {}
 
-/* BLESSED REACT JSX ********************************************************/
+/* BLESSED REACT LOCALLY DEFINED PROPS **************************************/
+
+// style is set to any in @types/blessed but in reality only can only take
+// certain values. define them here.
 
 interface BorderStyle {
     type?: "line" | "bg";
@@ -151,48 +160,6 @@ interface ElementStyle extends ItemStyle {
     scrollbar?: { bg?: string; fg?: string; track?: { bg?: string; fg?: string } };
 }
 
-interface EventProps
-    extends ScreenEventProps,
-        GenericEventProps,
-        MouseEventProps,
-        KeyPressEventProps,
-        WarningEventProps {}
-
-export interface BlessedIntrinsicElements {
-    box: BlessedProps<BoxElement>;
-    text: BlessedProps<TextElement>;
-    line: BlessedProps<LineElement>;
-    scrollablebox: BlessedProps<ScrollableBoxElement>;
-    scrollabletext: BlessedProps<ScrollableTextElement>;
-    bigtext: BlessedProps<BigTextElement>;
-    list: BlessedProps<ListElement>;
-    filemanager: BlessedProps<FileManagerElement>;
-    listtable: BlessedProps<ListTableElement>;
-    listbar: BlessedProps<ListbarElement>;
-    input: BlessedProps<InputElement>;
-    textarea: BlessedProps<TextareaElement>;
-    textbox: BlessedProps<TextboxElement>;
-    button: BlessedProps<ButtonElement>;
-    checkbox: BlessedProps<CheckboxElement>;
-    radioset: BlessedProps<RadioSetElement>;
-    radiobutton: BlessedProps<RadioButtonElement>;
-    table: BlessedProps<TableElement>;
-    prompt: BlessedProps<PromptElement>;
-    question: BlessedProps<QuestionElement>;
-    message: BlessedProps<MessageElement>;
-    loading: BlessedProps<LoadingElement>;
-    log: BlessedProps<LogElement>;
-    progressbar: BlessedProps<ProgressBarElement>;
-    terminal: BlessedProps<Blessed.Widgets.TerminalElement>;
-    layout: BlessedProps<Blessed.Widgets.LayoutElement>;
-    // escape: Blessed.escape is not an element
-    // program: Blessed.Widgets.Program is not an element
-}
-
-export type BlessedIntrinsicElementsPrefixed = {
-    [Key in keyof BlessedIntrinsicElements as Prefix<"blessed-", Key>]: BlessedIntrinsicElements[Key];
-};
-
 // remove indexers
 // https://stackoverflow.com/questions/58216298/how-to-omit-keystring-any-from-a-type-in-typescript
 type KnownKeys<T> = {
@@ -201,7 +168,7 @@ type KnownKeys<T> = {
     ? U
     : never;
 
-type ClassProp<T, K = T | undefined | false | null> = T & { class?: K | K[] };
+type WithClassProp<T, K = T | undefined | false | null> = T & { class?: K | K[] };
 type ProgressBarProps<T> = T extends ProgressBarElement ? ProgressBarEventProps & { style?: ProgressBarStyle } : {};
 type ListProps<T> = T extends ListElement ? ProgressBarEventProps & { style?: ListStyle; selected?: number } : {};
 // layout does not require prop "layout" in Blessed.Widgets.LayoutOptions--make it optional
@@ -213,9 +180,65 @@ type FilterOptions<T extends Record<any, any>> = Partial<Omit<Pick<T, KnownKeys<
 
 type ModifiedBlessedOptions<T> = FilterOptions<T> & { children?: React.ReactNode; style?: ElementStyle } & EventProps;
 
-type BlessedAttributes<E extends Element> = ClassProp<
+/* BLESSED REACT JSX ********************************************************/
+
+/**
+ *
+ * this type can be used to get props for react-blessed elements in the same
+ * manner that React.HTMLProps can be used to get DOM element props. e.g.
+ * ```ts
+ * import { FC } from 'react'
+ * import { BlessedProps, BoxElement } from 'react-blessed';
+ * type MyBoxProps = BlessedProps<BoxElement>;
+ * const MyBox: React.FC<MyBoxProps> = props => <box {...props} />;
+ * ```
+ * @see DetailedBlessedProps
+ * @see React.HTMLAttributes
+ */
+export type BlessedAttributes<E extends Element> = WithClassProp<
     ModifiedBlessedOptions<E["options"]> & ProgressBarProps<E> & ListProps<E> & LayoutProps<E>
 >;
 
-// mirrors react prop generation for DOM elements
-export type BlessedProps<E extends Element> = BlessedAttributes<E> & React.ClassAttributes<E>;
+/**
+ * mirrors react prop generation for HTML JSX.IntrinsicElements.
+ * @see React.DetailedHTMLProps
+ */
+export type DetailedBlessedProps<E extends Element> = BlessedAttributes<E> & React.ClassAttributes<E>;
+
+export interface BlessedIntrinsicElements {
+    box: DetailedBlessedProps<BoxElement>;
+    text: DetailedBlessedProps<TextElement>;
+    line: DetailedBlessedProps<LineElement>;
+    scrollablebox: DetailedBlessedProps<ScrollableBoxElement>;
+    scrollabletext: DetailedBlessedProps<ScrollableTextElement>;
+    bigtext: DetailedBlessedProps<BigTextElement>;
+    list: DetailedBlessedProps<ListElement>;
+    filemanager: DetailedBlessedProps<FileManagerElement>;
+    listtable: DetailedBlessedProps<ListTableElement>;
+    listbar: DetailedBlessedProps<ListbarElement>;
+    input: DetailedBlessedProps<InputElement>;
+    textarea: DetailedBlessedProps<TextareaElement>;
+    textbox: DetailedBlessedProps<TextboxElement>;
+    button: DetailedBlessedProps<ButtonElement>;
+    checkbox: DetailedBlessedProps<CheckboxElement>;
+    radioset: DetailedBlessedProps<RadioSetElement>;
+    radiobutton: DetailedBlessedProps<RadioButtonElement>;
+    table: DetailedBlessedProps<TableElement>;
+    prompt: DetailedBlessedProps<PromptElement>;
+    question: DetailedBlessedProps<QuestionElement>;
+    message: DetailedBlessedProps<MessageElement>;
+    loading: DetailedBlessedProps<LoadingElement>;
+    log: DetailedBlessedProps<LogElement>;
+    progressbar: DetailedBlessedProps<ProgressBarElement>;
+    terminal: DetailedBlessedProps<Blessed.Widgets.TerminalElement>;
+    layout: DetailedBlessedProps<Blessed.Widgets.LayoutElement>;
+    // escape: Blessed.escape is not an element
+    // program: Blessed.Widgets.Program is not an element
+}
+
+// react-blessed accepts JSX with blessed element names with and without
+// a 'blessed-' prefix. see
+// https://github.com/Yomguithereal/react-blessed/blob/f5e1f791dea1788745695d557040b91f573f9ef5/src/fiber/fiber.js#L49
+export type BlessedIntrinsicElementsPrefixed = {
+    [Key in keyof BlessedIntrinsicElements as Prefix<"blessed-", Key>]: BlessedIntrinsicElements[Key];
+};

@@ -2,7 +2,7 @@
 import Blessed = require("blessed");
 import ReactBlessed = require("react-blessed");
 import React = require("react");
-import { BlessedIntrinsicElementsPrefixed, BlessedProps, Element } from "react-blessed";
+import { BlessedIntrinsicElementsPrefixed, BlessedAttributes, Element } from "react-blessed";
 
 // Testing example from demos page
 // https://github.com/Yomguithereal/react-blessed/blob/master/examples/dashboard.jsx
@@ -10,7 +10,7 @@ import { BlessedIntrinsicElementsPrefixed, BlessedProps, Element } from "react-b
  * Stylesheet
  */
 
-const stylesheet: { [key: string]: BlessedProps<Element>["class"] } = {
+const stylesheet: { [key: string]: BlessedAttributes<Element>["class"] } = {
     bordered: {
         border: {
             type: "line",
