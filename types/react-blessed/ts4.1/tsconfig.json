@@ -8,18 +8,17 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsxImportSource": "react-blessed",
-        "jsx": "react-jsx"
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "react-blessed-tests.tsx",
+        "react-blessed-tests.tsx"
     ]
 }
