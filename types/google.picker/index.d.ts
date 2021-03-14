@@ -127,8 +127,8 @@ declare namespace google {
             // Filters the documents based on whether they are starred by the user.
             setStarred(starred:boolean):DocsView;
 
-            // Allows the user to select folders from Team Drives.
-            setEnableTeamDrives(enabled:boolean):DocsView;
+            // Allows the user to select folders from Shared Drives.
+            setEnableDrives(enabled:boolean):DocsView;
 
             // Set the MIME types which will be included in the view. Use commas to separate MIME types if more than one is required.
             setMimeTypes(mimeTypes:string):DocsView;
@@ -157,8 +157,8 @@ declare namespace google {
             // For photo uploads, controls whether per-photo selection (as opposed to per-album) selection is enabled.
             SIMPLE_UPLOAD_ENABLED: string;
 
-            // Whether Team Drive items should be included in results.
-            SUPPORT_TEAM_DRIVES: string;
+            // Whether Shared Drive items should be included in results.
+            SUPPORT_DRIVES: string;
         };
 
         export var ViewId:{
