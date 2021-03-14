@@ -9,7 +9,7 @@ import { TextProps } from 'react-native';
 export interface HighlighterProps {
     autoEscape?: boolean;
     highlightStyle?: TextProps['style'];
-    sanitize?: () => void;
+    sanitize?: (text: string) => string
     searchWords: string[];
     style?: TextProps['style'];
     textToHighlight: string;
