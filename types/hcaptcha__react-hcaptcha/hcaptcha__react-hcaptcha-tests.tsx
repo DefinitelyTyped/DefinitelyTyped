@@ -16,7 +16,7 @@ const Test: React.FC = () => {
     return (
         <div>
             <form>
-                <HCaptcha sitekey="test-site-id" onVerify={logTokenAndResetCaptcha} />
+                <HCaptcha sitekey="test-site-id" reCaptchaCompat="off" onVerify={logTokenAndResetCaptcha} />
                 <button onClick={programmaticallyInvoke} />
             </form>
         </div>
