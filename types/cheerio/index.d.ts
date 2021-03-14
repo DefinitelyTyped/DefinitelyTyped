@@ -29,7 +29,7 @@ declare namespace cheerio {
 
     interface TagElement {
         tagName: string;
-        type: 'tag';
+        type: 'tag' | 'script' | 'style';
         name: string;
         attribs: { [attr: string]: string };
         'x-attribsNamespace': { [attr: string]: string };

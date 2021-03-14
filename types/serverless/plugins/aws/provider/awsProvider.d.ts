@@ -633,7 +633,7 @@ declare class Aws {
     naming: { [key: string]: () => string };
     getProviderName(): string;
     getRegion(): string;
-    getServerlessDeploymentBucketName(): string;
+    getServerlessDeploymentBucketName(): Promise<string>;
     getStage(): string;
     getAccountId(): Promise<string>;
     request(
