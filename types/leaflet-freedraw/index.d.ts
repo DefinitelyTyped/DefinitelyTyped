@@ -64,7 +64,7 @@ declare class FreeDraw extends FeatureGroup {
      * @param [options={concavePolgygons: false}] FreeDraw options, by default concavePolygons : false
      * @returns Polygon added to the FreeDraw instance
      */
-    create(latlngs: LatLng[], options?: FreeDrawOptions): Polygon;
+    create(latlngs: ReadonlyArray<LatLng>, options?: FreeDrawOptions): Polygon;
 
     remove(): this;
 
