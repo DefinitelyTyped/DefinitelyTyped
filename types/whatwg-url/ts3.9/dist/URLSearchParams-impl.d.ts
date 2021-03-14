@@ -1,8 +1,14 @@
 declare class URLSearchParamsImpl {
     constructor(
         globalObject: object,
-        [init]: [Array<[string, string]> | { [name: string]: string } | string],
-        privateData: { doNotStripQMark?: boolean },
+        [init]: readonly [
+            (
+                | ReadonlyArray<readonly [string, string]>
+                | { readonly [name: string]: string }
+                | string
+            )?,
+        ],
+        privateData: { readonly doNotStripQMark?: boolean },
     );
 
     append(name: string, value: string): void;
