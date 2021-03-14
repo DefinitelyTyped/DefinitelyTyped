@@ -3,6 +3,9 @@
 // Definitions by: JJPell <https://github.com/JJPell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./ads-app/common/google-ads-date.d.ts" />
+/// <reference path="./ads-app/common/stats.d.ts" />
+
 declare namespace GoogleAdsScripts {
     namespace Base {
         interface Selector<Iterator> {
@@ -84,6 +87,13 @@ declare namespace GoogleAdsScripts {
             ThisMonth = 'THIS_MONTH',
             LastMonth = 'LAST_MONTH',
             AllTime = 'ALL_TIME',
+        }
+        
+        interface StatsFor {
+            /** Returns stats for the specified date range. */
+            getStatsFor(dateRange: DateRange): AdsApp.Stats;
+            /** Returns stats for the specified custom date range. */
+            getStatsFor(dateFrom: string | AdsApp.GoogleAdsDate, dateTo: string | AdsApp.GoogleAdsDate): AdsApp.Stats;
         }
     }
 }

@@ -10,7 +10,7 @@
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a responsive ad for Display. */
-        interface ResponsiveDisplayAd {
+        interface ResponsiveDisplayAd extends Base.StatsFor {
             /** Applies a label to the ad. */
             applyLabel(name: string): void;
             /** Returns an AdViewSpace, which provides access to type-specific fields of the ad. */
@@ -53,10 +53,6 @@ declare namespace GoogleAdsScripts {
             getShortHeadline(): string | null;
             /** Returns the ad's square marketing image assets, or null if this is a legacy responsive display ad. */
             getSquareMarketingImages(): Asset[] | null;
-            /** Returns stats for the specified date range. */
-            getStatsFor(): Stats;
-            /** Returns stats for the specified custom date range. */
-            getStatsFor(): Stats;
             /** Returns the type of the ad. */
             getType(): string;
             /** Returns the ad's YouTube video assets, or null if the ad has none or if the ad is a legacy responsive display ad. */

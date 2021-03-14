@@ -13,7 +13,7 @@ declare namespace GoogleAdsScripts {
          * Bidding strategies store shared bidding configuration data and are account-level objects.
          * For more information, refer to Using flexible bid strategies.
          */
-        interface BiddingStrategy {
+        interface BiddingStrategy extends Base.StatsFor {
             /** Returns the selector of all ad groups that use this bidding strategy. */
             adGroups(): AdGroupSelector;
             /** Returns the selector of all campaigns that use this bidding strategy. */
@@ -24,10 +24,6 @@ declare namespace GoogleAdsScripts {
             getId(): number;
             /** Returns the name of the bidding strategy. */
             getName(): string;
-            /** Returns stats for the specified date range. */
-            getStatsFor(): Stats;
-            /** Returns stats for the specified custom date range. */
-            getStatsFor(): Stats;
             /** Returns the type of the bidding strategy. */
             getType(): string;
             /** Returns the selector of all keywords that use this bidding strategy. */

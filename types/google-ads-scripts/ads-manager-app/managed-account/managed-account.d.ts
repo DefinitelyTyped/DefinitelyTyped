@@ -9,7 +9,7 @@
 
 declare namespace GoogleAdsScripts {
     namespace AdsManagerApp {
-        interface ManagedAccount {
+        interface ManagedAccount extends Base.StatsFor {
             /** Applies an account label to the managed account. */
             applyLabel(name: string): void;
             /**
@@ -24,8 +24,6 @@ declare namespace GoogleAdsScripts {
             getEntityType(): string;
             /** Returns the name of the account. */
             getName(): string;
-            /** Returns stats for the specified date range. */
-            getStatsFor(): AdsApp.Stats;
             /**
              * Returns the POSIX time zone of the account.
              *

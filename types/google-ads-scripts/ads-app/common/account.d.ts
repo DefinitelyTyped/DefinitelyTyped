@@ -9,7 +9,7 @@
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Miscellaneous information about Google Ads Accounts. When accessed by `AdsApp.currentAccount()`, it will provide information about the account in which the script is currently running. */
-        interface Account {
+        interface Account extends Base.StatsFor {
             /** Adds a callout extension to this account. */
             addCallout(calloutExtension: Callout): CalloutOperation;
             /** Adds a mobile app extension to this account. */
@@ -30,10 +30,6 @@ declare namespace GoogleAdsScripts {
             getEntityType(): string;
             /** Returns the name of the account. */
             getName(): string;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateRange: Base.DateRange): Stats;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateFrom: string | GoogleAdsDate, dateTo: string | GoogleAdsDate): Stats;
             /** Returns the POSIX time zone of the account. */
             getTimeZone(): string; // TODO: Add Timezone Enum
             /** Removes a callout extension from this account. */

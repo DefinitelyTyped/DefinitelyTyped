@@ -11,7 +11,7 @@
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
     namespace AdsApp {
-        interface Sitelink {
+        interface Sitelink extends Base.StatsFor {
             clearDescription1(): void;
             clearDescription2(): void;
             clearEndDate(): void;
@@ -25,10 +25,6 @@ declare namespace GoogleAdsScripts {
             getLinkText(): string;
             getSchedules(): ExtensionSchedule[];
             getStartDate(): GoogleAdsDate;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateRange: Base.DateRange): Stats;
-            /** Returns stats for the specified date range. */
-            getStatsFor(dateFrom: string | GoogleAdsDate, dateTo: string | GoogleAdsDate): Stats;
             getText(): string;
             isMobilePreferred(): boolean;
             setDescription1(description1: string): void;
