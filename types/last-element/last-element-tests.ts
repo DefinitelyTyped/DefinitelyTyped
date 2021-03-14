@@ -1,4 +1,4 @@
-import last from 'last-element';
+import last = require('last-element');
 
 // $ExpectType string
 const latestVersion = last(['1.0.0', '2.0.0']);
