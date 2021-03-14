@@ -23,7 +23,7 @@ interface HCaptchaProps {
     theme?: 'light' | 'dark';
     tabIndex?: number;
     id?: string;
-    reCaptchaCompat?: boolean;
+    reCaptchaCompat?: string;
     apihost?: string;
     assethost?: string;
     endpoint?: string;
