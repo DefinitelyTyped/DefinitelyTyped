@@ -1,14 +1,16 @@
+/** @jsxImportSource react-blessed */
 import Blessed = require("blessed");
 import ReactBlessed = require("react-blessed");
 import React = require("react");
-import { BlessedIntrinsicElements, BlessedIntrinsicElementsPrefixed } from "react-blessed";
+import { BlessedIntrinsicElementsPrefixed, BlessedProps, Element } from "react-blessed";
 
 // Testing example from demos page
 // https://github.com/Yomguithereal/react-blessed/blob/master/examples/dashboard.jsx
 /**
  * Stylesheet
  */
-const stylesheet = {
+
+const stylesheet: { [key: string]: BlessedProps<Element>["class"] } = {
     bordered: {
         border: {
             type: "line",
@@ -19,7 +21,7 @@ const stylesheet = {
             },
         },
     },
-} as const;
+};
 
 /**
  * Top level component.
@@ -171,7 +173,7 @@ ReactBlessed.render(<Dashboard />, screen);
  */
 const Box = () => <box style={{ fg: "blue" }} />;
 const BlessedBox = () => <blessed-box style={{ fg: "blue" }} />;
-const FF: React.FC<BlessedIntrinsicElements["box"]> = props => <box {...props} />;
+const FF: React.FC<ReactBlessed.BlessedIntrinsicElements["box"]> = props => <box {...props} />;
 
 const Div = () => <div />; // $ExpectError
 

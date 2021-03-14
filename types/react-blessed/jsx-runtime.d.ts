@@ -6,9 +6,9 @@ import * as React from "react";
 // still reflect the values set in @types/react/index.d.ts because they are
 // declared in the global namespace. JSX will otherwise work as expected for
 // "react-blessed" elements and will error for HTML elements.
-declare namespace JSX {
+export namespace JSX {
     // copy React JSX, otherwise class refs won't type as expected
-    interface IntrinsicAttributes extends React.Attributes {}
+    type IntrinsicAttributes = React.Attributes;
     interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
     // set IntrinsicElements to 'react-blessed' elements both with and without
     // 'blessed-' prefix

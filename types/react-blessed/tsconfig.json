@@ -15,11 +15,10 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsxImportSource": "react-blessed",
         "jsx": "react-jsx"
     },
     "files": [
         "index.d.ts",
-        "react-blessed-tests.tsx",
+        "react-blessed-tests.tsx"
     ]
 }

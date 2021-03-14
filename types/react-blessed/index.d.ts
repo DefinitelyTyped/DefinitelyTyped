@@ -84,7 +84,9 @@ type ProgressBarEventNames = Parameters<Blessed.Widgets.ProgressBarElement["on"]
 
 type SpreadableArgs<T, K = T extends unknown[] ? T : [T]> = K;
 
-type EventHandler<T> = { (...args: SpreadableArgs<T>): void };
+interface EventHandler<T> {
+    (...args: SpreadableArgs<T>): void;
+}
 
 // event args need to be manually typed because Blessed.Widgets.NodeWithEvents
 // overloads the event handlers and does not expose the event callbacks as
@@ -99,7 +101,7 @@ export type MouseEvent = Blessed.Widgets.Events.IMouseEventArg;
 export type MouseEventHandler = EventHandler<MouseEvent>;
 type MouseEventProps = EventHandlerProp<Blessed.Widgets.NodeMouseEventType, MouseEventHandler>;
 
-export type GenericEvent = void;
+export type GenericEvent = undefined;
 export type GenericEventHandler = EventHandler<GenericEvent>;
 type GenericEventProps = EventHandlerProp<GenericEventNames, GenericEventHandler>;
 
@@ -111,7 +113,7 @@ export type WarningEvent = string;
 export type WarningEventHandler = EventHandler<WarningEvent>;
 type WarningEventProps = EventHandlerProp<"warning", WarningEventHandler>;
 
-export type ProgressBarEvent = void;
+export type ProgressBarEvent = undefined;
 export type ProgressBarEventHandler = EventHandler<ProgressBarEvent>;
 type ProgressBarEventProps = EventHandlerProp<ProgressBarEventNames, ProgressBarEventHandler>;
 
@@ -156,36 +158,36 @@ interface EventProps
         KeyPressEventProps,
         WarningEventProps {}
 
-export type BlessedIntrinsicElements = {
-    box: DetailedBlessedProps<BoxElement>;
-    text: DetailedBlessedProps<TextElement>;
-    line: DetailedBlessedProps<LineElement>;
-    scrollablebox: DetailedBlessedProps<ScrollableBoxElement>;
-    scrollabletext: DetailedBlessedProps<ScrollableTextElement>;
-    bigtext: DetailedBlessedProps<BigTextElement>;
-    list: DetailedBlessedProps<ListElement>;
-    filemanager: DetailedBlessedProps<FileManagerElement>;
-    listtable: DetailedBlessedProps<ListTableElement>;
-    listbar: DetailedBlessedProps<ListbarElement>;
-    input: DetailedBlessedProps<InputElement>;
-    textarea: DetailedBlessedProps<TextareaElement>;
-    textbox: DetailedBlessedProps<TextboxElement>;
-    button: DetailedBlessedProps<ButtonElement>;
-    checkbox: DetailedBlessedProps<CheckboxElement>;
-    radioset: DetailedBlessedProps<RadioSetElement>;
-    radiobutton: DetailedBlessedProps<RadioButtonElement>;
-    table: DetailedBlessedProps<TableElement>;
-    prompt: DetailedBlessedProps<PromptElement>;
-    question: DetailedBlessedProps<QuestionElement>;
-    message: DetailedBlessedProps<MessageElement>;
-    loading: DetailedBlessedProps<LoadingElement>;
-    log: DetailedBlessedProps<LogElement>;
-    progressbar: DetailedBlessedProps<ProgressBarElement>;
-    terminal: DetailedBlessedProps<Blessed.Widgets.TerminalElement>;
-    layout: DetailedBlessedProps<Blessed.Widgets.LayoutElement>;
+export interface BlessedIntrinsicElements {
+    box: BlessedProps<BoxElement>;
+    text: BlessedProps<TextElement>;
+    line: BlessedProps<LineElement>;
+    scrollablebox: BlessedProps<ScrollableBoxElement>;
+    scrollabletext: BlessedProps<ScrollableTextElement>;
+    bigtext: BlessedProps<BigTextElement>;
+    list: BlessedProps<ListElement>;
+    filemanager: BlessedProps<FileManagerElement>;
+    listtable: BlessedProps<ListTableElement>;
+    listbar: BlessedProps<ListbarElement>;
+    input: BlessedProps<InputElement>;
+    textarea: BlessedProps<TextareaElement>;
+    textbox: BlessedProps<TextboxElement>;
+    button: BlessedProps<ButtonElement>;
+    checkbox: BlessedProps<CheckboxElement>;
+    radioset: BlessedProps<RadioSetElement>;
+    radiobutton: BlessedProps<RadioButtonElement>;
+    table: BlessedProps<TableElement>;
+    prompt: BlessedProps<PromptElement>;
+    question: BlessedProps<QuestionElement>;
+    message: BlessedProps<MessageElement>;
+    loading: BlessedProps<LoadingElement>;
+    log: BlessedProps<LogElement>;
+    progressbar: BlessedProps<ProgressBarElement>;
+    terminal: BlessedProps<Blessed.Widgets.TerminalElement>;
+    layout: BlessedProps<Blessed.Widgets.LayoutElement>;
     // escape: Blessed.escape is not an element
     // program: Blessed.Widgets.Program is not an element
-};
+}
 
 export type BlessedIntrinsicElementsPrefixed = {
     [Key in keyof BlessedIntrinsicElements as Prefix<"blessed-", Key>]: BlessedIntrinsicElements[Key];
@@ -211,8 +213,9 @@ type FilterOptions<T extends Record<any, any>> = Partial<Omit<Pick<T, KnownKeys<
 
 type ModifiedBlessedOptions<T> = FilterOptions<T> & { children?: React.ReactNode; style?: ElementStyle } & EventProps;
 
-// mirrors react prop generation for DOM elements
 type BlessedAttributes<E extends Element> = ClassProp<
     ModifiedBlessedOptions<E["options"]> & ProgressBarProps<E> & ListProps<E> & LayoutProps<E>
 >;
-type DetailedBlessedProps<E extends Element> = BlessedAttributes<E> & React.ClassAttributes<E>;
+
+// mirrors react prop generation for DOM elements
+export type BlessedProps<E extends Element> = BlessedAttributes<E> & React.ClassAttributes<E>;
