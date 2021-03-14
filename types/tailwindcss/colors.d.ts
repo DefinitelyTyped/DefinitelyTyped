@@ -1,5 +1,22 @@
-import type { TailwindColorConfig } from './tailwind-config';
+import type { TailwindColorConfig, TailwindColorGroup } from './tailwind-config';
 
-declare const colors: TailwindColorConfig;
+interface TailwindColors extends TailwindColorConfig {
+    rose: TailwindColorGroup;
+    fuchsia: TailwindColorGroup;
+    violet: TailwindColorGroup;
+    lightBlue: TailwindColorGroup;
+    cyan: TailwindColorGroup;
+    teal: TailwindColorGroup;
+    emerald: TailwindColorGroup;
+    lime: TailwindColorGroup;
+    amber: TailwindColorGroup;
+    orange: TailwindColorGroup;
+    warmGray: TailwindColorGroup;
+    trueGray: TailwindColorGroup;
+    coolGray: TailwindColorGroup;
+    blueGray: TailwindColorGroup;
+}
+
+declare const colors: TailwindColors;
 
 export = colors;
