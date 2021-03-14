@@ -1,4 +1,4 @@
-// Type definitions for @hcaptcha/react-hcaptcha 0.1
+// Type definitions for @hcaptcha/react-hcaptcha 0.3.5
 // Project: https://github.com/hCaptcha/react-hcaptcha
 // Definitions by: Matt Sutkowski <https://github.com/msutkowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
