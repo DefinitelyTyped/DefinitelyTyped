@@ -33,9 +33,9 @@ export interface BufferedMetricsLoggerOptions {
      * Sets a default prefix for all metrics.
      */
     prefix?: string;
-    
-     /**
-     * Sets host address corresponding to your DD service region. 
+
+    /**
+     * Sets host address corresponding to your DD service region.
      */
     apiHost?: string;
 }
