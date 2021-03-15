@@ -221,7 +221,7 @@ class TypedRoute extends Route<ExampleModel> {
     }
 
     renderTemplate(controller: Controller, model: ExampleModel) {
-        this.render('template', { model: model });
+        this.render('template', { model });
     }
 }
 
@@ -259,6 +259,6 @@ class InvalidTypedRoute extends Route<ExampleModel> {
 
     // $ExpectError
     renderTemplate(controller: Controller, model: InvalidModel) {
-        this.render('template', { model: model });
+        this.render('template', { model });
     }
 }
