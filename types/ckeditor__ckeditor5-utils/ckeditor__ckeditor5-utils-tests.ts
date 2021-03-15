@@ -433,10 +433,16 @@ emitter.off("foo");
 emitter.off("foo", () => {});
 
 emitter.on("foo", () => {});
+emitter.on("foo", (info, data) => {
+    info.stop();
+});
 emitter.on("foo", () => {}, { priority: 10 });
 emitter.on("foo", () => {}, { priority: "normal" });
 
 emitter.once("foo", () => {});
+emitter.once("foo", (info, data) => {
+    info.stop();
+});
 emitter.once("foo", () => {}, { priority: 10 });
 emitter.once("foo", () => {}, { priority: "lowest" });
 
