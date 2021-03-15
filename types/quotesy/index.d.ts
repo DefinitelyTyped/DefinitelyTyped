@@ -25,8 +25,8 @@ export interface Quote {
     author: string;
     /** The text of the quote */
     text: string;
-    /** Tags; words associated with the quote **/
-    tags: string;
-    /** Source; a URL where the origin of the quote can be verified **/
-    source: string;
+    /** Comma-separated list of words associated with the quote */
+    tags?: string;
+    /** A URL where the origin of the quote can be verified */
+    source?: string;
 }
