@@ -182,3 +182,27 @@ declare module "leaflet" {
         off(type: 'markers', fn?: MarkerEventHandler, context?: any): this;
     }
 }
+
+type localCreate = typeof CREATE;
+type localEdit = typeof EDIT;
+type localDelete = typeof DELETE;
+type localAppend = typeof APPEND;
+type localEditAppend = typeof EDIT_APPEND;
+type localNone = typeof NONE;
+type localAll = typeof ALL;
+
+declare namespace GlobalFreeDraw {
+    const CREATE: localCreate;
+    const EDIT: localEdit;
+    const DELETE: localDelete;
+    const APPEND: localAppend;
+    const EDIT_APPEND: localEditAppend;
+    const NONE: localNone;
+    const ALL: localAll;
+}
+
+declare global {
+    interface Window {
+        FreeDraw: typeof FreeDraw & typeof GlobalFreeDraw;
+    }
+}

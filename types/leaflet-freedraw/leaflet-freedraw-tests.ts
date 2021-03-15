@@ -1,5 +1,5 @@
 import { Map } from 'leaflet';
-import FreeDraw, { CREATE, EDIT } from 'leaflet-freedraw';
+import FreeDraw, { CREATE, DELETE, EDIT } from 'leaflet-freedraw';
 
 const mapNode = document.getElementById('foo')!;
 const map = new Map(mapNode);
@@ -20,3 +20,14 @@ document.addEventListener('keydown', event => {
 });
 
 freeDraw.off('markers');
+
+const windowFreeDraw = window.FreeDraw;
+const freeDraw2 = new windowFreeDraw({
+    mode: windowFreeDraw.CREATE | windowFreeDraw.DELETE
+});
+map.addLayer(freeDraw2);
+
+/* FreeDraw only augment itself with the constant if the window object exist,
+ * so the constant are seggregated to the window.FreeDraw object */
+// $ExpectError
+const nonExistingNone = FreeDraw.NONE;
