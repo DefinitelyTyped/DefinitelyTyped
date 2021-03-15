@@ -1,5 +1,5 @@
 import { Map } from 'leaflet';
-import FreeDraw, { CREATE, DELETE, EDIT } from 'leaflet-freedraw';
+import FreeDraw, { CREATE, EDIT } from 'leaflet-freedraw';
 
 const mapNode = document.getElementById('foo')!;
 const map = new Map(mapNode);
