@@ -8,7 +8,6 @@
 //                 Jose Luis Leon <https://github.com/JoseLion>
 //                 David Stephens <https://github.com/dwrss>
 //                 Shin Ando <https://github.com/andoshin11>
-//                 Colin Richardson <https://github.com/WORMSS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
