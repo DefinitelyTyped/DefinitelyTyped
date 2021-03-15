@@ -7,6 +7,7 @@ import * as R from 'ramda';
   R.gte(2)(10); // => false
   R.gte('a', 'z'); // => false
   R.gte('z', 'a'); // => true
+  R.gte('c', 'c') // => true
 };
 
 () => {
