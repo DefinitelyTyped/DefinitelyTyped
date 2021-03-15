@@ -127,6 +127,9 @@ checkConfigFunction(api => {
 // $ExpectType Readonly<PartialConfig> | null
 const partialConfig = babel.loadPartialConfig();
 
+// $ExpectType Promise<Readonly<PartialConfig> | null>
+const partialConfigPromise = babel.loadPartialConfigAsync();
+
 if (partialConfig) {
     // $ExpectType boolean
     partialConfig.hasFilesystemConfig();
