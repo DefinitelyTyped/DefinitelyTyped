@@ -206,6 +206,7 @@ export type BlessedAttributes<E extends Element> = WithClassProp<
 export type DetailedBlessedProps<E extends Element> = BlessedAttributes<E> & React.ClassAttributes<E>;
 
 export interface BlessedIntrinsicElements {
+    element: DetailedBlessedProps<Element>;
     box: DetailedBlessedProps<BoxElement>;
     text: DetailedBlessedProps<TextElement>;
     line: DetailedBlessedProps<LineElement>;
@@ -242,3 +243,32 @@ export interface BlessedIntrinsicElements {
 export type BlessedIntrinsicElementsPrefixed = {
     [Key in keyof BlessedIntrinsicElements as Prefix<"blessed-", Key>]: BlessedIntrinsicElements[Key];
 };
+
+// it isn't possible to use the global JSX namespace because some blessed
+// elements will collide with ones set in react defs.
+
+// augment react JSX when old JSX transform is used
+declare module "react" {
+    namespace JSX {
+        // set IntrinsicElements to 'react-blessed' elements both with and without
+        // 'blessed-' prefix
+        interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
+    }
+}
+
+// augment react/jsx-runtime JSX when new JSX transform is used
+declare module "react/jsx-runtime" {
+    namespace JSX {
+        // copy React JSX, otherwise class refs won't type as expected
+        type IntrinsicAttributes = React.Attributes;
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
+        interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
+    }
+}
+declare module "react/jsx-dev-runtime" {
+    namespace JSX {
+        type IntrinsicAttributes = React.Attributes;
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
+        interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
+    }
+}

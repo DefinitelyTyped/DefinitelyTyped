@@ -1,4 +1,4 @@
-/** @jsxImportSource react-blessed */
+/** @jsxImportSource react */
 import Blessed = require("blessed");
 import ReactBlessed = require("react-blessed");
 import React = require("react");
