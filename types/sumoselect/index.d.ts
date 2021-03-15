@@ -23,6 +23,7 @@ type Option = Partial<{
     selectAll: boolean;
     search: boolean;
     searchText: string;
+    searchFn: (...args: any[]) => boolean;
     noMatch: string;
     prefix: string;
     locale: string[];

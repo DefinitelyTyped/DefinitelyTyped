@@ -18,6 +18,7 @@ $('.SlectBox').SumoSelect({
     selectAll: false,
     search: false,
     searchText: 'Search...',
+    searchFn: (haystack, needle) => haystack.toLowerCase().indexOf(needle.toLowerCase()) < 0,
     noMatch: 'No matches for "{0}"',
     prefix: '',
     locale: ['OK', 'Cancel', 'Select All'],
