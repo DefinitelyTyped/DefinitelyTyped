@@ -2309,6 +2309,9 @@ declare namespace Mocha {
 
         /** Assigns hooks to the root suite */
         rootHooks?: RootHookObject;
+        
+        /** Test filter given string. */
+        fgrep?: string;
 
         asyncOnly?: boolean;
         delay?: boolean;
