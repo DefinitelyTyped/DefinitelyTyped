@@ -27,7 +27,7 @@ export interface FilterTagProps extends ReactDivAttr, SharedProps {
 }
 
 // div or button, HTMLElement will need to be casted
-export interface ChipTagProps extends ReactAttr<HTMLElement>, SharedProps {
+export interface ChipTagProps extends ReactAttr, SharedProps {
     filter?: false,
     renderIcon?: React.ComponentType<any>;
 }
