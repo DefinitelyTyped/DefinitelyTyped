@@ -8,26 +8,89 @@
 type SumoSelectEvents = 'sumo:opening' | 'sumo:opened' | 'sumo:closing' | 'sumo:closed';
 
 type Option = Partial<{
+    /**
+     * @default 'Select Here'
+     */
     placeholder: string;
+    /**
+     * @default 3
+     */
     csvDispCount: number;
+    /**
+     * @default '{0} Selected'
+     */
     captionFormat: string;
+    /**
+     * @default '{0} all selected!'
+     */
     captionFormatAllSelected: string;
+    /**
+     * @default 400
+     */
     floatWidth: number;
+    /**
+     * @default false
+     */
     forceCustomRendering: boolean;
+    /**
+     * @default ['Android', 'BlackBerry', 'iPhone', 'iPad', 'iPod', 'Opera Mini', 'IEMobile', 'Silk']
+     */
     nativeOnDevice: string[];
+    /**
+     * @default false
+     */
     outputAsCSV: boolean;
+    /**
+     * @default ','
+     */
     csvSepChar: string;
+    /**
+     * @default false
+     */
     okCancelInMulti: boolean;
+    /**
+     * @default false
+     */
     isClickAwayOk: boolean;
+    /**
+     * @default true
+     */
     triggerChangeCombined: boolean;
+    /**
+     * @default false
+     */
     selectAll: boolean;
+    /**
+     * @default false
+     */
     search: boolean;
+    /**
+     * @default 'Search...'
+     */
     searchText: string;
+    /**
+     * @default (haystack: string, needle: string) => boolean
+     */
     searchFn: (...args: any[]) => boolean;
+    /**
+     * @default 'No matches for "{0}"
+     */
     noMatch: string;
+    /**
+     * @default ''
+     */
     prefix: string;
+    /**
+     * @default ['OK', 'Cancel', 'Select All']
+     */
     locale: string[];
+    /**
+     * @default false
+     */
     up: boolean;
+    /**
+     * @default true
+     */
     showTitle: boolean;
 }>;
 
