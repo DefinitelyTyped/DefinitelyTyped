@@ -141,3 +141,5 @@ const applicationTemplate: MicrosoftGraph.ApplicationTemplate = {
     categories: [],
     logoUrl: "test"
 };
+
+const chatType: MicrosoftGraph.ChatType = "group";
