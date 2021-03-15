@@ -11,7 +11,6 @@
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
 //                 Danilo Fuchs <https://github.com/danilofuchs>
-//                 Junya Kani <https://github.com/ka2jun8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // forward declarations
@@ -58,9 +57,6 @@ type Defaultize<P, D> = P extends any
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
 
-// return true if T is never
-type IsExtendsNever<T> = T extends never ? true : false;
-
 export type StyledComponentProps<
     // The Component from whose props are derived
     C extends string | React.ComponentType<any>,
@@ -74,33 +70,25 @@ export type StyledComponentProps<
     // Distribute O if O is a union type
     O extends object
         ? WithOptionalTheme<
-              false extends IsExtendsNever<A>
-                  ? Omit<
-                        ReactDefaultizedProps<
-                            C,
-                            React.ComponentPropsWithRef<
-                                C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                            >
-                        > &
-                            O,
-                        A
-                    >
-                  : ReactDefaultizedProps<
-                        C,
-                        React.ComponentPropsWithRef<
-                            C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                        >
-                    > &
-                        O &
-                        Partial<
-                            Pick<
-                                React.ComponentPropsWithRef<
-                                    C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
-                                > &
-                                    O,
-                                A
-                            >
-                        >,
+              Omit<
+                  ReactDefaultizedProps<
+                      C,
+                      React.ComponentPropsWithRef<
+                          C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
+                      >
+                  > &
+                      O,
+                  A
+              > &
+                  Partial<
+                      Pick<
+                          React.ComponentPropsWithRef<
+                              C extends IntrinsicElementsKeys | React.ComponentType<any> ? C : never
+                          > &
+                              O,
+                          A
+                      >
+                  >,
               T
           > &
               WithChildrenIfReactComponentClass<C>
@@ -317,9 +305,9 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<AnyIfEmp
 
 // Helper type operators
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type WithOptionalTheme<P extends { theme?: T }, T> = (P extends { theme?: T }
-    ? Omit<P, 'theme'>
-    : { [K in keyof P]: P[K] }) & { theme?: T };
+type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, 'theme'> & {
+    theme?: T;
+};
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
 export interface ThemedStyledComponentsModule<T extends object, U extends object = T> {
