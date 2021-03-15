@@ -17,8 +17,6 @@ import styled, {
     ThemedStyledComponentsModule,
     FlattenSimpleInterpolation,
     FlattenInterpolation,
-    GlobalStyleComponent,
-    DefaultTheme,
 } from 'styled-components';
 import {} from 'styled-components/cssprop';
 
