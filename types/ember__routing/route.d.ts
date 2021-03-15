@@ -142,7 +142,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * This method can be overridden to set up and render additional or
      * alternative templates.
      */
-    renderTemplate(controller: Controller, model: {}): void;
+    renderTemplate(controller: Controller, model: Model): void;
 
     /**
      * Transition into another route while replacing the current URL, if possible.
@@ -188,7 +188,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * when implementing your `setupController` function, make sure to call
      * `_super`
      */
-    setupController(controller: Controller, model: {}, transition: Transition): void;
+    setupController(controller: Controller, model: Model, transition: Transition): void;
 
     /**
      * Transition the application into another route. The route may

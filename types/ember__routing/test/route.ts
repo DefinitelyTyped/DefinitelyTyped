@@ -215,6 +215,14 @@ class TypedRoute extends Route<ExampleModel> {
             this.transitionTo('some.other.route');
         }
     }
+
+    setupController(controller: Controller, model: ExampleModel, transition: Transition) {
+        controller.set('model', model);
+    }
+
+    renderTemplate(controller: Controller, model: ExampleModel) {
+        this.render('template', { model: model });
+    }
 }
 
 interface InvalidModel { id: number; }
@@ -242,5 +250,15 @@ class InvalidTypedRoute extends Route<ExampleModel> {
         if (model.id === 0) {
             this.transitionTo('some.other.route');
         }
+    }
+
+    // $ExpectError
+    setupController(controller: Controller, model: InvalidModel, transition: Transition) {
+        controller.set('model', model);
+    }
+
+    // $ExpectError
+    renderTemplate(controller: Controller, model: InvalidModel) {
+        this.render('template', { model: model });
     }
 }
