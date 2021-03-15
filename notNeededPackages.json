@@ -3603,6 +3603,11 @@
             "asOfVersion": "2.4.0"
         },
         {
+            "libraryName": "rdf-js",
+            "typingsPackageName": "rdf-js",
+            "asOfVersion": "2.0"
+        },
+        {
             "libraryName": "rdflib",
             "typingsPackageName": "rdflib",
             "asOfVersion": "1.2.0"
