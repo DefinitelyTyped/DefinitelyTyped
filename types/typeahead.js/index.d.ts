@@ -1193,7 +1193,7 @@ declare class Bloodhound<T> {
      */
     public all(): T[];
 
-    /**
+    /**@Types/typeahead
      * Clears the internal search index that's powered by local, prefetch, and #add.
      */
     public clear(): Bloodhound<T>;
