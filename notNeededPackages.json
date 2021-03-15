@@ -2842,6 +2842,11 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "neat-csv",
+            "typingsPackageName": "neat-csv",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "neffos.js",
             "typingsPackageName": "neffos.js",
             "asOfVersion": "0.1.2"
