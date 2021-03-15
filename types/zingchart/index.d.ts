@@ -1445,6 +1445,10 @@ export interface graphset {
             */
            'shadow-distance'?: any;
            /**
+            * Sets the text of the tooltip.
+            */
+           'text'?: string;
+           /**
             * Sets the transparency of the text. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comple
             * tely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
             */
@@ -14305,19 +14309,22 @@ export interface graphset {
        };
    };
 }
+
+export interface behavior {
+    /**
+     * To enable or disable individual context menu item behaviors. "all" | "none"
+     */
+    enabled?: string;
+    /**
+     * To specify the behavior ID of the context menu item that is being accessed. "3D" | "LogScale" | "LinScale" | ...
+     */
+    id?: string;
+}
 export interface gui {
-   behaviors?: [
-       {
-           /**
-            * To enable or disable individual context menu item behaviors. "all" | "none"
-            */
-           enabled?: string;
-           /**
-            * To specify the behavior ID of the context menu item that is being accessed. "3D" | "LogScale" | "LinScale" | ...
-            */
-           id?: string;
-       },
-   ];
+    /**
+     * To create custom context menu items
+     */
+   behaviors?: behavior[];
    'context-menu'?: {
        /**
         * To fix the position of the context menu to one side of the chart. true | false
