@@ -1,10 +1,11 @@
-// Type definitions for k6 0.30
+// Type definitions for k6 0.31
 // Project: https://k6.io/docs
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
 //                 na-- <https://github.com/na-->
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Simon Aronsson <https://github.com/simskij>
+//                 Ivan Mirić <https://github.com/imiric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
