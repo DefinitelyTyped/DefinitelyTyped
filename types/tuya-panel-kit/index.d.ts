@@ -10727,7 +10727,7 @@ export let TYSdk: {
          * 隐藏 app 原生 loading UI 框
          */
         hideLoading(): void;
-        is24Hour(): boolean;
+        is24Hour(): Promise<boolean>;
 
         /**
          * 跳转面板原生事件
@@ -10825,7 +10825,7 @@ export let TYSdk: {
         gotoDeviceWifiNetworkMonitor: AnyFunction;
         gotoDpAlarm: (param: { category: string; repeat: number; data: GotoDpAlarmData }) => void;
         hideLoading: AnyFunction;
-        is24Hour: AnyFunction;
+        is24Hour: () => Promise<boolean>;
         jumpTo: (routeId: string) => any;
         lang: I18NLanMap;
         mobileInfo: MobileInfo;
