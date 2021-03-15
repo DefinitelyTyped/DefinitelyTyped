@@ -149,15 +149,15 @@ hasher.digest('hex'); // $ExpectType string
 binary = hasher.digest('binary');
 hasher.digest('hex', 5); // $ExpectError
 
-const binaryInput = open('file.bin', 'b');
-hasher.update(binaryInput); // $ExpectType void
-ripemd160(binaryInput, 'hex'); // $ExpectType string
-sha512_256(binaryInput, 'base64rawurl'); // $ExpectType string
-sha512_224(binaryInput, 'base64rawurl'); // $ExpectType string
-sha512(binaryInput, 'base64'); // $ExpectType string
-sha384(binaryInput, 'hex'); // $ExpectType string
-sha256(binaryInput, 'hex'); // $ExpectType string
-sha1(binaryInput, 'base64url'); // $ExpectType string
-md5(binaryInput, 'base64'); // $ExpectType string
-md4(binaryInput, 'base64'); // $ExpectType string
-hmac('sha256', 'secret', binaryInput, 'hex'); // $ExpectType string
+const arrayBuffer = new Uint8Array([10, 12]).buffer;
+hasher.update(arrayBuffer); // $ExpectType void
+ripemd160(arrayBuffer, 'hex'); // $ExpectType string
+sha512_256(arrayBuffer, 'base64rawurl'); // $ExpectType string
+sha512_224(arrayBuffer, 'base64rawurl'); // $ExpectType string
+sha512(arrayBuffer, 'base64'); // $ExpectType string
+sha384(arrayBuffer, 'hex'); // $ExpectType string
+sha256(arrayBuffer, 'hex'); // $ExpectType string
+sha1(arrayBuffer, 'base64url'); // $ExpectType string
+md5(arrayBuffer, 'base64'); // $ExpectType string
+md4(arrayBuffer, 'base64'); // $ExpectType string
+hmac('sha256', 'secret', arrayBuffer, 'hex'); // $ExpectType string
