@@ -8,6 +8,7 @@
 //                 Jose Luis Leon <https://github.com/JoseLion>
 //                 David Stephens <https://github.com/dwrss>
 //                 Shin Ando <https://github.com/andoshin11>
+//                 Colin Richardson <https://github.com/WORMSS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -38,6 +39,11 @@ export interface NextFunction {
      * @see {https://expressjs.com/en/guide/using-middleware.html#middleware.router}
      */
     (deferToNext: 'router'): void;
+    /**
+     * "Break-out" of a route by calling {next('route')};
+     * @see {https://expressjs.com/en/guide/using-middleware.html#middleware.application}
+     */
+    (deferToNext: 'route'): void;
 }
 
 export interface Dictionary<T> {
