@@ -257,6 +257,7 @@ file(); // $ExpectError
 file(5); // $ExpectError
 fileData = file('important data');
 fileData = file([ 1, 2, 3 ]);
+fileData = file(new Uint8Array([10, 12]).buffer);
 file('', 5); // $ExpectError
 fileData = file('important data', 'data.txt');
 file('important data', 'data.txt', 5); // $ExpectError

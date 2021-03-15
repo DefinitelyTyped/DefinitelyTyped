@@ -151,7 +151,7 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
  *   console.log(f.content_type);
  * }
  */
-export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+export function file(data: string | bytes | ArrayBuffer, filename?: string, contentType?: string): FileData;
 
 /**
  * Get active cookie jar.
@@ -657,7 +657,7 @@ export abstract class FileData {
     protected __brand: never;
 
     /** File data. */
-    data: string | bytes;
+    data: string | bytes | ArrayBuffer;
 
     /** Filename to include in MIME message. */
     filename?: string;
@@ -889,7 +889,7 @@ declare namespace http {
      *   console.log(f.content_type);
      * }
      */
-    function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+    function file(data: string | bytes | ArrayBuffer, filename?: string, contentType?: string): FileData;
 
     /**
      * Get active cookie jar.
