@@ -1,10 +1,3 @@
-// Type definitions for whatwg-url 8.2
-// Project: https://github.com/jsdom/whatwg-url#readme
-// Definitions by: Alexander Marks <https://github.com/aomarks>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 /// <reference types="node"/>
 
 /** https://url.spec.whatwg.org/#url-representation */
@@ -70,8 +63,8 @@ export class URL {
 export class URLSearchParams {
     constructor(
         init?:
-            | ReadonlyArray<readonly [name: string, value: string]>
-            | Iterable<readonly [name: string, value: string]>
+            | ReadonlyArray<readonly [string, string]>
+            | Iterable<readonly [string, string]>
             | { readonly [name: string]: string }
             | string,
     );
@@ -86,14 +79,14 @@ export class URLSearchParams {
 
     keys(): IterableIterator<string>;
     values(): IterableIterator<string>;
-    entries(): IterableIterator<[name: string, value: string]>;
+    entries(): IterableIterator<[string, string]>;
     forEach<THIS_ARG = void>(
         callback: (this: THIS_ARG, value: string, name: string, searchParams: this) => void,
         thisArg?: THIS_ARG,
     ): void;
 
     readonly [Symbol.toStringTag]: "URLSearchParams";
-    [Symbol.iterator](): IterableIterator<[name: string, value: string]>;
+    [Symbol.iterator](): IterableIterator<[string, string]>;
 }
 
 /** https://url.spec.whatwg.org/#concept-url-parser */

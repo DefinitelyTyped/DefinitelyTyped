@@ -1,5 +1,9 @@
 declare class URLImpl {
-    constructor(globalObject: object, [url, base]: [string, string?], privateData?: {});
+    constructor(
+        globalObject: object,
+        [url, base]: readonly [string, string?],
+        privateData?: {},
+    );
 
     href: string;
     readonly origin: string;

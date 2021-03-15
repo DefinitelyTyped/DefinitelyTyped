@@ -52,7 +52,7 @@ whatwgUrl.percentDecode(Buffer.from("foo"));
 
 [BigInt64Array, BigUint64Array].forEach((ctor) => {
     whatwgUrl.percentDecode(
-        // @ts-expect-error
+        // $ExpectError
         new ctor(),
     );
 });
@@ -73,5 +73,5 @@ searchParams.forEach(function (value, name, self) {
 
 searchParams.keys(); // $ExpectType IterableIterator<string>
 searchParams.values(); // $ExpectType IterableIterator<string>
-searchParams.entries(); // $ExpectType IterableIterator<[name: string, value: string]>
-searchParams[Symbol.iterator](); // $ExpectType IterableIterator<[name: string, value: string]>
+searchParams.entries(); // $ExpectType IterableIterator<[string, string]>
+searchParams[Symbol.iterator](); // $ExpectType IterableIterator<[string, string]>

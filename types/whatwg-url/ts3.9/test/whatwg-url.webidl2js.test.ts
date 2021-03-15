@@ -1,5 +1,10 @@
 import * as whatwgUrl from "whatwg-url";
-import { URL, URLSearchParams } from "whatwg-url/webidl2js-wrapper";
+// tslint:disable-next-line: no-relative-import-in-test
+import { URL, URLSearchParams } from "../webidl2js-wrapper";
+
+// `import { URL, URLSearchParams } from "whatwg-url/webidl2js-wrapper";`
+// fails without `"paths": { "whatwg-url": ["whatwg-url/ts3.9"] }` in tsconfig.json,
+// but that causes @definitelytyped/definitions-parser to complain.
 
 declare const unknown: unknown;
 declare const globalObject: {
@@ -65,14 +70,14 @@ URL.setup<whatwgUrl.URL>(Object.create(globalObject.URL.prototype), globalObject
 
 // $ExpectType URLSearchParams
 URLSearchParams.setup<whatwgUrl.URLSearchParams>(
-    Object.create(globalThis.URLSearchParams.prototype),
+    Object.create(globalObject.URLSearchParams.prototype),
     globalObject,
     ["?foo=bar&baz=biz"],
 );
 
 // $ExpectType URLSearchParams
 URLSearchParams.setup<whatwgUrl.URLSearchParams>(
-    Object.create(globalThis.URLSearchParams.prototype),
+    Object.create(globalObject.URLSearchParams.prototype),
     globalObject,
     [
         [
