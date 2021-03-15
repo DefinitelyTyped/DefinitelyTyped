@@ -22,7 +22,7 @@ export function randomBytes(size: number): bytes;
  */
 export function hmac<OE extends OutputEncoding>(
     algorithm: Algorithm,
-    secret: string,
+    secret: string | ArrayBuffer,
     input: string | ArrayBuffer,
     outputEncoding: OE
 ): Output<OE>;
@@ -170,7 +170,7 @@ export function createHash(algorithm: Algorithm): Hasher;
  * @returns HMAC hashing object.
  * @example
  */
-export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
+export function createHMAC(algorithm: Algorithm, secret: string | ArrayBuffer): Hasher;
 
 /**
  * Hash algorithm.
@@ -271,7 +271,7 @@ declare namespace crypto {
      */
     function hmac<OE extends OutputEncoding>(
         algorithm: Algorithm,
-        secret: string,
+        secret: string | ArrayBuffer,
         input: string | ArrayBuffer,
         outputEncoding: OE
     ): Output<OE>;
@@ -427,7 +427,7 @@ declare namespace crypto {
      * hasher.update('world!');
      * console.log(hasher.digest('hex'));
      */
-    function createHMAC(algorithm: Algorithm, secret: string): Hasher;
+    function createHMAC(algorithm: Algorithm, secret: string | ArrayBuffer): Hasher;
 }
 
 export default crypto;

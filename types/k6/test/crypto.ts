@@ -19,6 +19,8 @@ import {
 let binary: bytes;
 let hasher: Hasher;
 
+const arrayBuffer = new Uint8Array([10, 12]).buffer;
+
 // randomBytes
 randomBytes(); // $ExpectError
 randomBytes('turmeric'); // $ExpectError
@@ -37,6 +39,7 @@ hmac('sha256', 'secret', 'data'); // $ExpectError
 hmac('sha256', 'secret', 'data', 5); // $ExpectError
 hmac('sha256', 'secret', 'data', 'bad-encoding'); // $ExpectError
 hmac('sha256', 'secret', 'data', 'hex'); // $ExpectType string
+hmac('sha256', 'secret', arrayBuffer, 'hex'); // $ExpectType string
 binary = hmac('sha256', 'secret', 'data', 'binary');
 hmac('sha256', 'secret', 'data', 'hex', 5); // $ExpectError
 
@@ -135,6 +138,7 @@ createHMAC('bad-algorithm'); // $ExpectError
 createHMAC('sha256'); // $ExpectError
 createHMAC('sha256', 5); // $ExpectError
 hasher = createHMAC('sha256', 'secret');
+hasher = createHMAC('sha256', arrayBuffer);
 createHMAC('sha256', 'secret', 5); // $ExpectError
 
 // Hasher
@@ -149,7 +153,6 @@ hasher.digest('hex'); // $ExpectType string
 binary = hasher.digest('binary');
 hasher.digest('hex', 5); // $ExpectError
 
-const arrayBuffer = new Uint8Array([10, 12]).buffer;
 hasher.update(arrayBuffer); // $ExpectType void
 ripemd160(arrayBuffer, 'hex'); // $ExpectType string
 sha512_256(arrayBuffer, 'base64rawurl'); // $ExpectType string
