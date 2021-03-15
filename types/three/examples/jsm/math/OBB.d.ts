@@ -5,7 +5,7 @@ export class OBB {
     halfSize: Vector3;
     rotation: Matrix3;
 
-    constructor(center: Vector3, halfSize: Vector3, rotation: Matrix3);
+    constructor(center?: Vector3, halfSize?: Vector3, rotation?: Matrix3);
     set(center: Vector3, halfSize: Vector3, rotation: Matrix3): this;
     copy(obb: OBB): this;
     clone(): OBB;
