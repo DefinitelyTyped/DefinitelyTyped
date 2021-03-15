@@ -25,9 +25,9 @@ type Option = Partial<{
     searchText: string;
     noMatch: string;
     prefix: string;
-    locale: any[];
-    up: string;
-    showTitle: string;
+    locale: string[];
+    up: boolean;
+    showTitle: boolean;
 }>;
 
 interface Methods {

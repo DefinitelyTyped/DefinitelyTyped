@@ -21,8 +21,8 @@ $('.SlectBox').SumoSelect({
     noMatch: 'No matches for "{0}"',
     prefix: '',
     locale: ['OK', 'Cancel', 'Select All'],
-    up: 'false',
-    showTitle: 'true',
+    up: false,
+    showTitle: true,
 });
 
 // events
