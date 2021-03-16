@@ -31,7 +31,6 @@ function test_instanceFunctions() {
     el.recalculate();
     const contentEl: Element = el.getContentElement();
     const scrollEl: Element = el.getScrollElement();
-
     el.unMount();
 }
 
