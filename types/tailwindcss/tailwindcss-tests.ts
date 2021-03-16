@@ -2516,5 +2516,6 @@ tailwindConfig.theme.boxShadow['2xl'];
 
 colors.red[500];
 
+// @ts-expect-error
 defaultTheme.darkMode;
-defaultTheme.theme.colors.blue[800];
+defaultTheme.colors.blue[800];
