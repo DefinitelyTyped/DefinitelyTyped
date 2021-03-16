@@ -188,6 +188,11 @@ function timeDriven(e: GoogleAppsScript.Events.TimeDriven) {
   }
 }
 
+// https://developers.google.com/workspace/add-ons/cats-quickstart
+const card = CardService.newCardBuilder(); // $ExpectType CardBuilder
+const footer = CardService.newFixedFooter(); // $ExpectType FixedFooter
+card.setFixedFooter(footer);
+
 CardService.newDecoratedText(); // $ExpectType DecoratedText
 CardService.newDecoratedText().setAuthorizationAction(CardService.newAuthorizationAction()); // $ExpectType DecoratedText
 CardService.newDecoratedText().setBottomLabel(''); // $ExpectType DecoratedText

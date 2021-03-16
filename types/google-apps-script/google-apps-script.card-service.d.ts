@@ -152,11 +152,13 @@ declare namespace GoogleAppsScript {
     }
     /**
      * A builder for Card objects.
+     * https://developers.google.com/apps-script/reference/card-service/card-builder
      */
     interface CardBuilder {
       addCardAction(cardAction: CardAction): CardBuilder;
       addSection(section: CardSection): CardBuilder;
       build(): Card;
+      setFixedFooter(footer: FixedFooter): CardBuilder;
       setHeader(cardHeader: CardHeader): CardBuilder;
       setName(name: string): CardBuilder;
     }
