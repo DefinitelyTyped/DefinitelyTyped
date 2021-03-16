@@ -1,6 +1,6 @@
 // Type definitions for country-emoji 1.5
 // Project: https://github.com/meeDamian/country-emoji#readme
-// Definitions by: ImRodry <https://github.com/ImRodry>
+// Definitions by: Rodry <https://github.com/ImRodry>
 //                 marzeq <https://github.com/marzeq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

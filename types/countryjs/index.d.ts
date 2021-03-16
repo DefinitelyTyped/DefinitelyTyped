@@ -1,6 +1,6 @@
 // Type definitions for countryjs 1.8
 // Project: https://github.com/therebelrobot/countryjs
-// Definitions by: ImRodry <https://github.com/ImRodry>
+// Definitions by: Rodry <https://github.com/ImRodry>
 //                 marzeq <https://github.com/marzeq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
