@@ -1002,7 +1002,7 @@ declare namespace Office {
         *   </tr>
         * </table>
         *
-        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param startAddress - Accepts the initial full HTTPS URL that opens in the dialog. Relative URLs must not be used.
         * @param options - Optional. Accepts an {@link Office.DialogOptions} object to define dialog display.
         * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a Dialog object.
         */
@@ -1103,7 +1103,7 @@ declare namespace Office {
         *   </tr>
         * </table>
         *
-        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param startAddress - Accepts the initial full HTTPS URL that opens in the dialog. Relative URLs must not be used.
         * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a Dialog object.
         */
         displayDialogAsync(startAddress: string, callback?: (result: AsyncResult<Dialog>) => void): void;
