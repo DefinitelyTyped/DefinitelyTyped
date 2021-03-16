@@ -492,12 +492,6 @@ Providers.Twitch({
     clientSecret: 'bar123',
 });
 
-// $ExpectType Provider<"mixer", "oauth">
-Providers.Mixer({
-    clientId: 'foo123',
-    clientSecret: 'bar123',
-});
-
 // $ExpectType Provider<"okta", "oauth"> & { domain: string; }
 Providers.Okta({
     clientId: 'foo123',
