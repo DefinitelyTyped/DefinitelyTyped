@@ -117,14 +117,9 @@ export interface Checkers<VT> {
 // --------------------
 
 /**
- * Byte represented as number. Value range [0,256)
+ * Array of numbers [0, 256].
  */
-export type byte = number;
-
-/**
- * Byte array.
- */
-export type bytes = byte[];
+export type bytes = number[];
 
 // === JSON ===
 // ------------
