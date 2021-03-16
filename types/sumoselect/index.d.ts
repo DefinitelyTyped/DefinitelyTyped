@@ -71,7 +71,7 @@ type Option = Partial<{
     /**
      * @default (haystack: string, needle: string) => boolean
      */
-    searchFn: (...args: any[]) => boolean;
+    searchFn(haystack: string, needle: string): boolean;
     /**
      * @default 'No matches for "{0}"
      */
