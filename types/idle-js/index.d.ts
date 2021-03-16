@@ -96,4 +96,4 @@ declare namespace IdleJs {
     }
 }
 
-export default IdleJs;
+export = IdleJs;

@@ -1,4 +1,4 @@
-import IdleJs from "idle-js";
+import IdleJs = require("idle-js");
 
 const idleDefault = new IdleJs();
 idleDefault.start().stop().reset().start();
