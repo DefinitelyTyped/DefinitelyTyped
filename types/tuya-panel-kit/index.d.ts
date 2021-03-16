@@ -6693,6 +6693,123 @@ export interface SliderProgressProps {
 }
 export class SliderProgress extends React.Component<SliderProgressProps> {}
 
+// SliderWithLine
+export interface SliderWithLineProps {
+    /**
+     * @language zh-CN
+     * @description 内容样式
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue {}
+     */
+    /**
+     * @language en-US
+     * @description Container Style
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue {}
+     */
+    style?: StyleProp<ViewStyle>;
+    /**
+     * @language zh-CN
+     * @description 左边和右边的值
+     * @defaultValue [0, 50]
+     */
+    /**
+     * @language en-US
+     * @description Container Style
+     * @defaultValue [0, 50]
+     */
+    values?: number[];
+    /**
+     * @language zh-CN
+     * @description 激活状态的颜色
+     * @defaultValue 'blue'
+     */
+    /**
+     * @language en-US
+     * @description color of active state
+     * @defaultValue 'blue'
+     */
+    activeColor?: string;
+    /**
+     * @language zh-CN
+     * @description 激活状态的颜色
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description color of active state
+     * @defaultValue false
+     */
+    disabled?: boolean;
+    /**
+     * @language zh-CN
+     * @description 最小值
+     * @defaultValue 10
+     */
+    /**
+     * @language en-US
+     * @description min value
+     * @defaultValue 10
+     */
+    min?: number;
+    /**
+     * @language zh-CN
+     * @description 最大值
+     * @defaultValue 1000
+     */
+    /**
+     * @language en-US
+     * @description max value
+     * @defaultValue 1000
+     */
+    max?: number;
+    /**
+     * @language zh-CN
+     * @description minValue 的百分比范围
+     * @defaultValue null
+     */
+    /**
+     * @language en-US
+     * @description percent range of minValue
+     * @defaultValue null
+     */
+    minValuePercentRange?: any;
+    /**
+     * @language zh-CN
+     * @description maxValue 的百分比范围
+     * @defaultValue null
+     */
+    /**
+     * @language en-US
+     * @description percent range of maxValue
+     * @defaultValue null
+     */
+    maxValuePercentRange?: any;
+    /**
+     * @language zh-CN
+     * @description 禁用 minValue 调节
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description Disable minValue adjustment
+     * @defaultValue false
+     */
+    minDisabled?: boolean;
+    /**
+     * @language zh-CN
+     * @description 禁用 minValue 调节
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description Disable maxValue adjustment
+     * @defaultValue false
+     */
+    maxDisabled?: boolean;
+}
+export class SliderWithLine extends React.Component<SliderProps> {}
+
 // Stepper
 export interface StepperProps extends Omit<TextInputProps, 'value'> {
     /**
