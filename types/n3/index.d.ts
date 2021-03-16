@@ -83,22 +83,22 @@ export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
 
 export class BaseQuad implements RDF.BaseQuad {
     constructor(subject: Term, predicate: Term, object: Term, graph?: Term);
-    termType: 'Quad';
-    value: '';
-    subject: Term;
-    predicate: Term;
-    object: Term;
-    graph: Term;
+    readonly termType: 'Quad';
+    readonly value: '';
+    readonly subject: Term;
+    readonly predicate: Term;
+    readonly object: Term;
+    readonly graph: Term;
     equals(other: RDF.BaseQuad): boolean;
     toJSON(): string;
 }
 
 export class Quad extends BaseQuad implements RDF.Quad {
     constructor(subject: Term, predicate: Term, object: Term, graph?: Term);
-    subject: Quad_Subject;
-    predicate: Quad_Predicate;
-    object: Quad_Object;
-    graph: Quad_Graph;
+    readonly subject: Quad_Subject;
+    readonly predicate: Quad_Predicate;
+    readonly object: Quad_Object;
+    readonly graph: Quad_Graph;
     equals(other: RDF.BaseQuad): boolean;
     toJSON(): string;
 }
