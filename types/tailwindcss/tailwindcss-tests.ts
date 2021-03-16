@@ -2515,6 +2515,20 @@ tailwindConfig.theme.boxShadow['2xl'];
 // => '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
 
 colors.red[500];
+colors.rose[500];
+colors.fuchsia[500];
+colors.violet[500];
+colors.lightBlue[500];
+colors.cyan[500];
+colors.teal[500];
+colors.emerald[500];
+colors.lime[500];
+colors.amber[500];
+colors.orange[500];
+colors.warmGray[500];
+colors.trueGray[500];
+colors.coolGray[500];
+colors.blueGray[500];
 
 // @ts-expect-error
 defaultTheme.darkMode;
