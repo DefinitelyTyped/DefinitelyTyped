@@ -6543,6 +6543,156 @@ export class Slider extends React.Component<SliderProps> {
     static Vertical: React.ElementType<SliderProps>;
 }
 
+// SliderProgress
+export interface SliderProgressProps {
+    /**
+     * @language zh-CN
+     * @description 测试标识
+     * @defaultValue "SliderProgress"
+     */
+    /**
+     * @language en-US
+     * @description Test identification
+     * @defaultValue "SliderProgress"
+     */
+    accessibilityLabel?: string;
+    /**
+     * @language zh-CN
+     * @description 最小值
+     * @defaultValue 0
+     */
+    /**
+     * @language en-US
+     * @description min value
+     * @defaultValue 0
+     */
+    min?: number;
+    /**
+     * @language zh-CN
+     * @description 最大值
+     * @defaultValue 100
+     */
+    /**
+     * @language en-US
+     * @description max value
+     * @defaultValue 100
+     */
+    max?: number;
+    /**
+     * @language zh-CN
+     * @description 值
+     * @defaultValue 10
+     */
+    /**
+     * @language en-US
+     * @description value
+     * @defaultValue 10
+     */
+    value?: number | number[];
+    /**
+     * @language zh-CN
+     * @description 内容样式
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue {}
+     */
+    /**
+     * @language en-US
+     * @description Container Style
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue {}
+     */
+    style?: StyleProp<ViewStyle>;
+    /**
+     * @language zh-CN
+     * @description 值改变的回调函数
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description callback function of value change
+     * @defaultValue () => {}
+     */
+    onValueChange?: (...args: any[])=> any;
+    /**
+     * @language zh-CN
+     * @description 完成的回调函数
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description callback function of complete
+     * @defaultValue () => {}
+     */
+    onComplete?: (...args: any[])=> any;
+    /**
+     * @language zh-CN
+     * @description 禁用
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description disabled
+     * @defaultValue false
+     */
+    disabled?: boolean;
+    /**
+     * @language zh-CN
+     * @description 滑块宽度
+     * @defaultValue 4
+     */
+    /**
+     * @language en-US
+     * @description width of thumb
+     * @defaultValue 4
+     */
+    thumbWidth?: number;
+    /**
+     * @language zh-CN
+     * @description 激活状态的颜色
+     * @defaultValue '#5E719F'
+     */
+    /**
+     * @language en-US
+     * @description color of active state
+     * @defaultValue '#5E719F'
+     */
+    activeColor?: string;
+    /**
+     * @language zh-CN
+     * @description 未激活状态的颜色
+     * @defaultValue 'rgba(94,113,159,0.2)'
+     */
+    /**
+     * @language en-US
+     * @description color of inactive state
+     * @defaultValue 'rgba(94,113,159,0.2)'
+     */
+    inactiveColor?: string;
+    /**
+     * @language zh-CN
+     * @description 限制可触摸的区域
+     * @defaultValue 4
+     */
+    /**
+     * @language en-US
+     * @description Restrict the touchable area
+     * @defaultValue 4
+     */
+    activeBase?: number;
+    /**
+     * @language zh-CN
+     * @description 是否允许点击更改值
+     * @defaultValue true
+     */
+    /**
+     * @language en-US
+     * @description Whether to allow clicking to change the value
+     * @defaultValue true
+     */
+    ifAllowClick?: boolean;
+}
+export class SliderProgress extends React.Component<SliderProgressProps> {}
+
 // Stepper
 export interface StepperProps extends Omit<TextInputProps, 'value'> {
     /**
