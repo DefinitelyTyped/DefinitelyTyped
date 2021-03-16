@@ -2,7 +2,6 @@
 // Project: https://github.com/huangjinlin/dayjs-precise-range
 // Definitions by: Eugene Shangin <https://github.com/fessracha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import dayjs = require('dayjs');
 
