@@ -163,3 +163,9 @@ if (decoded) {
     // $ExpectType { [key: string]: any; }
     decoded;
 }
+
+decoded = jwt.decode(token, { complete: true });
+if (decoded) {
+  // $ExpectType { [key: string]: any; }
+  decoded;
+}
