@@ -4,24 +4,24 @@ export interface CrossDomainWindowType {
     location: string | {};
     self: CrossDomainWindowType;
     closed: boolean;
-    open: (url?: string, target?: string, features?: string) => CrossDomainWindowType | null;
-    close: () => void;
-    focus: () => void;
+    open(url?: string, target?: string, features?: string): CrossDomainWindowType | null;
+    close(): void;
+    focus(): void;
     top: CrossDomainWindowType;
-    frames: ReadonlyArray<CrossDomainWindowType> | CrossDomainWindowType;
+    frames: CrossDomainWindowType;
     opener?: CrossDomainWindowType;
     parent: CrossDomainWindowType;
     length: number;
-    postMessage: (a: string, b: string) => void;
+    postMessage(a: string, b: string): void;
 }
 
 export interface SameDomainWindowType {
     location: string | {};
     self: CrossDomainWindowType;
     closed: boolean;
-    open: (url?: string, target?: string, features?: string) => CrossDomainWindowType | null;
-    close: () => void;
-    focus: () => void;
+    open(url?: string, target?: string, features?: string): CrossDomainWindowType | null;
+    close(): void;
+    focus(): void;
     XMLHttpRequest?: typeof XMLHttpRequest;
     document: Document;
     navigator: {
