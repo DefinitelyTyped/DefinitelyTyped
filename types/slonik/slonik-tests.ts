@@ -26,6 +26,7 @@ import {
     StatementCancelledError,
     InvalidConfigurationError,
     StatementTimeoutError,
+    createIntervalTypeParser
 } from 'slonik';
 import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
 
@@ -227,6 +228,7 @@ createPool('postgres://', {
 createBigintTypeParser();
 createTimestampTypeParser();
 createTimestampWithTimeZoneTypeParser();
+createIntervalTypeParser();
 
 //
 // RECIPES

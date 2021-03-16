@@ -414,6 +414,7 @@ export interface TypeParserType<T = unknown> {
 export function createBigintTypeParser(): TypeParserType<number>;
 export function createTimestampTypeParser(): TypeParserType<number | null>;
 export function createTimestampWithTimeZoneTypeParser(): TypeParserType<number | null>;
+export function createIntervalTypeParser(): TypeParserType<number | null>;
 
 /**
  * Default type parsers.
