@@ -137,6 +137,58 @@ declare namespace Autodesk {
           COMMANDMOZ = 224,
         }
 
+        class DefaultSettings {
+          static alwaysUsePivot: boolean;
+          static ambientShadows: boolean;
+          static antialiasing: boolean;
+          static backgroundColorPreset: object;
+          static bimWalkGravity: boolean;
+          static bimWalkNavigatorType: string;
+          static bimWalkToolPopup: boolean;
+          static clickToSetCOI: boolean;
+          static defaultNavigationTool3D: string;
+          static disablePdfHighlight: boolean;
+          static displaySectionHatches: boolean;
+          static displayUnits: any;
+          static displayUnitsPrecision: any;
+          static edgeRendering: boolean;
+          static enableCustomOrbitToolCursor: boolean;
+          static envMapBackground: boolean;
+          static explodeStrategy: string;
+          static firstPersonToolPopup: boolean;
+          static forceDoubleSided: boolean;
+          static forceLeafletCalibration: boolean;
+          static forcePDFCalibration: boolean;
+          static fusionOrbit: boolean;
+          static fusionOrbitConstrained: boolean;
+          static ghosting: boolean;
+          static grayscale: boolean;
+          static groundReflection: boolean;
+          static groundShadow: boolean;
+          static keyMapCmd: boolean;
+          static leftHandedMouseSetup: boolean;
+          static lightPreset: number;
+          static lineRendering: boolean;
+          static loadingAnimation: boolean;
+          static openPropertiesOnSelect: boolean;
+          static optimizeNavigation: boolean;
+          static orbitPastWorldPoles: boolean;
+          static pointRendering: boolean;
+          static progressiveRendering: boolean;
+          static restoreMeasurements: boolean;
+          static reverseHorizontalLookDirection: boolean;
+          static reverseMouseZoomDir: boolean;
+          static reverseVerticalLookDirection: boolean;
+          static selectionMode: number;
+          static selectionSetsPivot: boolean;
+          static swapBlackAndWhite: boolean;
+          static viewCube: boolean;
+          static viewCubeCompass: boolean;
+          static viewType: number;
+          static wheelSetsPivot: boolean;
+          static zoomTowardsPivot: boolean;
+        }
+
         interface ViewerEvent {
           (event: any): void;
         }
