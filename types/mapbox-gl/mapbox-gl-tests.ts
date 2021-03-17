@@ -881,11 +881,11 @@ let cameraOpts: mapboxgl.CameraOptions = {
     bearing: 0,
     pitch: 0,
     zoom: 0,
+    padding,
 };
 let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
     offset: pointlike,
     maxZoom: 10,
-    padding,
     ...cameraOpts,
 };
 
