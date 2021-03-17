@@ -15,7 +15,7 @@ jobs:
       - run: npm install
 
       # Run tests
-      - run: NODE_OPTIONS="--max_old_space_size=4096" npm run test-all
+      - run: npm run test-all
 
       - name: "Run Danger"
         env:
