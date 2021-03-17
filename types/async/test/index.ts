@@ -68,9 +68,12 @@ async.forEachOfLimit(openFiles, 2, forEachOfIterator, err => { });
 async.forEachOfLimit(openFilesObj, 2, forEachOfIterator, err => { });
 
 const numArray = [1, 2, 3];
-function reducer(memo: any, item: any, callback: any) {
+function reducer(memo: number, item: number, callback: any) {
     process.nextTick(() => { callback(null, memo + item); });
 }
+
+// $ExpectType Promise<number>
+async.reduce<number, number>(numArray, 0, reducer);
 
 async.reduce(numArray, 0, reducer, (err, result) => { });
 async.inject(numArray, 0, reducer, (err, result) => { });

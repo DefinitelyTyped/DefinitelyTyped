@@ -28,7 +28,7 @@ export interface AsyncFunctionEx<T, E = Error> { (callback: (err?: E | null, ...
 export interface AsyncIterator<T, E = Error> { (item: T, callback: ErrorCallback<E>): void; }
 export interface AsyncForEachOfIterator<T, E = Error> { (item: T, key: number|string, callback: ErrorCallback<E>): void; }
 export interface AsyncResultIterator<T, R, E = Error> { (item: T, callback: AsyncResultCallback<R, E>): void; }
-export interface AsyncMemoIterator<T, R, E = Error> { (memo: R | undefined, item: T, callback: AsyncResultCallback<R, E>): void; }
+export interface AsyncMemoIterator<T, R, E = Error> { (memo: R, item: T, callback: AsyncResultCallback<R, E>): void; }
 export interface AsyncBooleanIterator<T, E = Error> { (item: T, callback: AsyncBooleanResultCallback<E>): void; }
 
 export interface AsyncWorker<T, E = Error> { (task: T, callback: ErrorCallback<E>): void; }
@@ -276,6 +276,7 @@ export const selectLimit: typeof filterLimit;
 export const reject: typeof filter;
 export const rejectSeries: typeof filter;
 export const rejectLimit: typeof filterLimit;
+export function reduce<T, R, E = Error>(arr: T[] | IterableIterator<T>, memo: R, iterator: AsyncMemoIterator<T, R, E>): Promise<R>;
 export function reduce<T, R, E = Error>(arr: T[] | IterableIterator<T>, memo: R, iterator: AsyncMemoIterator<T, R, E>, callback?: AsyncResultCallback<R, E>): void;
 export const inject: typeof reduce;
 export const foldl: typeof reduce;
