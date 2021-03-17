@@ -1,8 +1,7 @@
-// Type definitions for Valine 1.4
-// Project: https://github.com/xCss/Valine
-// Definitions by: Benny Guo <https://github.com/tridiamond>
+// Type definitions for valine 1.4
+// Project: https://github.com/xcss/Valine#readme
+// Definitions by: Benny Guo <https://github.com/TriDiamond>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 declare namespace Valine {
     interface ValineOptions {
