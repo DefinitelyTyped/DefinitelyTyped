@@ -359,9 +359,6 @@ export class ProtocolError {
 export class OperationsError {
     constructor(error?: string);
 }
-export class OperationsError {
-    constructor(error?: string);
-}
 export class ProtocolError {
     constructor(error?: string);
 }
