@@ -4072,7 +4072,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
      * @description List selection popup type
      * @defaultValue 'radio'
      */
-    type?: 'radio' | 'switch';
+    type?: 'radio' | 'switch' | 'arrow';
     /**
      * @language zh-CN
      * @description 最大列表数量
