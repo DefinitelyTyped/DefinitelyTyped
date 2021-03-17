@@ -10,3 +10,5 @@ client.get('hello', (err, val) => {
     console.log(err, val);
 });
 client.get('hello'); // $ExpectType Promise<{ value: Buffer; flags: Buffer; }>
+
+memjs.Client.create("12345", { username: "asdf" }); // $ExpectType Client
