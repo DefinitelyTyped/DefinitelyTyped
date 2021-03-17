@@ -27,6 +27,7 @@ export interface ButtonKindProps {
 interface ButtonBaseIsolatedProps {
     hasIconOnly?: boolean;
     iconDescription?: string;
+    isSelected?: boolean;
     // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
     // if anon render props type is desired, import ButtonRenderIconRenderProps.
     renderIcon?: any;

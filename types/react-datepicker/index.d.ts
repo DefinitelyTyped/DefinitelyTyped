@@ -66,6 +66,7 @@ export interface ReactDatePickerProps {
     excludeDates?: Date[];
     excludeTimes?: Date[];
     filterDate?(date: Date): boolean;
+    filterTime?(date: Date): boolean;
     fixedHeight?: boolean;
     forceShowMonthNavigation?: boolean;
     formatWeekDay?(formattedDate: string): React.ReactNode;
@@ -127,6 +128,7 @@ export interface ReactDatePickerProps {
         date: Date;
         changeYear(year: number): void;
         changeMonth(month: number): void;
+        customHeaderCount: number;
         decreaseMonth(): void;
         increaseMonth(): void;
         prevMonthButtonDisabled: boolean;

@@ -4,10 +4,33 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Feature, GeoJSON, FeatureCollection, Geometry, Point, Position, BBox } from 'geojson';
-import { IControl } from 'mapbox-gl';
+import { IControl, Map } from 'mapbox-gl';
 
-declare namespace mapboxdraw {
-    type DrawMode = typeof MapboxDraw.modes;
+export = MapboxDraw;
+export as namespace MapboxDraw;
+
+declare namespace MapboxDraw {
+    type DrawMode = DrawModes[keyof DrawModes];
+
+    type DrawEventType =
+        | 'draw.create'
+        | 'draw.delete'
+        | 'draw.update'
+        | 'draw.render'
+        | 'draw.combine'
+        | 'draw.uncombine'
+        | 'draw.modechange'
+        | 'draw.actionable'
+        | 'draw.selectionchange';
+
+    interface DrawModes {
+        DRAW_LINE_STRING: 'draw_line_string';
+        DRAW_POLYGON: 'draw_polygon';
+        DRAW_POINT: 'draw_point';
+        SIMPLE_SELECT: 'simple_select';
+        DIRECT_SELECT: 'direct_select';
+        STATIC: 'static';
+    }
 
     interface MapboxDrawControls {
         point?: boolean;
@@ -38,41 +61,59 @@ declare namespace mapboxdraw {
         toGeoJSON(): GeoJSON;
     }
 
-    interface DrawCreateEvent {
+    interface DrawEvent {
+        target: Map;
+        type: DrawEventType;
+    }
+
+    interface DrawCreateEvent extends DrawEvent {
         // Array of GeoJSON objects representing the features that were created
         features: Feature[];
+        type: 'draw.create';
     }
 
-    interface DrawDeleteEvent {
+    interface DrawDeleteEvent extends DrawEvent {
         // Array of GeoJSON objects representing the features that were deleted
         features: Feature[];
+        type: 'draw.delete';
     }
 
-    interface DrawCombineEvent {
+    interface DrawCombineEvent extends DrawEvent {
         deletedFeatures: Feature[]; // Array of deleted features (those incorporated into new multifeatures)
         createdFeatures: Feature[]; // Array of created multifeatures
+        type: 'draw.combine';
     }
 
-    interface DrawUncombineEvent {
+    interface DrawUncombineEvent extends DrawEvent {
         deletedFeatures: Feature[]; // Array of deleted multifeatures (split into features)
         createdFeatures: Feature[]; // Array of created features
+        type: 'draw.uncombine';
     }
 
-    interface DrawUpdateEvent {
+    interface DrawUpdateEvent extends DrawEvent {
         features: Feature[]; // Array of features that were updated
         action: string; // Name of the action that triggered the update
+        type: 'draw.update';
     }
 
-    interface DrawSelectionChangeEvent {
+    interface DrawSelectionChangeEvent extends DrawEvent {
         features: Feature[]; // Array of features that are selected after the change
+        points: Array<Feature<Point>>;
+        type: 'draw.selectionchange';
     }
 
-    interface DrawModeChageEvent {
+    interface DrawModeChageEvent extends DrawEvent {
         mode: DrawMode; // The next mode, i.e. the mode that Draw is changing to
+        type: 'draw.modechange';
     }
 
-    interface DrawActionableEvent {
+    interface DrawRenderEvent extends DrawEvent {
+        type: 'draw.render';
+    }
+
+    interface DrawActionableEvent extends DrawEvent {
         actions: DrawActionableState;
+        type: 'draw.actionable';
     }
 
     interface DrawCustomModeThis {
@@ -162,14 +203,7 @@ declare namespace mapboxdraw {
 }
 
 declare class MapboxDraw implements IControl {
-    static modes: {
-        DRAW_LINE_STRING: 'draw_line_string';
-        DRAW_POLYGON: 'draw_polygon';
-        DRAW_POINT: 'draw_point';
-        SIMPLE_SELECT: 'simple_select';
-        DIRECT_SELECT: 'direct_select';
-        STATIC: 'static';
-    };
+    static modes: MapboxDraw.DrawModes;
 
     getDefaultPosition: () => string;
 
@@ -180,9 +214,9 @@ declare class MapboxDraw implements IControl {
         boxSelect?: boolean;
         clickBuffer?: number;
         touchBuffer?: number;
-        controls?: mapboxdraw.MapboxDrawControls;
+        controls?: MapboxDraw.MapboxDrawControls;
         styles?: object[];
-        modes?: { [modeKey: string]: mapboxdraw.DrawMode | mapboxdraw.DrawCustomMode };
+        modes?: { [modeKey: string]: MapboxDraw.DrawMode | MapboxDraw.DrawCustomMode };
         defaultMode?: string;
         userProperties?: boolean;
     });
@@ -213,15 +247,15 @@ declare class MapboxDraw implements IControl {
 
     uncombineFeatures(): this;
 
-    getMode(): mapboxdraw.DrawMode;
+    getMode(): MapboxDraw.DrawMode;
 
-    changeMode(mode: mapboxdraw.DrawMode): this;
     changeMode(mode: 'simple_select', options?: { featureIds: string[] }): this;
     changeMode(mode: 'direct_select', options: { featureId: string }): this;
     changeMode(
         mode: 'draw_line_string',
         options?: { featureId: string; from: Feature<Point> | Point | number[] },
     ): this;
+    changeMode(mode: Exclude<MapboxDraw.DrawMode, 'direct_select' | 'simple_select' | 'draw_line_string'>): this;
 
     setFeatureProperty(featureId: string, property: string, value: any): this;
 
@@ -229,5 +263,3 @@ declare class MapboxDraw implements IControl {
 
     onRemove(map: mapboxgl.Map): any;
 }
-
-export = MapboxDraw;

@@ -1,4 +1,5 @@
 import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool } from 'pg';
+import TypeOverrides = require('pg/lib/type-overrides');
 import { NoticeMessage } from 'pg-protocol/dist/messages';
 
 // https://github.com/brianc/node-pg-types
@@ -184,6 +185,12 @@ clientCustomQueryTypes
     .end()
     .then(() => console.log('client has disconnected'))
     .catch(err => console.error('error during disconnection', err.stack));
+
+const customTypeOverrides = new TypeOverrides();
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
+const customCustomTypeOverrides = new TypeOverrides(customTypes);
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 // pg.Pool
 // https://node-postgres.com/api/pool

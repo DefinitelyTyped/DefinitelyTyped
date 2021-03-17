@@ -1,10 +1,11 @@
-// Type definitions for next-auth 3.1
+// Type definitions for next-auth 3.7
 // Project: https://github.com/iaincollins/next-auth#readme
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>
 //                 Juan <https://github.com/JuanM04>
+//                 Balázs <https://github.com/balazsorban44>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
@@ -28,6 +29,7 @@ interface InitOptions {
     events?: Events;
     useSecureCookies?: boolean;
     cookies?: Cookies;
+    theme?: 'light' | 'dark' | 'auto';
 }
 
 interface AppOptions {
@@ -112,7 +114,7 @@ interface JWTOptions {
 
 // TODO: Improve callback typings
 interface Callbacks {
-    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean>;
+    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean | string>;
     redirect?(url: string, baseUrl: string): Promise<string>;
     session?(session: SessionBase, user: User): Promise<GenericObject>;
     jwt?(
@@ -124,6 +126,7 @@ interface Callbacks {
     ): Promise<GenericObject>;
 }
 
-declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: InitOptions): Promise<void>;
+declare function NextAuth(options: InitOptions): Promise<void>;
+declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options: InitOptions): Promise<void>;
 export default NextAuth;
 export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, User, Callbacks };

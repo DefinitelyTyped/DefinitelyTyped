@@ -846,8 +846,8 @@ declare namespace Draft {
 
                 getKeyBefore(key: string): string;
                 getKeyAfter(key: string): string;
-                getBlockAfter(key: string): ContentBlock;
-                getBlockBefore(key: string): ContentBlock;
+                getBlockAfter(key: string): ContentBlock | undefined;
+                getBlockBefore(key: string): ContentBlock | undefined;
 
                 getBlocksAsArray(): Array<ContentBlock>;
                 getFirstBlock(): ContentBlock;

@@ -1,4 +1,5 @@
 import {
+    VERSION,
     DateTime,
     Duration,
     FixedOffsetZone,
@@ -11,7 +12,12 @@ import {
     ZoneOffsetOptions,
 } from 'luxon';
 
+/* VERSION */
+VERSION; // $ExpectType string
+
 /* DateTime */
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
 DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
@@ -194,8 +200,6 @@ if (Interval.isInterval(anything)) {
 
 /* Info */
 Info.months();
-// $ExpectError
-Info.months('2-digit', { outputCalendar: 'unknown' });
 Info.weekdays('long');
 // $ExpectError
 Info.weekdays('2-digit');

@@ -5,7 +5,7 @@ const options = {
     accessToken: ''
 };
 
-Autodesk.Viewing.Initializer(options, () => {
+Autodesk.Viewing.Initializer(options, async () => {
     const htmlDiv = document.getElementById('forgeViewer');
     if (!htmlDiv)
         return;
@@ -18,33 +18,26 @@ Autodesk.Viewing.Initializer(options, () => {
     }
 
     const documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ';
-    Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
+    const doc = await loadDocument(documentId);
 
-    async function onDocumentLoadSuccess(doc: Autodesk.Viewing.Document) {
-        await doc.downloadAecModelData();
+    await doc.downloadAecModelData();
+    const aecModelData = await Autodesk.Viewing.Document.getAecModelData(doc.getRoot());
+    const defaultViewable = doc.getRoot().getDefaultGeometry();
+    const model = await viewer.loadDocumentNode(doc, defaultViewable);
 
-        const docRoot: Autodesk.Viewing.BubbleNode = doc.getRoot();
-        const aecModelData = await Autodesk.Viewing.Document.getAecModelData(docRoot);
-        const defaultModel = docRoot.getDefaultGeometry();
-
-        const model = await viewer.loadDocumentNode(doc, defaultModel);
-
-        globalTests();
-        bubbleNodeTests();
-        cameraTests(viewer);
-        formattingTests();
-        fragListTests(model);
-        modelTests(model);
-        await dataVizTests(viewer);
-        await edit2DTests(viewer);
-        await measureTests(viewer);
-        await propertyTests(viewer);
-        await searchTests(viewer);
-    }
-
-    function onDocumentLoadFailure() {
-        console.error('Failed fetching Forge manifest');
-    }
+    globalTests();
+    bubbleNodeTests(model);
+    callbackTests(viewer);
+    cameraTests(viewer);
+    formattingTests();
+    fragListTests(model);
+    modelTests(model);
+    await dataVizTests(viewer);
+    await edit2DTests(viewer);
+    await measureTests(viewer);
+    await pixelCompareTests(viewer);
+    await propertyTests(viewer);
+    await searchTests(viewer);
 });
 
 function globalTests(): void {
@@ -54,9 +47,29 @@ function globalTests(): void {
     const urn2 = Autodesk.Viewing.fromUrlSafeBase64(urnBase64);
 }
 
-function bubbleNodeTests(): void {
+function bubbleNodeTests(model: Autodesk.Viewing.Model): void {
     // $ExpectType string
     const lineageUrn = Autodesk.Viewing.BubbleNode.parseLineageUrnFromEncodedUrn('dXJuOmFkc2sud2lwc3RnOmZzLmZpbGU6dmYuM3Q4QlBZQXJSSkNpZkFZUnhOSnM0QT92ZXJzaW9uPTI');
+    const node: Autodesk.Viewing.BubbleNode = model.getDocumentNode();
+
+    // $ExpectType string
+    node.getModelName();
+    // $ExpectType string
+    node.getInputFileType();
+}
+
+function callbackTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const id = 2120;
+    const fragId = viewer.model.getData().fragments.dbId2fragId[id];
+    const mesh = viewer.model.getFragmentList().getVizmesh(fragId);
+
+    if (mesh && mesh.geometry) {
+        const vbr = new Autodesk.Viewing.Private.VertexBufferReader(mesh.geometry);
+        const bounds = new THREE.Box3();
+        const boundsCallback = new Autodesk.Viewing.Private.BoundsCallback(bounds);
+
+        vbr.enumGeomsForObject(id, boundsCallback);
+    }
 }
 
 function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
@@ -101,6 +114,16 @@ function modelTests(model: Autodesk.Viewing.Model): void {
     model.isSVF2();
 }
 
+async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Viewing.PixelCompare') as Autodesk.Extensions.PixelCompare.PixelCompare;
+    const secondDoc = await loadDocument('urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LW90aGVyLWZvcmdlLWZpbGUucnZ0');
+    const viewable = secondDoc.getRoot().getDefaultGeometry();
+    const secondaryModel = await viewer.loadDocumentNode(secondDoc, viewable, { keepCurrentModels: true });
+    const mainModel = viewer.model;
+
+    ext.compareTwoModels(mainModel, secondaryModel);
+}
+
 async function propertyTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         viewer.model.getProperties2([ 2120, 2121 ], (results) => {
@@ -141,6 +164,19 @@ async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> 
     const resXor = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Xor);
 }
 
+async function extensionTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Measure');
+
+    // $ExpectType string
+    ext.getName();
+    const modes = ext.getModes();
+
+    modes.forEach((m) => {
+        // $ExpectType boolean
+        ext.isActive(m);
+    });
+}
+
 function fragListTests(model: Autodesk.Viewing.Model): void {
     const fragId = 1; // hard coded value for testing
     const fragList = model.getFragmentList();
@@ -172,6 +208,16 @@ async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number
             resolve(dbIds);
         }, (err) => {
             reject(err);
+        });
+    });
+}
+
+function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
+    return new Promise<Autodesk.Viewing.Document>((resolve, reject) => {
+        Autodesk.Viewing.Document.load(urn, (doc) => {
+            resolve(doc);
+        }, (errorCode, errorMsg) => {
+            reject(new Error(errorMsg));
         });
     });
 }

@@ -11,6 +11,8 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export const VERSION: string;
+
 export type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
 export interface ZoneOptions {
@@ -175,12 +177,12 @@ export class DateTime {
     static readonly DATETIME_HUGE_WITH_SECONDS: DateTimeFormatOptions;
     static readonly DATETIME_MED: DateTimeFormatOptions;
     static readonly DATETIME_MED_WITH_SECONDS: DateTimeFormatOptions;
+    static readonly DATETIME_MED_WITH_WEEKDAY: DateTimeFormatOptions;
     static readonly DATETIME_SHORT: DateTimeFormatOptions;
     static readonly DATETIME_SHORT_WITH_SECONDS: DateTimeFormatOptions;
     static readonly DATE_FULL: DateTimeFormatOptions;
     static readonly DATE_HUGE: DateTimeFormatOptions;
     static readonly DATE_MED: DateTimeFormatOptions;
-    /** abbreviated date with weekday */
     static readonly DATE_MED_WITH_WEEKDAY: DateTimeFormatOptions;
     static readonly DATE_SHORT: DateTimeFormatOptions;
     static readonly TIME_24_SIMPLE: DateTimeFormatOptions;

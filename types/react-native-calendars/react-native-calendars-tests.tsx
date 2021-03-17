@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
-declare const Arrow: React.SFC<unknown>;
+declare const Arrow: React.FC<unknown>;
 
 // this is copied directly from the documentation at https://github.com/wix/react-native-calendars#basic-parameters
 // and then linting errors are addressed which is why formatting is slightly inconsistent

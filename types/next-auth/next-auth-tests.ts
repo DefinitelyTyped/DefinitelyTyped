@@ -189,6 +189,12 @@ const allConfig = {
 };
 
 // $ExpectType Promise<void>
+NextAuth(simpleConfig);
+
+// $ExpectType Promise<void>
+NextAuth(allConfig);
+
+// $ExpectType Promise<void>
 NextAuth(req, res, simpleConfig);
 
 // $ExpectType Promise<void>
@@ -256,13 +262,22 @@ client.getCsrfToken({ req });
 client.csrfToken({ req });
 
 // $ExpectType Promise<void>
-client.signin('github', { data: 'foo' });
+client.signin('github', { data: 'foo', redirect: false }, { login: 'username' });
+
+// $ExpectType Promise<SignInResponse>
+client.signin('credentials', { data: 'foo', redirect: false });
+
+// $ExpectType Promise<SignInResponse>
+client.signin('email', { data: 'foo', redirect: false });
+
+// $ExpectType Promise<void>
+client.signin('email', { data: 'foo', redirect: true });
 
 // $ExpectType Promise<void>
 client.signout();
 
 // $ExpectType Promise<void>
-client.signout({ callbackUrl: 'https://foo.com/callback' });
+client.signout({ callbackUrl: 'https://foo.com/callback', redirect: true });
 
 // $ExpectType ReactElement<any, any> | null
 client.Provider({
@@ -415,11 +430,11 @@ Providers.Auth0({
     clientSecret: 'bar123',
     domain: 'https://foo.auth0.com',
     profile: () => ({
-      id: 'foo123',
-      name: 'foo',
-      email: 'foo@bar.io',
-      image: 'https://foo.auth0.com/image/1.png',
-    })
+        id: 'foo123',
+        name: 'foo',
+        email: 'foo@bar.io',
+        image: 'https://foo.auth0.com/image/1.png',
+    }),
 });
 
 // $ExpectType GenericReturnConfig

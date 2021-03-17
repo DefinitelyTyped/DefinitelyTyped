@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "http-proxy-middleware": "^1.0.0"
+  }
+}

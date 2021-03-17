@@ -91,6 +91,9 @@ provider.request(
     },
 );
 
+// Test provider's 'getServerlessDeploymentBucketName'
+provider.getServerlessDeploymentBucketName().then(bucketName => {});
+
 // Test ApiGateway validator
 getHttp(
     {
@@ -166,7 +169,7 @@ const awsServerless: Aws.Serverless = {
                 testrestapiresource: 'testrestapiresource'
             },
             websocketApiId: 'testwebsocketApiId',
-            apiKeySourceType: 'testapiKeySourceType',
+            apiKeySourceType: 'HEADER',
             minimumCompressionSize: 1,
             description: 'testdescription',
             binaryMediaTypes: ['testbinaryMediaTypes']
@@ -308,13 +311,13 @@ const awsServerless: Aws.Serverless = {
                 accessLogging: false,
                 format: 'testformat',
                 executionLogging: false,
-                level: 'testlevel',
+                level: 'ERROR',
                 fullExecutionData: false,
                 role: 'testrole',
                 roleManagedExternally: false,
             },
             websocket: {
-                level: 'testlevel'
+                level: 'INFO'
             },
             httpApi: {
                 format: 'testformat'
@@ -363,7 +366,7 @@ const awsServerless: Aws.Serverless = {
                 individually: true
             },
             layers: ['testlayers'],
-            tracing: 'testtracing',
+            tracing: 'PassThrough',
             condition: 'testcondition',
             dependsOn: ['testdependson'],
             destinations: {
@@ -643,6 +646,35 @@ const awsServerless: Aws.Serverless = {
 // e.g. ${self:custom.vpc.${self:provider.stage}}
 awsServerless.provider.vpc = 'serverless reference';
 awsServerless.functions![0].vpc = 'serverless reference';
+
+const bunchOfConfigs: Aws.Serverless[] = [
+    {
+        service: 'users',
+        provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        useDotenv: true,
+        provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        configValidationMode: 'off',
+        unresolvedVariablesNotificationMode: 'error',
+        provider: { name: 'aws' },
+        functions: {}
+    },
+    {
+        service: 'users',
+        disabledDeprecations: [
+            '*'
+        ],
+        provider: { name: 'aws' },
+        functions: {}
+    }
+];
 
 // Test Aws Class
 const aws = new Aws(serverless, options);

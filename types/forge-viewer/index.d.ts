@@ -1,9 +1,10 @@
-// Type definitions for non-npm package Forge Viewer 7.36
+// Type definitions for non-npm package Forge Viewer 7.38
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
 //                 Jan Liska <https://github.com/liskaj>
 //                 Petr Broz <https://github.com/petrbroz>
+//                 Cyrille Fauvel <https://github.com/cyrillef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
@@ -141,9 +142,16 @@ declare namespace Autodesk {
         }
 
         interface Viewer3DConfig {
+          [key: string]: any;
+
+          addFooter?: boolean;
+          extensions?: string[];
+          heightAdjustment?: number;
+          left?: boolean;
+          localizeTitle?: boolean;
+          marginTop?: number;
           startOnInitialize?: boolean;
           theme?: 'dark-theme'|'light-theme'|string;
-          [key: string]: any;
         }
 
         interface ViewerConfig {
@@ -392,7 +400,9 @@ declare namespace Autodesk {
           findPropertyDbPath(): string;
           findViewableParent(): BubbleNode;
           getDefaultGeometry(): any;
+          getInputFileType(): string;
           getLodNode(): boolean;
+          getModelName(): string;
           getNamedViews(): string[];
           getPlacementTransform(): object;
           getRootNode(): BubbleNode;
@@ -406,6 +416,7 @@ declare namespace Autodesk {
           isGeometry(): boolean;
           isGeomLeaf(): boolean;
           isMetadata(): boolean;
+          isRevitPdf(): boolean;
           isViewable(): boolean;
           isViewPreset(): boolean;
           lineageUrn(encode?: boolean): string;
@@ -480,7 +491,7 @@ declare namespace Autodesk {
             getViewableItems(document: Document): void;
             getViewablePath(item: object, outLoadOptions?: object): string;
             getViewGeometry(item: object): object;
-            load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object): void;
+            load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object, options?: object): void;
             requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
         }
 
@@ -500,9 +511,19 @@ declare namespace Autodesk {
             options: any;
             constructor(viewer: GuiViewer3D, options: any);
 
+            activate(mode: string): boolean;
+            deactivate(): boolean;
+            extendLocalization(locales: object): boolean;
+            getCache(): object;
+            getName(): string;
+            getModes(): string[];
+            getState(viewerState: object): void;
+            isActive(mode: string): boolean;
             load(): boolean | Promise<boolean>;
             unload(): boolean;
             onToolbarCreated(toolbar?: UI.ToolBar): void;
+            restoreState(viewerState: object, immediate: boolean): boolean;
+            setActive(enable: boolean, mode: string): void;
         }
 
         class ExtensionManager {
@@ -577,7 +598,8 @@ declare namespace Autodesk {
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
-            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
+            getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): void;
+            getPropertySetAsync(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
@@ -669,6 +691,19 @@ declare namespace Autodesk {
           }
         }
 
+        namespace PixelCompare {
+          enum DIFF_MODES {
+            OVERLAY = 'overlay',
+            SIDE_BY_SIDE = 'sidebyside'
+          }
+
+          enum EVENTS {
+            DIFF_TOOL_DIFF_MODE_CHANGED = 'diff.tool.diff.mode.changed',
+            DIFF_TOOL_DEACTIVATED = 'diff.tool.deactivated',
+            DIFF_TOOL_MODEL_VISIBILITY_CHANGED = 'diff.tool.model.visibility.changed'
+          }
+        }
+
         interface PropertyResult {
             dbId: number;
             externalId?: string;
@@ -691,7 +726,12 @@ declare namespace Autodesk {
 
           forEach(callback: (key: string, properties: object[]) => void): void;
           getAggregation(properties: object[]|string): any[];
+          getDbIds(): number[];
+          getKeysWithCategories(): string[];
+          getValidIds(displayName: string, displayCategory: string): string[];
           getValue2PropertiesMap(properties: object[]|string): any[];
+          getVisibleKeys(): string[];
+          merge(propertySet: PropertySet): this;
         }
 
         class Navigation {
@@ -872,6 +912,7 @@ declare namespace Autodesk {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
             canvas: HTMLCanvasElement;
+            config: Viewer3DConfig;
             container: Element;
             navigation: Navigation;
             id: number;
@@ -935,6 +976,7 @@ declare namespace Autodesk {
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
             getAllModels(): Model[];
+            getUnderlayRaster(bubbleNode: BubbleNode): Model[];
             hide(node: number|number[], model?: Model): void;
             show(node: number|number[], model?: Model): void;
             showAll(): void;
@@ -1114,6 +1156,25 @@ declare namespace Autodesk {
           class ViewerPropertyPanel extends UI.PropertyPanel {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
+          }
+
+          namespace PDF {
+            class PDFExtension extends Extension {
+              constructor(viewer: Viewer3D, options?: {
+                enableBrowserNavigation?: boolean;
+                enableHyperlinks?: boolean;
+                enableMSDFText?: boolean;
+                enableTextSearch?: boolean;
+                useTextLayer?: boolean;
+              })
+            }
+
+            class PDFLoader {
+              constructor(parent: Private.Viewer3DImpl);
+
+              createPDFDocument(pdf: any): Document;
+              getDocument(): any;
+            }
           }
 
           namespace Snapping {
@@ -1315,14 +1376,25 @@ declare namespace Autodesk {
               nextMaterialId: number;
               originalColors: any[];
               pointsHidden: boolean;
-              themingOrGhostingNeedsUpdate: any[];
+              themingOrGhostingNeedsUpdate: object;
+              themingOrGhostingNeedsUpdateByDbId: object;
               transforms: any;
               useThreeMesh: boolean;
               vizflags: Uint32Array;
               vizmeshes: THREE.Mesh[];
 
               getAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): boolean;
+              getVizmesh(fragId: number): any;
               updateAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): void;
+            }
+
+            interface GeometryCallback {
+              onCircularArc?(cx: number, cy: number, start: number, end: number, radius: number, vpId: number): void;
+              onEllipticalArc?(cx: number, cy: number, start: number, end: number, major: number, minor: number, tilt: number, vpId: number): void;
+              onLineSegment?(x1: number, y1: number, x2: number, y2: number, vpId: number): void;
+              onOneTriangle?(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, vpId: number): void;
+              onTexQuad?(centerX: number, centerY: number, width: number, height: number, rotation: number, vpId: number): void;
+              onVertex?(cx: number, cy: number, vpId: number): void;
             }
 
             interface GeometryList {
@@ -1387,7 +1459,7 @@ declare namespace Autodesk {
               untag(tag: string, names?: string[]|string): void;
             }
 
-            class BoundsCallback {
+            class BoundsCallback implements GeometryCallback {
               constructor(bounds: THREE.Box3);
 
               onCircularArc(cx: number, cy: number, start: number, end: number, radius: number, vpId: number): void;
@@ -1401,9 +1473,9 @@ declare namespace Autodesk {
             class VertexBufferReader {
               constructor(geometry: any, use2dInstancing?: boolean);
 
-              enumGeoms(filter: any, callback: any): void;
-              enumGeomsForObject(dbId: number, callback: any): void;
-              enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: any): void;
+              enumGeoms(filter: any, callback: GeometryCallback): void;
+              enumGeomsForObject(dbId: number, callback: GeometryCallback): void;
+              enumGeomsForVisibleLayer(layerIdsVisible: number[], callback: GeometryCallback): void;
             }
 
             namespace VertexEnumerator {
@@ -1468,15 +1540,18 @@ declare namespace Autodesk {
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
+                castRay(clientX: number, clientY: number, ignoreTransparent: boolean, options: any): any;
                 clearHighlight(): void;
                 clearOverlay(name: string): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
-                createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any): void;
+                createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any, needIdTarget?: boolean, needSeparateDepth?: boolean): any;
                 disableHighlight(disable: boolean): void;
                 disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
                 getFragmentProxy(model: Model, fragId: number): any;
+                getLayersRoot(): any;
+                hasModels(): boolean;
                 hitTest(clientX: number, clientY: number, ignoreTransparent?: boolean): HitTestResult;
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
@@ -1492,7 +1567,7 @@ declare namespace Autodesk {
                 removeOverlayScene(name: string): any;
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
-                rayIntersect(ray: THREE.Ray): HitTestResult;
+                rayIntersect(ray: THREE.Ray, ignoreTransparent: boolean, dbIds?: number[], modelId?: number[], intersections?: any[], options?: any): HitTestResult;
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setDoNotCut(model: Model, doNotCut: boolean): void;
@@ -1801,6 +1876,35 @@ declare namespace Autodesk {
         }
     }
 
+    namespace AEC {
+      class FloorSelector {
+        currentFloor: number;
+        floorData: any;
+        floorFilterData: any;
+
+        constructor(viewer: Viewing.GuiViewer3D);
+
+        enterHoverMode(): void;
+        exitHoverMode(force: boolean): void;
+        floorSelectionValid(newFloor: number): boolean;
+        isVisible(model: Viewing.Model, dbId: number): boolean;
+        rollOverFloor(index?: number): void;
+        selectFloor(index: number, useTransition: boolean): void;
+      }
+
+      class LevelsExtension extends Viewing.Extension {
+        static LEVEL_CHANGED: string;
+
+        aecModelData: any;
+        floorSelector: FloorSelector;
+
+        constructor(viewer: Viewing.GuiViewer3D, options?: { autoDetectAecModelData?: boolean; ifcLevelsEnabled?: boolean; });
+
+        getCurrentLevel(): object;
+        getZRange(index: number): { zMin: number; zMax: number; };
+      }
+    }
+
     namespace DataVisualization {
       const MOUSE_CLICK = 'HYPERION_OBJECT_CLICK';
       const MOUSE_HOVERING = 'HYPERION_OBJECT_HOVERING';
@@ -2102,6 +2206,13 @@ declare namespace Autodesk {
 
         function apply(path1: PolyBase, path2: PolyBase, operator: Operator, extraOperands?: PolyBase[]): PolyBase;
       }
+
+      namespace Selection {
+        namespace Events {
+          const SELECTION_CHANGED = 'selectionChanged';
+          const SELECTION_HOVER_CHANGED = 'selectionHoverChanged';
+        }
+      }
     }
 
     namespace Extensions {
@@ -2157,8 +2268,35 @@ declare namespace Autodesk {
         }
       }
 
+      namespace PixelCompare {
+        class PixelCompare extends Viewing.Extension {
+          constructor(viewer: Viewing.GuiViewer3D, options?: {
+            diffMode?: Viewing.PixelCompare.DIFF_MODES;
+            restoreModelVisibilityOnExit?: boolean;
+          });
+
+          changeColorIntensity(value: number): void;
+          changeMainModelVisibility(visible: boolean): void;
+          changeSecondaryModelVisibility(visible: boolean): void;
+          compareTwoModels(mainModel: Viewing.Model|number, secondaryModel: Viewing.Model|number, mainModelInfo?: any, secondaryModelInfo?: any): void;
+          getDiffMode(): Viewing.PixelCompare.DIFF_MODES;
+          getMainModelVisibility(): boolean;
+          getSecondaryModelVisibility(): boolean;
+          getSplitPosition(): number;
+          resetOffset(): void;
+          setChangeOffsetMode(enable: boolean): void;
+          setDiffMode(value: Viewing.PixelCompare.DIFF_MODES): void;
+          setSplitLineColor(value: number): void;
+          setSplitLineWidth(value: number): void;
+          setSplitPosition(value: number): void;
+        }
+      }
+
       class DataVisualization extends Viewing.Extension {
-        sceneModel: Viewing.Model;
+        deviceDepthOcclusion: boolean;
+        pointsOverlay: any;
+
+        constructor(viewer: Viewing.Viewer3D, options?: any);
 
         addViewables(data: DataVisualization.ViewableData): void;
         clearHighlightedViewables(): void;

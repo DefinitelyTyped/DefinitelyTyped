@@ -3,20 +3,20 @@
 // Definitions by: Alexander Polyankin <https://github.com/alexanderpolyankin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface SnapshotOptions {
+export interface HappoScreenshotOptions {
     component?: string;
     variant?: string;
     targets?: ReadonlyArray<string>;
     responsiveInlinedCanvases?: boolean;
-    transformDOM?: TransformDOMOptions;
+    transformDOM?: HappoTransformDOMOptions;
 }
 
-export interface TransformDOMOptions {
+export interface HappoTransformDOMOptions {
     selector: string;
     transform: (element: Element, document: Document) => Element;
 }
 
-export interface HideDynamicElementsOptions {
+export interface HappoHideDynamicElementsOptions {
     matchers?: ReadonlyArray<RegExp>;
     defaultMatchers?: ReadonlyArray<RegExp>;
     selectors?: ReadonlyArray<string>;
@@ -27,8 +27,8 @@ export interface HideDynamicElementsOptions {
 declare global {
     namespace Cypress {
         interface Chainable {
-            happoSnapshot(options?: SnapshotOptions): void;
-            happoHideDynamicElements(options?: HideDynamicElementsOptions): void;
+            happoScreenshot(options?: HappoScreenshotOptions): void;
+            happoHideDynamicElements(options?: HappoHideDynamicElementsOptions): void;
         }
     }
 }
