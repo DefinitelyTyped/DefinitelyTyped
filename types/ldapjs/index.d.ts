@@ -359,9 +359,6 @@ export class ProtocolError {
 export class OperationsError {
     constructor(error?: string);
 }
-export class ProtocolError {
-    constructor(error?: string);
-}
 export class TimeLimitExceededError {
     constructor(error?: string);
 }
@@ -393,9 +390,6 @@ export class ConfidentialityRequiredError {
     constructor(error?: string);
 }
 export class SaslBindInProgressError {
-    constructor(error?: string);
-}
-export class NoSuchAttributeError {
     constructor(error?: string);
 }
 export class UndefinedAttributeTypeError {
