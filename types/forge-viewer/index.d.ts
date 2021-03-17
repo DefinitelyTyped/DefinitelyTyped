@@ -1304,6 +1304,7 @@ declare namespace Autodesk {
 
         namespace Private {
             const env: string;
+            const LightPresets: any[];
             const LocalStorage: LocalStorageClass;
             enum Prefs {
               PROGRESSIVE_RENDERING = 'progressiveRendering',
@@ -1585,6 +1586,7 @@ declare namespace Autodesk {
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
                 clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
                 createOverlayScene(name: string, materialPre?: THREE.Material, materialPost?: THREE.Material, camera?: any, needIdTarget?: boolean, needSeparateDepth?: boolean): any;
+                currentLightPreset(): number;
                 disableHighlight(disable: boolean): void;
                 disableSelection(disable: boolean): void;
                 getCanvasBoundingClientRect(): DOMRect;
