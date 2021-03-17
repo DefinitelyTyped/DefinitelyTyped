@@ -14,7 +14,7 @@ type ResolveElementType<T extends string> = string extends T
     : Element;
 
 export = nwsapi;
-declare function nwsapi(global: nwsapi.Global): nwsapi.Dom;
+declare function nwsapi(global: nwsapi.Global): nwsapi.NWSAPI;
 declare namespace nwsapi {
     // tslint:disable: no-redundant-jsdoc-2
     /**
@@ -92,7 +92,7 @@ declare namespace nwsapi {
         readonly VERBOSITY: boolean;
     }
 
-    interface Dom {
+    interface NWSAPI {
         readonly Version: string;
 
         // exported cache objects
@@ -276,12 +276,12 @@ declare namespace nwsapi {
         from: ContextNode;
         root: Element;
 
-        readonly byTag: Dom["byTag"];
+        readonly byTag: NWSAPI["byTag"];
 
-        readonly first: Dom["first"];
-        readonly select: Dom["select"];
+        readonly first: NWSAPI["first"];
+        readonly select: NWSAPI["select"];
 
-        readonly ancestor: Dom["closest"];
+        readonly ancestor: NWSAPI["closest"];
 
         /**
          * Fast resolver for the :nth-of-type() and :nth-last-of-type() pseudo-classes

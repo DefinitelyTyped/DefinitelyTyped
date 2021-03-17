@@ -1,6 +1,8 @@
 import nwsapi = require("nwsapi");
 const matcher = nwsapi({ document, DOMException });
 
+matcher; // $ExpectType NWSAPI
+
 matcher.byTag("html", document); // $ExpectType HTMLHtmlElement[]
 matcher.byTag("custom-element", document); // $ExpectType Element[]
 
