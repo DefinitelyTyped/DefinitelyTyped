@@ -117,7 +117,7 @@ export interface Checkers<VT> {
 // --------------------
 
 /**
- * Array of numbers [0, 255].
+ * Array of numbers. The number range is from 0 to 255.
  */
 export type bytes = number[];
 
