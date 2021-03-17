@@ -141,8 +141,8 @@ export interface BatteryProps {
      * @defaultValue {}
      */
     theme?: {
-        batteryColor: string
-    }
+        batteryColor: string;
+    };
 }
 export class Battery extends React.Component<BatteryProps> {}
 
@@ -2320,7 +2320,7 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
     showIcon?: boolean;
 }
 export const GlobalToast: {
-    show: (option: GlobalToastProps) => void;
+    show: (option: Omit<GlobalToastProps, 'show' | 'onFinish'>) => void;
     hide: () => void;
 };
 
@@ -6357,7 +6357,7 @@ export interface SliderProgressProps {
      * @description callback function of value change
      * @defaultValue () => {}
      */
-    onValueChange?: (...args: any[])=> any;
+    onValueChange?: (...args: any[]) => any;
     /**
      * @language zh-CN
      * @description 完成的回调函数
@@ -6368,7 +6368,7 @@ export interface SliderProgressProps {
      * @description callback function of complete
      * @defaultValue () => {}
      */
-    onComplete?: (...args: any[])=> any;
+    onComplete?: (...args: any[]) => any;
     /**
      * @language zh-CN
      * @description 禁用
