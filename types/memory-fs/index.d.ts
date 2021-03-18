@@ -53,11 +53,11 @@ declare class MemoryFileSystem {
 
     createWriteStream(path: string, options?: any): any;
 
-    dirname?(arg0: string): string;
+    dirname?(path: string): string;
 
     exists(path: string, callback: (isExist: boolean) => void): void;
 
-    writeFile(path: string, content: string | Buffer, callback: (err: Error | undefined) => void | ((arg0?: NodeJS.ErrnoException) => void)): void;
+    writeFile(path: string, content: string | Buffer, callback: (err: Error | undefined) => void | ((path?: NodeJS.ErrnoException) => void)): void;
     writeFile(path: string, content: string | Buffer, encoding: string, callback: (err: Error | undefined) => void): void;
 
     join(path: string, request?: string): string;
@@ -66,7 +66,7 @@ declare class MemoryFileSystem {
 
     normalize(path: string): string;
 
-    stat(arg0: string, arg1: (arg0?: NodeJS.ErrnoException | Error , arg1?: FsStats) => void): void;
+    stat(path: string, callback: (path?: NodeJS.ErrnoException | Error , callback?: FsStats) => void): void;
 
     readdir(path: string, callback: (err: Error | null, result?: any) => void): void;
 
@@ -78,10 +78,10 @@ declare class MemoryFileSystem {
 
     readlink(path: string, callback: (err: Error | null, result?: any) => void): void;
 
-    mkdir(arg0: string, arg1: (arg0?: NodeJS.ErrnoException | Error) => void): void;
+    mkdir(path: string, optArg: (path?: NodeJS.ErrnoException | Error) => void): void;
     mkdir(path: string, optArg: {}, callback: (err: Error | null, result?: any) => void): void;
 
-    readFile(path: string, callback: (err: Error, result?: any) => void | ((arg0?: NodeJS.ErrnoException | Error, arg1?: Buffer) => void)): void;
+    readFile(path: string, callback: (err: Error, result?: any) => void | ((path?: NodeJS.ErrnoException | Error, callback?: Buffer) => void)): void;
     readFile(path: string, optArg: {}, callback: (err: Error | null, result?: any) => void): void;
 }
 
