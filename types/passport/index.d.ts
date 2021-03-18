@@ -7,6 +7,7 @@
 //                 Daniel Perez Alvarez <https://github.com/unindented>
 //                 Kevin Stiehl <https://github.com/kstiehl>
 //                 Oleg Vaskevich <https://github.com/vaskevich>
+//                 Oliver Alonso <https://github.com/boxgames1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
