@@ -189,12 +189,6 @@ auth.tokens
         // Handle the error.
     });
 
-// Get management client access token
-management
-    .getAccessToken()
-    .then(token => console.log(token))
-    .catch(err => console.log('Error: ' + err));
-
 // Update a user
 management.updateUser({ id: 'user_id' }, { email: 'hi@me.co' });
 
