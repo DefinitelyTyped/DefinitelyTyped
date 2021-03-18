@@ -26,6 +26,7 @@
 //                 JongChan Choi <https://github.com/disjukr>
 //                 Victor Magalhães <https://github.com/vhfmag>
 //                 Dale Tan <https://github.com/hellatan>
+//                 YinYa Han <https://github.com/TotooriaHyperion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -842,6 +843,15 @@ declare namespace React {
         readonly type: T;
     };
 
+    // see https://github.com/facebook/react/blob/master/packages/react/src/ReactMemo.js
+    function memo<T extends SFC<any>>(
+        Component: T,
+        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
+    ): MemoExoticComponent<T>;
+    function memo<T extends FC<any>>(
+        Component: T,
+        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
+    ): MemoExoticComponent<T>;
     function memo<P extends object>(
         Component: SFC<P>,
         propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean

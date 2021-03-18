@@ -267,6 +267,35 @@ const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 // $ExpectError
 <Memoized6 foo/>;
 
+const Memoized7 = React.memo<React.FC<{ test: boolean, onChange: () => void }>>(props => null);
+Memoized7.type({ test: false, onChange: () => {} });
+
+// this is prefered since it takes only one component tree level
+const Wrapped7 = React.memo<React.ComponentProps<typeof Memoized7>>(props => {
+    // const ctx = useContext(XXXContext);
+    return Memoized7.type({
+        ...props,
+        onChange: () => {
+            // do something with ctx
+            props.onChange();
+        },
+    });
+});
+// this takes 2 level of component tree
+const Wrapped7_2 = React.memo<React.ComponentProps<typeof Memoized7>>(props => {
+    // const ctx = useContext(XXXContext);
+    return <Memoized7
+        {...props}
+        onChange={() => {
+            // do something with ctx
+            props.onChange();
+        }}
+    />;
+});
+
+const Memoized8 = React.memo<React.SFC<{ test: boolean }>>(props => null);
+Memoized8.type({ test: false });
+
 // NOTE: this test _requires_ TypeScript 3.1
 // It is passing, for what it's worth.
 // const Memoized7 = React.memo((() => {
