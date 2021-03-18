@@ -143,3 +143,8 @@ const applicationTemplate: MicrosoftGraph.ApplicationTemplate = {
 };
 
 const chatType: MicrosoftGraph.ChatType = "group";
+
+const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
+    description: "TEST_DESC",
+    displayName: "TEST_NAME"
+};
