@@ -288,6 +288,27 @@ declare namespace THREE {
     class ShaderMaterial {
     }
 
+    class Sphere {
+        center: Vector3;
+        radius: number;
+
+        constructor(center?: Vector3, radius?: number);
+
+        applyMatrix4(matrix: Matrix4): Sphere;
+        clampPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+        clone(): Sphere;
+        containsPoint(point: Vector3): boolean;
+        copy(sphere: Sphere): Sphere;
+        distanceToPoint(point: Vector3): number;
+        empty(): boolean;
+        equals(sphere: Sphere): boolean;
+        getBoundingBox(optionalTarget?: Box3): Box3;
+        intersectsSphere(sphere: Sphere): boolean;
+        set(center: Vector3, radius: number): Sphere;
+        setFromPoints(points: Vector3[], optionalCenter?: Vector3): Sphere;
+        translate(offset: Vector3): Sphere;
+    }
+
     class TransformControls {
         visible: boolean;
 
