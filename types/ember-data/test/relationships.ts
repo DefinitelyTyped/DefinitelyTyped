@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DS from 'ember-data';
 import TransformRegistry from 'ember-data/types/registries/transform';
 import { assertType } from './lib/assert';
@@ -77,12 +76,18 @@ class Series extends DS.Model {
     title = DS.attr('string');
 }
 
+class Post extends DS.Model {
+    title = DS.attr('string');
+    comments = DS.hasMany('comment');
+}
+
 class RelationalPost extends DS.Model {
     title = DS.attr('string');
     tag = DS.attr('string');
     comments = DS.hasMany('comment', { async: true });
     relatedPosts = DS.hasMany('post');
-    series = DS.belongsTo('series');
+    series = DS.belongsTo('series', { async: true});
+    seriesSync = DS.belongsTo('series', { async: false});
 }
 
 declare module 'ember-data/types/registries/model' {
@@ -90,14 +95,50 @@ declare module 'ember-data/types/registries/model' {
         'relational-post': RelationalPost;
         comment: Comment;
         series: Series;
+        post: Post;
     }
 }
 
-let blogPost = store.peekRecord('relational-post', 1);
-blogPost!.get('comments').then(comments => {
+let blogPost = store.peekRecord('relational-post', 1)!;
+blogPost.get('comments').then((comments) => {
     // now we can work with the comments
     let author: string = comments.get('firstObject')!.get('author');
 });
 
-blogPost!.hasMany('relatedPosts');
-blogPost!.belongsTo('series');
+function testBelongsToInvalidKeys() {
+    blogPost.belongsTo('non-existing'); // $ExpectError
+
+    // Neither of DS.Model properties can be a relationship
+    blogPost.belongsTo('isNew'); // $ExpectError
+
+    // accessing an own property which is known as not a relationship beforehand
+    // @todo: it should error
+    blogPost.belongsTo('title'); // $ExpectType BelongsToReference
+}
+
+function testhasManyInvalidKeys() {
+    blogPost.hasMany('non-existing'); // $ExpectError
+
+    // Neither of DS.Model properties can be a relationship
+    blogPost.hasMany('isNew'); // $ExpectError
+
+    // accessing an own property which is known as not a relationship beforehand
+    // @todo: it should error
+    blogPost.hasMany('title'); // $ExpectType HasManyReference<any>
+}
+
+// make sure DS.BelongsToReference works w/o an explicit generic argument
+let doesNotRequireGenericArgument: DS.BelongsToReference = blogPost.belongsTo('series');
+
+blogPost.hasMany('relatedPosts') as DS.HasManyReference; // $ExpectError
+
+assertType<DS.ManyArray<DS.Model> | null>(
+    blogPost.hasMany('relatedPosts').value()
+);
+assertType<DS.BelongsToReference | null>(
+    blogPost.belongsTo('series')
+);
+
+assertType<DS.BelongsToReference | null>(
+    blogPost.belongsTo('seriesSync')
+);

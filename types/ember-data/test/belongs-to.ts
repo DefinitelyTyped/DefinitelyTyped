@@ -7,6 +7,7 @@ class Folder extends DS.Model {
     name = DS.attr('string');
     children = DS.hasMany('folder', { inverse: 'parent' });
     parent = DS.belongsTo('folder', { inverse: 'children' });
+    parentSync = DS.belongsTo('folder', { inverse: 'children', async: false });
 }
 
 declare module 'ember-data/types/registries/model' {
@@ -29,5 +30,6 @@ folder.set('parent', folder);
 folder.set('parent', folder.get('parent'));
 folder.set('parent', store.findRecord('folder', 3));
 
-// $ExpectType Model | null
-folder.belongsTo('parent').value();
+folder.belongsTo('parent').value(); // $ExpectType Model | null
+folder.belongsTo('parentSync').value(); // $ExpectType Model | null
+folder.belongsTo('non-existing').value(); // $ExpectError
