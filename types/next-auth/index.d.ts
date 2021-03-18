@@ -4,104 +4,57 @@
 //                 Iain <https://github.com/iaincollins>
 //                 Juan <https://github.com/JuanM04>
 //                 Balázs <https://github.com/balazsorban44>
-//                 Euxn <https://github.com/euxn23>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 
 import { ConnectionOptions } from 'typeorm';
+import { PossibleProviders } from './providers';
 import { Adapter } from './adapters';
-import { JWTEncodeParams, JWTDecodeParams, JWTOptions, JWT } from './jwt';
-import { AppProvider, Providers } from './providers';
-import { NextApiRequest, NextApiResponse, NextApiHandler } from './_next';
-import { NonNullParams, WithAdditionalParams } from './_utils';
+import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from './_utils';
+import { SessionProvider } from './client';
+import { JWTEncodeParams, JWTDecodeParams } from './jwt';
 
-export interface NextAuthOptions {
-    providers: Providers;
-    database?: string | Record<string, any> | ConnectionOptions;
+interface InitOptions {
+    providers: ReadonlyArray<ReturnType<PossibleProviders>>;
+    database?: string | ConnectionOptions;
     secret?: string;
-    session?: SessionOptions;
+    session?: Session;
     jwt?: JWTOptions;
-    pages?: PagesOptions;
-    callbacks?: CallbacksOptions;
+    pages?: PageOptions;
+    callbacks?: Callbacks;
     debug?: boolean;
     adapter?: Adapter;
-    events?: EventsOptions;
+    events?: Events;
     useSecureCookies?: boolean;
-    cookies?: CookiesOptions;
-    logger?: LoggerInstance;
+    cookies?: Cookies;
     theme?: 'light' | 'dark' | 'auto';
 }
 
-export interface LoggerInstance {
-    warn: (code?: string, ...message: unknown[]) => void;
-    error: (code?: string, ...message: unknown[]) => void;
-    debug: (code?: string, ...message: unknown[]) => void;
-}
-
-interface InternalOptions extends Omit<NextAuthOptions, 'providers' | 'database' | 'session' | 'useSecureCookie'> {
-    pkce: {
-        code_verifier?: string
-        code_challenge_method?: 'S256'
-    };
+interface AppOptions {
+    debug: boolean;
+    pages: PageOptions;
+    adapter: Adapter;
+    baseUrl: string;
+    basePath: string;
+    action: 'providers' | 'session' | 'csrf' | 'signin' | 'signout' | 'callback' | 'verify-request' | 'error';
     provider?: string;
-    baseUrl?: string;
-    basePath?: string;
-    action?: 'providers' | 'session' | 'csrf' | 'signin' | 'signout' | 'callback' | 'verify-request' | 'error';
-    csrfToken?: string;
-}
-
-export interface AppOptions extends Omit<NextApiRequest, 'cookies'>, NonNullParams<InternalOptions> {
-    providers: AppProvider[];
-}
-
-export interface CallbacksOptions {
-    signIn?:
-        | (() => true)
-        | ((user: User, account: Record<string, unknown>, profile: Record<string, unknown>) => Promise<never | string | boolean>);
-    redirect?: ((url: string, baseUrl: string) => Promise<string>);
-    session?:
-        | ((session: Session) => WithAdditionalParams<Session>)
-        | ((session: Session, userOrToken: User | JWT) => Promise<WithAdditionalParams<Session>>);
-    jwt?:
-        | ((token: JWT) => WithAdditionalParams<JWT>)
-        | ((token: JWT, user: User, account: Record<string, unknown>, profile: Record<string, unknown>, isNewUser: boolean) => Promise<WithAdditionalParams<JWT>>);
-}
-
-export interface CookieOption {
-    name: string;
-    options: {
-        httpOnly: boolean;
-        sameSite: true | 'strict' | 'lax' | 'none';
-        path?: string;
-        secure: boolean;
-        maxAge?: number;
-        domain?: string;
+    cookies: Cookies;
+    secret: string;
+    csrfToken: string;
+    providers: {
+        [provider: string]: SessionProvider;
     };
+    session: Session;
+    jwt: JWTOptions;
+    events: Events;
+    callbacks: Callbacks;
+    callbackUrl: string;
+    // redirect?(redirectUrl: string): any;
 }
 
-export interface CookiesOptions {
-    sessionToken?: CookieOption;
-    callbackUrl?: CookieOption;
-    csrfToken?: CookieOption;
-    pkceCodeVerifier?: CookieOption;
-}
-
-export type EventType=
-    | 'signIn'
-    | 'signOut'
-    | 'createUser'
-    | 'updateUser'
-    | 'linkAccount'
-    | 'session'
-    | 'error';
-
-export type EventCallback = (message: any) => Promise<void>;
-
-export type EventsOptions = Partial<Record<EventType, EventCallback>>;
-
-export interface PagesOptions {
+interface PageOptions {
     signIn?: string;
     signOut?: string;
     error?: string;
@@ -109,32 +62,71 @@ export interface PagesOptions {
     newUser?: string | null;
 }
 
-export interface Session {
-    user: WithAdditionalParams<User>;
-    accessToken?: string;
-    expires: string;
+interface Cookies {
+    [cookieKey: string]: Cookie;
 }
 
-export interface SessionOptions {
+interface Cookie {
+    name: string;
+    options?: CookieOptions;
+}
+
+interface CookieOptions {
+    httpOnly?: boolean;
+    sameSite?: true | 'strict' | 'lax' | 'none';
+    path?: string;
+    secure?: boolean;
+    maxAge?: number;
+    domain?: string;
+}
+
+interface Events {
+    signIn?(message: any): Promise<void>;
+    signOut?(message: any): Promise<void>;
+    createUser?(message: any): Promise<void>;
+    updateUser?(message: any): Promise<void>;
+    linkAccount?(message: any): Promise<void>;
+    session?(message: any): Promise<void>;
+    error?(message: any): Promise<void>;
+}
+
+interface Session {
     jwt?: boolean;
     maxAge?: number;
     updateAge?: number;
 }
 
-export interface User {
+interface User {
     name?: string | null;
     email?: string | null;
     image?: string | null;
 }
 
-export interface NextAuthRequest extends NextApiRequest {
-  options: InternalOptions;
+interface JWTOptions {
+    secret?: string;
+    maxAge?: number;
+    encryption?: boolean;
+    signingKey?: string;
+    encryptionKey?: string;
+    encode?(options: JWTEncodeParams): Promise<string>;
+    decode?(options: JWTDecodeParams): Promise<GenericObject>;
 }
-export type NextAuthResponse = NextApiResponse;
 
-declare function NextAuthHandler(req: NextApiRequest, res: NextApiResponse, options?: NextAuthOptions): ReturnType<NextApiHandler>;
-declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: NextAuthOptions): ReturnType<NextApiHandler>;
-declare function NextAuth(options: NextAuthOptions): ReturnType<typeof NextAuthHandler>;
+// TODO: Improve callback typings
+interface Callbacks {
+    signIn?(user: User, account: GenericObject, profile: GenericObject): Promise<boolean | string>;
+    redirect?(url: string, baseUrl: string): Promise<string>;
+    session?(session: SessionBase, user: User): Promise<GenericObject>;
+    jwt?(
+        token: GenericObject,
+        user: User,
+        account: GenericObject,
+        profile: GenericObject,
+        isNewUser: boolean,
+    ): Promise<GenericObject>;
+}
 
-export { NextAuthHandler, NextAuth };
+declare function NextAuth(options: InitOptions): Promise<void>;
+declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options: InitOptions): Promise<void>;
 export default NextAuth;
+export { InitOptions, AppOptions, PageOptions, Cookies, Events, Session, JWTOptions, User, Callbacks };

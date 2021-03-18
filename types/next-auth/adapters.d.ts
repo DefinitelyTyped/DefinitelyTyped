@@ -1,6 +1,6 @@
 import { ConnectionOptions, EntitySchema } from 'typeorm';
 import { AppOptions, User } from '.';
-import { AppProvider } from './providers';
+import { SessionProvider } from './client';
 
 export interface Profile {
     id: string;
@@ -27,10 +27,10 @@ export interface SendVerificationRequestParams {
     url: string;
     token: string;
     baseUrl: string;
-    provider: AppProvider;
+    provider: SessionProvider;
 }
 
-export type EmailAppProvider = AppProvider & {
+export type EmailSessionProvider = SessionProvider & {
     sendVerificationRequest: (params: SendVerificationRequestParams) => Promise<void>;
     maxAge: number | undefined;
 };
@@ -59,20 +59,20 @@ export interface AdapterInstance<TUser, TProfile, TSession, TVerificationRequest
         url: string,
         token: string,
         secret: string,
-        provider: EmailAppProvider,
+        provider: EmailSessionProvider,
         options: AppOptions,
     ): Promise<TVerificationRequest>;
     getVerificationRequest?(
         email: string,
         verificationToken: string,
         secret: string,
-        provider: AppProvider,
+        provider: SessionProvider,
     ): Promise<TVerificationRequest | null>;
     deleteVerificationRequest?(
         email: string,
         verificationToken: string,
         secret: string,
-        provider: AppProvider,
+        provider: SessionProvider,
     ): Promise<void>;
 }
 
