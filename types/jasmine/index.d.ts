@@ -12,6 +12,7 @@
 //                 Domas Trijonis <https://github.com/fdim>
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
+//                 Alex Povar <https://github.com/zvirja>
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 //                 Chives <https://github.com/chivesrs>
 //                 kirjs <https://github.com/kirjs>
