@@ -1,9 +1,8 @@
-// Type definitions for react-native-push-notification 7.2
+// Type definitions for react-native-push-notification 7.0
 // Project: https://github.com/zo0r/react-native-push-notification#readme
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 Tom Sawkins <https://github.com/tomSawkins>
 //                 Andrew Li <https://github.com/Li357>
-//                 Clément Rucheton <https://github.com/rucheton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -30,7 +29,7 @@ export interface ReceivedNotification {
 
 export interface PushNotificationOptions {
     onRegister?: (token: { os: string; token: string }) => void;
-    onNotification?: (notification: Omit<ReceivedNotification, "userInfo">) => void;
+    onNotification?: (notification: Omit<ReceivedNotification, 'userInfo'>) => void;
     onAction?: (notification: ReceivedNotification) => void;
     onRegistrationError?: (error: any) => void;
     onRemoteFetch?: (notificationData: any) => void;
@@ -50,8 +49,6 @@ export class PushNotificationObject {
     bigText?: string;
     subText?: string;
     bigPictureUrl?: string;
-    bigLargeIcon?: string;
-    bigLargeIconUrl?: string;
     color?: string;
     vibrate?: boolean;
     vibration?: number;
@@ -70,13 +67,11 @@ export class PushNotificationObject {
     timeoutAfter?: number | null;
     messageId?: string;
 
-    when?: number | null;
-    usesChronometer?: boolean;
-
     actions?: string[];
     invokeApp?: boolean;
 
     /* iOS only properties */
+    alertAction?: any;
     category?: any;
 
     /* iOS and Android properties */
@@ -102,8 +97,6 @@ export class PushNotificationDeliveredObject {
     body: string;
     tag: string;
     group: string;
-    category?: string;
-    userInfo?: any;
 }
 
 export class PushNotificationScheduledLocalObject {
@@ -132,7 +125,9 @@ export interface PushNotification {
     unregister(): void;
     localNotification(notification: PushNotificationObject): void;
     localNotificationSchedule(notification: PushNotificationScheduleObject): void;
-    requestPermissions(permissions?: Array<"alert" | "badge" | "sound">): Promise<PushNotificationPermissions>;
+    requestPermissions(
+        permissions?: Array<"alert" | "badge" | "sound">
+    ): Promise<PushNotificationPermissions>;
     subscribeToTopic(topic: string): void;
     unsubscribeFromTopic(topic: string): void;
     presentLocalNotification(notification: PushNotificationObject): void;
@@ -141,20 +136,41 @@ export interface PushNotification {
     clearLocalNotification(tag: string, notificationID: number): void;
     cancelAllLocalNotifications(): void;
     setApplicationIconBadgeNumber(badgeCount: number): void;
-    getApplicationIconBadgeNumber(callback: (badgeCount: number) => void): void;
-    popInitialNotification(callback: (notification: ReceivedNotification | null) => void): void;
+    getApplicationIconBadgeNumber(
+        callback: (badgeCount: number) => void
+    ): void;
+    popInitialNotification(
+        callback: (notification: ReceivedNotification | null) => void
+    ): void;
     abandonPermissions(): void;
-    checkPermissions(callback: (permissions: PushNotificationPermissions) => void): void;
+    checkPermissions(
+        callback: (permissions: PushNotificationPermissions) => void
+    ): void;
     clearAllNotifications(): void;
     removeAllDeliveredNotifications(): void;
-    getDeliveredNotifications(callback: (notifications: PushNotificationDeliveredObject[]) => void): void;
-    getScheduledLocalNotifications(callback: (notifications: PushNotificationScheduledLocalObject[]) => void): void;
+    getDeliveredNotifications(
+        callback: (notifications: PushNotificationDeliveredObject[]) => void
+    ): void;
+    getScheduledLocalNotifications(
+        callback: (notifications: PushNotificationScheduledLocalObject[]) => void
+    ): void;
     removeDeliveredNotifications(identifiers: string[]): void;
     invokeApp(notification: PushNotificationObject): void;
-    getChannels(callback: (channel_ids: string[]) => void): void;
-    channelExists(channel_id: string, callback: (exists: boolean) => void): void;
-    createChannel(channel: ChannelObject, callback: (created: boolean) => void): void;
-    channelBlocked(channel_id: string, callback: (blocked: boolean) => void): void;
+    getChannels(
+        callback: (channel_ids: string[]) => void
+    ): void;
+    channelExists(
+        channel_id: string,
+        callback: (exists: boolean) => void
+    ): void;
+    createChannel(
+        channel: ChannelObject,
+        callback: (created: boolean) => void
+    ): void;
+    channelBlocked(
+        channel_id: string,
+        callback: (blocked: boolean) => void
+    ): void;
     deleteChannel(channel_id: string): void;
 }
 
