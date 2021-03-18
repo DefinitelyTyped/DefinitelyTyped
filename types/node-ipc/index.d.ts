@@ -335,7 +335,7 @@ declare namespace NodeIPC {
             private?: string;
         };
     }
-};
+}
 
 declare const RootIPC: NodeIPC.IPC & { IPC: new () => NodeIPC.IPC };
 
