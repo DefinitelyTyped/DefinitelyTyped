@@ -5994,7 +5994,7 @@ export interface PixelRatioStatic {
 export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web' | 'native';
 type PlatformConstants = {
     isTesting: boolean;
-    reactNativeVersion: { major: number; minor: number; patch: number; prerelease?: number };
+    reactNativeVersion: { major: number; minor: number; patch: number; prerelease?: number | null };
 };
 interface PlatformStatic {
     isTV: boolean;
@@ -6022,19 +6022,6 @@ interface PlatformIOSStatic extends PlatformStatic {
     isPad: boolean;
     isTVOS: boolean;
     Version: string;
-    constants: {
-        forceTouchAvailable: boolean,
-        interfaceIdiom: string,
-        isTesting: boolean,
-        osVersion: string,
-        reactNativeVersion: {
-            major: number,
-            minor: number,
-            patch: number,
-            prerelease?: number | null,
-        },
-        systemName: string,
-    }
 }
 
 interface PlatformAndroidStatic extends PlatformStatic {
@@ -6051,54 +6038,21 @@ interface PlatformAndroidStatic extends PlatformStatic {
     };
     OS: 'android';
     Version: number;
-    constants: {
-        isTesting: boolean,
-        reactNativeVersion: {
-          major: number,
-          minor: number,
-          patch: number,
-          prerelease?: number | null,
-        },
-        Version: number,
-        Release: string,
-        Serial: string,
-        Fingerprint: string,
-        Model: string,
-        ServerHost?: string,
-        uiMode: string,
-        Brand: string,
-        Manufacturer: string,
-    };
 }
 
 interface PlatformMacOSStatic extends PlatformStatic {
     OS: 'macos';
     Version: string;
-    constants: {
-        isTesting: boolean,
-        osVersion: string,
-        reactNativeVersion: {
-            major: number,
-            minor: number,
-            patch: number,
-            prerelease?: number | null,
-        },
-        systemName: string,
+    constants: PlatformConstants & {
+        osVersion: string;
     }
 }
 
 interface PlatformWindowsOSStatic extends PlatformStatic {
     OS: 'windows';
     Version: number;
-    constants: {
-        isTesting: boolean,
-        osVersion: number,
-        reactNativeVersion: {
-            major: number,
-            minor: number,
-            patch: number,
-            prerelease?: number | null,
-        },
+    constants: PlatformConstants & {
+        osVersion: number;
     }
 }
 
