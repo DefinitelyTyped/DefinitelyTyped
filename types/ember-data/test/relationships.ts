@@ -109,22 +109,20 @@ function testBelongsToInvalidKeys() {
     blogPost.belongsTo('non-existing'); // $ExpectError
 
     // Neither of DS.Model properties can be a relationship
-    blogPost.belongsTo('isNew'); // $ExpectError
+    blogPost.belongsTo('isNew'); // $ExpectType BelongsToReference<Model>
 
     // accessing an own property which is known as not a relationship beforehand
-    // @todo: it should error
-    blogPost.belongsTo('title'); // $ExpectType BelongsToReference
+    blogPost.belongsTo('title'); // $ExpectType BelongsToReference<Model>
 }
 
-function testhasManyInvalidKeys() {
+function testHasManyInvalidKeys() {
     blogPost.hasMany('non-existing'); // $ExpectError
 
     // Neither of DS.Model properties can be a relationship
-    blogPost.hasMany('isNew'); // $ExpectError
+    blogPost.hasMany('isNew'); // $ExpectType HasManyReference<Model>
 
     // accessing an own property which is known as not a relationship beforehand
-    // @todo: it should error
-    blogPost.hasMany('title'); // $ExpectType HasManyReference<any>
+    blogPost.hasMany('title'); // $ExpectType HasManyReference<Model>
 }
 
 // make sure DS.BelongsToReference works w/o an explicit generic argument
@@ -135,10 +133,10 @@ blogPost.hasMany('relatedPosts') as DS.HasManyReference; // $ExpectError
 assertType<DS.ManyArray<DS.Model> | null>(
     blogPost.hasMany('relatedPosts').value()
 );
-assertType<DS.BelongsToReference | null>(
+assertType<DS.BelongsToReference<DS.Model> | null>(
     blogPost.belongsTo('series')
 );
 
-assertType<DS.BelongsToReference | null>(
+assertType<DS.BelongsToReference<DS.Model> | null>(
     blogPost.belongsTo('seriesSync')
 );
