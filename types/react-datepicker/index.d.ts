@@ -14,7 +14,6 @@
 //                 tu4mo <https://github.com/tu4mo>
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Walter Kennedy <https://github.com/wthefourth>
-//                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -184,7 +183,6 @@ export interface ReactDatePickerProps {
     yearDropdownItemNumber?: number;
     excludeScrollbar?: boolean;
     enableTabLoop?: boolean;
-    yearItemNumber?: number;
 }
 
 declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
