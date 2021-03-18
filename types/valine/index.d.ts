@@ -3,6 +3,19 @@
 // Definitions by: Benny Guo <https://github.com/TriDiamond>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/*~ If this module is a UMD module that exposes a global variable 'myLib' when
+ *~ loaded outside a module loader environment, declare that global here.
+ *~ Otherwise, delete this declaration.
+ */
+
+export = Valine;
+export as namespace Valine;
+
+declare class Valine {
+    constructor(options?: Valine.ValineOptions);
+    init(options: Valine.ValineOptions): Valine.ValineFactory;
+}
+
 declare namespace Valine {
     type MetaAttributes = "nick" | "mail" | "link";
     interface ValineOptions {
@@ -13,12 +26,12 @@ declare namespace Valine {
         el: string;
 
         /**
-         * Application appId from Leancloud.
+         * Application appId from LeanCloud.
          */
         appId: string;
 
         /**
-         * Application appKey from Leancloud.
+         * Application appKey from LeanCloud.
          */
         appKey: string;
 
@@ -29,7 +42,7 @@ declare namespace Valine {
         placeholder?: string;
 
         /**
-         * Article path(just like duoshuo thread).
+         * Article path(just like DuoShuo thread).
          *
          * Optional value:
          * - window.location.pathname (recommend)
@@ -173,12 +186,4 @@ declare namespace Valine {
          */
         setPath(path: string): ValineFactory;
     }
-
-    class ValineStatic {
-        constructor(options?: ValineOptions);
-        init(options: ValineOptions): ValineFactory;
-    }
 }
-
-export = Valine.ValineStatic;
-export as namespace Valine;
