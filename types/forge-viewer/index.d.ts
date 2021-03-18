@@ -1005,7 +1005,7 @@ declare namespace Autodesk {
             isolate(node?: number[]|number, model?: Model): void;
             setBackgroundColor(red: number, green: number, blue: number, red2: number, green2: number, blue2: number): void;
             toggleSelect(dbId: number, model: Model, selectionType: number): void;
-            select(dbIds: number[]|number, model?: Model, selectionType?: number): void;
+            select(dbIds?: number[]|number, model?: Model, selectionType?: number): void;
             clearSelection(): void;
             getSelectionVisibility(): any;
             getSelectionCount(): number;
