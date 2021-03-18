@@ -191,7 +191,7 @@ type localEditAppend = typeof EDIT_APPEND;
 type localNone = typeof NONE;
 type localAll = typeof ALL;
 
-declare namespace GlobalFreeDraw {
+declare namespace FreeDraw {
     const CREATE: localCreate;
     const EDIT: localEdit;
     const DELETE: localDelete;
@@ -203,6 +203,6 @@ declare namespace GlobalFreeDraw {
 
 declare global {
     interface Window {
-        FreeDraw: typeof FreeDraw & typeof GlobalFreeDraw;
+        FreeDraw: typeof FreeDraw;
     }
 }
