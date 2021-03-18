@@ -15,9 +15,9 @@ declare const console: { log: (...msgs: any[]) => void };
 
 const join = (separator: string) => (array: any[]) => array.join(separator);
 const joinedMany = (parser: Parser<any, any, any>) => many(parser).map(join(''));
-const joinedSequence = (parsers: Parser<any, any, any>[]) => sequenceOf(parsers).map(join(''));
+const joinedSequence = (parsers: Array<Parser<any, any, any>>) => sequenceOf(parsers).map(join(''));
 
-const csvString = between<string, string, string, string, null>(char('"'))(char('"'))(joinedMany(choice([
+const csvString = between<string, string, null>(char('"'))(char('"'))(joinedMany(choice([
   joinedSequence([char('\\'), char('"')]),
   anythingExcept(regex(/^["\n]/))
 ])));

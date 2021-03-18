@@ -59,7 +59,7 @@ export type Either<E, A> = {
 };
 
 export interface ParserTransformer<E, A, S> {
-  (state: ParserState<E, A, S>): ParserOutputState<E, A, S>
+  (state: ParserState<E, A, S>): ParserOutputState<E, A, S>;
 }
 
 export type InputFromInputType<T> =
@@ -106,71 +106,70 @@ export class Parser<E, A, S = null> {
 
   mapData<T>(fn: (data: S) => T): Parser<E, A, T>;
 
-  static ['fantasy-land/of']<E, A, S = null>(value: A): Parser<E, A, S>;
-  static of<E, A, S>(value: A): Parser<E, A, S>;
+  static ['fantasy-land/of']<A>(value: A): Parser<any, A, any>;
+  static of<A>(value: A): Parser<any, A, any>;
 }
 
 export const getData: Parser<never, any, any>;
 
-export const setData: <E, A, T>(x: T) => Parser<E, A, T>;
-export const mapData: <E, A, S, T>(fn: (x: S) => T) => Parser<E, A, T>;
-export const withData: <E, A, X>(parser: Parser<E, A, X>) => <S>(data: S) => Parser<E, A, S>;
+export function setData<T>(x: T): Parser<any, any, T>;
+export function mapData<T>(fn: (x: any) => T): Parser<any, any, T>;
+export function withData<E, A>(parser: Parser<E, A, any>): <S>(data: S) => Parser<E, A, S>;
 
-export const pipeParsers: <E, A, S>(parsers: [...Parser<unknown, unknown, unknown>[], Parser<E, A, S>]) => Parser<E, A, S>;
-export const composeParsers: <E, A, S>(parsers: [Parser<E, A, S>, ...Parser<unknown, unknown, unknown>[]]) => Parser<E, A, S>;
+export function pipeParsers<E, A, S>(parsers: [...Array<Parser<unknown, unknown, unknown>>, Parser<E, A, S>]): Parser<E, A, S>;
+export function composeParsers<E, A, S>(parsers: [Parser<E, A, S>, ...Array<Parser<unknown, unknown, unknown>>]): Parser<E, A, S>;
 
-export const tapParser: <E, A, S>(fn: (state: ParserState<E, A, S>) => void) => Parser<E, A, S>;
-export const parse: <E, A, S>(parser: Parser<E, A, S>) => (target: ParserInput) => ParserOutputState<E, A, S>;
+export function tapParser<E, A, S>(fn: (state: ParserState<E, A, S>) => void): Parser<E, A, S>;
+export function parse<E, A, S>(parser: Parser<E, A, S>): (target: ParserInput) => ParserOutputState<E, A, S>;
 
-export const decide: <E, A, S, B>(fn: (result: A) => Parser<E, B, S>) => Parser<E, B, S>;
-export const fail: <S, F>(errorMessage: F) => Parser<F, never, S>;
-export const suceedWith: <E, A, S = null>(value: A) => Parser<E, A, S>;
+export function decide<E, S, B>(fn: (result: any) => Parser<E, B, S>): Parser<E, B, S>;
+export function fail<F>(errorMessage: F): Parser<F, never, any>;
+export function suceedWith<A>(value: A): Parser<never, A, any>;
 
+export function either<E, A, S>(parser: Parser<E, A, S>): Parser<never, Either<E, A>, S>;
+export function coroutine<A, B>(g: () => Generator<Parser<unknown, B, unknown>, A, B>): Parser<unknown, A>;
 
-export const either: <E, A, S>(parser: Parser<E, A, S>) => Parser<never, Either<E, A>, S>;
-export const coroutine: <A, B>(g: () => Generator<Parser<unknown, B, unknown>, A, B>) => Parser<unknown, A, null>;
+export function exactly(n: number): <E, A, S>(parser: Parser<E, A, S>) => Parser<E, A[], S>;
+export function many<E, A, S>(parser: Parser<E, A, S>): Parser<E, A[], S>;
+export function many1<E, A, S>(parser: Parser<E, A, S>): Parser<E, A[], S>;
 
-export const exactly: (n: number) => <E, A, S>(parser: Parser<E, A, S>) => Parser<E, A[], S>;
-export const many: <E, A, S>(parser: Parser<E, A, S>) => Parser<E, A[], S>;
-export const many1: <E, A, S>(parser: Parser<E, A, S>) => Parser<E, A[], S>;
+export function mapTo<B>(fn: (result: any) => B): Parser<any, B, any>;
+export function errorMapTo<F>(fn: (result: any) => F): Parser<F, any, any>;
 
-export const mapTo: <E, A, S, B>(fn: (result: A) => B) => Parser<E, B, S>;
-export const errorMapTo: <E, A, S, F>(fn: (result: E) => F) => Parser<F, A, S>;
-
-export const char: (char: string) => Parser<string, string>;
-export const anyChar: (char: string) => Parser<string, string>;
+export function char(char: string): Parser<string, string>;
+export function anyChar(char: string): Parser<string, string>;
 export const peek: Parser<string, string>;
-export const str: (string: string) => Parser<string, string>;
-export const regex: (regex: RegExp) => Parser<string, string>;
+export function str(string: string): Parser<string, string>;
+export function regex(regex: RegExp): Parser<string, string>;
 export const digit: Parser<string, string>;
 export const digits: Parser<string, string>;
 export const letter: Parser<string, string>;
 export const letters: Parser<string, string>;
-export const anyOfString: (string: string) => Parser<string, string>;
+export function anyOfString(string: string): Parser<string, string>;
 
-export const namedSequenceOf: <E, A extends {}, S>(pairedParsers: [keyof A, A[keyof A]][]) => Parser<E, A, S>;
-export const sequenceOf: <E, A extends any[], S>(parsers: Parser<E, A[number], S>[]) => Parser<E, A, S>;
-export const sepBy: <E, A, S>(sepParser: Parser<E, A, S>) => <B>(valParser: Parser<E, B, S>) => Parser<E, B[], S>;
-export const sepBy1: <E, A, S>(sepParser: Parser<E, A, S>) => <B>(valParser: Parser<E, B, S>) => Parser<E, B[], S>;
-export const choice: <E, A extends any[], S>(parsers: Parser<E, A[number], S>[]) => Parser<E, A[number], S>;
-export const between: <E, A, B, C, S>(leftParser: Parser<E, A, S>) => (rightParser: Parser<E, C, S>) => (parser: Parser<E, B, S>) => Parser<E, B, S>;
+export function namedSequenceOf<A extends {}>(pairedParsers: Array<[keyof A, A[keyof A]]>): Parser<any, A, any>;
+export function sequenceOf<E, A extends any[], S>(parsers: Array<Parser<E, A[number], S>>): Parser<E, A, S>;
+export function sepBy<E, S>(sepParser: Parser<E, any, S>): <B>(valParser: Parser<E, B, S>) => Parser<E, B[], S>;
+export function sepBy1<E, S>(sepParser: Parser<E, any, S>): <B>(valParser: Parser<E, B, S>) => Parser<E, B[], S>;
+export function choice<E, A extends any[], S>(parsers: Array<Parser<E, A[number], S>>): Parser<E, A[number], S>;
+export function between<E, A, S>(leftParser: Parser<E, any, S>): (rightParser: Parser<E, any, S>) => (parser: Parser<E, A, S>) => Parser<E, A, S>;
 
-export const everythingUntil: <E, A, S>(parser: Parser<E, A, S>) => Parser<E, string, S>;
-export const everyCharUntil: <E, A, S>(parser: Parser<E, A, S>) => Parser<E, string, S>;
-export const anythingExcept: <E, A, S>(parser: Parser<E, A, S>) => Parser<E, string, S>;
-export const anyCharExcept: <E, A, S>(parser: Parser<E, A, S>) => Parser<E, string, S>;
+export function everythingUntil<E, S>(parser: Parser<E, any, S>): Parser<E, string, S>;
+export function everyCharUntil<E, S>(parser: Parser<E, any, S>): Parser<E, string, S>;
+export function anythingExcept<E, S>(parser: Parser<E, any, S>): Parser<E, string, S>;
+export function anyCharExcept<E, S>(parser: Parser<E, any, S>): Parser<E, string, S>;
 
-export const lookAhead: <E, A, S>(parser: Parser<E, A, S>) => Parser<E, A, S>;
-export const possibly: <E, A, S>(parser: Parser<E, A, S>) => Parser<never, A | null, S>;
-export const skip: <E, A, S>(parser: Parser<E, A, S>) => Parser<E, A, S>;
+export function lookAhead<E, S>(parser: Parser<E, any, S>): Parser<E, any, S>;
+export function possibly<A, S>(parser: Parser<any, A, S>): Parser<never, A | null, S>;
+export function skip<E, S>(parser: Parser<E, any, S>): Parser<E, any, S>;
 
 export const endOfInput: Parser<string, null>;
 export const whitespace: Parser<string, null>;
 export const optionalWhitespace: Parser<string, null>;
 
-export const recursiveParser: <E, A, S>(parser: () => Parser<E, A, S>) => Parser<E, A, S>;
-export const takeRight: <E, A, S>(left: Parser<E, A, S>) => <F, B, T>(right: Parser<F, B, T>) => Parser<F, B, T>;
-export const takeLeft: <E, A, S>(left: Parser<E, A, S>) => <F, B, T>(right: Parser<F, B, T>) => Parser<E, A, S>;
+export function recursiveParser<E, A, S>(parser: () => Parser<E, A, S>): Parser<E, A, S>;
+export function takeRight(left: Parser<any, any, any>): <F, B, T>(right: Parser<F, B, T>) => Parser<F, B, T>;
+export function takeLeft<E, A, S>(left: Parser<E, A, S>): (right: Parser<any, any, any>) => Parser<E, A, S>;
 
-export const toPromise: <E, A, S>(result: ParserOutputState<E, A, S>) => Promise<A>;
-export const toValue: <E, A, S>(result: ParserOutputState<E, A, S>) => A;
+export function toPromise<A>(result: ParserOutputState<any, A, any>): Promise<A>;
+export function toValue<A>(result: ParserOutputState<any, A, any>): A;
