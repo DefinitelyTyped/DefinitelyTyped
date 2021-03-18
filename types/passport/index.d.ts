@@ -67,6 +67,7 @@ declare namespace passport {
         userProperty?: string;
         passReqToCallback?: boolean;
         prompt?: string;
+        acr_values?: string;
     }
 
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {

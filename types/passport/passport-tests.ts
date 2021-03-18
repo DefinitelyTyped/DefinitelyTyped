@@ -153,6 +153,9 @@ function authSetting(): void {
         }));
     app.get('/auth/google/callback',
         passport.authenticate('google', authOption), successCallback);
+
+    app.get('/auth/user/microsoft',
+        passport.authenticate('user', { acr_values: "idp:microsoft" }), successCallback);
 }
 
 function ensureAuthenticated(req: express.Request, res: express.Response, next: (err?: any) => void) {
