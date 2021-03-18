@@ -15,6 +15,321 @@
  */
 
 
+ /**
+  * Get the User's Currently Playing (Track)
+  * 
+  * GET /v1/me/player/currently-playing
+  * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-the-users-currently-playing-track
+  */
+const playingNowTrack : SpotifyApi.CurrentlyPlayingResponse = {
+  "timestamp": 1614523995043,
+  "device": {
+    "id": "123456789",
+    "is_active": true,
+    "is_restricted": false,
+    "name": "Name Test",
+    "type": "Computer",
+    "volume_percent": 48
+  },
+  "context": {
+    "external_urls": {
+      "spotify": "https://open.spotify.com/playlist/37i9dQZEVXbKyJS56d1pgi"
+    },
+    "href": "https://api.spotify.com/v1/playlists/37i9dQZEVXbKyJS56d1pgi",
+    "type": "playlist",
+    "uri": "spotify:playlist:37i9dQZEVXbKyJS56d1pgi"
+  },
+  "progress_ms": 57934,
+  "item": {
+    "album": {
+      "album_type": "album",
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/5jfz7uWPwf03hdEewW8AI8"
+          },
+          "href": "https://api.spotify.com/v1/artists/5jfz7uWPwf03hdEewW8AI8",
+          "id": "5jfz7uWPwf03hdEewW8AI8",
+          "name": "Wet Bed Gang",
+          "type": "artist",
+          "uri": "spotify:artist:5jfz7uWPwf03hdEewW8AI8"
+        }
+      ],
+      "external_urls": {
+        "spotify": "https://open.spotify.com/album/4ZgWBr16niSFDwCIiJ4iBk"
+      },
+      "href": "https://api.spotify.com/v1/albums/4ZgWBr16niSFDwCIiJ4iBk",
+      "id": "4ZgWBr16niSFDwCIiJ4iBk",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab67616d0000b2738fcc285014bb2e52ba1e3505",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e028fcc285014bb2e52ba1e3505",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d000048518fcc285014bb2e52ba1e3505",
+          "width": 64
+        }
+      ],
+      "name": "Ngana Zambi",
+      "release_date": "2021-02-22",
+      "release_date_precision": "day",
+      "type": "album",
+      "uri": "spotify:album:4ZgWBr16niSFDwCIiJ4iBk"
+    },
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/5jfz7uWPwf03hdEewW8AI8"
+        },
+        "href": "https://api.spotify.com/v1/artists/5jfz7uWPwf03hdEewW8AI8",
+        "id": "5jfz7uWPwf03hdEewW8AI8",
+        "name": "Wet Bed Gang",
+        "type": "artist",
+        "uri": "spotify:artist:5jfz7uWPwf03hdEewW8AI8"
+      }
+    ],
+    "disc_number": 1,
+    "duration_ms": 214654,
+    "explicit": false,
+    "external_ids": {
+      "isrc": "ES71G2103800"
+    },
+    "external_urls": {
+      "spotify": "https://open.spotify.com/track/4E7BWWaFUfafkyU8JOniFx"
+    },
+    "href": "https://api.spotify.com/v1/tracks/4E7BWWaFUfafkyU8JOniFx",
+    "id": "4E7BWWaFUfafkyU8JOniFx",
+    "is_local": false,
+    "is_playable": true,
+    "name": "Perseus",
+    "popularity": 42,
+    "preview_url": "https://p.scdn.co/mp3-preview/d62134878b56c38f895a2c608d8ab329310cbada?cid=774b29d4f13844c495f206cafdad9c86",
+    "track_number": 12,
+    "type": "track",
+    "uri": "spotify:track:4E7BWWaFUfafkyU8JOniFx"
+  },
+  "currently_playing_type": "track",
+  "actions": {
+    "disallows": {
+      "resuming": true,
+      "seeking": true,
+      "skipping_prev": true,
+      "skipping_next": true,
+      "interrupting_playback": true,
+      "transferring_playback": true
+    }
+  },
+  "is_playing": true
+};
+
+ /**
+  * Get the User's Currently Playing (Episode)
+  * 
+  * GET /v1/me/player/currently-playing
+  * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-the-users-currently-playing-track
+  */
+ const playingNowEpisode : SpotifyApi.CurrentlyPlayingResponse = {
+  "timestamp": 1614525764500,
+  "device": {
+    "id": "123456789",
+    "is_active": true,
+    "is_restricted": false,
+    "name": "Name Test",
+    "type": "Computer",
+    "volume_percent": 48
+  },
+  "context": {
+    "external_urls": {
+      "spotify": "https://open.spotify.com/show/5TsHqHjwAkyoUtDixSDjAv"
+    },
+    "href": "https://api.spotify.com/v1/shows/5TsHqHjwAkyoUtDixSDjAv",
+    "type": "show",
+    "uri": "spotify:show:5TsHqHjwAkyoUtDixSDjAv"
+  },
+  "progress_ms": 3210,
+  "item": {
+    "audio_preview_url": "https://p.scdn.co/mp3-preview/a5a9580f9c95680b56f6a9198e605c41cce1f6fd",
+    "description": "Com Luís Franco-Bastos",
+    "duration_ms": 278700,
+    "explicit": false,
+    "external_urls": {
+      "spotify": "https://open.spotify.com/episode/37tiGYf2ULC615a87yV9JO"
+    },
+    "href": "https://api.spotify.com/v1/episodes/37tiGYf2ULC615a87yV9JO",
+    "id": "37tiGYf2ULC615a87yV9JO",
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/076fddd53799dc18a13ad6055756e84f76ff6b06",
+        "width": 640
+      },
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/6b97b492af94872d757b4e273261f2f11dcb6df5",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/b691379f9095e81e658208650fa368a8ec83036b",
+        "width": 64
+      }
+    ],
+    "is_externally_hosted": false,
+    "is_playable": true,
+    "language": "pt-PT",
+    "languages": [
+      "pt-PT"
+    ],
+    "name": "RFM - Informação Privilegiada: ENTREVISTA AO SARS-COV-2",
+    "release_date": "2020-12-11",
+    "release_date_precision": "day",
+    "show": {
+      "available_markets": [
+        "AD",
+        "AE",
+        "AL",
+        "AR",
+        "AT",
+        "AU",
+        "BA",
+        "BE",
+        "BG",
+        "BH",
+        "BO",
+        "BR",
+        "CA",
+        "CH",
+        "CL",
+        "CO",
+        "CR",
+        "CY",
+        "CZ",
+        "DE",
+        "DK",
+        "DO",
+        "DZ",
+        "EC",
+        "EE",
+        "ES",
+        "FI",
+        "FR",
+        "GB",
+        "GR",
+        "GT",
+        "HK",
+        "HN",
+        "HR",
+        "HU",
+        "ID",
+        "IE",
+        "IL",
+        "IN",
+        "IS",
+        "IT",
+        "JO",
+        "JP",
+        "KW",
+        "LB",
+        "LI",
+        "LT",
+        "LU",
+        "LV",
+        "MA",
+        "MC",
+        "ME",
+        "MK",
+        "MT",
+        "MX",
+        "MY",
+        "NI",
+        "NL",
+        "NO",
+        "NZ",
+        "OM",
+        "PA",
+        "PE",
+        "PH",
+        "PL",
+        "PS",
+        "PT",
+        "PY",
+        "QA",
+        "RO",
+        "RS",
+        "SE",
+        "SG",
+        "SI",
+        "SK",
+        "SV",
+        "TH",
+        "TN",
+        "TR",
+        "TW",
+        "US",
+        "UY",
+        "VN",
+        "XK",
+        "ZA"
+      ],
+      "copyrights": [],
+      "description": "Todos os dias, Luís Franco-Bastos traz à RFM Informação Privilegiada. Uma entrevista, um depoimento, um comentário de alguém que todos os meios de comunicação queriam, mas a que só a RFM teve acesso. Esse alguém fica a cargo da imaginação e da voz do Luís - mails, processos e eventuais queixas ficam a cargo de advogadodarfm.naomechateiem@telepac.pt",
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/show/5TsHqHjwAkyoUtDixSDjAv"
+      },
+      "href": "https://api.spotify.com/v1/shows/5TsHqHjwAkyoUtDixSDjAv",
+      "id": "5TsHqHjwAkyoUtDixSDjAv",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/076fddd53799dc18a13ad6055756e84f76ff6b06",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/6b97b492af94872d757b4e273261f2f11dcb6df5",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/b691379f9095e81e658208650fa368a8ec83036b",
+          "width": 64
+        }
+      ],
+      "is_externally_hosted": false,
+      "languages": [
+        "pt"
+      ],
+      "media_type": "audio",
+      "name": "RFM - Informação Privilegiada",
+      "publisher": "RFM",
+      "total_episodes": 50,
+      "type": "show",
+      "uri": "spotify:show:5TsHqHjwAkyoUtDixSDjAv"
+    },
+    "type": "episode",
+    "uri": "spotify:episode:37tiGYf2ULC615a87yV9JO"
+  },
+  "currently_playing_type": "episode",
+  "actions": {
+    "disallows": {
+      "resuming": true,
+      "skipping_prev": true,
+      "toggling_repeat_context": true,
+      "toggling_repeat_track": true,
+      "toggling_shuffle": true
+    }
+  },
+  "is_playing": true
+};
+
 
 /**
  * Get an Album

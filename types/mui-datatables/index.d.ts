@@ -855,6 +855,7 @@ export interface MUIDataTableProps {
     data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions;
     title: string | React.ReactNode;
+    innerRef?: React.RefObject<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>;
 }
 
 export interface MUIDataTableExpandButton {

@@ -19,6 +19,8 @@ import {
     DoctorPatient,
     Hpi,
     CloudPakForApplications,
+    Bluepages,
+    ContentDesign
 } from '@carbon/pictograms-react';
 
 <Airplane />; // $ExpectType Element
@@ -41,3 +43,5 @@ import {
 <CloudPakForApplications />; // $ExpectType Element
 <AcceleratedComputing />; // $ExpectType Element
 <Dashboard />; // $ExpectType Element
+<Bluepages />; // $ExpectType Element
+<ContentDesign />; // $ExpectType Element

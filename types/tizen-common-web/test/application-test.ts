@@ -1,15 +1,10 @@
-import { application } from 'tizen-common-web';
-import { ApplicationControlLaunchMode, ApplicationInformation, ApplicationControl } from 'tizen-common-web/application';
-import { WebAPIError } from 'tizen-common-web/tizen';
+import { application, ApplicationControl, ApplicationInformation, WebAPIError } from 'tizen-common-web';
 
 const app = application.getCurrentApplication();
 const watchId = app.addEventListener({ appId: app.appInfo.id, name: 'custom_user_event' }, (event, data) => {
     console.log('Data: ' + JSON.stringify(data));
     // Do something.
 });
-
-ApplicationControlLaunchMode.GROUP;
-ApplicationControlLaunchMode.SINGLE;
 
 const appControl = new ApplicationControl('http://tizen.org/appcontrol/operation/pick', 'null', 'image/jpeg', 'null');
 

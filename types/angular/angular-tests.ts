@@ -273,12 +273,8 @@ $httpProvider.xsrfTrustedOrigins = ['https://example.com'];
 
 let $sceDelegateProvider: ng.ISCEDelegateProvider;
 let urlList: any[];
-urlList = $sceDelegateProvider.resourceUrlBlacklist();
-$sceDelegateProvider.resourceUrlBlacklist(['https://example.com']);
 urlList = $sceDelegateProvider.bannedResourceUrlList();
 $sceDelegateProvider.bannedResourceUrlList(['https://example.com']);
-urlList = $sceDelegateProvider.resourceUrlWhitelist();
-$sceDelegateProvider.resourceUrlWhitelist(['https://example.com']);
 urlList = $sceDelegateProvider.trustedResourceUrlList();
 $sceDelegateProvider.trustedResourceUrlList(['https://example.com']);
 

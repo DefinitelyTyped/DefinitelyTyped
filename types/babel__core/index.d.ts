@@ -551,6 +551,7 @@ export function loadOptions(options?: TransformOptions): object | null;
  * information about `ConfigItem` fields.
  */
 export function loadPartialConfig(options?: TransformOptions): Readonly<PartialConfig> | null;
+export function loadPartialConfigAsync(options?: TransformOptions): Promise<Readonly<PartialConfig> | null>;
 
 export interface PartialConfig {
     options: TransformOptions;

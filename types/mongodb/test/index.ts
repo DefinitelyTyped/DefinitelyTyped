@@ -105,3 +105,17 @@ const gridFSBucketTests = (bucket: mongodb.GridFSBucket) => {
 
 // Compression
 const compressedClient = new mongodb.MongoClient(url, { compression: { compressors: ['zlib', 'snappy'] } });
+
+// Client-Side Field Level Encryption
+const keyVaultNamespace = 'encryption.__keyVault';
+const secureClient = new mongodb.MongoClient(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    monitorCommands: true,
+    autoEncryption: {
+        keyVaultNamespace,
+        kmsProviders: {},
+        schemaMap: {},
+        extraOptions: {},
+    },
+});

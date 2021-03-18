@@ -594,7 +594,7 @@ export class ESLint {
 
     static getErrorResults(results: ESLint.LintResult[]): ESLint.LintResult[];
 
-    constructor(options: ESLint.Options);
+    constructor(options?: ESLint.Options);
 
     lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
 

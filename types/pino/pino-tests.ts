@@ -182,6 +182,17 @@ const pretty = pino({
     },
 });
 
+const withMessageFormatFunc = pino({
+    prettyPrint: {
+        ignore: 'requestId',
+        messageFormat: (log, messageKey) => {
+            const message = log[messageKey];
+            if (log.requestId) return `[${log.requestId}] ${message}`;
+            return message;
+        },
+    },
+});
+
 const withTimeFn = pino({
     timestamp: pino.stdTimeFunctions.isoTime,
 });

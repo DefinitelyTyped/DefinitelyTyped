@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
-import { VueConstructor } from 'vue';
+import { VueConstructor, ComponentOptions } from 'vue';
 import { ExtendedVue } from 'vue/types/vue';
 
 export default VueSelect;
@@ -22,14 +22,14 @@ interface ClearSearchOnBlurParameters {
 }
 
 interface CalculatedPosition {
-    width: number;
-    top: number;
-    left: number;
+    width: string;
+    top: string;
+    left: string;
 }
 
 export interface VueSelectProps {
     value: VueSelectOption;
-    components: Record<ChildComponentName, VueConstructor>;
+    components: Record<ChildComponentName, VueConstructor | ComponentOptions<Vue>>;
     options: VueSelectOption[];
     disabled: boolean;
     clearable: boolean;
@@ -52,9 +52,9 @@ export interface VueSelectProps {
     pushTags: boolean;
     filterable: boolean;
     filterBy: (option: VueSelectOption, label: string, search: string) => boolean;
-    filter: (options: ReadonlyArray<VueSelectOption>, search: string) => VueSelectOption[];
+    filter: (options: readonly VueSelectOption[], search: string) => VueSelectOption[];
     createOption: (option: string) => VueSelectOption;
-    resetOnOptionsChange: boolean | ((newOptions: ReadonlyArray<VueSelectOption>, oldOptions: ReadonlyArray<VueSelectOption>, selectedValue: ReadonlyArray<VueSelectOption>) => boolean);
+    resetOnOptionsChange: boolean | ((newOptions: readonly VueSelectOption[], oldOptions: readonly VueSelectOption[], selectedValue: readonly VueSelectOption[]) => boolean);
     clearSearchOnBlur: (parameters: ClearSearchOnBlurParameters) => boolean;
     noDrop: boolean;
     inputId: string | null;
@@ -233,4 +233,12 @@ type ComputedValues = {
     [K in keyof VueSelectComputed]: ReturnType<VueSelectComputed[K]>;
 };
 
-export type VueSelectInstance = InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>>;
+export type VueSelectInstance = InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>> & {
+    $refs: {
+        toggle: HTMLDivElement;
+        selectedOptions: HTMLDivElement;
+        actions: HTMLDivElement;
+        clearButton: HTMLButtonElement;
+        dropdownMenu: HTMLUListElement | undefined;
+    };
+};

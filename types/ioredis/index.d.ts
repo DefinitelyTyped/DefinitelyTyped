@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.19
+// Type definitions for ioredis 4.22
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -1147,7 +1147,7 @@ declare namespace IORedis {
 
         xrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xread: OverloadedListCommand<ValueType, Array<[string, string[]]>>;
+        xread: OverloadedListCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
         xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
@@ -1871,6 +1871,8 @@ declare namespace IORedis {
     interface ScanStreamOption {
         match?: string;
         count?: number;
+        type?: string;
+        key?: string;
     }
 
     type DNSLookupFunction = (

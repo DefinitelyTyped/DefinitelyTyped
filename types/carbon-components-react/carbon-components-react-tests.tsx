@@ -612,11 +612,22 @@ const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" t
 const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue => newValue.value} />;
 
 // Tag
-const ChipTagFilterUndef = <Tag />;
+{
+    const ChipTagFilterUndef = <Tag />;
 
-const ChipTagFalse = <Tag filter={false} />;
+    const TagCustomComp1: React.FC = () => <div />;
+    const ChipTagIcon1 = <Tag renderIcon={TagCustomComp1} size="sm" />;
 
-const FilterTag = <Tag filter onClose={() => {}} />;
+    const TagCustomComp2: React.FC<{ optionalProp?: string }> = () => <div />;
+    const ChipTagIcon2 = <Tag renderIcon={TagCustomComp2} />;
+
+    class TagCustomComp3 extends React.Component {}
+    const ChipTagIcon3 = <Tag renderIcon={TagCustomComp3} />;
+
+    const ChipTagFalse = <Tag filter={false} />;
+
+    const FilterTag = <Tag filter onClose={() => {}} />;
+}
 
 // TextArea
 const textAreaWithDefaultRef = <TextArea labelText="" />;

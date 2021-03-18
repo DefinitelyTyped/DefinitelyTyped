@@ -21,6 +21,7 @@
         "index.d.ts",
         "k6-tests.ts",
         "test/crypto.ts",
+        "test/data.ts",
         "test/encoding.ts",
         "test/global.ts",
         "test/grpc.ts",

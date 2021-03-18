@@ -58,7 +58,7 @@ you can import them normally:
 
 import { Cookies } from 'cookies';
 
-function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
+function onClientRequest(request: EW.IngressClientRequest) {
     const cookie = new Cookies(request.getHeader('cookies') || undefined);
     //...
 }

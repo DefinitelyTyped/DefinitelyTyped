@@ -74,10 +74,15 @@ declare namespace Autosuggest {
         highlightedSuggestion: TSuggestion;
     }
 
+    interface RenderInputComponentProps extends React.InputHTMLAttributes<any> {
+        value: string;
+        ref?: React.Ref<HTMLInputElement>;
+    }
+
     interface InputProps<TSuggestion>
-        extends Omit<React.InputHTMLAttributes<any>, 'onChange' | 'onBlur'> {
-        onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
-        onBlur?(event: React.FocusEvent<any>, params?: BlurEvent<TSuggestion>): void;
+        extends Omit<React.InputHTMLAttributes<HTMLElement>, 'onChange' | 'onBlur'> {
+        onChange(event: React.FormEvent<HTMLElement>, params: ChangeEvent): void;
+        onBlur?(event: React.FocusEvent<HTMLElement>, params?: BlurEvent<TSuggestion>): void;
         value: string;
         ref?: React.Ref<HTMLInputElement>;
     }
@@ -134,7 +139,7 @@ declare namespace Autosuggest {
         event: React.FormEvent<any>,
         data: SuggestionSelectedEventData<TSuggestion>,
     ) => void;
-    type RenderInputComponent<TSuggestion> = (inputProps: InputProps<TSuggestion>) => React.ReactNode;
+    type RenderInputComponent = (inputProps: RenderInputComponentProps) => React.ReactNode;
     type RenderSuggestionsContainer = (params: RenderSuggestionsContainerParams) => React.ReactNode;
     type RenderSectionTitle = (section: any) => React.ReactNode;
     type RenderSuggestion<TSuggestion> = (
@@ -191,7 +196,7 @@ declare namespace Autosuggest {
         /**
          * Use it only if you need to customize the rendering of the input.
          */
-        renderInputComponent?: RenderInputComponent<TSuggestion>;
+        renderInputComponent?: RenderInputComponent;
         /**
          * Use it if you want to customize things inside the suggestions container beyond rendering the suggestions themselves.
          */

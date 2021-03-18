@@ -9,9 +9,7 @@
 //                 TMTron <https://github.com/tmtron>
 //                 dwhitney <https://github.com/dwhitney>
 //                 Ruixuel <https://github.com/ruixuel>
-//                 Robert <https://github.com/robert-wettstaedt>
 //                 trajnisz <https://github.com/trajnisz>
-//                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

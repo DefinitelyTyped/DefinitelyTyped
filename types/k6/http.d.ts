@@ -242,7 +242,7 @@ export interface Params {
     tags?: { [name: string]: string };
 
     /** Request timeout. */
-    timeout?: number;
+    timeout?: string | number;
 }
 
 /**
@@ -275,7 +275,7 @@ export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 /**
  * Request body.
  */
-export type RequestBody = string | StructuredRequestBody;
+export type RequestBody = string | StructuredRequestBody | ArrayBuffer;
 
 /**
  * Structured request body. May include file uploads.
