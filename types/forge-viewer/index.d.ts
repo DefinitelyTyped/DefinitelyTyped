@@ -137,6 +137,7 @@ declare namespace Autodesk {
           COMMANDMOZ = 224,
         }
 
+        // tslint:disable-next-line no-unnecessary-class
         class DefaultSettings {
           static alwaysUsePivot: boolean;
           static ambientShadows: boolean;
