@@ -8,7 +8,7 @@
 import { RequestOptions as HttpsRequestOptions } from "https";
 import { RequestOptions as HttpRequestOptions } from "http";
 
-import { SourceMapGenerator } from "source-map";
+import { RawSourceMap, SourceMapGenerator } from "source-map";
 
 /**
  * Shared options passed when initializing a new instance of CleanCSS that returns either a promise or output
@@ -614,7 +614,7 @@ declare namespace CleanCSS {
             /**
              * The source map of the file, if needed
              */
-            sourceMap?: string;
+            sourceMap?: RawSourceMap | string;
         };
     }
 
@@ -638,13 +638,13 @@ declare namespace CleanCSS {
      */
     interface MinifierOutput {
         minify(sources: Sources, callback?: (error: any, output: Output) => void): Output;
-        minify(sources: Sources, sourceMap: string, callback?: (error: any, output: Output) => void): Output;
+        minify(sources: Sources, sourceMap: RawSourceMap | string, callback?: (error: any, output: Output) => void): Output;
     }
     /**
      * Interface exposed when a new CleanCSS object is created with returnPromise set to true
      */
     interface MinifierPromise {
-        minify(sources: Sources, sourceMap?: string): Promise<Output>;
+        minify(sources: Sources, sourceMap?: RawSourceMap | string): Promise<Output>;
     }
 
     /**
