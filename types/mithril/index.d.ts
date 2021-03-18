@@ -23,7 +23,7 @@ declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Prom
 declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // tslint:disable-line:no-unnecessary-generics
 
 declare namespace Mithril {
-    interface Lifecycle<Attrs, State> {
+    interface Lifecycle<Attrs, State extends Lifecycle<Attrs, State>> {
         /** The oninit hook is called before a vnode is touched by the virtual DOM engine. */
         oninit?(this: State, vnode: Vnode<Attrs, State>): any;
         /** The oncreate hook is called after a DOM element is created and attached to the document. */
@@ -46,9 +46,9 @@ declare namespace Mithril {
         /** Creates a virtual element (Vnode). */
         (selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
         /** Creates a virtual element (Vnode). */
-        <Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
+        <Attrs, State extends Lifecycle<Attrs, State>>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
         /** Creates a virtual element (Vnode). */
-        <Attrs, State>(
+        <Attrs, State extends Lifecycle<Attrs, State>>(
             component: ComponentTypes<Attrs, State>,
             attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number },
             ...args: Children[]
@@ -59,7 +59,7 @@ declare namespace Mithril {
         trust(html: string): Vnode<any, any>;
     }
 
-    interface RouteResolver<Attrs = {}, State = {}> {
+    interface RouteResolver<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> {
         /** The onmatch hook is called when the router needs to find a component to render. */
         onmatch?(
             this: this,

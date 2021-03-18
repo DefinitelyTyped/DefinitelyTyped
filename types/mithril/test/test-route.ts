@@ -17,6 +17,7 @@ interface Attrs {
 }
 
 interface State {
+    [_: number]: any;
     text: string;
 }
 
@@ -32,6 +33,7 @@ const component3: m.Comp<Attrs, State> = {
 };
 
 class Component4 implements m.ClassComponent<Attrs> {
+    [_: number]: any;
     view({ attrs }: m.Vnode<Attrs>) {
         return m('p', 'id: ' + attrs.id);
     }
@@ -46,6 +48,7 @@ const component5: m.FactoryComponent<Attrs> = () => {
 };
 
 interface RRState {
+    [_: number]: any;
     message: string;
 }
 

@@ -155,6 +155,7 @@ function comp4(): Component<Comp4Attrs> {
 // Uses vnode.state instead of closure.
 //
 interface Comp5State {
+    [_: number]: any;
     count: number;
     add(num: number): void;
 }

@@ -10,6 +10,7 @@ const PojoComp: m.Component<Attrs> = {
 };
 
 class ClassComp implements m.ClassComponent<Attrs> {
+    [_: number]: any;
     view({attrs}: m.Vnode<Attrs>) {
         return <p class="abc">{attrs.text}</p>;
     }

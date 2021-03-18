@@ -111,6 +111,7 @@ interface Comp4Attrs {
 }
 
 interface Comp4State {
+    [_: number]: any;
     count: number;
     add(this: Comp4State, num: number): void;
 }
@@ -181,6 +182,7 @@ interface Attrs {
 }
 
 interface State {
+    [_: number]: any;
     count: number;
 }
 

@@ -5,6 +5,7 @@ import * as m from 'mithril';
 // Simplest component example - no attrs or state.
 //
 class Comp0 implements m.ClassComponent {
+    [_: number]: any;
     constructor(vnode: m.CVnode) {}
     view() {
         return m('span', 'Test');
@@ -22,6 +23,7 @@ m.mount(document.getElementById('comp0')!, null);
 // Simple example with lifecycle methods.
 //
 class Comp1 implements m.ClassComponent {
+    [_: number]: any;
     oninit(vnode: m.CVnode) {}
     oncreate({ dom }: m.CVnodeDOM) {}
     view(vnode: m.CVnode) {
@@ -39,6 +41,7 @@ interface Comp2Attrs {
 }
 
 class Comp2 implements m.ClassComponent<Comp2Attrs> {
+    [_: number]: any;
     view({ attrs: { title, description } }: m.CVnode<Comp2Attrs>) {
         return [m('h2', title), m('p', description)];
     }
@@ -51,6 +54,7 @@ class Comp2 implements m.ClassComponent<Comp2Attrs> {
 // lifecycle method.
 //
 class Comp3 implements m.ClassComponent<{ pageHead: string }> {
+    [_: number]: any;
     oncreate({ dom }: m.CVnodeDOM<{ pageHead: string }>) {
         // Can do stuff with dom
     }
@@ -83,6 +87,7 @@ interface Comp4Attrs {
 }
 
 class Comp4 implements m.ClassComponent<Comp4Attrs> {
+    [_: number]: any;
     count: number;
     constructor(vnode: m.CVnode<Comp4Attrs>) {
         this.count = 0;
@@ -126,6 +131,7 @@ export interface Attrs {
 }
 
 export default class MyComponent implements m.ClassComponent<Attrs> {
+    [_: number]: any;
     count = 0;
     view({ attrs }: m.CVnode<Attrs>) {
         return m('span', `name: ${attrs.name}, count: ${this.count}`);
