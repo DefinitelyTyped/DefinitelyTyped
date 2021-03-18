@@ -146,7 +146,7 @@ declare namespace NodeIPC {
          * This is where socket connection refrences will be stored when connecting to them as a client via the ipc.connectTo
          * or iupc.connectToNet. They will be stored based on the ID used to create them, eg : ipc.of.mySocket
          */
-        of: any;
+        of: {[id: string]: Client};
         /**
          * This is a refrence to the server created by ipc.serve or ipc.serveNet
          */
@@ -335,7 +335,7 @@ declare namespace NodeIPC {
             private?: string;
         };
     }
-}
+};
 
 declare const RootIPC: NodeIPC.IPC & { IPC: new () => NodeIPC.IPC };
 

@@ -57,6 +57,8 @@ ipc.of.world.on("disconnect", () => { });
 ipc.of.world.on("data", (buf: Buffer) => { buf.byteLength; });
 ipc.of.world.on("socket.disconnected", (socket: Socket, id: string) => { id.toLowerCase(); });
 ipc.of.world.on("message", (data: any, data2: any) => { });
+ipc.of.world.emit("message");
+ipc.of.world.emit("message", "123");
 ipc.server.emit("event", [1, 2, 3]);
 const myBuffer = new Buffer(6).fill(0);
 declare const socket: Socket;
