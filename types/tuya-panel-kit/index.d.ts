@@ -1,4 +1,4 @@
-// Type definitions for tuya-panel-kit 4.5
+// Type definitions for tuya-panel-kit 4.0
 // Project: https://github.com/TuyaInc/tuya-panel-kit#readme
 // Definitions by: youngjuning <https://github.com/youngjuning>
 //                 ShinyLeee <https://github.com/ShinyLeee>
