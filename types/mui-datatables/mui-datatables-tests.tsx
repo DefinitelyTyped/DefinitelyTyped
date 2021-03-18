@@ -1,4 +1,4 @@
-import MUIDataTable, { ExpandButton, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps } from 'mui-datatables';
+import MUIDataTable, { ExpandButton, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps, MUIDataTableState } from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends Omit<MUIDataTableProps, 'columns'> {
@@ -7,6 +7,7 @@ interface Props extends Omit<MUIDataTableProps, 'columns'> {
 
 const MuiCustomTable: React.FC<Props> = props => {
     const data: string[][] = props.data.map((asset: any) => Object.values(asset));
+    const tableRef = React.useRef<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>();
     const columns: MUIDataTableColumn[] = [
         {
             name: 'id',
@@ -172,7 +173,7 @@ const MuiCustomTable: React.FC<Props> = props => {
         },
     };
 
-    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />;
+    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} innerRef={tableRef} />;
 };
 
 const TableFruits = [

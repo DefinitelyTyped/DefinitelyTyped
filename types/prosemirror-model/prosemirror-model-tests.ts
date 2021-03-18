@@ -2,7 +2,14 @@ import * as model from 'prosemirror-model';
 
 const fragment = new model.Fragment();
 
+const divNode = document.createElement('div');
+const parentDivNode = document.createElement('div');
+
 let domOutputSpec: model.DOMOutputSpec;
+
+domOutputSpec = divNode;
+
+domOutputSpec = 'text';
 
 domOutputSpec = ['div'];
 domOutputSpec = ['div', { class: 'foo' }];
@@ -13,6 +20,9 @@ domOutputSpec = ['div', 0];
 domOutputSpec = ['div', ['div', 0]];
 domOutputSpec = ['div', ['div', { class: 'foo' }]];
 domOutputSpec = ['div', ['div', { class: 'foo' }, 0]];
+
+domOutputSpec = {dom: divNode};
+domOutputSpec = {dom: divNode, contentDOM: parentDivNode};
 
 export const nodeSpec: model.NodeSpec = {
     attrs: {

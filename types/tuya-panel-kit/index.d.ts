@@ -1860,23 +1860,27 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 图片资源
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description image source
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     imageSource?: object | number;
     /**
      * @language zh-CN
      * @description 图片样式
+     * @addVersion 4.3.0
      * @defaultValue undefined
      * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      */
     /**
      * @language en-US
      * @description image style
+     * @addVersion 4.3.0
      * @defaultValue undefined
      * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      */
@@ -1884,22 +1888,26 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 图标路径
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description icon path
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     iconPath?: string;
     /**
      * @language zh-CN
      * @description 图标尺寸
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description icon size
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     iconSize?: number;
@@ -2221,8 +2229,15 @@ type IconFontName =
     | 9
     | 'power'
     | 'arrow'
+    | '+'
+    | '-'
+    | '.'
+    | ':'
+    | ','
     | 'celsius'
     | 'fahrenheit'
+    | '%'
+    | 'edit'
     | 'minus'
     | 'plus'
     | 'error'
@@ -2240,7 +2255,17 @@ type IconFontName =
     | 'volumeMax'
     | 'volumeMuteBorder'
     | 'volumeMaxBorder'
-    | 'help';
+    | 'help'
+    | 'pen'
+    | 'notice-sharp'
+    | 'selected-sharp'
+    | 'unselected-sharp'
+    | 'volume-sharp-off'
+    | 'volume-sharp-max'
+    | 'volume-border-2'
+    | 'volume-border-1'
+    | 'volume-border-off'
+    | 'help-sharp';
 
 export interface IconFontProps {
     /**
@@ -4273,7 +4298,7 @@ export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 
 }
 export interface PopupNumberSelectorProps
     extends Omit<PopupProps, 'onLayout' | 'animationType'>,
-        Omit<SliderProps, 'theme'> {
+        Omit<SliderProps, 'theme' | 'type'> {
     /**
      * @language zh-CN
      * @description numberSelector弹框样式
@@ -6135,6 +6160,19 @@ export interface SliderProps {
         touchArea?: StyleProp<ViewStyle>;
         debugThumbTouchArea?: StyleProp<ViewStyle>;
     };
+    /**
+     * @language zh-CN
+     * @description 滑块的类型，parcel：包裹类型
+     * @addVersion 4.4.0
+     * @defaultValue normal
+     */
+    /**
+     * @language en-US
+     * @description The type of slider, parcel: package type
+     * @addVersion 4.4.0
+     * @defaultValue normal
+     */
+    type?: 'normal' | 'parcel';
 }
 export class Slider extends React.Component<SliderProps> {
     static Horizontal: React.ElementType<SliderProps>;
@@ -10039,6 +10077,7 @@ export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 // i18n
 export class I18N {
     constructor(...args: any[]);
+    language: string;
     getDpLang: (code: string, value?: string | boolean) => string;
     getLang: (key: string, defaultString?: string) => string;
     getRangeStrings: (dpCode: string) => Record<string, string>;
@@ -10357,6 +10396,8 @@ export interface DevInfo<S = Record<string, DpType>> {
     vendorInfo: string;
     verSw: string;
     virtual: boolean;
+    parentId?: string;
+    groupId?: string;
 }
 
 export type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
@@ -10687,6 +10728,24 @@ export let TYSdk: {
          */
         hideLoading(): void;
         is24Hour(): boolean;
+
+        /**
+         * 跳转面板原生事件
+         */
+        uiIdNavEventEmitter: {
+            createEmitter(): void;
+            addListener(listener: AnyFunction): void;
+            removeEmitter(): void;
+            registerEventListener(): void;
+            sendEvent(props: any): void;
+            /**
+             * 跳转面板, 等同于jumpSubPage, 只是传参形式的区别
+             * @param uiId uiid
+             * @param props 携带参数
+             */
+            pushWithUiID(uiId: string, props: any): void;
+        };
+
         /**
          * @desc 根据 uiId 跳转二级页面
          */

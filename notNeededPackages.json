@@ -41,6 +41,11 @@
             "asOfVersion": "3.2.0"
         },
         {
+            "libraryName": "agenda",
+            "typingsPackageName": "agenda",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "aggregate-error",
             "typingsPackageName": "aggregate-error",
             "asOfVersion": "2.2.0"
@@ -479,6 +484,11 @@
             "libraryName": "chunked-dc",
             "typingsPackageName": "chunked-dc",
             "asOfVersion": "0.2.2"
+        },
+        {
+            "libraryName": "ci-info",
+            "typingsPackageName": "ci-info",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "clean-stack",
@@ -1677,6 +1687,11 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "http-proxy-middleware",
+            "typingsPackageName": "http-proxy-middleware",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "http-status",
             "typingsPackageName": "http-status",
             "asOfVersion": "1.1.1"
@@ -2297,6 +2312,11 @@
             "asOfVersion": "1.1.11"
         },
         {
+            "libraryName": "leaflet-geosearch",
+            "typingsPackageName": "leaflet-geosearch",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "leap-year",
             "typingsPackageName": "leap-year",
             "asOfVersion": "3.0.0"
@@ -2460,6 +2480,11 @@
             "libraryName": "maquette",
             "typingsPackageName": "maquette",
             "asOfVersion": "2.1.6"
+        },
+        {
+            "libraryName": "markdown-escapes",
+            "typingsPackageName": "markdown-escapes",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "markdown-it-anchor",
@@ -2815,6 +2840,11 @@
             "libraryName": "nblas",
             "typingsPackageName": "nblas",
             "asOfVersion": "2.1.6"
+        },
+        {
+            "libraryName": "neat-csv",
+            "typingsPackageName": "neat-csv",
+            "asOfVersion": "5.1.0"
         },
         {
             "libraryName": "neffos.js",
@@ -5016,6 +5046,11 @@
             "libraryName": "webpack-chain",
             "typingsPackageName": "webpack-chain",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "webpack-merge",
+            "typingsPackageName": "webpack-merge",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "typescript",

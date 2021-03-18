@@ -8,7 +8,6 @@
 //                 Alex Dunne <https://github.com/alexdunne>
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
-//                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
 //                 Kacper Wiszczuk <https://github.com/esemesek>
 //                 Ryan Nickel <https://github.com/mrnickel>
@@ -6574,9 +6573,9 @@ export interface ScrollViewPropsIOS {
     pinchGestureEnabled?: boolean;
 
     /**
-     * This controls how often the scroll event will be fired while scrolling (in events per seconds).
-     * A higher number yields better accuracy for code that is tracking the scroll position,
-     * but can lead to scroll performance problems due to the volume of information being send over the bridge.
+     * This controls how often the scroll event will be fired while scrolling (as a time interval in ms).
+     * A lower number yields better accuracy for code that is tracking the scroll position,
+     * but can lead to scroll performance problems due to the volume of information being sent over the bridge.
      * The default value is zero, which means the scroll event will be sent only once each time the view is scrolled.
      */
     scrollEventThrottle?: number; // null

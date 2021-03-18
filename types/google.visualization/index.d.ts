@@ -523,7 +523,7 @@ declare namespace google {
             ticks?: any[];
             title?: string;
             titleTextStyle?: ChartTextStyle;
-            allowContainerBoundaryTextCufoff?: boolean;
+            allowContainerBoundaryTextCutoff?: boolean;
             slantedText?: boolean;
             slantedTextAngle?: number;
             maxAlternation?: number;

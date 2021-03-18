@@ -43,6 +43,7 @@ export type BuiltInParserName =
     | 'css'
     | 'espree'
     | 'flow'
+    | 'glimmer'
     | 'graphql'
     | 'html'
     | 'json-stringify'

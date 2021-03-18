@@ -11,6 +11,7 @@
 //                 Isabela Morais <https://github.com/isabela-morais>
 //                 Raimondo Butera <https://github.com/rbutera>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Dan Ursin <https://github.com/danursin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
@@ -947,7 +948,7 @@ export interface DatabaseClientOptions extends BaseClientOptions {}
 
 export interface PasswordLessClientOptions extends BaseClientOptions {}
 
-export interface TokenManagerOptions extends BaseClientOptions {
+export interface TokensManagerOptions extends BaseClientOptions {
     clientSecret?: string;
     headers?: any;
 }
@@ -1062,7 +1063,7 @@ export class AuthenticationClient {
     database?: DatabaseAuthenticator;
     oauth?: OAuthAuthenticator;
     passwordless?: PasswordlessAuthenticator;
-    tokens?: TokenManager;
+    tokens?: TokensManager;
     users?: UsersManager;
 
     constructor(options: AuthenticationClientOptions);
@@ -1339,6 +1340,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     unblockUserByIdentifier(params: ObjectWithIdentifier, cb: (err: Error, response: string) => void): void;
 
     // Tokens
+    getAccessToken(): Promise<string>;
+
     getBlacklistedTokens(): Promise<any>;
     getBlacklistedTokens(cb?: (err: Error, data: any) => void): void;
 
@@ -1515,8 +1518,8 @@ export interface RevokeRefreshTokenOptions {
     token: string;
 }
 
-export class TokenManager {
-    constructor(options: TokenManagerOptions);
+export class TokensManager {
+    constructor(options: TokensManagerOptions);
 
     revokeRefreshToken(data: RevokeRefreshTokenOptions): Promise<void>;
     revokeRefreshToken(data: RevokeRefreshTokenOptions, cb: (err: Error) => void): void;

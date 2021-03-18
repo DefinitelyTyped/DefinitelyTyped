@@ -8,9 +8,9 @@ render(<ReactAudioPlayer />, appContainer);
 
 render(<ReactAudioPlayer src="/files/George_Gershwin_playing_Rhapsody_in_Blue.ogg" controls />, appContainer);
 
-let rap: ReactAudioPlayer | null = null;
-render(
-    <ReactAudioPlayer
+function test(rap: ReactAudioPlayer | null) {
+    render(
+        <ReactAudioPlayer
         ref={r => {
             rap = r;
         }}
@@ -20,13 +20,14 @@ render(
         onError={() => {}}
         title="Fur Elise"
         volume={10}
-    />,
-    appContainer,
-);
+            />,
+        appContainer,
+    );
 
-if (rap !== null) {
-    rap!.clearListenTrack();
-    rap!.setListenTrack();
-    rap!.updateVolume(5);
-    rap!.audioEl.pause();
+    if (rap !== null) {
+        rap.clearListenTrack();
+        rap.setListenTrack();
+        rap.updateVolume(5);
+        rap.audioEl.pause();
+    }
 }

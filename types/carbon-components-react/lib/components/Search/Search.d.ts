@@ -1,12 +1,15 @@
 import * as React from "react";
 import { ReactInputAttr, CarbonInputSize, SizingProps } from "../../../typings/shared";
 
-type ExcludedAttributes = "defaultValue" | "placeholder" | "ref" | "size" | "value";
+type ExcludedAttributes = "defaultValue" | "ref" | "size" | "value";
 
 export interface SearchProps extends Omit<ReactInputAttr, ExcludedAttributes> {
     closeButtonLabelText?: string,
     defaultValue?: string | number,
     labelText: NonNullable<React.ReactNode>,
+    /**
+     * @deprecated
+     */
     placeHolderText?: string,
     size?: CarbonInputSize,
     /**
