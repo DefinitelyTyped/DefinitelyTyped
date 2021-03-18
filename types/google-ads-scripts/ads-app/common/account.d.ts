@@ -1,4 +1,4 @@
-// Type definitions for Google Ads Scripts 2021-02-25
+// Type definitions for Google Ads Scripts
 // Project: https://developers.google.com/google-ads/scripts
 // Definitions by: JJPell <https://github.com/JJPell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
