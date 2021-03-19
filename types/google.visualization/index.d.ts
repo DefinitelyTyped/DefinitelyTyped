@@ -476,7 +476,7 @@ declare namespace google {
         export interface ChartStrokeOpacity extends ChartStroke {
             strokeOpacity?: number;
         }
-
+        
         export interface ChartFill {
             fill?: string;
             fillOpacity?: number;
