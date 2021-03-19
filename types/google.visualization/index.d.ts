@@ -1368,7 +1368,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
         export interface CalendarOptions {
-            calendar: {
+            calendar?: {
                 cellColor: Object;
                 cellSize: number;
                 dayOfWeekLabel: Object;
@@ -1382,18 +1382,19 @@ declare namespace google {
                 unusedMonthOutlineColor: Object;
             };
             colorAxis?: {
-                colors: string[];
-                maxValue: number;
-                minValue: number;
-                values: number[];
+                colors?: string[];
+                maxValue?: number;
+                minValue?: number;
+                values?: number[];
             };
             forceIFrame?: boolean;
             height?: number;
             noDataPattern?: Object;
-            tooltip: {
+            tooltip?: {
                 isHtml: boolean;
             };
             width?: number;
+            title?: string;
         }
 
         //#endregion
