@@ -3,7 +3,7 @@
 // Definitions by: James Hill <https://github.com/jhukdev>
 //                Michel Albers <https://github.com/michelalbers>
 //                Joe Flateau <https://github.com/joeflateau>
-//                Yuichiro Tsuchiya <https://github.com/tuttieee>
+//                Yuichiro Tsuchiya <https://github.com/whitphx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
