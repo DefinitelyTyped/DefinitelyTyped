@@ -60,8 +60,23 @@ declare namespace kurento {
 
     type Callback<T> = (error: Error, result: T) => void;
 
+    // Ref: https://github.com/Kurento/kurento-client-elements-js/blob/master/lib/complexTypes/MediaProfileSpecType.js
+    type MediaProfileSpecType =
+        | 'WEBM'
+        | 'MKV'
+        | 'MP4'
+        | 'WEBM_VIDEO_ONLY'
+        | 'WEBM_AUDIO_ONLY'
+        | 'MKV_VIDEO_ONLY'
+        | 'MKV_AUDIO_ONLY'
+        | 'MP4_VIDEO_ONLY'
+        | 'MP4_AUDIO_ONLY'
+        | 'JPEG_VIDEO_ONLY'
+        | 'KURENTO_SPLIT_RECORDER';
+
     interface RecorderEndpointOptions {
         uri: string;
+        mediaProfile?: MediaProfileSpecType;
         stopOnEndOfStream?: boolean;
     }
 
