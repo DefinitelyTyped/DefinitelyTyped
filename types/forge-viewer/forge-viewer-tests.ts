@@ -88,15 +88,15 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
 
 async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.DataVisualization') as Autodesk.Extensions.DataVisualization;
-    const heatmapData = new Autodesk.DataVisualization.SurfaceShadingData();
-    const level = new Autodesk.DataVisualization.SurfaceShadingGroup('level');
-    const room1 = new Autodesk.DataVisualization.SurfaceShadingNode('room1', 2120);
+    const heatmapData = new Autodesk.DataVisualization.Core.SurfaceShadingData();
+    const level = new Autodesk.DataVisualization.Core.SurfaceShadingGroup('level');
+    const room1 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room1', 2120);
 
-    room1.addPoint(new Autodesk.DataVisualization.SurfaceShadingPoint('sensor1', { x: 10, y: 10, z: 0 }, [ 'temperature' ]));
+    room1.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor1', { x: 10, y: 10, z: 0 }, [ 'temperature' ]));
     level.addChild(room1);
-    const room2 = new Autodesk.DataVisualization.SurfaceShadingNode('room2', 2121);
+    const room2 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room2', 2121);
 
-    room2.addPoint(new Autodesk.DataVisualization.SurfaceShadingPoint('sensor2', { x: 20, y: 20, z: 0 }, [ 'temperature' ]));
+    room2.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor2', { x: 20, y: 20, z: 0 }, [ 'temperature' ]));
     level.addChild(room2);
     heatmapData.addChild(level);
     heatmapData.initialize(viewer.model);
