@@ -1,4 +1,4 @@
-import textFit from "textfit";
+import textFit = require("textfit");
 
 const element = document.createElement("div");
 
