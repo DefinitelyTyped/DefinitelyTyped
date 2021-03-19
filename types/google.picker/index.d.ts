@@ -271,6 +271,27 @@ declare namespace google {
         }
 
         /**
+         * https://developers.google.com/picker/docs/reference#service-id
+         */
+        export enum ServiceId {
+            DOCS = "docs",
+            MAPS = "maps",
+            PHOTOS = "picasa",
+            SEARCH_API = "search-api",
+            URL = "url",
+            YOUTUBE = "youtube",
+        }
+
+        /**
+         * https://developers.google.com/picker/docs/reference#thumbnail
+         */
+        export enum Thumbnail {
+            HEIGHT = "height",
+            WIDTH = "width",
+            URL = "url",
+        }
+
+        /**
          * https://developers.google.com/picker/docs/reference#type
          */
         export enum Type {
