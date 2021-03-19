@@ -1,6 +1,7 @@
 // Type definitions for Google Picker API
 // Project: https://developers.google.com/picker/
 // Definitions by: grapswiz <https://github.com/grapswiz>
+//                 Chives <https://github.com/chivesrs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
