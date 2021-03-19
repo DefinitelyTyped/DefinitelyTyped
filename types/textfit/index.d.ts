@@ -62,3 +62,5 @@ declare namespace textFit {
         alignVertWithFlexbox?: boolean;
     }
 }
+
+export as namespace textFit;
