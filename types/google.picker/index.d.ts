@@ -15,7 +15,7 @@ declare namespace google {
             constructor();
 
             // Add a View to the navigation pane.
-            addView(viewOrViewId: DocsView | ViewId): PickerBuilder;
+            addView(viewOrViewId: DocsView | DocsUploadView | ViewId): PickerBuilder;
 
             // Add a ViewGroup to the top-level navigation pane.
             addViewGroup(viewGroup: ViewGroup): PickerBuilder;
