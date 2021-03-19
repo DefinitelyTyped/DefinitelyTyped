@@ -95,9 +95,52 @@ declare namespace google {
          */
         export interface Result {
             [Response.ACTION]: Action;
-            [Response.DOCUMENTS]: { [key in Document]: any }[];
-            [Response.PARENTS]?: { [key in Document]: any }[];
+            [Response.DOCUMENTS]: DocumentObject[];
+            [Response.PARENTS]?: ParentDocumentObject[];
             [Response.VIEW]: [ViewId, undefined, { query?: string; parent?: string }];
+        }
+
+        export interface DocumentObject {
+            [Document.ADDRESS_LINES]: string[];
+            [Document.AUDIENCE]: { [key: string]: string };
+            [Document.DESCRIPTION]: string;
+            [Document.DURATION]: any;
+            [Document.EMBEDDABLE_URL]: string;
+            [Document.ICON_URL]: string;
+            [Document.ID]: string;
+            [Document.IS_NEW]: boolean;
+            [Document.LAST_EDITED_UTC]: number;
+            [Document.LATITUDE]: any;
+            [Document.LONGITUDE]: any;
+            [Document.MIME_TYPE]: string;
+            [Document.NAME]: string;
+            [Document.PARENT_ID]: string;
+            [Document.PHONE_NUMBERS]: { type: string; number: any }[];
+            [Document.SERVICE_ID]: ServiceId;
+            [Document.THUMBNAILS]: DocumentThumbnailObject[];
+            [Document.TYPE]: Type;
+            [Document.URL]: string;
+        }
+
+        export interface DocumentThumbnailObject {
+            [Thumbnail.URL]: string;
+            [Thumbnail.WIDTH]: number;
+            [Thumbnail.HEIGHT]: number;
+        }
+
+        export interface ParentDocumentObject {
+            [Document.AUDIENCE]: { [key: string]: string };
+            [Document.DESCRIPTION]: string;
+            [Document.LAST_EDITED_UTC]: number;
+            [Document.MIME_TYPE]: string;
+            [Document.NAME]: string;
+            [Document.ICON_URL]: string;
+            [Document.ID]: string;
+            [Document.IS_NEW]: boolean;
+            [Document.SERVICE_ID]: ServiceId;
+            [Document.THUMBNAILS]: DocumentThumbnailObject[];
+            [Document.TYPE]: Type;
+            [Document.URL]: string;
         }
 
         /**
