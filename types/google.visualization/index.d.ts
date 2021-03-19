@@ -472,6 +472,10 @@ declare namespace google {
             stroke?: string;
             strokeWidth?: number;
         }
+        
+        export interface ChartStrokeOpacity extends ChartStroke {
+            strokeOpacity?: number;
+        }
 
         export interface ChartFill {
             fill?: string;
@@ -1369,17 +1373,17 @@ declare namespace google {
         // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
         export interface CalendarOptions {
             calendar?: {
-                cellColor: Object;
-                cellSize: number;
-                dayOfWeekLabel: Object;
-                dayOfWeekRightSpace: number;
-                daysOfWeek: string;
-                focusedCellColor: Object;
-                monthLabel: Object;
-                monthOutlineColor: Object;
-                underMonthSpace: number;
-                underYearSpace: number;
-                unusedMonthOutlineColor: Object;
+                cellColor?: ChartStrokeOpacity;
+                cellSize?: number;
+                dayOfWeekLabel?: Object;
+                dayOfWeekRightSpace?: number;
+                daysOfWeek?: string;
+                focusedCellColor?: ChartStrokeOpacity;
+                monthLabel?: Object;
+                monthOutlineColor?: ChartStrokeOpacity;
+                underMonthSpace?: number;
+                underYearSpace?: number;
+                unusedMonthOutlineColor?: ChartStrokeOpacity;
             };
             colorAxis?: {
                 colors?: string[];
