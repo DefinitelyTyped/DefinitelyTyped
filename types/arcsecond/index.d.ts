@@ -148,7 +148,7 @@ export const letters: Parser<string, string>;
 export function anyOfString(string: string): Parser<string, string>;
 
 export function namedSequenceOf<A extends {}>(pairedParsers: Array<[keyof A, A[keyof A]]>): Parser<any, A, any>;
-export function sequenceOf<E, A extends any[], S>(parsers: Array<Parser<E, A[number], S>>): Parser<E, A, S>;
+export function sequenceOf<E, A extends any[], S>(parsers: { [I in keyof A]: Parser<E, A[I], S> }): Parser<E, A, S>;
 export function sepBy<E, S>(sepParser: Parser<E, any, S>): <B>(valParser: Parser<E, B, S>) => Parser<E, B[], S>;
 export function sepBy1<E, S>(sepParser: Parser<E, any, S>): <B>(valParser: Parser<E, B, S>) => Parser<E, B[], S>;
 export function choice<E, A extends any[], S>(parsers: Array<Parser<E, A[number], S>>): Parser<E, A[number], S>;
