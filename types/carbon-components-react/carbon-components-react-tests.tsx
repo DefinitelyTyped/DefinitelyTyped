@@ -38,6 +38,12 @@ import {
     SideNav,
     SideNavItem,
     SideNavItems,
+    StructuredListWrapper,
+    StructuredListHead,
+    StructuredListBody,
+    StructuredListRow,
+    StructuredListInput,
+    StructuredListCell,
     ButtonRenderIconRenderProps,
     Modal,
     InlineLoading,
@@ -647,6 +653,30 @@ const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" t
 
 // Slider
 const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue => newValue.value} />;
+
+// Structured List
+{
+    const structuredListT1 = (
+        <StructuredListWrapper>
+            <StructuredListHead>
+                <StructuredListRow head>
+                    <StructuredListCell head>Heading 1</StructuredListCell>
+                    <StructuredListCell head>Heading 2</StructuredListCell>
+                </StructuredListRow>
+            </StructuredListHead>
+            <StructuredListBody>
+                <StructuredListRow>
+                    <StructuredListCell>Cell 1</StructuredListCell>
+                    <StructuredListInput value="val"></StructuredListInput>
+                </StructuredListRow>
+                <StructuredListRow label htmlFor="id">
+                    <StructuredListCell>Cell 1</StructuredListCell>
+                    <StructuredListInput value="val"></StructuredListInput>
+                </StructuredListRow>
+            </StructuredListBody>
+        </StructuredListWrapper>
+    );
+}
 
 // Tag
 {
