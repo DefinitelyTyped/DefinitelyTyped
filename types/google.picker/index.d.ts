@@ -19,10 +19,10 @@ declare namespace google {
             addViewGroup(viewGroup: any): PickerBuilder;
 
             // Disable a picker feature.
-            disableFeature(feature: string): PickerBuilder;
+            disableFeature(feature: Feature): PickerBuilder;
 
             // Enable a picker feature.
-            enableFeature(feature: string): PickerBuilder;
+            enableFeature(feature: Feature): PickerBuilder;
 
             // Get the relay URL, used for gadgets.rpc.
             getRelayUrl(): string;
@@ -34,7 +34,7 @@ declare namespace google {
             hideTitleBar(): PickerBuilder;
 
             // Check if a picker Feature is enabled.
-            isFeatureEnabled(feature: string): boolean;
+            isFeatureEnabled(feature: Feature): boolean;
 
             // Sets the Google Drive App ID needed to allow application to access the user's files via the Google Drive API.
             setAppId(appId: string): PickerBuilder;
