@@ -8,7 +8,7 @@ import { FeatureGroup, LatLng, Polygon, LeafletEvent } from 'leaflet';
 export as namespace LeafletFreeDraw;
 
 /**
- * Deactivate Freedraw
+ * Deactivate FreeDraw
  */
 export const NONE: number;
 
@@ -43,29 +43,32 @@ export const EDIT_APPEND: number;
 export const ALL: number;
 
 /**
- * Initialize a new Freedraw instance
- * @param options Freedraw option for the new instance
+ * Initialize a new FreeDraw instance
+ * @param options FreeDraw option for the new instance
  */
 export function freeDraw(options?: FreeDrawOptions): FreeDraw;
 
 /**
- * Freedraw class
+ * FreeDraw class
  */
 declare class FreeDraw extends FeatureGroup {
     /**
-     * Instanciate a new FreeDraw instance, don't forget to add it to leaflet with addLayer
+     * Instantiate a new FreeDraw instance, don't forget to add it to leaflet with addLayer
      * @param options Instance options
      */
     constructor(options?: FreeDrawOptions);
 
     /**
      *
-     * @param latlngs Premade polygon to add to the map
+     * @param latlngs Pre-made polygon to add to the map
      * @param [options={concavePolgygons: false}] FreeDraw options, by default concavePolygons : false
      * @returns Polygon added to the FreeDraw instance
      */
     create(latlngs: ReadonlyArray<LatLng>, options?: FreeDrawOptions): Polygon;
 
+    /**
+     * Removes the layer from the map it is currently active on.
+     */
     remove(): this;
 
     /**
@@ -91,7 +94,7 @@ declare class FreeDraw extends FeatureGroup {
     cancel(): void;
 
     /**
-     * Returns the current ammount of polygons stored in FreeDraw
+     * Returns the current amount of polygons stored in FreeDraw
      */
     size(): number;
 
@@ -103,6 +106,9 @@ declare class FreeDraw extends FeatureGroup {
 
 export default FreeDraw;
 
+/**
+ * Option object accepted by the FreeDraw constructor
+ */
 export interface FreeDrawOptions {
     /**
      * Modifies the default mode.
@@ -165,6 +171,9 @@ export interface FreeDrawOptions {
     strokeWidth?: number;
 }
 
+/**
+ * Event payload sent by markers
+ */
 export interface MarkerEvent extends LeafletEvent {
     type: 'markers';
 
@@ -174,6 +183,9 @@ export interface MarkerEvent extends LeafletEvent {
     latLngs: LatLng[][];
 }
 
+/**
+ * Handler type for the "markers" event
+ */
 export type MarkerEventHandler = (event: MarkerEvent) => void;
 
 declare module "leaflet" {
@@ -192,17 +204,47 @@ type localNone = typeof NONE;
 type localAll = typeof ALL;
 
 declare namespace FreeDraw {
+    /**
+     * Create polygons
+     */
     const CREATE: localCreate;
+
+    /**
+     * Edit existing polygons
+     */
     const EDIT: localEdit;
+
+    /**
+     * Delete polygons
+     */
     const DELETE: localDelete;
+
+    /**
+     * Append points to an existing polygon
+     */
     const APPEND: localAppend;
+
+    /**
+     * Edit polygons and can append new points to an existing polygon
+     */
     const EDIT_APPEND: localEditAppend;
+
+    /**
+     * Deactivate FreeDraw
+     */
     const NONE: localNone;
+
+    /**
+     * Create edit delete and append polygons
+     */
     const ALL: localAll;
 }
 
 declare global {
     interface Window {
+        /**
+         * FreeDraw class
+         */
         FreeDraw: typeof FreeDraw;
     }
 }
