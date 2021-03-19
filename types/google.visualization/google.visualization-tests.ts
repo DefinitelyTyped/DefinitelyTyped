@@ -996,3 +996,27 @@ function test_Sankey() {
         });
     }
 }
+
+function test_dataNamespace() {
+    const month: number = google.visualization.data.month(new Date());
+
+    const exampleNumbers: ReadonlyArray<number> = [1, month];
+    let result: number;
+
+    result = google.visualization.data.sum(exampleNumbers);
+    result = google.visualization.data.avg(exampleNumbers);
+    result = google.visualization.data.count(exampleNumbers);
+
+    let minMax: number | string | Date | null;
+    minMax = google.visualization.data.min([1, 2]);
+    minMax = google.visualization.data.max(['1', '2']);
+
+    let dt = new google.visualization.DataTable();
+    dt.addColumn('number', 'x');
+    dt.addColumn('number', 'y');
+
+    dt = google.visualization.data.group(dt, [0],
+        [{column: 1, aggregation: google.visualization.data.sum, type: 'number'}]);
+
+    dt = google.visualization.data.join(dt, dt, 'inner', [['x', 0]], [1], ['y']);
+}

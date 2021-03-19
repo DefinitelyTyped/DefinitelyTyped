@@ -117,21 +117,21 @@ declare namespace google {
             id?: string;
         }
 
-        export class data {
+        namespace data {
             // https://developers.google.com/chart/interactive/docs/reference#data_modifier_functions
-            static month(value: Date): number;
+            function month(value: Date): number;
 
             // https://developers.google.com/chart/interactive/docs/reference#group
-            static sum(values: number[] | string[] | Date[]): number;
-            static avg(values: number[] | string[] | Date[]): number;
-            static min(values: number[] | string[] | Date[]): number | string | Date;
-            static max(values: number[] | string[] | Date[]): number | string | Date;
-            static count(values: any[]): number;
+            function sum(values: ReadonlyArray<number>): number;
+            function avg(values: ReadonlyArray<number>): number;
+            function min(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
+            function max(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
+            function count(values: ReadonlyArray<any>): number;
 
-            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
+            function group(data: DataTable | DataView, keys: ReadonlyArray<number | GroupKeyOptions>, columns?: ReadonlyArray<GroupColumnOptions>): DataTable;
 
             // https://developers.google.com/chart/interactive/docs/reference#join
-            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+            function join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: ReadonlyArray<[number|string, number|string]>, columnsA: ReadonlyArray<number|string>, columnsB: ReadonlyArray<number|string>): DataTable;
         }
         //#endregion
 
