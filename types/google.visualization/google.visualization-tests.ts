@@ -41,7 +41,6 @@ function test_calendarChart() {
     var dataTable = new google.visualization.DataTable();
     dataTable.addColumn({ type: 'date', id: 'Date' });
     dataTable.addColumn({ type: 'number', id: 'Value' });
-    
     dataTable.addRows([
         [new Date(2021, 3, 15), 100],
         [new Date(2021, 3, 16), -75],
