@@ -6,6 +6,9 @@
 
 declare namespace google {
     namespace picker {
+        /**
+         * https://developers.google.com/picker/docs/reference#picker-builder
+         */
         export class PickerBuilder {
             constructor();
 
@@ -80,7 +83,7 @@ declare namespace google {
         }
 
         /**
-         * Picker is the top level object representing the UI action with the user. These objects are not created directly, but instead use the PickerBuilder object.
+         * https://developers.google.com/picker/docs/reference#picker.
          */
         export interface Picker {
             isVisible(): boolean;
@@ -91,7 +94,7 @@ declare namespace google {
         }
 
         /**
-         * Use DocsUploadView to upload documents to Google Drive.
+         * https://developers.google.com/picker/docs/reference#docs-upload-view.
          */
         export class DocsUploadView {
             constructor();
@@ -104,7 +107,7 @@ declare namespace google {
         }
 
         /**
-         * DocsView is a subclass of View that can be used for Google Drive views.
+         * https://developers.google.com/picker/docs/reference#docs-view
          */
         export class DocsView {
             // Constructor. The ViewId must be one of the Google Drive views. Default is ViewId.DOCS.
@@ -136,103 +139,124 @@ declare namespace google {
         }
 
         /**
-         * DocsViewMode is an enumerated type for displaying data within a DocsView. Use these values in calls to DocsView.setMode.
+         * https://developers.google.com/picker/docs/reference#docs-view-mode
          */
         export const DocsViewMode: {
             // Display documents in a thumbnail grid.
-            GRID: string;
+            GRID: "grid";
             // Display documents in a detailed list.
-            LIST: string;
+            LIST: "list";
         };
 
+        /**
+         * https://developers.google.com/picker/docs/reference#feature
+         */
         export const Feature: {
             // Show only documents owned by the user when showing items from Google Drive.
-            MINE_ONLY: string;
+            MINE_ONLY: "mineOnly";
 
             // Allow user to choose more than one item.
-            MULTISELECT_ENABLED: string;
+            MULTISELECT_ENABLED: "multiselectEnabled";
 
             // Hide the navigation pane. If the navigation pane is hidden, users can only select from the first view chosen.
-            NAV_HIDDEN: string;
+            NAV_HIDDEN: "navHidden";
 
             // For photo uploads, controls whether per-photo selection (as opposed to per-album) selection is enabled.
-            SIMPLE_UPLOAD_ENABLED: string;
+            SIMPLE_UPLOAD_ENABLED: "simpleUploadEnabled";
 
             // Whether Shared Drive items should be included in results.
-            SUPPORT_DRIVES: string;
-        };
-
-        export const ViewId: {
-            DOCS: string;
-            DOCS_IMAGES: string;
-            DOCS_IMAGES_AND_VIDEOS: string;
-            DOCS_VIDEOS: string;
-            DOCUMENTS: string;
-            DRAWINGS: string;
-            FOLDERS: string;
-            FORMS: string;
-            IMAGE_SEARCH: string;
-            MAPS: string;
-            PDFS: string;
-            PHOTOS: string;
-            PHOTO_ALBUMS: string;
-            PHOTO_UPLOAD: string;
-            PRESENTATIONS: string;
-            RECENTLY_PICKED: string;
-            SPREADSHEETS: string;
-            VIDEO_SEARCH: string;
-            WEBCAM: string;
-            YOUTUBE: string;
-        };
-
-        export const Action: {
-            CANCEL: string;
-            PICKED: string;
+            SUPPORT_DRIVES: "sdr";
         };
 
         /**
-         * Document is an enumerated type used to convey information about a specific picked item. Only fields which are relevant to the selected item are returned. This value will be in the Response.DOCUMENTS field in the callback data.
+         * https://developers.google.com/picker/docs/reference#view-id
+         */
+        export const ViewId: {
+            DOCS: "all";
+            DOCS_IMAGES: "docs-images";
+            DOCS_IMAGES_AND_VIDEOS: "docs-images-and-videos";
+            DOCS_VIDEOS: "docs-videos";
+            DOCUMENTS: "documents";
+            DRAWINGS: "drawings";
+            FOLDERS: "folders";
+            FORMS: "forms";
+            /** @deprecated */
+            IMAGE_SEARCH: "image-search";
+            PDFS: "pdfs";
+            /** @deprecated */
+            PHOTO_ALBUMS: "photo-albums";
+            /** @deprecated */
+            PHOTO_UPLOAD: "photo-upload";
+            /** @deprecated */
+            PHOTOS: "photos";
+            PRESENTATIONS: "presentations";
+            /** @deprecated */
+            RECENTLY_PICKED: "recently-picked";
+            SPREADSHEETS: "spreadsheets";
+            /** @deprecated */
+            VIDEO_SEARCH: "video-search";
+            /** @deprecated */
+            WEBCAM: "webcam";
+            /** @deprecated */
+            YOUTUBE: "youtube";
+        };
+
+        /**
+         * https://developers.google.com/picker/docs/reference#action
+         */
+        export const Action: {
+            CANCEL: "cancel";
+            PICKED: "picked";
+        };
+
+        /**
+         * https://developers.google.com/picker/docs/reference#document
          */
         export const Document: {
-            ADDRESS_LINES: string;
-            AUDIENCE: string;
-            DESCRIPTION: string;
-            DURATION: string;
-            EMBEDDABLE_URL: string;
-            ICON_URL: string;
-            ID: string;
-            IS_NEW: string;
-            LAST_EDITED_UTC: string;
-            LATITUDE: string;
-            LONGITUDE: string;
-            MIME_TYPE: string;
-            NAME: string;
-            NUM_CHILDREN: string;
-            PARENT_ID: string;
-            PHONE_NUMBERS: string;
-            SERVICE_ID: string;
-            THUMBNAILS: string;
-            TYPE: string;
-            URL: string;
+            ADDRESS_LINES: "addressLines";
+            /** @deprecated */
+            AUDIENCE: "audience";
+            DESCRIPTION: "description";
+            DURATION: "duration";
+            EMBEDDABLE_URL: "embedUrl";
+            ICON_URL: "iconUrl";
+            ID: "id";
+            IS_NEW: "isNew";
+            LAST_EDITED_UTC: "lastEditedUtc";
+            LATITUDE: "latitude";
+            LONGITUDE: "longitude";
+            MIME_TYPE: "mimeType";
+            NAME: "name";
+            NUM_CHILDREN: "numChildren";
+            PARENT_ID: "parentId";
+            PHONE_NUMBERS: "phoneNumbers";
+            SERVICE_ID: "serviceId";
+            THUMBNAILS: "thumbnails";
+            TYPE: "type";
+            URL: "url";
         };
 
         /**
-         * Response is an enumerated type used to convey information about the user's picked items.
+         * https://developers.google.com/picker/docs/reference#response
          */
         export const Response: {
-            ACTION: string;
-            DOCUMENTS: string;
-            PARENTS: string;
-            VIEW: string;
+            ACTION: "action";
+            DOCUMENTS: "docs";
+            PARENTS: "parents";
+            VIEW: "viewToken";
         };
 
+        /**
+         * https://developers.google.com/picker/docs/reference#type
+         */
         export const Type: {
-            ALBUM: string;
-            DOCUMENT: string;
-            LOCATION: string;
-            PHOTO: string;
-            URL: string;
-            VIDEO: string;
+            /** @deprecated */
+            ALBUM: "album";
+            DOCUMENT: "document";
+            LOCATION: "location";
+            PHOTO: "photo";
+            URL: "url";
+            VIDEO: "video";
         };
     }
 }
