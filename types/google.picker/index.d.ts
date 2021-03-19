@@ -13,7 +13,7 @@ declare namespace google {
             constructor();
 
             // Add a View to the navigation pane.
-            addView(viewOrViewId: DocsView | keyof typeof ViewId): PickerBuilder;
+            addView(viewOrViewId: DocsView | ViewId): PickerBuilder;
 
             // Add a ViewGroup to the top-level navigation pane.
             addViewGroup(viewGroup: any): PickerBuilder;
@@ -108,7 +108,7 @@ declare namespace google {
          */
         export class DocsView {
             // Constructor. The ViewId must be one of the Google Drive views. Default is ViewId.DOCS.
-            constructor(viewId?: keyof typeof ViewId);
+            constructor(viewId?: ViewId);
 
             // Show folders in the view items.
             setIncludeFolders(included: boolean): DocsView;
@@ -117,7 +117,7 @@ declare namespace google {
             setSelectFolderEnabled(enabled: boolean): DocsView;
 
             // Selects which mode the view will use to display the documents.
-            setMode(mode: keyof typeof DocsViewMode): DocsView;
+            setMode(mode: DocsViewMode): DocsView;
 
             // Filters the documents based on whether they are owned by the user, or shared with the user.
             setOwnedByMe(me?: boolean): DocsView;
@@ -138,122 +138,122 @@ declare namespace google {
         /**
          * https://developers.google.com/picker/docs/reference#docs-view-mode
          */
-        export const DocsViewMode: {
+        export enum DocsViewMode {
             // Display documents in a thumbnail grid.
-            GRID: "grid";
+            GRID = "grid",
             // Display documents in a detailed list.
-            LIST: "list";
-        };
+            LIST = "list",
+        }
 
         /**
          * https://developers.google.com/picker/docs/reference#feature
          */
-        export const Feature: {
+        export enum Feature {
             // Show only documents owned by the user when showing items from Google Drive.
-            MINE_ONLY: "mineOnly";
+            MINE_ONLY = "mineOnly",
 
             // Allow user to choose more than one item.
-            MULTISELECT_ENABLED: "multiselectEnabled";
+            MULTISELECT_ENABLED = "multiselectEnabled",
 
             // Hide the navigation pane. If the navigation pane is hidden, users can only select from the first view chosen.
-            NAV_HIDDEN: "navHidden";
+            NAV_HIDDEN = "navHidden",
 
             // For photo uploads, controls whether per-photo selection (as opposed to per-album) selection is enabled.
-            SIMPLE_UPLOAD_ENABLED: "simpleUploadEnabled";
+            SIMPLE_UPLOAD_ENABLED = "simpleUploadEnabled",
 
             // Whether Shared Drive items should be included in results.
-            SUPPORT_DRIVES: "sdr";
-        };
+            SUPPORT_DRIVES = "sdr",
+        }
 
         /**
          * https://developers.google.com/picker/docs/reference#view-id
          */
-        export const ViewId: {
-            DOCS: "all";
-            DOCS_IMAGES: "docs-images";
-            DOCS_IMAGES_AND_VIDEOS: "docs-images-and-videos";
-            DOCS_VIDEOS: "docs-videos";
-            DOCUMENTS: "documents";
-            DRAWINGS: "drawings";
-            FOLDERS: "folders";
-            FORMS: "forms";
+        export enum ViewId {
+            DOCS = "all",
+            DOCS_IMAGES = "docs-images",
+            DOCS_IMAGES_AND_VIDEOS = "docs-images-and-videos",
+            DOCS_VIDEOS = "docs-videos",
+            DOCUMENTS = "documents",
+            DRAWINGS = "drawings",
+            FOLDERS = "folders",
+            FORMS = "forms",
             /** @deprecated */
-            IMAGE_SEARCH: "image-search";
-            PDFS: "pdfs";
+            IMAGE_SEARCH = "image-search",
+            PDFS = "pdfs",
             /** @deprecated */
-            PHOTO_ALBUMS: "photo-albums";
+            PHOTO_ALBUMS = "photo-albums",
             /** @deprecated */
-            PHOTO_UPLOAD: "photo-upload";
+            PHOTO_UPLOAD = "photo-upload",
             /** @deprecated */
-            PHOTOS: "photos";
-            PRESENTATIONS: "presentations";
+            PHOTOS = "photos",
+            PRESENTATIONS = "presentations",
             /** @deprecated */
-            RECENTLY_PICKED: "recently-picked";
-            SPREADSHEETS: "spreadsheets";
+            RECENTLY_PICKED = "recently-picked",
+            SPREADSHEETS = "spreadsheets",
             /** @deprecated */
-            VIDEO_SEARCH: "video-search";
+            VIDEO_SEARCH = "video-search",
             /** @deprecated */
-            WEBCAM: "webcam";
+            WEBCAM = "webcam",
             /** @deprecated */
-            YOUTUBE: "youtube";
-        };
+            YOUTUBE = "youtube",
+        }
 
         /**
          * https://developers.google.com/picker/docs/reference#action
          */
-        export const Action: {
-            CANCEL: "cancel";
-            PICKED: "picked";
-        };
+        export enum Action {
+            CANCEL = "cancel",
+            PICKED = "picked",
+        }
 
         /**
          * https://developers.google.com/picker/docs/reference#document
          */
-        export const Document: {
-            ADDRESS_LINES: "addressLines";
+        export enum Document {
+            ADDRESS_LINES = "addressLines",
             /** @deprecated */
-            AUDIENCE: "audience";
-            DESCRIPTION: "description";
-            DURATION: "duration";
-            EMBEDDABLE_URL: "embedUrl";
-            ICON_URL: "iconUrl";
-            ID: "id";
-            IS_NEW: "isNew";
-            LAST_EDITED_UTC: "lastEditedUtc";
-            LATITUDE: "latitude";
-            LONGITUDE: "longitude";
-            MIME_TYPE: "mimeType";
-            NAME: "name";
-            NUM_CHILDREN: "numChildren";
-            PARENT_ID: "parentId";
-            PHONE_NUMBERS: "phoneNumbers";
-            SERVICE_ID: "serviceId";
-            THUMBNAILS: "thumbnails";
-            TYPE: "type";
-            URL: "url";
-        };
+            AUDIENCE = "audience",
+            DESCRIPTION = "description",
+            DURATION = "duration",
+            EMBEDDABLE_URL = "embedUrl",
+            ICON_URL = "iconUrl",
+            ID = "id",
+            IS_NEW = "isNew",
+            LAST_EDITED_UTC = "lastEditedUtc",
+            LATITUDE = "latitude",
+            LONGITUDE = "longitude",
+            MIME_TYPE = "mimeType",
+            NAME = "name",
+            NUM_CHILDREN = "numChildren",
+            PARENT_ID = "parentId",
+            PHONE_NUMBERS = "phoneNumbers",
+            SERVICE_ID = "serviceId",
+            THUMBNAILS = "thumbnails",
+            TYPE = "type",
+            URL = "url",
+        }
 
         /**
          * https://developers.google.com/picker/docs/reference#response
          */
-        export const Response: {
-            ACTION: "action";
-            DOCUMENTS: "docs";
-            PARENTS: "parents";
-            VIEW: "viewToken";
-        };
+        export enum Response {
+            ACTION = "action",
+            DOCUMENTS = "docs",
+            PARENTS = "parents",
+            VIEW = "viewToken",
+        }
 
         /**
          * https://developers.google.com/picker/docs/reference#type
          */
-        export const Type: {
+        export enum Type {
             /** @deprecated */
-            ALBUM: "album";
-            DOCUMENT: "document";
-            LOCATION: "location";
-            PHOTO: "photo";
-            URL: "url";
-            VIDEO: "video";
-        };
+            ALBUM = "album",
+            DOCUMENT = "document",
+            LOCATION = "location",
+            PHOTO = "photo",
+            URL = "url",
+            VIDEO = "video",
+        }
     }
 }
