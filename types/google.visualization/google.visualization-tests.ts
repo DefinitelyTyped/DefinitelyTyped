@@ -59,7 +59,7 @@ function test_calendarChart() {
     var container = document.getElementById('chart_div');
     if (container) {
         var chart = new google.visualization.Calendar(container);
-        chart.draw(data, options);
+        chart.draw(dataTable, options);
     }
 }
 
