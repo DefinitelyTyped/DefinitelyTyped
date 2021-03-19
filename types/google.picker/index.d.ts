@@ -117,7 +117,7 @@ declare namespace google {
             [Document.MIME_TYPE]: string;
             [Document.NAME]: string;
             [Document.PARENT_ID]: string;
-            [Document.PHONE_NUMBERS]: { type: string; number: any }[];
+            [Document.PHONE_NUMBERS]: Array<{ type: string; number: any }>;
             [Document.SERVICE_ID]: ServiceId;
             [Document.THUMBNAILS]: DocumentThumbnailObject[];
             [Document.TYPE]: Type;
