@@ -54,7 +54,7 @@ function test_calendarChart() {
         height: 350,
         colorAxis: { colors: ['red', 'white', 'green'], values: [-250, 0, 250] }
     };
-    
+
     var container = document.getElementById('chart_div');
     if (container) {
         var chart = new google.visualization.Calendar(container);
