@@ -17,6 +17,8 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     MultiSelectSortingProps<T>,
     InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>
 {
+    clearSelectionDescription?: string;
+    clearSelectionText?: string;
     direction?: VerticalDirection,
     disabled?: ListBoxProps["disabled"],
     downshiftProps?: any, // TODO
