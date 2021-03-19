@@ -59,8 +59,8 @@ function testOtherLanguages(): void {
 // https://developers.google.com/picker/docs#example
 function fullExample(): void {
     const callback = (data: google.picker.Result) => {
-        if (data.action == google.picker.Action.PICKED) {
-            const fileId: String = data.docs[0].id;
+        if (data.action === google.picker.Action.PICKED) {
+            const fileId: string = data.docs[0].id;
         }
     };
 

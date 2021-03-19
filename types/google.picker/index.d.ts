@@ -1,4 +1,4 @@
-// Type definitions for Google Picker API
+// Type definitions for non-npm package Google Picker API 0.0
 // Project: https://developers.google.com/picker/
 // Definitions by: grapswiz <https://github.com/grapswiz>
 //                 Chives <https://github.com/chivesrs>
