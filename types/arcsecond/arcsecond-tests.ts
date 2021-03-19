@@ -13,16 +13,11 @@ import {
 
 declare const console: { log: (...msgs: any[]) => void };
 
-type TupleToParserTuple<A extends any[]> = {
-  [I in keyof A]: Parser<any, A[I], any>
-}
-
 const join = (separator: string) => (array: any[]) => array.join(separator);
 const joinedMany = (parser: Parser<any, any, any>) => many(parser).map(join(''));
-const joinedSequence = <A extends any[]>(parsers: TupleToParserTuple<A>) => sequenceOf<any, A, any>(parsers).map(join(''));
 
 const csvString = between<string, string, null>(char('"'))(char('"'))(joinedMany(choice([
-  joinedSequence<[string, string]>([char('\\'), char('"')]),
+  sequenceOf<string, [string, string], null>([char('\\'), char('"')]).map(join('')),
   anythingExcept(regex(/^["\n]/))
 ])));
 
