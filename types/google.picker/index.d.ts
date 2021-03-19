@@ -138,14 +138,14 @@ declare namespace google {
         /**
          * DocsViewMode is an enumerated type for displaying data within a DocsView. Use these values in calls to DocsView.setMode.
          */
-        export var DocsViewMode: {
+        export const DocsViewMode: {
             // Display documents in a thumbnail grid.
             GRID: string;
             // Display documents in a detailed list.
             LIST: string;
         };
 
-        export var Feature: {
+        export const Feature: {
             // Show only documents owned by the user when showing items from Google Drive.
             MINE_ONLY: string;
 
@@ -162,7 +162,7 @@ declare namespace google {
             SUPPORT_DRIVES: string;
         };
 
-        export var ViewId: {
+        export const ViewId: {
             DOCS: string;
             DOCS_IMAGES: string;
             DOCS_IMAGES_AND_VIDEOS: string;
@@ -185,7 +185,7 @@ declare namespace google {
             YOUTUBE: string;
         };
 
-        export var Action: {
+        export const Action: {
             CANCEL: string;
             PICKED: string;
         };
@@ -193,7 +193,7 @@ declare namespace google {
         /**
          * Document is an enumerated type used to convey information about a specific picked item. Only fields which are relevant to the selected item are returned. This value will be in the Response.DOCUMENTS field in the callback data.
          */
-        export var Document: {
+        export const Document: {
             ADDRESS_LINES: string;
             AUDIENCE: string;
             DESCRIPTION: string;
@@ -219,14 +219,14 @@ declare namespace google {
         /**
          * Response is an enumerated type used to convey information about the user's picked items.
          */
-        export var Response: {
+        export const Response: {
             ACTION: string;
             DOCUMENTS: string;
             PARENTS: string;
             VIEW: string;
         };
 
-        export var Type: {
+        export const Type: {
             ALBUM: string;
             DOCUMENT: string;
             LOCATION: string;
