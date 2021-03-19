@@ -18,3 +18,7 @@ function callback(data: google.picker.Result): void {
         url = doc[google.picker.Document.URL];
     }
 }
+
+function testSetDocument(): void {
+    new google.picker.PickerBuilder().setDocument(document).build();
+}

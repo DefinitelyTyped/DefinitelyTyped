@@ -4,6 +4,8 @@
 //                 Chives <https://github.com/chivesrs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+type DOMDocument = Document;
+
 declare namespace google {
     namespace picker {
         /**
@@ -49,7 +51,7 @@ declare namespace google {
             setDeveloperKey(key: string): PickerBuilder;
 
             // Set the document.
-            setDocument(document: Document): PickerBuilder;
+            setDocument(document: DOMDocument): PickerBuilder;
 
             // ISO 639 language code. If the language is not supported, en-US is used. This method provides an alternative to setting the locale at google.load() time. See the Developer's Guide for a list of supported locales.
             setLocale(locale: string): PickerBuilder;
