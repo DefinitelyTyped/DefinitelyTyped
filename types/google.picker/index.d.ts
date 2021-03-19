@@ -45,7 +45,7 @@ declare namespace google {
             setAppId(appId: string): PickerBuilder;
 
             // Set the callback method called when the user picks and item (or items), or cancels. The callback method receives a single callback object. The structure of the callback object is described in the JSON Guide.
-            setCallback(method: (result: Result) => void): PickerBuilder;
+            setCallback(method: (result: ResponseObject) => void): PickerBuilder;
 
             // Sets the Browser API key obtained from Google Developers Console. See the Developer's Guide for details on how to obtain the Browser API key.
             setDeveloperKey(key: string): PickerBuilder;
@@ -86,7 +86,7 @@ declare namespace google {
          */
         export interface Picker {
             isVisible(): boolean;
-            setCallback(method: (result: Result) => void): Picker;
+            setCallback(method: (result: ResponseObject) => void): Picker;
             setRelayUrl(url: string): Picker;
             setVisible(visible: boolean): Picker;
             dispose(): void;
@@ -95,7 +95,7 @@ declare namespace google {
         /**
          * https://developers.google.com/picker/docs/results
          */
-        export interface Result {
+        export interface ResponseObject {
             [Response.ACTION]: Action;
             [Response.DOCUMENTS]: DocumentObject[];
             [Response.PARENTS]?: ParentDocumentObject[];

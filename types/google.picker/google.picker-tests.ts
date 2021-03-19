@@ -10,7 +10,7 @@ function createPicker(): void {
 }
 
 // https://developers.google.com/picker/docs#implement-the-picker-callback
-function callback(data: google.picker.Result): void {
+function callback(data: google.picker.ResponseObject): void {
     let url = "nothing";
     if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
         const doc = data[google.picker.Response.DOCUMENTS][0];
@@ -58,7 +58,7 @@ function testOtherLanguages(): void {
 
 // https://developers.google.com/picker/docs#example
 function fullExample(): void {
-    const callback = (data: google.picker.Result) => {
+    const callback = (data: google.picker.ResponseObject) => {
         if (data.action === google.picker.Action.PICKED) {
             const fileId: string = data.docs[0].id;
         }
