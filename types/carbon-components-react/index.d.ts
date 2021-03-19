@@ -166,6 +166,14 @@ export { default as FormGroup } from "./lib/components/FormGroup";
 export { default as FormItem } from "./lib/components/FormItem";
 export { default as FormLabel } from "./lib/components/FormLabel";
 export { Column, Grid, Row } from "./lib/components/Grid";
+export {
+    Heading as unstable_Heading,
+    HeadingProps as unstable_HeadingProps,
+    Section as unstable_Section,
+    SectionCustomComponentProps as unstable_SectionCustomComponentProps,
+    SectionDefaultProps as unstable_SectionDefaultProps,
+    SectionIntrinsicProps as unstable_SectionInstrinsicProps
+} from "./lib/components/Heading";
 export { default as Icon } from "./lib/components/Icon";
 export { default as InlineLoading } from "./lib/components/InlineLoading";
 export { default as Link } from "./lib/components/Link";

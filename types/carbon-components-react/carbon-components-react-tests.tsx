@@ -43,8 +43,24 @@ import {
     InlineLoading,
     DataTableSkeleton,
     TableCell,
+    unstable_Heading as UnstableHeading,
+    unstable_Section as UnstableSection
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
+
+// test components for "as" props
+interface TestCompProps {
+    children?: React.ReactNode;
+    someProp: number;
+}
+
+class TestComp1 extends React.Component<TestCompProps> {
+    render() {
+        return <div />;
+    }
+}
+
+const TestComp2 = (props: TestCompProps) => <div />;
 
 // AccordionItem
 const titleNode = (
@@ -435,18 +451,39 @@ const t5 = (
 
 // Dropdown
 
+// unstable_Heading
+{
+    const headingT1 = <UnstableHeading onClick={(e) => e.preventDefault()}>Heading Text</UnstableHeading>;
+}
+
+// unstable_Section
+{
+    const sectionT1 = (
+        <UnstableSection onClick={(e: React.MouseEvent<HTMLElement>) => e.preventDefault()}>Text</UnstableSection>
+    );
+    const sectionIntrinsicT1 = (
+        <UnstableSection
+            as="div"
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
+        >
+            Text
+        </UnstableSection>
+    );
+    const sectionIntrinsicT2 = (
+        <UnstableSection
+            as="fieldset"
+            disabled
+            form="test"
+        >
+            Text
+        </UnstableSection>
+    );
+    const sectionComponentT1 = (
+        <UnstableSection as={TestComp2} someProp={5}>Text</UnstableSection>
+    );
+}
+
 // UIShell - Link
-interface TestCompProps {
-    someProp: number;
-}
-
-class TestComp1 extends React.Component<TestCompProps> {
-    render() {
-        return <div />;
-    }
-}
-
-const TestComp2 = (props: TestCompProps) => <div />;
 
 const uisLinkT1 = <Link href="#test">Test</Link>;
 const uisLinkT2 = <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
