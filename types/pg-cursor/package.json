@@ -1,0 +1,6 @@
+{
+	"private": true,
+	"dependencies": {
+		"pg": "^8.1"
+	}
+}
