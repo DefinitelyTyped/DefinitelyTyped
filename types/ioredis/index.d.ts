@@ -1671,6 +1671,7 @@ declare namespace IORedis {
         readonly status: string;
         connect(): Promise<void>;
         disconnect(): void;
+        duplicate(overrideStartupNodes?: ReadonlyArray<ClusterNode>, overrideOptions?: ClusterOptions): Cluster;
         nodes(role?: NodeRole): Redis[];
     }
 
