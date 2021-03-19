@@ -1,4 +1,5 @@
 import { Term, DatasetCore, NamedNode } from 'rdf-js';
+import { LoaderRegistry } from 'rdf-loaders-registry';
 
 declare namespace Api {
     interface ApiInit<D extends DatasetCore = DatasetCore> {
@@ -16,6 +17,7 @@ declare namespace Api {
         graph?: NamedNode;
         dataset: D;
         term: NamedNode | undefined;
+        loaderRegistry: LoaderRegistry;
         init(): Promise<void>;
     }
 }
