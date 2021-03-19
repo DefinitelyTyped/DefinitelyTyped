@@ -48,7 +48,7 @@ function test_calendarChart() {
         [new Date(2021, 3, 18), -100],
         [new Date(2021, 3, 19), 200]
     ]);
-    
+
     var options = {
         title: "Test Calendar",
         height: 350,
