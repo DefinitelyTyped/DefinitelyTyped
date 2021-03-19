@@ -102,7 +102,6 @@ declare class AutocompletePrompt<T> extends Base {
 
 /**
  * Provides inquirer prompt options for type `AutocompletePrompt`.
- *
  */
 declare namespace AutocompletePrompt {
     /**
