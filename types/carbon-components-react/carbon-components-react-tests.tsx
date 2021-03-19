@@ -53,6 +53,7 @@ import {
     unstable_Section as UnstableSection
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
+import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 
 // test components for "as" props
 interface TestCompProps {
@@ -455,8 +456,6 @@ const t5 = (
     />
 );
 
-// Dropdown
-
 // unstable_Heading
 {
     const headingT1 = <UnstableHeading onClick={(e) => e.preventDefault()}>Heading Text</UnstableHeading>;
@@ -597,6 +596,25 @@ const dropdownItemCanBeElement = (
         itemToString={item => 'Selected: ' + item}
     />
 );
+
+// Popover
+{
+    const popoverT1 = (
+        <Popover open align="bottom" caret>
+            <PopoverContent>Content</PopoverContent>
+        </Popover>
+    );
+    const popoverIntrinsicT1 = (
+        <Popover open={false}>
+            <PopoverContent as="fieldset" disabled form="test">Content</PopoverContent>
+        </Popover>
+    );
+    const popoverCustomComponentT1 = (
+        <Popover open>
+            <PopoverContent as={TestComp2} someProp={2}>Content</PopoverContent>
+        </Popover>
+    );
+}
 
 // TileGroup
 // Value nor name can be undefined
