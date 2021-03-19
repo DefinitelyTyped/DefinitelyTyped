@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.30
+// Type definitions for carbon-components-react 7.31
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
