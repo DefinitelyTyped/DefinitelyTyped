@@ -25,4 +25,4 @@ export function buffer(req: IncomingMessage, info?: { limit?: string | number, e
 
 export function text(req: IncomingMessage, info?: { limit?: string | number, encoding?: string }): Promise<string>;
 
-export function json(req: IncomingMessage, info?: { limit?: string | number, encoding?: string }): Promise<object>;
+export function json(req: IncomingMessage, info?: { limit?: string | number, encoding?: string }): Promise<{[s:string]: any}>;
