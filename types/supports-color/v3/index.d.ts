@@ -10,6 +10,6 @@ interface SupportsColor {
     has16m: boolean;
 }
 
-declare const supportsColor: boolean & SupportsColor;
+declare const supportsColor: false | SupportsColor;
 
 export = supportsColor;
