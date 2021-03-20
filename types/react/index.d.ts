@@ -26,6 +26,7 @@
 //                 JongChan Choi <https://github.com/disjukr>
 //                 Victor Magalhães <https://github.com/vhfmag>
 //                 Dale Tan <https://github.com/hellatan>
+//                 Stark Jeon<https://github.com/Jeontaeyun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -554,7 +555,7 @@ declare namespace React {
         displayName?: string;
     }
 
-    type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+    export type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
         (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
