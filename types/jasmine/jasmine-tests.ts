@@ -2015,6 +2015,40 @@ describe("setDefaultSpyStrategy", () => {
         htmlReporter.initialize();
         env.execute();
     };
+
+    afterAll(function() {
+        const jsApiReporter: jasmine.JsApiReporter = (window as any).jsApiReporter;
+        const suites = jsApiReporter.suites();
+
+        for (const k in suites) {
+            const suite: jasmine.SuiteResult = suites[k];
+            console.log(suite);
+            console.log("id", suite.id);
+            console.log("description", suite.description);
+            console.log("fullName", suite.fullName);
+            console.log("fe", suite.failedExpectations);
+
+            for (const fe of suite.failedExpectations) {
+                console.log(">> matcherName:", fe.matcherName);
+                console.log(">> passed:", fe.passed);
+                console.log(">> expected:", fe.expected);
+                console.log(">> actual:", fe.actual);
+                console.log(">> message:", fe.message);
+                console.log(">> stack:", fe.stack);
+            }
+
+            console.log("dw", suite.deprecationWarnings);
+
+            for (const fe of suite.deprecationWarnings) {
+                console.log(">> message:", fe.message);
+                console.log(">> stack:", fe.stack);
+            }
+
+            console.log("status", suite.status);
+            console.log("duraiton", suite.duration);
+            console.log("properties", suite.properties);
+        }
+    });
 })();
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;

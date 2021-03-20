@@ -502,11 +502,16 @@ declare namespace jasmine {
 
     interface ExpectationResult extends Result {
         matcherName: string;
-        passed(): boolean;
+        passed: boolean;
         expected: any;
         actual: any;
         message: string;
-        trace: Trace;
+        stack: string;
+    }
+
+    interface DeprecationWarning extends Result {
+        message: string;
+        stack: string;
     }
 
     interface Order {
@@ -522,12 +527,6 @@ declare namespace jasmine {
 
             stack: any;
         }
-    }
-
-    interface Trace {
-        name: string;
-        message: string;
-        stack: any;
     }
 
     interface Matchers<T> {
@@ -982,8 +981,19 @@ declare namespace jasmine {
 
         new (): any;
 
-        suites(): Suite[];
+        suites(): {[id: string]: SuiteResult};
         results(): any;
+    }
+
+    interface SuiteResult {
+        id: number;
+        description: string;
+        fullName: string;
+        failedExpectations: ExpectationResult[];
+        deprecationWarnings: DeprecationWarning[];
+        status?: string;
+        duration?: number;
+        properties?: any;
     }
 
     interface Jasmine {
