@@ -46,12 +46,9 @@ declare namespace GoogleAdsScripts {
          *
          * Typical usage:
          *
-         *      var excludedPlacementSelector = AdsApp.display()
-         *          .keywords()
-         *          .withCondition("Impressions > 100")
-         *          .forDateRange("LAST_MONTH")
-         *          .orderBy("Clicks DESC");
-         *
+         *      var adGroup = AdsApp.adGroups().get().next();
+         *      var excludedPlacementSelector = adGroup.display().excludedPlacements();
+         * 
          *      var excludedPlacementIterator = excludedPlacementSelector.get();
          *      while (excludedPlacementIterator.hasNext()) {
          *        var excludedPlacement = excludedPlacementIterator.next();
