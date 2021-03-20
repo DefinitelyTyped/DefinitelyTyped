@@ -2956,7 +2956,7 @@ _.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' 
     // generic strings - record
     _.pick(mixedTypeRecord, stringValue); // $ExpectType Partial<MixedTypeRecord>
     _(mixedTypeRecord).pick(stringValue); // $ExpectType Partial<MixedTypeRecord>
-    extractChainTypes(_.chain(mixedTypeRecord).pick(stringValue)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined>
+    extractChainTypes(_.chain(mixedTypeRecord).pick(stringValue)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting>
 
     // generic strings - any
     _.pick(anyValue, stringValue); // $ExpectType Pick<any, string>
@@ -2966,7 +2966,7 @@ _.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' 
     // generic string arrays - record
     _.pick(mixedTypeRecord, stringArray); // $ExpectType Partial<MixedTypeRecord>
     _(mixedTypeRecord).pick(stringArray); // $ExpectType Partial<MixedTypeRecord>
-    extractChainTypes(_.chain(mixedTypeRecord).pick(stringArray)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined>
+    extractChainTypes(_.chain(mixedTypeRecord).pick(stringArray)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting>
 
     // generic string arrays - any
     _.pick(anyValue, stringArray); // $ExpectType Pick<any, string>
@@ -2976,7 +2976,7 @@ _.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' 
     // function - record
     _.pick(mixedTypeRecord, mixedTypeTester); // $ExpectType Partial<MixedTypeRecord>
     _(mixedTypeRecord).pick(mixedTypeTester); // $ExpectType Partial<MixedTypeRecord>
-    extractChainTypes(_.chain(mixedTypeRecord).pick(mixedTypeTester)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined>
+    extractChainTypes(_.chain(mixedTypeRecord).pick(mixedTypeTester)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting>
 
     // function - dictionary
     _.pick(recordDictionary, recordDictionaryTester); // $ExpectType Partial<Dictionary<StringRecord>>
@@ -3036,7 +3036,7 @@ _.omit({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' 
     // generic strings - record
     _.omit(mixedTypeRecord, stringValue); // $ExpectType Partial<MixedTypeRecord>
     _(mixedTypeRecord).omit(stringValue); // $ExpectType Partial<MixedTypeRecord>
-    extractChainTypes(_.chain(mixedTypeRecord).omit(stringValue)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined>
+    extractChainTypes(_.chain(mixedTypeRecord).omit(stringValue)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting>
 
     // generic strings - any
     _.omit(anyValue, stringValue); // $ExpectType any
@@ -3046,7 +3046,7 @@ _.omit({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' 
     // generic string arrays - record
     _.omit(mixedTypeRecord, stringArray); // $ExpectType Partial<MixedTypeRecord>
     _(mixedTypeRecord).omit(stringArray); // $ExpectType Partial<MixedTypeRecord>
-    extractChainTypes(_.chain(mixedTypeRecord).omit(stringArray)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined>
+    extractChainTypes(_.chain(mixedTypeRecord).omit(stringArray)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting>
 
     // generic string arrays - any
     _.omit(anyValue, stringArray); // $ExpectType any
@@ -3056,7 +3056,7 @@ _.omit({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' 
     // function - record
     _.omit(mixedTypeRecord, mixedTypeTester); // $ExpectType Partial<MixedTypeRecord>
     _(mixedTypeRecord).omit(mixedTypeTester); // $ExpectType Partial<MixedTypeRecord>
-    extractChainTypes(_.chain(mixedTypeRecord).omit(mixedTypeTester)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined>
+    extractChainTypes(_.chain(mixedTypeRecord).omit(mixedTypeTester)); // $ExpectType ChainType<Partial<MixedTypeRecord>, number | StringRecord | NonIntersectingRecord | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting | undefined> || ChainType<Partial<MixedTypeRecord>, number | NonIntersecting>
 
     // function - dictionary
     _.omit(recordDictionary, recordDictionaryTester); // $ExpectType Partial<Dictionary<StringRecord>>

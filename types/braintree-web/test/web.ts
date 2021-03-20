@@ -791,6 +791,21 @@ braintree.threeDSecure.verifyCard(
     },
 );
 
+// Check if verifyCard can be called without addFrame and removeFrame
+braintree.threeDSecure.verifyCard(
+    {
+        nonce: existingNonce,
+        amount: 123.45, // $ExpectType number
+        bin: '1234'
+    },
+    (err: braintree.BraintreeError) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+    },
+);
+
 braintree.threeDSecure.cancelVerifyCard(
     (err: braintree.BraintreeError, verifyPayload: braintree.ThreeDSecureVerifyPayload) => {
         if (err) {

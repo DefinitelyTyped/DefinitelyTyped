@@ -132,6 +132,14 @@ StringSchema.extend({
 
 SimpleSchema.extendOptions(['autoform']);
 
+SimpleSchema.setDefaultMessages({
+    messages: {
+        en: {
+            required: '{{{label}}} is required',
+        },
+    },
+});
+
 const objectKeysTestSchema = new SimpleSchema({});
 
 // No prefix passed

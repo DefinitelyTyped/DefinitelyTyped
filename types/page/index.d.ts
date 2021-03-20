@@ -271,17 +271,21 @@ declare namespace PageJS {
          */
         handled: boolean;
         /**
-         *  Pathname including the "base" (if any) and query string "/admin/login?foo=bar".
+         *  Pathname including the "base" (if any) and query string "/admin/login?foo=bar#zee".
          */
         canonicalPath: string;
         /**
-         *  Pathname and query string "/login?foo=bar".
+         *  Pathname and query string "/login?foo=bar#zee".
          */
         path: string;
         /**
          *  Query string void of leading ? such as "foo=bar", defaults to "".
          */
         querystring: string;
+        /**
+         *  Hash void of leading # such as "zee", defaults to "".
+         */
+        hash: string;
         /**
          *  The pathname void of query string "/login".
          */

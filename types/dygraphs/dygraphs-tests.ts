@@ -228,6 +228,9 @@ d.setAnnotations([
 // $ExpectType Annotation[]
 d.annotations();
 
+// $ExpectType [number, number][]
+d.yAxisExtremes();
+
 // $ExpectType void
 d.updateOptions({
     fillGraph: true,

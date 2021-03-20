@@ -1,7 +1,8 @@
 import EmberObject from "@ember/object";
 import {
     UnwrapComputedPropertyGetter,
-    UnwrapComputedPropertyGetters
+    UnwrapComputedPropertyGetters,
+    UnwrapComputedPropertySetters,
 } from "@ember/object/-private/types";
 
 /**
@@ -29,4 +30,11 @@ export default class ObjectProxy<T extends object = object> extends EmberObject 
     getProperties<K extends keyof T>(
         ...list: K[]
     ): Pick<Partial<UnwrapComputedPropertyGetters<T>>, K>;
+
+    set<K extends keyof this>(key: K, value: UnwrapComputedPropertySetters<this>[K]): UnwrapComputedPropertySetters<this>[K];
+    set<K extends keyof T>(key: K, value: UnwrapComputedPropertySetters<T>[K]): UnwrapComputedPropertySetters<T>[K];
+
+    setProperties<K extends (keyof this | keyof T)>(
+        hash: Pick<UnwrapComputedPropertySetters<this & T>, K>
+    ): Pick<UnwrapComputedPropertySetters<this & T>, K>;
 }

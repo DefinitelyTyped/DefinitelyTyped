@@ -892,6 +892,9 @@ tagify.dropdown.refilter.call(this);
 tagify.dropdown.refilter.call(this, "filter value");
 
 tagify.removeAllTags();
+tagify.removeAllTags({});
+tagify.removeAllTags({withoutChangeEvent: false});
+tagify.removeAllTags({withoutChangeEvent: true});
 tagify.update();
 tagify.update({});
 tagify.update({withoutChangeEvent: true});

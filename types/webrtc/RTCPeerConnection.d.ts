@@ -94,7 +94,7 @@ interface RTCRtpEncodingParameters {
     //ssrc: number;
     //rtx: RTCRtpRtxParameters;
     //fec: RTCRtpFecParameters;
-    dtx?: RTCDtxStatus;
+    // dtx?: RTCDtxStatus;
     //active: boolean;
     //priority: RTCPriorityType;
     //maxBitrate: number;
@@ -131,7 +131,7 @@ interface RTCRtpParameters {
     //headerExtensions: RTCRtpHeaderExtensionParameters[];
     //rtcp: RTCRtcpParameters;
     //codecs: RTCRtpCodecParameters[];
-    degradationPreference?: RTCDegradationPreference; // default = 'balanced'
+    // degradationPreference?: RTCDegradationPreference; // default = 'balanced'
 }
 
 // https://www.w3.org/TR/webrtc/#dom-rtcrtpcontributingsource
@@ -235,7 +235,7 @@ interface RTCDataChannel extends EventTarget {
     readonly readyState: RTCDataChannelState;
     readonly bufferedAmount: number;
     bufferedAmountLowThreshold: number;
-    binaryType: string;
+    // binaryType: string;
 
     close(): void;
     send(data: string | Blob | ArrayBuffer | ArrayBufferView): void;

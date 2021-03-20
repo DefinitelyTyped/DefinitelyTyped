@@ -143,7 +143,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
 
     tooltipDataField?: string;
     editable?: boolean | ((cell: any, row: T, rowIndex: number, colIndex: number) => boolean);
-    editor?: { type: string; options?: [{ value: string; label: string }] };
+    editor?: { type: string; options?: Array<{ value: string; label: string }> };
     filter?: boolean | TableColumnFilterProps;
     filterValue?: (cell: T[keyof T], row: T) => string;
     headerAlign?: CellAlignment;

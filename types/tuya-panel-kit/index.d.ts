@@ -3416,7 +3416,7 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @description Value matching value of one of the items
      * @defaultValue undefined
      */
-    selectedValue?: string | number | boolean;
+    selectedValue?: string;
     /**
      * @language zh-CN
      * @description 数值改变回调
