@@ -1,4 +1,4 @@
-// Type definitions for 7zip-min 1.2
+// Type definitions for 7zip-min 1.3
 // Project: https://github.com/onikienko/7zip-min
 // Definitions by: Tanandara <https://github.com/Tanandara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,4 +16,9 @@ export interface Result {
     attr: string;
     size: string;
     compressed: string;
+    dateTime: string;
+    crc: string;
+    method: string;
+    block: string;
+    encrypted: string;
 }
