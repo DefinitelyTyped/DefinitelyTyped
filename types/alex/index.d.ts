@@ -1,9 +1,9 @@
-// Type definitions for alex 9.0
+// Type definitions for alex 9.1
 // Project: https://alexjs.com
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { VFile } from 'vfile';
+import { VFile } from "vfile";
 
 /**
  * finds gender favoring, polarizing, race related, religion inconsiderate, or other unequal phrasing in text.
@@ -17,22 +17,27 @@ declare namespace alex {
     type Config = AlexOptions | string[];
 
     interface AlexOptions {
-        /** an array of rules (the default is []) */
+        /**
+         * an array of rules
+         * @default undefined
+         */
         allow?: string[];
         /**
          * When provided, only the rules specified are reported.
-         * @default []
+         * @default undefined
          */
         deny?: string[];
         /**
          * When turned on (`true`), pairs such as `he` and `she` and `garbageman` or `garbagewoman` are seen as errors.
          * When turned off (`false`, the default), such pairs are okay
+         * @default false
          */
         noBinary?: boolean;
         /**
          * the minimum rating (including) that you want to check for.
          * If you set it to 1 (maybe) then it will warn for level 1 and 2 (likely) profanities,
          * but not for level 0 (unlikely).
+         * @default 0
          */
         profanitySureness?: 0 | 1 | 2;
     }
