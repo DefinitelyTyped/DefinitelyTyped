@@ -1015,6 +1015,21 @@ declare namespace Tagify {
     }
 
     /**
+     * Optional settings that can be passed to {@link Tagify.removeAllTags}.
+     */
+    interface RemoveAllTagsOptions {
+        /**
+         * When `true`, no change is event triggered and the change is applied
+         * silently. When `false` or not given, a change event is triggered
+         * normally as if the user had made the change. Note that no event is
+         * triggered when the value of the INPUT or TEXTAREA element did not
+         * change.
+         * @default false
+         */
+        withoutChangeEvent?: boolean;
+    }
+
+    /**
      * Optional settings that can be passed to {@link Tagify.update}.
      */
     interface UpdateOptions {
@@ -1111,8 +1126,9 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 
     /**
      * Removes all tags and resets the original input tag's value property.
+     * @param opts Optional settings to affect whether events are triggered.
      */
-    removeAllTags(): void;
+    removeAllTags(opts?: Tagify.RemoveAllTagsOptions): void;
 
     /**
      * Update the value of the original (hidden) INPUT or TEXTAREA field so that

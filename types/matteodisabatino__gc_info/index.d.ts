@@ -1,4 +1,4 @@
-// Type definitions for @matteodisabatino/gc_info 0.1
+// Type definitions for @matteodisabatino/gc_info 0.2
 // Project: https://github.com/matteodisabatino/gc_info#readme
 // Definitions by: Matteo Di Sabatino <https://github.com/matteodisabatino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,8 +13,7 @@ export enum GcType {
 
 export interface GcStats {
     /**
-     * Number of bytes V8 has allocated for the heap. This can grow if usedHeap
-     * needs more.
+     * Number of bytes V8 has allocated for the heap.
      */
     totalHeapSize: number;
 
@@ -117,5 +116,6 @@ export interface GcInfo {
     diff: GcStats;
 }
 
-export function on(event: string, callback: (stats: GcInfo) => void): void;
+export const path: string;
 export function off(event: string, callback?: (stats: GcInfo) => void): void;
+export function on(event: string, callback: (stats: GcInfo) => void): void;

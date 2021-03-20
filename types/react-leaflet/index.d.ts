@@ -4,6 +4,7 @@
 //                 David Schneider <https://github.com/davschne>
 //                 Yui T. <https://github.com/yuit>
 //                 Tom Fenech <https://github.com/fenech>
+//                 Eric Myllyoja <https://github.com/MasterEric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -37,6 +38,7 @@ export interface MapEvents {
     ondrag?(event: Leaflet.LeafletEvent): void;
     ondragend?(event: Leaflet.DragEndEvent): void;
     onzoomstart?(event: Leaflet.LeafletEvent): void;
+    onzoom?(event: Leaflet.LeafletEvent): void;
     onzoomend?(event: Leaflet.LeafletEvent): void;
     onzoomlevelschange?(event: Leaflet.LeafletEvent): void;
     onresize?(event: Leaflet.ResizeEvent): void;

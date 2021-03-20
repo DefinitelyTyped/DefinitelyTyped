@@ -27,8 +27,13 @@ import {
   BasicDoc,
   AllSearchResults,
   connectStats,
-  StatsProvided
+    StatsProvided,
+    connectHitInsights,
+    InsightsClient,
+    ConnectHitInsightsProvided,
 } from 'react-instantsearch-core';
+
+import { Hits } from 'react-instantsearch-dom';
 
 () => {
   <Index indexName={'test'} indexId="id">
@@ -637,4 +642,22 @@ import {
   const ConnectedTotalHits = connectStats(TotalHits);
 
   <ConnectedTotalHits />;
+};
+
+() => {
+    const HitComponent = ({ hit, insights }: ConnectHitInsightsProvided) => (
+        <button
+            onClick={() => {
+                insights('clickedObjectIDsAfterSearch', { eventName: 'hit clicked' });
+            }}
+        >
+            <article>
+                <h1>{hit.name}</h1>
+            </article>
+        </button>
+    );
+
+    const HitWithInsights = connectHitInsights(() => {})(HitComponent);
+
+    <Hits hitComponent={HitWithInsights} />;
 };

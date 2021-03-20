@@ -48,7 +48,7 @@ import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
 
 type FlattenIfArray<T> = T extends ReadonlyArray<infer R> ? R : T;
-type WithoutProjection<T> = T & { fields?: undefined; projection?: undefined };
+export type WithoutProjection<T> = T & { fields?: undefined; projection?: undefined };
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
