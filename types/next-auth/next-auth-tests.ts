@@ -170,6 +170,10 @@ const allConfig = {
         encryptionKey: 'some-key',
         encode: () => Promise.resolve('foo'),
         decode: () => Promise.resolve({}),
+        verificationOptions: {
+          algorithms: ['RS512'],
+          maxTokenAge: `3600s`,
+        },
     },
     pages: pageOptions,
     callbacks: {

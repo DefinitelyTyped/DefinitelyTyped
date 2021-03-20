@@ -40,6 +40,10 @@ export interface JWTOptions {
     encryptionKey?: string;
     encode?(options: JWTEncodeParams): Promise<string>;
     decode?(options: JWTDecodeParams): Promise<WithAdditionalParams<JWT>>;
+    verificationOptions?: {
+      algorithms?: string[];
+      maxTokenAge?: string | number;
+    };
 }
 
 declare function encode(args?: JWTEncodeParams): Promise<string>;
