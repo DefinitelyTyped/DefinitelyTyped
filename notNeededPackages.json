@@ -751,6 +751,11 @@
             "asOfVersion": "4.0.3"
         },
         {
+            "libraryName": "csrf",
+            "typingsPackageName": "csrf",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "csv-parse",
             "typingsPackageName": "csv-parse",
             "asOfVersion": "1.2.2"
