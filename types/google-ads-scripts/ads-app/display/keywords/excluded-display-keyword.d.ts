@@ -10,7 +10,7 @@
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads excluded display keyword. */
-        interface ExcludedDisplayKeyword extends Base.StatsFor {
+        interface ExcludedDisplayKeyword {
             /** Returns the ad group to which this audience belongs. */
             getAdGroup(): AdGroup;
             /** Returns the base ad group to which this audience belongs. */
