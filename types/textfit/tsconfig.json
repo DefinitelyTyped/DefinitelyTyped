@@ -14,7 +14,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
 
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "textfit-tests.ts"]
