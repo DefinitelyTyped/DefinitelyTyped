@@ -721,6 +721,11 @@
             "asOfVersion": "7.1.1"
         },
         {
+            "libraryName": "create-banner",
+            "typingsPackageName": "create-banner",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "create-html-element",
             "typingsPackageName": "create-html-element",
             "asOfVersion": "2.1.0"
