@@ -11,7 +11,7 @@
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads excludedAudience. */
-        interface ExcludedAudience extends Base.StatsFor {
+        interface ExcludedAudience {
             /** Returns the ad group to which this excludedAudience belongs. */
             getAdGroup(): AdGroup;
             /** Returns the excludedAudience ID of the excludedAudience. */
