@@ -51,11 +51,11 @@ declare namespace GoogleAdsScripts {
             /** Builds the excluded display keyword. */
             exclude(): ExcludedDisplayKeywordOperation;
             /** Sets the max CPC bid of the new display keyword to the specified value. */
-            withCpc(): DisplayKeywordBuilder;
+            withCpc(cpc: number): this;
             /** Sets the CPM bid of the new display keyword to the specified value. */
-            withCpm(): DisplayKeywordBuilder;
+            withCpm(cpm: number): this;
             /** Sets the text of the display keyword. */
-            withText(): DisplayKeywordBuilder;
+            withText(text: string): this;
         }
 
         /**
