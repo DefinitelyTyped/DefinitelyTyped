@@ -64,6 +64,7 @@ declare namespace cheerio {
         // Cheerio https://github.com/cheeriojs/cheerio
         // JQuery http://api.jquery.com
 
+        [Symbol.iterator](): IterableIterator<Element>;
         [index: number]: Element;
         cheerio: string;
         length: number;
