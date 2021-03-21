@@ -25,7 +25,7 @@ declare namespace GoogleAdsScripts {
             /** Returns the YouTube channel ID. */
             getChannelId(): string;
             /** Returns the type of this entity as a String, in this case, "YouTubeChannel". */
-            getEntityType(): string	
+            getEntityType(): string;
             /** Returns the ID of the YouTube channel. */
             getId(): number;
             /** Returns true if the YouTube channel is enabled. */
@@ -75,15 +75,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches YouTube channels. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var youTubeChannelSelector = AdsApp.display()
          *          .youTubeChannels()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var youTubeChannelIterator = youTubeChannelSelector.get();
          *      while (youTubeChannelIterator.hasNext()) {
          *        var youTubeChannel = youTubeChannelIterator.next();

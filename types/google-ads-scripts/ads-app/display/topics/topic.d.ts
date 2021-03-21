@@ -72,15 +72,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches topics. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var topicSelector = AdsApp.display()
          *         .topics()
          *         .withCondition("Impressions > 100")
          *         .forDateRange("LAST_MONTH")
          *         .orderBy("Clicks DESC");
-         * 
+         *
          *     var topicIterator = topicSelector.get();
          *     while (topicIterator.hasNext()) {
          *       var topic = topicIterator.next();

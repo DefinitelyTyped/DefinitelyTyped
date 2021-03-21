@@ -48,7 +48,7 @@ declare namespace GoogleAdsScripts {
          *
          *      var adGroup = AdsApp.adGroups().get().next();
          *      var excludedPlacementSelector = adGroup.display().excludedPlacements();
-         * 
+         *
          *      var excludedPlacementIterator = excludedPlacementSelector.get();
          *      while (excludedPlacementIterator.hasNext()) {
          *        var excludedPlacement = excludedPlacementIterator.next();
