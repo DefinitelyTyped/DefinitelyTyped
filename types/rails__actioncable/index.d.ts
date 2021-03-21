@@ -201,5 +201,5 @@ export const logger: {
 /**
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/index.js
  */
-export function createConsumer(url?: string): typeof Consumer;
+export function createConsumer(url?: string): Consumer;
 export function getConfig(name: string): string | void;
