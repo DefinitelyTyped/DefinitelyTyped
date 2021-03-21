@@ -26,6 +26,9 @@ navigator.getUserMedia(
 
         // $ExpectType string
         instance.getState();
+
+        // $ExpectType { onRecordingStopped: (callback: (...args: any[]) => any) => any; }
+        instance.setRecordingDuration();
     },
     console.error,
 );

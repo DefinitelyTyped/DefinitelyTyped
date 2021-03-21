@@ -228,7 +228,9 @@ declare class RecordRTC {
     resumeRecording(): void;
 
     /** auto stop recording after specific duration */
-    setRecordingDuration(): void;
+    setRecordingDuration(): {
+        onRecordingStopped: (callback: (...args: any[]) => any) => any;
+    };
 
     /** reset recorder states and remove the data */
     reset(): void;
