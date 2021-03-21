@@ -272,7 +272,6 @@ async function xrmNavigation() {
     }));
 }
 
-
 // Demonstrate addOnLoad/removeOnLoad methods
 const saveOptionsSaveMode = (context: Xrm.Events.SaveEventContext) => {
     const saveMode = context.getEventArgs().getSaveMode();
