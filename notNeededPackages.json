@@ -44,6 +44,10 @@
             "libraryName": "ajv",
             "asOfVersion": "1.0.0"
         },
+        "algoliasearch": {
+            "libraryName": "algoliasearch",
+            "asOfVersion": "4.0.0"
+        },
         "all-keys": {
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
