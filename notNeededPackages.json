@@ -48,6 +48,10 @@
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
         },
+        "algoliasearch-helper": {
+            "libraryName": "algoliasearch-helper",
+            "asOfVersion": "3.0.0"
+        },
         "all-keys": {
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
