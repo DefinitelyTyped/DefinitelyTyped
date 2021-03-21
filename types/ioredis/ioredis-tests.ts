@@ -521,6 +521,11 @@ redis.xrevrange('streamName', '+', '-', 'COUNT', 1, cb);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000).then(console.log);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000, cbNumber);
 
+redis.scanStream({match: "pattern"});
+redis.scanStream({type: "del"});
+redis.scanStream({count: 100});
+redis.scanStream({key: "foo"});
+
 redis.zrangebyscore('set', 0, 100).then(console.log);
 redis.zrangebyscore('set', 0, 100);
 redis.zrangebyscore('set', 0, 100, 'WITHSCORES').then(console.log);
@@ -581,16 +586,22 @@ new Redis.Cluster([], {
 });
 
 // Cluster types
+const clusterNodes: Redis.ClusterNode[] = [
+    {
+        host: 'localhost',
+        port: 6379,
+    },
+];
+
 const clusterOptions: Redis.ClusterOptions = {};
-const cluster = new Redis.Cluster(
-    [
-        {
-            host: 'localhost',
-            port: 6379,
-        },
-    ],
-    clusterOptions,
-);
+
+const cluster = new Redis.Cluster(clusterNodes, clusterOptions);
+
+cluster.duplicate(); // $ExpectType Cluster
+cluster.duplicate(clusterNodes); // $ExpectType Cluster
+cluster.duplicate(clusterNodes, clusterOptions); // $ExpectType Cluster
+cluster.duplicate(undefined, clusterOptions); // $ExpectType Cluster
+
 cluster.on('end', () => console.log('on end'));
 cluster.nodes().map(node => {
     node.pipeline()

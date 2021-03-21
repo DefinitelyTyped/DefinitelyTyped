@@ -34,6 +34,16 @@ function test(videojs: typeof videojsnovtt | typeof videojscore) {
 
         const howLongIsThis: number = this.duration();
 
+        const autoplay: boolean | string = this.autoplay();
+        this.autoplay(true);
+        this.autoplay("muted");
+
+        const controls: boolean = this.controls();
+        this.controls(true);
+
+        const loop: boolean = this.loop();
+        this.loop(true);
+
         const bufferedTimeRange: TimeRanges = this.buffered();
 
         // Number of different ranges of time have been buffered. Usually 1.

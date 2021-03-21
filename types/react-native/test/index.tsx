@@ -14,7 +14,6 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-    ART,
     AccessibilityInfo,
     AsyncStorage,
     Alert,
@@ -23,7 +22,6 @@ import {
     Appearance,
     BackHandler,
     Button,
-    CheckBox,
     ColorPropType,
     ColorValue,
     DataSourceAssetCallback,
@@ -889,20 +887,6 @@ class MaskedViewTest extends React.Component {
     }
 }
 
-const CheckboxTest = () => (
-    <CheckBox
-        testID="testId"
-        disabled={false}
-        onChange={value => {
-            console.log(value);
-        }}
-        onValueChange={value => {
-            console.log(value);
-        }}
-        value={true}
-    />
-);
-
 class InputAccessoryViewTest extends React.Component {
     render() {
         const uniqueID = 'foobar';
@@ -1137,7 +1121,7 @@ export class ImageTest extends React.Component {
         testNativeSyntheticEvent(e);
         console.log('height:', e.nativeEvent.source.height);
         console.log('width:', e.nativeEvent.source.width);
-        console.log('url:', e.nativeEvent.source.url);
+        console.log('uri:', e.nativeEvent.source.uri);
     };
 
     handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
@@ -1425,6 +1409,16 @@ const PlatformTest = () => {
     }
 };
 
+const PlatformConstantsTest = () => {
+    const testing: boolean = Platform.constants.isTesting;
+    if (Platform.OS === 'ios') {
+        const hasForceTouch: boolean = Platform.constants.forceTouchAvailable;
+    } else if (Platform.OS === 'android') {
+        const { major, prerelease } = Platform.constants.reactNativeVersion;
+        const v = Platform.constants.Version;
+        const host: string | undefined = Platform.constants.ServerHost;
+    }
+};
 Platform.select({ native: 1 }); // $ExpectType number | undefined
 Platform.select({ native: 1, web: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1 }); // $ExpectType number | undefined

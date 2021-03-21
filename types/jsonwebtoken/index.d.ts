@@ -206,5 +206,5 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(token: string, options: DecodeOptions & { json: true }): null | { [key: string]: any };
+export function decode(token: string, options: DecodeOptions & { json: true } | DecodeOptions & { complete: true }): null | { [key: string]: any };
 export function decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;

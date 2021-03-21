@@ -134,3 +134,17 @@ const lobbyBypassScope: MicrosoftGraph.LobbyBypassScope = "organizer";
 const oneNoteUserRole: MicrosoftGraph.OnenoteUserRole = "Owner";
 
 const conditionalAccessGrantControl: MicrosoftGraph.ConditionalAccessGrantControl = "passwordChange";
+
+const authenticationMethodState: MicrosoftGraph.AuthenticationMethodState = "disabled";
+
+const applicationTemplate: MicrosoftGraph.ApplicationTemplate = {
+    categories: [],
+    logoUrl: "test"
+};
+
+const chatType: MicrosoftGraph.ChatType = "group";
+
+const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
+    description: "TEST_DESC",
+    displayName: "TEST_NAME"
+};

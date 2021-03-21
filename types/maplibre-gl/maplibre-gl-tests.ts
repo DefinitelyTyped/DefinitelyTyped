@@ -414,6 +414,7 @@ popup.getMaxWidth();
 popup.getElement(); // $ExpectType HTMLElement
 popup.addClassName('class1');
 popup.removeClassName('class2');
+// $ExpectType boolean
 popup.toggleClassName('class3');
 // $ExpectType Popup
 popup.setOffset([10, 20]);

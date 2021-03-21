@@ -391,11 +391,10 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         return <strong>{section.title}</strong>;
     }
 
-    protected renderInputComponent(inputProps: Autosuggest.InputProps<Language>): JSX.Element {
-        const { onChange, onBlur, ...restInputProps } = inputProps;
+    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): JSX.Element {
         return (
             <div>
-                <input {...restInputProps} />
+                <input {...inputProps} />
             </div>
         );
     }
@@ -606,3 +605,12 @@ function testMultiSections() {
         renderSuggestion={suggestion => suggestion}
     />;
 }
+
+const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = event => {
+    const element = event.target;
+    // `value` only exists on the input element, but sometimes this function is
+    // called with a `target` pointing to a non-input element. For example, when
+    // the user clicks on a suggestion. Reduced test case:
+    // https://stackblitz.com/edit/oliverjash-react-autosuggest-1lhfk3?file=index.tsx
+    element.value; // $ExpectError
+};

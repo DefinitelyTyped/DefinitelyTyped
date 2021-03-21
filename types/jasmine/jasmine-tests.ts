@@ -878,6 +878,39 @@ describe("A spy, when created manually", () => {
     });
 });
 
+describe("a spy on a typed method", () => {
+    class Test {
+        method(arg: number): string { return '42'; }
+    }
+
+    let t: Test;
+
+    beforeEach(() => {
+        t = new Test();
+    });
+
+    it("should match only call arguments with the correct type", () => {
+        const spy = spyOn(t, 'method');
+        t.method(1);
+
+        expect(t.method).toHaveBeenCalledWith(1);
+        expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
+        expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+        expect(spy).toHaveBeenCalledWith(1);
+        expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
+        expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+        expect(t.method).toHaveBeenCalledOnceWith(1);
+        expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
+        expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+
+        expect(spy).toHaveBeenCalledOnceWith(1);
+        expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
+        expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+    });
+});
+
 describe("Spy for generic method", () => {
     interface Test {
         method<T>(): Array<Box<T>>;
@@ -1347,6 +1380,15 @@ describe("Manually ticking the Jasmine Clock", () => {
             jasmine.clock().tick(50);
             expect(new Date().getTime()).toEqual(baseTime.getTime() + 50);
         });
+
+        it("can be chained off the install method", () => {
+            const baseTime = new Date(2013, 9, 23);
+
+            jasmine.clock().install().mockDate(baseTime);
+
+            jasmine.clock().tick(50);
+            expect(new Date().getTime()).toEqual(baseTime.getTime() + 50);
+        });
     });
 });
 
@@ -1678,7 +1720,11 @@ var myReporter: jasmine.CustomReporter = {
     },
 
     suiteDone: (result: jasmine.CustomReporterResult) => {
-        console.log(`Suite: ${result.description} was ${result.status}`);
+        console.log(`Suite: ${result.description} was ${result.status} (${result.duration})`);
+        console.log(`Suite has properties: ${Object.keys(result.properties || {})}`);
+        if (result.deprecationWarnings) {
+            console.log(`Suite has deprecations: ${result.deprecationWarnings.map(w => w.message)}`);
+        }
         for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);

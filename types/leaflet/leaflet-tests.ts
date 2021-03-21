@@ -64,6 +64,11 @@ bounds = new L.Bounds(pointTuple, pointTuple);
 bounds = new L.Bounds([point, point]);
 bounds = new L.Bounds(boundsLiteral);
 
+const topLeft = bounds.getTopLeft();
+const topRight = bounds.getTopRight();
+const bottomLeft = bounds.getBottomLeft();
+const bottomRight = bounds.getBottomRight();
+
 let points: L.Point[];
 points = L.LineUtil.simplify([point, point], 1);
 
@@ -73,6 +78,8 @@ point = L.LineUtil.closestPointOnSegment(point, point, point);
 
 points = L.PolyUtil.clipPolygon(points, bounds);
 points = L.PolyUtil.clipPolygon(points, bounds, true);
+
+L.LineUtil.clipSegment(point, point, bounds);
 
 let mapOptions: L.MapOptions = {};
 
@@ -523,6 +530,9 @@ nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
 const geojsonOptions: L.GeoJSONOptions = { interactive: true, bubblingMouseEvents: false };
 const geojson = new L.GeoJSON(null, geojsonOptions);
+
+geojson.toGeoJSON();
+geojson.toGeoJSON(15);
 
 const style: L.PathOptions = {
     className: "string",

@@ -8,6 +8,9 @@ import htmlParser = require('prettier/parser-html');
 import markdownParser = require('prettier/parser-markdown');
 import postcssParser = require('prettier/parser-postcss');
 import yamlParser = require('prettier/parser-yaml');
+import meriyahParser = require('prettier/parser-meriyah');
+import espreeParser = require('prettier/parser-espree');
+import glimmerParser = require('prettier/parser-glimmer');
 import * as doc from 'prettier/doc';
 
 const formatted = prettier.format('foo ( );', { semi: false });
@@ -81,6 +84,9 @@ htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserN
 markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+meriyahParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+espreeParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+glimmerParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 
 prettier.format('hello world', {
     plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser],
@@ -98,7 +104,7 @@ doc.utils.isEmpty;
 doc.debug.printDocToDebug;
 
 interface PluginAST {
-    kind: "line";
+    kind: 'line';
     value: string;
 }
 
@@ -106,18 +112,18 @@ const plugin: prettier.Plugin<PluginAST> = {
     parsers: {
         lines: {
             parse(text, parsers, options) {
-                return { kind: "line", value: "This is a line" };
+                return { kind: 'line', value: 'This is a line' };
             },
-            astFormat: "lines",
-            locStart: (node) => {
+            astFormat: 'lines',
+            locStart: node => {
                 node; // $ExpectType PluginAST
                 return 0;
             },
-            locEnd: (node) => {
+            locEnd: node => {
                 node; // $ExpectType PluginAST
                 return 0;
-            }
-        }
+            },
+        },
     },
     printers: {
         lines: {
@@ -129,9 +135,90 @@ const plugin: prettier.Plugin<PluginAST> = {
                 node; // $ExpectType PluginAST
 
                 return node.value;
-            }
-        }
-    }
+            },
+            printComment(commentPath, options) {
+                const comment = commentPath.getValue();
+                return comment.value;
+            },
+        },
+    },
+    options: {
+        testBoolOption: {
+            since: '1.0.1',
+            type: 'boolean',
+            category: 'Test',
+            default: true,
+            description: 'Move open brace for code blocks onto new line.',
+            oppositeDescription: "Don't move open brace for code blocks onto new line.",
+        },
+        testBoolArrOption: {
+            since: '1.0.1',
+            type: 'boolean',
+            array: true,
+            category: 'Test',
+            default: [{ value: [true, false, true] }],
+            deprecated: true,
+            description: 'Move open brace for code blocks onto new line.',
+        },
+        testIntOption: {
+            since: '1.0.2',
+            type: 'int',
+            category: 'Global',
+            default: 15,
+            range: {
+                start: 5,
+                end: 100,
+                step: 5,
+            },
+            deprecated: 'Deprecated can be a string describing deprecation status.',
+            description: 'This is a number.',
+        },
+        testIntArrOption: {
+            since: 'forever',
+            type: 'int',
+            category: 'Test',
+            default: [{ value: [3, 8, 12] }],
+            array: true,
+            description: 'This is a number.',
+        },
+        testChoiceOption: {
+            since: '1.0.3',
+            type: 'choice',
+            default: 'one',
+            choices: [
+                { value: 'one', description: 'The number one' },
+                { value: 'two', description: 'The number two' },
+                { value: 'three', description: 'The number three' },
+            ],
+            category: 'Test',
+            description: 'Choose one of three.',
+        },
+        testChoiceComplexOption: {
+            since: '1.0.5',
+            type: 'choice',
+            default: [{ since: '1.0.7', value: 'banana' }, { value: 'apple' }],
+            choices: [
+                { value: 'apple', description: 'A fruit.' },
+                { value: 'orange', since: '1.0.6', description: 'A different fruit.' },
+                { value: 'banana', since: '1.0.5', description: 'Added in 1.0.5, made default in 1.0.7.' },
+            ],
+            category: 'Test',
+            description: 'Choose one of three.',
+        },
+        testPathOption: {
+            since: '1.0.0',
+            type: 'path',
+            category: 'Test',
+            default: './path.js',
+        },
+        testPathArrOption: {
+            since: '1.0.0',
+            type: 'path',
+            category: 'Test',
+            array: true,
+            default: [{ value: ['./pathA.js', './pathB.js'] }],
+        },
+    },
 };
 
-prettier.format("a line!", { parser: "lines", plugins: [plugin] });
+prettier.format('a line!', { parser: 'lines', plugins: [plugin] });

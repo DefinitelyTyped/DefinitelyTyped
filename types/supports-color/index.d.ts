@@ -13,7 +13,7 @@ export namespace supportsColor {
         has16m: boolean;
     }
 
-    type SupportsColor = false & Level;
+    type SupportsColor = false | Level;
 }
 
 export const stdout: supportsColor.SupportsColor;

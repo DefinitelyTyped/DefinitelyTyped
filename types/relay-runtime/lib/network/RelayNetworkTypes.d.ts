@@ -37,7 +37,7 @@ export interface GraphQLResponseWithData {
     errors?: PayloadError[];
     extensions?: PayloadExtensions;
     label?: string;
-    path?: string[] | number[];
+    path?: Array<string | number>;
 }
 export interface GraphQLResponseWithoutData {
     data?: PayloadData;

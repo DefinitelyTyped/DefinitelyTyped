@@ -72,6 +72,7 @@ class BasicExample extends React.Component {
 
     render() {
         const { multiple } = this.state;
+        const typeaheadRef = React.createRef<Typeahead<State>>();
 
         return (
             <div>
@@ -142,16 +143,17 @@ class BasicExample extends React.Component {
                     labelKey="name"
                     options={options}
                     placeholder="Choose a state..."
-                    renderToken={(selectedItem, props) => {
+                    renderToken={(option, props) => {
                         return (
                             <Token
+                                option={option}
                                 active
                                 disabled={false}
                                 tabIndex={5}
                                 href="https://test.com"
                                 onRemove={() => console.log(props.value)}
                             >
-                                {selectedItem.name}
+                                {option.name}
                                 <ClearButton onClick={() => { }} />
                             </Token>
                         );
@@ -166,6 +168,48 @@ class BasicExample extends React.Component {
                     placeholder="Choose a state..."
                     renderInput={inputProps => <TypeaheadInputSingle {...inputProps} />}
                 />
+                <Typeahead
+                    labelKey="name"
+                    options={options}
+                    placeholder="Choose a state..."
+                    ref={typeaheadRef}
+                />
+                <button onClick={(e) => {
+                    typeaheadRef.current &&
+                    typeaheadRef.current.blur(); }}
+                >
+                    Hide
+                </button>
+                <button onClick={(e) => {
+                    typeaheadRef.current &&
+                    typeaheadRef.current.clear(); }}
+                >
+                    Toggle
+                </button>
+                <button onClick={(e) => {
+                    typeaheadRef.current &&
+                    typeaheadRef.current.focus(); }}
+                >
+                    Toggle
+                </button>
+                <button onClick={(e) => {
+                    typeaheadRef.current &&
+                    typeaheadRef.current.hideMenu(); }}
+                >
+                    Hide
+                </button>
+                <button onClick={(e) => {
+                    typeaheadRef.current &&
+                    typeaheadRef.current.toggleMenu(); }}
+                >
+                    Toggle
+                </button>
+                <button onClick={(e) => {
+                    typeaheadRef.current &&
+                    typeaheadRef.current.getInput().select(); }}
+                >
+                    Toggle
+                </button>
             </div>
         );
     }

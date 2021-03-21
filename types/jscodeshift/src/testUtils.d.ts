@@ -1,8 +1,7 @@
-import { Transform, Options } from './core';
-import recast = require("recast");
+import { Transform, Options, Parser } from './core';
 
 export interface TestOptions {
-  parser?: recast.Parser | string;
+  parser?: Parser | string;
 }
 
 export function defineTest(

@@ -262,6 +262,20 @@ braintree.client.create(
                 const formValid = Object.keys(state.fields).every(key => {
                     return state.fields[key].isValid;
                 });
+
+                hostedFieldsInstance.focus('cardholderName');
+                hostedFieldsInstance.focus('number', (focusErr: braintree.BraintreeError) => {
+                    if (focusErr) {
+                        console.error(focusErr);
+                    }
+                });
+
+                function onValidityChange(fieldState: braintree.HostedFieldsStateObject): void {
+                    console.log(fieldState);
+                }
+
+                hostedFieldsInstance.on('validityChange', onValidityChange);
+                hostedFieldsInstance.off('validityChange', onValidityChange);
             },
         );
 

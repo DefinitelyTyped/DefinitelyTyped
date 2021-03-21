@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactSlider = require('react-slider');
+import ReactSlider from 'react-slider';
 
 class Slider extends React.Component<ReactSlider.ReactSliderProps> {
     render() {
