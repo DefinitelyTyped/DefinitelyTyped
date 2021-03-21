@@ -1,4 +1,4 @@
-// Type definitions for non-npm package workgrid-toolbar 1.1
+// Type definitions for non-npm package workgrid-toolbar 1.2
 // Project: https://github.com/jguardino-workgrid/workgrid-toolbar
 // Definitions by: J Guardino <https://github.com/jguardino-workgrid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,28 +19,7 @@ export interface WorkgridToolbarOptions {
     preventPageHide?: boolean;
     toolbarId?: string | null;
     version?: string | null;
-    responsive?: {
-        disabled?: boolean;
-        page?: {
-            diaabled?: boolean;
-            breakpoints?: number[][];
-            target?: {
-                ids?: string[];
-                elements?: HTMLElement[];
-                cssProperty?: string;
-                cssUnit?: string;
-            };
-        };
-        toolbar?: {
-            disabled?: boolean | true;
-            breakpoints?: number[][];
-            target?: {
-                id?: string;
-                cssProperty?: string;
-                cssUnit?: string;
-            };
-        };
-    };
+    cssRules?: string[];
 }
 
 export function showWorkgridToolbar(options: WorkgridToolbarOptions): void;
