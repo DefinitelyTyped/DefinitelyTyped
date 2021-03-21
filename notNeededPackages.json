@@ -4753,6 +4753,11 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "tokenizr",
+            "typingsPackageName": "tokenizr",
+            "asOfVersion": "1.6.0"
+        },
+        {
             "libraryName": "transliteration",
             "typingsPackageName": "transliteration",
             "asOfVersion": "1.6.6"
