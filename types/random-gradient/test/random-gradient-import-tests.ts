@@ -1,6 +1,6 @@
-import randomGradient, { GradientDirection } from "random-gradient";
+import * as randomGradient from "random-gradient";
 
-const direction: GradientDirection = "horizontal";
+const direction: randomGradient.GradientDirection = "horizontal";
 
 randomGradient("test");
 randomGradient("test", "diagonal");
