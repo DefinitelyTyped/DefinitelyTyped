@@ -74,15 +74,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches display keywords. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var displayKeywordSelector = AdsApp.display()
          *          .keywords()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var displayKeywordIterator = displayKeywordSelector.get();
          *      while (displayKeywordIterator.hasNext()) {
          *        var displayKeyword = displayKeywordIterator.next();

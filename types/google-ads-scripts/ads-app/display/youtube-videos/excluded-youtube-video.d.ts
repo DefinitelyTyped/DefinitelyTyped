@@ -43,14 +43,14 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches excluded YouTube videos. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var excludedYouTubeVideoSelector = AdsApp.display()
          *          .excludedYouTubeVideos()
          *          .withCondition("AdGroupStatus = 'ENABLED'")
          *          .orderBy("AdGroupName DESC");
-         * 
+         *
          *      var excludedYouTubeVideoIterator = excludedYouTubeVideoSelector.get();
          *      while (excludedYouTubeVideoIterator.hasNext()) {
          *        var excludedYouTubeVideo = excludedYouTubeVideoIterator.next();

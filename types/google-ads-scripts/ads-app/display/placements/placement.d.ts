@@ -74,15 +74,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches placements. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var placementSelector = AdsApp.display()
          *          .placements()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var placementIterator = placementSelector.get();
          *      while (placementIterator.hasNext()) {
          *        var placement = placementIterator.next();
