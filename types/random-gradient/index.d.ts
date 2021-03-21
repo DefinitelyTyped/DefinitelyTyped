@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace randomGradient {
-    type GradientDirectionT = "diagonal" | "radial" | "horizontal" | "vertical";
+    type GradientDirection = "diagonal" | "radial" | "horizontal" | "vertical";
 }
 
 declare function randomGradient(uuid: string, type?: randomGradient.GradientDirection): string;
