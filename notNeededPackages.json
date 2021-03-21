@@ -706,6 +706,12 @@
             "asOfVersion": "6.0.0"
         },
         {
+            "libraryName": "country-emoji",
+            "typingsPackageName": "country-emoji",
+            "sourceRepoURL": "https://github.com/meeDamian/country-emoji",
+            "asOfVersion": "1.5.6"
+        },
+        {
             "libraryName": "countup.js",
             "typingsPackageName": "countup.js",
             "asOfVersion": "2.0.3"
