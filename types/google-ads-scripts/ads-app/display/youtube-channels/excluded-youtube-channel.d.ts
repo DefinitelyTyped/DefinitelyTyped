@@ -10,7 +10,7 @@
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads excluded YouTube Channel. */
-        interface ExcludedYouTubeChannel extends Base.StatsFor {
+        interface ExcludedYouTubeChannel {
             /** Returns the ad group to which this excluded YouTube channel belongs. */
             getAdGroup(): AdGroup;
             /** Returns the base ad group to which this excluded YouTube channel belongs. */
