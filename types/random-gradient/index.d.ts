@@ -7,6 +7,6 @@ declare namespace randomGradient {
     type GradientDirectionT = "diagonal" | "radial" | "horizontal" | "vertical";
 }
 
-declare function randomGradient(uuid: string, type?: randomGradient.GradientDirectionT): string;
+declare function randomGradient(uuid: string, type?: randomGradient.GradientDirection): string;
 
 export = randomGradient;
