@@ -3810,6 +3810,10 @@
             "libraryName": "to-semver",
             "asOfVersion": "2.0.0"
         },
+        "tokenizr": {
+            "libraryName": "tokenizr",
+            "asOfVersion": "1.6.0"
+        },
         "transliteration": {
             "libraryName": "transliteration",
             "asOfVersion": "1.6.6"
