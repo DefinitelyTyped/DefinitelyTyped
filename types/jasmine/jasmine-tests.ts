@@ -214,10 +214,10 @@ describe("Included matchers:", () => {
     it("async matchers", async () => {
         const badness = new Error("badness");
         await expectAsync(Promise.resolve()).toBeResolved();
-        await expectAsync(Promise.resolve()).toBeResolved("good job");
+        await expectAsync(Promise.resolve()).toBeResolved("good job"); // $ExpectError
         await expectAsync(Promise.resolve(true)).toBeResolvedTo(true);
         await expectAsync(Promise.reject(badness)).toBeRejected();
-        await expectAsync(Promise.reject(badness)).toBeRejected("bad mojo");
+        await expectAsync(Promise.reject(badness)).toBeRejected("bad mojo"); // $ExpectError
         await expectAsync(Promise.reject(badness)).toBeRejectedWith(badness);
         await expectAsync(Promise.reject(badness)).toBeRejectedWithError(Error, "badness");
         await expectAsync(Promise.reject(badness)).toBeRejectedWithError(Error, /badness/);
@@ -226,7 +226,7 @@ describe("Included matchers:", () => {
         await expectAsync(Promise.reject(badness)).toBeRejectedWithError(/badness/);
         await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
         await expectAsync(new Promise(() => {})).toBePending();
-        await expectAsync(new Promise(() => {})).toBePending("good job");
+        await expectAsync(new Promise(() => {})).toBePending("good job"); // $ExpectError
     });
 
     it("async matchers - not", async () => {
@@ -1144,10 +1144,11 @@ describe("DiffBuilder", () => {
 
 describe("custom asymmetry", () => {
     const tester: jasmine.AsymmetricMatcher<string> = {
-        asymmetricMatch: (actual: string, customTesters) => {
+        asymmetricMatch: (actual: string) => {
             const secondValue = actual.split(",")[1];
-            return jasmine.matchersUtil.equals(secondValue, "bar", customTesters);
+            return jasmine.matchersUtil.equals(secondValue, "bar");
         },
+        jasmineToString: () => ''
     };
 
     it("dives in deep", () => {
@@ -1551,8 +1552,8 @@ var customMatchers: jasmine.CustomMatcherFactories = {
 // }
 declare namespace jasmine {
     interface Matchers<T> {
-        toBeGoofy(expected?: Expected<T>): boolean;
-        toBeWithinRange(expected?: Expected<T>, floor?: number, ceiling?: number): boolean;
+        toBeGoofy(expected?: Expected<T>): void;
+        toBeWithinRange(expected?: Expected<T>, floor?: number, ceiling?: number): void;
     }
 
     interface AsyncMatchers<T, U> {
