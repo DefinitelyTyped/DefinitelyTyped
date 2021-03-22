@@ -1,4 +1,4 @@
-// Type definitions for react-native-md5
+// Type definitions for react-native-md5 1.0
 // Project: https://www.npmjs.com/package/react-native-md5
 // Definitions by: redcontritio <https://github.com/RedContritio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
