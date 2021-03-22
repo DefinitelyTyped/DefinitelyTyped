@@ -264,7 +264,7 @@ declare namespace THREE {
         normal: Vector3;
 
         constructor(normal?: Vector3, constant?: number);
-        
+
         applyMatrix4(matrix: Matrix4, optionalNormalMatrix?: Matrix3): Plane;
         clone(): Plane;
         coplanarPoint(optionalTarget?: boolean): Vector3;
