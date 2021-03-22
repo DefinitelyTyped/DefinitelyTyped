@@ -564,6 +564,10 @@
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
         },
+        "country-emoji": {
+            "libraryName": "country-emoji",
+            "asOfVersion": "1.5.6"
+        },
         "countup.js": {
             "libraryName": "countup.js",
             "asOfVersion": "2.0.3"
