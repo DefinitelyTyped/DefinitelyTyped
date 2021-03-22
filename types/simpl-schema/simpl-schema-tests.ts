@@ -142,6 +142,8 @@ SimpleSchema.setDefaultMessages({
 
 const objectKeysTestSchema = new SimpleSchema({});
 
+SimpleSchema.oneOf(String, Boolean);
+
 // No prefix passed
 // $ExpectType any[]
 objectKeysTestSchema.objectKeys();
