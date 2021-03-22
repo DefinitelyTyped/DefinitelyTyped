@@ -481,6 +481,64 @@ declare namespace Xrm {
         prependOrgName(sPath: string): string;
     }
 
+    /**
+     * Interface for value returned from Xrm.Utility.getPageContext()
+     * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#returns External Link: getPageContext (Client API reference)}
+     */
+    interface PageContext {
+        input: EntityFormPageContext | EntityListPageContext;
+    }
+
+    /**
+     * Interface for value returned from Xrm.Utility.getPageContext()
+     * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-form External Link: getPageContext (Client API reference)}
+     */
+    interface EntityFormPageContext {
+        /**
+         * The current page type.
+         */
+        pageType: "entityrecord";
+        /**
+         * Logical name of the entity currently displayed.
+         */
+        entityName: string;
+        /**
+         * ID of the entity record currently displayed in the form.
+         */
+        entityId?: string;
+        /**
+         * The parent record that provides default values based on mapped attribute values.
+         **/
+        createFromEntity?: LookupValue;
+        /**
+         * ID of the currently displayed form.
+         */
+        formId?: string;
+    }
+
+    /**
+     * Interface for value returned from Xrm.Utility.getPageContext()
+     * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-list External Link: getPageContext (Client API reference)}
+     */
+    interface EntityListPageContext {
+        /**
+         * The current page type.
+         */
+        pageType: "entitylist";
+        /**
+         * Logical name of the entity currently displayed.
+         */
+        entityName: string;
+        /**
+         * ID of the view currently displayed.
+         */
+        viewId?: string;
+        /**
+         * Type of the view currently displayed.
+         */
+        viewType?: "savedquery" | "userquery";
+    }
+
     namespace Events {
         /**
          * Interface for save event arguments.
@@ -647,14 +705,22 @@ declare namespace Xrm {
     }
 
     /**
-     * Defines save options to control how appointment, recurring appointment, or service activity records are processed.
+     * Defines save options for saving the record.
      *
      * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data/save External Link: save(Client API reference)}
      */
     interface SaveOptions {
         /**
+         * Specify a value indicating how the save event was initiated.
+         * @remarks For a list of supported values, see the return value of the getSaveMode method.
+         * @remarks Note that setting the saveMode does not actually take the corresponding action; it is just to provide information to the OnSave event handlers about the reason for the save operation.
+         */
+        saveMode: XrmEnum.SaveMode;
+
+        /**
          * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
          * Applicable to appointment, recurring appointment, or service activity records.
+         * @remarks This property is not supported in Unified Interface.
          */
         UseSchedulingEngine?: boolean;
     }
@@ -666,11 +732,23 @@ declare namespace Xrm {
      */
     interface Data {
         /**
+         * Adds a function to be called when form data is loaded.
+         * @param handler The function to be executed when the form data loads. The function will be added to the bottom of the event handler pipeline.
+         */
+        addOnLoad(handler: Events.ContextSensitiveHandler): void;
+
+        /**
          * Asynchronously refreshes data on the form, without reloading the page.
          * @param save true to save the record, after the refresh.
          * @returns Returns an asynchronous promise.
          */
         refresh(save: boolean): Async.PromiseLike<undefined>;
+
+        /**
+         * Removes a function to be called when form data is loaded.
+         * @param handler The function to be removed when the form data loads.
+         */
+        removeOnLoad(handler: Events.ContextSensitiveHandler): void;
 
         /**
          * Asynchronously saves the record.
@@ -927,17 +1005,45 @@ declare namespace Xrm {
          */
         defaultViewId?: string;
         /**
+         * Decides whether to display the most recently used(MRU) item.
+         * @remarks Available only for Unified Interface.
+         */
+        disableMru?: boolean;
+        /**
          * The entity types to display.
          */
-        entityTypes?: string[];
+        entityTypes: string[];
+        /**
+         * Used to filter the results.
+         */
+        filters?: LookupFilterOptions[];
+        /**
+         * Indicates the default search term for the lookup control.
+         * This is supported only on Unified Interface.
+         */
+        searchText?: string;
         /**
          * Indicates whether the lookup control should show the barcode scanner in mobile clients.
          */
         showBarcodeScanner?: boolean;
         /**
-         * The views to be available in the view picker.Only system views are supported.
+         * The views to be available in the view picker. Only system views are supported.
          */
         viewIds?: string[];
+    }
+
+    /**
+     * Interface for options used in Xrm.Utility.lookupObjects(LookupOptions)  filters
+     */
+    interface LookupFilterOptions {
+        /**
+         * The entity type to which to apply this filter.
+         */
+        entityLogicalName: string;
+        /**
+         * The FetchXML filter element to apply.
+         */
+        filterXml: string;
     }
 
     /**
@@ -947,21 +1053,24 @@ declare namespace Xrm {
     interface Utility {
         /**
          * Closes a progress dialog box.
+         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/closeprogressindicator External Link: closeProgressIndicator (Client API reference)}
          */
         closeProgressIndicator(): void;
 
         /**
          * Returns the valid state transitions for the specified entity type and state code.
-         * TODO: No info on the return type is available
          * @param entityName    The logical name of the entity.
          * @param stateCode     The state code to find out the allowed status transition values.
+         * @returns Returns an object with .then() function. The parameter to the delegate is an array of numbers representing the valid status transitions.
+         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getallowedstatustransitions getAllowedStatusTransitions (Client API reference)}
          */
-        getAllowedStatusTransitions(entityName: string, stateCode: number): Async.PromiseLike<any>;
+        getAllowedStatusTransitions(entityName: string, stateCode: number): PromiseLike<number[]>;
 
         /**
          * Returns the entity metadata for the specified entity.
          * @param entityName The logical name of the entity.
          * @param attributes The attributes to get metadata for.
+         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getentitymetadata External Link: getEntityMetadata}
          */
         getEntityMetadata(entityName: string, attributes?: string[]): Async.PromiseLike<Metadata.EntityMetadata>;
 
@@ -970,6 +1079,21 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility/getglobalcontext External Link: getGlobalContext (Client API reference)}
          */
         getGlobalContext(): GlobalContext;
+
+        /**
+         * Returns the name of the DOM attribute expected by the Learning Path (guided help) Content Designer for identifying UI controls in the model-driven apps forms.
+         * An attribute by this name must be added to the UI element that needs to be exposed to Learning Path (guided help).
+         * @returns DOM attribute expected by the Learning Path (guided help) Content Designer.
+         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getlearningpathattributename External Link: getLearningPathAttributeName (Client API reference)}
+         */
+        getLearningPathAttributeName(): string;
+
+        /**
+         * Gets the page context as an object representing the page.
+         * @returns The method returns an object with the input property. The input property is an object with the following attributes depending on whether you are currently on the entity form or entity list
+         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/getpagecontext#entity-form External Link: getPageContext (Client API reference)}
+         */
+        getPageContext(): PageContext;
 
         /**
          * Returns the localized string for a given key associated with the specified web resource.
@@ -992,12 +1116,14 @@ declare namespace Xrm {
         /**
          * Opens a lookup control to select one or more items.
          * @param lookupOptions Defines the options for opening the lookup dialog
+         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/lookupobjects}
          */
         lookupObjects(lookupOptions: LookupOptions): Async.PromiseLike<LookupValue[]>;
 
         /**
          * Refreshes the parent grid containing the specified record.
          * @param lookupOptions: The lookup value of the parent object to refresh.
+         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/refreshparentgrid}
          */
         refreshParentGrid(lookupOptions: LookupValue): void;
 
@@ -1005,6 +1131,7 @@ declare namespace Xrm {
          * Displays a progress dialog with the specified message.
          * Any subsequent call to this method will update the displayed message in the existing progress dialog with the message specified in the latest method call.
          * @param message The message to be displayed in the progress dialog.
+         * @see {@link https://docs.microsoft.com/powerapps/developer/model-driven-apps/clientapi/reference/xrm-utility/showprogressindicator}
          */
         showProgressIndicator(message: string): void;
 
@@ -3000,7 +3127,7 @@ declare namespace Xrm {
          *
          * @see {@link Control}
          */
-        interface GridControl extends Control {
+        interface GridControl extends Control, UiCanSetVisibleElement {
             /**
              * Use this method to add event handlers to the GridControl's OnLoad event.
              *
@@ -4472,7 +4599,7 @@ declare namespace Xrm {
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name (optional).
              */
-            createFromEntity?: boolean;
+            createFromEntity?: LookupValue;
             /**
              * A dictionary object that passes extra parameters to the form. Invalid parameters will cause an error.
              */
@@ -4556,6 +4683,10 @@ declare namespace Xrm {
              * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
              * */
             position?: 1 | 2;
+            /*
+             * The dialog title on top of the center or side dialog.
+             */
+            title?: string;
         }
 
         namespace NavigationOptions {

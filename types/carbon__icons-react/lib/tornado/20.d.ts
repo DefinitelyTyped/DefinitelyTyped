@@ -1,1 +1,3 @@
-export { Tornado20 as default } from "../../";
+import { Tornado20 } from "../../";
+
+export = Tornado20;

@@ -1,4 +1,4 @@
-// Type definitions for mocha 8.0
+// Type definitions for mocha 8.2
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -242,6 +242,50 @@ declare class Mocha {
      * @see https://mochajs.org/api/mocha#rootHooks
      */
     rootHooks(hooks: Mocha.RootHookObject): this;
+
+    /**
+     * Configures one or more global setup fixtures.
+     * If given no parameters, unsets any previously-set fixtures.
+     *
+     * @see https://mochajs.org/api/mocha#globalSetup
+     */
+    globalSetup: Mocha.HookFunction;
+
+    /**
+     * Configures one or more global teardown fixtures.
+     * If given no parameters, unsets any previously-set fixtures.
+     *
+     * @see https://mochajs.org/api/mocha#globalTeardown
+     */
+    globalTeardown: Mocha.HookFunction;
+
+    /**
+     * Returns `true` if one or more global setup fixtures have been supplied
+     *
+     * @see https://mochajs.org/api/mocha#hasGlobalSetupFixtures
+     */
+    hasGlobalSetupFixtures(): boolean;
+
+    /**
+     * Returns `true` if one or more global teardown fixtures have been supplied
+     *
+     * @see https://mochajs.org/api/mocha#hasGlobalTeardownFixtures
+     */
+    hasGlobalTeardownFixtures(): boolean;
+
+    /**
+     * Toggle execution of any global setup fixture(s)
+     *
+     * @see https://mochajs.org/api/mocha#enableGlobalSetup
+     */
+    enableGlobalSetup(enabled: boolean): this;
+
+    /**
+     * Toggle execution of any global teardown fixture(s)
+     *
+     * @see https://mochajs.org/api/mocha#enableGlobalTeardown
+     */
+    enableGlobalTeardown(enabled: boolean): this;
 }
 
 declare namespace Mocha {
@@ -1334,6 +1378,9 @@ declare namespace Mocha {
         readonly EVENT_TEST_PASS: 'pass';
         readonly EVENT_TEST_PENDING: 'pending';
         readonly EVENT_TEST_RETRY: 'retry';
+        readonly STATE_IDLE: 'idle';
+        readonly STATE_RUNNING: 'running';
+        readonly STATE_STOPPED: 'stopped';
     }
 
     /**
@@ -2694,24 +2741,14 @@ declare module "mocha" {
     export = Mocha;
 }
 
-declare module "mocha/lib/ms" {
-    export = milliseconds;
-    /**
-     * Parse the given `str` and return milliseconds.
-     *
-     * @see {@link https://mochajs.org/api/module-milliseconds.html}
-     * @see {@link https://mochajs.org/api/module-milliseconds.html#~parse}
-     */
-    function milliseconds(val: string): number;
+declare module "mocha/lib/stats-collector" {
+    export = createStatsCollector;
 
     /**
-     * Format for `ms`.
-     *
-     * @see {@link https://mochajs.org/api/module-milliseconds.html}
-     * @see {@link https://mochajs.org/api/module-milliseconds.html#~format}
+     * Provides stats such as test duration, number of tests passed / failed etc., by listening for events emitted by `runner`.
      */
-    function milliseconds(val: number): string;
-}
+    function createStatsCollector(runner: Mocha.Runner): void;
+  }
 
 declare module "mocha/lib/interfaces/common" {
     export = common;

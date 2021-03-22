@@ -853,6 +853,12 @@ declare module "mongoose" {
      * assigned is Date.
      */
     timestamps?: any;
+    /**
+     * Defaults to false. Provides optimistic
+     * concurrency support for `save()`. `versionKey`
+     * must be set if this is true.
+     */
+    optimisticConcurrency?: boolean;
   }
 
   /*

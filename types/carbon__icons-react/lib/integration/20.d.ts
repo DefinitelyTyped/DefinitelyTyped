@@ -1,1 +1,3 @@
-export { Integration20 as default } from "../../";
+import { Integration20 } from "../../";
+
+export = Integration20;

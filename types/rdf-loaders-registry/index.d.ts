@@ -15,22 +15,28 @@ declare namespace LoaderRegistry {
     interface Loader<T, TOptions = {}> {
         (node: GraphPointer, options: LoadOptions<TOptions>): T | Promise<T>;
     }
+
+    interface LoaderRegistry {
+        registerLiteralLoader(datatype: string | NamedNode, loader: Loader<any, any>): void;
+        registerNodeLoader(type: string | NamedNode, loader: Loader<any, any>): void;
+        load<
+            T extends any = unknown,
+            // tslint:disable-next-line:no-unnecessary-generics
+            TLoader extends Loader<T, TOptions> = Loader<T>,
+            TOptions = TLoader extends Loader<T, infer U> ? U : {}>(
+                node: GraphPointer,
+                options?: TOptions): Promise<T | null>;
+        loader(node: GraphPointer): Loader<any, any> | null;
+    }
+}
+
+// tslint:disable-next-line no-empty-interface
+interface LoaderRegistry extends LoaderRegistry.LoaderRegistry {
 }
 
 declare class LoaderRegistry {
     _literalLoaders: Map<string, any>;
     _nodeLoaders: Map<string, any>;
-
-    registerLiteralLoader(datatype: string | NamedNode, loader: LoaderRegistry.Loader<any, any>): void;
-    registerNodeLoader(type: string | NamedNode, loader: LoaderRegistry.Loader<any, any>): void;
-    load<
-        T extends any = unknown,
-        // tslint:disable-next-line:no-unnecessary-generics
-        TLoader extends LoaderRegistry.Loader<T, TOptions> = LoaderRegistry.Loader<T>,
-        TOptions = TLoader extends LoaderRegistry.Loader<T, infer U> ? U : {}>(
-            node: GraphPointer,
-            options?: TOptions): Promise<T | null>;
-    loader(node: GraphPointer): LoaderRegistry.Loader<any, any> | null;
 }
 
 export = LoaderRegistry;

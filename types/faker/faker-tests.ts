@@ -42,7 +42,7 @@ resultStr = faker.address.cardinalDirection(true);
 resultStr = faker.address.ordinalDirection();
 resultStr = faker.address.ordinalDirection(true);
 resultStrArr = faker.address.nearbyGPSCoordinate();
-resultStrArr = faker.address.nearbyGPSCoordinate('foo', 0, true);
+resultStrArr = faker.address.nearbyGPSCoordinate(['0', '0'], 0, true);
 resultStr = faker.address.timeZone();
 
 resultStr = faker.commerce.color();
@@ -301,6 +301,18 @@ resultStr = faker.vehicle.type();
 resultStr = faker.vehicle.fuel();
 resultStr = faker.vehicle.vin();
 resultStr = faker.vehicle.color();
+
+resultNum = faker.unique(faker.random.number);
+resultNum = faker.unique(faker.random.number, undefined, { maxTime: new Date('3000-01-01').getTime() });
+resultNum = faker.unique(faker.random.number, undefined, { maxRetries: 999 });
+resultNum = faker.unique(faker.random.number, [{ min: 0, max: 100, precision: 2 }]);
+resultStr = faker.unique(faker.random.word);
+resultStr = faker.unique(faker.random.word, ['noun']);
+resultStr = faker.unique(faker.random.words, [10]);
+resultDate = faker.unique(faker.date.past);
+resultDate = faker.unique<typeof faker.date.between>(faker.date.between, ['foo', 'bar']);
+resultDate = faker.unique(faker.date.between, [new Date(), new Date()]);
+resultDate = faker.unique(faker.date.soon, [100, new Date()]);
 
 import fakerAz = require('faker/locale/az');
 resultStr = fakerAz.name.firstName();

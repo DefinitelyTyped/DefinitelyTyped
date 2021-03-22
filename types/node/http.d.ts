@@ -1,7 +1,11 @@
-declare module "http" {
-    import * as stream from "stream";
-    import { URL } from "url";
-    import { Socket, Server as NetServer } from "net";
+declare module 'node:http' {
+    export * from 'http';
+}
+
+declare module 'http' {
+    import * as stream from 'node:stream';
+    import { URL } from 'node:url';
+    import { Socket, Server as NetServer } from 'node:net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
@@ -220,6 +224,7 @@ declare module "http" {
 
         method: string;
         path: string;
+        /** @deprecated since v14.1.0 Use `request.destroy()` instead. */
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -316,7 +321,7 @@ declare module "http" {
         httpVersionMinor: number;
         complete: boolean;
         /**
-         * @deprecate Use `socket` instead.
+         * @deprecated since v13.0.0 - Use `socket` instead.
          */
         connection: Socket;
         socket: Socket;

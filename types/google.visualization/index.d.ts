@@ -1,18 +1,46 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>, David <https://github.com/dckorben>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>,
+//                 Gregory Moore <https://github.com/gmoore-sjcorg>,
+//                 Dan Manastireanu <https://github.com/danmana>,
+//                 Michael Cheng <https://github.com/mlcheng>,
+//                 Ivan Bisultanov <https://github.com/IvanBisultanov>,
+//                 Gleb Mazovetskiy <https://github.com/glebm>,
+//                 Shrujal Shah <https://github.com/shrujalshah28>,
+//                 David <https://github.com/dckorben>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
-
-    function load(visualization: string, version: string, packages: any): void;
+    /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
+    function load(visualization: 'visualization', version: string | number, options: LoadOptions): void;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
     // https://developers.google.com/chart/interactive/docs/basic_load_libs
     namespace charts {
-        function load(version: string | number, packages: Object, mapsApiKey?: string): Promise<void>;
+        /** Loads with `safeMode` enabled. */
+        function safeLoad(options: LoadOptions): Promise<void>;
+        function load(options: LoadOptions): Promise<void>;
+        function load(version: string | number, options: LoadOptions): Promise<void>;
+        /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
+        function load(visualization: 'visualization', version: string | number, options: LoadOptions): Promise<void>;
+
         function setOnLoadCallback(handler: Function): void;
+    }
+
+    export interface LoadOptions {
+        packages?: string | string[];
+        language?: string;
+        callback?: Function;
+        mapsApiKey?: string;
+        safeMode?: boolean;
+        /** not documented */
+        debug?: boolean;
+        /** not documented */
+        pseudo?: boolean;
+        /** not documented, looks for charts-version in url query params */
+        enableUrlSettings?: boolean;
     }
 
     // https://developers.google.com/chart/interactive/docs/reference
@@ -445,8 +473,13 @@ declare namespace google {
             strokeWidth?: number;
         }
 
+        export interface ChartStrokeOpacity extends ChartStroke {
+            strokeOpacity?: number;
+        }
+
         export interface ChartFill {
             fill?: string;
+            fillOpacity?: number;
         }
 
         export interface ChartArea {
@@ -494,7 +527,7 @@ declare namespace google {
             ticks?: any[];
             title?: string;
             titleTextStyle?: ChartTextStyle;
-            allowContainerBoundaryTextCufoff?: boolean;
+            allowContainerBoundaryTextCutoff?: boolean;
             slantedText?: boolean;
             slantedTextAngle?: number;
             maxAlternation?: number;
@@ -1167,16 +1200,24 @@ declare namespace google {
             backgroundColor?: string | ChartStrokeFill;
             colors?: string[];
             enableInteractivity?: boolean;
+            fontName?: string;
+            fontSize?: number;
             forceIFrame?: boolean;
             height?: number;
             timeline?: {
                 barLabelStyle?: LabelStyle;
                 colorByRowLabel?: boolean;
                 groupByRowLabel?: boolean;
-                rowLabelStyle?: LabelStyle;
+                rowLabelStyle?: LabelStyle | null;
+                showBarLabels?: boolean;
                 showRowLabels?: boolean;
-                singleColor?: string;
-            }
+                singleColor?: string | null;
+            };
+            tooltip?: {
+                isHtml?: boolean;
+                trigger?: 'focus' | 'none';
+                textStyle?: ChartTextStyle;
+            };
             width?: number;
         }
 
@@ -1331,32 +1372,36 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
         export interface CalendarOptions {
-            calendar: {
-                cellColor: Object;
-                cellSize: number;
-                dayOfWeekLabel: Object;
-                dayOfWeekRightSpace: number;
-                daysOfWeek: string;
-                focusedCellColor: Object;
-                monthLabel: Object;
-                monthOutlineColor: Object;
-                underMonthSpace: number;
-                underYearSpace: number;
-                unusedMonthOutlineColor: Object;
+            calendar?: {
+                cellColor?: ChartStrokeOpacity;
+                cellSize?: number;
+                dayOfWeekLabel?: ChartTextStyle;
+                dayOfWeekRightSpace?: number;
+                daysOfWeek?: string;
+                focusedCellColor?: ChartStrokeOpacity;
+                monthLabel?: ChartTextStyle;
+                monthOutlineColor?: ChartStrokeOpacity;
+                underMonthSpace?: number;
+                underYearSpace?: number;
+                unusedMonthOutlineColor?: ChartStrokeOpacity;
             };
             colorAxis?: {
-                colors: string[];
-                maxValue: number;
-                minValue: number;
-                values: number[];
+                colors?: string[];
+                maxValue?: number;
+                minValue?: number;
+                values?: number[];
             };
             forceIFrame?: boolean;
             height?: number;
-            noDataPattern?: Object;
-            tooltip: {
+            noDataPattern?: {
+                backgroundColor: string,
+                color: string
+            };
+            tooltip?: {
                 isHtml: boolean;
             };
             width?: number;
+            title?: string;
         }
 
         //#endregion
@@ -1701,6 +1746,39 @@ declare namespace google {
             yellowColor?: string;
             yellowFrom?: number;
             yellowTo?: number;
+        }
+
+        //#endregion
+        //#region Sankey
+
+        // https://developers.google.com/chart/interactive/docs/gallery/sankey
+        export class Sankey extends ChartBaseClearable {
+            draw(data: DataTable | DataView, options: SankeyChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/sankey#configuration-options
+        export interface SankeyChartOptions {
+            width?: number;
+            forceIFrame?: boolean;
+            height?: number;
+            sankey?: {
+                iterations?: number;
+                link?: {
+                    color?: string | ChartStrokeFill;
+                    colorMode?: 'none' | 'source' | 'target' | 'gradient';
+                    colors?: string[];
+                };
+                node?: {
+                    colorMode?: 'unique';
+                    colors?: string[];
+                    interactivity?: boolean;
+                    label?: ChartTextStyle;
+                    labelPadding?: number;
+                    nodePadding?: number;
+                    width?: number;
+                };
+                tooltip?: ChartTooltip;
+            };
         }
 
         //#endregion

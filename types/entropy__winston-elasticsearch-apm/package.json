@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "dependencies": {
+        "elastic-apm-node": "^3.8.0",
+        "logform": "^2.2.0",
+        "winston-transport": "^4.4.0"
+    }
+}

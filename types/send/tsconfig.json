@@ -12,6 +12,10 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "mime": ["mime/v1"],
+            "mime/*": ["mime/v1/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

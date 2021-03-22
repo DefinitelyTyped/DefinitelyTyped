@@ -1,6 +1,6 @@
-import * as p from "process";
-import { ok } from "assert";
-import { EventEmitter } from "events";
+import * as p from "node:process";
+import assert = require('node:assert');
+import { EventEmitter } from "node:events";
 
 {
     let eventEmitter: EventEmitter;
@@ -10,7 +10,7 @@ import { EventEmitter } from "events";
     _p = p;
 }
 {
-    ok(process.argv[0] === process.argv0);
+    assert.ok(process.argv[0] === process.argv0);
 }
 {
     let module: NodeModule | undefined;
@@ -67,4 +67,10 @@ import { EventEmitter } from "events";
 
 {
     const usage: NodeJS.ResourceUsage = process.resourceUsage();
+}
+
+{
+    function abortNeverReturns() {
+        process.abort(); // $ExpectType never
+    }
 }

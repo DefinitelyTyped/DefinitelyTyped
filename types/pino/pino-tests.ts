@@ -182,6 +182,17 @@ const pretty = pino({
     },
 });
 
+const withMessageFormatFunc = pino({
+    prettyPrint: {
+        ignore: 'requestId',
+        messageFormat: (log, messageKey) => {
+            const message = log[messageKey];
+            if (log.requestId) return `[${log.requestId}] ${message}`;
+            return message;
+        },
+    },
+});
+
 const withTimeFn = pino({
     timestamp: pino.stdTimeFunctions.isoTime,
 });
@@ -192,7 +203,7 @@ const withNestedKey = pino({
 
 const withHooks = pino({
     hooks: {
-        logMethod(args, method) {
+        logMethod(args, method, level) {
             return method.apply(this, args);
         },
     },
@@ -248,3 +259,10 @@ interface StrictShape {
 info<StrictShape>({
     activity: 'Required property',
 });
+
+const logLine: pino.LogDescriptor = {
+    level: 20,
+    msg: 'A log message',
+    time: new Date().getTime(),
+    aCustomProperty: true,
+};

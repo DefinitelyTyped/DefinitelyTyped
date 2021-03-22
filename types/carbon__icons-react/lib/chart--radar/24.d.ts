@@ -1,1 +1,3 @@
-export { ChartRadar24 as default } from "../../";
+import { ChartRadar24 } from "../../";
+
+export = ChartRadar24;

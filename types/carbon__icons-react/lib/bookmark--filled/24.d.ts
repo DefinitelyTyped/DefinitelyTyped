@@ -1,1 +1,3 @@
-export { BookmarkFilled24 as default } from "../../";
+import { BookmarkFilled24 } from "../../";
+
+export = BookmarkFilled24;

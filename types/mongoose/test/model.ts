@@ -104,6 +104,11 @@ MongoModel.find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {
     docs[0].remove();
     docs[1].execPopulate();
 });
+async () => {
+    for await (const item of MongoModel.find({})) {
+        item.model;
+    }
+};
 MongoModel.find({ name: /john/i }, 'name friends', function (err, docs) { })
 MongoModel.find({ name: /john/i }, null, { skip: 10 })
 MongoModel.find({ name: /john/i }, null, { skip: 10 }, function (err, docs) {});
@@ -159,6 +164,7 @@ MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true });
 MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true, arrayFilters: [{ 'elem._id': 123 }] });
 MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true, timestamps: true });
 MongoModel.findOneAndUpdate({}, {}, { overwrite: true });
+MongoModel.findOneAndUpdate({}, {}, { overwriteDiscriminatorKey: true });
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
@@ -226,6 +232,7 @@ MongoModel.deleteMany({_id: '999'}).then(res=>console.log('Success?',!!res.ok, '
 MongoModel.deleteMany({_id: '999'}).exec().then(res=>console.log(res.ok));
 MongoModel.update({ age: { $gt: 18 } }, { oldEnough: true }, cb);
 MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true,  arrayFilters: [{ element: { $gte: 100 } }] }, cb);
+MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true,  arrayFilters: [{ element: { $gte: 100 } }], overwriteDiscriminatorKey: true }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
 new (MongoModel.base.model(''))();

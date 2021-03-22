@@ -124,6 +124,8 @@ const v1: Visitor = {
         path.scope.rename('n', 'x');
         path.scope.rename('n');
 
+        path.scope.crawl();
+
         // $ExpectError
         path.pushContainer('returnType', t.stringLiteral('hello'));
         // $ExpectError
@@ -333,4 +335,25 @@ function testNullishPath(
     let actualType = optionalPath.type;
     const expectedType: t.Node['type'] | undefined = actualType;
     actualType = expectedType;
+}
+
+const visitorWithDenylist: Visitor = {
+    denylist: ['TypeAnnotation'],
+};
+
+const visitorWithInvalidDenylist: Visitor = {
+    // $ExpectError
+    denylist: ['SomeRandomType'],
+};
+
+// Test that NodePath can be narrowed from union to single type
+const path: NodePath<
+  t.ExportDefaultDeclaration | t.ExportNamedDeclaration
+> = new NodePath<t.ExportNamedDeclaration>(
+  null as any,
+  {} as any,
+);
+
+if (path.isExportNamedDeclaration()) {
+  path.type; // $ExpectType "ExportNamedDeclaration"
 }

@@ -1,1 +1,3 @@
-export { ToneAnalyzer as default } from "../../";
+import { ToneAnalyzer } from "../../";
+
+export = ToneAnalyzer;

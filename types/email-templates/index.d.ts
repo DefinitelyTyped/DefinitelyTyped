@@ -1,4 +1,4 @@
-// Type definitions for node-email-templates 7.1
+// Type definitions for node-email-templates 8.0
 // Project: https://github.com/forwardemail/email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
@@ -20,8 +20,9 @@ import SESTransport = require('nodemailer/lib/ses-transport');
 import SMTPPool = require('nodemailer/lib/smtp-pool');
 import SMTPTransport = require('nodemailer/lib/smtp-transport');
 import StreamTransport = require('nodemailer/lib/stream-transport');
+import juice = require('juice');
 
-declare namespace EmailTemplate {
+declare namespace Email {
     // email-templates accepts nodemailer.createTransport options directly
     // too and calls createTransport if given a non-function, thus a lot
     // of different types accepted for transport
@@ -89,84 +90,114 @@ declare namespace EmailTemplate {
         root?: string;
 
         options?: ViewOptions;
+
+        /**
+         * Default locals to pass to templates for rendering
+         */
+        locals?: {
+            /**
+             * Whether or not to cache templates.
+             * Defaults to false for development and test environments, and true for all others (via process.env.NODE_ENV)
+             */
+            cache?: boolean;
+            /**
+             * @deprecated
+             * Adds whitespace to the resulting HTML to make it easier for a human to read using '  ' as indentation.
+             * Defaults to true, but is automatically set to false for subject templates and text-based emails
+             */
+            pretty?: boolean;
+            [key: string]: any;
+        };
     }
 
      interface EmailConfig<T = any> {
-        /**
-         * The message <Nodemailer.com/message/>
-         */
-        message: Mail.Options;
-        /**
-         * The nodemailer Transport created via nodemailer.createTransport
-         */
-        transport?: NodeMailerTransportOptions;
-        /**
-         * The email template directory and engine information
-         */
-        views?: View;
-        /**
-         * Do you really want to send, false for test or development
-         */
-        send?: boolean;
-        /**
-         * Preview the email
-         */
-        preview?: boolean | PreviewEmailOpts;
-        /**
-         * Set to object to configure and Enable <https://github.com/ladjs/il8n>
-         */
-        i18n?: any;
-        /**
-         * defaults to false, unless you pass your own render function,
-         * and in that case it will be automatically set to true.
-         * @default false
-         */
-        customRender?: boolean;
-        /**
-         * Pass a custom render function if necessary
-         */
-        render?: (view: string, locals?: T) => Promise<any>;
-        /**
-         * force text-only rendering of template (disregards template folder)
-         */
-        textOnly?: boolean;
-        /**
-         * <Https://github.com/werk85/node-html-to-text>
-         *
-         * configuration object for html-to-text
-         */
-        htmlToText?: HtmlToTextOptions | false;
-        /**
-         * You can pass an option to prefix subject lines with a string
-         * env === 'production' ? false : `[${env.toUpperCase()}] `; // <--- HERE
-         */
-        subjectPrefix?: string | false;
-        /**
-         * <https://github.com/Automattic/juice>
-         */
-        juice?: boolean;
-        /**
-         * <https://github.com/Automattic/juice>
-         */
-        juiceResources?: any;
-        /**
-         * a function that returns the path to a template file
-         * @default (path: string, template: string) => string
-         */
-        getPath?: (path: string, template: string, locals: any) => string;
-    }
+         /**
+          * The message <Nodemailer.com/message/>
+          */
+         message?: Mail.Options;
+         /**
+          * The nodemailer Transport created via nodemailer.createTransport
+          */
+         transport?: NodeMailerTransportOptions;
+         /**
+          * The email template directory and engine information
+          */
+         views?: View;
+         /**
+          * Do you really want to send, false for test or development
+          */
+         send?: boolean;
+         /**
+          * Preview the email
+          */
+         preview?: boolean | PreviewEmailOpts;
+         /**
+          * Set to object to configure and Enable <https://github.com/ladjs/il8n>
+          */
+         i18n?: any;
+         /**
+          * defaults to false, unless you pass your own render function,
+          * and in that case it will be automatically set to true.
+          * @default false
+          */
+         customRender?: boolean;
+         /**
+          * Pass a custom render function if necessary
+          */
+         render?: (view: string, locals?: T) => Promise<any>;
+         /**
+          * force text-only rendering of template (disregards template folder)
+          */
+         textOnly?: boolean;
+         /**
+          * <Https://github.com/werk85/node-html-to-text>
+          *
+          * configuration object for html-to-text
+          */
+         htmlToText?: HtmlToTextOptions | false;
+         /**
+          * You can pass an option to prefix subject lines with a string
+          * env === 'production' ? false : `[${env.toUpperCase()}] `; // <--- HERE
+          */
+         subjectPrefix?: string | false;
+         /**
+          * <https://github.com/Automattic/juice>
+          */
+         juice?: boolean;
+         juiceSettings?: JuiceGlobalConfig;
+         /**
+          * <https://github.com/Automattic/juice>
+          */
+         juiceResources?: juice.Options;
+         /**
+          * a function that returns the path to a template file
+          * @default (path: string, template: string) => string
+          */
+         getPath?: (path: string, template: string, locals: any) => string;
+     }
+
+     type JuiceGlobalConfig = Partial<{
+        codeBlocks: typeof juice.codeBlocks;
+        excludedProperties: typeof juice.excludedProperties;
+        heightElements: string[];
+        ignoredPseudos: typeof juice.ignoredPseudos;
+        nonVisualElements: typeof juice.nonVisualElements;
+        styleToAttribute: typeof juice.styleToAttribute;
+        tableElements: string[];
+        widthElements: string[];
+     }>;
 
      interface EmailOptions<T = any> {
         /**
          * The template name
          */
-        template: string;
+        template?: string;
         /**
          * Nodemailer Message <Nodemailer.com/message/>
          *
          * Overrides what is given for constructor
          */
-        message: Mail.Options;
+        message?: Mail.Options;
         /**
          * The Template Variables
          */
@@ -180,19 +211,22 @@ declare namespace EmailTemplate {
     }
 }
 
-declare class EmailTemplate<T = any> {
-    constructor(config: EmailTemplate.EmailConfig);
+declare class Email<T = any> {
+    constructor(config?: Email.EmailConfig);
+
     /**
      *   shorthand use of `juiceResources` with the config
      *   mainly for custom renders like from a database).
      */
-    juiceResources(html: string): Promise<string>;
+    juiceResources(html: string, options?: juice.Options): Promise<string>;
+
     /**
      *
      * @param view The Html pug to render
      * @param locals The template Variables
      */
     render(view: string, locals?: T): Promise<string>;
+
     /**
      * Render all available template files for a given email
      * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
@@ -200,11 +234,12 @@ declare class EmailTemplate<T = any> {
      * @param view Name of the template
      * @param locals The template variables
      */
-    renderAll(view: string, locals?: T): Promise<Partial<EmailTemplate.EmailMessage>>;
+    renderAll(view: string, locals?: T): Promise<Partial<Email.EmailMessage>>;
+
     /**
      * Send the Email
      */
-    send(options: EmailTemplate.EmailOptions<T>): Promise<any>;
+    send(options?: Email.EmailOptions<T>): Promise<any>;
 }
 
-export = EmailTemplate;
+export = Email;

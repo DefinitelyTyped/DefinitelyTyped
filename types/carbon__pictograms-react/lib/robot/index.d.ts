@@ -1,1 +1,3 @@
-export { Robot as default } from "../../";
+import { Robot } from "../../";
+
+export = Robot;

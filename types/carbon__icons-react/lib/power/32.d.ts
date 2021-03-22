@@ -1,1 +1,3 @@
-export { Power32 as default } from "../../";
+import { Power32 } from "../../";
+
+export = Power32;

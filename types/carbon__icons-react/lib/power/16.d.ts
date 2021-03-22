@@ -1,1 +1,3 @@
-export { Power16 as default } from "../../";
+import { Power16 } from "../../";
+
+export = Power16;

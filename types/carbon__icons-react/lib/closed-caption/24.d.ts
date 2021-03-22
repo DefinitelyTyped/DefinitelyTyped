@@ -1,1 +1,3 @@
-export { ClosedCaption24 as default } from "../../";
+import { ClosedCaption24 } from "../../";
+
+export = ClosedCaption24;

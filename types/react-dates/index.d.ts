@@ -786,6 +786,8 @@ export type DayPickerRangeControllerShape = RenderMonthProps &
         onDatesChange: (arg: { startDate: moment.Moment | null; endDate: moment.Moment | null }) => void;
         startDateOffset?: (day: moment.Moment) => moment.Moment;
         endDateOffset?: (day: moment.Moment) => moment.Moment;
+        minDate?: moment.Moment | null;
+        maxDate?: moment.Moment | null;
 
         focusedInput: FocusedInputShape | null;
         onFocusChange: (arg: FocusedInputShape | null) => void;
@@ -853,6 +855,8 @@ export type DayPickerSingleDateControllerShape = RenderMonthProps &
         | 'isRTL'
     > & {
         date: moment.Moment | null;
+        minDate?: moment.Moment | null;
+        maxDate?: moment.Moment | null;
         onDateChange: (date: moment.Moment | null) => void;
 
         focused: boolean;

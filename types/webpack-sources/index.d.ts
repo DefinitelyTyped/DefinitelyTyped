@@ -1,4 +1,4 @@
-// Type definitions for webpack-sources 2.0
+// Type definitions for webpack-sources 2.1
 // Project: https://github.com/webpack/webpack-sources
 // Definitions by: e-cloud <https://github.com/e-cloud>
 //                 Chris Eppstein <https://github.com/chriseppstein>

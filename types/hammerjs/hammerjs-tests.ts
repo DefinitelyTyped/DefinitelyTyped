@@ -1,5 +1,21 @@
 // Tests based on examples at http://hammerjs.github.io/examples/
 
+(() =>
+{
+  var myElement = document.getElementById( 'myElement' );
+
+  // create a simple instance
+  // by default, it only adds horizontal recognizers
+  var mc = new Hammer( myElement );
+
+  // listen to events...
+  mc.on( "panleft panright tap press", function ( ev )
+  {
+    console.log(ev.maxPointers  - 2);
+    console.log(Math.floor(ev.overallVelocity));
+    console.log(ev.timeStamp + Date.now());
+  } );
+})();
 
 
 (() =>
@@ -33,6 +49,12 @@
   // listen to events...
   mc.on( "panleft panright panup pandown tap press", function ( ev:HammerInput )
   {
+    type EventType =
+        | HammerStatic["INPUT_START"]
+        | HammerStatic["INPUT_MOVE"]
+        | HammerStatic["INPUT_END"]
+        | HammerStatic["INPUT_CANCEL"];
+    const eventType: EventType = ev.eventType;
     myElement.textContent = ev.type + " gesture detected.";
   } );
 })();
@@ -139,4 +161,40 @@
   {
     myElement.textContent += ev.type + " ";
   } );
+})();
+
+
+(()=>{
+  var input = {
+    [Hammer.STATE_POSSIBLE]: 1 as 1,
+    [Hammer.STATE_BEGAN]: 2 as 2,
+    [Hammer.STATE_CHANGED]: 4 as 4,
+    [Hammer.STATE_ENDED]: 8 as 8,
+    [Hammer.STATE_RECOGNIZED]: Hammer.STATE_ENDED as typeof Hammer.STATE_ENDED,
+    [Hammer.STATE_CANCELLED]: 16 as 16,
+    [Hammer.STATE_FAILED]: 32 as 32,
+  }
+
+  var direction = {
+    [Hammer.INPUT_START]: 1 as 1,
+    [Hammer.INPUT_MOVE]: 2 as 2,
+    [Hammer.INPUT_END]: 4 as 4,
+    [Hammer.INPUT_CANCEL]: 8 as 8,
+  }
+
+  var state = {
+     [Hammer.DIRECTION_NONE]: 1 as 1,
+     [Hammer.DIRECTION_LEFT]: 2 as 2,
+     [Hammer.DIRECTION_RIGHT]: 4 as 4,
+     [Hammer.DIRECTION_UP]: 8 as 8,
+     [Hammer.DIRECTION_DOWN]: 16 as 16,
+     [Hammer.DIRECTION_HORIZONTAL]: (Hammer.DIRECTION_LEFT | Hammer.DIRECTION_RIGHT) as 6, // TS infers this as a number, so we have to cast it ourselves
+     [Hammer.DIRECTION_VERTICAL]: (Hammer.DIRECTION_UP | Hammer.DIRECTION_DOWN) as 24,     // bits aren't overlapping, so binary or is equal to addition
+     [Hammer.DIRECTION_ALL]: (Hammer.DIRECTION_HORIZONTAL | Hammer.DIRECTION_VERTICAL) as 30,
+  }
+
+  type KeysSameAsValues<T extends { [K in keyof T]: K }> = true; // typecheck: if all keys are equal to their value
+  type HammerInputLiteralsCheck = KeysSameAsValues<typeof input>
+  type HammerDirectionLiteralsCheck = KeysSameAsValues<typeof direction>
+  type HammerStateLiteralsCheck = KeysSameAsValues<typeof state>
 })();

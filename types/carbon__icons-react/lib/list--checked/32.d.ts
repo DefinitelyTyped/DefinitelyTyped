@@ -1,1 +1,3 @@
-export { ListChecked32 as default } from "../../";
+import { ListChecked32 } from "../../";
+
+export = ListChecked32;

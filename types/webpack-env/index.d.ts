@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.15
+// Type definitions for webpack (module API) 1.16
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
@@ -335,6 +335,21 @@ declare var __webpack_nonce__: string;
  * Equals the config option debug
  */
 declare var DEBUG: boolean;
+
+interface ImportMeta {
+    /**
+     * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
+     */
+    webpackHot?: __WebpackModuleApi.Hot;
+    /**
+     * `import.meta.webpack` is the webpack major version as number
+     */
+    webpack: number;
+    /**
+     * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
+     */
+    url: string;
+}
 
 interface NodeModule extends NodeJS.Module {}
 

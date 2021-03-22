@@ -1,1 +1,3 @@
-export { LogoJupyter32 as default } from "../../";
+import { LogoJupyter32 } from "../../";
+
+export = LogoJupyter32;

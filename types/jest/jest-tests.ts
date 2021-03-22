@@ -315,6 +315,14 @@ jest.requireActual('./thisReturnsTheActualModule');
 // $ExpectType string
 jest.requireActual<string>('./thisReturnsTheActualModule');
 
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+jest.requireActual('./thisReturnsTheActualModule').default;
+
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+const spreadRequireActual = {...jest.requireActual('./thisReturnsTheActualModule')};
+
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
 // $ExpectType any
 jest.requireMock('./thisAlwaysReturnsTheMock');
@@ -322,6 +330,14 @@ jest.requireMock('./thisAlwaysReturnsTheMock');
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
 // $ExpectType string
 jest.requireMock<string>('./thisAlwaysReturnsTheMock');
+
+// https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+// $ExpectType any
+jest.requireMock('./thisAlwaysReturnsTheMock').default;
+
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+const spreadRequireMock = {...jest.requireMock('./thisAlwaysReturnsTheMock')};
 
 /* Mocks and spies */
 
@@ -528,7 +544,7 @@ class TestMocked {
 
 const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
 mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
-// $ExpectType (x: Type1) => Promise<Type1> | undefined
+// $ExpectType ((x: Type1) => Promise<Type1>) | undefined
 mocked.test1.getMockImplementation();
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
 // $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1]> & ((x: Type1) => Promise<Type1>)

@@ -1,1 +1,3 @@
-export { GeneratePdf16 as default } from "../../";
+import { GeneratePdf16 } from "../../";
+
+export = GeneratePdf16;

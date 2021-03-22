@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 4.8
+// Type definitions for tabulator-tables 4.9
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -197,9 +197,11 @@ declare namespace Tabulator {
         paginationInitialPage?: number;
     }
 
+    type GroupArg = string | string[] | ((data: any) => any);
+
     interface OptionsRowGrouping {
         /** String/function to select field to group rows by     */
-        groupBy?: string | ((data: any) => any);
+        groupBy?: GroupArg;
         /** By default Tabulator will create groups for rows based on the values contained in the row data. if you want to explicitly define which field values groups should be created for at each level, you can use the groupValues option.
 
     This option takes an array of value arrays, each item in the first array should be a list of acceptable field values for groups at that level     */
@@ -684,6 +686,7 @@ declare namespace Tabulator {
         /** The headerSortTristate option can now be set in the table options to affect all columns as well as in column definitions.*/
         headerSortTristate?: boolean;
         headerSortElement?: string;
+        columnMaxWidth?: number;
     }
 
     interface OptionsCell {
@@ -801,9 +804,9 @@ declare namespace Tabulator {
         /**There are now three different validation modes available to customise the validation experience:
 
         blocking - if a user enters an invalid value while editing, they are blocked from leaving the cell until a valid value is entered (default)
-        
+
         highlight - if a user enters an invalid value, then the edit will complete as usual and they are allowed to exit the cell but a highlight is applied to the cell using the tabulator-validation-fail class
-        
+
         manual - no vaildation is automatically performed on edit, but it can be triggered by calling the validate funtion on the table or any Component Object */
         validationMode?: 'blocking' | 'highlight' | 'manual';
         textDirection?: TextDirection;
@@ -827,8 +830,9 @@ declare namespace Tabulator {
 
     interface MenuObject<T extends RowComponent | CellComponent | ColumnComponent | GroupComponent> {
         label: string | HTMLElement | ((component: T) => string | HTMLElement);
-        action: (e: any, component: T) => any;
+        action?: (e: any, component: T) => any;
         disabled?: boolean | ((component: T) => boolean);
+        menu?: Array<MenuObject<T>>;
     }
     interface MenuSeparator {
         separator?: boolean;
@@ -893,8 +897,8 @@ declare namespace Tabulator {
         htmlOutputConfig?: AddditionalExportOptions;
         /**By Default when a page is printed that includes a Tabulator it will be rendered on the page exactly as the table is drawn. While this ise useful in most cases, some users prefer tohave more controll over the print output, for example showing all rows of the table, instead of just those visible with the current position of the scroll bar.
 
-        Tabulator provides a print styling mode that will replace the Tabulator with an HTML table for the printout giving you much more control over the look and feel of the table for the print out., to enable this mode, set the printAsHtml option to true in the table constructor. 
-        
+        Tabulator provides a print styling mode that will replace the Tabulator with an HTML table for the printout giving you much more control over the look and feel of the table for the print out., to enable this mode, set the printAsHtml option to true in the table constructor.
+
         This will replace the table (in print outs only) with a simple HTML table with the class tabulator-print-table that you can use to style the table in any way you like.
 
         It also has the benifit that because it is an HTML table, if it corsses a page break your browser will uatomatically add the column headers in at the top of the next page.
@@ -1221,6 +1225,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         titleHtmlOutput?: string;
         /**When printing you may want to apply a different columnheader title from the one usualy used in the table. You can now do this using the titlePrint column definition option, which takes the same inputs as the standard title property. */
         titlePrint?: string;
+        maxWidth?: number | false;
     }
 
     interface CellCallbacks {
@@ -1386,14 +1391,17 @@ You can pass an optional additional property with sorter, sorterParams that shou
         // Image
         height?: string;
         width?: string;
+        urlPrefix?: string;
+        urlSuffix?: string;
     }
+
     interface LinkParams {
         // Link
         labelField?: string;
         label?: string | ((cell: CellComponent) => string);
         urlPrefix?: string;
         urlField?: string;
-        url?: string;
+        url?: string | ((cell: CellComponent) => string);
         target?: string;
         download?: boolean;
     }
@@ -1447,7 +1455,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         elementAttributes?: JSONRecord;
         /**Built in editors based on input elements such as the input, number, textarea and autocomplete editors have the ability to mask the users input to restrict it to match a given pattern.
 
-        This can be set by passing a string to the the mask option in the columns editorParams 
+        This can be set by passing a string to the the mask option in the columns editorParams
         Each character in the string passed to the mask option defines what type of character can be entered in that position in the editor.
 
         A - Only a letter is valid in this position
@@ -1456,7 +1464,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
         Any other character - The character in this position must be the same as the mask
         For example, a mask string of "AAA-999" would require the user to enter three letters followed by a hyphen followed by three numbers
-        
+
         f you want to use the characters A, 9 or * as fixed characters then it is possible to change the characters looked for in the mask by using the maskLetterChar, maskNumberChar and maskWildcardChar options in the editorParams*/
         mask?: string;
         /** you are using fixed characters in your mask (any character other that A, 9 or *), then you can get the mask to automatically fill in these characters for you as you type by setting the maskAutoFill option in the editorParams to true */
@@ -1852,9 +1860,9 @@ declare class Tabulator {
       xlsx - Excel File (Requires the SheetJS Library)
       pdf - PDF File (Requires the jsPDF Library and jsPDF-AutoTable Plugin)
       To trigger a download, call the download function, passing the file type (from the above list) as the first argument, and an optional second argument of the file name for the download (if this is left out it will be "Tabulator.ext"). The optional third argument is an object containing any setup options for the formatter, such as the delimiter choice for CSV's).
-      
+
       The PDF downloader requires that the jsPDF Library and jsPDF-AutoTable Plugin be included on your site, this can be included with the following script tags.
-      
+
       If you want to create a custom file type from the table data then you can pass a function to the type argument, instead of a string value. At the end of this function you must call the setFileContents function, passing the formatted data and the mime type.
       */
     download: (
@@ -1876,7 +1884,7 @@ declare class Tabulator {
     visible - Rows currently visible in the table viewport
     active - Rows currently in the table (rows that pass current filters etc)
     selected - Rows currently selected by the selection module (this includes not currently active rows)
-    all - All rows in the table reguardless of filters 
+    all - All rows in the table reguardless of filters
 
     If you leave this argument undefined, Tabulator will use the value of the clipboardCopyRowRange property, which has a default value of active*/
     copyToClipboard: (rowRangeLookup?: Tabulator.RowRangeLookup) => void;
@@ -1930,7 +1938,7 @@ declare class Tabulator {
     ) => any;
 
     /** You can retrieve the current AJAX URL of the table with the getAjaxUrl function.
-   * 
+   *
    * This will return a HTML encoded string of the table data.
 
     By default getHtml will return a table containing all the data held in the Tabulator. If you only want to access the currently filtered/sorted elements, you can pass a value of true to the first argument of the function.
@@ -1976,7 +1984,7 @@ declare class Tabulator {
   The first argument is the row you want to update, it will take any of the standard row component look up options.
 
   The second argument should be the updated data object for the row. As with the updateData function, this will not replace the existing row data object, it will only update any of the provided parameters.
-  
+
   Once complete, this function will trigger the rowUpdated and dataChanged events.
 
   This function will return true if the update was successful or false if the requested row could not be found. If the new data matches the existing row data, no update will be performed.
@@ -2007,7 +2015,7 @@ declare class Tabulator {
     /** Use the getRowPosition function to retrieve the numerical position of a row in the table. By default this will return the position of the row in all data, including data currently filtered out of the table.
 
     The first argument is the row you are looking for, it will take any of the standard row component look up options. If you want to get the position of the row in the currently filtered/sorted data, you can pass a value of true to the optional second argument of the function.
-    
+
     Note: If the row is not found, a value of -1 will be returned, row positions start at 0
     */
     getRowPosition: (row: Tabulator.RowLookup, activeOnly?: boolean) => number;
@@ -2037,7 +2045,7 @@ declare class Tabulator {
     Columns Definition - The column definition object for the column you want to add.
     Before (optional) - Determines how to position the new column. A value of true will insert the column to the left of existing columns, a value of false will insert it to the right. If a Position argument is supplied then this will determine whether the new colum is inserted before or after this column.
     Position (optional) - The field to insert the new column next to, this can be any of the standard column component look up options.
-* 
+*
    */
     addColumn: (
         definition: Tabulator.ColumnDefinition,
@@ -2092,8 +2100,8 @@ declare class Tabulator {
     clearSort: () => void;
     /** To set a filter you need to call the setFilter method, passing the field you wish to filter, the comparison type and the value to filter for.
 
-    This function will replace any exiting filters on the table with the specified filter 
-    
+    This function will replace any exiting filters on the table with the specified filter
+
     If you want to perform a more complicated filter then you can pass a callback function to the setFilter method, you can also pass an optional second argument, an object with parameters to be passed to the filter function.
     */
     setFilter: (
@@ -2141,7 +2149,7 @@ declare class Tabulator {
     setMaxPage: (max: number) => void;
     /** When pagination is enabled the table footer will contain a number of pagination controls for navigating through the data.
 
-  In addition to these controls it is possible to change page using the setPage function 
+  In addition to these controls it is possible to change page using the setPage function
   The setPage function takes one parameter, which should be an integer representing the page you wish to see. There are also four strings that you can pass into the parameter for special functions.
 
   "first" - show the first page
@@ -2170,7 +2178,7 @@ declare class Tabulator {
     /** To retrieve the maximum available page use the getPageMax function. this will return the number of the maximum available page. If pagination is disabled this will return false. */
     getPageMax: () => number | false;
     /** You can use the setGroupBy function to change the fields that rows are grouped by. This function has one argument and takes the same values as passed to the groupBy setup option. */
-    setGroupBy: (groups: string | ((data: any) => any)) => void;
+    setGroupBy: (groups: Tabulator.GroupArg) => void;
     /** You can use the setGroupStartOpen function to change the default open state of groups. This function has one argument and takes the same values as passed to the groupStartOpen setup option.
      ** Note: If you use the setGroupStartOpen or setGroupHeader before you have set any groups on the table, the table will not update until the setGroupBy function is called.
      */
@@ -2195,32 +2203,32 @@ declare class Tabulator {
     recalc: () => void;
 
     /** Use the navigatePrev function to shift focus to the next editable cell on the left, if none available move to the right most editable cell on the row above.
-   * 
+   *
    * Note: These actions will only work when a cell is editable and has focus.
 
     Note: Navigation commands will only focus on editable cells, that is cells with an editor and if present an editable function that returns true.
-   * 
+   *
    */
     navigatePrev: () => void;
-    /** Use the navigateNext function to shift focus to the next editable cell on the right, if none available move to left most editable cell on the row below.* 
+    /** Use the navigateNext function to shift focus to the next editable cell on the right, if none available move to left most editable cell on the row below.*
    * Note: These actions will only work when a cell is editable and has focus.
 
     Note: Navigation commands will only focus on editable cells, that is cells with an editor and if present an editable function that returns true.
-   * 
+   *
    */
     navigateNext: () => void;
-    /** Use the navigateLeft function to shift focus to next editable cell on the left, return false if none available on row.* 
+    /** Use the navigateLeft function to shift focus to next editable cell on the left, return false if none available on row.*
    * Note: These actions will only work when a cell is editable and has focus.
 
     Note: Navigation commands will only focus on editable cells, that is cells with an editor and if present an editable function that returns true.
-   * 
+   *
    */
     navigateLeft: () => void;
-    /** Use the navigateRight function to shift focus to next editable cell on the right, return false if none available on row.* 
+    /** Use the navigateRight function to shift focus to next editable cell on the right, return false if none available on row.*
    * Note: These actions will only work when a cell is editable and has focus.
 
     Note: Navigation commands will only focus on editable cells, that is cells with an editor and if present an editable function that returns true.
-   * 
+   *
    */
     navigateRight: () => void;
     /** Use the navigateUp function to shift focus to the same cell in the row above.
@@ -2228,7 +2236,7 @@ declare class Tabulator {
    * Note: These actions will only work when a cell is editable and has focus.
 
     Note: Navigation commands will only focus on editable cells, that is cells with an editor and if present an editable function that returns true.
-   * 
+   *
    */
     navigateUp: () => void;
 
@@ -2237,7 +2245,7 @@ declare class Tabulator {
    * Note: These actions will only work when a cell is editable and has focus.
 
     Note: Navigation commands will only focus on editable cells, that is cells with an editor and if present an editable function that returns true.
-   * 
+   *
    */
     navigateDown: () => void;
 
@@ -2263,4 +2271,10 @@ declare class Tabulator {
      */
     validate: () => true | Tabulator.CellComponent[];
     setGroupValues: (data: Tabulator.GroupValuesArg) => void;
+
+    /**You can now trigger a refresh of the current filters using the refreshFilter function. This function will cause the current filters to be run again and applied to the table data. */
+    refreshFilters: () => void;
+
+    /**The clearHistory function can be used to clear out the current table interaction history. */
+    clearHistory: () => void;
 }

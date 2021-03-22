@@ -129,3 +129,15 @@ if (mapLayer) {
     const htmlElement = mapLayer.getElement();
     htmlElement.className = 'grey';
 }
+
+const panorama = ymaps.panorama.createPlayer(element, [0, 0]);
+panorama.then((player) => player.destroy());
+
+ymaps.panorama.locate([0, 0], { layer: 'yandex#airPanorama' });
+
+ymaps.panorama.Base.createPanorama({
+    angularBBox: [0, 0],
+    position: [0, 0],
+    tilesLevels: [],
+    tileSize: [0, 0]
+});

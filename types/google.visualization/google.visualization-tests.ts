@@ -37,6 +37,31 @@ function test_dataTableAddRow() {
     dataTable.addRow(['row3', 0]);
 }
 
+function test_calendarChart() {
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'date', id: 'Date' });
+    dataTable.addColumn({ type: 'number', id: 'Value' });
+    dataTable.addRows([
+        [new Date(2021, 3, 15), 100],
+        [new Date(2021, 3, 16), -75],
+        [new Date(2021, 3, 17), 150],
+        [new Date(2021, 3, 18), -100],
+        [new Date(2021, 3, 19), 200]
+    ]);
+
+    var options = {
+        title: "Test Calendar",
+        height: 350,
+        colorAxis: { colors: ['red', 'white', 'green'], values: [-250, 0, 250] }
+    };
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.Calendar(container);
+        chart.draw(dataTable, options);
+    }
+}
+
 function test_geoChart() {
     var data = google.visualization.arrayToDataTable([
         ['Country',   'Population', 'Area Percentage'],
@@ -365,7 +390,38 @@ function test_timeline() {
             [ 'Adams',      new Date(1797, 2, 3),  new Date(1801, 2, 3) ],
             [ 'Jefferson',  new Date(1801, 2, 3),  new Date(1809, 2, 3) ]]);
 
-        chart.draw(dataTable);
+        chart.draw(dataTable, {
+            avoidOverlappingGridLines: true,
+            backgroundColor: 'white',
+            colors: ['red','#004411'],
+            enableInteractivity: true,
+            fontName: 'Arial',
+            fontSize: 16,
+            forceIFrame: false,
+            height: 100,
+            timeline: {
+                barLabelStyle: {
+                    color: 'white',
+                    fontName: 'Arial',
+                    fontSize: 16
+                },
+                colorByRowLabel: false,
+                groupByRowLabel: true,
+                rowLabelStyle: {
+                    color: 'white',
+                    fontName: 'Arial',
+                    fontSize: 16
+                },
+                showBarLabels: true,
+                showRowLabels: true,
+                singleColor: null,
+            },
+            tooltip: {
+                isHtml: true,
+                trigger: 'focus'
+            },
+            width: 100,
+        });
     }
 }
 
@@ -599,6 +655,34 @@ function test_ChartsLoadWithPromise() {
 
     google.charts.load('current', {packages: ['corechart', 'table', 'sankey']}).then(drawChart);
 }
+
+function test_ChartsSafeLoad() {
+    google.charts.safeLoad({packages: ['corechart']}).then(() => {
+        // Draw a chart.
+    });
+}
+
+function test_ChartsLoadLegacy() {
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.charts.load("visualization", "1", {packages:["corechart"]});
+}
+
+function test_ChartsLoadWithVersion() {
+    google.charts.load('current', {packages: ['corechart']});
+}
+
+function test_ChartsLoadOptions() {
+    google.charts.load({
+        packages: ['corechart'],
+        callback: drawChart,
+        mapsApiKey: 'mapsApiKey',
+        safeMode: true,
+        language: 'ja'
+    });
+
+    function drawChart(){}
+}
+
 
 function test_ChartAnnotations() {
     var annotations:google.visualization.ChartAnnotations = {
@@ -868,8 +952,72 @@ function test_GanttChart() {
                     fill: '#666'
                 },
                 shadowOffset: 1,
-                trackHeight: 30
-            }
+            },
+        });
+    }
+}
+
+function test_Sankey() {
+    google.charts.load('current', { packages: ['sankey'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+        data.addRows([
+            ['A', 'X', 5],
+            ['A', 'Y', 7],
+            ['A', 'Z', 6],
+            ['B', 'X', 2],
+            ['B', 'Y', 9],
+            ['B', 'Z', 4],
+        ]);
+
+        var element = document.getElementById('sankey_basic');
+
+        if (!element) {
+            return;
+        }
+
+        // Instantiates and draws our chart, passing in some options.
+        var chart = new google.visualization.Sankey(element);
+
+        chart.draw(data, {
+            width: 600,
+            height: 400,
+            sankey: {
+                node: {
+                    label: {
+                        fontName: 'Times-Roman',
+                        fontSize: 12,
+                        color: '#000',
+                        bold: true,
+                        italic: false,
+                    },
+                    interactivity: true,
+                    labelPadding: 6,
+                    nodePadding: 10,
+                    width: 5,
+                    colors: ['#a6cee3', '#b2df8a', '#fb9a99'],
+                },
+                link: {
+                    color: {
+                        fill: '#efd',
+                        fillOpacity: 0.8,
+                        stroke: 'black',
+                        strokeWidth: 1,
+                    },
+                    colors: ['#a6cee3', '#b2df8a', '#fb9a99'],
+                },
+                tooltip: {
+                    textStyle: {
+                        color: '#FF0000',
+                    },
+                    showColorCode: true,
+                },
+            },
         });
     }
 }

@@ -5,14 +5,42 @@
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
  */
-import Providers from 'next-auth/providers';
-import Adapters from 'next-auth/adapters';
+import Providers, { AppProvider, DefaultProviders } from 'next-auth/providers';
+import Adapters, { Adapter, EmailAppProvider, Profile, Session, VerificationRequest } from 'next-auth/adapters';
 import * as client from 'next-auth/client';
-import * as JWT from 'next-auth/jwt';
+import * as JWTType from 'next-auth/jwt';
 import NextAuth, * as NextAuthTypes from 'next-auth';
-import { GenericObject, SessionBase, NextApiRequest, NextApiResponse } from 'next-auth/_utils';
 import { IncomingMessage, ServerResponse } from 'http';
 import { Socket } from 'net';
+
+/* copied from next@10.0 */
+export interface NextApiRequest extends IncomingMessage {
+    query: {
+        [key: string]: string | string[];
+    };
+    cookies: {
+        [key: string]: string;
+    };
+    body: any;
+    env: any;
+    preview?: boolean;
+    previewData?: any;
+}
+
+export type Send<T> = (body: T) => void;
+
+export type NextApiResponse<T = any> = ServerResponse & {
+    send: Send<T>;
+    json: Send<T>;
+    status: (statusCode: number) => NextApiResponse<T>;
+    redirect(url: string): NextApiResponse<T>;
+    redirect(status: number, url: string): NextApiResponse<T>;
+    setPreviewData: (data: object | string, options?: {
+        maxAge?: number;
+    }) => NextApiResponse<T>;
+    clearPreviewData: () => NextApiResponse<T>;
+};
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 // --------------------------------------------------------------------------
 // Server
@@ -22,12 +50,16 @@ const req: NextApiRequest = Object.assign(new IncomingMessage(new Socket()), {
     query: {},
     cookies: {},
     body: {},
+    env: {},
 });
 
 const res: NextApiResponse = Object.assign(new ServerResponse(req), {
-    send: () => undefined,
-    json: () => undefined,
+    send: (body: string) => undefined,
+    json: (body: string) => undefined,
     status: (code: number) => res,
+    redirect: (statusOrUrl: number | string, url?: string) => res as any,
+    setPreviewData: (data: object | string) => res,
+    clearPreviewData: () => res,
 });
 
 const pageOptions = {
@@ -50,6 +82,70 @@ const simpleConfig = {
     ],
 };
 
+const exampleUser: NextAuthTypes.User = {
+    name: '',
+    image: '',
+    email: '',
+};
+
+const exampleSession: Session = {
+    userId: '',
+    accessToken: '',
+    sessionToken: '',
+    expires: new Date(),
+};
+
+const exampleVerificatoinRequest: VerificationRequest = {
+    identifier: '',
+    token: '',
+    expires: new Date(),
+};
+
+const adapter: Adapter<NextAuthTypes.User, Profile, Session, VerificationRequest> = {
+    getAdapter(appOptions: NextAuthTypes.AppOptions) {
+        return Promise.resolve({
+            createUser: (profile: Profile) => Promise.resolve(exampleUser),
+            getUser: (id: string) => Promise.resolve(exampleUser),
+            getUserByEmail: (email: string) => Promise.resolve(exampleUser),
+            getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve(exampleUser),
+            updateUser: (user: NextAuthTypes.User) => Promise.resolve(exampleUser),
+            linkAccount: (
+                userId: string,
+                providerId: string,
+                providerType: string,
+                providerAccountId: string,
+                refreshToken: string,
+                accessToken: string,
+                accessTokenExpires: number,
+            ) => Promise.resolve(),
+            createSession: (user: NextAuthTypes.User) => Promise.resolve(exampleSession),
+            getSession: (sessionToken: string) => Promise.resolve(exampleSession),
+            updateSession: (session: Session, force?: boolean) => Promise.resolve(exampleSession),
+            deleteSession: (sessionToken: string) => Promise.resolve(),
+            createVerificationRequest: (
+                email: string,
+                url: string,
+                token: string,
+                secret: string,
+                provider: EmailAppProvider,
+                options: NextAuthTypes.AppOptions,
+            ) => Promise.resolve(exampleVerificatoinRequest),
+            getVerificationRequest: (
+                email: string,
+                verificationToken: string,
+                secret: string,
+                provider: AppProvider,
+            ) => Promise.resolve(exampleVerificatoinRequest),
+            deleteVerificationRequest: (
+                email: string,
+                verificationToken: string,
+                secret: string,
+                provider: AppProvider,
+            ) => Promise.resolve(),
+        });
+    },
+};
+
 const allConfig = {
     site: 'https://foo.com',
     providers: [
@@ -70,19 +166,21 @@ const allConfig = {
         secret: 'secret-thing',
         maxAge: 365,
         encryption: true,
+        signingKey: 'some-key',
+        encryptionKey: 'some-key',
         encode: () => Promise.resolve('foo'),
-        decode: () => Promise.resolve('foo'),
+        decode: () => Promise.resolve({}),
     },
     pages: pageOptions,
     callbacks: {
-        signIgn: (user: NextAuthTypes.User, account: GenericObject, profile: GenericObject) => Promise.resolve(true),
+        signIn: (user: NextAuthTypes.User, account: Record<string, unknown>, profile: Record<string, unknown>) => Promise.resolve(true),
         redirect: (url: string, baseUrl: string) => Promise.resolve('path/to/foo'),
-        session: (session: SessionBase, user: NextAuthTypes.User) => Promise.resolve<any>(user),
+        session: (session: NextAuthTypes.Session, user: NextAuthTypes.User) => Promise.resolve<any>(user),
         jwt: (
-            token: GenericObject,
+            token: JWTType.JWT,
             user: NextAuthTypes.User,
-            account: GenericObject,
-            profile: GenericObject,
+            account: Record<string, unknown>,
+            profile: Record<string, unknown>,
             isNewUser: boolean,
         ) => Promise.resolve({}),
     },
@@ -106,30 +204,7 @@ const allConfig = {
             return undefined;
         },
     },
-    adapter: {
-        getAdapter: (appOptions: NextAuthTypes.AppOptions) => {
-            return Promise.resolve({
-                createUser: (profile: any) => Promise.resolve({}),
-                getUser: (id: string) => Promise.resolve({}),
-                getUserByEmail: (email: string) => Promise.resolve({}),
-                getUserByProviderAccountId: (providerId: string, providerAccountId: string) => Promise.resolve({}),
-                updateUser: (profile: any) => Promise.resolve({}),
-                linkAccount: (
-                    userId: string,
-                    providerId: string,
-                    providerType: string,
-                    providerAccountId: string,
-                    refreshToken: string,
-                    accessToken: string,
-                    accessTokenExpires: number,
-                ) => Promise.resolve(),
-                createSession: (user: any) => Promise.resolve({}),
-                getSession: (sessionToken: string) => Promise.resolve({}),
-                updateSession: (session: any) => Promise.resolve(),
-                deleteSession: (sessionToken: string) => Promise.resolve(),
-            });
-        },
-    },
+    adapter,
     useSecureCookies: true,
     cookies: {
         sessionToken: {
@@ -139,15 +214,22 @@ const allConfig = {
                 sameSite: true as true,
                 path: '/',
                 secure: true,
+                domain: 'foo.com',
             },
         },
     },
 };
 
-// $ExpectType Promise<void>
+// $ExpectType void | Promise<void>
+NextAuth(simpleConfig);
+
+// $ExpectType void | Promise<void>
+NextAuth(allConfig);
+
+// $ExpectType void | Promise<void>
 NextAuth(req, res, simpleConfig);
 
-// $ExpectType Promise<void>
+// $ExpectType void | Promise<void>
 NextAuth(req, res, allConfig);
 
 // --------------------------------------------------------------------------
@@ -199,10 +281,10 @@ client.getSession({ req });
 // $ExpectType Promise<Session | null>
 client.session({ req });
 
-// $ExpectType Promise<GetProvidersResponse | null>
+// $ExpectType Promise<Record<string, AppProvider> | null>
 client.getProviders();
 
-// $ExpectType Promise<GetProvidersResponse | null>
+// $ExpectType Promise<Record<string, AppProvider> | null>
 client.providers();
 
 // $ExpectType Promise<string | null>
@@ -212,13 +294,22 @@ client.getCsrfToken({ req });
 client.csrfToken({ req });
 
 // $ExpectType Promise<void>
-client.signin('github', { data: 'foo' });
+client.signin('github', { data: 'foo', redirect: false }, { login: 'username' });
+
+// $ExpectType Promise<SignInResponse>
+client.signin('credentials', { data: 'foo', redirect: false });
+
+// $ExpectType Promise<SignInResponse>
+client.signin('email', { data: 'foo', redirect: false });
+
+// $ExpectType Promise<void>
+client.signin('email', { data: 'foo', redirect: true });
 
 // $ExpectType Promise<void>
 client.signout();
 
 // $ExpectType Promise<void>
-client.signout({ callbackUrl: 'https://foo.com/callback' });
+client.signout({ callbackUrl: 'https://foo.com/callback', redirect: true });
 
 // $ExpectType ReactElement<any, any> | null
 client.Provider({
@@ -256,13 +347,13 @@ client.Provider({
 // Providers
 // --------------------------------------------------------------------------
 
-// $ExpectType GenericReturnConfig
+// $ExpectType NonNullParams<ProviderEmailOptions> & { id: "email"; type: "email"; }
 Providers.Email({
     server: 'path/to/server',
     from: 'path/from',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType NonNullParams<ProviderEmailOptions> & { id: "email"; type: "email"; }
 Providers.Email({
     server: {
         host: 'host',
@@ -275,7 +366,7 @@ Providers.Email({
     from: 'path/from',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType NonNullParams<ProviderCredentialsOptions> & { id: "credentials"; type: "credentials"; }
 Providers.Credentials({
     id: 'login',
     name: 'account',
@@ -297,7 +388,7 @@ Providers.Credentials({
     },
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"apple", "oauth"> & { protection: "none"; }
 Providers.Apple({
     clientId: 'foo123',
     clientSecret: {
@@ -308,64 +399,77 @@ Providers.Apple({
     },
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"twitter", "oauth">
 Providers.Twitter({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"facebook", "oauth">
 Providers.Facebook({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"github", "oauth">
 Providers.GitHub({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"github", "oauth">
 Providers.GitHub({
     clientId: 'foo123',
     clientSecret: 'bar123',
     scope: 'change:thing read:that',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"gitlab", "oauth">
 Providers.GitLab({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"slack", "oauth">
 Providers.Slack({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"google", "oauth">
 Providers.Google({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"google", "oauth">
 Providers.Google({
     clientId: 'foo123',
     clientSecret: 'bar123',
     authorizationUrl: 'https://foo.google.com',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"auth0", "oauth"> & { domain: string; }
 Providers.Auth0({
     clientId: 'foo123',
     clientSecret: 'bar123',
     domain: 'https://foo.auth0.com',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"auth0", "oauth"> & { domain: string; }
+Providers.Auth0({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+    domain: 'https://foo.auth0.com',
+    profile: () => ({
+        id: 'foo123',
+        name: 'foo',
+        email: 'foo@bar.io',
+        image: 'https://foo.auth0.com/image/1.png',
+    }),
+});
+
+// $ExpectType Provider<string, "oauth"> & { domain: string; }
 Providers.IdentityServer4({
     id: 'identity-server4',
     name: 'IdentityServer4',
@@ -375,83 +479,79 @@ Providers.IdentityServer4({
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"discord", "oauth">
 Providers.Discord({
     clientId: 'foo123',
     clientSecret: 'bar123',
+    scope: 'identify',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"twitch", "oauth">
 Providers.Twitch({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
-Providers.Mixer({
-    clientId: 'foo123',
-    clientSecret: 'bar123',
-});
-
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"okta", "oauth"> & { domain: string; }
 Providers.Okta({
     clientId: 'foo123',
     clientSecret: 'bar123',
     domain: 'https://foo.auth0.com',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"battlenet", "oauth"> & { region: string; }
 Providers.BattleNet({
     clientId: 'foo123',
     clientSecret: 'bar123',
     region: 'europe',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"box", "oauth">
 Providers.Box({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"cognito", "oauth"> & { domain: string; }
 Providers.Cognito({
     clientId: 'foo123',
     clientSecret: 'bar123',
     domain: 'https://foo.auth0.com',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"yandex", "oauth">
 Providers.Yandex({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"linkedin", "oauth">
 Providers.LinkedIn({
     clientId: 'foo123',
     clientSecret: 'bar123',
+    scope: 'r_emailaddress r_liteprofile',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"spotify", "oauth">
 Providers.Spotify({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"spotify", "oauth">
 Providers.Spotify({
     clientId: 'foo123',
     clientSecret: 'bar123',
     scope: 'user-read-email',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"basecamp", "oauth">
 Providers.Basecamp({
     clientId: 'foo123',
     clientSecret: 'bar123',
 });
 
-// $ExpectType GenericReturnConfig
+// $ExpectType Provider<"reddit", "oauth">
 Providers.Reddit({
     clientId: 'foo123',
     clientSecret: 'bar123',
@@ -478,25 +578,25 @@ Adapters.TypeORM.Adapter({
 // --------------------------------------------------------------------------
 
 // $ExpectType Promise<string>
-JWT.encode({
+JWTType.encode({
     token: { key: 'value' },
     secret: 'secret',
 });
 
-// $ExpectType Promise<object>
-JWT.decode({
+// $ExpectType Promise<WithAdditionalParams<JWT>>
+JWTType.decode({
     token: 'token',
     secret: 'secret',
 });
 
 // $ExpectType Promise<string>
-JWT.getToken({
+JWTType.getToken({
     req,
     raw: true,
 });
 
-// $ExpectType Promise<object>
-JWT.getToken({
+// $ExpectType Promise<WithAdditionalParams<JWT>>
+JWTType.getToken({
     req,
     secret: 'secret',
 });

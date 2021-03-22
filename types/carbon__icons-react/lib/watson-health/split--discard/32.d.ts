@@ -1,1 +1,3 @@
-export { WatsonHealthSplitDiscard32 as default } from "../../../";
+import { WatsonHealthSplitDiscard32 } from "../../../";
+
+export = WatsonHealthSplitDiscard32;

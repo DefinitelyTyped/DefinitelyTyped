@@ -1,4 +1,9 @@
-import * as assert from 'assert';
+import './ts3.6/node-tests';
+import './test/buffer';
+import './test/querystring';
+import './test/url';
+
+import assert = require('node:assert');
 
 assert(true, "it's working");
 

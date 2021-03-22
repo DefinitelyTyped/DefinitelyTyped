@@ -13,6 +13,9 @@ wavesurfer.on("ready", () => {
 });
 // -- load an audio file
 wavesurfer.load("audio/sample.wav");
+if (wavesurfer.isReady) {
+    throw new Error('Should not be ready');
+}
 
 // - create an instance with "new"
 const wsNewed = new WaveSurfer({

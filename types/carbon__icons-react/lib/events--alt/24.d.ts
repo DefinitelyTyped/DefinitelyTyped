@@ -1,1 +1,3 @@
-export { EventsAlt24 as default } from "../../";
+import { EventsAlt24 } from "../../";
+
+export = EventsAlt24;

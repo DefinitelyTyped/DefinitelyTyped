@@ -1,1 +1,3 @@
-export { Application32 as default } from "../../";
+import { Application32 } from "../../";
+
+export = Application32;

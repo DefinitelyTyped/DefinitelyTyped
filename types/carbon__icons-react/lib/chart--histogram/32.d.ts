@@ -1,1 +1,3 @@
-export { ChartHistogram32 as default } from "../../";
+import { ChartHistogram32 } from "../../";
+
+export = ChartHistogram32;

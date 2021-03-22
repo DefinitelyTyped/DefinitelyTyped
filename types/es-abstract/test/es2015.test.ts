@@ -64,7 +64,7 @@ ES2015.Call(iterNext, generable());
 
 // $ExpectType IteratorResult<number, boolean>
 ES2015.Invoke(generable(), 'next', args as IArguments & [string]);
-ES2015.Invoke(generable(), Symbol.iterator, args);
+ES2015.Invoke(generable(), Symbol.iterator, args as IArguments & []);
 
 // $ExpectType boolean
 ES2015.Invoke(Reflect, 'has', args as IArguments & [object, PropertyKey]);
@@ -79,7 +79,7 @@ ES2015.GetIterator(null, generable);
 ES2015.IteratorNext(generable()); // $ExpectType IteratorResult<number, boolean>
 ES2015.IteratorNext(any as AsyncGenerator<number, void>); // $ExpectType Promise<IteratorResult<number, void>>
 
-// $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>>
+// $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>> || IteratorResult<number, void> | Promise<IteratorResult<number, void>>
 expectType<IteratorResult<number, void> | Promise<IteratorResult<number, void>>>(
     ES2015.IteratorNext<number, void>(any as Generator<number, void> | AsyncGenerator<number, void>),
 );

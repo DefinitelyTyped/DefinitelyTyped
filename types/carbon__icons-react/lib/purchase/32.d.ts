@@ -1,1 +1,3 @@
-export { Purchase32 as default } from "../../";
+import { Purchase32 } from "../../";
+
+export = Purchase32;

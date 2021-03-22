@@ -1,1 +1,3 @@
-export { WindPower as default } from "../../";
+import { WindPower } from "../../";
+
+export = WindPower;

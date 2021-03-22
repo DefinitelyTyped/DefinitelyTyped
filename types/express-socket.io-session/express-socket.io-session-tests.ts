@@ -21,7 +21,6 @@ import socketio = require('socket.io');
 const io = socketio(server);
 
 import sharedsession = require('express-socket.io-session');
-import { InitializedSession } from 'express-session';
 
 declare module 'express-session' {
     interface SessionData {
@@ -35,14 +34,11 @@ io.use(sharedsession(session, { autoSave: true, saveUninitialized: true }));
 io.use(sharedsession(session, cookieParser));
 io.use(sharedsession(session, cookieParser, { autoSave: true, saveUninitialized: true }));
 
-io.on('connection', (socket) => {
-    const sessionID = [
-        socket.handshake.sessionID,
-        socket.handshake.session!.id
-    ];
-    const sessionData = [
-        (socket.handshake.session as InitializedSession).sessionEntry,
-        (socket.handshake.session as InitializedSession).anotherSessionEntry
+io.on('connection', socket => {
+    const sessionID = [socket.handshake.sessionID, socket.handshake.session!.id];
+    const sessionData = socket.handshake.session && [
+        socket.handshake.session.sessionEntry,
+        socket.handshake.session.anotherSessionEntry,
     ];
     socket.handshake.session!.touch();
     socket.handshake.session!.regenerate(() => {});

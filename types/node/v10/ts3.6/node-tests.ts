@@ -1,4 +1,7 @@
-import "../node-tests";
+import '../test/events';
+import '../test/util';
+import '../test/zlib';
+
 import * as util from "util";
 
 //////////////////////////////////////////////////////////

@@ -1,6 +1,6 @@
-import * as http from 'http';
-import * as url from 'url';
-import * as net from 'net';
+import * as http from 'node:http';
+import * as url from 'node:url';
+import * as net from 'node:net';
 
 // http Server
 {
@@ -120,6 +120,9 @@ import * as net from 'net';
 
     // path
     const path: string = req.path;
+
+    // method
+    const method: string = req.method;
 }
 
 {

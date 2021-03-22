@@ -1,1 +1,3 @@
-export { AudioConsole32 as default } from "../../";
+import { AudioConsole32 } from "../../";
+
+export = AudioConsole32;

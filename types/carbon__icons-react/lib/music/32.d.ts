@@ -1,1 +1,3 @@
-export { Music32 as default } from "../../";
+import { Music32 } from "../../";
+
+export = Music32;

@@ -21,8 +21,8 @@ export interface TabCustomAnchorProviderProps extends TabCustomButtonProvidedPro
 
 export interface TabStandaloneProps extends Omit<ReactLIAttr, ExcludedAttributes> {
     disabled?: boolean;
-    handleTabClick(index: TabStandaloneProps["index"], event: React.MouseEvent<HTMLLIElement>): void,
-    handleTabKeyDown(index: TabStandaloneProps["index"], event: React.KeyboardEvent<HTMLLIElement>): void,
+    handleTabClick?(index: TabStandaloneProps["index"], event: React.MouseEvent<HTMLLIElement>): void,
+    handleTabKeyDown?(index: TabStandaloneProps["index"], event: React.KeyboardEvent<HTMLLIElement>): void,
     /**
      * @deprecated
      */
@@ -32,7 +32,8 @@ export interface TabStandaloneProps extends Omit<ReactLIAttr, ExcludedAttributes
     /**
      * @deprecated
      */
-    renderAnchor?: React.FC<TabCustomButtonProvidedProps>,
+    renderAnchor?: (props: TabCustomButtonProvidedProps) => React.ReactNode;
+    renderButton?: (props: TabCustomButtonProvidedProps) => React.ReactNode;
     role?: string, // marked as required, but render code overwrites it currently, also has default
     selected: boolean,
 }

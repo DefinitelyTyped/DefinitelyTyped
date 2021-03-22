@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "dt-header": false,
-        "semicolon": false,
-        "unified-signatures": false
+        "dt-header": false
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for react-native-calendars 1.20
+// Type definitions for react-native-calendars 1.505
 // Project: https://github.com/wix/react-native-calendars#readme
 // Definitions by: Tyler Zhang <https://github.com/Tyler-Zhang>
 //                 David Noreña <https://github.com/DavidNorena>
@@ -8,7 +8,11 @@
 
 import * as React from 'react';
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-export import LocaleConfig = require('xdate');
+import XDateLocaleConfig = require('xdate');
+
+export class LocaleConfig extends XDateLocaleConfig {
+    static locales: { [key: string]: typeof XDateLocaleConfig.locales[string] & { today: string } };
+}
 
 export interface DateObject {
     day: number;
@@ -51,6 +55,9 @@ export interface CalendarTheme {
     textSectionTitleColor?: string;
     todayTextColor?: string;
     indicatorColor?: string;
+    textDayStyle?: TextStyle;
+    dotStyle?: ViewStyle;
+    arrowStyle?: ViewStyle;
 
     // Theme ID's to style for
     'stylesheet.calendar.header'?: CalendarThemeIdStyle;
@@ -107,6 +114,8 @@ export interface MultiPeriodMarking {
         endingDay?: boolean;
         color?: string;
     }>;
+    disabled?: boolean;
+    selected?: boolean;
 }
 
 export interface PeriodMarking {
@@ -185,7 +194,7 @@ export interface CalendarBaseProps {
     /**
      *  Provide custom day rendering component.
      */
-    dayComponent?: React.Component<DayComponentProps> | React.SFC<DayComponentProps>;
+    dayComponent?: React.Component<DayComponentProps> | React.FC<DayComponentProps>;
 
     /**
      *  Disable days by default. Default = false

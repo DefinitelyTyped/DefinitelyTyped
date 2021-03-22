@@ -1,1 +1,3 @@
-export { SpellCheck32 as default } from "../../";
+import { SpellCheck32 } from "../../";
+
+export = SpellCheck32;

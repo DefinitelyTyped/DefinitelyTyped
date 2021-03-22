@@ -1,5 +1,5 @@
 // Type definitions for a2hs.js 0.4
-// Project: https://github.io/koddr/a2hs.js
+// Project: https://github.com/koddr/a2hs.js/
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

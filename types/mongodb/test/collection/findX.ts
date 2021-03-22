@@ -1,4 +1,4 @@
-import { connect, MongoError, Cursor } from 'mongodb';
+import { connect, FindOneOptions, MongoError, Cursor } from 'mongodb';
 import { connectionString } from '../index';
 
 // collection.findX tests
@@ -20,7 +20,7 @@ async function run() {
         readonlyFruitTags: ReadonlyArray<string>;
     }
     const collectionT = db.collection<TestModel>('testCollection');
-    collectionT.find({
+    await collectionT.find({
         $and: [{ numberField: { $gt: 0 } }, { numberField: { $lt: 100 } }],
         readonlyFruitTags: { $all: ['apple', 'pear'] },
     });
@@ -46,12 +46,28 @@ async function run() {
         },
     );
 
+    // test with discriminated union type
+    interface DUModelEmpty {
+        type: 'empty';
+    }
+    interface DUModelString {
+        type: 'string';
+        value: string;
+    }
+    type DUModel = DUModelEmpty | DUModelString;
+    const collectionDU = db.collection<DUModel>('testDU');
+    const duValue = await collectionDU.findOne({});
+    if (duValue && duValue.type === 'string') {
+        const value: string = duValue.value;
+    }
+
     // collection.findX<T>() generic tests
     interface Bag {
         cost: number;
         color: string;
     }
-    const cursor: Cursor<Bag> = collection.find<Bag>({ color: 'black' });
+    const collectionBag = db.collection<Bag>('bag');
+    const cursor: Cursor<Bag> = collectionBag.find({ color: 'black' });
     cursor.toArray((err, r) => {
         r[0].cost; // $ExpectType number
     });
@@ -61,14 +77,53 @@ async function run() {
         },
         () => {},
     );
-    collection.findOne({ color: 'white' }).then(b => {
-        const _b: Bag = b; // b is larger than bag and may contain extra properties
+    collectionBag.findOne({ color: 'white' }).then(b => {
+        b; // $ExpectType Bag | null
     });
-    collection
-        .findOne<Bag>({ color: 'white' })
+    collectionBag
+        .findOne<{ cost: number }>({ color: 'white' })
         .then(b => {
             if (b) {
                 b.cost; // $ExpectType number
             }
         });
+    collectionBag
+        .findOne<{ cost: number }>({ color: 'red' }, { projection: { cost: 1 } })
+        .then(b => {
+            if (b) {
+                b.color; // $ExpectError
+                b.cost; // $ExpectType number
+            }
+        });
+}
+
+async function testFindReturnValue() {
+    interface Car { make: string; }
+    interface House { windows: number; }
+
+    function printHouse(house: House | null) {
+        console.log(house == null ? 'No house' : `A house with ${house.windows} windows`);
+    }
+
+    const client = await connect(connectionString);
+    const db = client.db('test');
+    const car = db.collection<Car>('car');
+
+    // $ExpectError
+    printHouse(await car.findOne({}));
+}
+
+async function testFindWithGenericOptions() {
+    interface Car { make: string; }
+
+    function printCar(car: Car | null) {
+        console.log(car == null ? 'No car' : `A car of ${car.make} make`);
+    }
+
+    const client = await connect(connectionString);
+    const db = client.db('test');
+    const car = db.collection<Car>('car');
+    const options: FindOneOptions<Car> = {};
+
+    printCar(await car.findOne({}, options));
 }

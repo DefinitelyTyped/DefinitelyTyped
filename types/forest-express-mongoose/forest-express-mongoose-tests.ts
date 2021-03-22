@@ -8,7 +8,7 @@ import {
     SmartActionOptions, SmartFieldOptions, SmartSegmentOptions,
     collection, CollectionOptions,
 } from 'forest-express-mongoose';
-import { RequestHandler } from 'express';
+import * as express from 'express';
 
 const MY_PUBLIC_ROUTES = PUBLIC_ROUTES;
 
@@ -63,7 +63,7 @@ recordsRemover.remove(['1234', '5678']);
 const recordSerializer = new RecordSerializer(model);
 recordSerializer.serialize([{}, {}]);
 
-let requestHandler: RequestHandler;
+let requestHandler: express.RequestHandler;
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('users');
 requestHandler = permissionMiddlewareCreator.list();
 requestHandler = permissionMiddlewareCreator.export();
@@ -198,3 +198,9 @@ const complexCollectionOptions: CollectionOptions = {
     }],
 };
 collection('complexCollection', complexCollectionOptions);
+
+const app = express();
+
+app.get('/', (request) => {
+    return recordsGetter.getIdsFromRequest(request);
+});

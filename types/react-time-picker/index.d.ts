@@ -29,7 +29,7 @@ export interface TimePickerProps<T = TimePickerValue> extends TimePickerClockPro
     /**
      * Content of the clear button. Setting the value explicitly to null will hide the icon.
      */
-    clearIcon?: string | JSX.Element;
+    clearIcon?: string | JSX.Element | null;
     /**
      * aria-label for the clock button.
      */
@@ -41,7 +41,7 @@ export interface TimePickerProps<T = TimePickerValue> extends TimePickerClockPro
     /**
      * Content of the clock button. Setting the value explicitly to null will hide the icon.
      */
-    clockIcon?: string | JSX.Element;
+    clockIcon?: string | JSX.Element | null;
     /**
      * Whether to close the clock on value selection.
      * @default true

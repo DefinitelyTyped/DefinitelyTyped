@@ -136,7 +136,13 @@ class CalendarResource {
     interface Props {
         localizer: DateLocalizer;
     }
+    interface DragAndDropEvent {
+        isAllDay: boolean;
+    }
     const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
+    const handleEventMove = ({ isAllDay }: DragAndDropEvent) => {
+        console.log(isAllDay);
+    };
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
             events={getEvents()}
@@ -147,8 +153,8 @@ class CalendarResource {
             localizer={localizer}
             selectable={true}
             resizable={true}
-            onEventDrop={console.log}
-            onEventResize={console.log}
+            onEventDrop={handleEventMove}
+            onEventResize={handleEventMove}
             onDragStart={console.log}
             onDropFromOutside={console.log}
             draggableAccessor={() => true}
@@ -244,12 +250,14 @@ class CalendarResource {
                         const slots = slotInfo.slots;
                     }}
                     onSelectEvent={event => {}}
+                    onKeyPressEvent={event => {}}
                     onSelecting={slotInfo => {
                         const start = slotInfo.start;
                         const end = slotInfo.end;
                         return true;
                     }}
                     dayLayoutAlgorithm={customLayoutAlgorithm}
+                    showAllEvents={false}
                     views={['day']}
                     toolbar={true}
                     popup={true}

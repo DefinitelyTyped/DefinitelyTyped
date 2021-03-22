@@ -1,1 +1,3 @@
-export { Toronto as default } from "../../";
+import { Toronto } from "../../";
+
+export = Toronto;

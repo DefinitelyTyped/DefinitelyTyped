@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Calendar, CalendarList, Agenda, LocaleConfig } from 'react-native-calendars';
 
-declare const Arrow: React.SFC<unknown>;
+declare const Arrow: React.FC<unknown>;
 
 // this is copied directly from the documentation at https://github.com/wix/react-native-calendars#basic-parameters
 // and then linting errors are addressed which is why formatting is slightly inconsistent
@@ -148,6 +148,7 @@ const workout = { key: 'workout', color: 'green' };
                 { startingDay: false, endingDay: true, color: '#ffa500' },
                 { startingDay: true, endingDay: false, color: '#f0e68c' },
             ],
+            selected: true,
         },
         '2017-12-15': {
             periods: [
@@ -155,6 +156,7 @@ const workout = { key: 'workout', color: 'green' };
                 { color: 'transparent' },
                 { startingDay: false, endingDay: false, color: '#f0e68c' },
             ],
+            disabled: true,
         },
     }}
     // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
@@ -218,6 +220,15 @@ const workout = { key: 'workout', color: 'green' };
         textDayFontSize: 16,
         textMonthFontSize: 16,
         textDayHeaderFontSize: 16,
+        textDayStyle: {
+            fontSize: 20,
+        },
+        dotStyle: {
+            backgroundColor: 'white',
+        },
+        arrowStyle: {
+            padding: 0,
+        },
     }}
 />;
 
@@ -416,3 +427,37 @@ const workout = { key: 'workout', color: 'green' };
         </View>
     )}
 />;
+
+LocaleConfig.locales['fr'] = {
+    monthNames: [
+        'Janvier',
+        'Février',
+        'Mars',
+        'Avril',
+        'Mai',
+        'Juin',
+        'Juillet',
+        'Août',
+        'Septembre',
+        'Octobre',
+        'Novembre',
+        'Décembre',
+    ],
+    monthNamesShort: [
+        'Janv.',
+        'Févr.',
+        'Mars',
+        'Avril',
+        'Mai',
+        'Juin',
+        'Juil.',
+        'Août',
+        'Sept.',
+        'Oct.',
+        'Nov.',
+        'Déc.',
+    ],
+    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+    today: "Aujourd'hui",
+};

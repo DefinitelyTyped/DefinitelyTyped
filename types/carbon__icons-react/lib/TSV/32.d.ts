@@ -1,1 +1,3 @@
-export { Tsv32 as default } from "../../";
+import { Tsv32 } from "../../";
+
+export = Tsv32;

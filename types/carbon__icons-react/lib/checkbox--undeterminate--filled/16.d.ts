@@ -1,1 +1,3 @@
-export { CheckboxUndeterminateFilled16 as default } from "../../";
+import { CheckboxUndeterminateFilled16 } from "../../";
+
+export = CheckboxUndeterminateFilled16;

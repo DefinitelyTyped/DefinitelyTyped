@@ -8,12 +8,13 @@
 // TypeScript Version: 2.3
 
 import { Plugin, Selection } from 'prosemirror-state';
+import { NodeSpec } from 'prosemirror-model';
 
 /**
  * Gap cursor selections are represented using this class. Its
  * `$anchor` and `$head` properties both point at the cursor position.
  */
-export class GapCursor extends Selection { }
+export class GapCursor extends Selection {}
 /**
  * Create a gap cursor plugin. When enabled, this will capture clicks
  * near and arrow-key-motion past places that don't have a normally
@@ -24,3 +25,16 @@ export class GapCursor extends Selection { }
  * styles to make it visible.
  */
 export function gapCursor(): Plugin;
+
+declare module "prosemirror-model" {
+    interface NodeSpec {
+        /**
+         * By default, gap cursor are only allowed in places where the
+         * default content node (in the schema content constraints) is a
+         * textblock node. You can customize this by adding an `allowGapCursor`
+         * property to your node specs — if it's true, gap cursor are allowed
+         * everywhere in that node, if it's false they are never allowed.
+         */
+        allowGapCursor?: boolean;
+    }
+}

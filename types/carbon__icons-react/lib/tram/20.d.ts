@@ -1,1 +1,3 @@
-export { Tram20 as default } from "../../";
+import { Tram20 } from "../../";
+
+export = Tram20;

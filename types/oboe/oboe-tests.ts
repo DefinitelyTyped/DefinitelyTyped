@@ -47,3 +47,12 @@ oboe('friends.json')
             console.log('root parsed', parsedJson);
         }
     });
+
+var bookCount = 0;
+const manualPump = oboe().node('book', function(parsedJson) { bookCount++ });
+
+manualPump.emit('data', '[{ book: "Book 1"');
+manualPump.emit('data', '},{ book: "Book 2"');
+manualPump.emit('data', '}]');
+manualPump.emit('end');
+console.log(bookCount, 'books found');

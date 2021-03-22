@@ -1,1 +1,3 @@
-export { TextAlignJustify16 as default } from "../../";
+import { TextAlignJustify16 } from "../../";
+
+export = TextAlignJustify16;

@@ -172,8 +172,10 @@ const EditableCell = ({
 };
 
 // Define a default UI for filtering
-function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter } }: FilterProps<Data>) {
+function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter, parent } }: FilterProps<Data>) {
     const count = preFilteredRows.length;
+
+    const foo = parent;  // $ExpectType ColumnInstance<Data> | undefined
 
     return (
         <input
@@ -384,6 +386,9 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             // We also need to pass this so the page doesn't change
             // when we edit the data, undefined means using the default
             autoResetPage: !skipPageReset,
+            // Do not reset hidden columns when columns change. Allows
+            // for creating columns during render.
+            autoResetHiddenColumns: false,
         },
         useGroupBy,
         useFilters,

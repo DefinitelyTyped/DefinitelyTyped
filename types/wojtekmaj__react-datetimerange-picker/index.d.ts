@@ -7,9 +7,8 @@
 import { CalendarProps } from 'react-calendar';
 
 export default function DateTimeRangePicker(props: DateTimeRangePickerProps): JSX.Element;
-export type DateTimeRangePickerValue = string | Date | Date[];
 export type DateTimeRangePickerCalendarProps = Omit<CalendarProps, 'maxDetail' | 'onChange' | 'value'>;
-export interface DateTimeRangePickerProps<T = DateTimeRangePickerValue> extends DateTimeRangePickerCalendarProps {
+export interface DateTimeRangePickerProps extends DateTimeRangePickerCalendarProps {
     amPmAriaLabel?: string;
     autoFocus?: boolean;
     calendarAriaLabel?: string;
@@ -42,7 +41,7 @@ export interface DateTimeRangePickerProps<T = DateTimeRangePickerValue> extends 
     nativeInputAriaLabel?: string;
     onCalendarClose?: () => void;
     onCalendarOpen?: () => void;
-    onChange?: (val: T) => void;
+    onChange?: (val: [Date?, Date?] | null) => void;
     onFocus?: () => void;
     onClockClose?: () => void;
     onClockOpen?: () => void;
@@ -50,7 +49,7 @@ export interface DateTimeRangePickerProps<T = DateTimeRangePickerValue> extends 
     required?: boolean;
     secondAriaLabel?: string;
     secondPlaceholder?: string;
-    value: T;
+    value: Date | undefined | [Date?, Date?] | null;
     showLeadingZeros?: boolean;
     yearAriaLabel?: string;
     yearPlaceholder?: string;

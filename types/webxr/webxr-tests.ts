@@ -9,6 +9,7 @@ import {
     XRRigidTransform,
     XRView,
     XRViewport,
+    XRFrameRequestCallback,
 } from 'webxr';
 
 const canvas = document.createElement('canvas');
@@ -38,6 +39,10 @@ xr.requestSession('immersive-vr').then((session: XRSession) => {
             .requestReferenceSpace('local')
             .then(rs => {
                 space = rs as XRReferenceSpace;
+
+                const loop: XRFrameRequestCallback = (time: number, frame: XRFrame) => {};
+                const handle = session.requestAnimationFrame(loop);
+                session.cancelAnimationFrame(handle);
             })
             .catch(e => {
                 throw Error("Can't get reference space" + e);
@@ -59,3 +64,8 @@ const renderFrame = (frame: XRFrame) => {
         }
     }
 };
+
+xr.addEventListener('devicechange', (e: Event) => {
+    // Event is a simple event; there is no additional data
+    // XR device availability changed
+});
