@@ -788,7 +788,7 @@ export interface ResourceRef {
 }
 
 export type TransactionType = "send" | "request" | "transfer" | "buy" | "sell" | "fiat_deposit" | "fiat_withdrawal" | "exchange_deposit"
-    | "exchange_withdrawal" | "vault_withdrawal";
+    | "exchange_withdrawal" | "vault_withdrawal" | "trade";
 
 export type TransactionStatus = "pending" | "completed" | "failed" | "expired" | "canceled" | "waiting_for_signature" | "waiting_for_clearing";
 
@@ -880,6 +880,33 @@ export class Transaction implements Resource {
      * Reference to Coinbase client
      */
     client: Client;
+
+    /**
+     * If record is a buy, includes reference to Buy resource
+     */
+    buy?: {
+        id: string;
+        resource: "buy";
+        resource_path: string;
+    };
+
+    /**
+     * If record is a sell, includes reference to Sell resource
+     */
+    sell?: {
+        id: string;
+        resource: "sell";
+        resource_path: string;
+    };
+
+    /**
+     * If record is a trade, includes reference to Trade resource
+     */
+    trade?: {
+        id: string;
+        resource: "trade";
+        resource_path: string;
+    };
 
     /**
      * Lets the recipient of a money request complete the request by sending money to the user who requested the money.
