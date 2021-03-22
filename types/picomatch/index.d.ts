@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
-import { Picomatch } from './picomatch-interface';
+import { Picomatch } from './picomatch';
 
 declare const picomatch: Picomatch;
 export = picomatch;

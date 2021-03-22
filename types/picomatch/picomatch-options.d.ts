@@ -1,4 +1,4 @@
-import { Picomatch } from './picomatch-interface';
+import { Picomatch } from './picomatch';
 
 export interface PicomatchOptions {
     /**
