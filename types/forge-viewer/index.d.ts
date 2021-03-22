@@ -2380,7 +2380,15 @@ declare namespace Autodesk {
         renderSurfaceShading(nodeIds: string|string[],
           sensorType: string,
           valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
-        setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData, options?: { type: string }): Promise<void>;
+        setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
+          options?: {
+            type: 'PlanarHeatmap',
+            placePosition?: 'min'|'max',
+            position?: 'min'|'middle'|'max',
+            slicingEnabled?: boolean,
+            height?: number,
+            width?: number
+          }): Promise<void>;
         showHideViewables(visible: boolean, occlusion: boolean): void;
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,
