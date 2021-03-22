@@ -576,6 +576,10 @@
             "libraryName": "cpy",
             "asOfVersion": "7.1.1"
         },
+        "create-banner": {
+            "libraryName": "create-banner",
+            "asOfVersion": "2.0.0"
+        },
         "create-html-element": {
             "libraryName": "create-html-element",
             "asOfVersion": "2.1.0"
