@@ -1379,11 +1379,12 @@ declare namespace google {
                 dayOfWeekRightSpace?: number;
                 daysOfWeek?: string;
                 focusedCellColor?: ChartStrokeOpacity;
-                monthLabel?: Object;
+                monthLabel?: ChartTextStyle;
                 monthOutlineColor?: ChartStrokeOpacity;
                 underMonthSpace?: number;
                 underYearSpace?: number;
                 unusedMonthOutlineColor?: ChartStrokeOpacity;
+                dayOfWeekLabel?: ChartTextStyle;
             };
             colorAxis?: {
                 colors?: string[];
@@ -1393,7 +1394,10 @@ declare namespace google {
             };
             forceIFrame?: boolean;
             height?: number;
-            noDataPattern?: Object;
+            noDataPattern?: {
+            backgroundColor: string,
+            color: string
+            };
             tooltip?: {
                 isHtml: boolean;
             };
