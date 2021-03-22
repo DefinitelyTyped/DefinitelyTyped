@@ -48,12 +48,17 @@ lexer = moo.states({
         space: { match: /\s+/, lineBreaks: true },
     },
     lit: {
-        interp: { match: '${', push: 'main' }, // tslint:disable-line no-invalid-template-strings
+        interp: { match: '${', push: 'main' },
         escape: /\\./,
         strend: { match: '`', pop: 1 },
         const: { match: /(?:[^$`]|\$(?!\{))+/, lineBreaks: true },
     },
 });
+
+lexer.pushState('lit');
+lexer.popState();
+lexer.setState('lit');
+lexer.popState();
 
 moo.compile({
     myError: moo.error
@@ -76,6 +81,8 @@ lexer.next();
 lexer.next();
 lexer.reset('a different line\n', info);
 lexer.next();
+
+Array.from(lexer.reset('lex this'));
 
 // Transform: https://github.com/no-context/moo#transform
 moo.compile({

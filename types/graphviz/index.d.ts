@@ -1,22 +1,30 @@
-// Type definitions for Graphviz 0.0.8
+// Type definitions for graphviz 0.0
 // Project: https://github.com/glejeune/node-graphviz
-// Definitions by: Matt Frantz <https://github.com/mhfrantz>
+// Definitions by: Matt Frantz <https://github.com/mhfrantz>,
+//                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// graphviz.d.ts
+export type PossibleValue = string | number | boolean;
 
+export type RenderType = string;
 
+export type RenderEngine = "dot" | "neato" | "circo" | "fdp" | "osage" | "twopi";
+
+export interface Options {
+  [key: string]: PossibleValue;
+}
 
 export interface HasAttributes {
-    set(name: string, value: any): void;
-    get(name: string): any;
+    set(name: string, value: PossibleValue): void;
+    get(name: string): PossibleValue;
 }
 
 export interface Node extends HasAttributes {
+    readonly id: string;
 }
 
-export interface Edge extends HasAttributes {
-}
+/* tslint:disable-next-line:no-empty-interface */
+export interface Edge extends HasAttributes {}
 
 export interface OutputCallback {
     (data: string): void;
@@ -27,26 +35,46 @@ export interface ErrorCallback {
 }
 
 export interface RenderOptions {
-    type: string;  // output file type (png, jpeg, ps, ...)
-    use: string;  // Graphviz command to use (dot, neato, ...)
-    path: string;  // GraphViz path
-    G: any;  // graph options
-    N: any;  // node options
-    E: any;  // edge options
+  /**
+   * graphviz output file type
+   */
+    type: RenderType;
+
+    /**
+     * Graphviz command to use
+     * @default dot
+     */
+    use?: RenderEngine;
+
+    /**
+     * Graphviz path
+     * @default $PATH
+     */
+    path?: string;
+
+    /**
+     * graph options
+     */
+    G?: Options;
+
+    /**
+     * node options
+     */
+    N?: Options;
+
+    /**
+     * edge options
+     */
+    E?: Options;
 }
 
 export interface Graph extends HasAttributes {
+    use: RenderEngine;
 
     addNode(id: string, attrs?: any): Node;
     nodeCount(): number;
 
-    // TODO: Use union types when we have TS 1.4
-    addEdge(nodeOne: string, nodeTwo: string, attrs?: any): Edge;
-    addEdge(nodeOne: string, nodeTwo: Node, attrs?: any): Edge;
-    addEdge(nodeOne: Node, nodeTwo: string, attrs?: any): Edge;
-    addEdge(nodeOne: Node, nodeTwo: Node, attrs?: any): Edge;
-
-    edgeCount(): number;
+    addEdge(nodeOne: string | Node, nodeTwo: string | Node, attrs?: Options): Edge;
 
     // Subgraph (cluster) API
     addCluster(id: string): Graph;
@@ -59,33 +87,22 @@ export interface Graph extends HasAttributes {
     setEdgeAttribut(name: string, value: any): void;
     getEdgeAttribut(name: string): any;
 
-    to_dot(): string;
-
-    // Graphviz command to use (dot, neato, ...)
-    use: string;
-
     // Path containing Graphviz binaries.
     setGraphVizPath(directoryPath: string): void;
 
-    // TODO: Use union types when we can have TS 1.4
-    render(type: string, filename: string, errback?: ErrorCallback): void;
-    render(options: RenderOptions, filename: string, errback?: ErrorCallback): void;
-    render(type: string, callback: OutputCallback, errback?: ErrorCallback): void;
-    render(options: RenderOptions, callback: OutputCallback, errback?: ErrorCallback): void;
+    render(type_options: string | RenderOptions, filename_callback: string | OutputCallback, errback?: ErrorCallback): void;
+    output(type_options: string | RenderOptions, filename_callback: string | OutputCallback, errback?: ErrorCallback): void;
 
-    // alias for render
-    output(type: string, filename: string, errback?: ErrorCallback): void;
-    output(options: RenderOptions, filename: string, errback?: ErrorCallback): void;
-    output(type: string, callback: OutputCallback, errback?: ErrorCallback): void;
-    output(options: RenderOptions, callback: OutputCallback, errback?: ErrorCallback): void;
+    edgeCount(): number;
+    to_dot(): string;
 }
 
-export declare function graph(id: string): Graph;
+export function graph(id: string): Graph;
 
-export declare function digraph(id: string): Graph;
+export function digraph(id: string): Graph;
 
-interface ParseCallback {
+export interface ParseCallback {
     (graph: Graph): void;
 }
 
-export declare function parse(path: string, callback: ParseCallback, errback?: ErrorCallback): void;
+export function parse(path: string, callback: ParseCallback, errback?: ErrorCallback): void;

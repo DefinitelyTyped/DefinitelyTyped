@@ -5,5 +5,5 @@ import Spinner from 'ink-spinner';
 // `allowSyntheticDefaultImports` flag in compiler options needs to be set to `true`
 
 const Demo = () => {
-    return <Spinner type="line" rgb={[255, 255, 255]} />;
+    return <Spinner type="line" />;
 };

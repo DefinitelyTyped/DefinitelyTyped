@@ -1,12 +1,21 @@
 import * as React from "react";
+import { FCReturn, FCProps } from "../../../typings/shared";
 
-interface InheritedProps { }
-
-export interface HeaderContainerProps extends InheritedProps {
-    isSideNavExpanded?: boolean,
-    render: React.ComponentType,
+/**
+ * Convenience interface for the custom render prop.
+ */
+export interface HeaderContainerRenderProps {
+    isSideNavExpanded: boolean,
+    onClickSideNavExpand(): void;
 }
 
-declare const HeaderContainer: React.FC<HeaderContainerProps>;
+export interface HeaderContainerProps<RP = HeaderContainerRenderProps> {
+    isSideNavExpanded?: boolean,
+    render: React.ComponentType<RP>,
+}
+
+declare function HeaderContainer<RP = HeaderContainerRenderProps>(
+    props: FCProps<HeaderContainerProps<RP>>
+): FCReturn;
 
 export default HeaderContainer;

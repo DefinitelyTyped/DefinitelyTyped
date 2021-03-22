@@ -89,26 +89,26 @@ function test_fromdemo() {
             return msgs[i];
         };
     $('#showtoast').click(function () {
-		var shortCutFunction = $("#toastTypeGroup input:radio:checked").val() as 'success' | 'info' | 'warning' | 'error',
-			msg = $('#message').val() as string,
-			title = $('#title').val() as  string || '',
-			$fadeIn = $('#fadeIn'),
-			$fadeOut = $('#fadeOut'),
-			$timeOut = $('#timeOut'),
-			$extendedTimeOut = $('#extendedTimeOut'),
-			toastIndex = 123;
-		toastr.options = {
-			debug: $('#debugInfo').prop('checked'),
-			tapToDismiss: $('#tapToDismiss').prop('checked'),
-			positionClass: $('#positionGroup input:radio:checked').val() as string || 'toast-top-right',
-			preventDuplicates: true,
+        var shortCutFunction = $("#toastTypeGroup input:radio:checked").val() as 'success' | 'info' | 'warning' | 'error',
+            msg = $('#message').val() as string,
+            title = $('#title').val() as  string || '',
+            $fadeIn = $('#fadeIn'),
+            $fadeOut = $('#fadeOut'),
+            $timeOut = $('#timeOut'),
+            $extendedTimeOut = $('#extendedTimeOut'),
+            toastIndex = 123;
+        toastr.options = {
+            debug: $('#debugInfo').prop('checked'),
+            tapToDismiss: $('#tapToDismiss').prop('checked'),
+            positionClass: $('#positionGroup input:radio:checked').val() as string || 'toast-top-right',
+            preventDuplicates: true,
             progressBar: true
-		}
+        }
         if ((<string> $fadeIn.val()).length) {
-			toastr.options.showDuration = +$fadeIn.val()!
+            toastr.options.showDuration = +$fadeIn.val()!
         }
         if ((<string> $fadeOut.val()).length) {
-			toastr.options.hideDuration = +$fadeOut.val()!
+            toastr.options.hideDuration = +$fadeOut.val()!
         }
         if ((<string> $timeOut.val()).length) {
             toastr.options.timeOut = +$timeOut.val()!

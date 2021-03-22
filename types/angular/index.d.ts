@@ -1,12 +1,12 @@
-// Type definitions for Angular JS 1.6
+// Type definitions for Angular JS 1.8
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <https://github.com/diegovilar>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 Caleb St-Denis <https://github.com/calebstdenis>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Steffen Kowalski <https://github.com/scipper>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference path="jqlite.d.ts" />
 
@@ -89,6 +89,12 @@ declare namespace angular {
          * If jQuery is available, angular.element is an alias for the jQuery function. If jQuery is not available, angular.element delegates to Angular's built-in subset of jQuery, called "jQuery lite" or "jqLite."
          */
         element: JQueryStatic;
+        /**
+         * Configure several aspects of error handling in AngularJS if used as a setter
+         * or return the current configuration if used as a getter
+         */
+        errorHandlingConfig(): IErrorHandlingConfig;
+        errorHandlingConfig(config: IErrorHandlingConfig): void;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
 
@@ -140,7 +146,6 @@ declare namespace angular {
         isObject<T>(value: any): value is T;
         isString(value: any): value is string;
         isUndefined(value: any): boolean;
-        lowercase(str: string): string;
 
         /**
          * Deeply extends the destination object dst by copying own enumerable properties from the src object(s) to dst. You can specify multiple src objects. If you want to preserve original objects, you can do so by passing an empty object as the target: var object = angular.merge({}, object1, object2).
@@ -169,7 +174,6 @@ declare namespace angular {
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;
         toJson(obj: any, pretty?: boolean | number): string;
-        uppercase(str: string): string;
         version: {
             full: string;
             major: number;
@@ -183,6 +187,17 @@ declare namespace angular {
          * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
          */
         resumeBootstrap?(extraModules?: string[]): ng.auto.IInjectorService;
+
+        /**
+         * Restores the pre-1.8 behavior of jqLite that turns XHTML-like strings like
+         * `<div /><span />` to `<div></div><span></span>` instead of `<div><span></span></div>`.
+         * The new behavior is a security fix so if you use this method, please try to adjust
+         * to the change & remove the call as soon as possible.
+         * Note that this only patches jqLite. If you use jQuery 3.5.0 or newer, please read
+         * [jQuery 3.5 upgrade guide](https://jquery.com/upgrade-guide/3.5/) for more details
+         * about the workarounds.
+         */
+        UNSAFE_restoreLegacyJqLiteXHTMLReplacement(): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -295,7 +310,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // Attributes
-    // see http://docs.angularjs.org/api/ng.$compile.directive.Attributes
+    // see http://docs.angularjs.org/api/ng/type/$compile.directive.Attributes
     ///////////////////////////////////////////////////////////////////////////
     interface IAttributes {
         /**
@@ -373,6 +388,7 @@ declare namespace angular {
         $name?: string;
         $pending?: { [validationErrorKey: string]: Array<INgModelController | IFormController> };
         $addControl(control: INgModelController | IFormController): void;
+        $getControls(): ReadonlyArray<INgModelController | IFormController>;
         $removeControl(control: INgModelController | IFormController): void;
         $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController | IFormController): void;
         $setDirty(): void;
@@ -385,7 +401,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // NgModelController
-    // see http://docs.angularjs.org/api/ng.directive:ngModel.NgModelController
+    // see http://docs.angularjs.org/api/ng/type/ngModel.NgModelController
     ///////////////////////////////////////////////////////////////////////////
     interface INgModelController {
         $render(): void;
@@ -435,6 +451,17 @@ declare namespace angular {
         allowInvalid?: boolean;
         getterSetter?: boolean;
         timezone?: string;
+        /**
+         * Defines if the time and datetime-local types should show seconds and milliseconds.
+         * The option follows the format string of date filter.
+         * By default, the options is undefined which is equal to 'ss.sss' (seconds and milliseconds)
+         */
+        timeSecondsFormat?: string;
+        /**
+         * Defines if the time and datetime-local types should strip the seconds and milliseconds
+         * from the formatted value if they are zero. This option is applied after `timeSecondsFormat`
+         */
+        timeStripZeroSeconds?: boolean;
     }
 
     interface IModelValidators {
@@ -446,6 +473,21 @@ declare namespace angular {
 
     interface IAsyncModelValidators {
         [index: string]: (modelValue: any, viewValue: any) => IPromise<any>;
+    }
+
+    interface IErrorHandlingConfig {
+        /**
+         * The max depth for stringifying objects.
+         * Setting to a non-positive or non-numeric value, removes the max depth limit
+         * @default 5
+         */
+        objectMaxDepth?: number;
+        /**
+         * Specifies whether the generated error url will contain the parameters of the thrown error.
+         * Disabling the parameters can be useful if the generated error url is very long.
+         * @default true;
+         */
+        urlErrorParamsEnabled?: boolean;
     }
 
     interface IModelParser {
@@ -676,7 +718,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // WindowService
-    // see http://docs.angularjs.org/api/ng.$window
+    // see http://docs.angularjs.org/api/ng/service/$window
     ///////////////////////////////////////////////////////////////////////////
     interface IWindowService extends Window {
         [key: string]: any;
@@ -684,7 +726,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // TimeoutService
-    // see http://docs.angularjs.org/api/ng.$timeout
+    // see http://docs.angularjs.org/api/ng/service/$timeout
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
         (delay?: number, invokeApply?: boolean): IPromise<void>;
@@ -694,7 +736,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // IntervalService
-    // see http://docs.angularjs.org/api/ng.$interval
+    // see http://docs.angularjs.org/api/ng/service/$interval
     ///////////////////////////////////////////////////////////////////////////
     interface IIntervalService {
         (func: Function, delay: number, count?: number, invokeApply?: boolean, ...args: any[]): IPromise<any>;
@@ -859,7 +901,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // LocaleService
-    // see http://docs.angularjs.org/api/ng.$locale
+    // see http://docs.angularjs.org/api/ng/service/$locale
     ///////////////////////////////////////////////////////////////////////////
     interface ILocaleService {
         id: string;
@@ -908,8 +950,8 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // LogService
-    // see http://docs.angularjs.org/api/ng.$log
-    // see http://docs.angularjs.org/api/ng.$logProvider
+    // see http://docs.angularjs.org/api/ng/service/$log
+    // see http://docs.angularjs.org/api/ng/provider/$logProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ILogService {
         debug: ILogCall;
@@ -932,8 +974,8 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // ParseService
-    // see http://docs.angularjs.org/api/ng.$parse
-    // see http://docs.angularjs.org/api/ng.$parseProvider
+    // see http://docs.angularjs.org/api/ng/service/$parse
+    // see http://docs.angularjs.org/api/ng/provider/$parseProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IParseService {
         (expression: string, interceptorFn?: (value: any, scope: IScope, locals: any) => any, expensiveChecks?: boolean): ICompiledExpression;
@@ -1056,7 +1098,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // DocumentService
-    // see http://docs.angularjs.org/api/ng.$document
+    // see http://docs.angularjs.org/api/ng/service/$document
     ///////////////////////////////////////////////////////////////////////////
     interface IDocumentService extends JQLite {
         // Must return intersection type for index signature compatibility with JQuery
@@ -1065,7 +1107,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
-    // see http://docs.angularjs.org/api/ng.$exceptionHandler
+    // see http://docs.angularjs.org/api/ng/service/$exceptionHandler
     ///////////////////////////////////////////////////////////////////////////
     interface IExceptionHandlerService {
         (exception: Error, cause?: string): void;
@@ -1073,7 +1115,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // RootElementService
-    // see http://docs.angularjs.org/api/ng.$rootElement
+    // see http://docs.angularjs.org/api/ng/service/$rootElement
     ///////////////////////////////////////////////////////////////////////////
     interface IRootElementService extends JQLite {}
 
@@ -1247,7 +1289,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // AnchorScrollService
-    // see http://docs.angularjs.org/api/ng.$anchorScroll
+    // see http://docs.angularjs.org/api/ng/service/$anchorScroll
     ///////////////////////////////////////////////////////////////////////////
     interface IAnchorScrollService {
         (): void;
@@ -1353,8 +1395,8 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // CompileService
-    // see http://docs.angularjs.org/api/ng.$compile
-    // see http://docs.angularjs.org/api/ng.$compileProvider
+    // see http://docs.angularjs.org/api/ng/service/$compile
+    // see http://docs.angularjs.org/api/ng/provider/$compileProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ICompileService {
         (element: string | Element | JQuery, transclude?: ITranscludeFunction, maxPriority?: number): ITemplateLinkingFunction;
@@ -1367,11 +1409,21 @@ declare namespace angular {
         component(name: string, options: IComponentOptions): ICompileProvider;
         component(object: {[componentName: string]: IComponentOptions}): ICompileProvider;
 
+        /** @deprecated The old name of aHrefSanitizationTrustedUrlList. Kept for compatibility. */
         aHrefSanitizationWhitelist(): RegExp;
+        /** @deprecated The old name of aHrefSanitizationTrustedUrlList. Kept for compatibility. */
         aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;
 
+        aHrefSanitizationTrustedUrlList(): RegExp;
+        aHrefSanitizationTrustedUrlList(regexp: RegExp): ICompileProvider;
+
+        /** @deprecated The old name of imgSrcSanitizationTrustedUrlList. Kept for compatibility. */
         imgSrcSanitizationWhitelist(): RegExp;
+        /** @deprecated The old name of imgSrcSanitizationTrustedUrlList. Kept for compatibility. */
         imgSrcSanitizationWhitelist(regexp: RegExp): ICompileProvider;
+
+        imgSrcSanitizationTrustedUrlList(): RegExp;
+        imgSrcSanitizationTrustedUrlList(regexp: RegExp): ICompileProvider;
 
         debugInfoEnabled(): boolean;
         debugInfoEnabled(enabled: boolean): ICompileProvider;
@@ -1462,8 +1514,8 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // ControllerService
-    // see http://docs.angularjs.org/api/ng.$controller
-    // see http://docs.angularjs.org/api/ng.$controllerProvider
+    // see http://docs.angularjs.org/api/ng/service/$controller
+    // see http://docs.angularjs.org/api/ng/provider/$controllerProvider
     ///////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1484,7 +1536,6 @@ declare namespace angular {
     interface IControllerProvider extends IServiceProvider {
         register(name: string, controllerConstructor: Function): void;
         register(name: string, dependencyAnnotatedConstructor: any[]): void;
-        allowGlobals(): void;
     }
 
     /**
@@ -1758,17 +1809,17 @@ declare namespace angular {
         useApplyAsync(): boolean;
         useApplyAsync(value: boolean): IHttpProvider;
 
+        /** @deprecated The old name of xsrfTrustedOrigins. Kept for compatibility. */
+        xsrfWhitelistedOrigins: string[];
         /**
-         * @param value If true, `$http` will return a normal promise without the `success` and `error` methods.
-         * @returns If a value is specified, returns the $httpProvider for chaining.
-         *    otherwise, returns the current configured value.
+         * Array containing URLs whose origins are trusted to receive the XSRF token.
          */
-        useLegacyPromiseExtensions(value: boolean): boolean | IHttpProvider;
+        xsrfTrustedOrigins: string[];
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // HttpBackendService
-    // see http://docs.angularjs.org/api/ng.$httpBackend
+    // see http://docs.angularjs.org/api/ng/service/$httpBackend
     // You should never need to use this service directly.
     ///////////////////////////////////////////////////////////////////////////
     interface IHttpBackendService {
@@ -1778,8 +1829,8 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // InterpolateService
-    // see http://docs.angularjs.org/api/ng.$interpolate
-    // see http://docs.angularjs.org/api/ng.$interpolateProvider
+    // see http://docs.angularjs.org/api/ng/service/$interpolate
+    // see http://docs.angularjs.org/api/ng/provider/$interpolateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IInterpolateService {
         (text: string, mustHaveExpression?: boolean, trustedContext?: string, allOrNothing?: boolean): IInterpolationFunction;
@@ -1800,13 +1851,13 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // TemplateCacheService
-    // see http://docs.angularjs.org/api/ng.$templateCache
+    // see http://docs.angularjs.org/api/ng/service/$templateCache
     ///////////////////////////////////////////////////////////////////////////
     interface ITemplateCacheService extends ICacheObject {}
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEService
-    // see http://docs.angularjs.org/api/ng.$sce
+    // see http://docs.angularjs.org/api/ng/service/$sce
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEService {
         getTrusted(type: string, mayBeTrusted: any): any;
@@ -1831,7 +1882,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEProvider
-    // see http://docs.angularjs.org/api/ng.$sceProvider
+    // see http://docs.angularjs.org/api/ng/provider/$sceProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEProvider extends IServiceProvider {
         enabled(value: boolean): void;
@@ -1839,7 +1890,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEDelegateService
-    // see http://docs.angularjs.org/api/ng.$sceDelegate
+    // see http://docs.angularjs.org/api/ng/service/$sceDelegate
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEDelegateService {
         getTrusted(type: string, mayBeTrusted: any): any;
@@ -1849,13 +1900,21 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // SCEDelegateProvider
-    // see http://docs.angularjs.org/api/ng.$sceDelegateProvider
+    // see http://docs.angularjs.org/api/ng/provider/$sceDelegateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEDelegateProvider extends IServiceProvider {
+        /** @deprecated since 1.8.1 */
         resourceUrlBlacklist(): any[];
-        resourceUrlBlacklist(blacklist: any[]): void;
+        /** @deprecated since 1.8.1 */
+        resourceUrlBlacklist(bannedList: any[]): void;
+        bannedResourceUrlList(): any[];
+        bannedResourceUrlList(bannedList: any[]): void;
+        /** @deprecated since 1.8.1 */
         resourceUrlWhitelist(): any[];
-        resourceUrlWhitelist(whitelist: any[]): void;
+        /** @deprecated since 1.8.1 */
+        resourceUrlWhitelist(trustedList: any[]): void;
+        trustedResourceUrlList(): any[];
+        trustedResourceUrlList(trustedList: any[]): void;
     }
 
     /**
@@ -2077,7 +2136,7 @@ declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // Directive
-    // see http://docs.angularjs.org/api/ng.$compileProvider#directive
+    // see http://docs.angularjs.org/api/ng/provider/$compileProvider#directive
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
 

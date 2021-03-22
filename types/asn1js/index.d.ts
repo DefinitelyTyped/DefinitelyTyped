@@ -1,9 +1,7 @@
-// Type definitions for asn1js
+// Type definitions for asn1js 2.0
 // Project: https://github.com/PeculiarVentures/ASN1.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-import { getParametersValue, padNumber, isEqualBuffer, bufferToHexCodes, checkBufferParams, utilToBase, utilFromBase, utilEncodeTC, utilDecodeTC, utilConcatBuf, nearestPowerOf2 } from "pvutils";
 
 export = Asn1js;
 
@@ -81,7 +79,7 @@ declare namespace Asn1js {
         /**
          * Convertion for the block to JSON object
          * @returns {*}
-	     */
+         */
         toJSON(): any;
     }
 
@@ -121,7 +119,7 @@ declare namespace Asn1js {
         /**
          * Convertion for the block to JSON object
          * @returns {*}
-	     */
+         */
         toJSON(): any;
     }
 

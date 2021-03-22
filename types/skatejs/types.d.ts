@@ -51,8 +51,8 @@ export declare class WithContext<C = Mixed> extends HTMLElement {
 }
 
 export declare class WithRenderer<O = Mixed | null> extends HTMLElement implements Renderer<O> {
-  // getter for turning of ShadowDOM
-  readonly renderRoot?: this | Mixed;
+  // getter for turning off ShadowDOM
+  get renderRoot(): this | Mixed;
 
   updated(props?: Mixed, state?: Mixed): void;
   // called before render

@@ -398,7 +398,7 @@ new Nightmare({ gotoTimeout: 10000 })
 new Nightmare({ executionTimeout: 1000 })
   .goto("https//google.com")
   .evaluate(() => {
-    new Promise((resolve, reject) => {
+    new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         resolve()
       }, 2000)

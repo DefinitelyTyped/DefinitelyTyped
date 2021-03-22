@@ -1,11 +1,11 @@
-// Type definitions for express-jwt
+// Type definitions for express-jwt 6.0
 // Project: https://www.npmjs.org/package/express-jwt
 // Definitions by:  Wonshik Kim <https://github.com/wokim>
 //                  Kacper Polak <https://github.com/kacepe>
 //                  Sl1MBoy <https://github.com/Sl1MBoy>
 //                  Milan Mimra <https://github.com/milan-mimra>
+//                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import express = require('express');
 import unless = require('express-unless');
@@ -14,27 +14,32 @@ export = jwt;
 
 declare function jwt(options: jwt.Options): jwt.RequestHandler;
 declare namespace jwt {
-    export type secretType = string | Buffer
-    export type ErrorCode =
-        "revoked_token" |
-        "invalid_token" |
-        "credentials_bad_scheme" |
-        "credentials_bad_format" |
-        "credentials_required"
+    type secretType = string | Buffer;
+    type ErrorCode =
+        | 'revoked_token'
+        | 'invalid_token'
+        | 'credentials_bad_scheme'
+        | 'credentials_bad_format'
+        | 'credentials_required';
 
-    export interface SecretCallbackLong {
+    interface SecretCallbackLong {
         (req: express.Request, header: any, payload: any, done: (err: any, secret?: secretType) => void): void;
     }
-    export interface SecretCallback {
+    interface SecretCallback {
         (req: express.Request, payload: any, done: (err: any, secret?: secretType) => void): void;
     }
-    export interface IsRevokedCallback {
+    interface IsRevokedCallback {
         (req: express.Request, payload: any, done: (err: any, revoked?: boolean) => void): void;
     }
-    export interface GetTokenCallback {
+    interface GetTokenCallback {
         (req: express.Request): any;
     }
-    export interface Options {
+    interface Options {
+        /**
+         * The algorithms parameter is required to prevent potential downgrade attacks when providing third party libraries as secrets.
+         * {@link https://github.com/auth0/express-jwt/blob/5fb8c88067b9448d746d04ab60ad3b1996c7e310/README.md#required-parameters}
+         */
+        algorithms: string[];
         secret: secretType | SecretCallback | SecretCallbackLong;
         userProperty?: string;
         credentialsRequired?: boolean;
@@ -43,11 +48,11 @@ declare namespace jwt {
         getToken?: GetTokenCallback;
         [property: string]: any;
     }
-    export interface RequestHandler extends express.RequestHandler {
+    interface RequestHandler extends express.RequestHandler {
         unless: typeof unless;
     }
 
-    export class UnauthorizedError extends Error  {
+    class UnauthorizedError extends Error {
         status: number;
         message: string;
         name: 'UnauthorizedError';
@@ -55,5 +60,16 @@ declare namespace jwt {
         inner: { message: string };
 
         constructor(code: ErrorCode, error: { message: string });
+    }
+}
+
+declare global {
+    namespace Express {
+        // tslint:disable-next-line:no-empty-interface
+        interface User {}
+
+        interface Request {
+            user?: User;
+        }
     }
 }

@@ -85,7 +85,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            bottom? :string | number;
+            bottom?: string | number;
             /**
              * Width of legend component. Adaptive by default.
              *
@@ -374,6 +374,37 @@ declare namespace echarts {
              * @default 800
              */
             animationDurationUpdate?: number;
+            /**
+             * The selector button in the legend component.
+             * Currently includes both a full selection and an inverse selection.
+             * The selector button doesn't display by default, the user can manually configure it.
+             */
+            selector?: boolean | string[] | { type: string; title: string }[];
+            /**
+             * The text label style of the selector button, which is displayed by default.
+             */
+            selectorLabel?: Legend.SelectorLabel;
+            /**
+             * The position of the selector button, which can be placed at the end or start of the legend component,
+             * the corresponding values are 'end' and 'start'.
+             * By default, when the legend is laid out horizontally, the selector is placed at the end of it,
+             * and when the legend is laid out vertically, the selector is placed at the start of it.
+             *
+             * @default 'auto'
+             */
+            selectorPosition?: string;
+            /**
+             * The gap between the selector button.
+             *
+             * @default 7
+             */
+            selectorItemGap?: number;
+            /**
+             * The gap between selector button and legend component.
+             *
+             * @default 10
+             */
+            selectorButtonGap?: number;
         }
 
         namespace Legend {
@@ -421,6 +452,194 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#legend.pageIcons.vertical
                  */
                 vertical?: string[];
+            }
+            interface SelectorLabel {
+                /**
+                 * Whether to show label.
+                 *
+                 * @default false
+                 */
+                show?: boolean;
+                /**
+                 * Distance to the host graphic element. Works when position is string value (like 'top'、'insideRight').
+                 *
+                 * @default 5
+                 *
+                 * @see https://echarts.apache.org/examples/zh/editor.html?c=doc-example/label-position
+                 */
+                distance?: number;
+                /**
+                 * Rotate label, from -90 degree to 90, positive value represents rotate anti-clockwise.
+                 *
+                 * @see https://echarts.apache.org/examples/zh/editor.html?c=bar-label-rotation
+                 */
+                rotate?: number;
+                /**
+                 * text color.
+                 * If set as 'auto', the color will assigned as visual color, such as series color.
+                 *
+                 * @default '#fff'
+                 */
+                color?: Color;
+                /**
+                 * font style.
+                 * Options are:'normal','italic','oblique'
+                 *
+                 * @default 'normal'
+                 */
+                fontStyle?: 'normal' | 'italic' | 'oblique';
+                /**
+                 * font thick weight.
+                 *
+                 * @default 'normal'
+                 */
+                fontWeight?:
+                    | 'normal'
+                    | 'bold'
+                    | 'bolder'
+                    | 'lighter'
+                    | 100
+                    | 200
+                    | 300
+                    | 400
+                    | 500
+                    | 600
+                    | 700
+                    | 800
+                    | 900;
+                /**
+                 * font family.
+                 *
+                 * @default 'sans-serif'
+                 */
+                fontFamily?: string;
+                /**
+                 * font size
+                 *
+                 * @default 12
+                 */
+                fontSize?: number;
+                /**
+                 * Horizontal alignment of text, automatic by default.
+                 */
+                align?: 'left' | 'center' | 'right';
+                /**
+                 * Vertical alignment of text, automatic by default.
+                 */
+                verticalAlign?: 'top' | 'middle' | 'bottom';
+                /**
+                 * Line height of the text fragment.
+                 */
+                lineHeight?: number;
+                /**
+                 * Background color of the text fragment.
+                 * Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'.
+                 * Or image can be used, for example:
+                 * @example
+                 * ```ts
+                 * backgroundColor: {
+                 *     image: 'xxx/xxx.png'
+                 *     // It can be URL of a image,
+                 *     // or dataURI,
+                 *     // or HTMLImageElement,
+                 *     // or HTMLCanvasElement.
+                 * }
+                 * ```
+                 *
+                 * width or height can be specified when using background image, or auto adapted by default.
+                 * If set as 'auto', the color will assigned as visual color, such as series color.
+                 *
+                 * @default 'transparent'
+                 */
+                backgroundColor?: string | object;
+                /**
+                 * Border color of the text fragment.
+                 * If set as 'auto', the color will assigned as visual color, such as series color.
+                 * @default 'transparent'
+                 */
+                borderColor?: Color;
+                /**
+                 * Border width of the text fragment.
+                 */
+                borderWidth?: number;
+                /**
+                 * Border radius of the text fragment.
+                 */
+                borderRadius?: number;
+                /**
+                 * Padding of the text fragment, for example:
+                 * padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].
+                 * padding: 4: represents padding: [4, 4, 4, 4].
+                 * padding: [3, 4]: represents padding: [3, 4, 3, 4].
+                 * Notice, width and height specifies the width and height of the content, without padding
+                 */
+                padding?: number | number[];
+                /**
+                 * Shadow color of the text block.
+                 *
+                 * @default 'transparent'
+                 */
+                shadowColor?: Color;
+                /**
+                 * Show blur of the text block.
+                 */
+                shadowBlur?: number;
+                /**
+                 * Shadow X offset of the text block.
+                 */
+                shadowOffsetX?: number;
+                /**
+                 * Shadow Y offset of the text block.
+                 */
+                shadowOffsetY?: number;
+                /**
+                 * Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor).
+                 * Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice.
+                 * Notice, width and height only work when rich specified.
+                 */
+                width?: number | string;
+                /**
+                 * Height of the text block. It is the width of the text by default.
+                 * You may want to use it in some cases like using background image (see backgroundColor).
+                 * Notice, width and height specifies the width and height of the content, without padding.
+                 * Notice, width and height only work when rich specified.
+                 */
+                height?: number | string;
+                /**
+                 * Storke color of the text.
+                 * If set as 'auto', the color will assigned as visual color, such as series color.
+                 *
+                 * @default 'transparent'
+                 */
+                textBorderColor?: Color;
+                /**
+                 * Storke line width of the text.
+                 */
+                textBorderWidth?: number;
+                /**
+                 * Shadow color of the text itself.
+                 *
+                 * @default 'transparent'
+                 */
+                textShadowColor?: Color;
+                /**
+                 * Shadow blue of the text itself.
+                 */
+                textShadowBlur?: number;
+                /**
+                 * Shadow X offset of the text itself.
+                 */
+                textShadowOffsetX?: number;
+                /**
+                 * Shadow Y offset of the text itself.
+                 */
+                textShadowOffsetY?: number;
+                /**
+                 * "Rich text styles" can be defined in this rich property
+                 *
+                 * @see https://echarts.apache.org/en/tutorial.html#Rich%20Text
+                 */
+                rich?: RichStyle;
             }
         }
     }

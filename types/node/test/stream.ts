@@ -1,8 +1,9 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from "stream";
-import { promisify } from "util";
-import { createReadStream, createWriteStream } from "fs";
-import { createGzip, constants } from "zlib";
-import { ok as assert } from 'assert';
+import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'node:stream';
+import { promisify } from 'node:util';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createGzip, constants } from 'node:zlib';
+import assert = require('node:assert');
+import { Http2ServerResponse } from 'node:http2';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -27,7 +28,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType string
+            // $ExpectType BufferEncoding
             enc;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -35,7 +36,7 @@ function simplified_stream_ctor_test() {
         writev(chunks, cb) {
             // $ExpectType Writable
             this;
-            // $ExpectType { chunk: any; encoding: string; }[]
+            // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -53,7 +54,8 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
-        }
+        },
+        defaultEncoding: 'utf8',
     });
 
     new Duplex({
@@ -68,7 +70,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType string
+            // $ExpectType BufferEncoding
             enc;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -76,7 +78,7 @@ function simplified_stream_ctor_test() {
         writev(chunks, cb) {
             // $ExpectType Duplex
             this;
-            // $ExpectType { chunk: any; encoding: string; }[]
+            // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -113,7 +115,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType string
+            // $ExpectType BufferEncoding
             enc;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -121,7 +123,7 @@ function simplified_stream_ctor_test() {
         writev(chunks, cb) {
             // $ExpectType Transform
             this;
-            // $ExpectType { chunk: any; encoding: string; }[]
+            // $ExpectType { chunk: any; encoding: BufferEncoding; }[]
             chunks;
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
@@ -145,7 +147,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType string
+            // $ExpectType BufferEncoding
             enc;
             // $ExpectType TransformCallback
             cb;
@@ -163,15 +165,22 @@ function simplified_stream_ctor_test() {
 }
 
 function streamPipelineFinished() {
-    const cancel = finished(process.stdin, (err?: Error | null) => {});
+    let cancel = finished(process.stdin, (err?: Error | null) => {});
+    cancel();
+
+    cancel = finished(process.stdin, { readable: false }, (err?: Error | null) => {});
     cancel();
 
     pipeline(process.stdin, process.stdout, (err?: Error | null) => {});
+
+    const http2ServerResponse: Http2ServerResponse = {} as any;
+    pipeline(process.stdin, http2ServerResponse, (err?: Error | null) => {});
 }
 
 async function asyncStreamPipelineFinished() {
     const fin = promisify(finished);
     await fin(process.stdin);
+    await fin(process.stdin, { readable: false });
 
     const pipe = promisify(pipeline);
     await pipe(process.stdin, process.stdout);

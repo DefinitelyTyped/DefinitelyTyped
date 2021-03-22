@@ -241,7 +241,7 @@ declare namespace mermaidAPI {
     function render(
         id: string,
         txt: string,
-        cb: (
+        cb?: (
             svgCode: string,
             bindFunctions: (element: Element) => void
         ) => void,

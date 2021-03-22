@@ -161,43 +161,43 @@ var indexedTexts: KnockoutObservable<{ [suffixOrPrefix: string]: string[] }> = t
 
 
 (() => {
-	var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
-	var asString: KnockoutObservableArray<string>;
+    var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
+    var asString: KnockoutObservableArray<string>;
 
-	asString = sourceItems.map((x: number) => x.toString());
+    asString = sourceItems.map((x: number) => x.toString());
 
-	asString = sourceItems.map<string>({
-		mapping: (x: number) => x.toString(),
-	});
+    asString = sourceItems.map<string>({
+        mapping: (x: number) => x.toString(),
+    });
 
-	asString = sourceItems.map<string>({
-		mapping: (x: number) => x.toString(),
-		disposeItem: (x: string) => console.log('disposing map to', x),
-	});
+    asString = sourceItems.map<string>({
+        mapping: (x: number) => x.toString(),
+        disposeItem: (x: string) => console.log('disposing map to', x),
+    });
 
-	asString = sourceItems.map<string>({
-		mappingWithDisposeCallback: (x: number) => ({
-			mappedValue: x.toString(),
-			dispose: () => console.log('disposing map from', x),
-		}),
-	});
+    asString = sourceItems.map<string>({
+        mappingWithDisposeCallback: (x: number) => ({
+            mappedValue: x.toString(),
+            dispose: () => console.log('disposing map from', x),
+        }),
+    });
 
-	asString = sourceItems.map(x => x.toString());
+    asString = sourceItems.map(x => x.toString());
 
-	asString = sourceItems.map({
-		mapping: x => x.toString(),
-	});
+    asString = sourceItems.map({
+        mapping: x => x.toString(),
+    });
 
-	asString = sourceItems.map<string>({
-		mapping: x => x.toString(),
-		disposeItem: x => console.log('disposing map to', x),
-	});
+    asString = sourceItems.map<string>({
+        mapping: x => x.toString(),
+        disposeItem: x => console.log('disposing map to', x),
+    });
 
-	asString = sourceItems.map({
-		mappingWithDisposeCallback: x => ({
-			mappedValue: x.toString(),
-			dispose: () => console.log('disposing map from', x),
-		}),
-	});
+    asString = sourceItems.map({
+        mappingWithDisposeCallback: x => ({
+            mappedValue: x.toString(),
+            dispose: () => console.log('disposing map from', x),
+        }),
+    });
 
 });

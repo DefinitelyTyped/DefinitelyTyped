@@ -3,7 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 //                 Emily Marigold Klassen <https://github.com/forivall>
@@ -145,7 +144,7 @@ declare namespace yargs {
 
         exitProcess(enabled: boolean): Argv<T>;
 
-        fail(func: (msg: string, err: Error) => any): Argv<T>;
+        fail(func: (msg: string, err: Error, yargs: Argv<T>) => any): Argv<T>;
 
         getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
 
@@ -185,8 +184,9 @@ declare namespace yargs {
         options<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
         options<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
 
-        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg?: string | ReadonlyArray<string>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         parsed: DetailedArguments | false;
 
@@ -359,10 +359,12 @@ declare namespace yargs {
 
     interface PositionalOptions {
         alias?: string | ReadonlyArray<string>;
+        array?: boolean;
         choices?: Choices;
         coerce?: (arg: any) => any;
         conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
         default?: any;
+        demandOption?: boolean | string;
         desc?: string;
         describe?: string;
         description?: string;

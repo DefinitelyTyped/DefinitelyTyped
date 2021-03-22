@@ -107,3 +107,8 @@ const funcEl = <MeasuredFunctionalComponent a="test" />;
 
 const MeasuredClassComponent = withContentRect('bounds')<Props>(TestClassComponentWithProps);
 const classEl = <MeasuredClassComponent a="test" />;
+
+function testInnerRefHook() {
+    const ref = React.useRef<HTMLDivElement>();
+    return <Measure innerRef={ref} />;
+}

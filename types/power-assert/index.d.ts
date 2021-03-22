@@ -1,4 +1,4 @@
-// Type definitions for power-assert 1.5.2
+// Type definitions for power-assert 1.5.3
 // Project: https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

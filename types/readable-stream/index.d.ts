@@ -1,15 +1,20 @@
 // Type definitions for readable-stream 2.3
 // Project: https://github.com/nodejs/readable-stream
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
+//                   markdreyer <https://github.com/markdreyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
-import * as events from "events";
 import * as stream from "stream";
 import * as SafeBuffer from "safe-buffer";
-import { StringDecoder } from "string_decoder";
+
+declare class StringDecoder {
+    constructor(encoding?: BufferEncoding | string);
+    write(buffer: Buffer): string;
+    end(buffer?: Buffer): string;
+}
 
 declare class _Readable extends stream.Readable {
     // static ReadableState: _Readable.ReadableState;
@@ -54,8 +59,8 @@ declare namespace _Readable {
         readable?: boolean;
         writable?: boolean;
         read?(this: Duplex, size: number): void;
-        write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+        write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+        writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
         final?(this: Duplex, callback: (error?: Error | null) => void): void;
         destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
     };
@@ -70,21 +75,25 @@ declare namespace _Readable {
         destroyed: boolean;
         // Readable
         readable: boolean;
+        readonly readableEncoding: BufferEncoding | null;
+        readonly readableEnded: boolean;
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         readonly readableObjectMode: boolean;
+        readonly writableObjectMode: boolean;
         _readableState: ReadableState;
 
         _read(size?: number): void;
         read(size?: number): any;
-        setEncoding(enc: string): this;
+        setEncoding(enc: BufferEncoding): this;
         resume(): this;
         pause(): this;
         isPaused(): boolean;
         unpipe(dest?: NodeJS.WritableStream): this;
         unshift(chunk: any): boolean;
         wrap(oldStream: NodeJS.ReadableStream): this;
-        push(chunk: any, encoding?: string): boolean;
+        push(chunk: any, encoding?: BufferEncoding): boolean;
         _destroy(err: Error | null, callback: (error: Error | null) => void): void;
         destroy(err?: Error, callback?: (error: Error | null) => void): this;
         pipe<S extends NodeJS.WritableStream>(dest: S, pipeOpts?: { end?: boolean }): S;
@@ -102,13 +111,13 @@ declare namespace _Readable {
     class PassThrough extends Transform implements stream.PassThrough {
         constructor(options?: TransformOptions);
 
-        _transform<T>(chunk: T, encoding: string | null | undefined, callback: (error: any, data: T) => void): void;
+        _transform<T>(chunk: T, encoding: BufferEncoding | string | null | undefined, callback: (error?: Error, data?: T) => void): void;
     }
 
     // ==== _stream_readable ====
     interface ReadableStateOptions {
-        defaultEncoding?: string;
-        encoding?: string;
+        defaultEncoding?: BufferEncoding;
+        encoding?: BufferEncoding;
         highWaterMark?: number;
         objectMode?: boolean;
         readableObjectMode?: boolean;
@@ -133,10 +142,10 @@ declare namespace _Readable {
         resumeScheduled: boolean;
         destroyed: boolean;
         awaitDrain: number;
-        defaultEncoding: string;
+        defaultEncoding: BufferEncoding;
         readingMore: boolean;
         decoder: StringDecoder | null;
-        encoding: string | null;
+        encoding: BufferEncoding | null;
 
         // new (options: ReadableStateOptions, stream: _Readable): ReadableState;
     }
@@ -153,11 +162,11 @@ declare namespace _Readable {
     // ==== _stream_transform ====
     type TransformOptions = DuplexOptions & {
         read?(this: Transform, size: number): void;
-        write?(this: Transform, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Transform, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+        write?(this: Transform, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+        writev?(this: Transform, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
         final?(this: Transform, callback: (error?: Error | null) => void): void;
         destroy?(this: Transform, error: Error | null, callback: (error: Error | null) => void): void;
-        transform?(this: Transform, chunk: any, encoding: string, callback: (error?: Error, data?: any) => void): void;
+        transform?(this: Transform, chunk: any, encoding: BufferEncoding, callback: (error?: Error, data?: any) => void): void;
         flush?(this: Transform, callback: (er: any, data: any) => void): void;
     };
 
@@ -168,12 +177,12 @@ declare namespace _Readable {
             transforming: boolean;
             writecb: ((err: any) => any) | null;
             writechunk: any; // TODO
-            writeencoding: string | null;
+            writeencoding: BufferEncoding | null;
         };
 
         constructor(options?: TransformOptions);
 
-        _transform(chunk: any, encoding: string, callback: (error?: Error, data?: any) => void): void;
+        _transform(chunk: any, encoding: BufferEncoding, callback: (error?: Error, data?: any) => void): void;
         _flush(callback: (error?: Error, data?: any) => void): void;
     }
 
@@ -186,7 +195,7 @@ declare namespace _Readable {
 
     interface BufferRequest {
         chunk: any; // TODO
-        encoding: string;
+        encoding: BufferEncoding;
         isBuf: boolean;
         callback: (error?: Error | null) => void;
         next: BufferRequest | null;
@@ -194,7 +203,7 @@ declare namespace _Readable {
 
     interface WritableStateOptions {
         decodeStrings?: boolean;
-        defaultEncoding?: string;
+        defaultEncoding?: BufferEncoding;
         highWaterMark?: number;
         objectMode?: boolean;
         writableObjectMode?: boolean;
@@ -212,7 +221,7 @@ declare namespace _Readable {
         finished: boolean;
         destroyed: boolean;
         decodeStrings: boolean;
-        defaultEncoding: string;
+        defaultEncoding: BufferEncoding;
         length: number;
         writing: boolean;
         corked: number;
@@ -235,8 +244,8 @@ declare namespace _Readable {
     }
 
     type WritableOptions = WritableStateOptions & {
-        write?(this: Writable, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: string }>, callback: (error?: Error | null) => void): void;
+        write?(this: Writable, chunk: any, encoding: BufferEncoding | string, callback: (error?: Error | null) => void): void;
+        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: BufferEncoding | string }>, callback: (error?: Error | null) => void): void;
         destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
         final?(this: Writable, callback: (error?: Error | null) => void): void;
     };

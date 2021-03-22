@@ -1,16 +1,17 @@
-// Type definitions for npm-license-crawler 0.1
+// Type definitions for npm-license-crawler 0.2
 // Project: https://github.com/mwittig/npm-license-crawler
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+
+export interface License {
+    licenses: string;
+    licenseUrl: string;
+    parents: string;
+    repository: string;
+}
 
 export interface Licenses {
-    [repository: string]: {
-        licenses: string;
-        licenseUrl: string;
-        parents: string;
-        repository: string;
-    };
+    [repository: string]: License;
 }
 
 export interface CrawlerOptions {
@@ -36,6 +37,8 @@ export interface CrawlerOptions {
     start: string | string[];
     /** show only licenses that can't be determined or have been guessed. */
     unknown?: boolean;
+    /** don't show colors in the console output */
+    noColor?: boolean;
 }
 
 export type Callback = (error: Error | null, licenses: Licenses) => void;

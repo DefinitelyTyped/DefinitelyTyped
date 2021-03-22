@@ -262,7 +262,7 @@ declare namespace AdazzleReactDataGrid {
 
     type ActionButton = {
         icon: string;
-	callback: () => void;
+    callback: () => void;
     }
 
     type ActionMenu = {

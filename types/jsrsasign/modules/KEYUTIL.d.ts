@@ -27,6 +27,37 @@ declare namespace jsrsasign {
         dq: string;
         co: string;
     }
+
+    interface PrivatePKCS8HexResult {
+        /** hexadecimal string of OID of asymmetric key algorithm */
+        algoid: string;
+        /** hexadecimal string of OID of ECC curve name or null */
+        algparam: string | null;
+        /** string starting index of key in `pkcs8PrvHex` */
+        keyidx: string;
+    }
+
+    interface PublicRawRSAKeyHexResult {
+        /** hexadecimal string of public exponent */
+        e: string;
+        /** hexadecimal string of public key */
+        n: string;
+    }
+
+    interface PublicPKCS8HexResult {
+        /** hexadecimal string of OID of asymmetric key algorithm */
+        algoid: string;
+        /** hexadecimal string of OID of ECC curve name, parameter SEQUENCE of DSA or null */
+        algparam: string;
+        /** hexadecimal string of public key */
+        key: string;
+    }
+
+    interface CSRHexResult {
+        /** hexadecimal string of subject public key in PKCS#8 */
+        p8pubkeyhex: string;
+    }
+
     /**
      * class for RSA/ECC/DSA key utility
      * @description
@@ -242,7 +273,7 @@ declare namespace jsrsasign {
          * - keyidx - string starting index of key in pkcs8PrvHex
          *
          */
-        parsePlainPrivatePKCS8Hex(pkcs8PrvHex: string): { algoid: string; algparam: string; keyidx: string };
+        parsePlainPrivatePKCS8Hex(pkcs8PrvHex: string): PrivatePKCS8HexResult;
 
         /**
          * get RSAKey/ECDSA private key object from PEM plain PEM PKCS#8 private key
@@ -276,7 +307,7 @@ declare namespace jsrsasign {
          * - e - hexadecimal string of public exponent
          *
          */
-        parsePublicRawRSAKeyHex(pubRawRSAHex: string): { e: string; n: string };
+        parsePublicRawRSAKeyHex(pubRawRSAHex: string): PublicRawRSAKeyHexResult;
 
         /**
          * parse hexadecimal string of PKCS#8 RSA/EC/DSA public key
@@ -290,7 +321,7 @@ declare namespace jsrsasign {
          * - key - hexadecimal string of public key
          *
          */
-        parsePublicPKCS8Hex(pkcs8PubHex: string): { algoid: string; algparam: string; key: string };
+        parsePublicPKCS8Hex(pkcs8PubHex: string): PublicPKCS8HexResult;
 
         /**
          * get private or public key object from any arguments
@@ -392,7 +423,10 @@ declare namespace jsrsasign {
          * var ecKeypair = KEYUTIL.generateKeypair("EC", "secp256r1");
          *
          */
-        static generateKeypair(alg: 'RSA' | 'EC', keylenOrCurve: number | string): { prvKeyObj: RSAKey; pubKeyObj: RSAKey };
+        static generateKeypair(
+            alg: 'RSA' | 'EC',
+            keylenOrCurve: number | string,
+        ): { prvKeyObj: RSAKey; pubKeyObj: RSAKey };
 
         /**
          * get PEM formatted private or public key file from a RSA/ECDSA/DSA key object
@@ -426,7 +460,7 @@ declare namespace jsrsasign {
             encAlg?: string,
             hexType?: string,
             ivsaltHex?: string,
-        ): void;
+        ): string;
 
         /**
          * get RSAKey/DSA/ECDSA public key object from PEM formatted PKCS#10 CSR string
@@ -452,7 +486,7 @@ declare namespace jsrsasign {
          * - p8pubkeyhex - hexadecimal string of subject public key in PKCS#8
          *
          */
-        static parseCSRHex(csrHex: string): { p8pubkeyhex: string };
+        static parseCSRHex(csrHex: string): CSRHexResult;
 
         /**
          * convert from RSAKey/KJUR.crypto.ECDSA public/private key object to RFC 7517 JSON Web Key(JWK)

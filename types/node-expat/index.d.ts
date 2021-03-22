@@ -22,7 +22,7 @@ export class Parser extends Stream {
 
     parse(buf: Buffer | string, isFinal?: boolean): boolean;
 
-    setEncoding(encoding: string): void;
+    setEncoding(encoding: BufferEncoding): void;
 
     setUnknownEncoding(map: number[], convert?: string): void;
 
@@ -40,7 +40,7 @@ export class Parser extends Stream {
 
     end(cb?: () => void): void;
     end(chunk: any, cb?: () => void): void;
-    end(chunk: any, encoding: string, cb?: () => void): void;
+    end(chunk: any, encoding: BufferEncoding, cb?: () => void): void;
 
     reset(): void;
 

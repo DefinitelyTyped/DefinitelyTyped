@@ -1,6 +1,6 @@
 // Type definitions for bluebird 3.5
 // Project: https://github.com/petkaantonov/bluebird
-// Definitions by: Leonard Hecker <https://github.com/lhecker>, thislooksfun <https://github.com/thislooksfun>
+// Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -566,7 +566,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  all<Q>(this: Bluebird<R & Iterable<Q>>): Bluebird<R>;
+  all<T1, T2, T3, T4, T5>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]>): Bluebird<[T1, T2, T3, T4, T5]>;
+  all<T1, T2, T3, T4>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]>): Bluebird<[T1, T2, T3, T4]>;
+  all<T1, T2, T3>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]>): Bluebird<[T1, T2, T3]>;
+  all<T1, T2>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>]>): Bluebird<[T1, T2]>;
+  all<T1>(this: Bluebird<[Resolvable<T1>]>): Bluebird<[T1]>;
+  all<R>(this: Bluebird<Iterable<Resolvable<R>>>): Bluebird<R[]>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -688,7 +693,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Create a promise with undecided fate and return a `PromiseResolver` to control it. See resolution?: Promise(#promise-resolution).
    * @see http://bluebirdjs.com/docs/deprecated-apis.html#promise-resolution
    */
-  static defer<R>(): Bluebird.Resolver<R>; // tslint:disable-line no-unnecessary-generics
+  static defer<R>(): Bluebird.Resolver<R>;
 
   /**
    * Cast the given `value` to a trusted promise.
@@ -855,6 +860,15 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   // array with values
   static all<R>(values: Resolvable<Iterable<Resolvable<R>>>): Bluebird<R[]>;
 
+  static allSettled<T1, T2, T3, T4, T5>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>,
+    Bluebird.Inspection<T3>, Bluebird.Inspection<T4>, Bluebird.Inspection<T5>]>;
+  static allSettled<T1, T2, T3, T4>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>,
+    Bluebird.Inspection<T3>, Bluebird.Inspection<T4>]>;
+  static allSettled<T1, T2, T3>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>, Bluebird.Inspection<T3>]>;
+  static allSettled<T1, T2>(values: [Resolvable<T1>, Resolvable<T2>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>]>;
+  static allSettled<T1>(values: [Resolvable<T1>]): Bluebird<[Bluebird.Inspection<T1>]>;
+  static allSettled<R>(values: Resolvable<Iterable<Resolvable<R>>>): Bluebird<Array<Bluebird.Inspection<R>>>;
+
   /**
    * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled.
    *
@@ -869,7 +883,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   // map
   static props<K, V>(map: Resolvable<Map<K, Resolvable<V>>>): Bluebird<Map<K, V>>;
   // trusted promise for object
-  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>; // tslint:disable-line:unified-signatures
+  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
   // object
   static props<T>(object: Bluebird.ResolvableProps<T>): Bluebird<T>; // tslint:disable-line:unified-signatures
 

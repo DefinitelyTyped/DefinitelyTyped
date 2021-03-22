@@ -1,10 +1,12 @@
-// Type definitions for ember-data 3.1
+// Type definitions for ember-data 3.16
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
+//                 James C. Davis <https://github.com/jamescdavis>
+//                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
@@ -75,6 +77,7 @@ export namespace DS {
         async?: true;
     }
 
+    type AsyncBelongsTo<T extends Model> = PromiseObject<T>;
     /**
      * `DS.belongsTo` is used to define One-To-One and One-To-Many
      * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -82,14 +85,19 @@ export namespace DS {
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options: RelationshipOptions<ModelRegistry[K]> & Sync
-    ): Ember.ComputedProperty<ModelRegistry[K]>;
+    ): Ember.ComputedProperty<
+        ModelRegistry[K],
+        ModelRegistry[K] | PromiseObject<ModelRegistry[K]>
+    >;
     function belongsTo<K extends keyof ModelRegistry>(
         modelName: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async
     ): Ember.ComputedProperty<
-        ModelRegistry[K] & PromiseObject<ModelRegistry[K]>,
-        ModelRegistry[K]
+        AsyncBelongsTo<ModelRegistry[K]>,
+        ModelRegistry[K] | PromiseObject<ModelRegistry[K]>
     >;
+    type AsyncHasMany<T extends Model> = PromiseManyArray<T>;
+    type SyncHasMany<T extends Model> = ManyArray<T>;
     /**
      * `DS.hasMany` is used to define One-To-Many and Many-To-Many
      * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -97,12 +105,12 @@ export namespace DS {
     function hasMany<K extends keyof ModelRegistry>(
         type: K,
         options: RelationshipOptions<ModelRegistry[K]> & Sync
-    ): Ember.ComputedProperty<ManyArray<ModelRegistry[K]>>;
+    ): Ember.ComputedProperty<SyncHasMany<ModelRegistry[K]>>;
     function hasMany<K extends keyof ModelRegistry>(
         type: K,
         options?: RelationshipOptions<ModelRegistry[K]> & Async
     ): Ember.ComputedProperty<
-        PromiseManyArray<ModelRegistry[K]>,
+        AsyncHasMany<ModelRegistry[K]>,
         Ember.Array<ModelRegistry[K]>
     >;
     /**
@@ -114,10 +122,13 @@ export namespace DS {
     ): string;
     const VERSION: string;
 
-    interface AttrOptions<T = any> {
-        defaultValue?: T | (() => T);
+    interface AttrOptions<T> {
+        defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T);
         allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
     }
+
+    // The TransformRegistry should really only contain transforms, but historically people have just put the return type directly in.
+    type TransformType<K extends keyof TransformRegistry> = TransformRegistry[K] extends Transform ? ReturnType<TransformRegistry[K]['deserialize']> : TransformRegistry[K];
 
     /**
      * `DS.attr` defines an attribute on a [DS.Model](/api/data/classes/DS.Model.html).
@@ -129,9 +140,11 @@ export namespace DS {
      */
     function attr<K extends keyof TransformRegistry>(
         type: K,
-        options?: AttrOptions<TransformRegistry[K]>
-    ): Ember.ComputedProperty<TransformRegistry[K]>;
-    function attr(options?: AttrOptions): Ember.ComputedProperty<any>;
+        options?: AttrOptions<TransformType<K>>
+    ): Ember.ComputedProperty<TransformType<K>>;
+    function attr(options?: AttrOptions<any>): Ember.ComputedProperty<any>;
+    function attr(target: any, propertyKey: string): void;
+
     /**
      * WARNING: This interface is likely to change in order to accomodate https://github.com/emberjs/rfcs/pull/4
      * ## Using BuildURLMixin
@@ -317,7 +330,7 @@ export namespace DS {
      * Holds validation errors for a given record, organized by attribute names.
      */
     interface Errors extends Ember.Enumerable<any>, Evented {}
-    class Errors extends Ember.Object {
+    class Errors extends Ember.ArrayProxy<any> {
         /**
          * DEPRECATED:
          * Register with target handler
@@ -455,12 +468,16 @@ export namespace DS {
          */
         id: string;
         /**
+         * A reference to DS.Store service instance.
+         */
+        store: Store;
+        /**
          * When the record is in the `invalid` state this object will contain
          * any errors returned by the adapter. When present the errors hash
          * contains keys corresponding to the invalid property names
          * and values which are arrays of Javascript objects with two keys:
          */
-        errors: Ember.ComputedProperty<Errors>;
+        errors: Errors;
         /**
          * This property holds the `DS.AdapterError` object with which
          * last adapter operation was rejected.
@@ -847,7 +864,7 @@ export namespace DS {
          * normalized hash of data and the object represented by the reference
          * will update.
          */
-        push(payload: RSVP.Promise<any> | {}): PromiseObject<T> & T;
+        push(payload: RSVP.Promise<any> | {}): PromiseObject<T>;
         /**
          * If the entity referred to by the reference is already loaded, it is
          * present as `reference.value`. Otherwise the value returned by this function
@@ -858,12 +875,12 @@ export namespace DS {
          * Triggers a fetch for the backing entity based on its `remoteType`
          * (see `remoteType` definitions per reference type).
          */
-        load(): PromiseObject<T> & T;
+        load(): PromiseObject<T>;
         /**
          * Reloads the record if it is already loaded. If the record is not
          * loaded it will load the record via `store.findRecord`
          */
-        reload(): PromiseObject<T> & T;
+        reload(): PromiseObject<T>;
     }
     /**
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
@@ -905,10 +922,10 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseArray` that will be
      * updated when the promise resolves.
      */
-    interface PromiseArray<T>
+    interface PromiseArray<T, ArrayType extends Ember.ArrayProxy<T>['content'] = Ember.Array<T>>
         extends Ember.ArrayProxy<T>,
-            PromiseProxyMixin<Ember.ArrayProxy<T>> {}
-    class PromiseArray<T> {}
+            PromiseProxyMixin<ArrayType> {}
+    class PromiseArray<T> extends Ember.ArrayProxy<T> {}
     /**
      * A `PromiseObject` is an object that acts like both an `Ember.Object`
      * and a promise. When the promise is resolved, then the resulting value
@@ -918,14 +935,14 @@ export namespace DS {
      */
     interface PromiseObject<T extends object>
         extends ObjectProxy<T>,
-            PromiseProxyMixin<T & ObjectProxy> {}
-    class PromiseObject<T> {}
+            PromiseProxyMixin<T> {}
+    class PromiseObject<T> extends ObjectProxy<T> {}
     /**
      * A PromiseManyArray is a PromiseArray that also proxies certain method calls
      * to the underlying manyArray.
      * Right now we proxy:
      */
-    class PromiseManyArray<T extends Model> extends PromiseArray<T> {
+    class PromiseManyArray<T extends Model> extends PromiseArray<T, Ember.ArrayProxy<T>> {
         /**
          * Reloads all of the records in the manyArray. If the manyArray
          * holds a relationship that was originally fetched using a links url
@@ -964,7 +981,7 @@ export namespace DS {
          */
         snapshots(): Snapshot[];
     }
-    class Snapshot<K extends keyof ModelRegistry = any> {
+    class Snapshot<K extends keyof ModelRegistry = keyof ModelRegistry> {
         /**
          * The underlying record for this snapshot. Can be used to access methods and
          * properties defined on the record.
@@ -1053,7 +1070,7 @@ export namespace DS {
      * the individual data for a record, so that they can be bound to in your
      * Handlebars templates.
      */
-    class Store {
+    class Store extends Ember.Service {
         /**
          * The default adapter to use to communicate to a backend server or
          * other persistence layer. This will be overridden by an application
@@ -1084,7 +1101,7 @@ export namespace DS {
             modelName: K,
             id: string | number,
             options?: {}
-        ): PromiseObject<ModelRegistry[K]> & ModelRegistry[K];
+        ): PromiseObject<ModelRegistry[K]>;
         /**
          * Get the reference for the specified record.
          */
@@ -1117,7 +1134,7 @@ export namespace DS {
             query: object,
             options?: { adapterOptions?: object }
         ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
-            PromiseArray<ModelRegistry[K]>;
+            PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
         /**
          * This method makes a request for one record, where the `id` is not known
          * beforehand (if the `id` is known, use [`findRecord`](#method_findRecord)
@@ -1142,7 +1159,7 @@ export namespace DS {
                 include?: string;
                 adapterOptions?: any;
             }
-        ): PromiseArray<ModelRegistry[K]>;
+        ): PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
         /**
          * This method returns a filtered array that contains all of the
          * known records for a given type in the store.
@@ -1208,15 +1225,7 @@ export namespace DS {
      * requests that follow the [JSON API](http://jsonapi.org/format/)
      * format.
      */
-    class JSONAPIAdapter extends RESTAdapter {
-        /**
-         * By default the JSONAPIAdapter will send each find request coming from a `store.find`
-         * or from accessing a relationship separately to the server. If your server supports passing
-         * ids as a query string, you can set coalesceFindRequests to true to coalesce all find requests
-         * within a single runloop.
-         */
-        coalesceFindRequests: boolean;
-    }
+    class JSONAPIAdapter extends RESTAdapter {}
     /**
      * The REST adapter allows your store to communicate with an HTTP server by
      * transmitting JSON via XHR. Most Ember.js apps that consume a JSON API
@@ -1236,30 +1245,6 @@ export namespace DS {
          * server.
          */
         sortQueryParams(obj: {}): {};
-        /**
-         * By default the RESTAdapter will send each find request coming from a `store.find`
-         * or from accessing a relationship separately to the server. If your server supports passing
-         * ids as a query string, you can set coalesceFindRequests to true to coalesce all find requests
-         * within a single runloop.
-         */
-        coalesceFindRequests: boolean;
-        /**
-         * Endpoint paths can be prefixed with a `namespace` by setting the namespace
-         * property on the adapter:
-         */
-        namespace: string;
-        /**
-         * An adapter can target other hosts by setting the `host` property.
-         */
-        host: string;
-        /**
-         * Some APIs require HTTP headers, e.g. to provide an API
-         * key. Arbitrary headers can be set as key/value pairs on the
-         * `RESTAdapter`'s `headers` object and Ember Data will send them
-         * along with each ajax request. For dynamic headers see [headers
-         * customization](/api/data/classes/DS.RESTAdapter.html#toc_headers-customization).
-         */
-        headers: {};
         /**
          * Called by the store in order to fetch the JSON for a given
          * type and ID.
@@ -1489,6 +1474,29 @@ export namespace DS {
          * Determines the pathname for a given type.
          */
         pathForType<K extends keyof ModelRegistry>(modelName: K): string;
+    }
+
+    // Instead of declaring `namespace`, `host`, and `headers` as a property we now declare it in an
+    // interface. This works around the issue noted here with TypeScript 4:
+    // https://github.com/microsoft/TypeScript/issues/40220
+    interface RESTAdapter {
+        /**
+         * Endpoint paths can be prefixed with a `namespace` by setting the namespace
+         * property on the adapter:
+         */
+        namespace: string;
+        /**
+         * An adapter can target other hosts by setting the `host` property.
+         */
+        host: string;
+        /**
+         * Some APIs require HTTP headers, e.g. to provide an API
+         * key. Arbitrary headers can be set as key/value pairs on the
+         * `RESTAdapter`'s `headers` object and Ember Data will send them
+         * along with each ajax request. For dynamic headers see [headers
+         * customization](/api/data/classes/DS.RESTAdapter.html#toc_headers-customization).
+         */
+        headers: {};
     }
     /**
      * ## Using Embedded Records
@@ -1948,7 +1956,7 @@ export namespace DS {
      * used when `boolean` is passed as the type parameter to the
      * [DS.attr](../../data#method_attr) function.
      */
-    class BooleanTransform extends Transform {}
+    class BooleanTransform extends Transform<boolean> {}
     /**
      * The `DS.DateTransform` class is used to serialize and deserialize
      * date attributes on Ember Data record objects. This transform is used
@@ -1956,21 +1964,21 @@ export namespace DS {
      * [DS.attr](../../data#method_attr) function. It uses the [`ISO 8601`](https://en.wikipedia.org/wiki/ISO_8601)
      * standard.
      */
-    class DateTransform extends Transform {}
+    class DateTransform extends Transform<Date> {}
     /**
      * The `DS.NumberTransform` class is used to serialize and deserialize
      * numeric attributes on Ember Data record objects. This transform is
      * used when `number` is passed as the type parameter to the
      * [DS.attr](../../data#method_attr) function.
      */
-    class NumberTransform extends Transform {}
+    class NumberTransform extends Transform<number> {}
     /**
      * The `DS.StringTransform` class is used to serialize and deserialize
      * string attributes on Ember Data record objects. This transform is
      * used when `string` is passed as the type parameter to the
      * [DS.attr](../../data#method_attr) function.
      */
-    class StringTransform extends Transform {}
+    class StringTransform extends Transform<string> {}
     /**
      * The `DS.Transform` class is used to serialize and deserialize model
      * attributes when they are saved or loaded from an
@@ -1978,17 +1986,17 @@ export namespace DS {
      * attributes. All subclasses of `DS.Transform` must implement a
      * `serialize` and a `deserialize` method.
      */
-    class Transform extends Ember.Object {
+    class Transform<Deserialized = any, Serialized = any> extends Ember.Object {
         /**
          * When given a deserialized value from a record attribute this
          * method must return the serialized value.
          */
-        serialize(deserialized: any, options: AttrOptions): any;
+        serialize(deserialized: Deserialized, options: AttrOptions<Deserialized>): Serialized;
         /**
          * When given a serialize value from a JSON object this method must
          * return the deserialized value for the record attribute.
          */
-        deserialize(serialized: any, options: AttrOptions): any;
+        deserialize(serialized: Serialized, options: AttrOptions<Deserialized>): Deserialized;
     }
     /**
      * An adapter is an object that receives requests from a store and
@@ -2091,13 +2099,6 @@ export namespace DS {
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
-         * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
-         * into as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.
-         * You can opt out of this behaviour by either not implementing the findMany hook or by setting
-         * coalesceFindRequests to false.
-         */
-        coalesceFindRequests: boolean;
-        /**
          * The store will call `findMany` instead of multiple `findRecord`
          * requests to find multiple records at once if coalesceFindRequests
          * is true.
@@ -2149,6 +2150,18 @@ export namespace DS {
             store: Store,
             snapshotRecordArray: SnapshotRecordArray<K>
         ): boolean;
+    }
+    // Instead of declaring `coalesceFindRequests` as a property we now declare it in an
+    // interface. This works around the issue noted here with TypeScript 4:
+    // https://github.com/microsoft/TypeScript/issues/40220
+    interface Adapter {
+        /**
+         * By default the store will try to coalesce all `fetchRecord` calls within the same runloop
+         * into as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.
+         * You can opt out of this behaviour by either not implementing the findMany hook or by setting
+         * coalesceFindRequests to false.
+         */
+        coalesceFindRequests: boolean;
     }
     /**
      * `DS.Serializer` is an abstract base class that you should override in your

@@ -15,4 +15,12 @@ export class RecordReference<T = any> {
     update(record: Partial<T>, options?: Object, callback?: (err: Error, result: RecordResult) => void): Promise<RecordResult>;
 }
 
-export type Record<T = any> = { Id?: SalesforceId } & T;
+export interface RecordAttributes {
+    type: string;
+    url: string;
+}
+
+export type Record<T = any> = {
+    Id?: SalesforceId;
+    attributes?: RecordAttributes
+} & T;

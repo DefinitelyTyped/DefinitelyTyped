@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "paths": {
+            "ol": [
+                "ol/v5"
+            ],
+            "ol/*": [
+                "ol/v5/*"
+            ]
+        },
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "typeRoots": [
+            "../../"
+        ],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "ol-tests.ts"
+    ]
+}

@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-          "@lifeomic/axios-fetch": [
-            "lifeomic__axios-fetch"
+          "@lifeomic/*": [
+            "lifeomic__*"
           ]
         },
         "types": [],

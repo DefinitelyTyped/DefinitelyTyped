@@ -9,8 +9,10 @@
 
 import forEach = require('mocha-each');
 
-// Basic
 declare function assert(...args: any[]): void;
+declare function assertEquals(a: any, b: any): void;
+
+// Basic
 
 function add(a: any, b: any) {
     return parseInt(a, 10) + parseInt(b, 10);
@@ -37,6 +39,27 @@ describe('add()', () => {
             assert(isNaN(value));
         });
     });
+});
+
+// At describe level
+function subtract(a: any, b: any) {
+  return parseInt(a, 10) - parseInt(b, 10);
+}
+
+forEach([
+  [1, 1, 0],
+  [2, -2, 4],
+  [140, 48, 92]
+])
+.describe('subtract() with %d and %d', (left: number, right: number, expected: number) => {
+  let actual: number;
+  before(() => {
+    actual = subtract(left, right);
+  });
+
+  it('subtracts correctly and returns ' + expected, () => {
+    assertEquals(actual, expected);
+  });
 });
 
 // Asynchronous code
@@ -83,4 +106,21 @@ describe('.timeout Example', () => {
         use(p0, p1, p2);
         // ...
     });
+});
+
+// Using a BDD-like name
+import withThese = require('mocha-each');
+
+declare function findByName(name: string): { id: number };
+
+describe('findByName()', () => {
+  withThese([
+    [1, 'foo'],
+    [2, 'bar'],
+    [3, 'baz']
+  ])
+  .it('should find data by name', (id, name) => {
+    const data = findByName(name);
+    assertEquals(data.id, id);
+  });
 });

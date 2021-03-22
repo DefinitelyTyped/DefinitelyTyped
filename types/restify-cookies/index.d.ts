@@ -8,14 +8,14 @@ import * as restify from 'restify';
 
 declare module 'restify' {
   interface CookieOptions {
-    encode?: (input: string) => string; // tslint:disable-line:prefer-method-signature
+    encode?: (input: string) => string;
     maxAge?: number;
     domain?: string;
     path?: string;
     expires?: Date;
     httpOnly?: boolean;
     secure?: boolean;
-    sameSite?: boolean|'lax'|'strict';
+    sameSite?: boolean|'lax'|'strict'|'none';
   }
 
   interface Request {
@@ -26,3 +26,5 @@ declare module 'restify' {
     setCookie(key: string, val: string, options?: CookieOptions): void;
   }
 }
+
+export function parse(): any;

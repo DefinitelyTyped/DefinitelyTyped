@@ -13,7 +13,7 @@
             "../"
         ],
         "paths": {
-            "@styled-system/css": ["styled-system__css"]
+            "@styled-system/*": ["styled-system__*"]
         },
         "types": [],
         "noEmit": true,

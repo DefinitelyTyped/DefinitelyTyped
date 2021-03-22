@@ -2,10 +2,10 @@
 // Project: https://github.com/ckeditor/ckeditor5-core, https://ckeditor.com/ckeditor-5
 // Definitions by: denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.6
 
-import * as engine from "ckeditor__ckeditor5-engine";
-import * as ckutils from "ckeditor__ckeditor5-utils";
+import * as engine from "@ckeditor/ckeditor5-engine";
+import * as ckutils from "@ckeditor/ckeditor5-utils";
 
 // TODO: depends on other libraries
 export interface AlignmentConfig {}

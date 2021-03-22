@@ -7,14 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import {
-    StyleProp,
-    TextInputProps,
-    TextStyle,
-    ViewStyle,
-    View
-} from "react-native";
+import * as React from 'react';
+import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
 
 export interface ContentInset {
     top?: number;
@@ -72,6 +66,31 @@ export interface TextFieldProps extends TextInputProps {
 
     editable?: boolean;
     multiline?: boolean;
+
+    formatText?(text: string): string;
+    /**
+     * Label position adjustment
+     */
+    labelOffset?: LabelOffset;
+}
+
+export interface LabelOffset {
+    /**
+     * Horizontal offset for inactive state
+     */
+    x0?: number;
+    /**
+     * Vertical offset for inactive state
+     */
+    y0?: number;
+    /**
+     * Horizontal offset for active state
+     */
+    x1?: number;
+    /**
+     * Vertical offset for active state
+     */
+    y1?: number;
 }
 
 /**

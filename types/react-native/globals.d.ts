@@ -35,7 +35,21 @@ declare interface WindowOrWorkerGlobalScope {
     fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
 
-interface Blob {}
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    slice(start?: number, end?: number): Blob;
+}
+
+interface BlobOptions {
+    type: string;
+    lastModified: number;
+}
+
+declare var Blob: {
+    prototype: Blob;
+    new (blobParts?: Array<Blob | string>, options?: BlobOptions): Blob;
+};
 
 declare class FormData {
     append(name: string, value: any): void;
@@ -64,7 +78,18 @@ declare var Headers: {
     new (init?: HeadersInit_): Headers;
 };
 
+/**
+ * React Native's implementation of fetch allows this syntax for uploading files from
+ * local filesystem.
+ * See https://github.com/facebook/react-native/blob/master/Libraries/Network/convertRequestBody.js#L22
+ */
+interface _SourceUri {
+    uri: string;
+    [key: string]: any;
+}
+
 type BodyInit_ =
+    | _SourceUri
     | Blob
     | Int8Array
     | Int16Array
@@ -91,6 +116,7 @@ declare interface RequestInit {
     mode?: RequestMode_;
     referrer?: string;
     window?: any;
+    signal?: AbortSignal;
 }
 
 declare interface Request extends Object, Body {
@@ -143,10 +169,11 @@ type ResponseType_ = 'basic' | 'cors' | 'default' | 'error' | 'opaque' | 'opaque
 // XMLHttpRequest
 //
 
-declare interface ProgressEvent extends Event {
+declare interface ProgressEvent<T extends EventTarget = EventTarget> extends Event {
     readonly lengthComputable: boolean;
     readonly loaded: number;
     readonly total: number;
+    readonly target: T | null;
 }
 
 interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
@@ -253,7 +280,34 @@ declare var XMLHttpRequestUpload: {
 declare type XMLHttpRequestResponseType = '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text';
 
 /**
- * Based on definitions of lib.dom and  lib.dom.iteralbe
+ * Based on definition from lib.dom but using class syntax.
+ * The properties are mutable to support users that use a `URL` polyfill, but the implementation
+ * built into React Native (as of 0.63) does not implement all the properties.
+ */
+declare class URL {
+    static createObjectURL(blob: Blob): string;
+    static revokeObjectURL(url: string): void;
+
+    constructor(url: string, base?: string);
+
+    href: string;
+    readonly origin: string;
+    protocol: string;
+    username: string;
+    password: string;
+    host: string;
+    hostname: string;
+    port: string;
+    pathname: string;
+    search: string;
+    readonly searchParams: URLSearchParams;
+    hash: string;
+
+    toJSON(): string;
+}
+
+/**
+ * Based on definitions of lib.dom and lib.dom.iterable
  */
 declare class URLSearchParams {
     constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);
@@ -282,6 +336,7 @@ interface WebSocketErrorEvent extends Event {
 interface WebSocketCloseEvent extends Event {
     code?: number;
     reason?: string;
+    message?: string;
 }
 
 interface WebSocket extends EventTarget {
@@ -300,8 +355,97 @@ declare var WebSocket: {
         uri: string,
         protocols?: string | string[] | null,
         options?: {
-            headers: {[headerName: string]: string};
+            headers: { [headerName: string]: string };
             [optionName: string]: any;
         } | null,
     ): WebSocket;
+    readonly CLOSED: number;
+    readonly CLOSING: number;
+    readonly CONNECTING: number;
+    readonly OPEN: number;
+};
+
+//
+// Abort Controller
+//
+
+interface AbortEvent extends Event {
+    type: 'abort';
+}
+
+declare class AbortSignal {
+    /**
+     * AbortSignal cannot be constructed directly.
+     */
+    constructor();
+    /**
+     * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
+     */
+    readonly aborted: boolean;
+
+    onabort: (event: AbortEvent) => void;
+}
+
+declare class AbortController {
+    /**
+     * Initialize this controller.
+     */
+    constructor();
+    /**
+     * Returns the `AbortSignal` object associated with this object.
+     */
+    readonly signal: AbortSignal;
+    /**
+     * Abort and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void;
+}
+
+interface FileReaderEventMap {
+    abort: ProgressEvent<FileReader>;
+    error: ProgressEvent<FileReader>;
+    load: ProgressEvent<FileReader>;
+    loadend: ProgressEvent<FileReader>;
+    loadstart: ProgressEvent<FileReader>;
+    progress: ProgressEvent<FileReader>;
+}
+
+interface FileReader extends EventTarget {
+    readonly error: Error | null;
+    onabort: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onloadend: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onloadstart: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    onprogress: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+    readonly readyState: number;
+    readonly result: string | ArrayBuffer;
+    abort(): void;
+    readAsArrayBuffer(blob: Blob): void;
+    // readAsBinaryString(blob: Blob): void;
+    readAsDataURL(blob: Blob): void;
+    readAsText(blob: Blob, encoding?: string): void;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
+    addEventListener<K extends keyof FileReaderEventMap>(
+        type: K,
+        listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
+        options?: boolean,
+    ): void;
+    // addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof FileReaderEventMap>(
+        type: K,
+        listener: (this: FileReader, ev: FileReaderEventMap[K]) => any,
+        options?: boolean,
+    ): void;
+    // removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare var FileReader: {
+    prototype: FileReader;
+    new (): FileReader;
+    readonly DONE: number;
+    readonly EMPTY: number;
+    readonly LOADING: number;
 };

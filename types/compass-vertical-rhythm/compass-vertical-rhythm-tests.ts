@@ -1,4 +1,10 @@
 import compassVerticalRhythm = require('compass-vertical-rhythm');
+import { Options, VerticalRhythm, VerticalRhythmStyles } from 'compass-vertical-rhythm';
+
+// $ExpectType VerticalRhythm
+compassVerticalRhythm({});
+// $ExpectError
+compassVerticalRhythm();
 
 compassVerticalRhythm({ baseFontSize: '16px' });
 compassVerticalRhythm({ baseLineHeight: 1.5 });
@@ -26,6 +32,7 @@ compassVerticalRhythm({ defaultRhythmBorderStyle: 'outset' });
 compassVerticalRhythm({ roundToNearestHalfLine: true });
 compassVerticalRhythm({ minLinePadding: '2px' });
 
+// $ExpectType VerticalRhythm
 const cvr = compassVerticalRhythm({
     baseFontSize: '16px',
     baseLineHeight: 1.5,
@@ -36,19 +43,34 @@ const cvr = compassVerticalRhythm({
     minLinePadding: '2px',
 });
 
+// $ExpectType number
 cvr.rhythm();
+// $ExpectType number
 cvr.rhythm(1);
+// $ExpectType number
 cvr.rhythm(1, '16px');
+// $ExpectType number
 cvr.rhythm(1, '16px', 4);
 
+// $ExpectType VerticalRhythmStyles
+cvr.establishBaseline();
+// $ExpectType string
 cvr.establishBaseline().fontSize;
+// $ExpectType string
 cvr.establishBaseline().lineHeight;
 
+// $ExpectType number
 cvr.linesForFontSize('16px');
 
+// $ExpectType string
 cvr.adjustFontSizeTo('32px', 1, '16px').fontSize;
+// $ExpectType string
 cvr.adjustFontSizeTo('32px', 1, '16px').lineHeight;
+// $ExpectType VerticalRhythmStyles
 cvr.adjustFontSizeTo('32px', 'auto', '16px');
+// $ExpectType VerticalRhythmStyles
 cvr.adjustFontSizeTo('32px', null, '16px');
+// $ExpectType VerticalRhythmStyles
 cvr.adjustFontSizeTo('32px', 1);
+// $ExpectType VerticalRhythmStyles
 cvr.adjustFontSizeTo('32px');

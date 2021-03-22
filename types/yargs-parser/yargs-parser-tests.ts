@@ -6,9 +6,7 @@ parse(['--foo', '-bar']);
 
 // prettier-ignore
 // $ExpectError
-parse(['--foo', '-bar'], {
-    string: 123,
-});
+parse(['--foo', '-bar'], { string: 123, });
 
 parse(['--foo', '-bar'], {
     // $ExpectError
@@ -59,10 +57,13 @@ parse(['--foo', '-bar'], {
         'camel-case-expansion': false,
         'dot-notation': false,
         'parse-numbers': false,
+        'parse-positional-numbers': false,
         'boolean-negation': false,
         'combine-arrays': true,
         'duplicate-arguments-array': false,
         'flatten-duplicate-arrays': false,
+        'greedy-arrays': false,
+        'nargs-eats-options': true,
         'negation-prefix': 'nope-',
         'populate--': true,
         'set-placeholder-key': true,

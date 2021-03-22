@@ -25,3 +25,5 @@ mergeImages(['/body.png', '/eyes.png', '/mouth.png'], {
 mergeImages(['/body.png', '/eyes.png', '/mouth.png'], {
     Canvas: null as any,
 });
+
+mergeImages([Buffer.alloc(8), '/test.png']);

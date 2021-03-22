@@ -1,128 +1,150 @@
-import videojs from 'video.js/dist/alt/video.core.novtt.js';
+import { default as videojsnovtt } from 'video.js/dist/alt/video.core.novtt.js';
+import { default as videojscore } from 'video.js/dist/alt/video.core.js';
 
-videojs("example_video_1").ready(function() {
-	// EXAMPLE: Start playing the video.
-	const playPromise = this.play();
+test(videojsnovtt);
+test(videojscore);
 
-	if (playPromise) {
-		playPromise.then(() => {});
-	}
+function test(videojs: typeof videojsnovtt | typeof videojscore) {
+    videojs('example_video_1').ready(function() {
+        // EXAMPLE: Start playing the video.
+        const playPromise = this.play();
 
-	this.pause();
+        if (playPromise) {
+            playPromise.then(() => {});
+        }
 
-	const isPaused: boolean = this.paused();
-	const isPlaying: boolean = !this.paused();
+        this.pause();
 
-	this.src("http://www.example.com/path/to/video.mp4");
+        const isPaused: boolean = this.paused();
+        const isPlaying: boolean = !this.paused();
 
-	this.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
+        this.src('http://www.example.com/path/to/video.mp4');
 
-	this.src([
-		{ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
-		{ type: "video/webm", src: "http://www.example.com/path/to/video.webm" },
-		{ type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
-	]);
+        this.src({ type: 'video/mp4', src: 'http://www.example.com/path/to/video.mp4' });
 
-	const whereYouAt: number = this.currentTime();
+        this.src([
+            { type: 'video/mp4', src: 'http://www.example.com/path/to/video.mp4' },
+            { type: 'video/webm', src: 'http://www.example.com/path/to/video.webm' },
+            { type: 'video/ogg', src: 'http://www.example.com/path/to/video.ogv' },
+        ]);
 
-	this.currentTime(120); // 2 minutes into the video
+        const whereYouAt: number = this.currentTime();
 
-	const howLongIsThis: number = this.duration();
+        this.currentTime(120); // 2 minutes into the video
 
-	const bufferedTimeRange: TimeRanges = this.buffered();
+        const howLongIsThis: number = this.duration();
 
-	// Number of different ranges of time have been buffered. Usually 1.
-	const numberOfRanges: number = bufferedTimeRange.length;
+        const autoplay: boolean | string = this.autoplay();
+        this.autoplay(true);
+        this.autoplay("muted");
 
-	// Time in seconds when the first range starts. Usually 0.
-	const firstRangeStart: number = bufferedTimeRange.start(0);
+        const controls: boolean = this.controls();
+        this.controls(true);
 
-	// Time in seconds when the first range ends
-	const firstRangeEnd: number = bufferedTimeRange.end(0);
+        const loop: boolean = this.loop();
+        this.loop(true);
 
-	// Length in seconds of the first time range
-	const firstRangeLength: number = firstRangeEnd - firstRangeStart;
+        const bufferedTimeRange: TimeRanges = this.buffered();
 
-	const howMuchIsDownloaded: number = this.bufferedPercent();
+        // Number of different ranges of time have been buffered. Usually 1.
+        const numberOfRanges: number = bufferedTimeRange.length;
 
-	const howLoudIsIt: number = this.volume();
+        // Time in seconds when the first range starts. Usually 0.
+        const firstRangeStart: number = bufferedTimeRange.start(0);
 
-	this.volume(0.5); // Set volume to half
+        // Time in seconds when the first range ends
+        const firstRangeEnd: number = bufferedTimeRange.end(0);
 
-	const howWideIsIt: number = this.width();
+        // Length in seconds of the first time range
+        const firstRangeLength: number = firstRangeEnd - firstRangeStart;
 
-	this.width(640);
+        const howMuchIsDownloaded: number = this.bufferedPercent();
 
-	const howTallIsIt: number = this.height();
+        const howLoudIsIt: number = this.volume();
 
-	this.height(480);
+        this.volume(0.5); // Set volume to half
 
-	const readyState: videojs.ReadyState = this.readyState();
+        const howWideIsIt: number = this.width();
 
-	this.requestFullscreen();
+        this.width(640);
 
-	const networkState: videojs.NetworkState = this.networkState();
+        const howTallIsIt: number = this.height();
 
-	testEvents(this);
+        this.height(480);
 
-	testComponents(this);
+        const readyState: videojsnovtt.ReadyState = this.readyState();
+        const readyState2: videojscore.ReadyState = this.readyState();
 
-	testPlugin(this, {});
+        this.requestFullscreen();
 
-	testLogger();
-});
+        const networkState: videojsnovtt.NetworkState = this.networkState();
+        const networkState2: videojscore.NetworkState = this.networkState();
 
-function testEvents(player: videojs.Player) {
-	const myFunc = function(this: videojs.Player) {
-		// Do something when the event is fired
-	};
-	player.on("error", myFunc);
-	// Removes the specified listener only.
-	player.off("error", myFunc);
+        testEvents(this);
 
-	const myFuncWithArg = function(this: videojs.Player, e: Event) {
-		// Do something when the event is fired
-	};
-	player.on("volumechange", myFuncWithArg);
-	// Removes all listeners for the given event type.
-	player.off("volumechange");
+        testComponents(this);
 
-	player.on("loadeddata", () => { /* Some handler. */ });
-	// Removes all listeners.
-	player.off();
-}
+        testPlugin(this, {});
 
-function testComponents(player: videojs.Player) {
-	class MyWindow extends videojs.getComponent('ModalDialog') {
-		myFunction() {
-			this.player().play();
-		}
-	}
+        testLogger();
+    });
 
-	const myWindow = new MyWindow(player, {});
-	myWindow.controlText('My text');
-	myWindow.open();
-	myWindow.close();
-	myWindow.myFunction();
-}
+    function testEvents(player: videojsnovtt.Player | videojscore.Player) {
+        const myFunc = function(this: videojscore.Player) {
+            // Do something when the event is fired
+        };
+        player.on('error', myFunc);
+        // Removes the specified listener only.
+        player.off('error', myFunc);
 
-function testPlugin(player: videojs.Player, options: {}) {
-	if (player.usingPlugin('uloztoExample')) { return; }
+        const myFuncWithArg = function(this: videojscore.Player, e: Event) {
+            // Do something when the event is fired
+        };
+        player.on('volumechange', myFuncWithArg);
+        // Removes all listeners for the given event type.
+        player.off('volumechange');
 
-	videojs.registerPlugin('uloztoExample', function({}: typeof options) {
-		this.play();
-		this.one('ended', () => {
-			// do something
-		});
-	});
-	(player as any).uloztoExample(options);
-}
+        player.on('loadeddata', () => {
+            /* Some handler. */
+        });
+        // Removes all listeners.
+        player.off();
+    }
 
-function testLogger() {
-	const mylogger = videojs.log.createLogger('mylogger');
-	const anotherlogger = mylogger.createLogger('anotherlogger');
+    function testComponents(player: videojscore.Player) {
+        class MyWindow extends videojs.getComponent('ModalDialog') {
+            myFunction() {
+                this.player().play();
+            }
+        }
 
-	videojs.log('hello');
-	mylogger('how are you');
-	anotherlogger('today');
+        const myWindow = new MyWindow(player, {});
+        myWindow.controlText('My text');
+        myWindow.open();
+        myWindow.close();
+        myWindow.myFunction();
+    }
+
+    function testPlugin(player: videojscore.Player, options: {}) {
+        if (player.usingPlugin('uloztoExample')) {
+            return;
+        }
+
+        videojs.registerPlugin('uloztoExample', function({}: typeof options) {
+            this.play();
+            this.one('ended', () => {
+                // do something
+            });
+        });
+        (player as any).uloztoExample(options);
+    }
+
+    function testLogger() {
+        const mylogger = videojs.log.createLogger('mylogger');
+        const anotherlogger = mylogger.createLogger('anotherlogger');
+
+        videojs.log('hello');
+        mylogger('how are you');
+        anotherlogger('today');
+    }
 }

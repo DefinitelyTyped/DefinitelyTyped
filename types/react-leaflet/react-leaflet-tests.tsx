@@ -33,6 +33,9 @@ import {
     withLeaflet,
     Viewport,
     useLeaflet,
+    GeoJSON,
+    GeoJSONProps,
+    MapEvents
 } from 'react-leaflet';
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -511,7 +514,7 @@ export default class SVGOverlayExample extends Component {
   render() {
     return (
       <Map center={[51.505, -0.09]} zoom={13}>
-        <SVGOverlay bounds={[[51.49, -0.08], [51.5, -0.06]]}>
+        <SVGOverlay bounds={[[51.49, -0.08], [51.5, -0.06]]} preserveAspectRatio={"xMidYMid meet"} viewBox={"0 0 1080 1080"}>
           <rect x="0" y="0" width="100%" height="100%" fill="blue" />
           <circle r="5" cx="10" cy="10" fill="red" />
           <text x="50%" y="50%" fill="white">
@@ -835,3 +838,214 @@ const leafletComponent = withLeaflet<PolygonProps>(CustomPolygon);
 
 // $ExpectType LeafletContext
 useLeaflet();
+
+const northDakota: GeoJSON.Feature = {
+    type: "Feature",
+    properties: {name: "North Dakota"},
+    geometry: {
+        type: "Polygon",
+        coordinates: [[
+            [-104.05, 48.99],
+            [-97.22,  48.98],
+            [-96.58,  45.94],
+            [-104.03, 45.94],
+            [-104.05, 48.99]
+        ]]
+    }
+};
+
+const colorado: GeoJSON.Feature = {
+    type: "Feature",
+    properties: {name: "Colorado"},
+    geometry: {
+        type: "Polygon",
+        coordinates: [[
+            [-109.05, 41.00],
+            [-102.06, 40.99],
+            [-102.03, 36.99],
+            [-109.04, 36.99],
+            [-109.05, 41.00]
+        ]]
+    }
+};
+
+// GeoJSON
+export class GeoJSONExample extends Component<undefined, undefined> {
+    polygons: GeoJSON.GeoJsonObject[] = [northDakota, colorado];
+
+    vp: Viewport = {
+        center: [-102, 40],
+        zoom: 10
+    };
+
+    render() {
+        return (<Map viewport={this.vp}>
+            <TileLayer
+                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <GeoJSON data={this.polygons} markersInheritOptions={false} />
+        </Map>);
+    }
+}
+
+const mapEvents: MapEvents = {
+    onclick: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    ondblclick: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmousedown: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmouseup: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmouseover: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmouseout: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmousemove: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    oncontextmenu: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onfocus: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onblur: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onpreclick: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onload: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onunload: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onviewreset: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onmove: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onmovestart: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onmoveend: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    ondragstart: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    ondrag: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    ondragend: (event: L.DragEndEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.distance);
+    },
+    onzoomstart: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onzoom: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onzoomend: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onzoomlevelschange: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onresize: (event: L.ResizeEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.newSize);
+    },
+    onautopanstart: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onlayeradd: (event: L.LayerEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onlayerremove: (event: L.LayerEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onbaselayerchange: (event: L.LayersControlEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.name);
+    },
+    onoverlayadd: (event: L.LayersControlEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.name);
+    },
+    onoverlayremove: (event: L.LayersControlEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.name);
+    },
+    onlocationfound: (event: L.LocationEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.altitude);
+    },
+    onlocationerror: (event: L.ErrorEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.code);
+    },
+    onpopupopen: (event: L.PopupEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.popup);
+    },
+    onpopupclose: (event: L.PopupEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.popup);
+    },
+};

@@ -22,8 +22,9 @@ export interface SwaggerUiOptions {
     customfavIcon?: string;
     customJs?: string;
     customSiteTitle?: string;
+    explorer?: boolean;
     isExplorer?: boolean;
-    options?: SwaggerOptions;
+    swaggerOptions?: SwaggerOptions;
     swaggerUrl?: string;
     swaggerUrls?: string[];
 }

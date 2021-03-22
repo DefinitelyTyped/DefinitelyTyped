@@ -18,7 +18,13 @@ checker.init(
         packages: "packages;to;check",
         excludePackages: "packages;to;exclude",
         excludePrivatePackages: false,
-        direct: false
+        direct: false,
+        color: true,
+        unknown: true,
+        customFormat: {
+            version: true,
+            name: true,
+        },
     },
     (err: Error, json: checker.ModuleInfos): void => {
         if (err) {

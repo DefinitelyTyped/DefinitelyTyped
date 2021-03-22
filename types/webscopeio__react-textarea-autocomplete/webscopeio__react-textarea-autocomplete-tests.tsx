@@ -22,6 +22,7 @@ class Autocomplete extends React.Component {
 
     render() {
         return <ReactTextareaAutocomplete<string>
+            rows={8}
             className="my-textarea"
             loadingComponent={Loading}
             style={{

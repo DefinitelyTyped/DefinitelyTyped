@@ -31,6 +31,15 @@ class MainComponent extends React.Component {
                 h('li', 'Another list item')
             ]),
             h('img', {src: 'https://example.com/some-image'}),
+            h(['text']),
+            h([
+                h('span', 'text')
+            ]),
+            h(['zero', 'unit']),
+            h([
+                h('span', 'zero'),
+                h('span', 'unit')
+            ]),
             h('span', 1234)
         ]);
     }

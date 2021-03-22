@@ -1,4 +1,4 @@
-import VersionCheck from "react-native-version-check";
+import VersionCheck from 'react-native-version-check';
 
 VersionCheck.getCountry()
     .then((country: string) => {})
@@ -27,5 +27,5 @@ VersionCheck.getLatestVersion()
     .catch((error: any) => {});
 
 VersionCheck.needUpdate()
-    .then(({ isNeeded, currentVersion, latestVersion }) => {})
+    .then(({ isNeeded, currentVersion, latestVersion, storeUrl }) => {})
     .catch((error: any) => {});

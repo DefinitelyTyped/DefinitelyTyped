@@ -8,3 +8,8 @@ const myRule: Rule = {
 const serializer = new Html({
     rules: [myRule]
 });
+
+const serializerWithDefaultBlock = new Html({
+    rules: [myRule],
+    defaultBlock: 'unstyled'
+});

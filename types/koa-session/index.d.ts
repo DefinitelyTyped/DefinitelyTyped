@@ -156,6 +156,12 @@ declare namespace session {
         store?: stores;
 
         /**
+         * External key is used the cookie by default,
+         * but you can use options.externalKey to customize your own external key methods.
+         */
+        externalKey?: ExternalKeys;
+
+        /**
          * If your session store requires data or utilities from context, opts.ContextStore is alse supported.
          * ContextStore must be a class which claims three instance methods demonstrated above.
          * new ContextStore(ctx) will be executed on every request.
@@ -194,6 +200,18 @@ declare namespace session {
          */
         destroy(key: string): any;
     }
+
+    interface ExternalKeys {
+        /**
+         * get session object by key
+         */
+        get(ctx: Koa.Context): string;
+
+        /**
+         * set session object for key, with a maxAge (in ms)
+         */
+        set(ctx: Koa.Context, value: any): void;
+    }
 }
 
 declare function session(CONFIG: Partial<session.opts>, app: Koa): Koa.Middleware;
@@ -201,7 +219,7 @@ declare function session(CONFIG: Partial<session.opts>, app: Koa): Koa.Middlewar
 declare function session(app: Koa): Koa.Middleware;
 
 declare module "koa" {
-    interface Context {
+    interface BaseContext {
         session: session.Session | null;
         readonly sessionOptions: session.opts | undefined;
     }

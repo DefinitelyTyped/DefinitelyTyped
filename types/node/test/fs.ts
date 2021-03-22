@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as assert from 'assert';
-import * as util from 'util';
+import * as fs from 'node:fs';
+import assert = require('node:assert');
+import * as util from 'node:util';
 
 {
     fs.writeFile("thebible.txt",
@@ -34,8 +34,8 @@ import * as util from 'util';
     let content: string;
     let buffer: Buffer;
     let stringOrBuffer: string | Buffer;
-    const nullEncoding: string | null = null;
-    const stringEncoding: string | null = 'utf8';
+    const nullEncoding: BufferEncoding | null = null;
+    const stringEncoding: BufferEncoding | null = 'utf8';
 
     content = fs.readFileSync('testfile', 'utf8');
     content = fs.readFileSync('testfile', { encoding: 'utf8' });
@@ -70,6 +70,11 @@ import * as util from 'util';
 
 {
     fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    fs.readSync(1, Buffer.from(''), {
+        length: 123,
+        offset: 456,
+        position: null,
+    });
 }
 
 {
@@ -185,7 +190,6 @@ async function testPromisify() {
     fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => s = linkString);
     fs.readlink('/path/to/folder', { encoding: 'buffer' }, (err, linkString) => b = linkString);
-    fs.readlink('/path/to/folder', { encoding: s }, (err, linkString) => typeof linkString === "string" ? s = linkString : b = linkString);
 
     s = fs.readlinkSync('/path/to/folder');
     s = fs.readlinkSync('/path/to/folder', undefined);
@@ -198,8 +202,6 @@ async function testPromisify() {
     s = fs.readlinkSync('/path/to/folder', { encoding: undefined });
     s = fs.readlinkSync('/path/to/folder', { encoding: 'utf8' });
     b = fs.readlinkSync('/path/to/folder', { encoding: 'buffer' });
-    const v2 = fs.readlinkSync('/path/to/folder', { encoding: s });
-    typeof v2 === "string" ? s = v2 : b = v2;
 }
 
 {
@@ -214,7 +216,6 @@ async function testPromisify() {
     fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
-    fs.realpath('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
 
     s = fs.realpathSync('/path/to/folder');
     s = fs.realpathSync('/path/to/folder', undefined);
@@ -227,8 +228,6 @@ async function testPromisify() {
     s = fs.realpathSync('/path/to/folder', { encoding: undefined });
     s = fs.realpathSync('/path/to/folder', { encoding: 'utf8' });
     b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
-    const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
-    typeof v2 === "string" ? s = v2 : b = v2;
 
     // native
     fs.realpath.native('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
@@ -240,7 +239,6 @@ async function testPromisify() {
     fs.realpath.native('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath.native('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
     fs.realpath.native('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
-    fs.realpath.native('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
 
     s = fs.realpathSync.native('/path/to/folder');
     s = fs.realpathSync.native('/path/to/folder', undefined);
@@ -253,8 +251,6 @@ async function testPromisify() {
     s = fs.realpathSync.native('/path/to/folder', { encoding: undefined });
     s = fs.realpathSync.native('/path/to/folder', { encoding: 'utf8' });
     b = fs.realpathSync.native('/path/to/folder', { encoding: 'buffer' });
-    const v4 = fs.realpathSync.native('/path/to/folder', { encoding: s });
-    typeof v4 === "string" ? s = v4 : b = v4;
 }
 
 {
@@ -275,10 +271,25 @@ async function testPromisify() {
     fs.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
-    }, () => {
+    }, (err, path) => {
+        err; // $ExpectType ErrnoException | null
+        path; // $ExpectType string | undefined
     });
 
+    // $ExpectType string | undefined
     fs.mkdirSync('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string | undefined>
+    util.promisify(fs.mkdir)('some/test/path', {
+        recursive: true,
+        mode: 0o777,
+    });
+
+    // $ExpectType Promise<string | undefined>
+    fs.promises.mkdir('some/test/path', {
         recursive: true,
         mode: 0o777,
     });
@@ -287,25 +298,28 @@ async function testPromisify() {
 {
     let names: Promise<string[]>;
     let buffers: Promise<Buffer[]>;
-    let namesOrBuffers: Promise<string[] | Buffer[]>;
     let entries: Promise<fs.Dirent[]>;
 
     names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
     buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
-    namesOrBuffers = fs.promises.readdir('/path/to/dir', { encoding: 'SOME OTHER', withFileTypes: false });
     entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
 }
 
 {
-    fs.writev(1, [Buffer.from('123')], (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+    fs.writev(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>, (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
     });
-    const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
+    const bytesWritten = fs.writevSync(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>);
 }
 
 (async () => {
     try {
         await fs.promises.rmdir('some/test/path');
-        await fs.promises.rmdir('some/test/path', { recursive: true });
+        await fs.promises.rmdir('some/test/path', { recursive: true, maxRetries: 123, retryDelay: 123 });
+    } catch (e) {}
+
+    try {
+        await fs.promises.rmdir('some/test/file');
+        await fs.promises.rmdir('some/test/file', { recursive: true, maxRetries: 123, retryDelay: 123 });
     } catch (e) {}
 })();
 
@@ -328,4 +342,183 @@ async function testPromisify() {
         encoding: 'utf8',
         bufferSize: 42,
     });
+}
+
+{
+    const writeStream = fs.createWriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = fs.createReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
+}
+
+{
+    fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    fs.readv(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>, 123, (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+    });
+}
+
+async function testStat(
+  path: string,
+  fd: number,
+  opts: fs.StatOptions,
+  maybeFalse: fs.StatOptions & { bigint: false } | undefined,
+  maybeTrue: fs.StatOptions & { bigint: true } | undefined,
+  maybe?: fs.StatOptions,
+) {
+    /* Need to test these variants:
+     * - stat
+     * - lstat
+     * - fstat
+     *
+     * In these modes:
+     * - callback
+     * - sync
+     * - promisify
+     * - fs.promises
+     *
+     * With these opts:
+     * - None => Stats
+     * - Undefined => Stats
+     * - { } => Stats
+     * - { bigint: false } | undefined => Stats
+     / - { bigint: true } => BigIntStats
+     / - { bigint: true } | undefined => Stats | BigIntStats
+     * - { bigint: boolean } (can't infer) | undefined => Stats | BigIntStats
+     *
+     * Which is 3 x 4 x 7 = 84 tests
+     *
+     * (fs.promises.fstat doesn't exist, but those 6 cases are in FileHandle.fstat)
+     */
+
+    // Callback mode
+    fs.stat(path, (err, st: fs.Stats) => {});
+    fs.lstat(path, (err, st: fs.Stats) => {});
+    fs.fstat(fd, (err, st: fs.Stats) => {});
+
+    fs.stat(path, undefined, (err, st: fs.Stats) => {});
+    fs.lstat(path, undefined, (err, st: fs.Stats) => {});
+    fs.fstat(fd, undefined, (err, st: fs.Stats) => {});
+
+    fs.stat(path, {}, (err, st: fs.Stats) => {});
+    fs.lstat(path, {}, (err, st: fs.Stats) => {});
+    fs.fstat(fd, {}, (err, st: fs.Stats) => {});
+
+    fs.stat(path, maybeFalse, (err, st: fs.Stats) => {});
+    fs.lstat(path, maybeFalse, (err, st: fs.Stats) => {});
+    fs.fstat(fd, maybeFalse, (err, st: fs.Stats) => {});
+
+    fs.stat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
+    fs.lstat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
+    fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => {});
+
+    fs.stat(path, maybeTrue, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
+    fs.lstat(path, maybeTrue, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
+    fs.fstat(fd, maybeTrue, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
+
+    fs.stat(path, opts, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
+
+    fs.lstat(path, opts, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
+
+    fs.fstat(fd, opts, (err, st) => {
+        st; // $ExpectType Stats | BigIntStats
+    });
+
+    // Sync mode
+    fs.statSync(path); // $ExpectType Stats
+    fs.lstatSync(path); // $ExpectType Stats
+    fs.fstatSync(fd); // $ExpectType Stats
+
+    fs.statSync(path, undefined); // $ExpectType Stats
+    fs.lstatSync(path, undefined); // $ExpectType Stats
+    fs.fstatSync(fd, undefined); // $ExpectType Stats
+
+    fs.statSync(path, {}); // $ExpectType Stats
+    fs.lstatSync(path, {}); // $ExpectType Stats
+    fs.fstatSync(fd, {}); // $ExpectType Stats
+
+    fs.statSync(path, maybeFalse); // $ExpectType Stats
+    fs.lstatSync(path, maybeFalse); // $ExpectType Stats
+    fs.fstatSync(fd, maybeFalse); // $ExpectType Stats
+
+    fs.statSync(path, { bigint: true }); // $ExpectType BigIntStats
+    fs.lstatSync(path, { bigint: true }); // $ExpectType BigIntStats
+    fs.fstatSync(fd, { bigint: true }); // $ExpectType BigIntStats
+
+    fs.statSync(path, maybeTrue); // $ExpectType Stats | BigIntStats
+    fs.lstatSync(path, maybeTrue); // $ExpectType Stats | BigIntStats
+    fs.fstatSync(fd, maybeTrue); // $ExpectType Stats | BigIntStats
+
+    fs.statSync(path, opts); // $ExpectType Stats | BigIntStats
+    fs.lstatSync(path, opts); // $ExpectType Stats | BigIntStats
+    fs.fstatSync(fd, opts); // $ExpectType Stats | BigIntStats
+
+    // Promisify mode
+    util.promisify(fs.stat)(path); // $ExpectType Promise<Stats>
+    util.promisify(fs.lstat)(path); // $ExpectType Promise<Stats>
+    util.promisify(fs.fstat)(fd); // $ExpectType Promise<Stats>
+
+    util.promisify(fs.stat)(path, undefined); // $ExpectType Promise<Stats>
+    util.promisify(fs.lstat)(path, undefined); // $ExpectType Promise<Stats>
+    util.promisify(fs.fstat)(fd, undefined); // $ExpectType Promise<Stats>
+
+    util.promisify(fs.stat)(path, {}); // $ExpectType Promise<Stats>
+    util.promisify(fs.lstat)(path, {}); // $ExpectType Promise<Stats>
+    util.promisify(fs.fstat)(fd, {}); // $ExpectType Promise<Stats>
+
+    util.promisify(fs.stat)(path, maybeFalse); // $ExpectType Promise<Stats>
+    util.promisify(fs.lstat)(path, maybeFalse); // $ExpectType Promise<Stats>
+    util.promisify(fs.fstat)(fd, maybeFalse); // $ExpectType Promise<Stats>
+
+    util.promisify(fs.stat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
+    util.promisify(fs.lstat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
+    util.promisify(fs.fstat)(fd, { bigint: true }); // $ExpectType Promise<BigIntStats>
+
+    util.promisify(fs.stat)(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.lstat)(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.fstat)(fd, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+
+    util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.lstat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.fstat)(fd, opts); // $ExpectType Promise<Stats | BigIntStats>
+
+    // fs.promises mode
+    const fh = await fs.promises.open(path, 'r');
+    fs.promises.stat(path); // $ExpectType Promise<Stats>
+    fs.promises.lstat(path); // $ExpectType Promise<Stats>
+    fh.stat(); // $ExpectType Promise<Stats>
+
+    fs.promises.stat(path, undefined); // $ExpectType Promise<Stats>
+    fs.promises.lstat(path, undefined); // $ExpectType Promise<Stats>
+    fh.stat(undefined); // $ExpectType Promise<Stats>
+
+    fs.promises.stat(path, {}); // $ExpectType Promise<Stats>
+    fs.promises.lstat(path, {}); // $ExpectType Promise<Stats>
+    fh.stat({}); // $ExpectType Promise<Stats>
+
+    fs.promises.stat(path, maybeFalse); // $ExpectType Promise<Stats>
+    fs.promises.lstat(path, maybeFalse); // $ExpectType Promise<Stats>
+    fh.stat(maybeFalse); // $ExpectType Promise<Stats>
+
+    fs.promises.stat(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
+    fs.promises.lstat(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
+    fh.stat({ bigint: true }); // $ExpectType Promise<BigIntStats>
+
+    fs.promises.stat(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fs.promises.lstat(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fh.stat(maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+
+    fs.promises.stat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
+    fs.promises.lstat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
+    fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats>
 }

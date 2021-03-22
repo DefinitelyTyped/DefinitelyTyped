@@ -1,28 +1,39 @@
-// Type definitions for yeoman-test 2.0
+// Type definitions for yeoman-test 4.0
 // Project: https://github.com/yeoman/yeoman-test, http://yeoman.io/authoring/testing.html
 // Definitions by: Ika <https://github.com/ikatyang>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
+import Environment = require('yeoman-environment');
+import { Store } from 'mem-fs';
+import { Editor } from 'mem-fs-editor';
 
+/**
+ * Represents a dictionary.
+ */
 export interface Dictionary<T> {
-	[key: string]: T;
-}
-
-export interface Constructor<T> {
-	new (...args: any[]): T;
-}
-
-// Environment from yeoman-environment
-export interface Env extends EventEmitter {
-	queues: string[];
-	enforceUpdate(env: Env): this;
+    [key: string]: T;
 }
 
 /**
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Represents a constructor.
+ */
+export interface Constructor<T> {
+    new (...args: any[]): T;
+}
+
+/**
+ * Represents an environment for running yeoman-generators.
+ */
+export interface Env extends Environment {
+    queues: string[];
+}
+
+/**
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  */
 export type Dependency = string | [Generator, string];
 
@@ -88,7 +99,7 @@ export function createDummyGenerator(): Generator;
 
 /**
  * Create a generator, using the given dependencies and controller arguments
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  *
  * @param name - the name of the generator
  * @param dependencies - paths to the generators dependencies
@@ -108,7 +119,7 @@ export function createGenerator(name: string, dependencies: Dependency[], args?:
 
 /**
  * Register a list of dependent generators into the provided env.
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  *
  * @param dependencies - paths to the generators dependencies
  */
@@ -120,140 +131,229 @@ export function registerDependencies(env: Env, dependencies: Dependency[]): void
  */
 export function run(GeneratorOrNamespace: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 
+/**
+ * Provides settings for creating a `RunContext`.
+ */
 export interface RunContextSettings {
-	/**
-	 * Automatically run this generator in a tmp dir
-	 * @default true
-	 */
-	tmpdir?: boolean;
+    /**
+     * Automatically run this generator in a tmp dir
+     * @default true
+     */
+    tmpdir?: boolean;
 
-	/**
-	 * File path to the generator (only used if Generator is a constructor)
-	 */
-	resolved?: string;
+    /**
+     * File path to the generator (only used if Generator is a constructor)
+     */
+    resolved?: string;
 
-	/**
-	 * Namespace (only used if Generator is a constructor)
-	 * @default 'gen:test'
-	 */
-	namespace?: string;
+    /**
+     * Namespace (only used if Generator is a constructor)
+     * @default 'gen:test'
+     */
+    namespace?: string;
 }
 
+/**
+ * Provides the functionality to initialize new `RunContext`s.
+ */
 export interface RunContextConstructor {
-	/**
-	 * This class provide a run context object to façade the complexity involved in setting
-	 * up a generator for testing
-	 * @param Generator - Namespace or generator constructor. If the later
-	 *                                      is provided, then namespace is assumed to be
-	 *                                      'gen:test' in all cases
-	 */
-	new (Generator: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
+    /**
+     * This class provide a run context object to façade the complexity involved in setting
+     * up a generator for testing
+     * @param Generator - Namespace or generator constructor. If the later
+     *                                      is provided, then namespace is assumed to be
+     *                                      'gen:test' in all cases
+     */
+    new (Generator: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 }
 
-export interface RunContext extends RunContextConstructor, EventEmitter {
-	ran: boolean;
-	inDirSet: boolean;
-	args: string[];
-	options: {};
-	answers: Generator.Answers;
-	localConfig: {};
-	dependencies: Dependency[];
+/**
+ * Provides options for `RunResult`s.
+ */
+export interface RunResultOptions {
+    /**
+     * The environment of the generator.
+     */
+    env: Environment;
 
-	/**
-	 * Hold the execution until the returned callback is triggered
-	 * @return Callback to notify the normal execution can resume
-	 */
-	async(): () => void;
+    /**
+     * The working directory after running the generator.
+     */
+    cwd: string;
 
-	/**
-	 * Return a promise representing the generator run process
-	 * @return Promise resolved on end or rejected on error
-	 */
-	toPromise(): Promise<string>;
+    /**
+     * The working directory before on running the generator.
+     */
+    oldCwd: string;
 
-	/**
-	 * Promise `.then()` duck typing
-	 */
-	then: Promise<string>['then'];
+    /**
+     * The file-system of the generator.
+     */
+    memFs: Store;
 
-	/**
-	 * Promise `.catch()` duck typing
-	 */
-	catch: Promise<string>['catch'];
+    /**
+     * The file-system editor of the generator.
+     */
+    fs: Editor;
 
-	/**
-	 * Clean the provided directory, then change directory into it
-	 * @param  dirPath - Directory path (relative to CWD). Prefer passing an absolute
-	 *                            file path for predictable results
-	 * @param [cb] - callback who'll receive the folder path as argument
-	 * @return run context instance
-	 */
-	inDir(dirPath: string, cb?: (folderPath: string) => void): this;
+    /**
+     * The mocked generators of the context.
+     */
+    mockedGenerators: Dictionary<Generator>;
+}
 
-	/**
-	 * Change directory without deleting directory content.
-	 * @param  dirPath - Directory path (relative to CWD). Prefer passing an absolute
-	 *                            file path for predictable results
-	 * @return run context instance
-	 */
-	cd(dirPath: string): this;
+export interface RunResult extends RunResultOptions {
+    /**
+     * The options of this result.
+     */
+    options: RunResultOptions;
 
-	/**
-	 * Cleanup a temporary directy and change the CWD into it
-	 *
-	 * This method is called automatically when creating a RunContext. Only use it if you need
-	 * to use the callback.
-	 *
-	 * @param [cb] - callback who'll receive the folder path as argument
-	 * @return run context instance
-	 */
-	inTmpDir(cb: (folderPath: string) => void): this;
+    /**
+     * Either dumps the contents of the specified files or the name and the contents of each file to the console.
+     */
+    dumpFiles(...files: string[]): void;
 
-	/**
-	 * Clean the directory used for tests inside inDir/inTmpDir
-	 */
-	cleanTestDirectory(): void;
+    /**
+     * Dumps the name of each file to the console.
+     */
+    dumpFilenames(): void;
+}
 
-	/**
-	 * Provide arguments to the run context
-	 * @param  args - command line arguments as Array or space separated string
-	 */
-	withArguments(args: string | string[]): this;
+/**
+ * Represents the context of a running generator.
+ */
+export interface RunContext extends RunContextConstructor, EventEmitter, Promise<RunResult> {
+    /**
+     * A value indicating whether the generator ran through.
+     */
+    ran: boolean;
 
-	/**
-	 * Provide options to the run context
-	 * @param  options - command line options (e.g. `--opt-one=foo`)
-	 */
-	withOptions(options: Dictionary<any>): this;
+    /**
+     * A value indicating whether a current directory has been set.
+     */
+    inDirSet: boolean;
 
-	/**
-	 * Mock the prompt with dummy answers
-	 * @param  answers - Answers to the prompt questions
-	 */
-	withPrompts(answers: Generator.Answers): this;
+    /**
+     * The arguments that are passed to the generator.
+     */
+    args: string[];
 
-	/**
-	 * Provide dependent generators
-	 * @param dependencies - paths to the generators dependencies
-	 * @example
-	 * var angular = new RunContext('../../app');
-	 * angular.withGenerators([
-	 *   '../../common',
-	 *   '../../controller',
-	 *   '../../main',
-	 *   [helpers.createDummyGenerator(), 'testacular:app']
-	 * ]);
-	 * angular.on('end', function () {
-	 *   // assert something
-	 * });
-	 */
-	withGenerators(dependencies: Dependency[]): this;
+    /**
+     * The options that are passed to the generator.
+     */
+    options: {};
 
-	/**
-	 * Mock the local configuration with the provided config
-	 * @param  localConfig - should look just like if called config.getAll()
-	 */
-	withLocalConfig(localConfig: Dictionary<any>): this;
+    /**
+     * The mocked `inquirer`-answers.
+     */
+    answers: Generator.Answers;
+
+    /**
+     * The mocked configuration.
+     */
+    localConfig: {};
+
+    /**
+     * A set of generators this generator depends on.
+     */
+    dependencies: Dependency[];
+
+    /**
+     * A set of mocked generators.
+     */
+    mockedGenerators: Dictionary<Generator>;
+
+    /**
+     * Hold the execution until the returned callback is triggered
+     * @return Callback to notify the normal execution can resume
+     */
+    async(): () => void;
+
+    /**
+     * Return a promise representing the generator run process
+     * @return Promise resolved on end or rejected on error
+     */
+    toPromise(): Promise<RunResult>;
+
+    /**
+     * Clean the provided directory, then change directory into it
+     * @param  dirPath - Directory path (relative to CWD). Prefer passing an absolute
+     *                            file path for predictable results
+     * @param [cb] - callback who'll receive the folder path as argument
+     * @return run context instance
+     */
+    inDir(dirPath: string, cb?: (folderPath: string) => void): this;
+
+    /**
+     * Change directory without deleting directory content.
+     * @param  dirPath - Directory path (relative to CWD). Prefer passing an absolute
+     *                            file path for predictable results
+     * @return run context instance
+     */
+    cd(dirPath: string): this;
+
+    /**
+     * Cleanup a temporary directory and change the CWD into it
+     *
+     * This method is called automatically when creating a RunContext. Only use it if you need
+     * to use the callback.
+     *
+     * @param [cb] - callback who'll receive the folder path as argument
+     * @return run context instance
+     */
+    inTmpDir(cb: (folderPath: string) => void): this;
+
+    /**
+     * Clean the directory used for tests inside inDir/inTmpDir
+     */
+    cleanTestDirectory(): void;
+
+    /**
+     * Provide arguments to the run context
+     * @param  args - command line arguments as Array or space separated string
+     */
+    withArguments(args: string | string[]): this;
+
+    /**
+     * Provide options to the run context
+     * @param  options - command line options (e.g. `--opt-one=foo`)
+     */
+    withOptions(options: Dictionary<any>): this;
+
+    /**
+     * Mock the prompt with dummy answers
+     * @param  answers - Answers to the prompt questions
+     */
+    withPrompts(answers: Generator.Answers): this;
+
+    /**
+     * Provide dependent generators
+     * @param dependencies - paths to the generators dependencies
+     * @example
+     * var angular = new RunContext('../../app');
+     * angular.withGenerators([
+     *   '../../common',
+     *   '../../controller',
+     *   '../../main',
+     *   [helpers.createDummyGenerator(), 'testacular:app']
+     * ]);
+     * angular.on('end', function () {
+     *   // assert something
+     * });
+     */
+    withGenerators(dependencies: Dependency[]): this;
+
+    /**
+     * Mock the local configuration with the provided config
+     * @param  localConfig - should look just like if called config.getAll()
+     */
+    withLocalConfig(localConfig: Dictionary<any>): this;
+
+    /**
+     * Creates mocked generators.
+     * @param namespaces - The namespaces of the mocked generators.
+     */
+    withMockedGenerators(namespaces: string[]): this;
 }
 
 export {};

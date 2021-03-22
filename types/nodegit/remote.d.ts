@@ -26,7 +26,7 @@ export namespace Remote {
 export class Remote {
     static addFetch(repo: Repository, remote: string, refspec: string): number;
     static addPush(repo: Repository, remote: string, refspec: string): number;
-    static create(repo: Repository, name: string, url: string): Remote;
+    static create(repo: Repository, name: string, url: string): Promise<Remote>;
     static createAnonymous(repo: Repository, url: string): Promise<Remote>;
     static createDetached(url: string): Promise<Remote>;
     static createWithFetchspec(repo: Repository, name: string, url: string, fetch: string): Promise<Remote>;
@@ -42,7 +42,7 @@ export class Remote {
     autotag(): number;
     connect(direction: Enums.DIRECTION, callbacks: RemoteCallbacks, callback?: Function): Promise<number>;
     connected(): number;
-    defaultBranch(): Promise<Buf>;
+    defaultBranch(): Promise<string>;
     disconnect(): Promise<void>;
     download(refSpecs: any[], opts?: FetchOptions, callback?: Function): Promise<number>;
     dup(): Promise<Remote>;

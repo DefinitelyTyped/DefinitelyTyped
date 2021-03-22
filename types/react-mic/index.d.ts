@@ -10,6 +10,20 @@ import * as React from 'react';
  */
 export class ReactMic extends React.PureComponent<ReactMicProps> {}
 
+/**
+ * The object sent when the recording stops
+ */
+export interface ReactMicStopEvent {
+    blob: Blob;
+    startTime: number;
+    stopTime: number;
+    option: {
+      audioBitsPerSecond: number;
+      mimeType: string;
+    };
+    blobURL: string;
+  }
+
 export interface ReactMicProps {
     /** Set to true to begin recording */
     record?: boolean;
@@ -22,14 +36,29 @@ export interface ReactMicProps {
     className?: string;
 
     /** Callback that is executed when audio stops recording */
-    onStop?: (recordedData: Blob) => void;
+    onStop?: (recordedData: ReactMicStopEvent) => void;
 
     /** Callback that is executed when chunk of audio is available */
     onData?: (recordedData: Blob) => void;
+
+    /** defaults -> "audio/webm".  Set to "audio/wav" for WAV or "audio/mp3" for MP3 audio format (available in React-Mic-Gold) */
+    mimeType?: 'audio/webm' | 'audio/wav';
 
     /** Sound wave color */
     strokeColor?: string;
 
     /** Background color */
     backgroundColor?: string;
+
+    /** Specify 1 for mono, defaults -> 2 (stereo) */
+    channelCount?: 1 | 2;
+
+    /** Enables/disables echo cancellation, defaults -> false */
+    echoCancellation?: boolean;
+
+    /** Enables/disables auto gain control, defaults -> false */
+    autoGainControl?: boolean;
+
+    /** Enables/disables background noise suppression, defaults -> false */
+    noiseSuppression?: boolean;
 }

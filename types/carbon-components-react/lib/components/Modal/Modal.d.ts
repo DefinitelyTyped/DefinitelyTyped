@@ -1,15 +1,24 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr, CarbonSize } from "../../../typings/shared";
+import { ButtonProps } from "../Button";
 
-type ExcludedAttributes = "role" | "tabIndex" | "onBlur" | "onClick" | "onKeyDown" | "onTransitionEnd" | "ref";
-interface InheritedProps extends
-    Omit<ReactDivAttr, ExcludedAttributes>,
-    EmbeddedIconProps
-{ }
+type ExcludedAttributes = "role" | "onBlur" | "onClick" | "onKeyDown" | "onTransitionEnd" | "ref";
 
-export interface ModalProps extends InheritedProps {
+export interface ModalSecondaryButtonConfig {
+    buttonText: NonNullable<React.ReactNode>;
+    onClick: NonNullable<ButtonProps["onClick"]>;
+}
+
+export interface ModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
+    alert?: boolean,
     danger?: boolean,
+    /**
+     * @deprecated
+     */
     focusTrap?: boolean,
+    hasForm?: boolean,
+    hasScrollingContent?: boolean,
+    iconDescription?: string,
     modalAriaLabel?: string,
     modalHeading?: React.ReactNode,
     modalLabel?: React.ReactNode,
@@ -18,11 +27,14 @@ export interface ModalProps extends InheritedProps {
     onRequestSubmit?(event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>): void,
     onSecondarySubmit?: ModalProps["onRequestClose"],
     passiveModal?: boolean,
+    preventCloseOnClickOutside?: boolean,
     primaryButtonDisabled?: boolean,
-    primaryButtonText?: string,
-    secondaryButtonText?: string,
+    primaryButtonText?: React.ReactNode,
+    secondaryButtons?: readonly ModalSecondaryButtonConfig[];
+    secondaryButtonText?: React.ReactNode,
     selectorPrimaryFocus?: string,
-    selectorsFloatingMenus?: string[],
+    selectorsFloatingMenus?: readonly string[],
+    size?: CarbonSize,
     shouldSubmitOnEnter?: boolean,
 }
 

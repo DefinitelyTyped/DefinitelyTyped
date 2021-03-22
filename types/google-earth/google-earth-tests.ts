@@ -24,7 +24,7 @@ function initCB(ge: google.earth.GEPlugin) {
 
   // Create normal style for style map.
   var normalStyle = ge.createStyle('');
-	var normalIcon = ge.createIcon('');
+    var normalIcon = ge.createIcon('');
   normalIcon.setHref('http://maps.google.com/mapfiles/kml/paddle/red-circle.png');
   normalStyle.getIconStyle().setIcon(normalIcon);
 

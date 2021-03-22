@@ -1,10 +1,11 @@
-// Type definitions for @vimeo/player 2.9.1
+// Type definitions for @vimeo/player 2.10
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
 //                 Tim Chen <https://github.com/timc13>
 //                 Terry Mun <https://github.com/terrymun>
 //                 Coskun Deniz <deniz@tassomai.com>
+//                 Kohei Watanabe <https://github.com/kou029w>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type CallbackFunction = (...args: any[]) => any;
@@ -54,6 +55,8 @@ export class Player {
     getEnded(): VimeoPromise<boolean, Error>;
     getLoop(): VimeoPromise<boolean, Error>;
     setLoop(loop: boolean): VimeoPromise<boolean, Error>;
+    getMuted(): VimeoPromise<boolean, Error>;
+    setMuted(muted: boolean): VimeoPromise<boolean, Error>;
     getPaused(): VimeoPromise<boolean, Error>;
     getPlayed(): VimeoPromise<VimeoTimeRange[], Error>;
     getSeekable(): VimeoPromise<VimeoTimeRange[], Error>;

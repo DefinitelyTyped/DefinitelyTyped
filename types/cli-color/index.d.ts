@@ -1,73 +1,41 @@
-// Type definitions for cli-color 0.3.2
+// Type definitions for cli-color 2.0
 // Project: https://github.com/medikoo/cli-color
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
+//                 OpportunityLiu <https://github.com/OpportunityLiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare namespace m {
-    export interface Format {
-        (...text: any[]): string;
 
-        bold: Format;
-        italic: Format;
-        underline: Format;
-        blink: Format;
-        inverse: Format;
-        strike: Format;
+import art = require('./art');
+import bare = require('./bare');
+import beep = require('./beep');
+import columns = require('./columns');
+import erase = require('./erase');
+import move = require('./move');
+import getStrippedLength = require('./get-stripped-length');
+import slice = require('./slice');
+import strip = require('./strip');
+import throbber = require('./throbber');
+import reset = require('./reset');
+import windowSize = require('./window-size');
 
-        black: Format;
-        red: Format;
-        green: Format;
-        yellow: Format;
-        blue: Format;
-        magenta: Format;
-        cyan: Format;
-        white: Format;
+declare namespace clc {
+    export type Format = bare.Format;
+    export type ColumnOptions = columns.ColumnOptions;
+    export type ColumnsOptions = columns.ColumnsOptions;
+    export interface Color extends Format {
 
-        bgBlack: Format;
-        bgRed: Format;
-        bgGreen: Format;
-        bgYellow: Format;
-        bgBlue: Format;
-        bgMagenta: Format;
-        bgCyan: Format;
-        bgWhite: Format;
-
-        blackBright: Format;
-        redBright: Format;
-        greenBright: Format;
-        yellowBright: Format;
-        blueBright: Format;
-        magentaBright: Format;
-        cyanBright: Format;
-        whiteBright: Format;
-
-        bgBlackBright: Format;
-        bgRedBright: Format;
-        bgGreenBright: Format;
-        bgYellowBright: Format;
-        bgBlueBright: Format;
-        bgMagentaBright: Format;
-        bgCyanBright: Format;
-        bgWhiteBright: Format;
-
-        xterm(color: number): Format;
-        bgXterm(color: number): Format;
-
-        move(x: number, y: number): string;
-        moveTo(x: number, y: number): string;
-        bol(n?: number, erase?: boolean): string;
-        up(n: number): string;
-        down(n: number): string;
-        left(n: number): string;
-        right(n: number): string;
-
-        beep: string;
-        reset: string;
-
-        width: number;
-        height: number;
-        xtermSupported: boolean;
+        readonly windowSize: typeof windowSize;
+        readonly erase: typeof erase;
+        readonly move: typeof move;
+        readonly beep: typeof beep;
+        readonly columns: typeof columns;
+        readonly strip: typeof strip;
+        readonly getStrippedLength: typeof getStrippedLength;
+        readonly slice: typeof slice;
+        readonly throbber: typeof throbber;
+        readonly reset: typeof reset;
+        readonly art: typeof art;
     }
 }
 
-declare var m: m.Format;
-export = m;
+declare const clc: clc.Color;
+export = clc;

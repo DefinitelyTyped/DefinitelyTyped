@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": true,
+        "callable-types": true,
+        "no-redundant-jsdoc": true,
+        "prefer-method-signature": true
+    }
+}

@@ -346,7 +346,7 @@ interface AppendOptions {
     persist_to?: number;
 
     /**
-     * 	Ensures this operation is replicated to this many nodes.
+     *     Ensures this operation is replicated to this many nodes.
      */
     replicate_to?: number;
 }
@@ -366,7 +366,7 @@ interface UpsertOptions extends ReplaceOptions { }
 
 interface TouchOptions {
     /**
-     * 	Ensures this operation is persisted to this many nodes.
+     *     Ensures this operation is persisted to this many nodes.
      */
     persist_to?: number;
 
@@ -423,7 +423,7 @@ interface InsertOptions {
     persist_to?: number;
 
     /**
-     * 	Ensures this operation is replicated to this many nodes.
+     *     Ensures this operation is replicated to this many nodes.
      */
     replicate_to?: number;
 }
@@ -877,7 +877,7 @@ declare namespace N1qlQuery {
      */
     enum Consistency {
         /**
-         * 	This is the default (for single-statement requests).
+         *     This is the default (for single-statement requests).
          */
         NOT_BOUND,
 
@@ -927,7 +927,7 @@ declare class SpatialQuery {
     /**
      * Instantiates a SpatialQuery object for the specified design document and view name.
      * @param ddoc The design document to use.
-     * @param name 	The view to use.
+     * @param name     The view to use.
      */
     static from(ddoc: string, name: string): SpatialQuery;
 
@@ -985,7 +985,7 @@ declare namespace SpatialQuery {
         NONE,
 
         /**
-         * 	Forces the view to be indexed after the results of this query has been fetched.
+         *     Forces the view to be indexed after the results of this query has been fetched.
          */
         AFTER
     }

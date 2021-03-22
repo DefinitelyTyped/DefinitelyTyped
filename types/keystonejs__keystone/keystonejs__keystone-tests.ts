@@ -7,9 +7,26 @@ import { Text, Checkbox, Password, AutoIncrement, CalendarDay, Integer } from '@
 import { NextApp } from '@keystonejs/app-next';
 import { StaticApp } from '@keystonejs/app-static';
 
-const keystone = new Keystone({
-    name: 'LiveCorp Backend',
+const keystone: Keystone = new Keystone({
     adapter: new Adapter(),
+    appVersion: {
+        version: '1.0.0',
+        addVersionToHttpHeaders: true,
+        access: true,
+    },
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Default to true in production
+        maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
+        sameSite: false,
+    },
+    defaultAccess: {
+        list: true,
+        field: true,
+        custom: true
+    },
+    queryLimits: {
+        maxTotalResults: 1000,
+    },
 });
 
 keystone.createList('Test', {
@@ -51,6 +68,7 @@ keystone.createList('Test', {
         resolveInput: async ({ context }) => console.log(context),
     },
 });
+
 keystone.createList('Test', {
     fields: {
         name: {
@@ -64,6 +82,13 @@ keystone.createList('Test', {
         update: () => false,
         delete: () => false,
         auth: true,
+    },
+});
+
+keystone.createList('Todo', {
+    schemaDoc: 'A list of things which need to be done',
+    fields: {
+        name: { type: Text, schemaDoc: 'This is the thing you need to do' },
     },
 });
 

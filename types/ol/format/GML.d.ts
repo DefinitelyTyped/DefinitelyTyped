@@ -1,5 +1,5 @@
-import GML3 from './GML3';
+import { Options } from './GMLBase';
 
-declare const GML: GML3;
+declare const GML: (opt_options?: Options) => void;
 
 export default GML;

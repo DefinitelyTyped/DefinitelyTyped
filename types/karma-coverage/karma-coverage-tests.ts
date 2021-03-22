@@ -21,7 +21,14 @@ module.exports = function(config: karma.Config) {
     // optionally, configure the reporter
     coverageReporter: {
       type: 'html',
-      dir: 'coverage/'
+      dir: 'coverage/',
+      // $ExpectType (browser: string) => string
+      subdir: (browser) => {
+          // tslint:disable-next-line:no-unnecessary-type-assertion
+          return `cool-${browser}-directory` as string;
+      },
+      // $ExpectType string
+      file: 'index.html',
     }
   });
 };
@@ -72,6 +79,7 @@ module.exports = function(config: karma.Config) {
   config.set({
     coverageReporter: {
       dir: 'coverage',
+      // $ExpectType string
       subdir: '.'
       // Would output the results into: .'/coverage/'
     }

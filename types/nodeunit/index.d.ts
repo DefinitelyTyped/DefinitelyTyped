@@ -37,10 +37,10 @@ export interface Test {
 // Test Group Usage:
 //  var testGroup: nodeunit.ITestGroup = {
 //      setUp: (callback) => {
-// 	      callback();
+//           callback();
 //      },
 //      tearDown: (callback) => {
-// 	       callback();
+//            callback();
 //      },
 //      test1: (test: nodeunit.Test) => {
 //          test.done();

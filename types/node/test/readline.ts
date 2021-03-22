@@ -1,6 +1,6 @@
-import * as readline from 'readline';
-import * as stream from 'stream';
-import * as fs from 'fs';
+import * as readline from 'node:readline';
+import * as stream from 'node:stream';
+import * as fs from 'node:fs';
 
 const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
@@ -31,6 +31,10 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         completer(str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
             callback(null, [['test'], 'test']);
         }
+    });
+    result = readline.createInterface({
+        input,
+        tabSize: 4
     });
 }
 
@@ -197,4 +201,11 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         //
         // }
     });
+}
+
+{
+    const rl = readline.createInterface({
+        input: process.stdin,
+    });
+    const pos: readline.CursorPos = rl.getCursorPos();
 }

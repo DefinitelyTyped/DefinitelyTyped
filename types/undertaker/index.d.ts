@@ -5,8 +5,9 @@
 //                 Evan Yamanishi <https://github.com/sh0ji>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import * as Registry from "undertaker-registry";
-import { Duplex } from "stream";
+import { AsyncTask } from "async-done";
 import { EventEmitter } from "events";
 
 declare namespace Undertaker {
@@ -21,8 +22,12 @@ declare namespace Undertaker {
         [arg: string]: string;
     }
 
+    interface TaskCallback {
+        (error?: Error | null): void;
+    }
+
     interface TaskFunctionBase {
-        (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+        (done: TaskCallback): ReturnType<AsyncTask>;
     }
 
     interface TaskFunction extends TaskFunctionBase, TaskFunctionParams {}

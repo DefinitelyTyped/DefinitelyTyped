@@ -15,7 +15,7 @@ matchesUA(
     {
         browsers: ['defaults'],
         env: 'production',
-        ignorePath: true,
+        ignorePatch: true,
         ignoreMinor: false,
         allowHigherVersions: false
     }

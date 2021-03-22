@@ -10,7 +10,6 @@
 import * as passport from "passport";
 import * as express from "express";
 import * as oauth2 from "passport-oauth2";
-import { OutgoingHttpHeaders } from "http";
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,
@@ -42,7 +41,7 @@ export interface Profile extends passport.Profile {
     _json: any;
 }
 
-export type VerifyCallback = (err?: string | Error, user?: any, info?: any) => void;
+export type VerifyCallback = (err?: string | Error | null, user?: Express.User, info?: any) => void;
 
 export class Strategy extends oauth2.Strategy {
     constructor(
@@ -55,11 +54,32 @@ export class Strategy extends oauth2.Strategy {
         ) => void
     );
     constructor(
+        options: StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            params: GoogleCallbackParameters,
+            profile: Profile,
+            done: VerifyCallback
+        ) => void
+    );
+    constructor(
         options: StrategyOptionsWithRequest,
         verify: (
             req: express.Request,
             accessToken: string,
             refreshToken: string,
+            profile: Profile,
+            done: VerifyCallback
+        ) => void
+    );
+    constructor(
+        options: StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            params: GoogleCallbackParameters,
             profile: Profile,
             done: VerifyCallback
         ) => void
@@ -77,6 +97,15 @@ export interface AuthenticateOptionsGoogle extends passport.AuthenticateOptions 
     hd?: string;
     requestVisibleActions?: any;
     openIDRealm?: any;
+}
+
+export interface GoogleCallbackParameters {
+    access_token: string;
+    refresh_token?: string;
+    id_token?: string;
+    expires_in: number;
+    scope: string;
+    token_type: string;
 }
 
 // allow Google-specific options when using "google" strategy

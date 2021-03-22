@@ -1,8 +1,9 @@
-declare module "tls" {
-    import * as crypto from "crypto";
-    import * as dns from "dns";
-    import * as net from "net";
-    import * as stream from "stream";
+declare module 'node:tls' {
+    export * from 'tls';
+}
+
+declare module 'tls' {
+    import * as net from 'node:net';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
@@ -44,6 +45,7 @@ declare module "tls" {
         valid_from: string;
         valid_to: string;
         fingerprint: string;
+        fingerprint256: string;
         ext_key_usage: string[];
         serialNumber: string;
         raw: Buffer;
@@ -640,6 +642,17 @@ declare module "tls" {
          * shared between applications. Unused by clients.
          */
         sessionIdContext?: string;
+        /**
+         * 48-bytes of cryptographically strong pseudo-random data.
+         * See Session Resumption for more information.
+         */
+        ticketKeys?: Buffer;
+        /**
+         * The number of seconds after which a TLS session created by the
+         * server will no longer be resumable. See Session Resumption for more
+         * information. Default: 300.
+         */
+        sessionTimeout?: number;
     }
 
     interface SecureContext {
@@ -663,7 +676,7 @@ declare module "tls" {
      * @deprecated
      */
     function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
+    function createSecureContext(options?: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
     /**

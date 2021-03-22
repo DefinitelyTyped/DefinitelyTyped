@@ -1,19 +1,17 @@
 import * as React from "react";
-import { ReactInputAttr, RequiresIdProps } from "../../../typings/shared";
+import { ReactInputAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = "aria-labelledby" | "id" | "onChange" | "onKeyUp" | "type";
-interface InheritedProps extends
-    Omit<ReactInputAttr, ExcludedAttributes>,
-    RequiresIdProps
-{ }
+type ExcludedAttributes = "aria-labelledby" | "id" | "onChange" | "onKeyUp" | "size" | "type";
 
-export interface ToggleProps extends InheritedProps {
+export interface ToggleProps extends Omit<ReactInputAttr, ExcludedAttributes> {
     defaultToggled?: boolean,
+    id: string,
     labelA?: string, // required but has default value
     labelB?: string, // required but has default value
     labelText?: string,
     onChange?(event: React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>): void,
     onToggle?(checked: boolean, id: ToggleProps["id"], event: React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>): void,
+    size?: "sm",
     toggled?: boolean,
 }
 

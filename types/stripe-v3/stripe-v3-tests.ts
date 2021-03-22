@@ -11,6 +11,9 @@ const style = {
         fontWeight: 'bold',
         '::placeholder': {
             color: '#aab7c4'
+        },
+        '::selection': {
+            backgroundColor: '#aaccdd'
         }
     },
     invalid: {
@@ -24,6 +27,7 @@ describe("Stripe object", () => {
         const stripeWithBetaOption: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { betas: ['beta-feature'] }); // This looks deprecated
         const stripeWithLocale: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { locale: 'zh' });
         const stripeWithAccount: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { stripeAccount: 'acct_24BFMpJ1svR5A89k' });
+        const stripeWithApiVersion: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { apiVersion: '2020-08-27' });
     });
 });
 
@@ -129,11 +133,65 @@ describe("Stripe elements", () => {
         card.destroy();
     });
 
+    it("should create an iban source with a mandate", () => {
+        const options: stripe.SourceOptions = {
+            type: 'sepa_debit',
+            sepa_debit: {
+                iban: 'some iban',
+            },
+            owner: {
+                name: 'some holder',
+            },
+            mandate: {
+                notification_method: 'email',
+            },
+            currency: 'eur',
+        };
+
+        stripe.createSource(options);
+    });
+
     it("should create an iban element", () => {
-        elements.create('iban', {
+        const ibanElement = elements.create('iban', {
             supportedCountries: ['SEPA'],
             placeholderCountry: 'AT'
         });
+        stripe.createToken(ibanElement, {
+            country: 'US',
+            currency: 'USD',
+            routing_number: '110000000',
+            account_number: '110000000',
+            account_holder_name: 'Jane Austen',
+            account_holder_type: 'individual',
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
+
+        stripe.createToken('bank_account', {
+            country: 'US',
+            currency: 'USD',
+            routing_number: '110000000',
+            account_number: '110000000',
+            account_holder_name: 'Jane Austen',
+            account_holder_type: 'individual',
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
+    });
+
+    it("should create a token from IBAN with routing_number not set", () => {
+        stripe.createToken('bank_account', {
+            country: 'FR',
+            currency: 'eur',
+            account_number: 'FR1420041010050500013M02606',
+            account_holder_name: 'Jean Martin',
+            account_holder_type: 'individual',
+        }).then(
+            (result: stripe.TokenResponse) => console.log(result.token),
+            (error: stripe.Error) => console.error(error)
+        );
     });
 
     it("should create an idealBank element", () => {
@@ -194,6 +252,23 @@ describe("Stripe elements", () => {
         stripe.createPaymentMethod('card', card, {
             billing_details: {
                 name: 'Jenny Rosen',
+            },
+        }).then(result => {
+            if (result.error) {
+                console.error(result.error.param);
+            } else if (result.paymentMethod) {
+                console.log(result.paymentMethod.card && result.paymentMethod.card.brand);
+            }
+        });
+    });
+
+    it("should use payment method API with new format", () => {
+        const card = elements.create('card');
+        stripe.createPaymentMethod({
+            type: 'card',
+            card,
+            billing_details: {
+              name: 'Jenny Rosen',
             },
         }).then(result => {
             if (result.error) {
@@ -288,6 +363,7 @@ describe("Stripe elements", () => {
             .then(_result => {
                 // Handle result.error or result.paymentIntent
             });
+
         // stripe.confirmCardPayment(clientSecret,data?)
         stripe
             .confirmCardPayment(
@@ -305,11 +381,13 @@ describe("Stripe elements", () => {
                         },
                         name: 'Recipient name',
                     },
+                    setup_future_usage: 'off_session',
                 }
             )
             .then(_result => {
                 // Handle result.error or result.paymentIntent
             });
+
         // stripe.confirmCardPayment(clientSecret,data?,options?)
         stripe
             .confirmCardPayment(
@@ -321,6 +399,7 @@ describe("Stripe elements", () => {
                             name: 'Jenny Rosen',
                         },
                     },
+                    setup_future_usage: 'on_session',
                 },
                 {
                     handleActions: false,
@@ -426,6 +505,18 @@ describe("Stripe elements", () => {
                     },
                 }
             }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should retrieve setup intent", () => {
+        stripe.retrieveSetupIntent(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
         ).then(result => {
             if (result.error) {
                 console.error(result.error.message);

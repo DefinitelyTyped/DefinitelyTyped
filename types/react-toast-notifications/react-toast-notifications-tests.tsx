@@ -7,29 +7,125 @@ const CustomToast: React.FC<ToastProps> = ({ children, ...props }) => (
     </DefaultToast>
 );
 
+// ToastProvider Props
+
 const MyApp: React.FC = () => (
-    <ToastProvider>
-        <Main1 />
-        <Main2 />
+    <ToastProvider
+        autoDismiss
+        autoDismissTimeout={6000}
+        components={{ Toast: CustomToast }}
+        placement="bottom-center"
+        transitionDuration={2000}
+    >
+        <ToastConsumerTest />
+        <AddToast />
+        <RemoveAllToasts />
+        <RemoveAllToasts />
+        <ToastStack />
+        <UpdateToast />
     </ToastProvider>
 );
 
-const Main1: React.FC = () => (
+// ToastConsumer
+
+const ToastConsumerTest: React.FC = () => (
     <ToastConsumer>
         {context => (
             <div>
-                <button onClick={() => context.add('Toast')}>Add</button>
+                <button
+                    onClick={() =>
+                        context.add(
+                            'Toast',
+                            {
+                                appearance: 'info',
+                            },
+                            () => {},
+                        )
+                    }
+                >
+                    Add Toast
+                </button>
             </div>
         )}
     </ToastConsumer>
 );
 
-const Main2: React.FC = () => {
-    const { addToast, removeToast, toastStack } = useToasts();
+// Hooks
+
+const AddToast: React.FC = () => {
+    const { addToast } = useToasts();
 
     return (
         <div>
-            <button onClick={() => addToast('Toast')}>Add</button>
+            <button
+                onClick={() =>
+                    addToast(
+                        'Toast',
+                        {
+                            appearance: 'error',
+                            autoDismiss: true,
+                        },
+                        () => {},
+                    )
+                }
+            >
+                Add Toast
+            </button>
+        </div>
+    );
+};
+
+const RemoveAllToasts: React.FC = () => {
+    const { removeAllToasts } = useToasts();
+
+    return (
+        <div>
+            <button onClick={removeAllToasts}>Remove All Toasts</button>
+        </div>
+    );
+};
+
+const RemoveToast: React.FC = () => {
+    const { removeToast } = useToasts();
+
+    return (
+        <div>
+            <button onClick={() => removeToast('to-be-removed', () => {})}>Remove Toast</button>
+        </div>
+    );
+};
+
+const ToastStack: React.FC = () => {
+    const { removeAllToasts, toastStack } = useToasts();
+
+    const onSubmit = () => {
+        if (toastStack.length > 0) {
+            removeAllToasts();
+        }
+    };
+
+    return <form onSubmit={onSubmit}>Save Form</form>;
+};
+
+const UpdateToast: React.FC = () => {
+    const { updateToast } = useToasts();
+
+    return (
+        <div>
+            <button
+                onClick={() =>
+                    updateToast(
+                        'to-be-updated',
+                        {
+                            appearance: 'error',
+                            autoDismiss: true,
+                        },
+                        () => {},
+                    )
+                }
+            >
+                Update Toast
+            </button>
         </div>
     );
 };

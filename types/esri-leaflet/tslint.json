@@ -1,12 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // All are TODOs
-        "prefer-method-signature": false,
-        "max-line-length": false,
         "no-empty-interface": false,
-        "no-mergeable-namespace": false,
-        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false
     }
 }

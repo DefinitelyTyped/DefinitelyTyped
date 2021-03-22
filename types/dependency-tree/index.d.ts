@@ -1,6 +1,8 @@
-// Type definitions for dependency-tree 6.1
+// Type definitions for dependency-tree 8.0
 // Project: https://github.com/mrjoelkemp/node-dependency-tree
 // Definitions by: Joscha Feth <https://github.com/joscha>
+//                 Alex <https://github.com/adjerbetian>
+//                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dependencyTree {
@@ -13,6 +15,7 @@ declare namespace dependencyTree {
         directory?: string;
         requireConfig?: string;
         webpackConfig?: string;
+        tsConfig?: string | Record<string, any>;
         nodeModulesConfig?: any;
         detective?: any;
         visited?: DependencyObj;

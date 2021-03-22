@@ -10,8 +10,15 @@
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
  */
-declare module "inspector" {
-    import { EventEmitter } from 'events';
+declare module 'node:inspector' {
+    export * from 'inspector';
+}
+
+/**
+ * The inspector module provides an API for interacting with the V8 inspector.
+ */
+declare module 'inspector' {
+    import EventEmitter = require('node:events');
 
     interface InspectorNotification<T> {
         method: string;
@@ -3031,4 +3038,11 @@ declare module "inspector" {
      * Return the URL of the active inspector, or `undefined` if there is none.
      */
     function url(): string | undefined;
+
+    /**
+     * Blocks until a client (existing or connected later) has sent
+     * `Runtime.runIfWaitingForDebugger` command.
+     * An exception will be thrown if there is no active inspector.
+     */
+    function waitForDebugger(): void;
 }

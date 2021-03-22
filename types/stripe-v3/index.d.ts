@@ -12,6 +12,11 @@
 //                 Kim Ehrenpohl <https://github.com/kimehrenpohl>
 //                 Krishna Pravin <https://github.com/KrishnaPravin>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
+//                 Austin Turner <https://github.com/paustint>
+//                 Kevin Soltysiak <https://github.com/ksol>
+//                 Kohei Matsubara <https://github.com/matsuby>
+//                 Marko Kaznovac <https://github.com/kaznovac>
+//                 Hartley Robertson <https://github.com/hartleyrobertson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -24,7 +29,7 @@ declare namespace stripe {
 
     interface Stripe {
         elements(options?: elements.ElementsCreateOptions): elements.Elements;
-        createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
+        createToken(element: elements.Element, options?: TokenOptions | BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'bank_account', options: BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'pii', options: PiiTokenOptions): Promise<TokenResponse>;
         createSource(element: elements.Element, options?: { owner?: OwnerInfo }): Promise<SourceResponse>;
@@ -40,6 +45,9 @@ declare namespace stripe {
             type: paymentMethod.paymentMethodType,
             element: elements.Element,
             options?: CreatePaymentMethodOptions,
+        ): Promise<PaymentMethodResponse>;
+        createPaymentMethod(
+            data: PaymentMethodData
         ): Promise<PaymentMethodResponse>;
         retrievePaymentIntent(
             clientSecret: string,
@@ -88,6 +96,9 @@ declare namespace stripe {
             data?: ConfirmCardSetupData,
             options?: ConfirmCardSetupOptions,
         ): Promise<SetupIntentResponse>;
+        retrieveSetupIntent(
+            clientSecret: string,
+        ): Promise<SetupIntentResponse>;
         confirmSepaDebitSetup(
             clientSecret: string,
             data?: ConfirmSepaDebitSetupData,
@@ -132,6 +143,7 @@ declare namespace stripe {
 
     interface StripeOptions {
         stripeAccount?: string;
+        apiVersion?: string;
         betas?: string[];
         locale?: string;
     }
@@ -148,12 +160,30 @@ declare namespace stripe {
     }
 
     interface BankAccountTokenOptions {
+        /**
+         * Two character country code (e.g., US).
+         */
         country: string;
+        /**
+         * Three character currency code (e.g., usd).
+         */
         currency: string;
-        routing_number: string;
+        /**
+         * The bank routing number (e.g., 111000025). Optional if the currency is eur, as the account number is an IBAN.
+         */
+        routing_number?: string;
+        /**
+         * The bank account number (e.g., 000123456789).
+         */
         account_number: string;
+        /**
+         * The name of the account holder.
+         */
         account_holder_name: string;
-        account_holder_type: string;
+        /**
+         * The type of entity that holds the account. Can be either individual or company.
+         */
+        account_holder_type: 'individual' | 'company';
     }
 
     interface PiiTokenOptions {
@@ -176,6 +206,34 @@ declare namespace stripe {
         phone?: string;
     }
 
+    interface OfflineAcceptanceMandate {
+        contact_email: string;
+    }
+
+    interface OnlineAcceptanceMandate {
+        date: number;
+        ip: string;
+        user_agent: string;
+    }
+
+    interface SourceMandateAcceptance {
+        date: number;
+        status: 'accepted' | 'refused';
+        ip?: string;
+        offline?: OfflineAcceptanceMandate;
+        online?: OnlineAcceptanceMandate;
+        type?: 'online'| 'offline';
+        user_agent?: string;
+    }
+
+    interface SourceMandate {
+        acceptance?: SourceMandateAcceptance;
+        amount?: number;
+        currency?: string;
+        interval?: 'one_time' | 'scheduled' | 'variable';
+        notification_method?: 'email' | 'manual' | 'none';
+    }
+
     interface SourceOptions {
         type: string;
         flow?: 'redirect' | 'receiver' | 'code_verification' | 'none';
@@ -185,6 +243,7 @@ declare namespace stripe {
         currency?: string;
         amount?: number;
         owner?: OwnerInfo;
+        mandate?: SourceMandate;
         metadata?: {};
         statement_descriptor?: string;
         redirect?: {
@@ -262,7 +321,8 @@ declare namespace stripe {
         | 'card_error'
         | 'idempotency_error'
         | 'invalid_request_error'
-        | 'rate_limit_error';
+        | 'rate_limit_error'
+        | 'validation_error';
 
     interface Error {
         /**
@@ -458,6 +518,19 @@ declare namespace stripe {
         metadata?: Metadata;
     }
 
+    interface PaymentMethodData {
+        /**
+         * Billing information associated with the PaymentMethod
+         * that may be used or required by particular types of
+         * payment methods.
+         */
+        type: string;
+        card?: elements.Element;
+        ideal?: elements.Element | { bank: string };
+        sepa_debit?: elements.Element | { iban: string };
+        billing_details?: BillingDetails;
+    }
+
     interface HandleCardPaymentOptions {
         /**
          * Use this parameter to supply additional data relevant to
@@ -567,7 +640,7 @@ declare namespace stripe {
         /**
          * Indicates that you intend to make future payments with this PaymentIntent's payment method.
          */
-        setup_future_usage?: boolean;
+        setup_future_usage?: "on_session" | "off_session";
     }
     interface ConfirmCardPaymentOptions {
         /*
@@ -904,6 +977,7 @@ declare namespace stripe {
             };
             hidePostalCode?: boolean;
             hideIcon?: boolean;
+            showIcon?: boolean;
             iconStyle?: 'solid' | 'default';
             placeholder?: string;
             placeholderCountry?: string;
@@ -942,6 +1016,7 @@ declare namespace stripe {
 
         interface StyleOptions {
             color?: string;
+            backgroundColor?: string;
             fontFamily?: string;
             fontSize?: string;
             fontSmoothing?: string;

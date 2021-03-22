@@ -1,59 +1,74 @@
-// Type definitions for browser-resolve
+// Type definitions for browser-resolve 2.0
 // Project: https://github.com/defunctzombie/node-browser-resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="resolve" />
-
-import * as resolve from 'resolve';
+import * as resv from 'resolve';
 
 /**
- * Callback invoked when resolving asynchronously
- *
- * @param error
- * @param resolved Absolute path to resolved identifier
- */
-type resolveCallback = (err?: Error, resolved?: string) => void;
-
-/**
- * Resolve a module path and call cb(err, path [, pkg])
+ * Resolve a module path and call cb(err, path)
  *
  * @param id Identifier to resolve
  * @param callback
  */
-declare function browserResolve(id: string, cb: resolveCallback): void;
+declare function resolve(id: string, cb: resolve.Callback): void;
 
 /**
- * Resolve a module path and call cb(err, path [, pkg])
+ * Resolve a module path and call cb(err, path)
  *
  * @param id Identifier to resolve
  * @param options Options to use for resolving, optional.
  * @param callback
  */
-declare function browserResolve(id: string, opts: browserResolve.AsyncOpts, cb: resolveCallback): void;
+declare function resolve(id: string, opts: resolve.AsyncOpts, cb: resolve.Callback): void;
 
-/**
- * Returns a module path
- *
- * @param id Identifier to resolve
- * @param options Options to use for resolving, optional.
- */
-declare function browserResolveSync(id: string, opts?: browserResolve.SyncOpts): string;
+declare namespace resolve {
+    interface Opts {
+        /**
+         * directory to begin resolving from
+         */
+        basedir?: string;
+        /**
+         * the 'browser' property to use from package.json
+         * @default 'browser'
+         */
+        browser?: string;
+        /**
+         * the calling filename where the require() call originated (in the source)
+         */
+        filename?: string;
+        /**
+         * modules object with id to path mappings to consult before doing manual resolution
+         * (use to provide core modules)
+         */
+        modules?: { [id: string]: string };
+        /**
+         * transform the parsed package.json contents before looking at the main field
+         */
+        packageFilter?: (info: any, pkgdir: string) => any;
+        /**
+         * require.paths array to use if nothing is found on the normal node_modules recursive walk
+         */
+        paths?: string[];
+    }
 
-declare namespace browserResolve {
-  interface Opts {
-    // the 'browser' property to use from package.json (defaults to 'browser')
-    browser?: string;
-    // the calling filename where the require() call originated (in the source)
-    filename?: string;
-    // modules object with id to path mappings to consult before doing manual resolution (use to provide core modules)
-    modules?: any;
-  }
+    type AsyncOpts = resv.AsyncOpts & Opts;
+    type SyncOpts = resv.SyncOpts & Opts;
 
-  export interface AsyncOpts extends resolve.AsyncOpts, Opts { }
-  export interface SyncOpts extends resolve.SyncOpts, Opts { }
+    /**
+     * Callback invoked when resolving asynchronously
+     * @param error
+     * @param resolved Absolute path to resolved identifier
+     */
+    type Callback = (err: Error | null, resolved?: string) => void;
 
-  export var sync: typeof browserResolveSync;
+    /**
+     * Returns a module path
+     * @param id Identifier to resolve
+     * @param options Options to use for resolving.
+     */
+    function sync(id: string, opts?: SyncOpts): string;
 }
 
-export = browserResolve;
+export = resolve;

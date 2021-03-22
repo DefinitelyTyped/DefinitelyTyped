@@ -529,7 +529,7 @@ declare var Media: {
 interface PhonegapNotification {
     alert(message: string, alertCallback: Function, title?: string, buttonName?: string): void;
     confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string): void;
-	confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string[]): void;
+    confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string[]): void;
     beep(times: number): void;
     vibrate(milliseconds: number): void;
 }

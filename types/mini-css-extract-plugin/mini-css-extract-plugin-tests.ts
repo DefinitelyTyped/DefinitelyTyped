@@ -3,6 +3,14 @@ import MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let configuration: webpack.Configuration;
 
+const loaderOptions: MiniCssExtractPlugin.LoaderOptions = {
+    publicPath: '/',
+    esModule: true,
+    modules: {
+        namedExport: true,
+    }
+};
+
 configuration = {
     // The standard entry point and output config
     entry: {
@@ -25,20 +33,14 @@ configuration = {
                 test: /\.css$/,
                 use: {
                     loader: MiniCssExtractPlugin.loader,
-                    options: {
-                        publicPath: '/',
-                    },
+                    options: loaderOptions,
                 },
             },
             // Optionally extract less files
             // or any other compile-to-css language
             {
                 test: /\.less$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'style-loader',
-                ],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'style-loader'],
             },
             // You could also use other loaders the same way. I. e. the autoprefixer-loader
         ],
@@ -53,14 +55,14 @@ configuration = {
 
 configuration = {
     // ...
-    plugins: [new MiniCssExtractPlugin()],
+    plugins: [new MiniCssExtractPlugin(), new MiniCssExtractPlugin({})],
 };
 
 configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
+            filename: ({ chunk }) => `${chunk.name.replace('/js/', '/css/')}.css`,
             chunkFilename: 'style.css',
         }),
     ],
@@ -76,3 +78,26 @@ configuration = {
         }),
     ],
 };
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: configuration.output!.filename,
+        }),
+    ],
+};
+
+configuration = {
+    // `linkType`
+    plugins: [
+        new MiniCssExtractPlugin({
+            linkType: 'text/css',
+        }),
+        new MiniCssExtractPlugin({
+            linkType: false,
+        }),
+    ],
+};
+
+new MiniCssExtractPlugin().apply(new webpack.Compiler());

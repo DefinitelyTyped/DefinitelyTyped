@@ -234,7 +234,7 @@ export interface JSEvalable<A = any> {
     evaluate<T extends EvaluateFn<A>>(
       pageFunction: T,
       ...args: SerializableOrJSHandle[],
-    ): Promise<EvaluateFnReturnType<T>>;
+    ): Promise<EvaluateFnReturnType<T> extends PromiseLike<infer U> ? U : EvaluateFnReturnType<T>>;
     /**
      * The only difference between `evaluate` and `evaluateHandle` is that `evaluateHandle` returns in-page object (`JSHandle`).
      * If the function, passed to the `evaluateHandle`, returns a `Promise`, then `evaluateHandle` would wait for the
@@ -335,7 +335,7 @@ export interface Tracing {
 }
 
 export interface TracingStartOptions {
-  path: string;
+  path?: string;
   screenshots?: boolean;
   categories?: string[];
 }
@@ -2219,6 +2219,8 @@ export interface FetcherOptions {
   path?: string;
   /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
   platform?: Platform;
+  /** Possible values are `firefox` and `chrome`. Defaults to chrome. */
+  product?: 'chrome' | 'firefox';
 }
 
 /** Attaches Puppeteer to an existing Chromium instance */

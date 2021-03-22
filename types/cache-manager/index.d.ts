@@ -1,7 +1,8 @@
-// Type definitions for cache-manager v2.10.0
+// Type definitions for cache-manager v3.4.0
 // Project: https://github.com/BryanDonovan/node-cache-manager
-// Definitions by: Simon Gausmann <https://github.com/GausSim>
-//                 Dominik Einkemmer <https://github.com/dominikeinkemmer>
+// Definitions by: Dominik Einkemmer <https://github.com/dominikeinkemmer>
+//                 Eduard Marbach <https://github.com/BlackDark>
+//                 Bryan Donovan <https://github.com/BryanDonovan>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -52,11 +53,12 @@ export type CallbackFunc<T> = (error: any, result: T) => void;
 export type WrapArgsType<T> = string | ((callback: CallbackFunc<T>) => void) | CachingConfig | CallbackFunc<T>;
 
 export interface Cache {
-    set<T>(key: string, value: T, options: CachingConfig): Promise<any>;
-    set<T>(key: string, value: T, ttl: number): Promise<any>;
+    set<T>(key: string, value: T, options?: CachingConfig): Promise<T>;
+    set<T>(key: string, value: T, ttl: number): Promise<T>;
     set<T>(key: string, value: T, options: CachingConfig, callback: (error: any) => void): void;
     set<T>(key: string, value: T, ttl: number, callback: (error: any) => void): void;
-    
+
+    // 2021-01-14: This could be updated with TypeScript 4.2 https://devblogs.microsoft.com/typescript/announcing-typescript-4-2-beta/#leading-middle-rest-elements-in-tuple-types
     // Because the library accepts multiple keys as arguments but not as an array and rather as individual parameters
     // of the function, the type definition had to be changed to this rather than specific ones
     // actual definitions would looks like this (impossible in typescript):
@@ -64,14 +66,44 @@ export interface Cache {
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void): Promise<any>;
-    wrap<T>(...args: WrapArgsType<T>[]): Promise<any>;
+    wrap<T>(...args: WrapArgsType<T>[]): Promise<T>;
 
-    get<T>(key: string, callback: (error: any, result: T) => void): void;
-    get<T>(key: string): Promise<any>;
+    get<T>(key: string, callback: (error: any, result: T | undefined) => void): void;
+    get<T>(key: string): Promise<T | undefined>;
 
     del(key: string, callback: (error: any) => void): void;
     del(key: string): Promise<any>;
+
+    reset(): Promise<void>;
+    reset(cb: () => void): void;
+
+    store: Store;
+}
+
+export interface MultiCache {
+    set<T>(key: string, value: T, options?: CachingConfig): Promise<T>;
+    set<T>(key: string, value: T, ttl: number): Promise<T>;
+    set<T>(key: string, value: T, options: CachingConfig, callback: (error: any) => void): void;
+    set<T>(key: string, value: T, ttl: number, callback: (error: any) => void): void;
+
+    // 2021-01-14: This could be updated with TypeScript 4.2 https://devblogs.microsoft.com/typescript/announcing-typescript-4-2-beta/#leading-middle-rest-elements-in-tuple-types
+    // Because the library accepts multiple keys as arguments but not as an array and rather as individual parameters
+    // of the function, the type definition had to be changed to this rather than specific ones
+    // actual definitions would looks like this (impossible in typescript):
+    // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig, callback: (error: any, result: T) => void): void
+    // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void
+    // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig): void
+    // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void): Promise<any>;
+    wrap<T>(...args: WrapArgsType<T>[]): Promise<T>;
+
+    get<T>(key: string, callback: (error: any, result: T | undefined) => void): void;
+    get<T>(key: string): Promise<T | undefined>;
+
+    del(key: string, callback: (error: any) => void): void;
+    del(key: string): Promise<any>;
+
+    reset(cb: () => void): void;
 }
 
 export function caching(IConfig: StoreConfig & CacheOptions): Cache;
-export function multiCaching(Caches: Cache[], options?: CacheOptions): Cache;
+export function multiCaching(Caches: Cache[], options?: CacheOptions): MultiCache;

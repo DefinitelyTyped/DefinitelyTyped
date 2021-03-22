@@ -1,5 +1,5 @@
 // Type definitions for generic-functions
-// Project: https://github.com/stpettersens/generic-functions
+// Project: https://github.com/stpettersens/genericFunctions-for-node#readme
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/definitelytyped/DefinitelyTyped
 

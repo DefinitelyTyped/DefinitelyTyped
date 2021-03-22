@@ -6,13 +6,17 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
+        "paths": {
+            "mime": ["mime/v1"],
+            "mime/*": ["mime/v1/*"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

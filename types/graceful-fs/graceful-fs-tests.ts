@@ -5,7 +5,7 @@ import * as fse from 'fs-extra';
 import { promisify } from 'util';
 
 const str = '';
-const buf = new Buffer('');
+const buf = Buffer.from('');
 
 // verify that interfaces & types are correctly re-exported
 const watcher: gfs.FSWatcher | null = null;
@@ -21,7 +21,6 @@ promisify(gracefulified.lutimes); // $ExpectType (path: PathLike, atime: string 
 const fseGrace = gfs.gracefulify(fse);
 fseGrace.lutimes; // $ExpectType typeof lutimes
 
-fs.lutimes(buf, str, str);
 fs.lutimes(buf, str, str, err => {
     err; // $ExpectType ErrnoException | null
 });

@@ -1,22 +1,29 @@
 import {
+    VERSION,
     DateTime,
     Duration,
-    Interval,
-    Info,
-    Settings,
-    InvalidZone,
-    LocalZone,
     FixedOffsetZone,
     IANAZone,
+    Info,
+    Interval,
+    Settings,
     Zone,
-    ZoneOffsetOptions,
     ZoneOffsetFormat,
+    ZoneOffsetOptions,
 } from 'luxon';
 
+/* VERSION */
+VERSION; // $ExpectType string
+
 /* DateTime */
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
-const now = DateTime.local();
+const now = DateTime.now();
 
 const fromObject = DateTime.fromObject({
     month: 4,
@@ -46,7 +53,7 @@ const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
 
-FixedOffsetZone.utcInstance;
+FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier('UTC+6');
@@ -71,9 +78,11 @@ getters.isInLeapYear;
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
 dt.toISO(); // $ExpectType string
-dt.toISO({ includeOffset: true }); // $ExpectType string
+dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
 dt.toISODate(); // $ExpectType string
+dt.toISODate({ format: 'basic'}); // $ExpectType string
 dt.toISOTime(); // $ExpectType string
+dt.toISOTime({ format: 'basic' }); // $ExpectType string
 dt.toISOWeekDate(); // $ExpectType string
 dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
@@ -126,7 +135,7 @@ dt.isInDST; // $ExpectType boolean
 
 dt.set({ hour: 3 }).hour; // $ExpectType number
 
-const f = { month: 'long', day: 'numeric' };
+const f: { month: 'long', day: 'numeric' } = { month: 'long', day: 'numeric' };
 dt.setLocale('fr').toLocaleString(f);
 dt.setLocale('en-GB').toLocaleString(f);
 dt.setLocale('en-US').toLocaleString(f);
@@ -159,7 +168,9 @@ dur.seconds; // $ExpectType number
 dur.as('seconds'); // $ExpectType number
 dur.toObject();
 dur.toISO(); // $ExpectType string
+dur.toISOTime(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
+dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => u === 'hours' ? x * 2 : x); // $ExpectType Duration
 
 if (Duration.isDuration(anything)) {
@@ -189,14 +200,13 @@ if (Interval.isInterval(anything)) {
 
 /* Info */
 Info.months();
-// $ExpectError
-Info.months('2-digit', { outputCalendar: 'unknown' });
 Info.weekdays('long');
 // $ExpectError
 Info.weekdays('2-digit');
 Info.features().intl;
 Info.features().intlTokens;
 Info.features().zones;
+Info.features().relative;
 
 /* Settings */
 Settings.defaultLocale;
@@ -224,10 +234,12 @@ Settings.defaultLocale = 'fr';
 DateTime.local().locale; // $ExpectType string
 
 Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
+DateTime.local().resolvedLocaleOpts({ locale: 'de' });
 
 dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
 dt.toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }); // $ExpectType string
 dt.setLocale('fr').toFormat('MMMM dd, yyyy GG'); // $ExpectType string
+dt.toFormat('MMMM dd, yyyy GG', { locale: 'de' });
 
 DateTime.fromFormat('septembre 25, 2017 après Jésus-Christ', 'MMMM dd, yyyy GG', { locale: 'fr' });
 
@@ -288,6 +300,8 @@ DateTime.fromFormat('May 25 1982', 'LLLL dd yyyy'); // $ExpectType DateTime
 DateTime.fromFormat('mai 25 1982', 'LLLL dd yyyy', { locale: 'fr' }); // $ExpectType DateTime
 
 DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d yyyy').regex;
+DateTime.invalid('Timestamp out of range');
+DateTime.invalid('mismatched weekday', "you can't specify both a weekday and a date");
 
 /* Math */
 const d1: DateTime = DateTime.local(2017, 2, 13).plus({ days: 30 });
@@ -326,6 +340,8 @@ dur.shiftTo('week', 'hours').toObject().weeks; // $ExpectType number | undefined
 DateTime.local().plus(dur.shiftTo('milliseconds')).year; // $ExpectType number
 
 Duration.fromISO('PY23', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
+Duration.fromISOTime('21:37.000', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
+
 end.diff(start, 'hours', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
 end.diff(start, ['months', 'days', 'hours']); // $ExpectType Duration
 dur.reconfigure({ conversionAccuracy: 'longterm' }); // $ExpectType Duration

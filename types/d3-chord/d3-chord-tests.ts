@@ -42,6 +42,8 @@ let numAccessor: (this: SVGPathElement, d: d3Chord.ChordSubgroup, ...args: any[]
 
 let chordLayout: d3Chord.ChordLayout;
 chordLayout = d3Chord.chord();
+chordLayout = d3Chord.chordDirected();
+chordLayout = d3Chord.chordTranspose();
 
 // Configure ChordLayout generator =====================================
 
@@ -139,19 +141,43 @@ subgroupAccessor = svgRibbon.target();
 canvasRibbon = canvasRibbon.radius(30);
 
 svgRibbon = svgRibbon.radius(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     console.log('Subgroup startAngle', d.startAngle); // datum is of type Chord
     return 30;
 });
 
 numAccessor = svgRibbon.radius();
 
+// sourceRadius() -----------------------------------------------------------
+
+canvasRibbon = canvasRibbon.sourceRadius(30);
+
+svgRibbon = svgRibbon.sourceRadius(function(d) {
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
+    console.log('Subgroup startAngle', d.startAngle); // datum is of type Chord
+    return 30;
+});
+
+numAccessor = svgRibbon.sourceRadius();
+
+// targetRadius() -----------------------------------------------------------
+
+canvasRibbon = canvasRibbon.targetRadius(30);
+
+svgRibbon = svgRibbon.targetRadius(function(d) {
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
+    console.log('Subgroup startAngle', d.startAngle); // datum is of type Chord
+    return 30;
+});
+
+numAccessor = svgRibbon.targetRadius();
+
 // startAngle() ---------------------------------------------------------
 
 canvasRibbon = canvasRibbon.startAngle(0);
 
 svgRibbon = svgRibbon.startAngle(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     return d.startAngle; // datum is of type ChordSubgroup
 });
 
@@ -162,11 +188,22 @@ numAccessor = svgRibbon.startAngle();
 canvasRibbon = canvasRibbon.endAngle(Math.PI);
 
 svgRibbon = svgRibbon.endAngle(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     return d.endAngle; // datum is of type ChordSubgroup
 });
 
 numAccessor = svgRibbon.endAngle();
+
+// padAngle() -----------------------------------------------------------
+
+canvasRibbon = canvasRibbon.padAngle(Math.PI);
+
+svgRibbon = svgRibbon.padAngle(function(d) {
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
+    return d.endAngle; // datum is of type ChordSubgroup
+});
+
+numAccessor = svgRibbon.padAngle();
 
 // Use RibbonGenerator =================================================
 

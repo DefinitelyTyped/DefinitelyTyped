@@ -73,7 +73,7 @@ imaps.connect(config).then(function (connection) {
             }));
         });
 
-        return Promise.all<{filename: string, data: any}>(attachments);
+        return Promise.all(attachments);
     }).then(function (attachments: {filename: string, data: any}[]) {
         console.log(attachments);
         // =>
@@ -99,3 +99,58 @@ imaps.connect({
     })
 });
 
+imaps.connect(config).then(connection => {
+    return connection.openBox('INBOX')
+        .then(() => connection.search(['ALL'], {bodies: ['HEADER']}))
+        .then(messages => {
+            // select messages from bob
+            const uidsToDelete = messages
+                .filter(message => {
+                    return message.parts
+                    .filter(part => part.which === 'HEADER')[0].body.to[0] === 'bob@example.com';
+                })
+                .map(message => message.attributes.uid);
+            return connection.deleteMessage(uidsToDelete);
+        });
+});
+
+
+imaps.connect(config).then(function (connection) {
+    connection.openBox('INBOX').then(function () {
+        const searchCriteria = ['ALL'];
+        const fetchOptions = { bodies: ['TEXT'], struct: true };
+        return connection.search(searchCriteria, fetchOptions);
+    //Loop over each message
+    }).then(function (messages) {
+        let taskList = messages.map(function (message) {
+            return new Promise((res, rej) => {
+                const parts = imaps.getParts(message.attributes.struct);
+                parts.map(function (part) {
+                    return connection.getPartData(message, part)
+                    .then(function (partData) {
+                        //Display e-mail body
+                        if (part.disposition === null && part.encoding !== "base64") {
+                            console.log(partData);
+                        }
+                        //Mark message for deletion
+                        connection.addFlags(message.attributes.uid, "\Deleted", (err) => {
+                            if (err) {
+                                console.log('Problem marking message for deletion');
+                                rej(err);
+                            }
+                            res(message.attributes.uid); //Final resolve
+                        })
+                    });
+                });
+            });
+        })
+        return Promise.all(taskList).then(() => {
+            connection.closeBox(true, (err) => { //Pass in false to avoid delete-flagged messages being removed
+                if (err) {
+                    console.log(err);
+                }
+            });
+            connection.end();
+        });
+    });
+});

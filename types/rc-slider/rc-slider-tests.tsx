@@ -43,6 +43,7 @@ ReactDOM.render(
         onBlur={onBlurFunc}
         onAfterChange={onChangeFunc1}
         defaultValue={0.1}
+        startPoint={0}
         value={0.1}
         style={{backgroundColor: 'plum'}}
         dotStyle={{backgroundColor: 'antiquewhite'}}

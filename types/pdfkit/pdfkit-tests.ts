@@ -12,6 +12,8 @@ import pdfData = require('pdfkit/js/data');
 import text = require('pdfkit/js/mixins/text');
 
 font.registerFont('Arial');
+font.registerFont('CustomFont', 'path/to/font.ttf');
+font.registerFont('CustomFontWithBuffer', Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]));
 text.widthOfString('Kila', { ellipsis: true });
 
 var doc = new PDFDocument({
@@ -201,6 +203,21 @@ doc.image('path/to/image.png', {
     destination: 'lorem',
 });
 
+
+// AcroForm
+doc.initForm();
+
+doc.endAcroForm();
+
+doc.formField('ZipCode1', { V: 'some-value' });
+
+doc.formAnnotation('ZipCode1', 'text', 0, 0, 10, 10, { V: 'some-value' });
+doc.formText('ZipCode1', 0, 0, 10, 10);
+doc.formPushButton('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formCombo('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formList('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formRadioButton('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
+doc.formCheckbox('ZipCode1', 0, 0, 10, 10, { V: 'some-value' });
 
 // Subclassing
 class SubPDFDocument extends PDFDocument {

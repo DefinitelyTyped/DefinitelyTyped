@@ -4,7 +4,7 @@
 //                  Jason Killian <https://github.com/jkillian>
 //                  Ronald Rey <https://github.com/reyronald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export as namespace fuzzaldrin
 
@@ -22,8 +22,8 @@ export interface IOptions {
     preparedQuery?: Query
 }
 
-export type IFilterOptions = IOptions & {
-    key?: string
+export type IFilterOptions<T> = IOptions & {
+    key?: T extends string ? never : keyof T
     maxResults?: number
     maxInners?: number
 }
@@ -31,7 +31,7 @@ export type IFilterOptions = IOptions & {
 export function filter<T>(
     data: T[],
     query: string,
-    options?: IFilterOptions
+    options?: IFilterOptions<T>
 ): T[]
 export function score(str: string, query: string, options?: IOptions): number
 export function match(str: string, query: string, options?: IOptions): number[]

@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 import NoticeList from '../../notice/list';
 

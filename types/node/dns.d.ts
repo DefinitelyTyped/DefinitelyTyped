@@ -1,7 +1,16 @@
-declare module "dns" {
+declare module 'node:dns' {
+    export * from 'dns';
+}
+
+declare module 'dns' {
     // Supported getaddrinfo flags.
     const ADDRCONFIG: number;
     const V4MAPPED: number;
+    /**
+     * If `dns.V4MAPPED` is specified, return resolved IPv6 addresses as
+     * well as IPv4 mapped IPv6 addresses.
+     */
+    const ALL: number;
 
     interface LookupOptions {
         family?: number;
@@ -55,7 +64,7 @@ declare module "dns" {
         ttl: number;
     }
 
-    /** @deprecated Use AnyARecord or AnyAaaaRecord instead. */
+    /** @deprecated Use `AnyARecord` or `AnyAaaaRecord` instead. */
     type AnyRecordWithTtl = AnyARecord | AnyAaaaRecord;
 
     interface AnyARecord extends RecordWithTtl {
@@ -271,9 +280,14 @@ declare module "dns" {
     const ADDRGETNETWORKPARAMS: string;
     const CANCELLED: string;
 
+    interface ResolverOptions {
+        timeout?: number;
+    }
+
     class Resolver {
+        constructor(options?: ResolverOptions);
+        cancel(): void;
         getServers: typeof getServers;
-        setServers: typeof setServers;
         resolve: typeof resolve;
         resolve4: typeof resolve4;
         resolve6: typeof resolve6;
@@ -287,7 +301,8 @@ declare module "dns" {
         resolveSrv: typeof resolveSrv;
         resolveTxt: typeof resolveTxt;
         reverse: typeof reverse;
-        cancel(): void;
+        setLocalAddress(ipv4?: string, ipv6?: string): void;
+        setServers: typeof setServers;
     }
 
     namespace promises {
@@ -346,6 +361,8 @@ declare module "dns" {
         function setServers(servers: ReadonlyArray<string>): void;
 
         class Resolver {
+            constructor(options?: ResolverOptions);
+            cancel(): void;
             getServers: typeof getServers;
             resolve: typeof resolve;
             resolve4: typeof resolve4;
@@ -360,6 +377,7 @@ declare module "dns" {
             resolveSrv: typeof resolveSrv;
             resolveTxt: typeof resolveTxt;
             reverse: typeof reverse;
+            setLocalAddress(ipv4?: string, ipv6?: string): void;
             setServers: typeof setServers;
         }
     }
