@@ -31,37 +31,37 @@ declare namespace e {
      * This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
      * @since 4.16.0
      */
-    var json: typeof bodyParser.json;
+    let json: typeof bodyParser.json;
 
     /**
      * This is a built-in middleware function in Express. It parses incoming requests with Buffer payloads and is based on body-parser.
      * @since 4.17.0
      */
-    var raw: typeof bodyParser.raw;
+    let raw: typeof bodyParser.raw;
 
     /**
      * This is a built-in middleware function in Express. It parses incoming requests with text payloads and is based on body-parser.
      * @since 4.17.0
      */
-    var text: typeof bodyParser.text;
+    let text: typeof bodyParser.text;
 
     /**
      * These are the exposed prototypes.
      */
-    var application: Application;
-    var request: Request;
-    var response: Response;
+    let application: Application;
+    let request: Request;
+    let response: Response;
 
     /**
      * This is a built-in middleware function in Express. It serves static files and is based on serve-static.
      */
-    var static: serveStatic.RequestHandlerConstructor<Response>;
+    let static: serveStatic.RequestHandlerConstructor<Response>;
 
     /**
      * This is a built-in middleware function in Express. It parses incoming requests with urlencoded payloads and is based on body-parser.
      * @since 4.16.0
      */
-    var urlencoded: typeof bodyParser.urlencoded;
+    let urlencoded: typeof bodyParser.urlencoded;
 
     /**
      * This is a built-in middleware function in Express. It parses incoming request query parameters.
