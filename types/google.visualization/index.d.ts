@@ -1394,8 +1394,8 @@ declare namespace google {
             forceIFrame?: boolean;
             height?: number;
             noDataPattern?: {
-            backgroundColor: string,
-            color: string
+                backgroundColor: string,
+                color: string
             };
             tooltip?: {
                 isHtml: boolean;
