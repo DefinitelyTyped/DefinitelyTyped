@@ -196,6 +196,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
                         placeholder="Tell a story..."
                         ref="editor"
                         spellCheck={true}
+                        preserveSelectionOnBlur={false}
                     />
                 </div>
             </div>

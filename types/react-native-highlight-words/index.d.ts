@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { TextProps } from 'react-native';
 
-export interface HighlighterProps {
+export interface HighlighterProps extends TextProps {
     autoEscape?: boolean;
     highlightStyle?: TextProps['style'];
     sanitize?: (text: string) => string;
