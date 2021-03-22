@@ -1,6 +1,8 @@
 // Type definitions for Google Apps Script 2019-04-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: oshliaer <https://github.com/oshliaer>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 oshliaer <https://github.com/oshliaer>
+//                 RCRJ <https://github.com/RCRJ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.script.d.ts" />
@@ -40,7 +42,16 @@ declare namespace GoogleAppsScript {
       source: Spreadsheet.Spreadsheet;
     }
 
-    enum SheetsOnChangeChangeType { EDIT, INSERT_ROW, INSERT_COLUMN, REMOVE_ROW, REMOVE_COLUMN, INSERT_GRID, REMOVE_GRID, FORMAT, OTHER }
+    type SheetsOnChangeChangeType =
+      | 'EDIT'
+      | 'INSERT_ROW'
+      | 'INSERT_COLUMN'
+      | 'REMOVE_ROW'
+      | 'REMOVE_COLUMN'
+      | 'INSERT_GRID'
+      | 'REMOVE_GRID'
+      | 'FORMAT'
+      | 'OTHER';
     interface SheetsOnChange extends AppsScriptEvent {
       changeType: SheetsOnChangeChangeType;
     }
@@ -52,10 +63,15 @@ declare namespace GoogleAppsScript {
       value: string;
     }
 
-    interface SheetsOnFormSubmit extends AppsScriptEvent {
+  interface SheetsOnFormSubmit extends AppsScriptEvent {
       namedValues: { [key: string]: string[]; };
       range: Spreadsheet.Range;
       values: string[];
+    }
+
+    interface FormsOnFormSubmit extends AppsScriptEvent {
+      response: Forms.FormResponse;
+      source: Forms.Form;
     }
 
     interface DocsOnOpen extends AppsScriptEvent {
@@ -70,11 +86,6 @@ declare namespace GoogleAppsScript {
       source: Forms.Form;
     }
 
-    interface FormsOnFormSubmit extends AppsScriptEvent {
-      response: Forms.FormResponse;
-      source: Forms.Form;
-    }
-
     // TODO: Is there a `user` attribute?
     interface CalendarEventUpdated extends AppsScriptEvent {
       calendarId: string;
@@ -86,11 +97,24 @@ declare namespace GoogleAppsScript {
 
     // tslint:disable-next-line: no-empty-interface
     interface DoGet extends AppsScriptHttpRequestEvent {
-      // TODO: no-empty-interface
     }
 
     interface DoPost extends AppsScriptHttpRequestEvent {
       postData: AppsScriptHttpRequestEventPostData;
+    }
+
+    interface TimeDriven {
+      authMode: Script.AuthMode;
+      year: number;
+      month: number;
+      'week-of-year': number;
+      'day-of-month': number;
+      'day-of-week': number;
+      hour: number;
+      minute: number;
+      second: number;
+      timezone: string;
+      triggerUid: string;
     }
   }
 }

@@ -12,7 +12,9 @@ declare namespace Dropdown {
         id: string;
         onClose?: Function;
         onSelect?: SelectCallback;
-        onToggle?: (isOpen: boolean) => void;
+        onToggle?: (isOpen: boolean, event: React.SyntheticEvent, metadata: {
+          source: 'select' | 'click' | 'rootClose' | 'keydown'
+        }) => void;
         open?: boolean;
         pullRight?: boolean;
         role?: string;

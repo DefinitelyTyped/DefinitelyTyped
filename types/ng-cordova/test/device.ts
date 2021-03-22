@@ -2,37 +2,37 @@
 // https://github.com/ksachdeva/ngCordova-typescript-demo
 
 namespace demo.device {
-	'use strict';
+    'use strict';
 
-	interface IDeviceViewModel {
-		available:boolean;
+    interface IDeviceViewModel {
+        available:boolean;
         cordova:string;
         model:string;
         platform:string;
         uuid:string;
         version:string;
-	}
+    }
 
-	export class DeviceController {
+    export class DeviceController {
 
-		public vm:IDeviceViewModel;
+        public vm:IDeviceViewModel;
 
-		static $inject:Array<string> = ["$ionicPlatform", "$cordovaDevice"];
-		constructor($ionicPlatform:ionic.platform.IonicPlatformService, $cordovaDevice:ngCordova.IDeviceService) {
+        static $inject:Array<string> = ["$ionicPlatform", "$cordovaDevice"];
+        constructor($ionicPlatform:ionic.platform.IonicPlatformService, $cordovaDevice:ngCordova.IDeviceService) {
 
-			$ionicPlatform.ready(() => {
-				this.vm = {
-					available : $cordovaDevice.getDevice().available,
-					cordova : $cordovaDevice.getCordova(),
-					model : $cordovaDevice.getModel(),
-					platform : $cordovaDevice.getPlatform(),
-					uuid : $cordovaDevice.getUUID(),
-					version : $cordovaDevice.getVersion()
-				};
-			});
-		}
+            $ionicPlatform.ready(() => {
+                this.vm = {
+                    available : $cordovaDevice.getDevice().available,
+                    cordova : $cordovaDevice.getCordova(),
+                    model : $cordovaDevice.getModel(),
+                    platform : $cordovaDevice.getPlatform(),
+                    uuid : $cordovaDevice.getUUID(),
+                    version : $cordovaDevice.getVersion()
+                };
+            });
+        }
 
-	}
+    }
 
-	angular.module("demo.device").controller("DeviceController", DeviceController);
+    angular.module("demo.device").controller("DeviceController", DeviceController);
 }

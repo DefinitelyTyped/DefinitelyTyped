@@ -84,13 +84,13 @@ class Example extends React.Component<Props> {
         />
     )
 
-	render() {
+    render() {
         const { data, width } = this.props;
-		return (
+        return (
             <View>
                 {this.renderStackedAreaChart(this.props)}
                 {this.renderStackedBarChart(this.props)}
             </View>
-		);
-	}
+        );
+    }
 }

@@ -68,6 +68,6 @@ interface ITagsManager {
 }
 
 interface JQuery {
-	tagsManager(options?: ITagsManagerOptions): JQuery;
-	tagsManager(command: string, tagToManipulate?: string): JQuery;
+    tagsManager(options?: ITagsManagerOptions): JQuery;
+    tagsManager(command: string, tagToManipulate?: string): JQuery;
 }

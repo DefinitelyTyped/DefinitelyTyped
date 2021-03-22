@@ -13,6 +13,6 @@ export interface WindowEvent<Topic, Type> extends ApplicationEvent<Topic, Type> 
 export declare function getTopic(e: RuntimeEvent<any>): string;
 export interface BaseEventMap {
     [name: string]: any;
-    'newListener': string;
-    'listenerRemoved': string;
+    newListener: string;
+    listenerRemoved: string;
 }

@@ -32,9 +32,17 @@ const { EJSON, Int32, ObjectId } = BSON;
 console.log(EJSON.stringify(doc, { relaxed: false }));
 console.log(EJSON.stringify(doc, ['int32'], { relaxed: false }));
 console.log(EJSON.stringify(doc, ['int32'], 2, { relaxed: false }));
+console.log(EJSON.stringify(doc, null, { relaxed: false }));
+console.log(EJSON.stringify(doc, null, 2, { relaxed: false }));
+console.log(EJSON.stringify(doc, undefined, { relaxed: false }));
+console.log(EJSON.stringify(doc, undefined, 2, { relaxed: false }));
 console.log(EJSON.stringify(doc));
 console.log(EJSON.stringify(doc, ['int32']));
 console.log(EJSON.stringify(doc, ['int32'], 2));
+console.log(EJSON.stringify(doc, null));
+console.log(EJSON.stringify(doc, null, 2));
+console.log(EJSON.stringify(doc, undefined));
+console.log(EJSON.stringify(doc, undefined, 2));
 
 let doc2 = { int32: new Int32(10), _id: new ObjectId() };
 const text = '{ "int32": { "$numberInt": "10" } }';

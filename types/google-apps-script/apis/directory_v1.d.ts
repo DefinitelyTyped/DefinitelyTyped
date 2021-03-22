@@ -453,6 +453,7 @@ declare namespace GoogleAppsScript {
         annotatedAssetId?: string;
         annotatedLocation?: string;
         annotatedUser?: string;
+        autoUpdateExpiration?: string;
         bootMode?: string;
         cpuStatusReports?: AdminDirectory.Schema.ChromeOsDeviceCpuStatusReports[];
         deviceFiles?: AdminDirectory.Schema.ChromeOsDeviceDeviceFiles[];

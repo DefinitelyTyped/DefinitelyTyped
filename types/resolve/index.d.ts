@@ -1,16 +1,21 @@
-// Type definitions for resolve 1.14.1
-// Project: https://github.com/substack/node-resolve
+// Type definitions for resolve 1.20.0
+// Project: https://github.com/browserify/resolve
 // Definitions by: Mario Nebl <https://github.com/marionebl>
 //                 Klaus Meinhardt <https://github.com/ajafff>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node" />
 
 interface PackageMeta {
   name: string;
   version: string;
   [key: string]: any;
 }
+
+interface ToString {
+  toString(): string;
+}
+
+type StringOrToString = string | ToString;
 
 /**
  * Callback invoked when resolving asynchronously
@@ -34,7 +39,23 @@ type existsCallback = (err: Error | null, isFile?: boolean) => void;
  * @param error
  * @param isFile If the given file exists
  */
-type readFileCallback = (err: Error | null, file?: Buffer) => void;
+type readFileCallback = (err: Error | null, file?: StringOrToString) => void;
+
+/**
+ * Callback invoked when resolving a potential symlink
+ *
+ * @param error
+ * @param resolved Absolute path to the resolved file
+ */
+type realpathCallback = (err: Error | null, resolved?: string) => void;
+
+/**
+ * Callback invoked when reading and parsing a package.json file
+ *
+ * @param error
+ * @param resolved Absolute path to the resolved file
+ */
+type readPackageCallback = (err: Error | null, package?: Record<string, unknown>) => void;
 
 /**
  * Asynchronously resolve the module path string id into cb(err, res [, pkg]), where pkg (if defined) is the data from package.json
@@ -72,6 +93,8 @@ declare namespace resolve {
     basedir?: string;
     /** package.json data applicable to the module being loaded */
     package?: any;
+    /** set to false to exclude node core modules (e.g. fs) from the search */
+    includeCoreModules?: boolean;
     /** array of file extensions to search in order (defaults to ['.js']) */
     extensions?: string | ReadonlyArray<string>;
     /** transform the parsed package.json contents before looking at the "main" field */
@@ -80,35 +103,61 @@ declare namespace resolve {
     pathFilter?: (pkg: any, path: string, relativePath: string) => string;
     /** require.paths array to use if nothing is found on the normal node_modules recursive walk (probably don't use this) */
     paths?: string | ReadonlyArray<string>;
+    /** return the list of candidate paths where the packages sources may be found (probably don't use this) */
+    packageIterator?: (request: string, start: string, getPackageCandidates: () => string[], opts: Opts) => string[];
     /** directory (or directories) in which to recursively look for modules. (default to 'node_modules') */
-    moduleDirectory?: string | ReadonlyArray<string>
+    moduleDirectory?: string | ReadonlyArray<string>;
     /**
      * if true, doesn't resolve `basedir` to real path before resolving.
      * This is the way Node resolves dependencies when executed with the --preserve-symlinks flag.
      *
      * Note: this property is currently true by default but it will be changed to false in the next major version because Node's resolution
      * algorithm does not preserve symlinks by default.
-    */
+     */
     preserveSymlinks?: boolean;
   }
 
-  export interface AsyncOpts extends Opts {
-    /** how to read files asynchronously (defaults to fs.readFile) */
-    readFile?: (file: string, cb: readFileCallback) => void;
+  interface BaseAsyncOpts extends Opts {
     /** function to asynchronously test whether a file exists */
     isFile?: (file: string, cb: existsCallback) => void;
     /** function to asynchronously test whether a directory exists */
     isDirectory?: (directory: string, cb: existsCallback) => void;
+    /** function to asynchronously resolve a potential symlink to its real path */
+    realpath?: (file: string, cb: realpathCallback) => void;
   }
 
-  export interface SyncOpts extends Opts {
-    /** how to read files synchronously (defaults to fs.readFileSync) */
-    readFileSync?: (file: string, charset: string) => string | Buffer;
+  export type AsyncOpts = BaseAsyncOpts & ({
+    /** how to read files asynchronously (defaults to fs.readFile) */
+    readFile?: (file: string, cb: readFileCallback) => void;
+    /** function to asynchronously read and parse a package.json file */
+    readPackage?: never;
+  } | {
+    /** how to read files asynchronously (defaults to fs.readFile) */
+    readFile?: never
+    /** function to asynchronously read and parse a package.json file */
+    readPackage?: (readFile: (file: string, cb: readFileCallback) => void, pkgfile: string, cb: readPackageCallback) => void;
+  });
+
+  interface BaseSyncOpts extends Opts {
     /** function to synchronously test whether a file exists */
     isFile?: (file: string) => boolean;
     /** function to synchronously test whether a directory exists */
     isDirectory?: (directory: string) => boolean;
+    /** function to synchronously resolve a potential symlink to its real path */
+    realpathSync?: (file: string) => string;
   }
+
+  export type SyncOpts = BaseSyncOpts & ({
+    /** how to read files synchronously (defaults to fs.readFileSync) */
+    readFileSync?: (file: string) => StringOrToString;
+    /** function to synchronously read and parse a package.json file */
+    readPackageSync?: never;
+  } | {
+    /** how to read files synchronously (defaults to fs.readFileSync) */
+    readFileSync?: never;
+    /** function to synchronously read and parse a package.json file */
+    readPackageSync?: (readFileSync: (file: string) => StringOrToString, pkgfile: string) => Record<string, unknown> | undefined;
+  });
 
   export var sync: typeof resolveSync;
   export var isCore: typeof resolveIsCore;

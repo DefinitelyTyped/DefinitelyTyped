@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@keyv/mongo": [
-                "keyv__mongo"
+            "@keyv/*": [
+                "keyv__*"
             ]
         },
         "types": [],

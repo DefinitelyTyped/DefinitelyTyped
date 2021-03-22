@@ -1,5 +1,15 @@
 import * as marked from 'marked';
 
+const tokenizer = new marked.Tokenizer();
+
+tokenizer.emStrong = (src, _maskedSrc, _prevChar) => {
+    return {
+        type: 'strong',
+        text: src,
+        raw: src,
+    };
+};
+
 let options: marked.MarkedOptions = {
     baseUrl: '',
     gfm: true,
@@ -13,7 +23,14 @@ let options: marked.MarkedOptions = {
     },
     langPrefix: 'lang-',
     smartypants: false,
+    tokenizer,
     renderer: new marked.Renderer(),
+    walkTokens: (callback: (token: marked.Token) => void) => {},
+};
+
+options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
+    callback(new Error());
+    callback(null, '');
 };
 
 options = marked.getDefaults();
@@ -21,7 +38,7 @@ options = marked.defaults;
 
 function callback(err: string, markdown: string) {
     console.log('Callback called!');
-    return markdown;
+    console.log(markdown);
 }
 
 let myOldMarked: typeof marked = marked.options(options);
@@ -29,13 +46,16 @@ myOldMarked = marked.setOptions(options);
 
 console.log(marked('1) I am using __markdown__.'));
 console.log(marked('2) I am using __markdown__.', options));
-console.log(marked('3) I am using __markdown__.', callback));
-console.log(marked('4) I am using __markdown__.', options, callback));
+marked('3) I am using __markdown__.', callback);
+marked('4) I am using __markdown__.', options, callback);
 
 console.log(marked.parse('5) I am using __markdown__.'));
 console.log(marked.parse('6) I am using __markdown__.', options));
-console.log(marked.parse('7) I am using __markdown__.', callback));
-console.log(marked.parse('8) I am using __markdown__.', options, callback));
+marked.parse('7) I am using __markdown__.', callback);
+marked.parse('8) I am using __markdown__.', options, callback);
+
+console.log(marked.parseInline('9) I am using __markdown__.'));
+console.log(marked.parseInline('10) I am using __markdown__.', options));
 
 const text = 'Something';
 const tokens: marked.TokensList = marked.lexer(text, options);
@@ -44,6 +64,8 @@ console.log(marked.parser(tokens));
 const lexer = new marked.Lexer(options);
 const tokens2 = lexer.lex(text);
 console.log(tokens2);
+const tokens3 = lexer.inline(tokens);
+console.log(tokens3);
 const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
 console.log(lexer.token(text, true));
 const lexerOptions: marked.MarkedOptions = lexer.options;
@@ -55,7 +77,7 @@ renderer.heading = (text, level, raw, slugger) => {
 renderer.hr = () => {
     return `<hr${renderer.options.xhtml ? '/' : ''}>\n`;
 };
-renderer.checkbox = (checked) => {
+renderer.checkbox = checked => {
     return checked ? 'CHECKED' : 'UNCHECKED';
 };
 const rendererOptions: marked.MarkedOptions = renderer.options;
@@ -65,6 +87,11 @@ console.log(textRenderer.strong(text));
 
 const parseTestText = '- list1\n  - list1.1\n\n listend';
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
+
+/* List type is `list`. */
+const listToken = parseTestTokens[0] as marked.Tokens.List;
+console.log(listToken.type === 'list');
+
 const parser = new marked.Parser();
 console.log(parser.parse(parseTestTokens));
 console.log(marked.Parser.parse(parseTestTokens));
@@ -76,3 +103,9 @@ console.log(inlineLexer.output('http://'));
 console.log(marked.InlineLexer.output('http://', links));
 console.log(marked.InlineLexer.rules);
 const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
+
+const slugger = new marked.Slugger();
+console.log(slugger.slug('Test Slug'));
+console.log(slugger.slug('Test Slug', { dryrun: true }));
+
+marked.use({ renderer });

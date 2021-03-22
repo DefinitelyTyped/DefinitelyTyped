@@ -9,30 +9,30 @@ import { Socket } from 'socket.io';
 export = SocketIOFile;
 
 declare class SocketIOFile {
-	constructor(socket: Socket, options: Options);
-	on(event: string, cb: (fileInfo: FileInfo) => void): void;
+    constructor(socket: Socket, options: Options);
+    on(event: string, cb: (fileInfo: FileInfo) => void): void;
 }
 
 interface Options {
-	uploadDir: string | { [dirId: string]: string };
-	maxFileSize?: number;
-	accepts?: string[];
-	chunkSize?: number;
-	transmissionDelay?: number;
-	overwrite?: boolean;
-	rename?: (fileName: string, fileInfo: FileInfo) => string | string;
-	resume?: boolean;
+    uploadDir: string | { [dirId: string]: string };
+    maxFileSize?: number;
+    accepts?: string[];
+    chunkSize?: number;
+    transmissionDelay?: number;
+    overwrite?: boolean;
+    rename?: (fileName: string, fileInfo: FileInfo) => string | string;
+    resume?: boolean;
 }
 
 interface FileInfo {
-	name: string;
-	size: number;
-	path: string;
-	wrote: number;
-	uploadDir: string;
-	data: any[];
-	mime: string;
-	estimated: number;
-	uploadId: string;
-	originalFileName: string;
+    name: string;
+    size: number;
+    path: string;
+    wrote: number;
+    uploadDir: string;
+    data: any[];
+    mime: string;
+    estimated: number;
+    uploadId: string;
+    originalFileName: string;
 }

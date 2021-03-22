@@ -1,0 +1,16 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "max-line-length": false,
+        "no-redundant-jsdoc-2": false,
+        "jsdoc-format": false,
+        "no-var-keyword": false,
+        "whitespace": false,
+        "semicolon": false,
+        "strict-export-declare-modifiers": false,
+        "array-type": false,
+        "void-return": false,
+        "ban-types": false,
+        "no-const-enum": false
+    }
+}

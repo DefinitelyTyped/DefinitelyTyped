@@ -1,10 +1,10 @@
-declare module "domain" {
-    import * as events from "events";
+declare module 'domain' {
+    import EventEmitter = require('events');
 
-    class Domain extends events.EventEmitter implements NodeJS.Domain {
+    class Domain extends EventEmitter implements NodeJS.Domain {
         run(fn: Function): void;
-        add(emitter: events.EventEmitter): void;
-        remove(emitter: events.EventEmitter): void;
+        add(emitter: EventEmitter): void;
+        remove(emitter: EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         members: any[];

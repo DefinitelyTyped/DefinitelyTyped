@@ -1,4 +1,4 @@
-// Type definitions for js-nacl 1.2
+// Type definitions for js-nacl 1.3
 // Project: https://github.com/tonyg/js-nacl#readme
 // Definitions by: Ethan Frey <https://github.com/ethanfrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -115,6 +115,9 @@ export interface Nacl {
   crypto_sign_seed_keypair: (seed: Uint8Array) => SignKeyPair;
   crypto_box_seed_keypair: (seed: Uint8Array) => BoxKeyPair;
   crypto_box_keypair_from_raw_sk: (seed: Uint8Array) => BoxKeyPair;
+
+  // random
+  random_bytes: (length: number) => Uint8Array;
 
   // TODO: crypto_stream
   // crypto_stream_random_nonce: () => Nonce;

@@ -35,7 +35,7 @@ declare namespace echarts {
             right?: number | string;
             bottom?: number | string;
             orient?: 'vertical' | 'horizontal';
-            padding?:  number | number[];
+            padding?: number | number[];
             backgroundColor?: string;
             borderColor?: string;
             borderWidth?: number;
@@ -81,7 +81,7 @@ declare namespace echarts {
             right?: number | string;
             bottom?: number | string;
             orient?: 'vertical' | 'horizontal';
-            padding?:  number | number[];
+            padding?: number | number[];
             backgroundColor?: string;
             borderColor?: string;
             borderWidth?: number;
@@ -91,7 +91,7 @@ declare namespace echarts {
         }
         interface RangeObject {
             symbol?: string | string[];
-            symbolSize?: number |  number[];
+            symbolSize?: number | number[];
             color?: string | string[];
             colorAlpha?: number | number[];
             opacity?: number | number[];

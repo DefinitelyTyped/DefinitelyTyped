@@ -1,5 +1,9 @@
-declare module "url" {
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
+declare module 'node:url' {
+    export * from 'url';
+}
+
+declare module 'url' {
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
 
     // Input to `url.format`
     interface UrlObject {
@@ -40,13 +44,19 @@ declare module "url" {
         query: string | null;
     }
 
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string): UrlWithStringQuery;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
 
     function format(URL: URL, options?: URLFormatOptions): string;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function format(urlObject: UrlObject | string): string;
+    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function resolve(from: string, to: string): string;
 
     function domainToASCII(domain: string): string;
@@ -92,7 +102,7 @@ declare module "url" {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
+        constructor(init?: URLSearchParams | string | NodeJS.Dict<string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;

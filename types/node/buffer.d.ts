@@ -1,4 +1,8 @@
-declare module "buffer" {
+declare module 'node:buffer' {
+    export * from 'buffer';
+}
+
+declare module 'buffer' {
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -13,7 +17,7 @@ declare module "buffer" {
     export function transcode(source: Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
 
     export const SlowBuffer: {
-        /** @deprecated since v6.0.0, use Buffer.allocUnsafeSlow() */
+        /** @deprecated since v6.0.0, use `Buffer.allocUnsafeSlow()` */
         new(size: number): Buffer;
         prototype: Buffer;
     };

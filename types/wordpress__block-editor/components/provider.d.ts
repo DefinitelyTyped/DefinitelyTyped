@@ -1,5 +1,5 @@
 import { BlockInstance } from '@wordpress/blocks';
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 import { EditorSettings, EditorBlockListSettings } from '../';
 

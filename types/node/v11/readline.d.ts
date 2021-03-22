@@ -123,13 +123,14 @@ declare module "readline" {
         prompt?: string;
         crlfDelay?: number;
         removeHistoryDuplicates?: boolean;
+        escapeCodeTimeout?: number;
     }
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
     function createInterface(options: ReadLineOptions): Interface;
 
     function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
-    function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: Interface): void;
+    function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
     function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
     function clearLine(stream: NodeJS.WritableStream, dir: number): void;
     function clearScreenDown(stream: NodeJS.WritableStream): void;

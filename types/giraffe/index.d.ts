@@ -104,7 +104,7 @@ declare namespace Giraffe {
     attach( view:View<TModel>, options?:AttachmentOptions ): View<TModel>;
     isAttached( el:any ): boolean;
 
-    render( options?:any ): View<TModel>;
+    render( options?:any ): this;
     beforeRender();
     afterRender();
     templateStrategy(): string;

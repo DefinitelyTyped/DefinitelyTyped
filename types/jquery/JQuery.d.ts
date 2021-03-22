@@ -4133,7 +4133,9 @@ $( "p" )
 </html>
 ```
      */
-    find(selector_element: JQuery.Selector | Element | JQuery): this;
+    find<K extends keyof HTMLElementTagNameMap>(selector_element: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
+    find<K extends keyof SVGElementTagNameMap>(selector_element: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
+    find<E extends HTMLElement>(selector_element: JQuery.Selector | Element | E | JQuery<E>): JQuery<E>;
     /**
      * Stop the currently-running animation, remove all queued animations, and complete all animations for the matched elements.
      * @param queue The name of the queue in which to stop animations.
@@ -6165,6 +6167,81 @@ $( "p span" ).last().addClass( "highlight" );
 ```
      */
     last(): this;
+
+    /**
+     * Reduce the set of matched elements to the even ones in the set, numbered from zero.
+     * @see \`{@link https://api.jquery.com/even/ }\`
+     * @since 3.5
+     * @example ​ ````Highlight the even items in a list.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>even demo</title>
+  <style>
+  .highlight {
+    background-color: yellow;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+
+<ul>
+  <li>Look:</li>
+  <li>This is some text in a list.</li>
+  <li>This is a note about it.</li>
+  <li>This is another note about it.</li>
+</ul>
+
+<script>
+$( "ul li" ).even().addClass( "highlight" );
+</script>
+
+</body>
+</html>
+```
+     */
+    even(): this;
+
+    /**
+     * Reduce the set of matched elements to the odd ones in the set, numbered from zero.
+     * @see \`{@link https://api.jquery.com/odd/ }\`
+     * @since 3.5
+     * @example ​ ````Highlight the odd items in a list.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>odd demo</title>
+  <style>
+  .highlight {
+    background-color: yellow;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+
+<ul>
+  <li>Look:</li>
+  <li>This is some text in a list.</li>
+  <li>This is a note about it.</li>
+  <li>This is another note about it.</li>
+</ul>
+
+<script>
+$( "ul li" ).odd().addClass( "highlight" );
+</script>
+
+</body>
+</html>
+```
+     */
+    odd(): this;
+
     /**
      * Load data from the server and place the returned HTML into the matched element.
      * @param url A string containing the URL to which the request is sent.
@@ -8624,7 +8701,10 @@ $( "span" ).click(function() {
 </html>
 ```
      */
-    parents(selector?: JQuery.Selector): this;
+    parents<K extends keyof HTMLElementTagNameMap>(selector: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
+    parents<K extends keyof SVGElementTagNameMap>(selector: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    parents<E extends HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
      * @param selector_element _&#x40;param_ `selector_element`

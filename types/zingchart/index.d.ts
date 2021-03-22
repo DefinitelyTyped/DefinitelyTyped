@@ -16875,6 +16875,8 @@ export interface series {
         */
        shadow?: boolean;
        /**
+       
+       
         * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
         * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. For single item in Legend. Req
         * uires Legend. Used only inside individual series rather than Plot. See red text in upper right box. Works with output flash. Has l

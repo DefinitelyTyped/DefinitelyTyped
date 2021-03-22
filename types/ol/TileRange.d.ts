@@ -13,4 +13,10 @@ export default class TileRange {
     getWidth(): number;
     intersects(tileRange: TileRange): boolean;
 }
-export function createOrUpdate(minX: number, maxX: number, minY: number, maxY: number, tileRange?: TileRange): TileRange;
+export function createOrUpdate(
+    minX: number,
+    maxX: number,
+    minY: number,
+    maxY: number,
+    tileRange?: TileRange,
+): TileRange;

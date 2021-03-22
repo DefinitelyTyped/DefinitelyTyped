@@ -1,22 +1,25 @@
-// Type definitions for bwip-js 1.7.3
+// Type definitions for bwip-js  2.1.1
 // Project: https://github.com/metafloor/bwip-js
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 //                 Guillaume VanderEst <https://github.com/gvanderest>
+//                 Ryan Jentzsch <http://github.com/RyanNerd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-import { IncomingMessage as Request, ServerResponse as Response } from 'http';
+import { IncomingMessage as Request, ServerResponse as Response } from "http";
 
 declare namespace BwipJs {
-    export function loadFont(fontName:string, sizeMulti: number, fontFile: string): void;
-    export function toBuffer(opts: ToBufferOptions, callback:(err: string|Error, png: Buffer) => void): void;
+    export function loadFont(fontName: string, sizeMulti: number, fontFile: string): void;
+    export function toBuffer(opts: ToBufferOptions, callback: (err: string | Error, png: Buffer) => void): void;
+    export function toBuffer(opts: ToBufferOptions): Promise<Buffer>;
+    export function toCanvas(canvas: string | HTMLCanvasElement, opts: ToBufferOptions): HTMLCanvasElement;
     interface ToBufferOptions {
         bcid: string;
         text: string;
 
         parse?: boolean;
-        parsefunc?: boolean;
+        parsefnc?: boolean;
 
         height?: number;
         width?: number;
@@ -25,7 +28,7 @@ declare namespace BwipJs {
         scaleY?: number;
         scale?: number;
 
-        rotate?: 'N'|'R'|'L'|'I';
+        rotate?: "N" | "R" | "L" | "I";
 
         paddingwidth?: number;
         paddingheight?: number;
@@ -38,8 +41,8 @@ declare namespace BwipJs {
         textsize?: number;
         textgaps?: number;
 
-        textxalign?:'offleft'|'left'|'center'|'right'|'offright'|'justify';
-        textyalign?:'below'|'center'|'above';
+        textxalign?: "offleft" | "left" | "center" | "right" | "offright" | "justify";
+        textyalign?: "below" | "center" | "above";
         textxoffset?: number;
         textyoffset?: number;
 
@@ -79,7 +82,7 @@ declare namespace BwipJs {
     }
 }
 
-declare function BwipJs(req: Request, res: Response, opts?:BwipJs.ToBufferOptions): void;
+declare function BwipJs(req: Request, res: Response, opts?: BwipJs.ToBufferOptions): void;
 
 /**
  * The Browser version of the library's functionality, which makes use of an HTMLCanvasElement for rendering.
@@ -89,11 +92,8 @@ declare function BwipJs(req: Request, res: Response, opts?:BwipJs.ToBufferOption
  */
 declare function BwipJs(
     canvas: string | HTMLCanvasElement,
-    opts:BwipJs.ToBufferOptions,
-    callback: (
-        err: undefined | string | Error,
-        canvas?: HTMLCanvasElement,
-    ) => void,
+    opts: BwipJs.ToBufferOptions,
+    callback: (err: undefined | string | Error, canvas?: HTMLCanvasElement) => void,
 ): void;
 
 export = BwipJs;

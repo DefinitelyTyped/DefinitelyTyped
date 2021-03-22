@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -25,7 +26,7 @@ declare namespace GoogleAppsScript {
       setDataFromString(string: string): Blob;
       setDataFromString(string: string, charset: string): Blob;
       setName(name: string): Blob;
-      /** @deprecated DO NOT USE */getAllBlobs(): Blob[];
+      /** @deprecated DO NOT USE */ getAllBlobs(): Blob[];
     }
     /**
      * Interface for objects that can export their data as a Blob.
@@ -227,8 +228,8 @@ declare namespace GoogleAppsScript {
       getEffectiveUser(): User;
       getScriptTimeZone(): string;
       getTemporaryActiveUserKey(): string;
-      /** @deprecated DO NOT USE */getTimeZone(): string;
-      /** @deprecated DO NOT USE */getUser(): User;
+      /** @deprecated DO NOT USE */ getTimeZone(): string;
+      /** @deprecated DO NOT USE */ getUser(): User;
     }
     /**
      * An instance of the user-interface environment for a Google App that allows the script to add
@@ -263,14 +264,14 @@ declare namespace GoogleAppsScript {
       showModalDialog(userInterface: HTML.HtmlOutput, title: string): void;
       showModelessDialog(userInterface: HTML.HtmlOutput, title: string): void;
       showSidebar(userInterface: HTML.HtmlOutput): void;
-      /** @deprecated DO NOT USE */showDialog(userInterface: HTML.HtmlOutput): void;
+      /** @deprecated DO NOT USE */ showDialog(userInterface: HTML.HtmlOutput): void;
     }
     /**
      * Representation of a user, suitable for scripting.
      */
     interface User {
       getEmail(): string;
-      /** @deprecated DO NOT USE */getUserLoginId(): string;
+      /** @deprecated DO NOT USE */ getUserLoginId(): string;
     }
     /**
      * An enum representing the days of the week.

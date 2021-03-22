@@ -1,7 +1,8 @@
-// Type definitions for workerpool 5.0
+// Type definitions for workerpool 6.0
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
+//                 Emily M Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -50,14 +51,6 @@ export interface WorkerPool {
      * If timeout is provided, worker will be forced to terminal when the timeout expires and the worker has not finished.
      */
     terminate(force?: boolean, timeout?: number): Promise<any[]>;
-
-    /**
-     * Clear all workers from the pool.
-     * If parameter force is false (default), workers will finish the tasks they are working on before terminating themselves.
-     * When force is true, all workers are terminated immediately without finishing running tasks.
-     * @deprecated
-     */
-    clear(force?: boolean): Promise<any[]>;
 }
 
 export class Promise<T, E = Error> {
@@ -66,8 +59,8 @@ export class Promise<T, E = Error> {
     readonly pending: boolean;
 
     always<TT>(handler: () => Promise<TT>): Promise<TT>;
-    then<TT, EE = Error>(result: (r: T) => TT, err?: (r: E) => EE): Promise<TT, EE>;
-    catch<TT>(err: (error: E) => TT): Promise<TT>;
+    then<TT, TE = never>(result: (r: T) => TT, err?: (r: E) => TE): Promise<TT | TE, any>;
+    catch<TT>(err: (error: E) => TT): Promise<T | TT>;
     cancel(): this;
     timeout(delay: number): this;
 
@@ -97,13 +90,6 @@ export interface WorkerPoolOptions {
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
      */
     maxWorkers?: number;
-    /**
-     * In case of 'process' (default), child_process will be used.
-     * In case of 'thread', worker_threads will be used. If worker_threads are not available, an error is thrown.
-     * In case of 'auto', worker_threads will be used if available (Node.js >= 11.7.0), else child_process will be used as fallback.
-     * @deprecated
-     */
-    nodeWorker?: 'process' | 'thread' | 'auto';
 
     /**
      * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:

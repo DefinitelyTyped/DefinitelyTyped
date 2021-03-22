@@ -1,6 +1,8 @@
-// Type definitions for hls-parser 0.5
+// Type definitions for hls-parser 0.8
 // Project: https://github.com/kuu/hls-parser#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
+//                 Christopher Manouvrier <https://github.com/cmanou>
+//                 Joe Flateau <https://github.com/joeflateau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -20,6 +22,14 @@ export class Data {
 }
 
 export namespace types {
+    interface BasePlaylistConstructorProperties {
+        uri?: string;
+        version?: number;
+        independentSegments?: boolean;
+        start?: { offset: number; precise: boolean };
+        source?: string;
+    }
+
     class Playlist extends Data {
         isMasterPlaylist: boolean;
 
@@ -33,14 +43,7 @@ export namespace types {
 
         source?: string;
 
-        constructor(properties: {
-            isMasterPlaylist: boolean;
-            uri?: string;
-            version?: number;
-            independentSegments: boolean;
-            start?: { offset: number; precise: boolean };
-            source?: string;
-        });
+        constructor(properties: BasePlaylistConstructorProperties & { isMasterPlaylist: boolean });
     }
 
     class MasterPlaylist extends Playlist {
@@ -52,13 +55,22 @@ export namespace types {
 
         sessionKeyList: readonly Key[];
 
-        constructor(properties: {
-            variants?: readonly Variant[];
-            currentVariant?: number;
-            sessionDataList?: readonly SessionData[];
-            sessionKeyList?: readonly Key[];
-            source?: string;
-        });
+        constructor(
+            properties: BasePlaylistConstructorProperties & {
+                variants?: readonly Variant[];
+                currentVariant?: number;
+                sessionDataList?: readonly SessionData[];
+                sessionKeyList?: readonly Key[];
+                source?: string;
+            },
+        );
+    }
+
+    interface LowLatencyCompatibility {
+        canBlockReload?: boolean;
+        canSkipUntil?: boolean;
+        holdBack?: number;
+        partHoldBack?: number;
     }
 
     class MediaPlaylist extends Playlist {
@@ -76,16 +88,33 @@ export namespace types {
 
         segments: readonly Segment[];
 
-        constructor(properties: {
-            targetDuration: number;
-            mediaSequenceBase?: number;
-            discontinuitySequenceBase?: number;
-            endlist?: boolean;
-            playlistType?: 'EVENT' | 'VOD';
-            isIFrame?: boolean;
-            segments?: readonly Segment[];
-            source?: string;
-        });
+        prefetchSegments: readonly PrefetchSegment[];
+
+        lowLatencyCompatibility?: LowLatencyCompatibility;
+
+        partTargetDuration?: number;
+
+        renditionReports?: readonly RenditionReport[];
+
+        skip?: number;
+
+        constructor(
+            properties: BasePlaylistConstructorProperties & {
+                targetDuration: number;
+                mediaSequenceBase?: number;
+                discontinuitySequenceBase?: number;
+                endlist?: boolean;
+                playlistType?: 'EVENT' | 'VOD';
+                isIFrame?: boolean;
+                segments?: readonly Segment[];
+                prefetchSegments?: readonly PrefetchSegment[];
+                source?: string;
+                lowLatencyCompatibility?: LowLatencyCompatibility;
+                partTargetDuration?: number;
+                renditionReports?: readonly RenditionReport[];
+                skip?: number;
+            },
+        );
     }
 
     class Variant {
@@ -208,6 +237,8 @@ export namespace types {
 
         dateRange: DateRange;
 
+        parts?: readonly PartialSegment[];
+
         constructor(properties: {
             uri: string;
             duration: number;
@@ -220,6 +251,55 @@ export namespace types {
             map?: MediaInitializationSection;
             programDateTime?: Date;
             dateRange?: DateRange;
+            parts?: readonly PartialSegment[];
+        });
+    }
+
+    interface ByteRange {
+        length: number;
+        offset: number;
+    }
+
+    class PartialSegment {
+        hint?: boolean;
+
+        uri: string;
+
+        duration?: number;
+
+        independent?: boolean;
+
+        byterange?: ByteRange;
+
+        gap?: boolean;
+
+        constructor(properties: {
+            hint?: boolean;
+            uri: string;
+            duration?: number;
+            independent?: boolean;
+            byterange?: ByteRange;
+            gap?: boolean;
+        });
+    }
+
+    class PrefetchSegment extends Data {
+        uri: string;
+
+        discontinuity?: boolean;
+
+        mediaSequenceNumber: number;
+
+        discontinuitySequence: number;
+
+        key?: Key;
+
+        constructor(properties: {
+            uri: string;
+            discontinuity?: boolean;
+            mediaSequenceNumber: number;
+            discontinuitySequence: number;
+            key?: Key;
         });
     }
 
@@ -272,6 +352,16 @@ export namespace types {
             endOnNext?: boolean;
             attributes?: object;
         });
+    }
+
+    class RenditionReport {
+        uri: string;
+
+        lastMSN?: number;
+
+        lastPart?: number;
+
+        constructor(properties: { uri: string; lastMSN?: number; lastPart?: number });
     }
 }
 

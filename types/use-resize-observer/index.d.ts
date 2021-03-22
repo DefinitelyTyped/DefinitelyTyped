@@ -1,4 +1,4 @@
-// Type definitions for use-resize-observer 5.0
+// Type definitions for use-resize-observer 6.0
 // Project: https://github.com/ZeeCoder/use-resize-observer#readme
 // Definitions by: PetrSvirak <https://github.com/PetrSvirak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,10 +9,10 @@ export {};
  * Allows using a ResizeObserver to measure size of an element assigned with ref returned from the hook.
  * The hook is invoked at least once before the first measurement of actual size by the observer.
  * @return a ref,
- *         and ref.current's width (1 before the first measurement),
- *         and ref.current's height (1 before the first measurement).
+ *         and ref.current's width (undefined before the first measurement),
+ *         and ref.current's height (undefined before the first measurement).
  */
-declare function useResizeObserver(): useResizeObserver.ObserverResultWithDefaultSize;
+declare function useResizeObserver(): useResizeObserver.ObserverResultWithSize;
 
 /***
  * Allows using a ResizeObserver to measure size of an element assigned with ref returned from the hook.
@@ -21,85 +21,52 @@ declare function useResizeObserver(): useResizeObserver.ObserverResultWithDefaul
  *         and ref.current's width (undefined before the first measurement),
  *         and ref.current's height (undefined before the first measurement).
  */
-declare function useResizeObserver<TElement extends HTMLElement>(defaults: DefaultsWithoutSize<TElement>): useResizeObserver.ObserverResultWithoutDefaultSize<TElement>;
+declare function useResizeObserver<TElement extends HTMLElement>(defaults: DefaultsWithoutResizeHandler<TElement>): useResizeObserver.ObserverResultWithSize<TElement>;
 
 /***
  * Allows using a ResizeObserver to measure size of an element assigned with ref returned from the hook.
  * The hook is invoked at least once before the first measurement of actual size by the observer.
- * @return a ref (optionally pass in your own),
- *         and ref.current's width (defaultWidth the first measurement),
- *         and height (undefined before the first measurement)".
+ * @param defaults The onResize callback will be called with new ref.current's width and height as a parameter.
+ *         Because of that, the ref.current's width and height are not returned.
+ * @return a ref (optionally pass in your own)
+ *         The callback function will be called with new ref.current's width and height as a parameter.
  */
-declare function useResizeObserver<TElement extends HTMLElement>(defaults: DefaultsWithWidthOnly<TElement>): useResizeObserver.ObserverResultWithDefaultWidthOnly<TElement>;
-
-/***
- * Allows using a ResizeObserver to measure size of an element assigned with ref returned from the hook.
- * The hook is invoked at least once before the first measurement of actual size by the observer.
- * @return a ref (optionally pass in your own),
- *         and ref.current's width (undefined the first measurement),
- *         and height (defaultHeight before the first measurement)".
- */
-
-declare function useResizeObserver<TElement extends HTMLElement>(defaults: DefaultsWithHeightOnly<TElement>): useResizeObserver.ObserverResultWithDefaultHeightOnly<TElement>;
-
-/***
- * Allows using a ResizeObserver to measure size of an element assigned with ref returned from the hook.
- * The hook is invoked at least once before the first measurement of actual size by the observer.
- * @return a ref (optionally pass in your own),
- *         and ref.current's width (defaultWidth the first measurement),
- *         and height (defaultHeight before the first measurement)".
- */
-declare function useResizeObserver<TElement extends HTMLElement>(defaults: DefaultsWithSize<TElement>): useResizeObserver.ObserverResultWithDefaultSize<TElement>;
+declare function useResizeObserver<TElement extends HTMLElement>(defaults: DefaultsWithResizeHandler<TElement>): useResizeObserver.ObserverResultForResizeHandler<TElement>;
 
 import { RefObject } from 'react';
 
-interface DefaultsWithoutSize<TElement> {
-    ref?: RefObject<TElement>;
-    useDefaults?: false;
+interface RefSize {
+    width: number;
+    height: number;
 }
 
-interface DefaultsWithWidthOnly<TElement> {
+type ResizeHandler = (newSize: RefSize) => void;
+
+interface DefaultsWithoutResizeHandler<TElement> {
     ref?: RefObject<TElement>;
-    useDefaults?: true;
-    defaultWidth: number;
 }
 
-interface DefaultsWithHeightOnly<TElement> {
+interface DefaultsWithResizeHandler<TElement> {
     ref?: RefObject<TElement>;
-    useDefaults?: true;
-    defaultHeight: number;
+    onResize: ResizeHandler;
 }
-
-type DefaultsWithSize<TElement> = DefaultsWithHeightOnly<TElement> & DefaultsWithWidthOnly<TElement>;
 
 declare namespace useResizeObserver {
     type ObserverDefaults<TElement extends HTMLElement = HTMLElement> =
-        DefaultsWithoutSize<TElement>
-        | DefaultsWithHeightOnly<TElement>
-        | DefaultsWithWidthOnly<TElement>
-        | DefaultsWithSize<TElement>;
+        DefaultsWithoutResizeHandler<TElement>
+        | DefaultsWithResizeHandler<TElement>;
 
-    interface ObserverResultWithoutDefaultSize<TElement = HTMLElement> {
-        height?: number;
+    type ObserverRefSize = RefSize;
+
+    interface ObserverResultWithSize<TElement = HTMLElement> {
         ref: RefObject<TElement>;
-        width?: number;
+        width: number | undefined;
+        height: number | undefined;
     }
 
-    interface ObserverResultWithDefaultHeightOnly<TElement = HTMLElement> {
-        height: number;
+    interface ObserverResultForResizeHandler<TElement = HTMLElement> {
         ref: RefObject<TElement>;
-        width?: number;
     }
-
-    interface ObserverResultWithDefaultWidthOnly<TElement = HTMLElement> {
-        height?: number;
-        ref: RefObject<TElement>;
-        width: number;
-    }
-
-    type ObserverResultWithDefaultSize<TElement = HTMLElement> =
-        ObserverResultWithDefaultHeightOnly<TElement>
-        & ObserverResultWithDefaultWidthOnly<TElement>;
 }
 
 export = useResizeObserver;

@@ -26,7 +26,6 @@ export function getLayout(obj: {
         h: number;
     };
 }): (context: DvtDiagramLayoutContext) => void;
-// tslint:disable-next-line interface-over-type-literal
 export type LabelLayout = {
     x: number;
     y: number;

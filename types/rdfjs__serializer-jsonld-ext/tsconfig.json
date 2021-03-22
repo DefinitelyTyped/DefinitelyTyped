@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@rdfjs/serializer-jsonld-ext": [
-                "rdfjs__serializer-jsonld-ext"
+            "@rdfjs/*": [
+                "rdfjs__*"
             ]
         }
     },

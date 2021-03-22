@@ -1,6 +1,8 @@
 // Type definitions for @rebass/forms 4.0
 // Project: https://github.com/rebassjs/rebass#readme
 // Definitions by: zinozzino <https://github.com/zinozzino>
+//                 trumanshuck <https://github.com/trumanshuck>
+//                 Eddie Cooro <https://github.com/Eddie-CooRo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -17,6 +19,7 @@ interface BoxKnownProps
         StyledSystem.SpaceProps,
         StyledSystem.LayoutProps,
         StyledSystem.FontSizeProps,
+        StyledSystem.FontWeightProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexProps,
         StyledSystem.OrderProps,
@@ -63,8 +66,22 @@ export interface RadioProps
 
 export const Radio: React.ComponentType<RadioProps>;
 
+export interface SliderProps
+    extends BoxKnownProps,
+        Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof BoxKnownProps> {}
+
+export const Slider: React.ComponentType<SliderProps>;
+
 export interface CheckboxProps
     extends BoxKnownProps,
         Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof BoxKnownProps> {}
 
 export const Checkbox: React.ComponentType<CheckboxProps>;
+
+export interface SwitchProps
+    extends BoxKnownProps,
+        Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BoxKnownProps> {
+    checked?: boolean;
+}
+
+export const Switch: React.ComponentType<SwitchProps>;

@@ -1,6 +1,9 @@
-import * as rtlcss from "rtlcss";
+import rtlcss = require('rtlcss');
 
-rtlcss.process("body { direction:ltr; }");
+const css = 'body { direction:ltr; }';
+
+// $ExpectType string
+rtlcss.process(css);
 
 const config = {
     autoRename: false,
@@ -11,17 +14,21 @@ const config = {
     processUrls: false,
     stringMap: [
         {
-            name    : 'left-right',
+            name: 'left-right',
             priority: 100,
-            search  : ['left', 'Left', 'LEFT'],
-            replace : ['right', 'Right', 'RIGHT'],
-            options : {
-                scope : '*',
-                ignoreCase : false
-            }
-        }
+            search: ['left', 'Left', 'LEFT'],
+            replace: ['right', 'Right', 'RIGHT'],
+            options: {
+                scope: '*',
+                ignoreCase: false,
+            },
+        },
     ],
-    useCalc: false
+    useCalc: false,
 };
 
+// $ExpectType Processor
 rtlcss.configure(config);
+
+// $ExpectType Processor | Plugin
+rtlcss(config);

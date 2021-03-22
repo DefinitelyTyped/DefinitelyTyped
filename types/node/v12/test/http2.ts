@@ -30,14 +30,14 @@ import {
     OutgoingHttpHeaders,
     createServer,
     constants,
-    ServerOptions
-} from "http2";
-import { EventEmitter } from "events";
-import { Stats } from "fs";
-import { Socket, Server } from "net";
-import { TLSSocket } from "tls";
-import { Duplex, Readable } from "stream";
-import { URL } from 'url';
+    ServerOptions,
+} from 'node:http2';
+import EventEmitter = require('node:events');
+import { Stats } from 'node:fs';
+import { Socket, Server } from 'node:net';
+import { TLSSocket } from 'node:tls';
+import { Duplex, Readable } from 'node:stream';
+import { URL } from 'node:url';
 
 // Headers & Settings
 {
@@ -296,7 +296,7 @@ import { URL } from 'url';
         response.removeHeader(':method');
         response.setHeader(':method', 'GET');
         response.setHeader(':status', 200);
-        response.setHeader('some-list', ['', '']);
+        response.setHeader('some-list', ['', ''] as ReadonlyArray<string>);
         const headersSent: boolean = response.headersSent;
 
         response.setTimeout(0, () => {});
@@ -323,6 +323,7 @@ import { URL } from 'url';
         response.end('', 'utf8', () => {});
         response.end(Buffer.from([]));
         response.end(Buffer.from([]), () => {});
+        const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});
         request.on('close', () => {});

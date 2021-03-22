@@ -1,4 +1,4 @@
-// Type definitions for nightwatch 1.1
+// Type definitions for nightwatch 1.3
 // Project: http://nightwatchjs.org
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
@@ -31,7 +31,7 @@ export interface ChromePerfLoggingPrefs {
 
 export interface ChromeOptions {
     /**
-     * 	List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
+     *     List of command-line arguments to use when starting Chrome. Arguments with an associated value should be separated by a '=' sign
      * (e.g., ['start-maximized', 'user-data-dir=/tmp/temp_profile']).
      */
     args?: string[];
@@ -213,6 +213,7 @@ export interface NightwatchTestRunner {
 export interface NightwatchTestWorker {
     enabled: boolean;
     workers: string;
+    node_options?: string | string[];
 }
 
 export interface NightwatchOptions {
@@ -444,7 +445,7 @@ export interface NightwatchTestSettingGeneric {
     /**
      * An object which will be made available within the test and can be overwritten per environment. Example:"globals" : {  "myGlobal" : "some_global" }
      */
-    globals?: NightwatchGlobals;
+    globals?: NightwatchTestHooks;
 
     /**
      * An array of folders or file patterns to be skipped (relative to the main source folder).
@@ -552,6 +553,10 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     contain(value: string): this;
     contains(value: string): this;
     match(value: string | RegExp): this;
+    startWith(value: string): this;
+    startsWith(value: string): this;
+    endWith(value: string): this;
+    endsWith(value: string): this;
 
     /**
      * Negates any of assertions following in the chain.
@@ -582,6 +587,8 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
      * Checks a given css property of an element exists and optionally if it has the expected value.
      */
     css(property: string, message?: string): this;
+
+    section(property: string): this;
 
     /**
      * Property that checks if an element is currently enabled.
@@ -615,6 +622,10 @@ export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
 }
 
 export interface NightwatchAssertions extends NightwatchCommonAssertions, NightwatchCustomAssertions {
+    /**
+     * Negates any of assertions following in the chain.
+     */
+    not: this;
 }
 
 export interface NightwatchCommonAssertions {
@@ -1021,13 +1032,13 @@ export interface NightwatchAPI extends SharedCommands, WebDriverProtocol, Nightw
     launch_url: string;
 }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomCommands { }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomAssertions { }
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomPageObjects { }
 
 export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands {
@@ -1046,15 +1057,19 @@ export interface NightwatchTestFunctions {
 }
 
 export type NightwatchTestHook =
-    | ((browser: NightwatchBrowser, done: (err?: any) => void) => void)
-    | ((done: (err?: any) => void) => void)
+    | GlobalNightwatchTestHookEach
+    | GlobalNightwatchTestHook
     ;
 
+export type GlobalNightwatchTestHookEach = ((browser: NightwatchBrowser, done: (err?: any) => void) => void);
+
+export type GlobalNightwatchTestHook = ((done: (err?: any) => void) => void);
+
 export interface NightwatchTestHooks extends NightwatchGlobals {
-    before?: NightwatchTestHook;
-    after?: NightwatchTestHook;
-    beforeEach?: NightwatchTestHook;
-    afterEach?: NightwatchTestHook;
+    before?: GlobalNightwatchTestHook;
+    after?: GlobalNightwatchTestHook;
+    beforeEach?: GlobalNightwatchTestHookEach;
+    afterEach?: GlobalNightwatchTestHookEach;
 }
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
@@ -1085,11 +1100,13 @@ export interface NightwatchAssertion<T, U = any> {
     command(callback: (result: U) => void): this;
     failure?(result: U): boolean;
     api: NightwatchAPI;
+    client: NightwatchClient;
 }
 
 export interface NightwatchClient {
     api: NightwatchAPI;
     assertion: NightwatchAssert;
+    locateStrategy?: LocateStrategy;
 }
 
 export interface Nightwatch {
@@ -1578,6 +1595,7 @@ export interface ElementCommands {
      * @see elementIdClick
      */
     click(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
+    click(using: LocateStrategy, selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): this;
 
     /**
      * Retrieve the value of an attribute for a given DOM element. Uses `elementIdAttribute` protocol command.
@@ -1872,6 +1890,14 @@ export interface ElementCommands {
      * };
      */
     waitForElementVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void, message?: string): this;
+    waitForElementVisible(
+        using: LocateStrategy,
+        selector: string,
+        time?: number,
+        abortOnFailure?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
+        message?: string
+    ): this;
 }
 
 export interface WebDriverProtocol extends
@@ -2429,7 +2455,7 @@ export interface WebDriverProtocolElementInteraction {
      * Rather than the `setValue`, the modifiers are not released at the end of the call. The state of the modifier keys is kept between calls,
      * so mouse interactions can be performed while modifier keys are depressed.
      */
-    keys(keysToSend: string[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    keys(keysToSend: string | string[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
 
     /**
      * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element.
@@ -2508,7 +2534,7 @@ export interface WebDriverProtocolDocumentHandling {
      *    });
      * }
      */
-    executeAsync<T>(script: ((this: undefined, ...data: any[]) => T) | string, args?: any[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<T>) => void): this;
+    executeAsync(script: ((this: undefined, ...data: any[]) => any) | string, args?: any[], callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void): this;
 }
 
 export interface WebDriverProtocolCookies {

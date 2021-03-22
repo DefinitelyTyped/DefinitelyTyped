@@ -8,7 +8,6 @@ import {
 } from '../types';
 import MediaFileReader from './MediaFileReader';
 
-// tslint:disable-next-line:interface-name
 interface ID3v2FrameReader {
     getFrameReaderFunction(frameId: string): FrameReaderSignature | null;
 

@@ -1,7 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "unified-signatures": false,
+        "space-before-function-paren": false,
         "npm-naming": false
     }
 }

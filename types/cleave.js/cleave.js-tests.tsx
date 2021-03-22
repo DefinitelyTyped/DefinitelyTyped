@@ -18,6 +18,7 @@ const ExampleElement1 = () => {
     const cleave = new Cleave(input, { date: true });
     cleave.setRawValue("2001/01/01");
     const formattedDate: string = cleave.getISOFormatDate();
+    cleave.properties.result; // $ExpectType string
     cleave.destroy();
 };
 
@@ -36,8 +37,8 @@ const ExampleReact2 = (props: Props) => {
         <CleaveReact
             value="test"
             className="form-control"
-            options={{ phone: true }}
             {...props}
+            options={{ phone: true }}
         />
     );
 };

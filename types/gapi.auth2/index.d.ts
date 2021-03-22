@@ -85,9 +85,9 @@ declare namespace gapi.auth2 {
      */
     app_package_name?: string;
     /**
-     * 	Fetch users' basic profile information when they sign in.
-     * 	Adds 'profile', 'email' and 'openid' to the requested scopes.
-     * 	True if unspecified.
+     *     Fetch users' basic profile information when they sign in.
+     *     Adds 'profile', 'email' and 'openid' to the requested scopes.
+     *     True if unspecified.
      */
     fetch_basic_profile?: boolean;
     /**
@@ -290,24 +290,16 @@ declare namespace gapi.auth2 {
     hasGrantedScopes(scopes: string): boolean;
 
     /**
-     * Signs in the user. Use this method to request additional scopes for incremental
-     * authorization or to sign in a user after the user has signed out.
-     * When you use GoogleUser.signIn(), the sign-in flow skips the account chooser step.
-     * See GoogleAuth.signIn().
-     */
-    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
-
-    /**
      * See GoogleUser.signIn()
      */
-    grant(options?: SigninOptions | SigninOptionsBuilder): any;
+    grant(options?: SigninOptions | SigninOptionsBuilder): Promise<any>;
 
     /**
      * Get permission from the user to access the specified scopes offline.
      * When you use GoogleUser.grantOfflineAccess(), the sign-in flow skips the account chooser step.
      * See GoogleUser.grantOfflineAccess().
      */
-    grantOfflineAccess(scopes: string): void;
+    grantOfflineAccess(options?: OfflineAccessOptions): Promise<{code: string}>;
 
     /**
      * Revokes all of the scopes that the user granted.

@@ -38,7 +38,7 @@ export class Repository {
     /**
      * Creates a branch with the passed in name pointing to the commit
      */
-    static discover(startPath: string, acrossFs: number, ceilingDirs: string): Promise<Buf>;
+    static discover(startPath: string, acrossFs: number, ceilingDirs: string): Promise<string>;
     static init(path: string, isBare: number): Promise<Repository>;
     static initExt(repoPath: string, options?: RepositoryInitOptions): Promise<Repository>;
     static open(path: string): Promise<Repository>;
@@ -103,7 +103,7 @@ export class Repository {
     /**
      * Lookup references for a repository.
      */
-    getReferences(type: Reference.TYPE): Promise<Reference[]>;
+    getReferences(): Promise<Reference[]>;
     /**
      * Lookup reference names for a repository.
      */

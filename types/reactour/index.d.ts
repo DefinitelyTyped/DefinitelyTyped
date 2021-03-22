@@ -1,6 +1,6 @@
-// Type definitions for reactour 1.13
+// Type definitions for reactour 1.18
 // Project: https://github.com/elrumordelaluz/reactour#readme
-// Definitions by: Paweł Dąbrowski <https://github.com/paolostyle>
+// Definitions by: Paweł Dąbrowski <https://github.com/paolostyle>, jzsplk <https://github.com/jzsplk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -33,7 +33,7 @@ export interface ReactourStep {
     /**
      * Position of step content
      */
-    position?: ReactourStepPosition;
+    position?: ReactourStepPosition | [number, number];
 
     /**
      * DOM selector to find the target element
@@ -51,6 +51,57 @@ export interface ReactourStep {
      * Additional styles
      */
     style?: React.CSSProperties;
+
+    /**
+     * Text read to screen reader software for this step's navigation dot
+     */
+    navDotAriaLabel?: string;
+
+    /**
+     * Observe direct children DOM mutations of this node
+     * If a child is added: the highlighted region is redrawn focused on it
+     * If a child is removed: the highlighted region is redrawn focused on the step selector
+     */
+    observe?: string;
+
+    /**
+     * Array of selectors, each selected node will be included (by union)
+     * in the highlighted region of the mask. You don't need to add the
+     * step selector here as the default highlighted region is focused on it
+     */
+    highlightedSelectors?: string[];
+
+    /**
+     * Array of selectors, each selected node DOM addition/removal will triggered a rerender
+     * of the mask shape. Useful in combinaison with highlightedSelectors when highlighted
+     * region of mask should be redrawn after a user action
+     */
+    mutationObservables?: string[];
+
+    /**
+     * Array of selectors, each selected node resize will triggered a rerender of the mask shape.
+     * Useful in combinaison with highlightedSelectors when highlighted region of mask should
+     * be redrawn after a user action. You should also add the selector in mutationObservables
+     * if you want to track DOM addition/removal too
+     */
+    resizeObservables?: string[];
+}
+
+export interface ReactourAccessibilityOptions {
+    // attribute to associate the dialog with a title for screen readers
+    ariaLabelledBy?: string;
+    // aria-label attribute for the close button
+    closeButtonAriaLabel?: string;
+    // Show/Hide Navigation Dots for screen reader software
+    showNavigationScreenReaders?: boolean;
+}
+
+export interface CustomHelperProps {
+    current: number;
+    totalSteps: number;
+    gotoStep: (step: number) => void;
+    close: () => void;
+    content: React.ReactNode | ((args: ReactourStepContentArgs) => React.ReactNode);
 }
 
 export interface ReactourProps {
@@ -238,6 +289,22 @@ export interface ReactourProps {
      * @default 1
      */
     updateDelay?: number;
+
+    /**
+     * Disable FocusLock component
+     * @default false
+     */
+    disableFocusLock?: boolean;
+
+    /**
+     * Configure accessibility related accessibility options
+     */
+    accessibilityOptions?: ReactourAccessibilityOptions;
+
+    /**
+     * CustomHelper component
+     */
+    CustomHelper?: ({ ...props }: CustomHelperProps) => React.ReactElement;
 }
 
 export interface ReactourState {

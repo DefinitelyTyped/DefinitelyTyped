@@ -1,5 +1,11 @@
-declare module "perf_hooks" {
-    import { AsyncResource } from "async_hooks";
+declare module 'node:perf_hooks' {
+    export * from 'perf_hooks';
+}
+
+declare module 'perf_hooks' {
+    import { AsyncResource } from 'node:async_hooks';
+
+    type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
 
     interface PerformanceEntry {
         /**
@@ -22,14 +28,21 @@ declare module "perf_hooks" {
          * The type of the performance entry.
          * Currently it may be one of: 'node', 'mark', 'measure', 'gc', or 'function'.
          */
-        readonly entryType: string;
+        readonly entryType: EntryType;
 
         /**
-         * When performanceEntry.entryType is equal to 'gc', the performance.kind property identifies
+         * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
          * the type of garbage collection operation that occurred.
-         * The value may be one of perf_hooks.constants.
+         * See perf_hooks.constants for valid values.
          */
         readonly kind?: number;
+
+        /**
+         * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
+         * property contains additional information about garbage collection operation.
+         * See perf_hooks.constants for valid values.
+         */
+        readonly flags?: number;
     }
 
     interface PerformanceNodeTiming extends PerformanceEntry {
@@ -39,59 +52,29 @@ declare module "perf_hooks" {
         readonly bootstrapComplete: number;
 
         /**
-         * The high resolution millisecond timestamp at which cluster processing ended.
+         * The high resolution millisecond timestamp at which the Node.js process completed bootstrapping.
+         * If bootstrapping has not yet finished, the property has the value of -1.
          */
-        readonly clusterSetupEnd: number;
+        readonly environment: number;
 
         /**
-         * The high resolution millisecond timestamp at which cluster processing started.
+         * The high resolution millisecond timestamp at which the Node.js environment was initialized.
          */
-        readonly clusterSetupStart: number;
+        readonly idleTime: number;
 
         /**
-         * The high resolution millisecond timestamp at which the Node.js event loop exited.
+         * The high resolution millisecond timestamp of the amount of time the event loop has been idle
+         *  within the event loop's event provider (e.g. `epoll_wait`). This does not take CPU usage
+         * into consideration. If the event loop has not yet started (e.g., in the first tick of the main script),
+         *  the property has the value of 0.
          */
         readonly loopExit: number;
 
         /**
          * The high resolution millisecond timestamp at which the Node.js event loop started.
+         * If the event loop has not yet started (e.g., in the first tick of the main script), the property has the value of -1.
          */
         readonly loopStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which main module load ended.
-         */
-        readonly moduleLoadEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which main module load started.
-         */
-        readonly moduleLoadStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which the Node.js process was initialized.
-         */
-        readonly nodeStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which preload module load ended.
-         */
-        readonly preloadModuleLoadEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which preload module load started.
-         */
-        readonly preloadModuleLoadStart: number;
-
-        /**
-         * The high resolution millisecond timestamp at which third_party_main processing ended.
-         */
-        readonly thirdPartyMainEnd: number;
-
-        /**
-         * The high resolution millisecond timestamp at which third_party_main processing started.
-         */
-        readonly thirdPartyMainStart: number;
 
         /**
          * The high resolution millisecond timestamp at which the V8 platform was initialized.
@@ -99,49 +82,19 @@ declare module "perf_hooks" {
         readonly v8Start: number;
     }
 
-    interface Performance {
-        /**
-         * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
-         * If name is provided, removes entries with name.
-         * @param name
-         */
-        clearFunctions(name?: string): void;
+    interface EventLoopUtilization {
+        idle: number;
+        active: number;
+        utilization: number;
+    }
 
+    interface Performance {
         /**
          * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
          * If name is provided, removes only the named mark.
          * @param name
          */
         clearMarks(name?: string): void;
-
-        /**
-         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
-         * If name is provided, removes only objects whose performanceEntry.name matches name.
-         */
-        clearMeasures(name?: string): void;
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
-         * @return list of all PerformanceEntry objects
-         */
-        getEntries(): PerformanceEntry[];
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
-         * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
-         * @param name
-         * @param type
-         * @return list of all PerformanceEntry objects
-         */
-        getEntriesByName(name: string, type?: string): PerformanceEntry[];
-
-        /**
-         * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
-         * whose performanceEntry.entryType is equal to type.
-         * @param type
-         * @return list of all PerformanceEntry objects
-         */
-        getEntriesByType(type: string): PerformanceEntry[];
 
         /**
          * Creates a new PerformanceMark entry in the Performance Timeline.
@@ -190,6 +143,16 @@ declare module "perf_hooks" {
          * @param fn
          */
         timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+
+        /**
+         * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
+         * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
+         * No other CPU idle time is taken into consideration.
+         *
+         * @param util1 The result of a previous call to eventLoopUtilization()
+         * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
+         */
+        eventLoopUtilization(util1?: EventLoopUtilization, util2?: EventLoopUtilization): EventLoopUtilization;
     }
 
     interface PerformanceObserverEntryList {
@@ -202,13 +165,13 @@ declare module "perf_hooks" {
          * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
          * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
          */
-        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
 
         /**
          * @return Returns a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
          * whose performanceEntry.entryType is equal to type.
          */
-        getEntriesByType(type: string): PerformanceEntry[];
+        getEntriesByType(type: EntryType): PerformanceEntry[];
     }
 
     type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
@@ -227,7 +190,7 @@ declare module "perf_hooks" {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: string[], buffered?: boolean }): void;
+        observe(options: { entryTypes: ReadonlyArray<EntryType>; buffered?: boolean }): void;
     }
 
     namespace constants {
@@ -235,6 +198,14 @@ declare module "perf_hooks" {
         const NODE_PERFORMANCE_GC_MINOR: number;
         const NODE_PERFORMANCE_GC_INCREMENTAL: number;
         const NODE_PERFORMANCE_GC_WEAKCB: number;
+
+        const NODE_PERFORMANCE_GC_FLAGS_NO: number;
+        const NODE_PERFORMANCE_GC_FLAGS_CONSTRUCT_RETAINED: number;
+        const NODE_PERFORMANCE_GC_FLAGS_FORCED: number;
+        const NODE_PERFORMANCE_GC_FLAGS_SYNCHRONOUS_PHANTOM_PROCESSING: number;
+        const NODE_PERFORMANCE_GC_FLAGS_ALL_AVAILABLE_GARBAGE: number;
+        const NODE_PERFORMANCE_GC_FLAGS_ALL_EXTERNAL_MEMORY: number;
+        const NODE_PERFORMANCE_GC_FLAGS_SCHEDULE_IDLE: number;
     }
 
     const performance: Performance;

@@ -1,6 +1,6 @@
-// Type definitions for aria-query 3.0
+// Type definitions for aria-query 4.2
 // Project: https://github.com/A11yance/aria-query#readme
-// Definitions by: Sebastian Silbermann <https://github.com/me>
+// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -33,15 +33,10 @@ export type ARIAAbstractRole =
     | 'window';
 
 export type ARIAWidgetRole =
-    | 'alert'
-    | 'alertdialog'
     | 'button'
     | 'checkbox'
-    | 'dialog'
     | 'gridcell'
     | 'link'
-    | 'log'
-    | 'marquee'
     | 'menuitem'
     | 'menuitemcheckbox'
     | 'menuitemradio'
@@ -52,13 +47,10 @@ export type ARIAWidgetRole =
     | 'searchbox'
     | 'slider'
     | 'spinbutton'
-    | 'status'
     | 'switch'
     | 'tab'
     | 'tabpanel'
     | 'textbox'
-    | 'timer'
-    | 'tooltip'
     | 'treeitem';
 
 export type ARIACompositeWidgetRole =
@@ -73,41 +65,60 @@ export type ARIACompositeWidgetRole =
     | 'treegrid';
 
 export type ARIADocumentStructureRole =
+    | 'application'
     | 'article'
+    | 'blockquote'
+    | 'caption'
     | 'cell'
     | 'columnheader'
     | 'definition'
+    | 'deletion'
     | 'directory'
     | 'document'
+    | 'emphasis'
     | 'feed'
     | 'figure'
+    | 'generic'
     | 'group'
     | 'heading'
     | 'img'
+    | 'insertion'
     | 'list'
     | 'listitem'
     | 'math'
+    | 'meter'
     | 'none'
     | 'note'
+    | 'paragraph'
     | 'presentation'
-    | 'region'
     | 'row'
     | 'rowgroup'
     | 'rowheader'
     | 'separator'
+    | 'strong'
+    | 'subscript'
+    | 'superscript'
     | 'table'
     | 'term'
-    | 'toolbar';
+    | 'time'
+    | 'toolbar'
+    | 'tooltip';
 
 export type ARIALandmarkRole =
-    | 'application'
     | 'banner'
     | 'complementary'
     | 'contentinfo'
     | 'form'
     | 'main'
     | 'navigation'
+    | 'region'
     | 'search';
+
+export type ARIALiveRegionRole = 'alert' | 'log' | 'marquee' | 'status' | 'timer';
+
+export type ARIAWindowRole = 'alertdialog' | 'dialog';
+
+export type ARIAUncategorizedRole = 'code';
 
 export type ARIADPubRole =
     | 'doc-abstract'
@@ -150,7 +161,14 @@ export type ARIADPubRole =
     | 'doc-tip'
     | 'doc-toc';
 
-export type ARIARole = ARIAWidgetRole | ARIACompositeWidgetRole | ARIADocumentStructureRole | ARIALandmarkRole;
+export type ARIARole =
+    | ARIAWidgetRole
+    | ARIACompositeWidgetRole
+    | ARIADocumentStructureRole
+    | ARIALandmarkRole
+    | ARIALiveRegionRole
+    | ARIAWindowRole
+    | ARIAUncategorizedRole;
 
 export interface ARIARoleDefinition {
     /* Abstract roles may not be used in HTML. */
@@ -160,6 +178,8 @@ export interface ARIARoleDefinition {
     /* Child presentational roles strip child nodes of roles and flatten the
      * content to text. */
     childrenPresentational: boolean;
+    /* aria-* properties and states disallowed on this role. */
+    prohibitedProps: ARIAPropertyMap;
     /* aria-* properties and states allowed on this role. */
     props: ARIAPropertyMap;
     /* The concepts in related domains that inform behavior mappings. */
@@ -281,7 +301,7 @@ export interface ARIAPropertyMap {
 
 export interface ARIAPropertyDefinition {
     type: 'string' | 'id' | 'idlist' | 'integer' | 'number' | 'boolean' | 'token' | 'tokenlist' | 'tristate';
-    value?: Array<string | boolean>;
+    values?: Array<string | boolean>;
     allowundefined?: boolean;
 }
 
@@ -298,9 +318,20 @@ export interface ARIARoleRelation {
 export interface ARIARoleRelationConcept {
     name: string;
     attributes?: ARIARoleRelationConceptAttribute[];
+    // These constraints are drawn from the mapping between ARIA and HTML:
+    // https://www.w3.org/TR/html-aria
+    constraints?: Array<
+        | 'direct descendant of document'
+        | 'direct descendant of ol, ul or menu'
+        | 'direct descendant of details element with the open attribute defined'
+        | 'descendant of table'
+    >;
 }
 
 export interface ARIARoleRelationConceptAttribute {
     name: string;
-    value?: string;
+    value?: string | number;
+    // These constraints are drawn from the mapping between ARIA and HTML:
+    // https://www.w3.org/TR/html-aria
+    constraints?: Array<'unset' | '>1'>;
 }

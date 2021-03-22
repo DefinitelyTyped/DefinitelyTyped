@@ -27,6 +27,21 @@ function test_afterTime(){
     assert.afterTime(date, date);
 }
 
+function test_closeToTime1(){
+    const date: Date = new Date(2014, 1, 1);
+    const closeTime: Date = new Date(2014, 1, 1, 0, 0, 30);
+    expect(date).to.be.closeToTime(closeTime, 40);
+    expect(date).not.to.be.closeToTime(closeTime, 20);
+}
+
+function test_closeToTime2(){
+    const date: Date = new Date(2014, 1, 1, 6, 0);
+    const closeDate: Date = new Date(2014, 1, 1, 6, 1);
+    expect(date).to.be.closeToTime(closeDate, 120);
+    date.should.be.closeToTime(closeDate, 120);
+    assert.closeToTime(date, closeDate, 120);
+}
+
 function test_withinTime(){
     const date: Date = new Date(2014, 7, 1);
     const fromDate: Date = new Date(2014, 1, 1);

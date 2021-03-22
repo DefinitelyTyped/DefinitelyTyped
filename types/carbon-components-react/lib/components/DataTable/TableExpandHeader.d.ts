@@ -1,8 +1,12 @@
 import * as React from "react";
 
-interface InheritedProps extends React.ThHTMLAttributes<HTMLTableHeaderCellElement> { }
-
-export interface TableExpandHeaderProps extends InheritedProps { }
+export interface TableExpandHeaderProps extends React.ThHTMLAttributes<HTMLTableHeaderCellElement> {
+    ariaLabel?: string,
+    enableExpando?: boolean,
+    expandIconDescription?: string,
+    isExpanded?: boolean,
+    onExpand?(event: React.MouseEvent<HTMLButtonElement>): void;
+}
 
 declare const TableExpandHeader: React.FC<TableExpandHeaderProps>;
 

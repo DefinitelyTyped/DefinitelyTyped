@@ -107,5 +107,4 @@ export function zoomOut(element: Element, options?: {
     axis?: string;
     transformOrigin?: string;
 }): Promise<boolean>;
-// tslint:disable-next-line interface-over-type-literal
 export type AnimationMethods = 'collapse' | 'expand' | 'fadeIn' | 'fadeOut' | 'flipIn' | 'flipOut' | 'ripple' | 'slideIn' | 'slideOut' | 'zoomIn' | 'zoomOut';

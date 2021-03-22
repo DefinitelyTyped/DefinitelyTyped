@@ -68,6 +68,8 @@ export interface DropDownProps extends TouchableWithoutFeedbackProps {
   containerStyle?: StyleProp<ViewStyle>;
   /** Set input container styles */
   inputContainerStyle?: StyleProp<ViewStyle>;
+  /** Set the label styles */
+  labelTextStyle?: StyleProp<TextStyle>;
   /** Set overlay styles */
   overlayStyle?: StyleProp<ViewStyle>;
   /** Set picker styles */

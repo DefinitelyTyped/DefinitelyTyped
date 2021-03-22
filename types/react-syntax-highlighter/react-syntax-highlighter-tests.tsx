@@ -1,11 +1,11 @@
 import * as React from "react";
 import SyntaxHighlighter, { Light as LightHighlighter, SyntaxHighlighterProps } from "react-syntax-highlighter";
 import PrismSyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
-import PrismLightHighlighter from "react-syntax-highlighter/dist/esm/prism-light";
+import PrismLightHighlighter from "react-syntax-highlighter/dist/cjs/prism-light";
 import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
-import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
+import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 function hljsHighlighter(): JSX.Element {
     const codeString: string = `class CPP {

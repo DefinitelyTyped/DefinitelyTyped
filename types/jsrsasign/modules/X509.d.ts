@@ -5,6 +5,15 @@ declare namespace jsrsasign {
         vidx: number;
     }
 
+    interface PublicKeyInfoPropOfCertPEMResult {
+        /** hexadecimal string of OID of asymmetric key algorithm */
+        algoid: string;
+        /** hexadecimal string of OID of ECC curve name or null */
+        algparam: string | null;
+        /** hexadecimal string of key in the certificate */
+        keyhex: string;
+    }
+
     class X509 {
         hex: string;
         static readonly version: string;
@@ -550,6 +559,6 @@ declare namespace jsrsasign {
          *
          * NOTE: X509v1 certificate is also supported since x509.js 1.1.9.
          */
-        static getPublicKeyInfoPropOfCertPEM(sCertPEM: string): string;
+        static getPublicKeyInfoPropOfCertPEM(sCertPEM: string): PublicKeyInfoPropOfCertPEMResult;
     }
 }

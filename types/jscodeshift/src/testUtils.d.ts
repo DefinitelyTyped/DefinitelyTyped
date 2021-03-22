@@ -1,10 +1,15 @@
-import { Transform, Options } from './core';
+import { Transform, Options, Parser } from './core';
+
+export interface TestOptions {
+  parser?: Parser | string;
+}
 
 export function defineTest(
   dirName: string,
   transformName: string,
   options: Options,
-  testFilePrefix?: string
+  testFilePrefix?: string,
+  testOptions?: TestOptions
 ): () => any;
 
 export function defineInlineTest(

@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -18,7 +19,8 @@ declare namespace GoogleAppsScript {
      *     }
      *
      * HtmlOutput
-     * Google Caja
+     * iframe
+     * sandboxing
      * guide to restrictions in HTML service
      */
     interface HtmlOutput {

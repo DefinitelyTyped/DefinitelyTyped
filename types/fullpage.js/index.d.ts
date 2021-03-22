@@ -273,6 +273,30 @@ interface FullPageJsOptions {
     };
 
     /**
+     * Extension of fullpage.js. Defines whether or not to use the cards effect on sections/slides
+     * @default false
+     */
+    cards?: boolean;
+
+    /**
+     * Allows you to configure the parameters for the cards effect when using the option `cards:true`
+     */
+    cardsOptions?: {
+        /**
+         * @default 100
+         */
+        perspective?: number;
+        /**
+         * @default true
+         */
+        fadeContent?: boolean;
+        /**
+         * @default true
+         */
+        fadeBackground?: boolean;
+    }
+
+    /**
      * Lazy loading is active by default which means it will lazy load any media element containing the attribute data-src as detailed in the Lazy Loading docs . If you want to use any other lazy loading library you can disable this fullpage.js feature.
      */ 
     lazyLoading?: boolean;

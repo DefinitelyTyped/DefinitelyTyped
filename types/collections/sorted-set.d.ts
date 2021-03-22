@@ -57,6 +57,8 @@ declare namespace internal {
     }
 
     class Node<T> {
+        value: T;
+
         reduce(cb: (result?: any, val?: any, key?: any, collection?: any) => any,
                basis: any, index: number, thisp: any, tree: any, depth: number): any;
         touch(...plus: any[]): void;
@@ -72,6 +74,8 @@ declare namespace internal {
     }
 
     export class SortedSet<T> extends AbstractSet {
+        length: number;
+
         constructor(
             values?: T[],
             equals?:  (a: T, b: T) => boolean,

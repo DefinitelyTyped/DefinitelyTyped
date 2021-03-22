@@ -5,6 +5,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
 //                 Mohammad Hossein Amri <https://github.com/mhamri>
+//                 Marco Mantovani <https://github.com/TheLand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -18,8 +19,8 @@ import Delta = require('quill-delta');
  *
  *  But this would break a lot of existing code as it would require manual discrimination of the union types.
  */
-export type DeltaOperation = { insert?: any, delete?: number, retain?: number } & OptionalAttributes;
-export type Sources = "api" | "user" | "silent";
+export type DeltaOperation = { insert?: any; delete?: number; retain?: number } & OptionalAttributes;
+export type Sources = 'api' | 'user' | 'silent';
 
 export interface Key {
     key: string | number;
@@ -36,17 +37,22 @@ export interface OptionalAttributes {
 
 export type TextChangeHandler = (delta: Delta, oldContents: Delta, source: Sources) => any;
 export type SelectionChangeHandler = (range: RangeStatic, oldRange: RangeStatic, source: Sources) => any;
-export type EditorChangeHandler = ((name: "text-change", delta: Delta, oldContents: Delta, source: Sources) => any)
-    | ((name: "selection-change", range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
+export type EditorChangeHandler =
+    | ((name: 'text-change', delta: Delta, oldContents: Delta, source: Sources) => any)
+    | ((name: 'selection-change', range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
 
 export interface KeyboardStatic {
     addBinding(key: Key, callback: (range: RangeStatic, context: any) => void): void;
     addBinding(key: Key, context: any, callback: (range: RangeStatic, context: any) => void): void;
 }
 
+export type ClipboardMatcherCallback = (node: any, delta: Delta) => Delta;
+export type ClipboardMatcherNode = string | number;
+
 export interface ClipboardStatic {
-    convert(html?: string): Delta;
-    addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: Delta) => Delta): void;
+    matchers: Array<[ClipboardMatcherNode, ClipboardMatcherCallback]>;
+    convert(content?: { html?: string; text?: string }, formats?: StringMap): Delta;
+    addMatcher(selectorOrNodeType: ClipboardMatcherNode, callback: ClipboardMatcherCallback): void;
     dangerouslyPasteHTML(html: string, source?: Sources): void;
     dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
 }
@@ -84,20 +90,20 @@ export class RangeStatic implements RangeStatic {
 }
 
 export interface EventEmitter {
-    on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-    on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-    on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
-    once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-    once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-    once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
-    off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-    off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-    off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    on(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
+    on(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
+    on(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
+    once(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
+    once(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
+    once(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
+    off(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
+    off(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
+    off(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
 }
 
 export class Quill implements EventEmitter {
     /**
-     * @private Internal API
+     * Internal API
      */
     root: HTMLDivElement;
     clipboard: ClipboardStatic;
@@ -107,6 +113,7 @@ export class Quill implements EventEmitter {
     deleteText(index: number, length: number, source?: Sources): Delta;
     disable(): void;
     enable(enabled?: boolean): void;
+    isEnabled(): boolean;
     getContents(index?: number, length?: number): Delta;
     getLength(): number;
     getText(index?: number, length?: number): string;
@@ -150,13 +157,13 @@ export class Quill implements EventEmitter {
     setSelection(range: RangeStatic, source?: Sources): void;
 
     // static methods: debug, import, register, find
-    static debug(level: string|boolean): void;
+    static debug(level: string | boolean): void;
     static import(path: string): any;
     static register(path: string, def: any, suppressWarning?: boolean): void;
     static register(defs: StringMap, suppressWarning?: boolean): void;
     static find(domNode: Node, bubble?: boolean): Quill | any;
 
-    addContainer(classNameOrDomNode: string|Node, refNode?: Node): any;
+    addContainer(classNameOrDomNode: string | Node, refNode?: Node): any;
     getModule(name: string): any;
 
     // Blot interface is not exported on Parchment
@@ -167,15 +174,15 @@ export class Quill implements EventEmitter {
     getLines(range: RangeStatic): any[];
 
     // EventEmitter methods
-    on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-    on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-    on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
-    once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-    once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-    once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
-    off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-    off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-    off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    on(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
+    on(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
+    on(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
+    once(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
+    once(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
+    once(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
+    off(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
+    off(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
+    off(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
 }
 
 export default Quill;

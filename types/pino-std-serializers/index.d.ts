@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
+/// <reference types="node" />
 import { IncomingMessage, ServerResponse } from 'http';
 
 export interface SerializedError {

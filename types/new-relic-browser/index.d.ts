@@ -1,4 +1,4 @@
-// Type definitions for non-npm package NewRelicBrowser 0.1072
+// Type definitions for non-npm package NewRelicBrowser 0.1118
 // Project: https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
 // Definitions by: Rene Hamburger <https://github.com/renehamburger>, Piotr Kubisa <https://github.com/piotrkubisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,11 +49,12 @@ declare namespace NewRelic {
         /**
          * Identifies a browser error without disrupting your app's operations.
          *
-         * @param Provide a meaningful error message that you can use when analyzing data on
+         * @param error Provide a meaningful error message that you can use when analyzing data on
          *   New Relic Browser's JavaScript errors page.
+         * @param customAttributes An object containing name/value pairs representing custom attributes.
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/notice-error
          */
-        noticeError(error: any): void;
+        noticeError(error: Error | string, customAttributes?: { [key: string]: string | number }): void;
 
         /**
          * Adds a user-defined attribute name and value to subsequent events on the page.
@@ -65,7 +66,7 @@ declare namespace NewRelic {
          *   values cannot be complex objects, only simple types such as strings and numbers.
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/set-custom-attribute
          */
-        setCustomAttribute(name: string, value: string): void;
+        setCustomAttribute(name: string, value: string | number): void;
 
         /**
          * Allows selective ignoring of known errors that the Browser agent captures.
@@ -108,7 +109,7 @@ declare namespace NewRelic {
          *   the default naming strategy.
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-set-current-route-name
          */
-        setCurrentRouteName(name: string): void;
+        setCurrentRouteName(name: string | null): void;
     }
 
     interface EventObject {
@@ -126,15 +127,26 @@ declare namespace NewRelic {
 
     interface BrowserInteraction {
         /**
+         * Sets the text value of the HTML element that was clicked to start a browser interaction.
+         *
+         * @param value The text value of the HTML element that represents the action that started the interaction.
+         * @returns This method returns the same API object created by interaction().
+         * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/actiontext-browser-spa-api
+         */
+        actionText(value: string): BrowserInteraction;
+
+        /**
          * Times sub-components of a SPA interaction separately, including wait time and JS execution time.
          *
          * @param name This will be used as the name of the tracer. If you do not include a name,
          *   New Relic Browser does not add a node to the interaction tree. The callback time will be
          *   attributed to the parent node.
+         * @param callback A callback that contains the synchronous work to run at the end of the async work.
+         *   To execute this callback, call the wrapper function returned using createTracer()
          * @returns This method ends the async time. It calls (and times) the callback that was passed into createTracer().
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-create-tracer
          */
-        createTracer(name: string, syncCallback?: () => void): () => void;
+        createTracer(name: string, callback?: () => void): () => void;
 
         /**
          * Ends the New Relic SPA interaction at the current time.

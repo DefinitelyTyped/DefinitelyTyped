@@ -1,5 +1,5 @@
-import * as net from 'net';
-import { LookupOneOptions } from 'dns';
+import * as net from 'node:net';
+import { LookupOneOptions } from 'node:dns';
 
 {
     const connectOpts: net.NetConnectOpts = {
@@ -85,6 +85,9 @@ import { LookupOneOptions } from 'dns';
     _socket = _socket.connect(80, "localhost", (): void => {});
     _socket = _socket.connect(80);
     _socket = _socket.connect(80, (): void => {});
+
+    // test the types of the address object fields
+    const address: net.AddressInfo | {} = _socket.address();
 
     /// addListener
 

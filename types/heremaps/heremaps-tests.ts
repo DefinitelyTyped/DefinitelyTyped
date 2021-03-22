@@ -13,15 +13,22 @@ function capture(resultContainer: HTMLElement, map: H.Map, ui: H.ui.UI) {
     // element with desired map area rendered on it.
     // We also pass an H.ui.UI reference in order to see the ScaleBar in the output.
     // If dimensions are omitted, whole veiw port will be captured
-    map.capture((canvas: HTMLCanvasElement) => {
-        if (canvas) {
-            resultContainer.innerHTML = '';
-            resultContainer.appendChild(canvas);
-        } else {
-            // For example when map is in Panorama mode
-            resultContainer.innerHTML = 'Capturing is not supported';
-        }
-    }, [ui], 50, 50, 500, 200);
+    map.capture(
+        (canvas: HTMLCanvasElement) => {
+            if (canvas) {
+                resultContainer.innerHTML = '';
+                resultContainer.appendChild(canvas);
+            } else {
+                // For example when map is in Panorama mode
+                resultContainer.innerHTML = 'Capturing is not supported';
+            }
+        },
+        [ui],
+        50,
+        50,
+        500,
+        200,
+    );
 }
 
 /**
@@ -29,10 +36,9 @@ function capture(resultContainer: HTMLElement, map: H.Map, ui: H.ui.UI) {
  */
 // Step 1: initialize communication with the platform
 let platform = new H.service.Platform({
-    app_id: 'DemoAppId01082013GAL',
-    app_code: 'AJKnXv84fjrb0KIHawS0Tg',
+    apikey: '{YOUR_APIKEY}',
     useHTTPS: true,
-    useCIT: true
+    useCIT: true,
 });
 
 let defaultLayers = platform.createDefaultLayers();
@@ -40,11 +46,11 @@ let defaultLayers = platform.createDefaultLayers();
 let mapContainer = document.getElementById('map');
 
 // Step 2: initialize a map
-let map = new H.Map(mapContainer, defaultLayers.normal.map, {
+let map = new H.Map(mapContainer, defaultLayers.vector.normal.map, {
     // initial center and zoom level of the map
     zoom: 16,
     // Champs-Elysees
-    center: { lat: 48.869145, lng: 2.314298 }
+    center: { lat: 48.869145, lng: 2.314298 },
 });
 
 // Step 3: make the map interactive
@@ -60,8 +66,7 @@ let resultContainer = document.getElementById('panel');
 
 // Create container for the "Capture" button
 let containerNode = document.createElement('div');
-containerNode.setAttribute('style',
-    'position:absolute;top:0;left:0;background-color:#fff; padding:10px;');
+containerNode.setAttribute('style', 'position:absolute;top:0;left:0;background-color:#fff; padding:10px;');
 containerNode.className = 'btn-group';
 
 // Create the "Capture" button
@@ -81,7 +86,7 @@ captureBtn.onclick = () => {
 
 let icon = new H.map.Icon('svg', { size: 5, crossOrigin: false });
 
-let polyline = new H.map.Polyline(new H.geo.Strip());
+let polyline = new H.map.Polyline(new H.geo.LineString());
 // tslint:disable-next-line:array-type
 let clipArr: Array<Array<number>>;
 clipArr = polyline.clip(new H.geo.Rect(5, 5, 5, 5));
@@ -105,16 +110,16 @@ let router = platform.getRoutingService();
 let calculateRouteParams = {
     waypoint0: 'geo!52.5,13.4',
     waypoint1: 'geo!52.5,13.45',
-    mode: 'fastest;car;traffic:disabled'
+    mode: 'fastest;car;traffic:disabled',
 };
 router.calculateRoute(
     calculateRouteParams,
-    (result) => {
+    result => {
         console.log(result.response.route[0]);
     },
-    (error) => {
+    error => {
         console.log(error);
-    }
+    },
 );
 
 let places = platform.getPlacesService();
@@ -123,39 +128,39 @@ places.request(
     entryPoint.SEARCH,
     {
         at: '52.5044,13.3909',
-        q: 'pizza'
+        q: 'pizza',
     },
-    (response) => {
+    response => {
         console.log(response);
         const items = response.results.items;
         places.follow(
             items[0].href,
-            (resp) => {
+            resp => {
                 console.log(resp);
             },
-            (resp) => {
+            resp => {
                 console.log('ERROR: ' + resp);
-            }
+            },
         );
     },
-    (error) => {
+    error => {
         console.log('ERROR: ' + error);
-    }
+    },
 );
 
 let geocoder = platform.getGeocodingService();
 let geocodingParams: H.service.ServiceParameters = {
-    searchText: '425 W Randolph Street, Chicago'
+    searchText: '425 W Randolph Street, Chicago',
 };
 geocoder.geocode(
     geocodingParams,
-    (result) => {
+    result => {
         console.log(result);
         console.log(result.Response.View[0].Result[0].Location.DisplayPosition);
     },
-    (error) => {
+    error => {
         console.log(error);
-    }
+    },
 );
 
 // deprecated but w/e
@@ -163,27 +168,27 @@ let enterprieseRouter = platform.getEnterpriseRoutingService();
 let calculateIsoline: H.service.ServiceParameters = {
     start: 'geo!52.5,13.4',
     distance: '1000,2000',
-    mode: 'fastest;car;traffic:disabled'
+    mode: 'fastest;car;traffic:disabled',
 };
 enterprieseRouter.calculateIsoline(
     calculateIsoline,
-    (result) => {
+    result => {
         console.log(result);
         console.log(result.Response.isolines[0]);
     },
-    (error) => {
+    error => {
         console.log(error);
-    }
+    },
 );
 
 // Create a clustering provider
 const clusteredDataProvider = new H.clustering.Provider([], {
-clusteringOptions: {
-  // Maximum radius of the neighborhood
-  eps: 64,
-  // minimum weight of points required to form a cluster
-  minWeight: 3
-}
+    clusteringOptions: {
+        // Maximum radius of the neighborhood
+        eps: 64,
+        // minimum weight of points required to form a cluster
+        minWeight: 3,
+    },
 });
 
 // Create a layer that will consume objects from our clustering provider
@@ -207,3 +212,18 @@ const engineListener = (e: Event) => {
 };
 engine.addEventListener('tap', engineListener);
 engine.removeEventListener('tap', engineListener);
+
+// Get group bounds
+const group = new H.map.Group();
+const bounds = group.getBoundingBox();
+
+// Create your own LocalObjectProvider and add some hierarchical objects:
+const localProvider = new H.map.provider.LocalObjectProvider();
+map.addLayer(new H.map.layer.ObjectLayer(localProvider));
+const position = { lat: 52.5308, lng: 13.3852 };
+group.addObject(new H.map.Circle(position, 35));
+localProvider.getRootGroup().addObjects([group, new H.map.Marker(position)]);
+map.setCenter(position).setZoom(18);
+
+// Test GeoJSON
+const geoJSON = map.screenToGeo(0, 0).toGeoJSON();

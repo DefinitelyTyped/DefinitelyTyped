@@ -1,7 +1,7 @@
-import EmberObject, { computed, notifyPropertyChange } from "@ember/object";
+import EmberObject, { computed, notifyPropertyChange } from '@ember/object';
 
 const LifetimeHooks = EmberObject.extend({
-    resource: null as {} | null,
+    resource: undefined as {} | undefined,
 
     init() {
         this._super();
@@ -11,7 +11,7 @@ const LifetimeHooks = EmberObject.extend({
     willDestroy() {
         delete this.resource;
         this._super();
-    }
+    },
 });
 
 class MyObject30 extends EmberObject {
@@ -28,23 +28,40 @@ class MyObject31 extends EmberObject {
 
 class Foo extends EmberObject {
     a = computed({
-        get() { return ''; },
-        set(key: string, newVal: string) { return ''; }
+        get() {
+            return '';
+        },
+        set(key: string, newVal: string) {
+            return '';
+        },
     });
     b = 5;
+    c = computed({
+        get() {
+            return '';
+        },
+        set(key: string, newVal: string | number) {
+            return '';
+        }
+    });
     baz() {
+        const x = this.a; // $ExpectType ComputedProperty<string, string>
         const y = this.b; // $ExpectType number
-        const z = this.a; // $ExpectType ComputedProperty<string, string>
+        const z = this.c; // $ExpectType ComputedProperty<string, string | number>
         this.b = 10;
         this.get('b').toFixed(4); // $ExpectType string
         this.set('a', 'abc').split(','); // $ExpectType string[]
         this.set('b', 10).toFixed(4); // $ExpectType string
+        this.get('c').split(','); // $ExpectType string[]
+        this.set('c', '10').split(','); // $ExpectType string[]
+        this.set('c', 10);
+        this.set('c', 10).split(','); // $ExpectError
 
         this.setProperties({ b: 11 });
         // this.setProperties({ b: '11' }); // $ExpectError
         this.setProperties({
             a: 'def',
-            b: 11
+            b: 11,
         });
     }
     bar() {

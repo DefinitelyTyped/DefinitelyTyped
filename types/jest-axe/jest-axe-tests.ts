@@ -15,6 +15,20 @@ const newJestWithOptions: JestAxe = configureAxe({
     selectors: false,
 });
 
+const newJestWithGlobalOptions: JestAxe = configureAxe({
+    globalOptions: {
+        axeVersion: '3.5.5',
+    },
+    elementRef: false,
+    iframes: false,
+    rules: {},
+    runOnly: {
+        type: 'rules',
+        values: [],
+    },
+    selectors: false,
+});
+
 const sameJest: JestAxe = axe;
 
 expect('').toHaveNoViolations();

@@ -4,8 +4,8 @@ import CompressionPlugin = require('compression-webpack-plugin');
 new CompressionPlugin();
 
 new CompressionPlugin({
-    include: ["a"] as ReadonlyArray<string>,
-    exclude: [/a/g] as ReadonlyArray<RegExp>,
+    include: ["a"],
+    exclude: [/a/g],
     test: "a",
 });
 
@@ -18,9 +18,18 @@ const config: Configuration = {
             minRatio: 0.8,
             test: /\.js$|\.html$/,
             threshold: 10240,
-            deleteOriginalAssets: true
-        })
-    ]
+            deleteOriginalAssets: true,
+        }),
+        new CompressionPlugin({
+            filename: pathData => {
+                pathData.file; // $ExpectType string
+                pathData.path; // $ExpectType string
+                pathData.query; // $ExpectType string
+                return `${pathData.path}.gz${pathData.query}`;
+            },
+            deleteOriginalAssets: 'keep-source-map',
+        }),
+    ],
 };
 
 const configDefaultAlgo = new CompressionPlugin({
@@ -37,29 +46,27 @@ const zlib: Configuration = {
             compressionOptions: {
                 flush: 5,
                 windowBits: 20,
-                level: 7
-            }
-        })
-    ]
+                level: 7,
+            },
+        }),
+    ],
 };
 
 const badZlib: Configuration = {
     plugins: [
         // $ExpectError
-        new CompressionPlugin({
-            algorithm: "deflate",
-            compressionOptions: 5
-        })
+        new CompressionPlugin({ algorithm: "deflate", compressionOptions: 5 })
     ]
 };
-
-function customAlgorithm(input: string, options: number, callback: (err: Error, result: Buffer) => void) {
-}
 
 const custom: Configuration = {
     plugins: [
         new CompressionPlugin({
-            algorithm: customAlgorithm,
+            algorithm: (input: string, options: number, callback: (err: Error, result: Buffer) => void) => {},
+            compressionOptions: 5
+        }),
+        new CompressionPlugin({
+            algorithm: (input: string, options: number, callback: (err: Error, result: Uint8Array) => void) => {},
             compressionOptions: 5
         })
     ]
@@ -68,9 +75,6 @@ const custom: Configuration = {
 const badCustom: Configuration = {
     plugins: [
         // $ExpectError
-        new CompressionPlugin({
-            algorithm: customAlgorithm,
-            compressionOptions: { flush: 5 }
-        })
+        new CompressionPlugin({ algorithm: customAlgorithm, compressionOptions: { flush: 5 } })
     ]
 };

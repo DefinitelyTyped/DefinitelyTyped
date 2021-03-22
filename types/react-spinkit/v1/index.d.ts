@@ -7,7 +7,7 @@
 /// <reference types="react" />
 
 declare namespace spinner {
-	export interface SpinnerProps {
+    export interface SpinnerProps {
         /**
          * Specify spinner to use.
          */
@@ -24,10 +24,10 @@ declare namespace spinner {
          * Component className.
          */
         className?: string;
-	}
+    }
 
-	export interface Spinner extends React.ComponentClass<SpinnerProps> {
-	}
+    export interface Spinner extends React.ComponentClass<SpinnerProps> {
+    }
 }
 
 declare const spinner: spinner.Spinner;

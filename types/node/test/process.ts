@@ -1,6 +1,6 @@
-import * as p from "process";
-import { ok } from "assert";
-import { EventEmitter } from "events";
+import * as p from 'node:process';
+import assert = require('node:assert');
+import EventEmitter = require('node:events');
 
 {
     let eventEmitter: EventEmitter;
@@ -10,11 +10,7 @@ import { EventEmitter } from "events";
     _p = p;
 }
 {
-    ok(process.argv[0] === process.argv0);
-}
-{
-    let module: NodeJS.Module | undefined;
-    module = process.mainModule;
+    assert.ok(process.argv[0] === process.argv0);
 }
 {
     process.on("message", (req: any) => { });
@@ -23,6 +19,7 @@ import { EventEmitter } from "events";
     process.prependListener("exit", (code: number) => { });
     process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
     process.on("uncaughtException", (error: Error) => { });
+    process.once("uncaughtExceptionMonitor", (error: Error) => { });
     process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
     process.once("warning", (warning: Error) => { });
     process.prependListener("message", (message: any, sendHandle: any) => { });
@@ -30,10 +27,15 @@ import { EventEmitter } from "events";
     process.on("newListener", (event: string | symbol, listener: Function) => { });
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
+    process.on("customEvent", () => { });
 
     const listeners = process.listeners('uncaughtException');
     const oldHandler = listeners[listeners.length - 1];
     process.addListener('uncaughtException', oldHandler);
+
+    const stdInFd = process.stdin.fd;
+    const stdOutFd = process.stdout.fd;
+    const stdErrorFd = process.stderr.fd;
 }
 {
     function myCb(err: Error): void {
@@ -67,4 +69,27 @@ import { EventEmitter } from "events";
 
 {
     const usage: NodeJS.ResourceUsage = process.resourceUsage();
+}
+
+{
+    const usage: NodeJS.MemoryUsage = process.memoryUsage();
+    const rss: number = usage.rss;
+    const heapTotal: number = usage.heapTotal;
+    const heapUsed: number = usage.heapUsed;
+    const external: number = usage.external;
+    const arrayBuffers: number = usage.arrayBuffers;
+}
+{
+    let strDict: NodeJS.Dict<string>;
+    strDict = process.versions;
+    strDict = p.versions;
+}
+{
+    process.traceDeprecation = true;
+}
+
+{
+    function abortNeverReturns() {
+        process.abort(); // $ExpectType never
+    }
 }

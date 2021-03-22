@@ -1,8 +1,9 @@
-declare module "tls" {
-    import * as crypto from "crypto";
-    import * as dns from "dns";
-    import * as net from "net";
-    import * as stream from "stream";
+declare module 'node:tls' {
+    export * from 'tls';
+}
+
+declare module 'tls' {
+    import * as net from 'node:net';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
@@ -38,12 +39,13 @@ declare module "tls" {
         subject: Certificate;
         issuer: Certificate;
         subjectaltname: string;
-        infoAccess: { [index: string]: string[] | undefined };
+        infoAccess: NodeJS.Dict<string[]>;
         modulus: string;
         exponent: string;
         valid_from: string;
         valid_to: string;
         fingerprint: string;
+        fingerprint256: string;
         ext_key_usage: string[];
         serialNumber: string;
         raw: Buffer;
@@ -62,6 +64,11 @@ declare module "tls" {
          * SSL/TLS protocol version.
          */
         version: string;
+
+        /**
+         * IETF name for the cipher suite.
+         */
+        standardName: string;
     }
 
     interface EphemeralKeyInfo {
@@ -292,6 +299,14 @@ declare module "tls" {
          */
         enableTrace(): void;
 
+        /**
+         * @param length number of bytes to retrieve from keying material
+         * @param label an application specific label, typically this will be a value from the
+         * [IANA Exporter Label Registry](https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#exporter-labels).
+         * @param context optionally provide a context.
+         */
+        exportKeyingMaterial(length: number, label: string, context: Buffer): Buffer;
+
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
@@ -371,7 +386,7 @@ declare module "tls" {
         rejectUnauthorized?: boolean;
     }
 
-    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
+    interface TlsOptions extends SecureContextOptions, CommonConnectionOptions, net.ServerOpts {
         /**
          * Abort the connection if the SSL/TLS handshake does not finish in the
          * specified number of milliseconds. A 'tlsClientError' is emitted on
@@ -389,6 +404,40 @@ declare module "tls" {
          * 48-bytes of cryptographically strong pseudo-random data.
          */
         ticketKeys?: Buffer;
+
+        /**
+         *
+         * @param socket
+         * @param identity identity parameter sent from the client.
+         * @return pre-shared key that must either be
+         * a buffer or `null` to stop the negotiation process. Returned PSK must be
+         * compatible with the selected cipher's digest.
+         *
+         * When negotiating TLS-PSK (pre-shared keys), this function is called
+         * with the identity provided by the client.
+         * If the return value is `null` the negotiation process will stop and an
+         * "unknown_psk_identity" alert message will be sent to the other party.
+         * If the server wishes to hide the fact that the PSK identity was not known,
+         * the callback must provide some random data as `psk` to make the connection
+         * fail with "decrypt_error" before negotiation is finished.
+         * PSK ciphers are disabled by default, and using TLS-PSK thus
+         * requires explicitly specifying a cipher suite with the `ciphers` option.
+         * More information can be found in the RFC 4279.
+         */
+
+        pskCallback?(socket: TLSSocket, identity: string): DataView | NodeJS.TypedArray | null;
+        /**
+         * hint to send to a client to help
+         * with selecting the identity during TLS-PSK negotiation. Will be ignored
+         * in TLS 1.3. Upon failing to set pskIdentityHint `tlsClientError` will be
+         * emitted with `ERR_TLS_PSK_SET_IDENTIY_HINT_FAILED` code.
+         */
+        pskIdentityHint?: string;
+    }
+
+    interface PSKCallbackNegotation {
+        psk: DataView | NodeJS.TypedArray;
+        identity: string;
     }
 
     interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
@@ -402,9 +451,30 @@ declare module "tls" {
         minDHSize?: number;
         lookup?: net.LookupFunction;
         timeout?: number;
+        /**
+         * When negotiating TLS-PSK (pre-shared keys), this function is called
+         * with optional identity `hint` provided by the server or `null`
+         * in case of TLS 1.3 where `hint` was removed.
+         * It will be necessary to provide a custom `tls.checkServerIdentity()`
+         * for the connection as the default one will try to check hostname/IP
+         * of the server against the certificate but that's not applicable for PSK
+         * because there won't be a certificate present.
+         * More information can be found in the RFC 4279.
+         *
+         * @param hint message sent from the server to help client
+         * decide which identity to use during negotiation.
+         * Always `null` if TLS 1.3 is used.
+         * @returns Return `null` to stop the negotiation process. `psk` must be
+         * compatible with the selected cipher's digest.
+         * `identity` must use UTF-8 encoding.
+         */
+        pskCallback?(hint: string | null): PSKCallbackNegotation | null;
     }
 
     class Server extends net.Server {
+        constructor(secureConnectionListener?: (socket: TLSSocket) => void);
+        constructor(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void);
+
         /**
          * The server.addContext() method adds a secure context that will be
          * used if the client request's SNI name matches the supplied hostname
@@ -640,6 +710,17 @@ declare module "tls" {
          * shared between applications. Unused by clients.
          */
         sessionIdContext?: string;
+        /**
+         * 48-bytes of cryptographically strong pseudo-random data.
+         * See Session Resumption for more information.
+         */
+        ticketKeys?: Buffer;
+        /**
+         * The number of seconds after which a TLS session created by the
+         * server will no longer be resumable. See Session Resumption for more
+         * information. Default: 300.
+         */
+        sessionTimeout?: number;
     }
 
     interface SecureContext {
@@ -660,10 +741,10 @@ declare module "tls" {
     function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     /**
-     * @deprecated
+     * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
      */
     function createSecurePair(credentials?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
+    function createSecureContext(options?: SecureContextOptions): SecureContext;
     function getCiphers(): string[];
 
     /**

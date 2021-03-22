@@ -1,6 +1,8 @@
-// Type definitions for PDF.js v2.1
+// Type definitions for PDF.js v2.7
 // Project: https://github.com/mozilla/pdf.js
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin>, Dmitrii Sorin <https://github.com/1999>
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
+//                 Dmitrii Sorin <https://github.com/1999>
+//                 Kamil Socha <https://github.com/ksocha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -11,15 +13,7 @@ declare const version: string;
 declare const GlobalWorkerOptions: GlobalWorkerOptions;
 
 interface GlobalWorkerOptions {
-  workerSrc: string;
-}
-
-interface PDFPromise<T> {
-    isResolved(): boolean;
-    isRejected(): boolean;
-    resolve(value: T): void;
-    reject(reason: string): void;
-    then<U>(onResolve: (promise: T) => U, onReject?: (reason: string) => void): PDFPromise<U>;
+    workerSrc: string;
 }
 
 interface PDFTreeNode {
@@ -35,7 +29,7 @@ interface PDFInfo {
     PDFFormatVersion: string;
     IsAcroFormPresent: boolean;
     IsXFAPresent: boolean;
-    [key: string]: any;	// return type is string, typescript chokes
+    [key: string]: any; // return type is string, typescript chokes
 }
 
 interface PDFMetadata {
@@ -45,58 +39,60 @@ interface PDFMetadata {
 }
 
 interface PDFDataRangeTransportListener {
-    (loaded: number, total: number): void
+    (loaded: number, total: number): void;
 }
 
 declare enum VerbosityLevel {
     ERRORS = 0,
-    WARNINGS= 1,
-    INFOS= 5,
+    WARNINGS = 1,
+    INFOS = 5,
 }
 
 declare class PDFDataRangeTransport {
-    constructor(length: number, initialData: Uint8Array|BufferSource, progressiveDone?: boolean);
-    addRangeListener(listener: PDFDataRangeTransportListener):void
-    addProgressListener(listener: PDFDataRangeTransportListener): void
-    addProgressiveReadListener(listener: PDFDataRangeTransportListener): void
-    addProgressiveDoneListener(listener: PDFDataRangeTransportListener): void
-    onDataRange(begin: number, chunk: unknown): void
-    onDataProgress(loaded: number, total: number): void
-    onDataProgressiveRead(chunk: unknown): void
-    onDataProgressiveDone(): void
-    transportReady() : void
-    requestDataRange(begin: number, end: number): void
-    abort(): void
+    constructor(length: number, initialData: Uint8Array | BufferSource, progressiveDone?: boolean);
+    addRangeListener(listener: PDFDataRangeTransportListener): void;
+    addProgressListener(listener: PDFDataRangeTransportListener): void;
+    addProgressiveReadListener(listener: PDFDataRangeTransportListener): void;
+    addProgressiveDoneListener(listener: PDFDataRangeTransportListener): void;
+    onDataRange(begin: number, chunk: unknown): void;
+    onDataProgress(loaded: number, total: number): void;
+    onDataProgressiveRead(chunk: unknown): void;
+    onDataProgressiveDone(): void;
+    transportReady(): void;
+    requestDataRange(begin: number, end: number): void;
+    abort(): void;
 }
 
 interface PDFWorkerParameters {
-    name?: string
-    port?: any
-    verbosity?: VerbosityLevel
+    name?: string;
+    port?: any;
+    verbosity?: VerbosityLevel;
 }
 
 declare class PDFWorker {
-    constructor(params?: PDFWorkerParameters)
-    readonly promise: Promise<unknown>
-    readonly port: any |null
-    readonly messageHandler: unknown | null
-    destroy(): void
-    static fromPort(params?: PDFWorkerParameters): PDFWorker
-    static getWorkerSrc(): string
+    constructor(params?: PDFWorkerParameters);
+    readonly promise: Promise<unknown>;
+    readonly port: any | null;
+    readonly messageHandler: unknown | null;
+    destroy(): void;
+    static fromPort(params?: PDFWorkerParameters): PDFWorker;
+    static getWorkerSrc(): string;
 }
-declare enum  CMapCompressionType {
+declare enum CMapCompressionType {
     NONE = 0,
-    BINARY= 1,
-    STREAM= 2,
-  }
+    BINARY = 1,
+    STREAM = 2,
+}
 interface CMapReaderFactory {
-    new (params: {baseUrl: string, isCompressed: boolean}): CMapReader
+    new (params: { baseUrl: string; isCompressed: boolean }): CMapReader;
 }
 interface CMapReader {
-    fetch(params: {name: string}): Promise<{
-        cMapData: any,
-        compressionType: CMapCompressionType
-    }>
+    fetch(params: {
+        name: string;
+    }): Promise<{
+        cMapData: any;
+        compressionType: CMapCompressionType;
+    }>;
 }
 interface PDFSource {
     /** The URL of the PDF. */
@@ -111,27 +107,27 @@ interface PDFSource {
      * Basic authentication headers.
      */
     httpHeaders?: {
-        [key: string]: string
+        [key: string]: string;
     };
     /**
      * For decrypting password-protected PDFs.
      */
     password?: string;
     /**
-    * Indicates whether or not cross-site
-    * Access-Control requests should be made using credentials such as cookies
-    * or authorization headers. The default is false.
-    */
+     * Indicates whether or not cross-site
+     * Access-Control requests should be made using credentials such as cookies
+     * or authorization headers. The default is false.
+     */
     withCredentials?: boolean;
     /*
-    * A typed array with the first portion or
-    * all of the pdf data. Used by the extension since some data is already
-    * loaded before the switch to range requests.  */
+     * A typed array with the first portion or
+     * all of the pdf data. Used by the extension since some data is already
+     * loaded before the switch to range requests.  */
     initialData?: Uint8Array | BufferSource;
     /*
-    * The PDF file length. It's used for progress
-    * reports and range requests operations.
-    */
+     * The PDF file length. It's used for progress
+     * reports and range requests operations.
+     */
     length?: number;
     /** range */
     range?: PDFDataRangeTransport;
@@ -139,7 +135,7 @@ interface PDFSource {
      * Optional parameter to specify
      * maximum number of bytes fetched per range request. The default value is
      * 2^16 = 65536. */
-    rangeChunkSize?: number
+    rangeChunkSize?: number;
     /**
      * The worker that will be used for
      * the loading and parsing of the PDF data.
@@ -157,70 +153,70 @@ interface PDFSource {
      */
     docBaseUrl?: string;
     /**
-    * Strategy for
-    * decoding certain (simple) JPEG images in the browser. This is useful for
-    * environments without DOM image and canvas support, such as e.g. Node.js.
-    * Valid values are 'decode', 'display' or 'none'; where 'decode' is intended
-    * for browsers with full image/canvas support, 'display' for environments
-    * with limited image support through stubs (useful for SVG conversion),
-    * and 'none' where JPEG images will be decoded entirely by PDF.js.
-    * The default value is 'decode'.
-    */
-    nativeImageDecoderSupport?: "decode"|"display"|"none"
+     * Strategy for
+     * decoding certain (simple) JPEG images in the browser. This is useful for
+     * environments without DOM image and canvas support, such as e.g. Node.js.
+     * Valid values are 'decode', 'display' or 'none'; where 'decode' is intended
+     * for browsers with full image/canvas support, 'display' for environments
+     * with limited image support through stubs (useful for SVG conversion),
+     * and 'none' where JPEG images will be decoded entirely by PDF.js.
+     * The default value is 'decode'.
+     */
+    nativeImageDecoderSupport?: 'decode' | 'display' | 'none';
     /**
      * The URL where the predefined
      * Adobe CMaps are located. Include trailing slash. */
-    cMapUrl?: string
+    cMapUrl?: string;
     /**
      * Specifies if the Adobe CMaps are
      * binary packed. */
-    cMapPacked?: boolean
+    cMapPacked?: boolean;
     /**
      * The factory that will be
      * used when reading built-in CMap files. Providing a custom factory is useful
      * for environments without `XMLHttpRequest` support, such as e.g. Node.js.
      * The default value is {DOMCMapReaderFactory}.
      */
-    CMapReaderFactory?: any
+    CMapReaderFactory?: any;
     /**
      * Reject certain promises, e.g.
      * `getOperatorList`, `getTextContent`, and `RenderTask`, when the associated
      * PDF data cannot be successfully parsed, instead of attempting to recover
      * whatever possible of the data. The default value is `false`.
      */
-    stopAtErrors?: boolean
+    stopAtErrors?: boolean;
     /**
      * The maximum allowed image size
      * in total pixels, i.e. width * height. Images above this value will not be
      * rendered. Use -1 for no limit, which is also the default value.
      */
-    maxImageSize?: number
+    maxImageSize?: number;
     /**
      * Determines if we can eval
      * strings as JS. Primarily used to improve performance of font rendering,
      * and when parsing PDF functions. The default value is `true`.
      */
-    isEvalSupported?: boolean
+    isEvalSupported?: boolean;
     /**
      * By default fonts are
      *   converted to OpenType fonts and loaded via font face rules. If disabled,
      *   fonts will be rendered using a built-in font renderer that constructs the
      *   glyphs with primitive path commands. The default value is `false`.
      */
-    disableFontFace?: boolean
+    disableFontFace?: boolean;
     /**
      * Disable range request loading
      *   of PDF files. When enabled, and if the server supports partial content
      *   requests, then the PDF will be fetched in chunks.
      *   The default value is `false`.
      */
-    disableRange?: boolean
+    disableRange?: boolean;
     /**
      * Disable streaming of PDF file
      *   data. By default PDF.js attempts to load PDFs in chunks.
      *   The default value is `false`.
      */
-    disableStream?: boolean
+    disableStream?: boolean;
     /**
      * Disable pre-fetching of PDF
      *   file data. When range requests are enabled PDF.js will automatically keep
@@ -229,18 +225,18 @@ interface PDFSource {
      *   NOTE: It is also necessary to disable streaming, see above,
      *         in order for disabling of pre-fetching to work correctly.
      */
-    disableAutoFetch?: boolean
+    disableAutoFetch?: boolean;
     /**
      * Disable the use of
      *   `URL.createObjectURL`, for compatibility with older browsers.
      *   The default value is `false`.
      */
-    disableCreateObjectURL?: boolean
+    disableCreateObjectURL?: boolean;
     /**
      * Enables special hooks for debugging
      * PDF.js (see `web/debugger.js`). The default value is `false`.
      */
-    pdfBug?: boolean
+    pdfBug?: boolean;
 }
 
 interface PDFProgressData {
@@ -249,7 +245,6 @@ interface PDFProgressData {
 }
 
 interface PDFDocumentProxy {
-
     /**
      * Total number of pages the PDF contains.
      **/
@@ -269,44 +264,49 @@ interface PDFDocumentProxy {
      * @param number The page number to get.  The first page is 1.
      * @return A promise that is resolved with a PDFPageProxy.
      **/
-    getPage(number: number): PDFPromise<PDFPageProxy>;
+    getPage(number: number): Promise<PDFPageProxy>;
 
     /**
      * TODO: return type of Promise<???>
      *  A promise that is resolved with a lookup table for mapping named destinations to reference numbers.
      **/
-    getDestinations(): PDFPromise<any[]>;
+    getDestinations(): Promise<any[]>;
 
     /**
      *  A promise that is resolved with an array of all the JavaScript strings in the name tree.
      **/
-    getJavaScript(): PDFPromise<string[]>;
+    getJavaScript(): Promise<string[]>;
 
     /**
      *  A promise that is resolved with an array that is a tree outline (if it has one) of the PDF.  @see PDFTreeNode
      **/
-    getOutline(): PDFPromise<PDFTreeNode[]>;
+    getOutline(): Promise<PDFTreeNode[]>;
+
+    /**
+     *  A promise that is resolved with an array that contains the permission flags for the PDF document.
+     **/
+    getPermissions(): Promise<number[]>;
 
     /**
      * A promise that is resolved with the info and metadata of the PDF.
      **/
-    getMetadata(): PDFPromise<{ info: PDFInfo; metadata: PDFMetadata }>;
+    getMetadata(): Promise<{ info: PDFInfo; metadata: PDFMetadata }>;
 
     /**
      * Is the PDF encrypted?
      **/
-    isEncrypted(): PDFPromise<boolean>;
+    isEncrypted(): Promise<boolean>;
 
     /**
      * A promise that is resolved with Uint8Array that has the raw PDF data.
      **/
-    getData(): PDFPromise<Uint8Array>;
+    getData(): Promise<Uint8Array>;
 
     /**
      * TODO: return type of Promise<???>
      * A promise that is resolved when the document's data is loaded.
      **/
-    dataLoaded(): PDFPromise<any[]>;
+    dataLoaded(): Promise<any[]>;
 
     /**
      *
@@ -343,6 +343,8 @@ interface PDFPageViewport {
 interface ViewportParameters {
     scale: number; // The desired scale of the viewport.
     rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
+    offsetX?: number; // (optional) The horizontal, i.e. x-axis, offset. The default value is `0`.
+    offsetY?: number; // (optional) The vertical, i.e. y-axis, offset. The default value is `0`.
     dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
 }
 interface PDFAnnotationData {
@@ -360,8 +362,8 @@ interface PDFAnnotations {
     getHtmlElement(commonOjbs: any): HTMLElement; // throw new NotImplementedException()
     getEmptyContainer(tagName: string, rect: number[]): HTMLElement; // deprecated
     isViewable(): boolean;
-    loadResources(keys: any): PDFPromise<any>;
-    getOperatorList(evaluator: any): PDFPromise<any>;
+    loadResources(keys: any): Promise<any>;
+    getOperatorList(evaluator: any): Promise<any>;
     // ... todo
 }
 
@@ -382,6 +384,7 @@ interface PDFRenderParams {
     viewport?: PDFPageViewport;
     textLayer?: PDFRenderTextLayer;
     imageLayer?: PDFRenderImageLayer;
+    renderInteractiveForms?: boolean;
     continueCallback?: (_continue: () => void) => void;
 }
 
@@ -394,7 +397,6 @@ interface PDFViewerParams {
  * RenderTask is basically a promise but adds a cancel function to termiate it.
  **/
 interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
-
     /**
      * Cancel the rendering task.  If the task is currently rendering it will not be cancelled until graphics pauses with a timeout.  The promise that this object extends will resolve when cancelled.
      **/
@@ -402,7 +404,6 @@ interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
 }
 
 interface PDFPageProxy {
-
     /**
      * Page index of the page.  First page is 0.
      */
@@ -437,7 +438,7 @@ interface PDFPageProxy {
     /**
      * A promise that is resolved with an array of the annotation objects.
      **/
-    getAnnotations(): PDFPromise<PDFAnnotations>;
+    getAnnotations(): Promise<PDFAnnotations>;
 
     /**
      * Begins the process of rendering a page to the desired context.
@@ -449,12 +450,12 @@ interface PDFPageProxy {
     /**
      * A promise that is resolved with the string that is the text content frm the page.
      **/
-    getTextContent(): PDFPromise<TextContent>;
+    getTextContent(): Promise<TextContent>;
 
     /**
      * marked as future feature
      **/
-    //getOperationList(): PDFPromise<>;
+    //getOperationList(): Promise<>;
 
     /**
      * Destroyes resources allocated by the page.
@@ -497,7 +498,7 @@ interface PDFJSUtilStatic {
      * means normalization to (BL,TR) ordering. For systems with origin in the
      * top-left, this means (TL,BR) ordering.
      **/
-    normalizeRect(rect:number[]): number[];
+    normalizeRect(rect: number[]): number[];
 }
 
 export const PDFJS: PDFJSStatic;
@@ -633,15 +634,15 @@ interface PDFJSStatic {
 
     PDFViewer(params: PDFViewerParams): void;
     /**
-    * yet another viewer, this will render only one page at the time, reducing rendering time
-    * very important for mobile development
-    * @params {PDFViewerParams}
-    */
+     * yet another viewer, this will render only one page at the time, reducing rendering time
+     * very important for mobile development
+     * @params {PDFViewerParams}
+     */
     PDFSinglePageViewer(params: PDFViewerParams): void;
 }
 
 interface PDFLoadingTask<T> {
-    promise: PDFPromise<T>;
+    promise: Promise<T>;
 }
 
 declare const Util: PDFJSUtilStatic;
@@ -661,19 +662,19 @@ declare function getDocument(
     url: string,
     pdfDataRangeTransport?: PDFDataRangeTransport,
     passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-    progressCallback?: (progressData: PDFProgressData) => void
+    progressCallback?: (progressData: PDFProgressData) => void,
 ): PDFLoadingTask<PDFDocumentProxy>;
 
 declare function getDocument(
     data: Uint8Array | BufferSource,
     pdfDataRangeTransport?: PDFDataRangeTransport,
     passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-    progressCallback?: (progressData: PDFProgressData) => void
+    progressCallback?: (progressData: PDFProgressData) => void,
 ): PDFLoadingTask<PDFDocumentProxy>;
 
 declare function getDocument(
     source: PDFSource,
     pdfDataRangeTransport?: PDFDataRangeTransport,
     passwordCallback?: (fn: (password: string) => void, reason: string) => string,
-    progressCallback?: (progressData: PDFProgressData) => void
+    progressCallback?: (progressData: PDFProgressData) => void,
 ): PDFLoadingTask<PDFDocumentProxy>;

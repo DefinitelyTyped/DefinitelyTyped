@@ -3,6 +3,7 @@
 // Definitions by: morsic <https://github.com/maximelkin>,
 //                 burtek <https://github.com/burtek>,
 //                 Richard Honor <https://github.com/RMHonor>
+//                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Timezone } from 'tz-offset';
@@ -15,6 +16,7 @@ export interface ScheduledTask {
     start: () => this;
     stop: () => this;
     destroy: () => void;
+    getStatus: () => string;
 }
 
 export interface ScheduleOptions {
