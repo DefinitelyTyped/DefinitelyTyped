@@ -473,6 +473,10 @@ declare namespace google {
             strokeWidth?: number;
         }
 
+        export interface ChartStrokeOpacity extends ChartStroke {
+            strokeOpacity?: number;
+        }
+
         export interface ChartFill {
             fill?: string;
             fillOpacity?: number;
@@ -1368,32 +1372,36 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
         export interface CalendarOptions {
-            calendar: {
-                cellColor: Object;
-                cellSize: number;
-                dayOfWeekLabel: Object;
-                dayOfWeekRightSpace: number;
-                daysOfWeek: string;
-                focusedCellColor: Object;
-                monthLabel: Object;
-                monthOutlineColor: Object;
-                underMonthSpace: number;
-                underYearSpace: number;
-                unusedMonthOutlineColor: Object;
+            calendar?: {
+                cellColor?: ChartStrokeOpacity;
+                cellSize?: number;
+                dayOfWeekLabel?: ChartTextStyle;
+                dayOfWeekRightSpace?: number;
+                daysOfWeek?: string;
+                focusedCellColor?: ChartStrokeOpacity;
+                monthLabel?: ChartTextStyle;
+                monthOutlineColor?: ChartStrokeOpacity;
+                underMonthSpace?: number;
+                underYearSpace?: number;
+                unusedMonthOutlineColor?: ChartStrokeOpacity;
             };
             colorAxis?: {
-                colors: string[];
-                maxValue: number;
-                minValue: number;
-                values: number[];
+                colors?: string[];
+                maxValue?: number;
+                minValue?: number;
+                values?: number[];
             };
             forceIFrame?: boolean;
             height?: number;
-            noDataPattern?: Object;
-            tooltip: {
+            noDataPattern?: {
+                backgroundColor: string,
+                color: string
+            };
+            tooltip?: {
                 isHtml: boolean;
             };
             width?: number;
+            title?: string;
         }
 
         //#endregion
