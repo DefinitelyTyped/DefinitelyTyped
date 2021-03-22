@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "create-banner-tests.ts"]
+    "files": ["index.d.ts", "test/random-gradient-require-tests.ts", "test/random-gradient-import-tests.ts"]
 }

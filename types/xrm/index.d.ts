@@ -705,14 +705,22 @@ declare namespace Xrm {
     }
 
     /**
-     * Defines save options to control how appointment, recurring appointment, or service activity records are processed.
+     * Defines save options for saving the record.
      *
      * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data/save External Link: save(Client API reference)}
      */
     interface SaveOptions {
         /**
+         * Specify a value indicating how the save event was initiated.
+         * @remarks For a list of supported values, see the return value of the getSaveMode method.
+         * @remarks Note that setting the saveMode does not actually take the corresponding action; it is just to provide information to the OnSave event handlers about the reason for the save operation.
+         */
+        saveMode: XrmEnum.SaveMode;
+
+        /**
          * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
          * Applicable to appointment, recurring appointment, or service activity records.
+         * @remarks This property is not supported in Unified Interface.
          */
         UseSchedulingEngine?: boolean;
     }
@@ -724,11 +732,23 @@ declare namespace Xrm {
      */
     interface Data {
         /**
+         * Adds a function to be called when form data is loaded.
+         * @param handler The function to be executed when the form data loads. The function will be added to the bottom of the event handler pipeline.
+         */
+        addOnLoad(handler: Events.ContextSensitiveHandler): void;
+
+        /**
          * Asynchronously refreshes data on the form, without reloading the page.
          * @param save true to save the record, after the refresh.
          * @returns Returns an asynchronous promise.
          */
         refresh(save: boolean): Async.PromiseLike<undefined>;
+
+        /**
+         * Removes a function to be called when form data is loaded.
+         * @param handler The function to be removed when the form data loads.
+         */
+        removeOnLoad(handler: Events.ContextSensitiveHandler): void;
 
         /**
          * Asynchronously saves the record.
@@ -986,7 +1006,7 @@ declare namespace Xrm {
         defaultViewId?: string;
         /**
          * Decides whether to display the most recently used(MRU) item.
-         * Available only for Unified Interface.
+         * @remarks Available only for Unified Interface.
          */
         disableMru?: boolean;
         /**
@@ -3107,7 +3127,7 @@ declare namespace Xrm {
          *
          * @see {@link Control}
          */
-        interface GridControl extends Control {
+        interface GridControl extends Control, UiCanSetVisibleElement {
             /**
              * Use this method to add event handlers to the GridControl's OnLoad event.
              *
