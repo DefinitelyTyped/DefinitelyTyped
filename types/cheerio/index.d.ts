@@ -9,6 +9,7 @@
 //                 AzSiAz <https://github.com/AzSiAz>
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Hiroki Osame <https://github.com/privatenumber>
+//                 Artishevskiy Alexey <https://github.com/dhvcc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -28,9 +29,11 @@ declare namespace cheerio {
 
     interface TagElement {
         tagName: string;
-        type: 'tag';
+        type: 'tag' | 'script' | 'style';
         name: string;
         attribs: { [attr: string]: string };
+        'x-attribsNamespace': { [attr: string]: string };
+        'x-prefixNamespace': { [attr: string]: string };
         children: Element[];
         childNodes: Element[] | null;
         lastChild: Element | null;
@@ -61,6 +64,7 @@ declare namespace cheerio {
         // Cheerio https://github.com/cheeriojs/cheerio
         // JQuery http://api.jquery.com
 
+        [Symbol.iterator](): IterableIterator<Element>;
         [index: number]: Element;
         cheerio: string;
         length: number;
@@ -313,7 +317,7 @@ declare namespace cheerio {
     interface CheerioAPI extends Root {
         version: string;
         load(html: string | Buffer, options?: CheerioParserOptions): Root;
-        load(element: Element, options?: CheerioParserOptions): Root;
+        load(element: Element | Element[], options?: CheerioParserOptions): Root;
     }
 }
 

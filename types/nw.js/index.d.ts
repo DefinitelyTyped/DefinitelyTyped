@@ -1566,7 +1566,7 @@ declare global {
             /**
              * Get or set whether the `MenuItem` is `enabled`
              */
-            enabled: string;
+            enabled: boolean;
 
             /**
              * Get or set the `submenu` of a `MenuItem`, the `submenu` must be a `Menu` object.

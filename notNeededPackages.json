@@ -751,6 +751,11 @@
             "asOfVersion": "4.0.3"
         },
         {
+            "libraryName": "csrf",
+            "typingsPackageName": "csrf",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "csv-parse",
             "typingsPackageName": "csv-parse",
             "asOfVersion": "1.2.2"
@@ -1687,6 +1692,11 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "http-proxy-middleware",
+            "typingsPackageName": "http-proxy-middleware",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "http-status",
             "typingsPackageName": "http-status",
             "asOfVersion": "1.1.1"
@@ -2477,6 +2487,11 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "markdown-escapes",
+            "typingsPackageName": "markdown-escapes",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "markdown-it-anchor",
             "typingsPackageName": "markdown-it-anchor",
             "asOfVersion": "7.0.0"
@@ -2830,6 +2845,11 @@
             "libraryName": "nblas",
             "typingsPackageName": "nblas",
             "asOfVersion": "2.1.6"
+        },
+        {
+            "libraryName": "neat-csv",
+            "typingsPackageName": "neat-csv",
+            "asOfVersion": "5.1.0"
         },
         {
             "libraryName": "neffos.js",
@@ -5031,6 +5051,11 @@
             "libraryName": "webpack-chain",
             "typingsPackageName": "webpack-chain",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "webpack-merge",
+            "typingsPackageName": "webpack-merge",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "typescript",

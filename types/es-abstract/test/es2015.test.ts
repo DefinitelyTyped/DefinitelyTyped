@@ -64,7 +64,7 @@ ES2015.Call(iterNext, generable());
 
 // $ExpectType IteratorResult<number, boolean>
 ES2015.Invoke(generable(), 'next', args as IArguments & [string]);
-ES2015.Invoke(generable(), Symbol.iterator, args);
+ES2015.Invoke(generable(), Symbol.iterator, args as IArguments & []);
 
 // $ExpectType boolean
 ES2015.Invoke(Reflect, 'has', args as IArguments & [object, PropertyKey]);

@@ -190,7 +190,7 @@ export interface CalendarBaseProps {
     /**
      *  Provide custom day rendering component.
      */
-    dayComponent?: React.Component<DayComponentProps> | React.SFC<DayComponentProps>;
+    dayComponent?: React.Component<DayComponentProps> | React.FC<DayComponentProps>;
 
     /**
      *  Disable days by default. Default = false

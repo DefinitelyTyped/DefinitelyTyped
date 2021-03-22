@@ -10,6 +10,7 @@ import postcssParser = require('prettier/parser-postcss');
 import yamlParser = require('prettier/parser-yaml');
 import meriyahParser = require('prettier/parser-meriyah');
 import espreeParser = require('prettier/parser-espree');
+import glimmerParser = require('prettier/parser-glimmer');
 import * as doc from 'prettier/doc';
 
 const formatted = prettier.format('foo ( );', { semi: false });
@@ -85,6 +86,7 @@ postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parse
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 meriyahParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 espreeParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+glimmerParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 
 prettier.format('hello world', {
     plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser],

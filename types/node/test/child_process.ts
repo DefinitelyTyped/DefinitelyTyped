@@ -37,6 +37,9 @@ import { Writable, Readable, Pipe } from 'node:stream';
     childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
     childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    childProcess.execFile("npm", (err) => {
+        if (err && err.errno) assert(err.code === 'ENOENT');
+    });
 }
 
 {

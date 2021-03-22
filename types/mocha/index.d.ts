@@ -1378,6 +1378,9 @@ declare namespace Mocha {
         readonly EVENT_TEST_PASS: 'pass';
         readonly EVENT_TEST_PENDING: 'pending';
         readonly EVENT_TEST_RETRY: 'retry';
+        readonly STATE_IDLE: 'idle';
+        readonly STATE_RUNNING: 'running';
+        readonly STATE_STOPPED: 'stopped';
     }
 
     /**

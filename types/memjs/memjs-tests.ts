@@ -10,3 +10,7 @@ client.get('hello', (err, val) => {
     console.log(err, val);
 });
 client.get('hello'); // $ExpectType Promise<{ value: Buffer; flags: Buffer; }>
+
+// Can initialize clients with client and server options
+memjs.Client.create('12345', { username: 'hello' }); // $ExpectType Client
+memjs.Client.create('12345', { retries: 3 }); // $ExpectType Client
