@@ -169,7 +169,7 @@ export class SimpleSchema {
   addValidator(validator: Validator): void;
   pick(...fields: string[]): SimpleSchema;
   omit(...fields: string[]): SimpleSchema;
-  oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchema;
+  static oneOf(...types: Array<(SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor)>): SimpleSchema;
   clean(doc: any, options?: CleanOption): any;
   schema(key: string): SchemaDefinition;
   schema(): SchemaDefinition[];
