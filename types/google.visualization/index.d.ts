@@ -1375,7 +1375,7 @@ declare namespace google {
             calendar?: {
                 cellColor?: ChartStrokeOpacity;
                 cellSize?: number;
-                dayOfWeekLabel?: Object;
+                dayOfWeekLabel?: ChartTextStyle;
                 dayOfWeekRightSpace?: number;
                 daysOfWeek?: string;
                 focusedCellColor?: ChartStrokeOpacity;
@@ -1384,7 +1384,6 @@ declare namespace google {
                 underMonthSpace?: number;
                 underYearSpace?: number;
                 unusedMonthOutlineColor?: ChartStrokeOpacity;
-                dayOfWeekLabel?: ChartTextStyle;
             };
             colorAxis?: {
                 colors?: string[];
