@@ -1,4 +1,4 @@
-import Serverless = require('../../../index');
+import Serverless = require("../../../index");
 
 declare namespace Aws {
     /*
@@ -9,9 +9,9 @@ declare namespace Aws {
         useDotenv?: boolean;
         frameworkVersion?: string;
         enableLocalInstallationFallback?: boolean;
-        unresolvedVariablesNotificationMode?: 'warn' | 'error';
+        unresolvedVariablesNotificationMode?: "warn" | "error";
         disabledDeprecations?: string[];
-        configValidationMode?: 'warn' | 'error' | 'off';
+        configValidationMode?: "warn" | "error" | "off";
         provider: Provider;
         package?: Package;
         functions?: Functions;
@@ -31,7 +31,7 @@ declare namespace Aws {
     }
 
     interface Provider {
-        name: 'aws';
+        name: "aws";
         runtime?: string;
         stage?: string;
         region?: string;
@@ -60,7 +60,7 @@ declare namespace Aws {
         iam?: IamSettings;
         versionFunctions?: boolean;
         environment?: Environment | string;
-        endpointType?: 'regional' | 'edge' | 'private';
+        endpointType?: "regional" | "edge" | "private";
         apiKeys?: string[];
         apiGateway?: ApiGateway;
         alb?: Alb;
@@ -79,11 +79,17 @@ declare namespace Aws {
         kmsKeyArn?: string;
     }
 
-    interface IamSettings {
-        role?: string;
+    interface IamRoleSettings {
         permissionBoundary?: string;
         statements?: IamRoleStatement[];
         managedPolicies?: string[];
+        tags?: {
+            [key: string]: string;
+        };
+    }
+
+    interface IamSettings {
+        role?: string | IamRoleSettings;
         deploymentRole?: string;
     }
 
@@ -114,7 +120,7 @@ declare namespace Aws {
             [key: string]: string;
         };
         websocketApiId?: any;
-        apiKeySourceType?: 'HEADER' | 'AUTHORIZER' | 'header' | 'authorizer';
+        apiKeySourceType?: "HEADER" | "AUTHORIZER" | "header" | "authorizer";
         minimumCompressionSize?: number | string;
         description?: string;
         binaryMediaTypes?: string[];
@@ -123,7 +129,7 @@ declare namespace Aws {
     }
 
     interface CognitoAuthorizer {
-        type: 'cognito';
+        type: "cognito";
         userPoolArn: string;
         userPoolClientId: string;
         userPoolDomain: string;
@@ -138,7 +144,7 @@ declare namespace Aws {
     }
 
     interface OidcAuthorizer {
-        type: 'oidc';
+        type: "oidc";
         authorizationEndpoint: string;
         clientId: string;
         clientSecret?: string;
@@ -196,7 +202,7 @@ declare namespace Aws {
     }
 
     interface IamRoleStatement {
-        Effect: 'Allow' | 'Deny';
+        Effect: "Allow" | "Deny";
         Sid?: string;
         Condition?: {
             [key: string]: any;
@@ -208,7 +214,7 @@ declare namespace Aws {
     }
 
     interface ResourcePolicy {
-        Effect: 'Allow' | 'Deny';
+        Effect: "Allow" | "Deny";
         Principal?: string | string[] | { [key: string]: any };
         Action?: string | string[] | { [key: string]: any };
         Resource?: string | string[] | { [key: string]: any };
@@ -239,21 +245,21 @@ declare namespace Aws {
 
     interface Tracing {
         apiGateway: boolean;
-        lambda?: 'Active' | 'PassThrough' | boolean;
+        lambda?: "Active" | "PassThrough" | boolean;
     }
 
     interface RestApiLogs {
         accessLogging?: boolean;
         format?: string;
         executionLogging?: boolean;
-        level?: 'INFO' | 'ERROR';
+        level?: "INFO" | "ERROR";
         fullExecutionData?: boolean;
         role?: string;
         roleManagedExternally?: boolean;
     }
 
     interface WebsocketLogs {
-        level?: 'INFO' | 'ERROR';
+        level?: "INFO" | "ERROR";
     }
 
     interface HttpApiLogs {
@@ -316,7 +322,7 @@ declare namespace Aws {
         async?: boolean;
         authorizer?: HttpAuthorizer | string;
         request?: HttpRequestValidation;
-        integration?: 'lambda' | 'mock';
+        integration?: "lambda" | "mock";
     }
 
     interface NamedHttpApiEventAuthorizer {
@@ -409,7 +415,7 @@ declare namespace Aws {
         batchSize?: number | string;
         startingPosition?: number | string;
         enabled?: boolean;
-        type?: 'dynamodb' | 'kinesis';
+        type?: "dynamodb" | "kinesis";
     }
 
     interface Msk {
@@ -417,7 +423,7 @@ declare namespace Aws {
         topic: string;
         batchSize?: number;
         enabled?: boolean;
-        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
+        startingPosition?: "LATEST" | "TRIM_HORIZON";
     }
 
     interface AlexaSkill {
@@ -444,7 +450,7 @@ declare namespace Aws {
 
     interface CloudwatchEventType {
         source: string[];
-        'detail-type': string[];
+        "detail-type": string[];
         detail: Detail;
     }
 
@@ -484,7 +490,7 @@ declare namespace Aws {
 
     interface PatternInput {
         source: string[];
-        'detail-type': string[];
+        "detail-type": string[];
         detail: Detail;
     }
 
@@ -556,7 +562,7 @@ declare namespace Aws {
         vpc?: string | Vpc;
         package?: Package;
         layers?: Array<string | Record<string, string>>;
-        tracing?: 'Active' | 'PassThrough' | boolean;
+        tracing?: "Active" | "PassThrough" | boolean;
         condition?: string;
         dependsOn?: string[];
         fileSystemConfig?: FileSystemConfig;

@@ -244,6 +244,17 @@ const awsServerless: Aws.Serverless = {
             testtagkey: 'testtagvalue'
         },
         iamManagedPolicies: ['testiamManagedPolicies'],
+        iam: {
+            role: {
+                statements: [{ Effect: 'Allow', Action: 'test:Get', Resource: 'test::arn:aws' }],
+                managedPolicies: ['arn:test:iam:1'],
+                permissionBoundary: 'arn:aws:iam::XXXXXXXX:policy/policy',
+                tags: {
+                    stage: 'dev'
+                }
+            },
+            deploymentRole: 'arn:aws:iam::XXXXXX:role/role',
+        },
         iamRoleStatements: [
             {
                 Effect: 'Allow',
