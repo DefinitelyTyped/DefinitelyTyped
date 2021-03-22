@@ -268,6 +268,6 @@ export interface DatepickerOptions {
 declare global {
     interface JQuery<TElement = HTMLElement> {
         datepicker(options?: DatepickerOptions): DatepickerPlugin<TElement>;
-        datepicker(method: string, ...args: Array<number | boolean | Date | string>): void | string | Date;
+        datepicker(method: string, ...args: ReadonlyArray<number | boolean | Date | string>): void | string | Date;
     }
 }
