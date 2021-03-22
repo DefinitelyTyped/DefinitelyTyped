@@ -141,6 +141,9 @@ declare namespace THREE {
         verticesNeedUpdate: boolean;
     }
 
+    class Line3 {
+    }
+
     namespace Math {
         function degToRad(degree: number): number;
         function radToDeg(radians: number): number;
@@ -257,6 +260,29 @@ declare namespace THREE {
     }
 
     class Plane {
+        constant: number;
+        normal: Vector3;
+
+        constructor(normal?: Vector3, constant?: number);
+        
+        applyMatrix4(matrix: Matrix4, optionalNormalMatrix?: Matrix3): Plane;
+        clone(): Plane;
+        coplanarPoint(optionalTarget?: boolean): Vector3;
+        copy(plane: Plane): Plane;
+        distanceToPoint(point: Vector3): number;
+        distanceToSphere(sphere: Sphere): number;
+        equals(plane: Plane): boolean;
+        intersectLine(line: Line3, optionalTarget?: Vector3): Vector3;
+        isIntersectionLine(line: Line3): boolean;
+        negate(): Plane;
+        normalize(): Plane;
+        orthoPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+        projectPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+        set(normal: Vector3, constant: number): Plane;
+        setComponents(x: number, y: number, z: number, w: number): Plane;
+        setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane;
+        setFromCoplanarPoints(a: Vector3, b: Vector3, c: Vector3): Plane;
+        translate(offset: Vector3): Plane;
     }
 
     class PointCloud extends Object3D {
@@ -277,6 +303,40 @@ declare namespace THREE {
     }
 
     class Ray {
+        origin: Vector3;
+        direction: Vector3;
+
+        constructor(origin?: Vector3, direction?: Vector3);
+
+        applyMatrix4(matrix4: Matrix4): Ray;
+        at(t: number, optionalTarget?: Vector3): Vector3;
+        clone(): Ray;
+        closestPointToPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
+        copy(ray: Ray): Ray;
+        distanceSqToSegment(
+            v0: Vector3,
+            v1: Vector3,
+            optionalPointOnRay?: Vector3,
+            optionalPointOnSegment?: Vector3
+        ): number;
+        distanceToPlane(plane: Plane): number;
+        distanceToPoint(point: Vector3): number;
+        equals(ray: Ray): boolean;
+        isIntersectionSphere(sphere: Sphere): boolean;
+        intersectSphere(sphere: Sphere, optionalTarget?: Vector3): Vector3;
+        isIntersectionPlane(plane: Plane): boolean;
+        intersectPlane(plane: Plane, optionalTarget?: Vector3): Vector3;
+        intersectBox(box: Box3, optionalTarget?: Vector3): Vector3;
+        intersectTriangle(
+            a: Vector3,
+            b: Vector3,
+            c: Vector3,
+            backfaceCulling: boolean,
+            optionalTarget?: Vector3
+        ): Vector3;
+        isIntersectionBox(box: Box3): boolean;
+        recast(t: number): Ray;
+        set(origin: Vector3, direction: Vector3): Ray;
     }
 
     class Scene {
