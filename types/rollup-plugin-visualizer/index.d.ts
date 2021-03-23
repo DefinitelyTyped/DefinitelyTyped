@@ -1,4 +1,4 @@
-// Type definitions for rollup-plugin-visualizer 4.2.2
+// Type definitions for rollup-plugin-visualizer 4.2
 // Project: https://github.com/doesdev/rollup-plugin-analyzer#readme
 // Definitions by: Nick <https://github.com/fobdy>,
 //                 Max Boguslavskiy <https://github.com/maxbogus>
