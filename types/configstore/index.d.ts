@@ -1,4 +1,4 @@
-// Type definitions for configstore 4.0
+// Type definitions for configstore 5.0
 // Project: https://github.com/yeoman/configstore
 // Definitions by: ArcticLight <https://github.com/ArcticLight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,7 +62,7 @@ declare class Configstore {
      * Equivalent to <code>Configstore.all = {};</code>
      */
     clear(): void;
-  }
+}
 
 declare namespace Configstore {
     interface ConfigstoreOptions {
