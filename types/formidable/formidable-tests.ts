@@ -175,3 +175,9 @@ function evaluateTypes(form: Formidable) {
         });
     });
 }
+
+// $ExpectType Formidable
+new Formidable.IncomingForm();
+
+// $ExpectType Formidable
+Formidable.formidable();

@@ -392,7 +392,7 @@ declare namespace Formidable {
      * make it available without requiring the `new` keyword
      * if you want it access `const formidable.IncomingForm` as v1
      */
-    function formidable(options: Partial<Options>): Formidable;
+    function formidable(options?: Partial<Options>): Formidable;
 
     /**
      * Alias
@@ -401,7 +401,7 @@ declare namespace Formidable {
 }
 
 declare class Formidable {
-    constructor(options: Partial<Formidable.Options>);
+    constructor(options?: Partial<Formidable.Options>);
 
     /**
      * Parses an incoming Node.js request containing form data. If callback is provided, all fields
