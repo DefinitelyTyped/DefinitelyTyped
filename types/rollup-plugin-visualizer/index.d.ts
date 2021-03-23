@@ -2,7 +2,6 @@
 // Project: https://www.npmjs.com/package/rollup-plugin-visualizer
 // Definitions by: Nick <https://github.com/fobdy>,
 //                 Max Boguslavskiy <https://github.com/maxbogus>
-//                 Nir Tamir <https://github.com/nirtamir2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
