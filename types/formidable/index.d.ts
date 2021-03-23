@@ -401,7 +401,7 @@ declare namespace Formidable {
 }
 
 declare class Formidable {
-    constructor(options: Partial<Formidable.Options>);
+    constructor(options?: Partial<Formidable.Options>);
 
     /**
      * Parses an incoming Node.js request containing form data. If callback is provided, all fields
