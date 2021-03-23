@@ -9,6 +9,7 @@
         "npm-naming": false,
         "strict-export-declare-modifiers": false,
         "trim-file": false,
-        "unified-signatures": false
+        "unified-signatures": false,
+        "no-redundant-jsdoc-2": false
     }
 }
