@@ -100,6 +100,17 @@ stylus(str)
     });
 
 /**
+ * .deps(filename)
+ * https://github.com/stylus/stylus/blob/59bc665db295981d4e3f702e7275c5589a3c6d15/docs/js.md#deps
+ */
+
+stylus(str)
+    .deps();
+
+stylus(str)
+    .deps('test name');
+
+/**
  * stylus.url(options)
  * https://github.com/stylus/stylus/blob/dev/docs/functions.url.md
  */
