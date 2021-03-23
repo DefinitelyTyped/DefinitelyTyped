@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
-import picomatch = require('./picomatch');
+import picomatch = require('./lib/picomatch');
 
 export = picomatch;
