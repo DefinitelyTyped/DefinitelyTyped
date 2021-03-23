@@ -38,6 +38,7 @@ declare module ActionCable {
 
   function createConsumer(): Cable;
   function createConsumer(url: string): Cable;
+  function createConsumer(url: () => string): Cable;
 }
 
 declare interface AppInterface {
