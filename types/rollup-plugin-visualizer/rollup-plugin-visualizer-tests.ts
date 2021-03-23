@@ -1,6 +1,8 @@
 import visualizer, { PluginVisualizerOptions } from "rollup-plugin-visualizer";
 
-visualizer(); // $ExpectType Plugin
+// $ExpectType Plugin
+visualizer();
+// $ExpectType Plugin
 visualizer({});
 const fullOptions: PluginVisualizerOptions = {
     filename: "filename",
@@ -12,4 +14,5 @@ const fullOptions: PluginVisualizerOptions = {
     gzipSize: true,
     brotliSize: true,
 };
+// $ExpectType Plugin
 visualizer(fullOptions);
