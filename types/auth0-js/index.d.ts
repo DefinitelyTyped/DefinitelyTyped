@@ -491,6 +491,8 @@ export class Popup {
             password: string,
             /** name of the connection where the user will be created */
             connection: string,
+            /** allow userMetadata to be passed to signUp */
+            userMetadata?: DbSignUpOptions
         },
         callback: Auth0Callback<any>,
     ): void;
