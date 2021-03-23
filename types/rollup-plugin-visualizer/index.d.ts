@@ -1,5 +1,5 @@
 // Type definitions for rollup-plugin-visualizer 4.2.2
-// Project: https://www.npmjs.com/package/rollup-plugin-visualizer
+// Project: https://github.com/doesdev/rollup-plugin-analyzer#readme
 // Definitions by: Nick <https://github.com/fobdy>,
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
