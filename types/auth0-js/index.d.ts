@@ -348,7 +348,7 @@ export class Redirect {
             /** name of the connection where the user will be created */
             connection: string,
             /** allow userMetadata to be passed to signUp */
-            userMetadata?: DbSignUpOptions
+            userMetadata?: unknown
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -492,7 +492,7 @@ export class Popup {
             /** name of the connection where the user will be created */
             connection: string,
             /** allow userMetadata to be passed to signUp */
-            userMetadata?: DbSignUpOptions
+            userMetadata?: unknown
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -913,7 +913,7 @@ export interface DbSignUpOptions {
     username?: string;
     scope?: string;
     /** additional signup attributes used for creating the user. Will be stored in `user_metadata` */
-    userMetadata?: any;
+    userMetadata?: unknown;
 }
 
 /** result of the signup request */
