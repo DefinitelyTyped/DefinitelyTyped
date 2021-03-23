@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 import * as fs from "fs";
-import { PicomatchOptions } from "picomatch/picomatch-options";
+import { PicomatchOptions } from "picomatch";
 
 interface rrdir {
     async(dir: string, options?: Options): Promise<StringEntry[]>;
