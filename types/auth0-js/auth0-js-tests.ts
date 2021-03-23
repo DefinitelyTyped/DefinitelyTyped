@@ -211,7 +211,14 @@ webAuth.popup.passwordlessVerify({ type: "sms", phoneNumber: "", connection: "",
     if (err) /* handle error */ return;
     // do something with data
 });
-webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, data) => {
+webAuth.popup.signupAndLogin({ 
+    email: "",
+    password: "",
+    connection: "",
+    userMetadata: {
+        foo: 'bar'
+    }
+}, (err, data) => {
     if (err) /* handle error */ return;
     // do something with data
 });
