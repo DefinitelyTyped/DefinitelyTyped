@@ -1,4 +1,4 @@
-// Type definitions for non-npm package golang-wasm 1.15
+// Type definitions for non-npm package golang-wasm-exec 1.15
 // Project: https://github.com/golang/go
 // Definitions by: Adam Pyle <https://github.com/pyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
