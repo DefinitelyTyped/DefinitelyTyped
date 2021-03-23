@@ -1,4 +1,4 @@
-import { Picomatch } from './picomatch';
+import picomatch = require('./picomatch');
 
 export interface PicomatchOptions {
     /**
@@ -167,8 +167,8 @@ interface Result {
     posix: boolean;
     input: string;
     output: string;
-    match: ReturnType<Picomatch['test']>['match'];
-    isMatch: ReturnType<Picomatch['test']>['isMatch'];
+    match: ReturnType<typeof picomatch.test>['match'];
+    isMatch: ReturnType<typeof picomatch.test>['isMatch'];
 }
 
 // Shut off automatic exporting

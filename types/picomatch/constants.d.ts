@@ -1,4 +1,4 @@
-interface POSIX_CHARS {
+declare const POSIX_CHARS: {
     DOT_LITERAL: string;
     PLUS_LITERAL: string;
     QMARK_LITERAL: string;
@@ -14,11 +14,11 @@ interface POSIX_CHARS {
     QMARK_NO_DOT: string;
     STAR: string;
     START_ANCHOR: string;
-}
+};
 /**
  * Windows glob regex
  */
-interface WINDOWS_CHARS {
+declare const WINDOWS_CHARS: {
     SLASH_LITERAL: string;
     QMARK: string;
     STAR: string;
@@ -34,11 +34,11 @@ interface WINDOWS_CHARS {
     PLUS_LITERAL: string;
     QMARK_LITERAL: string;
     ONE_CHAR: string;
-}
+};
 /**
  * POSIX Bracket Regex
  */
-interface POSIX_REGEX_SOURCE {
+declare const POSIX_REGEX_SOURCE: {
     alnum: 'a-zA-Z0-9';
     alpha: 'a-zA-Z';
     ascii: '\\x00-\\x7F';
@@ -53,11 +53,11 @@ interface POSIX_REGEX_SOURCE {
     upper: 'A-Z';
     word: 'A-Za-z0-9_';
     xdigit: 'A-Fa-f0-9';
-}
+};
 
-export interface constants {
+declare const constants: {
     MAX_LENGTH: number;
-    POSIX_REGEX_SOURCE: POSIX_REGEX_SOURCE;
+    POSIX_REGEX_SOURCE: typeof POSIX_REGEX_SOURCE;
 
     // regular expressions
     REGEX_BACKSLASH: RegExp;
@@ -128,8 +128,7 @@ export interface constants {
 
     extGlobChars(chars: { STAR: string }): Record<string, { type: string; open: string; close: string }>;
 
-    globChars<T extends boolean>(win32: T): T extends true ? WINDOWS_CHARS : POSIX_CHARS;
-}
+    globChars<T extends boolean>(win32: T): T extends true ? typeof WINDOWS_CHARS : typeof POSIX_CHARS;
+};
 
-// Shut off automatic exporting
-export {};
+export = constants;
