@@ -21,8 +21,8 @@ domOutputSpec = ['div', ['div', 0]];
 domOutputSpec = ['div', ['div', { class: 'foo' }]];
 domOutputSpec = ['div', ['div', { class: 'foo' }, 0]];
 
-domOutputSpec = {dom: divNode};
-domOutputSpec = {dom: divNode, contentDOM: parentDivNode};
+domOutputSpec = { dom: divNode };
+domOutputSpec = { dom: divNode, contentDOM: parentDivNode };
 
 export const nodeSpec: model.NodeSpec = {
     attrs: {
@@ -94,3 +94,9 @@ const res4_2: model.Node = res4_1.createAndFill()!;
 
 const res5_1 = new model.MarkType();
 const res5_2: model.Mark = res5_1.isInSet([])!;
+
+// ParseRule
+
+const rule: model.ParseRule = {};
+// $ExpectType boolean | null | undefined
+rule.consuming;
