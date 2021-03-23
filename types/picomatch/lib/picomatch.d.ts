@@ -25,7 +25,7 @@ import { PicomatchOptions as PicomatchOptionsImport } from './picomatch-options'
 declare function picomatch(
     glob: string | string[],
     options?: picomatch.PicomatchOptions,
-    returnState?: boolean
+    returnState?: boolean,
 ): picomatch.Matcher;
 
 declare namespace picomatch {
@@ -48,7 +48,10 @@ declare namespace picomatch {
 
     function parse(pattern: string[], options?: {}): Array<ReturnType<typeof parseImport>>;
     function parse(pattern: string, options?: {}): ReturnType<typeof parseImport>;
-    function parse(pattern: string | string[], options?: {}): ReturnType<typeof parseImport> | Array<ReturnType<typeof parseImport>>;
+    function parse(
+        pattern: string | string[],
+        options?: {},
+    ): ReturnType<typeof parseImport> | Array<ReturnType<typeof parseImport>>;
 
     const scan: typeof scanImport;
 
