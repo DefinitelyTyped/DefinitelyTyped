@@ -1,8 +1,8 @@
 import { IncomingMessage, ServerResponse } from "http";
 
-declare function any(req: IncomingMessage, cb: (err: Error, bodyPayload: string) => void): void;
-declare function any(req: IncomingMessage, res: ServerResponse, cb: (err: Error, bodyPayload: string) => void): void;
-declare function any(req: IncomingMessage, res: ServerResponse, opts: {
+declare function anyBody(req: IncomingMessage, cb: (err: Error, bodyPayload: string) => void): void;
+declare function anyBody(req: IncomingMessage, res: ServerResponse, cb: (err: Error, bodyPayload: string) => void): void;
+declare function anyBody(req: IncomingMessage, res: ServerResponse, opts: {
   limit?: number;
   encoding?: BufferEncoding;
   reviver?: (...args: unknown[]) => unknown;
@@ -14,4 +14,4 @@ declare function any(req: IncomingMessage, res: ServerResponse, opts: {
   }
 }, cb: (err: Error, bodyPayload: unknown) => void): void;
 
-export = any;
+export = anyBody;

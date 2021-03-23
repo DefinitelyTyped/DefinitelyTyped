@@ -1,8 +1,8 @@
 import { IncomingMessage, ServerResponse } from "http";
 
-declare function form(req: IncomingMessage, cb: (err: Error, bodyPayload: string) => void): void;
-declare function form(req: IncomingMessage, res: ServerResponse, cb: (err: Error, bodyPayload: string) => void): void;
-declare function form(req: IncomingMessage, res: ServerResponse, opts: {
+declare function formBody(req: IncomingMessage, cb: (err: Error, bodyPayload: string) => void): void;
+declare function formBody(req: IncomingMessage, res: ServerResponse, cb: (err: Error, bodyPayload: string) => void): void;
+declare function formBody(req: IncomingMessage, res: ServerResponse, opts: {
   limit?: number;
   encoding?: BufferEncoding;
   querystring: {
@@ -10,4 +10,4 @@ declare function form(req: IncomingMessage, res: ServerResponse, opts: {
   }
 }, cb: (err: Error, bodyPayload: unknown) => void): void;
 
-export = form;
+export = formBody;
