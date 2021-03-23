@@ -12,19 +12,19 @@
 
 import { ConnectionOptions } from 'typeorm';
 import { Adapter } from './adapters';
-import { JWTEncodeParams, JWTDecodeParams, JWTOptions, JWT } from './jwt';
+import { JWTEncodeParams, JWTDecodeParams, JWTOptions, JWT as DefaultJWT } from './jwt';
 import { AppProvider, Providers } from './providers';
 import { NextApiRequest, NextApiResponse, NextApiHandler } from './_next';
 import { NonNullParams, WithAdditionalParams } from './_utils';
 
-export interface NextAuthOptions {
-    providers: Providers;
+export interface NextAuthOptions<User, Account, JWT, Profile, Session> {
+    providers: Providers<Profile, User>;
     database?: string | Record<string, any> | ConnectionOptions;
     secret?: string;
     session?: SessionOptions;
     jwt?: JWTOptions;
     pages?: PagesOptions;
-    callbacks?: CallbacksOptions;
+    callbacks?: CallbacksOptions<User, Account, JWT, Session>;
     debug?: boolean;
     adapter?: Adapter;
     events?: EventsOptions;
@@ -56,17 +56,15 @@ export interface AppOptions extends Omit<NextApiRequest, 'cookies'>, NonNullPara
     providers: AppProvider[];
 }
 
-export interface CallbacksOptions {
+export interface CallbacksOptions<User, Account, JWT = DefaultJWT, Session> {
     signIn?:
         | (() => true)
-        | ((user: User, account: Record<string, unknown>, profile: Record<string, unknown>) => Promise<never | string | boolean>);
+        | ((user: User, account: Account, profile: Record<string, unknown>) => Promise<never | string | boolean>);
     redirect?: ((url: string, baseUrl: string) => Promise<string>);
     session?:
-        | ((session: Session) => WithAdditionalParams<Session>)
-        | ((session: Session, userOrToken: User | JWT) => Promise<WithAdditionalParams<Session>>);
+        | ((session: Session, userOrToken: JWT) => Promise<Session>);
     jwt?:
-        | ((token: JWT) => WithAdditionalParams<JWT>)
-        | ((token: JWT, user: User, account: Record<string, unknown>, profile: Record<string, unknown>, isNewUser: boolean) => Promise<WithAdditionalParams<JWT>>);
+        | (<J extends JWT>(token: JWT, user?: User, account?: Account, profile?: Record<string, unknown>, isNewUser?: boolean) => Promise<JWT>);
 }
 
 export interface CookieOption {
@@ -134,7 +132,7 @@ export type NextAuthResponse = NextApiResponse;
 
 declare function NextAuthHandler(req: NextApiRequest, res: NextApiResponse, options?: NextAuthOptions): ReturnType<NextApiHandler>;
 declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: NextAuthOptions): ReturnType<NextApiHandler>;
-declare function NextAuth(options: NextAuthOptions): ReturnType<typeof NextAuthHandler>;
+declare function NextAuth<User, Account, JWT, Profile, Session>(options: NextAuthOptions<User, Account, JWT, Profile, Session>): ReturnType<typeof NextAuthHandler>;
 
 export { NextAuthHandler, NextAuth };
 export default NextAuth;
