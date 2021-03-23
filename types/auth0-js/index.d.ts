@@ -347,7 +347,7 @@ export class Redirect {
             password: string,
             /** name of the connection where the user will be created */
             connection: string,
-            /** allow user_metadata for signup */
+            /** allow userMetadata to be passed to signUp */
             userMetadata?: DbSignUpOptions
         },
         callback: Auth0Callback<any>,
