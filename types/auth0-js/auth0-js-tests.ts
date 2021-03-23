@@ -216,7 +216,7 @@ webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, 
     // do something with data
 });
 
-webAuth.redirect.signupAndLogin({ 
+webAuth.redirect.signupAndLogin({
     email: "",
     password: "",
     connection: "",
