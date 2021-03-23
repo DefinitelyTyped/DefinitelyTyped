@@ -1,5 +1,6 @@
 import constantsImport = require('./constants');
 import parseImport = require('./parse');
+import scanImport = require('./scan');
 import { PicomatchOptions as PicomatchOptionsImport } from './picomatch-options';
 
 /**
@@ -45,9 +46,11 @@ declare namespace picomatch {
 
     function isMatch(str: string | string[], patterns: string | string[], options?: {}): boolean;
 
-    function parse(pattern: string, options: {}): {};
+    function parse(pattern: string[], options?: {}): Array<ReturnType<typeof parseImport>>;
+    function parse(pattern: string, options?: {}): ReturnType<typeof parseImport>;
+    function parse(pattern: string | string[], options?: {}): ReturnType<typeof parseImport> | Array<ReturnType<typeof parseImport>>;
 
-    function scan(input: string, options: {}): {};
+    const scan: typeof scanImport;
 
     function compileRe(
         state: ReturnType<typeof parseImport>,
