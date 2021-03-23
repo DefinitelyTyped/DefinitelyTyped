@@ -392,7 +392,7 @@ declare namespace Formidable {
      * make it available without requiring the `new` keyword
      * if you want it access `const formidable.IncomingForm` as v1
      */
-    function formidable(options: Partial<Options>): Formidable;
+    function formidable(options?: Partial<Options>): Formidable;
 
     /**
      * Alias
