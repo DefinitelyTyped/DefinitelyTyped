@@ -4,6 +4,7 @@
 //                 Dave Cardwell <https://github.com/davecardwell>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Compiler } from 'webpack';
 

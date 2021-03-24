@@ -23,7 +23,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Michał Grzegorzewski <https://github.com/spamshaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 /// <reference types="node" />
 
