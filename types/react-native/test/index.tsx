@@ -1723,4 +1723,4 @@ LayoutAnimation.configureNext(LayoutAnimation.create(
     LayoutAnimation.Properties.opacity,
 ));
 
-LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn','opacity'));
+LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));

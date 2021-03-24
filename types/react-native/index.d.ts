@@ -628,7 +628,7 @@ export namespace AppRegistry {
     function getRunnable(appKey: string): Runnable | undefined;
 }
 
-export type LayoutAnimationType = 
+export type LayoutAnimationType =
     | 'spring'
     | 'linear'
     | 'easeInEaseOut'
@@ -686,7 +686,7 @@ export interface LayoutAnimationStatic {
     create: (
         duration: number,
         type?: LayoutAnimationType,
-        creationProp?:LayoutAnimationProperty
+        creationProp?: LayoutAnimationProperty
     ) => LayoutAnimationConfig;
     Types: LayoutAnimationTypes;
     Properties: LayoutAnimationProperties;
