@@ -175,37 +175,27 @@ declare namespace M {
         matchOne(files: string[], pattern: string[], partial: boolean): boolean;
 
         /**
-         * Deprecated. For internal use.
-         *
-         * @private
+         * @deprecated. For internal use.
          */
         debug(): void;
 
         /**
-         * Deprecated. For internal use.
-         *
-         * @private
+         * @deprecated. For internal use.
          */
         make(): void;
 
         /**
-         * Deprecated. For internal use.
-         *
-         * @private
+         * @deprecated. For internal use.
          */
         parseNegate(): void;
 
         /**
-         * Deprecated. For internal use.
-         *
-         * @private
+         * @deprecated. For internal use.
          */
         braceExpand(pattern: string, options: IOptions): void;
 
         /**
-         * Deprecated. For internal use.
-         *
-         * @private
+         * @deprecated. For internal use.
          */
         parse(pattern: string, isSub?: boolean): void;
     }
