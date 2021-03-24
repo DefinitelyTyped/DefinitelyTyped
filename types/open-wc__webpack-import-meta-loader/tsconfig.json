@@ -18,16 +18,14 @@
             ],
             "tapable": [
                 "tapable/v1"
+            ],
+            "@open-wc/*": [
+                "open-wc__*"
             ]
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@open-wc/*": [
-                "open-wc__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-///<reference types="webpack" />
-
 declare module "webpack-fail-plugin" {
     import { Plugin } from "webpack";
 

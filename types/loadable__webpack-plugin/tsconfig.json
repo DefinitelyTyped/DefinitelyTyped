@@ -18,16 +18,14 @@
             ],
             "tapable": [
                 "tapable/v1"
+            ],
+            "@loadable/*": [
+                "loadable__*"
             ]
         },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@loadable/*": [
-                "loadable__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

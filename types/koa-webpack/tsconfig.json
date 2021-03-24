@@ -15,9 +15,7 @@
         "paths": {
             "webpack-dev-middleware": [
                 "webpack-dev-middleware/v3"
-            ]
-        },
-        "paths": {
+            ],
             "webpack": [
                 "webpack/v4"
             ],

@@ -19,13 +19,11 @@
             ],
             "tapable": [
                 "tapable/v1"
-            ]
+            ],
+            "@sentry/*": ["sentry__*"]
         },
         "types": [],
         "esModuleInterop": true,
-        "paths": {
-            "@sentry/*": ["sentry__*"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

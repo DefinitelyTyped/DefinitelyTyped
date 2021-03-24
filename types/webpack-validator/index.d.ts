@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-///<reference types="webpack" />
-
 declare module "webpack-validator" {
     import { Configuration } from "webpack";
 
