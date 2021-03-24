@@ -3,7 +3,7 @@
 import * as temp from "temp";
 
 async function testCleanup() {
-    await temp.cleanup(result => {
+    temp.cleanup(result => {
         if (typeof result === "boolean") {
             const x = result;
         } else {
@@ -12,6 +12,19 @@ async function testCleanup() {
             files.toPrecision(4);
         }
     });
+
+    try {
+        const result = await temp.cleanup();
+        if (typeof result === "boolean") {
+            const x = result;
+        } else {
+            const { files, dirs } = result;
+            files.toPrecision(4);
+            files.toPrecision(4);
+        }
+    } catch (err) {
+        throw err;
+    }
 }
 
 function testCleanupSync() {
@@ -32,11 +45,19 @@ async function testOpen() {
         fd.toPrecision(5);
     });
 
-    await temp.open("strPrefix", (err, result) => {
+    temp.open("strPrefix", (err, result) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);
     });
+
+    try {
+        const { path, fd } = await temp.open("strPrefix");
+        path.length;
+        fd.toPrecision(5);
+    } catch (err) {
+        throw err;
+    }
 }
 
 function testOpenSync() {
@@ -51,9 +72,16 @@ function testCreateWriteStream() {
 }
 
 async function testMkdir() {
-    await temp.mkdir("prefix", (err, dirPath) => {
+    temp.mkdir("prefix", (err, dirPath) => {
         dirPath.length;
     });
+
+    try {
+        const dirPath = await temp.mkdir("prefix");
+        dirPath.length;
+    } catch (err) {
+        throw err;
+    }
 }
 
 function testMkdirSync() {
