@@ -1,7 +1,7 @@
 /// <reference types="paypal-checkout-components" />
 
-import { callback } from "./core";
-import { Client } from "./client";
+import { callback } from './core';
+import { Client } from './client';
 
 export interface PayPalCheckoutCreatePaymentOptions {
     flow: paypal.FlowType;
@@ -34,7 +34,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * Braintree component. When used in conjunction with passing authorization when creating the
      * PayPal Checkout component, you can speed up the loading of the PayPal SDK.
      */
-    "client-id"?: string;
+    'client-id'?: string;
 
     /**
      * By default, the PayPal SDK defaults to an intent of capture. Since the default intent when
@@ -45,7 +45,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      *
      * @default 'authorize'
      */
-    intent?: "authorize" | "capture" | "sale" | "tokenize";
+    intent?: 'authorize' | 'capture' | 'sale' | 'tokenize';
 
     /**
      * If a currency is passed in createPayment, it must match the currency passed here.
@@ -66,7 +66,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      *
      * @default 'buttons'
      */
-    components?: "buttons" | "messages" | "buttons,messages";
+    components?: 'buttons' | 'messages' | 'buttons,messages';
 
     /**
      * The data attributes to apply to the script. Any data attribute can be passed. A subset of the
@@ -76,27 +76,27 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
         /**
          * CSP nonce used for rendering the button.
          */
-        "csp-nonce"?: string;
+        'csp-nonce'?: string;
 
         /**
          * Client token used for identifying your buyers.
          */
-        "data-client-token"?: string;
+        'data-client-token'?: string;
 
         /**
          * Order ID used for optimizing the funding that displays.
          */
-        "data-order-id"?: string;
+        'data-order-id'?: string;
 
         /**
          * Log page type and interactions for the JavaScript SDK.
          */
-        "data-page-type"?: string;
+        'data-page-type'?: string;
 
         /**
          * Partner attribution ID used for revenue attribution.
          */
-        "data-partner-attribution-id"?: string;
+        'data-partner-attribution-id'?: string;
     };
 }
 
