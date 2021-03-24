@@ -118,6 +118,7 @@ import {
     SectionListData,
     ToastAndroid,
     Touchable,
+    LayoutAnimation,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1714,3 +1715,12 @@ const I18nManagerTest = () => {
 
     console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
 };
+
+// LayoutAnimations
+LayoutAnimation.configureNext(LayoutAnimation.create(
+    123,
+    LayoutAnimation.Types.easeIn,
+    LayoutAnimation.Properties.opacity,
+));
+
+LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn','opacity'));
