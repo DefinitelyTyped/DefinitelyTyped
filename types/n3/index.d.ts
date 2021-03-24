@@ -134,6 +134,7 @@ export interface Token {
     type: string;
     value?: string;
     line: number;
+    prefix?: string;
 }
 export interface LexerOptions {
     lineMode?: boolean;
