@@ -636,11 +636,19 @@ export type LayoutAnimationType =
     | 'easeOut'
     | 'keyboard';
 
+export type LayoutAnimationTypes = {
+    [type in LayoutAnimationType]: type;
+}
+
 export type LayoutAnimationProperty =
     | 'opacity'
     | 'scaleX'
     | 'scaleY'
     | 'scaleXY';
+
+export type LayoutAnimationProperties = {
+    [prop in LayoutAnimationProperty]: prop;
+}
 
 export interface LayoutAnimationAnim {
     duration?: number;
@@ -680,8 +688,8 @@ export interface LayoutAnimationStatic {
         type?: LayoutAnimationType,
         creationProp?:LayoutAnimationProperty
     ) => LayoutAnimationConfig;
-    Types: Record<LayoutAnimationType, LayoutAnimationType>;
-    Properties: Record<LayoutAnimationProperty, LayoutAnimationProperty>;
+    Types: LayoutAnimationTypes;
+    Properties: LayoutAnimationProperties;
     configChecker: (shapeTypes: { [key: string]: any }) => any;
     Presets: {
         easeInEaseOut: LayoutAnimationConfig;
