@@ -435,7 +435,7 @@ declare namespace Chart {
         footerMarginTop: number;
         footerSpacing: number;
         height: number;
-        labelColors: string[];
+        labelColors: ChartTooltipLabelColor[];
         labelTextColors: string[];
         legendColorBackground: string;
         opacity: number;
