@@ -1032,6 +1032,13 @@ declare namespace jasmine {
     };
 
     /**
+     * Determines whether the provided function is a Jasmine spy.
+     * @since 2.0.0
+     * @param putativeSpy The function to check.
+     */
+    function isSpy(putativeSpy: Func): putativeSpy is Spy;
+
+    /**
      * It's like SpyObj, but doesn't verify argument/return types for functions.
      * Useful if TS cannot correctly infer type for complex objects.
      */
