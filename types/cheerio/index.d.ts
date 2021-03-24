@@ -29,7 +29,7 @@ declare namespace cheerio {
 
     interface TagElement {
         tagName: string;
-        type: 'tag';
+        type: 'tag' | 'script' | 'style';
         name: string;
         attribs: { [attr: string]: string };
         'x-attribsNamespace': { [attr: string]: string };
@@ -64,6 +64,7 @@ declare namespace cheerio {
         // Cheerio https://github.com/cheeriojs/cheerio
         // JQuery http://api.jquery.com
 
+        [Symbol.iterator](): IterableIterator<Element>;
         [index: number]: Element;
         cheerio: string;
         length: number;

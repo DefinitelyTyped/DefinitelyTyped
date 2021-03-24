@@ -38,6 +38,7 @@
 //                 Ivan Martos <https://github.com/ivanmartos>
 //                 Zach Anthony <https://github.com/zach-anthony>
 //                 Peter Savnik <https://github.com/savnik>
+//                 Sven Milewski <https://github.com/svenmilewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

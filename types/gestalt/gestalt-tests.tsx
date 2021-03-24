@@ -17,7 +17,6 @@ import {
     Dropdown,
     FixedZIndex,
     Flex,
-    Flyout,
     GroupAvatar,
     Heading,
     Icon,
@@ -32,6 +31,7 @@ import {
     Modal,
     Module,
     Pog,
+    Popover,
     Provider,
     Pulsar,
     RadioButton,
@@ -151,7 +151,6 @@ const CheckUseReducedMotion = () => {
     </Dropdown.Section>
 </Dropdown>;
 <Flex />;
-<Flyout onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
 <IconButton accessibilityLabel="icon" />;
@@ -187,6 +186,7 @@ const CheckUseReducedMotion = () => {
     onExpandedChange={(index) => {}}
 ></Module.Expandable>;
 <Pog />;
+<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Provider colorScheme={'light'} id="docsExample" onNavigation={({ href, onNavigationOptions }) => {
     return (event) => {};
 }} />;

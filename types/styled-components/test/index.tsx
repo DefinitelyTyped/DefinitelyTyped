@@ -16,7 +16,6 @@ import styled, {
     StyledComponent,
     ThemedStyledComponentsModule,
     FlattenSimpleInterpolation,
-    SimpleInterpolation,
     FlattenInterpolation,
 } from 'styled-components';
 import {} from 'styled-components/cssprop';
@@ -329,6 +328,9 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: 'h1' })`
 
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: 'off' })``;
 <AttrsInputExtra />;
+
+const Button = styled('button').attrs((a) => ({ type: a.type ?? 'button' }))``;
+const SomeButton: React.FC = () => <Button type="submit">I am a button</Button>;
 
 /**
  * withConfig
@@ -1162,7 +1164,8 @@ function unionTest() {
         font-size: ${props => (props.kind === 'book' ? 16 : 14)};
     `;
 
-    <StyledReadable kind="book" author="Hejlsberg" />;
+    // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
+    <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }
 

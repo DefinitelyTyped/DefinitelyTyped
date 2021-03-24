@@ -65,7 +65,9 @@ var stack = Composites.stack(0, 100, 5, 1, 20, 0, function(x:number, y:number, c
             return Bodies.circle(x, y, 75, { restitution: 0.9 });
         });
 
-World.add(engine.world, stack);
+const cradle = Composites.newtonsCradle(200, 50, 5, 20, 250);
+
+World.add(engine.world, [stack, cradle]);
 
 //Constraints
 var constraint1 = Constraint.create({

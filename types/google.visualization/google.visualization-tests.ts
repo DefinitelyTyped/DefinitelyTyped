@@ -37,6 +37,31 @@ function test_dataTableAddRow() {
     dataTable.addRow(['row3', 0]);
 }
 
+function test_calendarChart() {
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'date', id: 'Date' });
+    dataTable.addColumn({ type: 'number', id: 'Value' });
+    dataTable.addRows([
+        [new Date(2021, 3, 15), 100],
+        [new Date(2021, 3, 16), -75],
+        [new Date(2021, 3, 17), 150],
+        [new Date(2021, 3, 18), -100],
+        [new Date(2021, 3, 19), 200]
+    ]);
+
+    var options = {
+        title: "Test Calendar",
+        height: 350,
+        colorAxis: { colors: ['red', 'white', 'green'], values: [-250, 0, 250] }
+    };
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.Calendar(container);
+        chart.draw(dataTable, options);
+    }
+}
+
 function test_geoChart() {
     var data = google.visualization.arrayToDataTable([
         ['Country',   'Population', 'Area Percentage'],
@@ -995,4 +1020,28 @@ function test_Sankey() {
             },
         });
     }
+}
+
+function test_dataNamespace() {
+    const month: number = google.visualization.data.month(new Date());
+
+    const exampleNumbers: ReadonlyArray<number> = [1, month];
+    let result: number;
+
+    result = google.visualization.data.sum(exampleNumbers);
+    result = google.visualization.data.avg(exampleNumbers);
+    result = google.visualization.data.count(exampleNumbers);
+
+    let minMax: number | string | Date | null;
+    minMax = google.visualization.data.min([1, 2]);
+    minMax = google.visualization.data.max(['1', '2']);
+
+    let dt = new google.visualization.DataTable();
+    dt.addColumn('number', 'x');
+    dt.addColumn('number', 'y');
+
+    dt = google.visualization.data.group(dt, [0],
+        [{column: 1, aggregation: google.visualization.data.sum, type: 'number'}]);
+
+    dt = google.visualization.data.join(dt, dt, 'inner', [['x', 0]], [1], ['y']);
 }

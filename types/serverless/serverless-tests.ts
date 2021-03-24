@@ -91,6 +91,9 @@ provider.request(
     },
 );
 
+// Test provider's 'getServerlessDeploymentBucketName'
+provider.getServerlessDeploymentBucketName().then(bucketName => {});
+
 // Test ApiGateway validator
 getHttp(
     {

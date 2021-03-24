@@ -94,6 +94,7 @@ declare namespace Crawler {
         rotateUA?: boolean;
         userAgent?: string | string[];
         homogeneous?: boolean;
+        http2?: boolean;
         debug?: boolean;
         logger?: {
             log: (level: string, ...args: ReadonlyArray<any>) => void;
