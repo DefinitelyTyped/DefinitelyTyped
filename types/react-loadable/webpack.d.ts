@@ -15,7 +15,7 @@ export interface ReactLoadablePluginOptions {
     filename: string;
 }
 
-export class ReactLoadablePlugin extends webpack.LoaderOptionsPlugin {
+export class ReactLoadablePlugin extends webpack.Plugin {
     constructor(opts?: ReactLoadablePluginOptions);
 }
 
