@@ -3846,6 +3846,10 @@
             "libraryName": "@tweenjs/tween.js",
             "asOfVersion": "18.6.1"
         },
+        "twilio": {
+            "libraryName": "twilio",
+            "asOfVersion": "3.19.2"
+        },
         "typed.js": {
             "libraryName": "typed.js",
             "asOfVersion": "2.0.9"
