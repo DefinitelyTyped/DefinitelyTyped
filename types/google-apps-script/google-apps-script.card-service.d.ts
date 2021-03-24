@@ -151,6 +151,10 @@ declare namespace GoogleAppsScript {
       setText(text: string): CardAction;
     }
     /**
+     * An enum that defines the display style of card.
+     */
+     enum DisplayStyle { PEEK, REPLACE }
+    /**
      * A builder for Card objects.
      */
     interface CardBuilder {
@@ -159,6 +163,9 @@ declare namespace GoogleAppsScript {
       build(): Card;
       setHeader(cardHeader: CardHeader): CardBuilder;
       setName(name: string): CardBuilder;
+      setFixedFooter(fixedFooter: FixedFooter): CardBuilder;
+      setDisplayStyle(displayStyle: DisplayStyle):	CardBuilder;
+      setPeekCardHeader(peekCardHeader: CardHeader): CardBuilder;
     }
     /**
      * The header of a Card.
