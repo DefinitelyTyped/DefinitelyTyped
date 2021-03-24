@@ -1,4 +1,4 @@
-// Type definitions for temp 0.8
+// Type definitions for temp 0.9.4
 // Project: https://github.com/bruce/node-temp
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,17 +28,17 @@ declare namespace temp {
 
   function track(value?: boolean): typeof temp;
 
-  function mkdir(affixes?: string | AffixOptions, callback?: (err: any, dirPath: string) => void): void;
+  function mkdir(affixes?: string | AffixOptions, callback?: (err: any, dirPath: string) => void): Promise<void>;
 
   function mkdirSync(affixes?: string | AffixOptions): string;
 
-  function open(affixes?: string | AffixOptions, callback?: (err: any, result: OpenFile) => void): void;
+  function open(affixes?: string | AffixOptions, callback?: (err: any, result: OpenFile) => void): Promise<void>;
 
   function openSync(affixes?: string | AffixOptions): OpenFile;
 
   function path(affixes?: string | AffixOptions, defaultPrefix?: string): string;
 
-  function cleanup(callback?: (err: any, result: Stats) => void): void;
+  function cleanup(callback?: (err: any, result: Stats) => void): Promise<void>;
 
   function cleanupSync(): boolean | Stats;
 

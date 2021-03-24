@@ -2,8 +2,8 @@
 
 import * as temp from "temp";
 
-function testCleanup() {
-    temp.cleanup(result => {
+async function testCleanup() {
+    await temp.cleanup(result => {
         if (typeof result === "boolean") {
             const x = result;
         } else {
@@ -25,14 +25,14 @@ function testCleanupSync() {
     }
 }
 
-function testOpen() {
+async function testOpen() {
     temp.open({ dir: "tempDir", prefix: "pref", suffix: "suff" }, (err, result) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);
     });
 
-    temp.open("strPrefix", (err, result) => {
+    await temp.open("strPrefix", (err, result) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);
@@ -50,8 +50,8 @@ function testCreateWriteStream() {
     const stream2 = temp.createWriteStream();
 }
 
-function testMkdir() {
-    temp.mkdir("prefix", (err, dirPath) => {
+async function testMkdir() {
+    await temp.mkdir("prefix", (err, dirPath) => {
         dirPath.length;
     });
 }
