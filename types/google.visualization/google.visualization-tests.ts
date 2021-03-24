@@ -37,6 +37,26 @@ function test_dataTableAddRow() {
     dataTable.addRow(['row3', 0]);
 }
 
+function test_dataTableGetColumn() {
+    const dataTable = test_ctorDataTable();
+    dataTable.addColumn('number', 'x');
+    dataTable.addColumn('number', 'y');
+    dataTable.addRow([0, 0]);
+    dataTable.addRow([1, 1]);
+
+    // Check column 0 called 'x'.
+    let index: number = dataTable.getColumnIndex(0);
+    let label: string = dataTable.getColumnLabel(index);
+    let role: string = dataTable.getColumnRole(index);
+    let type: string = dataTable.getColumnType(index);
+
+    // Check column 1 called 'y'.
+    index = dataTable.getColumnIndex('y');
+    label = dataTable.getColumnLabel(index);
+    role = dataTable.getColumnRole(index);
+    type = dataTable.getColumnType(index);
+}
+
 function test_calendarChart() {
     var dataTable = new google.visualization.DataTable();
     dataTable.addColumn({ type: 'date', id: 'Date' });

@@ -148,6 +148,7 @@ declare namespace google {
             addRows(rows: any[][]): number;
             clone(): DataTable;
             getColumnId(columnIndex: number): string;
+            getColumnIndex(columnIdentifier: number|string): number;
             getColumnLabel(columnIndex: number): string;
             getColumnPattern(columnIndex: number): string;
             getColumnProperties(columnIndex: number): Properties;
