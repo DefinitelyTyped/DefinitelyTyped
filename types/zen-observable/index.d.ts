@@ -6,6 +6,8 @@
 //                 BenoitZugmeyer <https://github.com/BenoitZugmeyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference path="./extras.d.ts"/>
+
 declare global {
     interface SymbolConstructor {
         readonly observable: symbol;
