@@ -1,6 +1,7 @@
 import { callback } from './core';
 import { Client } from './client';
 import { GooglePaymentDetails } from './google-payment';
+import { HostedFieldsAccountDetails } from './hosted-fields';
 import { PayPalAccountDetails } from './paypal';
 import { ThreeDSecureAccountDetails } from './three-d-secure';
 import { UnionPayAccountDetails } from './unionpay';
@@ -37,7 +38,7 @@ export class VaultManager {
 export interface FetchPaymentMethodsPayload {
     nonce: string;
     default: boolean;
-    details?: ThreeDSecureAccountDetails | GooglePaymentDetails | PayPalAccountDetails | UnionPayAccountDetails | VenmoAccountDetails | Record<string, any>;
+    details?: HostedFieldsAccountDetails | ThreeDSecureAccountDetails | GooglePaymentDetails | PayPalAccountDetails | UnionPayAccountDetails | VenmoAccountDetails | Record<string, any>;
     type: string;
     description: string | null;
     binData?: Record<string, any>;
