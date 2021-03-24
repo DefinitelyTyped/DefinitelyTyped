@@ -146,7 +146,7 @@ export type TokenCallback = (error: Error, token: Token) => void;
 
 export class Lexer {
     constructor(options?: LexerOptions);
-    tokenize(input: string | EventEmitter): Token[];
+    tokenize(input: string): Token[];
     tokenize(input: string | EventEmitter, callback: TokenCallback): void;
 }
 export interface ParserOptions {
