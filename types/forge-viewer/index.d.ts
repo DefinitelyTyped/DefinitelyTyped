@@ -2040,7 +2040,7 @@ declare namespace Autodesk {
 
           constructor(id?: string, name?: string);
 
-          get children(): SurfaceShadingGroup[];
+          get children(): SurfaceShadingGroup[]|SurfaceShadingNode[];
 
           addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
           getChildLeafs(results: SurfaceShadingNode[]): void;
@@ -2373,7 +2373,13 @@ declare namespace Autodesk {
         changeOcclusion(enable: boolean): void;
         hideTextures(): void;
         highlightViewables(dbIds: number|number[]): void;
-        invalidateViewables(dbIds: number|number[], callback: (viewable: any) => any): void;
+        invalidateViewables(dbIds: number|number[],
+          callback: (viewable: DataVisualization.Core.SpriteViewable) => {
+            color?: THREE.Color,
+            highlighted?: boolean,
+            position?: THREE.Vector3,
+            url?: string
+          }): void;
         registerSurfaceShadingColors(sensorType: string, colors: number[], alpha?: number): void;
         removeAllViewables(): void;
         removeSurfaceShading(): void;
