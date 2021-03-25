@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ToStringOpts {
-    format?: "auto" | "v4" | "v4-mapped" | "v6";
+    format?: 'auto' | 'v4' | 'v4-mapped' | 'v6';
     zeroElide?: boolean;
     zeroPad?: boolean;
 }
 
 export interface Addr {
-    kind: () => "ipv4" | "ipv6";
+    kind: () => 'ipv4' | 'ipv6';
     toString: (opts?: ToStringOpts) => string;
     toBuffer: (buff?: Uint8Array) => Uint8Array;
     toLong: () => number;
@@ -31,7 +31,7 @@ export interface AddrRange {
 export interface CIDR extends AddrRange {
     broadcast: () => Addr;
     compare: (other: string | CIDR) => number;
-    prefixLength: (format?: "auto" | "v4" | "v6") => number;
+    prefixLength: (format?: 'auto' | 'v4' | 'v6') => number;
     address: () => Addr;
     toString: (opts?: ToStringOpts) => string;
 }
