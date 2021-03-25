@@ -13,7 +13,7 @@ import { NextHandleFunction } from 'connect';
 export = WebpackDevMiddleware;
 
 declare function WebpackDevMiddleware(
-    compiler: webpack.Compiler,
+    compiler: webpack.Compiler | webpack.MultiCompiler,
     options?: WebpackDevMiddleware.Options,
 ): WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 
