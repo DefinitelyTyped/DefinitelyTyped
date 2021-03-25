@@ -52,10 +52,10 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.t
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de TypeScript (3.3 y anteriores)
+#### Versiones más viejas de TypeScript (3.4 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 3.4 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.3, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Actualmente, las versiones 3.5 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.4, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
 Versiones soportadas:
 
 Versión | Liberado | Fin de soporte
