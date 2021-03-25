@@ -7001,7 +7001,7 @@ export interface NativeScrollEvent {
     layoutMeasurement: NativeScrollSize;
     velocity?: NativeScrollVelocity;
     zoomScale: number;
-    targetContentOffset?: NativeScrollPoint;
+    targetContentOffset?: NativeScrollPoint; // iOS-only
 }
 
 export interface SnapshotViewIOSProps extends ViewProps {
