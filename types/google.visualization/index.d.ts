@@ -759,7 +759,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/intervals#combining-interval-styles
         export interface Intervals {
-            style?: string;
+            style?: 'area' | 'bars' | 'boxes' | 'line' | 'points' | 'sticks';
             color?: string;
             barWidth?: number;
             boxWidth?: number;
