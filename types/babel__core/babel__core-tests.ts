@@ -4,6 +4,15 @@ import * as t from '@babel/types';
 const options: babel.TransformOptions = {
     ast: true,
     sourceMaps: true,
+    inputSourceMap: {
+        file: 'foo.ts',
+        mappings: 'AAAA',
+        names: ['foo'],
+        sources: ['foo.ts'],
+        version: 3,
+        sourceRoot: '',
+        sourcesContent: ['foo'],
+    },
 };
 
 babel.transform('code();', options, (err, result) => {

@@ -8,12 +8,18 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ],
+            "@babel/*": ["babel__*"]
+        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@babel/*": ["babel__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "customize-cra-tests.ts"]
 }

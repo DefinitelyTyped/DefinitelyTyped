@@ -7,6 +7,7 @@ import { Dataset, DatasetCore, NamedNode, Store, Stream } from 'rdf-js';
 import { GraphPointer } from 'clownface';
 import DatasetExt = require('rdf-ext/lib/Dataset');
 import { Readable } from 'stream';
+import { Loader } from 'rdf-loaders-registry';
 
 const codePath = '';
 const path = '';
@@ -92,3 +93,14 @@ const handler: express.RequestHandler = async (req) => {
     const quadStream: Stream & Readable = req.hydra.resource.quadStream();
     const pointer: GraphPointer<NamedNode, DatasetExt> = await req.hydra.resource.clownface();
 };
+
+async function loader() {
+    const pointer: GraphPointer = <any> {};
+    const api = createApi();
+
+    interface LoadedFunction {
+        (): string;
+    }
+
+    const loader: LoadedFunction | null = await api.loaderRegistry.load<LoadedFunction>(pointer);
+}

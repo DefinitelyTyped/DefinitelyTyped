@@ -3,6 +3,7 @@ import {
     ConnectionMonitor,
     Consumer,
     createWebSocketURL,
+    createConsumer,
     INTERNAL,
     Subscription,
     Subscriptions,
@@ -26,6 +27,7 @@ createWebSocketURL('url'); // $ExpectType string
  * Consumer
  */
 const consumer = new Consumer('url'); // $ExpectType Consumer
+createConsumer('url'); // $ExpectType Consumer
 
 consumer.url; // $ExpectType string
 

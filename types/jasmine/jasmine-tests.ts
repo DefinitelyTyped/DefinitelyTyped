@@ -1330,6 +1330,17 @@ describe("jasmine.arrayWithExactContents", () => {
     });
 });
 
+describe("jasmine.isSpy", () => {
+    it("detect a Spy", () => {
+        const callback = jasmine.createSpy<(arg: number[]) => number>('callback');
+        expect(jasmine.isSpy(callback)).toBe(true);
+    });
+    it("reject a non Spy", () => {
+        const noSpy = (arg: number[]) => arg;
+        expect(jasmine.isSpy(noSpy)).toBe(false);
+    });
+});
+
 describe("Manually ticking the Jasmine Clock", () => {
     var timerCallback: any;
 

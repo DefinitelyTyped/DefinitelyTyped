@@ -360,7 +360,7 @@ export interface Identifier extends BaseNode, BaseExpression, BasePattern {
   name: string;
 }
 
-export type Literal = SimpleLiteral | RegExpLiteral;
+export type Literal = SimpleLiteral | RegExpLiteral | BigIntLiteral;
 
 export interface SimpleLiteral extends BaseNode, BaseExpression {
   type: "Literal";
@@ -375,6 +375,13 @@ export interface RegExpLiteral extends BaseNode, BaseExpression {
     pattern: string;
     flags: string;
   };
+  raw?: string;
+}
+
+export interface BigIntLiteral extends BaseNode, BaseExpression {
+  type: "Literal";
+  value?: bigint | null;
+  bigint: string;
   raw?: string;
 }
 

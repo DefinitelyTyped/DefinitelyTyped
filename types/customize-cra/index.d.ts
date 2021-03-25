@@ -2,7 +2,7 @@
 // Project: https://github.com/arackaf/customize-cra#readme
 // Definitions by: Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
+// Minimum TypeScript Version: 3.7
 
 export * from './src/core';
 export * from './src/babel';

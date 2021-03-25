@@ -3,6 +3,7 @@
 // Definitions by: Daniel Schopf <https://github.com/Danscho>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Compiler, WebpackPluginInstance } from 'webpack';
 import { MinifyOptions } from 'terser';

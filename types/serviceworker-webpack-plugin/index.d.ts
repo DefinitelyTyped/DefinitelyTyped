@@ -2,6 +2,7 @@
 // Project: https://github.com/oliviertassinari/serviceworker-webpack-plugin#readme
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin, Stats } from 'webpack';
 

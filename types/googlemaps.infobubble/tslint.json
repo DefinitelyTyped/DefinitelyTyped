@@ -3,6 +3,7 @@
     "rules": {
         "jsdoc-format": false,
         "no-padding": false,
+        "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

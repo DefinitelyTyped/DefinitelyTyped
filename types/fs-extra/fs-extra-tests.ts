@@ -299,3 +299,9 @@ fs.realpath('src', (err, resolved) => {
 fs.realpath.native('src');
 // $ExpectType Promise<Buffer>
 fs.realpath.native('src', 'buffer');
+// $ExpectType Promise<string>
+fs.realpath.native('src', { encoding: 'utf-8' });
+// $ExpectType Promise<Buffer>
+fs.realpath.native('src', { encoding: 'buffer' });
+// $ExpectType Promise<string>
+fs.realpath.native('src', { encoding: null });

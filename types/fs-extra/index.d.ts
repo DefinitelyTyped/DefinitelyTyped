@@ -229,9 +229,9 @@ export function realpath(path: PathLike, cache?: { [path: string]: string }): Pr
 /* tslint:disable:unified-signatures */
 export namespace realpath {
     const native: {
-        (path: PathLike, options: fs.BaseEncodingOptions | BufferEncoding | undefined | null): Promise<string>;
-        (path: PathLike, options: fs.BufferEncodingOption): Promise<Buffer>;
-        (path: PathLike, options: fs.BaseEncodingOptions | string | undefined | null): Promise<string | Buffer>;
+        (path: PathLike, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null): Promise<string>;
+        (path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+        (path: PathLike, options: { encoding: BufferEncoding | null } | string | undefined | null): Promise<string | Buffer>;
         (path: PathLike): Promise<string>;
     } & typeof fs.realpath.native;
 }

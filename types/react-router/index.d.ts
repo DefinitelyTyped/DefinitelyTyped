@@ -91,7 +91,7 @@ export interface RouteProps<
     component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     render?: (props: RouteComponentProps<Params>) => React.ReactNode;
     children?: ((props: RouteChildrenProps<Params>) => React.ReactNode) | React.ReactNode;
-    path?: Path | Path[];
+    path?: Path | readonly Path[];
     exact?: boolean;
     sensitive?: boolean;
     strict?: boolean;
