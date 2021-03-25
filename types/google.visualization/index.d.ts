@@ -757,6 +757,17 @@ declare namespace google {
             targetAxisIndex?: number;
         }
 
+        // https://developers.google.com/chart/interactive/docs/gallery/intervals#combining-interval-styles
+        export interface Intervals {
+            style?: string;
+            color?: string;
+            barWidth?: number;
+            boxWidth?: number;
+            lineWidth?: number;
+            pointSize?: number;
+            fillOpacity?: number;
+        }
+
         // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
@@ -789,7 +800,7 @@ declare namespace google {
             pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
-            intervals?: { style: string };
+            intervals?: Intervals;
             interval?: any;
             theme?: string;
             title?: string;
