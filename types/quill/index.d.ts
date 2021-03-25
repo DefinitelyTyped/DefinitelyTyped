@@ -20,6 +20,11 @@ import Delta = require('quill-delta');
  *  But this would break a lot of existing code as it would require manual discrimination of the union types.
  */
 export type DeltaOperation = { insert?: any; delete?: number; retain?: number } & OptionalAttributes;
+interface SourceMap {
+    API: 'api';
+    SILENT: 'silent';
+    USER: 'user';
+}
 export type Sources = 'api' | 'user' | 'silent';
 
 export interface Key {
@@ -133,6 +138,8 @@ export class Quill implements EventEmitter {
     setText(text: string, source?: Sources): Delta;
     update(source?: Sources): void;
     updateContents(delta: Delta, source?: Sources): Delta;
+
+    static readonly sources: SourceMap;
 
     format(name: string, value: any, source?: Sources): Delta;
     formatLine(index: number, length: number, source?: Sources): Delta;
