@@ -2,6 +2,7 @@
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 import { Compiler, WebpackPluginInstance } from 'webpack';
 
 declare namespace SVGSpritemapPlugin {

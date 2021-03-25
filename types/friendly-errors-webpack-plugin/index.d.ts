@@ -2,7 +2,7 @@
 // Project: https://github.com/geowarin/friendly-errors-webpack-plugin
 // Definitions by: Arne Bahlo <https://github.com/bahlo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.7
 
 import { Plugin, Compiler } from 'webpack';
 

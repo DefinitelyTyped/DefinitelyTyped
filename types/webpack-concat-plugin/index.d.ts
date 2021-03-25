@@ -2,6 +2,7 @@
 // Project: https://github.com/hxlniada/webpack-concat-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import webpack = require('webpack');
 import { Compiler, Plugin } from 'webpack';
