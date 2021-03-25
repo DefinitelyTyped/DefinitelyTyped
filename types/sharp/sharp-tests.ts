@@ -199,6 +199,7 @@ sharp(input)
 
 sharp(input)
     .resize(100, 100)
+    .toFormat('jpg')
     .toBuffer({ resolveWithObject: false })
     .then((outputBuffer: Buffer) => {
         // Resolves with a Buffer object when resolveWithObject is false
