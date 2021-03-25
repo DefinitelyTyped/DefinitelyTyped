@@ -1,5 +1,5 @@
-import * as Popper from '@popperjs/core';
-import BaseComponent from './base-component';
+import * as Popper from "@popperjs/core";
+import BaseComponent from "./base-component";
 
 declare class Tooltip extends BaseComponent {
     constructor(element: Element, options?: Partial<Tooltip.Options>);
@@ -57,7 +57,7 @@ declare class Tooltip extends BaseComponent {
 
     static jQueryInterface: Tooltip.jQueryInterface;
 
-    static NAME: 'tooltip';
+    static NAME: "tooltip";
 
     /**
      * Default settings of this plugin
@@ -72,31 +72,31 @@ declare namespace Tooltip {
         /**
          * This event fires immediately when the show instance method is called.
          */
-        show = 'show.bs.tooltip',
+        show = "show.bs.tooltip",
 
         /**
          * This event is fired when the tooltip has been made visible to the
          * user (will wait for CSS transitions to complete).
          */
-        shown = 'shown.bs.tooltip',
+        shown = "shown.bs.tooltip",
 
         /**
          * This event is fired immediately when the hide instance method has
          * been called.
          */
-        hide = 'hide.bs.tooltip',
+        hide = "hide.bs.tooltip",
 
         /**
          * This event is fired when the tooltip has finished being hidden from
          * the user (will wait for CSS transitions to complete).
          */
-        hidden = 'hidden.bs.tooltip',
+        hidden = "hidden.bs.tooltip",
 
         /**
          * This event is fired after the show.bs.tooltip event when the tooltip
          * template has been added to the DOM.
          */
-        inserted = 'inserted.bs.tooltip',
+        inserted = "inserted.bs.tooltip",
     }
 
     interface Options {
@@ -152,7 +152,7 @@ declare namespace Tooltip {
          *
          * @default 'top'
          */
-        placement: 'auto' | 'top' | 'bottom' | 'left' | 'right' | (() => void);
+        placement: "auto" | "top" | "bottom" | "left" | "right" | (() => void);
 
         /**
          * If a selector is provided, tooltip objects will be delegated to the
@@ -203,14 +203,14 @@ declare namespace Tooltip {
          * @default 'hover focus'
          */
         trigger:
-            | 'click'
-            | 'hover'
-            | 'focus'
-            | 'manual'
-            | 'click hover'
-            | 'click focus'
-            | 'hover focus'
-            | 'click hover focus';
+            | "click"
+            | "hover"
+            | "focus"
+            | "manual"
+            | "click hover"
+            | "click focus"
+            | "hover focus"
+            | "click hover focus";
 
         /**
          * Offset of the tooltip relative to its target.
@@ -241,7 +241,7 @@ declare namespace Tooltip {
          * @see {@link https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement}
          * @default 'scrollParent'
          */
-        boundary: 'viewport' | 'window' | 'scrollParent' | Element;
+        boundary: "viewport" | "window" | "scrollParent" | Element;
 
         /**
          * Add classes to the tooltip when it is shown. Note that these classes will be added in addition to any classes specified in the template.
@@ -263,7 +263,7 @@ declare namespace Tooltip {
          *
          * @see {@link https://v5.getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer}
          */
-        whiteList: Record<keyof HTMLElementTagNameMap, string[]>;
+        allowList: Record<keyof HTMLElementTagNameMap, string[]>;
 
         /**
          * Here you can supply your own sanitize function. This can be useful if
@@ -285,14 +285,14 @@ declare namespace Tooltip {
     type jQueryInterface = (
         config?:
             | Partial<Options>
-            | 'show'
-            | 'hide'
-            | 'toggle'
-            | 'enable'
-            | 'disable'
-            | 'toggleEnabled'
-            | 'update'
-            | 'dispose',
+            | "show"
+            | "hide"
+            | "toggle"
+            | "enable"
+            | "disable"
+            | "toggleEnabled"
+            | "update"
+            | "dispose",
     ) => void;
 }
 
