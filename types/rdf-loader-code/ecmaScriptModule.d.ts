@@ -5,10 +5,10 @@ interface Options {
     basePath?: string;
 }
 
-type EcmaScriptLoader = Loader<unknown, Options> & {
+type EcmaScriptModuleLoader = Loader<unknown, Options> & {
     register(registry: LoaderRegistry): void;
 };
 
-declare const loader: EcmaScriptLoader;
+declare const loader: EcmaScriptModuleLoader;
 
 export = loader;
