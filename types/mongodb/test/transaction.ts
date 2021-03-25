@@ -106,7 +106,7 @@ async function run() {
 async function withTransaction(client: MongoClient, session: ClientSession) {
     const col = client.db("test").collection("col");
     const ok = await session.withTransaction(async () => {
-        col.insertOne({ _id: "one" }, { session });
+        await col.insertOne({ _id: "one" }, { session });
     });
     if (ok) {
         console.log("success");
