@@ -628,20 +628,26 @@ export namespace AppRegistry {
     function getRunnable(appKey: string): Runnable | undefined;
 }
 
-export interface LayoutAnimationTypes {
-    spring: string;
-    linear: string;
-    easeInEaseOut: string;
-    easeIn: string;
-    easeOut: string;
-    keyboard: string;
+export type LayoutAnimationType =
+    | 'spring'
+    | 'linear'
+    | 'easeInEaseOut'
+    | 'easeIn'
+    | 'easeOut'
+    | 'keyboard';
+
+export type LayoutAnimationTypes = {
+    [type in LayoutAnimationType]: type;
 }
 
-export interface LayoutAnimationProperties {
-    opacity: string;
-    scaleX: string;
-    scaleY: string;
-    scaleXY: string;
+export type LayoutAnimationProperty =
+    | 'opacity'
+    | 'scaleX'
+    | 'scaleY'
+    | 'scaleXY';
+
+export type LayoutAnimationProperties = {
+    [prop in LayoutAnimationProperty]: prop;
 }
 
 export interface LayoutAnimationAnim {
@@ -649,8 +655,8 @@ export interface LayoutAnimationAnim {
     delay?: number;
     springDamping?: number;
     initialVelocity?: number;
-    type?: string; //LayoutAnimationTypes
-    property?: string; //LayoutAnimationProperties
+    type?: LayoutAnimationType;
+    property?: LayoutAnimationProperty;
 }
 
 export interface LayoutAnimationConfig {
@@ -679,8 +685,8 @@ export interface LayoutAnimationStatic {
     /** Helper for creating a config for configureNext. */
     create: (
         duration: number,
-        type?: keyof LayoutAnimationTypes,
-        creationProp?: keyof LayoutAnimationProperties
+        type?: LayoutAnimationType,
+        creationProp?: LayoutAnimationProperty
     ) => LayoutAnimationConfig;
     Types: LayoutAnimationTypes;
     Properties: LayoutAnimationProperties;
