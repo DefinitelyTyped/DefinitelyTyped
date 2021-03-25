@@ -200,7 +200,7 @@ export default class RouterService extends Service {
      */
     transitionTo(
         routeNameOrUrl: string,
-        options?: { queryParam: object }
+        options?: { queryParams: object }
     ): Transition;
     transitionTo(
         routeNameOrUrl: string,
