@@ -1,5 +1,4 @@
-import pwdStrength from 'pwd-strength';
-
+import pwdStrength = require('pwd-strength');
 
 let isValid = pwdStrength('P@55w0Rd');
 
@@ -25,4 +24,4 @@ isValid = pwdStrength('P@55w0Rd', {
     minSpecialChars: 'You should have at least %s special chars.',
     maxConsecutiveRepeatingChars: 'You should have at most %s repeating chars.',
   },
-})
+});
