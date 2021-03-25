@@ -20,7 +20,7 @@ declare namespace findProjectRoot {
         markers?: string[];
     }
 
-    const MAX_DEPTH: 6;
+    const MAX_DEPTH: 9;
     const MARKERS: [".git", ".hg"];
 }
 
