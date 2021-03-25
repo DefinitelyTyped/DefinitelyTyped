@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "body-tests.ts"
+        "test/body-tests.ts"
     ]
 }

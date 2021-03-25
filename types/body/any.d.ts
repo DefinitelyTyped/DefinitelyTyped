@@ -1,7 +1,8 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { Callback } from "./common/callback";
 
-declare function anyBody(req: IncomingMessage, cb: (err: Error, bodyPayload: string) => void): void;
-declare function anyBody(req: IncomingMessage, res: ServerResponse, cb: (err: Error, bodyPayload: string) => void): void;
+declare function anyBody(req: IncomingMessage, cb: Callback<unknown>): void;
+declare function anyBody(req: IncomingMessage, res: ServerResponse, cb: Callback<unknown>): void;
 declare function anyBody(req: IncomingMessage, res: ServerResponse, opts: {
   limit?: number;
   encoding?: BufferEncoding;
@@ -12,6 +13,6 @@ declare function anyBody(req: IncomingMessage, res: ServerResponse, opts: {
   querystring: {
     parse: (queryString: string, cb: (err: Error, result: unknown) => void) => void
   }
-}, cb: (err: Error, bodyPayload: unknown) => void): void;
+}, cb: Callback<unknown>): void;
 
 export = anyBody;

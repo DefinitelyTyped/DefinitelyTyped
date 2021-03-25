@@ -6,13 +6,14 @@
 /// <reference types="node" />
 
 import { IncomingMessage, ServerResponse } from "http";
+import { Callback } from "./common/callback";
 
-declare function body(req: IncomingMessage, cb: (err: Error, bodyPayload: string) => void): void;
-declare function body(req: IncomingMessage, res: ServerResponse, cb: (err: Error, bodyPayload: string) => void): void;
-declare function body(req: IncomingMessage, res: ServerResponse, opts: {
+declare function textBody(req: IncomingMessage, cb: Callback<string>): void;
+declare function textBody(req: IncomingMessage, res: ServerResponse, cb: Callback<string>): void;
+declare function textBody(req: IncomingMessage, res: ServerResponse, opts: {
   limit?: number;
   cache?: boolean;
   encoding?: BufferEncoding;
-}, cb: (err: Error, bodyPayload: string) => void): void;
+}, cb: Callback<string>): void;
 
-export = body;
+export = textBody;
