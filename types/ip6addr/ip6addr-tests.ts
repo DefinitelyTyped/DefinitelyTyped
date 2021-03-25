@@ -11,6 +11,7 @@ addr.offset(1);
 const addr2 = ip6addr.parse('fd20::5');
 addr.compare(addr2);
 addr.compare('fd20::5');
+
 const addr3: ip6addr.Addr = addr2.clone();
 const addr4: ip6addr.Addr = addr3.not();
 const addr5: ip6addr.Addr = addr4.and('127.0.0.1');
