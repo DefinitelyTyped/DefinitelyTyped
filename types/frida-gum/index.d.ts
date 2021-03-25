@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 16.4
+// Type definitions for non-npm package frida-gum 16.5
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -2570,6 +2570,31 @@ declare namespace Stalker {
      * executing its last instructions.
      */
     function garbageCollect(): void;
+
+    /**
+     * Invalidates the current thread's translated code for a given basic block.
+     * Useful when providing a transform callback and wanting to dynamically
+     * adapt the instrumentation for a given basic block. This is much more
+     * efficient than unfollowing and re-following the thread, which would
+     * discard all cached translations and require all encountered basic blocks
+     * to be compiled from scratch.
+     *
+     * @param address Start address of basic block to invalidate.
+     */
+    function invalidate(address: NativePointerValue): void;
+
+    /**
+     * Invalidates a specific thread's translated code for a given basic block.
+     * Useful when providing a transform callback and wanting to dynamically
+     * adapt the instrumentation for a given basic block. This is much more
+     * efficient than unfollowing and re-following the thread, which would
+     * discard all cached translations and require all encountered basic blocks
+     * to be compiled from scratch.
+     *
+     * @param threadId Thread that should have some of its code invalidated.
+     * @param address Start address of basic block to invalidate.
+     */
+    function invalidate(threadId: ThreadId, address: NativePointerValue): void;
 
     /**
      * Calls `callback` synchronously when a call is made to `address`.
