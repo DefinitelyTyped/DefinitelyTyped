@@ -5,7 +5,7 @@ const root: string | null = findProjectRoot("./", {
 });
 
 findProjectRoot.MARKERS; // $ExpectType [".git", ".hg"]
-findProjectRoot.MAX_DEPTH; // $ExpectType 6
+findProjectRoot.MAX_DEPTH; // $ExpectType 9
 
 // $ExpectType string | null
 findProjectRoot("./", {
