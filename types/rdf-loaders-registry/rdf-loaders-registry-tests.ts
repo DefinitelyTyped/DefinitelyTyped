@@ -34,7 +34,11 @@ async function basicLoading() {
 }
 
 async function loadWithSpecificLoaderInferOptionType() {
-  const result: Nebula | null = await registry.load<Nebula, NebulaLoader>(node, { bar: 'baz'});
+  const result = registry.load<Nebula, NebulaLoader>(node, { bar: 'baz' });
+  if (result) {
+    const nebula: Nebula = await result;
+  }
+
   // $ExpectError
   await registry.load<Nebula, NebulaLoader>(node, {});
   // $ExpectError
