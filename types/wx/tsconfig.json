@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "module": "CommonJS",
+    "target": "ES5",
+    "allowJs": false,
+    "experimentalDecorators": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "removeComments": true,
+    "pretty": true,
+    "strictPropertyInitialization": true,
+    "lib": [
+      "es6"
+    ],
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ]
+  },
+  "files": [
+    "index.d.ts",
+    "lib.wx.api.d.ts",
+    "lib.wx.app.d.ts",
+    "lib.wx.behavior.d.ts",
+    "lib.wx.cloud.d.ts",
+    "lib.wx.component.d.ts",
+    "lib.wx.event.d.ts",
+    "lib.wx.page.d.ts",
+    "wx-tests.ts"
+  ]
+}
