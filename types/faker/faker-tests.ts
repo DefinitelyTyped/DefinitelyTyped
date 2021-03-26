@@ -73,6 +73,25 @@ resultStr = faker.database.type();
 resultStr = faker.database.collation();
 resultStr = faker.database.engine();
 
+resultNum = faker.datatype.number();
+resultNum = faker.datatype.number(0);
+resultNum = faker.datatype.number({
+    min: 0,
+    max: 0,
+    precision: 0,
+});
+resultNum = faker.datatype.float();
+resultNum = faker.datatype.float(0);
+resultNum = faker.datatype.float({
+    min: 0,
+    max: 0,
+    precision: 0,
+});
+resultStr = faker.datatype.uuid();
+resultBool = faker.datatype.boolean();
+resultStr = faker.datatype.hexaDecimal();
+resultStr = faker.datatype.hexaDecimal(0);
+
 resultDate = faker.date.past();
 resultDate = faker.date.future();
 resultDate = faker.date.between('foo', 'bar');
