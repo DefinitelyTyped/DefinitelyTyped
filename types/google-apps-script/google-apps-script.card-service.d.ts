@@ -158,7 +158,7 @@ declare namespace GoogleAppsScript {
       addCardAction(cardAction: CardAction): CardBuilder;
       addSection(section: CardSection): CardBuilder;
       build(): Card;
-      setFixedFooter(footer: FixedFooter): CardBuilder;
+      setFixedFooter(fixedFooter: FixedFooter): CardBuilder;
       setHeader(cardHeader: CardHeader): CardBuilder;
       setName(name: string): CardBuilder;
     }
