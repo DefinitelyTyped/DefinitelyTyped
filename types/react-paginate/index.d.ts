@@ -130,6 +130,11 @@ export interface ReactPaginateProps {
     hrefBuilder?(pageIndex: number): void;
 
     /**
+     * Function to set the text on page links. Defaults to `(page) => page`
+     */
+    pageLabelBuilder?: (page: number) => string;
+
+    /**
      * Extra context to add to the aria-label HTML attribute.
      */
     extraAriaContext?: string;
