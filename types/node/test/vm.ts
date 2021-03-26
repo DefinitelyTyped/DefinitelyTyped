@@ -89,3 +89,22 @@ import { inspect } from 'node:util';
     const script = new Script('foo()', { cachedData: Buffer.from([]) });
     console.log(script.cachedDataRejected);
 }
+
+{
+    // createContext accepts microtaskMode param
+    const sandbox = {
+        animal: 'cat',
+        count: 2
+    };
+
+    const context = createContext(sandbox, {
+        name: 'test',
+        origin: 'file://test.js',
+        codeGeneration: {
+            strings: true,
+            wasm: true,
+        },
+        microtaskMode: 'afterEvaluate'
+    });
+    console.log(isContext(context));
+}
