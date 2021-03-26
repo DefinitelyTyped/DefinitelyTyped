@@ -5,7 +5,6 @@
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Alexi Maschas <https://github.com/amaschas>
 //                 Piotr Kuczynski <https://github.com/pkuczynski>
-//                 Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
