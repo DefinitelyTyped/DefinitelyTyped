@@ -70,10 +70,7 @@ declare namespace Chartist {
         [Key: string]: string;
     }
 
-    interface IResponsiveOptionTuple<T extends IChartOptions> extends Array<string | T> {
-        0: string;
-        1: T;
-    }
+    type IResponsiveOptionTuple<T extends IChartOptions> = [string, T];
 
     // these have no other purpose than to help define the types that can be placed on
     // a line chart axisX

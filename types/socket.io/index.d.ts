@@ -601,20 +601,20 @@ declare namespace SocketIO {
         compress(compress: boolean): Namespace;
     }
 
-    interface Packet extends Array<any> {
+    type Packet = [
         /**
          * Event name
          */
-        [0]: string;
+        string,
         /**
          * Packet data
          */
-        [1]: any;
+        any,
         /**
          * Ack function
          */
-        [2]: (...args: any[]) => void;
-    }
+        (...args: any[]) => void
+    ];
 
     /**
      * The socket, which handles our connection for a namespace. NOTE: while

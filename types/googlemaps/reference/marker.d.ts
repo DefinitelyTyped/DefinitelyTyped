@@ -537,20 +537,13 @@ declare namespace google.maps {
         coords: [number, number, number, number];
     }
 
-    interface MarkerShapePolyCoords extends Array<number> {
-        0: number;
-        1: number;
-        2: number;
-        3: number;
-    }
-
     interface MarkerShapePoly {
         type: 'poly';
         /**
          * Coords is **[x1,y1,x2,y2...xn,yn]** where each x,y pair contains the
          * coordinates of one vertex of the polygon.
          */
-        coords: MarkerShapePolyCoords;
+        coords: [number, number, number, number, ...number[]];
     }
 
     /**
