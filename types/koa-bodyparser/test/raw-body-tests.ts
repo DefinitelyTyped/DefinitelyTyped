@@ -6,7 +6,8 @@ const app = new Koa();
 app.use(bodyParser({ strict: false }));
 
 app.use((ctx) => {
-    console.log(ctx.request.rawBody);
+    // $ExpectType string
+    ctx.request.rawBody;
 });
 
 app.listen(80);
