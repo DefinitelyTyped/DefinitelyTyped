@@ -1005,6 +1005,10 @@
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
         },
+        "feedme": {
+            "libraryName": "feedme",
+            "asOfVersion": "2.0.2"
+        },
         "feedsub": {
             "libraryName": "feedsub",
             "asOfVersion": "0.7.5"
