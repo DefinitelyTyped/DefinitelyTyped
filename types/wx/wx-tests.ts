@@ -1,2 +1,1 @@
-// $ExpectType any
-require('');
+// Type definitions for (non-npm package )
