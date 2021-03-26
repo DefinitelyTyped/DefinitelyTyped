@@ -1,4 +1,4 @@
-import "./test/core";
+import "../test/core";
 import jsdom = require("jsdom");
 
 const dom = new jsdom.JSDOM();
@@ -18,6 +18,3 @@ domWindow.WebAssembly; // $ExpectType typeof WebAssembly
 
 domWindow.InputEvent.prototype; // $ExpectType InputEvent
 domWindow.external; // $ExpectType External
-
-domWindow.FinalizationRegistry; // $ExpectType FinalizationRegistryConstructor
-domWindow.WeakRef; // $ExpectType WeakRefConstructor
