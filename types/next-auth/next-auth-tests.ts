@@ -557,6 +557,36 @@ Providers.Reddit({
     clientSecret: 'bar123',
 });
 
+// $ExpectType Provider<"faceit", "oauth">
+Providers.FACEIT({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
+// $ExpectType Provider<"instagram", "oauth">
+Providers.Instagram({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
+// $ExpectType Provider<"kakao", "oauth">
+Providers.Kakao({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
+// $ExpectType Provider<"osso", "oauth">
+Providers.Osso({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
+// $ExpectType Provider<"zoho", "oauth">
+Providers.Zoho({
+    clientId: 'foo123',
+    clientSecret: 'bar123',
+});
+
 // --------------------------------------------------------------------------
 // Adapters
 // --------------------------------------------------------------------------
