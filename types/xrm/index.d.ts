@@ -2432,7 +2432,7 @@ declare namespace Xrm {
              * @returns The initial value.
              * @remarks Valid for OptionSet and boolean attribute types
              */
-            getInitialValue(): number | boolean;
+            getInitialValue(): T | null;
         }
 
         /**
