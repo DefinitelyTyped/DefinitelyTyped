@@ -28,6 +28,7 @@ class Test extends React.Component {
                 nextLinkClassName={'next-a'}
                 disabledClassName={'disabled'}
                 hrefBuilder={(pageIndex: number) => null}
+                pageLabelBuilder={(page: number) => `${page}`}
                 extraAriaContext={'aria'}
             />
         );
