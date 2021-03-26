@@ -13,7 +13,7 @@ interface WorkerUtils extends WorkerUtilsDatabase { }
 
 // util interfaces
 interface DOMString extends String { }
-interface ObjectArray extends Array<any> { }
+type ObjectArray = Array<any>;
 
 
 //[Supplemental, NoInterfaceObject]

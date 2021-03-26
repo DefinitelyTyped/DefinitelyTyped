@@ -17,9 +17,7 @@ declare module 'angular-formly' {
 
 declare namespace AngularFormly {
 
-    interface IFieldArray extends Array<IFieldConfigurationObject | IFieldGroup> {
-
-    }
+    type IFieldArray = Array<IFieldConfigurationObject | IFieldGroup>;
 
     interface IFieldGroup {
         data?: {

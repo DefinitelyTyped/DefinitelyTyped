@@ -244,7 +244,7 @@ export type Expression =
     | Term;
 
 // allow Expression circularly reference itself
-export interface Tuple extends Array<Expression> {}
+export type Tuple = Array<Expression>;
 
 export interface BaseExpression {
     type: string;

@@ -447,8 +447,8 @@ declare module "../index" {
          */
         first(): ExpChain<T | undefined>;
     }
-    interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
-    interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
+    type RecursiveArray<T> = Array<T|RecursiveArray<T>>;
+    type ListOfRecursiveArraysOrValues<T> = List<T|RecursiveArray<T>>;
     interface LoDashStatic {
         /**
          * Flattens `array` a single level deep.

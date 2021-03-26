@@ -193,7 +193,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Album
-     * 
+     *
      * GET /v1/albums/{id}
      * https://developer.spotify.com/web-api/get-album/
      */
@@ -201,9 +201,9 @@ declare namespace SpotifyApi {
 
     /**
      * Get Several Albums
-     * 
+     *
      * GET /v1/albums?ids={ids}
-     * https://developer.spotify.com/web-api/get-several-albums/ 
+     * https://developer.spotify.com/web-api/get-several-albums/
      */
     interface MultipleAlbumsResponse {
         albums: AlbumObjectFull[];
@@ -211,7 +211,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Album’s Tracks
-     * 
+     *
      * GET /v1/albums/{id}/tracks
      * https://developer.spotify.com/web-api/get-albums-tracks/
      */
@@ -219,7 +219,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Artist
-     * 
+     *
      * GET /v1/artists/{id}
      * https://developer.spotify.com/web-api/get-artist/
      */
@@ -227,8 +227,8 @@ declare namespace SpotifyApi {
 
     /**
      * Get Several Artists
-     * 
-     * /v1/artists?ids={ids} 
+     *
+     * /v1/artists?ids={ids}
      * https://developer.spotify.com/web-api/get-several-artists/
      */
     interface MultipleArtistsResponse {
@@ -237,7 +237,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Artist’s Albums
-     * 
+     *
      * GET /v1/artists/{id}/albums
      * https://developer.spotify.com/web-api/get-artists-albums/
      */
@@ -245,7 +245,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Artist’s Top Tracks
-     * 
+     *
      * GET /v1/artists/{id}/top-tracks
      * https://developer.spotify.com/web-api/get-artists-top-tracks/
      */
@@ -255,7 +255,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Artist’s Related Artists
-     * 
+     *
      * GET /v1/artists/{id}/related-artists
      * https://developer.spotify.com/web-api/get-related-artists/
      */
@@ -265,10 +265,10 @@ declare namespace SpotifyApi {
 
     /**
      * Get Audio Analysis for a Track
-     * 
+     *
      * GET /v1/audio-analysis/{id}
      * https://developer.spotify.com/web-api/get-audio-analysis/
-     * 
+     *
      * At the time of typing, the Audio Analysis Object is absent from the Object Model, so it is typed as any.
      * Object Model: https://developer.spotify.com/web-api/object-model/
      */
@@ -276,7 +276,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get audio features for a track
-     * 
+     *
      * GET /v1/audio-features/{id}
      * https://developer.spotify.com/web-api/get-audio-features/
      */
@@ -284,7 +284,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get audio features for several tracks
-     * 
+     *
      * GET /v1/audio-features?ids={ids}
      * https://developer.spotify.com/get-several-audio-features/
      */
@@ -294,7 +294,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a list of featured playlists
-     * 
+     *
      * GET /v1/browse/featured-playlists
      * https://developer.spotify.com/web-api/get-list-featured-playlists/
      */
@@ -305,7 +305,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a list of new releases
-     * 
+     *
      * GET /v1/browse/new-releases
      * https://developer.spotify.com/web-api/get-list-new-releases/
      */
@@ -316,7 +316,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a list of categories
-     * 
+     *
      * GET /v1/browse/categories
      * https://developer.spotify.com/web-api/get-list-categories/
      */
@@ -326,7 +326,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a category
-     * 
+     *
      * GET /v1/browse/categories/{id}
      * https://developer.spotify.com/web-api/get-category/
      */
@@ -334,7 +334,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a categorys playlists
-     * 
+     *
      * GET /v1/browse/categories/{id}/playlists
      * https://developer.spotify.com/web-api/get-categorys-playlists/
      */
@@ -344,7 +344,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get Current User’s Profile
-     * 
+     *
      * GET /v1/me
      * https://developer.spotify.com/web-api/get-current-users-profile/
      */
@@ -352,7 +352,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get User’s Followed Artists
-     * 
+     *
      * GET /v1/me/following
      * https://developer.spotify.com/web-api/get-followed-artists/
      */
@@ -362,7 +362,7 @@ declare namespace SpotifyApi {
 
     /**
      * Follow artists or users
-     * 
+     *
      * PUT /v1/me/following
      * https://developer.spotify.com/web-api/follow-artists-users/
      */
@@ -370,7 +370,7 @@ declare namespace SpotifyApi {
 
     /**
      * Unfollow artists or users
-     * 
+     *
      * DELETE /v1/me/following
      * https://developer.spotify.com/web-api/unfollow-artists-users/
      */
@@ -378,15 +378,15 @@ declare namespace SpotifyApi {
 
     /**
      * Check if User Follows Users or Artists
-     * 
+     *
      * GET /v1/me/following/contains
      * https://developer.spotify.com/web-api/check-current-user-follows/
      */
-    interface UserFollowsUsersOrArtistsResponse extends Array<boolean> {}
+     type UserFollowsUsersOrArtistsResponse = Array<boolean>;
 
     /**
      * Follow a Playlist
-     * 
+     *
      * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
      * https://developer.spotify.com/web-api/follow-playlist/
      */
@@ -394,7 +394,7 @@ declare namespace SpotifyApi {
 
     /**
      * Unfollow a Playlist
-     * 
+     *
      * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
      * https://developer.spotify.com/web-api/unfollow-playlist/
      */
@@ -402,7 +402,7 @@ declare namespace SpotifyApi {
 
     /**
      * Save tracks for user
-     * 
+     *
      * PUT /v1/me/tracks?ids={ids}
      * https://developer.spotify.com/web-api/save-tracks-user/
      */
@@ -410,7 +410,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get user's saved tracks
-     * 
+     *
      * GET /v1/me/tracks
      * https://developer.spotify.com/web-api/get-users-saved-tracks/
      */
@@ -418,7 +418,7 @@ declare namespace SpotifyApi {
 
     /**
      * Remove User’s Saved Tracks
-     * 
+     *
      * DELETE /v1/me/tracks?ids={ids}
      * https://developer.spotify.com/web-api/remove-tracks-user/
      */
@@ -426,15 +426,15 @@ declare namespace SpotifyApi {
 
     /**
      * Check User’s Saved Tracks
-     * 
+     *
      * GET /v1/me/tracks/contains?ids={ids}
      * https://developer.spotify.com/web-api/check-users-saved-tracks/
      */
-    interface CheckUsersSavedTracksResponse extends Array<boolean> {}
+     type CheckUsersSavedTracksResponse = Array<boolean>;
 
     /**
      * Save albums for user
-     * 
+     *
      * PUT /v1/me/albums?ids={ids}
      * https://developer.spotify.com/web-api/save-albums-user/
      */
@@ -442,7 +442,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get user's saved albums
-     * 
+     *
      * GET /v1/me/albums
      * https://developer.spotify.com/web-api/get-users-saved-albums/
      */
@@ -450,7 +450,7 @@ declare namespace SpotifyApi {
 
     /**
      * Remove Albums for Current User
-     * 
+     *
      * DELETE /v1/me/albums?ids={ids}
      * https://developer.spotify.com/web-api/remove-albums-user/
      */
@@ -458,15 +458,15 @@ declare namespace SpotifyApi {
 
     /**
      * Check user's saved albums
-     * 
+     *
      * GET /v1/me/albums/contains?ids={ids}
      * https://developer.spotify.com/web-api/check-users-saved-albums/
      */
-    interface CheckUserSavedAlbumsResponse extends Array<boolean> {}
+     type CheckUserSavedAlbumsResponse = Array<boolean>;
 
     /**
      * Get user's saved shows
-     * 
+     *
      * GET /v1/me/shows
      * https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-shows/
      */
@@ -474,7 +474,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a User’s Top Artists and Tracks (Note: This is only Artists)
-     * 
+     *
      * GET /v1/me/top/{type}
      * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
      */
@@ -482,7 +482,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a User’s Top Artists and Tracks (Note: This is only Tracks)
-     * 
+     *
      * GET /v1/me/top/{type}
      * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
      */
@@ -490,7 +490,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a User’s Recently Played Tracks
-     * 
+     *
      * GET /v1/me/player/recently-played
      * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
      */
@@ -506,7 +506,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get recommendations based on seeds
-     * 
+     *
      * GET /v1/recommendations
      * https://developer.spotify.com/get-recommendations/
      */
@@ -514,7 +514,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get available genre seeds
-     * 
+     *
      * GET /v1/recommendations/available-genre-seeds
      * https://developer.spotify.com/web-api/get-recommendations/#available-genre-seeds
      */
@@ -524,7 +524,7 @@ declare namespace SpotifyApi {
 
     /**
      * Search for an album
-     * 
+     *
      * GET /v1/search?type=album
      * https://developer.spotify.com/web-api/search-item/
      */
@@ -534,7 +534,7 @@ declare namespace SpotifyApi {
 
     /**
      * Search for an artist
-     * 
+     *
      * GET /v1/search?type=artist
      * https://developer.spotify.com/web-api/search-item/
      */
@@ -544,7 +544,7 @@ declare namespace SpotifyApi {
 
     /**
      * Search for a playlist
-     * 
+     *
      * GET /v1/search?type=playlist
      * https://developer.spotify.com/web-api/search-item/
      */
@@ -554,7 +554,7 @@ declare namespace SpotifyApi {
 
     /**
      * Search for a track
-     * 
+     *
      * GET /v1/search?type=track
      * https://developer.spotify.com/web-api/search-item/
      */
@@ -564,7 +564,7 @@ declare namespace SpotifyApi {
 
     /**
      * Search for a show
-     * 
+     *
      * GET /v1/search?type=show
      * https://developer.spotify.com/web-api/search-item/
      */
@@ -574,7 +574,7 @@ declare namespace SpotifyApi {
 
     /**
      * Search for a episode
-     * 
+     *
      * GET /v1/search?type=episode
      * https://developer.spotify.com/web-api/search-item/
      */
@@ -584,7 +584,7 @@ declare namespace SpotifyApi {
 
     /**
      * Search for artists/albums/tracks/playlists/show/episode
-     * 
+     *
      * GET /v1/search
      * https://developer.spotify.com/web-api/search-item/
      */
@@ -592,7 +592,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Show
-     * 
+     *
      * GET /v1/shows/{id}
      * https://developer.spotify.com/web-api/get-show/
      */
@@ -600,7 +600,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get Several Shows
-     * 
+     *
      * GET /v1/shows?ids={ids}
      * https://developer.spotify.com/documentation/web-api/reference/shows/get-several-shows/
      */
@@ -610,7 +610,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Shows’s Episodes
-     * 
+     *
      * GET /v1/shows/{id}/episodes
      * https://developer.spotify.com/documentation/web-api/reference/shows/get-shows-episodes/
      */
@@ -618,7 +618,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Episode
-     * 
+     *
      * GET /v1/episodes/{id}
      * https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/
      */
@@ -626,7 +626,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get Several Episodes
-     * 
+     *
      * GET /v1/episodes?ids={ids}
      * https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/
      */
@@ -636,7 +636,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a track
-     * 
+     *
      * GET /v1/tracks/{id}
      * https://developer.spotify.com/web-api/get-track/
      */
@@ -644,7 +644,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get multiple tracks
-     * 
+     *
      * GET /v1/tracks?ids={ids}
      * https://developer.spotify.com/web-api/get-several-tracks/
      */
@@ -654,7 +654,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get user profile
-     * 
+     *
      * GET /v1/users/{user_id}
      * https://developer.spotify.com/web-api/get-users-profile/
      */
@@ -662,7 +662,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a list of a user's playlists
-     * 
+     *
      * GET /v1/users/{user_id}/playlists
      * https://developer.spotify.com/web-api/get-list-users-playlists/
      */
@@ -670,7 +670,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a list of the current user's playlists
-     * 
+     *
      * GET /v1/me/playlists
      * https://developer.spotify.com/web-api/get-list-users-playlists/
      */
@@ -678,7 +678,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a playlist
-     * 
+     *
      * GET /v1/users/{user_id}/playlists/{playlist_id}
      * https://developer.spotify.com/web-api/get-playlist/
      */
@@ -686,7 +686,7 @@ declare namespace SpotifyApi {
 
     /**
      * Get a playlist's tracks
-     * 
+     *
      * GET /v1/users/{user_id}/playlists/{playlist_id}/tracks
      * https://developer.spotify.com/web-api/get-playlists-tracks/
      */
@@ -694,7 +694,7 @@ declare namespace SpotifyApi {
 
     /**
      * Create a Playlist
-     * 
+     *
      * POST /v1/users/{user_id}/playlists
      * https://developer.spotify.com/web-api/create-playlist/
      */
@@ -702,7 +702,7 @@ declare namespace SpotifyApi {
 
     /**
      * Change a Playlist’s Details
-     * 
+     *
      * PUT /v1/users/{user_id}/playlists/{playlist_id}
      * https://developer.spotify.com/web-api/change-playlist-details/
      */
@@ -710,7 +710,7 @@ declare namespace SpotifyApi {
 
     /**
      * Add Tracks to a Playlist
-     * 
+     *
      * POST /v1/users/{user_id}/playlists/{playlist_id}/tracks
      * https://developer.spotify.com/web-api/add-tracks-to-playlist/
      */
@@ -718,7 +718,7 @@ declare namespace SpotifyApi {
 
     /**
      * Remove Tracks from a Playlist
-     * 
+     *
      * DELETE /v1/users/{user_id}/playlists/{playlist_id}/tracks
      * https://developer.spotify.com/web-api/remove-tracks-playlist/
      */
@@ -726,7 +726,7 @@ declare namespace SpotifyApi {
 
     /**
      * Reorder a Playlist’s Tracks
-     * 
+     *
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
      * https://developer.spotify.com/web-api/reorder-playlists-tracks/
      */
@@ -734,7 +734,7 @@ declare namespace SpotifyApi {
 
     /**
      * Replace a Playlist’s Tracks
-     * 
+     *
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
      * https://developer.spotify.com/web-api/replace-playlists-tracks/
      */
@@ -742,7 +742,7 @@ declare namespace SpotifyApi {
 
     /**
      * Upload a Custom Playlist Cover Image
-     * 
+     *
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/images
      * https://developer.spotify.com/web-api/upload-a-custom-playlist-cover-image/
      */
@@ -750,11 +750,11 @@ declare namespace SpotifyApi {
 
     /**
      * Check if Users Follow a Playlist
-     * 
+     *
      * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
      * https://developer.spotify.com/web-api/check-user-following-playlist/
      */
-    interface UsersFollowPlaylistReponse extends Array<boolean> {}
+    type UsersFollowPlaylistReponse = Array<boolean>;
 
     interface UserDevicesResponse {
         devices: UserDevice[];
@@ -1468,7 +1468,7 @@ declare namespace SpotifyApi {
          * The object type: “show”.
          */
         type: "show";
-        // This is found in https://developer.spotify.com/documentation/web-api/reference/shows/get-a-show/ but not in 
+        // This is found in https://developer.spotify.com/documentation/web-api/reference/shows/get-a-show/ but not in
         // https://developer.spotify.com/documentation/web-api/reference/object-model/#show-object-full.
         // Also it is not always sent, so it is marked optional here.
         /**

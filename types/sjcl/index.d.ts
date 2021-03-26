@@ -149,7 +149,7 @@ declare namespace sjcl {
 
     // ________________________________________________________________________
 
-    interface BitArray extends Array<number> {}
+    type BitArray = Array<number>;
 
     interface BitArrayStatic {
         /// Array slices in units of bits.

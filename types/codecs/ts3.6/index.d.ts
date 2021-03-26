@@ -1,7 +1,7 @@
 /// <reference types="node" />
 declare namespace codecs {
     type JsonObject = { [Key in string]?: JsonValue };
-    interface JsonArray extends Array<JsonValue> {}
+    type JsonArray = Array<JsonValue>;
     type JsonValue = string | number | boolean | null | JsonObject | JsonArray;
 
     interface BaseCodec<InType = any, OutType = InType> {

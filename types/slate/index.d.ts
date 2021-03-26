@@ -1472,7 +1472,7 @@ export interface Plugin<T extends Controller = Controller> {
     schema?: SchemaProperties;
 }
 
-export interface Plugins<T extends Controller = Controller> extends Array<Plugin<T> | Plugins<T>> {}
+export type Plugins<T extends Controller = Controller> = Array<Plugin<T> | Plugins<T>>;
 
 export interface EditorProperties<T extends Controller = Controller> {
     object?: "editor";

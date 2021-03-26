@@ -6,7 +6,7 @@ export type JSONValue = string | number | boolean | null | JSONObject | JSONArra
 export interface JSONObject {
   [name: string]: JSONValue;
 }
-export interface JSONArray extends Array<JSONValue> {}
+export type JSONArray = Array<JSONValue>;
 
 export type Path = ReadonlyArray<string|number>;
 export interface Snapshot<T = any> {

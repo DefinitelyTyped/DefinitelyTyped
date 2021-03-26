@@ -290,7 +290,7 @@ export function set<T>(array: T[], key: (value: T, index: number, array: T[]) =>
  * The use of the rollup function, or lack thereof, also determines whether NestedArray has the 'values' property
  * with an array of type Datum at leaf level, or has a rolled-up 'value' property.
  */
-export interface NestedArray<Datum, RollupType> extends Array<{ key: string, values: NestedArray<Datum, RollupType> | Datum[] | undefined, value: RollupType | undefined }> { }
+export type NestedArray<Datum, RollupType> = Array<{ key: string, values: NestedArray<Datum, RollupType> | Datum[] | undefined, value: RollupType | undefined }>;
 
 /**
  * A more formal definition of the nested array returned by Nest.map(...). This data structure is intended as a reference only.

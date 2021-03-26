@@ -27,11 +27,11 @@ declare global {
         [x: string]: KnuddelsJsonData | undefined;
     }
 
-    interface JsonArray extends Array<JsonData> {}
+    type JsonArray = Array<JsonData>;
 
-    interface KnuddelsJsonArray extends Array<KnuddelsJsonData> {}
+    type KnuddelsJsonArray = Array<KnuddelsJsonData>;
 
-    interface KnuddelsEventArray extends Array<string | Json | KnuddelsEventArray> {}
+    type KnuddelsEventArray = Array<string | Json | KnuddelsEventArray>;
 }
 
 // Apps API

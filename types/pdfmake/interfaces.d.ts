@@ -189,7 +189,7 @@ export type Content =
     | ContentCanvas;
 
 // not exported, only used to prevent Content from circularly referencing itself
-interface ArrayOfContent extends Array<Content> {}
+type ArrayOfContent = Array<Content>;
 
 export interface ContentText extends ContentLink, ContentBase {
     text: Content;

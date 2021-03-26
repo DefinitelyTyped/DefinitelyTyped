@@ -351,7 +351,7 @@ declare namespace grunt {
             /**
             * The source file contents, source file path, and destination file path
             * are passed into this function, whose return value will be used as the
-            * destination file's contents.  
+            * destination file's contents.
             * If this function returns 'false', the file copy will be aborted.
             * @example
             ```ts
@@ -567,7 +567,7 @@ const copyOptions: grunt.file.IFileWriteStringOption = {
          *
          * {@link http://gruntjs.com/configuring-tasks#files}
          */
-        interface IFilesArray extends Array<IFilesConfig> {}
+        type IFilesArray = Array<IFilesConfig>;
 
         /**
          * {@link http://gruntjs.com/configuring-tasks#files}

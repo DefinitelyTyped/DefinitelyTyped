@@ -32,8 +32,7 @@ declare global {
             Name: string;
         }
 
-        interface IEntityReferenceCollectionView extends Array<IEntityReferenceView> {
-        }
+        type IEntityReferenceCollectionView = Array<IEntityReferenceView>;
 
         class Q {
             /**

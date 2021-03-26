@@ -34,7 +34,7 @@ export type Serializable =
   | null
   | JSONArray
   | JSONObject;
-export interface JSONArray extends Array<Serializable> { }
+export type JSONArray = Array<Serializable>;
 export interface JSONObject {
   [key: string]: Serializable;
 }

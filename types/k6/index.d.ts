@@ -132,7 +132,7 @@ export type JSONValue = null | boolean | number | string | JSONArray | JSONObjec
 /**
  * Array representable with JSON.
  */
-export interface JSONArray extends Array<JSONValue> {}
+export type JSONArray = Array<JSONValue>;
 
 /**
  * Object representable with JSON.
