@@ -1,4 +1,4 @@
-// Type definitions for react-notifications-component 2.4
+// Type definitions for react-notifications-component 3.1
 // Project: https://github.com/teodosii/react-notifications-component
 // Definitions by: Sarhad Salam <https://github.com/SarhadSalam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
