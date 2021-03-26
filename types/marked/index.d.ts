@@ -323,6 +323,7 @@ declare namespace marked {
             type: 'blockquote';
             raw: string;
             text: string;
+            tokens?: Token;
         }
 
         interface BlockquoteStart {
@@ -358,6 +359,7 @@ declare namespace marked {
             raw: string;
             pre?: boolean;
             text: string;
+            tokens?: Token;
         }
 
         interface HTML {
