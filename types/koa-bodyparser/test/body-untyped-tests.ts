@@ -6,9 +6,10 @@ const app = new Koa();
 app.use(bodyParser({ strict: false }));
 
 app.use((ctx) => {
-    console.log(ctx.request.body);
-    console.log(ctx.request.body.ok);
-    console.log(ctx.request.rawBody);
+    ctx.request.body;
+    ctx.request.body.a;
+    ctx.request.body.a.b;
+    ctx.request.body.a.b.c;
 });
 
 app.listen(80);
