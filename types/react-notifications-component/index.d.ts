@@ -1,6 +1,7 @@
 // Type definitions for react-notifications-component 3.1
 // Project: https://github.com/teodosii/react-notifications-component
 // Definitions by: Sarhad Salam <https://github.com/SarhadSalam>
+//                 Andrés Ignacio Torres <https://github.com/aitorres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
