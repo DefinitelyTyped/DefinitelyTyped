@@ -31,6 +31,7 @@
 /// <reference types="ember__test" />
 /// <reference types="ember__service" />
 /// <reference types="ember__template" />
+/// <reference types="ember__destroyable" />
 
 import {
     Objectify, Fix, UnwrapComputedPropertySetters,
