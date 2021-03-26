@@ -32,7 +32,7 @@ declare global {
             Name: string;
         }
 
-        type IEntityReferenceCollectionView = Array<IEntityReferenceView>;
+        type IEntityReferenceCollectionView = IEntityReferenceView[];
 
         class Q {
             /**

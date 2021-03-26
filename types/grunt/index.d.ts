@@ -567,7 +567,7 @@ const copyOptions: grunt.file.IFileWriteStringOption = {
          *
          * {@link http://gruntjs.com/configuring-tasks#files}
          */
-        type IFilesArray = Array<IFilesConfig>;
+        type IFilesArray = IFilesConfig[];
 
         /**
          * {@link http://gruntjs.com/configuring-tasks#files}

@@ -2282,7 +2282,7 @@ declare namespace browser.extensionTypes {
         height: number;
     }
 
-    type _PlainJSONArray = Array<PlainJSONValue>;
+    interface _PlainJSONArray extends Array<PlainJSONValue> {}
 
     interface _PlainJSONObject {
         [key: string]: PlainJSONValue;

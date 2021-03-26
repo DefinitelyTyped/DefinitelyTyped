@@ -92,7 +92,7 @@ export interface UnnestSqlTokenType {
 
 export type PrimitiveValueExpressionType = string | number | boolean | null | PrimitiveValueExpressionTypeArray;
 
-export type PrimitiveValueExpressionTypeArray = Array<PrimitiveValueExpressionType>;
+export interface PrimitiveValueExpressionTypeArray extends Array<PrimitiveValueExpressionType> {}
 
 export type SqlTokenType =
     | ArraySqlTokenType

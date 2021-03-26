@@ -142,7 +142,7 @@ export interface Plugin<T extends Controller = Editor> extends CorePlugin<T> {
 }
 
 export type PluginOrPlugins<T extends Controller = Editor> = Plugin<T> | Plugins<T>;
-export type Plugins<T extends Controller = Editor> = Array<PluginOrPlugins<T>>;
+export interface Plugins<T extends Controller = Editor> extends Array<PluginOrPlugins<T>> {}
 
 export interface OnChangeParam {
     operations: Immutable.List<Operation>;

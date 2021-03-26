@@ -264,6 +264,6 @@ type ContainerTypeArray =
  * (not for export)
  */
 type JsonPrimitive = string | number | boolean | null;
-type JsonArray = Array<JsonValue>;
+interface JsonArray extends Array<JsonValue> {}
 interface JsonObject { [key: string]: JsonValue | undefined; }
 type JsonValue = JsonPrimitive | JsonArray | JsonObject;

@@ -378,7 +378,7 @@ declare namespace webpack {
     }
     type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
 
-    type ConditionArray = Array<Condition>;
+    interface ConditionArray extends Array<Condition> { }
     type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
 
     interface OldLoader {

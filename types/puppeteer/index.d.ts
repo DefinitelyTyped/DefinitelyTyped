@@ -58,7 +58,7 @@ export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
 export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
 
 export type Serializable = number | string | boolean | null | JSONArray | JSONObject;
-export type JSONArray = Array<Serializable>;
+export interface JSONArray extends Array<Serializable> {}
 export interface JSONObject {
     [key: string]: Serializable;
 }

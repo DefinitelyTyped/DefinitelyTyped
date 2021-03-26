@@ -14,7 +14,7 @@ export interface FieldObjectChoice {
     [key: string]: string | FieldObjectChoice;
 }
 
-export type FieldArrayChoice = Array<[string, string | FieldArrayChoice]>;
+export interface FieldArrayChoice extends Array<[string, string | FieldArrayChoice]> {}
 
 export interface FieldParameters {
     /** Optional label text which overrides the default. */

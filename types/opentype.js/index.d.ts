@@ -306,7 +306,7 @@ export interface Metrics {
     yMin: number;
 }
 
-export type Contour = Array<Point>;
+export type Contour = Point[];
 
 export interface Point {
     lastPointOfContour?: boolean;

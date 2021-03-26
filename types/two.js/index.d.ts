@@ -101,7 +101,7 @@ declare namespace Two {
     }
 
     namespace Utils {
-        type Collection<T> = Array<T>;
+        type Collection<T> = T[];
     }
 
     enum Types {

@@ -382,7 +382,7 @@ declare namespace SpotifyApi {
      * GET /v1/me/following/contains
      * https://developer.spotify.com/web-api/check-current-user-follows/
      */
-     type UserFollowsUsersOrArtistsResponse = Array<boolean>;
+     type UserFollowsUsersOrArtistsResponse = boolean[];
 
     /**
      * Follow a Playlist
@@ -430,7 +430,7 @@ declare namespace SpotifyApi {
      * GET /v1/me/tracks/contains?ids={ids}
      * https://developer.spotify.com/web-api/check-users-saved-tracks/
      */
-     type CheckUsersSavedTracksResponse = Array<boolean>;
+     type CheckUsersSavedTracksResponse = boolean[];
 
     /**
      * Save albums for user
@@ -462,7 +462,7 @@ declare namespace SpotifyApi {
      * GET /v1/me/albums/contains?ids={ids}
      * https://developer.spotify.com/web-api/check-users-saved-albums/
      */
-     type CheckUserSavedAlbumsResponse = Array<boolean>;
+     type CheckUserSavedAlbumsResponse = boolean[];
 
     /**
      * Get user's saved shows
@@ -754,7 +754,7 @@ declare namespace SpotifyApi {
      * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
      * https://developer.spotify.com/web-api/check-user-following-playlist/
      */
-    type UsersFollowPlaylistReponse = Array<boolean>;
+    type UsersFollowPlaylistReponse = boolean[];
 
     interface UserDevicesResponse {
         devices: UserDevice[];

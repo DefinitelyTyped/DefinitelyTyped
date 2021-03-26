@@ -222,7 +222,7 @@ declare namespace Rax {
   type RaxText = string | number;
   type RaxChild = RaxElement | RaxText;
 
-  type RaxNodeArray = Array<RaxNode>;
+  interface RaxNodeArray extends Array<RaxNode> {}
   type RaxFragment = {} | RaxNodeArray;
   type RaxNode = RaxChild | RaxFragment | RaxPortal | boolean | null | undefined;
 

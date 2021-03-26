@@ -7,7 +7,7 @@
 // For answers, fixes and cutting edge version please see development repository.
 
 declare namespace BigInt {
-    export type BigInt = Array<number>;
+    export type BigInt = number[];
 
     export interface IRandom {
         (): number;

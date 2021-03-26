@@ -26,7 +26,7 @@ declare namespace XRay {
         string |
         InstanceInvocation |
         {[key: string]: Selector};
-    type SelectorArray = Array<ScalarSelector | SelectorArray>;
+    interface SelectorArray extends Array<ScalarSelector | SelectorArray> {}
     type Selector = ScalarSelector | SelectorArray;
 
     type AbortHandler = (data: unknown[], url: string) => boolean;

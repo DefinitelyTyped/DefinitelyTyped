@@ -14,7 +14,7 @@ interface JsonObject {
     [x: string]: JsonValue;
 }
 
-type JsonArray = Array<JsonValue>;
+interface JsonArray extends Array<JsonValue> {}
 
 type JsonValue = string | number | boolean | null | JsonArray | JsonObject;
 
