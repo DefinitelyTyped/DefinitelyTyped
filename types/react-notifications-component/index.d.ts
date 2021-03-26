@@ -27,7 +27,7 @@ export interface ReactNotificationOptions {
     message?: string | React.ReactNode | React.FunctionComponent;
     content?: React.ComponentClass | React.FunctionComponent | React.ReactNode;
     type?: 'success' | 'danger' | 'info' | 'default' | 'warning';
-    container: 'top-left' | 'top-right' | 'top-center' | 'center' | 'bottom-left' | 'bottom-right' | 'bottom-center';
+    container: 'top-full' | 'top-left' | 'top-right' | 'top-center' | 'center' | 'bottom-full' | 'bottom-left' | 'bottom-right' | 'bottom-center';
     insert?: 'top' | 'bottom';
     dismiss?: DismissOptions;
     animationIn?: string[];
