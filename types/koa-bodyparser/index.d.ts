@@ -7,7 +7,7 @@
 //                 Piotr Kuczynski <https://github.com/pkuczynski>
 //                 Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /* =================== USAGE ===================
 
@@ -23,7 +23,7 @@ import * as Koa from "koa";
 
 declare module "koa" {
     interface Request {
-        body: {};
+        body: unknown;
         rawBody: string;
     }
 }
