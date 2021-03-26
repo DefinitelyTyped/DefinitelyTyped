@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "noImplicitAny": true,
     "module": "CommonJS",
     "target": "ES5",
