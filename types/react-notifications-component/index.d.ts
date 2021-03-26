@@ -35,7 +35,10 @@ export interface ReactNotificationOptions {
     slidingEnter?: TransitionOptions;
     slidingExit?: TransitionOptions;
     touchRevert?: TransitionOptions;
-    touchSlidingExit?: TransitionOptions;
+    touchSlidingExit?: {
+        fade?: TransitionOptions;
+        swipe?: TransitionOptions;
+    };
     width?: number;
 }
 
