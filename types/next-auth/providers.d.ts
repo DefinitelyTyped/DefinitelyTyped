@@ -16,6 +16,7 @@ export interface Provider<T extends string | undefined = undefined, U = T extend
     profile: (profile: Record<string, unknown>, tokens: unknown) => User & { id: string };
     clientId: string;
     clientSecret: string | Record<string, unknown>;
+    idToken?: boolean;
 }
 
 export interface AppProvider extends Pick<Provider, 'id' | 'name' | 'type'> {
@@ -61,7 +62,7 @@ export interface DefaultProviders {
     Yandex: Yandex;
 }
 
-export type Providers = Array<ReturnType<DefaultProviders[keyof DefaultProviders]>>;
+export type Providers = Array<ReturnType<DefaultProviders[keyof DefaultProviders]> | Provider<string, string>>;
 
 declare const Providers: DefaultProviders;
 
