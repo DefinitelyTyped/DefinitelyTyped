@@ -1,1 +1,2 @@
-
+// $ExpectType any
+require('');
