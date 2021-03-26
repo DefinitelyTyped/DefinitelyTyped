@@ -180,7 +180,7 @@ declare namespace marked {
         heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string;
         hr(): string;
         list(body: string, ordered: boolean, start: number): string;
-        listitem(text: string): string;
+        listitem(text: string, task:boolean, checked: boolean): string;
         checkbox(checked: boolean): string;
         paragraph(text: string): string;
         table(header: string, body: string): string;
