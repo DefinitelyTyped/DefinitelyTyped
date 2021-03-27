@@ -34,5 +34,15 @@ declare namespace GoogleAdsScripts {
             /** Returns the second line of the street address, or `null` if not known. */
             getStreetAddress2(): string | null;
         }
+
+        /** Plain JavaScript objects describing an address. */
+        interface AddressObject {
+            streetAddress?: string,
+            cityName?: string,
+            provinceName?: string,
+            provinceCode?: string,
+            postalCode?: string,
+            countryCode?: string
+        }
     }
 }

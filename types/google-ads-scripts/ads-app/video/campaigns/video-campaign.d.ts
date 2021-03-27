@@ -102,7 +102,7 @@ declare namespace GoogleAdsScripts {
             /** Adds a negative keyword list to this campaign. */
             addNegativeKeywordList(negativeKeywordList: NegativeKeywordList): void;
             /** Creates a proximity target in this campaign from a proximity object. */
-            addProximity(proximity: ProximityLiteral): TargetedProximityOperation;
+            addProximity(proximity: TargetedProximityObject): TargetedProximityOperation;
             /** Creates a proximity target in this campaign. */
             addProximity(
                 latitude: number,

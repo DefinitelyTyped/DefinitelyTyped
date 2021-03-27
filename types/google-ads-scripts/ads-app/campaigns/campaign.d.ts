@@ -106,7 +106,7 @@ declare namespace GoogleAdsScripts {
             /** Adds a price extension to this campaign. */
             addPrice(priceExtension: Price): PriceOperation;
             /** Creates a proximity target in this campaign from a proximity object. */
-            addProximity(proximity: ProximityLiteral): TargetedProximityOperation;
+            addProximity(proximity: TargetedProximityObject): TargetedProximityOperation;
             /** Creates a proximity target in this campaign. */
             addProximity(
                 latitude: number,

@@ -55,6 +55,16 @@ declare namespace GoogleAdsScripts {
          */
         interface TargetedProximityIterator extends Base.Iterator<TargetedProximity> {}
 
+        /** Plain JavaScript objects describing a proximity. */
+        interface TargetedProximityObject {
+            latitude: number,
+            longitude: number,
+            radius: number,
+            radiusUnits: string,
+            bidModifier?: number,
+            address?: AddressObject
+        }
+
         /** An operation representing creation of a new targeted proximity. */
         interface TargetedProximityOperation extends Base.Operation<TargetedProximity> {}
 
