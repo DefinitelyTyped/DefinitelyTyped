@@ -20,7 +20,7 @@ declare namespace GoogleAdsScripts {
             /** Returns the campaign type. */
             getCampaignType(): string;
             /** Returns the day of week this ad schedule applies to. */
-            getDayOfWeek(): string;
+            getDayOfWeek(): AdScheduleDayOfWeekType;
             /** Returns the ending hour of this ad schedule. */
             getEndHour(): number;
             /** Returns the ending minute of this ad schedule. */
@@ -43,6 +43,18 @@ declare namespace GoogleAdsScripts {
             setBidModifier(modifier: number): void;
         }
 
+        enum AdScheduleDayOfWeek {
+            Monday = "MONDAY",
+            Tuesday = "TUESDAY",
+            Wednesday = "WEDNESDAY",
+            Thursday = "THURSDAY",
+            Friday = "FRIDAY",
+            Saturday = "SATURDAY",
+            Sunday = "SUNDAY",
+        }
+
+        type AdScheduleDayOfWeekType = `${AdScheduleDayOfWeek}`
+
         /**
          * An iterator of ad schedules.
          *
@@ -53,6 +65,16 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface AdScheduleIterator extends Base.Iterator<AdSchedule> {}
+
+        /** A plain JavaScript object describing an ad schedule. */
+        interface AdScheduleObject {
+            dayOfWeek: AdScheduleDayOfWeekType,
+            startHour: number,
+            startMinute: number,
+            endHour: number,
+            endMinute: number,
+            bidModifier?: number
+        }
 
         /** An operation representing creation of a new ad schedule. */
         interface AdScheduleOperation extends Base.Operation<AdSchedule> {}

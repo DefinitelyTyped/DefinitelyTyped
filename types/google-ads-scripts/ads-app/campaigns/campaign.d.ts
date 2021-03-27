@@ -50,7 +50,7 @@ declare namespace GoogleAdsScripts {
              *
              * There is a limit of 6 ad schedules for each day of the week — for instance, splitting up each day into 6 4-hour-long periods is supported, but splitting up each day into 24 1-hour-long periods is not.
              */
-            addAdSchedule(adSchedule: AdScheduleLiteral): AdScheduleOperation;
+            addAdSchedule(adSchedule: AdScheduleObject): AdScheduleOperation;
             /**
              * Creates an ad schedule criterion. Once created, the campaign will start showing ads during the specified time.
              *
