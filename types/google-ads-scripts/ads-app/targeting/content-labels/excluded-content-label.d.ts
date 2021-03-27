@@ -40,6 +40,11 @@ declare namespace GoogleAdsScripts {
          */
         interface ExcludedContentLabelIterator extends Base.Iterator<ExcludedContentLabel> {}
 
+        /** A plain JavaScript objects to describe a content label. */
+        interface ExcludedContentLabelObject {
+            contentLabelType: string
+        }
+
         /** An operation representing creation of a new excluded content label. */
         interface ExcludedContentLabelOperation extends Base.Operation<ExcludedContentLabel> {}
 

@@ -120,7 +120,7 @@ declare namespace GoogleAdsScripts {
             /** Creates a content label exclusion in this campaign from content label type. */
             excludeContentLabel(contentLabelType: string): ExcludedContentLabelOperation;
             /** Creates a content label exclusion in this campaign. */
-            excludeContentLabel(contentLabelType: ContentLabelTypeObject): ExcludedContentLabelOperation;
+            excludeContentLabel(contentLabelType: ​ExcludedContentLabelObject): ExcludedContentLabelOperation;
             /** Creates a content label exclusion in this campaign from an existing content label object. */
             excludeContentLabel(contentLabel: ExcludedContentLabel): ExcludedContentLabelOperation;
             /** Creates a location exclusion in this campaign. */
