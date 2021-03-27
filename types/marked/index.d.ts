@@ -137,17 +137,24 @@ declare namespace marked {
         escape(src: string): NonNullable<Tokens.Escape | T>;
         tag(src: string, inLink: boolean, inRawBlock: boolean): NonNullable<Tokens.Tag | T>;
         link(src: string): NonNullable<Tokens.Image | Tokens.Link | T>;
-        reflink(src: string, links: Tokens.Link[] | Tokens.Image[]): NonNullable<Tokens.Link | Tokens.Image | Tokens.Text | T>;
+        reflink(
+            src: string,
+            links: Tokens.Link[] | Tokens.Image[],
+        ): NonNullable<Tokens.Link | Tokens.Image | Tokens.Text | T>;
         emStrong(src: string, maskedSrc: string, prevChar: string): NonNullable<Tokens.Em | Tokens.Strong | T>;
         codespan(src: string): NonNullable<Tokens.Codespan | T>;
         br(src: string): NonNullable<Tokens.Br | T>;
         del(src: string): NonNullable<Tokens.Del | T>;
         autolink(src: string, mangle: (cap: string) => string): NonNullable<Tokens.Link | T>;
         url(src: string, mangle: (cap: string) => string): NonNullable<Tokens.Link | T>;
-        inlineText(src: string, inRawBlock: boolean, smartypants: (cap: string) => string): NonNullable<Tokens.Text | T>;
+        inlineText(
+            src: string,
+            inRawBlock: boolean,
+            smartypants: (cap: string) => string,
+        ): NonNullable<Tokens.Text | T>;
     }
 
-    type TokenizerObject = Partial<Omit<Tokenizer<false>, "constructor" | "options">> ;
+    type TokenizerObject = Partial<Omit<Tokenizer<false>, "constructor" | "options">>;
 
     class Renderer<T = null> {
         constructor(options?: MarkedOptions);
@@ -167,7 +174,7 @@ declare namespace marked {
             content: string,
             flags: {
                 header: boolean;
-                align: 'center' | 'left' | 'right' | null;
+                align: "center" | "left" | "right" | null;
             },
         ): NonNullable<string | T>;
         strong(text: string): NonNullable<string | T>;
@@ -180,7 +187,7 @@ declare namespace marked {
         text(text: string): NonNullable<string | T>;
     }
 
-    type RendererObject = Partial<Omit<Renderer<boolean>, "constructor" | "options">> ;
+    type RendererObject = Partial<Omit<Renderer<boolean>, "constructor" | "options">>;
 
     class TextRenderer {
         strong(text: string): string;
@@ -269,56 +276,56 @@ declare namespace marked {
 
     namespace Tokens {
         interface Space {
-            type: 'space';
+            type: "space";
             raw: string;
         }
 
         interface Code {
-            type: 'code';
+            type: "code";
             raw: string;
-            codeBlockStyle?: 'indented';
+            codeBlockStyle?: "indented";
             lang?: string;
             text: string;
         }
 
         interface Heading {
-            type: 'heading';
+            type: "heading";
             raw: string;
             depth: number;
             text: string;
         }
 
         interface Table {
-            type: 'table';
+            type: "table";
             raw: string;
             header: string[];
-            align: Array<'center' | 'left' | 'right' | null>;
+            align: Array<"center" | "left" | "right" | null>;
             cells: string[][];
         }
 
         interface Hr {
-            type: 'hr';
+            type: "hr";
             raw: string;
         }
 
         interface Blockquote {
-            type: 'blockquote';
+            type: "blockquote";
             raw: string;
             text: string;
         }
 
         interface BlockquoteStart {
-            type: 'blockquote_start';
+            type: "blockquote_start";
             raw: string;
         }
 
         interface BlockquoteEnd {
-            type: 'blockquote_end';
+            type: "blockquote_end";
             raw: string;
         }
 
         interface List {
-            type: 'list';
+            type: "list";
             raw: string;
             ordered: boolean;
             start: boolean;
@@ -327,7 +334,7 @@ declare namespace marked {
         }
 
         interface ListItem {
-            type: 'list_item';
+            type: "list_item";
             raw: string;
             task: boolean;
             checked: boolean;
@@ -336,21 +343,21 @@ declare namespace marked {
         }
 
         interface Paragraph {
-            type: 'paragraph';
+            type: "paragraph";
             raw: string;
             pre?: boolean;
             text: string;
         }
 
         interface HTML {
-            type: 'html';
+            type: "html";
             raw: string;
             pre: boolean;
             text: string;
         }
 
         interface Text {
-            type: 'text';
+            type: "text";
             raw: string;
             text: string;
         }
@@ -362,13 +369,13 @@ declare namespace marked {
         }
 
         interface Escape {
-            type: 'escape';
+            type: "escape";
             raw: string;
             text: string;
         }
 
         interface Tag {
-            type: 'text' | 'html';
+            type: "text" | "html";
             raw: string;
             inLink: boolean;
             inRawBlock: boolean;
@@ -376,7 +383,7 @@ declare namespace marked {
         }
 
         interface Link {
-            type: 'link';
+            type: "link";
             raw: string;
             href: string;
             title: string;
@@ -385,7 +392,7 @@ declare namespace marked {
         }
 
         interface Image {
-            type: 'image';
+            type: "image";
             raw: string;
             href: string;
             title: string;
@@ -393,30 +400,30 @@ declare namespace marked {
         }
 
         interface Strong {
-            type: 'strong';
+            type: "strong";
             raw: string;
             text: string;
         }
 
         interface Em {
-            type: 'em';
+            type: "em";
             raw: string;
             text: string;
         }
 
         interface Codespan {
-            type: 'codespan';
+            type: "codespan";
             raw: string;
             text: string;
         }
 
         interface Br {
-            type: 'br';
+            type: "br";
             raw: string;
         }
 
         interface Del {
-            type: 'del';
+            type: "del";
             raw: string;
             text: string;
         }
