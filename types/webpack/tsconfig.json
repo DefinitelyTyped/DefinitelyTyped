@@ -15,7 +15,7 @@
         "paths": {
             "webpack": [
                 "./node_modules/webpack"
-            ],
+            ]
         }
         "types": [],
         "noEmit": true,
