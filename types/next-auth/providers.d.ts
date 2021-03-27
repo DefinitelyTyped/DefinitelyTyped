@@ -123,9 +123,10 @@ type OptionsBase = {
 };
 
 interface ProviderCommonOptions extends OptionsBase {
-    name?: string;
     clientId: string;
     clientSecret: string;
+    idToken?: string;
+    name?: string;
 }
 
 /**
