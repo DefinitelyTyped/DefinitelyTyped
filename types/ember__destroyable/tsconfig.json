@@ -23,6 +23,7 @@
     },
     "files": [
         "index.d.ts",
+        "test/lib/assert.ts",
         "test/main.ts"
     ]
 }

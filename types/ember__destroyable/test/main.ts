@@ -9,12 +9,21 @@ import {
     unregisterDestructor
 } from '@ember/destroyable';
 
+import { assertType } from './lib/assert';
+
+enableDestroyableTracking(true); // $ExpectError
+enableDestroyableTracking({}); // $ExpectError
+enableDestroyableTracking('foo'); // $ExpectError
+enableDestroyableTracking(1); // $ExpectError
 enableDestroyableTracking();
 
 class Child {
     state: boolean;
     constructor() {
         this.state = true;
+        registerDestructor(); // $ExpectError
+        registerDestructor(this); // $ExpectError
+        registerDestructor(this.stateDestructor); // $ExpectError
         registerDestructor(this, this.stateDestructor);
     }
 
@@ -23,6 +32,9 @@ class Child {
     }
 
     keepForever() {
+        unregisterDestructor(); // $ExpectError
+        unregisterDestructor(this); // $ExpectError
+        unregisterDestructor(this.stateDestructor); // $ExpectError
         unregisterDestructor(this, this.stateDestructor);
     }
 }
@@ -31,6 +43,9 @@ class Parent {
     child: object;
 
     constructor(child: object) {
+        this.child = associateDestroyableChild(); // $ExpectError
+        this.child = associateDestroyableChild(this); // $ExpectError
+        this.child = associateDestroyableChild(child); // $ExpectError
         this.child = associateDestroyableChild(this, child);
     }
 }
@@ -38,15 +53,21 @@ class Parent {
 const c = new Child();
 const p = new Parent(c);
 
-isDestroyed(c);
-isDestroyed(p);
+destroy(); // $ExpectError
+
+assertType<boolean>(isDestroyed(c));
+assertType<boolean>(isDestroyed(p));
 
 destroy(p);
 
-isDestroying(c);
-isDestroying(p);
+assertType<boolean>(isDestroying(c));
+assertType<boolean>(isDestroying(p));
 
-isDestroyed(c);
-isDestroyed(p);
+assertType<boolean>(isDestroyed(c));
+assertType<boolean>(isDestroyed(p));
 
+assertDestroyablesDestroyed(true); // $ExpectError
+assertDestroyablesDestroyed({}); // $ExpectError
+assertDestroyablesDestroyed('foo'); // $ExpectError
+assertDestroyablesDestroyed(1); // $ExpectError
 assertDestroyablesDestroyed();
