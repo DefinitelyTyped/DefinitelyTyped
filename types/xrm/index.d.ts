@@ -738,6 +738,18 @@ declare namespace Xrm {
         addOnLoad(handler: Events.ContextSensitiveHandler): void;
 
         /**
+         * Gets a boolean value indicating whether the form data has been modified.
+         * @returns Returns true if the form data has changed; false otherwise.
+         */
+        getIsDirty(): boolean;
+
+        /**
+         * Gets a boolean value indicating whether all of the form data is valid. This includes the main entity and any unbound attributes.
+         * @returns Returns true if all of the form data is valid; false otherwise.
+         */
+        isValid(): boolean;
+
+        /**
          * Asynchronously refreshes data on the form, without reloading the page.
          * @param save true to save the record, after the refresh.
          * @returns Returns an asynchronous promise.
