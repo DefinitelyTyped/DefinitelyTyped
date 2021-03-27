@@ -563,6 +563,7 @@ Providers.AzureADB2C({
     clientSecret: "bar123",
     scope: "offline_access User.Read",
     tenantId: "tenantId",
+    idToken: true,
 });
 
 // $ExpectType Provider<"fusionauth", "oauth">
