@@ -50,7 +50,6 @@ declare namespace GoogleAdsScripts {
             withSchedules(schedules: ExtensionScheduleLiteral[]): this;
             withStartDate(date: string | GoogleAdsDate): this;
             withTrackingTemplate(text: string): this;
-            s;
         }
 
         interface SitelinkIterator extends Base.Iterator<Sitelink> {}

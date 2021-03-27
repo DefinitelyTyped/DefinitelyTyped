@@ -22,14 +22,14 @@ declare namespace GoogleAdsScripts {
              *
              * Date range must be specified if the selector has conditions or ordering for a stat field. Note that only the last date range specified for the selector will take effect.
              */
-            forDateRange(dateRange: DateRangeType);
+            forDateRange(dateRange: DateRangeType): this;
             /**
              * Sets a custom date range onto the selector.
              * Both parameters can be either an object containing year, month, and day fields, or an 8-digit string in `YYYYMMDD` form. For instance, `March 24th, 2013` is represented as either `{year: 2013, month: 3, day: 24}` or `"20130324"`. The date range is inclusive on both ends, so `forDateRange("20130324", "20130324")` sets the range of one day.
              *
              * Date range must be specified if the selector has conditions or ordering for a stat field. Note that only the last date range specified for the selector will take effect.
              */
-            forDateRange(dateFrom, dateTo);
+            forDateRange(dateFrom: string | AdsApp.GoogleAdsDate, dateTo: string | AdsApp.GoogleAdsDate): this;
         }
 
         interface SelectorOrderBy {

@@ -85,7 +85,7 @@ declare namespace GoogleAdsScripts {
          *
          * Note that it is only necessary to call `AdOperation.getResult()` if you need to access the actual ad for further processing (for instance, one can attach a label to the newly created ad). Otherwise, calling `build()` on the builder is sufficient to ensure that the ad is created.
          */
-        interface ResponsiveDisplayAdBuilder extends Base.Builder<AdOperation> {
+        interface ResponsiveSearchAdBuilder extends Base.Builder<AdOperation> {
             /** Adds the provided description to the current list of descriptions. */
             addDescription(description: string, pinning: string): this;
             /** Adds the provided headline to the current list of headlines. */

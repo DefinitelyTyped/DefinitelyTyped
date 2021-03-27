@@ -7,7 +7,7 @@
 /// <reference path="../../ad-groups/video-ad-group.d.ts" />
 /// <reference path="../../campaigns/video-campaign.d.ts" />
 /// <reference path="../video-criterion-bidding.d.ts" />
-/// <reference path="./excluded-video-placement.d.ts" />
+/// <reference path="./excluded-video-topic.d.ts" />
 
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
