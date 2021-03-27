@@ -8,14 +8,7 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
-        "paths": {
-            "webpack": [
-                "webpack/v4"
-            ],
-            "tapable": [
-                "tapable/v1"
-            ]
-        },
+        "paths": {},
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

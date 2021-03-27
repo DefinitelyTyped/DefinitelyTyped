@@ -43,7 +43,7 @@ declare namespace WebpackDevMiddleware {
         /** Instructs the module to enable or disable the server-side rendering mode */
         serverSideRender?: boolean;
         /** Stats options object or preset name. */
-        stats?: webpack.Stats.ToJsonOptions;
+        stats?: webpack.Configuration['stats'];
         /**
          * Set the default file system which will be used by webpack as primary destination of generated files
          */
