@@ -208,3 +208,7 @@ function test_ResponseInit() {
         });
     });
 }
+
+function test_BlobText() {
+    new Blob(["Hello world"]).text();
+}

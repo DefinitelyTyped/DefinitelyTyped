@@ -11,6 +11,7 @@
 //                 Alex Savin <https://github.com/alexandrusavin>
 //                 Alexis Tyler <https://github.com/OmgImAlexis>
 //                 Jakub Kisielewski <https://github.com/kbkk>
+//                 Tanet Trimas <https://github.com/tanettrimas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -135,6 +136,7 @@ export class Blob {
     readonly type: string;
     readonly size: number;
     slice(start?: number, end?: number): Blob;
+    text(): Promise<string>;
 }
 
 export class Body {
