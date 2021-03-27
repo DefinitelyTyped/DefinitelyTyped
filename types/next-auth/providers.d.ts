@@ -122,11 +122,19 @@ type OptionsBase = {
     [K in keyof Omit<Provider, 'id'>]?: Provider[K]
 };
 
+/**
+ * Provider options
+ * @see {@link https://next-auth.js.org/configuration/providers#oauth-provider-options}
+ */
 interface ProviderCommonOptions extends OptionsBase {
+    authorizationParams?: Record<string, string>;
     clientId: string;
     clientSecret: string;
-    idToken?: string;
+    headers?: Record<string, any>;
+    idToken?: boolean;
     name?: string;
+    protection?: "pkce" | "state" | "none";
+    state?: boolean;
 }
 
 /**
