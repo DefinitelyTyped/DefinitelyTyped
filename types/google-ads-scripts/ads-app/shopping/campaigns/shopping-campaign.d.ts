@@ -136,7 +136,7 @@ declare namespace GoogleAdsScripts {
             /** Creates a location exclusion in this campaign. */
             excludeLocation(locationId: number): ExcludedLocationOperation;
             /** Creates a location exclusion in this campaign for the specified JSON. */
-            excludeLocation(location: ExcludedLocationLiteral): ExcludedLocationOperation;
+            excludeLocation(location: TargetedLocationObject): ExcludedLocationOperation;
             /** Returns the ad rotation type of the shopping campaign. */
             getAdRotationType(): string;
             /** Returns the bidding strategy type of the shopping campaign. */

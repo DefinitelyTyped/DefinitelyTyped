@@ -55,20 +55,26 @@ declare namespace GoogleAdsScripts {
          */
         interface TargetedLocationIterator extends Base.Iterator<TargetedLocation> {}
 
+        /** A plain JavaScript object describing a location. */
+        interface TargetedLocationObject {
+            id: number;
+            bidModifier?: number;
+        }
+
         /** An operation representing creation of a new targeted location. */
         interface TargetedLocationOperation extends Base.Operation<TargetedLocation> {}
 
         /**
          * Fetches targeted locations. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var targetedLocationSelector = AdsApp.targeting()
          *          .targetedLocations()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var targetedLocationIterator = targetedLocationSelector.get();
          *      while (targetedLocationIterator.hasNext()) {
          *        var targetedLocation = targetedLocationIterator.next();
