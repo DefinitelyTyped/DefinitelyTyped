@@ -296,7 +296,11 @@ type Atlassian = (options: ProviderCommonOptions) => Provider<'atlassian'>;
 /**
  * AzureADB2C
  */
-type AzureADB2C = (options: ProviderCommonOptions) => Provider<'azure-ad-b2c'>;
+type AzureADB2C = (options: ProviderAzureADB2COptions) => Provider<"azure-ad-b2c">;
+
+interface ProviderAzureADB2COptions extends ProviderCommonOptions {
+    tenantId?: string;
+}
 
 /**
  * Bungie
@@ -316,7 +320,12 @@ type Foursquare = (options: ProviderCommonOptions) => Provider<'foursquare'>;
 /**
  * FusionAuth
  */
-type FusionAuth = (options: ProviderCommonOptions) => Provider<'fusionauth'>;
+type FusionAuth = (options: ProviderFusionAuthOptions) => Provider<"fusionauth">;
+
+interface ProviderFusionAuthOptions extends ProviderCommonOptions {
+    tenantId?: string;
+    domain?: string;
+}
 
 /**
  * LINE

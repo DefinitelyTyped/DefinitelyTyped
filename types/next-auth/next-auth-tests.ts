@@ -553,8 +553,25 @@ Providers.Basecamp({
 
 // $ExpectType Provider<"reddit", "oauth">
 Providers.Reddit({
-    clientId: 'foo123',
-    clientSecret: 'bar123',
+    clientId: "foo123",
+    clientSecret: "bar123",
+});
+
+// $ExpectType Provider<"azure-ad-b2c", "oauth">
+Providers.AzureADB2C({
+    clientId: "foo123",
+    clientSecret: "bar123",
+    scope: "offline_access User.Read",
+    tenantId: "tenantId",
+});
+
+// $ExpectType Provider<"fusionauth", "oauth">
+Providers.FusionAuth({
+    name: "FusionAuth",
+    domain: "domain",
+    clientId: "clientId",
+    clientSecret: "clientSecret",
+    tenantId: "tenantId",
 });
 
 // --------------------------------------------------------------------------
