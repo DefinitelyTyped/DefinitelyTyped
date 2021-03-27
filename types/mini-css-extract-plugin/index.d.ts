@@ -1,4 +1,4 @@
-// Type definitions for mini-css-extract-plugin 1.2
+// Type definitions for mini-css-extract-plugin 1.4
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
@@ -83,6 +83,11 @@ declare namespace MiniCssExtractPlugin {
          * @default output.publicPath
          */
         publicPath?: string | ((resourcePath: string, context: string) => string);
+        /**
+         * If false, the plugin will extract the CSS but **will not** emit the file
+         * @default true
+         */
+        emit?: boolean;
         /**
          * By default, `mini-css-extract-plugin` generates JS modules that use the ES modules syntax.
          * There are some cases in which using ES modules is beneficial,

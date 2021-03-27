@@ -8,7 +8,8 @@ const loaderOptions: MiniCssExtractPlugin.LoaderOptions = {
     esModule: true,
     modules: {
         namedExport: true,
-    }
+    },
+    emit: false,
 };
 
 configuration = {
