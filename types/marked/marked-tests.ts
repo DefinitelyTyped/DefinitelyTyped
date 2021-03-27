@@ -67,7 +67,6 @@ console.log(tokens2);
 const tokens3 = lexer.inline(tokens);
 console.log(tokens3);
 const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
-console.log(lexer.token(text, true));
 const lexerOptions: marked.MarkedOptions = lexer.options;
 
 const renderer = new marked.Renderer();
@@ -88,6 +87,10 @@ console.log(textRenderer.strong(text));
 const parseTestText = '- list1\n  - list1.1\n\n listend';
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
 
+
+const inlineTestText = '- list1\n  - list1.1\n\n listend';
+const inlineTestTokens: marked.TokensList = marked.Lexer.lexInline(inlineTestText, options);
+
 /* List type is `list`. */
 const listToken = parseTestTokens[0] as marked.Tokens.List;
 console.log(listToken.type === 'list');
@@ -97,15 +100,35 @@ console.log(parser.parse(parseTestTokens));
 console.log(marked.Parser.parse(parseTestTokens));
 const parserOptions: marked.MarkedOptions = parser.options;
 
-const links = ['http', 'image'];
-const inlineLexer = new marked.InlineLexer(links);
-console.log(inlineLexer.output('http://'));
-console.log(marked.InlineLexer.output('http://', links));
-console.log(marked.InlineLexer.rules);
-const inlineLexerOptions: marked.MarkedOptions = inlineLexer.options;
-
 const slugger = new marked.Slugger();
 console.log(slugger.slug('Test Slug'));
 console.log(slugger.slug('Test Slug', { dryrun: true }));
 
 marked.use({ renderer });
+
+marked.use({
+  renderer: {
+    heading(text, level) {
+      if (level > 3) {
+        return `<p>${text}</p>`;
+      }
+
+      return false;
+    }
+},
+tokenizer: {
+  codespan(src) {
+    const match = src.match(/\$+([^\$\n]+?)\$+/);
+    if (match) {
+      return {
+        type: 'codespan',
+        raw: match[0],
+        text: match[1].trim()
+      };
+    }
+
+    // return false to use original codespan tokenizer
+    return false;
+  }
+}
+});

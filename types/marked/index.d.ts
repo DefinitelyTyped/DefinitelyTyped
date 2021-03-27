@@ -53,15 +53,6 @@ declare namespace marked {
     function lexer(src: string, options?: MarkedOptions): TokensList;
 
     /**
-     * @param src String of markdown source to be compiled
-     * @param links Array of links
-     * @param options Hash of options
-     * @return String of compiled HTML
-     */
-
-    function inlineLexer(src: string, links: string[], options?: MarkedOptions): string;
-
-    /**
      * Compiles markdown to HTML.
      *
      * @param src String of markdown source to be compiled
@@ -122,85 +113,74 @@ declare namespace marked {
 
     /**
      * Use Extension
-     * @param Renderer
+     * @param MarkedExtension
      */
-    function use(options: MarkedOptions): void;
+    function use(options: MarkedExtension): void;
 
-    class InlineLexer {
-        constructor(links: string[], options?: MarkedOptions);
-        options: MarkedOptions;
-        links: string[];
-        rules: Rules;
-        renderer: Renderer;
-        static rules: Rules;
-        static output(src: string, links: string[], options?: MarkedOptions): string;
-        output(src: string): string;
-        static escapes(text: string): string;
-        outputLink(cap: string[], link: string): string;
-        smartypants(text: string): string;
-        mangle(text: string): string;
-    }
-
-    class Tokenizer {
+    class Tokenizer<T = null> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        space(src: string): Tokens.Space;
-        code(src: string): Tokens.Code;
-        fences(src: string): Tokens.Code;
-        heading(src: string): Tokens.Heading;
-        nptable(src: string): Tokens.Table;
-        hr(src: string): Tokens.Hr;
-        blockquote(src: string): Tokens.Blockquote;
-        list(src: string): Tokens.List;
-        html(src: string): Tokens.HTML;
-        def(src: string): Tokens.Def;
-        table(src: string): Tokens.Table;
-        lheading(src: string): Tokens.Heading;
-        paragraph(src: string): Tokens.Paragraph;
-        text(src: string): Tokens.Text;
-        escape(src: string): Tokens.Escape;
-        tag(src: string, inLink: boolean, inRawBlock: boolean): Tokens.Tag;
-        link(src: string): Tokens.Image | Tokens.Link;
-        reflink(src: string, links: Tokens.Link[] | Tokens.Image[]): Tokens.Link | Tokens.Image | Tokens.Text;
-        emStrong(src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong;
-        codespan(src: string): Tokens.Codespan;
-        br(src: string): Tokens.Br;
-        del(src: string): Tokens.Del;
-        autolink(src: string, mangle: (cap: string) => string): Tokens.Link;
-        url(src: string, mangle: (cap: string) => string): Tokens.Link;
-        inlineText(src: string, inRawBlock: boolean, smartypants: (cap: string) => string): Tokens.Text;
+        space(src: string): NonNullable<Tokens.Space | T>;
+        code(src: string): NonNullable<Tokens.Code | T>;
+        fences(src: string): NonNullable<Tokens.Code | T>;
+        heading(src: string): NonNullable<Tokens.Heading | T>;
+        nptable(src: string): NonNullable<Tokens.Table | T>;
+        hr(src: string): NonNullable<Tokens.Hr | T>;
+        blockquote(src: string): NonNullable<Tokens.Blockquote | T>;
+        list(src: string): NonNullable<Tokens.List | T>;
+        html(src: string): NonNullable<Tokens.HTML | T>;
+        def(src: string): NonNullable<Tokens.Def | T>;
+        table(src: string): NonNullable<Tokens.Table | T>;
+        lheading(src: string): NonNullable<Tokens.Heading | T>;
+        paragraph(src: string): NonNullable<Tokens.Paragraph | T>;
+        text(src: string): NonNullable<Tokens.Text | T>;
+        escape(src: string): NonNullable<Tokens.Escape | T>;
+        tag(src: string, inLink: boolean, inRawBlock: boolean): NonNullable<Tokens.Tag | T>;
+        link(src: string): NonNullable<Tokens.Image | Tokens.Link | T>;
+        reflink(src: string, links: Tokens.Link[] | Tokens.Image[]): NonNullable<Tokens.Link | Tokens.Image | Tokens.Text | T>;
+        emStrong(src: string, maskedSrc: string, prevChar: string): NonNullable<Tokens.Em | Tokens.Strong | T>;
+        codespan(src: string): NonNullable<Tokens.Codespan | T>;
+        br(src: string): NonNullable<Tokens.Br | T>;
+        del(src: string): NonNullable<Tokens.Del | T>;
+        autolink(src: string, mangle: (cap: string) => string): NonNullable<Tokens.Link | T>;
+        url(src: string, mangle: (cap: string) => string): NonNullable<Tokens.Link | T>;
+        inlineText(src: string, inRawBlock: boolean, smartypants: (cap: string) => string): NonNullable<Tokens.Text | T>;
     }
 
-    class Renderer {
+    type TokenizerObject = Partial<Omit<Tokenizer<false>, "constructor" | "options">> ;
+
+    class Renderer<T = null> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        code(code: string, language: string | undefined, isEscaped: boolean): string;
-        blockquote(quote: string): string;
-        html(html: string): string;
-        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string;
-        hr(): string;
-        list(body: string, ordered: boolean, start: number): string;
-        listitem(text: string): string;
-        checkbox(checked: boolean): string;
-        paragraph(text: string): string;
-        table(header: string, body: string): string;
-        tablerow(content: string): string;
+        code(code: string, language: string | undefined, isEscaped: boolean): NonNullable<string | T>;
+        blockquote(quote: string): NonNullable<string | T>;
+        html(html: string): NonNullable<string | T>;
+        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): NonNullable<string | T>;
+        hr(): NonNullable<string | T>;
+        list(body: string, ordered: boolean, start: number): NonNullable<string | T>;
+        listitem(text: string): NonNullable<string | T>;
+        checkbox(checked: boolean): NonNullable<string | T>;
+        paragraph(text: string): NonNullable<string | T>;
+        table(header: string, body: string): NonNullable<string | T>;
+        tablerow(content: string): NonNullable<string | T>;
         tablecell(
             content: string,
             flags: {
                 header: boolean;
                 align: 'center' | 'left' | 'right' | null;
             },
-        ): string;
-        strong(text: string): string;
-        em(text: string): string;
-        codespan(code: string): string;
-        br(): string;
-        del(text: string): string;
-        link(href: string | null, title: string | null, text: string): string;
-        image(href: string | null, title: string | null, text: string): string;
-        text(text: string): string;
+        ): NonNullable<string | T>;
+        strong(text: string): NonNullable<string | T>;
+        em(text: string): NonNullable<string | T>;
+        codespan(code: string): NonNullable<string | T>;
+        br(): NonNullable<string | T>;
+        del(text: string): NonNullable<string | T>;
+        link(href: string | null, title: string | null, text: string): NonNullable<string | T>;
+        image(href: string | null, title: string | null, text: string): NonNullable<string | T>;
+        text(text: string): NonNullable<string | T>;
     }
+
+    type RendererObject = Partial<Omit<Renderer<boolean>, "constructor" | "options">> ;
 
     class TextRenderer {
         strong(text: string): string;
@@ -220,13 +200,13 @@ declare namespace marked {
         token: Token | null;
         options: MarkedOptions;
         renderer: Renderer;
+        textRenderer: TextRenderer;
         slugger: Slugger;
         static parse(src: TokensList, options?: MarkedOptions): string;
+        static parseInline(src: TokensList, options?: MarkedOptions): string;
         parse(src: TokensList): string;
+        parseInline(src: TokensList, renderer: Renderer): string;
         next(): Token;
-        peek(): Token | 0;
-        parseText(): string;
-        tok(): string;
     }
 
     class Lexer {
@@ -235,10 +215,12 @@ declare namespace marked {
         options: MarkedOptions;
         rules: Rules;
         static rules: Rules;
-        static lex(src: TokensList, options?: MarkedOptions): TokensList;
+        static lex(src: string, options?: MarkedOptions): TokensList;
+        static lexInline(src: string, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
-        token(src: string, top: boolean): TokensList;
+        blockTokens(src: string, tokens: TokensList, top: boolean): TokensList;
         inline(tokens: TokensList): TokensList;
+        inlineTokens(src: string, tokens: TokensList, inLink: boolean, inRawBlock: boolean): TokensList;
     }
 
     class Slugger {
@@ -440,7 +422,7 @@ declare namespace marked {
         }
     }
 
-    interface MarkedOptions {
+    interface MarkedExtension {
         /**
          * A prefix URL for any relative link.
          */
@@ -498,7 +480,7 @@ declare namespace marked {
          *
          * An object containing functions to render tokens to HTML.
          */
-        renderer?: Renderer;
+        renderer?: Renderer | RendererObject;
 
         /**
          * Sanitize the output. Ignore any HTML that has been input.
@@ -528,7 +510,7 @@ declare namespace marked {
         /**
          * The tokenizer defines how to turn markdown text into tokens.
          */
-        tokenizer?: Tokenizer;
+        tokenizer?: Tokenizer | TokenizerObject;
 
         /**
          * The walkTokens function gets called with every token.
@@ -541,5 +523,19 @@ declare namespace marked {
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
          */
         xhtml?: boolean;
+    }
+
+    interface MarkedOptions extends MarkedExtension {
+        /**
+         * Type: object Default: new Renderer()
+         *
+         * An object containing functions to render tokens to HTML.
+         */
+        renderer?: Renderer;
+
+        /**
+         * The tokenizer defines how to turn markdown text into tokens.
+         */
+        tokenizer?: Tokenizer;
     }
 }
