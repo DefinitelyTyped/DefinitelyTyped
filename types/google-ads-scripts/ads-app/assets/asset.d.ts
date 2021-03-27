@@ -79,7 +79,7 @@ declare namespace GoogleAdsScripts {
          */
         interface ImageAssetBuilder extends Base.Builder<AssetOperation> {
             /** Sets new image asset's data to the specified value. */
-            withData(data: Blob): this;
+            withData(data: GoogleAppsScript.Base.Blob): this;
             /** Sets new image asset's name to the specified value. */
             withName(name: string): this;
         }
@@ -99,7 +99,7 @@ declare namespace GoogleAdsScripts {
          */
         interface MediaBundleAssetBuilder extends Base.Builder<AssetOperation> {
             /** Sets new image asset's data to the specified value. */
-            withData(data: Blob): this;
+            withData(data: GoogleAppsScript.Base.Blob): this;
             /** Sets new image asset's name to the specified value. */
             withName(name: string): this;
         }

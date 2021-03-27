@@ -42,7 +42,7 @@ declare namespace GoogleAdsScripts {
          */
         interface ImageBuilder extends Base.Builder<MediaOperation> {
             /** Sets new image's data to the specified value. */
-            withData(data: Blob): this;
+            withData(data: GoogleAppsScript.Base.Blob): this;
             /** Sets new image's name to the specified value. */
             withName(name: string): this;
         }
@@ -89,7 +89,7 @@ declare namespace GoogleAdsScripts {
          */
         interface MediaBundleBuilder extends Base.Builder<MediaOperation> {
             /** Sets new media bundle's data to the specified value. */
-            withData(data: Blob): this;
+            withData(data: GoogleAppsScript.Base.Blob): this;
             /** Sets new media bundle's name to the specified value. */
             withName(name: string): this;
         }

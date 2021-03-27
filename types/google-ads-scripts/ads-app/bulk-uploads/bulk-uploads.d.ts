@@ -32,7 +32,7 @@ declare namespace GoogleAdsScripts {
             /** Creates a FileUpload with the given Google Sheet. */
             newFileUpload(sheet: SpreadsheetApp.Sheet, optArgs: NewUploadOptionalArgs): FileUpload; // TODO: Add GoogleAppScripts SpreadsheetApp.Sheet
             /** Creates a FileUpload with the content in the given Blob. */
-            newFileUpload(blob: Blob, optArgs: NewUploadOptionalArgs): FileUpload;
+            newFileUpload(blob: GoogleAppsScript.Base.Blob, optArgs: NewUploadOptionalArgs): FileUpload;
             /** Creates a FileUpload with the content in the given File in Drive. */
             newFileUpload(file: DriveApp.File, optArgs: NewUploadOptionalArgs): FileUpload; // TODO: Add GoogleAppScripts DriveApp.File
         }
