@@ -24,7 +24,7 @@ declare namespace GoogleAdsScripts {
              *      Logger.log("Report available at " + spreadsheet.getUrl());
              * 
              * Returns nothing. */
-            exportToSheet(sheet: SpreadsheetApp.Sheet): void;
+            exportToSheet(sheet: GoogleAppsScript.Spreadsheet.Sheet): void;
             /**
              * Returns the column header of the report matching the given AWQL column name.
              * 
