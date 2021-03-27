@@ -209,6 +209,6 @@ function test_ResponseInit() {
     });
 }
 
-function test_BlobText() {
-    new Blob(["Hello world"]).text();
+async function test_BlobText() {
+    const someString = await new Blob(["Hello world"]).text(); // $ExpectType string
 }
