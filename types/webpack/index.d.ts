@@ -26,5 +26,5 @@
 // TypeScript Version: 3.7
 
 /// <reference types="node" />
-import webpack = require('./node_modules/webpack');
+import webpack = require('webpack');
 export = webpack;
