@@ -39,6 +39,11 @@ declare namespace GoogleAdsScripts {
          */
         interface LanguageIterator extends Base.Iterator<Language> {}
 
+        /** A plain JavaScript object to describe a language. */
+        interface LanguageObject {
+            id: number
+        }
+
         /** An operation representing creation of a new language. */
         interface LanguageOperation extends Base.Operation<Language> {}
 
