@@ -24,28 +24,28 @@ declare namespace GoogleAdsScripts {
              */
             select(account: ManagedAccount): void;
         }
-    }
 
-    enum ExecutionResultStatus {
-        /** Execution has finished successfully. */
-        Ok = 'OK',
-        /** Execution has failed to finish due to an error. */
-        Error = 'ERROR',
-        /** Execution has failed to finish because it ran out of time. */
-        TimeOut = 'TIMEOUT',
-    }
+        enum ExecutionResultStatus {
+            /** Execution has finished successfully. */
+            Ok = "OK",
+            /** Execution has failed to finish due to an error. */
+            Error = "ERROR",
+            /** Execution has failed to finish because it ran out of time. */
+            TimeOut = "TIMEOUT",
+        }
 
-    type ExecutionResultStatusType = `${ExecutionResultStatus}`;
+        type ExecutionResultStatusType = `${ExecutionResultStatus}`;
 
-    interface ExecutionResult {
-        /** Returns the customer ID of the account. */
-        getCustomerId(): string;
-        /** Returns null if the execution completed successfully. */
-        getError(): string;
-        /** Returns null if no value was returned by the function that executed on the account. */
-        getReturnValue(): string;
-        /** Returns the status of the execution.. */
-        getStatus(): ExecutionResultStatusType;
+        interface ExecutionResult {
+            /** Returns the customer ID of the account. */
+            getCustomerId(): string;
+            /** Returns null if the execution completed successfully. */
+            getError(): string;
+            /** Returns null if no value was returned by the function that executed on the account. */
+            getReturnValue(): string;
+            /** Returns the status of the execution.. */
+            getStatus(): ExecutionResultStatusType;
+        }
     }
 }
 
