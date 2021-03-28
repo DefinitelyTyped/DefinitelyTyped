@@ -38,8 +38,35 @@ declare namespace GoogleAdsScripts {
             removeLabel(name: string): void;
         }
 
+        /**
+         * An iterator of accounts.
+         * 
+         * Typical usage:
+         * 
+         * 
+         *      while (accountIterator.hasNext()) {
+         *        var account = accountIterator.next();
+         *      }
+         */
         interface ManagedAccountIterator extends Base.Iterator<ManagedAccount> {}
 
+        /**
+         * Fetches accounts. Supports filtering and sorting.
+         * 
+         * Typical usage:
+         * 
+         * 
+         *      var accountSelector = AdsManagerApp
+         *          .accounts()
+         *          .withCondition("Impressions > 100")
+         *          .forDateRange("LAST_MONTH")
+         *          .orderBy("Clicks DESC");
+         * 
+         *      var accountIterator = accountSelector.get();
+         *      while (accountIterator.hasNext()) {
+         *        var account = accountIterator.next();
+         *      }
+         */
         interface ManagedAccountSelector
             extends Base.Selector<ManagedAccountIterator>,
                 Base.SelectorForDateRange,
