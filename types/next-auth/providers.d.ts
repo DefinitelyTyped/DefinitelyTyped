@@ -67,7 +67,7 @@ export interface DefaultProviders {
     Zoho: Zoho;
 }
 
-export type Providers = Array<ReturnType<DefaultProviders[keyof DefaultProviders]> | Provider<string, string>>;
+export type Providers = Array<ReturnType<DefaultProviders[keyof DefaultProviders]>>;
 
 declare const Providers: DefaultProviders;
 
