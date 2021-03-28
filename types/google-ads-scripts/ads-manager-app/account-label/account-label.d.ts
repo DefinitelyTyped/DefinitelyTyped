@@ -14,7 +14,7 @@ declare namespace GoogleAdsScripts {
             /** Returns the type of this entity as a String, in this case, "AccountLabel" */
             getEntityType(): string;
             /** Returns the ID of the account label. */
-            getId(): string;
+            getId(): number;
             /** Returns the name of the account label. */
             getName(): string;
             /** Removes the account label. */
