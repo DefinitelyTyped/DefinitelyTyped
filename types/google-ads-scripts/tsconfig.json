@@ -1,10 +1,9 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
         "lib": ["es5"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -16,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "google-apps-script-tests.ts"
+        "google-ads-scripts-tests.ts"
     ]
 }
