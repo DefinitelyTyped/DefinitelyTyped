@@ -2,7 +2,7 @@ window.onload = () => {
     const canvas: HTMLCanvasElement = document.createElement("canvas");
     const gl: WebGL2ComputeRenderingContext | null = canvas.getContext("webgl2-compute");
 
-    if (gl === null) {
+    if (!(gl instanceof WebGL2ComputeRenderingContext)) {
         console.log("WebGL2 Compute not available");
         return;
     }
