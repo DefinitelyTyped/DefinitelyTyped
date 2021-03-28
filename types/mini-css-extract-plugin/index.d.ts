@@ -4,10 +4,11 @@
 //                 Katsuya Hino <https://github.com/dobogo>
 //                 Spencer Miskoviak <https://github.com/skovy>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Configuration, Compiler } from 'webpack';
+import webpack = require('webpack');
 
 /**
  * Lightweight CSS extraction webpack plugin.
@@ -28,7 +29,7 @@ declare class MiniCssExtractPlugin {
     /**
      * Apply the plugin
      */
-    apply(compiler: Compiler): void;
+    apply(compiler: webpack.Compiler): void;
 }
 
 declare namespace MiniCssExtractPlugin {
@@ -36,7 +37,7 @@ declare namespace MiniCssExtractPlugin {
         /**
          * Works like [`output.filename`](https://webpack.js.org/configuration/output/#outputfilename).
          */
-        filename?: Required<Configuration>['output']['filename'];
+        filename?: Required<webpack.Configuration>['output']['filename'];
         /**
          * Works like [`output.chunkFilename`](https://webpack.js.org/configuration/output/#outputchunkfilename).
          */

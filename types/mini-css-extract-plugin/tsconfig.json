@@ -13,9 +13,6 @@
             "../"
         ],
         "paths": {
-            "webpack": [
-                "webpack/v4"
-            ],
             "tapable": [
                 "tapable/v1"
             ]
