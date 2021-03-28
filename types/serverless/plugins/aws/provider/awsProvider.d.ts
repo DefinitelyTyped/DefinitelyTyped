@@ -81,11 +81,15 @@ declare namespace Aws {
     }
 
     interface IamSettings {
-        role?: string;
+        role?: string | IamRoleStatements;
         permissionBoundary?: string;
         statements?: IamRoleStatement[];
         managedPolicies?: string[];
         deploymentRole?: string;
+    }
+    
+    interface IamRoleStatements {
+        statements?: IamRoleStatement[];
     }
 
     interface Tags {
@@ -349,8 +353,8 @@ declare namespace Aws {
     }
 
     interface S3Rule {
-        prefix: string;
-        suffix: string;
+        prefix?: string;
+        suffix?: string;
     }
 
     interface S3 {
