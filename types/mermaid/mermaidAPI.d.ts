@@ -274,7 +274,7 @@ declare namespace mermaidAPI {
             svgCode: string,
             bindFunctions: (element: Element) => void
         ) => void,
-        container?: string
+        container?: Element
     ): string;
 
     function parse(text: string): any;
