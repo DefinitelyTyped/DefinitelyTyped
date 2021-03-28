@@ -93,6 +93,16 @@ import * as net from 'node:net';
     res.flushHeaders();
 }
 
+// extend http ServerResponse
+{
+    class customServerResponse extends http.ServerResponse {
+        constructor(req: http.IncomingMessage) {
+            super(req);
+            this._header = '';
+        }
+    }
+}
+
 // http ClientRequest
 {
     let req: http.ClientRequest = new http.ClientRequest("https://www.google.com");

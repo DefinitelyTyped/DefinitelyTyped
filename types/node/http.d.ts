@@ -173,6 +173,7 @@ declare module 'http' {
          */
         connection: Socket | null;
         socket: Socket | null;
+        protected _header: string;
 
         constructor();
 
