@@ -7,6 +7,7 @@
 
 declare namespace GoogleAdsScripts {
     namespace AdsManagerApp {
+        /** Represents a Google Ads account-level label. */
         interface AccountLabel {
             /** Returns the selector of all accounts to which the account label is applied. */
             accounts(): ManagedAccountSelector;
@@ -22,8 +23,32 @@ declare namespace GoogleAdsScripts {
             setName(name: string): void;
         }
 
+        /**
+         * An iterator of account labels.
+         * 
+         * Typical usage:
+         * 
+         * 
+         *      while (accountLabelIterator.hasNext()) {
+         *        var accountLabel = accountLabelIterator.next();
+         *      }
+         */
         interface AccountLabelIterator extends Base.Iterator<AccountLabel> {}
 
+        /**
+         * Fetches account labels. Supports filtering.
+         * 
+         * Typical usage:
+         * 
+         * 
+         *      var accountLabelSelector = AdsManagerApp.accountLabels()
+         *          .withCondition("Name CONTAINS 'priority'");
+         * 
+         *      var accountLabelIterator = accountLabelSelector.get();
+         *      while (accountLabelIterator.hasNext()) {
+         *        var accountLabel = accountLabelIterator.next();
+         *      }
+         */
         interface AccountLabelSelector
             extends Base.Selector<AccountLabelIterator>,
                 Base.SelectorWithCondition,
