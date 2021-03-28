@@ -119,8 +119,8 @@ declare namespace GoogleAdsScripts {
                 longitude: number,
                 radius: number,
                 radiusUnits: string,
-                optArgs?: { bidModifier?: number; address?: any },
-            ): TargetedProximityOperation; // TODO: Add address type
+                optArgs?: { bidModifier?: number; address?: AddressObject },
+            ): TargetedProximityOperation;
             /** Returns the selector of all product ads in the shopping campaign. */
             ads(): ProductAdSelector;
             /** Applies a label to the shopping campaign. */

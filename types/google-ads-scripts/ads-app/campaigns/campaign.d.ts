@@ -113,8 +113,8 @@ declare namespace GoogleAdsScripts {
                 longitude: number,
                 radius: number,
                 radiusUnits: string,
-                optArgs?: { bidModifier?: number; address?: any },
-            ): TargetedProximityOperation; // TODO: Add address type
+                optArgs?: { bidModifier?: number; address?: AddressObject },
+            ): TargetedProximityOperation;
             /** Adds a sitelink extension to this campaign. */
             addSitelink(sitelinkExtension: Sitelink): SitelinkOperation;
             /** Adds a snippet extension to this campaign. */

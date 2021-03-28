@@ -109,8 +109,8 @@ declare namespace GoogleAdsScripts {
                 longitude: number,
                 radius: number,
                 radiusUnits: string,
-                optArgs?: { bidModifier?: number; address?: any },
-            ): TargetedProximityOperation; // TODO: Add address type
+                optArgs?: { bidModifier?: number; address?: AddressObject },
+            ): TargetedProximityOperation;
             /** Applies a label to the video campaign. */
             applyLabel(name: string): void;
             /** Provides access to this campaign's bidding fields. */
