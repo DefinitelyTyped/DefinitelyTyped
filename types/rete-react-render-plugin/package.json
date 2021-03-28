@@ -1,5 +1,5 @@
 {
     "dependencies": {
-      "rete": "^1.4.5-rc.1"
+        "rete": "^1.4.5-rc.1"
     }
 }
