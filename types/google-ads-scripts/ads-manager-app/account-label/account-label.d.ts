@@ -24,6 +24,9 @@ declare namespace GoogleAdsScripts {
 
         interface AccountLabelIterator extends Base.Iterator<AccountLabel> {}
 
-        interface AccountLabelSelector extends Base.Selector<AccountLabelIterator> {}
+        interface AccountLabelSelector
+            extends Base.Selector<AccountLabelIterator>,
+                Base.SelectorWithCondition,
+                Base.SelectorWithIds {}
     }
 }
