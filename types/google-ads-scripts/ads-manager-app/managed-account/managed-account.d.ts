@@ -44,6 +44,8 @@ declare namespace GoogleAdsScripts {
             extends Base.Selector<ManagedAccountIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
+                Base.SelectorWithCondition,
+                Base.SelectorWithIds,
                 Base.SelectorWithLimit {
             /**
              * Executes the function specified by functionName on each ManagedAccount that the AccountSelector matches. Once all the accounts have been processed, the callback function, if specified by `optionalCallbackFunctionName`, is executed once. The input, if specified by `optionalInput`, will be passed into the function specified by `functionName`. For example,
