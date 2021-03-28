@@ -174,7 +174,7 @@ declare namespace GoogleAdsScripts {
             /** Removes a label from the shopping campaign. */
             removeLabel(name: string): void;
             /** Removes a negative keyword list from this campaign. */
-            removeNegativeKeywordList(): void;
+            removeNegativeKeywordList(negativeKeywordList: NegativeKeywordList): void;
             /** Sets the ad rotation type of the shopping campaign. */
             setAdRotationType(adRotationType: string): void;
             /** Sets the shopping campaign's end date from either an object containing year, month, and day fields, or an 8-digit string in YYYYMMDD format. */
