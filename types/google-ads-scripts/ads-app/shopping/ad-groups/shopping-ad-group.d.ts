@@ -36,7 +36,7 @@ declare namespace GoogleAdsScripts {
             /** Returns the selector of all product ads in the shopping ad group. */
             ads(): ProductAdSelector;
             /** Applies a label to the shopping ad group. */
-            applyLabel(): void;
+            applyLabel(name: string): void;
             /** Provides access to this shopping ad group's bidding fields. */
             bidding(): ShoppingAdGroupBidding;
             /** Creates a new negative keyword with the specified text. */
@@ -74,13 +74,13 @@ declare namespace GoogleAdsScripts {
             /** Returns the selector of all product groups in the shopping ad group. */
             productGroups(): ProductGroupSelector;
             /** Removes a label from the shopping ad group. */
-            removeLabel(): void;
+            removeLabel(name: string): void;
             /** Returns the root product group of the shopping ad group or null if one does not exist. */
             rootProductGroup(): ProductGroup;
             /** Sets the mobile bid modifier for this ad group to the specified value. */
-            setMobileBidModifier(): void;
+            setMobileBidModifier(modifier: number): void;
             /** Sets the name of the shopping ad group. */
-            setName(): void;
+            setName(name: string): void;
             /** Provides access to this shopping ad group's targeting criteria: audiences */
             targeting(): ShoppingAdGroupTargeting;
         }

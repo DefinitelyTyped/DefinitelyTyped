@@ -44,7 +44,7 @@ declare namespace GoogleAdsScripts {
             /** Will remove all child product groups of this product custom label. */
             removeAllChildren(): void;
             /** Sets the max cpc bid of the product custom label to the specified value. */
-            setMaxCpc(): void;
+            setMaxCpc(maxCpc: number): void;
         }
 
         /** Builder for ProductCustomLabel objects. */

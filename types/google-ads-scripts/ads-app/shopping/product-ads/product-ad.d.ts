@@ -13,7 +13,7 @@ declare namespace GoogleAdsScripts {
         /** Represents a Google Ads product ad. */
         interface ProductAd extends Base.StatsFor {
             /** Applies a label to the product ad. */
-            applyLabel(): void;
+            applyLabel(name: string): void;
             /** Enables the product ad. */
             enable(): void;
             /** Returns the shopping ad group to which this product ad belongs. */
@@ -39,7 +39,7 @@ declare namespace GoogleAdsScripts {
             /** Removes the product ad. */
             remove(): void;
             /** Removes a label from the product ad. */
-            removeLabel(): void;
+            removeLabel(name: string): void;
         }
 
         /** Builder for a product ad under construction. */

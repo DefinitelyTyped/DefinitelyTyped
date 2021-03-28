@@ -52,11 +52,11 @@ declare namespace GoogleAdsScripts {
             /** Builds the excluded YouTube video criterion. */
             exclude(): ExcludedYouTubeVideoOperation;
             /** Sets the max CPC bid of the new YouTube video to the specified value. */
-            withCpc(): this;
+            withCpc(cpc: number): this;
             /** Sets the CPM bid of the new YouTube video to the specified value. */
-            withCpm(): this;
+            withCpm(cpm: number): this;
             /** Sets the YouTube video ID. */
-            withVideoId(): this;
+            withVideoId(videoId: string): this;
         }
 
         /**

@@ -124,7 +124,7 @@ declare namespace GoogleAdsScripts {
             /** Returns the selector of all product ads in the shopping campaign. */
             ads(): ProductAdSelector;
             /** Applies a label to the shopping campaign. */
-            applyLabel(): void;
+            applyLabel(name: string): void;
             /** Provides access to this shopping campaign's bidding fields. */
             bidding(): ShoppingCampaignBidding;
             /** Creates a new campaign-level negative keyword with the specified text. */
@@ -172,7 +172,7 @@ declare namespace GoogleAdsScripts {
             /** Returns the selector of all product groups in the campaign. */
             productGroups(): ProductGroupSelector;
             /** Removes a label from the shopping campaign. */
-            removeLabel(): void;
+            removeLabel(name: string): void;
             /** Removes a negative keyword list from this campaign. */
             removeNegativeKeywordList(): void;
             /** Sets the ad rotation type of the shopping campaign. */

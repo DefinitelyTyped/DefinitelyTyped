@@ -14,29 +14,33 @@ declare namespace GoogleAdsScripts {
             /** Creates a selector of all ad params in the ad group. */
             adParams(): AdParamSelector;
             /** Adds a callout to this ad group. */
-            addCallout(): CalloutOperation;
+            addCallout(calloutExtension: Callout): CalloutOperation;
             /** Adds a message to this ad group. */
-            addMessage(): MessageOperation;
+            addMessage(messageExtension: Message): MessageOperation;
             /** Adds a mobile app to this ad group. */
-            addMobileApp(): MobileAppOperation;
+            addMobileApp(mobileAppExtension: MobileApp): MobileAppOperation;
             /** Adds a phone number to this ad group. */
-            addPhoneNumber(): PhoneNumberOperation;
+            addPhoneNumber(phoneNumberExtension: PhoneNumber): PhoneNumberOperation;
             /** Adds a price extension to this ad group. */
-            addPrice(): PriceOperation;
+            addPrice(priceExtension: Price): PriceOperation;
             /** Adds a sitelink to this ad group. */
-            addSitelink(): SitelinkOperation;
+            addSitelink(sitelinkExtension: Sitelink): SitelinkOperation;
             /** Adds a snippet to this ad group. */
-            addSnippet(): SnippetOperation;
+            addSnippet(snippetExtension: Snippet): SnippetOperation;
             /** Returns the selector of all ads in the ad group. */
             ads(): AdSelector;
             /** Applies a label to the ad group. */
-            applyLabel(): void;
+            applyLabel(name: string): void;
             /** Provides access to this ad group's bidding fields. */
             bidding(): AdGroupBidding;
-            /** Clears the mobile bid modifier for this ad group. */
+            /**
+             * Clears the mobile bid modifier for this ad group.
+             *
+             * @deprecated **Deprecated**. Google Ads Scripts now supports desktop and tablet ad group bid modifiers in addition to mobile. This functionality is available in the AdGroupDevices class, accessible via the AdGroup.devices method.
+             */
             clearMobileBidModifier(): void;
             /** Creates a new negative keyword with the specified text. */
-            createNegativeKeyword(): void;
+            createNegativeKeyword(keywordText: string): void;
             /** Returns an AdGroupDevices instance associated with the ad group. */
             devices(): AdGroupDevices;
             /** Provides access to this ad group's display criteria: Audience, ExcludedAudience, DisplayKeyword, ExcludedDisplayKeyword, Placement, ExcludedPlacement, Topic, and ExcludedTopic. */
@@ -55,7 +59,11 @@ declare namespace GoogleAdsScripts {
             getEntityType(): string;
             /** Returns the ID of the ad group. */
             getId(): number;
-            /** Returns the mobile bid modifier for this ad group. */
+            /**
+             * Returns the mobile bid modifier for this ad group.
+             * 
+             * **Deprecated**. Google Ads Scripts now supports desktop and tablet ad group bid modifiers in addition to mobile. This functionality is available in the AdGroupDevices class, accessible via the AdGroup.devices method.
+             */
             getMobileBidModifier(): number;
             /** Returns the name of the ad group. */
             getName(): string;
@@ -78,25 +86,29 @@ declare namespace GoogleAdsScripts {
             /** Pauses the ad group. */
             pause(): void;
             /** Removes a callout extension from this ad group. */
-            removeCallout(): void;
+            removeCallout(calloutExtension: Callout): void;
             /** Removes a label from the ad group. */
-            removeLabel(): void;
+            removeLabel(name: string): void;
             /** Removes a message extension from this ad group. */
-            removeMessage(): void;
+            removeMessage(messageExtension: Message): void;
             /** Removes a mobile app extension from this ad group. */
-            removeMobileApp(): void;
+            removeMobileApp(mobileAppExtension: MobileApp): void;
             /** Removes a phone number extension from this ad group. */
-            removePhoneNumber(): void;
+            removePhoneNumber(phoneNumberExtension: PhoneNumber): void;
             /** Removes a price extension from this ad group. */
-            removePrice(): void;
+            removePrice(priceExtension: Price): void;
             /** Removes a sitelink extension from this ad group. */
-            removeSitelink(): void;
+            removeSitelink(sitelinkExtension: Sitelink): void;
             /** Removes a snippet extension from this ad group. */
-            removeSnippet(): void;
-            /** Sets the mobile bid modifier for this ad group to the specified value. */
-            setMobileBidModifier(): void;
+            removeSnippet(snippetExtension: Snippet): void;
+            /**
+             * Sets the mobile bid modifier for this ad group to the specified value.
+             * 
+             * @deprecated **Deprecated**. Google Ads Scripts now supports desktop and tablet ad group bid modifiers in addition to mobile. This functionality is available in the AdGroupDevices class, accessible via the AdGroup.devices method.
+             */
+            setMobileBidModifier(modifier: number): void;
             /** Sets the name of the ad group. */
-            setName(): void;
+            setName(name: string): void;
             /** Provides access to ad group-level targeting criteria: audiences. */
             targeting(): AdGroupTargeting;
             /** Provides access to this ad group's URL fields. */
@@ -139,21 +151,21 @@ declare namespace GoogleAdsScripts {
          */
         interface AdGroupBuilder extends Base.Builder<AdGroupOperation> {
             /** Sets the Target CPA bid of the new ad group to the specified value. */
-            withCpa(): this;
+            withCpa(cpa: number): this;
             /** Sets the max CPC bid of the new ad group to the specified value. */
-            withCpc(): this;
+            withCpc(cpc: number): this;
             /** Sets the CPM bid of the new ad group to the specified value. */
-            withCpm(): this;
+            withCpm(cpm: number): this;
             /** Sets the custom parameters of the new ad group to the specified value. */
-            withCustomParameters(): this;
+            withCustomParameters(customParameters: Record<string, string>): this;
             /** Sets the final URL suffix of the new ad group to the specified value. */
-            withFinalUrlSuffix(): this;
+            withFinalUrlSuffix(suffix: string): this;
             /** Sets the name of the new ad group to the specified value. */
-            withName(): this;
+            withName(name: string): this;
             /** Sets the status of the new ad group to the specified value. */
-            withStatus(): this;
+            withStatus(status: string): this;
             /** Sets the tracking template of the new ad group to the specified value. */
-            withTrackingTemplate(): this;
+            withTrackingTemplate(trackingTemplate: string): this;
         }
 
         /** Starting point for device-dependent ad group configurations. */
@@ -171,11 +183,11 @@ declare namespace GoogleAdsScripts {
             /** Returns the tablet bid modifier for this ad group. */
             getTabletBidModifier(): number;
             /** Sets the desktop bid modifier for this ad group to the specified value. */
-            setDesktopBidModifier(): void;
+            setDesktopBidModifier(modifier: number): void;
             /** Sets the mobile bid modifier for this ad group to the specified value. */
-            setMobileBidModifier(): void;
+            setMobileBidModifier(modifier: number): void;
             /** Sets the tablet bid modifier for this ad group to the specified value. */
-            setTabletBidModifier(): void;
+            setTabletBidModifier(modifier: number): void;
         }
 
         /**
@@ -229,7 +241,7 @@ declare namespace GoogleAdsScripts {
             /** Returns a new user list builder for this ad group. */
             newUserListBuilder(): SearchAdGroupAudienceBuilder;
             /** Sets the targeting setting for this ad group. */
-            setTargetingSetting(): void;
+            setTargetingSetting(criterionTypeGroup: string, targetingSetting: string): void;
         }
 
         /** Provides access to ad group URLs. */

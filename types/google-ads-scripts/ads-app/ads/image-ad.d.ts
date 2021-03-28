@@ -68,21 +68,21 @@ declare namespace GoogleAdsScripts {
          */
         interface ImageAdBuilder extends Base.Builder<AdOperation> {
             /** Sets the custom parameters of the new ad to the specified value. */
-            withCustomParameters(): this;
+            withCustomParameters(customParameters: Record<string, string>): this;
             /** Sets the display URL of the new ad to the specified value. */
-            withDisplayUrl(): this;
+            withDisplayUrl(displayUrl: string): this;
             /** Sets the final URL of the new ad to the specified value. */
-            withFinalUrl(): this;
+            withFinalUrl(finalUrl: string): this;
             /** Sets the final URL suffix of the new ad to the specified value. */
-            withFinalUrlSuffix(): this;
+            withFinalUrlSuffix(suffix: string): this;
             /** Sets new ad's image. */
-            withImage(): this;
+            withImage(image: Media): this;
             /** Sets the mobile final URL of the new ad to the specified value. */
-            withMobileFinalUrl(): this;
+            withMobileFinalUrl(mobileFinalUrl: string): this;
             /** Sets new ad's name to the specified value. */
-            withName(): this;
+            withName(name: string): this;
             /** Sets the tracking template of the new ad to the specified value. */
-            withTrackingTemplate(): this;
+            withTrackingTemplate(trackingTemplate: string): this;
         }
     }
 }

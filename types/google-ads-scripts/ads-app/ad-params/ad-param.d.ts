@@ -25,7 +25,7 @@ declare namespace GoogleAdsScripts {
             /** Removes the ad param. */
             remove(): void;
             /** Sets the insertion text of the ad param to the specified value. */
-            setInsertionText(): void;
+            setInsertionText(insertionText: string): void;
         }
 
         /**

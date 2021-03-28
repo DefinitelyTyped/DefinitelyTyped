@@ -72,7 +72,6 @@ declare namespace GoogleAdsScripts {
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithIds,
                 Base.SelectorWithLimit {
             /**
              * Executes the function specified by functionName on each ManagedAccount that the AccountSelector matches. Once all the accounts have been processed, the callback function, if specified by `optionalCallbackFunctionName`, is executed once. The input, if specified by `optionalInput`, will be passed into the function specified by `functionName`. For example,
@@ -122,6 +121,27 @@ declare namespace GoogleAdsScripts {
                 optionalCallbackFunctionName?: string,
                 optionalInput?: string,
             ): void;
+            /** 
+             * Restricts this selector to return only customers with the given customer IDs.
+             * 
+             *      var customerIds = ['123-456-7890', '234-567-8901', '345-678-9012'];
+             *      selector = selector.withIds(customerIds);
+             * 
+             * The resulting selector can be further refined by applying additional conditions to it.
+             * The ID-based condition will then be AND-ed together with all the other conditions, including any other ID-based conditions. So, for instance, the following selector:
+             * 
+             *      AdsManagerApp.accounts()
+             *         .withIds(['123-456-7890', '234-567-8901', '345-678-9012'])
+             *         .withIds(['345-678-9012', '456-789-0123', '567-890-1234']);
+             * 
+             * will only get the customer with ID 345-678-9012, since it would be the only customer that satisfies both ID conditions.
+             * 
+             * The customer IDs can be passed in either as numbers, or as hyphen-separated strings. The following two calls do the same thing:
+             * 
+             *      accounts.withIds(['123-456-7890', '234-567-8901', '345-678-9012']);
+             *      accounts.withIds([1234567890, 2345678901, 3456789012]);
+             */
+            withIds(ids: number|string[]): this;
         }
     }
 }

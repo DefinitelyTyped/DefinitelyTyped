@@ -14,7 +14,7 @@ declare namespace GoogleAdsScripts {
             /** Returns the current bid modifier value. */
             getBidModifier(): number;
             /** Sets the bid modifier value for this audience to the specified value. */
-            setBidModifier(): void;
+            setBidModifier(modifier: string): void;
         }
 
         /** Represents a Google Ads audience, either `USER_INTEREST` or `USER_LIST`, configured for shopping campaigns. */
@@ -53,9 +53,9 @@ declare namespace GoogleAdsScripts {
          */
         interface ShoppingCampaignAudienceBuilder extends Base.Builder<ShoppingCampaignAudienceOperation> {
             /** Sets the audience ID of the audience. */
-            withAudienceId(): ShoppingCampaignAudienceBuilder;
+            withAudienceId(audienceId: number): ShoppingCampaignAudienceBuilder;
             /** Sets the bid modifier value for this audience to the specified value. */
-            withBidModifier(): ShoppingCampaignAudienceBuilder;
+            withBidModifier(modifier: number): ShoppingCampaignAudienceBuilder;
         }
 
         /**

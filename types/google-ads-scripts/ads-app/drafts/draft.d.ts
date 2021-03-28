@@ -62,7 +62,7 @@ declare namespace GoogleAdsScripts {
          */
         interface DraftBuilder extends Base.Builder<DraftOperation> {
             /** Sets the name of the new draft to the specified value. */
-            withName(): this;
+            withName(name: string): this;
         }
 
         /**

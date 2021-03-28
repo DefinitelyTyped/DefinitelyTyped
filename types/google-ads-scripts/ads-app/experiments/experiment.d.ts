@@ -42,11 +42,11 @@ declare namespace GoogleAdsScripts {
             /** Removes the experiment, thereby removing its associated experiment campaign, but not removing the associated base campaign. */
             remove(): void;
             /** Sets the experiment's end date from either an object containing year, month, and day fields, or an 8-digit string in YYYYMMDD format. */
-            setEndDate(): void;
+            setEndDate(date: string | GoogleAdsDate): void;
             /** Sets the name of the experiment. */
-            setName(): void;
+            setName(name: string): void;
             /** Sets the experiment's start date from either an object containing year, month, and day fields, or an 8-digit string in YYYYMMDD format. */
-            setStartDate(): void;
+            setStartDate(date: string | GoogleAdsDate): void;
             /** Starts applying the experiment's changes back to the base campaign. */
             startApplying(): void;
         }

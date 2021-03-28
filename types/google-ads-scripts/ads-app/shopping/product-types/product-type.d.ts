@@ -43,7 +43,7 @@ declare namespace GoogleAdsScripts {
             /** Will remove all child product groups of this product type. */
             removeAllChildren(): void;
             /** Sets the max cpc bid of the product type to the specified value. */
-            setMaxCpc(): void;
+            setMaxCpc(maxCpc: number): void;
         }
 
         /** Builder for ProductType objects. */

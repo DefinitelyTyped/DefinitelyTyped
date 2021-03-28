@@ -22,7 +22,16 @@ declare namespace GoogleAdsScripts {
         }
 
         /** Builder for FrequencyCap objects. */
-        interface FrequencyCapBuilder extends Base.Builder<FrequencyCap> {}
+        interface FrequencyCapBuilder {
+            /** Builds the frequency cap. */
+            build(): void;
+            /** Set the event type to the new frequency cap. */
+            withEventType(eventType: string): this;
+            /** Set the cap number to the new frequency cap. */
+            withLimit(limit: number): this;
+            /** Set the time unit to the new frequency cap. */
+            withTimeUnit(timeUnit: string): this;
+        }
 
         /** FrequencyCaps provides access to each of the frequency cap. */
         interface FrequencyCaps {
@@ -33,7 +42,7 @@ declare namespace GoogleAdsScripts {
             /** Returns a new frequency cap builder for the campaign that the frequency caps belong to. */
             newFrequencyCapBuilder(): FrequencyCapBuilder;
             /** Remove frequency cap for the chosen event type. */
-            removeFrequencyCapFor(): void;
+            removeFrequencyCapFor(eventType: string): void;
         }
     }
 }

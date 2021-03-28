@@ -72,7 +72,7 @@ declare namespace GoogleAdsScripts {
             getFinalUrlSuffix(): string;
             getMobileFinalUrl(): string;
             getTrackingTemplate(): string;
-            setCustomParameters(): void;
+            setCustomParameters(customParameters: Record<string, string>): void;
             setFinalUrl(finalUrl: string): void;
             setFinalUrlSuffix(suffix: string): void;
             setMobileFinalUrl(mobileFinalUrl: string): void;

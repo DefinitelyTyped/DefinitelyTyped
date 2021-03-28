@@ -71,7 +71,7 @@ declare namespace GoogleAdsScripts {
         /** Represents a Google Ads video ad. */
         interface VideoAd extends Base.StatsFor {
             /** Applies a label to the video ad. */
-            applyLabel(): void;
+            applyLabel(name: string): void;
             /** Enables the video ad. */
             enable(): void;
             /** Returns the channel ID of the ad's video. */
@@ -115,7 +115,7 @@ declare namespace GoogleAdsScripts {
             /** Removes the video ad. */
             remove(): void;
             /** Removes a label from the video ad. */
-            removeLabel(): void;
+            removeLabel(name: string): void;
             /** Provides access to this ad's URL fields. */
             urls(): VideoAdUrls;
         }

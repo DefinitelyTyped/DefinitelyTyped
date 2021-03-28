@@ -310,7 +310,7 @@ declare namespace GoogleAdsScripts {
             /** Specializes this selector to return Platform criteria. */
             platforms(): PlatformSelector;
             /** Sets the targeting setting for this campaign. */
-            setTargetingSetting(): void;
+            setTargetingSetting(criterionTypeGroup: string, targetingSetting: string): void;
             /** Specializes this selector to return TargetedLocation criteria. */
             targetedLocations(): TargetedLocationSelector;
             /** Specializes this selector to return TargetedProximity criteria. */
@@ -324,7 +324,7 @@ declare namespace GoogleAdsScripts {
             getCustomParameters(): Record<string, string>;
             getFinalUrlSuffix(): string;
             getTrackingTemplate(): string;
-            setCustomParameters(): void;
+            setCustomParameters(customParameters: Record<string, string>): void;
             setFinalUrlSuffix(suffix: string): void;
             setTrackingTemplate(trackingTemplate: string): void;
         }

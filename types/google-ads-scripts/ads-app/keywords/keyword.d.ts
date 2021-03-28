@@ -15,7 +15,7 @@ declare namespace GoogleAdsScripts {
             /** Creates a selector of all ad params belonging to this keyword. */
             adParams(): AdParamSelector;
             /** Applies a label to the keyword. */
-            applyLabel(): void;
+            applyLabel(name: string): void;
             /** Provides access to this keyword's bidding fields. */
             bidding(): KeywordBidding;
             /** Clears the destination URL of the keyword. */
@@ -61,7 +61,7 @@ declare namespace GoogleAdsScripts {
             /** Removes the keyword. */
             remove(): void;
             /** Removes a label from the keyword. */
-            removeLabel(): void;
+            removeLabel(name: string): void;
             /** Creates an ad param for this keyword with the specified index and insertion text. */
             setAdParam(index: number, insertionText: string): void;
             /** Provides access to this keyword's URL fields. */
