@@ -42,10 +42,6 @@ declare namespace GoogleAdsScripts {
             getMatchType(): string;
             /** Returns the quality score of the keyword, in 1..10 range. */
             getQualityScore(): number;
-            /** Returns stats for the specified date range. */
-            getStatsFor(): Stats;
-            /** Returns stats for the specified custom date range. */
-            getStatsFor(): Stats;
             /** Returns the text of the keyword. */
             getText(): string;
             /** Returns the top of page cpc for the keyword. */
