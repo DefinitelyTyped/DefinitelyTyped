@@ -44,7 +44,7 @@ declare namespace GoogleAdsScripts {
 
         interface SelectorWithIds {
             /** Restricts this selector to return only the entities with the given IDs. */
-            withIds(ids: string[]): this;
+            withIds(ids: number[]): this;
         }
 
         interface SelectorWithLimit {
@@ -91,7 +91,7 @@ declare namespace GoogleAdsScripts {
         
         interface StatsFor {
             /** Returns stats for the specified date range. */
-            getStatsFor(dateRange: DateRange): AdsApp.Stats;
+            getStatsFor(dateRange: DateRangeType): AdsApp.Stats;
             /** Returns stats for the specified custom date range. */
             getStatsFor(dateFrom: string | AdsApp.GoogleAdsDate, dateTo: string | AdsApp.GoogleAdsDate): AdsApp.Stats;
         }
