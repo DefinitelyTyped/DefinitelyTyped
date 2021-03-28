@@ -12,11 +12,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "tapable": [
-                "tapable/v1"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
