@@ -1,14 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../../base.d.ts" />
-/// <reference path="../../ad-groups/video-ad-group.d.ts" />
-/// <reference path="../../campaigns/video-campaign.d.ts" />
-/// <reference path="../video-criterion-bidding.d.ts" />
-/// <reference path="./excluded-video-parental-status.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads Parental Status criterion in a Video Campaign. */

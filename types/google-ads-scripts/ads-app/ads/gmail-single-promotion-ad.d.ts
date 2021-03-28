@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="./ad.d.ts" />
-/// <reference path="../ad-groups/ad-group.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Gmail single promotion ad. */
@@ -71,7 +62,7 @@ declare namespace GoogleAdsScripts {
             remove(): void;
             /** Removes a label from the ad. */
             removeLabel(name: string): void;
-            /**Provides access to this ad's URL fields. */
+            /** Provides access to this ad's URL fields. */
             urls(): AdUrls;
         }
     }

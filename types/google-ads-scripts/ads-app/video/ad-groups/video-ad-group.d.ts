@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../ad-groups/ad-group.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads video ad group. */
@@ -131,15 +122,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches video ad groups. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var videoAdGroupSelector = AdsApp
          *          .videoAdGroups()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var videoAdGroupIterator = videoAdGroupSelector.get();
          *      while (videoAdGroupIterator.hasNext()) {
          *        var videoAdGroup = videoAdGroupIterator.next();

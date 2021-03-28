@@ -1,13 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../common/google-ads-date.d.ts" />
-/// <reference path="../../common/stats.d.ts" />
-/// <reference path="../extension-schedule.d.ts" />
-
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
     namespace AdsApp {
@@ -15,8 +5,8 @@ declare namespace GoogleAdsScripts {
             clearEndDate(): void;
             clearStartDate(): void;
             getEndDate(): GoogleAdsDate;
-            getEntityType(): String;
-            getHeader(): String;
+            getEntityType(): string;
+            getHeader(): string;
             getId(): number;
             getSchedules(): ExtensionSchedule[];
             getStartDate(): GoogleAdsDate;

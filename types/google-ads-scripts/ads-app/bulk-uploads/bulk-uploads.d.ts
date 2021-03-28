@@ -1,11 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="../common/google-ads-date.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
@@ -56,14 +48,14 @@ declare namespace GoogleAdsScripts {
 
         /** Represents a Bulk Upload which can be incrementally built up in CSV format and uploaded to the Bulk Uploads service. */
         interface CsvUpload {
-            /** 
+            /**
              * Appends a row to the Bulk Upload.
-             * 
+             *
              * The row object is a key-value map. For each key-value pair:
-             * 
+             *
              * If the key exists in the provided column headers, its value will fill into the cell corresponding to the matching column;
              * If it doesn't exist, the key-value pair is ignored.
-             * 
+             *
              *      // The resulting CSV bulk upload of the following code would be:
              *      // +-------------+-------------+----------------+
              *      // |   Campaign  | Campaign ID | Campaign state |
@@ -82,7 +74,7 @@ declare namespace GoogleAdsScripts {
             append(row: Record<string, string | number>): this;
             /**
              * Uploads the file and applies the changes.
-             * 
+             *
              * **When previewing a script, apply() previews the Bulk Upload instead of applying it.**
              */
             apply(): void;
@@ -100,7 +92,7 @@ declare namespace GoogleAdsScripts {
         interface FileUpload {
             /**
              * Uploads the file and applies the changes.
-             * 
+             *
              * **When previewing a script, apply() previews the Bulk Upload instead of applying it.**
              */
             apply(): void;

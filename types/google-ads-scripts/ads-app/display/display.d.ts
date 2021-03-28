@@ -1,16 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="./audiences/audience.d.ts" />
-/// <reference path="./keywords/display-keyword.d.ts" />
-/// <reference path="./placements/placement.d.ts" />
-/// <reference path="./topics/topic.d.ts" />
-/// <reference path="./youtube-channels/youtube-channel.d.ts" />
-/// <reference path="./youtube-videos/youtube-video.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
@@ -138,7 +125,7 @@ declare namespace GoogleAdsScripts {
             getStrategy(): BiddingStrategy;
             /**
              * Returns the bidding strategy source of this display criterion.
-             * 
+             *
              * @deprecated **Deprecated**. Google Ads does not support setting bidding strategies at different levels. As a result, 'CAMPAIGN' is the only possible source for bidding strategies.
              */
             getStrategySource(): string;

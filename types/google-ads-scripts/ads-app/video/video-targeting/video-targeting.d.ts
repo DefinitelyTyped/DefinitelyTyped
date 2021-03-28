@@ -1,31 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="./ages/excluded-video-age.d.ts" />
-/// <reference path="./ages/video-age.d.ts" />
-/// <reference path="./audiences/excluded-video-audience.d.ts" />
-/// <reference path="./audiences/video-audience.d.ts" />
-/// <reference path="./genders/excluded-video-gender.d.ts" />
-/// <reference path="./genders/video-gender.d.ts" />
-/// <reference path="./keywords/excluded-video-keyword.d.ts" />
-/// <reference path="./keywords/video-keyword.d.ts" />
-/// <reference path="./mobile-application-categories/excluded-video-mobile-app-category.d.ts" />
-/// <reference path="./mobile-application-categories/video-mobile-app-category.d.ts" />
-/// <reference path="./mobile-applications/excluded-video-mobile-application.d.ts" />
-/// <reference path="./mobile-applications/Video-mobile-application.d.ts" />
-/// <reference path="./parental-statuses/excluded-video-parental-status.d.ts" />
-/// <reference path="./parental-statuses/video-parental-status.d.ts" />
-/// <reference path="./placements/excluded-video-placement.d.ts" />
-/// <reference path="./placements/video-placement.d.ts" />
-/// <reference path="./topics/excluded-video-topic.d.ts" />
-/// <reference path="./topics/video-topic.d.ts" />
-/// <reference path="./youtube-channels/excluded-video-youtube-channel.d.ts" />
-/// <reference path="./youtube-channels/video-youtube-channel.d.ts" />
-/// <reference path="./youtube-videos/excluded-video-youtube-video.d.ts" />
-/// <reference path="./youtube-videos/video-youtube-video.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
@@ -108,7 +80,7 @@ declare namespace GoogleAdsScripts {
         /**
          * Access to aggregated ad group-level video criteria for a campaign and campaign-level excluded video criteria for a campaign.
          * For example, to access all video keywords in all ad groups in this campaign:
-         * 
+         *
          *  var videoKeywordIterator = videoCampaign.videoTargeting().keywords().get();
          *  while (videoKeywordIterator.hasNext()) {
          *    var videoKeyword = videoKeywordIterator.next();

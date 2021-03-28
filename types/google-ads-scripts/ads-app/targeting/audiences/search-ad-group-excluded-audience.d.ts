@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../ad-groups/ad-group.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads excluded audience configured for search ad groups. */
@@ -45,12 +36,12 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches excluded audiences. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var adGroup = AdsApp.adGroups().get().next();
          *      var excludedAudienceSelector = adGroup.targeting().excludedAudiences();
-         * 
+         *
          *      var excludedAudienceIterator = excludedAudienceSelector.get();
          *      while (excludedAudienceIterator.hasNext()) {
          *        var excludedAudience = excludedAudienceIterator.next();

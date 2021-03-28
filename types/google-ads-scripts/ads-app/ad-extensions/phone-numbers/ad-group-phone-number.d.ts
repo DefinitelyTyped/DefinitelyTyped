@@ -1,11 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="./phone-number.d.ts" />
-
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
     namespace AdsApp {
@@ -15,9 +7,9 @@ declare namespace GoogleAdsScripts {
             getBaseCampaign(): Campaign;
             getCampaign(): Campaign;
         }
-  
+
         interface AdGroupPhoneNumberIterator extends Base.Iterator<AdGroupPhoneNumber> {}
-  
+
         interface AdGroupPhoneNumberSelector
             extends Base.Selector<AdGroupPhoneNumberIterator>,
                 Base.SelectorForDateRange,
@@ -25,5 +17,4 @@ declare namespace GoogleAdsScripts {
                 Base.SelectorWithCondition,
                 Base.SelectorWithLimit {}
     }
-  }
-  
+}

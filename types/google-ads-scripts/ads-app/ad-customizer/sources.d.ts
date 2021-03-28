@@ -1,17 +1,10 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="./items.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
          * Represents an ad customizer data source as seen in the Business Data section of the Shared Library.
          * Each ad customizer source has a unique name and a set of attributes.
-         * The attributes are defined by an attribute name, which must be unique across attributes within the data source, and a type, which must be one of the following: text, number, price, date.
+         * The attributes are defined by an attribute name, which must be unique across attributes within the data source, and a type,
+         * which must be one of the following: text, number, price, date.
          * An ad customizer source can have many AdCustomizerItems in it, or it can have none. Refer to the feature guide for more information.
          */
         interface AdCustomizerSource {
@@ -20,7 +13,8 @@ declare namespace GoogleAdsScripts {
             /**
              * Returns a map from attribute name to attribute type.
              * Contains all of the attributes in this ad customizer data source.
-             * For instance, a data source that contains the item attributes `item` (of type `text`), `numLeft` (of type `number`), and `lowCost` (of type `price`) would return `{item: 'text', numLeft: 'number', lowCost: 'price'}`.
+             * For instance, a data source that contains the item attributes `item` (of type `text`), `numLeft` (of type `number`), and `lowCost` (of type `price`)
+             * would return `{item: 'text', numLeft: 'number', lowCost: 'price'}`.
              */
             getAttributes(): Record<string, string | number | null>;
             /** Returns the type of this entity as a String, in this case, "AdCustomizerSource". */
@@ -32,7 +26,8 @@ declare namespace GoogleAdsScripts {
         }
 
         /**
-         * Builder for AdCustomizerSource objects. For example, to create an ad customizer source with name "Inventory", and attributes "item" (of type text), "numLeft" (of type number), and "lowCost" (of type price):
+         * Builder for AdCustomizerSource objects. For example, to create an ad customizer source with name "Inventory", and attributes "item" (of type text),
+         * "numLeft" (of type number), and "lowCost" (of type price):
          *
          *      var adCustomizerSourceBuilder = AdsApp.newAdCustomizerSourceBuilder();
          *      var adCustomizerSourceOperation = adCustomizerSourceBuilder
@@ -47,13 +42,16 @@ declare namespace GoogleAdsScripts {
              *
              * Valid types are text, number, price, date.
              *
-             * An error will be thrown if the additional attribute's name is one of start date, end date, device preference, scheduling, target campaign, target ad group, keyword text, match type, keyword, id, case insensitive.
+             * An error will be thrown if the additional attribute's name is one of start date, end date, device preference, scheduling, target campaign,
+             * target ad group, keyword text, match type, keyword, id, case insensitive.
              *
-             * An attribute named custom id (case insensitive) will be interpreted as a special attribute, which has the additional requirement of each item in the data source having unique value for that attribute.
+             * An attribute named custom id (case insensitive) will be interpreted as a special attribute, which has the additional requirement of each item
+             * in the data source having unique value for that attribute.
              */
             addAttribute(name: string, type: string): this;
             /**
-             * Adds a set of attributes to the new ad customizer source. Existing attributes are not modified. The set of new attributes are specified by an object where the keys are the names and the values are the respective types of the attributes. For instance,
+             * Adds a set of attributes to the new ad customizer source. Existing attributes are not modified. The set of new attributes are specified by an object
+             * where the keys are the names and the values are the respective types of the attributes. For instance,
              *
              *      var attributes = {item: "text", numLeft: "number", lowCost: "price"};
              *      var builder = AdsApp.newAdCustomizerSourceBuilder();
@@ -65,7 +63,8 @@ declare namespace GoogleAdsScripts {
              * adds the attributes `item` (of type `text`), `numLeft` (of type `number`), and `lowCost` (of type `price`) to the new ad customizer data source named `"Inventory"`.
              * Valid attribute types are text, number, price, date.
              *
-             * An error will be thrown if an additional attribute's name is one of start date, end date, device preference, scheduling, target campaign, target ad group, keyword text, match type, keyword, id, case insensitive.
+             * An error will be thrown if an additional attribute's name is one of start date, end date, device preference, scheduling, target campaign, target ad group,
+             * keyword text, match type, keyword, id, case insensitive.
              */
             addAttributes(attributes: Record<string, string | number | null>): this;
             /** Sets the name of the new ad customizer source to the specified value. This field is required. */
@@ -85,7 +84,8 @@ declare namespace GoogleAdsScripts {
         /**
          * An operation representing creation of a new ad customizer source.
          * Calling any method (`getErrors`, `getResult`, or `isSuccessful`) will cause the operation to execute and create the ad customizer source.
-         * To make the script more efficient, it's recommended that you store the operations in an array and only call these methods once you've constructed all the operations you want.
+         * To make the script more efficient, it's recommended that you store the operations in an array and only call these methods once you've constructed
+         * all the operations you want.
          */
         interface AdCustomizerSourceOperation extends Base.Operation<AdCustomizerSource> {}
 
@@ -94,7 +94,7 @@ declare namespace GoogleAdsScripts {
          * Typical usage:
          *
          *      var adCustomizerSourceSelector = AdsApp.adCustomizerSources();
-         * 
+         *
          *      var adCustomizerSourceIterator = adCustomizerSourceSelector.withLimit(5).get();
          *      while (adCustomizerSourceIterator.hasNext()) {
          *        var adCustomizerSource = adCustomizerSourceIterator.next();

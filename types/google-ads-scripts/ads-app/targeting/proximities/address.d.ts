@@ -1,8 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
@@ -37,12 +32,12 @@ declare namespace GoogleAdsScripts {
 
         /** Plain JavaScript objects describing an address. */
         interface AddressObject {
-            streetAddress?: string,
-            cityName?: string,
-            provinceName?: string,
-            provinceCode?: string,
-            postalCode?: string,
-            countryCode?: string
+            streetAddress?: string;
+            cityName?: string;
+            provinceName?: string;
+            provinceCode?: string;
+            postalCode?: string;
+            countryCode?: string;
         }
     }
 }

@@ -1,13 +1,9 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="./asset.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
-        /** Root object for fetching and creating asset objects. An asset can be an image, text, or video. Assets are deduplicated within a given customer account, so assets may be shared between different ads. */
+        /**
+         * Root object for fetching and creating asset objects. An asset can be an image, text, or video.
+         * Assets are deduplicated within a given customer account, so assets may be shared between different ads.
+         */
         interface AdAssets {
             /** Returns a selector for all assets in the account. */
             assets(): AssetSelector;

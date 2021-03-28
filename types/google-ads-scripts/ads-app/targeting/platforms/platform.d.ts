@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-/// <reference path="../../shopping/campaigns/shopping-campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads device target (either desktop, mobile, or tablet). */
@@ -46,15 +37,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches platforms. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var platformSelector = AdsApp.targeting()
          *          .platforms()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var platformIterator = platformSelector.get();
          *      while (platformIterator.hasNext()) {
          *        var platform = platformIterator.next();

@@ -1,11 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="../common/google-ads-date.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
@@ -85,20 +77,26 @@ declare namespace GoogleAdsScripts {
             withAttributeValue(name: string, value: string | number | null): this;
             /**
              * Sets the values of the ad customizer item's attributes.
-             * Expects an object containing the name-value pairs of the attribute values to set. For instance, `adCustomizerItemBuilder.withAttributeValues({numLeft: 5, lowCost: "$0.99"})` sets the attribute `numLeft` to have the value `5`, and `lowCost` to have value `"$0.99"`.
+             * Expects an object containing the name-value pairs of the attribute values to set. For instance,
+             * `adCustomizerItemBuilder.withAttributeValues({numLeft: 5, lowCost: "$0.99"})` sets the attribute `numLeft` to have the value `5`,
+             * and `lowCost` to have value `"$0.99"`.
              */
             withAttributeValues(attributeValues: Record<string, string | number | null>): this;
             /**
-             * Sets the ad customizer item's end date from either an object containing year, month, and day fields, or an 8-digit string in YYYYMMDD format. This field is optional.
+             * Sets the ad customizer item's end date from either an object containing year, month, and day fields, or an 8-digit string in YYYYMMDD format.
+             * This field is optional.
              */
             withEndDate(date: string | GoogleAdsDate): this;
             /**
-             * Sets the ad customizer item's end date from either an object containing year, month, and day fields, or an 8-digit string in YYYYMMDD format. This field is optional.
-             * @param isMobilePreferred Whether or not this ad customizer item should be mobile preferred. If true is passed in, device preference will be set to mobile. If false is passed in, device preference will be set to none.
+             * Sets the ad customizer item's end date from either an object containing year, month, and day fields, or an 8-digit string in YYYYMMDD format.
+             * This field is optional.
+             * @param isMobilePreferred Whether or not this ad customizer item should be mobile preferred. If true is passed in, device preference will be set to mobile.
+             * If false is passed in, device preference will be set to none.
              */
             withMobilePreferred(isMobilePreferred: boolean): this;
             /**
-             * Sets the ad customizer item scheduling. Scheduling of a ad customizer item allows you to control the days of week and times of day during which the ad customizer item will show alongside your ads.
+             * Sets the ad customizer item scheduling. Scheduling of a ad customizer item allows you to control the days of week and times of day during which
+             * the ad customizer item will show alongside your ads.
              * Passing in an empty array clears the scheduling field, causing the ad customizer item to run at all times.
              *
              * The following example sets the ad customizer item to run on Mondays and Tuesday from 8:00 to 11:00.
@@ -128,10 +126,13 @@ declare namespace GoogleAdsScripts {
             withTargetAdGroup(campaignName: string, adGroupName: string): this;
             /** Sets the target campaign of the new ad customizer item. This will fail if there were any previous calls to `withTargetAdGroup("previous ad group", "campaign")`. */
             withTargetCampaign(campaignName: string): this;
-            /** Sets the target keyword of the new ad customizer item.
+            /**
+             * Sets the target keyword of the new ad customizer item.
              * The keyword includes its match type.
              * For instance, `adCustomizerItemBuilder.withTargetKeyword("[shoes]");` will target exact matches to "shoes".
-             * Setting the target keyword to one that does not yet exist in your account will not cause an error, but will prevent the ad customizer item from being used to populate ads (until you create the keyword in your account). */
+             * Setting the target keyword to one that does not yet exist in your account will not cause an error, but will prevent the ad customizer item from being used to populate ads
+             * (until you create the keyword in your account).
+             */
             withTargetKeyword(keyword: string): this;
         }
 
@@ -173,7 +174,6 @@ declare namespace GoogleAdsScripts {
                 Base.SelectorWithIds,
                 Base.SelectorWithLimit,
                 Base.SelectorOrderBy,
-                Base.SelectorForDateRange {
-        }
+                Base.SelectorForDateRange {}
     }
 }

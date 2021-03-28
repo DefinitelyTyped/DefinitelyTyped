@@ -1,19 +1,11 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-/// <reference path="../../shopping/campaigns/shopping-campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
          * Represents a Google Ads targeted location.
          *
          * Targeted locations are used to only show your ads in specific geographic areas.
-         * For instance, a broadly-targeted campaign might have location targets for an entire country, whereas a more specifically-targeted campaign might break down its location targets at the city level.
+         * For instance, a broadly-targeted campaign might have location targets for an entire country,
+         * whereas a more specifically-targeted campaign might break down its location targets at the city level.
          */
         interface TargetedLocation extends Base.StatsFor {
             /** Returns the bid modifier for this targeted location. */

@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="../ad-groups/ad-group.d.ts" />
-/// <reference path="../campaigns/campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
@@ -52,12 +43,12 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches negative keywords (except from shared libraries).
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var adGroup = AdsApp.adGroups().get().next();
          *      var negativeKeywordSelector = adGroup.negativeKeywords();
-         * 
+         *
          *      var negativeKeywordIterator = negativeKeywordSelector.get();
          *      while (negativeKeywordIterator.hasNext()) {
          *        var negativeKeyword = negativeKeywordIterator.next();

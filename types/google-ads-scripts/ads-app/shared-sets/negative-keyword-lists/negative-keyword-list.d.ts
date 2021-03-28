@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-/// <reference path="./shared-negative-keyword.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a negative keyword list. */
@@ -62,17 +53,17 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches negative keyword lists. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var negativeKeywordListSelector = AdsApp.negativeKeywordLists()
          *          .withCondition("Name CONTAINS 'test'")
          *          .withLimit(1)
          *          .withIds([10,20])
          *          .orderBy("SharedSetId DESC");
-         * 
+         *
          *      var negativeKeywordListIterator = negativeKeywordListSelector.get();
-         * 
+         *
          *      while (negativeKeywordListIterator.hasNext()) {
          *        var negativeKeywordList = negativeKeywordListIterator.next();
          *      }

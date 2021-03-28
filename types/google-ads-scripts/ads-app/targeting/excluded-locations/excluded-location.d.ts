@@ -1,19 +1,11 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-/// <reference path="../../shopping/campaigns/shopping-campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
          * Represents a Google Ads excluded location.
          *
          * Excluded locations are used to restrict your ads from showing in specific geographic areas.
-         * For instance, a campaign could show ads in all parts of a country except for a specific city by having a TargetedLocation for the entire country and an ExcludedLocation for that specific city.
+         * For instance, a campaign could show ads in all parts of a country except for a specific city by having a TargetedLocation
+         * for the entire country and an ExcludedLocation for that specific city.
          */
         interface ExcludedLocation {
             /** Returns the base campaign to which this excluded location belongs. */
@@ -58,11 +50,11 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches excluded locations. Unlike other selectors, does not support filtering or sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var locationSelector = AdsApp.targeting().excludedLocations();
-         * 
+         *
          *      var locationIterator = locationSelector.get();
          *      while (locationIterator.hasNext()) {
          *        var location = locationIterator.next();

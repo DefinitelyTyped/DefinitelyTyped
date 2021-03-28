@@ -1,13 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../ad-groups/shopping-ad-group.d.ts" />
-/// <reference path="../campaigns/shopping-campaign.d.ts" />
-/// <reference path="../../labels/label.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads product ad. */
@@ -64,15 +54,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches product ads. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var productAdSelector = AdsApp
          *          .productAds()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var productAdIterator = productAdSelector.get();
          *      while (productAdIterator.hasNext()) {
          *        var productAd = productAdIterator.next();

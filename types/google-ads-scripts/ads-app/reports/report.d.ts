@@ -1,10 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="google-apps-script" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
@@ -13,23 +6,25 @@ declare namespace GoogleAdsScripts {
         interface Report {
             /**
              * Exports the content of the report into a SpreadsheetApp.Sheet.
-             * 
+             *
              * Typical usage:
-             * 
+             *
              *      var spreadsheet = SpreadsheetApp.create("Report output");
              *      var report = AdsApp.report("SELECT Clicks, Impressions, AverageCpc, HourOfDay " +
              *          "FROM ACCOUNT_PERFORMANCE_REPORT " +
              *          "DURING LAST_MONTH");
              *      report.exportToSheet(spreadsheet.getActiveSheet());
              *      Logger.log("Report available at " + spreadsheet.getUrl());
-             * 
-             * Returns nothing. */
+             *
+             * Returns nothing.
+             */
             exportToSheet(sheet: GoogleAppsScript.Spreadsheet.Sheet): void;
             /**
              * Returns the column header of the report matching the given AWQL column name.
-             * 
-             * AWQL names are the names of the selected columns as they appear in the generated report. For a full list of AWQL column names, and the display column names they correspond to, please see the Name and Display Name column in all types of reports.
-             * 
+             *
+             * AWQL names are the names of the selected columns as they appear in the generated report.
+             * For a full list of AWQL column names, and the display column names they correspond to, please see the Name and Display Name column in all types of reports.
+             *
              *      var report = AdsApp.report("SELECT Clicks, Impressions, AverageCpc, HourOfDay " +
              *          "FROM ACCOUNT_PERFORMANCE_REPORT " +
              *          "DURING LAST_MONTH");

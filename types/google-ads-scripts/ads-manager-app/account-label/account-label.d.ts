@@ -1,10 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsManagerApp {
         /** Represents a Google Ads account-level label. */
@@ -25,10 +18,10 @@ declare namespace GoogleAdsScripts {
 
         /**
          * An iterator of account labels.
-         * 
+         *
          * Typical usage:
-         * 
-         * 
+         *
+         *
          *      while (accountLabelIterator.hasNext()) {
          *        var accountLabel = accountLabelIterator.next();
          *      }
@@ -37,13 +30,13 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches account labels. Supports filtering.
-         * 
+         *
          * Typical usage:
-         * 
-         * 
+         *
+         *
          *      var accountLabelSelector = AdsManagerApp.accountLabels()
          *          .withCondition("Name CONTAINS 'priority'");
-         * 
+         *
          *      var accountLabelIterator = accountLabelSelector.get();
          *      while (accountLabelIterator.hasNext()) {
          *        var accountLabel = accountLabelIterator.next();

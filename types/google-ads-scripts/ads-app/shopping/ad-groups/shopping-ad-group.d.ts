@@ -1,26 +1,16 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../ad-groups/ad-group.d.ts" />
-/// <reference path="../../labels/label.d.ts" />
-/// <reference path="../../negative-keywords/negative-keyword.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
          * Provides access to shopping ad group-level targeting criteria (currently just audiences).
-         * 
+         *
          * For instance, to select all audiences targeted by shopping ad groups you might use:
-         * 
+         *
          *      var shoppingAudienceSelector = AdsApp.shoppingAdGroupTargeting()
          *       .audiences()
          *       .withCondition("Impressions > 100")
          *       .forDateRange("LAST_MONTH")
          *       .orderBy("Clicks DESC");
-         * 
+         *
          *      var shoppingAudienceIterator = shoppingAudienceSelector.get();
          *      while (shoppingAudienceIterator.hasNext()) {
          *        var shoppingAudience = shoppingAudienceIterator.next();

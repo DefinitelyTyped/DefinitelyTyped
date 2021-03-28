@@ -1,11 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="./google-ads-date.d.ts" />
-/// <reference path="./stats.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Miscellaneous information about Google Ads Accounts. When accessed by `AdsApp.currentAccount()`, it will provide information about the account in which the script is currently running. */

@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="../account-label/account-label.d.ts" />
-/// <reference path="../../ads-app/common/stats.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsManagerApp {
         interface ManagedAccount extends Base.StatsFor {
@@ -15,7 +6,8 @@ declare namespace GoogleAdsScripts {
             /**
              * Returns the currency code of the account. The returned values are in the three-letter ISO 4217 format, e.g. 'USD', 'CAD', 'JPY', etc.
              *
-             * Please refer to [AdWords API Currency Codes](https://developers.google.com/adwords/api/docs/appendix/codes-formats#currency-codes) for the full list of possible return values.
+             * Please refer to [AdWords API Currency Codes](https://developers.google.com/adwords/api/docs/appendix/codes-formats#currency-codes)
+             * for the full list of possible return values.
              */
             getCurrencyCode(): string; // TODO: Add currency code enum
             /** Returns the customer ID of the account. */
@@ -29,7 +21,8 @@ declare namespace GoogleAdsScripts {
              *
              * Returned values are in the standard time zone identifier form, such as 'America/Los_Angeles'.
              *
-             * Please refer to [AdWords API Timezones](https://developers.google.com/adwords/api/docs/appendix/codes-formats#timezone-ids) for the full list of possible return values.
+             * Please refer to [AdWords API Timezones](https://developers.google.com/adwords/api/docs/appendix/codes-formats#timezone-ids)
+             * for the full list of possible return values.
              */
             getTimeZone(): string; // TODO: Add timezone enum
             /** Creates a selector of all account labels that exist in the MCC account. */
@@ -40,10 +33,10 @@ declare namespace GoogleAdsScripts {
 
         /**
          * An iterator of accounts.
-         * 
+         *
          * Typical usage:
-         * 
-         * 
+         *
+         *
          *      while (accountIterator.hasNext()) {
          *        var account = accountIterator.next();
          *      }
@@ -52,16 +45,16 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches accounts. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
-         * 
+         *
+         *
          *      var accountSelector = AdsManagerApp
          *          .accounts()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var accountIterator = accountSelector.get();
          *      while (accountIterator.hasNext()) {
          *        var account = accountIterator.next();
@@ -74,7 +67,9 @@ declare namespace GoogleAdsScripts {
                 Base.SelectorWithCondition,
                 Base.SelectorWithLimit {
             /**
-             * Executes the function specified by functionName on each ManagedAccount that the AccountSelector matches. Once all the accounts have been processed, the callback function, if specified by `optionalCallbackFunctionName`, is executed once. The input, if specified by `optionalInput`, will be passed into the function specified by `functionName`. For example,
+             * Executes the function specified by functionName on each ManagedAccount that the AccountSelector matches.
+             * Once all the accounts have been processed, the callback function, if specified by `optionalCallbackFunctionName`, is executed once.
+             * The input, if specified by `optionalInput`, will be passed into the function specified by `functionName`. For example,
              *
              *      accountSelector.executeInParallel(functionName, optionalCallbackFunctionName, optionalInput)
              *
@@ -94,7 +89,11 @@ declare namespace GoogleAdsScripts {
              *
              *
              *       return JSON.stringify({value:10, list:[1,2,3,4,5,6], name: "Joe Smith"});
-             * These will be passed into the callback function in a list of ExecutionResult objects. If `JSON.stringify(value)` is used in the callback function, the value can then be turned back into a JavaScript object with `JSON.parse(returnValue)`. For example,
+             *
+             * These will be passed into the callback function in a list of ExecutionResult objects.
+             * If `JSON.stringify(value)` is used in the callback function, the value can then be turned back into a JavaScript object with `JSON.parse(returnValue)`.
+             *
+             * For example,
              *
              *
              *      function optionalCallbackFunctionName(results) {
@@ -103,7 +102,9 @@ declare namespace GoogleAdsScripts {
              *        }
              *      }
              *
-             * `executeInParallel` can operate simultaneously on up to 50 accounts. If the selector contains more than 50 accounts, an exception is thrown and no accounts are processed. You can limit the number of accounts for the executeInParallel method using `accountSelector.withLimit(accountLimit)`.
+             * `executeInParallel` can operate simultaneously on up to 50 accounts.
+             * If the selector contains more than 50 accounts, an exception is thrown and no accounts are processed.
+             * You can limit the number of accounts for the executeInParallel method using `accountSelector.withLimit(accountLimit)`.
              *
              * The signature for the optionalCallbackFunctionName should be:
              *
@@ -113,7 +114,8 @@ declare namespace GoogleAdsScripts {
              *      }
              *
              * @param functionName The name of the function to execute for each ManagedAccount in the selector.
-             * @param optionalCallbackFunctionName Optional. The name of the function to execute, in the scope of the MCC account, once processing of the accounts in the selector has completed. This function will only be executed once.
+             * @param optionalCallbackFunctionName Optional. The name of the function to execute, in the scope of the MCC account,
+             * once processing of the accounts in the selector has completed. This function will only be executed once.
              * @param optionalInput Optional. A string that can be specified that will be passed into the function being executed for each account.
              */
             executeInParallel(
@@ -121,27 +123,27 @@ declare namespace GoogleAdsScripts {
                 optionalCallbackFunctionName?: string,
                 optionalInput?: string,
             ): void;
-            /** 
+            /**
              * Restricts this selector to return only customers with the given customer IDs.
-             * 
+             *
              *      var customerIds = ['123-456-7890', '234-567-8901', '345-678-9012'];
              *      selector = selector.withIds(customerIds);
-             * 
+             *
              * The resulting selector can be further refined by applying additional conditions to it.
              * The ID-based condition will then be AND-ed together with all the other conditions, including any other ID-based conditions. So, for instance, the following selector:
-             * 
+             *
              *      AdsManagerApp.accounts()
              *         .withIds(['123-456-7890', '234-567-8901', '345-678-9012'])
              *         .withIds(['345-678-9012', '456-789-0123', '567-890-1234']);
-             * 
+             *
              * will only get the customer with ID 345-678-9012, since it would be the only customer that satisfies both ID conditions.
-             * 
+             *
              * The customer IDs can be passed in either as numbers, or as hyphen-separated strings. The following two calls do the same thing:
-             * 
+             *
              *      accounts.withIds(['123-456-7890', '234-567-8901', '345-678-9012']);
              *      accounts.withIds([1234567890, 2345678901, 3456789012]);
              */
-            withIds(ids: number|string[]): this;
+            withIds(ids: number | string[]): this;
         }
     }
 }

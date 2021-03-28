@@ -1,11 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="./account-label/account-label.d.ts" />
-/// <reference path="./managed-account/managed-account.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsManagerApp {
         interface AdsManagerApp {
@@ -15,7 +7,8 @@ declare namespace GoogleAdsScripts {
             accounts(): ManagedAccountSelector;
             /**
              * Creates a new account label.
-             * @param name The name of the new account label. Label names are case sensitive and must be unique. Max length is 40 characters. Any leading or trailing white spaces will be trimmed.
+             * @param name The name of the new account label. Label names are case sensitive and must be unique. Max length is 40 characters.
+             * Any leading or trailing white spaces will be trimmed.
              */
             createAccountLabel(name: string): void;
             /**

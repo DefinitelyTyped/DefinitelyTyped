@@ -1,10 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../../../base.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Provides access to a shopping audience's bidding fields. */
@@ -74,15 +67,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches shopping audiences. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var shoppingAudienceSelector = AdsApp.shoppingCampaignTargeting()
          *          .audiences()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var shoppingAudienceIterator = shoppingAudienceSelector.get();
          *      while (shoppingAudienceIterator.hasNext()) {
          *        var shoppingAudience = shoppingAudienceIterator.next();

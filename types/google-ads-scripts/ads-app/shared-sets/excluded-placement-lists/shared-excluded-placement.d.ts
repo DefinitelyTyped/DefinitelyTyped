@@ -1,11 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="./excluded-placement-list.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Shared Excluded Placement. */
@@ -33,17 +25,17 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches shared excluded placements. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var sharedExcludedPlacementSelector = negativeKeywordList.negativeKeywords()
          *          .withCondition("PlacementUrl CONTAINS 'test'")
          *          .withLimit(1)
          *          .withIds([10,20])
          *          .orderBy("SharedSetId DESC");
-         * 
+         *
          *      var sharedExcludedPlacementIterator = sharedExcludedPlacementSelector.get();
-         * 
+         *
          *      while (sharedExcludedPlacementIterator.hasNext()) {
          *        var sharedExcludedPlacement = sharedExcludedPlacementIterator.next();
          *      }

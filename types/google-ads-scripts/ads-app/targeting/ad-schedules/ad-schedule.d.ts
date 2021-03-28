@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-/// <reference path="../../shopping/campaigns/shopping-campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents one period of a Google Ads ad schedule. */
@@ -53,7 +44,7 @@ declare namespace GoogleAdsScripts {
             Sunday = "SUNDAY",
         }
 
-        type AdScheduleDayOfWeekType = `${AdScheduleDayOfWeek}`
+        type AdScheduleDayOfWeekType = `${AdScheduleDayOfWeek}`;
 
         /**
          * An iterator of ad schedules.
@@ -68,12 +59,12 @@ declare namespace GoogleAdsScripts {
 
         /** A plain JavaScript object describing an ad schedule. */
         interface AdScheduleObject {
-            dayOfWeek: AdScheduleDayOfWeekType,
-            startHour: number,
-            startMinute: number,
-            endHour: number,
-            endMinute: number,
-            bidModifier?: number
+            dayOfWeek: AdScheduleDayOfWeekType;
+            startHour: number;
+            startMinute: number;
+            endHour: number;
+            endMinute: number;
+            bidModifier?: number;
         }
 
         /** An operation representing creation of a new ad schedule. */
@@ -81,15 +72,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches ad schedules. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var adScheduleSelector = AdsApp.targeting()
          *          .adSchedules()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var adScheduleIterator = adScheduleSelector.get();
          *      while (adScheduleIterator.hasNext()) {
          *        var adSchedule = adScheduleIterator.next();

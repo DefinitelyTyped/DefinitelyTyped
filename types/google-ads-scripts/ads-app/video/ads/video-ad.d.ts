@@ -1,13 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../ad-groups/ad-group.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-/// <reference path="../../media/media.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Builder for a bumper video ad under construction. */
@@ -134,7 +124,7 @@ declare namespace GoogleAdsScripts {
          *      var videoAd = videoAdOperation.getResult();
          */
         interface VideoAdBuilderSpace {
-            /**	Returns a new bumper ad builder associated with the ad group. */
+            /** Returns a new bumper ad builder associated with the ad group. */
             bumperAdBuilder(): BumperAdBuilder;
             /** Returns a new In-stream video ad builder associated with the ad group. */
             inStreamAdBuilder(): InStreamAdBuilder;

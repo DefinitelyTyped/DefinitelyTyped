@@ -1,13 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-/// <reference path="../../shopping/campaigns/shopping-campaign.d.ts" />
-/// <reference path="./address.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads targeted proximity — some radius around a geographical point. */
@@ -57,12 +47,12 @@ declare namespace GoogleAdsScripts {
 
         /** Plain JavaScript objects describing a proximity. */
         interface TargetedProximityObject {
-            latitude: number,
-            longitude: number,
-            radius: number,
-            radiusUnits: string,
-            bidModifier?: number,
-            address?: AddressObject
+            latitude: number;
+            longitude: number;
+            radius: number;
+            radiusUnits: string;
+            bidModifier?: number;
+            address?: AddressObject;
         }
 
         /** An operation representing creation of a new targeted proximity. */

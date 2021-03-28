@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="./ad.d.ts" />
-/// <reference path="../ad-groups/ad-group.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a responsive ad for Display. */
@@ -73,7 +64,7 @@ declare namespace GoogleAdsScripts {
             remove(): void;
             /** Removes a label from the ad. */
             removeLabel(name: string): void;
-            /**Provides access to this ad's URL fields. */
+            /** Provides access to this ad's URL fields. */
             urls(): AdUrls;
         }
 
@@ -108,7 +99,8 @@ declare namespace GoogleAdsScripts {
          *        .build();
          *      var ad = adOperation.getResult();
          *
-         * Note that it is only necessary to call AdOperation.getResult() if you need to access the actual ad for further processing (for instance, one can attach a label to the newly created ad). Otherwise, calling build() on the builder is sufficient to ensure that the ad is created.
+         * Note that it is only necessary to call AdOperation.getResult() if you need to access the actual ad for further processing
+         * (for instance, one can attach a label to the newly created ad). Otherwise, calling build() on the builder is sufficient to ensure that the ad is created.
          */
         interface ResponsiveDisplayAdBuilder extends Base.Builder<AdOperation> {
             /** Adds the provided description to the current list of descriptions. */
@@ -130,13 +122,13 @@ declare namespace GoogleAdsScripts {
             /** Sets the custom parameters of the new ad to the specified value. */
             withCustomParameters(customParameters: Record<string, string>): this;
             /** Sets the new ad's descriptions to the specified value. */
-            withDescriptions(descriptions: Array<string|AdTextAsset>): this;
+            withDescriptions(descriptions: Array<string | AdTextAsset>): this;
             /** Sets the final URL of the new ad to the specified value. */
             withFinalUrl(finalUrl: string): this;
             /** Sets the final URL suffix of the new ad to the specified value. */
             withFinalUrlSuffix(suffix: string): this;
             /** Sets the list of the new ad's headlines to the specified value. */
-            withHeadlines(headlines: Array<string|AdTextAsset>): this;
+            withHeadlines(headlines: Array<string | AdTextAsset>): this;
             /** Sets the new ad's landscape logo images to the specified value. */
             withLandscapeLogoImages(images: Asset[]): this;
             /** Sets the new ad's logo images to the specified value. */

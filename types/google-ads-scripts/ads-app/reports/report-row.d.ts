@@ -1,14 +1,10 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
          * Represents a row of a report.
          *
-         * NOTE: The ReportRow works as an associative array indexed by AWQL column name. In addition to working as a normal associative array, ReportRow also has a ReportRow.formatForUpload() method, for convenience when working with bulk uploads.
+         * NOTE: The ReportRow works as an associative array indexed by AWQL column name. In addition to working as a normal associative array,
+         * ReportRow also has a ReportRow.formatForUpload() method, for convenience when working with bulk uploads.
          *
          * Typical usage:
          *
@@ -42,9 +38,9 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Represents an iterator of report rows.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var rows = report.rows();
          *      while (rows.hasNext()) {
          *        var row = rows.next();
@@ -59,9 +55,9 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Represents an iterator of report rows.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var rows = report.rows();
          *      while (rows.hasNext()) {
          *        var row = rows.next();
@@ -70,17 +66,17 @@ declare namespace GoogleAdsScripts {
         interface SearchRowIterator {
             /** Returns true if the search has more rows. */
             hasNext(): boolean;
-            /** 
+            /**
              * Returns the next row in the search.
-             * 
+             *
              * Search rows are returned as plain Javascript objects. Individual requested fields can be accessed by accessing the nested field.
-             * 
-             * 
+             *
+             *
              *      var rows = AdsApp.search(
              *          'SELECT search_term_view.search_term, metrics.ctr ' +
              *          'FROM   search_term_view ' +
              *          'WHERE  segments.date BETWEEN "2013-01-01" AND "2013-03-01"');
-             * 
+             *
              *      while (rows.hasNext()) {
              *        var row = rows.next();
              *        var searchTerm = row['search_term_view'];

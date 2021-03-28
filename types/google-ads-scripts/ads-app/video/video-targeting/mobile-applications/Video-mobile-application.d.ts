@@ -1,14 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../../base.d.ts" />
-/// <reference path="../../ad-groups/video-ad-group.d.ts" />
-/// <reference path="../../campaigns/video-campaign.d.ts" />
-/// <reference path="../video-criterion-bidding.d.ts" />
-/// <reference path="./excluded-video-mobile-application.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads Mobile Application criterion in a Video Campaign. */
@@ -70,15 +59,15 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches video mobile applications. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var mobileApplicationSelector = AdsApp.videoTargeting()
          *          .mobileApplications()
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var mobileApplicationIterator = mobileApplicationSelector.get();
          *      while (mobileApplicationIterator.hasNext()) {
          *        var mobileApplication = mobileApplicationIterator.next();

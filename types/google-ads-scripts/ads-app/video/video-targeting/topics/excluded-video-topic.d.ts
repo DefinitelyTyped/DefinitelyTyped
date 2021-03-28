@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../../base.d.ts" />
-/// <reference path="../../ad-groups/video-ad-group.d.ts" />
-/// <reference path="../../campaigns/video-campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         interface ExcludedVideoTopic {
@@ -40,14 +31,14 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches excluded video topics. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var excludedVideoTopicSelector = AdsApp.videoTargeting()
          *          .excludedVideoTopics()
          *          .withCondition("AdGroupStatus = 'ENABLED'")
          *          .orderBy("AdGroupName DESC");
-         * 
+         *
          *      var excludedVideoTopicIterator = excludedVideoTopicSelector.get();
          *      while (excludedVideoTopicIterator.hasNext()) {
          *        var excludedVideoTopic = excludedVideoTopicIterator.next();

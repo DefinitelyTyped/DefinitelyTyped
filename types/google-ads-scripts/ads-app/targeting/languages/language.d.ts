@@ -1,11 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads language target. */
@@ -41,7 +33,7 @@ declare namespace GoogleAdsScripts {
 
         /** A plain JavaScript object to describe a language. */
         interface LanguageObject {
-            id: number
+            id: number;
         }
 
         /** An operation representing creation of a new language. */
@@ -49,14 +41,14 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches languages. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var languageSelector = campaign.targeting()
          *          .languages()
          *          .withCondition("Impressions > 100")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var languageIterator = languageSelector.get();
          *      while (languageIterator.hasNext()) {
          *        var language = languageIterator.next();

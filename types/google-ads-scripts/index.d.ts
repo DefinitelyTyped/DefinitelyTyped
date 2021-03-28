@@ -1,20 +1,21 @@
-// Type definitions for Google Ads Scripts
+// Type definitions for Google Ads Scripts 1.0
 // Project: https://developers.google.com/google-ads/scripts
 // Definitions by: JJPell <https://github.com/JJPell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.1
 
 // These definitions were initially written around 03-2021
 // The files paths and folder structure are designed to match the Google Ads Scripts documentation
 
 /// <reference path="./ads-app/ad-customizer/items.d.ts" />
 /// <reference path="./ads-app/ad-customizer/sources.d.ts" />
-/// <reference path="./ads-app/ad-extensions/callouts/account-callout.d.ts" /> 
+/// <reference path="./ads-app/ad-extensions/callouts/account-callout.d.ts" />
 /// <reference path="./ads-app/ad-extensions/callouts/ad-group-callout.d.ts" />
 /// <reference path="./ads-app/ad-extensions/callouts/callout.d.ts" />
 /// <reference path="./ads-app/ad-extensions/callouts/campaign-callout.d.ts" />
-/// <reference path="./ads-app/ad-extensions/extension-schedule.d.ts" />       
+/// <reference path="./ads-app/ad-extensions/extension-schedule.d.ts" />
 /// <reference path="./ads-app/ad-extensions/extensions.d.ts" />
-/// <reference path="./ads-app/ad-extensions/messages/account-message.d.ts" /> 
+/// <reference path="./ads-app/ad-extensions/messages/account-message.d.ts" />
 /// <reference path="./ads-app/ad-extensions/messages/ad-group-message.d.ts" />
 /// <reference path="./ads-app/ad-extensions/messages/campaign-message.d.ts" />
 /// <reference path="./ads-app/ad-extensions/messages/message.d.ts" />

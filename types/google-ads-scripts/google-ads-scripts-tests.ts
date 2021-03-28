@@ -1,6 +1,8 @@
+// tslint:disable: prefer-template
+
 // Create an account label
 function createAccountLabels() {
-    var labelName = "INSERT_LABEL_NAME_HERE";
+    const labelName = "INSERT_LABEL_NAME_HERE";
 
     AdsManagerApp.createAccountLabel(labelName);
     Logger.log("Label with text = '%s' created.", labelName);
@@ -8,12 +10,12 @@ function createAccountLabels() {
 
 // Apply an account label to multiple accounts
 function applyAccountLabels() {
-    var accountIds = ["INSERT_ACCOUNT_ID_HERE", "INSERT_ACCOUNT_ID_HERE"];
-    var labelName = "INSERT_LABEL_NAME_HERE";
+    const accountIds = ["INSERT_ACCOUNT_ID_HERE", "INSERT_ACCOUNT_ID_HERE"];
+    const labelName = "INSERT_LABEL_NAME_HERE";
 
-    var accounts = AdsManagerApp.accounts().withIds(accountIds).get();
+    const accounts = AdsManagerApp.accounts().withIds(accountIds).get();
     while (accounts.hasNext()) {
-        var account = accounts.next();
+        const account = accounts.next();
         account.applyLabel(labelName);
 
         Logger.log('Label with text = "%s" applied to customer id %s.', labelName, account.getCustomerId());
@@ -22,12 +24,12 @@ function applyAccountLabels() {
 
 // Remove an account label from multiple accounts
 function removeLabelFromAccounts() {
-    var accountIds = ["INSERT_ACCOUNT_ID_HERE", "INSERT_ACCOUNT_ID_HERE"];
-    var labelName = "INSERT_LABEL_NAME_HERE";
+    const accountIds = ["INSERT_ACCOUNT_ID_HERE", "INSERT_ACCOUNT_ID_HERE"];
+    const labelName = "INSERT_LABEL_NAME_HERE";
 
-    var accounts = AdsManagerApp.accounts().withIds(accountIds).get();
+    const accounts = AdsManagerApp.accounts().withIds(accountIds).get();
     while (accounts.hasNext()) {
-        var account = accounts.next();
+        const account = accounts.next();
         account.removeLabel(labelName);
 
         Logger.log('Label with text = "%s" removed from customer id %s.', labelName, account.getCustomerId());
@@ -36,15 +38,15 @@ function removeLabelFromAccounts() {
 
 // Select an account by label name
 function selectAccountsByLabelName() {
-    var labelName = "INSERT_LABEL_NAME_HERE";
+    const labelName = "INSERT_LABEL_NAME_HERE";
 
-    var accountIterator = AdsManagerApp.accounts()
+    const accountIterator = AdsManagerApp.accounts()
         .withCondition("LabelNames CONTAINS '" + labelName + "'")
         .get();
 
     while (accountIterator.hasNext()) {
-        var account = accountIterator.next();
-        var accountName = account.getName() ? account.getName() : "--";
+        const account = accountIterator.next();
+        const accountName = account.getName() ? account.getName() : "--";
         Logger.log(
             "%s,%s,%s,%s",
             account.getCustomerId(),
@@ -57,14 +59,14 @@ function selectAccountsByLabelName() {
 
 // Select an account by label ID
 function selectAccountsByLabelId() {
-    var labelId = "INSERT_LABEL_ID_HERE";
-    var accountIterator = AdsManagerApp.accounts()
+    const labelId = "INSERT_LABEL_ID_HERE";
+    const accountIterator = AdsManagerApp.accounts()
         .withCondition("LabelIds IN ['" + labelId + "']")
         .get();
 
     while (accountIterator.hasNext()) {
-        var account = accountIterator.next();
-        var accountName = account.getName() ? account.getName() : "--";
+        const account = accountIterator.next();
+        const accountName = account.getName() ? account.getName() : "--";
         Logger.log(
             "%s,%s,%s,%s",
             account.getCustomerId(),
@@ -77,9 +79,9 @@ function selectAccountsByLabelId() {
 
 // Retrieve all account labels
 function getAllAccountLabels() {
-    var labelIterator = AdsManagerApp.accountLabels().get();
+    const labelIterator = AdsManagerApp.accountLabels().get();
     while (labelIterator.hasNext()) {
-        var label = labelIterator.next();
+        const label = labelIterator.next();
 
         Logger.log("Label with id = %s and text = %s was found.", label.getId().toFixed(0), label.getName());
     }
@@ -87,14 +89,14 @@ function getAllAccountLabels() {
 
 // Retrieve an account label by its name
 function getLabelByName() {
-    var labelName = "INSERT_LABEL_NAME_HERE";
+    const labelName = "INSERT_LABEL_NAME_HERE";
 
-    var labelIterator = AdsManagerApp.accountLabels()
+    const labelIterator = AdsManagerApp.accountLabels()
         .withCondition("Name CONTAINS '" + labelName + "'")
         .get();
 
     while (labelIterator.hasNext()) {
-        var label = labelIterator.next();
+        const label = labelIterator.next();
 
         Logger.log("Label with id = %s and text = %s was found.", label.getId().toFixed(0), label.getName());
     }
@@ -102,12 +104,12 @@ function getLabelByName() {
 
 // Retrieve account labels by their IDs
 function getLabelById() {
-    var labelIterator = AdsManagerApp.accountLabels()
+    const labelIterator = AdsManagerApp.accountLabels()
         .withIds([12345, 67890]) // Replace with label IDs here
         .get();
 
     while (labelIterator.hasNext()) {
-        var label = labelIterator.next();
+        const label = labelIterator.next();
 
         Logger.log("Label with id = %s and text = '%s' was found.", label.getId().toFixed(0), label.getName());
     }
@@ -115,7 +117,7 @@ function getLabelById() {
 
 // Get details on the current account
 function getCurrentAccountDetails() {
-    var currentAccount = AdsApp.currentAccount();
+    const currentAccount = AdsApp.currentAccount();
     Logger.log(
         "Customer ID: " +
             currentAccount.getCustomerId() +
@@ -124,7 +126,7 @@ function getCurrentAccountDetails() {
             ", Timezone: " +
             currentAccount.getTimeZone(),
     );
-    var stats = currentAccount.getStatsFor("LAST_MONTH");
+    const stats = currentAccount.getStatsFor("LAST_MONTH");
     Logger.log(stats.getClicks() + " clicks, " + stats.getImpressions() + " impressions last month");
 }
 
@@ -139,10 +141,10 @@ function createAdCustomizerSource() {
 
 // Find an ad customizer data source by name
 function getAdCustomizerSource() {
-    var sources = AdsApp.adCustomizerSources().get();
+    const sources = AdsApp.adCustomizerSources().get();
     while (sources.hasNext()) {
-        var source = sources.next();
-        if (source.getName() == "Flowers") {
+        const source = sources.next();
+        if (source.getName() === "Flowers") {
             Logger.log(source.getName() + " " + source.getAttributes());
         }
     }
@@ -150,17 +152,17 @@ function getAdCustomizerSource() {
 
 // Get a data source's customizer items
 function getAdCustomizerItems() {
-    var source = AdsApp.adCustomizerSources().get().next();
-    var items = source.items().get();
+    const source = AdsApp.adCustomizerSources().get().next();
+    const items = source.items().get();
     while (items.hasNext()) {
-        var item = items.next();
+        const item = items.next();
         Logger.log(item.getAttributeValues());
     }
 }
 
 // Create ad customizers
 function createAdCustomizers() {
-    var source = AdsApp.newAdCustomizerSourceBuilder()
+    const source = AdsApp.newAdCustomizerSourceBuilder()
         .withName("Flowers")
         .addAttribute("flower", "text")
         .addAttribute("price", "price")
@@ -177,9 +179,9 @@ function setupCustomizedAd() {
     // AdsApp.adGroups()
     //      .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //      .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
 
         // This ad will try to fill in the blanks using the 'flower' and 'price'
         // attributes from the 'Flower' data source.
@@ -196,18 +198,18 @@ function setupCustomizedAd() {
 
 // Add an ad group
 function addAdGroup() {
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
-        var adGroupOperation = campaign.newAdGroupBuilder().withName("INSERT_ADGROUP_NAME_HERE").withCpc(1.2).build();
+        const campaign = campaignIterator.next();
+        const adGroupOperation = campaign.newAdGroupBuilder().withName("INSERT_ADGROUP_NAME_HERE").withCpc(1.2).build();
     }
 }
 
 // Update an ad group
 function updateAdGroup() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         adGroup.bidding().setCpc(1.2);
         // update other properties as required here
     }
@@ -217,19 +219,19 @@ function updateAdGroup() {
 function getAlladGroups() {
     // AdsApp.adGroups() will return all ad groups that are not removed by
     // default.
-    var adGroupIterator = AdsApp.adGroups().get();
+    const adGroupIterator = AdsApp.adGroups().get();
     Logger.log("Total adGroups found : " + adGroupIterator.totalNumEntities());
     while (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         Logger.log("AdGroup Name: " + adGroup.getName());
     }
 }
 
 // Get an ad group by name
 function getAdGroupByName() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         Logger.log("AdGroup Name: " + adGroup.getName());
         Logger.log("Enabled: " + adGroup.isEnabled());
     }
@@ -237,22 +239,22 @@ function getAdGroupByName() {
 
 // Get an ad group's stats
 function getadGroupstats() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         // You can also request reports for pre-defined date ranges. See
         // https://developers.google.com/adwords/api/docs/guides/awql,
         // DateRangeLiteral section for possible values.
-        var stats = adGroup.getStatsFor("LAST_MONTH");
+        const stats = adGroup.getStatsFor("LAST_MONTH");
         Logger.log(adGroup.getName() + ", " + stats.getClicks() + ", " + stats.getImpressions());
     }
 }
 
 // Pause an ad group
 function pauseAdGroup() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         adGroup.pause();
         Logger.log("AdGroup with name = " + adGroup.getName() + " has paused status : " + adGroup.isPaused());
     }
@@ -260,9 +262,9 @@ function pauseAdGroup() {
 
 // Get an ad group's device bid modifiers
 function getAdGroupBidModifiers() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         Logger.log("AdGroup name: " + adGroup.getName());
         Logger.log("Mobile bid modifier: " + adGroup.devices().getMobileBidModifier());
         Logger.log("Tablet bid modifier: " + adGroup.devices().getTabletBidModifier());
@@ -279,9 +281,9 @@ function setupAdParamsInAdGroup() {
     // AdsApp.adGroups()
     //     .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //     .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
 
         adGroup
             .newAd()
@@ -292,9 +294,9 @@ function setupAdParamsInAdGroup() {
             .withFinalUrl("http://www.example.com/holidaysales")
             .build();
 
-        var keywordIterator = adGroup.keywords().get();
+        const keywordIterator = adGroup.keywords().get();
         if (keywordIterator.hasNext()) {
-            var keyword = keywordIterator.next();
+            const keyword = keywordIterator.next();
             // Setup Ad to show as 'Doors open in 5 days, 7 hours!' when searched
             // using this keyword. If the ad is triggered using a keyword
             // without ad param, the ad shows as
@@ -314,15 +316,15 @@ function getAdParamsForKeyword() {
     // AdsApp.adGroups()
     //     .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //     .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
-        var keywordIterator = adGroup.keywords().withCondition('Text = "Holiday sales"').get();
+        const adGroup = adGroupIterator.next();
+        const keywordIterator = adGroup.keywords().withCondition('Text = "Holiday sales"').get();
         if (keywordIterator.hasNext()) {
-            var keyword = keywordIterator.next();
-            var adParamIterator = keyword.adParams().get();
+            const keyword = keywordIterator.next();
+            const adParamIterator = keyword.adParams().get();
             while (adParamIterator.hasNext()) {
-                var adParam = adParamIterator.next();
+                const adParam = adParamIterator.next();
             }
         }
     }
@@ -337,9 +339,9 @@ function addExpandedTextAd() {
     // AdsApp.adGroups()
     //     .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //     .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         adGroup
             .newAd()
             .expandedTextAdBuilder()
@@ -365,11 +367,11 @@ function addImageAd() {
     // AdsApp.adGroups()
     //     .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //     .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
-    var mediaIterator = AdsApp.adMedia().media().withCondition('Name = "INSERT_IMAGE_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const mediaIterator = AdsApp.adMedia().media().withCondition('Name = "INSERT_IMAGE_NAME_HERE"').get();
     if (adGroupIterator.hasNext() && mediaIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
-        var image = mediaIterator.next();
+        const adGroup = adGroupIterator.next();
+        const image = mediaIterator.next();
         adGroup
             .newAd()
             .imageAdBuilder()
@@ -386,12 +388,12 @@ function addImageAd() {
 
 // Pause ads in an ad group
 function pauseAdsInAdGroup() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
-        var adsIterator = adGroup.ads().get();
+        const adGroup = adGroupIterator.next();
+        const adsIterator = adGroup.ads().get();
         while (adsIterator.hasNext()) {
-            var ad = adsIterator.next();
+            const ad = adsIterator.next();
             ad.pause();
         }
     }
@@ -399,37 +401,37 @@ function pauseAdsInAdGroup() {
 
 // Get expanded text ads in an ad group
 function getExpandedTextAdsInAdGroup() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
-        var adsIterator = adGroup.ads().withCondition("Type=EXPANDED_TEXT_AD").get();
+        const adGroup = adGroupIterator.next();
+        const adsIterator = adGroup.ads().withCondition("Type=EXPANDED_TEXT_AD").get();
         while (adsIterator.hasNext()) {
-            var ad = adsIterator.next().asType().expandedTextAd();
+            const ad = adsIterator.next().asType().expandedTextAd();
         }
     }
 }
 
 // Get stats for ads in an ad group
 function getAdStats() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         // If you want to restrict your search to some ads only, then you could
         // apply a label and retrieve ads as
         //
-        //   var label = AdsApp.labels()
+        //   const label = AdsApp.labels()
         //             .withCondition('Name="INSERT_LABEL_NAME_HERE"')
         //             .get()
         //             .next();
-        //   var adsIterator = label.ads().get();
+        //   const adsIterator = label.ads().get();
 
-        var adsIterator = adGroup.ads().get();
+        const adsIterator = adGroup.ads().get();
         while (adsIterator.hasNext()) {
-            var ad = adsIterator.next();
+            const ad = adsIterator.next();
             // You can also request reports for pre-defined date ranges. See
             // https://developers.google.com/adwords/api/docs/guides/awql,
             // DateRangeLiteral section for possible values.
-            var stats = ad.getStatsFor("LAST_MONTH");
+            const stats = ad.getStatsFor("LAST_MONTH");
             Logger.log(adGroup.getName() + ", " + stats.getClicks() + ", " + stats.getImpressions());
         }
     }
@@ -437,9 +439,9 @@ function getAdStats() {
 
 // Get bidding strategies
 function getBiddingStrategies() {
-    var biddingStrategies = AdsApp.biddingStrategies().get();
+    const biddingStrategies = AdsApp.biddingStrategies().get();
     while (biddingStrategies.hasNext()) {
-        var biddingStrategy = biddingStrategies.next();
+        const biddingStrategy = biddingStrategies.next();
 
         Logger.log(
             "Bidding strategy with id = %s, name = %s and type = " + "%s was found.",
@@ -452,11 +454,11 @@ function getBiddingStrategies() {
 
 // Get bidding strategy by name
 function getBiddingStrategyByName() {
-    var biddingStrategies = AdsApp.biddingStrategies().withCondition('Name="INSERT_BIDDING_STRATEGY_NAME_HERE"').get();
+    const biddingStrategies = AdsApp.biddingStrategies().withCondition('Name="INSERT_BIDDING_STRATEGY_NAME_HERE"').get();
     while (biddingStrategies.hasNext()) {
-        var biddingStrategy = biddingStrategies.next();
+        const biddingStrategy = biddingStrategies.next();
 
-        var stats = biddingStrategy.getStatsFor("LAST_MONTH");
+        const stats = biddingStrategy.getStatsFor("LAST_MONTH");
 
         Logger.log(
             "Bidding strategy with id = %s, name = %s and type = " + "%s was found.",
@@ -475,7 +477,7 @@ function getBiddingStrategyByName() {
 
 // Set campaign bidding strategy
 function setCampaignBiddingStrategy() {
-    var campaign = AdsApp.campaigns().withCondition('Name="INSERT_CAMPAIGN_NAME_HERE"').get().next();
+    const campaign = AdsApp.campaigns().withCondition('Name="INSERT_CAMPAIGN_NAME_HERE"').get().next();
 
     // You may also set a flexible bidding strategy for the campaign
     // using the setStrategy() method. Use the
@@ -486,7 +488,7 @@ function setCampaignBiddingStrategy() {
 
 // Set an ad group's default CPC bids
 function setAdGroupDefaultCpcBid() {
-    var adGroup = AdsApp.adGroups()
+    const adGroup = AdsApp.adGroups()
         .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
         .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
         .get()
@@ -501,7 +503,7 @@ function setAdGroupDefaultCpcBid() {
 
 // Set a keyword's CPC bid
 function setKeywordCpcBid() {
-    var keyword = AdsApp.keywords()
+    const keyword = AdsApp.keywords()
         .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
         .withCondition('AdGroupName = "INSERT_ADGROUP_NAME_HERE"')
         .withCondition('KeywordText = "INSERT_KEYWORD_TEXT_HERE"')
@@ -517,13 +519,13 @@ function setKeywordCpcBid() {
 
 // Retrieve base spending limit of budget order
 function getBaseSpendingLimit() {
-    var budgetOrderIterator = AdsApp.budgetOrders().get();
+    const budgetOrderIterator = AdsApp.budgetOrders().get();
     while (budgetOrderIterator.hasNext()) {
-        var budgetOrder = budgetOrderIterator.next();
-        var limitText: string | number = "";
-        if (budgetOrder.getSpendingLimit() == null) {
+        const budgetOrder = budgetOrderIterator.next();
+        let limitText: string | number = "";
+        if (budgetOrder.getSpendingLimit() === null) {
             limitText = "unlimited";
-        } else if (budgetOrder.getTotalAdjustments() == null) {
+        } else if (budgetOrder.getTotalAdjustments() === null) {
             limitText = budgetOrder.getSpendingLimit();
         } else {
             limitText = budgetOrder.getSpendingLimit() - budgetOrder.getTotalAdjustments();
@@ -535,27 +537,27 @@ function getBaseSpendingLimit() {
 // Retrieve the active budget order
 function getActiveBudgetOrder() {
     // There will only be one active budget order at any given time.
-    var budgetOrderIterator = AdsApp.budgetOrders().withCondition('status="ACTIVE"').get();
+    const budgetOrderIterator = AdsApp.budgetOrders().withCondition('status="ACTIVE"').get();
     while (budgetOrderIterator.hasNext()) {
-        var budgetOrder = budgetOrderIterator.next();
+        const budgetOrder = budgetOrderIterator.next();
         Logger.log("Budget Order [" + budgetOrder.getName() + "] is currently active.");
     }
 }
 
 // Retrieve all budget orders
 function getAllBudgetOrders() {
-    var budgetOrderIterator = AdsApp.budgetOrders().get();
+    const budgetOrderIterator = AdsApp.budgetOrders().get();
     while (budgetOrderIterator.hasNext()) {
-        var budgetOrder = budgetOrderIterator.next();
+        const budgetOrder = budgetOrderIterator.next();
         Logger.log("Budget Order [" + budgetOrder.getName() + "]");
     }
 }
 
 // Set campaign budget
 function setCampaignBudget() {
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         campaign.getBudget().setAmount(100);
         Logger.log("Campaign with name = " + campaign.getName() + " has budget = " + campaign.getBudget().getAmount());
     }
@@ -563,24 +565,24 @@ function setCampaignBudget() {
 
 // Get campaign budget
 function getBudgetDetails() {
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
-        var budget = campaign.getBudget();
-        var budgetCampaignIterator = budget.campaigns().get();
+        const campaign = campaignIterator.next();
+        const budget = campaign.getBudget();
+        const budgetCampaignIterator = budget.campaigns().get();
 
         Logger.log("Budget amount : " + budget.getAmount());
         Logger.log("Delivery method : " + budget.getDeliveryMethod());
         Logger.log("Explicitly shared : " + budget.isExplicitlyShared());
         Logger.log("Associated campaigns : " + budgetCampaignIterator.totalNumEntities());
         Logger.log("Details");
-        Logger.log("=======");
+        Logger.log("==========");
 
         // Get all the campaigns associated with this budget. There could be
         // more than one campaign if this is a shared budget.
 
         while (budgetCampaignIterator.hasNext()) {
-            var associatedCampaign = budgetCampaignIterator.next();
+            const associatedCampaign = budgetCampaignIterator.next();
             Logger.log(associatedCampaign.getName());
         }
     }
@@ -590,19 +592,19 @@ function getBudgetDetails() {
 function getAllCampaigns() {
     // AdsApp.campaigns() will return all campaigns that are not removed by
     // default.
-    var campaignIterator = AdsApp.campaigns().get();
+    const campaignIterator = AdsApp.campaigns().get();
     Logger.log("Total campaigns found : " + campaignIterator.totalNumEntities());
     while (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         Logger.log(campaign.getName());
     }
 }
 
 // Get a campaign by name
 function getCampaignsByName() {
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         Logger.log("Campaign Name: " + campaign.getName());
         Logger.log("Enabled: " + campaign.isEnabled());
         Logger.log("Bidding strategy: " + campaign.getBiddingStrategyType());
@@ -615,18 +617,18 @@ function formatDate(date: GoogleAdsScripts.AdsApp.GoogleAdsDate) {
     function zeroPad(number: number) {
         return Utilities.formatString("%02d", number);
     }
-    return date == null ? "None" : zeroPad(date.year) + zeroPad(date.month) + zeroPad(date.day);
+    return date === null ? "None" : zeroPad(date.year) + zeroPad(date.month) + zeroPad(date.day);
 }
 
 // Get a campaign's stats
 function getCampaignStats() {
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         // You can also request reports for pre-defined date ranges. See
         // https://developers.google.com/google-ads/scripts/docs/reference/adsapp/adsapp_campaign#getStatsFor_1,
         // DateRangeLiteral section for possible values.
-        var stats = campaign.getStatsFor("LAST_MONTH");
+        const stats = campaign.getStatsFor("LAST_MONTH");
         Logger.log(
             campaign.getName() + ", " + stats.getClicks() + "clicks, " + stats.getImpressions() + " impressions",
         );
@@ -635,7 +637,7 @@ function getCampaignStats() {
 
 // Add a placement to an existing ad group
 function addPlacementToAdGroup() {
-    var adGroup = AdsApp.adGroups()
+    const adGroup = AdsApp.adGroups()
         .withCondition("Name = 'INSERT_ADGROUP_NAME_HERE'")
         .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
         .get()
@@ -644,18 +646,18 @@ function addPlacementToAdGroup() {
     // Other display criteria can be built in a similar manner using the
     // corresponding builder method in the AdsApp.Display,
     // AdsApp.CampaignDisplay or AdsApp.AdGroupDisplay class.
-    var placementOperation = adGroup
+    const placementOperation = adGroup
         .display()
         .newPlacementBuilder()
         .withUrl("http://www.site.com") // required
         .withCpc(0.5) // optional
         .build();
-    var placement = placementOperation.getResult();
+    const placement = placementOperation.getResult();
 }
 
 // Retrieve all topics in an existing ad group
 function getAllTopics() {
-    var adGroup = AdsApp.adGroups()
+    const adGroup = AdsApp.adGroups()
         .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
         .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
         .get()
@@ -664,7 +666,7 @@ function getAllTopics() {
     // Other display criteria can be retrieved in a similar manner using
     // the corresponding selector methods in the AdsApp.Display,
     // AdsApp.CampaignDisplay or AdsApp.AdGroupDisplay class.
-    var topicIterator = AdsApp.display()
+    const topicIterator = AdsApp.display()
         .topics()
         .withCondition("Impressions > 100")
         .forDateRange("LAST_MONTH")
@@ -672,7 +674,7 @@ function getAllTopics() {
         .get();
 
     while (topicIterator.hasNext()) {
-        var topic = topicIterator.next();
+        const topic = topicIterator.next();
 
         // The list of all topic IDs can be found on
         // https://developers.google.com/adwords/api/docs/appendix/verticals
@@ -686,7 +688,7 @@ function getAllTopics() {
 
 // Get stats for all audiences in an existing ad group
 function getAudienceStats() {
-    var adGroup = AdsApp.adGroups()
+    const adGroup = AdsApp.adGroups()
         .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
         .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
         .get()
@@ -695,13 +697,13 @@ function getAudienceStats() {
     // Other display criteria can be retrieved in a similar manner using
     // the corresponding selector methods in the AdsApp.Display,
     // AdsApp.CampaignDisplay or AdsApp.AdGroupDisplay class.
-    var audienceIterator = adGroup.display().audiences().get();
+    const audienceIterator = adGroup.display().audiences().get();
 
     Logger.log("ID, Audience ID, Clicks, Impressions, Cost");
 
     while (audienceIterator.hasNext()) {
-        var audience = audienceIterator.next();
-        var stats = audience.getStatsFor("LAST_MONTH");
+        const audience = audienceIterator.next();
+        const stats = audience.getStatsFor("LAST_MONTH");
 
         // User List IDs (List IDs) are available on the details page of
         // a User List (found under the Audiences section of the Shared
@@ -719,27 +721,27 @@ function getAudienceStats() {
 
 // Create a draft campaign
 function createDraft() {
-    var campaign = AdsApp.campaigns().withCondition("Name = 'INSERT_CAMPAIGN_NAME_HERE'").get().next();
+    const campaign = AdsApp.campaigns().withCondition("Name = 'INSERT_CAMPAIGN_NAME_HERE'").get().next();
 
-    var draftBuilder = campaign.newDraftBuilder().withName("INSERT_NEW_DRAFT_NAME_HERE").build();
+    const draftBuilder = campaign.newDraftBuilder().withName("INSERT_NEW_DRAFT_NAME_HERE").build();
 
-    var draft = draftBuilder.getResult();
+    const draft = draftBuilder.getResult();
 }
 
 // Get draft campaigns
 function getDrafts() {
     // Get all drafts.
-    var drafts = AdsApp.drafts().get();
+    const drafts = AdsApp.drafts().get();
 
     Logger.log(drafts.totalNumEntities());
 
     while (drafts.hasNext()) {
-        var draft = drafts.next();
+        const draft = drafts.next();
         Logger.log("Draft: " + draft.getName());
     }
 
     // Get a specific draft.
-    var campaignIterator = AdsApp.drafts().withCondition("DraftName = 'INSERT_DRAFT_NAME'").get();
+    const campaignIterator = AdsApp.drafts().withCondition("DraftName = 'INSERT_DRAFT_NAME'").get();
 
     while (campaignIterator.hasNext()) {
         Logger.log(campaignIterator.next().getName());
@@ -748,9 +750,9 @@ function getDrafts() {
 
 // Create an experiment
 function createExperiment() {
-    var draft = AdsApp.drafts().withCondition("DraftName = INSERT_DRAFT_NAME").get().next();
+    const draft = AdsApp.drafts().withCondition("DraftName = INSERT_DRAFT_NAME").get().next();
 
-    var experimentBuilder = draft.newExperimentBuilder();
+    const experimentBuilder = draft.newExperimentBuilder();
 
     experimentBuilder.withName("INSERT_NEW_EXPERIMENT_NAME_HERE").withTrafficSplitPercent(50).startBuilding();
 }
@@ -758,17 +760,17 @@ function createExperiment() {
 // Get experiments
 function getExperiments() {
     // Get all experiments.
-    var exps = AdsApp.experiments().get();
+    const exps = AdsApp.experiments().get();
 
     Logger.log(exps.totalNumEntities());
 
     while (exps.hasNext()) {
-        var exp = exps.next();
+        const exp = exps.next();
         Logger.log("Experiment: " + exp.getName());
     }
 
     // Get specific experiment.
-    var campaignIterator = AdsApp.experiments().withCondition("Name = 'INSERT_EXPERIMENT_NAME'").get();
+    const campaignIterator = AdsApp.experiments().withCondition("Name = 'INSERT_EXPERIMENT_NAME'").get();
 
     while (campaignIterator.hasNext()) {
         Logger.log(campaignIterator.next().getName());
@@ -777,18 +779,18 @@ function getExperiments() {
 
 // Show all the shared excluded placements in an excluded placement list
 function showAllExcludedPlacementsFromList() {
-    var EXCLUDED_PLACEMENT_LIST_NAME = "INSERT_LIST_NAME_HERE";
+    const EXCLUDED_PLACEMENT_LIST_NAME = "INSERT_LIST_NAME_HERE";
 
-    var excludedPlacementListIterator = AdsApp.excludedPlacementLists()
+    const excludedPlacementListIterator = AdsApp.excludedPlacementLists()
         .withCondition('Name = "' + EXCLUDED_PLACEMENT_LIST_NAME + '"')
         .get();
 
-    if (excludedPlacementListIterator.totalNumEntities() == 1) {
-        var excludedPlacementList = excludedPlacementListIterator.next();
-        var sharedExcludedPlacementIterator = excludedPlacementList.excludedPlacements().get();
+    if (excludedPlacementListIterator.totalNumEntities() === 1) {
+        const excludedPlacementList = excludedPlacementListIterator.next();
+        const sharedExcludedPlacementIterator = excludedPlacementList.excludedPlacements().get();
 
         while (sharedExcludedPlacementIterator.hasNext()) {
-            var sharedExcludedPlacement = sharedExcludedPlacementIterator.next();
+            const sharedExcludedPlacement = sharedExcludedPlacementIterator.next();
             Logger.log(sharedExcludedPlacement.getUrl());
         }
     }
@@ -803,9 +805,9 @@ function addKeyword() {
     // AdsApp.adGroups()
     //     .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //     .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
 
         adGroup
             .newKeywordBuilder()
@@ -821,12 +823,12 @@ function addKeyword() {
 
 // Pause an existing keyword in an ad group
 function pauseKeywordInAdGroup() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
-        var keywordIterator = adGroup.keywords().withCondition('Text="INSERT_KEYWORDS_HERE"').get();
+        const adGroup = adGroupIterator.next();
+        const keywordIterator = adGroup.keywords().withCondition('Text="INSERT_KEYWORDS_HERE"').get();
         while (keywordIterator.hasNext()) {
-            var keyword = keywordIterator.next();
+            const keyword = keywordIterator.next();
             keyword.pause();
         }
     }
@@ -834,26 +836,26 @@ function pauseKeywordInAdGroup() {
 
 // Get all keywords in an ad group
 function getKeywordsInAdGroup() {
-    var keywordIterator = AdsApp.keywords().withCondition('AdGroupName = "INSERT_ADGROUP_NAME_HERE"').get();
+    const keywordIterator = AdsApp.keywords().withCondition('AdGroupName = "INSERT_ADGROUP_NAME_HERE"').get();
     if (keywordIterator.hasNext()) {
         while (keywordIterator.hasNext()) {
-            var keyword = keywordIterator.next();
+            const keyword = keywordIterator.next();
         }
     }
 }
 
 // Get stats for all keywords in an ad group
 function getKeywordStats() {
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
-        var keywordIterator = adGroup.keywords().get();
+        const adGroup = adGroupIterator.next();
+        const keywordIterator = adGroup.keywords().get();
         while (keywordIterator.hasNext()) {
-            var keyword = keywordIterator.next();
+            const keyword = keywordIterator.next();
             // You can also request reports for pre-defined date ranges. See
             // https://developers.google.com/adwords/api/docs/guides/awql,
             // DateRangeLiteral section for possible values.
-            var stats = keyword.getStatsFor("LAST_MONTH");
+            const stats = keyword.getStatsFor("LAST_MONTH");
             Logger.log(
                 adGroup.getName() + ", " + keyword.getText() + ", " + stats.getClicks() + ", " + stats.getImpressions(),
             );
@@ -863,19 +865,19 @@ function getKeywordStats() {
 
 // Get all labels from a user's account
 function getAllLabels() {
-    var labelIterator = AdsApp.labels().get();
+    const labelIterator = AdsApp.labels().get();
 
     while (labelIterator.hasNext()) {
-        var label = labelIterator.next();
+        const label = labelIterator.next();
         Logger.log(label.getName());
     }
 }
 
 // Get a label by name
 function getLabelsByName() {
-    var labelIterator = AdsApp.labels().withCondition('Name = "INSERT_LABEL_NAME_HERE"').get();
+    const labelIterator = AdsApp.labels().withCondition('Name = "INSERT_LABEL_NAME_HERE"').get();
     if (labelIterator.hasNext()) {
-        var label = labelIterator.next();
+        const label = labelIterator.next();
         Logger.log("Name: " + label.getName());
         Logger.log("Description: " + label.getDescription());
         Logger.log("Color: " + label.getColor());
@@ -890,33 +892,33 @@ function getLabelsByName() {
 function applyLabel() {
     // Retrieve a campaign, and apply a label to it. Applying labels to other
     // object types are similar.
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         campaign.applyLabel("Test");
     }
 }
 
 // Remove a label from a campaign
 function removeLabel() {
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         campaign.removeLabel("Test");
     }
 }
 
 // Construct a new negative keyword list and add it to a campaign
 function addNegativeKeywordListToCampaign() {
-    var NEGATIVE_KEYWORD_LIST_NAME = "INSERT_LIST_NAME_HERE";
-    var CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
+    const NEGATIVE_KEYWORD_LIST_NAME = "INSERT_LIST_NAME_HERE";
+    const CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
 
-    var negativeKeywordListOperator = AdsApp.newNegativeKeywordListBuilder()
+    const negativeKeywordListOperator = AdsApp.newNegativeKeywordListBuilder()
         .withName(NEGATIVE_KEYWORD_LIST_NAME)
         .build();
 
     if (negativeKeywordListOperator.isSuccessful()) {
-        var negativeKeywordList = negativeKeywordListOperator.getResult();
+        const negativeKeywordList = negativeKeywordListOperator.getResult();
         if (!negativeKeywordList) return;
 
         negativeKeywordList.addNegativeKeywords([
@@ -925,7 +927,7 @@ function addNegativeKeywordListToCampaign() {
             "[exact match keyword]",
         ]);
 
-        var campaign = AdsApp.campaigns()
+        const campaign = AdsApp.campaigns()
             .withCondition('Name = "' + CAMPAIGN_NAME + '"')
             .get()
             .next();
@@ -937,21 +939,21 @@ function addNegativeKeywordListToCampaign() {
 
 // Add negative keyword to a campaign
 function addNegativeKeywordToCampaign() {
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         campaign.createNegativeKeyword("[Budget hotels]");
     }
 }
 
 // Get negative keywords in a campaign
 function getNegativeKeywordForCampaign() {
-    var campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const campaignIterator = AdsApp.campaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
-        var negativeKeywordIterator = campaign.negativeKeywords().get();
+        const campaign = campaignIterator.next();
+        const negativeKeywordIterator = campaign.negativeKeywords().get();
         while (negativeKeywordIterator.hasNext()) {
-            var negativeKeyword = negativeKeywordIterator.next();
+            const negativeKeyword = negativeKeywordIterator.next();
             Logger.log("Text: " + negativeKeyword.getText() + ", MatchType: " + negativeKeyword.getMatchType());
         }
     }
@@ -966,9 +968,9 @@ function addNegativeKeywordToAdGroup() {
     // AdsApp.adGroups()
     //     .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //     .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         adGroup.createNegativeKeyword("[Budget hotels]");
     }
 }
@@ -982,12 +984,12 @@ function getNegativeKeywordForAdGroup() {
     // AdsApp.adGroups()
     //     .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //     .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const adGroupIterator = AdsApp.adGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
-        var negativeKeywordIterator = adGroup.negativeKeywords().get();
+        const adGroup = adGroupIterator.next();
+        const negativeKeywordIterator = adGroup.negativeKeywords().get();
         while (negativeKeywordIterator.hasNext()) {
-            var negativeKeyword = negativeKeywordIterator.next();
+            const negativeKeyword = negativeKeywordIterator.next();
             Logger.log("Text: " + negativeKeyword.getText() + ", MatchType: " + negativeKeyword.getMatchType());
         }
     }
@@ -995,19 +997,19 @@ function getNegativeKeywordForAdGroup() {
 
 // Add search audience to an ad group
 function addSearchAudienceToAdGroup() {
-    var AUDIENCE_LIST_ID = 1; //INSERT_AUDIENCE_ID_HERE
-    var CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
-    var ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
+    const AUDIENCE_LIST_ID = 1; // INSERT_AUDIENCE_ID_HERE
+    const CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
+    const ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
 
     // Retrieve the ad group.
-    var adGroup = AdsApp.adGroups()
+    const adGroup = AdsApp.adGroups()
         .withCondition('Name = "' + ADGROUP_NAME + '"')
         .withCondition('CampaignName = "' + CAMPAIGN_NAME + '"')
         .get()
         .next();
 
     // Create the search audience.
-    var searchAudience = adGroup
+    const searchAudience = adGroup
         .targeting()
         .newUserListBuilder()
         .withAudienceId(AUDIENCE_LIST_ID)
@@ -1028,12 +1030,12 @@ function addSearchAudienceToAdGroup() {
 
 // Get ad group search audience by name
 function getAdGroupSearchAudienceByName() {
-    var CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
-    var ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
-    var AUDIENCE_NAME = "INSERT_AUDIENCE_NAME_HERE";
+    const CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
+    const ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
+    const AUDIENCE_NAME = "INSERT_AUDIENCE_NAME_HERE";
 
     // Retrieve the search audience.
-    var searchAudience = AdsApp.adGroupTargeting()
+    const searchAudience = AdsApp.adGroupTargeting()
         .audiences()
         .withCondition("CampaignName = " + CAMPAIGN_NAME)
         .withCondition("AdGroupName = " + ADGROUP_NAME)
@@ -1051,11 +1053,11 @@ function getAdGroupSearchAudienceByName() {
 
 // Filter ad group search audience by stats
 function filterAdGroupAudienceByStats() {
-    var CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
-    var ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
+    const CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
+    const ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
 
     // Retrieve top performing search audiences.
-    var topPerformingAudiences = AdsApp.adGroupTargeting()
+    const topPerformingAudiences = AdsApp.adGroupTargeting()
         .audiences()
         .withCondition("CampaignName = " + CAMPAIGN_NAME)
         .withCondition("AdGroupName = " + ADGROUP_NAME)
@@ -1064,7 +1066,7 @@ function filterAdGroupAudienceByStats() {
         .get();
 
     while (topPerformingAudiences.hasNext()) {
-        var audience = topPerformingAudiences.next();
+        const audience = topPerformingAudiences.next();
         Logger.log(
             "Search audience with ID = %s, name = %s and audience list " + "ID = %s has %s clicks.",
             audience.getId().toFixed(0),
@@ -1077,17 +1079,17 @@ function filterAdGroupAudienceByStats() {
 
 // Exclude search audience from a campaign
 function addExcludedAudienceToCampaign() {
-    var CAMPAIGN_NAME = ""; //INSERT_CAMPAIGN_NAME_HERE
-    var AUDIENCE_LIST_ID = 0; // INSERT_AUDIENCE_ID_HERE
+    const CAMPAIGN_NAME = ""; // INSERT_CAMPAIGN_NAME_HERE
+    const AUDIENCE_LIST_ID = 0; // INSERT_AUDIENCE_ID_HERE
 
     // Retrieve the campaign.
-    var campaign = AdsApp.campaigns()
+    const campaign = AdsApp.campaigns()
         .withCondition('Name = "' + CAMPAIGN_NAME + '"')
         .get()
         .next();
 
     // Create the excluded audience.
-    var audience = campaign.targeting().newUserListBuilder().withAudienceId(AUDIENCE_LIST_ID).exclude().getResult();
+    const audience = campaign.targeting().newUserListBuilder().withAudienceId(AUDIENCE_LIST_ID).exclude().getResult();
     if (!audience) return;
     Logger.log(
         "Excluded audience with ID = %s and audience list ID = %s was " + 'created for campaign: "%s".',
@@ -1099,18 +1101,18 @@ function addExcludedAudienceToCampaign() {
 
 // Get excluded search audiences for a campaign
 function getExcludedAudiencesForCampaign() {
-    var CAMPAIGN_NAME = ""; // INSERT_CAMPAIGN_NAME_HERE
+    const CAMPAIGN_NAME = ""; // INSERT_CAMPAIGN_NAME_HERE
 
     // Retrieve the campaign.
-    var campaign = AdsApp.campaigns()
+    const campaign = AdsApp.campaigns()
         .withCondition('Name = "' + CAMPAIGN_NAME + '"')
         .get()
         .next();
 
-    var excludedAudiences = campaign.targeting().excludedAudiences().get();
+    const excludedAudiences = campaign.targeting().excludedAudiences().get();
 
     while (excludedAudiences.hasNext()) {
-        var audience = excludedAudiences.next();
+        const audience = excludedAudiences.next();
         Logger.log(
             "Excluded audience with ID = %s, name = %s and audience list " + "ID = %s was found.",
             audience.getId(),
@@ -1122,11 +1124,11 @@ function getExcludedAudiencesForCampaign() {
 
 // Set AdGroup targeting setting
 function setAdGroupTargetSetting() {
-    var CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
-    var ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
+    const CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
+    const ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
 
     // Retrieve the ad group.
-    var adGroup = AdsApp.adGroups()
+    const adGroup = AdsApp.adGroups()
         .withCondition('Name = "' + ADGROUP_NAME + '"')
         .withCondition('CampaignName = "' + CAMPAIGN_NAME + '"')
         .get()
@@ -1138,12 +1140,12 @@ function setAdGroupTargetSetting() {
 
 // Update audience bid modifier
 function updateAudienceBidModifer() {
-    var CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
-    var ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
-    var AUDIENCE_NAME = "INSERT_AUDIENCE_NAME_HERE";
+    const CAMPAIGN_NAME = "INSERT_CAMPAIGN_NAME_HERE";
+    const ADGROUP_NAME = "INSERT_ADGROUP_NAME_HERE";
+    const AUDIENCE_NAME = "INSERT_AUDIENCE_NAME_HERE";
 
     // Create the search audience.
-    var searchAudience = AdsApp.adGroupTargeting()
+    const searchAudience = AdsApp.adGroupTargeting()
         .audiences()
         .withCondition("CampaignName = " + CAMPAIGN_NAME)
         .withCondition("AdGroupName = " + ADGROUP_NAME)
@@ -1164,10 +1166,10 @@ function updateAudienceBidModifer() {
 
 // Retrieve all shopping campaigns
 function getAllShoppingCampaigns() {
-    var retval = [];
-    var campaignIterator = AdsApp.shoppingCampaigns().get();
+    const retval = [];
+    const campaignIterator = AdsApp.shoppingCampaigns().get();
     while (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
 
         // Optional: Comment out if you don't need to print details.
         Logger.log("Campaign Name: %s", campaign.getName());
@@ -1179,25 +1181,25 @@ function getAllShoppingCampaigns() {
 
 // Retrieve a shopping campaign by its name
 function getShoppingCampaignByName(campaignName: string) {
-    var campaignIterator = AdsApp.shoppingCampaigns()
+    const campaignIterator = AdsApp.shoppingCampaigns()
         .withCondition("CampaignName = '" + campaignName + "'")
         .get();
     while (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         Logger.log("Campaign Name: %s", campaign.getName());
     }
 }
 
 // Retrieve a shopping adgroup by its name
 function getShoppingAdGroup() {
-    var campaignName = "INSERT_CAMPAIGN_NAME_HERE";
-    var adGroupName = "INSERT_ADGROUP_NAME_HERE";
+    const campaignName = "INSERT_CAMPAIGN_NAME_HERE";
+    const adGroupName = "INSERT_ADGROUP_NAME_HERE";
 
-    var adGroupIterator = AdsApp.shoppingAdGroups()
+    const adGroupIterator = AdsApp.shoppingAdGroups()
         .withCondition("CampaignName = '" + campaignName + "' and AdGroupName = '" + adGroupName + "'")
         .get();
     while (adGroupIterator.hasNext()) {
-        var adGroup = adGroupIterator.next();
+        const adGroup = adGroupIterator.next();
         Logger.log(
             "AdGroup Name: %s, CPC = %s, Mobile Bid " + "Modifier = %s",
             adGroup.getName(),
@@ -1209,28 +1211,28 @@ function getShoppingAdGroup() {
 
 // Create a shopping ad group
 function createShoppingAdGroup() {
-    var campaignName = "INSERT_CAMPAIGN_NAME_HERE";
+    const campaignName = "INSERT_CAMPAIGN_NAME_HERE";
 
-    var shoppingCampaign = AdsApp.shoppingCampaigns()
+    const shoppingCampaign = AdsApp.shoppingCampaigns()
         .withCondition("CampaignName = '" + campaignName + "'")
         .get()
         .next();
-    var adGroupOperation = shoppingCampaign.newAdGroupBuilder().build();
-    var adGroup = adGroupOperation.getResult();
+    const adGroupOperation = shoppingCampaign.newAdGroupBuilder().build();
+    const adGroup = adGroupOperation.getResult();
     Logger.log(adGroup);
 }
 
 // Create a shopping product group hierarchy
 function createTree() {
-    var campaignName = "INSERT_CAMPAIGN_NAME_HERE";
-    var adGroupName = "INSERT_ADGROUP_NAME_HERE";
+    const campaignName = "INSERT_CAMPAIGN_NAME_HERE";
+    const adGroupName = "INSERT_ADGROUP_NAME_HERE";
 
-    var shoppingAdGroup = AdsApp.shoppingAdGroups()
+    const shoppingAdGroup = AdsApp.shoppingAdGroups()
         .withCondition("CampaignName = '" + campaignName + "' and AdGroupName = '" + adGroupName + "'")
         .get()
         .next();
 
-    var root = shoppingAdGroup.rootProductGroup();
+    const root = shoppingAdGroup.rootProductGroup();
 
     // The structure created is
     // - root
@@ -1241,14 +1243,14 @@ function createTree() {
     //   - Other brands
 
     // Add a brand product group for "cardcow" under root product group.
-    var brandNode = root.newChild().brandBuilder().withName("cardcow").withBid(1.2).build().getResult();
+    const brandNode = root.newChild().brandBuilder().withName("cardcow").withBid(1.2).build().getResult();
 
     if (!brandNode) return;
 
     // Add new conditions for New and Refurbished cardcow brand items.
-    var newItems = brandNode.newChild().conditionBuilder().withCondition("NEW").build().getResult();
+    const newItems = brandNode.newChild().conditionBuilder().withCondition("NEW").build().getResult();
 
-    var refurbishedItems = brandNode
+    const refurbishedItems = brandNode
         .newChild()
         .conditionBuilder()
         .withCondition("REFURBISHED")
@@ -1259,30 +1261,30 @@ function createTree() {
 
 // Traverses the product group hierarchy
 function walkProductPartitionTree() {
-    var campaignName = "INSERT_CAMPAIGN_NAME_HERE";
-    var adGroupName = "INSERT_ADGROUP_NAME_HERE";
+    const campaignName = "INSERT_CAMPAIGN_NAME_HERE";
+    const adGroupName = "INSERT_ADGROUP_NAME_HERE";
 
-    var shoppingAdGroup = AdsApp.shoppingAdGroups()
+    const shoppingAdGroup = AdsApp.shoppingAdGroups()
         .withCondition("CampaignName = '" + campaignName + "' and AdGroupName = '" + adGroupName + "'")
         .get()
         .next();
-    var root = shoppingAdGroup.rootProductGroup();
+    const root = shoppingAdGroup.rootProductGroup();
     walkHierarchy(root, 0);
 }
 
 function walkHierarchy(productGroup: GoogleAdsScripts.AdsApp.ProductGroup, level: number) {
-    var description = "";
+    let description = "";
 
     if (productGroup.isOtherCase()) {
         description = "Other";
-    } else if (productGroup.getDimension() == "CATEGORY") {
+    } else if (productGroup.getDimension() === "CATEGORY") {
         // Shows how to process a product group differently based on its type.
         description = productGroup.asCategory().getName();
     } else {
         description = productGroup.getValue();
     }
 
-    var padding = new Array(level + 1).join("-");
+    const padding = new Array(level + 1).join("-");
 
     // Note: Child product groups may not have a max cpc if it has been excluded.
     Logger.log(
@@ -1294,27 +1296,27 @@ function walkHierarchy(productGroup: GoogleAdsScripts.AdsApp.ProductGroup, level
         productGroup.isOtherCase(),
         productGroup.getId().toFixed(),
     );
-    var childProductGroups = productGroup.children().get();
+    const childProductGroups = productGroup.children().get();
     while (childProductGroups.hasNext()) {
-        var childProductGroup = childProductGroups.next();
+        const childProductGroup = childProductGroups.next();
         walkHierarchy(childProductGroup, level + 1);
     }
 }
 
 // Gets the 'Everything else' product group
 function getEverythingElseProductGroup() {
-    var campaignName = "INSERT_CAMPAIGN_NAME_HERE";
-    var adGroupName = "INSERT_ADGROUP_NAME_HERE";
+    const campaignName = "INSERT_CAMPAIGN_NAME_HERE";
+    const adGroupName = "INSERT_ADGROUP_NAME_HERE";
 
-    var shoppingAdGroup = AdsApp.shoppingAdGroups()
+    const shoppingAdGroup = AdsApp.shoppingAdGroups()
         .withCondition("CampaignName = '" + campaignName + "' and AdGroupName = '" + adGroupName + "'")
         .get()
         .next();
 
-    var rootProductGroup = shoppingAdGroup.rootProductGroup();
-    var childProductGroups = rootProductGroup.children().get();
+    const rootProductGroup = shoppingAdGroup.rootProductGroup();
+    const childProductGroups = rootProductGroup.children().get();
     while (childProductGroups.hasNext()) {
-        var childProductGroup = childProductGroups.next();
+        const childProductGroup = childProductGroups.next();
         if (childProductGroup.isOtherCase()) {
             // Note: Child product groups may not have a max cpc if it has been
             // excluded.
@@ -1331,53 +1333,53 @@ function getEverythingElseProductGroup() {
 
 // Update bids for product groups
 function updateProductGroupBid() {
-    var productGroups = AdsApp.productGroups()
+    const productGroups = AdsApp.productGroups()
         .withCondition("Clicks > 5")
         .withCondition("Ctr > 0.01")
         .forDateRange("LAST_MONTH")
         .get();
     while (productGroups.hasNext()) {
-        var productGroup = productGroups.next();
+        const productGroup = productGroups.next();
         productGroup.setMaxCpc(productGroup.getMaxCpc() + 0.01);
     }
 }
 
 // Retrieve product ads
 function getProductAds() {
-    var adGroupName = "INSERT_ADGROUP_NAME_HERE";
+    const adGroupName = "INSERT_ADGROUP_NAME_HERE";
 
-    var shoppingAdGroup = AdsApp.shoppingAdGroups()
+    const shoppingAdGroup = AdsApp.shoppingAdGroups()
         .withCondition("AdGroupName = '" + adGroupName + "'")
         .get()
         .next();
 
-    var productAds = shoppingAdGroup.ads().get();
+    const productAds = shoppingAdGroup.ads().get();
     while (productAds.hasNext()) {
-        var productAd = productAds.next();
+        const productAd = productAds.next();
         Logger.log("Ad with ID = %s was found.", productAd.getId().toFixed(0));
     }
 }
 
 // Create product ads
 function createProductAd() {
-    var adGroupName = "INSERT_ADGROUP_NAME_HERE";
+    const adGroupName = "INSERT_ADGROUP_NAME_HERE";
 
-    var shoppingAdGroup = AdsApp.shoppingAdGroups()
+    const shoppingAdGroup = AdsApp.shoppingAdGroups()
         .withCondition("AdGroupName = '" + adGroupName + "'")
         .get()
         .next();
 
-    var adOperation = shoppingAdGroup.newAdBuilder().withMobilePreferred(true).build();
-    var productAd = adOperation.getResult();
+    const adOperation = shoppingAdGroup.newAdBuilder().withMobilePreferred(true).build();
+    const productAd = adOperation.getResult();
     if (!productAd) return;
     Logger.log("Ad with ID = %s was created.", productAd.getId().toFixed(0));
 }
 
 // Retrieve all user lists
 function getAllUserLists() {
-    var userlistIt = AdsApp.userlists().get();
+    const userlistIt = AdsApp.userlists().get();
     while (userlistIt.hasNext()) {
-        var userList = userlistIt.next();
+        const userList = userlistIt.next();
         Logger.log("Name: " + userList.getName() + " Type: " + userList.getType() + " ID: " + userList.getId());
         Logger.log(
             " Desc: " +
@@ -1413,9 +1415,9 @@ function getAllUserLists() {
 
 // Get the number of members in a user list
 function getUserListMemberCount() {
-    var iterator = AdsApp.userlists().get();
+    const iterator = AdsApp.userlists().get();
     while (iterator.hasNext()) {
-        var userlist = iterator.next();
+        const userlist = iterator.next();
         Logger.log(
             "User List [" +
                 userlist.getName() +
@@ -1430,9 +1432,9 @@ function getUserListMemberCount() {
 
 // Open a user list
 function openUserLists() {
-    var iterator = AdsApp.userlists().get();
+    const iterator = AdsApp.userlists().get();
     while (iterator.hasNext()) {
-        var userlist = iterator.next();
+        const userlist = iterator.next();
         if (userlist.isClosed()) {
             userlist.open();
         }
@@ -1441,14 +1443,14 @@ function openUserLists() {
 
 // Retrieve search campaigns targeted by a user list
 function getSearchCampaignsTargetedByUserList() {
-    var userlistIterator = AdsApp.userlists().get();
+    const userlistIterator = AdsApp.userlists().get();
     while (userlistIterator.hasNext()) {
-        var userList = userlistIterator.next();
-        var campaignIterator = userList.targetedCampaigns().get();
-        var campaignNames = [];
+        const userList = userlistIterator.next();
+        const campaignIterator = userList.targetedCampaigns().get();
+        const campaignNames = [];
 
         while (campaignIterator.hasNext()) {
-            var campaign = campaignIterator.next();
+            const campaign = campaignIterator.next();
             campaignNames.push(campaign.getName());
         }
 
@@ -1460,11 +1462,11 @@ function getSearchCampaignsTargetedByUserList() {
 function getAllVideoCampaigns() {
     // AdsApp.videoCampaigns() will return all campaigns that are not
     // removed by default.
-    var videoCampaigns = [];
-    var videoCampaignIterator = AdsApp.videoCampaigns().get();
+    const videoCampaigns = [];
+    const videoCampaignIterator = AdsApp.videoCampaigns().get();
     Logger.log("Total campaigns found : " + videoCampaignIterator.totalNumEntities());
     while (videoCampaignIterator.hasNext()) {
-        var videoCampaign = videoCampaignIterator.next();
+        const videoCampaign = videoCampaignIterator.next();
         Logger.log(videoCampaign.getName());
         videoCampaigns.push(videoCampaign);
     }
@@ -1473,9 +1475,9 @@ function getAllVideoCampaigns() {
 
 // Retrieve a video campaign by its name
 function getVideoCampaignByName() {
-    var videoCampaignIterator = AdsApp.videoCampaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const videoCampaignIterator = AdsApp.videoCampaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (videoCampaignIterator.hasNext()) {
-        var videoCampaign = videoCampaignIterator.next();
+        const videoCampaign = videoCampaignIterator.next();
         Logger.log("Campaign Name: " + videoCampaign.getName());
         Logger.log("Enabled: " + videoCampaign.isEnabled());
         Logger.log("Bidding strategy: " + videoCampaign.getBiddingStrategyType());
@@ -1489,16 +1491,16 @@ function getVideoCampaignByName() {
 
 // Retrieve a video campaign's stats
 function getVideoCampaignStats() {
-    var videoCampaignIterator = AdsApp.videoCampaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const videoCampaignIterator = AdsApp.videoCampaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (videoCampaignIterator.hasNext()) {
-        var videoCampaign = videoCampaignIterator.next();
+        const videoCampaign = videoCampaignIterator.next();
         // Fetch stats for the last month. See the DateRangeLiteral section at
         // https://developers.google.com/adwords/api/docs/guides/awql#formal_grammar
         // for a list of all supported pre-defined date ranges.
         // Note: Reports can also be used to fetch stats. See
         // https://developers.google.com/google-ads/scripts/docs/features/reports
         // for more information.
-        var stats = videoCampaign.getStatsFor("LAST_MONTH");
+        const stats = videoCampaign.getStatsFor("LAST_MONTH");
         Logger.log(
             videoCampaign.getName() + ", " + stats.getImpressions() + " impressions, " + stats.getViews() + " views",
         );
@@ -1509,19 +1511,19 @@ function getVideoCampaignStats() {
 
 // Pause a video campaign
 function pauseVideoCampaign() {
-    var videoCampaignIterator = AdsApp.videoCampaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const videoCampaignIterator = AdsApp.videoCampaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (videoCampaignIterator.hasNext()) {
-        var videoCampaign = videoCampaignIterator.next();
+        const videoCampaign = videoCampaignIterator.next();
         videoCampaign.pause();
     }
 }
 
 // Add a video ad group
 function addVideoAdGroup() {
-    var videoCampaignIterator = AdsApp.videoCampaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
+    const videoCampaignIterator = AdsApp.videoCampaigns().withCondition('Name = "INSERT_CAMPAIGN_NAME_HERE"').get();
     if (videoCampaignIterator.hasNext()) {
-        var videoCampaign = videoCampaignIterator.next();
-        var videoAdGroupOperation = videoCampaign
+        const videoCampaign = videoCampaignIterator.next();
+        const videoAdGroupOperation = videoCampaign
             .newVideoAdGroupBuilder()
             .withName("INSERT_ADGROUP_NAME_HERE")
             // This can also be 'TRUE_VIEW_IN_DISPLAY'
@@ -1533,9 +1535,9 @@ function addVideoAdGroup() {
 
 // Update a video ad group
 function updateVideoAdGroup() {
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
+        const videoAdGroup = videoAdGroupIterator.next();
         videoAdGroup.bidding().setCpv(1.2);
         // update other properties as required here
     }
@@ -1545,11 +1547,11 @@ function updateVideoAdGroup() {
 function getAllVideoAdGroups() {
     // AdsApp.videoAdGroups() will return all ad groups that are not removed by
     // default.
-    var videoAdGroups = [];
-    var videoAdGroupIterator = AdsApp.videoAdGroups().get();
+    const videoAdGroups = [];
+    const videoAdGroupIterator = AdsApp.videoAdGroups().get();
     Logger.log("Total adGroups found : " + videoAdGroupIterator.totalNumEntities());
     while (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
+        const videoAdGroup = videoAdGroupIterator.next();
         Logger.log("AdGroup Name: " + videoAdGroup.getName() + ", AdGroup Type: " + videoAdGroup.getAdGroupType());
         videoAdGroups.push(videoAdGroup);
     }
@@ -1558,9 +1560,9 @@ function getAllVideoAdGroups() {
 
 // Retrieve a video ad group by name
 function getVideoAdGroupByName() {
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
+        const videoAdGroup = videoAdGroupIterator.next();
         Logger.log("AdGroup Name: " + videoAdGroup.getName());
         Logger.log("AdGroup Type: " + videoAdGroup.getAdGroupType());
         Logger.log("Enabled: " + videoAdGroup.isEnabled());
@@ -1571,13 +1573,13 @@ function getVideoAdGroupByName() {
 
 // Retrieve a video ad group's stats
 function getVideoAdGroupStats() {
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
+        const videoAdGroup = videoAdGroupIterator.next();
         // You can also request reports for pre-defined date ranges. See
         // https://developers.google.com/adwords/api/docs/guides/awql,
         // DateRangeLiteral section for possible values.
-        var stats = videoAdGroup.getStatsFor("LAST_MONTH");
+        const stats = videoAdGroup.getStatsFor("LAST_MONTH");
         Logger.log(videoAdGroup.getName() + ", " + stats.getImpressions() + ", " + stats.getViews());
         return stats;
     }
@@ -1586,9 +1588,9 @@ function getVideoAdGroupStats() {
 
 // Pause a video ad group
 function pauseVideoAdGroup() {
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
+        const videoAdGroup = videoAdGroupIterator.next();
         videoAdGroup.pause();
         Logger.log("AdGroup with name: " + videoAdGroup.getName() + " has paused status: " + videoAdGroup.isPaused());
     }
@@ -1598,8 +1600,8 @@ function pauseVideoAdGroup() {
 function getVideo() {
     // This will just get the first valid YouTube video in the account.
     // It demonstrates how to filter to see if a video is valid for video ads.
-    var videos = AdsApp.adMedia().media().withCondition("Type = VIDEO").get();
-    var video = null;
+    const videos = AdsApp.adMedia().media().withCondition("Type = VIDEO").get();
+    let video = null;
     while (videos.hasNext()) {
         video = videos.next();
         // You have to use a YouTube video for True View ads, so only return if
@@ -1615,7 +1617,7 @@ function getVideo() {
 function getVideoByYouTubeId() {
     // You can filter on the YouTubeVideoId if you already have that video in
     // your account to fetch the exact one you want right away.
-    var videos = AdsApp.adMedia().media().withCondition("Type = VIDEO AND YouTubeVideoId = ABCDEFGHIJK").get();
+    const videos = AdsApp.adMedia().media().withCondition("Type = VIDEO AND YouTubeVideoId = ABCDEFGHIJK").get();
     if (videos.hasNext()) {
         return videos.next();
     }
@@ -1631,11 +1633,11 @@ function addInStreamVideoAd() {
     // AdsApp.videoAdGroups()
     //     .withCondition('Name = "INSERT_ADGROUP_NAME_HERE"')
     //     .withCondition('CampaignName = "INSERT_CAMPAIGN_NAME_HERE"')
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
-    var video = getVideo(); // Defined above
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const video = getVideo(); // Defined above
     if (!video) return;
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
+        const videoAdGroup = videoAdGroupIterator.next();
         videoAdGroup
             .newVideoAd()
             .inStreamAdBuilder()
@@ -1649,11 +1651,11 @@ function addInStreamVideoAd() {
 
 // Add video discovery ad
 function addVideoDiscoveryAd() {
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
-    var video = getVideo(); // Defined above
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const video = getVideo(); // Defined above
     if (!video) return;
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
+        const videoAdGroup = videoAdGroupIterator.next();
         videoAdGroup
             .newVideoAd()
             .videoDiscoveryAdBuilder()
@@ -1670,12 +1672,12 @@ function addVideoDiscoveryAd() {
 
 // Pause video ads in video ad group
 function pauseVideoAdsInVideoAdGroup() {
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
-        var videoAdsIterator = videoAdGroup.videoAds().get();
+        const videoAdGroup = videoAdGroupIterator.next();
+        const videoAdsIterator = videoAdGroup.videoAds().get();
         while (videoAdsIterator.hasNext()) {
-            var videoAd = videoAdsIterator.next();
+            const videoAd = videoAdsIterator.next();
             videoAd.pause();
         }
     }
@@ -1683,13 +1685,13 @@ function pauseVideoAdsInVideoAdGroup() {
 
 // Retrieve video ads in video ad group
 function getInStreamAdsInVideoAdGroup() {
-    var videoAds = [];
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const videoAds = [];
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
-        var videoAdsIterator = videoAdGroup.videoAds().withCondition('Type="TRUE_VIEW_IN_STREAM_VIDEO_AD"').get();
+        const videoAdGroup = videoAdGroupIterator.next();
+        const videoAdsIterator = videoAdGroup.videoAds().withCondition('Type="TRUE_VIEW_IN_STREAM_VIDEO_AD"').get();
         while (videoAdsIterator.hasNext()) {
-            var videoAd = videoAdsIterator.next();
+            const videoAd = videoAdsIterator.next();
             videoAds.push(videoAd);
         }
     }
@@ -1698,17 +1700,17 @@ function getInStreamAdsInVideoAdGroup() {
 
 // Retrieve ad stats from a video ad group
 function getVideoAdGroupAdStats() {
-    var statsList = [];
-    var videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
+    const statsList = [];
+    const videoAdGroupIterator = AdsApp.videoAdGroups().withCondition('Name = "INSERT_ADGROUP_NAME_HERE"').get();
     if (videoAdGroupIterator.hasNext()) {
-        var videoAdGroup = videoAdGroupIterator.next();
-        var videoAdsIterator = videoAdGroup.videoAds().get();
+        const videoAdGroup = videoAdGroupIterator.next();
+        const videoAdsIterator = videoAdGroup.videoAds().get();
         while (videoAdsIterator.hasNext()) {
-            var videoAd = videoAdsIterator.next();
+            const videoAd = videoAdsIterator.next();
             // You can also request reports for pre-defined date ranges. See
             // https://developers.google.com/adwords/api/docs/guides/awql,
             // DateRangeLiteral section for possible values.
-            var stats = videoAd.getStatsFor("LAST_MONTH");
+            const stats = videoAd.getStatsFor("LAST_MONTH");
             Logger.log(videoAd.getVideoAdGroup().getName() + ", " + stats.getViews() + ", " + stats.getImpressions());
             statsList.push(stats);
         }
@@ -1718,14 +1720,14 @@ function getVideoAdGroupAdStats() {
 
 // Add in-market audience to a video ad group
 function addInMarketAudienceToVideoAdGroup() {
-    var ag = AdsApp.videoAdGroups().withCondition("CampaignStatus != REMOVED").get().next();
+    const ag = AdsApp.videoAdGroups().withCondition("CampaignStatus != REMOVED").get().next();
 
     Logger.log("AdGroup ID %s Campaign ID %s", ag.getId().toString(), ag.getVideoCampaign().getId().toString());
 
     // Get the audience ID from the list here:
     // https://developers.google.com/adwords/api/docs/appendix/codes-formats#in-market-categories
 
-    var audience = ag
+    const audience = ag
         .videoTargeting()
         .newAudienceBuilder()
         .withAudienceId(80428)
@@ -1737,9 +1739,9 @@ function addInMarketAudienceToVideoAdGroup() {
 
     Logger.log("Added Audience ID %s", audience.getId().toString());
 
-    var audiences = ag.videoTargeting().audiences().get();
+    const audiences = ag.videoTargeting().audiences().get();
     while (audiences.hasNext()) {
-        var aud = audiences.next();
+        const aud = audiences.next();
         Logger.log("Retrieved Audience ID %s", aud.getId().toString());
     }
 }
@@ -1749,8 +1751,8 @@ function bulkUploadFromGoogleDrive() {
     // See https://developers.google.com/google-ads/scripts/docs/features/bulk-upload
     // for the list of supported bulk upload templates.
     // You can upload a CSV file, or an EXCEL sheet.
-    var file = DriveApp.getFilesByName("BulkCampaignUpload.csv").next();
-    var upload = AdsApp.bulkUploads().newFileUpload(file);
+    const file = DriveApp.getFilesByName("BulkCampaignUpload.csv").next();
+    const upload = AdsApp.bulkUploads().newFileUpload(file);
     upload.forCampaignManagement();
 
     // Use upload.apply() to make changes without previewing.
@@ -1761,11 +1763,11 @@ function bulkUploadFromGoogleDrive() {
 function bulkUploadFromRemoteServer() {
     // See https://developers.google.com/google-ads/scripts/docs/features/bulk-upload
     // for the list of supported bulk upload templates.
-    var dataUrl = "INSERT_CSV_FILE_URL_HERE";
-    var mimeType = "";
-    var blob = UrlFetchApp.fetch(dataUrl).getBlob().getAs(mimeType);
+    const dataUrl = "INSERT_CSV_FILE_URL_HERE";
+    const mimeType = "";
+    const blob = UrlFetchApp.fetch(dataUrl).getBlob().getAs(mimeType);
 
-    var upload = AdsApp.bulkUploads().newFileUpload(blob);
+    const upload = AdsApp.bulkUploads().newFileUpload(blob);
     upload.forCampaignManagement();
 
     // Use upload.apply() to make changes without previewing.
@@ -1777,11 +1779,11 @@ function bulkUploadFromGoogleSpreadsheet() {
     // The format of this spreadsheet should match a valid bulk upload template.
     // See https://developers.google.com/google-ads/scripts/docs/features/bulk-upload
     // for the list of supported bulk upload templates.
-    var SPREADSHEET_URL = "INSERT_SPREADSHEET_URL_HERE";
-    var spreadSheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
-    var sheet = spreadSheet.getActiveSheet();
+    const SPREADSHEET_URL = "INSERT_SPREADSHEET_URL_HERE";
+    const spreadSheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
+    const sheet = spreadSheet.getActiveSheet();
 
-    var upload = AdsApp.bulkUploads().newFileUpload(sheet);
+    const upload = AdsApp.bulkUploads().newFileUpload(sheet);
     upload.forCampaignManagement();
 
     // Use upload.apply() to make changes without previewing.
@@ -1792,24 +1794,24 @@ function bulkUploadFromGoogleSpreadsheet() {
 function bulkUploadFromGoogleAdsReports() {
     // Run a report to fetch all campaigns that spent more than $1000
     // this month.
-    var query =
+    const query =
         "SELECT CampaignId,CampaignName,CampaignStatus,Amount " +
         "FROM CAMPAIGN_PERFORMANCE_REPORT " +
         "WHERE Amount > 1000000000 " +
         "DURING THIS_MONTH";
-    var report = AdsApp.report(query);
+    const report = AdsApp.report(query);
 
     // Create an upload with the report columns.
-    var upload = AdsApp.bulkUploads().newCsvUpload([
+    const upload = AdsApp.bulkUploads().newCsvUpload([
         report.getColumnHeader("CampaignId").getBulkUploadColumnName(),
         report.getColumnHeader("CampaignName").getBulkUploadColumnName(),
         report.getColumnHeader("CampaignStatus").getBulkUploadColumnName(),
     ]);
     upload.forCampaignManagement();
 
-    var rows = report.rows();
+    const rows = report.rows();
     while (rows.hasNext()) {
-        var row = rows.next();
+        const row = rows.next();
         // Pause the campaigns.
         row.CampaignStatus = "paused";
 
@@ -1825,9 +1827,9 @@ function bulkUploadFromGoogleAdsReports() {
 function createOrUpdateCampaigns() {
     // See https://developers.google.com/google-ads/scripts/docs/features/bulk-upload
     // for the list of supported bulk upload templates and their column names.
-    var columns = ["Campaign", "Budget", "Bid Strategy type", "Campaign type"];
+    const columns = ["Campaign", "Budget", "Bid Strategy type", "Campaign type"];
 
-    var upload = AdsApp.bulkUploads().newCsvUpload(columns, { moneyInMicros: false });
+    const upload = AdsApp.bulkUploads().newCsvUpload(columns, { moneyInMicros: false });
 
     // Google Ads identify existing campaigns using its name. To create a new
     // campaign, use a campaign name that doesn't exist in your account.
@@ -1843,7 +1845,7 @@ function createOrUpdateCampaigns() {
 
 // Retrieve column names in reports
 function getColumnsFromReport() {
-    var report = AdsApp.report(
+    const report = AdsApp.report(
         "SELECT CampaignName, CampaignStatus " + "FROM CAMPAIGN_PERFORMANCE_REPORT " + "DURING TODAY",
     );
     Logger.log(
@@ -1868,28 +1870,28 @@ function runReport() {
     // See https://developers.google.com/adwords/api/docs/guides/uireports
     //   for details on how to map an Google Ads UI feature to the corresponding
     //   reporting API feature.
-    var report = AdsApp.report(
+    const report = AdsApp.report(
         "SELECT CampaignName, Clicks, Impressions, Cost " +
             "FROM   CAMPAIGN_PERFORMANCE_REPORT " +
             "WHERE  Impressions < 10 " +
             "DURING LAST_30_DAYS",
     );
 
-    var rows = report.rows();
+    const rows = report.rows();
     while (rows.hasNext()) {
-        var row = rows.next();
-        var campaignName = row["CampaignName"];
-        var clicks = row["Clicks"];
-        var impressions = row["Impressions"];
-        var cost = row["Cost"];
+        const row = rows.next();
+        const campaignName = row["CampaignName"];
+        const clicks = row["Clicks"];
+        const impressions = row["Impressions"];
+        const cost = row["Cost"];
         Logger.log(campaignName + "," + clicks + "," + impressions + "," + cost);
     }
 }
 
 // Create a spreadsheet report
 function exportReportToSpreadsheet() {
-    var spreadsheet = SpreadsheetApp.create("INSERT_REPORT_NAME_HERE");
-    var report = AdsApp.report(
+    const spreadsheet = SpreadsheetApp.create("INSERT_REPORT_NAME_HERE");
+    const report = AdsApp.report(
         "SELECT CampaignName, Clicks, Impressions, Cost " +
             "FROM   CAMPAIGN_PERFORMANCE_REPORT " +
             "WHERE  Impressions < 10 " +
@@ -1900,34 +1902,34 @@ function exportReportToSpreadsheet() {
 
 // Filter entities by label
 function filterReportByLabelIds() {
-    var label = AdsApp.labels().withCondition("Name = 'High performance campaigns'").get().next();
-    var query =
+    const label = AdsApp.labels().withCondition("Name = 'High performance campaigns'").get().next();
+    const query =
         "SELECT CampaignName, Clicks, Impressions, Cost from " +
         "CAMPAIGN_PERFORMANCE_REPORT where Labels CONTAINS_ANY " +
         "[" +
         label.getId() +
         "] during THIS_MONTH";
 
-    var report = AdsApp.report(query);
+    const report = AdsApp.report(query);
 
-    var rows = report.rows();
+    const rows = report.rows();
     while (rows.hasNext()) {
-        var row = rows.next();
-        var campaignName = row["CampaignName"];
-        var clicks = row["Clicks"];
-        var impressions = row["Impressions"];
-        var cost = row["Cost"];
+        const row = rows.next();
+        const campaignName = row["CampaignName"];
+        const clicks = row["Clicks"];
+        const impressions = row["Impressions"];
+        const cost = row["Cost"];
         Logger.log(campaignName + "," + clicks + "," + impressions + "," + cost);
     }
 }
 
 // Get accounts from customer IDs
 function getAllAccounts() {
-    var accountIterator = AdsManagerApp.accounts().get();
+    const accountIterator = AdsManagerApp.accounts().get();
 
     while (accountIterator.hasNext()) {
-        var account = accountIterator.next();
-        var accountName = account.getName() ? account.getName() : "--";
+        const account = accountIterator.next();
+        const accountName = account.getName() ? account.getName() : "--";
         Logger.log(
             "%s,%s,%s,%s",
             account.getCustomerId(),
@@ -1941,11 +1943,11 @@ function getAllAccounts() {
 // Get accounts by label
 function getAccountsByLabel() {
     // Only CONTAINS and DOES_NOT_CONTAIN operators are supported.
-    var accountIterator = AdsManagerApp.accounts().withCondition("LabelNames CONTAINS 'High spend accounts'").get();
+    const accountIterator = AdsManagerApp.accounts().withCondition("LabelNames CONTAINS 'High spend accounts'").get();
 
     while (accountIterator.hasNext()) {
-        var account = accountIterator.next();
-        var accountName = account.getName() ? account.getName() : "--";
+        const account = accountIterator.next();
+        const accountName = account.getName() ? account.getName() : "--";
         Logger.log(
             "%s,%s,%s,%s",
             account.getCustomerId(),
@@ -1961,15 +1963,15 @@ function getAccountByStats() {
     // This is useful when you need to identify accounts that were performing
     // well (or poorly) in a given time frame.
 
-    var accountIterator = AdsManagerApp.accounts()
+    const accountIterator = AdsManagerApp.accounts()
         .withCondition("Clicks > 10")
         .forDateRange("LAST_MONTH")
         .orderBy("Clicks DESC")
         .get();
 
     while (accountIterator.hasNext()) {
-        var account = accountIterator.next();
-        var stats = account.getStatsFor("LAST_MONTH");
+        const account = accountIterator.next();
+        const stats = account.getStatsFor("LAST_MONTH");
         Logger.log(
             "%s,%s,%s",
             account.getCustomerId(),
@@ -1986,11 +1988,11 @@ function getAccountsUnderAChildManagerAccount() {
     // child manager account hierarchies from the top-level manager account
     // without having to duplicate your script in the child manager account.
 
-    var accountIterator = AdsManagerApp.accounts().withCondition("ManagerCustomerId = '1234567890'").get();
+    const accountIterator = AdsManagerApp.accounts().withCondition("ManagerCustomerId = '1234567890'").get();
 
     while (accountIterator.hasNext()) {
-        var account = accountIterator.next();
-        var accountName = account.getName() ? account.getName() : "--";
+        const account = accountIterator.next();
+        const accountName = account.getName() ? account.getName() : "--";
         Logger.log(
             "%s,%s,%s,%s",
             account.getCustomerId(),
@@ -2007,22 +2009,22 @@ function updateAccountsInSeries() {
     // perform in each of your client accounts.
 
     // Select the accounts to be processed.
-    var accountIterator = AdsManagerApp.accounts().withCondition("LabelNames CONTAINS 'Cars'").get();
+    const accountIterator = AdsManagerApp.accounts().withCondition("LabelNames CONTAINS 'Cars'").get();
 
     // Save the manager account, to switch back later.
-    var managerAccount = AdsApp.currentAccount();
+    const managerAccount = AdsApp.currentAccount();
 
     while (accountIterator.hasNext()) {
-        var account = accountIterator.next();
+        const account = accountIterator.next();
 
         // Switch to the account you want to process.
         AdsManagerApp.select(account);
 
         // Retrieve all campaigns to be paused.
-        var campaignIterator = AdsApp.campaigns().withCondition("LabelNames = 'Christmas promotion'").get();
+        const campaignIterator = AdsApp.campaigns().withCondition("LabelNames = 'Christmas promotion'").get();
 
         while (campaignIterator.hasNext()) {
-            var campaign = campaignIterator.next();
+            const campaign = campaignIterator.next();
             Logger.log("Pausing campaign %s in account %s", campaign.getName(), account.getCustomerId());
             campaign.pause();
         }
@@ -2035,7 +2037,7 @@ function updateAccountsInParallel() {
     // to do in each of your client accounts.
 
     // Select the accounts to be processed. You can process up to 50 accounts.
-    var accountSelector = AdsManagerApp.accounts()
+    const accountSelector = AdsManagerApp.accounts()
         .withCondition("LabelNames CONTAINS 'High spend accounts'")
         .withLimit(50);
 
@@ -2048,16 +2050,16 @@ function updateAccountsInParallel() {
  * method call in updateAccountsInParallel function for every account that
  * it processes.
  *
- * @return {Number} the number of campaigns paused by this method.
+ * @return The number of campaigns paused by this method.
  */
 function processAccount() {
     // executeInParallel will automatically switch context to the account being
     // processed, so all calls to AdsApp will apply to the selected account.
-    var account = AdsApp.currentAccount();
-    var campaignIterator = AdsApp.campaigns().withCondition("LabelNames = 'Christmas promotion'").get();
+    const account = AdsApp.currentAccount();
+    const campaignIterator = AdsApp.campaigns().withCondition("LabelNames = 'Christmas promotion'").get();
 
     while (campaignIterator.hasNext()) {
-        var campaign = campaignIterator.next();
+        const campaign = campaignIterator.next();
         Logger.log("Pausing campaign %s in account %s", campaign.getName(), account.getCustomerId());
         campaign.pause();
     }
@@ -2077,20 +2079,21 @@ function processAccount() {
  * one for each account that was processed by the executeInParallel method.
  */
 function allFinished(results: GoogleAdsScripts.AdsManagerApp.ExecutionResult[]) {
-    for (var i = 0; i < results.length; i++) {
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < results.length; i++) {
         // Get the ExecutionResult for an account.
-        var result = results[i];
+        const result = results[i];
 
         Logger.log("Customer ID: %s; status = %s.", result.getCustomerId(), result.getStatus());
 
         // Check the execution status. This can be one of ERROR, OK, or TIMEOUT.
-        if (result.getStatus() == "ERROR") {
+        if (result.getStatus() === "ERROR") {
             Logger.log("-- Failed with error: '%s'.", result.getError());
-        } else if (result.getStatus() == "OK") {
+        } else if (result.getStatus() === "OK") {
             // This is the value you returned from processAccount method. If you
             // used JSON.stringify(value) in processAccount, you can use
             // JSON.parse(text) to reconstruct the JavaScript object.
-            var retval = result.getReturnValue();
+            const retval = result.getReturnValue();
             Logger.log("--Processed %s campaigns.", retval);
         } else {
             // Handle timeouts here.

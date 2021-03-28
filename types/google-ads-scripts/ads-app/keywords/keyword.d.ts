@@ -1,13 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="../ad-groups/ad-group.d.ts" />
-/// <reference path="../ad-params/ad-param.d.ts" />
-/// <reference path="../campaigns/campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads keyword. */
@@ -158,7 +148,7 @@ declare namespace GoogleAdsScripts {
                 Base.SelectorWithIds,
                 Base.SelectorWithLimit {}
 
-        /**Provides access to keyword URLs. */
+        /** Provides access to keyword URLs. */
         interface KeywordUrls {
             /** Clears the final URL of the keyword. */
             clearFinalUrl(): void;

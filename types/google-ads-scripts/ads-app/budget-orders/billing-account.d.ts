@@ -1,8 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents an account to which invoices are sent in consolidated billing. */

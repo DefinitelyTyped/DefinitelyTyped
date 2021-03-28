@@ -1,12 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../ad-groups/shopping-ad-group.d.ts" />
-/// <reference path="../campaigns/shopping-campaign.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a product custom label. */
@@ -50,11 +41,11 @@ declare namespace GoogleAdsScripts {
         /** Builder for ProductCustomLabel objects. */
         interface ProductCustomLabelBuilder extends Base.Builder<ProductCustomLabelOperation> {
             /** Specifies the bid of the product custom label. */
-            withBid(bid: number): this	
+            withBid(bid: number): this;
             /** Specifies the type of custom label and return the product custom label builder. */
-            withType(type: string): this	
+            withType(type: string): this;
             /** Specifies the value of the product custom label. */
-            withValue(value: string): this	
+            withValue(value: string): this;
         }
 
         /** An operation representing creation of a new product custom label. */

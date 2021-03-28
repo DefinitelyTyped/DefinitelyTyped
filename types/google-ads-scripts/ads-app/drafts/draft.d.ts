@@ -1,10 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
@@ -81,13 +74,13 @@ declare namespace GoogleAdsScripts {
 
         /**
          * Fetches drafts. Supports filtering and sorting.
-         * 
+         *
          * Typical usage:
-         * 
+         *
          *      var draftSelector = AdsApp.drafts()
          *          .withCondition("BaseCampaignId = 123456789")
          *          .orderBy("DraftName ASC");
-         * 
+         *
          *      var draftIterator = draftSelector.get();
          *      while (draftIterator.hasNext()) {
          *        var draft = draftIterator.next();

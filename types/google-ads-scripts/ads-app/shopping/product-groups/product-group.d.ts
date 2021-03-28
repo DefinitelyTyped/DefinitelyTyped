@@ -1,20 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../ad-groups/shopping-ad-group.d.ts" />
-/// <reference path="../campaigns/shopping-campaign.d.ts" />
-/// <reference path="../product-brands/product-brand.d.ts" />
-/// <reference path="../product-categories/product-category.d.ts" />
-/// <reference path="../product-channel-exclusivities/product-channel-exclusivity.d.ts" />
-/// <reference path="../product-channels/product-channel.d.ts" />
-/// <reference path="../product-conditions/product-condition.d.ts" />
-/// <reference path="../product-custom-labels/product-custom-label.d.ts" />
-/// <reference path="../product-item-ids/product-item-id.d.ts" />
-/// <reference path="../product-types/product-type.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a generic product group. */

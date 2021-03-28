@@ -1,13 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../../base.d.ts" />
-/// <reference path="../../ad-groups/ad-group.d.ts" />
-/// <reference path="../../campaigns/campaign.d.ts" />
-/// <reference path="../display.d.ts" />
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /** Represents a Google Ads YouTube Video. */
@@ -83,7 +73,7 @@ declare namespace GoogleAdsScripts {
          *          .withCondition("Impressions > 100")
          *          .forDateRange("LAST_MONTH")
          *          .orderBy("Clicks DESC");
-         * 
+         *
          *      var youTubeVideoIterator = youTubeVideoSelector.get();
          *      while (youTubeVideoIterator.hasNext()) {
          *        var youTubeVideo = youTubeVideoIterator.next();

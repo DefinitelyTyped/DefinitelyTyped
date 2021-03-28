@@ -1,14 +1,4 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference path="../../base.d.ts" />
-/// <reference path="../ads/ad.d.ts" />
-/// <reference path="../ad-groups/ad-group.d.ts" />
-/// <reference path="../bidding-strategies/bidding-strategy.d.ts" />
-/// <reference path="../common/google-ads-date.d.ts" />
-
+// tslint:disable: unified-signatures
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         interface Campaign extends Base.StatsFor {
@@ -42,47 +32,55 @@ declare namespace GoogleAdsScripts {
              * This will look at the following properties of the given object:
              *
              * - `dayOfWeek`: **Required**. Must be one of `"MONDAY"`, `"TUESDAY"`, `"WEDNESDAY"`, `"THURSDAY"`, `"FRIDAY"`, `"SATURDAY"`, or `"SUNDAY"`.
-             * - `startHour` and `startMinute`: **Required**. The starting time of this segment of the ad schedule. `startHour` must be an integer between 0 and 23, and `startMinute` must be either 0, 15, 30, or 45. For instance, a `startHour` of 18 and a `startMinute` of 30 would result in an ad schedule starting at 6:30PM. Acceptable starting times range from 00:00 to 23:45.
-             * - `endHour` and `endMinute`: **Required**. The ending time of this segment of the ad schedule. `endHour` must be an integer between 0 and 24, and `endMinute` must be either 0, 15, 30, or 45. For instance, a `endHour` of 18 and a `endMinute` of 30 would result in an ad schedule ending at 6:30PM. Acceptable ending times range from 00:15 to 24:00.
+             * - `startHour` and `startMinute`: **Required**. The starting time of this segment of the ad schedule. `startHour` must be an integer between 0 and 23,
+             * and `startMinute` must be either 0, 15, 30, or 45. For instance, a `startHour` of 18 and a `startMinute` of 30 would result in an ad schedule starting at 6:30PM.
+             * Acceptable starting times range from 00:00 to 23:45.
+             * - `endHour` and `endMinute`: **Required**. The ending time of this segment of the ad schedule. `endHour` must be an integer between 0 and 24, and `endMinute` must
+             * be either 0, 15, 30, or 45. For instance, a `endHour` of 18 and a `endMinute` of 30 would result in an ad schedule ending at 6:30PM. Acceptable ending times rang
+             * from 00:15 to 24:00.
              * - `bidModifier`: **Optional**. The bid modifier for this segment of the ad schedule.
              *
-             * One thing to keep in mind is that, by default, campaigns have no ad schedule criteria and hence serve ads at all times. Adding the first ad schedule to a campaign will cause ads to be shown during that time only.
+             * One thing to keep in mind is that, by default, campaigns have no ad schedule criteria and hence serve ads at all times.
+             * Adding the first ad schedule to a campaign will cause ads to be shown during that time only.
              *
-             * There is a limit of 6 ad schedules for each day of the week — for instance, splitting up each day into 6 4-hour-long periods is supported, but splitting up each day into 24 1-hour-long periods is not.
+             * There is a limit of 6 ad schedules for each day of the week — for instance, splitting up each day into 6 4-hour-long periods is supported,
+             * but splitting up each day into 24 1-hour-long periods is not.
              */
-            addAdSchedule(adSchedule: AdScheduleObject): AdScheduleOperation;
-            /**
-             * Creates an ad schedule criterion. Once created, the campaign will start showing ads during the specified time.
-             *
-             * For instance, this will create an ad schedule covering Saturday mornings:
-             *
-             *      var campaign = AdsApp.campaigns().get().next();
-             *      campaign.addAdSchedule("SATURDAY", 7, 0, 11, 0);
-             *
-             * This will create the same schedule, but with a bid modifier of 1.1:
-             *
-             *      var campaign = AdsApp.campaigns().get().next();
-             *      campaign.addAdSchedule("SATURDAY", 7, 0, 11, 0, 1.1);
-             *
-             * One thing to keep in mind is that, by default, campaigns have no ad schedule criteria and hence serve ads at all times. Adding the first ad schedule to a campaign will cause ads to be shown during that time only.
-             *
-             * There is a limit of 6 ad schedules for each day of the week — for instance, splitting up each day into 6 4-hour-long periods is supported, but splitting up each day into 24 1-hour-long periods is not.
-             *
-             * @param dayOfWeek The day of week. Must be one of `"MONDAY"`, `"TUESDAY"`, `"WEDNESDAY"`, `"THURSDAY"`, `"FRIDAY"`, `"SATURDAY"`, or `"SUNDAY"`.
-             * @param startHour The start hour. Must be an integer between `0` and `23`. Acceptable starting times range from `00:00` to `23:45`.
-             * @param startMinute The start minute. Must be either `0`, `15`, `30`, or `45`. Acceptable starting times range from `00:00` to `23:45`.
-             * @param endHour The end hour. Must be an integer between `0` and `24`. Acceptable ending times range from `00:15` to `24:00`.
-             * @param endMinute The end minute. Must be either `0`, `15`, `30`, or `45`. Acceptable ending times range from `00:15` to `24:00`.
-             * @param bidModifier **Optional**. The bid modifier to use for the newly created ad schedule.
-             */
-            addAdSchedule(
-                dayOfWeek: string,
-                startHour: number,
-                startMinute: number,
-                endHour: number,
-                endMinute: number,
-                bidModifier?: number,
-            ): AdScheduleOperation;
+             addAdSchedule(adSchedule: AdScheduleObject): AdScheduleOperation;
+             /**
+              * Creates an ad schedule criterion. Once created, the campaign will start showing ads during the specified time.
+              *
+              * For instance, this will create an ad schedule covering Saturday mornings:
+              *
+              *      var campaign = AdsApp.campaigns().get().next();
+              *      campaign.addAdSchedule("SATURDAY", 7, 0, 11, 0);
+              *
+              * This will create the same schedule, but with a bid modifier of 1.1:
+              *
+              *      var campaign = AdsApp.campaigns().get().next();
+              *      campaign.addAdSchedule("SATURDAY", 7, 0, 11, 0, 1.1);
+              *
+              * One thing to keep in mind is that, by default, campaigns have no ad schedule criteria and hence serve ads at all times.
+              * Adding the first ad schedule to a campaign will cause ads to be shown during that time only.
+              *
+              * There is a limit of 6 ad schedules for each day of the week — for instance, splitting up each day into 6 4-hour-long periods is supported,
+              * but splitting up each day into 24 1-hour-long periods is not.
+              *
+              * @param dayOfWeek The day of week. Must be one of `"MONDAY"`, `"TUESDAY"`, `"WEDNESDAY"`, `"THURSDAY"`, `"FRIDAY"`, `"SATURDAY"`, or `"SUNDAY"`.
+              * @param startHour The start hour. Must be an integer between `0` and `23`. Acceptable starting times range from `00:00` to `23:45`.
+              * @param startMinute The start minute. Must be either `0`, `15`, `30`, or `45`. Acceptable starting times range from `00:00` to `23:45`.
+              * @param endHour The end hour. Must be an integer between `0` and `24`. Acceptable ending times range from `00:15` to `24:00`.
+              * @param endMinute The end minute. Must be either `0`, `15`, `30`, or `45`. Acceptable ending times range from `00:15` to `24:00`.
+              * @param bidModifier **Optional**. The bid modifier to use for the newly created ad schedule.
+              */
+             addAdSchedule(
+                 dayOfWeek: string,
+                 startHour: number,
+                 startMinute: number,
+                 endHour: number,
+                 endMinute: number,
+                 bidModifier?: number,
+             ): AdScheduleOperation;
             /** Adds a callout extension to this campaign. */
             addCallout(calloutExtension: Callout): CalloutOperation;
             /** Adds a excluded placement list to this campaign. */

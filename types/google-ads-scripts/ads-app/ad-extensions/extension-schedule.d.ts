@@ -1,16 +1,12 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
-         * Represents one period of a Google Ads ad extension schedule. For instance, if an ad extension were set up to only show on ads on weekdays from 09:00 to 18:00, it would have five ExtensionSchedules: one for Monday 09:00 - 18:00, one for Tuesday 09:00 - 18:00, and so on.
+         * Represents one period of a Google Ads ad extension schedule. For instance, if an ad extension were set up to only show on ads on weekdays
+         * from 09:00 to 18:00, it would have five ExtensionSchedules: one for Monday 09:00 - 18:00, one for Tuesday 09:00 - 18:00, and so on.
          */
         interface ExtensionSchedule {
             /** Returns the day of week this schedule applies to. */
-            getDayOfWeek():	ExtensionScheduleDayOfWeekType;
+            getDayOfWeek(): ExtensionScheduleDayOfWeekType;
             /** Returns the ending hour of this schedule. */
             getEndHour(): number;
             /** Returns the ending minute of this schedule. */
@@ -24,8 +20,9 @@ declare namespace GoogleAdsScripts {
         }
 
         /**
-         * Represents one period of a Google Ads ad extension schedule. For instance, if an ad extension were set up to only show on ads on weekdays from 09:00 to 18:00, it would have five ExtensionSchedules: one for Monday 09:00 - 18:00, one for Tuesday 09:00 - 18:00, and so on.
-         * 
+         * Represents one period of a Google Ads ad extension schedule. For instance, if an ad extension were set up to only show on ads on weekdays
+         * from 09:00 to 18:00, it would have five ExtensionSchedules: one for Monday 09:00 - 18:00, one for Tuesday 09:00 - 18:00, and so on.
+         *
          *      var monday = {
          *        dayOfWeek: "MONDAY",
          *        startHour: 9,
@@ -40,15 +37,15 @@ declare namespace GoogleAdsScripts {
          *        endHour: 18,
          *        endMinute: 0
          *      };
-         * 
+         *
          *      sitelink.setSchedules([monday, tuesday]);
          */
         interface ExtensionScheduleLiteral {
-            dayOfWeek: ExtensionScheduleDayOfWeekType,
-            startHour: number,
-            startMinute: number,
-            endHour: number,
-            endMinute: number,
+            dayOfWeek: ExtensionScheduleDayOfWeekType;
+            startHour: number;
+            startMinute: number;
+            endHour: number;
+            endMinute: number;
         }
 
         /** Enum of supported extension sechedule days of the week */

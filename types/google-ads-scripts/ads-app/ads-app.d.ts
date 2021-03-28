@@ -1,8 +1,3 @@
-// Type definitions for Google Ads Scripts
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         interface AdsApp {
@@ -30,18 +25,20 @@ declare namespace GoogleAdsScripts {
             bulkUploads(): BulkUploads;
             /** Returns the selector of all campaigns in the account. */
             campaigns(): CampaignSelector;
-            /** 
+            /**
              * Creates a new Label. You must always specify a name, but description and color are optional.
-             * 
+             *
              * Note that you cannot create more than 100,000 labels per account.
-             * 
-             * @param name The name of the new Label. Label names are case sensitive and must be unique. Max length is 100 characters. Any leading or trailing white spaces will be trimmed.
+             *
+             * @param name The name of the new Label. Label names are case sensitive and must be unique. Max length is 100 characters.
+             * Any leading or trailing white spaces will be trimmed.
              * @param description Optional. The description of the new label. If not specified, the description will be empty. Max length is 200 characters.
-             * @param backgroundColor Optional. The background color of the new label. The color must be specified in either RGB form (`#RRGGBB` or `#RGB`), or one of the [16 basic CSS color names](https://www.w3.org/TR/css-color-3/#html4). If not specified, the new label will assume an arbitrary background color.
+             * @param backgroundColor Optional. The background color of the new label. The color must be specified in either RGB form (`#RRGGBB` or `#RGB`),
+             * or one of the [16 basic CSS color names](https://www.w3.org/TR/css-color-3/#html4). If not specified, the new label will assume an arbitrary background color.
              */
             createLabel(name: string, description?: string, backgroundColor?: string): void;
             /** Returns miscellaneous information about the Google Ads account in which the script is currently running. */
-            currentAccount(): AdsApp.Account;
+            currentAccount(): Account;
             /** Provides access to display criteria that have been added to this account: Audience, DisplayKeyword, Placement, Topic. */
             display(): Display;
             /** Returns the selector of all drafts in the account. */
@@ -79,7 +76,7 @@ declare namespace GoogleAdsScripts {
             report(query: string, optArgs?: ReportOptionalArguments): Report;
             /**
              * Executes a Google Ads Search.
-             * 
+             *
              * @param query GAQL search query.
              * @param optArgs Optional arguments
              */
@@ -102,30 +99,34 @@ declare namespace GoogleAdsScripts {
             videoAds(): VideoAdSelector;
             /** Returns the selector of all video campaigns in the account. */
             videoCampaigns(): VideoCampaignSelector;
-            /** Provides access to video criteria that have been added to this account: VideoAge, VideoAudience, VideoGender, VideoKeyword, VideoMobileAppCategory VideoMobileApplication, VideoParentalStatus, VideoPlacement, VideoTopic, VideoYouTubeChannel, VideoYouTubeVideo. */
+            /**
+             * Provides access to video criteria that have been added to this account: VideoAge, VideoAudience,VideoGender, VideoKeyword,
+             * VideoMobileAppCategory VideoMobileApplication, VideoParentalStatus, VideoPlacement, VideoTopic, VideoYouTubeChannel, VideoYouTubeVideo.
+             */
             videoTargeting(): VideoTargeting;
         }
 
-        /**The following optional arguments are supported: */
+        /** The following optional arguments are supported: */
         interface ReportOptionalArguments {
             /**
              * Whether or not to include entities that had zero impressions in the report.
              * This field is not allowed when the query uses GAQL. See here for details on how GAQL handles zero impressions.
              * Defaults to `true` for AWQL queries.
              */
-            includeZeroImpressions?:	boolean;
+            includeZeroImpressions?: boolean;
             /**
              * Whether or not to represent money in micros ('1370000') or in currency ('1.37').
              * This field is not allowed when the query uses GAQL.
              * In that case, all money values are represented in micros.
-             * Defaults to `false` for AWQL queries. */
+             * Defaults to `false` for AWQL queries.
+             */
             returnMoneyInMicros?: boolean;
             /**
              * For AWQL queries, the AdWords API version to query.
              * Sunsetted versions are not allowed.
              * For GAQL queries, the Google Ads API version to query.
              * Sunsetted versions for GAQL queries are also not allowed.
-             * */
+             */
             apiVersion?: string;
             /**
              * Whether or not to convert Geo CriteriaIds (e.g. CountryCriteriaId and CityCriteriaId) into names (e.g. 'United States' and 'San Francisco').
