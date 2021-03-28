@@ -229,7 +229,7 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface VideoCampaignSelector
-            extends Base.Selector<VideoCampaign>,
+            extends Base.Selector<VideoCampaignIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,

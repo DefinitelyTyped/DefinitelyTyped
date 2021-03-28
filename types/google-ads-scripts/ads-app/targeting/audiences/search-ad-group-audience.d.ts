@@ -94,7 +94,7 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface SearchAdGroupAudienceSelector
-            extends Base.Selector<SearchAdGroupAudience>,
+            extends Base.Selector<SearchAdGroupAudienceIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,

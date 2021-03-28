@@ -83,7 +83,7 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface VideoYouTubeVideoSelector
-            extends Base.Selector<VideoYouTubeVideo>,
+            extends Base.Selector<VideoYouTubeVideoIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,

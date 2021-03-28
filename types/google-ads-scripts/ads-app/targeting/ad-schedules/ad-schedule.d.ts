@@ -96,7 +96,7 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface AdScheduleSelector
-            extends Base.Selector<AdSchedule>,
+            extends Base.Selector<AdScheduleIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,

@@ -55,7 +55,7 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface ExcludedVideoYouTubeVideoSelector
-            extends Base.Selector<ExcludedVideoYouTubeVideo>,
+            extends Base.Selector<ExcludedVideoYouTubeVideoIterator>,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithLimit {}
