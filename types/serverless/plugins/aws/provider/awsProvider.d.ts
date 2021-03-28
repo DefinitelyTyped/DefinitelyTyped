@@ -87,7 +87,7 @@ declare namespace Aws {
         managedPolicies?: string[];
         deploymentRole?: string;
     }
-    
+
     interface IamRoleStatements {
         statements?: IamRoleStatement[];
     }
