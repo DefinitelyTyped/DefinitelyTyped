@@ -44,7 +44,7 @@ declare namespace GoogleAdsScripts {
              *      // display name: "Avg. CPC"
              *      Logger.log(columnHeader2.getBulkUploadColumnName());
              */
-            getColumnHeader(): ReportColumnHeader;
+            getColumnHeader(awqlColumnName: string): ReportColumnHeader;
             /** Returns an iterator over the rows of the report. */
             rows(): ReportRowIterator;
         }

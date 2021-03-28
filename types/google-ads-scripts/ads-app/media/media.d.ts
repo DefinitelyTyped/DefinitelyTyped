@@ -70,7 +70,7 @@ declare namespace GoogleAdsScripts {
             /** Returns a MediaUrls instance for the media object if it is an image. */
             getUrls(): MediaUrls;
             /** Returns the YouTube video ID if this media is a YouTube video, or null otherwise. */
-            getYouTubeVideoId(): void;
+            getYouTubeVideoId(): string | null;
         }
 
         /**

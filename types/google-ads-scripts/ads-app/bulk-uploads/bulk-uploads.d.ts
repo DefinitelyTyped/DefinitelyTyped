@@ -28,13 +28,13 @@ declare namespace GoogleAdsScripts {
              *            moneyInMicros: false
              *          });
              */
-            newCsvUpload(columnNames: string[], optArgs: NewUploadOptionalArgs): CsvUpload;
+            newCsvUpload(columnNames: string[], optArgs?: NewUploadOptionalArgs): CsvUpload;
             /** Creates a FileUpload with the given Google Sheet. */
-            newFileUpload(sheet: GoogleAppsScript.Spreadsheet.Sheet, optArgs: NewUploadOptionalArgs): FileUpload; // TODO: Add GoogleAppScripts SpreadsheetApp.Sheet
+            newFileUpload(sheet: GoogleAppsScript.Spreadsheet.Sheet, optArgs?: NewUploadOptionalArgs): FileUpload;
             /** Creates a FileUpload with the content in the given Blob. */
-            newFileUpload(blob: GoogleAppsScript.Base.Blob, optArgs: NewUploadOptionalArgs): FileUpload;
+            newFileUpload(blob: GoogleAppsScript.Base.Blob, optArgs?: NewUploadOptionalArgs): FileUpload;
             /** Creates a FileUpload with the content in the given File in Drive. */
-            newFileUpload(file: GoogleAppsScript.Drive.File, optArgs: NewUploadOptionalArgs): FileUpload; // TODO: Add GoogleAppScripts DriveApp.File
+            newFileUpload(file: GoogleAppsScript.Drive.File, optArgs?: NewUploadOptionalArgs): FileUpload;
         }
 
         interface NewUploadOptionalArgs {
@@ -79,7 +79,7 @@ declare namespace GoogleAdsScripts {
              *          "Campaign ID":"2001684997",
              *          "Campaign state":"enabled"});
              */
-            append(row: Record<string, string>): this;
+            append(row: Record<string, string | number>): this;
             /**
              * Uploads the file and applies the changes.
              * 

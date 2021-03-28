@@ -22,7 +22,7 @@ declare namespace GoogleAdsScripts {
          *        upload.append(row.formatForUpload());
          *      }
          */
-        interface ReportRow {
+        interface ReportRow extends Record<string, any> {
             /**
              * Returns the report row as an associative array indexed by display column name.
              *
