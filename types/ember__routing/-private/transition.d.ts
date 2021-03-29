@@ -42,7 +42,7 @@ export default interface Transition<T = any> extends Partial<Promise<T>> {
     catch<TResult = never>(
         onRejected?: (reason: any) => TResult | PromiseLike<TResult>,
         label?: string,
-    ): Promise<TResult>;
+    ): Promise<TResult | T>;
     /**
      * Forwards to the internal `promise` property which you can use in situations where you want to pass around a thennable,
      * but not the Transition itself.

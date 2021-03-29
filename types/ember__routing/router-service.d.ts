@@ -1,3 +1,4 @@
+import Route from '@ember/routing/route';
 import RouteInfo from '@ember/routing/-private/route-info';
 import RouteInfoWithAttributes from '@ember/routing/-private/route-info-with-attributes';
 import Transition from '@ember/routing/-private/transition';
@@ -132,25 +133,25 @@ export default class RouterService extends Service {
     replaceWith(
         routeNameOrUrl: string,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
     replaceWith(
         routeNameOrUrl: string,
         models: RouteModel,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
     replaceWith(
         routeNameOrUrl: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
     replaceWith(
         routeNameOrUrl: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
         modelsC: RouteModel,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
     replaceWith(
         routeNameOrUrl: string,
         modelsA: RouteModel,
@@ -158,7 +159,7 @@ export default class RouterService extends Service {
         modelsC: RouteModel,
         modelsD: RouteModel,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
 
     // https://emberjs.com/api/ember/release/classes/RouterService/methods/isActive?anchor=transitionTo
     /**
@@ -201,25 +202,25 @@ export default class RouterService extends Service {
     transitionTo(
         routeNameOrUrl: string,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
     transitionTo(
         routeNameOrUrl: string,
         models: RouteModel,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
     transitionTo(
         routeNameOrUrl: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
     transitionTo(
         routeNameOrUrl: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
         modelsC: RouteModel,
         options?: { queryParams: object }
-    ): Transition;
+    ): Transition<Route>;
     transitionTo(
         routeNameOrUrl: string,
         modelsA: RouteModel,
@@ -227,8 +228,8 @@ export default class RouterService extends Service {
         modelsC: RouteModel,
         modelsD: RouteModel,
         options?: { queryParams: object }
-    ): Transition;
-    transitionTo(options: { queryParams: object }): Transition;
+    ): Transition<Route>;
+    transitionTo(options: { queryParams: object }): Transition<Route>;
 
     // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=urlFor
     /**
@@ -278,14 +279,14 @@ export default class RouterService extends Service {
      *
      * The `routeDidChange` event only fires once a transition has settled.
      * This includes aborts and error substates.
-     * Like the `routeWillChange` event it recieves a `Transition` as the sole argument.
+     * Like the `routeWillChange` event it receives a `Transition` as the sole argument.
      *
      * @param name     the name of the event
      * @param callback the callback to execute
      */
     on(
         name: 'routeDidChange' | 'routeWillChange',
-        callback: (transition: Transition) => void
+        callback: (transition: Transition<Route>) => void
     ): RouterService;
 
     /**

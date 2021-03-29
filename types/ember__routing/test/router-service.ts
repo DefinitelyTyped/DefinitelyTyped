@@ -14,29 +14,29 @@ router.transitionTo(
 
 const transition = router.transitionTo('someRoute');
 
-// $ExpectType Transition<any>
+// $ExpectType Transition<Route<any>>
 transition.abort();
 
-// $ExpectType Promise<never>
+// $ExpectType Promise<Route<any>>
 transition.catch();
 transition.catch(err => console.log(err), 'label');
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<Route<any>>
 transition.finally();
 transition.finally(() => console.log('finally!'));
 transition.finally(() => console.log('finally!'), 'label');
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<Route<any>>
 transition.followRedirects();
 
-// $ExpectType Transition<any>
+// $ExpectType Transition<Route<any>>
 transition.method();
 transition.method('replace');
 
-// $ExpectType Transition<any>
+// $ExpectType Transition<Route<any>>
 transition.retry();
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<Route<any>>
 transition.then();
 transition.then(
     result => console.log(result),
@@ -57,7 +57,7 @@ transition.from;
 // $ExpectError
 transition.from = 'from';
 
-// $ExpectType Promise<any>
+// $ExpectType Promise<Route<any>>
 transition.promise;
 // $ExpectError
 transition.promise = 'promise';

@@ -22,7 +22,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * logic that can only take place after the model has already
      * resolved.
      */
-    afterModel(resolvedModel: Model, transition: Transition): any;
+    afterModel(resolvedModel: Model, transition: Transition<Route>): any;
 
     /**
      * This hook is the first of the route entry validation hooks
@@ -44,7 +44,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * be useful, for instance, for retrieving async code from
      * the server that is required to enter a route.
      */
-    beforeModel(transition: Transition): any;
+    beforeModel(transition: Transition<Route>): any;
 
     /**
      * Returns the controller of the current route, or a parent (or any
@@ -66,7 +66,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * A hook you can implement to convert the URL into the model for
      * this route.
      */
-    model(params: {}, transition: Transition): Model | PromiseLike<Model>;
+    model(params: {}, transition: Transition<Route>): Model | PromiseLike<Model>;
 
     /**
      * Returns the model of a parent (or any ancestor) route
@@ -105,7 +105,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * both the resolved model and attempted entry into this route
      * are considered to be fully validated.
      */
-    redirect(model: Model, transition: Transition): void;
+    redirect(model: Model, transition: Transition<Route>): void;
 
     /**
      * Refresh the model on this route and any child routes, firing the
@@ -121,7 +121,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * that were provided a model object when the route was initially
      * entered.
      */
-    refresh(): Transition;
+    refresh(): Transition<Route>;
 
     /**
      * `render` is used to render a template into a region of another template
@@ -150,13 +150,13 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * Beside that, it is identical to `transitionTo` in all other respects. See
      * 'transitionTo' for additional information regarding multiple models.
      */
-    replaceWith(name: string, ...args: any[]): Transition;
+    replaceWith(name: string, ...args: any[]): Transition<Route>;
 
     /**
      * A hook you can use to reset controller values either when the model
      * changes or the route is exiting.
      */
-    resetController(controller: Controller, isExiting: boolean, transition: Transition): void;
+    resetController(controller: Controller, isExiting: boolean, transition: Transition<Route>): void;
 
     /**
      * Sends an action to the router, which will delegate it to the currently active
@@ -188,7 +188,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * when implementing your `setupController` function, make sure to call
      * `_super`
      */
-    setupController(controller: Controller, model: Model, transition: Transition): void;
+    setupController(controller: Controller, model: Model, transition: Transition<Route>): void;
 
     /**
      * Transition the application into another route. The route may
@@ -380,16 +380,16 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * @returns       the Transition object associated with this attempted
      *                transition
      */
-    transitionTo(name: string, options?: { queryParams: object }): Transition;
-    transitionTo(name: string, modelsA: RouteModel, options?: { queryParams: object }): Transition;
-    transitionTo(name: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Transition;
+    transitionTo(name: string, options?: { queryParams: object }): Transition<Route>;
+    transitionTo(name: string, modelsA: RouteModel, options?: { queryParams: object }): Transition<Route>;
+    transitionTo(name: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Transition<Route>;
     transitionTo(
         name: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
         modelsC: RouteModel,
         options?: { queryParams: object },
-    ): Transition;
+    ): Transition<Route>;
     transitionTo(
         name: string,
         modelsA: RouteModel,
@@ -397,8 +397,8 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
         modelsC: RouteModel,
         modelsD: RouteModel,
         options?: { queryParams: object },
-    ): Transition;
-    transitionTo(options: { queryParams: object }): Transition;
+    ): Transition<Route>;
+    transitionTo(options: { queryParams: object }): Transition<Route>;
 
     // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
     /**
@@ -411,7 +411,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      *                       transitioning to the route.
      * @returns              the Transition object associated with this attempted transition
      */
-    intermediateTransitionTo(name: string, ...object: any[]): Transition;
+    intermediateTransitionTo(name: string, ...object: any[]): Transition<Route>;
 
     // properties
     /**
@@ -483,21 +483,21 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
      * routes, allowing for per-route error handling logic, or shared error handling logic
      * defined on a parent route.
      */
-    error(error: any, transition: Transition): void;
+    error(error: any, transition: Transition<Route>): void;
 
     /**
      * The loading action is fired on the route when a route's model hook returns a
      * promise that is not already resolved. The current Transition object is the first
      * parameter and the route that triggered the loading event is the second parameter.
      */
-    loading(transition: Transition, route: Route): void;
+    loading(transition: Transition<Route>, route: Route): void;
 
     /**
      * The willTransition action is fired at the beginning of any attempted transition
      * with a Transition object as the sole argument. This action can be used for aborting,
      * redirecting, or decorating the transition from the currently active routes.
      */
-    willTransition(transition: Transition): void;
+    willTransition(transition: Transition<Route>): void;
 
     /**
      * Allows you to produce custom metadata for the route.

@@ -1,8 +1,9 @@
 import EmberObject from "@ember/object";
 import Evented from "@ember/object/evented";
+import Route from "@ember/routing/route";
 import RouterDSL from "@ember/routing/-private/router-dsl";
-import Transition from "@ember/routing/-private/transition";
 import RouterService from "@ember/routing/router-service";
+import Transition from "@ember/routing/-private/transition";
 
 /**
  * The `Ember.Router` class manages the application state and URLs. Refer to
@@ -39,9 +40,9 @@ export default class Router extends EmberObject.extend(Evented) {
      * Transition the application into another route. The route may
      * be either a single route or route path:
      */
-    transitionTo(name: string, options?: {}): Transition;
-    transitionTo(name: string, ...models: any[]): Transition;
-    transitionTo(name: string, options: {}): Transition;
+    transitionTo(name: string, options?: {}): Transition<Route>;
+    transitionTo(name: string, ...models: any[]): Transition<Route>;
+    transitionTo(name: string, options: {}): Transition<Route>;
 }
 
 declare module '@ember/service' {
