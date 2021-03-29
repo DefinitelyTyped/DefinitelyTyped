@@ -838,7 +838,7 @@ declare namespace yargs {
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type MiddlewareFunction<T = {}> = SyncMiddlewareFunction<T> | PromiseMiddlewareFunction<T>;
     type SyncMiddlewareFunction<T = {}> = (args: Arguments<T>) => undefined | void;
-    type PromiseMiddlewareFunction<T = {}> = (args: Arguments<T>) => Promise<undefined | void>;
+    type PromiseMiddlewareFunction<T = {}> = (args: Arguments<T>) => Promise<void>;
     type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
 }
