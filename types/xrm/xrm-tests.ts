@@ -315,6 +315,9 @@ Xrm.Utility.lookupObjects({
     disableMru: true
 });
 
+// Demonstrate Xrm.Utility.getPageContext parameters
+Xrm.Utility.getPageContext(); // $ExpectType PageContext
+
 // Demonstrate visibility for grid control
 const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
     const formContext = context.getFormContext();
