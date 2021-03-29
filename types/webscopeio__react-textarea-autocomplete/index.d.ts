@@ -104,7 +104,8 @@ export type TextareaProps<
     minChar?: number;
 
     /**
-     * Listener called every time the textarea's caret position is changed. The listener is called with one attribute - caret position denoted by an integer number.
+     * Listener called every time the textarea's caret position is changed.
+     * The listener is called with one attribute - caret position denoted by an integer number.
      */
     onCaretPositionChange?: (pos: number) => void;
 
