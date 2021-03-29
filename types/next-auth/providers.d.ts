@@ -16,6 +16,7 @@ export interface Provider<T extends string | undefined = undefined, U = T extend
     profile: (profile: Record<string, any>, tokens: any) => User & { id: string } | Promise<User & { id: string }>;
     clientId: string;
     clientSecret: string | Record<string, unknown>;
+    idToken?: boolean;
 }
 
 export interface AppProvider extends Pick<Provider, 'id' | 'name' | 'type'> {
@@ -38,18 +39,22 @@ export interface DefaultProviders {
     Email: Email;
     EVEOnline: EVEOnline;
     Facebook: Facebook;
+    FACEIT: FACEIT;
     Foursquare: Foursquare;
     FusionAuth: FusionAuth;
     GitHub: GitHub;
     GitLab: GitLab;
     Google: Google;
     IdentityServer4: IdentityServer4;
+    Instagram: Instagram;
+    Kakao: Kakao;
     LINE: LINE;
     LinkedIn: LinkedIn;
     MailRu: MailRu;
     Medium: Medium;
     Netlify: Netlify;
     Okta: Okta;
+    Osso: Osso;
     Reddit: Reddit;
     Salesforce: Salesforce;
     Slack: Slack;
@@ -59,6 +64,7 @@ export interface DefaultProviders {
     Twitter: Twitter;
     VK: VK;
     Yandex: Yandex;
+    Zoho: Zoho;
 }
 
 export type Providers = Array<Provider | ReturnType<DefaultProviders[keyof DefaultProviders]>>;
@@ -322,6 +328,11 @@ type Bungie = (options: ProviderCommonOptions) => Provider<'bungie'>;
 type EVEOnline = (options: ProviderCommonOptions) => Provider<'eveonline'>;
 
 /**
+ * FACEIT
+ */
+type FACEIT = (options: ProviderCommonOptions) => Provider<'faceit'>;
+
+/**
  * Foursquare
  */
 type Foursquare = (options: ProviderCommonOptions) => Provider<'foursquare'>;
@@ -335,6 +346,16 @@ interface ProviderFusionAuthOptions extends ProviderCommonOptions {
     tenantId?: string;
     domain?: string;
 }
+
+/**
+ * Instagram
+ */
+type Instagram = (options: ProviderCommonOptions) => Provider<'instagram'>;
+
+/**
+ * Kakao
+ */
+type Kakao = (options: ProviderCommonOptions) => Provider<'kakao'>;
 
 /**
  * LINE
@@ -357,6 +378,11 @@ type Medium = (options: ProviderCommonOptions) => Provider<'medium'>;
 type Netlify = (options: ProviderCommonOptions) => Provider<'netlify'>;
 
 /**
+ * Osso
+ */
+type Osso = (options: ProviderCommonOptions) => Provider<'osso'>;
+
+/**
  * Salesforce
  */
 type Salesforce = (options: ProviderCommonOptions) => Provider<'salesforce'>;
@@ -370,3 +396,8 @@ type Strava = (options: ProviderCommonOptions) => Provider<'strava'>;
  * VK
  */
 type VK = (options: ProviderCommonOptions) => Provider<'vk'>;
+
+/**
+ * Zoho
+ */
+type Zoho = (options: ProviderCommonOptions) => Provider<'zoho'>;
