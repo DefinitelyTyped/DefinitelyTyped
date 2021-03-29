@@ -5,7 +5,7 @@ const client = createClient("180984871685062656");
 client.updatePresence({
     state: "slithering",
     details: "🐍",
-    startTimestamp: Date.now(),
+    startTimestamp: new Date(),
     endTimestamp: Date.now() + 1337,
     largeImageKey: "snek_large",
     smallImageKey: "snek_small",

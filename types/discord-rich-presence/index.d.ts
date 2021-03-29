@@ -12,16 +12,16 @@ declare namespace createClient {
      * Go to the `Rich Presence > Visualizer` settings of your [Discord application](https://discord.com/developers/applications) to find out how this would be rendered.
      */
     interface PresenceInfo {
-        [key: string]: string | number | boolean;
+        [key: string]: string | number | Date | boolean;
 
         /** The user's current party status */
         state: string;
         /** What the player is currently doing */
         details: string;
         /** Epoch seconds for game start - setting this will show the time as "elapsed" */
-        startTimestamp: number;
+        startTimestamp: number | Date;
         /** Epoch seconds until game's end - setting this will show the time as "remaining" */
-        endTimestamp: number;
+        endTimestamp: number | Date;
         /** Key of the uploaded image / asset for the large profile artwork */
         largeImageKey: string;
         /** Key of the uploaded image / asset for the small profile artwork */
