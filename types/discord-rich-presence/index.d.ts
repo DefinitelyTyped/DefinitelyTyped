@@ -7,7 +7,7 @@
 
 import { EventEmitter } from "events";
 
-declare namespace DiscordRPC {
+declare namespace createClient {
     /**
      * Go to the `Rich Presence > Visualizer` settings of your [Discord application](https://discord.com/developers/applications) to find out how this would be rendered.
      */
@@ -53,6 +53,6 @@ declare namespace DiscordRPC {
  * Connects to your application
  * @param clientID Get the client ID from the `General Information` page of your [Discord application](https://discord.com/developers/applications)
  */
-declare function DiscordRPC(clientID: string): DiscordRPC.RP;
+declare function createClient(clientID: string): createClient.RP;
 
-export = DiscordRPC;
+export = createClient;

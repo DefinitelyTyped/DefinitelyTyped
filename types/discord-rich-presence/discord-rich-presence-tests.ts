@@ -1,6 +1,6 @@
-import * as DiscordRPC from "discord-rich-presence";
+import * as createClient from "discord-rich-presence";
 
-const client = DiscordRPC("180984871685062656");
+const client = createClient("180984871685062656");
 
 client.updatePresence({
     state: "slithering",
@@ -11,7 +11,7 @@ client.updatePresence({
     smallImageKey: "snek_small",
 });
 
-client.on("error", err => console.log(`Error: ${err}`));
+client.on("error", (err: string) => console.log(`Error: ${err}`));
 
 client.on("connected", () => {
     console.log("Connected.");
