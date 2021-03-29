@@ -260,6 +260,10 @@
             "libraryName": "bitwise",
             "asOfVersion": "2.0.0"
         },
+        "blip-sdk": {
+            "libraryName": "blip-sdk",
+            "asOfVersion": "8.0.0"
+        },
         "blob-util": {
             "libraryName": "blob-util",
             "asOfVersion": "2.0.0"
