@@ -399,7 +399,7 @@ async function testTabGroupInterface() {
 
         const [tabGroup] = tabGroups;
         tabGroup.collapsed; // $ExpectType boolean
-        tabGroup.color; // $ExpectType string
+        tabGroup.color; // $ExpectType ColorEnum
         tabGroup.id; // $ExpectType number
         tabGroup.title; // $ExpectType string | undefined
         tabGroup.windowId; // $ExpectType number
