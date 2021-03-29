@@ -12,11 +12,11 @@ export let copiedText: string;
 export let copiedTextStyle: any[];
 export let charWidthsCache: {
     [key: string]: { // example: montserrat
-        [key:string]: { // example: normal_normal
-            [key:string]: number; // example: A: 286
+        [key: string]: { // example: normal_normal
+            [key: string]: number; // example: A: 286
         }
     }
-}
+};
 
 /////////////////////////////////////////////////////////////
 // fabric Functions
