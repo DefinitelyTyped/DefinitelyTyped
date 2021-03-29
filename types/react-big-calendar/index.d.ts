@@ -293,6 +293,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     getNow?: () => Date;
     view?: View;
     events?: TEvent[];
+    backgroundEvents?: TEvent[];
     handleDragStart?: (event: TEvent) => void;
     onNavigate?: (newDate: Date, view: View, action: NavigateAction) => void;
     onView?: (view: View) => void;
@@ -399,6 +400,7 @@ export function move(View: ViewStatic | ViewKey, options: MoveOptions): Date;
 export interface TimeGridProps<TEvent extends object = Event, TResource extends object = object> {
     eventOffset: number;
     events?: TEvent[];
+    backgroundEvents?: TEvent[];
     resources?: TResource[];
     step?: number;
     timeslots?: number;
