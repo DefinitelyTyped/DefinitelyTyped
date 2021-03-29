@@ -397,7 +397,8 @@ declare namespace yargs {
          * @param callbacks Can be a function or a list of functions. Each callback gets passed a reference to argv.
          * @param [applyBeforeValidation] Set to `true` to apply middleware before validation. This will execute the middleware prior to validation checks, but after parsing.
          */
-        middleware(callbacks: MiddlewareFunction<T> | ReadonlyArray<MiddlewareFunction<T>>, applyBeforeValidation?: boolean): Argv<T>;
+        middleware(callbacks: MiddlewareFunction<T> | ReadonlyArray<MiddlewareFunction<T>>, applyBeforeValidation?: false): Argv<T>;
+        middleware(callbacks: SyncMiddlewareFunction<T> | ReadonlyArray<SyncMiddlewareFunction<T>>, applyBeforeValidation?: boolean): Argv<T>;
 
         /**
          * The number of arguments that should be consumed after a key. This can be a useful hint to prevent parsing ambiguity.
@@ -835,7 +836,9 @@ declare namespace yargs {
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
-    type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void;
+    type MiddlewareFunction<T = {}> = SyncMiddlewareFunction<T> | PromiseMiddlewareFunction<T>;
+    type SyncMiddlewareFunction<T = {}> = (args: Arguments<T>) => undefined | void;
+    type PromiseMiddlewareFunction<T = {}> = (args: Arguments<T>) => Promise<undefined | void>;
     type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
 }
