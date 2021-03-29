@@ -1,4 +1,4 @@
-// Type definitions for webpack 5.0
+// Type definitions for webpack 5.28
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -26,5 +26,6 @@
 // TypeScript Version: 3.7
 
 /// <reference types="node" />
+/* tslint:disable-next-line:no-self-import */
 import webpack = require('webpack');
 export = webpack;
