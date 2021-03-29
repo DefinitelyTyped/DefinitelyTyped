@@ -1,4 +1,4 @@
-import DiscordRPC from "./";
+import DiscordRPC from "discord-rich-presence";
 
 const client = DiscordRPC("180984871685062656");
 
