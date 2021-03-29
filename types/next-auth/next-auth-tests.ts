@@ -5,7 +5,7 @@
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
  */
-import Providers, { AppProvider, DefaultProviders } from 'next-auth/providers';
+import Providers, { AppProvider, DefaultProviders, Provider } from 'next-auth/providers';
 import Adapters, { Adapter, EmailAppProvider, Profile, Session, VerificationRequest } from 'next-auth/adapters';
 import * as client from 'next-auth/client';
 import * as JWTType from 'next-auth/jwt';
@@ -220,11 +220,44 @@ const allConfig = {
     },
 };
 
+const customProvider: Provider<'google'> = {
+    id: "google",
+    name: "Google",
+    type: "oauth",
+    version: "2.0",
+    scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+    params: { grant_type: "authorization_code" },
+    accessTokenUrl: "https://accounts.google.com/o/oauth2/token",
+    requestTokenUrl: "https://accounts.google.com/o/oauth2/auth",
+    authorizationUrl: "https://accounts.google.com/o/oauth2/auth?response_type=code",
+    profileUrl: "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
+    async profile(profile, tokens) {
+        return {
+            id: profile.id,
+            name: profile.name,
+            email: profile.email,
+            image: profile.picture
+        };
+    },
+    clientId: "",
+    clientSecret: ""
+};
+
+const customProviderConfig = {
+    site: 'https://foo.com',
+    providers: [
+        customProvider,
+    ],
+};
+
 // $ExpectType void | Promise<void>
 NextAuth(simpleConfig);
 
 // $ExpectType void | Promise<void>
 NextAuth(allConfig);
+
+// $ExpectType void | Promise<void>
+NextAuth(customProviderConfig);
 
 // $ExpectType void | Promise<void>
 NextAuth(req, res, simpleConfig);

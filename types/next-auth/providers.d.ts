@@ -13,7 +13,7 @@ export interface Provider<T extends string | undefined = undefined, U = T extend
     requestTokenUrl: string;
     authorizationUrl: string;
     profileUrl: string;
-    profile: (profile: Record<string, unknown>, tokens: unknown) => User & { id: string };
+    profile: (profile: Record<string, any>, tokens: any) => User & { id: string } | Promise<User & { id: string }>;
     clientId: string;
     clientSecret: string | Record<string, unknown>;
 }
@@ -61,7 +61,7 @@ export interface DefaultProviders {
     Yandex: Yandex;
 }
 
-export type Providers = Array<ReturnType<DefaultProviders[keyof DefaultProviders]>>;
+export type Providers = Array<Provider | ReturnType<DefaultProviders[keyof DefaultProviders]>>;
 
 declare const Providers: DefaultProviders;
 
