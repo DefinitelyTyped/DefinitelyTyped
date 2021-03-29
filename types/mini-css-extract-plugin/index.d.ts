@@ -9,7 +9,7 @@
 // TypeScript Version: 3.7
 
 /// <reference types="node" />
-import webpack = require('webpack');
+import { Configuration, Compiler } from 'webpack';
 
 /**
  * Lightweight CSS extraction webpack plugin.
@@ -30,7 +30,7 @@ declare class MiniCssExtractPlugin {
     /**
      * Apply the plugin
      */
-    apply(compiler: webpack.Compiler): void;
+    apply(compiler: Compiler): void;
 }
 
 declare namespace MiniCssExtractPlugin {
@@ -38,7 +38,7 @@ declare namespace MiniCssExtractPlugin {
         /**
          * Works like [`output.filename`](https://webpack.js.org/configuration/output/#outputfilename).
          */
-        filename?: Required<webpack.Configuration>['output']['filename'];
+        filename?: Required<Configuration>['output']['filename'];
         /**
          * Works like [`output.chunkFilename`](https://webpack.js.org/configuration/output/#outputchunkfilename).
          */
