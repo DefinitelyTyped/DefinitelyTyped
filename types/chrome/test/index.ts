@@ -389,6 +389,23 @@ async function testTabInterface() {
     tab.sessionId; // $ExpectType string | undefined
 }
 
+// tabGroups: https://developer.chrome.com/extensions/tabGroups#
+async function testTabGroupInterface() {
+    const options = { collapsed: false, title: 'Test' };
+
+    chrome.tabGroups.query(options, tabGroups => {
+        // $ExpectType TabGroup[]
+        tabGroups;
+
+        const [tabGroup] = tabGroups;
+        tabGroup.collapsed; // $ExpectType boolean
+        tabGroup.color; // $ExpectType string
+        tabGroup.id; // $ExpectType number
+        tabGroup.title; // $ExpectType string | undefined
+        tabGroup.windowId; // $ExpectType number
+    });
+  }
+
 // https://developer.chrome.com/extensions/runtime#method-openOptionsPage
 function testOptionsPage() {
     chrome.runtime.openOptionsPage();
