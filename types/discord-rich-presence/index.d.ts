@@ -7,48 +7,52 @@
 
 import { EventEmitter } from "events";
 
-/**
- * Go to the `Rich Presence > Visualizer` settings of your [Discord application](https://discord.com/developers/applications) to find out how this would be rendered.
- */
-export interface PresenceInfo {
-    [key: string]: string | number | boolean;
-
-    /** The user's current party status */
-    state: string;
-    /** What the player is currently doing */
-    details: string;
-    /** Epoch seconds for game start - setting this will show the time as "elapsed" */
-    startTimestamp: number;
-    /** Epoch seconds until game's end - setting this will show the time as "remaining" */
-    endTimestamp: number;
-    /** Key of the uploaded image / asset for the large profile artwork */
-    largeImageKey: string;
-    /** Key of the uploaded image / asset for the small profile artwork */
-    smallImageKey: string;
-
-    instance: boolean;
-}
-
-export interface RP {
-    on(event: "error", listener: (err: string) => void): this;
-    on(event: "connected", listener: () => void): this;
-    on(event: "join" | "spectate", listener: (secret: string) => void): this;
-    on(event: "joinRequest", listener: (user: string) => void): this;
-}
-
-export class RP extends EventEmitter {
+declare namespace DiscordRPC {
     /**
-     * Updates the presence
-     * @param presence Presence settings object. All properties are optional.
+     * Go to the `Rich Presence > Visualizer` settings of your [Discord application](https://discord.com/developers/applications) to find out how this would be rendered.
      */
-    updatePresence(presence: Partial<PresenceInfo>): void;
+    interface PresenceInfo {
+        [key: string]: string | number | boolean;
 
-    reply(user: string, response: "YES" | "NO" | "IGNORE"): void;
-    disconnect(): void;
+        /** The user's current party status */
+        state: string;
+        /** What the player is currently doing */
+        details: string;
+        /** Epoch seconds for game start - setting this will show the time as "elapsed" */
+        startTimestamp: number;
+        /** Epoch seconds until game's end - setting this will show the time as "remaining" */
+        endTimestamp: number;
+        /** Key of the uploaded image / asset for the large profile artwork */
+        largeImageKey: string;
+        /** Key of the uploaded image / asset for the small profile artwork */
+        smallImageKey: string;
+
+        instance: boolean;
+    }
+
+    interface RP {
+        on(event: "error", listener: (err: string) => void): this;
+        on(event: "connected", listener: () => void): this;
+        on(event: "join" | "spectate", listener: (secret: string) => void): this;
+        on(event: "joinRequest", listener: (user: string) => void): this;
+    }
+
+    class RP extends EventEmitter {
+        /**
+         * Updates the presence
+         * @param presence Presence settings object. All properties are optional.
+         */
+        updatePresence(presence: Partial<PresenceInfo>): void;
+
+        reply(user: string, response: "YES" | "NO" | "IGNORE"): void;
+        disconnect(): void;
+    }
 }
 
 /**
  * Connects to your application
  * @param clientID Get the client ID from the `General Information` page of your [Discord application](https://discord.com/developers/applications)
  */
-export default function createClient(clientID: string): RP;
+declare function DiscordRPC(clientID: string): DiscordRPC.RP;
+
+export = DiscordRPC;
