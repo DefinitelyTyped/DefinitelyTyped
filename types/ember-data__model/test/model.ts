@@ -2,6 +2,7 @@ import { computed } from '@ember/object';
 import Model, { attr, belongsTo, AsyncBelongsTo, hasMany, AsyncHasMany, SyncHasMany } from '@ember-data/model';
 import DS, { ChangedAttributes } from 'ember-data';
 import RSVP from 'rsvp';
+import { assertType } from './lib/assert';
 
 declare module 'ember-data/types/registries/model' {
     export default interface ModelRegistry {
@@ -43,6 +44,26 @@ class Human extends Model {
     @belongsTo('human', { async: false }) motherSync: Human;
     @hasMany('person') children: AsyncHasMany<Person>;
     @hasMany('person', { async: false }) childrenSync: SyncHasMany<Person>;
+
+    testOwnBelongsTo() {
+        assertType<DS.BelongsToReference<Human>>(
+            this.belongsTo('motherSync')
+        );
+
+        assertType<DS.BelongsToReference<Human>>(
+            this.belongsTo('mother')
+        );
+    }
+
+    testOwnHasMany() {
+        assertType<DS.HasManyReference<Person>>(
+            this.hasMany('childrenSync')
+        );
+
+        assertType<DS.HasManyReference<Person>>(
+            this.hasMany('children')
+        );
+    }
 }
 
 const user = User.create({ username: 'dwickern' });
@@ -78,3 +99,27 @@ reloaded = user.reload();
 reloaded = user.reload({});
 reloaded = user.reload({ adapterOptions: {} });
 reloaded = user.reload({ adapterOptions: { fastAsCanBe: 'yessirree' } });
+
+const human = Human.create();
+
+function testBelongsTo() {
+    human.belongsTo('mother'); // $ExpectType BelongsToReference<Human>
+
+    human.belongsTo('motherSync'); // $ExpectType BelongsToReference<Human>
+
+    // wrong relationship kind
+    human.belongsTo('children'); // $ExpectType never
+
+    human.belongsTo('undefined'); // $ExpectError
+}
+
+function testHasMany() {
+    human.hasMany('children'); // $ExpectType HasManyReference<Person>
+
+    human.hasMany('childrenSync'); // $ExpectType HasManyReference<Person>
+
+    // wrong relationship kind
+    human.hasMany('mother'); // $ExpectType never
+
+    human.hasMany('undefined'); // $ExpectError
+}
