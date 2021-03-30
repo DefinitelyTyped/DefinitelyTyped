@@ -1,4 +1,5 @@
-import righto, { ErrBack, Righto } from "righto";
+import { ErrBack, Righto } from "righto";
+import righto = require("righto");
 
 function noReturnCPS(callback: ErrBack<[], undefined>) {
     callback();

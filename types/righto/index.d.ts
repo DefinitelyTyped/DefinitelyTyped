@@ -1,45 +1,34 @@
+// Type definitions for righto 6.1
+// Project: https://github.com/KoryNunn/righto
+// Definitions by: Zac Murray <https://github.com/protango>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-/** A callback function that accepts a single error argument, with any number of return arguments */
-export type ErrBack<RT extends any[] = [], ET = any> = (err?: ET, ...results: {[P in keyof RT]?: RT[P]}) => void;
-/**  Usually an async function that accepts any number of parameters, then returns a result or error through an ErrBack method */
-export type CPSFunction<AT extends any[], RT extends any[], ET> = (...args: [...AT, ErrBack<RT, ET>]) => void;
+import CPSFunction = righto.CPSFunction;
+import Righto = righto.Righto;
 
 /** Represents a type as either the type itself, a righto of the type, or a promise of the type */
-export type Flexible<T, ET = any> = T|Promise<T>|Righto<[T | undefined, ...any[]], ET>;
+type Flexible<T, ET = any> = T|Promise<T>|Righto<[T | undefined, ...any[]], ET>;
 /** Accepts an array of types and returns a array of each type OR'd with eventual representations (Righto and promise) */
-export type ArgsAsFlexible<AT extends any[], ET> = {
+type ArgsAsFlexible<AT extends any[], ET> = {
     [T in keyof AT]: Flexible<AT[T], ET>
 };
 /** Transforms an object type to unwrap its Righto typed properties */
-export type ResolvedObject<T> = {
+type ResolvedObject<T> = {
     [P in keyof T]: T[P] extends Righto<infer X> ? X[0] : T[P]
 };
 /** Recursively transforms an object type to unwrap its Righto typed properties into "unknown" */
-export type ResolvedObjectRecursive<T> = {
+type ResolvedObjectRecursive<T> = {
     [P in keyof T]: T[P] extends Righto<infer X> ? X[0] :
                     T[P] extends object ? ResolvedObjectRecursive<T[P]> :
                     T[P]
 };
 /** Maps an array of types into their righto representations */
-export type RightoArrayFrom<T extends any[], ET> = {
+type RightoArrayFrom<T extends any[], ET> = {
     [P in keyof T]: Righto<[T[P]], ET>
 };
 /** A righto that does not resolve to any value, used for introducing delays in righto argument chains */
-export type RightoAfter = Righto<[]>;
-
-// Library for righto instance methods
-export interface Righto<RT extends any[], ET = any> extends CPSFunction<[], RT, ET> {
-    get(prop: string|number|Righto<[string, ...any[]]>|Righto<[number, ...any[]]>): Righto<[any], ET>;
-    get<T>(fn: (x: RT[0]) => T): Righto<[T], ET>;
-    /** You can force a righto task for run at any time without dealing with the results (or error) by calling it with no arguments */
-    (): Righto<RT, ET>;
-
-    /** When true, this righto will print a graph trace if it rejects, highlighting the offending task. */
-    _traceOnError: boolean;
-    /** Prints a stack trace for this righto to the console. Only works if righto._debug was set to true *before* instantiating this righto */
-    _trace(): void;
-}
+type RightoAfter = Righto<[]>;
 
 // Standard righto constructor
 declare function righto<AT extends any[], RT extends any[], ET = any>(fn: CPSFunction<AT, RT, ET>, ...args: ArgsAsFlexible<AT, ET>): Righto<RT, ET>;
@@ -52,6 +41,23 @@ declare function righto<AT extends any[], RT extends any[], ET = any>(fn: CPSFun
 
 // Library for function righto methods
 declare namespace righto {
+    /** A callback function that accepts a single error argument, with any number of return arguments */
+    type ErrBack<RT extends any[] = [], ET = any> = (err?: ET, ...results: {[P in keyof RT]?: RT[P]}) => void;
+    /**  Usually an async function that accepts any number of parameters, then returns a result or error through an ErrBack method */
+    type CPSFunction<AT extends any[], RT extends any[], ET> = (...args: [...AT, ErrBack<RT, ET>]) => void;
+    /** Represents a constructed righto object */
+    interface Righto<RT extends any[], ET = any> extends CPSFunction<[], RT, ET> {
+        get(prop: string|number|Righto<[string, ...any[]]>|Righto<[number, ...any[]]>): Righto<[any], ET>;
+        get<T>(fn: (x: RT[0]) => T): Righto<[T], ET>;
+        /** You can force a righto task for run at any time without dealing with the results (or error) by calling it with no arguments */
+        (): Righto<RT, ET>;
+
+        /** When true, this righto will print a graph trace if it rejects, highlighting the offending task. */
+        _traceOnError: boolean;
+        /** Prints a stack trace for this righto to the console. Only works if righto._debug was set to true *before* instantiating this righto */
+        _trace(): void;
+    }
+
     /**
      * Forks a righto into a callback suitable for the promise constructor
      * @param righto Righto to fork
@@ -412,4 +418,4 @@ declare namespace righto {
     function isResolvable(obj: any): boolean;
 }
 
-export default righto;
+export = righto;
