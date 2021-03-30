@@ -1,5 +1,3 @@
-// Minimum TypeScript Version: 4.0
-
 import righto, { ErrBack, Righto } from "righto";
 
 function noReturnCPS(callback: ErrBack<[], undefined>) {
@@ -163,6 +161,8 @@ function divideNumbers(a: number, b: number) {
     righto.from(new Promise<number>(r => r(5)));
     // $ExpectType Righto<[string], undefined>
     righto.from("test");
+    // $ExpectType Righto<[{ a: number; b: { a: number; }; }], undefined>
+    righto.from({a: 5, b: {a: 5}});
 //#endregion
 
 //#region Test righto.value
@@ -256,5 +256,58 @@ function divideNumbers(a: number, b: number) {
     resolvedObjRecursive.obj.obj.rNum;
 //#endregion
 
-// #### Test Righto.from ####
-const rFromPromise5 = righto.from(new Promise<number>(r => r(5)));
+//#region Test righto.mate
+    // $ExpectType Righto<[number, number], Error>
+    const rMate = righto.mate<[number, number], Error>(rDivideNumbers1, rDivideNumbers2);
+
+    rMate((error, stuff, otherStuff) => {
+        // $ExpectType Error | undefined
+        error;
+        // $ExpectType number | undefined
+        stuff;
+        // $ExpectType number | undefined
+        otherStuff;
+    });
+//#endregion
+
+//#region Test righto.fail
+    const testFail = rDivideNumbers1.get((value) => {
+        if (!value) {
+            return righto.fail('was falsey');
+        }
+
+        return value;
+    });
+//#endregion
+
+//#region Test righto.proxy
+    const rightoProxy = righto.proxy;
+    // $ExpectType any
+    const foo = rightoProxy((done: ErrBack<[object], null>) => {
+            done(null, {
+                    foo: {
+                        bar: {
+                            baz: 'hello'
+                        }
+                    }
+                });
+        });
+//#endregion
+
+//#region Test righto is functions
+    // $ExpectType boolean
+    righto.isRighto(rDivideNumbers1);
+    // $ExpectType boolean
+    righto.isThenable(rDivideNumbers1);
+    // $ExpectType boolean
+    righto.isResolvable(rDivideNumbers1);
+//#endregion
+
+//#region Test righto debug features
+    righto._debug = true;
+    rDivideNumbers1();
+    rDivideNumbers1._trace();
+
+    rDivideNumbers1._traceOnError = true;
+    righto._autotraceOnError = true;
+//#endregion

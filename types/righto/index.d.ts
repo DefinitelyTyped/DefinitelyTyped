@@ -34,6 +34,11 @@ export interface Righto<RT extends any[], ET = any> extends CPSFunction<[], RT, 
     get<T>(fn: (x: RT[0]) => T): Righto<[T], ET>;
     /** You can force a righto task for run at any time without dealing with the results (or error) by calling it with no arguments */
     (): Righto<RT, ET>;
+
+    /** When true, this righto will print a graph trace if it rejects, highlighting the offending task. */
+    _traceOnError: boolean;
+    /** Prints a stack trace for this righto to the console. Only works if righto._debug was set to true *before* instantiating this righto */
+    _trace(): void;
 }
 
 // Standard righto constructor
@@ -368,8 +373,42 @@ declare namespace righto {
      */
     function fail<ET>(err: ET): Righto<[], ET>;
 
+    /**
+     * If you are using righto in an environment that supports proxies, you can use the proxy API
+     * @example
+     * var righto = require('righto').proxy;
+     *
+     * var foo = righto(function(done){
+     *         setTimeout(function(){
+     *             done(null, {foo: 'bar'});
+     *         });
+     *     });
+     *
+     * foo.bar(function(error, bar){
+     *     bar === 'bar'
+     * });
+     */
+    function proxy<AT extends any[]>(fn: CPSFunction<AT, any[], any>, ...args: AT): any;
+
+    /**
+     * Enables or disables debug logging. When true, stack traces can be retrieved from each righto object using [righto instance].trace();
+     * @example
+     * righto._debug = true;
+     * var someRighto = righto.from(a);
+     * someRighto.trace();
+     */
+    let _debug: boolean;
+
+    /**
+     * You can globally tell righto to print a graph trace, highlighting the offending task, when a graph rejects.
+     */
+    let _autotraceOnError: boolean;
+
+    /** Determines whether an object is a righto */
     function isRighto(obj: any): boolean;
+    /** Determines whether an object supports the promise-like `x.then(y => ...)` resolution syntax */
     function isThenable(obj: any): boolean;
+    /** Determines whether an object is a righto or thenable */
     function isResolvable(obj: any): boolean;
 }
 
