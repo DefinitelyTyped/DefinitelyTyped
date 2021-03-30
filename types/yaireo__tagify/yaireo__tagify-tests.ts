@@ -895,6 +895,7 @@ tagify.removeAllTags();
 tagify.removeAllTags({});
 tagify.removeAllTags({withoutChangeEvent: false});
 tagify.removeAllTags({withoutChangeEvent: true});
+tagify.getCleanValue();
 tagify.update();
 tagify.update({});
 tagify.update({withoutChangeEvent: true});

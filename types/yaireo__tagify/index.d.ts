@@ -1150,6 +1150,12 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     removeAllTags(opts?: Tagify.RemoveAllTagsOptions): void;
 
     /**
+     * Get `value` (array of tag data) without properties that are only used internally.
+     * @return A list of tag data without `__isValid`, `__removed`, `__originalData`, and `__originalHTML` properties.
+     */
+    getCleanValue(): T[];
+
+    /**
      * Update the value of the original (hidden) INPUT or TEXTAREA field so that
      * it reflects the currently selected tags.
      * @param opts Optional settings that affect how the update is performed.
