@@ -306,11 +306,11 @@ const settings: TagifyConstructorSettings = {
                 }
             });
         },
-        suggestionClick: e => {
+        suggestionClick: (e, data) => {
             if (e.target instanceof HTMLElement) {
                 const isAction = e.target.classList.contains('removeBtn');
-                const suggestionElm = e.target.closest('.tagify__dropdown__item');
-                const value = suggestionElm ? suggestionElm.getAttribute('value') : "";
+                const suggestionElm = data.suggestionElm;
+                const value = data.tagData.value;
                 return new Promise((resolve, reject) => {
                     if (isAction) {
                         tagify.dropdown.refilter.call(tagify);

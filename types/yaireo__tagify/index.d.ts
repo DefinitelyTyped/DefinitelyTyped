@@ -389,6 +389,24 @@ declare namespace Tagify {
     }
 
     /**
+     * Data passed with suggestionClick hook {@link Hooks.suggestionClick}.
+     */
+    interface SuggestionClickData<T extends BaseTagData = TagData> {
+        /**
+         * Tagify instance.
+         */
+        tagify: Tagify<T>;
+        /**
+         * Data of selected suggestion item.
+         */
+        tagData: T;
+        /**
+         * Element of selected suggestion item.
+         */
+        suggestionElm: HTMLElement;
+    }
+
+    /**
      * Promise-based hooks for async program flow scenarios. Allows to "hook"
      * (intervene) at certain points of the program, which were selected as a
      * suitable place to pause the program flow and wait for further
@@ -412,7 +430,7 @@ declare namespace Tagify {
         (tags: T[]) => Promise<void>;
 
         /**
-         * Hook invoked when the user clicks on a suggestion in the dropdown
+         * Hook invoked when the user clicks on (or selects via Enter key) a suggestion in the dropdown
          * menu. Can be used to perform custom actions, such as removing a
          * suggestion from the dropdown menu via a custom remove button. The
          * suggestion is accepted and a new tag is added only when the promise
@@ -421,12 +439,13 @@ declare namespace Tagify {
          */
         suggestionClick?:
         /**
-         * @param event Click event that occurred on a suggestion item.
+         * @param event Click or keyboard event that occurred on a suggestion item.
+         * @param data Data and element of selected suggestion item.
          * @return Promise that controls whether the suggestion is accepted.
          * When the promise resolves, the suggestion is accepted if the promise
          * was fulfilled, and declined when the promise was rejected.
          */
-        (event: MouseEvent) => Promise<void>;
+        (event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>;
     }
 
     /**
