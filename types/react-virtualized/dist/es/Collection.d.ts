@@ -6,7 +6,6 @@ import {
     ScrollPosition,
     SectionRenderedParams,
     SizeInfo,
-    SizeAndPositionInfo,
 } from '../../index';
 
 export type CollectionCellSizeAndPosition = {

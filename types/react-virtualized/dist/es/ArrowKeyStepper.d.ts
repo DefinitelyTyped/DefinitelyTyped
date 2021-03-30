@@ -1,5 +1,4 @@
-import { PureComponent, Validator, Requireable } from 'react';
-import * as PropTypes from 'prop-types';
+import { PureComponent } from 'react';
 import { RenderedSection } from './Grid';
 
 export type OnSectionRenderedParams = RenderedSection;

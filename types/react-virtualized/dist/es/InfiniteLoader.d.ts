@@ -1,4 +1,4 @@
-import { PureComponent, Validator, Requireable } from 'react';
+import { PureComponent, Validator } from 'react';
 import { Index, IndexRange } from '../../index';
 
 export type InfiniteLoaderChildProps = {
