@@ -1,4 +1,4 @@
-import { KnuddelsEvent } from './index';
+import { KnuddelsEvent } from 'knuddels-webapp-frontend-api';
 
 const json = {
     someString: "someValue",
