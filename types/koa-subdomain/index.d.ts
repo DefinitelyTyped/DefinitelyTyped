@@ -8,7 +8,7 @@ import { IMiddleware } from "koa-router";
 
 declare namespace Subdomain {}
 
-interface IMatchResult {
+interface MatchResult {
     middleware: IMiddleware;
     wildcardSubdomains: string[];
 }
@@ -17,7 +17,7 @@ declare class Subdomain {
     constructor();
     use(domain: string, router: IMiddleware): Subdomain;
     routes(): Middleware;
-    match(subdomains: string[]): IMatchResult | null;
+    match(subdomains: string[]): MatchResult | null;
 }
 
 export = Subdomain;
