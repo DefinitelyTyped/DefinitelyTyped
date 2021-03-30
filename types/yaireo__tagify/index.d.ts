@@ -1328,7 +1328,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 
     /**
      * Creates a new tag DOM element with the given data.
-     * @param Data to use for creating the tag.
+     * @param tagData Data to use for creating the tag.
      * @returns A new tag element from the supplied tag data.
      */
     createTagElem(tagData: T): HTMLElement;
@@ -1346,7 +1346,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 
     /**
      * Places the caret after a given node.
-     * @param Node after which to place the caret.
+     * @param node Node after which to place the caret.
      */
     placeCaretAfterNode(node: HTMLElement): void;
 
