@@ -364,6 +364,11 @@ declare namespace jest {
             fn: (arg: any) => any,
             timeout?: number
         ) => void;
+        <T>(strings: TemplateStringsArray, ...placeholders: any[]): (
+            name: string,
+            fn: (arg: T) => any,
+            timeout?: number
+        ) => void;
     }
 
     /**
