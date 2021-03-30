@@ -65,6 +65,7 @@ common.startStateNotifications((state) => log(`BLE state ${state}`));
 common.startStateNotifications((state) => log(`BLE state ${state}`), (err: string) => log(`things when wrong ${err}`));
 
 ble.isEnabled(()=> log(`bluetooth is enabled`), err =>log(`bluetooth is not enabled: ${err}`));
+ble.isLocationEnabled(()=> log(`isLocationEnabled is enabled`), err =>log(`isLocationEnabled is not enabled: ${err}`));
 
 //here we try to enable bluetooth
 ble.enable(() => log(`yes it worked, or it was already enabled `), err => log(`nope it didn't work, the user pressed cancel, or we are in iOS: ${err}`));

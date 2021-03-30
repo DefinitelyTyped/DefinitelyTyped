@@ -101,6 +101,10 @@ declare namespace BLECentralPlugin {
         /* Reports if bluetooth is enabled. */
         isEnabled(success: () => any , failure: (error: string) => any): void;
 
+        /* Reports if location services are enabled.
+           [iOS] isLocationEnabled is not supported on iOS. */
+        isLocationEnabled(success: () => any , failure: (error: string) => any): void;
+
         /* Calls the success callback when the peripheral is connected and the failure callback when not connected. */
         isConnected(device_id: string, success: () => any, failure?: (error: string) => any): void;
 
