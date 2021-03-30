@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-import CPSFunction = righto.CPSFunction;
-import Righto = righto.Righto;
+import { CPSFunction, Righto, RightoAfter } from '.';
 
 /** Represents a type as either the type itself, a righto of the type, or a promise of the type */
 type Flexible<T, ET = any> = T|Promise<T>|Righto<[T | undefined, ...any[]], ET>;
@@ -27,10 +26,24 @@ type ResolvedObjectRecursive<T> = {
 type RightoArrayFrom<T extends any[], ET> = {
     [P in keyof T]: Righto<[T[P]], ET>
 };
-/** A righto that does not resolve to any value, used for introducing delays in righto argument chains */
-type RightoAfter = Righto<[]>;
 
-// Standard righto constructor
+/**
+ * Constructor for a righto object. Accepts a CPS function to represent the async task, followed by the arguments to the CPS function excluding the callback.
+ * @example
+ * function divideNumbersAsync(a: number, b: number, callback: (error?: Error, result?: number) => void) {
+ *     setTimeout(() => {
+ *         if (b === 0) callback(new Error("Cannot divide by zero"));
+ *         else callback(undefined, a / b);
+ *     }, 1000);
+ * }
+ *
+ * let rResult = righto(divideNumbersAsync, 2, 1); // A righto object that will eventually resolve to 2
+ * rResult((err, result) => console.log(result)); // Will print '2' to the console
+ *
+ * // You can also pass eventuals as arguments to the CPS function and they will automatically be resolved
+ * let rResult2 = righto(divideNumbersAsync, 5, rResult); // A righto object that will eventually resolve to 2.5
+ * rResult2((err, result) => console.log(result)); // Will print '2.5' to the console
+ */
 declare function righto<AT extends any[], RT extends any[], ET = any>(fn: CPSFunction<AT, RT, ET>, ...args: ArgsAsFlexible<AT, ET>): Righto<RT, ET>;
 // Righto constructor to allow for a single righto.after to appear before the function arguments
 declare function righto<AT extends any[], RT extends any[], ET = any>(fn: CPSFunction<AT, RT, ET>, after: RightoAfter, ...args: ArgsAsFlexible<AT, ET>): Righto<RT, ET>;
@@ -45,6 +58,8 @@ declare namespace righto {
     type ErrBack<RT extends any[] = [], ET = any> = (err?: ET, ...results: {[P in keyof RT]?: RT[P]}) => void;
     /**  Usually an async function that accepts any number of parameters, then returns a result or error through an ErrBack method */
     type CPSFunction<AT extends any[], RT extends any[], ET> = (...args: [...AT, ErrBack<RT, ET>]) => void;
+    /** A righto that does not resolve to any value, used for introducing delays in righto argument chains */
+    type RightoAfter = Righto<[]>;
     /** Represents a constructed righto object */
     interface Righto<RT extends any[], ET = any> extends CPSFunction<[], RT, ET> {
         get(prop: string|number|Righto<[string, ...any[]]>|Righto<[number, ...any[]]>): Righto<[any], ET>;
