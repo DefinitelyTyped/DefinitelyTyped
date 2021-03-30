@@ -76399,7 +76399,7 @@ declare namespace OneNote {
      */
     class Application extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the collection of notebooks that are open in the OneNote application instance. In OneNote on the web, only one notebook at a time is open in the application instance. Read-only.
@@ -76408,70 +76408,60 @@ declare namespace OneNote {
          */
         readonly notebooks: OneNote.NotebookCollection;
         /**
-         *
          * Gets the active notebook if one exists. If no notebook is active, throws ItemNotFound.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActiveNotebook(): OneNote.Notebook;
         /**
-         *
          * Gets the active notebook if one exists. If no notebook is active, returns null.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActiveNotebookOrNull(): OneNote.Notebook;
         /**
-         *
          * Gets the active outline if one exists, If no outline is active, throws ItemNotFound.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActiveOutline(): OneNote.Outline;
         /**
-         *
          * Gets the active outline if one exists, otherwise returns null.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActiveOutlineOrNull(): OneNote.Outline;
         /**
-         *
          * Gets the active page if one exists. If no page is active, throws ItemNotFound.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActivePage(): OneNote.Page;
         /**
-         *
          * Gets the active page if one exists. If no page is active, returns null.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActivePageOrNull(): OneNote.Page;
         /**
-         *
          * Gets the active Paragraph if one exists, If no Paragraph is active, throws ItemNotFound.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActiveParagraph(): OneNote.Paragraph;
         /**
-         *
          * Gets the active Paragraph if one exists, otherwise returns null.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActiveParagraphOrNull(): OneNote.Paragraph;
         /**
-         *
          * Gets the active section if one exists. If no section is active, throws ItemNotFound.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getActiveSection(): OneNote.Section;
         /**
-         *
          * Gets the active section if one exists. If no section is active, returns null.
          *
          * [Api set: OneNoteApi 1.1]
@@ -76481,7 +76471,6 @@ declare namespace OneNote {
         insertHtmlAtCurrentPosition(html: string): void;
         isViewingDeletedNotes(): OfficeExtension.ClientResult<boolean>;
         /**
-         *
          * Opens the specified page in the application instance.
          *
          * [Api set: OneNoteApi 1.1]
@@ -76490,8 +76479,8 @@ declare namespace OneNote {
          */
         navigateToPage(page: OneNote.Page): void;
         /**
-         *
          * Gets the specified page, and opens it in the application instance.
+                    Navigation may still not be carried out when no fails. Caller should validate the returned page if so desired.
          *
          * [Api set: OneNoteApi 1.1]
          *
@@ -76499,23 +76488,23 @@ declare namespace OneNote {
          */
         navigateToPageWithClientUrl(url: string): OneNote.Page;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.Application` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.Application` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Application` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.ApplicationLoadOptions): OneNote.Application;
-        load(option?: string | string[]): OneNote.Application;
-        load(option?: {
+        load(options?: OneNote.Interfaces.ApplicationLoadOptions): OneNote.Application;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.Application;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.Application;
@@ -76533,7 +76522,7 @@ declare namespace OneNote {
      */
     class InkAnalysis extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the parent page object. Read-only.
@@ -76563,32 +76552,32 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.InkAnalysis): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkAnalysis` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysis` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysis` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkAnalysisLoadOptions): OneNote.InkAnalysis;
-        load(option?: string | string[]): OneNote.InkAnalysis;
-        load(option?: {
+        load(options?: OneNote.Interfaces.InkAnalysisLoadOptions): OneNote.InkAnalysis;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkAnalysis;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.InkAnalysis;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkAnalysis;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkAnalysis;
         /**
@@ -76605,7 +76594,7 @@ declare namespace OneNote {
      */
     class InkAnalysisParagraph extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Reference to the parent InkAnalysisPage. Read-only.
@@ -76642,32 +76631,32 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.InkAnalysisParagraph): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkAnalysisParagraph` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisParagraph` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisParagraph` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkAnalysisParagraphLoadOptions): OneNote.InkAnalysisParagraph;
-        load(option?: string | string[]): OneNote.InkAnalysisParagraph;
-        load(option?: {
+        load(options?: OneNote.Interfaces.InkAnalysisParagraphLoadOptions): OneNote.InkAnalysisParagraph;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkAnalysisParagraph;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.InkAnalysisParagraph;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkAnalysisParagraph;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkAnalysisParagraph;
         /**
@@ -76684,7 +76673,7 @@ declare namespace OneNote {
      */
     class InkAnalysisParagraphCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkAnalysisParagraph[];
         /**
@@ -76695,7 +76684,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a InkAnalysisParagraph object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -76704,7 +76692,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.InkAnalysisParagraph;
         /**
-         *
          * Gets a InkAnalysisParagraph on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -76713,29 +76700,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.InkAnalysisParagraph;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkAnalysisParagraphCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisParagraphCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisParagraphCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkAnalysisParagraphCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisParagraphCollection;
-        load(option?: string | string[]): OneNote.InkAnalysisParagraphCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.InkAnalysisParagraphCollection;
+        load(options?: OneNote.Interfaces.InkAnalysisParagraphCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisParagraphCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkAnalysisParagraphCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.InkAnalysisParagraphCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkAnalysisParagraphCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkAnalysisParagraphCollection;
         /**
@@ -76752,7 +76739,7 @@ declare namespace OneNote {
      */
     class InkAnalysisLine extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Reference to the parent InkAnalysisParagraph. Read-only.
@@ -76789,32 +76776,32 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.InkAnalysisLine): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkAnalysisLine` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisLine` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisLine` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkAnalysisLineLoadOptions): OneNote.InkAnalysisLine;
-        load(option?: string | string[]): OneNote.InkAnalysisLine;
-        load(option?: {
+        load(options?: OneNote.Interfaces.InkAnalysisLineLoadOptions): OneNote.InkAnalysisLine;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkAnalysisLine;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.InkAnalysisLine;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkAnalysisLine;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkAnalysisLine;
         /**
@@ -76831,7 +76818,7 @@ declare namespace OneNote {
      */
     class InkAnalysisLineCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkAnalysisLine[];
         /**
@@ -76842,7 +76829,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a InkAnalysisLine object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -76851,7 +76837,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.InkAnalysisLine;
         /**
-         *
          * Gets a InkAnalysisLine on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -76860,29 +76845,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.InkAnalysisLine;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkAnalysisLineCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisLineCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisLineCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkAnalysisLineCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisLineCollection;
-        load(option?: string | string[]): OneNote.InkAnalysisLineCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.InkAnalysisLineCollection;
+        load(options?: OneNote.Interfaces.InkAnalysisLineCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisLineCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkAnalysisLineCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.InkAnalysisLineCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkAnalysisLineCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkAnalysisLineCollection;
         /**
@@ -76899,7 +76884,7 @@ declare namespace OneNote {
      */
     class InkAnalysisWord extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Reference to the parent InkAnalysisLine. Read-only.
@@ -76950,32 +76935,32 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.InkAnalysisWord): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkAnalysisWord` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisWord` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisWord` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkAnalysisWordLoadOptions): OneNote.InkAnalysisWord;
-        load(option?: string | string[]): OneNote.InkAnalysisWord;
-        load(option?: {
+        load(options?: OneNote.Interfaces.InkAnalysisWordLoadOptions): OneNote.InkAnalysisWord;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkAnalysisWord;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.InkAnalysisWord;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkAnalysisWord;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkAnalysisWord;
         /**
@@ -76992,7 +76977,7 @@ declare namespace OneNote {
      */
     class InkAnalysisWordCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkAnalysisWord[];
         /**
@@ -77003,7 +76988,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a InkAnalysisWord object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77012,7 +76996,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.InkAnalysisWord;
         /**
-         *
          * Gets a InkAnalysisWord on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77021,29 +77004,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.InkAnalysisWord;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkAnalysisWordCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisWordCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisWordCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkAnalysisWordCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisWordCollection;
-        load(option?: string | string[]): OneNote.InkAnalysisWordCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.InkAnalysisWordCollection;
+        load(options?: OneNote.Interfaces.InkAnalysisWordCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisWordCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkAnalysisWordCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.InkAnalysisWordCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkAnalysisWordCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkAnalysisWordCollection;
         /**
@@ -77060,7 +77043,7 @@ declare namespace OneNote {
      */
     class FloatingInk extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the strokes of the FloatingInk object. Read-only.
@@ -77083,32 +77066,32 @@ declare namespace OneNote {
          */
         readonly id: string;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.FloatingInk` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.FloatingInk` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.FloatingInk` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.FloatingInkLoadOptions): OneNote.FloatingInk;
-        load(option?: string | string[]): OneNote.FloatingInk;
-        load(option?: {
+        load(options?: OneNote.Interfaces.FloatingInkLoadOptions): OneNote.FloatingInk;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.FloatingInk;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.FloatingInk;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.FloatingInk;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.FloatingInk;
         /**
@@ -77125,7 +77108,7 @@ declare namespace OneNote {
      */
     class InkStroke extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the ID of the InkStroke object. Read-only.
@@ -77141,32 +77124,32 @@ declare namespace OneNote {
          */
         readonly id: string;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkStroke` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkStroke` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkStroke` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkStrokeLoadOptions): OneNote.InkStroke;
-        load(option?: string | string[]): OneNote.InkStroke;
-        load(option?: {
+        load(options?: OneNote.Interfaces.InkStrokeLoadOptions): OneNote.InkStroke;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkStroke;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.InkStroke;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkStroke;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkStroke;
         /**
@@ -77183,7 +77166,7 @@ declare namespace OneNote {
      */
     class InkStrokeCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkStroke[];
         /**
@@ -77194,7 +77177,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a InkStroke object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77203,7 +77185,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.InkStroke;
         /**
-         *
          * Gets a InkStroke on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77212,29 +77193,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.InkStroke;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkStrokeCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkStrokeCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkStrokeCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkStrokeCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkStrokeCollection;
-        load(option?: string | string[]): OneNote.InkStrokeCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.InkStrokeCollection;
+        load(options?: OneNote.Interfaces.InkStrokeCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkStrokeCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkStrokeCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.InkStrokeCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkStrokeCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkStrokeCollection;
         /**
@@ -77251,7 +77232,7 @@ declare namespace OneNote {
      */
     class InkWord extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * The parent paragraph containing the ink word. Read-only.
@@ -77281,32 +77262,32 @@ declare namespace OneNote {
          */
         readonly wordAlternates: string[];
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkWord` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkWord` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkWord` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkWordLoadOptions): OneNote.InkWord;
-        load(option?: string | string[]): OneNote.InkWord;
-        load(option?: {
+        load(options?: OneNote.Interfaces.InkWordLoadOptions): OneNote.InkWord;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkWord;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.InkWord;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkWord;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkWord;
         /**
@@ -77323,7 +77304,7 @@ declare namespace OneNote {
      */
     class InkWordCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkWord[];
         /**
@@ -77334,7 +77315,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a InkWord object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77343,7 +77323,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.InkWord;
         /**
-         *
          * Gets a InkWord on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77352,29 +77331,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.InkWord;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.InkWordCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.InkWordCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkWordCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.InkWordCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkWordCollection;
-        load(option?: string | string[]): OneNote.InkWordCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.InkWordCollection;
+        load(options?: OneNote.Interfaces.InkWordCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkWordCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.InkWordCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.InkWordCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.InkWordCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.InkWordCollection;
         /**
@@ -77391,7 +77370,7 @@ declare namespace OneNote {
      */
     class Notebook extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * The section groups in the notebook. Read only
@@ -77442,7 +77421,6 @@ declare namespace OneNote {
          */
         readonly name: string;
         /**
-         *
          * Adds a new section to the end of the notebook.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77451,7 +77429,6 @@ declare namespace OneNote {
          */
         addSection(name: string): OneNote.Section;
         /**
-         *
          * Adds a new section group to the end of the notebook.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77460,39 +77437,38 @@ declare namespace OneNote {
          */
         addSectionGroup(name: string): OneNote.SectionGroup;
         /**
-         *
          * Gets the REST API ID.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getRestApiId(): OfficeExtension.ClientResult<string>;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.Notebook` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.Notebook` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Notebook` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.NotebookLoadOptions): OneNote.Notebook;
-        load(option?: string | string[]): OneNote.Notebook;
-        load(option?: {
+        load(options?: OneNote.Interfaces.NotebookLoadOptions): OneNote.Notebook;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.Notebook;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.Notebook;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.Notebook;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.Notebook;
         /**
@@ -77509,7 +77485,7 @@ declare namespace OneNote {
      */
     class NotebookCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.Notebook[];
         /**
@@ -77520,7 +77496,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets the collection of notebooks with the specified name that are open in the application instance.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77529,7 +77504,6 @@ declare namespace OneNote {
          */
         getByName(name: string): OneNote.NotebookCollection;
         /**
-         *
          * Gets a notebook by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77538,7 +77512,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.Notebook;
         /**
-         *
          * Gets a notebook on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77547,29 +77520,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.Notebook;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.NotebookCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.NotebookCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.NotebookCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.NotebookCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.NotebookCollection;
-        load(option?: string | string[]): OneNote.NotebookCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.NotebookCollection;
+        load(options?: OneNote.Interfaces.NotebookCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.NotebookCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.NotebookCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.NotebookCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.NotebookCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.NotebookCollection;
         /**
@@ -77586,7 +77559,7 @@ declare namespace OneNote {
      */
     class SectionGroup extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the notebook that contains the section group. Read-only.
@@ -77644,7 +77617,6 @@ declare namespace OneNote {
          */
         readonly name: string;
         /**
-         *
          * Adds a new section to the end of the section group.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77653,7 +77625,6 @@ declare namespace OneNote {
          */
         addSection(title: string): OneNote.Section;
         /**
-         *
          * Adds a new section group to the end of this sectionGroup.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77662,39 +77633,38 @@ declare namespace OneNote {
          */
         addSectionGroup(name: string): OneNote.SectionGroup;
         /**
-         *
          * Gets the REST API ID.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getRestApiId(): OfficeExtension.ClientResult<string>;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.SectionGroup` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.SectionGroup` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.SectionGroup` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.SectionGroupLoadOptions): OneNote.SectionGroup;
-        load(option?: string | string[]): OneNote.SectionGroup;
-        load(option?: {
+        load(options?: OneNote.Interfaces.SectionGroupLoadOptions): OneNote.SectionGroup;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.SectionGroup;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.SectionGroup;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.SectionGroup;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.SectionGroup;
         /**
@@ -77711,7 +77681,7 @@ declare namespace OneNote {
      */
     class SectionGroupCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.SectionGroup[];
         /**
@@ -77722,7 +77692,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets the collection of section groups with the specified name.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77731,7 +77700,6 @@ declare namespace OneNote {
          */
         getByName(name: string): OneNote.SectionGroupCollection;
         /**
-         *
          * Gets a section group by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77740,7 +77708,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.SectionGroup;
         /**
-         *
          * Gets a section group on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77749,29 +77716,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.SectionGroup;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.SectionGroupCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.SectionGroupCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.SectionGroupCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.SectionGroupCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.SectionGroupCollection;
-        load(option?: string | string[]): OneNote.SectionGroupCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.SectionGroupCollection;
+        load(options?: OneNote.Interfaces.SectionGroupCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.SectionGroupCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.SectionGroupCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.SectionGroupCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.SectionGroupCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.SectionGroupCollection;
         /**
@@ -77788,7 +77755,7 @@ declare namespace OneNote {
      */
     class Section extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the notebook that contains the section. Read-only.
@@ -77860,7 +77827,6 @@ declare namespace OneNote {
          */
         readonly webUrl: string;
         /**
-         *
          * Adds a new page to the end of the section.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77869,7 +77835,6 @@ declare namespace OneNote {
          */
         addPage(title: string): OneNote.Page;
         /**
-         *
          * Copies this section to specified notebook.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77878,7 +77843,6 @@ declare namespace OneNote {
          */
         copyToNotebook(destinationNotebook: OneNote.Notebook): OneNote.Section;
         /**
-         *
          * Copies this section to specified section group.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77887,14 +77851,12 @@ declare namespace OneNote {
          */
         copyToSectionGroup(destinationSectionGroup: OneNote.SectionGroup): OneNote.Section;
         /**
-         *
          * Gets the REST API ID.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getRestApiId(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Inserts a new section before or after the current section.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77904,7 +77866,6 @@ declare namespace OneNote {
          */
         insertSectionAsSibling(location: OneNote.InsertLocation, title: string): OneNote.Section;
         /**
-         *
          * Inserts a new section before or after the current section.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77914,32 +77875,32 @@ declare namespace OneNote {
          */
         insertSectionAsSibling(location: "Before" | "After", title: string): OneNote.Section;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.Section` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.Section` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Section` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.SectionLoadOptions): OneNote.Section;
-        load(option?: string | string[]): OneNote.Section;
-        load(option?: {
+        load(options?: OneNote.Interfaces.SectionLoadOptions): OneNote.Section;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.Section;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.Section;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.Section;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.Section;
         /**
@@ -77956,7 +77917,7 @@ declare namespace OneNote {
      */
     class SectionCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.Section[];
         /**
@@ -77967,7 +77928,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets the collection of sections with the specified name.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77976,7 +77936,6 @@ declare namespace OneNote {
          */
         getByName(name: string): OneNote.SectionCollection;
         /**
-         *
          * Gets a section by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77985,7 +77944,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.Section;
         /**
-         *
          * Gets a section on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -77994,29 +77952,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.Section;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.SectionCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.SectionCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.SectionCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.SectionCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.SectionCollection;
-        load(option?: string | string[]): OneNote.SectionCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.SectionCollection;
+        load(options?: OneNote.Interfaces.SectionCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.SectionCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.SectionCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.SectionCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.SectionCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.SectionCollection;
         /**
@@ -78033,7 +77991,7 @@ declare namespace OneNote {
      */
     class Page extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * The collection of PageContent objects on the page. Read only
@@ -78112,7 +78070,6 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.Page): void;
         /**
-         *
          * Adds an Outline to the page at the specified position.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78123,14 +78080,12 @@ declare namespace OneNote {
          */
         addOutline(left: number, top: number, html: string): OneNote.Outline;
         /**
-         *
          * Return a json string with node id and content in html format.
          *
          * [Api set: OneNoteApi 1.1]
          */
         analyzePage(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Inserts a new page with translated content.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78139,7 +78094,6 @@ declare namespace OneNote {
          */
         applyTranslation(translatedContent: string): void;
         /**
-         *
          * Copies this page to specified section.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78148,28 +78102,24 @@ declare namespace OneNote {
          */
         copyToSection(destinationSection: OneNote.Section): OneNote.Page;
         /**
-         *
          * Copies this page to specified section and sets ClassNotebookPageSource.
          *
          * [Api set: OneNoteApi 1.1]
          */
         copyToSectionAndSetClassNotebookPageSource(destinationSection: OneNote.Section): OneNote.Page;
         /**
-         *
          * Gets the REST API ID.
          *
          * [Api set: OneNoteApi 1.1]
          */
         getRestApiId(): OfficeExtension.ClientResult<string>;
         /**
-         *
          * Does the page has content title.
          *
          * [Api set: OneNoteApi 1.1]
          */
         hasTitleContent(): OfficeExtension.ClientResult<boolean>;
         /**
-         *
          * Inserts a new page before or after the current page.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78179,7 +78129,6 @@ declare namespace OneNote {
          */
         insertPageAsSibling(location: OneNote.InsertLocation, title: string): OneNote.Page;
         /**
-         *
          * Inserts a new page before or after the current page.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78189,32 +78138,32 @@ declare namespace OneNote {
          */
         insertPageAsSibling(location: "Before" | "After", title: string): OneNote.Page;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.Page` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.Page` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Page` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.PageLoadOptions): OneNote.Page;
-        load(option?: string | string[]): OneNote.Page;
-        load(option?: {
+        load(options?: OneNote.Interfaces.PageLoadOptions): OneNote.Page;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.Page;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.Page;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.Page;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.Page;
         /**
@@ -78231,7 +78180,7 @@ declare namespace OneNote {
      */
     class PageCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.Page[];
         /**
@@ -78242,7 +78191,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets the collection of pages with the specified title.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78251,7 +78199,6 @@ declare namespace OneNote {
          */
         getByTitle(title: string): OneNote.PageCollection;
         /**
-         *
          * Gets a page by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78260,7 +78207,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.Page;
         /**
-         *
          * Gets a page on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78269,29 +78215,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.Page;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.PageCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.PageCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.PageCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.PageCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.PageCollection;
-        load(option?: string | string[]): OneNote.PageCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.PageCollection;
+        load(options?: OneNote.Interfaces.PageCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.PageCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.PageCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.PageCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.PageCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.PageCollection;
         /**
@@ -78308,7 +78254,7 @@ declare namespace OneNote {
      */
     class PageContent extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the Image in the PageContent object. Throws an exception if PageContentType is not Image.
@@ -78380,39 +78326,38 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.PageContent): void;
         /**
-         *
          * Deletes the PageContent object.
          *
          * [Api set: OneNoteApi 1.1]
          */
         delete(): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.PageContent` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.PageContent` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.PageContent` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.PageContentLoadOptions): OneNote.PageContent;
-        load(option?: string | string[]): OneNote.PageContent;
-        load(option?: {
+        load(options?: OneNote.Interfaces.PageContentLoadOptions): OneNote.PageContent;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.PageContent;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.PageContent;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.PageContent;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.PageContent;
         /**
@@ -78429,7 +78374,7 @@ declare namespace OneNote {
      */
     class PageContentCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.PageContent[];
         /**
@@ -78440,7 +78385,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a PageContent object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78449,7 +78393,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.PageContent;
         /**
-         *
          * Gets a page content on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78458,29 +78401,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.PageContent;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.PageContentCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.PageContentCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.PageContentCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.PageContentCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.PageContentCollection;
-        load(option?: string | string[]): OneNote.PageContentCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.PageContentCollection;
+        load(options?: OneNote.Interfaces.PageContentCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.PageContentCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.PageContentCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.PageContentCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.PageContentCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.PageContentCollection;
         /**
@@ -78497,7 +78440,7 @@ declare namespace OneNote {
      */
     class Outline extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the PageContent object that contains the Outline. This object defines the position of the Outline on the page. Read-only.
@@ -78520,7 +78463,6 @@ declare namespace OneNote {
          */
         readonly id: string;
         /**
-         *
          * Adds the specified HTML to the bottom of the Outline.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78529,7 +78471,6 @@ declare namespace OneNote {
          */
         appendHtml(html: string): void;
         /**
-         *
          * Adds the specified image to the bottom of the Outline.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78540,7 +78481,6 @@ declare namespace OneNote {
          */
         appendImage(base64EncodedImage: string, width: number, height: number): OneNote.Image;
         /**
-         *
          * Adds the specified text to the bottom of the Outline.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78549,7 +78489,6 @@ declare namespace OneNote {
          */
         appendRichText(paragraphText: string): OneNote.RichText;
         /**
-         *
          * Adds a table with the specified number of rows and columns to the bottom of the outline.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78560,39 +78499,38 @@ declare namespace OneNote {
          */
         appendTable(rowCount: number, columnCount: number, values?: string[][]): OneNote.Table;
         /**
-         *
          * Check if the outline is title outline.
          *
          * [Api set: OneNoteApi 1.1]
          */
         isTitle(): OfficeExtension.ClientResult<boolean>;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.Outline` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.Outline` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Outline` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.OutlineLoadOptions): OneNote.Outline;
-        load(option?: string | string[]): OneNote.Outline;
-        load(option?: {
+        load(options?: OneNote.Interfaces.OutlineLoadOptions): OneNote.Outline;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.Outline;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.Outline;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.Outline;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.Outline;
         /**
@@ -78609,7 +78547,7 @@ declare namespace OneNote {
      */
     class Paragraph extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the Image object in the Paragraph. Throws an exception if ParagraphType is not Image. Read-only.
@@ -78709,7 +78647,6 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.Paragraph): void;
         /**
-         *
          * Add NoteTag to the paragraph.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78719,7 +78656,6 @@ declare namespace OneNote {
          */
         addNoteTag(type: OneNote.NoteTagType, status: OneNote.NoteTagStatus): OneNote.NoteTag;
         /**
-         *
          * Add NoteTag to the paragraph.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78729,21 +78665,18 @@ declare namespace OneNote {
          */
         addNoteTag(type: "Unknown" | "ToDo" | "Important" | "Question" | "Contact" | "Address" | "PhoneNumber" | "Website" | "Idea" | "Critical" | "ToDoPriority1" | "ToDoPriority2", status: "Unknown" | "Normal" | "Completed" | "Disabled" | "OutlookTask" | "TaskNotSyncedYet" | "TaskRemoved"): OneNote.NoteTag;
         /**
-         *
          * Deletes the paragraph
          *
          * [Api set: OneNoteApi 1.1]
          */
         delete(): void;
         /**
-         *
          * Get list information of paragraph
          *
          * [Api set: OneNoteApi 1.1]
          */
         getParagraphInfo(): OfficeExtension.ClientResult<OneNote.ParagraphInfo>;
         /**
-         *
          * Inserts the specified HTML content
          *
          * [Api set: OneNoteApi 1.1]
@@ -78753,7 +78686,6 @@ declare namespace OneNote {
          */
         insertHtmlAsSibling(insertLocation: OneNote.InsertLocation, html: string): void;
         /**
-         *
          * Inserts the specified HTML content
          *
          * [Api set: OneNoteApi 1.1]
@@ -78763,7 +78695,6 @@ declare namespace OneNote {
          */
         insertHtmlAsSibling(insertLocation: "Before" | "After", html: string): void;
         /**
-         *
          * Inserts the image at the specified insert location..
          *
          * [Api set: OneNoteApi 1.1]
@@ -78775,7 +78706,6 @@ declare namespace OneNote {
          */
         insertImageAsSibling(insertLocation: OneNote.InsertLocation, base64EncodedImage: string, width: number, height: number): OneNote.Image;
         /**
-         *
          * Inserts the image at the specified insert location..
          *
          * [Api set: OneNoteApi 1.1]
@@ -78787,7 +78717,6 @@ declare namespace OneNote {
          */
         insertImageAsSibling(insertLocation: "Before" | "After", base64EncodedImage: string, width: number, height: number): OneNote.Image;
         /**
-         *
          * Inserts the paragraph text at the specifiec insert location.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78797,7 +78726,6 @@ declare namespace OneNote {
          */
         insertRichTextAsSibling(insertLocation: OneNote.InsertLocation, paragraphText: string): OneNote.RichText;
         /**
-         *
          * Inserts the paragraph text at the specifiec insert location.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78807,7 +78735,6 @@ declare namespace OneNote {
          */
         insertRichTextAsSibling(insertLocation: "Before" | "After", paragraphText: string): OneNote.RichText;
         /**
-         *
          * Adds a table with the specified number of rows and columns before or after the current paragraph.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78819,7 +78746,6 @@ declare namespace OneNote {
          */
         insertTableAsSibling(insertLocation: OneNote.InsertLocation, rowCount: number, columnCount: number, values?: string[][]): OneNote.Table;
         /**
-         *
          * Adds a table with the specified number of rows and columns before or after the current paragraph.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78831,32 +78757,32 @@ declare namespace OneNote {
          */
         insertTableAsSibling(insertLocation: "Before" | "After", rowCount: number, columnCount: number, values?: string[][]): OneNote.Table;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.Paragraph` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.Paragraph` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Paragraph` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.ParagraphLoadOptions): OneNote.Paragraph;
-        load(option?: string | string[]): OneNote.Paragraph;
-        load(option?: {
+        load(options?: OneNote.Interfaces.ParagraphLoadOptions): OneNote.Paragraph;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.Paragraph;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.Paragraph;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.Paragraph;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.Paragraph;
         /**
@@ -78873,7 +78799,7 @@ declare namespace OneNote {
      */
     class ParagraphCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.Paragraph[];
         /**
@@ -78884,7 +78810,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a Paragraph object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78893,7 +78818,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.Paragraph;
         /**
-         *
          * Gets a paragraph on its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -78902,29 +78826,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.Paragraph;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.ParagraphCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.ParagraphCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.ParagraphCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.ParagraphCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.ParagraphCollection;
-        load(option?: string | string[]): OneNote.ParagraphCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.ParagraphCollection;
+        load(options?: OneNote.Interfaces.ParagraphCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.ParagraphCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.ParagraphCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.ParagraphCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.ParagraphCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.ParagraphCollection;
         /**
@@ -78941,7 +78865,7 @@ declare namespace OneNote {
      */
     class NoteTag extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the Id of the NoteTag object. Read-only.
@@ -78964,32 +78888,32 @@ declare namespace OneNote {
          */
         readonly type: OneNote.NoteTagType | "Unknown" | "ToDo" | "Important" | "Question" | "Contact" | "Address" | "PhoneNumber" | "Website" | "Idea" | "Critical" | "ToDoPriority1" | "ToDoPriority2";
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.NoteTag` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.NoteTag` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.NoteTag` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.NoteTagLoadOptions): OneNote.NoteTag;
-        load(option?: string | string[]): OneNote.NoteTag;
-        load(option?: {
+        load(options?: OneNote.Interfaces.NoteTagLoadOptions): OneNote.NoteTag;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.NoteTag;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.NoteTag;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.NoteTag;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.NoteTag;
         /**
@@ -79006,7 +78930,7 @@ declare namespace OneNote {
      */
     class RichText extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the Paragraph object that contains the RichText object. Read-only.
@@ -79030,13 +78954,19 @@ declare namespace OneNote {
         readonly languageId: string;
         /**
          *
+         * Gets the text style of the RichText object. Read-only.
+         *
+         * [Api set: OneNoteApi 1.8]
+         */
+        readonly style: OneNote.ParagraphStyle;
+        /**
+         *
          * Gets the text content of the RichText object. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
          */
         readonly text: string;
         /**
-         *
          * Get the HTML of the rich text
          *
          * [Api set: OneNoteApi 1.1]
@@ -79044,32 +78974,32 @@ declare namespace OneNote {
          */
         getHtml(): OfficeExtension.ClientResult<string>;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.RichText` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.RichText` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.RichText` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.RichTextLoadOptions): OneNote.RichText;
-        load(option?: string | string[]): OneNote.RichText;
-        load(option?: {
+        load(options?: OneNote.Interfaces.RichTextLoadOptions): OneNote.RichText;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.RichText;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.RichText;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.RichText;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.RichText;
         /**
@@ -79086,7 +79016,7 @@ declare namespace OneNote {
      */
     class Image extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the PageContent object that contains the Image. Throws if the Image is not a direct child of a PageContent. This object defines the position of the Image on the page. Read-only.
@@ -79158,40 +79088,39 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.Image): void;
         /**
-         *
          * Gets the base64-encoded binary representation of the Image.
-            Example: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIA...
+                    Example: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIA...
          *
          * [Api set: OneNoteApi 1.1]
          */
         getBase64Image(): OfficeExtension.ClientResult<string>;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.Image` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.Image` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Image` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.ImageLoadOptions): OneNote.Image;
-        load(option?: string | string[]): OneNote.Image;
-        load(option?: {
+        load(options?: OneNote.Interfaces.ImageLoadOptions): OneNote.Image;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.Image;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.Image;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.Image;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.Image;
         /**
@@ -79208,7 +79137,7 @@ declare namespace OneNote {
      */
     class Table extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the Paragraph object that contains the Table object. Read-only.
@@ -79266,7 +79195,6 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.Table): void;
         /**
-         *
          * Adds a column to the end of the table. Values, if specified, are set in the new column. Otherwise the column is empty.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79275,7 +79203,6 @@ declare namespace OneNote {
          */
         appendColumn(values?: string[]): void;
         /**
-         *
          * Adds a row to the end of the table. Values, if specified, are set in the new row. Otherwise the row is empty.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79284,14 +79211,12 @@ declare namespace OneNote {
          */
         appendRow(values?: string[]): OneNote.TableRow;
         /**
-         *
          * Clears the contents of the table.
          *
          * [Api set: OneNoteApi 1.1]
          */
         clear(): void;
         /**
-         *
          * Gets the table cell at a specified row and column.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79301,7 +79226,6 @@ declare namespace OneNote {
          */
         getCell(rowIndex: number, cellIndex: number): OneNote.TableCell;
         /**
-         *
          * Inserts a column at the given index in the table. Values, if specified, are set in the new column. Otherwise the column is empty.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79311,7 +79235,6 @@ declare namespace OneNote {
          */
         insertColumn(index: number, values?: string[]): void;
         /**
-         *
          * Inserts a row at the given index in the table. Values, if specified, are set in the new row. Otherwise the row is empty.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79321,40 +79244,39 @@ declare namespace OneNote {
          */
         insertRow(index: number, values?: string[]): OneNote.TableRow;
         /**
-         *
          * Sets the shading color of all cells in the table.
-            The color code to set the cells to.
+                    The color code to set the cells to.
          *
          * [Api set: OneNoteApi 1.1]
          */
         setShadingColor(colorCode: string): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.Table` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.Table` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Table` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.TableLoadOptions): OneNote.Table;
-        load(option?: string | string[]): OneNote.Table;
-        load(option?: {
+        load(options?: OneNote.Interfaces.TableLoadOptions): OneNote.Table;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.Table;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.Table;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.Table;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.Table;
         /**
@@ -79371,7 +79293,7 @@ declare namespace OneNote {
      */
     class TableRow extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the cells in the row. Read-only.
@@ -79408,14 +79330,12 @@ declare namespace OneNote {
          */
         readonly rowIndex: number;
         /**
-         *
          * Clears the contents of the row.
          *
          * [Api set: OneNoteApi 1.1]
          */
         clear(): void;
         /**
-         *
          * Inserts a row before or after the current row.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79425,7 +79345,6 @@ declare namespace OneNote {
          */
         insertRowAsSibling(insertLocation: OneNote.InsertLocation, values?: string[]): OneNote.TableRow;
         /**
-         *
          * Inserts a row before or after the current row.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79435,40 +79354,39 @@ declare namespace OneNote {
          */
         insertRowAsSibling(insertLocation: "Before" | "After", values?: string[]): OneNote.TableRow;
         /**
-         *
          * Sets the shading color of all cells in the row.
-            The color code to set the cells to.
+                    The color code to set the cells to.
          *
          * [Api set: OneNoteApi 1.1]
          */
         setShadingColor(colorCode: string): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.TableRow` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.TableRow` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.TableRow` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.TableRowLoadOptions): OneNote.TableRow;
-        load(option?: string | string[]): OneNote.TableRow;
-        load(option?: {
+        load(options?: OneNote.Interfaces.TableRowLoadOptions): OneNote.TableRow;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.TableRow;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.TableRow;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.TableRow;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.TableRow;
         /**
@@ -79485,7 +79403,7 @@ declare namespace OneNote {
      */
     class TableRowCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.TableRow[];
         /**
@@ -79496,7 +79414,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a table row object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79505,7 +79422,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.TableRow;
         /**
-         *
          * Gets a table row at its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79514,29 +79430,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.TableRow;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.TableRowCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.TableRowCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.TableRowCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.TableRowCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.TableRowCollection;
-        load(option?: string | string[]): OneNote.TableRowCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.TableRowCollection;
+        load(options?: OneNote.Interfaces.TableRowCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.TableRowCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.TableRowCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.TableRowCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.TableRowCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.TableRowCollection;
         /**
@@ -79553,7 +79469,7 @@ declare namespace OneNote {
      */
     class TableCell extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /**
          *
          * Gets the collection of Paragraph objects in the TableCell. Read-only.
@@ -79611,7 +79527,6 @@ declare namespace OneNote {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: OneNote.TableCell): void;
         /**
-         *
          * Adds the specified HTML to the bottom of the TableCell.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79620,7 +79535,6 @@ declare namespace OneNote {
          */
         appendHtml(html: string): void;
         /**
-         *
          * Adds the specified image to table cell.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79631,7 +79545,6 @@ declare namespace OneNote {
          */
         appendImage(base64EncodedImage: string, width: number, height: number): OneNote.Image;
         /**
-         *
          * Adds the specified text to table cell.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79640,7 +79553,6 @@ declare namespace OneNote {
          */
         appendRichText(paragraphText: string): OneNote.RichText;
         /**
-         *
          * Adds a table with the specified number of rows and columns to table cell.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79651,39 +79563,38 @@ declare namespace OneNote {
          */
         appendTable(rowCount: number, columnCount: number, values?: string[][]): OneNote.Table;
         /**
-         *
          * Clears the contents of the cell.
          *
          * [Api set: OneNoteApi 1.1]
          */
         clear(): void;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.TableCell` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.TableCell` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.TableCell` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.TableCellLoadOptions): OneNote.TableCell;
-        load(option?: string | string[]): OneNote.TableCell;
-        load(option?: {
+        load(options?: OneNote.Interfaces.TableCellLoadOptions): OneNote.TableCell;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.TableCell;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
             select?: string;
             expand?: string;
         }): OneNote.TableCell;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.TableCell;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.TableCell;
         /**
@@ -79700,7 +79611,7 @@ declare namespace OneNote {
      */
     class TableCellCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
+        context: RequestContext;
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.TableCell[];
         /**
@@ -79711,7 +79622,6 @@ declare namespace OneNote {
          */
         readonly count: number;
         /**
-         *
          * Gets a table cell object by ID or by its index in the collection. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79720,7 +79630,6 @@ declare namespace OneNote {
          */
         getItem(index: number | string): OneNote.TableCell;
         /**
-         *
          * Gets a tablecell at its position in the collection.
          *
          * [Api set: OneNoteApi 1.1]
@@ -79729,29 +79638,29 @@ declare namespace OneNote {
          */
         getItemAt(index: number): OneNote.TableCell;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): OneNote.TableCellCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): OneNote.TableCellCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.TableCellCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
          * @param options Provides options for which properties of the object to load.
          */
-        load(option?: OneNote.Interfaces.TableCellCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.TableCellCollection;
-        load(option?: string | string[]): OneNote.TableCellCollection;
-        load(option?: OfficeExtension.LoadOption): OneNote.TableCellCollection;
+        load(options?: OneNote.Interfaces.TableCellCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.TableCellCollection;
         /**
-         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you are using this object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): OneNote.TableCellCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): OneNote.TableCellCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for `context.trackedObjects.add(thisObject)`. If you are using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created.
          */
         track(): OneNote.TableCellCollection;
         /**
-         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for `context.trackedObjects.remove(thisObject)`. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
          */
         untrack(): OneNote.TableCellCollection;
         /**
@@ -79814,7 +79723,7 @@ declare namespace OneNote {
         /**
          *
          * //
-            Bullet list type of paragraph
+                    Bullet list type of paragraph
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -79822,7 +79731,15 @@ declare namespace OneNote {
         /**
          *
          * //
-            Index of paragraph in list
+                    Level of indentation of the paragraph
+         *
+         * [Api set: OneNoteApi 1.8]
+         */
+        indentationLevel: number;
+        /**
+         *
+         * //
+                    Index of paragraph in a list
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -79830,7 +79747,7 @@ declare namespace OneNote {
         /**
          *
          * //
-            Type of list in paragraph
+                    Type of list in paragraph
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -79838,7 +79755,7 @@ declare namespace OneNote {
         /**
          *
          * //
-            number list type of paragraph
+                    Numbered list type of paragraph
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -79974,8 +79891,31 @@ declare namespace OneNote {
         lim = "Lim",
         custom = "Custom",
     }
+    /**
+     * [Api set: OneNoteApi 1.8]
+     */
+    const enum ParagraphStyle {
+        noStyle = 0,
+        normal = 1,
+        title = 2,
+        dateTime = 3,
+        heading1 = 4,
+        heading2 = 5,
+        heading3 = 6,
+        heading4 = 7,
+        heading5 = 8,
+        heading6 = 9,
+        quote = 10,
+        citation = 11,
+        code = 12,
+    }
     enum ErrorCodes {
+        accessDenied = "AccessDenied",
         generalException = "GeneralException",
+        invalidArgument = "InvalidArgument",
+        itemNotFound = "ItemNotFound",
+        notImplemented = "NotImplemented",
+        operationAborted = "OperationAborted",
     }
     module Interfaces {
         /**
@@ -79991,7 +79931,7 @@ declare namespace OneNote {
             */
             $skip?: number;
         }
-        /** An interface for updating data on the InkAnalysis object, for use in "inkAnalysis.set({ ... })". */
+        /** An interface for updating data on the InkAnalysis object, for use in `inkAnalysis.set({ ... })`. */
         interface InkAnalysisUpdateData {
             /**
             *
@@ -80001,7 +79941,7 @@ declare namespace OneNote {
             */
             page?: OneNote.Interfaces.PageUpdateData;
         }
-        /** An interface for updating data on the InkAnalysisParagraph object, for use in "inkAnalysisParagraph.set({ ... })". */
+        /** An interface for updating data on the InkAnalysisParagraph object, for use in `inkAnalysisParagraph.set({ ... })`. */
         interface InkAnalysisParagraphUpdateData {
             /**
             *
@@ -80011,11 +79951,11 @@ declare namespace OneNote {
             */
             inkAnalysis?: OneNote.Interfaces.InkAnalysisUpdateData;
         }
-        /** An interface for updating data on the InkAnalysisParagraphCollection object, for use in "inkAnalysisParagraphCollection.set({ ... })". */
+        /** An interface for updating data on the InkAnalysisParagraphCollection object, for use in `inkAnalysisParagraphCollection.set({ ... })`. */
         interface InkAnalysisParagraphCollectionUpdateData {
             items?: OneNote.Interfaces.InkAnalysisParagraphData[];
         }
-        /** An interface for updating data on the InkAnalysisLine object, for use in "inkAnalysisLine.set({ ... })". */
+        /** An interface for updating data on the InkAnalysisLine object, for use in `inkAnalysisLine.set({ ... })`. */
         interface InkAnalysisLineUpdateData {
             /**
             *
@@ -80025,11 +79965,11 @@ declare namespace OneNote {
             */
             paragraph?: OneNote.Interfaces.InkAnalysisParagraphUpdateData;
         }
-        /** An interface for updating data on the InkAnalysisLineCollection object, for use in "inkAnalysisLineCollection.set({ ... })". */
+        /** An interface for updating data on the InkAnalysisLineCollection object, for use in `inkAnalysisLineCollection.set({ ... })`. */
         interface InkAnalysisLineCollectionUpdateData {
             items?: OneNote.Interfaces.InkAnalysisLineData[];
         }
-        /** An interface for updating data on the InkAnalysisWord object, for use in "inkAnalysisWord.set({ ... })". */
+        /** An interface for updating data on the InkAnalysisWord object, for use in `inkAnalysisWord.set({ ... })`. */
         interface InkAnalysisWordUpdateData {
             /**
             *
@@ -80039,31 +79979,31 @@ declare namespace OneNote {
             */
             line?: OneNote.Interfaces.InkAnalysisLineUpdateData;
         }
-        /** An interface for updating data on the InkAnalysisWordCollection object, for use in "inkAnalysisWordCollection.set({ ... })". */
+        /** An interface for updating data on the InkAnalysisWordCollection object, for use in `inkAnalysisWordCollection.set({ ... })`. */
         interface InkAnalysisWordCollectionUpdateData {
             items?: OneNote.Interfaces.InkAnalysisWordData[];
         }
-        /** An interface for updating data on the InkStrokeCollection object, for use in "inkStrokeCollection.set({ ... })". */
+        /** An interface for updating data on the InkStrokeCollection object, for use in `inkStrokeCollection.set({ ... })`. */
         interface InkStrokeCollectionUpdateData {
             items?: OneNote.Interfaces.InkStrokeData[];
         }
-        /** An interface for updating data on the InkWordCollection object, for use in "inkWordCollection.set({ ... })". */
+        /** An interface for updating data on the InkWordCollection object, for use in `inkWordCollection.set({ ... })`. */
         interface InkWordCollectionUpdateData {
             items?: OneNote.Interfaces.InkWordData[];
         }
-        /** An interface for updating data on the NotebookCollection object, for use in "notebookCollection.set({ ... })". */
+        /** An interface for updating data on the NotebookCollection object, for use in `notebookCollection.set({ ... })`. */
         interface NotebookCollectionUpdateData {
             items?: OneNote.Interfaces.NotebookData[];
         }
-        /** An interface for updating data on the SectionGroupCollection object, for use in "sectionGroupCollection.set({ ... })". */
+        /** An interface for updating data on the SectionGroupCollection object, for use in `sectionGroupCollection.set({ ... })`. */
         interface SectionGroupCollectionUpdateData {
             items?: OneNote.Interfaces.SectionGroupData[];
         }
-        /** An interface for updating data on the SectionCollection object, for use in "sectionCollection.set({ ... })". */
+        /** An interface for updating data on the SectionCollection object, for use in `sectionCollection.set({ ... })`. */
         interface SectionCollectionUpdateData {
             items?: OneNote.Interfaces.SectionData[];
         }
-        /** An interface for updating data on the Page object, for use in "page.set({ ... })". */
+        /** An interface for updating data on the Page object, for use in `page.set({ ... })`. */
         interface PageUpdateData {
             /**
             *
@@ -80087,11 +80027,11 @@ declare namespace OneNote {
              */
             title?: string;
         }
-        /** An interface for updating data on the PageCollection object, for use in "pageCollection.set({ ... })". */
+        /** An interface for updating data on the PageCollection object, for use in `pageCollection.set({ ... })`. */
         interface PageCollectionUpdateData {
             items?: OneNote.Interfaces.PageData[];
         }
-        /** An interface for updating data on the PageContent object, for use in "pageContent.set({ ... })". */
+        /** An interface for updating data on the PageContent object, for use in `pageContent.set({ ... })`. */
         interface PageContentUpdateData {
             /**
             *
@@ -80115,11 +80055,11 @@ declare namespace OneNote {
              */
             top?: number;
         }
-        /** An interface for updating data on the PageContentCollection object, for use in "pageContentCollection.set({ ... })". */
+        /** An interface for updating data on the PageContentCollection object, for use in `pageContentCollection.set({ ... })`. */
         interface PageContentCollectionUpdateData {
             items?: OneNote.Interfaces.PageContentData[];
         }
-        /** An interface for updating data on the Paragraph object, for use in "paragraph.set({ ... })". */
+        /** An interface for updating data on the Paragraph object, for use in `paragraph.set({ ... })`. */
         interface ParagraphUpdateData {
             /**
             *
@@ -80136,11 +80076,11 @@ declare namespace OneNote {
             */
             table?: OneNote.Interfaces.TableUpdateData;
         }
-        /** An interface for updating data on the ParagraphCollection object, for use in "paragraphCollection.set({ ... })". */
+        /** An interface for updating data on the ParagraphCollection object, for use in `paragraphCollection.set({ ... })`. */
         interface ParagraphCollectionUpdateData {
             items?: OneNote.Interfaces.ParagraphData[];
         }
-        /** An interface for updating data on the Image object, for use in "image.set({ ... })". */
+        /** An interface for updating data on the Image object, for use in `image.set({ ... })`. */
         interface ImageUpdateData {
             /**
              *
@@ -80171,7 +80111,7 @@ declare namespace OneNote {
              */
             width?: number;
         }
-        /** An interface for updating data on the Table object, for use in "table.set({ ... })". */
+        /** An interface for updating data on the Table object, for use in `table.set({ ... })`. */
         interface TableUpdateData {
             /**
              *
@@ -80181,11 +80121,11 @@ declare namespace OneNote {
              */
             borderVisible?: boolean;
         }
-        /** An interface for updating data on the TableRowCollection object, for use in "tableRowCollection.set({ ... })". */
+        /** An interface for updating data on the TableRowCollection object, for use in `tableRowCollection.set({ ... })`. */
         interface TableRowCollectionUpdateData {
             items?: OneNote.Interfaces.TableRowData[];
         }
-        /** An interface for updating data on the TableCell object, for use in "tableCell.set({ ... })". */
+        /** An interface for updating data on the TableCell object, for use in `tableCell.set({ ... })`. */
         interface TableCellUpdateData {
             /**
              *
@@ -80195,11 +80135,11 @@ declare namespace OneNote {
              */
             shadingColor?: string;
         }
-        /** An interface for updating data on the TableCellCollection object, for use in "tableCellCollection.set({ ... })". */
+        /** An interface for updating data on the TableCellCollection object, for use in `tableCellCollection.set({ ... })`. */
         interface TableCellCollectionUpdateData {
             items?: OneNote.Interfaces.TableCellData[];
         }
-        /** An interface describing the data returned by calling "application.toJSON()". */
+        /** An interface describing the data returned by calling `application.toJSON()`. */
         interface ApplicationData {
             /**
             *
@@ -80209,7 +80149,7 @@ declare namespace OneNote {
             */
             notebooks?: OneNote.Interfaces.NotebookData[];
         }
-        /** An interface describing the data returned by calling "inkAnalysis.toJSON()". */
+        /** An interface describing the data returned by calling `inkAnalysis.toJSON()`. */
         interface InkAnalysisData {
             /**
             *
@@ -80226,7 +80166,7 @@ declare namespace OneNote {
              */
             id?: string;
         }
-        /** An interface describing the data returned by calling "inkAnalysisParagraph.toJSON()". */
+        /** An interface describing the data returned by calling `inkAnalysisParagraph.toJSON()`. */
         interface InkAnalysisParagraphData {
             /**
             *
@@ -80250,11 +80190,11 @@ declare namespace OneNote {
              */
             id?: string;
         }
-        /** An interface describing the data returned by calling "inkAnalysisParagraphCollection.toJSON()". */
+        /** An interface describing the data returned by calling `inkAnalysisParagraphCollection.toJSON()`. */
         interface InkAnalysisParagraphCollectionData {
             items?: OneNote.Interfaces.InkAnalysisParagraphData[];
         }
-        /** An interface describing the data returned by calling "inkAnalysisLine.toJSON()". */
+        /** An interface describing the data returned by calling `inkAnalysisLine.toJSON()`. */
         interface InkAnalysisLineData {
             /**
             *
@@ -80278,11 +80218,11 @@ declare namespace OneNote {
              */
             id?: string;
         }
-        /** An interface describing the data returned by calling "inkAnalysisLineCollection.toJSON()". */
+        /** An interface describing the data returned by calling `inkAnalysisLineCollection.toJSON()`. */
         interface InkAnalysisLineCollectionData {
             items?: OneNote.Interfaces.InkAnalysisLineData[];
         }
-        /** An interface describing the data returned by calling "inkAnalysisWord.toJSON()". */
+        /** An interface describing the data returned by calling `inkAnalysisWord.toJSON()`. */
         interface InkAnalysisWordData {
             /**
             *
@@ -80320,11 +80260,11 @@ declare namespace OneNote {
              */
             wordAlternates?: string[];
         }
-        /** An interface describing the data returned by calling "inkAnalysisWordCollection.toJSON()". */
+        /** An interface describing the data returned by calling `inkAnalysisWordCollection.toJSON()`. */
         interface InkAnalysisWordCollectionData {
             items?: OneNote.Interfaces.InkAnalysisWordData[];
         }
-        /** An interface describing the data returned by calling "floatingInk.toJSON()". */
+        /** An interface describing the data returned by calling `floatingInk.toJSON()`. */
         interface FloatingInkData {
             /**
             *
@@ -80341,7 +80281,7 @@ declare namespace OneNote {
              */
             id?: string;
         }
-        /** An interface describing the data returned by calling "inkStroke.toJSON()". */
+        /** An interface describing the data returned by calling `inkStroke.toJSON()`. */
         interface InkStrokeData {
             /**
             *
@@ -80358,11 +80298,11 @@ declare namespace OneNote {
              */
             id?: string;
         }
-        /** An interface describing the data returned by calling "inkStrokeCollection.toJSON()". */
+        /** An interface describing the data returned by calling `inkStrokeCollection.toJSON()`. */
         interface InkStrokeCollectionData {
             items?: OneNote.Interfaces.InkStrokeData[];
         }
-        /** An interface describing the data returned by calling "inkWord.toJSON()". */
+        /** An interface describing the data returned by calling `inkWord.toJSON()`. */
         interface InkWordData {
             /**
              *
@@ -80386,11 +80326,11 @@ declare namespace OneNote {
              */
             wordAlternates?: string[];
         }
-        /** An interface describing the data returned by calling "inkWordCollection.toJSON()". */
+        /** An interface describing the data returned by calling `inkWordCollection.toJSON()`. */
         interface InkWordCollectionData {
             items?: OneNote.Interfaces.InkWordData[];
         }
-        /** An interface describing the data returned by calling "notebook.toJSON()". */
+        /** An interface describing the data returned by calling `notebook.toJSON()`. */
         interface NotebookData {
             /**
             *
@@ -80442,11 +80382,11 @@ declare namespace OneNote {
              */
             name?: string;
         }
-        /** An interface describing the data returned by calling "notebookCollection.toJSON()". */
+        /** An interface describing the data returned by calling `notebookCollection.toJSON()`. */
         interface NotebookCollectionData {
             items?: OneNote.Interfaces.NotebookData[];
         }
-        /** An interface describing the data returned by calling "sectionGroup.toJSON()". */
+        /** An interface describing the data returned by calling `sectionGroup.toJSON()`. */
         interface SectionGroupData {
             /**
             *
@@ -80484,11 +80424,11 @@ declare namespace OneNote {
              */
             name?: string;
         }
-        /** An interface describing the data returned by calling "sectionGroupCollection.toJSON()". */
+        /** An interface describing the data returned by calling `sectionGroupCollection.toJSON()`. */
         interface SectionGroupCollectionData {
             items?: OneNote.Interfaces.SectionGroupData[];
         }
-        /** An interface describing the data returned by calling "section.toJSON()". */
+        /** An interface describing the data returned by calling `section.toJSON()`. */
         interface SectionData {
             /**
             *
@@ -80540,11 +80480,11 @@ declare namespace OneNote {
              */
             webUrl?: string;
         }
-        /** An interface describing the data returned by calling "sectionCollection.toJSON()". */
+        /** An interface describing the data returned by calling `sectionCollection.toJSON()`. */
         interface SectionCollectionData {
             items?: OneNote.Interfaces.SectionData[];
         }
-        /** An interface describing the data returned by calling "page.toJSON()". */
+        /** An interface describing the data returned by calling `page.toJSON()`. */
         interface PageData {
             /**
             *
@@ -80603,11 +80543,11 @@ declare namespace OneNote {
              */
             webUrl?: string;
         }
-        /** An interface describing the data returned by calling "pageCollection.toJSON()". */
+        /** An interface describing the data returned by calling `pageCollection.toJSON()`. */
         interface PageCollectionData {
             items?: OneNote.Interfaces.PageData[];
         }
-        /** An interface describing the data returned by calling "pageContent.toJSON()". */
+        /** An interface describing the data returned by calling `pageContent.toJSON()`. */
         interface PageContentData {
             /**
             *
@@ -80659,11 +80599,11 @@ declare namespace OneNote {
              */
             type?: OneNote.PageContentType | "Outline" | "Image" | "Ink" | "Other";
         }
-        /** An interface describing the data returned by calling "pageContentCollection.toJSON()". */
+        /** An interface describing the data returned by calling `pageContentCollection.toJSON()`. */
         interface PageContentCollectionData {
             items?: OneNote.Interfaces.PageContentData[];
         }
-        /** An interface describing the data returned by calling "outline.toJSON()". */
+        /** An interface describing the data returned by calling `outline.toJSON()`. */
         interface OutlineData {
             /**
             *
@@ -80680,7 +80620,7 @@ declare namespace OneNote {
              */
             id?: string;
         }
-        /** An interface describing the data returned by calling "paragraph.toJSON()". */
+        /** An interface describing the data returned by calling `paragraph.toJSON()`. */
         interface ParagraphData {
             /**
             *
@@ -80732,11 +80672,11 @@ declare namespace OneNote {
              */
             type?: OneNote.ParagraphType | "RichText" | "Image" | "Table" | "Ink" | "Other";
         }
-        /** An interface describing the data returned by calling "paragraphCollection.toJSON()". */
+        /** An interface describing the data returned by calling `paragraphCollection.toJSON()`. */
         interface ParagraphCollectionData {
             items?: OneNote.Interfaces.ParagraphData[];
         }
-        /** An interface describing the data returned by calling "noteTag.toJSON()". */
+        /** An interface describing the data returned by calling `noteTag.toJSON()`. */
         interface NoteTagData {
             /**
              *
@@ -80760,7 +80700,7 @@ declare namespace OneNote {
              */
             type?: OneNote.NoteTagType | "Unknown" | "ToDo" | "Important" | "Question" | "Contact" | "Address" | "PhoneNumber" | "Website" | "Idea" | "Critical" | "ToDoPriority1" | "ToDoPriority2";
         }
-        /** An interface describing the data returned by calling "richText.toJSON()". */
+        /** An interface describing the data returned by calling `richText.toJSON()`. */
         interface RichTextData {
             /**
              *
@@ -80778,13 +80718,20 @@ declare namespace OneNote {
             languageId?: string;
             /**
              *
+             * Gets the text style of the RichText object. Read-only.
+             *
+             * [Api set: OneNoteApi 1.8]
+             */
+            style?: OneNote.ParagraphStyle;
+            /**
+             *
              * Gets the text content of the RichText object. Read-only.
              *
              * [Api set: OneNoteApi 1.1]
              */
             text?: string;
         }
-        /** An interface describing the data returned by calling "image.toJSON()". */
+        /** An interface describing the data returned by calling `image.toJSON()`. */
         interface ImageData {
             /**
              *
@@ -80829,7 +80776,7 @@ declare namespace OneNote {
              */
             width?: number;
         }
-        /** An interface describing the data returned by calling "table.toJSON()". */
+        /** An interface describing the data returned by calling `table.toJSON()`. */
         interface TableData {
             /**
             *
@@ -80867,7 +80814,7 @@ declare namespace OneNote {
              */
             rowCount?: number;
         }
-        /** An interface describing the data returned by calling "tableRow.toJSON()". */
+        /** An interface describing the data returned by calling `tableRow.toJSON()`. */
         interface TableRowData {
             /**
             *
@@ -80898,11 +80845,11 @@ declare namespace OneNote {
              */
             rowIndex?: number;
         }
-        /** An interface describing the data returned by calling "tableRowCollection.toJSON()". */
+        /** An interface describing the data returned by calling `tableRowCollection.toJSON()`. */
         interface TableRowCollectionData {
             items?: OneNote.Interfaces.TableRowData[];
         }
-        /** An interface describing the data returned by calling "tableCell.toJSON()". */
+        /** An interface describing the data returned by calling `tableCell.toJSON()`. */
         interface TableCellData {
             /**
             *
@@ -80940,7 +80887,7 @@ declare namespace OneNote {
              */
             shadingColor?: string;
         }
-        /** An interface describing the data returned by calling "tableCellCollection.toJSON()". */
+        /** An interface describing the data returned by calling `tableCellCollection.toJSON()`. */
         interface TableCellCollectionData {
             items?: OneNote.Interfaces.TableCellData[];
         }
@@ -80951,6 +80898,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface ApplicationLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -80967,6 +80917,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkAnalysisLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -80990,6 +80943,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkAnalysisParagraphLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81020,6 +80976,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkAnalysisParagraphCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81050,6 +81009,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkAnalysisLineLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81080,6 +81042,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkAnalysisLineCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81110,6 +81075,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkAnalysisWordLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81154,6 +81122,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkAnalysisWordCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81198,6 +81169,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface FloatingInkLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81228,6 +81202,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkStrokeLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81251,6 +81228,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkStrokeCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81274,6 +81254,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkWordLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81311,6 +81294,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface InkWordCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81348,6 +81334,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface NotebookLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81406,6 +81395,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface NotebookCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81464,6 +81456,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface SectionGroupLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81529,6 +81524,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface SectionGroupCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81594,6 +81592,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface SectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81673,6 +81674,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface SectionCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81752,6 +81756,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface PageLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81824,6 +81831,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface PageCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81896,6 +81906,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface PageContentLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -81961,6 +81974,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface PageContentCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82026,6 +82042,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface OutlineLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82056,6 +82075,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface ParagraphLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82149,6 +82171,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface ParagraphCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82242,6 +82267,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface NoteTagLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
              *
@@ -82272,6 +82300,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface RichTextLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82296,6 +82327,13 @@ declare namespace OneNote {
             languageId?: boolean;
             /**
              *
+             * Gets the text style of the RichText object. Read-only.
+             *
+             * [Api set: OneNoteApi 1.8]
+             */
+            style?: boolean;
+            /**
+             *
              * Gets the text content of the RichText object. Read-only.
              *
              * [Api set: OneNoteApi 1.1]
@@ -82309,6 +82347,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface ImageLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82374,6 +82415,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface TableLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82425,6 +82469,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface TableRowLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82469,6 +82516,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface TableRowCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82513,6 +82563,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface TableCellLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
@@ -82564,6 +82617,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         interface TableCellCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
             $all?: boolean;
             /**
             *
