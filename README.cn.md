@@ -13,9 +13,9 @@
 ## 目录
 
 * [当前状态](#当前状态)
-* [什么是声明文件？](#什么是声明文件)
-* [如何去获取它？](#如何去获取它)
-* [我该如何贡献？](#我该如何贡献)
+* [什么是声明文件？](#什么是声明文件？)
+* [如何去获取它？](#如何去获取它？)
+* [我该如何贡献？](#我该如何贡献？)
   - [测试](#测试)
   - [发起一个 pull request](#发起一个-pull-request)<details><summary></summary>
     - [编辑一个现有包](#编辑一个现有包)
@@ -70,9 +70,9 @@ npm install --save-dev @types/node
 这通常会在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中提供，
 或者可以只查找包中的任何 ".d.ts" 文件并手动将它们包含在 `/// <reference path="" />`.
 
-#### 旧版本的 TypeScript（3.3 和更早版本）
+#### 旧版本的 TypeScript（3.4 和更早版本）
 
-Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.4 及更高版本。如果您使用的是 TypeScript 2.0 到 3.3，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.5 及更高版本。如果您使用的是 TypeScript 2.0 到 3.4，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 Version | Released | End of Support
 -- | -- | --
@@ -154,7 +154,7 @@ Version | Released | End of Support
 
 * `cd types/<package to edit>`
 * 作出修改之后，[记得新增测试](#my-package-teststs)。
-  如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本我应该如何更新它的类型声明包)
+  如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本，我应该如何更新它的类型声明包？)
 * 你可能还想将自己添加到包头部的 "Definitions by" 部分。
   - 这会导致一旦有人对该包发起 PR 或者 issue，都会通知你（通过你的 GitHub 用户名）。
   - 通过将您的名字添加到行尾来执行此操作，比如 `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.

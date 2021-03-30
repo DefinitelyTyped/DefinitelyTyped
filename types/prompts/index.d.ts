@@ -94,6 +94,7 @@ declare namespace prompts {
         inactive?: string;
         choices?: Choice[];
         hint?: string;
+        warn?: string;
         suggest?: ((input: any, choices: Choice[]) => Promise<any>);
         limit?: number;
         mask?: string;

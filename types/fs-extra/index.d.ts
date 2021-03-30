@@ -10,6 +10,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
@@ -68,8 +69,8 @@ export function readJSON(file: string, options: ReadOptions, callback: (err: Err
 export function readJsonSync(file: string, options?: ReadOptions): any;
 export function readJSONSync(file: string, options?: ReadOptions): any;
 
-export function remove(dir: string): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
+export function remove(dir: string, callback?: (err: Error) => void): Promise<void>;
 export function removeSync(dir: string): void;
 
 export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;
@@ -224,6 +225,17 @@ export function readlink(path: PathLike): Promise<string>;
 export function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
 export function realpath(path: PathLike, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
 export function realpath(path: PathLike, cache?: { [path: string]: string }): Promise<string>;
+
+/* tslint:disable:unified-signatures */
+export namespace realpath {
+    const native: {
+        (path: PathLike, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null): Promise<string>;
+        (path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+        (path: PathLike, options: { encoding: BufferEncoding | null } | string | undefined | null): Promise<string | Buffer>;
+        (path: PathLike): Promise<string>;
+    } & typeof fs.realpath.native;
+}
+/* tslint:enable:unified-signatures */
 
 export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;

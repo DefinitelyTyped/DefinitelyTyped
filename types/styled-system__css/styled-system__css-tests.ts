@@ -261,4 +261,9 @@ css({
     },
 });
 
+// handles vendor-prefixed css properties
+css({
+    WebkitTouchCallout: 'none'
+});
+
 const result: CssFunctionReturnType = css({});

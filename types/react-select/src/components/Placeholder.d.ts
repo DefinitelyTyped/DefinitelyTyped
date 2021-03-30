@@ -1,4 +1,5 @@
-import { ComponentType, CSSProperties, ReactNode } from 'react';
+import { ComponentType, CSSProperties, ReactElement, ReactNode } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
 
@@ -15,8 +16,13 @@ export interface PlaceholderProps<
     innerProps: { style: CSSProperties };
 }
 
-export function placeholderCSS(): React.CSSProperties;
+export function placeholderCSS(): CSSObject;
 
-export const Placeholder: ComponentType<PlaceholderProps<any, boolean>>;
+declare function Placeholder<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: PlaceholderProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export default Placeholder;

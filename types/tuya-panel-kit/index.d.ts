@@ -1856,7 +1856,62 @@ export interface DialogCheckboxProps
      */
     onChange?: (value: string | number) => void;
 }
-export interface DialogConfirmProps extends DialogProps, DialogCancelProps {}
+export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
+    /**
+     * @language zh-CN
+     * @description 图片资源
+     * @addVersion 4.3.0
+     * @defaultValue undefined
+     */
+    /**
+     * @language en-US
+     * @description image source
+     * @addVersion 4.3.0
+     * @defaultValue undefined
+     */
+    imageSource?: object | number;
+    /**
+     * @language zh-CN
+     * @description 图片样式
+     * @addVersion 4.3.0
+     * @defaultValue undefined
+     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
+     */
+    /**
+     * @language en-US
+     * @description image style
+     * @addVersion 4.3.0
+     * @defaultValue undefined
+     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
+     */
+    imageStyle?: StyleProp<ImageStyle>;
+    /**
+     * @language zh-CN
+     * @description 图标路径
+     * @addVersion 4.3.0
+     * @defaultValue undefined
+     */
+    /**
+     * @language en-US
+     * @description icon path
+     * @addVersion 4.3.0
+     * @defaultValue undefined
+     */
+    iconPath?: string;
+    /**
+     * @language zh-CN
+     * @description 图标尺寸
+     * @addVersion 4.3.0
+     * @defaultValue undefined
+     */
+    /**
+     * @language en-US
+     * @description icon size
+     * @addVersion 4.3.0
+     * @defaultValue undefined
+     */
+    iconSize?: number;
+}
 
 export interface DialogList extends TYFlatListData {
     title: string;
@@ -1904,7 +1959,7 @@ export interface DialogListProps
     listStyle?: StyleProp<ViewStyle>;
 }
 
-export interface DialogPromptProps extends Omit<TextInputProps, 'style'>, DialogProps, DialogCancelProps {
+export interface DialogPromptProps extends TextInputProps, Omit<DialogProps, 'style'>, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 是否显示帮助图标
@@ -2155,12 +2210,63 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
      */
     showIcon?: boolean;
 }
-export class GlobalToast {
+export const GlobalToast: {
     show: (option: GlobalToastProps) => void;
     hide: () => void;
-}
+};
 
 // IconFont
+type IconFontName =
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 'power'
+    | 'arrow'
+    | '+'
+    | '-'
+    | '.'
+    | ':'
+    | ','
+    | 'celsius'
+    | 'fahrenheit'
+    | '%'
+    | 'edit'
+    | 'minus'
+    | 'plus'
+    | 'error'
+    | 'warning'
+    | 'correct'
+    | 'backIos'
+    | 'backAndroid'
+    | 'moreV'
+    | 'moreH'
+    | 'close'
+    | 'selected'
+    | 'unselected'
+    | 'selectedUnBordered'
+    | 'volumeMute'
+    | 'volumeMax'
+    | 'volumeMuteBorder'
+    | 'volumeMaxBorder'
+    | 'help'
+    | 'pen'
+    | 'notice-sharp'
+    | 'selected-sharp'
+    | 'unselected-sharp'
+    | 'volume-sharp-off'
+    | 'volume-sharp-max'
+    | 'volume-border-2'
+    | 'volume-border-1'
+    | 'volume-border-off'
+    | 'help-sharp';
+
 export interface IconFontProps {
     /**
      * @language zh-CN
@@ -2343,14 +2449,16 @@ export interface IconFontProps {
     /**
      * @language zh-CN
      * @description 图标id，会从组件库默认图标里取，优先级小于 d
-     * @defaultValue null
+     * @defaultValue undefined
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>IconFontName</a>
      */
     /**
      * @language en-US
      * @description The name of the built-in icon of the component library, which can be obtained from the default icons of the component library. The priority is greater than d.
-     * @defaultValue null
+     * @defaultValue undefined
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>IconFontName</a>
      */
-    name?: string;
+    name?: IconFontName;
     /**
      * @language zh-CN
      * @description 图标宽度，默认为 size 的值
@@ -3308,7 +3416,7 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @description Value matching value of one of the items
      * @defaultValue undefined
      */
-    selectedValue?: string | number | boolean;
+    selectedValue?: string;
     /**
      * @language zh-CN
      * @description 数值改变回调
@@ -3945,7 +4053,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
      * @description Callback of selecting the event
      * @defaultValue () => {}
      */
-    onSelect?: (value: string | number, sValue?: boolean) => void;
+    onSelect?: (value: string | number, params?: { close: () => void }) => void;
     /**
      * @language zh-CN
      * @description 值改变的回调
@@ -3972,7 +4080,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
     styles?: {
         container?: StyleProp<ViewStyle>;
         content?: StyleProp<ViewStyle>;
-        title?: StyleProp<ViewStyle>;
+        title?: StyleProp<TextStyle>;
         contentRight?: StyleProp<ViewStyle>;
     };
 }
@@ -4190,7 +4298,7 @@ export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 
 }
 export interface PopupNumberSelectorProps
     extends Omit<PopupProps, 'onLayout' | 'animationType'>,
-        Omit<SliderProps, 'theme'> {
+        Omit<SliderProps, 'theme' | 'type'> {
     /**
      * @language zh-CN
      * @description numberSelector弹框样式
@@ -6052,6 +6160,19 @@ export interface SliderProps {
         touchArea?: StyleProp<ViewStyle>;
         debugThumbTouchArea?: StyleProp<ViewStyle>;
     };
+    /**
+     * @language zh-CN
+     * @description 滑块的类型，parcel：包裹类型
+     * @addVersion 4.4.0
+     * @defaultValue normal
+     */
+    /**
+     * @language en-US
+     * @description The type of slider, parcel: package type
+     * @addVersion 4.4.0
+     * @defaultValue normal
+     */
+    type?: 'normal' | 'parcel';
 }
 export class Slider extends React.Component<SliderProps> {
     static Horizontal: React.ElementType<SliderProps>;
@@ -9956,6 +10077,7 @@ export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 // i18n
 export class I18N {
     constructor(...args: any[]);
+    language: string;
     getDpLang: (code: string, value?: string | boolean) => string;
     getLang: (key: string, defaultString?: string) => string;
     getRangeStrings: (dpCode: string) => Record<string, string>;
@@ -10116,7 +10238,7 @@ export let Utils: {
         parseHour12(second: number): string;
         stringToSecond(timeStr: string): number;
         dateToTimer(timeStr: string): number;
-        dateFormat(fmt: string, date: Date): number;
+        dateFormat(fmt: string, date: Date): string;
         timezone(): string;
     };
 };
@@ -10274,6 +10396,8 @@ export interface DevInfo<S = Record<string, DpType>> {
     vendorInfo: string;
     verSw: string;
     virtual: boolean;
+    parentId?: string;
+    groupId?: string;
 }
 
 export type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
@@ -10324,6 +10448,7 @@ export interface LinearGradientBackgroundOffset {
 }
 
 export interface NavigationOptions {
+    params?: object;
     /**
      * 容器样式
      */
@@ -10426,7 +10551,7 @@ export type GotoDpAlarmData = Array<{
     rangeValues: string[];
 }>;
 
-export interface TransitionPresets {
+export const TransitionPresets: {
     SlideFromRightIOS: TransitionPreset;
     ModalSlideFromBottomIOS: TransitionPreset;
     ModalPresentationIOS: TransitionPreset;
@@ -10436,7 +10561,7 @@ export interface TransitionPresets {
     DefaultTransition: TransitionPreset;
     ModalTransition: TransitionPreset;
     SlideFromRightWithMargin: TransitionPreset;
-}
+};
 
 export interface StringType {
     [key: string]: string;
@@ -10603,6 +10728,24 @@ export let TYSdk: {
          */
         hideLoading(): void;
         is24Hour(): boolean;
+
+        /**
+         * 跳转面板原生事件
+         */
+        uiIdNavEventEmitter: {
+            createEmitter(): void;
+            addListener(listener: AnyFunction): void;
+            removeEmitter(): void;
+            registerEventListener(): void;
+            sendEvent(props: any): void;
+            /**
+             * 跳转面板, 等同于jumpSubPage, 只是传参形式的区别
+             * @param uiId uiid
+             * @param props 携带参数
+             */
+            pushWithUiID(uiId: string, props: any): void;
+        };
+
         /**
          * @desc 根据 uiId 跳转二级页面
          */

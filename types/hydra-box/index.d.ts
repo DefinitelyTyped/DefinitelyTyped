@@ -1,4 +1,4 @@
-// Type definitions for hydra-box 0.5
+// Type definitions for hydra-box 0.6
 // Project: https://github.com/zazuko/hydra-box
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,11 +7,13 @@
 /// <reference types="absolute-url" />
 /// <reference types="set-link" />
 
+import { Readable } from 'stream';
 import express = require('express');
 import * as RDF from 'rdf-js';
+import DatasetExt = require('rdf-ext/lib/Dataset');
 import { GraphPointer } from 'clownface';
 import middleware = require('./middleware');
-import Api = require('./Api');
+import { Api } from './Api';
 
 declare namespace HydraBox {
     interface PotentialOperation {
@@ -22,14 +24,16 @@ declare namespace HydraBox {
     interface HydraBox {
         api: Api;
         term: RDF.NamedNode;
-        resource: Resource;
+        resource: Resource & { clownface(): Promise<GraphPointer<RDF.NamedNode, DatasetExt>> };
         operation: GraphPointer;
         operations: PotentialOperation[];
     }
 
     interface Resource {
         term: RDF.NamedNode;
-        dataset: RDF.DatasetCore;
+        prefetchDataset: RDF.DatasetCore;
+        dataset(): Promise<RDF.DatasetCore>;
+        quadStream(): RDF.Stream & Readable;
         types: Set<RDF.NamedNode>;
     }
 
@@ -52,7 +56,7 @@ declare module 'express-serve-static-core' {
 
 declare const HydraBox: {
     middleware: typeof middleware;
-    Api: typeof Api;
+    Api: Api;
 };
 
 export = HydraBox;

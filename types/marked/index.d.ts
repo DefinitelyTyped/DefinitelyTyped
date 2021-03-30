@@ -1,4 +1,4 @@
-// Type definitions for Marked 1.2
+// Type definitions for Marked 2.0
 // Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
@@ -37,7 +37,11 @@ declare function marked(src: string, callback: (error: any | undefined, parseRes
  * @param options Hash of options
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  */
-declare function marked(src: string, options: marked.MarkedOptions, callback: (error: any | undefined, parseResult: string) => void): void;
+declare function marked(
+    src: string,
+    options: marked.MarkedOptions,
+    callback: (error: any | undefined, parseResult: string) => void,
+): void;
 
 declare namespace marked {
     const defaults: MarkedOptions;
@@ -74,7 +78,11 @@ declare namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, options?: MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string;
+    function parse(
+        src: string,
+        options?: MarkedOptions,
+        callback?: (error: any | undefined, parseResult: string) => void,
+    ): string;
 
     /**
      * @param src Tokenized source as array of tokens
@@ -137,7 +145,7 @@ declare namespace marked {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
         space(src: string): Tokens.Space;
-        code(src: string, token: Token): Tokens.Code;
+        code(src: string): Tokens.Code;
         fences(src: string): Tokens.Code;
         heading(src: string): Tokens.Heading;
         nptable(src: string): Tokens.Table;
@@ -153,9 +161,8 @@ declare namespace marked {
         escape(src: string): Tokens.Escape;
         tag(src: string, inLink: boolean, inRawBlock: boolean): Tokens.Tag;
         link(src: string): Tokens.Image | Tokens.Link;
-        reflink(src: string, links: Tokens.Link[] |Tokens.Image[]): Tokens.Link |Tokens.Image | Tokens.Text;
-        strong(src: string): Tokens.Strong;
-        em(src: string): Tokens.Em;
+        reflink(src: string, links: Tokens.Link[] | Tokens.Image[]): Tokens.Link | Tokens.Image | Tokens.Text;
+        emStrong(src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong;
         codespan(src: string): Tokens.Codespan;
         br(src: string): Tokens.Br;
         del(src: string): Tokens.Del;
@@ -178,10 +185,13 @@ declare namespace marked {
         paragraph(text: string): string;
         table(header: string, body: string): string;
         tablerow(content: string): string;
-        tablecell(content: string, flags: {
-            header: boolean;
-            align: 'center' | 'left' | 'right' | null;
-        }): string;
+        tablecell(
+            content: string,
+            flags: {
+                header: boolean;
+                align: 'center' | 'left' | 'right' | null;
+            },
+        ): string;
         strong(text: string): string;
         em(text: string): string;
         codespan(code: string): string;
@@ -207,7 +217,7 @@ declare namespace marked {
     class Parser {
         constructor(options?: MarkedOptions);
         tokens: TokensList;
-        token: Token|null;
+        token: Token | null;
         options: MarkedOptions;
         renderer: Renderer;
         slugger: Slugger;
@@ -232,7 +242,7 @@ declare namespace marked {
     }
 
     class Slugger {
-        seen: {[slugValue: string]: number};
+        seen: { [slugValue: string]: number };
         slug(value: string, options?: SluggerOptions): string;
     }
 
@@ -246,12 +256,12 @@ declare namespace marked {
 
     type TokensList = Token[] & {
         links: {
-            [key: string]: { href: string | null; title: string | null; }
-        }
+            [key: string]: { href: string | null; title: string | null };
+        };
     };
 
     type Token =
-        Tokens.Space
+        | Tokens.Space
         | Tokens.Code
         | Tokens.Heading
         | Tokens.Table
@@ -326,7 +336,7 @@ declare namespace marked {
         }
 
         interface List {
-            type: 'list_start';
+            type: 'list';
             raw: string;
             ordered: boolean;
             start: boolean;
@@ -406,28 +416,28 @@ declare namespace marked {
             text: string;
         }
 
-         interface Em {
-             type: 'em';
-             raw: string;
-             text: string;
-         }
+        interface Em {
+            type: 'em';
+            raw: string;
+            text: string;
+        }
 
-         interface Codespan {
-             type: 'codespan';
-             raw: string;
-             text: string;
-         }
+        interface Codespan {
+            type: 'codespan';
+            raw: string;
+            text: string;
+        }
 
-         interface Br {
+        interface Br {
             type: 'br';
             raw: string;
-         }
+        }
 
-         interface Del {
-             type: 'del';
-             raw: string;
-             text: string;
-         }
+        interface Del {
+            type: 'del';
+            raw: string;
+            text: string;
+        }
     }
 
     interface MarkedOptions {
@@ -462,7 +472,11 @@ declare namespace marked {
          * with an error if any occurred during highlighting and a string
          * if highlighting was successful)
          */
-        highlight?(code: string, lang: string, callback?: (error: any | undefined, code?: string) => void): string | void;
+        highlight?(
+            code: string,
+            lang: string,
+            callback?: (error: any | undefined, code?: string) => void,
+        ): string | void;
 
         /**
          * Set the prefix for code block classes.

@@ -1131,6 +1131,10 @@ import * as constants from 'constants';
       triggerAsyncId: 0,
       requireManualDestroy: true
     });
+
+    const asyncResource = new async_hooks.AsyncResource('');
+    // $ExpectType AsyncResource
+    asyncResource.emitDestroy();
 }
 
 ///////////////////////////////////////////////////////////

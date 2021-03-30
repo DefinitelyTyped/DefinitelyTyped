@@ -60,6 +60,21 @@ describe('ReactDOM', () => {
 
         ReactDOM.render(<ClassComponent />, rootElement);
     });
+
+    it('flushSync', () => {
+        // $ExpectType void
+        ReactDOM.flushSync(() => {});
+        // $ExpectType number
+        ReactDOM.flushSync(() => 42);
+        // $ExpectType number
+        ReactDOM.flushSync(() => 42, 'not used');
+        // $ExpectType number
+        ReactDOM.flushSync((a: string) => 42, 'not used');
+        // $ExpectError
+        ReactDOM.flushSync((a: string) => 42);
+        // $ExpectError
+        ReactDOM.flushSync((a: string) => 42, 100);
+    });
 });
 
 describe('ReactDOMServer', () => {

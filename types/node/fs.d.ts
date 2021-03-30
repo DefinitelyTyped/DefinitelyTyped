@@ -1,8 +1,12 @@
-declare module "fs" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import { URL } from "url";
-    import * as promises from 'fs/promises';
+declare module 'node:fs' {
+    export * from 'fs';
+}
+
+declare module 'fs' {
+    import * as stream from 'node:stream';
+    import EventEmitter = require('node:events');
+    import { URL } from 'node:url';
+    import * as promises from 'node:fs/promises';
 
     export { promises };
     /**
@@ -108,7 +112,7 @@ declare module "fs" {
         readSync(): Dirent | null;
     }
 
-    export interface FSWatcher extends events.EventEmitter {
+    export interface FSWatcher extends EventEmitter {
         close(): void;
 
         /**
@@ -536,9 +540,10 @@ declare module "fs" {
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function stat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
-    export function stat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function stat(path: PathLike, options: StatOptions & { bigint?: false } | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function stat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function stat(path: PathLike, options: StatOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace stat {
@@ -546,24 +551,27 @@ declare module "fs" {
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;
-        function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
-        function __promisify__(path: PathLike): Promise<Stats>;
+        function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(path: PathLike, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
     /**
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function statSync(path: PathLike, options: BigIntOptions): BigIntStats;
-    export function statSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
-    export function statSync(path: PathLike): Stats;
+    export function statSync(path: PathLike, options?: StatOptions & { bigint?: false }): Stats;
+    export function statSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
+    export function statSync(path: PathLike, options?: StatOptions): Stats | BigIntStats;
 
     /**
      * Asynchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
     export function fstat(fd: number, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function fstat(fd: number, options: StatOptions & { bigint?: false } | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function fstat(fd: number, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function fstat(fd: number, options: StatOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace fstat {
@@ -571,20 +579,27 @@ declare module "fs" {
          * Asynchronous fstat(2) - Get file status.
          * @param fd A file descriptor.
          */
-        function __promisify__(fd: number): Promise<Stats>;
+        function __promisify__(fd: number, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(fd: number, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        function __promisify__(fd: number, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
     /**
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    export function fstatSync(fd: number): Stats;
+    export function fstatSync(fd: number, options?: StatOptions & { bigint?: false }): Stats;
+    export function fstatSync(fd: number, options: StatOptions & { bigint: true }): BigIntStats;
+    export function fstatSync(fd: number, options?: StatOptions): Stats | BigIntStats;
 
     /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function lstat(path: PathLike, options: StatOptions & { bigint?: false } | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function lstat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function lstat(path: PathLike, options: StatOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace lstat {
@@ -592,14 +607,18 @@ declare module "fs" {
          * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<Stats>;
+        function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(path: PathLike, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
     /**
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function lstatSync(path: PathLike): Stats;
+    export function lstatSync(path: PathLike, options?: StatOptions & { bigint?: false }): Stats;
+    export function lstatSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
+    export function lstatSync(path: PathLike, options?: StatOptions): Stats | BigIntStats;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
@@ -973,7 +992,7 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    export function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true }, callback: (err: NodeJS.ErrnoException | null, path: string) => void): void;
+    export function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true }, callback: (err: NodeJS.ErrnoException | null, path?: string) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -989,7 +1008,7 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    export function mkdir(path: PathLike, options: Mode | MakeDirectoryOptions | null | undefined, callback: (err: NodeJS.ErrnoException | null, path: string | undefined) => void): void;
+    export function mkdir(path: PathLike, options: Mode | MakeDirectoryOptions | null | undefined, callback: (err: NodeJS.ErrnoException | null, path?: string) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
@@ -1005,7 +1024,7 @@ declare module "fs" {
          * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
          * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function __promisify__(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string>;
+        function __promisify__(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string | undefined>;
 
         /**
          * Asynchronous mkdir(2) - create a directory.
@@ -1030,7 +1049,7 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    export function mkdirSync(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): string;
+    export function mkdirSync(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): string | undefined;
 
     /**
      * Synchronous mkdir(2) - create a directory.
@@ -1778,7 +1797,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | BufferEncoding | undefined | null,
-        listener?: (event: string, filename: string) => void,
+        listener?: (event: "rename" | "change", filename: string) => void,
     ): FSWatcher;
 
     /**
@@ -1790,7 +1809,11 @@ declare module "fs" {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    export function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean, recursive?: boolean } | "buffer", listener?: (event: string, filename: Buffer) => void): FSWatcher;
+    export function watch(
+        filename: PathLike,
+        options: { encoding: "buffer", persistent?: boolean, recursive?: boolean; } | "buffer",
+        listener?: (event: "rename" | "change", filename: Buffer) => void
+    ): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -1804,7 +1827,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | string | null,
-        listener?: (event: string, filename: string | Buffer) => void,
+        listener?: (event: "rename" | "change", filename: string | Buffer) => void,
     ): FSWatcher;
 
     /**
@@ -1812,7 +1835,7 @@ declare module "fs" {
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    export function watch(filename: PathLike, listener?: (event: string, filename: string) => any): FSWatcher;
+    export function watch(filename: PathLike, listener?: (event: "rename" | "change", filename: string) => any): FSWatcher;
 
     /**
      * Asynchronously tests whether or not the given path exists by checking with the file system.
@@ -2234,6 +2257,6 @@ declare module "fs" {
     }
 
     export interface StatOptions {
-        bigint: boolean;
+        bigint?: boolean;
     }
 }

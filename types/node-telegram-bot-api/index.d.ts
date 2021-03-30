@@ -288,6 +288,8 @@ declare namespace TelegramBot {
 
     interface EditMessageCaptionOptions extends EditMessageReplyMarkupOptions {
         reply_markup?: InlineKeyboardMarkup;
+        parse_mode?: ParseMode;
+        caption_entities?: MessageEntity[];
     }
 
     interface EditMessageReplyMarkupOptions {

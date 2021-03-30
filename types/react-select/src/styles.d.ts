@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSObject } from '@emotion/serialize';
 import { ContainerProps, IndicatorContainerProps, ValueContainerProps } from './components/containers';
 import { ControlProps } from './components/Control';
 import { GroupProps, GroupHeadingProps } from './components/Group';
@@ -17,38 +17,35 @@ export interface Props {
 }
 
 /** @deprecated - Unused and will not be exported in next major version */
-export type StylesConfigFunction<Props = any> = (base: CSSProperties, props: Props) => CSSProperties;
+export type StylesConfigFunction<Props = any> = (base: CSSObject, props: Props) => CSSObject;
 
 export interface Styles<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > {
-    clearIndicator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    container?(base: CSSProperties, props: ContainerProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    control?(base: CSSProperties, props: ControlProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    dropdownIndicator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    group?(base: CSSProperties, props: GroupProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    groupHeading?(base: CSSProperties, props: GroupHeadingProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    indicatorsContainer?(
-        base: CSSProperties,
-        props: IndicatorContainerProps<OptionType, IsMulti, GroupType>,
-    ): CSSProperties;
-    indicatorSeparator?(base: CSSProperties, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    input?: (base: CSSProperties, props: InputProps) => CSSProperties;
-    loadingIndicator?(base: CSSProperties, props: LoadingIndicatorProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    loadingMessage?(base: CSSProperties, props: NoticeProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    menu?(base: CSSProperties, props: MenuProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    menuList?(base: CSSProperties, props: MenuListComponentProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    menuPortal?(base: CSSProperties, props: MenuPortalProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    multiValue?(base: CSSProperties, props: MultiValueProps<OptionType, GroupType>): CSSProperties;
-    multiValueLabel?(base: CSSProperties, props: MultiValueProps<OptionType, GroupType>): CSSProperties;
-    multiValueRemove?(base: CSSProperties, props: MultiValueRemoveProps<OptionType, GroupType>): CSSProperties;
-    noOptionsMessage?(base: CSSProperties, props: NoticeProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    option?(base: CSSProperties, props: OptionProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    placeholder?(base: CSSProperties, props: PlaceholderProps<OptionType, IsMulti, GroupType>): CSSProperties;
-    singleValue?(base: CSSProperties, props: SingleValueProps<OptionType, GroupType>): CSSProperties;
-    valueContainer?(base: CSSProperties, props: ValueContainerProps<OptionType, IsMulti, GroupType>): CSSProperties;
+    clearIndicator?(base: CSSObject, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSObject;
+    container?(base: CSSObject, props: ContainerProps<OptionType, IsMulti, GroupType>): CSSObject;
+    control?(base: CSSObject, props: ControlProps<OptionType, IsMulti, GroupType>): CSSObject;
+    dropdownIndicator?(base: CSSObject, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSObject;
+    group?(base: CSSObject, props: GroupProps<OptionType, IsMulti, GroupType>): CSSObject;
+    groupHeading?(base: CSSObject, props: GroupHeadingProps<OptionType, IsMulti, GroupType>): CSSObject;
+    indicatorsContainer?(base: CSSObject, props: IndicatorContainerProps<OptionType, IsMulti, GroupType>): CSSObject;
+    indicatorSeparator?(base: CSSObject, props: IndicatorProps<OptionType, IsMulti, GroupType>): CSSObject;
+    input?: (base: CSSObject, props: InputProps) => CSSObject;
+    loadingIndicator?(base: CSSObject, props: LoadingIndicatorProps<OptionType, IsMulti, GroupType>): CSSObject;
+    loadingMessage?(base: CSSObject, props: NoticeProps<OptionType, IsMulti, GroupType>): CSSObject;
+    menu?(base: CSSObject, props: MenuProps<OptionType, IsMulti, GroupType>): CSSObject;
+    menuList?(base: CSSObject, props: MenuListComponentProps<OptionType, IsMulti, GroupType>): CSSObject;
+    menuPortal?(base: CSSObject, props: MenuPortalProps<OptionType, IsMulti, GroupType>): CSSObject;
+    multiValue?(base: CSSObject, props: MultiValueProps<OptionType, GroupType>): CSSObject;
+    multiValueLabel?(base: CSSObject, props: MultiValueProps<OptionType, GroupType>): CSSObject;
+    multiValueRemove?(base: CSSObject, props: MultiValueRemoveProps<OptionType, GroupType>): CSSObject;
+    noOptionsMessage?(base: CSSObject, props: NoticeProps<OptionType, IsMulti, GroupType>): CSSObject;
+    option?(base: CSSObject, props: OptionProps<OptionType, IsMulti, GroupType>): CSSObject;
+    placeholder?(base: CSSObject, props: PlaceholderProps<OptionType, IsMulti, GroupType>): CSSObject;
+    singleValue?(base: CSSObject, props: SingleValueProps<OptionType, GroupType>): CSSObject;
+    valueContainer?(base: CSSObject, props: ValueContainerProps<OptionType, IsMulti, GroupType>): CSSObject;
 }
 
 export type StylesConfig<
@@ -56,7 +53,7 @@ export type StylesConfig<
     IsMulti extends boolean,
     GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
 > = Partial<Styles<OptionType, IsMulti, GroupType>>;
-export type GetStyles = (a: string, b: Props) => CSSProperties;
+export type GetStyles = (a: string, b: Props) => CSSObject;
 
 export const defaultStyles: Styles<any, false>;
 

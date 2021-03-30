@@ -3,6 +3,7 @@
         "index.d.ts",
         "test/index.ts",
         "test/default.ts",
+        "test/response-body.ts",
         "test/settings.ts"
     ],
     "compilerOptions": {
@@ -20,6 +21,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     }
 }

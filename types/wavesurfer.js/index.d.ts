@@ -52,7 +52,7 @@ declare class WaveSurfer extends Observer {
     init(): WaveSurfer;
     initPlugin(name: string): WaveSurfer;
     isPlaying(): boolean;
-    isReady(): boolean;
+    isReady: boolean;
     load(
         url: string | HTMLMediaElement,
         peaks?: ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>,

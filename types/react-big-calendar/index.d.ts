@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.24
+// Type definitions for react-big-calendar 0.30
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -305,8 +305,10 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     }) => void;
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
+    onKeyPressEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
     onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }, view: View | undefined) => void;
+    showAllEvents?: boolean;
     selected?: any;
     views?: ViewsProps<TEvent, TResource>;
     drilldownView?: View | null;

@@ -203,6 +203,7 @@ export interface AuthorizeParams {
     connection?: string;
     language?: string;
     prompt?: string;
+    max_age?: number;
 }
 
 export interface AuthorizeOptions {

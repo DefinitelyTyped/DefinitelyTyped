@@ -141,6 +141,14 @@ fs.remove(dir, errorCallback);
 fs.remove(dir).then(() => {
     // stub
 });
+// @ts-expect-error map can't be called as it passes a number for the second argument instead of a callback.
+["file/to/remove"].map(fs.remove);
+
+// @ts-expect-error promise should not be returned when callback is provided.
+// tslint:disable-next-line:no-void-expression
+fs.remove(dir, errorCallback).then(() => {
+    // stub
+});
 fs.removeSync(dir);
 
 fs.writeJson(file, object).then(() => {
@@ -281,3 +289,19 @@ const openDirTest = async (path: string, opts: fs.OpenDirOptions) => {
 fs.readdir("src").then((files: string[]) => {});
 fs.readdir("src", "buffer").then((files: Buffer[]) => {});
 fs.readdir("src", {withFileTypes: true}).then((files: fs.Dirent[]) => {});
+
+// $ExpectType void
+fs.realpath('src', (err, resolved) => {
+    // $ExpectType string
+    resolved;
+});
+// $ExpectType Promise<string>
+fs.realpath.native('src');
+// $ExpectType Promise<Buffer>
+fs.realpath.native('src', 'buffer');
+// $ExpectType Promise<string>
+fs.realpath.native('src', { encoding: 'utf-8' });
+// $ExpectType Promise<Buffer>
+fs.realpath.native('src', { encoding: 'buffer' });
+// $ExpectType Promise<string>
+fs.realpath.native('src', { encoding: null });

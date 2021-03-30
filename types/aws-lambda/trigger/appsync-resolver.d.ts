@@ -14,7 +14,7 @@ export interface AppSyncResolverEventHeaders {
 export interface AppSyncResolverEvent<T> {
     arguments: T;
     identity?: AppSyncIdentityIAM | AppSyncIdentityCognito;
-    source?: { [key: string]: any };
+    source: { [key: string]: any } | null;
     request: {
         headers: AppSyncResolverEventHeaders;
     };
@@ -25,6 +25,8 @@ export interface AppSyncResolverEvent<T> {
         fieldName: string;
         variables: { [key: string]: any };
     };
+    prev: { result: { [key: string]: any } } | null;
+    stash: { [key: string]: any };
 }
 
 export interface AppSyncIdentityIAM {
@@ -45,4 +47,5 @@ export interface AppSyncIdentityCognito {
     claims: any;
     sourceIp: string[];
     defaultAuthStrategy: string;
+    groups: string[] | null;
 }

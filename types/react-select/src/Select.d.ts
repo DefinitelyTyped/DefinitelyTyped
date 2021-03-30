@@ -12,7 +12,6 @@ import { StylesConfig } from './styles';
 import { ThemeConfig } from './theme';
 import {
     ActionMeta,
-    ActionTypes,
     FocusDirection,
     FocusEventHandler,
     GroupTypeBase,
@@ -22,8 +21,8 @@ import {
     MenuPosition,
     OptionsType,
     ValueType,
-    GroupedOptionsType,
     OptionTypeBase,
+    SetValueAction,
 } from './types';
 
 export type MouseOrTouchEvent = React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>;
@@ -172,7 +171,7 @@ export interface NamedProps<
     /** Allows control of whether the menu is opened when the Select is clicked */
     openMenuOnClick?: boolean;
     /** Array of options that populate the select menu */
-    options?: GroupedOptionsType<OptionType, GroupType> | OptionsType<OptionType>;
+    options?: ReadonlyArray<OptionType | GroupType>;
     /** Number of options to jump in menu when page{up|down} keys are used */
     pageSize?: number;
     /** Placeholder text for the select value */
@@ -188,11 +187,11 @@ export interface NamedProps<
     /** Select the currently focused option when the user presses tab */
     tabSelectsValue?: boolean;
     /** The value of the select; reflected by the selected option */
-    value?: ValueType<OptionType, IsMulti>;
+    value?: readonly OptionType[] | OptionType | null;
 
     defaultInputValue?: string;
     defaultMenuIsOpen?: boolean;
-    defaultValue?: IsMulti extends true ? ValueType<OptionType, boolean> : ValueType<OptionType, false>;
+    defaultValue?: readonly OptionType[] | OptionType | null;
 }
 
 export interface Props<
@@ -286,7 +285,7 @@ export default class Select<
     focusValue(direction: 'previous' | 'next'): void;
 
     focusOption(direction: FocusDirection): void;
-    setValue: (newValue: ValueType<OptionType, IsMulti>, action: ActionTypes, option?: OptionType) => void;
+    setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
     selectOption: (newValue: OptionType) => void;
     removeValue: (removedValue: OptionType) => void;
     clearValue: () => void;
@@ -306,7 +305,7 @@ export default class Select<
         isRtl: boolean;
         options: OptionsType<any>;
         selectOption: (newValue: OptionType) => void;
-        setValue: (newValue: ValueType<OptionType, IsMulti>, action: ActionTypes, option?: OptionType) => void;
+        setValue: (newValue: ValueType<OptionType, IsMulti>, action: SetValueAction, option?: OptionType) => void;
         selectProps: Readonly<{
             children?: React.ReactNode;
         }> &

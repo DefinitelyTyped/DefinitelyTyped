@@ -3,7 +3,7 @@ import './test/buffer';
 import './test/querystring';
 import './test/url';
 
-import * as assert from 'assert';
+import assert = require('node:assert');
 
 assert(true, "it's working");
 

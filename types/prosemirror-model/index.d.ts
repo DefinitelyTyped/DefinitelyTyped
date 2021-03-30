@@ -1,10 +1,12 @@
-// Type definitions for prosemirror-model 1.11
+// Type definitions for prosemirror-model 1.13
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Malte Blanken <https://github.com/neknalb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
+//                 Anthony Weston <https://github.com/AnthonyWeston>
+//                 Martin Staffa <https://github.com/Narretz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -154,7 +156,7 @@ export class Fragment<S extends Schema = any> {
      * same. Since this position will not be the same in both nodes, an
      * object with two separate positions is returned.
      */
-    findDiffEnd(other: ProsemirrorNode<S>): { a: number; b: number } | null | undefined;
+    findDiffEnd(other: Fragment<S>): { a: number; b: number } | null | undefined;
     /**
      * Return a debugging string that describes this fragment.
      */
@@ -268,6 +270,13 @@ export interface ParseRule {
      * constructing a parser, the order of the rule array is used.
      */
     priority?: number | null;
+    /**
+     * By default, when a rule matches an element or style, no further
+     * rules get a chance to match it. By setting this to false,
+     * you indicate that even when this rule matches, other rules
+     * that come after it should also run.
+     */
+    consuming?: boolean | null;
     /**
      * When given, restricts this rule to only match when the current
      * context—the parent nodes into which the content is being
@@ -1380,7 +1389,7 @@ export interface DOMOutputSpecArray {
     8?: DOMOutputSpec | 0;
     9?: DOMOutputSpec | 0;
 }
-export type DOMOutputSpec = string | Node | DOMOutputSpecArray;
+export type DOMOutputSpec = string | Node | DOMOutputSpecArray | {dom: Node, contentDOM?: Node};
 /**
  * A DOM serializer knows how to convert ProseMirror nodes and
  * marks of various types to DOM nodes.

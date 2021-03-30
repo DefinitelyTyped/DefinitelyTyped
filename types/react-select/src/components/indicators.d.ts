@@ -1,4 +1,5 @@
-import { ComponentType, ReactElement as ElementType, SVGProps, ReactSVGElement } from 'react';
+import { ComponentType, ReactElement as ElementType, SVGProps, ReactSVGElement, ReactElement } from 'react';
+import { CSSObject } from '@emotion/serialize';
 
 import { colors, spacing } from '../theme';
 import { CommonProps, GroupTypeBase, OptionTypeBase } from '../types';
@@ -31,13 +32,23 @@ export type IndicatorProps<
     isDisabled: boolean;
 };
 
-export type baseCSS = (props: IndicatorProps<any, boolean>) => React.CSSProperties;
+export type baseCSS = (props: IndicatorProps<any, boolean>) => CSSObject;
 
 export const dropdownIndicatorCSS: baseCSS;
-export const DropdownIndicator: ComponentType<IndicatorProps<any, boolean>>;
+export function DropdownIndicator<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: IndicatorProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 export const clearIndicatorCSS: baseCSS;
-export const ClearIndicator: ComponentType<IndicatorProps<any, boolean>>;
+export function ClearIndicator<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: IndicatorProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
 // Separator
@@ -47,15 +58,20 @@ export interface SeparatorState {
     isDisabled: boolean;
 }
 
-export function indicatorSeparatorCSS(state: SeparatorState): React.CSSProperties;
+export function indicatorSeparatorCSS(state: SeparatorState): CSSObject;
 
-export const IndicatorSeparator: ComponentType<IndicatorProps<any, boolean>>;
+export function IndicatorSeparator<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: IndicatorProps<OptionType, IsMulti, GroupType>): ReactElement;
 
 // ==============================
 // Loading
 // ==============================
 
-export function loadingIndicatorCSS(state: { isFocused: boolean; size: number }): React.CSSProperties;
+export function loadingIndicatorCSS(state: { isFocused: boolean; size: number }): CSSObject;
 
 /** @deprecated Use `LoadingIndicatorProps` instead. */
 export type LoadingIconProps<
@@ -90,5 +106,10 @@ export type LoadingIndicatorProps<
         size: number;
     };
 
-export const LoadingIndicator: ComponentType<LoadingIconProps<any, boolean>>;
+export function LoadingIndicator<
+    OptionType extends OptionTypeBase,
+    IsMulti extends boolean,
+    GroupType extends GroupTypeBase<OptionType> = GroupTypeBase<OptionType>
+    // tslint:disable-next-line:no-unnecessary-generics
+>(props: LoadingIndicatorProps<OptionType, IsMulti, GroupType>): ReactElement;
 // TODO LoadingIndicator.defaultProps: { size: number };

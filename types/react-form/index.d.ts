@@ -1,192 +1,201 @@
-// Type definitions for react-form 2.16
-// Project: https://github.com/react-tools/react-form
+// Type definitions for react-form 4.0
+// Project: https://github.com/tannerlinsley/react-form
 // Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
 //                 Mathieu Masy <https://github.com/TiuSh>
+//                 Anatolii Titov <https://github.com/Toliak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.1
 
 import * as React from 'react';
 
-// Helper Types
-export type FormValue = any;
-export type FormError = string | undefined;
-export interface Nested<T> {
-    [key: string]: T | Nested<T>;
-}
-export type FormValues = Nested<FormValue>;
-export type Touched = Nested<boolean>;
-export interface FormErrors {
-    [key: string]: FormError;
-}
-export type NestedErrors = Nested<FormErrors>;
-export type RenderReturn = JSX.Element | false | null | never[];
+// Hooks
+// Documentation: https://github.com/tannerlinsley/react-form/blob/a4c951622b623edbe95884eb277fae5f637fd481/docs/api.md
 
-export interface FormState {
-    values: FormValues;
-    touched: Touched;
-    errors: FormErrors;
-    nestedErrors: NestedErrors;
-    dirty?: boolean;
-}
+export type UseFormValues<ValueType> = Record<string, ValueType>;
+export type ValidateResult = string | false | undefined;
 
-export interface FormProps {
-    component?: React.ReactType<{ formApi: FormApi }>;
-    render?: (formApi: FormApi) => RenderReturn;
-    dontValidateOnMount?: boolean;
-    validateOnSubmit?: boolean;
-    defaultValues?: FormValues;
-    onSubmit?(values: FormValues, submissionEvent: React.SyntheticEvent<any>, formApi: FormApi): void;
-    preSubmit?(values: FormValues, formApi: FormApi): FormValues;
-    onSubmitFailure?(errors: FormErrors, formApi: FormApi): void;
-    formDidUpdate?(formState: FormState): void;
-    preValidate?(values: FormValues): FormValues;
-    validateError?: ValidateValuesFunction;
-    validateWarning?: ValidateValuesFunction;
-    validateSuccess?: (values: FormValues, errors: FormErrors) => FormErrors;
-    asyncValidators?: {
-        [field: string]: (value: FormValue) => Promise<any>
-    };
-    dontPreventDefault?: boolean;
-    getApi?: (formApi: FormApi) => void;
+export interface FieldScopeSpecificMethods<
+    ValueType,
+    ErrorType,
+    EventType,
+    FieldMetaType extends UseFieldInstanceMeta<ErrorType>
+> {
+    setFieldValue(
+        fieldPath: string,
+        updater: ((prev: ValueType) => ValueType) | ValueType,
+        options: { isTouched: boolean },
+    ): void;
+
+    setFieldMeta(fieldPath: string, updater: ((prev: FieldMetaType) => FieldMetaType) | Partial<FieldMetaType>): void;
+
+    pushFieldValue(fieldPath: string, newValue: ValueType): void;
+
+    insertFieldValue(fieldPath: string, insertIndex: number, value: ValueType): void;
+
+    removeFieldValue(fieldPath: string, removalIndex: number): void;
+
+    swapFieldValues(fieldPath: string, firstIndex: number, secondIndex: number): void;
 }
 
-export interface FormApi {
-    // State
-    values: FormValues;
-    touched: Touched;
-    errors: FormErrors;
-    warnings: FormErrors;
-    successes: FormErrors;
-    submits: number;
-    submitted: boolean;
-    asyncValidations: number;
-    validating: {[field: string]: boolean};
-    validationFailures: number;
-    validationFailed: {[field: string]: boolean};
+export interface UseFormOptions<
+    ValueType,
+    ErrorType,
+    EventType,
+    FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
+    FormMetaType extends UseFormInstanceMeta<ErrorType>
+> {
+    defaultValues?: UseFormValues<ValueType>;
 
-    // Methods
-    submitForm(event: React.SyntheticEvent<any>): void;
-    setValue(fieldName: string, value: any): void;
-    setAllValues(values: FormValues): void;
-    setError(field: string, error: string): void;
-    setWarning(field: string, warning: string): void;
-    setSuccess(field: string, success: string): void;
-    setTouched(field: string, touched: boolean): void;
-    setAllTouched(touches: {[field: string]: boolean}): void;
-    addValue(name: string, value: any): void;
-    removeValue(name: string, index: number): void;
-    swapValues(name: string, index1: number, index2: number): void;
-    resetAll(): void;
-    getFormState(): FormState;
-    setFormState(state: FormState): void;
+    onSubmit?(
+        values: UseFormValues<ValueType>,
+        instance: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>,
+    ): Promise<void> | void;
+
+    validate?(
+        values: UseFormValues<ValueType>,
+        instance: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>,
+    ): Promise<ValidateResult> | ValidateResult | void;
+
+    validatePristine?: boolean;
+    debugForm?: boolean;
 }
 
-export type ValidateValuesFunction = (values: FormValues) => FormErrors;
-
-export interface FormFunctionProps extends FormProps, FormState, FormApi {}
-
-export interface FormContext {
-    formApi: FormApi;
+export interface UseFormInstanceMeta<ErrorType> {
+    error: ErrorType;
+    isSubmitting: boolean;
+    isTouched: boolean;
+    isSubmitted: boolean;
+    submissionAttempts: number;
+    fieldsAreValidating: boolean;
+    fieldsAreValid: boolean;
+    isValid: boolean;
+    canSubmit: boolean;
 }
 
-export class Form
-    extends React.Component<
-        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn }
-    >
-    implements React.ChildContextProvider<FormContext> {
-        static defaultProps: FormProps;
-        static childContextTypes: {
-            formApi: React.Validator<any>
-        };
+export interface UseFormInstance<
+    ValueType,
+    ErrorType,
+    EventType,
+    FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
+    FormMetaType extends UseFormInstanceMeta<ErrorType>
+> extends FieldScopeSpecificMethods<ValueType, ErrorType, EventType, FieldMetaType> {
+    Form: typeof React.Component;
+    values: UseFormValues<ValueType>;
+    meta: FormMetaType;
+    formContext: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>;
 
-        getDefaultState(): FormState;
-        getChildContext(): FormContext;
-        componentWillMount(): void;
-        componentWillReceiveProps(nextProps: Readonly<Partial<FormProps>>, nextContext: any): void;
-        componentWillUmount(): void;
+    reset(): void;
 
-        render(): RenderReturn;
-    }
+    setMeta(updater: ((prev: FormMetaType) => FormMetaType) | Partial<FormMetaType>): void;
 
-export const NestedForm: React.StatelessComponent<FieldProps>;
+    handleSubmit(event: React.SyntheticEvent<EventType>): void;
 
-export function FormField(component: React.ComponentType<any>): React.ComponentClass<any>;
+    debounce(f: () => void, wait: number): Promise<void> | void;
 
-// Fields
+    setValues(
+        updater: ((previousValues: UseFormValues<ValueType>) => UseFormValues<ValueType>) | UseFormValues<ValueType>,
+    ): void;
 
-export interface FieldApi {
-    getValue(): FormValue;
-    getError(): FormError;
-    getWarning(): FormError;
-    getSuccess(): FormError;
-    getTouched(): boolean;
-    getFieldName(): string;
-    setValue(value: FormValue): void;
-    setError(error: FormError): void;
-    setWarning(warning: FormError): void;
-    setSuccess(success: FormError): void;
-    setTouched(touched: boolean): void;
+    runValidation(): void;
+
+    getFieldValue(fieldPath: string): ValueType;
+
+    getFieldMeta(fieldPath: string): FieldMetaType;
 }
 
-export interface FieldProps {
-    field?: string | string[] | React.ReactText[] | Array<(string | React.ReactText[])>;
-    showErrors?: boolean;
-    errorBefore?: boolean;
-    isForm?: boolean;
+export interface UseFieldOptions<
+    ValueType,
+    ErrorType,
+    EventType,
+    FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
+    FormMetaType extends UseFormInstanceMeta<ErrorType>,
+    InputPropsType extends UseFieldInstancePropsType<ValueType>
+> {
+    defaultValue?: ValueType;
+    defaultError?: ErrorType;
+    defaultIsTouched?: boolean;
+    defaultMeta?: FieldMetaType;
+
+    validate?(
+        value: ValueType,
+        instance: UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
+    ): Promise<ValidateResult> | ValidateResult | void;
+
+    filterValue?(
+        value: ValueType,
+        instance: UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
+    ): ValueType;
+
+    validatePristine?: boolean;
 }
 
-export type SelectOptions = Array<{
-    value: FormValue
-    label: string
-}>;
-
-export interface SelectProps extends FieldProps, React.SelectHTMLAttributes<HTMLSelectElement> {
-    options: SelectOptions;
-    placeholder?: string;
+export interface UseFieldInstanceMeta<ErrorType> {
+    error: ErrorType | null;
+    isTouched: boolean;
+    isValidating: boolean;
 }
 
-export const Select: React.StatelessComponent<SelectProps>;
-
-export const Text: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
-export const TextArea: React.StatelessComponent<FieldProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
-
-export interface RadioGroupContext {
-    group: FieldApi;
+export interface UseFieldInstancePropsType<ValueType> {
+    value: ValueType;
+    onChange: React.ChangeEventHandler;
+    onBlur: React.FormEventHandler;
 }
 
-export class RadioGroup
-    extends React.Component<
-        FieldProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn }
-    >
-    implements React.ChildContextProvider<RadioGroupContext> {
-    getChildContext(): {
-        group: FieldApi;
-    };
+export interface UseFieldInstance<
+    ValueType,
+    ErrorType,
+    EventType,
+    FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
+    FormMetaType extends UseFormInstanceMeta<ErrorType>,
+    InputPropsType extends UseFieldInstancePropsType<ValueType>
+> extends FieldScopeSpecificMethods<ValueType, ErrorType, EventType, FieldMetaType> {
+    form: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>;
+    fieldName: string;
+    value: ValueType;
+    meta: FieldMetaType;
+    FieldScope: typeof React.Component;
+
+    debounce(f: () => void, wait: number): Promise<void> | void;
+
+    runValidation(): void;
+
+    getInputProps(props?: Partial<InputPropsType>): InputPropsType;
+
+    setValue(updater: ((prev: ValueType) => ValueType) | ValueType, options?: { isTouched: boolean }): void;
+
+    setMeta(updater: ((prev: FieldMetaType) => FieldMetaType) | Partial<FieldMetaType>): void;
+
+    pushValue(newValue: ValueType): void;
+
+    insertValue(insertIndex: number, value: ValueType): void;
+
+    removeValue(removalIndex: number): void;
+
+    swapValues(firstIndex: number, secondIndex: number): void;
 }
 
-export const Radio: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi}>;
-export const Checkbox: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
+export function useForm<
+    ValueType = string,
+    ErrorType = string,
+    EventType = unknown,
+    FieldMetaType extends UseFieldInstanceMeta<ErrorType> = UseFieldInstanceMeta<ErrorType>,
+    FormMetaType extends UseFormInstanceMeta<ErrorType> = UseFormInstanceMeta<ErrorType>
+>(
+    props: UseFormOptions<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>,
+): UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>;
 
-// Styled Fields
+export function useField<
+    ValueType = string,
+    ErrorType = string,
+    EventType = unknown,
+    FieldMetaType extends UseFieldInstanceMeta<ErrorType> = UseFieldInstanceMeta<ErrorType>,
+    FormMetaType extends UseFormInstanceMeta<ErrorType> = UseFormInstanceMeta<ErrorType>,
+    InputPropsType extends UseFieldInstancePropsType<ValueType> = UseFieldInstancePropsType<ValueType>
+>(
+    fieldPath: string,
+    props: UseFieldOptions<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
+): UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>;
 
-export interface StyledProps extends FieldProps {
-    noMessage?: boolean;
-    messageBefore?: boolean;
-    touchValidation?: boolean;
-}
+export function splitFormProps(props: any): [string, UseFieldOptions<any, any, any, any, any, any>, any];
 
-export const StyledCheckbox: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {label: string}>;
-export const StyledTextArea: React.StatelessComponent<StyledProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
-export const StyledSelect: React.StatelessComponent<StyledProps & SelectProps & React.InputHTMLAttributes<HTMLSelectElement>>;
-export const StyledText: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement>>;
-export const StyledRadio: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi, label: string}>;
-
-export class StyledRadioGroup
-    extends React.Component<
-        StyledProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn }
-    >
-    implements React.ChildContextProvider<RadioGroupContext> {
-    getChildContext(): {
-        group: FieldApi
-    };
-}
+export function useFormContext(): UseFormInstance<any, any, any, any, any>;

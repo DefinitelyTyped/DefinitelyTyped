@@ -1,11 +1,9 @@
-// Type definitions for svg-spritemap-webpack-plugin 3.7
+// Type definitions for svg-spritemap-webpack-plugin 3.9
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Compiler } from 'webpack';
-
-export = SVGSpritemapPlugin;
+// TypeScript Version: 3.7
+import { Compiler, WebpackPluginInstance } from 'webpack';
 
 declare namespace SVGSpritemapPlugin {
     /**
@@ -56,7 +54,15 @@ declare namespace SVGSpritemapPlugin {
          * The sprite object contains the configuration for the generated sprites in the output spritemap.
          */
         sprite?: {
+            /**
+             * @default 'sprite-'
+             */
             prefix?: string | ((file: string) => string) | false;
+            /**
+             * Whether to also prefix any selectors that are generated in the styles file, if enabled.
+             * @default false
+             */
+            prefixStylesSelectors?: boolean;
             /**
              * Function that will be used to transform the filename of each sprite into a valid HTML id
              */
@@ -93,14 +99,16 @@ declare namespace SVGSpritemapPlugin {
                       mixin?: string;
                   };
                   /** @default undefined */
-                  callback?: (content: string) => string
+                  callback?: (content: string) => string;
               };
     }
 }
-declare class SVGSpritemapPlugin {
+declare class SVGSpritemapPlugin implements WebpackPluginInstance {
     readonly directories: string[];
 
     constructor(pattern?: string | string[], options?: SVGSpritemapPlugin.Options);
+
+    apply(compiler: Compiler): void;
 
     private updateDependencies(): void;
     private getStylesType(styles: object, filename?: string): 'asset' | 'dir' | 'module' | undefined;
@@ -117,6 +125,6 @@ declare class SVGSpritemapPlugin {
     private getSpritemapHashes(compilation: any): string[];
     private getStylesHashes(compilation: any): string[];
     private getContentHash(source: string): string;
-
-    apply(compiler: Compiler): void;
 }
+
+export = SVGSpritemapPlugin;

@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.19
+// Type definitions for ioredis 4.22
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -321,6 +321,8 @@ declare namespace IORedis {
 
         lpop(key: KeyType, callback: Callback<string>): void;
         lpop(key: KeyType): Promise<string>;
+        lpop(key: KeyType, count: number, callback: Callback<string[]>): void;
+        lpop(key: KeyType, count: number): Promise<string[]>;
 
         lpos(key: KeyType, value: ValueType, rank?: number, count?: number, maxlen?: number): Promise<number | null>;
 
@@ -1147,7 +1149,7 @@ declare namespace IORedis {
 
         xrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xread: OverloadedListCommand<ValueType, Array<[string, string[]]>>;
+        xread: OverloadedListCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
         xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
@@ -1319,13 +1321,7 @@ declare namespace IORedis {
 
         smembers(key: KeyType, callback?: Callback<string[]>): Pipeline;
 
-        zadd(key: KeyType, score: number, member: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string, score3: number, member3: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string, score3: number, member3: string, score4: number, member4: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string, score3: number, member3: string, score4: number, member4: string, score5: number, member5: string): Pipeline;
-        zadd(key: KeyType, score: number, member: string, score2: number, member2: string, score3: number, member3: string, score4: number, member4: string, score5: number, member5: string,
-            score6: number, member6: string): Pipeline;
+        zadd(key: KeyType, ...scoresAndMembers: Array<number|string>): Pipeline;
 
         zincrby(key: KeyType, increment: number, member: string, callback?: Callback<string>): Pipeline;
 
@@ -1677,6 +1673,7 @@ declare namespace IORedis {
         readonly status: string;
         connect(): Promise<void>;
         disconnect(): void;
+        duplicate(overrideStartupNodes?: ReadonlyArray<ClusterNode>, overrideOptions?: ClusterOptions): Cluster;
         nodes(role?: NodeRole): Redis[];
     }
 
@@ -1877,6 +1874,8 @@ declare namespace IORedis {
     interface ScanStreamOption {
         match?: string;
         count?: number;
+        type?: string;
+        key?: string;
     }
 
     type DNSLookupFunction = (

@@ -4,7 +4,7 @@
 //                 Benjamin Lim <https://github.com/bumbleblym>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { Plugin, compilation, Compiler } from 'webpack';
 import { AsyncSeriesWaterfallHook } from 'tapable';

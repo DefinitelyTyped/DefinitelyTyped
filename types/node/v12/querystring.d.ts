@@ -1,4 +1,8 @@
-declare module "querystring" {
+declare module 'node:querystring' {
+    export * from 'querystring';
+}
+
+declare module 'querystring' {
     interface StringifyOptions {
         encodeURIComponent?: (str: string) => string;
     }

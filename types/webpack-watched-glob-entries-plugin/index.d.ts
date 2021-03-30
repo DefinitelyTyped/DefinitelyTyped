@@ -2,7 +2,7 @@
 // Project: https://github.com/Milanzor/webpack-watched-glob-entries-plugin#readme
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { IOptions } from 'glob';
 import { EntryFunc, Plugin } from 'webpack';

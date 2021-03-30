@@ -1654,9 +1654,12 @@ export class StaticCanvas {
 interface ICanvasOptions extends IStaticCanvasOptions {
     /**
      * When true, objects can be transformed by one side (unproportionally)
+     * when dragged on the corners that normally would not do that.
      * @type Boolean
+     * @default
+     * @since fabric 4.0 // changed name and default value
      */
-    uniScaleTransform?: boolean;
+    uniformScaling?: boolean;
 
     /**
      * Indicates which key enable unproportional scaling
@@ -3371,7 +3374,7 @@ export class Object {
      * @param e Event to operate upon
      * @param [pointer] Pointer to operate upon (instead of event)
      */
-    getLocalPointer(e: Event, pointer?: { x: number; y: number }): { x: number; y: number };
+    getLocalPointer(e: Event | undefined, pointer?: { x: number; y: number }): { x: number; y: number };
 
     /**
      * Basic getter

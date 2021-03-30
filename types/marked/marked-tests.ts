@@ -1,5 +1,15 @@
 import * as marked from 'marked';
 
+const tokenizer = new marked.Tokenizer();
+
+tokenizer.emStrong = (src, _maskedSrc, _prevChar) => {
+    return {
+        type: 'strong',
+        text: src,
+        raw: src,
+    };
+};
+
 let options: marked.MarkedOptions = {
     baseUrl: '',
     gfm: true,
@@ -13,9 +23,9 @@ let options: marked.MarkedOptions = {
     },
     langPrefix: 'lang-',
     smartypants: false,
-    tokenizer: new marked.Tokenizer(),
+    tokenizer,
     renderer: new marked.Renderer(),
-    walkTokens: (callback: (token: marked.Token) => void) => {}
+    walkTokens: (callback: (token: marked.Token) => void) => {},
 };
 
 options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
@@ -67,7 +77,7 @@ renderer.heading = (text, level, raw, slugger) => {
 renderer.hr = () => {
     return `<hr${renderer.options.xhtml ? '/' : ''}>\n`;
 };
-renderer.checkbox = (checked) => {
+renderer.checkbox = checked => {
     return checked ? 'CHECKED' : 'UNCHECKED';
 };
 const rendererOptions: marked.MarkedOptions = renderer.options;
@@ -77,6 +87,11 @@ console.log(textRenderer.strong(text));
 
 const parseTestText = '- list1\n  - list1.1\n\n listend';
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
+
+/* List type is `list`. */
+const listToken = parseTestTokens[0] as marked.Tokens.List;
+console.log(listToken.type === 'list');
+
 const parser = new marked.Parser();
 console.log(parser.parse(parseTestTokens));
 console.log(marked.Parser.parse(parseTestTokens));

@@ -357,6 +357,9 @@ const callback = () => {};
 // query for blog posts by werner@example.com
 BlogPost.query('werner@example.com').exec(callback);
 
+// query for blog posts by werner@example.com as a promise
+BlogPost.query('werner@example.com').exec().promise().then(callback);
+
 // same as above, but load all results
 BlogPost.query('werner@example.com')
     .loadAll()
