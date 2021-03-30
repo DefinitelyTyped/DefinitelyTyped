@@ -5,3 +5,9 @@ decode(new Uint8Array(), { type: "image/png" });
 
 // $ExpectType DecodedImage | null
 decode(new Uint8Array(), "image/png");
+
+// $ExpectType DecodedImage | null
+decode("", "image/png");
+
+// $ExpectType DecodedImage | null
+decode("", { type: "image/png" });
