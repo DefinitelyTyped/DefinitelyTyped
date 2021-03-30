@@ -1,6 +1,6 @@
 // Type definitions for nut-pipe 1.1
 // Project: https://github.com/nodejs-projects-kenanhancer/nut-pipe
-// Definitions by: kenan hancer https://github.com/kenanhancer
+// Definitions by: kenan hancer <https://github.com/kenanhancer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2, Context } from "aws-lambda";
