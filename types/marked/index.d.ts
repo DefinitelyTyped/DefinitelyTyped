@@ -117,77 +117,77 @@ declare namespace marked {
      */
     function use(options: MarkedExtension): void;
 
-    class Tokenizer<T = null> {
+    class Tokenizer<T = never> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        space(src: string): NonNullable<Tokens.Space | T>;
-        code(src: string): NonNullable<Tokens.Code | T>;
-        fences(src: string): NonNullable<Tokens.Code | T>;
-        heading(src: string): NonNullable<Tokens.Heading | T>;
-        nptable(src: string): NonNullable<Tokens.Table | T>;
-        hr(src: string): NonNullable<Tokens.Hr | T>;
-        blockquote(src: string): NonNullable<Tokens.Blockquote | T>;
-        list(src: string): NonNullable<Tokens.List | T>;
-        html(src: string): NonNullable<Tokens.HTML | T>;
-        def(src: string): NonNullable<Tokens.Def | T>;
-        table(src: string): NonNullable<Tokens.Table | T>;
-        lheading(src: string): NonNullable<Tokens.Heading | T>;
-        paragraph(src: string): NonNullable<Tokens.Paragraph | T>;
-        text(src: string): NonNullable<Tokens.Text | T>;
-        escape(src: string): NonNullable<Tokens.Escape | T>;
-        tag(src: string, inLink: boolean, inRawBlock: boolean): NonNullable<Tokens.Tag | T>;
-        link(src: string): NonNullable<Tokens.Image | Tokens.Link | T>;
+        space(src: string): Tokens.Space | T;
+        code(src: string): Tokens.Code | T;
+        fences(src: string): Tokens.Code | T;
+        heading(src: string): Tokens.Heading | T;
+        nptable(src: string): Tokens.Table | T;
+        hr(src: string): Tokens.Hr | T;
+        blockquote(src: string): Tokens.Blockquote | T;
+        list(src: string): Tokens.List | T;
+        html(src: string): Tokens.HTML | T;
+        def(src: string): Tokens.Def | T;
+        table(src: string): Tokens.Table | T;
+        lheading(src: string): Tokens.Heading | T;
+        paragraph(src: string): Tokens.Paragraph | T;
+        text(src: string): Tokens.Text | T;
+        escape(src: string): Tokens.Escape | T;
+        tag(src: string, inLink: boolean, inRawBlock: boolean): Tokens.Tag | T;
+        link(src: string): Tokens.Image | Tokens.Link | T;
         reflink(
             src: string,
             links: Tokens.Link[] | Tokens.Image[],
-        ): NonNullable<Tokens.Link | Tokens.Image | Tokens.Text | T>;
-        emStrong(src: string, maskedSrc: string, prevChar: string): NonNullable<Tokens.Em | Tokens.Strong | T>;
-        codespan(src: string): NonNullable<Tokens.Codespan | T>;
-        br(src: string): NonNullable<Tokens.Br | T>;
-        del(src: string): NonNullable<Tokens.Del | T>;
-        autolink(src: string, mangle: (cap: string) => string): NonNullable<Tokens.Link | T>;
-        url(src: string, mangle: (cap: string) => string): NonNullable<Tokens.Link | T>;
+        ): Tokens.Link | Tokens.Image | Tokens.Text | T;
+        emStrong(src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong | T;
+        codespan(src: string): Tokens.Codespan | T;
+        br(src: string): Tokens.Br | T;
+        del(src: string): Tokens.Del | T;
+        autolink(src: string, mangle: (cap: string) => string): Tokens.Link | T;
+        url(src: string, mangle: (cap: string) => string): Tokens.Link | T;
         inlineText(
             src: string,
             inRawBlock: boolean,
             smartypants: (cap: string) => string,
-        ): NonNullable<Tokens.Text | T>;
+        ): Tokens.Text | T;
     }
 
     type TokenizerObject = Partial<Omit<Tokenizer<false>, "constructor" | "options">>;
 
-    class Renderer<T = null> {
+    class Renderer<T = never> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        code(code: string, language: string | undefined, isEscaped: boolean): NonNullable<string | T>;
-        blockquote(quote: string): NonNullable<string | T>;
-        html(html: string): NonNullable<string | T>;
-        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): NonNullable<string | T>;
-        hr(): NonNullable<string | T>;
-        list(body: string, ordered: boolean, start: number): NonNullable<string | T>;
-        listitem(text: string): NonNullable<string | T>;
-        checkbox(checked: boolean): NonNullable<string | T>;
-        paragraph(text: string): NonNullable<string | T>;
-        table(header: string, body: string): NonNullable<string | T>;
-        tablerow(content: string): NonNullable<string | T>;
+        code(code: string, language: string | undefined, isEscaped: boolean): string | T;
+        blockquote(quote: string): string | T;
+        html(html: string): string | T;
+        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string | T;
+        hr(): string | T;
+        list(body: string, ordered: boolean, start: number): string | T;
+        listitem(text: string): string | T;
+        checkbox(checked: boolean): string | T;
+        paragraph(text: string): string | T;
+        table(header: string, body: string): string | T;
+        tablerow(content: string): string | T;
         tablecell(
             content: string,
             flags: {
                 header: boolean;
                 align: "center" | "left" | "right" | null;
             },
-        ): NonNullable<string | T>;
-        strong(text: string): NonNullable<string | T>;
-        em(text: string): NonNullable<string | T>;
-        codespan(code: string): NonNullable<string | T>;
-        br(): NonNullable<string | T>;
-        del(text: string): NonNullable<string | T>;
-        link(href: string | null, title: string | null, text: string): NonNullable<string | T>;
-        image(href: string | null, title: string | null, text: string): NonNullable<string | T>;
-        text(text: string): NonNullable<string | T>;
+        ): string | T;
+        strong(text: string): string | T;
+        em(text: string): string | T;
+        codespan(code: string): string | T;
+        br(): string | T;
+        del(text: string): string | T;
+        link(href: string | null, title: string | null, text: string): string | T;
+        image(href: string | null, title: string | null, text: string): string | T;
+        text(text: string): string | T;
     }
 
-    type RendererObject = Partial<Omit<Renderer<boolean>, "constructor" | "options">>;
+    type RendererObject = Partial<Omit<Renderer<false>, "constructor" | "options">>;
 
     class TextRenderer {
         strong(text: string): string;
