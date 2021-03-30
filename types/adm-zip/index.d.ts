@@ -263,11 +263,24 @@ declare namespace AdmZip {
         readonly encripted: boolean;
         readonly entryHeaderSize: number;
         readonly realDataOffset: number;
+        readonly dataHeader: DataHeader;
         loadDataHeaderFromBinary(data: Buffer): void;
         loadFromBinary(data: Buffer): void;
         dataHeaderToBinary(): Buffer;
         entryHeaderToBinary(): Buffer;
         toString(): string;
+    }
+
+    interface DataHeader {
+        version: number;
+        flags: number;
+        method: number;
+        time: number;
+        crc: number;
+        compressedSize: number;
+        size: number;
+        fnameLen: number;
+        extraLen: number;
     }
 }
 
