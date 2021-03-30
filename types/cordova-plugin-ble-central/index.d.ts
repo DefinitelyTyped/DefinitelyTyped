@@ -112,6 +112,10 @@ declare namespace BLECentralPlugin {
            [iOS] requestMtu is not supported on iOS. */
         requestMtu(device_id: string, mtu: number, success?: () => any, failure?: () => any): void;
 
+        /* When Connecting to a peripheral android can request for the connection priority for better communication.
+           [iOS] requestConnectionPriority is not supported on iOS. */
+        requestConnectionPriority(device_id: string, priority: "high"|"balanced"|"low", success?: () => any, failure?: () => any): void;
+
         /* Clears cached services and characteristics info for some poorly behaved devices. Uses an undocumented API,
         so it is not guaranteed to work.
            [iOS] refreshDeviceCache is not supported on iOS. */

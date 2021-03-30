@@ -117,6 +117,12 @@ ble.requestMtu(demoDevice.id, 10);
 ble.requestMtu(demoDevice.id, 10, () => log('it worked'));
 ble.requestMtu(demoDevice.id, 10, () => log('it worked'), () => log('it failed'));
 
+
+// request mtu
+ble.requestConnectionPriority(demoDevice.id, "high");
+ble.requestConnectionPriority(demoDevice.id, "balanced", () => log('it worked'));
+ble.requestConnectionPriority(demoDevice.id, "low", () => log('it worked'), () => log('it failed'));
+
 // refreshDeviceCache
 ble.refreshDeviceCache(demoDevice.id, 10);
 ble.refreshDeviceCache(demoDevice.id, 10, () => log('it worked'));
