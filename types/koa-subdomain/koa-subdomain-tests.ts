@@ -13,5 +13,12 @@ router.get("/", async ctx => {
 
 subdomain.use("app", router.routes());
 
+const result = subdomain.match(["app"]);
+
+if (result === null) {
+    throw Error("koa-subdomain fail. MatchResult cant be null");
+}
+
+app.use(result.middleware);
 app.use(subdomain.routes());
 app.listen(80);
