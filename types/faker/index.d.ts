@@ -79,9 +79,14 @@ declare namespace Faker {
             number(options?: { min?: number; max?: number; precision?: number }): number;
             float(max?: number): number;
             float(options?: { min?: number; max?: number; precision?: number }): number;
+            datetime(max?: number): Date;
+            datetime(options?: { min?: number; max?: number }): Date;
+            string(length?: number): string;
             uuid(): string;
             boolean(): boolean;
             hexaDecimal(count?: number): string;
+            json(): string;
+            array(length?: number): Array<string | number>;
         };
 
         date: {

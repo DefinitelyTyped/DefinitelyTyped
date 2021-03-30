@@ -2,6 +2,7 @@ let resultStr: string;
 let resultBool: boolean;
 let resultNum: number;
 let resultStrArr: string[];
+let resultStrNumArray: Array<string | number>;
 let resultDate: Date;
 
 import faker = require('faker');
@@ -87,10 +88,21 @@ resultNum = faker.datatype.float({
     max: 0,
     precision: 0,
 });
+resultDate = faker.datatype.datetime();
+resultDate = faker.datatype.datetime(0);
+resultDate = faker.datatype.datetime({
+    min: 0,
+    max: 0,
+});
+resultStr = faker.datatype.string();
+resultStr = faker.datatype.string(0);
 resultStr = faker.datatype.uuid();
 resultBool = faker.datatype.boolean();
 resultStr = faker.datatype.hexaDecimal();
 resultStr = faker.datatype.hexaDecimal(0);
+resultStr = faker.datatype.json();
+resultStrNumArray = faker.datatype.array();
+resultStrNumArray = faker.datatype.array(0);
 
 resultDate = faker.date.past();
 resultDate = faker.date.future();
