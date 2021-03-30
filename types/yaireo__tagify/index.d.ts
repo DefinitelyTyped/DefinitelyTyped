@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 3.23
+// Type definitions for @yaireo/tagify 4.0
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
