@@ -31,6 +31,7 @@ declare module 'angular' {
             prefix: string;
             suffix: string;
             key?: string;
+            fileMap?: Record<string, string>;
         }
 
         interface IPartialLoader<T> {
