@@ -1,4 +1,4 @@
-// Type definitions for cordova-plugin-ble-central 1.2.2
+// Type definitions for cordova-plugin-ble-central 1.3.1
 // Project: https://github.com/don/cordova-plugin-ble-central
 // Definitions by: Gidon Junge <https://github.com/gjunge>
 //                 Philip Peitsch <https://github.com/peitschie>
@@ -78,6 +78,10 @@ declare namespace BLECentralPlugin {
     }
 
     export interface BLECentralPluginStatic extends BLECentralPluginCommon {
+        /* sets the pin when device requires it.
+           [iOS] setPin is not supported on iOS. */
+        setPin(pin: string, success?: () => any, failure?: (error: string|BLEError) => any): void;
+
         stopScan(): void;
         stopScan(success: () => any, failure?: () => any): void;
 

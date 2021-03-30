@@ -149,6 +149,11 @@ ble.stopNotification(demoDevice.id, charsOfOneOfItsServices[0].service, charsOfO
 ble.stopNotification(demoDevice.id, charsOfOneOfItsServices[0].service, charsOfOneOfItsServices[0].characteristic, () => log('it worked'));
 ble.stopNotification(demoDevice.id, charsOfOneOfItsServices[0].service, charsOfOneOfItsServices[0].characteristic, () => log('it worked'), () => log('it failed'));
 
+//setPin
+ble.setPin("abc");
+ble.setPin("abc", () => log('it worked'));
+ble.setPin("abc", () => log('it worked'), () => log('it failed'));
+
 //notificationsReceived == 1
 
 //just disconnect
