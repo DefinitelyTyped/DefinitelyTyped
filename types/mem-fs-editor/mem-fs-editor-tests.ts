@@ -90,6 +90,20 @@ namespace Editor.append {
     contents = EDITOR.append(FILE_PATH, CONTENTS, OPTIONS);
 }
 
+// Tests for `MemFsEditor.Editor#appendTpl`
+namespace Editor.appendTpl {
+    declare const CONTENTS: string | Buffer;
+    declare const CONTEXT: TemplateData;
+    declare const TEMPLATE_OPTIONS: TemplateOptions;
+    declare const OPTIONS: MemFsEditor.AppendOptions;
+
+    EDITOR.appendTpl(FILE_PATH, CONTENTS);
+    EDITOR.appendTpl(FILE_PATH, CONTENTS, CONTEXT);
+    EDITOR.appendTpl(FILE_PATH, CONTENTS, CONTEXT, TEMPLATE_OPTIONS);
+    EDITOR.appendTpl(FILE_PATH, CONTENTS, CONTEXT, TEMPLATE_OPTIONS, OPTIONS);
+    EDITOR.appendTpl(FILE_PATH, CONTENTS, CONTEXT, undefined, OPTIONS);
+}
+
 // Tests for `MemFsEditor.Editor#extendJSON`
 namespace Editor.extendJSON {
     declare const CONTENTS: JSONSchema7Type;

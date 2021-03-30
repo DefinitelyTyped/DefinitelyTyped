@@ -30,6 +30,8 @@ export interface Editor {
 
     append(filepath: string, contents: WriteContents, options?: AppendOptions): string;
 
+    appendTpl(filepath: string, contents: WriteContents, context?: TemplateData, templateOptions?: TemplateOptions, options?: AppendOptions): void;
+
     extendJSON(filepath: string, contents: any, replacer?: WriteJsonReplacer, space?: WriteJsonSpace): void;
 
     delete(filepath: FilePaths, options?: WithGlobOptions): void;
@@ -98,4 +100,4 @@ type CommitCallback = (err: any) => void;
 //#endregion
 //#endregion
 
-export {};
+export { };
