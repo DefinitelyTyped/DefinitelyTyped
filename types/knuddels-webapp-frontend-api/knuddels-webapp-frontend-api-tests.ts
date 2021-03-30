@@ -14,17 +14,22 @@ const json = {
     },
 };
 const color = Client.Color.fromRGB(255, 255, 255);
-const same = Client.getClientType() === ClientType.Offline;
+const isOffline = Client.getClientType() === ClientType.Offline;
+if (isOffline) {
+    console.log('test-user is offline');
+}
 Client.getHostFrame().setTitle("test");
 Client.getHostFrame().focus();
 Client.getHostFrame().setBackgroundColor(color, 1337);
-Client.addEventListener("test", () => {})
+Client.addEventListener("test", () => {});
 Client.addEventListener("test", (event: {type: string, data: KnuddelsEvent}) => {
-    const x = event.type + event.data
+    const evtInfo = event.type + event.data;
+    console.log(`addEventListener called with ${evtInfo}`);
 });
 Client.removeEventListener("test");
 const connectionTypeChangeListener = (type: string) => {
-    const x = "abc" + type;
+    const evtInfo = "abc" + type;
+    console.log(`connectionTypeChangeListener called with ${evtInfo}`);
 };
 Client.sendEvent("test", json);
 Client.sendEvent("test", Client.pageData);
