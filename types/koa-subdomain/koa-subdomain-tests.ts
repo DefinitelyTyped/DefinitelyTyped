@@ -7,8 +7,8 @@ const router = new Router();
 
 const subdomain = new Subdomain();
 
-router.get('/', async ctx => {
-    ctx.body = 'Test';
+router.get("/", async ctx => {
+    ctx.body = "Test";
 });
 
 subdomain.use("app", router.routes());
