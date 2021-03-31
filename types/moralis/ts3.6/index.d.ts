@@ -1,30 +1,3 @@
-// Type definitions for moralis 0.0
-// Project: https://moralis.io/
-// Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
-//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
-//                  Cedric Kemp <https://github.com/jaeggerr>
-//                  Flavio Negrão <https://github.com/flavionegrao>
-//                  Wes Grimes <https://github.com/wesleygrimes>
-//                  Otherwise SAS <https://github.com/owsas>
-//                  Andrew Goldis <https://github.com/agoldis>
-//                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
-//                  Diamond Lewis <https://github.com/dplewis>
-//                  Jong Eun Lee <https://github.com/yomybaby>
-//                  Colin Ulin <https://github.com/pocketcolin>
-//                  Robert Helms <https://github.com/rdhelms>
-//                  Julien Quere <https://github.com/jlnquere>
-//                  Thibault MOCELLIN <https://github.com/tybi>
-//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
-//                  Jeff Gu Kang <https://github.com/jeffgukang>
-//                  Bui Tan Loc <https://github.com/buitanloc>
-//                  Linus Unnebäck <https://github.com/LinusU>
-//                  Jerome De Leon <https://github.com/JeromeDeLeon>
-//                  Kent Robin Haugen <https://github.com/kentrh>
-//                  Asen Lekov <https://github.com/L3K0V>
-//                  Switt Kongdachalert <https://github.com/swittk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /// <reference types="node" />
 /// <reference path="node.d.ts" />
 /// <reference path="react-native.d.ts" />
@@ -99,7 +72,6 @@ declare global {
         let serverAuthType: string | undefined;
         let serverURL: string;
         let secret: string;
-        let idempotency: boolean;
         let encryptedUser: boolean;
 
         interface BatchSizeOption {
@@ -209,9 +181,6 @@ declare global {
             createdAt: Date;
             objectId: string;
             updatedAt: Date;
-        }
-
-        interface CommonAttributes {
             ACL: ACL;
         }
 
@@ -456,7 +425,7 @@ declare global {
             ): Relation<this, R>;
             remove: this['add'];
             removeAll: this['addAll'];
-            revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
+            revert(...keys: Array<Extract<keyof T, string>>): void;
             save<K extends Extract<keyof T, string>>(
                 attrs?:
                     | (((x: T) => void) extends (x: Attributes) => void
@@ -549,7 +518,7 @@ declare global {
                 : T extends RegExp
                 ? string
                 : T extends Array<infer R>
-                ? Array<Encode<R>>
+                ? any[]
                 : T extends object
                 ? ToJSON<T>
                 : T;
@@ -720,7 +689,6 @@ declare global {
             exclude<K extends keyof T['attributes'] | keyof BaseAttributes>(...keys: K[]): this;
             exists<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K): this;
             find(options?: Query.FindOptions): Promise<T[]>;
-            findAll(options?: Query.BatchOptions): Promise<T[]>;
             first(options?: Query.FirstOptions): Promise<T | undefined>;
             fromNetwork(): this;
             fromLocalDatastore(): this;
@@ -1003,6 +971,11 @@ declare global {
                 options: { authData?: AuthData },
                 saveOpts?: FullOptions,
             ) => Promise<this>;
+            _linkWith: (
+                provider: string | AuthProvider,
+                options: { authData?: AuthData },
+                saveOpts?: FullOptions,
+            ) => Promise<this>;
             _isLinked: (provider: string | AuthProvider) => boolean;
             _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
         }
@@ -1186,20 +1159,7 @@ declare global {
                 string
             >;
 
-            interface FieldOptions<
-                T extends
-                    | string
-                    | number
-                    | boolean
-                    | Date
-                    | File
-                    | GeoPoint
-                    | Polygon
-                    | any[]
-                    | object
-                    | Pointer
-                    | Relation = any
-            > {
+            interface FieldOptions<T extends FieldType = any> {
                 required?: boolean;
                 defaultValue?: T;
             }
@@ -1611,7 +1571,7 @@ declare global {
 
         /**
          * Call this method first to set up your authentication tokens for Moralis.
-         * You can get your keys from the Data Browser on docs.moralis.io.
+         * You can get your keys from the Data Browser on moralis.io.
          * @param applicationId Your Moralis Application ID.
          * @param javaScriptKey (optional) Your Moralis JavaScript Key (Not needed for moralis-server)
          * @param masterKey (optional) Your Moralis Master Key. (Node.js only!)
