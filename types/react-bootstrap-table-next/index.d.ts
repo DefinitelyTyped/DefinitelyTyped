@@ -143,7 +143,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
 
     tooltipDataField?: string;
     editable?: boolean | ((cell: any, row: T, rowIndex: number, colIndex: number) => boolean);
-    editor?: { type: string; options?: [{ value: string; label: string }] };
+    editor?: { type: string; options?: Array<{ value: string; label: string }> };
     filter?: boolean | TableColumnFilterProps;
     filterValue?: (cell: T[keyof T], row: T) => string;
     headerAlign?: CellAlignment;
@@ -403,7 +403,7 @@ export interface SelectRowProps<T> {
     nonSelectable?: number[];
     nonSelectableStyle?: ((row: T, rowIndex: number) => CSSProperties | undefined) | CSSProperties;
     nonSelectableClasses?: ((row: T, rowIndex: number) => string | undefined) | string;
-    bgColor?: (row: T, rowIndex: number) => string | string;
+    bgColor?: ((row: T, rowIndex: number) => string) | string;
     hideSelectColumn?: boolean;
     selectionRenderer?: (options: {
         checked: boolean;

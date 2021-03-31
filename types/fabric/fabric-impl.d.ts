@@ -578,7 +578,7 @@ interface IGradientOptionsCoords {
 }
 
 type IGradientOptionsColorStops = Array<{
-    offset: string;
+    offset: number;
     color: string;
 }>;
 
@@ -1654,9 +1654,12 @@ export class StaticCanvas {
 interface ICanvasOptions extends IStaticCanvasOptions {
     /**
      * When true, objects can be transformed by one side (unproportionally)
+     * when dragged on the corners that normally would not do that.
      * @type Boolean
+     * @default
+     * @since fabric 4.0 // changed name and default value
      */
-    uniScaleTransform?: boolean;
+    uniformScaling?: boolean;
 
     /**
      * Indicates which key enable unproportional scaling

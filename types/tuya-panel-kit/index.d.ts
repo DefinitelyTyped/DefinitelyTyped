@@ -37,6 +37,115 @@ export { GlobalTheme } from './theme';
 
 export type AnyFunction = (...args: any[]) => void;
 
+// Battery
+export interface BatteryProps {
+    /**
+     * @language zh-CN
+     * @description 电池尺寸
+     * @types number
+     * @defaultValue cx(10)
+     */
+    /**
+     * @language en-US
+     * @description the size of battery
+     * @types number
+     * @defaultValue cx(10)
+     */
+    size?: number;
+    /**
+     * @language zh-CN
+     * @description 电池颜色
+     * @types string
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the color of battery
+     * @types string
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    batteryColor?: string;
+    /**
+     * @language zh-CN
+     * @description 电量
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the value of battery power
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    value?: number;
+    /**
+     * @language zh-CN
+     * @description 高电量颜色
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the color of high power
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    highColor?: string;
+    /**
+     * @language zh-CN
+     * @description 中电量颜色
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the color of middle power
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    middleColor?: string;
+    /**
+     * @language zh-CN
+     * @description 低电量颜色
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description the color of low power
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    lowColor?: string;
+    /**
+     * @language zh-CN
+     * @description 自定义电量的颜色分配规则
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    /**
+     * @language en-US
+     * @description Customize the color distribution rules of the battery
+     * @types number
+     * @defaultValue 'rgba(0,0,0,.5)'
+     */
+    onCalcColor?: (...args: any[]) => void;
+    /**
+     * @language zh-CN
+     * @description 主题配置
+     * @defaultValue {}
+     */
+    /**
+     * @language en-US
+     * @description Theme configuration
+     * @defaultValue {}
+     */
+    theme?: {
+        batteryColor: string;
+    };
+}
+export class Battery extends React.Component<BatteryProps> {}
+
 // BrickButton
 export interface BrickButtonProps {
     /**
@@ -1860,23 +1969,27 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 图片资源
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description image source
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     imageSource?: object | number;
     /**
      * @language zh-CN
      * @description 图片样式
+     * @addVersion 4.3.0
      * @defaultValue undefined
      * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      */
     /**
      * @language en-US
      * @description image style
+     * @addVersion 4.3.0
      * @defaultValue undefined
      * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      */
@@ -1884,22 +1997,26 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 图标路径
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description icon path
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     iconPath?: string;
     /**
      * @language zh-CN
      * @description 图标尺寸
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description icon size
+     * @addVersion 4.3.0
      * @defaultValue undefined
      */
     iconSize?: number;
@@ -2203,7 +2320,7 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
     showIcon?: boolean;
 }
 export const GlobalToast: {
-    show: (option: GlobalToastProps) => void;
+    show: (option: Omit<GlobalToastProps, 'show' | 'onFinish'>) => void;
     hide: () => void;
 };
 
@@ -2221,8 +2338,15 @@ type IconFontName =
     | 9
     | 'power'
     | 'arrow'
+    | '+'
+    | '-'
+    | '.'
+    | ':'
+    | ','
     | 'celsius'
     | 'fahrenheit'
+    | '%'
+    | 'edit'
     | 'minus'
     | 'plus'
     | 'error'
@@ -2240,7 +2364,17 @@ type IconFontName =
     | 'volumeMax'
     | 'volumeMuteBorder'
     | 'volumeMaxBorder'
-    | 'help';
+    | 'help'
+    | 'pen'
+    | 'notice-sharp'
+    | 'selected-sharp'
+    | 'unselected-sharp'
+    | 'volume-sharp-off'
+    | 'volume-sharp-max'
+    | 'volume-border-2'
+    | 'volume-border-1'
+    | 'volume-border-off'
+    | 'help-sharp';
 
 export interface IconFontProps {
     /**
@@ -3391,7 +3525,7 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @description Value matching value of one of the items
      * @defaultValue undefined
      */
-    selectedValue?: string | number | boolean;
+    selectedValue?: string;
     /**
      * @language zh-CN
      * @description 数值改变回调
@@ -3938,7 +4072,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
      * @description List selection popup type
      * @defaultValue 'radio'
      */
-    type?: 'radio' | 'switch';
+    type?: 'radio' | 'switch' | 'arrow';
     /**
      * @language zh-CN
      * @description 最大列表数量
@@ -4273,7 +4407,7 @@ export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 
 }
 export interface PopupNumberSelectorProps
     extends Omit<PopupProps, 'onLayout' | 'animationType'>,
-        Omit<SliderProps, 'theme'> {
+        Omit<SliderProps, 'theme' | 'type'> {
     /**
      * @language zh-CN
      * @description numberSelector弹框样式
@@ -6135,11 +6269,291 @@ export interface SliderProps {
         touchArea?: StyleProp<ViewStyle>;
         debugThumbTouchArea?: StyleProp<ViewStyle>;
     };
+    /**
+     * @language zh-CN
+     * @description 滑块的类型，parcel：包裹类型
+     * @addVersion 4.4.0
+     * @defaultValue normal
+     */
+    /**
+     * @language en-US
+     * @description The type of slider, parcel: package type
+     * @addVersion 4.4.0
+     * @defaultValue normal
+     */
+    type?: 'normal' | 'parcel';
 }
 export class Slider extends React.Component<SliderProps> {
     static Horizontal: React.ElementType<SliderProps>;
     static Vertical: React.ElementType<SliderProps>;
 }
+
+// SliderProgress
+export interface SliderProgressProps {
+    /**
+     * @language zh-CN
+     * @description 测试标识
+     * @defaultValue "SliderProgress"
+     */
+    /**
+     * @language en-US
+     * @description Test identification
+     * @defaultValue "SliderProgress"
+     */
+    accessibilityLabel?: string;
+    /**
+     * @language zh-CN
+     * @description 最小值
+     * @defaultValue 0
+     */
+    /**
+     * @language en-US
+     * @description min value
+     * @defaultValue 0
+     */
+    min?: number;
+    /**
+     * @language zh-CN
+     * @description 最大值
+     * @defaultValue 100
+     */
+    /**
+     * @language en-US
+     * @description max value
+     * @defaultValue 100
+     */
+    max?: number;
+    /**
+     * @language zh-CN
+     * @description 值
+     * @defaultValue 10
+     */
+    /**
+     * @language en-US
+     * @description value
+     * @defaultValue 10
+     */
+    value?: number | number[];
+    /**
+     * @language zh-CN
+     * @description 内容样式
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue {}
+     */
+    /**
+     * @language en-US
+     * @description Container Style
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue {}
+     */
+    style?: StyleProp<ViewStyle>;
+    /**
+     * @language zh-CN
+     * @description 值改变的回调函数
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description callback function of value change
+     * @defaultValue () => {}
+     */
+    onValueChange?: (...args: any[]) => any;
+    /**
+     * @language zh-CN
+     * @description 完成的回调函数
+     * @defaultValue () => {}
+     */
+    /**
+     * @language en-US
+     * @description callback function of complete
+     * @defaultValue () => {}
+     */
+    onComplete?: (...args: any[]) => any;
+    /**
+     * @language zh-CN
+     * @description 禁用
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description disabled
+     * @defaultValue false
+     */
+    disabled?: boolean;
+    /**
+     * @language zh-CN
+     * @description 滑块宽度
+     * @defaultValue 4
+     */
+    /**
+     * @language en-US
+     * @description width of thumb
+     * @defaultValue 4
+     */
+    thumbWidth?: number;
+    /**
+     * @language zh-CN
+     * @description 激活状态的颜色
+     * @defaultValue '#5E719F'
+     */
+    /**
+     * @language en-US
+     * @description color of active state
+     * @defaultValue '#5E719F'
+     */
+    activeColor?: string;
+    /**
+     * @language zh-CN
+     * @description 未激活状态的颜色
+     * @defaultValue 'rgba(94,113,159,0.2)'
+     */
+    /**
+     * @language en-US
+     * @description color of inactive state
+     * @defaultValue 'rgba(94,113,159,0.2)'
+     */
+    inactiveColor?: string;
+    /**
+     * @language zh-CN
+     * @description 限制可触摸的区域
+     * @defaultValue 4
+     */
+    /**
+     * @language en-US
+     * @description Restrict the touchable area
+     * @defaultValue 4
+     */
+    activeBase?: number;
+    /**
+     * @language zh-CN
+     * @description 是否允许点击更改值
+     * @defaultValue true
+     */
+    /**
+     * @language en-US
+     * @description Whether to allow clicking to change the value
+     * @defaultValue true
+     */
+    ifAllowClick?: boolean;
+}
+export class SliderProgress extends React.Component<SliderProgressProps> {}
+
+// SliderWithLine
+export interface SliderWithLineProps {
+    /**
+     * @language zh-CN
+     * @description 内容样式
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue {}
+     */
+    /**
+     * @language en-US
+     * @description Container Style
+     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
+     * @defaultValue {}
+     */
+    style?: StyleProp<ViewStyle>;
+    /**
+     * @language zh-CN
+     * @description 左边和右边的值
+     * @defaultValue [0, 50]
+     */
+    /**
+     * @language en-US
+     * @description Container Style
+     * @defaultValue [0, 50]
+     */
+    values?: number[];
+    /**
+     * @language zh-CN
+     * @description 激活状态的颜色
+     * @defaultValue 'blue'
+     */
+    /**
+     * @language en-US
+     * @description color of active state
+     * @defaultValue 'blue'
+     */
+    activeColor?: string;
+    /**
+     * @language zh-CN
+     * @description 激活状态的颜色
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description color of active state
+     * @defaultValue false
+     */
+    disabled?: boolean;
+    /**
+     * @language zh-CN
+     * @description 最小值
+     * @defaultValue 10
+     */
+    /**
+     * @language en-US
+     * @description min value
+     * @defaultValue 10
+     */
+    min?: number;
+    /**
+     * @language zh-CN
+     * @description 最大值
+     * @defaultValue 1000
+     */
+    /**
+     * @language en-US
+     * @description max value
+     * @defaultValue 1000
+     */
+    max?: number;
+    /**
+     * @language zh-CN
+     * @description minValue 的百分比范围
+     * @defaultValue null
+     */
+    /**
+     * @language en-US
+     * @description percent range of minValue
+     * @defaultValue null
+     */
+    minValuePercentRange?: any;
+    /**
+     * @language zh-CN
+     * @description maxValue 的百分比范围
+     * @defaultValue null
+     */
+    /**
+     * @language en-US
+     * @description percent range of maxValue
+     * @defaultValue null
+     */
+    maxValuePercentRange?: any;
+    /**
+     * @language zh-CN
+     * @description 禁用 minValue 调节
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description Disable minValue adjustment
+     * @defaultValue false
+     */
+    minDisabled?: boolean;
+    /**
+     * @language zh-CN
+     * @description 禁用 minValue 调节
+     * @defaultValue false
+     */
+    /**
+     * @language en-US
+     * @description Disable maxValue adjustment
+     * @defaultValue false
+     */
+    maxDisabled?: boolean;
+}
+export class SliderWithLine extends React.Component<SliderProps> {}
 
 // Stepper
 export interface StepperProps extends Omit<TextInputProps, 'value'> {
@@ -10039,6 +10453,7 @@ export class UnitText extends React.Component<UnitTextProps, ViewProps> {}
 // i18n
 export class I18N {
     constructor(...args: any[]);
+    language: string;
     getDpLang: (code: string, value?: string | boolean) => string;
     getLang: (key: string, defaultString?: string) => string;
     getRangeStrings: (dpCode: string) => Record<string, string>;
@@ -10357,6 +10772,8 @@ export interface DevInfo<S = Record<string, DpType>> {
     vendorInfo: string;
     verSw: string;
     virtual: boolean;
+    parentId?: string;
+    groupId?: string;
 }
 
 export type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
@@ -10686,7 +11103,25 @@ export let TYSdk: {
          * 隐藏 app 原生 loading UI 框
          */
         hideLoading(): void;
-        is24Hour(): boolean;
+        is24Hour(): Promise<boolean>;
+
+        /**
+         * 跳转面板原生事件
+         */
+        uiIdNavEventEmitter: {
+            createEmitter(): void;
+            addListener(listener: AnyFunction): void;
+            removeEmitter(): void;
+            registerEventListener(): void;
+            sendEvent(props: any): void;
+            /**
+             * 跳转面板, 等同于jumpSubPage, 只是传参形式的区别
+             * @param uiId uiid
+             * @param props 携带参数
+             */
+            pushWithUiID(uiId: string, props: any): void;
+        };
+
         /**
          * @desc 根据 uiId 跳转二级页面
          */
@@ -10766,7 +11201,7 @@ export let TYSdk: {
         gotoDeviceWifiNetworkMonitor: AnyFunction;
         gotoDpAlarm: (param: { category: string; repeat: number; data: GotoDpAlarmData }) => void;
         hideLoading: AnyFunction;
-        is24Hour: AnyFunction;
+        is24Hour: () => Promise<boolean>;
         jumpTo: (routeId: string) => any;
         lang: I18NLanMap;
         mobileInfo: MobileInfo;

@@ -521,10 +521,6 @@ declare namespace Office {
         visibilityMode: Office.VisibilityMode;
     }
     /**
-     * Function type to turn off the event.
-     */
-    type RemoveEventListener = () => Promise<void>;
-    /**
      * Represents add-in level functionality for operating or configuring various aspects of the add-in.
      */
     interface Addin {
@@ -550,11 +546,11 @@ declare namespace Office {
         /**
          * Adds a listener for the `onVisibilityModeChanged` event.
          * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
-         * @returns A promise that resolves to a function when the listener is added. The `RemoveEventListener` type is defined with `type RemoveEventListener = () => Promise<void>`. Calling it removes the listener.
+         * @returns A promise that resolves to a function when the listener is added. Calling it removes the listener.
          */
-        onVisibilityModeChanged(
+         onVisibilityModeChanged(
             listener: (message: VisibilityModeChangedMessage) => void,
-        ): Promise<RemoveEventListener>;
+        ): Promise<() => Promise<void>>;
     }
     /**
      * An interface that contains all the functionality provided to manage the state of the Office ribbon.
@@ -882,8 +878,7 @@ declare namespace Office {
         interface Source {
 
             /**
-             * The ID of the control that triggered calling this function. The ID comes from the manifest and is the unique ID of your Office Add-in 
-             * as a GUID.
+             * The ID of the control that triggered calling this function. The ID comes from the manifest.
              */
             id: string;
         }
@@ -964,7 +959,7 @@ declare namespace Office {
         *   </tr>
         *   <tr>
         *     <td>12004</td>
-        *     <td>The domain of the URL passed to displayDialogAsync is not trusted. The domain must be either the same domain as the host page (including protocol and port number), or it must be registered in the <AppDomains> section of the add-in manifest.</td>
+        *     <td>The domain of the URL passed to displayDialogAsync is not trusted. The domain must be either the same domain as the host page (including protocol and port number), or it must be registered in the `AppDomains` section of the add-in manifest.</td>
         *   </tr>
         *   <tr>
         *     <td>12005</td>
@@ -1006,7 +1001,7 @@ declare namespace Office {
         *   </tr>
         * </table>
         *
-        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param startAddress - Accepts the initial full HTTPS URL that opens in the dialog. Relative URLs must not be used.
         * @param options - Optional. Accepts an {@link Office.DialogOptions} object to define dialog display.
         * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a Dialog object.
         */
@@ -1065,7 +1060,7 @@ declare namespace Office {
         *   </tr>
         *   <tr>
         *     <td>12004</td>
-        *     <td>The domain of the URL passed to displayDialogAsync is not trusted. The domain must be either the same domain as the host page (including protocol and port number), or it must be registered in the <AppDomains> section of the add-in manifest.</td>
+        *     <td>The domain of the URL passed to displayDialogAsync is not trusted. The domain must be either the same domain as the host page (including protocol and port number), or it must be registered in the `AppDomains` section of the add-in manifest.</td>
         *   </tr>
         *   <tr>
         *     <td>12005</td>
@@ -1107,7 +1102,7 @@ declare namespace Office {
         *   </tr>
         * </table>
         *
-        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param startAddress - Accepts the initial full HTTPS URL that opens in the dialog. Relative URLs must not be used.
         * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a Dialog object.
         */
         displayDialogAsync(startAddress: string, callback?: (result: AsyncResult<Dialog>) => void): void;
@@ -1498,18 +1493,14 @@ declare namespace Office {
          */
          column?: number
     }
-	/**
-	 * Used to strongly type the `handler` property of RemoveHandlerOptions.
-	 */
-	 type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any;
     /**
      * Provides options to determine which event handler or handlers are removed.
      */
     interface RemoveHandlerOptions {
         /**
-         * The handler to be removed. If a particular handler is not specified, then all handlers for the specified event type are removed. The `BindingEventHandler` type is defined with `type BindingEventHandler = (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any`.
+         * The handler to be removed. If a particular handler is not specified, then all handlers for the specified event type are removed.
          */
-        handler?: BindingEventHandler
+        handler?: (eventArgs?: Office.BindingDataChangedEventArgs | Office.BindingSelectionChangedEventArgs) => any
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
@@ -4158,15 +4149,6 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * **Type-specific behaviors**
-         * 
-         * <table>
-         *   <tr>
-         *     <td>`Office.CoercionType.XmlSvg`</td>
-         *     <td>(Excel only): In Excel builds between 16.0.11526.10000 and 16.0.12309.10000, there is a 64KB size limitation for SVG insertions.</td>
-         *   </tr>
-         * </table>
-         * 
          * **Hosts**
          * 
          * The possible values for the {@link Office.CoercionType} parameter vary by the host. 
@@ -4353,15 +4335,6 @@ declare namespace Office {
          *     <td>PowerPoint</td>
          *     <td>Insert image</td>
          *     <td>Inserted images are floating. The position imageLeft and imageTop parameters are optional but if provided, both should be present. If a single value is provided, it will be ignored. Negative imageLeft and imageTop values are allowed and can position an image outside of a slide. If no optional parameter is given and slide has a placeholder, the image will replace the placeholder in the slide. Image aspect ratio will be locked unless both imageWidth and imageHeight parameters are provided. If only one of the imageWidth and imageHeight parameter is given, the other value will be automatically scaled to keep the original aspect ratio.</td>
-         *   </tr>
-         * </table>
-         * 
-         * **Type-specific behaviors**
-         * 
-         * <table>
-         *   <tr>
-         *     <td>`Office.CoercionType.XmlSvg`</td>
-         *     <td>(Excel only): There is a 64KB size limitation for SVG insertions as of build 16.0.11526.10000.</td>
          *   </tr>
          * </table>
          * 

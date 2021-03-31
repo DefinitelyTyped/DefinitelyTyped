@@ -12,7 +12,6 @@
 //                 Domas Trijonis <https://github.com/fdim>
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
-//                 Alex Povar <https://github.com/zvirja>
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 //                 Chives <https://github.com/chivesrs>
 //                 kirjs <https://github.com/kirjs>
@@ -157,7 +156,7 @@ declare function expect(): jasmine.NothingMatcher;
  * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual Actual computed value to test expectations against.
  */
-declare function expectAsync<T, U>(actual: T|PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
+declare function expectAsync<T, U>(actual: T | PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Explicitly mark a spec as failed.
@@ -181,11 +180,10 @@ interface DoneFn extends Function {
  * @param method The name of the method to replace with a `Spy`.
  */
 declare function spyOn<T, K extends keyof T = keyof T>(
-    object: T, method: T[K] extends Function ? K : never,
+    object: T,
+    method: T[K] extends Function ? K : never,
 ): jasmine.Spy<
-    T[K] extends jasmine.Func ? T[K] :
-    T[K] extends { new (...args: infer A): infer V } ? (...args: A) => V :
-    never
+    T[K] extends jasmine.Func ? T[K] : T[K] extends { new (...args: infer A): infer V } ? (...args: A) => V : never
 >;
 
 /**
@@ -194,7 +192,7 @@ declare function spyOn<T, K extends keyof T = keyof T>(
  * @param property The name of the property to replace with a `Spy`.
  * @param accessType The access type (get|set) of the property to `Spy` on.
  */
-declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: 'get' | 'set'): jasmine.Spy;
+declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: "get" | "set"): jasmine.Spy;
 
 /**
  * Installs spies on all writable and configurable properties of an object.
@@ -215,21 +213,29 @@ declare namespace jasmine {
 
     type ImplementationCallback = (() => PromiseLike<any>) | (() => void) | ((done: DoneFn) => void);
 
-    type ExpectedRecursive<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | {
-        [K in keyof T]: ExpectedRecursive<T[K]> | Any;
-    };
-    type Expected<T> = T | ObjectContaining<T> | AsymmetricMatcher<any> | Any | Spy | {
-        [K in keyof T]: ExpectedRecursive<T[K]>;
-    };
-    type SpyObjMethodNames<T = undefined> =
-        T extends undefined ?
-            (ReadonlyArray<string> | { [methodName: string]: any }) :
-            (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any });
+    type ExpectedRecursive<T> =
+        | T
+        | ObjectContaining<T>
+        | AsymmetricMatcher<any>
+        | {
+              [K in keyof T]: ExpectedRecursive<T[K]> | Any;
+          };
+    type Expected<T> =
+        | T
+        | ObjectContaining<T>
+        | AsymmetricMatcher<any>
+        | Any
+        | Spy
+        | {
+              [K in keyof T]: ExpectedRecursive<T[K]>;
+          };
+    type SpyObjMethodNames<T = undefined> = T extends undefined
+        ? ReadonlyArray<string> | { [methodName: string]: any }
+        : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any };
 
-    type SpyObjPropertyNames<T = undefined> =
-        T extends undefined ?
-                (ReadonlyArray<string> | { [propertyName: string]: any }) :
-                (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] });
+    type SpyObjPropertyNames<T = undefined> = T extends undefined
+        ? ReadonlyArray<string> | { [propertyName: string]: any }
+        : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] };
 
     /**
      * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
@@ -286,12 +292,16 @@ declare namespace jasmine {
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: {[K in keyof T]?: ExpectedRecursive<T[K]>}): ObjectContaining<T>;
+    function objectContaining<T>(sample: { [K in keyof T]?: ExpectedRecursive<T[K]> }): ObjectContaining<T>;
 
     function setDefaultSpyStrategy<Fn extends Func = Func>(fn?: (and: SpyAnd<Fn>) => void): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
-    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
+    function createSpyObj<T>(
+        baseName: string,
+        methodNames: SpyObjMethodNames<T>,
+        propertyNames?: SpyObjPropertyNames<T>,
+    ): SpyObj<T>;
     function createSpyObj(methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
     function createSpyObj<T>(methodNames: SpyObjMethodNames<T>, propertyNames?: SpyObjPropertyNames<T>): SpyObj<T>;
 
@@ -325,8 +335,8 @@ declare namespace jasmine {
     }
 
     interface AsymmetricMatcher<TValue> {
-      asymmetricMatch(other: TValue, customTesters: ReadonlyArray<CustomEqualityTester>): boolean;
-      jasmineToString?(): string;
+        asymmetricMatch(other: TValue, customTesters: ReadonlyArray<CustomEqualityTester>): boolean;
+        jasmineToString?(): string;
     }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
@@ -340,7 +350,7 @@ declare namespace jasmine {
     }
 
     interface ObjectContaining<T> extends AsymmetricMatcher<T> {
-        new?(sample: {[K in keyof T]?: any}): {[K in keyof T]?: any};
+        new?(sample: { [K in keyof T]?: any }): { [K in keyof T]?: any };
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString?(): string;
@@ -361,7 +371,7 @@ declare namespace jasmine {
     }
 
     interface Clock {
-        install(): void;
+        install(): Clock;
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
@@ -371,7 +381,7 @@ declare namespace jasmine {
 
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
-    type CustomObjectFormatter = (value: unknown) => string|undefined;
+    type CustomObjectFormatter = (value: unknown) => string | undefined;
 
     interface CustomMatcher {
         compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
@@ -387,9 +397,15 @@ declare namespace jasmine {
         negativeCompare?(actual: any, ...expected: any[]): PromiseLike<CustomMatcherResult>;
     }
 
-    type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomMatcher;
+    type CustomMatcherFactory = (
+        util: MatchersUtil,
+        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
+    ) => CustomMatcher;
 
-    type CustomAsyncMatcherFactory = (util: MatchersUtil, customEqualityTesters: ReadonlyArray<CustomEqualityTester>) => CustomAsyncMatcher;
+    type CustomAsyncMatcherFactory = (
+        util: MatchersUtil,
+        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
+    ) => CustomAsyncMatcher;
 
     interface CustomMatcherFactories {
         [name: string]: CustomMatcherFactory;
@@ -405,15 +421,19 @@ declare namespace jasmine {
     }
 
     interface DiffBuilder {
-      setRoots(actual: any, expected: any): void;
-      recordMismatch(formatter?: (actual: any, expected: any, path?: any, prettyPrinter?: any) => string): void;
-      withPath(pathComponent: string, block: () => void): void;
-      getMessage(): string;
+        setRoots(actual: any, expected: any): void;
+        recordMismatch(formatter?: (actual: any, expected: any, path?: any, prettyPrinter?: any) => string): void;
+        withPath(pathComponent: string, block: () => void): void;
+        getMessage(): string;
     }
 
     interface MatchersUtil {
         equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
-        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: ReadonlyArray<CustomEqualityTester>): boolean;
+        contains<T>(
+            haystack: ArrayLike<T> | string,
+            needle: any,
+            customTesters?: ReadonlyArray<CustomEqualityTester>,
+        ): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
 
         /**
@@ -546,7 +566,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean, seed: string }): any;
+        new (options: { random: boolean; seed: string }): any;
         random: boolean;
         seed: string;
         sort<T>(items: T[]): T[];
@@ -584,8 +604,7 @@ declare namespace jasmine {
         append(value: any): void;
     }
 
-    interface StringPrettyPrinter extends PrettyPrinter {
-    }
+    interface StringPrettyPrinter extends PrettyPrinter {}
 
     interface Queue {
         new (env: any): any;
@@ -739,7 +758,9 @@ declare namespace jasmine {
         not: ArrayLikeMatchers<T>;
     }
 
-    type MatchableArgs<Fn> = Fn extends (...args: infer P) => any ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> } : never;
+    type MatchableArgs<Fn> = Fn extends (...args: infer P) => any
+        ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> }
+        : never;
 
     interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
         /**
@@ -855,17 +876,62 @@ declare namespace jasmine {
         expected: string;
     }
 
-    interface PassedExpectation extends CustomReportExpectation {
+    interface PassedExpectation extends CustomReportExpectation {}
+
+    interface DeprecatedExpectation {
+        message: string;
     }
 
     interface CustomReporterResult {
-        description: string;
-        failedExpectations?: FailedExpectation[];
-        fullName: string;
+        /**
+         * The unique id of this spec.
+         */
         id: string;
+
+        /**
+         * The description passed to the {@link it} that created this spec.
+         */
+        description: string;
+
+        /**
+         * The full description including all ancestors of this spec.
+         */
+        fullName: string;
+
+        /**
+         * The list of expectations that failed during execution of this spec.
+         */
+        failedExpectations?: FailedExpectation[];
+
+        /**
+         * The list of expectations that passed during execution of this spec.
+         */
         passedExpectations?: PassedExpectation[];
+
+        /**
+         * The list of deprecation warnings that occurred during execution this spec.
+         */
+        deprecationWarnings?: DeprecatedExpectation[];
+
+        /**
+         * If the spec is pending, this will be the reason.
+         */
         pendingReason?: string;
+
+        /**
+         * Once the spec has completed, this string represents the pass/fail status of this spec.
+         */
         status?: string;
+
+        /**
+         * The time in ms used by the spec execution, including any before/afterEach.
+         */
+        duration: number | null;
+
+        /**
+         * User-supplied properties, if any, that were set using {@link Env.setSpecProperty}
+         */
+        properties: { [key: string]: unknown } | null;
     }
 
     interface RunDetails {
@@ -939,7 +1005,7 @@ declare namespace jasmine {
         addBeforesAndAftersToQueue(): void;
         explodes(): void;
         spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
-        spyOnProperty(object: any, property: string, accessType?: 'get' | 'set'): Spy;
+        spyOnProperty(object: any, property: string, accessType?: "get" | "set"): Spy;
         spyOnAllFunctions(object: any): Spy;
 
         removeAllSpies(): void;
@@ -982,9 +1048,17 @@ declare namespace jasmine {
         withArgs(...args: MatchableArgs<Fn>): Spy<Fn>;
     }
 
-    type SpyObj<T> = T & {
-        [K in keyof T]: T[K] extends Func ? T[K] & Spy<T[K]> : T[K];
-    };
+    type SpyObj<T> = T &
+        {
+            [K in keyof T]: T[K] extends Func ? T[K] & Spy<T[K]> : T[K];
+        };
+
+    /**
+     * Determines whether the provided function is a Jasmine spy.
+     * @since 2.0.0
+     * @param putativeSpy The function to check.
+     */
+    function isSpy(putativeSpy: Func): putativeSpy is Spy;
 
     /**
      * It's like SpyObj, but doesn't verify argument/return types for functions.
@@ -995,15 +1069,15 @@ declare namespace jasmine {
     /**
      * Obtains the promised type that a promise-returning function resolves to.
      */
-    type PromisedReturnType<Fn extends Func> =
-        Fn extends ((...args: any[]) => PromiseLike<infer TResult>) ? TResult : never;
+    type PromisedReturnType<Fn extends Func> = Fn extends (...args: any[]) => PromiseLike<infer TResult>
+        ? TResult
+        : never;
 
     /**
      * Obtains the type that a promise-returning function can be rejected with.
      * This is so we can use .and.rejectWith() only for functions that return a promise.
      */
-    type PromisedRejectType<Fn extends Function> =
-        Fn extends ((...args: any[]) => PromiseLike<unknown>) ? any : never;
+    type PromisedRejectType<Fn extends Function> = Fn extends (...args: any[]) => PromiseLike<unknown> ? any : never;
 
     interface SpyAnd<Fn extends Func> {
         identity: string;

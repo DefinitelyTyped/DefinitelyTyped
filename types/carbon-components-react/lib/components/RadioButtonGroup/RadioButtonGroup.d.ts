@@ -7,6 +7,7 @@ export interface RadioButtonGroupProps {
     defaultSelected?: RadioButtonValue,
     disabled?: boolean,
     labelPosition?: "left" | "right",
+    legendText?: React.ReactNode,
     name: string,
     onChange?(newSelection: RadioButtonValue, name: RadioButtonGroupProps["name"], event: React.ChangeEvent<HTMLInputElement>): void, // required but has default value
     orientation?: "horizontal" | "vertical",

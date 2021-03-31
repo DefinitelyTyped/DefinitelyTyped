@@ -2,5 +2,13 @@
     "private": true,
     "dependencies": {
         "@babel/types": "^7.3.0"
+    },
+    "types": "index",
+    "typesVersions": {
+        "<=4.1": {
+            "*": [
+                "ts4.1/*"
+            ]
+        }
     }
 }

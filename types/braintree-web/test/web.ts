@@ -710,6 +710,17 @@ braintree.client.create(
             });
         });
 
+        // Vault Manager
+        braintree.vaultManager.create({ client: clientInstance }, (createErr, vaultManagerInstance) => {
+            vaultManagerInstance.fetchPaymentMethods()
+                .then((payload: braintree.FetchPaymentMethodsPayload[]) => {
+                    payload.forEach(paymentMethod => console.log(paymentMethod.nonce));
+                })
+                .catch((error: braintree.BraintreeError) => {
+                    console.error('Error!', error);
+                });
+        });
+
         clientInstance.teardown(err => {
             // implementation
         });
@@ -787,6 +798,21 @@ braintree.threeDSecure.verifyCard(
         } else {
             // Liablity has not shifted and will not shift
             // Decide if you want to submit the nonce
+        }
+    },
+);
+
+// Check if verifyCard can be called without addFrame and removeFrame
+braintree.threeDSecure.verifyCard(
+    {
+        nonce: existingNonce,
+        amount: 123.45, // $ExpectType number
+        bin: '1234'
+    },
+    (err: braintree.BraintreeError) => {
+        if (err) {
+            console.error(err);
+            return;
         }
     },
 );

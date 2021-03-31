@@ -183,6 +183,7 @@ export { applyOptimisticMutation } from './lib/mutations/applyOptimisticMutation
 export { commitLocalUpdate } from './lib/mutations/commitLocalUpdate';
 export { commitMutation } from './lib/mutations/commitMutation';
 export { fetchQuery } from './lib/query/fetchQuery';
+export { fetchQuery_DEPRECATED } from './lib/query/fetchQuery_DEPRECATED';
 export { isRelayModernEnvironment } from './lib/store/isRelayModernEnvironment';
 export { requestSubscription } from './lib/subscription/requestSubscription';
 

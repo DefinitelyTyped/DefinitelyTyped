@@ -10,6 +10,7 @@
         "no-empty-interface": false,
         "no-namespace": false,
         "no-padding": false,
+        "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,

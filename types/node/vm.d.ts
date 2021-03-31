@@ -99,6 +99,10 @@ declare module 'vm' {
              */
             wasm?: boolean;
         };
+        /**
+         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
+         */
+        microtaskMode?: 'afterEvaluate';
     }
 
     type MeasureMemoryMode = 'summary' | 'detailed';

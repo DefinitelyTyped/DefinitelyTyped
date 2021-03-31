@@ -2,7 +2,7 @@
 // Project: https://github.com/webpack-contrib/terser-webpack-plugin
 // Definitions by: Daniel Schopf <https://github.com/Danscho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 import { MinifyOptions } from 'terser';

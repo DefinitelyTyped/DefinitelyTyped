@@ -1,5 +1,5 @@
-import * as Popper from '@popperjs/core';
-import BaseComponent from './base-component';
+import * as Popper from "@popperjs/core";
+import BaseComponent from "./base-component";
 
 declare class Tooltip extends BaseComponent {
     constructor(element: Element, options?: Partial<Tooltip.Options>);
@@ -25,7 +25,7 @@ declare class Tooltip extends BaseComponent {
      * shown.bs.tooltip or hidden.bs.tooltip event occurs). This is
      * considered a “manual” triggering of the tooltip.
      */
-    toggle(): void;
+    toggle(event?: any): void;
 
     /**
      * Gives an element’s tooltip the ability to be shown. Tooltips are
@@ -57,7 +57,7 @@ declare class Tooltip extends BaseComponent {
 
     static jQueryInterface: Tooltip.jQueryInterface;
 
-    static NAME: 'tooltip';
+    static NAME: "tooltip";
 
     /**
      * Default settings of this plugin
@@ -65,6 +65,26 @@ declare class Tooltip extends BaseComponent {
      * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
     static Default: Tooltip.Options;
+
+    static DATA_KEY: string;
+
+    static Event: Record<
+        | "CLICK"
+        | "FOCUSIN"
+        | "FOCUSOUT"
+        | "HIDDEN"
+        | "HIDE"
+        | "INSERTED"
+        | "MOUSEENTER"
+        | "MOUSELEAVE"
+        | "SHOW"
+        | "SHOWN",
+        string
+    >;
+
+    static EVENT_KEY: string;
+
+    static DefaultType: Record<keyof Tooltip.Options, string>;
 }
 
 declare namespace Tooltip {
@@ -72,32 +92,38 @@ declare namespace Tooltip {
         /**
          * This event fires immediately when the show instance method is called.
          */
-        show = 'show.bs.tooltip',
+        show = "show.bs.tooltip",
 
         /**
          * This event is fired when the tooltip has been made visible to the
          * user (will wait for CSS transitions to complete).
          */
-        shown = 'shown.bs.tooltip',
+        shown = "shown.bs.tooltip",
 
         /**
          * This event is fired immediately when the hide instance method has
          * been called.
          */
-        hide = 'hide.bs.tooltip',
+        hide = "hide.bs.tooltip",
 
         /**
          * This event is fired when the tooltip has finished being hidden from
          * the user (will wait for CSS transitions to complete).
          */
-        hidden = 'hidden.bs.tooltip',
+        hidden = "hidden.bs.tooltip",
 
         /**
          * This event is fired after the show.bs.tooltip event when the tooltip
          * template has been added to the DOM.
          */
-        inserted = 'inserted.bs.tooltip',
+        inserted = "inserted.bs.tooltip",
     }
+
+    type Offset = [number, number];
+
+    type OffsetFunction = () => Offset;
+
+    type PopperConfigFunction = (defaultBsPopperConfig: Options) => Partial<Popper.Options>;
 
     interface Options {
         /**
@@ -152,7 +178,7 @@ declare namespace Tooltip {
          *
          * @default 'top'
          */
-        placement: 'auto' | 'top' | 'bottom' | 'left' | 'right' | (() => void);
+        placement: "auto" | "top" | "bottom" | "left" | "right" | (() => void);
 
         /**
          * If a selector is provided, tooltip objects will be delegated to the
@@ -203,35 +229,36 @@ declare namespace Tooltip {
          * @default 'hover focus'
          */
         trigger:
-            | 'click'
-            | 'hover'
-            | 'focus'
-            | 'manual'
-            | 'click hover'
-            | 'click focus'
-            | 'hover focus'
-            | 'click hover focus';
+            | "click"
+            | "hover"
+            | "focus"
+            | "manual"
+            | "click hover"
+            | "click focus"
+            | "hover focus"
+            | "click hover focus";
 
         /**
          * Offset of the tooltip relative to its target.
          *
          * When a function is used to determine the offset, it is called with an
-         * object containing the offset data as its first argument. The function
-         * must return an object with the same structure. The triggering element
-         * DOM node is passed as the second argument.
+         * object containing the popper placement, the reference, and popper
+         * rects as its first argument. The triggering element DOM node is
+         * passed as the second argument. The function must return an array with
+         * two numbers: [skidding, distance].
          *
          * @see {@link https://popper.js.org/docs/v2/modifiers/offset}
-         * @default 0
+         * @default [0, 0]
          */
-        offset: number | string | (() => void);
+        offset: Offset | string | OffsetFunction;
 
         /**
          * Allow to specify which position Popper will use on fallback.
          *
          * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements}
-         * @default 'flip'
+         * @default ['top', 'right', 'bottom', 'left']
          */
-        fallbackPlacement: string | string[];
+        fallbackPlacement: string[];
 
         /**
          * Overflow constraint boundary of the popover. Accepts the values of
@@ -241,11 +268,17 @@ declare namespace Tooltip {
          * @see {@link https://popper.js.org/docs/v1/#modifiers..preventOverflow.boundariesElement}
          * @default 'scrollParent'
          */
-        boundary: 'viewport' | 'window' | 'scrollParent' | Element;
+        boundary: Popper.Boundary;
 
         /**
-         * Add classes to the tooltip when it is shown. Note that these classes will be added in addition to any classes specified in the template.
-         * To add multiple classes, separate them with spaces: 'class-1 class-2'.
+         * Add classes to the tooltip when it is shown. Note that these classes
+         * will be added in addition to any classes specified in the template.
+         * To add multiple classes, separate them with spaces: 'class-1
+         * class-2'.
+         *
+         * You can also pass a function that should return a single string
+         * containing additional class names.
+         *
          * @default ''
          */
         customClass?: string | (() => string);
@@ -263,7 +296,7 @@ declare namespace Tooltip {
          *
          * @see {@link https://v5.getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer}
          */
-        whiteList: Record<keyof HTMLElementTagNameMap, string[]>;
+        allowList: Record<keyof HTMLElementTagNameMap, string[]>;
 
         /**
          * Here you can supply your own sanitize function. This can be useful if
@@ -276,23 +309,29 @@ declare namespace Tooltip {
         /**
          * To change Bootstrap's default Popper.js config
          *
+         * When a function is used to create the Popper configuration, it's
+         * called with an object that contains the Bootstrap's default Popper
+         * configuration. It helps you use and merge the default with your own
+         * configuration. The function must return a configuration object for
+         * Popper.
+         *
          * @see {@link https://popper.js.org/docs/v2}
          * @default null
          */
-        popperConfig: Partial<Popper.Options> | null;
+        popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
     }
 
     type jQueryInterface = (
         config?:
             | Partial<Options>
-            | 'show'
-            | 'hide'
-            | 'toggle'
-            | 'enable'
-            | 'disable'
-            | 'toggleEnabled'
-            | 'update'
-            | 'dispose',
+            | "show"
+            | "hide"
+            | "toggle"
+            | "enable"
+            | "disable"
+            | "toggleEnabled"
+            | "update"
+            | "dispose",
     ) => void;
 }
 

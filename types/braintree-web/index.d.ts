@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web 3.69
+// Type definitions for Braintree-web 3.75
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 //                 Jason Buckner <https://github.com/jbuckner>
@@ -17,6 +17,7 @@ import { PayPalCheckout, PayPalCheckoutCreatePaymentOptions } from './modules/pa
 import { ThreeDSecure, ThreeDSecureVerifyPayload } from './modules/three-d-secure';
 import { UnionPay, UnionPayFetchCapabilitiesPayload, UnionPayEnrollPayload, UnionPayTokenizePayload } from './modules/unionpay';
 import { USBankAccount } from './modules/us-bank-account';
+import { VaultManager, FetchPaymentMethodsPayload } from './modules/vault-manager';
 import { Venmo, VenmoTokenizePayload } from './modules/venmo';
 
 export const americanExpress: AmericanExpress;
@@ -30,6 +31,7 @@ export const paypalCheckout: PayPalCheckout;
 export const threeDSecure: ThreeDSecure;
 export const unionpay: UnionPay;
 export const usBankAccount: USBankAccount;
+export const vaultManager: typeof VaultManager;
 export const venmo: Venmo;
 
 export {
@@ -45,6 +47,7 @@ export {
   ThreeDSecure, ThreeDSecureVerifyPayload,
   UnionPay, UnionPayFetchCapabilitiesPayload, UnionPayEnrollPayload, UnionPayTokenizePayload,
   USBankAccount,
+  VaultManager, FetchPaymentMethodsPayload,
   Venmo, VenmoTokenizePayload
 };
 

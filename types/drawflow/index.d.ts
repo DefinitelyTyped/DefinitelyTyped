@@ -139,7 +139,7 @@ export default class Drawflow {
    *  Return Array of nodes id. Ex: name: telegram
    *  @param name
    */
-  getNodesFromName(name: string): void;
+  getNodesFromName(name: string): number[];
 
   /**
    * Remove node. Ex id: node-x

@@ -151,7 +151,7 @@ function SecondMyForm() {
     // Use the useForm hook to create a form instance
     const {
         Form,
-        meta: { isSubmitting, canSubmit },
+        meta: { isSubmitting, canSubmit, isTouched },
     } = useForm({
         onSubmit: async (values, instance) => {
             // onSubmit (and everything else in React Form)
@@ -176,7 +176,7 @@ function SecondMyForm() {
             </div>
 
             <div>
-                <button type="submit" disabled={!canSubmit}>
+                <button type="submit" disabled={!(canSubmit && isTouched)}>
                     Submit
                 </button>
             </div>

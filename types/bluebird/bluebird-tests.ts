@@ -798,7 +798,7 @@ fooProm = Bluebird.try(() => {
 // - - - - - - - - - - - - - - - - -
 
 fooProm = Bluebird.try(() => {
-    if (fooProm) {
+    if (!!fooProm) {
         return fooProm;
     }
     return foo;
@@ -819,7 +819,7 @@ fooProm = Bluebird.attempt(() => {
 // - - - - - - - - - - - - - - - - -
 
 fooProm = Bluebird.attempt(() => {
-    if (fooProm) {
+    if (!!fooProm) {
         return fooProm;
     }
     return foo;

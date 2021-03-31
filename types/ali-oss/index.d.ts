@@ -375,7 +375,7 @@ declare namespace OSS {
 
     interface DeleteMultiOptions {
         /** quite mode or verbose mode, default is false */
-        quite?: boolean;
+        quiet?: boolean;
         timeout?: number;
     }
 
