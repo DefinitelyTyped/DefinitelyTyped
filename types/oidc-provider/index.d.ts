@@ -3,8 +3,6 @@
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference lib="dom"/>
-
 import * as events from 'events';
 import * as url from 'url';
 import * as dns from 'dns';
@@ -31,9 +29,26 @@ export interface UnknownObject {
     [key: string]: unknown;
 }
 
-export interface JWK extends JsonWebKey {
+export interface JWK {
     kid?: string;
     x5c?: string[];
+    alg?: string;
+    crv?: string;
+    d?: string;
+    dp?: string;
+    dq?: string;
+    e?: string;
+    ext?: boolean;
+    k?: string;
+    key_ops?: string[];
+    kty?: string;
+    n?: string;
+    p?: string;
+    q?: string;
+    qi?: string;
+    use?: string;
+    x?: string;
+    y?: string;
 }
 
 export interface AllClientMetadata {
