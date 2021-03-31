@@ -399,11 +399,11 @@ declare namespace Tagify {
         /**
          * Data of selected suggestion item.
          */
-        tagData: T;
+        tagData: T | null;
         /**
          * Element of selected suggestion item.
          */
-        suggestionElm: HTMLElement;
+        suggestionElm: HTMLElement | null;
     }
 
     /**
@@ -1151,7 +1151,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 
     /**
      * Get `value` (array of tag data) without properties that are only used internally.
-     * @return A list of tag data without `__isValid`, `__removed`, `__originalData`, and `__originalHTML` properties.
+     * @return A list of tag data without internal properties (that usually start with two underscores).
      */
     getCleanValue(): T[];
 

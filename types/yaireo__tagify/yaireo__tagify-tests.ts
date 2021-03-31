@@ -310,7 +310,9 @@ const settings: TagifyConstructorSettings = {
             if (e.target instanceof HTMLElement) {
                 const isAction = e.target.classList.contains('removeBtn');
                 const suggestionElm = data.suggestionElm;
-                const value = data.tagData.value;
+                if (data.tagData) {
+                    const value = data.tagData.value;
+                }
                 return new Promise((resolve, reject) => {
                     if (isAction) {
                         tagify.dropdown.refilter.call(tagify);
