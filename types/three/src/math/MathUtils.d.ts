@@ -68,6 +68,8 @@ export namespace MathUtils {
 
     function isPowerOfTwo(value: number): boolean;
 
+    function inverseLerp(x: number, y: number, t: number): number;
+
     /**
      * Returns a value linearly interpolated from two known points based
      * on the given interval - t = 0 will return x and t = 1 will return y.

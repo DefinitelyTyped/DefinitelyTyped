@@ -49,7 +49,7 @@ export class Quaternion {
     /**
      * Clones this quaternion.
      */
-    clone(): Quaternion;
+    clone(): this;
 
     /**
      * Copies values of q to this quaternion.
@@ -110,6 +110,7 @@ export class Quaternion {
     multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
 
     slerp(qb: Quaternion, t: number): Quaternion;
+    slerpQuaternions(qa: Quaternion, qb: Quaternion, t: number): Quaternion;
     equals(v: Quaternion): boolean;
 
     /**
@@ -137,11 +138,6 @@ export class Quaternion {
 
     _onChange(callback: () => void): Quaternion;
     _onChangeCallback: () => void;
-
-    /**
-     * Adapted from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/.
-     */
-    static slerp(qa: Quaternion, qb: Quaternion, qm: Quaternion, t: number): Quaternion;
 
     static slerpFlat(
         dst: number[],

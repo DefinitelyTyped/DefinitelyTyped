@@ -51,13 +51,13 @@ function getEnvScene() {
     light1.scale.set(0.1, 1, 1);
     envScene.add(light1);
 
-    const light2 = new THREE.Mesh(geometry, lightMaterial.clone() as THREE.MeshLambertMaterial);
+    const light2 = new THREE.Mesh(geometry, lightMaterial.clone());
     light2.material.color.setHex(0x00ff00);
     light2.position.set(0, 5, 0);
     light2.scale.set(1, 0.1, 1);
     envScene.add(light2);
 
-    const light3 = new THREE.Mesh(geometry, lightMaterial.clone() as THREE.MeshLambertMaterial);
+    const light3 = new THREE.Mesh(geometry, lightMaterial.clone());
     light3.material.color.setHex(0x0000ff);
     light3.position.set(2, 1, 5);
     light3.scale.set(1.5, 2, 0.1);

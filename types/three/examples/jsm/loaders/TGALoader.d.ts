@@ -1,14 +1,14 @@
-import { Texture, Loader, LoadingManager } from '../../../src/Three';
+import { DataTexture, DataTextureLoader, LoadingManager } from '../../../src/Three';
 
-export class TGALoader extends Loader {
+export class TGALoader extends DataTextureLoader {
     constructor(manager?: LoadingManager);
 
     load(
         url: string,
-        onLoad: (texture: Texture) => void,
+        onLoad?: (texture: DataTexture, texData: object) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Texture>;
-    parse(data: ArrayBuffer): Texture;
+    ): DataTexture;
+    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<DataTexture>;
+    parse(data: ArrayBuffer): DataTexture;
 }

@@ -185,7 +185,7 @@ export class Vector2 implements Vector {
     /**
      * Returns a new Vector2 instance with the same `x` and `y` values.
      */
-    clone(): Vector2;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.

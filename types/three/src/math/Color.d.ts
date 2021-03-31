@@ -76,7 +76,7 @@ export class Color {
     /**
      * Clones this color.
      */
-    clone(): Color;
+    clone(): this;
 
     /**
      * Copies given color.
