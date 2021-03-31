@@ -108,6 +108,7 @@ export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>
 
 export * from './create-auth-challenge';
 export * from './custom-message';
+export * from './custom-email-sender';
 export * from './define-auth-challenge';
 export * from './post-authentication';
 export * from './post-confirmation';
