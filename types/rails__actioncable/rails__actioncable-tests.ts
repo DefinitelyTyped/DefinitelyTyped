@@ -9,6 +9,7 @@ import {
     Subscriptions,
     MessageTypes,
     DisconnectReasons,
+    logger,
 } from '@rails/actioncable';
 
 INTERNAL.message_types.welcome;
@@ -22,6 +23,7 @@ INTERNAL.disconnect_reasons.invalid_request;
 INTERNAL.disconnect_reasons.server_restart;
 
 createWebSocketURL('url'); // $ExpectType string
+logger.enabled = true;
 
 /**
  * Consumer
