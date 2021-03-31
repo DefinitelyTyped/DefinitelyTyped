@@ -23,6 +23,10 @@ interface SignInResponse {
     url: string | null;
 }
 
+interface SignOutResponse {
+    url: string;
+}
+
 type ContextProvider = FC<ContextProviderProps>;
 
 interface NextContext {
@@ -44,9 +48,9 @@ declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
     provider: 'credentials' | 'email',
-    data?: Record<string, unknown> & {
+    data: Record<string, unknown> & {
         callbackUrl?: string;
-        redirect?: false;
+        redirect: false;
     },
     authorizationParams?: string | string[][] | Record<string, unknown> | URLSearchParams
   ): Promise<SignInResponse>;
@@ -59,6 +63,7 @@ declare function signin(
     authorizationParams?: string | string[][] | Record<string, unknown> | URLSearchParams
 ): Promise<void>;
 declare const signIn: typeof signin;
+declare function signout(data: { callbackUrl?: string, redirect: false }): Promise<SignOutResponse>;
 declare function signout(data?: { callbackUrl?: string, redirect?: boolean }): Promise<void>;
 declare const signOut: typeof signout;
 declare function options(options: SetOptionsParams): void;

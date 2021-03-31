@@ -326,9 +326,6 @@ client.getCsrfToken({ req });
 // $ExpectType Promise<string | null>
 client.csrfToken({ req });
 
-// $ExpectType Promise<void>
-client.signin('github', { data: 'foo', redirect: false }, { login: 'username' });
-
 // $ExpectType Promise<SignInResponse>
 client.signin('credentials', { data: 'foo', redirect: false });
 
@@ -336,13 +333,22 @@ client.signin('credentials', { data: 'foo', redirect: false });
 client.signin('email', { data: 'foo', redirect: false });
 
 // $ExpectType Promise<void>
+client.signin('github', { data: 'foo', redirect: false }, { login: 'username' });
+
+// $ExpectType Promise<void>
 client.signin('email', { data: 'foo', redirect: true });
 
 // $ExpectType Promise<void>
-client.signout();
+client.signin('github', { data: 'foo' });
+
+// $ExpectType Promise<SignOutResponse>
+client.signout({ callbackUrl: 'https://foo.com/callback', redirect: false });
 
 // $ExpectType Promise<void>
-client.signout({ callbackUrl: 'https://foo.com/callback', redirect: true });
+client.signout({ callbackUrl: 'https://foo.com/callback' });
+
+// $ExpectType Promise<void>
+client.signout();
 
 // $ExpectType ReactElement<any, any> | null
 client.Provider({

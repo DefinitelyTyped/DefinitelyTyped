@@ -6,7 +6,7 @@
 //                 Balázs <https://github.com/balazsorban44>
 //                 Euxn <https://github.com/euxn23>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 3.7
 
 /// <reference types="node" />
 
