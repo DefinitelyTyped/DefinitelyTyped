@@ -2741,7 +2741,7 @@ declare namespace Xrm {
             /**
              * Use this to add a function as an event handler for the keypress event so that the function is called when you type a character in the specific text or number field.
              * For a sample JavaScript code that uses the addOnKeyPress method to configure the auto-completion experience, see Sample: Auto-complete in CRM controls.
-             * @deprecated Deprecated in v9.
+             * @deprecated Deprecated in v9.1; Use a custom control.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * @param handler The function reference.
              */
@@ -2749,12 +2749,14 @@ declare namespace Xrm {
 
             /**
              * Use this to manually fire an event handler that you created for a specific text or number field to be executed on the keypress event.
+             * @deprecated Deprecated in v9.1; Use a custom control.
+             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              */
             fireOnKeyPress(): void;
 
             /**
              * Use this to remove an event handler for a text or number field that you added using addOnKeyPress.
-             * @deprecated Deprecated in v9.
+             * @deprecated Deprecated in v9.1; Use a custom control.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * Remarks:  If an anonymous function is set using addOnKeyPress, it can’t be removed using this method.
              * @param handler The function reference.
@@ -3427,6 +3429,7 @@ declare namespace Xrm {
             /**
              * Gets the query string value passed to Silverlight.
              * @returns The data.
+             * @deprecated Silverlight is no longer supported. These methods won't be available after October 2020.
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getData(): string;
@@ -3434,6 +3437,7 @@ declare namespace Xrm {
             /**
              * Sets the query string value passed to Silverlight.
              * @param data The data.
+             * @deprecated Silverlight is no longer supported. These methods won't be available after October 2020.
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             setData(data: string): void;
@@ -3737,10 +3741,11 @@ declare namespace Xrm {
         removeOnSave(handler: Events.ContextSensitiveHandler): void;
 
         /**
-         * Saves the record.
+         * Saves the record synchronously with the options to close the form or open a new form after the save is completed.
          * @remarks  When using quick create forms in the web application the saveandnew option is not
          *           applied. It will always work as if saveandclose were used. Quick create forms in
          *           Microsoft Dynamics CRM for tablets will apply the saveandnew behavior.
+         * @deprecated Deprecated in v9.1; This method is deprecated and we recommend to use the formContext.data.save method.
          */
         save(): void;
 
