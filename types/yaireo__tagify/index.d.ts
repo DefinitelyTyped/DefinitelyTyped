@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 3.23
+// Type definitions for @yaireo/tagify 4.0
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -389,6 +389,24 @@ declare namespace Tagify {
     }
 
     /**
+     * Data passed with suggestionClick hook {@link Hooks.suggestionClick}.
+     */
+    interface SuggestionClickData<T extends BaseTagData = TagData> {
+        /**
+         * Tagify instance.
+         */
+        tagify: Tagify<T>;
+        /**
+         * Data of selected suggestion item.
+         */
+        tagData: T | null;
+        /**
+         * Element of selected suggestion item.
+         */
+        suggestionElm: HTMLElement | null;
+    }
+
+    /**
      * Promise-based hooks for async program flow scenarios. Allows to "hook"
      * (intervene) at certain points of the program, which were selected as a
      * suitable place to pause the program flow and wait for further
@@ -412,7 +430,7 @@ declare namespace Tagify {
         (tags: T[]) => Promise<void>;
 
         /**
-         * Hook invoked when the user clicks on a suggestion in the dropdown
+         * Hook invoked when the user clicks on (or selects via Enter key) a suggestion in the dropdown
          * menu. Can be used to perform custom actions, such as removing a
          * suggestion from the dropdown menu via a custom remove button. The
          * suggestion is accepted and a new tag is added only when the promise
@@ -421,12 +439,13 @@ declare namespace Tagify {
          */
         suggestionClick?:
         /**
-         * @param event Click event that occurred on a suggestion item.
+         * @param event Click or keyboard event that occurred on a suggestion item.
+         * @param data Data and element of selected suggestion item.
          * @return Promise that controls whether the suggestion is accepted.
          * When the promise resolves, the suggestion is accepted if the promise
          * was fulfilled, and declined when the promise was rejected.
          */
-        (event: MouseEvent) => Promise<void>;
+        (event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>;
     }
 
     /**
@@ -1131,6 +1150,12 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     removeAllTags(opts?: Tagify.RemoveAllTagsOptions): void;
 
     /**
+     * Get `value` (array of tag data) without properties that are only used internally.
+     * @return A list of tag data without internal properties (that usually start with two underscores).
+     */
+    getCleanValue(): T[];
+
+    /**
      * Update the value of the original (hidden) INPUT or TEXTAREA field so that
      * it reflects the currently selected tags.
      * @param opts Optional settings that affect how the update is performed.
@@ -1328,7 +1353,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 
     /**
      * Creates a new tag DOM element with the given data.
-     * @param Data to use for creating the tag.
+     * @param tagData Data to use for creating the tag.
      * @returns A new tag element from the supplied tag data.
      */
     createTagElem(tagData: T): HTMLElement;
@@ -1346,7 +1371,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 
     /**
      * Places the caret after a given node.
-     * @param Node after which to place the caret.
+     * @param node Node after which to place the caret.
      */
     placeCaretAfterNode(node: HTMLElement): void;
 
