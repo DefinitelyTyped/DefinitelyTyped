@@ -118,6 +118,7 @@ import {
     SectionListData,
     ToastAndroid,
     Touchable,
+    LayoutAnimation,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -1309,6 +1310,10 @@ const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
         <View nativeID={'nativeID'} />
         <Text nativeID={'nativeID'}>Text</Text>
+        <Image
+            source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+            nativeID={'nativeID'}
+        />
     </ScrollView>
 );
 
@@ -1714,3 +1719,12 @@ const I18nManagerTest = () => {
 
     console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
 };
+
+// LayoutAnimations
+LayoutAnimation.configureNext(LayoutAnimation.create(
+    123,
+    LayoutAnimation.Types.easeIn,
+    LayoutAnimation.Properties.opacity,
+));
+
+LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));

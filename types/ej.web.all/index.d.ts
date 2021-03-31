@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 18.3
+// Type definitions for non-npm package ej.web.all 19.1
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,8 +8,8 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 18.3.0.47
-*  Copyright Syncfusion Inc. 2001 - 2020. All rights reserved.
+*  version : 19.1.0.54
+*  Copyright Syncfusion Inc. 2001 - 2021. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
 *  licensing@syncfusion.com. Any infringement will be prosecuted under

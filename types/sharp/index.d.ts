@@ -1145,6 +1145,7 @@ declare namespace sharp {
         heif: AvailableFormatInfo;
         input: AvailableFormatInfo;
         jpeg: AvailableFormatInfo;
+        jpg: AvailableFormatInfo;
         magick: AvailableFormatInfo;
         openslide: AvailableFormatInfo;
         pdf: AvailableFormatInfo;

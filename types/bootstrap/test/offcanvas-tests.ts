@@ -6,6 +6,9 @@ const element = new Element();
 // $ExpectType Offcanvas
 new Offcanvas(element);
 
+// $ExpectType Offcanvas
+Offcanvas.getInstance(element);
+
 // $ExpectType string
 Offcanvas.VERSION;
 

@@ -1,4 +1,4 @@
-// Type definitions for faker 5.1
+// Type definitions for faker 5.5
 // Project: http://marak.com/faker.js/
 // Definitions by: Ben Swartz <https://github.com/bensw>,
 //                 Bas Pennings <https://github.com/basp>,
@@ -7,6 +7,7 @@
 //                 Leonardo Testa <https://github.com/testica>
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
 //                 Daniel Montesinos <https://github.com/damonpam>
+//                 Shinya Ohyanagi <https://github.com/heavenshell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -71,6 +72,21 @@ declare namespace Faker {
             type(): string;
             collation(): string;
             engine(): string;
+        };
+
+        datatype: {
+            number(max?: number): number;
+            number(options?: { min?: number; max?: number; precision?: number }): number;
+            float(max?: number): number;
+            float(options?: { min?: number; max?: number; precision?: number }): number;
+            datetime(max?: number): Date;
+            datetime(options?: { min?: number; max?: number }): Date;
+            string(length?: number): string;
+            uuid(): string;
+            boolean(): boolean;
+            hexaDecimal(count?: number): string;
+            json(): string;
+            array(length?: number): Array<string | number>;
         };
 
         date: {
@@ -219,9 +235,13 @@ declare namespace Faker {
         };
 
         random: {
+            /** @deprecated faker.random.number is now located in faker.datatype.number */
             number(max?: number): number;
+            /** @deprecated faker.random.number is now located in faker.datatype.number */
             number(options?: { min?: number; max?: number; precision?: number }): number;
+            /** @deprecated faker.random.float is now located in faker.datatype.float */
             float(max?: number): number;
+            /** @deprecated faker.random.float is now located in faker.datatype.float */
             float(options?: { min?: number; max?: number; precision?: number }): number;
             arrayElement(): string;
             arrayElement<T>(array: T[]): T;
@@ -231,7 +251,9 @@ declare namespace Faker {
             arrayElements<T>(array: ReadonlyArray<T>, count?: number): ReadonlyArray<T>;
             objectElement(object?: { [key: string]: any }, field?: 'key'): string;
             objectElement<T>(object?: { [key: string]: T }, field?: any): T;
+            /** @deprecated faker.random.uuid is now located in faker.datatype.uuid */
             uuid(): string;
+            /** @deprecated faker.random.boolean is now located in faker.datatype.boolean */
             boolean(): boolean;
             word(type?: string): string;
             words(count?: number): string;
@@ -239,6 +261,7 @@ declare namespace Faker {
             locale(): string;
             alpha(options?: { count?: number; upcase?: boolean }): string;
             alphaNumeric(count?: number): string;
+            /** @deprecated faker.random.hexaDecimal is now located in faker.datatype.hexaDecimal */
             hexaDecimal(count?: number): string;
         };
 

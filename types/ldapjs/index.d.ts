@@ -359,6 +359,99 @@ export class ProtocolError {
 export class OperationsError {
     constructor(error?: string);
 }
+export class TimeLimitExceededError {
+    constructor(error?: string);
+}
+export class SizeLimitExceededError {
+    constructor(error?: string);
+}
+export class CompareFalseError {
+    constructor(error?: string);
+}
+export class CompareTrueError {
+    constructor(error?: string);
+}
+export class AuthMethodNotSupportedError {
+    constructor(error?: string);
+}
+export class StrongAuthRequiredError {
+    constructor(error?: string);
+}
+export class ReferralError {
+    constructor(error?: string);
+}
+export class AdminLimitExceededError {
+    constructor(error?: string);
+}
+export class UnavailableCriticalExtensionError {
+    constructor(error?: string);
+}
+export class ConfidentialityRequiredError {
+    constructor(error?: string);
+}
+export class SaslBindInProgressError {
+    constructor(error?: string);
+}
+export class UndefinedAttributeTypeError {
+    constructor(error?: string);
+}
+export class InappropriateMatchingError {
+    constructor(error?: string);
+}
+export class ConstraintViolationError {
+    constructor(error?: string);
+}
+export class AttributeOrValueExistsError {
+    constructor(error?: string);
+}
+export class InvalidAttriubteSyntaxError {
+    constructor(error?: string);
+}
+export class AliasProblemError {
+    constructor(error?: string);
+}
+export class InvalidDnSyntaxError {
+    constructor(error?: string);
+}
+export class AliasDerefProblemError {
+    constructor(error?: string);
+}
+export class InappropriateAuthenticationError {
+    constructor(error?: string);
+}
+export class BusyError {
+    constructor(error?: string);
+}
+export class UnavailableError {
+    constructor(error?: string);
+}
+export class UnwillingToPerformError {
+    constructor(error?: string);
+}
+export class LoopDetectError {
+    constructor(error?: string);
+}
+export class NamingViolationError {
+    constructor(error?: string);
+}
+export class ObjectclassViolationError {
+    constructor(error?: string);
+}
+export class NotAllowedOnNonLeafError {
+    constructor(error?: string);
+}
+export class NotAllowedOnRdnError {
+    constructor(error?: string);
+}
+export class ObjectclassModsProhibitedError {
+    constructor(error?: string);
+}
+export class AffectsMultipleDsasError {
+    constructor(error?: string);
+}
+export class OtherError {
+    constructor(error?: string);
+}
 
 declare class Filter {
     matches(obj: any): boolean;

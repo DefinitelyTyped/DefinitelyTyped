@@ -15,6 +15,12 @@
         "paths": {
             "loader-utils": [
                 "loader-utils/v1"
+            ],
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
             ]
         },
         "types": [],

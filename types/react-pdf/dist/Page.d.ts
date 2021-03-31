@@ -46,6 +46,12 @@ export interface PDFPageProxy extends _PDFPageProxy {
 
 export interface Props {
     /**
+     * A function that behaves like ref,
+     * but it's passed to main `<canvas>` rendered by `<Page>` component.
+     */
+    canvasRef?: React.LegacyRef<HTMLCanvasElement>;
+
+    /**
      * Defines custom class name(s), that will be added to rendered element.
      * @default 'react-pdf__Page'
      */

@@ -2040,7 +2040,7 @@ declare namespace Autodesk {
 
           constructor(id?: string, name?: string);
 
-          get children(): SurfaceShadingGroup[];
+          get children(): SurfaceShadingGroup[]|SurfaceShadingNode[];
 
           addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
           getChildLeafs(results: SurfaceShadingNode[]): void;
@@ -2373,14 +2373,28 @@ declare namespace Autodesk {
         changeOcclusion(enable: boolean): void;
         hideTextures(): void;
         highlightViewables(dbIds: number|number[]): void;
-        invalidateViewables(dbIds: number|number[], callback: (viewable: any) => any): void;
+        invalidateViewables(dbIds: number|number[],
+          callback: (viewable: DataVisualization.Core.SpriteViewable) => {
+            color?: THREE.Color,
+            highlighted?: boolean,
+            position?: THREE.Vector3,
+            url?: string
+          }): void;
         registerSurfaceShadingColors(sensorType: string, colors: number[], alpha?: number): void;
         removeAllViewables(): void;
         removeSurfaceShading(): void;
         renderSurfaceShading(nodeIds: string|string[],
           sensorType: string,
           valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number, confidenceSize?: number): void;
-        setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData, options?: { type: string }): Promise<void>;
+        setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
+          options?: {
+            type: 'PlanarHeatmap',
+            placePosition?: 'min'|'max',
+            position?: 'min'|'middle'|'max',
+            slicingEnabled?: boolean,
+            height?: number,
+            width?: number
+          }): Promise<void>;
         showHideViewables(visible: boolean, occlusion: boolean): void;
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,

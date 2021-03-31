@@ -138,6 +138,7 @@ export interface HostedFieldsAccountDetails {
     cardType: string;
     expirationMonth: string;
     expirationYear: string;
+    cardholderName: string;
     lastTwo: string;
     lastFour: string;
 }

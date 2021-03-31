@@ -25,6 +25,8 @@ const testTwo = (config: karma.Config) => {
                 failFast: true,
                 timeoutInterval: 1000,
             },
+            shardIndex: 1,
+            totalShards: 2,
         },
     });
 };

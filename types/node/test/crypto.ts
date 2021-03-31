@@ -130,6 +130,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    // crypto_cipheriv_decipheriv_aad_ccm_test
     const key: string | null = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
     const aad = Buffer.from('0123456789', 'hex');
@@ -157,6 +158,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    // crypto_cipheriv_decipheriv_aad_gcm_test
     const key = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
     const aad = Buffer.from('0123456789', 'hex');
@@ -180,29 +182,53 @@ import { promisify } from 'node:util';
 }
 
 {
+    // crypto_cipheriv_decipheriv_cbc_string_encoding_test
     const key: string | null = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
-    const aad = Buffer.from('0123456789', 'hex');
 
-    const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
-        authTagLength: 16,
-    });
+    const cipher = crypto.createCipheriv('aes-192-cbc', key, nonce);
     const plaintext = 'Hello world';
-    cipher.setAAD(aad, {
-        plaintextLength: Buffer.byteLength(plaintext),
-    });
-    const ciphertext = cipher.update(plaintext, 'utf8');
+     // $ExpectType string
+    const ciphertext = cipher.update(plaintext, 'utf8', 'binary');
     cipher.final();
-    const tag = cipher.getAuthTag();
 
-    const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
-        authTagLength: 16,
-    });
-    decipher.setAuthTag(tag);
-    decipher.setAAD(aad, {
-        plaintextLength: ciphertext.length,
-    });
-    const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
+    const decipher = crypto.createDecipheriv('aes-192-cbc', key, nonce);
+     // $ExpectType string
+    const receivedPlaintext = decipher.update(ciphertext, 'binary', 'utf8');
+    decipher.final();
+}
+
+{
+    // crypto_cipheriv_decipheriv_cbc_buffer_encoding_test
+    const key: string | null = 'keykeykeykeykeykeykeykey';
+    const nonce = crypto.randomBytes(12);
+
+    const cipher = crypto.createCipheriv('aes-192-cbc', key, nonce);
+    const plaintext = 'Hello world';
+     // $ExpectType Buffer
+    const cipherBuf = cipher.update(plaintext, 'utf8');
+    cipher.final();
+
+    const decipher = crypto.createDecipheriv('aes-192-cbc', key, nonce);
+     // $ExpectType string
+    const receivedPlaintext = decipher.update(cipherBuf, undefined, 'utf8');
+    decipher.final();
+}
+
+{
+    // crypto_cipheriv_decipheriv_cbc_buffer_encoding_test
+    const key: string | null = 'keykeykeykeykeykeykeykey';
+    const nonce = crypto.randomBytes(12);
+
+    const cipher = crypto.createCipheriv('aes-192-cbc', key, nonce);
+    const plaintext = 'Hello world';
+     // $ExpectType Buffer
+    const cipherBuf = cipher.update(plaintext, 'utf8');
+    cipher.final();
+
+    const decipher = crypto.createDecipheriv('aes-192-cbc', key, nonce);
+     // $ExpectType Buffer
+    const receivedPlaintext = decipher.update(cipherBuf);
     decipher.final();
 }
 
