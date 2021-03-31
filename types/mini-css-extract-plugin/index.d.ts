@@ -4,9 +4,11 @@
 //                 Katsuya Hino <https://github.com/dobogo>
 //                 Spencer Miskoviak <https://github.com/skovy>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
+/// <reference types="node" />
 import { Configuration, Compiler } from 'webpack';
 
 /**

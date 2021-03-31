@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "tapable": "^2.2.0",
+        "webpack": "^5"
+    }
+}
