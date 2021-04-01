@@ -1,4 +1,4 @@
-// Type definitions for Forge-apis 0.8.5
+// Type definitions for Forge-apis 0.8
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>, Cyrille Fauvel <https://github.com/cyrillef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -199,13 +199,11 @@ export class CommandsApi {
 }
 
 export namespace DerivativesApi {
-
-    export enum RegionEnum {
+    enum RegionEnum {
         US = 'US',
         EMEA = 'EMEA',
         EU = 'EMEA'
     }
-
 }
 
 export class DerivativesApi {
@@ -1055,25 +1053,24 @@ export class VersionsApi {
 }
 
 export namespace WebhooksApi {
-
-    export enum RegionEnum {
+    enum RegionEnum {
         US = 'US',
         EMEA = 'EMEA',
         EU = 'EMEA'
     }
 
-    export enum StatusEnum {
+    enum StatusEnum {
         Active = 'active',
         Inactive = 'inactive',
     }
 
-    export enum WebhooksSystemEnum {
+    enum WebhooksSystemEnum {
         derivative = 'derivative',
         data = 'data',
         c4r = 'adsk.c4r'
     }
 
-    export enum WebhookEventEnum {
+    enum WebhookEventEnum {
         // Data Management
         VersionAdded = 'dm.version.added',
         VersionModified = 'dm.version.modified',
@@ -1104,7 +1101,7 @@ export namespace WebhooksApi {
         WorkflowTransition = 'workflow.transition'
     }
 
-    export interface HooksOptions {
+    interface HooksOptions {
         acceptEncoding?: string;
         xAdsRegion?: RegionEnum;
         status?: StatusEnum;
@@ -1117,7 +1114,6 @@ export namespace WebhooksApi {
         hubId: string;
         projectId?: string;
     }
-
 }
 
 export class WebhooksApi {
@@ -1133,17 +1129,15 @@ export class WebhooksApi {
 }
 
 export namespace TokensApi {
-
-    export enum RegionEnum {
+    enum RegionEnum {
         US = 'US',
         EMEA = 'EMEA',
         EU = 'EMEA'
     }
 
-    export interface TokensOptions {
+    interface TokensOptions {
         xAdsRegion?: RegionEnum;
     }
-
 }
 
 export class TokensApi {
