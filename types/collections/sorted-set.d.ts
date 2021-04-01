@@ -59,8 +59,14 @@ declare namespace internal {
     class Node<T> {
         value: T;
 
-        reduce(cb: (result?: any, val?: any, key?: any, collection?: any) => any,
-               basis: any, index: number, thisp: any, tree: any, depth: number): any;
+        reduce(
+            cb: (result?: any, val?: any, key?: any, collection?: any) => any,
+            basis: any,
+            index: number,
+            thisp: any,
+            tree: any,
+            depth: number,
+        ): any;
         touch(...plus: any[]): void;
         checkIntegrity(...plus: any[]): number;
         getNext(...plus: any[]): Node<T> | undefined;
@@ -70,29 +76,24 @@ declare namespace internal {
     }
 
     class Iterator<T> {
-        next(): {done: true, value: T | null | undefined};
+        next(): { done: true; value: T | null | undefined };
     }
 
-    export class SortedSet<T> extends AbstractSet {
+    class SortedSet<T> extends AbstractSet {
         length: number;
 
-        constructor(
-            values?: T[],
-            equals?:  (a: T, b: T) => boolean,
-            compare?: (a: T, b: T) => number,
-            getDefault?: any
-        );
+        constructor(values?: T[], equals?: (a: T, b: T) => boolean, compare?: (a: T, b: T) => number, getDefault?: any);
         constructClone(values?: T[]): SortedSet<T>;
 
         add(value: T): boolean;
         clear(): void;
-        ['delete'](value: T): boolean;
+        ["delete"](value: T): boolean;
 
         find(value: T): Node<T> | undefined;
-        findGreatest(n?: Node<T> | undefined): Node<T> | undefined;
+        findGreatest(n?: Node<T>): Node<T> | undefined;
         findGreatestLessThan(value: T): Node<T> | undefined;
         findGreatestLessThanOrEqual(value: T): Node<T> | undefined;
-        findLeast(n?: Node<T> | undefined): Node<T> | undefined;
+        findLeast(n?: Node<T>): Node<T> | undefined;
         findLeastGreaterThan(value: T): Node<T> | undefined;
         findLeastGreaterThanOrEqual(value: T): Node<T> | undefined;
         max(n?: Node<T>): T | undefined;
@@ -116,11 +117,11 @@ declare namespace internal {
         splay(value: T): void;
         splayIndex(index: number): boolean;
 
-        reduce(callback: (result?: any, val?: any, key?: any, collection?: any) => any,
-               basis?: any, thisp?: any): any;
+        reduce(callback: (result?: any, val?: any, key?: any, collection?: any) => any, basis?: any, thisp?: any): any;
         reduceRight(
             callback: (result?: any, val?: any, key?: any, collection?: any) => any,
-            basis?: any, thisp?: any
+            basis?: any,
+            thisp?: any,
         ): any;
 
         iterate(start: number, stop: number): Iterator<T>;
