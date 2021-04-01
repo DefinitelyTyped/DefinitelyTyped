@@ -378,7 +378,7 @@ export interface ChartConfiguration {
         /**
          * Position the title relative to the chart.
          */
-        title_position?: "right" | "center" | "left";
+        position?: "right" | "center" | "left";
     };
 }
 
