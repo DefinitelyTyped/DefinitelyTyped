@@ -1,6 +1,6 @@
 // Type definitions for Forge-apis 0.8
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>, Cyrille Fauvel <https://github.com/cyrillef>
+// Definitions by: Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>, Cyrille Fauvel <https://github.com/cyrillef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -79,16 +79,27 @@ export class AuthClientTwoLegged {
 
     authenticate(): Promise<AuthToken>;
     getCredentials(): AuthToken;
-    setCredentials(credentials: AuthToken): void;
+    setCredentials(
+        credentials: AuthToken
+    ): void;
     isAuthorized(): boolean;
 }
 
 export class AuthClientThreeLegged {
     constructor(clientId: string, clientSecret: string, redirectUri: string, scopes: Scope[], autoRefresh: boolean);
 
-    generateAuthUrl(state: string): string;
-    getToken(code: string): Promise<AuthToken>;
-    refreshToken(credentials: { refresh_token?: string }, scope?: Scope[]): Promise<AuthToken>;
+    generateAuthUrl(
+        state: string
+    ): string;
+
+    getToken(
+        code: string
+    ): Promise<AuthToken>;
+
+    refreshToken(
+        credentials: { refresh_token?: string },
+        scope?: Scope[]
+    ): Promise<AuthToken>;
 }
 
 export type AuthClient = AuthClientTwoLegged | AuthClientThreeLegged;
@@ -121,12 +132,20 @@ export class BucketsApi {
     /**
      * This endpoint will delete a bucket.
      */
-    deleteBucket(bucketKey: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    deleteBucket(
+        bucketKey: string,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * This endpoint will return the details of a bucket.
      */
-    getBucketDetails(bucketKey: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getBucketDetails(
+        bucketKey: string,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * This endpoint will return the buckets owned by the application. This endpoint supports pagination.
@@ -170,32 +189,68 @@ export class CommandsApi {
     /**
      * Checks if a user has permission to perform specified actions on specified resources.
      */
-    checkPermission(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    checkPermission(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Retrieves the custom relationships between specified versions of items and other resources in the data domain service
      */
-    listRefs(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    listRefs(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It returns the tip (latest) version of the items.
      */
-    listItems(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    listItems(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Creates folders in BIM 360 Docs.
      */
-    createFolder(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    createFolder(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.
      */
-    publishModel(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    publishModel(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs.
      */
-    getPublishModelJob(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getPublishModelJob(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 }
 
 export namespace DerivativesApi {
@@ -212,7 +267,11 @@ export class DerivativesApi {
     /**
      * Deletes the manifest and all its translated output files (derivatives). However, it does not delete the design source file.
      */
-    deleteManifest(urn: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    deleteManifest(
+        urn: string,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Downloads a selected derivative. To download the file, you need to specify the file’s URN, which you retrieve by calling the GET {urn}/manifest endpoint.
@@ -223,7 +282,7 @@ export class DerivativesApi {
     getDerivativeManifest(
         urn: string,
         derivativeUrn: string,
-        opts: { range?: number },
+        opts: { range?: number, acceptEncoding?: string},
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -320,7 +379,7 @@ export class DerivativesApi {
     ): Promise<ApiResponse>;
 
     /**
-     * To create references for a composite design in Model Derivative. The description of references is stored in 
+     * To create references for a composite design in Model Derivative. The description of references is stored in
      * Model Derivative. To use it with the POST job endpoint, you need to set checkReferences to true.
      */
     setReferences(
@@ -547,7 +606,11 @@ export class HubsApi {
     /**
      * Returns data on a specific `hub_id`.
      */
-    getHub(hubId: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getHub(
+        hubId: string,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Returns a collection of accessible hubs for this member. A Hub represents an A360 Team/Personal hub or a BIM 360 account.
@@ -949,7 +1012,10 @@ export class UserProfileApi {
     /**
      * Returns the profile information of an authorizing end user.
      */
-    getUserProfile(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getUserProfile(
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 }
 
 export interface CreateVersionDataRelationshipsItemData {
@@ -1118,14 +1184,66 @@ export namespace WebhooksApi {
 
 export class WebhooksApi {
     constructor(apiClient?: any, region?: WebhooksApi.RegionEnum);
-    GetHooks(opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    GetSystemHooks(webhooksSystem: WebhooksApi.WebhooksSystemEnum, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    GetSystemEventsHooks(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    GetHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, hookId: string, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    CreateSystemHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, callbackUrl: string, scope: any, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    CreateSystemEventHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, callbackUrl: string, scope: any, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    UpdateSystemEventHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, hookId: string, payload: string, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    DeleteHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum, eventType: WebhooksApi.WebhookEventEnum, hookId: string, opts: WebhooksApi.HooksOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    GetHooks(
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    GetSystemHooks(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    GetSystemEventsHooks(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    GetHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        hookId: string,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    CreateSystemHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        callbackUrl: string,
+        scope: any,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    CreateSystemEventHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        callbackUrl: string,
+        scope: any,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    UpdateSystemEventHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        hookId: string,
+        payload: string,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    DeleteHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        hookId: string,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 }
 
 export namespace TokensApi {
@@ -1142,7 +1260,22 @@ export namespace TokensApi {
 
 export class TokensApi {
     constructor(apiClient?: any, region?: WebhooksApi.RegionEnum);
-    CreateToken(token: string, opts: TokensApi.TokensOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    UpdateToken(token: string, opts: TokensApi.TokensOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-    DeleteToken(opts: TokensApi.TokensOptions, oauth2client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+
+    CreateToken(
+        token: string,
+        opts: TokensApi.TokensOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    UpdateToken(
+        token: string,
+        opts: TokensApi.TokensOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    DeleteToken(
+        opts: TokensApi.TokensOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 }
