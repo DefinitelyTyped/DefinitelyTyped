@@ -51,7 +51,7 @@ declare namespace clownface {
     any(): AnyPointer<AnyContext, D>;
     list(): Iterable<Iteratee<T, D>> | null;
     toArray(): Array<AnyPointer<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
-    filter(cb: (quad: Iteratee<T, D>) => boolean): AnyPointer<T, D>;
+    filter<S extends T>(cb: (ptr: Iteratee<T, D>) => ptr is GraphPointer<S>): AnyPointer<S, D>;
     forEach(cb: (quad: Iteratee<T, D>) => void): this;
     map<X>(cb: (quad: Iteratee<T, D>, index: number) => X): X[];
 
