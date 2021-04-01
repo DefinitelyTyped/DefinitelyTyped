@@ -1341,8 +1341,8 @@
             "libraryName": "highcharts",
             "asOfVersion": "7.0.0"
         },
-        "highlightjs": {
-            "libraryName": "highlightjs",
+        "highlight.js": {
+            "libraryName": "highlight.js",
             "asOfVersion": "10.1.0"
         },
         "hirestime": {
