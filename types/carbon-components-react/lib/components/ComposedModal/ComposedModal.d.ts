@@ -1,17 +1,18 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr, CarbonSize } from "../../../typings/shared";
+import { ReactDivAttr, CarbonSize } from "../../../typings/shared";
 import { ButtonProps } from "../Button";
 
 // ComposedModal
 
 type ExcludedAttributes = "onBlur" | "onClick" | "onTransitionEnd" | "ref" | "role" | "tabIndex";
-interface ComposedModalInheritedProps extends Omit<ReactDivAttr, ExcludedAttributes> { }
-
-export interface ComposedModalProps extends ComposedModalInheritedProps {
+export interface ComposedModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     containerClassName?: string,
+    danger?: boolean,
     onClose?(): boolean | void,
     open?: boolean,
+    preventCloseOnClickOutside?: boolean,
     selectedPrimaryFocus?: string,
+    selectorsFloatingMenus?: string,
     size?: CarbonSize,
 }
 
@@ -19,16 +20,12 @@ declare class ComposedModal extends React.Component<ComposedModalProps> { }
 
 // Header
 
-interface ModalHeaderInheritedProps extends
-    Omit<ReactDivAttr, "title">,
-    EmbeddedIconProps
-{ }
-
-export interface ModalHeaderProps extends ModalHeaderInheritedProps {
+export interface ModalHeaderProps extends Omit<ReactDivAttr, "title"> {
     buttonOnClick?(event: React.MouseEvent<HTMLButtonElement>): void,
     closeClassName?: string,
     closeIconClassName?: string,
     closeModal?(): void,
+    iconDescription?: string,
     label?: React.ReactNode,
     labelClassName?: string,
     title?: React.ReactNode,
@@ -39,9 +36,7 @@ export declare class ModalHeader extends React.Component<ModalHeaderProps> { }
 
 // Body
 
-interface ModalBodyInheritedProps extends ReactDivAttr { }
-
-export interface ModalBodyProps extends ModalBodyInheritedProps {
+export interface ModalBodyProps extends ReactDivAttr {
     hasForm?: boolean;
     hasScrollingContent?: boolean;
 }
@@ -50,15 +45,21 @@ export declare const ModalBody: React.FC<ModalBodyProps>;
 
 // Footer
 
-interface ModalFooterInheritedProps extends ReactDivAttr { }
+export interface ModalFooterSecondaryButtonConfig {
+    buttonText: NonNullable<React.ReactNode>;
+    onClick?: ButtonProps["onClick"];
+}
 
-export interface ModalFooterProps extends ModalFooterInheritedProps {
+export interface ModalFooterProps extends ReactDivAttr {
     closeModal?: ButtonProps["onClick"];
+    danger?: boolean,
+    inputref?: any; // TODO
     primaryClassName?: string,
     primaryButtonText?: string,
-    primaryButtonDisabled?: string,
+    primaryButtonDisabled?: boolean,
     secondaryClassName?: string,
     secondaryButtonText?: string,
+    secondaryButtons?: readonly ModalFooterSecondaryButtonConfig[];
     onRequestClose?: ButtonProps["onClick"],
     onRequestSubmit?: ButtonProps["onClick"],
 }

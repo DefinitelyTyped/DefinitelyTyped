@@ -16,7 +16,7 @@ async function testTasks(onfleet: Onfleet) {
     destination: 'fake_destination_id',
   });
 
-  await onfleet.tasks.create({
+  const taskCreated = await onfleet.tasks.create({
     recipients: [
       '<recipient-id-1>',
       '<recipient-id-2>',
@@ -30,15 +30,54 @@ async function testTasks(onfleet: Onfleet) {
         street: 'Test Street Blvd.',
       },
     },
+    container: {
+      type: 'TEAM',
+      team: 'teamId'
+    }
   });
 
+  if (taskCreated.container.type === 'TEAM') {
+    taskCreated.container.team === 'teamId';
+  }
+
   // test tasks.update
+  const taskUpdated = await onfleet.tasks.update(dummyTask.id, {
+    notes: 'Some test task notes',
+    container: {
+      type: 'WORKER',
+      worker: 'workerId'
+    }
+  });
+
+  if (taskUpdated.container.type === 'WORKER') {
+    taskUpdated.container.worker === 'workerId';
+  }
+
+  // test tasks.update barcodes
   await onfleet.tasks.update(dummyTask.id, {
     notes: 'Some test task notes',
+    barcodes: [
+      { data: 'aGVsbG8gd29ybGQh' },
+      { blockCompletion: true },
+      { data: 'aGVsbG8gd29ybGQh', blockCompletion: true },
+    ]
   });
 
   // test tasks.clone
   const clonedDummyTask = await onfleet.tasks.clone(dummyTask.id);
+
+  if (dummyTask.barcodes && dummyTask.barcodes.required[0].blockCompletion) {
+    const required = dummyTask.barcodes.required[0];
+    const captured = dummyTask.barcodes.captured[0];
+    if (required.data === captured.data && captured.wasRequested === required.blockCompletion && captured.symbology === 'CODE39') {
+      captured.location = [
+        -122.42855072021484,
+        37.78808138412046
+      ];
+      captured.id = 'ku0fpiCqJPC25h3W0cnfgqNn';
+      captured.time = Date.now();
+    }
+  }
 
   // test tasks.delete
   await onfleet.tasks.deleteOne(clonedDummyTask.id);

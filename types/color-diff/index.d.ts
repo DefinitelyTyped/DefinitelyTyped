@@ -1,8 +1,7 @@
-// Type definitions for color-diff 1.1
+// Type definitions for color-diff 1.2
 // Project: https://github.com/markusn/color-diff#readme
 // Definitions by: katsanva <https://github.com/katsanva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 
 export interface RGBColor {
   R: number;
@@ -21,6 +20,7 @@ export function diff(c1: LabColor, c2: LabColor): number;
 
 export function rgb_to_lab(c: RGBColor): LabColor;
 export function rgba_to_lab(c: RGBColor, bc?: RGBColor): LabColor;
+export function normalize_rgb(c: RGBColor): RGBColor;
 
 export function closest(
   color: RGBColor,

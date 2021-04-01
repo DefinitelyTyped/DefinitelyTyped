@@ -417,7 +417,6 @@ interface Stream {
          * HTTP headers to use when trying to playback url.
          * Only applies to urls.
          *
-         * @readonly
          * @ignore
          */
         headers?: any;

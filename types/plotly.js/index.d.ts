@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.50
+// Type definitions for plotly.js 1.54
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -19,10 +19,19 @@
 //                 Brandon Mitchell <https://github.com/brammitch>
 //                 Jessica Blizzard <https://github.com/blizzardjessica>
 //                 Oleg Shilov <https://github.com/olegshilov>
+//                 Pablo Gracia <https://github.com/PabloGracia>
+//                 Jeffrey van Gogh <https://github.com/jvgogh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from 'd3';
+import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
+import { ViolinData } from './lib/traces/violin';
+import { OhclData } from './lib/traces/ohcl';
+import { CandlestickData } from './lib/traces/candlestick';
+import { PieData } from './lib/traces/pie';
+
 export as namespace Plotly;
+export { BoxPlotData, ViolinData, OhclData, CandlestickData, PieData };
 
 export interface StaticPlots {
     resize(root: Root): void;
@@ -204,6 +213,30 @@ export interface SliderEndEvent {
     step: SliderStep;
 }
 
+export interface SunburstClickEvent {
+    event: MouseEvent;
+    nextLevel: string;
+    points: SunburstPlotDatum[];
+}
+
+export interface SunburstPlotDatum {
+    color: number;
+    curveNumber: number;
+    data: Data;
+    entry: string;
+    fullData: Data;
+    hovertext: string;
+    id: string;
+    label: string;
+    parent: string;
+    percentEntry: number;
+    percentParent: number;
+    percentRoot: number;
+    pointNumber: number;
+    root: string;
+    value: number;
+}
+
 export interface BeforePlotEvent {
     data: Data[];
     layout: Partial<Layout>;
@@ -221,6 +254,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
     on(event: 'plotly_sliderchange', callback: (event: SliderChangeEvent) => void): void;
     on(event: 'plotly_sliderend', callback: (event: SliderEndEvent) => void): void;
     on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
+    on(event: 'plotly_sunburstclick', callback: (event: SunburstClickEvent) => void): void;
     on(event: 'plotly_event', callback: (data: any) => void): void;
     on(event: 'plotly_beforeplot', callback: (event: BeforePlotEvent) => boolean): void;
     on(
@@ -405,6 +439,7 @@ export interface Layout {
     barnorm: '' | 'fraction' | 'percent';
     bargap: number;
     bargroupgap: number;
+    boxmode: 'group' | 'overlay';
     selectdirection: 'h' | 'v' | 'd' | 'any';
     hiddenlabels: string[];
     grid: Partial<{
@@ -435,6 +470,8 @@ export interface Layout {
     polar9: Partial<PolarLayout>;
     transition: Transition;
     template: Template;
+    clickmode: 'event' | 'select' | 'event+select' | 'none';
+    uirevision: any;
 }
 
 export interface Legend extends Label {
@@ -741,10 +778,8 @@ export type Calendar =
     | 'thai'
     | 'ummalqura';
 
-export type XAxisName =
-    | 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11';
-export type YAxisName =
-    | 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9' | 'y10' | 'y11';
+export type XAxisName = 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11';
+export type YAxisName = 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9' | 'y10' | 'y11';
 export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
@@ -935,6 +970,7 @@ export interface Delta {
 export interface DataTitle {
     text: string;
     font: Partial<Font>;
+    standoff: number;
     position:
         | 'top left'
         | 'top center'
@@ -997,33 +1033,61 @@ export type ErrorBar = Partial<ErrorOptions> &
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 export type PlotType =
     | 'bar'
+    | 'barpolar'
     | 'box'
     | 'candlestick'
+    | 'carpet'
     | 'choropleth'
+    | 'choroplethmapbox'
+    | 'cone'
     | 'contour'
+    | 'contourcarpet'
+    | 'contourgl'
+    | 'densitymapbox'
+    | 'funnel'
+    | 'funnelarea'
     | 'heatmap'
+    | 'heatmapgl'
     | 'histogram'
+    | 'histogram2d'
+    | 'histogram2dcontour'
+    | 'image'
     | 'indicator'
+    | 'isosurface'
     | 'mesh3d'
     | 'ohlc'
+    | 'parcats'
     | 'parcoords'
     | 'pie'
     | 'pointcloud'
+    | 'sankey'
     | 'scatter'
     | 'scatter3d'
+    | 'scattercarpet'
     | 'scattergeo'
     | 'scattergl'
+    | 'scattermapbox'
     | 'scatterpolar'
+    | 'scatterpolargl'
     | 'scatterternary'
+    | 'splom'
+    | 'streamtube'
     | 'sunburst'
     | 'surface'
+    | 'table'
     | 'treemap'
-    | 'waterfall'
-    | 'funnel'
-    | 'funnelarea'
-    | 'scattermapbox';
+    | 'violin'
+    | 'volume'
+    | 'waterfall';
 
-export type Data = Partial<PlotData>;
+export type Data =
+    | Partial<PlotData>
+    | Partial<BoxPlotData>
+    | Partial<ViolinData>
+    | Partial<OhclData>
+    | Partial<CandlestickData>
+    | Partial<PieData>;
+
 export type Color =
     | string
     | number
@@ -1039,6 +1103,9 @@ export interface PlotData {
     x: Datum[] | Datum[][] | TypedArray;
     y: Datum[] | Datum[][] | TypedArray;
     z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+    i: TypedArray;
+    j: TypedArray;
+    k: TypedArray;
     xy: Float32Array;
     error_x: ErrorBar;
     error_y: ErrorBar;
@@ -1054,7 +1121,7 @@ export interface PlotData {
     'line.shape': 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
     'line.smoothing': number;
     'line.simplify': boolean;
-    marker: Partial<PlotMarker>;
+    marker: Partial<PlotMarker> | Partial<BoxPlotMarker>;
     'marker.symbol': MarkerSymbol | MarkerSymbol[];
     'marker.color': Color;
     'marker.colorscale': ColorScale | ColorScale[];
@@ -1170,6 +1237,8 @@ export interface PlotData {
     parents: string[];
     name: string;
     stackgroup: string;
+    groupnorm: '' | 'fraction' | 'percent';
+    stackgaps: 'infer zero' | 'interpolate';
     connectgaps: boolean;
     visible: boolean | 'legendonly';
     delta: Partial<Delta>;
@@ -1179,6 +1248,9 @@ export interface PlotData {
     orientation: 'v' | 'h';
     width: number | number[];
     boxmean: boolean | 'sd';
+    boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
+    jitter: number;
+    pointpos: number;
     opacity: number;
     showscale: boolean;
     colorscale: ColorScale;
@@ -1200,7 +1272,8 @@ export interface PlotData {
     rotation: number;
     theta: Datum[];
     r: Datum[];
-    customdata: Datum[];
+    customdata: Datum[] | Datum[][];
+    selectedpoints: Datum[];
     domain: Partial<{
         rows: number;
         columns: number;
@@ -1209,6 +1282,14 @@ export interface PlotData {
     }>;
     title: Partial<DataTitle>;
     branchvalues: 'total' | 'remainder';
+    ids: string[];
+    level: string;
+    cliponaxis: boolean;
+    automargin: boolean;
+    locationmode: 'ISO-3' | 'USA-states' | 'country names' | 'geojson-id';
+    locations: Datum[];
+    reversescale: boolean;
+    colorbar: Partial<ColorBar>;
 }
 
 /**
@@ -1295,27 +1376,27 @@ export type MarkerSymbol = string | number | Array<string | number>;
  */
 export interface PlotMarker {
     symbol: MarkerSymbol;
-    color: Color | Color[];
-    colors: Color[];
-    colorscale: ColorScale;
-    cauto: boolean;
-    cmax: number;
-    cmin: number;
-    autocolorscale: boolean;
-    reversescale: boolean;
+    color?: Color | Color[];
+    colors?: Color[];
+    colorscale?: ColorScale;
+    cauto?: boolean;
+    cmax?: number;
+    cmin?: number;
+    autocolorscale?: boolean;
+    reversescale?: boolean;
     opacity: number | number[];
     size: number | number[];
-    maxdisplayed: number;
-    sizeref: number;
-    sizemax: number;
-    sizemin: number;
-    sizemode: 'diameter' | 'area';
-    showscale: boolean;
+    maxdisplayed?: number;
+    sizeref?: number;
+    sizemax?: number;
+    sizemin?: number;
+    sizemode?: 'diameter' | 'area';
+    showscale?: boolean;
     line: Partial<ScatterMarkerLine>;
-    pad: Partial<Padding>;
-    width: number;
-    colorbar: Partial<ColorBar>;
-    gradient: {
+    pad?: Partial<Padding>;
+    width?: number;
+    colorbar?: Partial<ColorBar>;
+    gradient?: {
         type: 'radial' | 'horizontal' | 'vertical' | 'none';
         color: Color;
         typesrc: any;
@@ -1328,12 +1409,14 @@ export type ScatterMarker = PlotMarker;
 export interface ScatterMarkerLine {
     width: number | number[];
     color: Color;
-    colorscale: ColorScale;
-    cauto: boolean;
-    cmax: number;
-    cmin: number;
-    autocolorscale: boolean;
-    reversescale: boolean;
+    cauto?: boolean;
+    cmax?: number;
+    cmin?: number;
+    cmid?: number;
+    colorscale?: ColorScale;
+    autocolorscale?: boolean;
+    reversescale?: boolean;
+    coloraxis?: string;
 }
 
 export interface ScatterLine {
@@ -1476,7 +1559,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][] | false;
+    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
@@ -2064,33 +2147,7 @@ export interface Slider {
      */
     yanchor: 'auto' | 'top' | 'middle' | 'bottom';
     transition: Transition;
-    currentvalue: {
-        /**
-         * Shows the currently-selected value above the slider.
-         */
-        visible: boolean;
-        /**
-         * The alignment of the value readout relative to the length of the slider.
-         */
-        xanchor: 'left' | 'center' | 'right';
-        /**
-         * The amount of space, in pixels, between the current value label
-         * and the slider.
-         */
-        offset: number;
-        /**
-         * When currentvalue.visible is true, this sets the prefix of the label.
-         */
-        prefix: string;
-        /**
-         * When currentvalue.visible is true, this sets the suffix of the label.
-         */
-        suffix: string;
-        /**
-         * Sets the font of the current value label text.
-         */
-        font: Partial<Font>;
-    };
+    currentvalue: Partial<CurrentValue>;
     /**
      * Sets the font of the slider step labels.
      */
@@ -2128,4 +2185,32 @@ export interface Slider {
      * Sets the length in pixels of minor step tick marks
      */
     minorticklen: number;
+}
+
+export interface CurrentValue {
+  /**
+   * Shows the currently-selected value above the slider.
+   */
+  visible: boolean;
+  /**
+   * The alignment of the value readout relative to the length of the slider.
+   */
+  xanchor: 'left' | 'center' | 'right';
+  /**
+   * The amount of space, in pixels, between the current value label
+   * and the slider.
+   */
+  offset: number;
+  /**
+   * When currentvalue.visible is true, this sets the prefix of the label.
+   */
+  prefix: string;
+  /**
+   * When currentvalue.visible is true, this sets the suffix of the label.
+   */
+  suffix: string;
+  /**
+   * Sets the font of the current value label text.
+   */
+  font: Partial<Font>;
 }

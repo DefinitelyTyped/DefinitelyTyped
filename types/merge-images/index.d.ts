@@ -2,7 +2,10 @@
 // Project: https://github.com/lukechilds/merge-images
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Mateus Nardo <https://github.com/mdnm>
+//                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
 
 export as namespace mergeImages;
 
@@ -14,7 +17,9 @@ declare function mergeImages(
 ): Promise<string>;
 
 declare namespace mergeImages {
-    type ImageSource = string | { src: string; x?: number; y?: number; opacity?: number };
+    type Image = string | Buffer;
+
+    type ImageSource = Image | { src: Image; x?: number; y?: number; opacity?: number };
 
     interface Options {
         format?: string;

@@ -37,6 +37,8 @@ markerClusterGroupOptions.iconCreateFunction = (cluster: L.MarkerCluster) => {
     return L.divIcon();
 };
 
+markerClusterGroupOptions.clusterPane = "foobarPane";
+
 let markerClusterGroup: L.MarkerClusterGroup;
 markerClusterGroup = L.markerClusterGroup();
 markerClusterGroup = L.markerClusterGroup(markerClusterGroupOptions);
@@ -66,6 +68,7 @@ markerClusterGroup = markerClusterGroup
     .removeLayer(layer)
     .addLayers(layers)
     .removeLayers(layers)
+    .addLayers(layers, true)
     .clearLayers()
     // RefreshClusters
     .refreshClusters()

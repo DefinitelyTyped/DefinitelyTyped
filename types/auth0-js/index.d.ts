@@ -347,6 +347,8 @@ export class Redirect {
             password: string,
             /** name of the connection where the user will be created */
             connection: string,
+            /** allow userMetadata to be passed to signUp */
+            userMetadata?: unknown
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -489,6 +491,8 @@ export class Popup {
             password: string,
             /** name of the connection where the user will be created */
             connection: string,
+            /** allow userMetadata to be passed to signUp */
+            userMetadata?: unknown
         },
         callback: Auth0Callback<any>,
     ): void;
@@ -909,7 +913,7 @@ export interface DbSignUpOptions {
     username?: string;
     scope?: string;
     /** additional signup attributes used for creating the user. Will be stored in `user_metadata` */
-    userMetadata?: any;
+    userMetadata?: unknown;
 }
 
 /** result of the signup request */
@@ -945,7 +949,7 @@ export interface RenewAuthOptions {
     /**
      * type of the response used by OAuth 2.0 flow. It can be any space separated
      * list of the values `code`, `token`, `id_token`.
-     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html}
      */
     responseType?: string;
     /**
@@ -990,7 +994,7 @@ export interface RenewAuthOptions {
      */
     timeout?: number;
     /**
-     * use postMessage to comunicate between the silent callback and the SPA.
+     * use postMessage to communicate between the silent callback and the SPA.
      * When false the SDK will attempt to parse the url hash should ignore the url hash
      * and no extra behaviour is needed
      * @default false

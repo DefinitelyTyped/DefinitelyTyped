@@ -51,6 +51,7 @@ import { TemplateFactory } from 'htmlbars-inline-precompile';
 import { Registry as ServiceRegistry } from '@ember/service';
 import { Registry as ControllerRegistry } from '@ember/controller';
 import * as EmberStringNs from '@ember/string';
+import * as EmberTemplateNs from '@ember/template';
 import * as EmberTemplateHandlebarsNs from '@ember/template/-private/handlebars';
 // tslint:disable-next-line:no-duplicate-imports
 import * as EmberServiceNs from '@ember/service';
@@ -443,11 +444,15 @@ export namespace Ember {
         const dasherize: typeof EmberStringNs.dasherize;
         const decamelize: typeof EmberStringNs.decamelize;
         function fmt(...args: string[]): string;
-        const htmlSafe: typeof EmberStringNs.htmlSafe;
-        const isHTMLSafe: typeof EmberStringNs.isHTMLSafe;
+        const htmlSafe: typeof EmberTemplateNs.htmlSafe;
+        const isHTMLSafe: typeof EmberTemplateNs.isHTMLSafe;
         const loc: typeof EmberStringNs.loc;
         const underscore: typeof EmberStringNs.underscore;
         const w: typeof EmberStringNs.w;
+    }
+    namespace Template {
+        const htmlSafe: typeof EmberTemplateNs.htmlSafe;
+        const isHTMLSafe: typeof EmberTemplateNs.isHTMLSafe;
     }
     const computed: typeof EmberObjectNs.computed;
     const run: typeof EmberRunloopNs.run;
@@ -472,6 +477,9 @@ export namespace Ember {
     const removeListener: typeof EmberObjectEventsNs.removeListener;
     const sendEvent: typeof EmberObjectEventsNs.sendEvent;
     const on: typeof EmberObjectEventedNs.on;
+
+    const htmlSafe: typeof EmberTemplateNs.htmlSafe;
+    const isHTMLSafe: typeof EmberTemplateNs.isHTMLSafe;
 
     const isBlank: typeof EmberUtilsNs.isBlank;
     const isEmpty: typeof EmberUtilsNs.isEmpty;
@@ -517,7 +525,8 @@ export namespace Ember {
      * internals encounter an error. This is useful for specialized error handling
      * and reporting code.
      */
-    function onerror(error: Error): void;
+    let onerror: ((error: Error) => void) | undefined;
+
     /**
      * The semantic version
      */
@@ -542,6 +551,5 @@ declare module 'htmlbars-inline-precompile' {
     interface TemplateFactory {
         __htmlbars_inline_precompile_template_factory: any;
     }
-    // tslint:disable-next-line:strict-export-declare-modifiers
     export default function hbs(tagged: TemplateStringsArray): TemplateFactory;
 }

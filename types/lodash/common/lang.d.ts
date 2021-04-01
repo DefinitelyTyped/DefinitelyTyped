@@ -450,7 +450,6 @@ declare module "../index" {
          * // => false
          */
         isArrayLikeObject<T extends { __lodashAnyHack: any }>(value: T): boolean;
-        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the Function type)
         /**
          * @see _.isArrayLikeObject
          */

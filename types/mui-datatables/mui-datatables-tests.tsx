@@ -1,9 +1,4 @@
-import MUIDataTable, {
-    MUIDataTableColumn,
-    MUIDataTableOptions,
-    MUIDataTableTextLabels,
-    MUIDataTableProps,
-} from 'mui-datatables';
+import MUIDataTable, { ExpandButton, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps, MUIDataTableState } from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends Omit<MUIDataTableProps, 'columns'> {
@@ -12,12 +7,14 @@ interface Props extends Omit<MUIDataTableProps, 'columns'> {
 
 const MuiCustomTable: React.FC<Props> = props => {
     const data: string[][] = props.data.map((asset: any) => Object.values(asset));
+    const tableRef = React.useRef<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>();
     const columns: MUIDataTableColumn[] = [
         {
             name: 'id',
             label: 'id',
             options: {
                 draggable: true,
+                sortThirdClickReset: true,
             },
         },
         {
@@ -25,6 +22,9 @@ const MuiCustomTable: React.FC<Props> = props => {
             label: 'Name',
             options: {
                 filterType: 'custom',
+                sortCompare: order => (val1, val2) => {
+                    return (val1.data.length - val2.data.length) * (order === 'asc' ? 1 : -1);
+                },
                 customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <input
@@ -59,8 +59,10 @@ const MuiCustomTable: React.FC<Props> = props => {
     ];
 
     const TableOptions: MUIDataTableOptions = {
+        jumpToPage: true,
         fixedHeader: true,
         fixedSelectColumn: false,
+        sortOrder: { name: 'amount', direction: 'asc' },
         filterType: 'checkbox',
         responsive: 'standard',
         selectableRows: 'none',
@@ -129,6 +131,11 @@ const MuiCustomTable: React.FC<Props> = props => {
                 variant: 'outlined',
             };
         },
+        setRowProps: (row, dataIndex, rowIndex) => {
+            return {
+                className: `row${dataIndex}`,
+            };
+        },
         textLabels: {
             body: {
                 noMatch: 'Sorry, no matching records found',
@@ -140,6 +147,7 @@ const MuiCustomTable: React.FC<Props> = props => {
                 previous: 'Previous Page',
                 rowsPerPage: 'Rows per page:',
                 displayRows: 'of',
+                jumpToPage: 'Go To',
             },
             toolbar: {
                 search: 'Search',
@@ -165,7 +173,7 @@ const MuiCustomTable: React.FC<Props> = props => {
         },
     };
 
-    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />;
+    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} innerRef={tableRef} />;
 };
 
 const TableFruits = [
@@ -207,7 +215,17 @@ const todoOptions: MUIDataTableOptions = {
 <MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} />;
 
 const customComponents: MUIDataTableProps['components'] = {
+    ExpandButton: ({ dataIndex }) => (dataIndex === 1 ? <>expand button</> : null),
     TableFooter: props => <>table footer</>,
 };
 
 <MuiCustomTable title="Todo Table" data={Todos} options={todoOptions} components={customComponents} />;
+
+const disabledOptions: MUIDataTableOptions = {
+    print: 'true',
+    search: false,
+    viewColumns: 'disabled',
+    filter: true,
+};
+
+<MuiCustomTable title="Disabled Buttons" data={Todos} options={disabledOptions} />;

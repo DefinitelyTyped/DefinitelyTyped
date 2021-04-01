@@ -1,10 +1,10 @@
-// Type definitions for non-npm package nova-editor-node 1.0
-// Project: https://novadocs.panic.com
+// Type definitions for non-npm package nova-editor-node 4.1
+// Project: https://docs.nova.app/api-reference/
 // Definitions by: Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
-/// https://novadocs.panic.com/extensions/#javascript-runtime
+/// https://docs.nova.app/extensions/#javascript-runtime
 
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
 
@@ -14,33 +14,44 @@
 type ReadableStream<T = any> = unknown;
 type WritableStream<T = any> = unknown;
 
-/// https://novadocs.panic.com/api-reference/assistants-registry/
+/// https://docs.nova.app/api-reference/assistants-registry/
 
 type AssistantsRegistrySelector = string | { syntax: string };
 
 interface AssistantsRegistry {
-    registerColorAssistant(selector: AssistantsRegistrySelector, object: ColorAssistant): Disposable;
-    registerCompletionAssistant(selector: AssistantsRegistrySelector, object: CompletionAssistant): Disposable;
+    registerCompletionAssistant(
+        selector: AssistantsRegistrySelector,
+        object: CompletionAssistant,
+        options?: { triggerChars?: Charset },
+    ): Disposable;
     registerIssueAssistant(
         selector: AssistantsRegistrySelector,
         object: IssueAssistant,
-        options?: { event: "onChange" | "onSave" }
+        options?: { event: 'onChange' | 'onSave' },
     ): Disposable;
+    registerTaskAssistant(object: TaskAssistant, options?: { identifer: string; name: string }): Disposable;
 }
 
-interface ColorAssistant {
-    parseColorStrings(colorStrings: ReadonlyArray<string>): ReadonlyArray<Color>;
-}
+type AssistantArray<T> = ReadonlyArray<T> | Promise<ReadonlyArray<T>>;
 
 interface CompletionAssistant {
-    provideCompletionItems(editor: TextEditor, context: CompletionContext): void | CompletionItem[];
+    provideCompletionItems(editor: TextEditor, context: CompletionContext): AssistantArray<CompletionItem>;
 }
 
 interface IssueAssistant {
-    provideIssues(editor: TextEditor): Issue[];
+    provideIssues(editor: TextEditor): AssistantArray<Issue>;
 }
 
-/// https://novadocs.panic.com/api-reference/charset/
+type ResolvedTaskAction = TaskCommandAction | TaskProcessAction;
+
+interface TaskAssistant {
+    provideTasks(): AssistantArray<Task>;
+    resolveTaskAction?<T extends Transferrable>(
+        context: TaskActionResolveContext<T>,
+    ): ResolvedTaskAction | Promise<ResolvedTaskAction>;
+}
+
+/// https://docs.nova.app/api-reference/charset/
 
 declare class Charset {
     constructor(characters?: string);
@@ -59,7 +70,14 @@ declare class Charset {
     intersect(...charsets: Array<Charset>): Charset;
 }
 
-/// https://novadocs.panic.com/api-reference/color/
+/// https://docs.nova.app/api-reference/clipboard/
+
+declare interface Clipboard {
+    readText(): Promise<string>;
+    writeText(text: string): Promise<void>;
+}
+
+/// https://docs.nova.app/api-reference/color/
 
 type ColorFormat = 'rgb' | 'hsl' | 'hsb' | 'p3' | 'hex';
 type ColorComponents = [number, number, number, number];
@@ -71,15 +89,27 @@ declare class Color {
     components: ColorComponents;
 }
 
-/// https://novadocs.panic.com/api-reference/commands-registry/
+/// https://docs.nova.app/api-reference/commands-registry/
+
+type Transferrable =
+    | Transferrable[]
+    | ReadonlyArray<Transferrable>
+    | Date
+    | null
+    | number
+    | { [key: string]: Transferrable }
+    | RegExp
+    | string
+    | Color
+    | Range;
 
 interface CommandsRegistry {
     register(name: string, callable: (...params: any[]) => void): Disposable;
     register<T>(name: string, callable: (this: T, ...params: any[]) => void, thisValue: T): Disposable;
-    invoke(name: string, ...arguments: unknown[]): Promise<unknown>;
+    invoke(name: string, ...arguments: Transferrable[]): Promise<unknown>;
 }
 
-/// https://novadocs.panic.com/api-reference/completion-context/
+/// https://docs.nova.app/api-reference/completion-context/
 
 interface CompletionContext {
     readonly text: string;
@@ -93,23 +123,26 @@ declare enum CompletionReason {
     Character,
 }
 
-/// https://novadocs.panic.com/api-reference/completion-item/
+/// https://docs.nova.app/api-reference/completion-item/
 
 declare class CompletionItem {
     constructor(label: string, kind: CompletionItemKind);
 
-    label: string;
-    kind: CompletionItemKind;
+    additionalTextEdits?: TextEdit[];
+    color?: Color;
+    commitChars?: Charset;
     detail?: string;
     documentation?: string;
     filterText?: string;
     insertText?: string;
+    insertTextFormat?: InsertTextFormat;
+    readonly kind: CompletionItemKind;
+    readonly label: string;
     range?: Range;
-    commitCharacters?: string[];
-    tokenize: boolean; // default false
 }
 
 declare enum CompletionItemKind {
+    // Types
     Type,
     Class,
     Category,
@@ -117,30 +150,71 @@ declare enum CompletionItemKind {
     Enum,
     Union,
     Struct,
+
+    // Types
     Function,
     Method,
     Closure,
     Constructor,
+    Destructor,
+    Getter,
+    Setter,
+    StaticMethod,
+
+    // Values
     Constant,
     Variable,
     Property,
     Argument,
     Color,
     EnumMember,
-    Statement,
+    StaticProperty,
+
+    // Expressions
     Expression,
-    Tag,
+    Statement,
     Package,
     File,
     Reference,
     Keyword,
+
+    // StyleSheets
     StyleRuleset,
     StyleDirective,
     StyleID,
     StyleClass,
+    StylePseudoClass,
+    StylePseudoElement,
+
+    // Tags
+    Tag,
+    TagHead,
+    TagTitle,
+    TagMeta,
+    TagLink,
+    TagBody,
+    TagScript,
+    TagStyle,
+    TagHeading,
+    TagSection,
+    TagContainer,
+    TagUnorderedList,
+    TagOrderedList,
+    TagListItem,
+    TagAnchor,
+    TagImage,
+    TagMedia,
+    TagForm,
+    TagFormField,
+    TagFramework,
 }
 
-/// https://novadocs.panic.com/api-reference/composite-disposable/
+declare enum InsertTextFormat {
+    PlainText,
+    Snippet,
+}
+
+/// https://docs.nova.app/api-reference/composite-disposable/
 
 declare class CompositeDisposable extends Disposable {
     constructor();
@@ -151,7 +225,7 @@ declare class CompositeDisposable extends Disposable {
     clear(): void;
 }
 
-/// https://novadocs.panic.com/api-reference/configuration/
+/// https://docs.nova.app/api-reference/configuration/
 
 type ConfigurationValue = string | number | string[] | boolean;
 
@@ -167,7 +241,7 @@ interface Configuration {
     remove(key: string): void;
 }
 
-/// https://novadocs.panic.com/api-reference/console/
+/// https://docs.nova.app/api-reference/console/
 
 interface Console {
     assert(condition: () => unknown, message: string, ...params: unknown[]): void;
@@ -185,7 +259,7 @@ interface Console {
     trace(): void;
 }
 
-/// https://novadocs.panic.com/api-reference/credentials/
+/// https://docs.nova.app/api-reference/credentials/
 
 type User = unknown;
 
@@ -195,7 +269,7 @@ interface Credentials {
     removePassword(service: string, user: User): null;
 }
 
-/// https://novadocs.panic.com/api-reference/disposable/
+/// https://docs.nova.app/api-reference/disposable/
 
 declare class Disposable {
     constructor();
@@ -204,7 +278,7 @@ declare class Disposable {
     dispose(): void;
 }
 
-/// https://novadocs.panic.com/api-reference/emitter/
+/// https://docs.nova.app/api-reference/emitter/
 
 declare class Emitter extends Disposable {
     constructor();
@@ -216,13 +290,14 @@ declare class Emitter extends Disposable {
     clear(eventName?: string): void;
 }
 
-/// https://novadocs.panic.com/api-reference/environment/
+/// https://docs.nova.app/api-reference/environment/
 
 interface Environment {
     readonly version: [number, number, number];
     readonly versionString: string;
     readonly systemVersion: [number, number, number];
     readonly locales: string[];
+    readonly clipboard: Clipboard;
     readonly config: Configuration;
     readonly credentials: Credentials;
     readonly extension: Extension;
@@ -247,7 +322,7 @@ interface Environment {
 
 declare const nova: Environment;
 
-/// https://novadocs.panic.com/api-reference/extension/
+/// https://docs.nova.app/api-reference/extension/
 
 interface Extension {
     readonly identifier: string;
@@ -259,7 +334,7 @@ interface Extension {
     readonly workspaceStoragePath: string;
 }
 
-/// https://novadocs.panic.com/api-reference/file/
+/// https://docs.nova.app/api-reference/file/
 
 interface File {
     readonly closed: boolean;
@@ -281,7 +356,7 @@ interface FileTextMode extends File {
     readlines(): string[];
 }
 
-/// https://novadocs.panic.com/api-reference/file-stats/
+/// https://docs.nova.app/api-reference/file-stats/
 
 interface FileStats {
     readonly atime: Date;
@@ -295,7 +370,7 @@ interface FileStats {
     isSymbolicLink(): boolean;
 }
 
-/// https://novadocs.panic.com/api-reference/file-system/
+/// https://docs.nova.app/api-reference/file-system/
 
 type FileSystemBitField = number & { __t: 'FileSystemBitField' };
 
@@ -322,7 +397,7 @@ declare class FileSystem {
         START: FileSystemBitField;
         CURRENT: FileSystemBitField;
         END: FileSystemBitField;
-    }
+    };
 
     F_OK: FileSystemBitField;
     R_OK: FileSystemBitField;
@@ -350,13 +425,13 @@ declare class FileSystem {
     watch(pattern: string | null, callable: (path: string) => void): FileSystemWatcher;
 }
 
-/// https://novadocs.panic.com/api-reference/file-system-watcher/
+/// https://docs.nova.app/api-reference/file-system-watcher/
 
 interface FileSystemWatcher extends Disposable {
     onDidChange(callback: (path: string) => void): void;
 }
 
-/// https://novadocs.panic.com/api-reference/issue/
+/// https://docs.nova.app/api-reference/issue/
 
 declare class Issue {
     constructor();
@@ -378,7 +453,7 @@ declare enum IssueSeverity {
     Info,
 }
 
-/// https://novadocs.panic.com/api-reference/issue-collection/
+/// https://docs.nova.app/api-reference/issue-collection/
 
 declare class IssueCollection {
     constructor(name?: string);
@@ -394,7 +469,7 @@ declare class IssueCollection {
     remove(uri: string): void;
 }
 
-/// https://novadocs.panic.com/api-reference/issue-parser/
+/// https://docs.nova.app/api-reference/issue-parser/
 
 declare class IssueParser {
     constructor(matcherNames?: string | Array<string>);
@@ -405,7 +480,7 @@ declare class IssueParser {
     clear(): void;
 }
 
-/// https://novadocs.panic.com/api-reference/language-client/
+/// https://docs.nova.app/api-reference/language-client/
 
 declare class LanguageClient {
     constructor(
@@ -417,13 +492,14 @@ declare class LanguageClient {
             args?: string[];
             env?: { [key: string]: string };
         },
-        clientOptions: { syntaxes: string[] },
+        clientOptions: { initializationOptions?: any; syntaxes: string[] },
     );
 
     readonly identifier: string;
     readonly name: string;
     readonly running: boolean;
 
+    onDidStop<T>(callback: (this: T, err?: Error) => void, thisValue?: T): Disposable;
     onNotification(method: string, callback: (parameters: any) => void): void;
     onRequest(method: string, callback: (parameters: any) => unknown | Promise<unknown>): void;
     sendRequest(method: string, parameters?: unknown): Promise<unknown>;
@@ -432,14 +508,14 @@ declare class LanguageClient {
     stop(): void;
 }
 
-/// https://novadocs.panic.com/api-reference/notification-center/
+/// https://docs.nova.app/api-reference/notification-center/
 
 interface NotificationCenter {
     add(request: NotificationRequest): Promise<NotificationResponse>;
     cancel(identifier: string): void;
 }
 
-/// https://novadocs.panic.com/api-reference/notification-request/
+/// https://docs.nova.app/api-reference/notification-request/
 
 declare class NotificationRequest {
     constructor(identifier: string);
@@ -453,7 +529,7 @@ declare class NotificationRequest {
     actions?: string[];
 }
 
-/// https://novadocs.panic.com/api-reference/notification-response/
+/// https://docs.nova.app/api-reference/notification-response/
 
 interface NotificationResponse {
     readonly identifier: string;
@@ -461,7 +537,7 @@ interface NotificationResponse {
     readonly textInputValue?: string;
 }
 
-/// https://novadocs.panic.com/api-reference/path/
+/// https://docs.nova.app/api-reference/path/
 
 interface Path {
     basename(path: string): string;
@@ -475,7 +551,7 @@ interface Path {
     split(path: string): string[];
 }
 
-/// https://novadocs.panic.com/api-reference/process/
+/// https://docs.nova.app/api-reference/process/
 
 // This could be improved to split into automatic pipe and jsonrpc types with
 // the appropriate methods enabled, but because stdio is configured within
@@ -520,7 +596,7 @@ declare class Process {
     onRequest(methodName: string, callback: (message: ProcessMessage<any, any, any>) => any): Disposable;
 }
 
-/// https://novadocs.panic.com/api-reference/process-message/
+/// https://docs.nova.app/api-reference/process-message/
 
 interface ProcessMessage<P, R, E> {
     readonly method: string | null;
@@ -531,7 +607,7 @@ interface ProcessMessage<P, R, E> {
     readonly errorData: E | null;
 }
 
-/// https://novadocs.panic.com/api-reference/range/
+/// https://docs.nova.app/api-reference/range/
 
 declare class Range {
     constructor(start: number, end: number);
@@ -550,7 +626,7 @@ declare class Range {
     intersectsRange(other: Range): boolean;
 }
 
-/// https://novadocs.panic.com/api-reference/scanner/
+/// https://docs.nova.app/api-reference/scanner/
 
 declare class Scanner {
     constructor(string: string);
@@ -571,7 +647,7 @@ declare class Scanner {
     scanHexFloat(): number | null;
 }
 
-/// https://novadocs.panic.com/api-reference/symbol/
+/// https://docs.nova.app/api-reference/symbol/
 
 type NovaSymbolType =
     // Types
@@ -642,8 +718,7 @@ type NovaSymbolType =
     | 'tag-media'
     | 'tag-form'
     | 'tag-form-field'
-    | 'tag-framework'
-    ;
+    | 'tag-framework';
 
 // name change to avoid conflict with base ecmascript Symbol
 
@@ -657,7 +732,66 @@ interface NovaSymbol {
     readonly parent: NovaSymbol | null;
 }
 
-// https://novadocs.panic.com/api-reference/text-document/
+/// https://docs.nova.app/api-reference/task/
+
+declare type TaskName = string & { __type: 'TaskName' };
+
+declare class Task {
+    static readonly Build: TaskName;
+    static readonly Clean: TaskName;
+    static readonly Run: TaskName;
+
+    constructor(name: string);
+
+    name: string;
+    image?: string;
+
+    getAction(name: string): TaskProcessAction | undefined;
+    getAction<T extends Transferrable>(name: string): TaskResolvableAction<T> | undefined;
+    setAction(name: string, action?: TaskProcessAction | null): void;
+    setAction<T extends Transferrable>(name: string, action?: TaskResolvableAction<T> | null): void;
+}
+
+/// https://docs.nova.app/api-reference/task-action-resolve-context/
+
+interface TaskActionResolveContext<T extends Transferrable> {
+    action: TaskName;
+    readonly data?: T;
+}
+
+/// https://docs.nova.app/api-reference/task-command-action/
+
+declare class TaskCommandAction {
+    constructor(command: string, options?: { args?: string[] });
+
+    readonly args: string[];
+    readonly command: string;
+}
+
+/// https://docs.nova.app/api-reference/task-process-action/
+
+declare class TaskProcessAction {
+    constructor(
+        command: string,
+        options?: {
+            args?: string[];
+            env?: { [key: string]: string };
+            cwd?: string;
+            stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
+            matchers?: ReadonlyArray<string>;
+        },
+    );
+}
+
+/// https://docs.nova.app/api-reference/task-resolvable-action/
+
+declare class TaskResolvableAction<T extends Transferrable> {
+    constructor(options?: { data: T });
+
+    readonly data: T;
+}
+
+/// https://docs.nova.app/api-reference/text-document/
 
 interface TextDocument {
     readonly uri: string;
@@ -677,7 +811,20 @@ interface TextDocument {
     onDidChangeSyntax(callback: (document: TextDocument, syntax: string | null) => void): Disposable;
 }
 
-/// https://novadocs.panic.com/api-reference/text-editor/
+/// https://docs.nova.app/api-reference/text-edit/
+
+declare class TextEdit {
+    static delete(range: Range): TextEdit;
+    static insert(position: number, newText: string): TextEdit;
+    static replace(range: Range, newText: string): TextEdit;
+
+    constructor(range: Range, newText: string);
+
+    readonly newText: string;
+    readonly range: Range;
+}
+
+/// https://docs.nova.app/api-reference/text-editor/
 
 declare class TextEditor {
     private constructor();
@@ -693,13 +840,13 @@ declare class TextEditor {
     readonly tabText: string;
 
     edit(callback: (edit: TextEditorEdit) => void, options?: unknown): Promise<void>;
-    insert(string: string): Promise<void>;
-    save(): void;
+    insert(string: string, format?: InsertTextFormat): Promise<void>;
+    save(): Promise<void>;
     getTextInRange(range: Range): string;
     getLineRangeForRange(range: Range): Range;
     onDidChange(callback: (textEditor: TextEditor) => void): Disposable;
     onDidStopChanging(callback: (textEditor: TextEditor) => void): Disposable;
-    onWillSave(callback: (textEditor: TextEditor) => void): Disposable;
+    onWillSave(callback: (textEditor: TextEditor) => void | Promise<void>): Disposable;
     onDidSave(callback: (textEditor: TextEditor) => void): Disposable;
     onDidChangeSelection(callback: (textEditor: TextEditor) => void): Disposable;
     onDidDestroy(callback: (textEditor: TextEditor) => void): Disposable;
@@ -724,7 +871,7 @@ declare class TextEditor {
     symbolsForSelectedRanges(): ReadonlyArray<NovaSymbol | null>;
 }
 
-/// https://novadocs.panic.com/api-reference/text-editor-edit/
+/// https://docs.nova.app/api-reference/text-editor-edit/
 
 interface TextEditorEdit {
     delete(range: Range): void;
@@ -732,7 +879,7 @@ interface TextEditorEdit {
     insert(position: number, text: string): void;
 }
 
-/// https://novadocs.panic.com/api-reference/tree-data-provider/
+/// https://docs.nova.app/api-reference/tree-data-provider/
 
 interface TreeDataProvider<E> {
     getChildren(element: E | null): E[] | Promise<E[]>;
@@ -740,7 +887,7 @@ interface TreeDataProvider<E> {
     getTreeItem(element: E): TreeItem;
 }
 
-/// https://novadocs.panic.com/api-reference/tree-item/
+/// https://docs.nova.app/api-reference/tree-item/
 
 declare class TreeItem {
     constructor(name: string, collapsibleState?: TreeItemCollapsibleState);
@@ -763,7 +910,7 @@ declare enum TreeItemCollapsibleState {
     Expanded,
 }
 
-/// https://novadocs.panic.com/api-reference/tree-view/
+/// https://docs.nova.app/api-reference/tree-view/
 
 declare class TreeView<E> extends Disposable {
     constructor(identifier: string, options?: { dataProvider: TreeDataProvider<E> });
@@ -779,7 +926,7 @@ declare class TreeView<E> extends Disposable {
     reveal(element: E | null, options?: { select?: boolean; focus?: boolean; reveal?: number }): void;
 }
 
-/// https://novadocs.panic.com/api-reference/workspace/
+/// https://docs.nova.app/api-reference/workspace/
 
 interface Workspace {
     readonly path: string | null;
@@ -836,14 +983,14 @@ interface Workspace {
         },
         callback?: (paths: string[] | null) => void,
     ): void;
+    reloadTasks(identifier: string): void;
 }
 
-/// https://novadocs.panic.com/api-reference/
+/// https://docs.nova.app/api-reference/
 
 declare function atob(data: string): string;
 declare function btoa(data: string): string;
 
-// tslint:disable-next-line:ban-types
 type TimerHandler = string | Function;
 
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;

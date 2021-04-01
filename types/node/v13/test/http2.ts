@@ -296,7 +296,7 @@ import { URL } from 'url';
         response.removeHeader(':method');
         response.setHeader(':method', 'GET');
         response.setHeader(':status', 200);
-        response.setHeader('some-list', ['', '']);
+        response.setHeader('some-list', ['', ''] as ReadonlyArray<string>);
         const headersSent: boolean = response.headersSent;
 
         response.setTimeout(0, () => {});
@@ -323,6 +323,7 @@ import { URL } from 'url';
         response.end('', 'utf8', () => {});
         response.end(Buffer.from([]));
         response.end(Buffer.from([]), () => {});
+        const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});
         request.on('close', () => {});

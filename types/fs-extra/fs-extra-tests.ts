@@ -1,5 +1,4 @@
 import * as fs from "fs-extra";
-import * as Path from "path";
 
 const len = 2;
 const src = "";
@@ -74,6 +73,22 @@ fs.createFile(file).then(() => {
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
+fs.mkdir(dir).then(() => {
+    // stub
+});
+fs.mkdir(dir, errorCallback);
+fs.mkdirSync(dir);
+fs.mkdir(dir, modeNum).then(() => {
+    // stub
+});
+fs.mkdir(dir, modeNum, errorCallback);
+fs.mkdirSync(dir, modeNum);
+fs.mkdir(dir, {mode: modeNum}).then(() => {
+    // stub
+});
+fs.mkdir(dir, {mode: modeNum}, errorCallback);
+fs.mkdirSync(dir, {mode: modeNum});
+
 fs.mkdirs(dir).then(() => {
     // stub
 });
@@ -126,6 +141,14 @@ fs.remove(dir, errorCallback);
 fs.remove(dir).then(() => {
     // stub
 });
+// @ts-expect-error map can't be called as it passes a number for the second argument instead of a callback.
+["file/to/remove"].map(fs.remove);
+
+// @ts-expect-error promise should not be returned when callback is provided.
+// tslint:disable-next-line:no-void-expression
+fs.remove(dir, errorCallback).then(() => {
+    // stub
+});
 fs.removeSync(dir);
 
 fs.writeJson(file, object).then(() => {
@@ -158,6 +181,7 @@ fs.ensureDir(path, ensureNum).then(() => {
 });
 fs.ensureDir(path, ensureObj, errorCallback);
 fs.ensureDir(path, ensureNum, errorCallback);
+fs.ensureDir(path, errorCallback);
 fs.ensureDirSync(path);
 fs.ensureDirSync(path, ensureObj);
 fs.ensureDirSync(path, ensureNum);
@@ -172,12 +196,15 @@ fs.ensureLink(path, path).then(() => {
 });
 fs.ensureLink(path, path, errorCallback);
 fs.createLink(path, path).then(() => {
-	// stub
+    // stub
 });
 fs.createLink(path, path, errorCallback);
 fs.ensureLinkSync(path, path);
 fs.createLinkSync(path, path);
 fs.ensureSymlink(path, path, "file").then(() => {
+    // stub
+});
+fs.ensureSymlink(path, path, "junction").then(() => {
     // stub
 });
 fs.ensureSymlink(path, path, errorCallback);
@@ -186,7 +213,10 @@ fs.emptyDir(path).then(() => {
     // stub
 });
 fs.emptyDir(path, errorCallback);
+fs.emptydir(path, errorCallback);
+fs.emptydir(path).then(() => {});
 fs.emptyDirSync(path);
+fs.emptydirSync(path);
 fs.pathExists(path).then((_exist: boolean) => {
     // stub
 });
@@ -218,16 +248,16 @@ fs.lchmodSync(path, modeStr);
 fs.statSync(path);
 fs.lstatSync(path);
 
-fs.read(0, new Buffer(""), 0, 0, null).then(x => {
+fs.read(0, Buffer.from(""), 0, 0, null).then(x => {
     const a = x.buffer;
     const b = x.bytesRead;
 });
 
-fs.write(0, new Buffer(""), 0, 0, null).then(x => {
+fs.write(0, Buffer.from(""), 0, 0, null).then(x => {
     const a = x.buffer;
     const b = x.bytesWritten;
 });
-fs.write(0, new Buffer("")).then(x => {
+fs.write(0, Buffer.from("")).then(x => {
     const a = x.buffer;
     const b = x.bytesWritten;
 });
@@ -249,9 +279,29 @@ fs.copyFile("src", "dest", errorCallback);
 
 fs.createSymlink("src", "dest", "dir").then();
 fs.createSymlink("src", "dest", "file").then();
-fs.createSymlink("src", "dest", "dir", errorCallback);
+fs.createSymlink("src", "dest", "junction", errorCallback);
 
 const openDirTest = async (path: string, opts: fs.OpenDirOptions) => {
     await fs.opendir(path); // $ExpectType Dir
     await fs.opendir(path, opts); // $ExpectType Dir
 };
+
+fs.readdir("src").then((files: string[]) => {});
+fs.readdir("src", "buffer").then((files: Buffer[]) => {});
+fs.readdir("src", {withFileTypes: true}).then((files: fs.Dirent[]) => {});
+
+// $ExpectType void
+fs.realpath('src', (err, resolved) => {
+    // $ExpectType string
+    resolved;
+});
+// $ExpectType Promise<string>
+fs.realpath.native('src');
+// $ExpectType Promise<Buffer>
+fs.realpath.native('src', 'buffer');
+// $ExpectType Promise<string>
+fs.realpath.native('src', { encoding: 'utf-8' });
+// $ExpectType Promise<Buffer>
+fs.realpath.native('src', { encoding: 'buffer' });
+// $ExpectType Promise<string>
+fs.realpath.native('src', { encoding: null });

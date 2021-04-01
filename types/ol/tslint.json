@@ -6,6 +6,7 @@
         "interface-over-type-literal": false,
         "no-unnecessary-generics": false,
         "prefer-declare-function": false,
+        "space-before-function-paren": false,
         "strict-comparisons": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false,

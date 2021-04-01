@@ -18,12 +18,9 @@ declare function execBufferCallback(err: cp.ExecException | null, stdout: Buffer
 
 declare const command: string;
 declare const stringEncoding: BufferEncoding;
-// tslint:disable-next-line: no-null-undefined-union
 declare const bufferEncoding: 'buffer' | null | undefined;
-// tslint:disable-next-line: no-null-undefined-union
 declare const anyEncoding: string | null | undefined;
 
-// tslint:disable-next-line: no-null-undefined-union
 declare const unknownEncodingObject: { encoding: typeof anyEncoding } | null | undefined;
 
 // cp.exec:
@@ -48,7 +45,6 @@ declare const unknownEncodingObject: { encoding: typeof anyEncoding } | null | u
 declare function execFileStringCallback(err: Error | null, stdout: string, stderr: string): void;
 declare function execFileBufferCallback(err: Error | null, stdout: Buffer, stderr: Buffer): void;
 
-// tslint:disable-next-line: no-null-undefined-union
 declare const args: string[] | null | undefined;
 
 // cp.execFile:

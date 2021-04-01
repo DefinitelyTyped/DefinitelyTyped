@@ -46,6 +46,13 @@ declare class Test {
     cleanSnapshot: (s: string) => string;
     formatSnapshot: (obj: any) => string;
 
+    fixture(type: 'symlink' | 'link', content: string): Fixture.Instance;
+    fixture(type: 'file', content: string | Buffer): Fixture.Instance;
+    fixture(type: 'dir', content: Fixture.Spec): Fixture.Instance;
+
+    testdir(spec?: Fixture.Spec): string;
+    readonly testdirName: string;
+
     context: any;
     name: string;
     runOnly: boolean;
@@ -80,12 +87,12 @@ declare class Test {
         expectedError: Error,
         message?: string,
         extra?: Options.Assert,
-    ): void;
+    ): Promise<void>;
     rejects(
         promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
         message?: string,
         extra?: Options.Assert,
-    ): void;
+    ): Promise<void>;
 
     // Verifies that the promise (or promise-returning function) resolves, making no expectation about the value that the promise resolves to.
     // Note: since promises always reject and resolve asynchronously, this assertion is implemented asynchronously. As such, it does not return a boolean to indicate its passing status.
@@ -94,7 +101,7 @@ declare class Test {
         promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
         message?: string,
         extra?: Options.Assert,
-    ): void;
+    ): Promise<void>;
 
     // Verifies that the promise (or promise-returning function) resolves, and furthermore that the value of the promise matches the wanted pattern using match.
     // Note: since promises always reject and resolve asynchronously, this assertion is implemented asynchronously. As such, it does not return a boolean to indicate its passing status.
@@ -104,7 +111,7 @@ declare class Test {
         wanted: string | RegExp | { [key: string]: RegExp },
         message?: string,
         extra?: Options.Assert,
-    ): void;
+    ): Promise<void>;
 
     // Verifies that the promise (or promise-returning function) resolves, and furthermore that the value of the promise matches the snapshot.
     // Note: since promises always reject and resolve asynchronously, this assertion is implemented asynchronously. As such, it does not return a boolean to indicate its passing status.
@@ -113,7 +120,7 @@ declare class Test {
         promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
         message?: string,
         extra?: Options.Assert,
-    ): void;
+    ): Promise<void>;
 
     // As of version 11, tap supports saving and then comparing against "snapshot" strings. This is a powerful technique for testing programs that generate output, but it comes with some caveats.
     matchSnapshot(output: any, message?: string, extra?: Options.Assert): boolean;
@@ -327,6 +334,17 @@ declare namespace Assertions {
     ) => boolean;
 }
 
+declare namespace Fixture {
+    interface Instance {
+        type: 'symlink' | 'link' | 'file' | 'dir';
+        content: string | Buffer | Spec;
+    }
+
+    interface Spec {
+        [pathname: string]: string | Buffer | Instance | Spec;
+    }
+}
+
 interface Mocha {
     it: (name?: string, fn?: (a: any) => any) => void;
     describe: (name?: string, fn?: (a: any) => any) => void;
@@ -335,7 +353,7 @@ interface Mocha {
 
 // Little hack to simulate the Test class on the tap export
 interface TestConstructor {
-    new(options?: Options.Test): Test;
+    new (options?: Options.Test): Test;
     prototype: Test;
 }
 

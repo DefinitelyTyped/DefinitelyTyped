@@ -14,6 +14,9 @@ export interface Options {
 }
 export default class DragZoom extends DragBox {
     constructor(opt_options?: Options);
+    /**
+     * Function to execute just before onboxend is fired
+     */
     onBoxEnd(event: MapBrowserEvent<UIEvent>): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

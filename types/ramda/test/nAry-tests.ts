@@ -15,8 +15,9 @@ import * as R from 'ramda';
   }
 
   R.nAry(0);
-  R.nAry(0, takesNoArg);
-  R.nAry(0, takesOneArg);
-  R.nAry(1, takesTwoArgs);
-  R.nAry(1, takesThreeArgs);
+  R.nAry(0, takesNoArg); // $ExpectType () => boolean
+  R.nAry(0, takesOneArg); // $ExpectType () => number[]
+  R.nAry(1, takesTwoArgs); // $ExpectType (head: number) => number[]
+  R.nAry(1, takesThreeArgs); // $ExpectType (head: number) => number[]
+  R.nAry(2, takesOneArg); // $ExpectType (head: number, head: undefined) => number[]
 };

@@ -10,6 +10,7 @@
 //                  Xavier Ho <https://github.com/spaxe>
 //                  Jongsu Liam Kim <https://github.com/appleparan>
 //                  Fredrik Sandström <https://github.com/Veckodag>
+//                  Jan Zak <https://github.com/zakjan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -397,7 +398,7 @@ declare namespace cytoscape {
         /**
          * Add elements to the graph and return them.
          */
-        add(eles: ElementDefinition | ElementDefinition[] | CollectionArgument): CollectionReturnValue;
+        add(eles: ElementDefinition | ElementDefinition[] | ElementsDefinition | CollectionArgument): CollectionReturnValue;
 
         /**
          * Remove elements in collecion or match the selector from the graph and return them.
@@ -622,16 +623,20 @@ declare namespace cytoscape {
          * @param handler [optional] A reference to the handler function to remove.
          * @param eventsMap A map of event names to handler functions to remove.
          */
-        off(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        off(events: EventNames, handler?: EventHandler): this;
+        off(events: EventNames, selector: Selector, handler?: EventHandler): this;
         off(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        unbind(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        unbind(events: EventNames, handler?: EventHandler): this;
+        unbind(events: EventNames, selector: Selector, handler?: EventHandler): this;
         unbind(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        unlisten(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        unlisten(events: EventNames, handler?: EventHandler): this;
+        unlisten(events: EventNames, selector: Selector, handler?: EventHandler): this;
         unlisten(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        removeListener(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        removeListener(events: EventNames, handler?: EventHandler): this;
+        removeListener(events: EventNames, selector: Selector, handler?: EventHandler): this;
         removeListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
         /**
@@ -662,7 +667,7 @@ declare namespace cytoscape {
         /** The zoom level to set. */
         level: number;
     }
-    type ZoomOptions = ZoomOptionsLevel & (ZoomOptionsModel | ZoomOptionsRendered);
+    type ZoomOptions = number | (ZoomOptionsLevel & (ZoomOptionsModel | ZoomOptionsRendered));
 
     /**
      * http://js.cytoscape.org/#core/viewport-manipulation
@@ -739,7 +744,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables panning; a falsey value disables it.
          */
-        panningEnabled(bool: boolean): this;
+        panningEnabled(bool?: boolean): this;
 
         /**
          * Get whether panning by user events (e.g. dragging the graph background) is enabled. If cy.boxSelectionEnabled() === true, then the user must taphold to initiate panning.
@@ -753,7 +758,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables user panning; a falsey value disables it.
          */
-        userPanningEnabled(bool: boolean): this;
+        userPanningEnabled(bool?: boolean): this;
         /**
          * Get the zoom level.
          * http://js.cytoscape.org/#cy.zoom
@@ -839,7 +844,20 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables box selection; a falsey value disables it.
          */
-        boxSelectionEnabled(bool: boolean): this;
+        boxSelectionEnabled(bool?: boolean): this;
+
+        /**
+         * Get the selection type.
+         * http://js.cytoscape.org/#cy.selectionType
+         */
+        selectionType(): SelectionType;
+        /**
+         * Set the selection type.
+         * http://js.cytoscape.org/#cy.selectionType
+         *
+         * @param type The selection type string; one of 'single' (default) or 'additive'.
+         */
+        selectionType(type: SelectionType): this;
 
         /**
          * Get the on-screen width of the viewport in pixels.
@@ -876,7 +894,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autolock(bool: boolean): this;
+        autolock(bool?: boolean): this;
 
         /**
          * Get whether nodes are automatically ungrabified
@@ -891,7 +909,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autoungrabify(bool: boolean): this;
+        autoungrabify(bool?: boolean): this;
 
         /**
          * Get whether nodes are automatically unselectified
@@ -906,7 +924,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autounselectify(bool: boolean): this;
+        autounselectify(bool?: boolean): this;
 
         /**
          * Force the renderer to redraw (i.e. draw a new frame).
@@ -1867,7 +1885,7 @@ declare namespace cytoscape {
         // duration of animation in ms, if enabled
         animationDuration?: number;
         // easing of animation, if enabled
-        animationEasing?: number;
+        animationEasing?: Css.TransitionTimingFunction;
         // collection of elements involved in the layout; set by cy.layout() or eles.layout(s)
         eles: CollectionArgument;
         // whether to fit the viewport to the graph
@@ -3817,6 +3835,10 @@ declare namespace cytoscape {
              * The distance the edge ends from its target.
              */
             "target-distance-from-node"?: PropertyValueEdge<number>;
+            /**
+             * The distance the edge ends from its source.
+             */
+            "source-distance-from-node"?: PropertyValueEdge<number>;
         }
 
         /**
@@ -4023,7 +4045,7 @@ declare namespace cytoscape {
              * Whether the element is visible; may be visible or hidden.
              * Note that a "visibility : hidden" bezier edge still takes up space in its bundle.
              */
-            "visibility": PropertyValue<SingularType, "none" | "visible">;
+            "visibility": PropertyValue<SingularType, "hidden" | "visible">;
             /**
              * The opacity of the element, ranging from 0 to 1.
              * Note that the opacity of a compound node parent affects the effective opacity of its children.
@@ -4664,7 +4686,7 @@ declare namespace cytoscape {
         // duration of animation in ms if enabled
         animationDuration?: number;
         // easing of animation if enabled
-        animationEasing?: boolean;
+        animationEasing?: Css.TransitionTimingFunction;
     }
     /**
      * http://js.cytoscape.org/#layouts/random
@@ -4798,7 +4820,7 @@ declare namespace cytoscape {
         // put depths in concentric circles if true, put depths top down if false
         circle: boolean;
         // the roots of the trees
-        roots?: string;
+        roots?: string[];
         // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
         maximalAdjustments: number;
     }

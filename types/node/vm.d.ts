@@ -1,4 +1,8 @@
-declare module "vm" {
+declare module 'node:vm' {
+    export * from 'vm';
+}
+
+declare module 'vm' {
     interface Context extends NodeJS.Dict<any> { }
     interface BaseOptions {
         /**
@@ -21,6 +25,7 @@ declare module "vm" {
         displayErrors?: boolean;
         timeout?: number;
         cachedData?: Buffer;
+        /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean;
     }
     interface RunningScriptOptions extends BaseOptions {
@@ -94,6 +99,10 @@ declare module "vm" {
              */
             wasm?: boolean;
         };
+        /**
+         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
+         */
+        microtaskMode?: 'afterEvaluate';
     }
 
     type MeasureMemoryMode = 'summary' | 'detailed';
@@ -119,13 +128,14 @@ declare module "vm" {
         runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
         runInThisContext(options?: RunningScriptOptions): any;
         createCachedData(): Buffer;
+        cachedDataRejected?: boolean;
     }
     function createContext(sandbox?: Context, options?: CreateContextOptions): Context;
     function isContext(sandbox: Context): boolean;
     function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
     function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
     function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
-    function compileFunction(code: string, params?: string[], options?: CompileFunctionOptions): Function;
+    function compileFunction(code: string, params?: ReadonlyArray<string>, options?: CompileFunctionOptions): Function;
 
     /**
      * Measure the memory known to V8 and used by the current execution context or a specified context.

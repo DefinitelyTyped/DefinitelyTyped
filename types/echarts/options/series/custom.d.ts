@@ -134,7 +134,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-custom
          */
         interface SeriesCustom {
-
             /**
              * @default
              * "custom"
@@ -329,5864 +328,26 @@ declare namespace echarts {
              *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem
+             *
+             * @returns
+             * `renderItem` should returns graphic element definitions.
+             * Each graphic element is an object. See
+             * [graphic](https://echarts.apache.org/en/option.html#graphic.elements)
+             * for detailed info.
+             * (But width\\height\\top\\bottom is not supported here)
+             *
+             * If nothing should be rendered in this data item, just returns
+             * nothing.
+             *
+             * For example:
+             *
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem)
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem)
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return
              */
-            renderItem?: {
-
-                /**
-                 * Parameters of `renderItem`.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments
-                 */
-                arguments?: {
-
-                    /**
-                     * The first parameter of `renderItem`, including:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments)
-                     *
-                     * Difference between `dataIndex` and `dataIndexInside`:
-                     *
-                     * + `dataIndex` is the index of a `dataItem` in the original
-                     * data.
-                     * + `dataIndexInside` is the index of a `dataItem` in the
-                     * current data window (see
-                     * [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)
-                     * .
-                     *
-                     * [renderItem.arguments.api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
-                     * uses `dataIndexInside` as the input parameter but not
-                     * `dataIndex`, because conversion from `dataIndex` to `dataIndexInside`
-                     * is time-consuming.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.params
-                     */
-                    params?: object;
-
-                    /**
-                     * The second parameter of `renderItem`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api
-                     */
-                    api?: {
-
-                        /**
-                         * Get value on the given dimension.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.value
-                         */
-                        value?: Function;
-
-                        /**
-                         * Convert data to coordinate.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.coord
-                         */
-                        coord?: Function;
-
-                        /**
-                         * Get the size by the given data range.
-                         *
-                         * For example, in `cartesian2d`, suppose calling `api.size([2,
-                         * 4])` returns `[12.4,
-                         * 55]`.
-                         * It represents that on x axis, data range `2` corresponds
-                         * to size `12.4`,
-                         * and on y axis data range `4` corresponds to size
-                         * `55`.
-                         *
-                         * In some coordinate systems (for example, polar) or
-                         * when log axis is used, the size is different in different
-                         * point.
-                         * So the second parameter is necessary to calculate
-                         * size on the given point.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.size
-                         */
-                        size?: Function;
-
-                        /**
-                         * The method obtains style info defined in
-                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-custom.itemStyle)
-                         * , and visual info obtained by visual mapping, and
-                         * return them.
-                         * Those returned info can be assigned to `style` attribute
-                         * of graphic element definition directly.
-                         * Developers can also override style info by calling
-                         * this method like this: `api.style({fill:
-                         * 'green', stroke: 'yellow'})`.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.style
-                         */
-                        style?: Function;
-
-                        /**
-                         * The method obtains style info defined in
-                         * [series.itemStyle.emphasis](https://echarts.apache.org/en/option.html#series-custom.itemStyle.emphasis)
-                         * , and visual info obtained by visual mapping, and
-                         * return them.
-                         * Those returned info can be assigned to `style` attribute
-                         * of graphic element definition directly.
-                         * Developers can also override style info by calling
-                         * this method like this: `api.style({fill:
-                         * 'green', stroke: 'yellow'})`.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.styleEmphasis
-                         */
-                        styleEmphasis?: Function;
-
-                        /**
-                         * Get the visual info. It is rarely be used.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.visual
-                         */
-                        visual?: Function;
-
-                        /**
-                         * When `barLayout` is needed, (for example, when attaching
-                         * some extra graphic elements to bar chart), this method
-                         * can be used to obtain bar layout info.
-                         *
-                         * See a
-                         * [sample](https://echarts.apache.org/examples/en/editor.html?c=custom-bar-trend)
-                         * .
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.barLayout
-                         */
-                        barLayout?: Function;
-
-                        /**
-                         * Obtain the current series index.
-                         * Notice that the `currentSeriesIndex` is different
-                         * from `seriesIndex` when legend is used to filter
-                         * some series.
-                         *
-                         * ```
-                         * @return {number}
-                         *
-                         * ```
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.currentSeriesIndices
-                         */
-                        currentSeriesIndices?: Function;
-
-                        /**
-                         * Obtain font string, which can be used on style setting
-                         * directly.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.font
-                         */
-                        font?: Function;
-
-                        /**
-                         * ```
-                         * @return {number} Width of echarts containter.
-                         *
-                         * ```
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getWidth
-                         */
-                        getWidth?: Function;
-
-                        /**
-                         * ```
-                         * @return {number} Height of echarts container.
-                         *
-                         * ```
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getHeight
-                         */
-                        getHeight?: Function;
-
-                        /**
-                         * ```
-                         * @return {module:zrender} zrender instance.
-                         *
-                         * ```
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getZr
-                         */
-                        getZr?: Function;
-
-                        /**
-                         * ```
-                         * @return {number} The current devicePixelRatio。
-                         *
-                         * ```
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getDevicePixelRatio
-                         */
-                        getDevicePixelRatio?: Function;
-                    };
-                };
-
-                /**
-                 * `renderItem` should returns graphic element definitions.
-                 * Each graphic element is an object. See
-                 * [graphic](https://echarts.apache.org/en/option.html#graphic.elements)
-                 * for detailed info.
-                 * (But width\\height\\top\\bottom is not supported here)
-                 *
-                 * If nothing should be rendered in this data item, just returns
-                 * nothing.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem)
-                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem)
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return
-                 */
-                return?: object;
-
-                /**
-                 * `group` is the only type that can contain children, so that
-                 * a group of elements can be positioned and transformed together.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group
-                 */
-                return_group?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "group"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_group)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * Specify width of this `group`.
-                     *
-                     * This width is only used for the positioning of its children.
-                     *
-                     * When width is `0`, children can also be positioned according
-                     * to its parent using `left: 'center'`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.width
-                     */
-                    width?: number;
-
-                    /**
-                     * Specify height of this `group`.
-                     *
-                     * This height is only used for the positioning of its children.
-                     *
-                     * When height is `0`, children can also be positioned according
-                     * to its parent using `top: 'middle'`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.height
-                     */
-                    height?: number;
-
-                    /**
-                     * In
-                     * [custom series](https://echarts.apache.org/en/option.html#series-custom)
-                     * , when `diffChildrenByName` is set as `true`, for each
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * returned from
-                     * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
-                     * , "diff" will be performed to its
-                     * [children](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.children)
-                     * according to the
-                     * [name](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.name)
-                     * attribute of each graphic elements.
-                     * Here "diff" means that map the coming graphic elements
-                     * to the existing graphic elements when repainting according
-                     * to `name`, which enables the transition animation if
-                     * data is modified.
-                     *
-                     * But notice that the operation is performance consuming,
-                     * do not use it for large data amount.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.diffChildrenByName
-                     */
-                    diffChildrenByName?: boolean;
-
-                    /**
-                     * A list of children, each item is a declaration of an
-                     * element.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.children
-                     */
-                    children?: any[];
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Use
-                 * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
-                 * to describe a path.
-                 * Can be used to draw icons or any other shapes fitting the
-                 * specified size by auto transforming.
-                 *
-                 * See examples:
-                 * [icons](https://echarts.apache.org/examples/en/editor.html?c=custom-calendar-icon)
-                 * and
-                 * [shapes](https://echarts.apache.org/examples/en/editor.html?c=custom-gantt-flight)
-                 * .
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path
-                 */
-                return_path?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "path"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_path)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
-                         * .
-                         *
-                         * For example, `'M0,0 L0,-20 L30,-20 C42,-20 38,-1
-                         * 50,-1 L70,-1 L70,0 Z'`。
-                         *
-                         * If
-                         * [width](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width)
-                         * ,
-                         * [height](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height)
-                         * ,
-                         * [x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x)
-                         * and
-                         * [y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y)
-                         * specified, `pathData` will be transformed to fit
-                         * the defined rect.
-                         * If they are not specified, do not do that.
-                         *
-                         * [layout](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.layout)
-                         * can be used to specify the transform strategy.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.pathData
-                         */
-                        pathData?: string;
-
-                        /**
-                         * Alias of
-                         * [pathData](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.pathData)
-                         * .
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.d
-                         */
-                        d?: string;
-
-                        /**
-                         * If
-                         * [width](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width)
-                         * ,
-                         * [height](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height)
-                         * ,
-                         * [x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x)
-                         * and
-                         * [y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y)
-                         * specified, `pathData` will be transformed to fit
-                         * the defined rect.
-                         *
-                         * `layout` can be used to specify the transform strategy.
-                         *
-                         * Optional value:
-                         *
-                         * + `'center'`: Keep aspect ratio, put the path in
-                         * the center of the rect, expand as far as possible
-                         * but never overflow.
-                         * + `'cover'`: Transform the path according to the
-                         * aspect ratio of the rect, fill the rect and do not
-                         * overflow.
-                         *
-                         *
-                         * @default
-                         * "center"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.layout
-                         */
-                        layout?: string;
-
-                        /**
-                         * The x value of the left-top corner of the element
-                         * in the coordinate system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x
-                         */
-                        x?: number;
-
-                        /**
-                         * The y value of the left-top corner of the element
-                         * in the coordinate system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y
-                         */
-                        y?: number;
-
-                        /**
-                         * The width of the shape of the element.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width
-                         */
-                        width?: number;
-
-                        /**
-                         * The height of the shape of the element.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height
-                         */
-                        height?: number;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image
-                 */
-                return_image?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "image"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_image)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style
-                     */
-                    style?: {
-
-                        /**
-                         * Specify contant of the image, can be a URL, or
-                         * [dataURI](https://tools.ietf.org/html/rfc2397)
-                         * .
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.image
-                         */
-                        image?: string;
-
-                        /**
-                         * The x value of the left-top corner of the element
-                         * in the coordinate system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.x
-                         */
-                        x?: number;
-
-                        /**
-                         * The y value of the left-top corner of the element
-                         * in the coordinate system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.y
-                         */
-                        y?: number;
-
-                        /**
-                         * The width of the shape of the element.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.width
-                         */
-                        width?: number;
-
-                        /**
-                         * The height of the shape of the element.
-                         *
-                         * More attributes in `style` (for example,
-                         * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                         * ), see the `style` related attributes in
-                         * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                         * .
-                         *
-                         * Notice, the attribute names of the `style` of graphic
-                         * elements is derived from `zrender`, which may be
-                         * different from the attribute names in `echarts label`,
-                         * `echarts itemStyle`, etc.,
-                         * although they have the same meaning. For example:
-                         *
-                         * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                         * => `style.fill`
-                         * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                         * => `style.stroke`
-                         * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                         * => `style.textFill`
-                         * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                         * => `style.textStroke`
-                         * + ...
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.height
-                         */
-                        height?: number;
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Text block.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text
-                 */
-                return_text?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "text"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_text)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style
-                     */
-                    style?: {
-
-                        /**
-                         * Text content. `\n` can be used as a line break.
-                         *
-                         *
-                         * @default
-                         * ''
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.text
-                         */
-                        text?: string;
-
-                        /**
-                         * The x value of the left-top corner of the element
-                         * in the coordinate system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.x
-                         */
-                        x?: number;
-
-                        /**
-                         * The y value of the left-top corner of the element
-                         * in the coordinate system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.y
-                         */
-                        y?: number;
-
-                        /**
-                         * Font size, font type, font weight, font color, follow
-                         * the form of
-                         * [css font](https://developer.mozilla.org/en-US/docs/Web/CSS/font)
-                         * .
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_text.style)
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.font
-                         */
-                        font?: string;
-
-                        /**
-                         * Text horizontal alignment.
-                         * Optional values: `'left'`, `'center'`, `'right'`.
-                         *
-                         * `'left'` means the left side of the text block is
-                         * specified by the
-                         * [style.x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.x)
-                         * , while `'right'` means the right side of the text
-                         * block is specified by
-                         * [style.y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.y)
-                         * .
-                         *
-                         *
-                         * @default
-                         * "left"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.textAlign
-                         */
-                        textAlign?: string;
-
-                        /**
-                         * Text vertical alignment.
-                         * Optional values: `'top'`, `'middle'`, `'bottom'`.
-                         *
-                         * More attributes in `style` (for example,
-                         * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                         * ), see the `style` related attributes in
-                         * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                         * .
-                         *
-                         * Notice, the attribute names of the `style` of graphic
-                         * elements is derived from `zrender`, which may be
-                         * different from the attribute names in `echarts label`,
-                         * `echarts itemStyle`, etc.,
-                         * although they have the same meaning. For example:
-                         *
-                         * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                         * => `style.fill`
-                         * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                         * => `style.stroke`
-                         * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                         * => `style.textFill`
-                         * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                         * => `style.textStroke`
-                         * + ...
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.textVerticalAlign
-                         */
-                        textVerticalAlign?: string;
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Rectangle element.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect
-                 */
-                return_rect?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "rect"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_rect)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * The x value of the left-top corner of the element
-                         * in the coordinate system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.x
-                         */
-                        x?: number;
-
-                        /**
-                         * The y value of the left-top corner of the element
-                         * in the coordinate system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.y
-                         */
-                        y?: number;
-
-                        /**
-                         * The width of the shape of the element.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.width
-                         */
-                        width?: number;
-
-                        /**
-                         * The height of the shape of the element.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.height
-                         */
-                        height?: number;
-
-                        /**
-                         * Specify border radius of the rectangular here.
-                         * Generally, `r` should be `[topLeftRadius, topRightRadius,
-                         * BottomRightRadius, bottomLeftRadius]`, where each
-                         * item is a number.
-                         *
-                         * Abbreviation is enabled, for example:
-                         *
-                         * + `r`: `1` means `[1, 1, 1, 1]`
-                         * + `r`: `[1]` means `[1, 1, 1, 1]`
-                         * + `r`: `[1, 2]` means `[1, 2, 1, 2]`
-                         * + `r`: `[1, 2, 3]` means `[1, 2, 3, 2]`
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.r
-                         */
-                        r?: any[];
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Circle element.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle
-                 */
-                return_circle?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "circle"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_circle)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * The x value of the center of the element in the coordinate
-                         * system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.cx
-                         */
-                        cx?: number;
-
-                        /**
-                         * The y value of the center of the element in the coordinate
-                         * system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.cy
-                         */
-                        cy?: number;
-
-                        /**
-                         * Outside radius.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.r
-                         */
-                        r?: number;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Ring element.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring
-                 */
-                return_ring?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "ring"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_ring)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * The x value of the center of the element in the coordinate
-                         * system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.cx
-                         */
-                        cx?: number;
-
-                        /**
-                         * The y value of the center of the element in the coordinate
-                         * system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.cy
-                         */
-                        cy?: number;
-
-                        /**
-                         * Outside radius.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.r
-                         */
-                        r?: number;
-
-                        /**
-                         * Inside radius.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.r0
-                         */
-                        r0?: number;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Sector element.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector
-                 */
-                return_sector?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "sector"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_sector)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * The x value of the center of the element in the coordinate
-                         * system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.cx
-                         */
-                        cx?: number;
-
-                        /**
-                         * The y value of the center of the element in the coordinate
-                         * system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.cy
-                         */
-                        cy?: number;
-
-                        /**
-                         * Outside radius.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.r
-                         */
-                        r?: number;
-
-                        /**
-                         * Inside radius.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.r0
-                         */
-                        r0?: number;
-
-                        /**
-                         * start angle, in radian.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.startAngle
-                         */
-                        startAngle?: number;
-
-                        /**
-                         * end anble, in radian.
-                         *
-                         *
-                         * @default
-                         * "Math.PI * 2"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.endAngle
-                         */
-                        endAngle?: number;
-
-                        /**
-                         * Whether draw clockwise.
-                         *
-                         *
-                         * @default
-                         * "true"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.clockwise
-                         */
-                        clockwise?: boolean;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Arc element.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc
-                 */
-                return_arc?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "arc"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_arc)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * The x value of the center of the element in the coordinate
-                         * system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.cx
-                         */
-                        cx?: number;
-
-                        /**
-                         * The y value of the center of the element in the coordinate
-                         * system of its parent.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.cy
-                         */
-                        cy?: number;
-
-                        /**
-                         * Outside radius.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.r
-                         */
-                        r?: number;
-
-                        /**
-                         * Inside radius.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.r0
-                         */
-                        r0?: number;
-
-                        /**
-                         * start angle, in radian.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.startAngle
-                         */
-                        startAngle?: number;
-
-                        /**
-                         * end anble, in radian.
-                         *
-                         *
-                         * @default
-                         * "Math.PI * 2"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.endAngle
-                         */
-                        endAngle?: number;
-
-                        /**
-                         * Whether draw clockwise.
-                         *
-                         *
-                         * @default
-                         * "true"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.clockwise
-                         */
-                        clockwise?: boolean;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Polygon element.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon
-                 */
-                return_polygon?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "polygon"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_polygon)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * A list of points, which defines the shape, like `[[22,
-                         * 44], [44, 55], [11, 44], ...]`.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.points
-                         */
-                        points?: any[];
-
-                        /**
-                         * Whether smooth the line.
-                         *
-                         * + If the value is number, bezier interpolation is
-                         * used, and the value specified the level of smooth,
-                         * which is in the range of `[0, 1]`.
-                         * + If the value is `'spline'`, Catmull-Rom spline
-                         * interpolation is used.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.smooth
-                         */
-                        smooth?: number | string;
-
-                        /**
-                         * Whether prevent the smooth process cause the line
-                         * out of the bounding box.
-                         *
-                         * Only works when `smooth` is `number` (bezier smooth).
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.smoothConstraint
-                         */
-                        smoothConstraint?: boolean;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Polyline element.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline
-                 */
-                return_polyline?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "polyline"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_polyline)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * A list of points, which defines the shape, like `[[22,
-                         * 44], [44, 55], [11, 44], ...]`.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.points
-                         */
-                        points?: any[];
-
-                        /**
-                         * Whether smooth the line.
-                         *
-                         * + If the value is number, bezier interpolation is
-                         * used, and the value specified the level of smooth,
-                         * which is in the range of `[0, 1]`.
-                         * + If the value is `'spline'`, Catmull-Rom spline
-                         * interpolation is used.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.smooth
-                         */
-                        smooth?: number | string;
-
-                        /**
-                         * Whether prevent the smooth process cause the line
-                         * out of the bounding box.
-                         *
-                         * Only works when `smooth` is `number` (bezier smooth).
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.smoothConstraint
-                         */
-                        smoothConstraint?: boolean;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @default
-                         * 5
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Line element.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line
-                 */
-                return_line?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "line"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_line)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * x value of the start point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.x1
-                         */
-                        x1?: number;
-
-                        /**
-                         * y value of the start point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.y1
-                         */
-                        y1?: number;
-
-                        /**
-                         * x value of the end point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.x2
-                         */
-                        x2?: number;
-
-                        /**
-                         * y value of the end point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.y2
-                         */
-                        y2?: number;
-
-                        /**
-                         * Specify the percentage of drawing, useful in animation.
-                         *
-                         * Value range: \[0, 1\].
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.percent
-                         */
-                        percent?: number;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @default
-                         * 5
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-
-                /**
-                 * Quadratic bezier curve or cubic bezier curve.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve
-                 */
-                return_bezierCurve?: {
-
-                    /**
-                     * Must be specified when define a graphic element at the
-                     * first time.
-                     *
-                     * Optional values:
-                     *
-                     * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
-                     * ,
-                     * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
-                     * ,
-                     * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
-                     * ,
-                     * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
-                     * ,
-                     * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
-                     * ,
-                     * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
-                     * ,
-                     * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
-                     * ,
-                     * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
-                     * ,
-                     * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
-                     * ,
-                     * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
-                     * ,
-                     * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
-                     * ,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * ,
-                     *
-                     *
-                     * @default
-                     * "bezierCurve"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.type
-                     */
-                    type?: string;
-
-                    /**
-                     * id is used to specifying element when willing to update
-                     * it. id can be ignored if you do not need it.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.id
-                     */
-                    id?: string;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.position
-                     */
-                    position?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.rotation
-                     */
-                    rotation?: number;
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [1, 1]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.scale
-                     */
-                    scale?: any[];
-
-                    /**
-                     * `2D transform` can be applied to graphic elements, including:
-                     *
-                     * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
-                     * : `[horizontal translate offset, vertical translate offset]`,
-                     * `[0, 0]` by default.
-                     * Positive value means translate towards right or bottom.
-                     * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
-                     * : Rotation in radian, `0` by default.
-                     * Positive when anticlockwise.
-                     * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
-                     * : `[horizontal scale factor, vertical scale factor]`,
-                     * `[1, 1]` by default.
-                     *
-                     * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
-                     * specifies the origin point of rotation and scaling, `[0,
-                     * 0]` by default.
-                     *
-                     * Notice:
-                     *
-                     * + The coordinates specified in the transform attribute
-                     * above are relative to the `[0, 0]` of the parent element
-                     * (that is,
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * or the root canvas). Thus we are able to
-                     * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * multiple elements, and
-                     * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
-                     * can be nested.
-                     * + The order that the transform attributes are applied
-                     * to a single graphic element is: Firstly, `rotation`,
-                     * then, `scale`, finally, `position`.
-                     *
-                     *
-                     * @default
-                     * [0, 0]
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.origin
-                     */
-                    origin?: number;
-
-                    /**
-                     * Define the overlap relationship between graphic elements.
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.z2
-                     */
-                    z2?: number;
-
-                    /**
-                     * See
-                     * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
-                     * 。
-                     *
-                     *
-                     * @default
-                     * "undefined"
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.name
-                     */
-                    name?: string;
-
-                    /**
-                     * User defined data, can be visited in event listeners.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_bezierCurve)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.info
-                     */
-                    info?: any;
-
-                    /**
-                     * Whether response to mouse events / touch events.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.silent
-                     */
-                    silent?: boolean;
-
-                    /**
-                     * Whether the element is visible.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.invisible
-                     */
-                    invisible?: boolean;
-
-                    /**
-                     * Whether the element is totally ignored (neither render
-                     * nor listen events).
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.ignore
-                     */
-                    ignore?: boolean;
-
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape
-                     */
-                    shape?: {
-
-                        /**
-                         * x value of the start point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x1
-                         */
-                        x1?: number;
-
-                        /**
-                         * y value of the start point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y1
-                         */
-                        y1?: number;
-
-                        /**
-                         * x value of the end point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x2
-                         */
-                        x2?: number;
-
-                        /**
-                         * y value of the end point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y2
-                         */
-                        y2?: number;
-
-                        /**
-                         * x of control point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx1
-                         */
-                        cpx1?: number;
-
-                        /**
-                         * y of control point.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy1
-                         */
-                        cpy1?: number;
-
-                        /**
-                         * x of the second control point.
-                         * If specified, cubic bezier is used.
-                         *
-                         * If both `cpx2` and `cpy2` are not set, quatratic
-                         * bezier is used.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx2
-                         */
-                        cpx2?: number;
-
-                        /**
-                         * y of the second control point.
-                         * If specified, cubic bezier is used.
-                         *
-                         * If both `cpx2` and `cpy2` are not set, quatratic
-                         * bezier is used.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy2
-                         */
-                        cpy2?: number;
-
-                        /**
-                         * Specify the percentage of drawing, useful in animation.
-                         *
-                         * Value range: \[0, 1\].
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.percent
-                         */
-                        percent?: number;
-                    };
-
-                    /**
-                     * More attributes in `style` (for example,
-                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
-                     * ), see the `style` related attributes in
-                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
-                     * .
-                     *
-                     * Notice, the attribute names of the `style` of graphic
-                     * elements is derived from `zrender`, which may be different
-                     * from the attribute names in `echarts label`, `echarts
-                     * itemStyle`, etc.,
-                     * although they have the same meaning. For example:
-                     *
-                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.fill`
-                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.stroke`
-                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
-                     * => `style.textFill`
-                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
-                     * => `style.textStroke`
-                     * + ...
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style
-                     */
-                    style?: {
-
-                        /**
-                         * Color filled in this element.
-                         *
-                         *
-                         * @default
-                         * '#000'
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.fill
-                         */
-                        fill?: string;
-
-                        /**
-                         * Color of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.stroke
-                         */
-                        stroke?: string;
-
-                        /**
-                         * Width of stroke.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.lineWidth
-                         */
-                        lineWidth?: number;
-
-                        /**
-                         * Width of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * X offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Y offset of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * color of shadow.
-                         *
-                         *
-                         * @default
-                         * "undefined"
-                         * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowColor
-                         */
-                        shadowColor?: number;
-                    };
-
-                    /**
-                     * Empahsis style of the graphic element, whose structure
-                     * is the same as
-                     * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.styleEmphasis
-                     */
-                    styleEmphasis?: object;
-                };
-            };
+            renderItem?: SeriesCustom.RenderItem;
 
             /**
              * Graphic style of , `emphasis` is the style when it is highlighted,
@@ -6196,7 +357,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://echarts.apache.org/en/option.html#color)
@@ -6215,7 +375,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -6225,7 +385,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -6266,7 +426,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -6299,12 +459,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-custom.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -6321,7 +479,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -6331,7 +489,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -6372,7 +530,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -6657,10 +815,9 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.data
              */
-            data?: (
-                (void | string | number | SeriesCustom.DataObject)[]
-                | (void | string | number | SeriesCustom.DataObject)[][]
-            );
+            data?:
+            | (void | string | number | SeriesCustom.DataObject)[]
+            | (void | string | number | SeriesCustom.DataObject)[][];
 
             /**
              * `zlevel` value of all graghical elements in custom series.
@@ -6823,7 +980,6 @@ declare namespace echarts {
 
         namespace SeriesCustom {
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
@@ -6844,7 +1000,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -6861,7 +1016,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -6871,7 +1026,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -6912,7 +1067,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -6945,12 +1100,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -6968,7 +1121,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -6979,7 +1132,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -7020,7 +1173,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -7057,6 +1210,6038 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip
                  */
                 tooltip?: BaseTooltip;
+            }
+
+            /**
+             * `custom series` requires developers to write a render logic by
+             * themselves. This render logic is called
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
+             * .
+             *
+             * For example:
+             *
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
+             *
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
+             * will be called on each data item.
+             *
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
+             * provides two parameters:
+             *
+             * + [params](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.params)
+             * : provides info about the current series and data and coordinate
+             * system.
+             * + [api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
+             * : includes some methods.
+             *
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
+             * method should returns graphic elements definitions.See
+             * [renderItem.return](https://echarts.apache.org/en/option.html#series-custom.renderItem.return)
+             * .
+             *
+             * Generally, the main process of
+             * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
+             * is that retrieve value from data and convert them to graphic
+             * elements on the current coordinate system. Two methods in
+             * [renderItem.arguments.api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
+             * are always used in this procedure:
+             *
+             * + [api.value(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.value)
+             * is used to retrieve value from data.
+             * For example, `api.value(0)`
+             * retrieve the value of the first dimension in the current data
+             * item.
+             * + [api.coord(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.coord)
+             * is used to convert data to coordinate.
+             * For example, `var point = api.coord([api.value(0),
+             * api.value(1)])`
+             * converet the data to the point on the current coordinate system.
+             *
+             * Sometimes
+             * [api.size(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.size)
+             * method is needed, which calculates the size on the coordinate
+             * system by a given data range.
+             *
+             * Moreover,
+             * [api.style(...)](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.style)
+             * method can be used to set style.
+             * It provides not only the style settings specified in
+             * [series.itemStyle](https://echarts.apache.org/en/option.html#series-custom.itemStyle)
+             * , but also the result of visual mapping.
+             * This method can also be called like `api.style({fill:
+             * 'green', stroke: 'yellow'})` to override those style settings.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem
+             */
+            interface RenderItem {
+                (params: RenderItemParams, api: RenderItemApi):
+                    RenderItemReturnGroup
+                    | RenderItemReturnPath
+                    | RenderItemReturnImage
+                    | RenderItemReturnText
+                    | RenderItemReturnRect
+                    | RenderItemReturnCircle
+                    | RenderItemReturnRing
+                    | RenderItemReturnSector
+                    | RenderItemReturnArc
+                    | RenderItemReturnPolygon
+                    | RenderItemReturnPolyline
+                    | RenderItemReturnLine
+                    | RenderItemReturnBezierCurve;
+            }
+
+            /**
+             * The first parameter of `renderItem`, including:
+             *
+             * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments)
+             *
+             * Difference between `dataIndex` and `dataIndexInside`:
+             *
+             * + `dataIndex` is the index of a `dataItem` in the original
+             * data.
+             * + `dataIndexInside` is the index of a `dataItem` in the
+             * current data window (see
+             * [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)
+             * .
+             *
+             * [renderItem.arguments.api](https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api)
+             * uses `dataIndexInside` as the input parameter but not
+             * `dataIndex`, because conversion from `dataIndex` to `dataIndexInside`
+             * is time-consuming.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.params
+             */
+            interface RenderItemParams {
+                /**
+                 * An object that developers can store something temporarily here. Life cycle: current round of rendering.
+                 */
+                context?: Record<string, any>;
+
+                /**
+                 * The id of this series.
+                 */
+                seriesId?: string;
+
+                /**
+                 * The name of this series.
+                 */
+                seriesName?: string;
+
+                /**
+                 * The index of this series.
+                 */
+                seriesIndex?: number;
+
+                /**
+                 * The index of this data item.
+                 */
+                dataIndex?: number;
+
+                /**
+                 * The index of this data item in the current data window (see dataZoom).
+                 */
+                dataIndexInside?: number;
+
+                /**
+                 * The count of data in the current data window (see dataZoom).
+                 */
+                dataInsideLength?: number;
+
+                /**
+                 * The type of action that trigger this render.
+                 */
+                actionType?: string;
+
+                /**
+                 * coordSys is variable by different types of coordinate systems.
+                 */
+                coordSys?: CoordSys;
+            }
+
+            /**
+             * The second parameter of `renderItem`.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api
+             */
+            interface RenderItemApi {
+                /**
+                 * Get value on the given dimension.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.value
+                 */
+                value?: Function;
+
+                /**
+                 * Convert data to coordinate.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.coord
+                 */
+                coord?: Function;
+
+                /**
+                 * Get the size by the given data range.
+                 *
+                 * For example, in `cartesian2d`, suppose calling `api.size([2,
+                 * 4])` returns `[12.4,
+                 * 55]`.
+                 * It represents that on x axis, data range `2` corresponds
+                 * to size `12.4`,
+                 * and on y axis data range `4` corresponds to size
+                 * `55`.
+                 *
+                 * In some coordinate systems (for example, polar) or
+                 * when log axis is used, the size is different in different
+                 * point.
+                 * So the second parameter is necessary to calculate
+                 * size on the given point.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.size
+                 */
+                size?: Function;
+
+                /**
+                 * The method obtains style info defined in
+                 * [series.itemStyle](https://echarts.apache.org/en/option.html#series-custom.itemStyle)
+                 * , and visual info obtained by visual mapping, and
+                 * return them.
+                 * Those returned info can be assigned to `style` attribute
+                 * of graphic element definition directly.
+                 * Developers can also override style info by calling
+                 * this method like this: `api.style({fill:
+                 * 'green', stroke: 'yellow'})`.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.style
+                 */
+                style?: Function;
+
+                /**
+                 * The method obtains style info defined in
+                 * [series.itemStyle.emphasis](https://echarts.apache.org/en/option.html#series-custom.itemStyle.emphasis)
+                 * , and visual info obtained by visual mapping, and
+                 * return them.
+                 * Those returned info can be assigned to `style` attribute
+                 * of graphic element definition directly.
+                 * Developers can also override style info by calling
+                 * this method like this: `api.style({fill:
+                 * 'green', stroke: 'yellow'})`.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.styleEmphasis
+                 */
+                styleEmphasis?: Function;
+
+                /**
+                 * Get the visual info. It is rarely be used.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.visual
+                 */
+                visual?: Function;
+
+                /**
+                 * When `barLayout` is needed, (for example, when attaching
+                 * some extra graphic elements to bar chart), this method
+                 * can be used to obtain bar layout info.
+                 *
+                 * See a
+                 * [sample](https://echarts.apache.org/examples/en/editor.html?c=custom-bar-trend)
+                 * .
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.barLayout
+                 */
+                barLayout?: Function;
+
+                /**
+                 * Obtain the current series index.
+                 * Notice that the `currentSeriesIndex` is different
+                 * from `seriesIndex` when legend is used to filter
+                 * some series.
+                 *
+                 * ```
+                 * @return {number}
+                 *
+                 * ```
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.currentSeriesIndices
+                 */
+                currentSeriesIndices?: Function;
+
+                /**
+                 * Obtain font string, which can be used on style setting
+                 * directly.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.font
+                 */
+                font?: Function;
+
+                /**
+                 * ```
+                 * @return {number} Width of echarts containter.
+                 *
+                 * ```
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getWidth
+                 */
+                getWidth?: Function;
+
+                /**
+                 * ```
+                 * @return {number} Height of echarts container.
+                 *
+                 * ```
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getHeight
+                 */
+                getHeight?: Function;
+
+                /**
+                 * ```
+                 * @return {module:zrender} zrender instance.
+                 *
+                 * ```
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getZr
+                 */
+                getZr?: Function;
+
+                /**
+                 * ```
+                 * @return {number} The current devicePixelRatio。
+                 *
+                 * ```
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getDevicePixelRatio
+                 */
+                getDevicePixelRatio?: Function;
+            }
+
+            /**
+             * coordSys is variable by different types of coordinate systems.
+             */
+            interface CoordSys {
+                type?: 'cartesian2d' | 'calendar' | 'geo' | 'polar' | 'singleAxis';
+
+                /**
+                 * x of grid rect, calendar rect, geo rect or singleAxis rect
+                 *
+                 * It is not valid when type is 'polar'
+                 */
+                x?: number;
+
+                /**
+                 * y of grid rect, calendar rect, geo rect or singleAxis rect
+                 *
+                 * It is not valid when type is 'polar'
+                 */
+                y?: number;
+
+                /**
+                 * width of grid rect, calendar rect, geo rect or singleAxis rect
+                 *
+                 * It is not valid when type is 'polar'
+                 */
+                width?: number;
+
+                /**
+                 * height of grid rect, calendar rect, geo rect or singleAxis rect
+                 *
+                 * It is not valid when type is 'polar'
+                 */
+                height?: number;
+
+                // calendar cellWidth
+
+                /**
+                 * calendar cellWidth
+                 *
+                 * It is valid when type is 'calendar'
+                 */
+                cellWidth?: number;
+
+                /**
+                 * calendar cellHeight
+                 *
+                 * It is valid when type is 'calendar'
+                 */
+                cellHeight?: number;
+
+                /**
+                 * calendar rangeInfo
+                 *
+                 * It is valid when type is 'calendar'
+                 */
+                rangeInfo?: RangeInfo;
+
+                /**
+                 * zoom ratio, 1 if no zoom, 0.5 means shrink to 50%.
+                 *
+                 * It is valid when type is 'geo'
+                 */
+                zoom?: number;
+
+                /**
+                 * x of polar center.
+                 *
+                 * It is valid when type is 'polar'
+                 */
+                cx?: number;
+
+                /**
+                 * y of polar center.
+                 *
+                 * It is valid when type is 'polar'
+                 */
+                cy?: number;
+
+                /**
+                 * outer radius of polar.
+                 *
+                 * It is valid when type is 'polar'
+                 */
+                r?: number;
+
+                /**
+                 * inner radius of polar.
+                 *
+                 * It is valid when type is 'polar'
+                 */
+                r0?: number;
+            }
+
+            /**
+             * calendar rangeInfo
+             */
+            interface RangeInfo {
+                /**
+                 * date start of calendar.
+                 */
+                start?: any;
+
+                /**
+                 * date end of calendar.
+                 */
+                end?: any;
+
+                /**
+                 * number of weeks in calendar.
+                 */
+                weeks?: number;
+
+                /**
+                 * day count in calendar.
+                 */
+                dayCount?: number;
+            }
+
+            /**
+             * `group` is the only type that can contain children, so that
+             * a group of elements can be positioned and transformed together.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group
+             */
+            interface RenderItemReturnGroup {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional value
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "group"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_group)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * Specify width of this `group`.
+                 *
+                 * This width is only used for the positioning of its children.
+                 *
+                 * When width is `0`, children can also be positioned according
+                 * to its parent using `left: 'center'`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.width
+                 */
+                width?: number;
+
+                /**
+                 * Specify height of this `group`.
+                 *
+                 * This height is only used for the positioning of its children.
+                 *
+                 * When height is `0`, children can also be positioned according
+                 * to its parent using `top: 'middle'`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.height
+                 */
+                height?: number;
+
+                /**
+                 * In
+                 * [custom series](https://echarts.apache.org/en/option.html#series-custom)
+                 * , when `diffChildrenByName` is set as `true`, for each
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * returned from
+                 * [renderItem](https://echarts.apache.org/en/option.html#series-custom.renderItem)
+                 * , "diff" will be performed to its
+                 * [children](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.children)
+                 * according to the
+                 * [name](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.name)
+                 * attribute of each graphic elements.
+                 * Here "diff" means that map the coming graphic elements
+                 * to the existing graphic elements when repainting according
+                 * to `name`, which enables the transition animation if
+                 * data is modified.
+                 *
+                 * But notice that the operation is performance consuming,
+                 * do not use it for large data amount.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.diffChildrenByName
+                 */
+                diffChildrenByName?: boolean;
+
+                /**
+                 * A list of children, each item is a declaration of an
+                 * element.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.children
+                 */
+                children?: any[];
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Use
+             * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
+             * to describe a path.
+             * Can be used to draw icons or any other shapes fitting the
+             * specified size by auto transforming.
+             *
+             * See examples:
+             * [icons](https://echarts.apache.org/examples/en/editor.html?c=custom-calendar-icon)
+             * and
+             * [shapes](https://echarts.apache.org/examples/en/editor.html?c=custom-gantt-flight)
+             * .
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path
+             */
+            interface RenderItemReturnPath {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "path"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_path)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape
+                 */
+                shape?: {
+                    /**
+                     * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
+                     * .
+                     *
+                     * For example, `'M0,0 L0,-20 L30,-20 C42,-20 38,-1
+                     * 50,-1 L70,-1 L70,0 Z'`。
+                     *
+                     * If
+                     * [width](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width)
+                     * ,
+                     * [height](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height)
+                     * ,
+                     * [x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x)
+                     * and
+                     * [y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y)
+                     * specified, `pathData` will be transformed to fit
+                     * the defined rect.
+                     * If they are not specified, do not do that.
+                     *
+                     * [layout](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.layout)
+                     * can be used to specify the transform strategy.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.pathData
+                     */
+                    pathData?: string;
+
+                    /**
+                     * Alias of
+                     * [pathData](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.pathData)
+                     * .
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.d
+                     */
+                    d?: string;
+
+                    /**
+                     * If
+                     * [width](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width)
+                     * ,
+                     * [height](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height)
+                     * ,
+                     * [x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x)
+                     * and
+                     * [y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y)
+                     * specified, `pathData` will be transformed to fit
+                     * the defined rect.
+                     *
+                     * `layout` can be used to specify the transform strategy.
+                     *
+                     * Optional value:
+                     *
+                     * + `'center'`: Keep aspect ratio, put the path in
+                     * the center of the rect, expand as far as possible
+                     * but never overflow.
+                     * + `'cover'`: Transform the path according to the
+                     * aspect ratio of the rect, fill the rect and do not
+                     * overflow.
+                     *
+                     *
+                     * @default
+                     * "center"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.layout
+                     */
+                    layout?: string;
+
+                    /**
+                     * The x value of the left-top corner of the element
+                     * in the coordinate system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x
+                     */
+                    x?: number;
+
+                    /**
+                     * The y value of the left-top corner of the element
+                     * in the coordinate system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y
+                     */
+                    y?: number;
+
+                    /**
+                     * The width of the shape of the element.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width
+                     */
+                    width?: number;
+
+                    /**
+                     * The height of the shape of the element.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height
+                     */
+                    height?: number;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image
+             */
+            interface RenderItemReturnImage {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "image"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_image)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style
+                 */
+                style?: {
+                    /**
+                     * Specify contant of the image, can be a URL, or
+                     * [dataURI](https://tools.ietf.org/html/rfc2397)
+                     * .
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.image
+                     */
+                    image?: string;
+
+                    /**
+                     * The x value of the left-top corner of the element
+                     * in the coordinate system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.x
+                     */
+                    x?: number;
+
+                    /**
+                     * The y value of the left-top corner of the element
+                     * in the coordinate system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.y
+                     */
+                    y?: number;
+
+                    /**
+                     * The width of the shape of the element.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.width
+                     */
+                    width?: number;
+
+                    /**
+                     * The height of the shape of the element.
+                     *
+                     * More attributes in `style` (for example,
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                     * ), see the `style` related attributes in
+                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                     * .
+                     *
+                     * Notice, the attribute names of the `style` of graphic
+                     * elements is derived from `zrender`, which may be
+                     * different from the attribute names in `echarts label`,
+                     * `echarts itemStyle`, etc.,
+                     * although they have the same meaning. For example:
+                     *
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                     * => `style.fill`
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                     * => `style.stroke`
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                     * => `style.textFill`
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                     * => `style.textStroke`
+                     * + ...
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.height
+                     */
+                    height?: number;
+
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Text block.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text
+             */
+            interface RenderItemReturnText {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "text"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_text)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style
+                 */
+                style?: {
+                    /**
+                     * Text content. `\n` can be used as a line break.
+                     *
+                     *
+                     * @default
+                     * ''
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.text
+                     */
+                    text?: string;
+
+                    /**
+                     * The x value of the left-top corner of the element
+                     * in the coordinate system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.x
+                     */
+                    x?: number;
+
+                    /**
+                     * The y value of the left-top corner of the element
+                     * in the coordinate system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.y
+                     */
+                    y?: number;
+
+                    /**
+                     * Font size, font type, font weight, font color, follow
+                     * the form of
+                     * [css font](https://developer.mozilla.org/en-US/docs/Web/CSS/font)
+                     * .
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_text.style)
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.font
+                     */
+                    font?: string;
+
+                    /**
+                     * Text horizontal alignment.
+                     * Optional values: `'left'`, `'center'`, `'right'`.
+                     *
+                     * `'left'` means the left side of the text block is
+                     * specified by the
+                     * [style.x](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.x)
+                     * , while `'right'` means the right side of the text
+                     * block is specified by
+                     * [style.y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.y)
+                     * .
+                     *
+                     *
+                     * @default
+                     * "left"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.textAlign
+                     */
+                    textAlign?: string;
+
+                    /**
+                     * Text vertical alignment.
+                     * Optional values: `'top'`, `'middle'`, `'bottom'`.
+                     *
+                     * More attributes in `style` (for example,
+                     * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                     * ), see the `style` related attributes in
+                     * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                     * .
+                     *
+                     * Notice, the attribute names of the `style` of graphic
+                     * elements is derived from `zrender`, which may be
+                     * different from the attribute names in `echarts label`,
+                     * `echarts itemStyle`, etc.,
+                     * although they have the same meaning. For example:
+                     *
+                     * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                     * => `style.fill`
+                     * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                     * => `style.stroke`
+                     * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                     * => `style.textFill`
+                     * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                     * => `style.textStroke`
+                     * + ...
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.textVerticalAlign
+                     */
+                    textVerticalAlign?: string;
+
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Rectangle element.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect
+             */
+            interface RenderItemReturnRect {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "rect"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_rect)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape
+                 */
+                shape?: {
+                    /**
+                     * The x value of the left-top corner of the element
+                     * in the coordinate system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.x
+                     */
+                    x?: number;
+
+                    /**
+                     * The y value of the left-top corner of the element
+                     * in the coordinate system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.y
+                     */
+                    y?: number;
+
+                    /**
+                     * The width of the shape of the element.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.width
+                     */
+                    width?: number;
+
+                    /**
+                     * The height of the shape of the element.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.height
+                     */
+                    height?: number;
+
+                    /**
+                     * Specify border radius of the rectangular here.
+                     * Generally, `r` should be `[topLeftRadius, topRightRadius,
+                     * BottomRightRadius, bottomLeftRadius]`, where each
+                     * item is a number.
+                     *
+                     * Abbreviation is enabled, for example:
+                     *
+                     * + `r`: `1` means `[1, 1, 1, 1]`
+                     * + `r`: `[1]` means `[1, 1, 1, 1]`
+                     * + `r`: `[1, 2]` means `[1, 2, 1, 2]`
+                     * + `r`: `[1, 2, 3]` means `[1, 2, 3, 2]`
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.r
+                     */
+                    r?: any[];
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Circle element.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle
+             */
+            interface RenderItemReturnCircle {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "circle"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_circle)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape
+                 */
+                shape?: {
+                    /**
+                     * The x value of the center of the element in the coordinate
+                     * system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.cx
+                     */
+                    cx?: number;
+
+                    /**
+                     * The y value of the center of the element in the coordinate
+                     * system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.cy
+                     */
+                    cy?: number;
+
+                    /**
+                     * Outside radius.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.r
+                     */
+                    r?: number;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Ring element.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring
+             */
+            interface RenderItemReturnRing {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "ring"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_ring)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape
+                 */
+                shape?: {
+                    /**
+                     * The x value of the center of the element in the coordinate
+                     * system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.cx
+                     */
+                    cx?: number;
+
+                    /**
+                     * The y value of the center of the element in the coordinate
+                     * system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.cy
+                     */
+                    cy?: number;
+
+                    /**
+                     * Outside radius.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.r
+                     */
+                    r?: number;
+
+                    /**
+                     * Inside radius.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.r0
+                     */
+                    r0?: number;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Sector element.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector
+             */
+            interface RenderItemReturnSector {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "sector"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_sector)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape
+                 */
+                shape?: {
+                    /**
+                     * The x value of the center of the element in the coordinate
+                     * system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.cx
+                     */
+                    cx?: number;
+
+                    /**
+                     * The y value of the center of the element in the coordinate
+                     * system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.cy
+                     */
+                    cy?: number;
+
+                    /**
+                     * Outside radius.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.r
+                     */
+                    r?: number;
+
+                    /**
+                     * Inside radius.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.r0
+                     */
+                    r0?: number;
+
+                    /**
+                     * start angle, in radian.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.startAngle
+                     */
+                    startAngle?: number;
+
+                    /**
+                     * end anble, in radian.
+                     *
+                     *
+                     * @default
+                     * "Math.PI * 2"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.endAngle
+                     */
+                    endAngle?: number;
+
+                    /**
+                     * Whether draw clockwise.
+                     *
+                     *
+                     * @default
+                     * "true"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.clockwise
+                     */
+                    clockwise?: boolean;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Arc element.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc
+             */
+            interface RenderItemReturnArc {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "arc"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_arc)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape
+                 */
+                shape?: {
+                    /**
+                     * The x value of the center of the element in the coordinate
+                     * system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.cx
+                     */
+                    cx?: number;
+
+                    /**
+                     * The y value of the center of the element in the coordinate
+                     * system of its parent.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.cy
+                     */
+                    cy?: number;
+
+                    /**
+                     * Outside radius.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.r
+                     */
+                    r?: number;
+
+                    /**
+                     * Inside radius.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.r0
+                     */
+                    r0?: number;
+
+                    /**
+                     * start angle, in radian.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.startAngle
+                     */
+                    startAngle?: number;
+
+                    /**
+                     * end anble, in radian.
+                     *
+                     *
+                     * @default
+                     * "Math.PI * 2"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.endAngle
+                     */
+                    endAngle?: number;
+
+                    /**
+                     * Whether draw clockwise.
+                     *
+                     *
+                     * @default
+                     * "true"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.clockwise
+                     */
+                    clockwise?: boolean;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @default
+                     * "#000"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @default
+                     * 1
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Polygon element.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon
+             */
+            interface RenderItemReturnPolygon {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "polygon"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_polygon)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape
+                 */
+                shape?: {
+                    /**
+                     * A list of points, which defines the shape, like `[[22,
+                     * 44], [44, 55], [11, 44], ...]`.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.points
+                     */
+                    points?: any[];
+
+                    /**
+                     * Whether smooth the line.
+                     *
+                     * + If the value is number, bezier interpolation is
+                     * used, and the value specified the level of smooth,
+                     * which is in the range of `[0, 1]`.
+                     * + If the value is `'spline'`, Catmull-Rom spline
+                     * interpolation is used.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.smooth
+                     */
+                    smooth?: number | string;
+
+                    /**
+                     * Whether prevent the smooth process cause the line
+                     * out of the bounding box.
+                     *
+                     * Only works when `smooth` is `number` (bezier smooth).
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.smoothConstraint
+                     */
+                    smoothConstraint?: boolean;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Polyline element.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline
+             */
+            interface RenderItemReturnPolyline {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "polyline"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_polyline)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape
+                 */
+                shape?: {
+                    /**
+                     * A list of points, which defines the shape, like `[[22,
+                     * 44], [44, 55], [11, 44], ...]`.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.points
+                     */
+                    points?: any[];
+
+                    /**
+                     * Whether smooth the line.
+                     *
+                     * + If the value is number, bezier interpolation is
+                     * used, and the value specified the level of smooth,
+                     * which is in the range of `[0, 1]`.
+                     * + If the value is `'spline'`, Catmull-Rom spline
+                     * interpolation is used.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.smooth
+                     */
+                    smooth?: number | string;
+
+                    /**
+                     * Whether prevent the smooth process cause the line
+                     * out of the bounding box.
+                     *
+                     * Only works when `smooth` is `number` (bezier smooth).
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.smoothConstraint
+                     */
+                    smoothConstraint?: boolean;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @default
+                     * "#000"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @default
+                     * 5
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Line element.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line
+             */
+            interface RenderItemReturnLine {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "line"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_line)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape
+                 */
+                shape?: {
+                    /**
+                     * x value of the start point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.x1
+                     */
+                    x1?: number;
+
+                    /**
+                     * y value of the start point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.y1
+                     */
+                    y1?: number;
+
+                    /**
+                     * x value of the end point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.x2
+                     */
+                    x2?: number;
+
+                    /**
+                     * y value of the end point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.y2
+                     */
+                    y2?: number;
+
+                    /**
+                     * Specify the percentage of drawing, useful in animation.
+                     *
+                     * Value range: \[0, 1\].
+                     *
+                     *
+                     * @default
+                     * 1
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.percent
+                     */
+                    percent?: number;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @default
+                     * "#000"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @default
+                     * 5
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.styleEmphasis
+                 */
+                styleEmphasis?: object;
+            }
+
+            /**
+             * Quadratic bezier curve or cubic bezier curve.
+             *
+             *
+             * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve
+             */
+            interface RenderItemReturnBezierCurve {
+                /**
+                 * Must be specified when define a graphic element at the
+                 * first time.
+                 *
+                 * Optional values:
+                 *
+                 * [image](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image)
+                 * ,
+                 * [text](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text)
+                 * ,
+                 * [circle](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle)
+                 * ,
+                 * [sector](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector)
+                 * ,
+                 * [ring](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring)
+                 * ,
+                 * [polygon](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon)
+                 * ,
+                 * [polyline](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline)
+                 * ,
+                 * [rect](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect)
+                 * ,
+                 * [line](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line)
+                 * ,
+                 * [bezierCurve](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve)
+                 * ,
+                 * [arc](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc)
+                 * ,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * ,
+                 *
+                 *
+                 * @default
+                 * "bezierCurve"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.type
+                 */
+                type?: string;
+
+                /**
+                 * id is used to specifying element when willing to update
+                 * it. id can be ignored if you do not need it.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.id
+                 */
+                id?: string;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.position
+                 */
+                position?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.rotation
+                 */
+                rotation?: number;
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [1, 1]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.scale
+                 */
+                scale?: any[];
+
+                /**
+                 * `2D transform` can be applied to graphic elements, including:
+                 *
+                 * + [position](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position)
+                 * : `[horizontal translate offset, vertical translate offset]`,
+                 * `[0, 0]` by default.
+                 * Positive value means translate towards right or bottom.
+                 * + [rotation](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation)
+                 * : Rotation in radian, `0` by default.
+                 * Positive when anticlockwise.
+                 * + [scale](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.scale)
+                 * : `[horizontal scale factor, vertical scale factor]`,
+                 * `[1, 1]` by default.
+                 *
+                 * [origin](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin)
+                 * specifies the origin point of rotation and scaling, `[0,
+                 * 0]` by default.
+                 *
+                 * Notice:
+                 *
+                 * + The coordinates specified in the transform attribute
+                 * above are relative to the `[0, 0]` of the parent element
+                 * (that is,
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * or the root canvas). Thus we are able to
+                 * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * multiple elements, and
+                 * [groups](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
+                 * can be nested.
+                 * + The order that the transform attributes are applied
+                 * to a single graphic element is: Firstly, `rotation`,
+                 * then, `scale`, finally, `position`.
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.origin
+                 */
+                origin?: number;
+
+                /**
+                 * Define the overlap relationship between graphic elements.
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.z2
+                 */
+                z2?: number;
+
+                /**
+                 * See
+                 * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
+                 * 。
+                 *
+                 *
+                 * @default
+                 * "undefined"
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.name
+                 */
+                name?: string;
+
+                /**
+                 * User defined data, can be visited in event listeners.
+                 *
+                 * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_bezierCurve)
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.info
+                 */
+                info?: any;
+
+                /**
+                 * Whether response to mouse events / touch events.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.silent
+                 */
+                silent?: boolean;
+
+                /**
+                 * Whether the element is visible.
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.invisible
+                 */
+                invisible?: boolean;
+
+                /**
+                 * Whether the element is totally ignored (neither render
+                 * nor listen events).
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.ignore
+                 */
+                ignore?: boolean;
+
+                /**
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape
+                 */
+                shape?: {
+                    /**
+                     * x value of the start point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x1
+                     */
+                    x1?: number;
+
+                    /**
+                     * y value of the start point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y1
+                     */
+                    y1?: number;
+
+                    /**
+                     * x value of the end point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x2
+                     */
+                    x2?: number;
+
+                    /**
+                     * y value of the end point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y2
+                     */
+                    y2?: number;
+
+                    /**
+                     * x of control point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx1
+                     */
+                    cpx1?: number;
+
+                    /**
+                     * y of control point.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy1
+                     */
+                    cpy1?: number;
+
+                    /**
+                     * x of the second control point.
+                     * If specified, cubic bezier is used.
+                     *
+                     * If both `cpx2` and `cpy2` are not set, quatratic
+                     * bezier is used.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx2
+                     */
+                    cpx2?: number;
+
+                    /**
+                     * y of the second control point.
+                     * If specified, cubic bezier is used.
+                     *
+                     * If both `cpx2` and `cpy2` are not set, quatratic
+                     * bezier is used.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy2
+                     */
+                    cpy2?: number;
+
+                    /**
+                     * Specify the percentage of drawing, useful in animation.
+                     *
+                     * Value range: \[0, 1\].
+                     *
+                     *
+                     * @default
+                     * 1
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.percent
+                     */
+                    percent?: number;
+                };
+
+                /**
+                 * More attributes in `style` (for example,
+                 * [rich text](https://echarts.apache.org/en/tutorial.html#Rich%20Text)
+                 * ), see the `style` related attributes in
+                 * [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable)
+                 * .
+                 *
+                 * Notice, the attribute names of the `style` of graphic
+                 * elements is derived from `zrender`, which may be different
+                 * from the attribute names in `echarts label`, `echarts
+                 * itemStyle`, etc.,
+                 * although they have the same meaning. For example:
+                 *
+                 * + [itemStyle.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.fill`
+                 * + [itemStyle.borderColor](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.stroke`
+                 * + [label.color](https://echarts.apache.org/en/option.html#series-scatter.label.color)
+                 * => `style.textFill`
+                 * + [label.textBorderColor](https://echarts.apache.org/en/option.html#series-scatter.label.textBorderColor)
+                 * => `style.textStroke`
+                 * + ...
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style
+                 */
+                style?: {
+                    /**
+                     * Color filled in this element.
+                     *
+                     *
+                     * @default
+                     * '#000'
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.fill
+                     */
+                    fill?: string;
+
+                    /**
+                     * Color of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.stroke
+                     */
+                    stroke?: string;
+
+                    /**
+                     * Width of stroke.
+                     *
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.lineWidth
+                     */
+                    lineWidth?: number;
+
+                    /**
+                     * Width of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * X offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Y offset of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * color of shadow.
+                     *
+                     *
+                     * @default
+                     * "undefined"
+                     * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowColor
+                     */
+                    shadowColor?: number;
+                };
+
+                /**
+                 * Empahsis style of the graphic element, whose structure
+                 * is the same as
+                 * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
+                 * .
+                 *
+                 *
+                 * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.styleEmphasis
+                 */
+                styleEmphasis?: object;
             }
         }
     }

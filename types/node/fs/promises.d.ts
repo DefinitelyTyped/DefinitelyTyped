@@ -1,10 +1,17 @@
 declare module 'fs/promises' {
+    export * from 'node:fs/promises';
+}
+
+declare module 'node:fs/promises' {
     import {
         Stats,
+        BigIntStats,
+        StatOptions,
         WriteVResult,
         ReadVResult,
         PathLike,
-        RmDirAsyncOptions,
+        RmDirOptions,
+        RmOptions,
         MakeDirectoryOptions,
         Dirent,
         OpenDirOptions,
@@ -13,7 +20,7 @@ declare module 'fs/promises' {
         BufferEncodingOption,
         OpenMode,
         Mode,
-    } from 'fs';
+    } from 'node:fs';
 
     interface FileHandle {
         /**
@@ -91,7 +98,9 @@ declare module 'fs/promises' {
         /**
          * Asynchronous fstat(2) - Get file status.
          */
-        stat(): Promise<Stats>;
+        stat(opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+        stat(opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
 
         /**
          * Asynchronous ftruncate(2) - Truncate a file to a specified length.
@@ -143,12 +152,12 @@ declare module 'fs/promises' {
         /**
          * See `fs.writev` promisified version.
          */
-        writev(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+        writev(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
 
         /**
          * See `fs.readv` promisified version.
          */
-        readv(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
+        readv(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
 
         /**
          * Asynchronous close(2) - close a `FileHandle`.
@@ -255,7 +264,12 @@ declare module 'fs/promises' {
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
+    function rmdir(path: PathLike, options?: RmDirOptions): Promise<void>;
+
+    /**
+     * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
+     */
+    function rm(path: PathLike, options?: RmOptions): Promise<void>;
 
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
@@ -275,7 +289,7 @@ declare module 'fs/promises' {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string>;
+    function mkdir(path: PathLike, options: MakeDirectoryOptions & { recursive: true; }): Promise<string | undefined>;
 
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -352,22 +366,20 @@ declare module 'fs/promises' {
     function symlink(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
 
     /**
-     * Asynchronous fstat(2) - Get file status.
-     * @param handle A `FileHandle`.
-     */
-    function fstat(handle: FileHandle): Promise<Stats>;
-
-    /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstat(path: PathLike): Promise<Stats>;
+    function lstat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    function lstat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+    function lstat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     /**
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function stat(path: PathLike): Promise<Stats>;
+    function stat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    function stat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
@@ -408,6 +420,16 @@ declare module 'fs/promises' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     function lchown(path: PathLike, uid: number, gid: number): Promise<void>;
+
+    /**
+     * Changes the access and modification times of a file in the same way as `fsPromises.utimes()`,
+     * with the difference that if the path refers to a symbolic link, then the link is not
+     * dereferenced: instead, the timestamps of the symbolic link itself are changed.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
 
     /**
      * Asynchronous fchown(2) - Change ownership of a file.

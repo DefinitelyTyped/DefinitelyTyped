@@ -1,4 +1,4 @@
-// Type definitions for pubnub 4.28
+// Type definitions for pubnub 4.29
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -8,6 +8,8 @@
 //                  ChristianBoehlke <https://github.com/ChristianBoehlke>,
 //                  divyun <https://github.com/divyun>
 //                  elviswolcott <https://github.com/elviswolcott>
+//                  mohitpubnub <https://github.com/mohitpubnub>
+//                  Salet <https://github.com/Salet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 3.5
@@ -102,6 +104,10 @@ declare class Pubnub {
 
     removeListener(params: Pubnub.ListenerParameters): void;
 
+    getSubscribedChannels(): string[];
+
+    getSubscribedChannelGroups(): string[];
+
     // presence
 
     hereNow(params: Pubnub.HereNowParameters, callback: Callback<Pubnub.HereNowResponse>): void;
@@ -125,6 +131,30 @@ declare class Pubnub {
     grant(params: Pubnub.GrantParameters, callback: StatusCallback): void;
 
     grant(params: Pubnub.GrantParameters): Promise<void>;
+
+    // files
+
+    listFiles(params: Pubnub.ListFilesParameters, callback: Callback<Pubnub.ListFilesResponse>): void;
+
+    listFiles(params: Pubnub.ListFilesParameters): Promise<Pubnub.ListFilesResponse>;
+
+    sendFile(params: Pubnub.SendFileParameters, callback: Callback<Pubnub.SendFileResponse>): void;
+
+    sendFile(params: Pubnub.SendFileParameters): Promise<Pubnub.SendFileResponse>;
+
+    downloadFile(params: Pubnub.DownloadFileParameters, callback: Callback<any>): void;
+
+    downloadFile(params: Pubnub.DownloadFileParameters): Promise<any>;
+
+    getFileUrl(params: Pubnub.FileInputParameters): string;
+
+    deleteFile(params: Pubnub.FileInputParameters, callback: StatusCallback): void;
+
+    deleteFile(params: Pubnub.FileInputParameters): Promise<Pubnub.DeleteFileResponse>;
+
+    publishFile(params: Pubnub.PublishFileParameters, callback: Callback<Pubnub.PublishFileResponse>): void;
+
+    publishFile(params: Pubnub.PublishFileParameters): Promise<Pubnub.PublishFileResponse>;
 
     // objects v1
 
@@ -617,9 +647,20 @@ declare namespace Pubnub {
         publisher: string;
         subscription?: string;
         timetoken: string;
-        message: {
-            event: string;
-            data: MessageAction;
+        event: string;
+        data: MessageAction;
+    }
+
+    interface FileEvent {
+        channel: string;
+        subscription: string;
+        publisher: string;
+        timetoken: string;
+        message: any;
+        file: {
+            id: string;
+            name: string;
+            url: string;
         };
     }
 
@@ -948,6 +989,8 @@ declare namespace Pubnub {
 
         messageAction?(messageActionEvent: MessageActionEvent): void;
 
+        file?(fileEvent: FileEvent): void;
+
         objects?(objectsEvent: ObjectsEvent): void;
     }
 
@@ -1011,11 +1054,16 @@ declare namespace Pubnub {
     interface GrantParameters {
         channels?: string[];
         channelGroups?: string[];
+        uuids?: string[];
         authKeys?: string[];
         ttl?: number;
         read?: boolean;
         write?: boolean;
         manage?: boolean;
+        delete?: boolean;
+        get?: boolean;
+        join?: boolean;
+        update?: boolean;
     }
 
     // Objects v1
@@ -1181,6 +1229,88 @@ declare namespace Pubnub {
         data: MessageAction[];
         start?: string;
         end?: string;
+    }
+    // files
+    interface ListFilesParameters {
+        channel: string;
+        limit?: number;
+        next?: string;
+    }
+    interface SendFileParameters {
+        channel: string;
+        file: StreamFileInput | BufferFileInput | UriFileInput;
+        message?: any;
+        cipherKey?: string;
+        storeInHistory?: boolean;
+        ttl?: number;
+        meta?: any;
+    }
+
+    interface StreamFileInput {
+        stream: any;
+        name: string;
+        mimeType?: string;
+    }
+
+    interface BufferFileInput {
+        data: any;
+        name: string;
+        mimeType?: string;
+    }
+
+    interface UriFileInput {
+        uri: string;
+        name: string;
+        mimeType?: string;
+    }
+
+    interface DownloadFileParameters {
+        channel: string;
+        id: string;
+        name: string;
+        cipherKey?: string;
+    }
+
+    interface FileInputParameters {
+        channel: string;
+        id: string;
+        name: string;
+    }
+
+    interface PublishFileParameters {
+        channel: string;
+        message?: any;
+        fileId: string;
+        fileName: string;
+        storeInHistory?: boolean;
+        ttl?: number;
+        meta?: any;
+    }
+
+    interface ListFilesResponse {
+        status: number;
+        data: Array<{
+          name: string;
+          id: string;
+          size: number;
+          created: string;
+        }>;
+        next: string;
+        count: number;
+      }
+
+    interface SendFileResponse {
+        timetoken: string;
+        name: string;
+        id: string;
+      }
+
+    interface DeleteFileResponse {
+        status: number;
+    }
+
+    interface PublishFileResponse {
+        timetoken: string;
     }
 
     // Objects v2

@@ -1,5 +1,9 @@
-declare module "perf_hooks" {
-    import { AsyncResource } from "async_hooks";
+declare module 'node:perf_hooks' {
+    export * from 'perf_hooks';
+}
+
+declare module 'perf_hooks' {
+    import { AsyncResource } from 'node:async_hooks';
 
     interface PerformanceEntry {
         /**
@@ -46,6 +50,11 @@ declare module "perf_hooks" {
         readonly environment: number;
 
         /**
+         * The high resolution millisecond timestamp at which the Node.js environment was initialized.
+         */
+        readonly idleTime: number;
+
+        /**
          * The high resolution millisecond timestamp at which the Node.js event loop exited.
          * If the event loop has not yet exited, the property has the value of -1.
          * It can only have a value of not -1 in a handler of the 'exit' event.
@@ -67,6 +76,12 @@ declare module "perf_hooks" {
          * The high resolution millisecond timestamp at which the V8 platform was initialized.
          */
         readonly v8Start: number;
+    }
+
+    interface EventLoopUtilization {
+        idle: number;
+        active: number;
+        utilization: number;
     }
 
     interface Performance {
@@ -124,6 +139,16 @@ declare module "perf_hooks" {
          * @param fn
          */
         timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
+
+        /**
+         * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
+         * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
+         * No other CPU idle time is taken into consideration.
+         *
+         * @param util1 The result of a previous call to eventLoopUtilization()
+         * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
+         */
+        eventLoopUtilization(util1?: EventLoopUtilization, util2?: EventLoopUtilization): EventLoopUtilization;
     }
 
     interface PerformanceObserverEntryList {
@@ -161,7 +186,7 @@ declare module "perf_hooks" {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: string[], buffered?: boolean }): void;
+        observe(options: { entryTypes: ReadonlyArray<string>, buffered?: boolean }): void;
     }
 
     namespace constants {

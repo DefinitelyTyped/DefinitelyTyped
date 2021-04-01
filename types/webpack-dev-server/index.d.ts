@@ -12,6 +12,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 William Artero <https://github.com/wwmoraes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import * as webpack from 'webpack';
 import * as httpProxyMiddleware from 'http-proxy-middleware';
@@ -27,13 +28,13 @@ declare namespace WebpackDevServer {
     }
 
     interface ProxyConfigMap {
-        [url: string]: string | httpProxyMiddleware.Config;
+        [url: string]: string | httpProxyMiddleware.Options;
     }
 
     type ProxyConfigArrayItem = {
         path?: string | string[];
         context?: string | string[] | httpProxyMiddleware.Filter;
-    } & httpProxyMiddleware.Config;
+    } & httpProxyMiddleware.Options;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 
@@ -292,7 +293,7 @@ declare namespace WebpackDevServer {
          * displayed.  This can be a nice middle ground if you want some bundle
          * information, but not all of it.
          */
-        stats?: webpack.Options.Stats;
+        stats?: webpack.Configuration['stats'];
         /**
          * transportMode is an experimental option, meaning its usage could
          * potentially change without warning.
@@ -314,20 +315,20 @@ declare namespace WebpackDevServer {
          * client.
          */
         transportMode?:
-            'sockjs'
+            | 'sockjs'
             | 'ws'
             | {
-              client: object,
-              server: 'ws',
-            }
+                  client: object;
+                  server: 'ws';
+              }
             | {
-              client: 'ws',
-              server: object,
-            }
+                  client: 'ws';
+                  server: object;
+              }
             | {
-              client: object,
-              server: object,
-            };
+                  client: object;
+                  server: object;
+              };
         /** This option lets the browser open with your local IP. */
         useLocalIp?: boolean;
         /**
@@ -337,7 +338,7 @@ declare namespace WebpackDevServer {
          */
         watchContentBase?: boolean;
         /** Control options related to watching the files. */
-        watchOptions?: webpack.WatchOptions;
+        watchOptions?: webpack.Configuration['watchOptions'];
         /** Tells devServer to write generated assets to the disk. */
         writeToDisk?: boolean | ((filePath: string) => boolean);
     }

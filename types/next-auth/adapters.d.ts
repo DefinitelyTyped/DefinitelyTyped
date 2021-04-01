@@ -1,51 +1,83 @@
 import { ConnectionOptions, EntitySchema } from 'typeorm';
-import { AppOptions } from '.';
-import { SessionProvider } from './client';
+import { AppOptions, User } from '.';
+import { AppProvider } from './providers';
 
-// NOTE: There are a lot of `any`. That's because there could be any schema for each entity
-interface Adapter {
-    getAdapter(
-        appOptions: AppOptions,
-    ): Promise<{
-        createUser(profile: any): Promise<any>;
-        getUser(id: string): Promise<any>;
-        getUserByEmail(email: string): Promise<any>;
-        getUserByProviderAccountId(providerId: string, providerAccountId: string): Promise<any>;
-        updateUser(profile: any): Promise<any>;
-        linkAccount(
-            userId: string,
-            providerId: string,
-            providerType: string,
-            providerAccountId: string,
-            refreshToken: string,
-            accessToken: string,
-            accessTokenExpires: number,
-        ): Promise<void>;
-        createSession(user: any): Promise<any>;
-        getSession(sessionToken: string): Promise<any>;
-        updateSession(session: any): Promise<void>;
-        deleteSession(sessionToken: string): Promise<void>;
-        createVerificationRequest?(
-            email: string,
-            url: string,
-            token: string,
-            secret: string,
-            provider: SessionProvider,
-            options: AppOptions,
-        ): Promise<void>;
-        getVerificationRequest?(
-            email: string,
-            verificationToken: string,
-            secret: string,
-            provider: SessionProvider,
-        ): Promise<any>;
-        deleteVerificationRequest?(
-            email: string,
-            verificationToken: string,
-            secret: string,
-            provider: SessionProvider,
-        ): Promise<any>;
-    }>;
+export interface Profile {
+    id: string;
+    name: string;
+    email: string | null;
+    image?: string | null;
+}
+
+export interface Session {
+    userId: string | number | object;
+    expires: Date;
+    sessionToken: string;
+    accessToken: string;
+}
+
+export interface VerificationRequest {
+    identifier: string;
+    token: string;
+    expires: Date;
+}
+
+export interface SendVerificationRequestParams {
+    identifier: string;
+    url: string;
+    token: string;
+    baseUrl: string;
+    provider: AppProvider;
+}
+
+export type EmailAppProvider = AppProvider & {
+    sendVerificationRequest: (params: SendVerificationRequestParams) => Promise<void>;
+    maxAge: number | undefined;
+};
+
+export interface AdapterInstance<TUser, TProfile, TSession, TVerificationRequest> {
+    createUser(profile: TProfile): Promise<TUser>;
+    getUser(id: string): Promise<TUser | null>;
+    getUserByEmail(email: string): Promise<TUser | null>;
+    getUserByProviderAccountId(providerId: string, providerAccountId: string): Promise<TUser | null>;
+    updateUser(user: TUser): Promise<TUser>;
+    linkAccount(
+        userId: string,
+        providerId: string,
+        providerType: string,
+        providerAccountId: string,
+        refreshToken: string,
+        accessToken: string,
+        accessTokenExpires: number,
+    ): Promise<void>;
+    createSession(user: TUser): Promise<TSession>;
+    getSession(sessionToken: string): Promise<TSession | null>;
+    updateSession(session: TSession, force?: boolean): Promise<TSession>;
+    deleteSession(sessionToken: string): Promise<void>;
+    createVerificationRequest?(
+        email: string,
+        url: string,
+        token: string,
+        secret: string,
+        provider: EmailAppProvider,
+        options: AppOptions,
+    ): Promise<TVerificationRequest>;
+    getVerificationRequest?(
+        email: string,
+        verificationToken: string,
+        secret: string,
+        provider: AppProvider,
+    ): Promise<TVerificationRequest | null>;
+    deleteVerificationRequest?(
+        email: string,
+        verificationToken: string,
+        secret: string,
+        provider: AppProvider,
+    ): Promise<void>;
+}
+
+interface Adapter<TUser extends User = any, TProfile extends Profile = any, TSession extends Session = any, TVerificationRequest extends VerificationRequest = any> {
+    getAdapter(appOptions: AppOptions): Promise<AdapterInstance<TUser, TProfile, TSession, TVerificationRequest>>;
 }
 
 type Schema<T = any> = EntitySchema<T>['options'];
@@ -88,7 +120,7 @@ interface TypeORMAdapter<
                 };
             };
         },
-    ): Adapter;
+    ): Adapter<U, Profile, S, VR>;
     Models: {
         Account: {
             model: TypeORMAccountModel;
@@ -144,7 +176,7 @@ declare class TypeORMAccountModel {
     );
 }
 
-declare class TypeORMUserModel {
+declare class TypeORMUserModel implements User {
     name?: string;
     email?: string;
     image?: string;
@@ -153,7 +185,7 @@ declare class TypeORMUserModel {
     constructor(name?: string, email?: string, image?: string, emailVerified?: Date);
 }
 
-declare class TypeORMSessionModel {
+declare class TypeORMSessionModel implements Session {
     userId: number;
     expires: Date;
     sessionToken: string;
@@ -162,12 +194,12 @@ declare class TypeORMSessionModel {
     constructor(userId: number, expires: Date, sessionToken?: string, accessToken?: string);
 }
 
-declare class TypeORMVerificationRequestModel {
-    identifier?: string;
-    token?: string;
-    expires?: Date;
+declare class TypeORMVerificationRequestModel implements VerificationRequest {
+    identifier: string;
+    token: string;
+    expires: Date;
 
-    constructor(identifier?: string, token?: string, expires?: Date);
+    constructor(identifier: string, token: string, expires: Date);
 }
 
 export default Adapters;

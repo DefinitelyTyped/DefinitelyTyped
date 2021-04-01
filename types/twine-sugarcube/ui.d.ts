@@ -9,6 +9,11 @@ export interface DialogOptions {
 
 export interface DialogAPI {
     /**
+     * @deprecated
+     * This method has been deprecated and should no longer be used. The core of what it does is simply to wrap
+     * a call to Dialog.open() within a call to jQuery.ariaClick(), which can be done directly and with
+     * greater flexibility.
+     *
      * Adds WAI-ARIA-compatible mouse/keyboard event handlers to the target element(s) which open the dialog when
      * activated.
      * @param targets The DOM element(s) to attach the handler to—may be either an HTMLElement object, a jQuery object,
@@ -80,7 +85,7 @@ export interface DialogAPI {
      * Opens the dialog. Returns a reference to the Dialog object for chaining.
      *
      * NOTE: Call this only after populating the dialog with content.
-     * @param options The options object. @see addClickHandler() for more information.
+     * @param options The options to be used when opening the dialog.
      * @param closeFn The function to execute whenever the dialog is closed.
      * @since 2.0.0
      */
@@ -333,6 +338,18 @@ export interface UIBarAPI {
      * @since 2.29.0: Added returned UIBar chaining reference.
      */
     unstow(noAnimation?: boolean): this;
+
+    /**
+     * Updates all sections of the UI bar that are populated by special passages — e.g., StoryBanner,
+     * StoryCaption, StoryMenu, etc.
+     * WARNING: As all special passage populated sections are updated it is recommended that
+     * UIBar.update() be used sparingly. Ideally, if you need to update UI bar content outside of
+     * the normal passage navigation update, then you should update only the specific areas you
+     * need to rather than the entire UI bar.
+     *
+     * @since 2.29.0 Introduced
+     */
+    update(): void;
 }
 
 export {};

@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.10
+// Type definitions for carbon-components-react 7.30
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -11,9 +11,11 @@ export as namespace CarbonReact;
 // This group is primarily for type exports but will cover non-default exports as well.
 export * from "./lib/components/Accordion";
 export * from "./lib/components/AccordionItem";
+export * from "./lib/components/AspectRatio";
 export * from "./lib/components/Breadcrumb";
 export * from "./lib/components/BreadcrumbItem";
 export * from "./lib/components/Button";
+export * from "./lib/components/ButtonSet";
 export * from "./lib/components/Checkbox";
 export * from "./lib/components/CodeSnippet";
 export * from "./lib/components/ComboBox";
@@ -29,6 +31,7 @@ export * from "./lib/components/DatePickerInput";
 export * from "./lib/components/Dropdown";
 export * from "./lib/components/ErrorBoundary";
 export * from "./lib/components/FileUploader";
+export * from "./lib/components/FluidForm/FluidForm"; // context is not exported from index
 export * from "./lib/components/Form";
 export * from "./lib/components/FormGroup";
 export * from "./lib/components/FormItem";
@@ -50,6 +53,9 @@ export * from "./lib/components/OrderedList";
 export * from "./lib/components/OverflowMenu";
 export * from "./lib/components/OverflowMenuItem";
 export * from "./lib/components/Pagination";
+export * from "./lib/components/PaginationNav";
+export * from "./lib/components/Pagination/experimental/Pagination";
+export * from "./lib/components/Pagination/experimental/PageSelector";
 export * from "./lib/components/PrimaryButton";
 export * from "./lib/components/ProgressIndicator";
 export * from "./lib/components/RadioButton";
@@ -84,13 +90,17 @@ export * from "./lib/components/ToolbarSearch";
 export * from "./lib/components/Tooltip";
 export * from "./lib/components/TooltipDefinition";
 export * from "./lib/components/TooltipIcon";
+export * from "./lib/components/TreeView/TreeNode";
+export * from "./lib/components/TreeView/TreeView";
 export * from "./lib/components/UIShell";
 export * from "./lib/components/UnorderedList";
 
 export { default as Accordion } from "./lib/components/Accordion";
 export { default as AccordionItem } from "./lib/components/AccordionItem";
+export { AspectRatio } from "./lib/components/AspectRatio";
 export { Breadcrumb, BreadcrumbItem } from "./lib/components/Breadcrumb";
 export { default as Button } from "./lib/components/Button";
+export { default as ButtonSet } from "./lib/components/ButtonSet";
 export { default as Checkbox } from "./lib/components/Checkbox";
 export { default as CodeSnippet } from "./lib/components/CodeSnippet";
 export { default as ComboBox } from "./lib/components/ComboBox";
@@ -128,6 +138,7 @@ export { default as DatePickerInput } from "./lib/components/DatePickerInput";
 export { default as Dropdown } from "./lib/components/Dropdown";
 export { ErrorBoundary, ErrorBoundaryContext } from "./lib/components/ErrorBoundary";
 export { default as FileUploader, Filename, FileUploaderButton, FileUploaderDropContainer, FileUploaderItem } from "./lib/components/FileUploader";
+export { default as FluidForm } from "./lib/components/FluidForm";
 export { default as Form } from "./lib/components/Form";
 export { default as FormGroup } from "./lib/components/FormGroup";
 export { default as FormItem } from "./lib/components/FormItem";
@@ -147,6 +158,10 @@ export { default as OrderedList } from "./lib/components/OrderedList";
 export { default as OverflowMenu } from "./lib/components/OverflowMenu";
 export { default as OverflowMenuItem } from "./lib/components/OverflowMenuItem";
 export { default as Pagination } from "./lib/components/Pagination";
+export { default as PaginationSkeleton } from "./lib/components/Pagination/Pagination.Skeleton";
+export { default as PaginationNav } from "./lib/components/PaginationNav";
+export { PageSelector as unstable_PageSelector } from "./lib/components/Pagination/experimental";
+export { Pagination as unstable_Pagination } from "./lib/components/Pagination/experimental";
 export { default as PrimaryButton } from "./lib/components/PrimaryButton";
 export { ProgressIndicator, ProgressStep } from "./lib/components/ProgressIndicator";
 export { default as RadioButton } from "./lib/components/RadioButton";
@@ -180,6 +195,8 @@ export { default as ToolbarSearch } from "./lib/components/ToolbarSearch";
 export { default as Tooltip } from "./lib/components/Tooltip";
 export { default as TooltipDefinition } from "./lib/components/TooltipDefinition";
 export { default as TooltipIcon } from "./lib/components/TooltipIcon";
+export { default as unstable_TreeView } from "./lib/components/TreeView";
+export { TreeNode as unstable_TreeNode } from "./lib/components/TreeView";
 export { default as UnorderedList } from "./lib/components/UnorderedList";
 export { default as SkeletonText } from "./lib/components/SkeletonText";
 export { default as SkeletonPlaceholder } from "./lib/components/SkeletonPlaceholder";

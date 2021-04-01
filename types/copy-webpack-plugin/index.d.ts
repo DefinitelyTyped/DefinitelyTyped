@@ -1,13 +1,11 @@
-// Type definitions for copy-webpack-plugin 6.0
+// Type definitions for copy-webpack-plugin 6.4
 // Project: https://github.com/webpack-contrib/copy-webpack-plugin
 // Definitions by: flying-sheep <https://github.com/flying-sheep>
 //                 avin-kavish  <https://github.com/avin-kavish>
 //                 Piotr Błażejewicz  <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node"/>
-
-import { Plugin } from 'webpack';
+// TypeScript Version: 3.7
+import { WebpackPluginInstance as Plugin } from 'webpack';
 
 interface ObjectPattern {
     /**
@@ -24,7 +22,15 @@ interface ObjectPattern {
      * {@link https://webpack.js.org/plugins/copy-webpack-plugin/#to}
      * @default compiler.options.output
      */
-    to?: string;
+    to?:
+        | string
+        | (({
+              context,
+              absoluteFilename,
+          }: {
+              context: Exclude<ObjectPattern['context'], undefined>;
+              absoluteFilename: string;
+          }) => string);
 
     /**
      * A path that determines how to interpret the `from` path.
@@ -38,6 +44,11 @@ interface ObjectPattern {
      * {@link https://webpack.js.org/plugins/copy-webpack-plugin/#globoptions}
      */
     globOptions?: object;
+
+    /**
+     * Allows to filter copied assets.
+     */
+    filter?: (resourcePath: string) => boolean;
 
     /**
      * How to interpret `to`. default: undefined
@@ -88,6 +99,11 @@ interface ObjectPattern {
      * @default false
      */
     noErrorOnMissing?: boolean;
+
+    /**
+     * Allows to add assets info
+     */
+    info?: Record<string, unknown> | ((file: string) => Record<string, unknown>);
 }
 
 type StringPattern = string;

@@ -32,10 +32,8 @@ declare module '@feathersjs/feathers' {
         channel(name: string[]): Channel;
         channel(...names: string[]): Channel;
 
-        // tslint:disable-next-line void-return
         publish<T>(callback: (data: T, hook: HookContext<T>) => Channel | Channel[] | void): Application<ServiceTypes>;
 
-        // tslint:disable-next-line void-return
         publish<T>(event: string, callback: (data: T, hook: HookContext<T>) => Channel | Channel[] | void): Application<ServiceTypes>;
     }
 }

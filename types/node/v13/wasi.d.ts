@@ -6,11 +6,13 @@ declare module 'wasi' {
          * WASI command itself.
          */
         args?: string[];
+
         /**
          * An object similar to `process.env` that the WebAssembly
          * application will see as its environment.
          */
         env?: object;
+
         /**
          * This object represents the WebAssembly application's
          * sandbox directory structure. The string keys of `preopens` are treated as
@@ -42,9 +44,10 @@ declare module 'wasi' {
          * `memory`. If `instance` does not have a `memory` export an exception is thrown.
          */
         start(instance: object): void; // TODO: avoid DOM dependency until WASM moved to own lib.
+
         /**
          * Is an object that implements the WASI system call API. This object
-         * should be passed as the `wasi_unstable` import during the instantiation of a
+         * should be passed as the `wasi_snapshot_preview1` import during the instantiation of a
          * [`WebAssembly.Instance`][].
          */
         readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types

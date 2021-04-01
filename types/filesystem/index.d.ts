@@ -73,13 +73,11 @@ interface LocalFileSystemSync {
 interface Metadata {
     /**
      * This is the time at which the file or directory was last modified.
-     * @readonly
      */
     modificationTime: Date;
 
     /**
      * The size of the file, in bytes. This must return 0 for directories.
-     * @readonly
      */
     size: number;
 }
@@ -102,13 +100,11 @@ interface Flags {
 interface FileSystem {
     /**
      * This is the name of the file system. The specifics of naming filesystems is unspecified, but a name must be unique across the list of exposed file systems.
-     * @readonly
      */
     name: string;
 
     /**
      * The root directory of the file system.
-     * @readonly
      */
     root: DirectoryEntry;
 }
@@ -391,13 +387,11 @@ interface FileSystemSync {
 interface EntrySync {
     /**
      * EntrySync is a file.
-     * @readonly
      */
     isFile: boolean;
 
     /**
      * EntrySync is a directory.
-     * @readonly
      */
     isDirectory: boolean;
 

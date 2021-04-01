@@ -1,8 +1,18 @@
 import * as babel from '@babel/core';
+import * as t from '@babel/types';
 
 const options: babel.TransformOptions = {
     ast: true,
     sourceMaps: true,
+    inputSourceMap: {
+        file: 'foo.ts',
+        mappings: 'AAAA',
+        names: ['foo'],
+        sources: ['foo.ts'],
+        version: 3,
+        sourceRoot: '',
+        sourcesContent: ['foo'],
+    },
 };
 
 babel.transform('code();', options, (err, result) => {
@@ -51,7 +61,7 @@ checkOptions({ envName: 'banana' });
 // $ExpectError
 checkOptions({ envName: null });
 checkOptions({ caller: { name: '@babel/register' } });
-checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false } });
+checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false, supportsTopLevelAwait: true } });
 // don't add an index signature; users should augment the interface instead if they need to
 // $ExpectError
 checkOptions({ caller: { name: '', tomato: true } });
@@ -126,6 +136,9 @@ checkConfigFunction(api => {
 // $ExpectType Readonly<PartialConfig> | null
 const partialConfig = babel.loadPartialConfig();
 
+// $ExpectType Promise<Readonly<PartialConfig> | null>
+const partialConfigPromise = babel.loadPartialConfigAsync();
+
 if (partialConfig) {
     // $ExpectType boolean
     partialConfig.hasFilesystemConfig();
@@ -134,3 +147,12 @@ if (partialConfig) {
 function withPluginPass(state: babel.PluginPass) {
     state.file.hub.addHelper('something');
 }
+
+const plugin: babel.PluginObj = {
+    pre({ path }) {
+        visitBlock(path);
+
+        function visitBlock(block: babel.NodePath<t.Program>) {}
+    },
+    visitor: {},
+};

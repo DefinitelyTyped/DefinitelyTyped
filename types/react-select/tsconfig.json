@@ -25,7 +25,12 @@
         "test/styled-components.tsx",
         "test/AtlaskitDummy.ts",
         "test/ChronoNodeDummy.ts",
+        "test/CustomSelect.tsx",
+        "test/CustomValueContainer.tsx",
         "test/Header.tsx",
+        "test/Placeholder.tsx",
+        "test/SetValue.tsx",
+        "test/Tests.tsx",
         "test/examples/AccessingInternals.tsx",
         "test/examples/AnimatedMulti.tsx",
         "test/examples/AsyncCallbacks.tsx",
@@ -38,6 +43,7 @@
         "test/examples/ControlledMenu.tsx",
         "test/examples/CreatableAdvanced.tsx",
         "test/examples/CreatableInputOnly.tsx",
+        "test/examples/CreatableGroup.tsx",
         "test/examples/CreatableMulti.tsx",
         "test/examples/CreatableSingle.tsx",
         "test/examples/CreateFilter.tsx",
@@ -66,12 +72,14 @@
         "test/examples/CustomSingleValue.tsx",
         "test/examples/CustomValueContainer.tsx",
         "test/examples/Experimental.tsx",
+        "test/examples/FixedOptions.tsx",
         "test/examples/MenuPortal.tsx",
         "test/examples/OnMenuOpen.tsx",
         "test/examples/OnSelectResetsInput.tsx",
         "test/examples/Popout.tsx",
         "test/examples/StyledMulti.tsx",
         "test/examples/StyledSingle.tsx",
-        "test/examples/Theme.tsx"
+        "test/examples/Theme.tsx",
+        "test/PropTypes/stateManager.tsx"
     ]
 }

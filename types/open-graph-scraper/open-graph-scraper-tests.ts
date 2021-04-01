@@ -18,9 +18,13 @@ openGraphScraper(options).then(data => {
         error; // $expectType false
         result; // $expectType SuccessResult
         response; // $expectType PassThrough
+        result.ogUrl; // $expectType string | undefined
+        result.modifiedTime; // $expectType string | undefined
+        result.customValue; // $expectType string | undefined
     } else {
         const { error, result } = data;
         error; // $expectType true
         result; // $expectType ErrorResult
+        result.errorDetails; // $expectType Error
     }
 });

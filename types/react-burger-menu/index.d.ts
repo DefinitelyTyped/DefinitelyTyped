@@ -1,4 +1,4 @@
-// Type definitions for react-burger-menu 2.6
+// Type definitions for react-burger-menu 2.8
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 David Acevedo <https://github.com/dacevedo12>
@@ -7,6 +7,10 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+
+export interface HoverState {
+    isMouseIn: boolean;
+}
 
 export interface State {
     isOpen: boolean;
@@ -42,10 +46,14 @@ export interface Props {
     isOpen?: boolean;
     itemClassName?: string;
     itemListClassName?: string;
+    itemListElement?: "div" | "nav";
     menuClassName?: string;
     morphShapeClassName?: string;
     noOverlay?: boolean;
     noTransition?: boolean;
+    onClose?: () => void;
+    onIconHoverChange?: (state: HoverState) => void;
+    onOpen?: () => void;
     onStateChange?(state: State): void;
     // TODO (Rajab) This can be improved, though I do not know how. From PropTypes:
     // styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string

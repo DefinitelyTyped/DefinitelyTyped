@@ -34,6 +34,27 @@ declare namespace actuator {
          * @summary Extra Options to pass to info build output.
          */
         infoBuildOptions?: Record<string, any>;
+
+        /**
+         * @summary Custom endpoints
+         */
+        customEndpoints?: CustomEndpoint[];
+    }
+
+    interface CustomEndpoint {
+        /**
+         * @summary Used as endpoint `/id` or `${basePath}/id`
+         */
+        id: string;
+
+        /**
+         * @summary Controller to be called when accessing this endpoint
+         */
+        controller: CustomControllerMethod;
+    }
+
+    interface CustomControllerMethod {
+        (req?: any, res?: any): void;
     }
 }
 

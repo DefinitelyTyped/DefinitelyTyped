@@ -1,18 +1,14 @@
-import { key as LocaleKey } from "flatpickr/dist/types/locale";
 import { BaseOptions, DateOption, Hook } from "flatpickr/dist/types/options";
 import * as React from "react";
-import { ReactDivAttr, ThemeProps } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends
-    Omit<ReactDivAttr, "onChange">,
-    ThemeProps
-{ }
-
-export interface DatePickerProps extends InheritedProps {
+export interface DatePickerProps extends Omit<ReactDivAttr, "onChange"> {
+    allowInput?: boolean,
     appendTo?: string | HTMLElement,
     dateFormat?: string,
     datePickerType?: "range" | "single" | "simple",
-    locale?: LocaleKey,
+    light?: boolean,
+    locale?: BaseOptions["locale"],
     maxDate?: BaseOptions["maxDate"],
     minDate?: BaseOptions["minDate"],
     onChange?: Hook,

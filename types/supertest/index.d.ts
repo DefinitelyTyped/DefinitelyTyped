@@ -59,5 +59,7 @@ declare namespace supertest {
             | 'pfx'
             | 'cert'
         >;
-    interface SuperTest<T extends superagent.SuperAgentRequest> extends superagent.SuperAgent<T> {}
+    interface SuperTest<T extends superagent.SuperAgentRequest> extends superagent.SuperAgent<T> {
+        host(host: string): T;
+    }
 }

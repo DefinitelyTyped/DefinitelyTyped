@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-    Overwrite,
-    ReactAnchorAttr,
-    SideNavSharedProps,
-    FCReturn,
-    ForwardRefProps,
-} from '../../../typings/shared';
+import { Overwrite, ReactAnchorAttr, SideNavSharedProps, FCReturn, ForwardRefProps, } from "../../../typings/shared";
 
 type InnerElementProps<P> = Omit<P, "element">;
 export interface LinkPropsBase<P = ReactAnchorAttr> extends SideNavSharedProps {

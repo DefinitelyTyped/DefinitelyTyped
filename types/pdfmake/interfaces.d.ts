@@ -158,6 +158,8 @@ export interface Style {
     fillOpacity?: number;
     /** optional space between columns */
     columnGap?: Size;
+    sup?: boolean;
+    sub?: boolean;
     // These properties appear in the documentation but don't do anything:
     // tableCellPadding?: unknown;
     // cellBorder?: unknown;
@@ -198,6 +200,8 @@ export interface ContentColumns extends ContentBase {
 }
 
 export interface ContentStack extends ContentBase {
+    /** if true, ensures that the contents of the stack are always on the same page */
+    unbreakable?: boolean;
     stack: Content[];
 }
 
@@ -234,6 +238,7 @@ export interface ContentImage extends ContentLink, ContentBase {
     width?: number;
     height?: number;
     fit?: [number, number];
+    cover?: ImageCover;
 }
 
 export interface ContentTable extends ContentBase {
@@ -362,6 +367,16 @@ export interface CanvasLineElement {
         length: number;
         space?: number;
     };
+}
+
+export type ImageAlignment = 'left' | 'right' | 'center';
+export type ImageVerticalAlignment = 'top' | 'bottom' | 'center';
+
+export interface ImageCover {
+    width?: number;
+    height?: number;
+    align?: ImageAlignment;
+    valign?: ImageVerticalAlignment;
 }
 
 export interface StyleDictionary {

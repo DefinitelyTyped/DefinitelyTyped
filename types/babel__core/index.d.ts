@@ -9,10 +9,10 @@
 // Minimum TypeScript Version: 3.4
 
 import { GeneratorOptions } from '@babel/generator';
-import traverse, { Visitor, NodePath, Hub, Scope } from '@babel/traverse';
-import template from '@babel/template';
-import * as t from '@babel/types';
 import { ParserOptions } from '@babel/parser';
+import template from '@babel/template';
+import traverse, { Hub, NodePath, Scope, Visitor } from '@babel/traverse';
+import * as t from '@babel/types';
 
 export { ParserOptions, GeneratorOptions, t as types, template, traverse, NodePath, Visitor };
 
@@ -20,6 +20,21 @@ export type Node = t.Node;
 export type ParseResult = t.File | t.Program;
 export const version: string;
 export const DEFAULT_EXTENSIONS: ['.js', '.jsx', '.es6', '.es', '.mjs'];
+
+/**
+ * Source map standard format as to revision 3
+ * @see {@link https://sourcemaps.info/spec.html}
+ * @see {@link https://github.com/mozilla/source-map/blob/HEAD/source-map.d.ts}
+ */
+interface InputSourceMap {
+    version: number;
+    sources: string[];
+    names: string[];
+    sourceRoot?: string;
+    sourcesContent?: string[];
+    mappings: string;
+    file: string;
+}
 
 export interface TransformOptions {
     /**
@@ -197,7 +212,7 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    inputSourceMap?: object | null;
+    inputSourceMap?: InputSourceMap | null;
 
     /**
      * Should the output be minified (not printing last semicolons in blocks, printing literal string values instead of escaped ones, stripping `()` from `new` when safe)
@@ -330,6 +345,8 @@ export interface TransformCaller {
     // e.g. set to true by `babel-loader` and false by `babel-jest`
     supportsStaticESM?: boolean;
     supportsDynamicImport?: boolean;
+    supportsExportNamespaceFrom?: boolean;
+    supportsTopLevelAwait?: boolean;
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 
@@ -423,9 +440,9 @@ export function transformFromAstAsync(
 export interface PluginObj<S = PluginPass> {
     name?: string;
     manipulateOptions?(opts: any, parserOpts: any): void;
-    pre?(this: S, state: S): void;
+    pre?(this: S, file: BabelFile): void;
     visitor: Visitor<S>;
-    post?(this: S, state: S): void;
+    post?(this: S, file: BabelFile): void;
     inherits?: any;
 }
 
@@ -434,7 +451,7 @@ export interface BabelFile {
     opts: TransformOptions;
     hub: Hub;
     metadata: object;
-    path: NodePath;
+    path: NodePath<t.Program>;
     scope: Scope;
     inputMap: object | null;
     code: string;
@@ -549,6 +566,7 @@ export function loadOptions(options?: TransformOptions): object | null;
  * information about `ConfigItem` fields.
  */
 export function loadPartialConfig(options?: TransformOptions): Readonly<PartialConfig> | null;
+export function loadPartialConfigAsync(options?: TransformOptions): Promise<Readonly<PartialConfig> | null>;
 
 export interface PartialConfig {
     options: TransformOptions;

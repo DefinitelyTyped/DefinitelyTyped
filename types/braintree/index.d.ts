@@ -457,7 +457,7 @@ declare namespace braintree {
         amount: string;
         avsErrorResponseCode?: string;
         avsPostalCodeResponseCode?: string;
-        avsScreetAddressResponseCode?: string;
+        avsStreetAddressResponseCode?: string;
         billing?: {
             company?: string;
             countryName?: string;
@@ -623,7 +623,7 @@ declare namespace braintree {
         referenceNumber: string;
         replyByDate: Date;
         status: DisputeStatus;
-        statusHistory: DisputeStatusHistory;
+        statusHistory: DisputeStatusHistory[];
         transaction: {
             amount: string;
             createdAt: Date;
@@ -651,6 +651,41 @@ declare namespace braintree {
         sendToProcessorAt: Date;
         url?: string;
     }
+
+    /**
+     * Disbursement
+     */
+
+    export class Disbursement {
+        id: string;
+        amount: string;
+        disbursementDate: Date;
+        disbursementType: DisbursementType;
+        transactionIds: string[];
+        merchantAccount: DisbursementMerchantAccount;
+        retry: boolean;
+        success: boolean;
+        exceptionMessage?: DisbursementExceptionMessage;
+        followUpAction?: DisbursementFollowUpAction;
+    }
+
+    export type DisbursementType = 'credit' | 'debit';
+
+    export interface DisbursementMerchantAccount {
+        id: string;
+        subMerchantAccount: boolean;
+        status: 'active';
+    }
+
+    export type DisbursementExceptionMessage =
+        | 'bank_rejected'
+        | 'insufficient_funds'
+        | 'account_not_authorized';
+
+    export type DisbursementFollowUpAction =
+        | 'contact_us'
+        | 'update_funding_information'
+        | 'none';
 
     /**
      * Merchant Account
@@ -950,6 +985,11 @@ declare namespace braintree {
         };
     }
 
+    export interface DisbursementNotification extends BaseWebhookNotification {
+        kind: DisbursementNotificationKind;
+        disbursement: Disbursement;
+    }
+
     export type WebhookNotification =
         | TransactionNotification
         | SubMerchantAccountApprovedNotification
@@ -957,7 +997,8 @@ declare namespace braintree {
         | SubscriptionNotification
         | DisputeNotification
         | AccountUpdaterNotification
-        | PaymentMethodNotification;
+        | PaymentMethodNotification
+        | DisbursementNotification;
 
     export type AccountUpdaterNotificationKind =
         | 'account_updater_daily_report';
@@ -990,6 +1031,10 @@ declare namespace braintree {
     export type PaymentMethodNotificationKind =
         | 'payment_method_revoked_by_customer';
 
+    export type DisbursementNotificationKind =
+        | 'disbursement'
+        | 'disbursement_exception';
+
     export type WebhookNotificationKind =
         | AccountUpdaterNotificationKind
         | DisputeNotificationKind
@@ -998,11 +1043,10 @@ declare namespace braintree {
         | SubMerchantAccountDeclinedNotificationKind
         | TransactionNotificationKind
         | PaymentMethodNotificationKind
+        | DisbursementNotificationKind
         | 'check'
         | 'connected_merchant_paypal_status_changed'
         | 'connected_merchant_status_transitioned'
-        | 'disbursement'
-        | 'disbursement_exception'
         | 'grantor_updated_granted_payment_method'
         | 'granted_payment_method_revoked'
         | 'local_payment_completed'
@@ -1105,7 +1149,7 @@ declare namespace braintree {
             startImmediately?: boolean;
         };
         paymentMethodNonce?: string;
-        paymentMethodToken: string;
+        paymentMethodToken?: string;
         planId: string;
         price?: string;
         trialDuration?: number;
@@ -1346,7 +1390,7 @@ declare namespace braintree {
         shippingAmount?: string;
         shipsFromPostalCode?: string;
         status: TransactionStatus;
-        statusHistory?: TransactionStatusHistory;
+        statusHistory?: TransactionStatusHistory[];
         subscription?: {
             billingPeriodEndDate: Date;
             billingPeriodStartDate: Date;
@@ -1566,12 +1610,7 @@ declare namespace braintree {
 
     export type TransactionProcessorResponseType = 'approved' | 'soft_declined' | 'hard_declined';
 
-    export enum TransactionRequestSource {
-        recurring = 'recurring',
-        unscheduled = 'unscheduled',
-        recurring_first = 'recurring_first',
-        moto = 'moto',
-    }
+    export type TransactionRequestSource = 'recurring' | 'unscheduled' | 'recurring_first' | 'moto';
 
     export interface TransactionRiskData {
         decision: string;

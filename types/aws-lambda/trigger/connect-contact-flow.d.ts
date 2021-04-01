@@ -16,7 +16,7 @@ export interface ConnectContactFlowEvent {
             InitiationMethod: ConnectContactFlowInitiationMethod;
             InstanceARN: string;
             PreviousContactId: string;
-            Queue: string | null;
+            Queue: ConnectContactFlowQueue | null;
             SystemEndpoint: ConnectContactFlowEndpoint | null;
             MediaStreams: {
                 Customer: {
@@ -40,6 +40,11 @@ export type ConnectContactFlowInitiationMethod = 'INBOUND' | 'OUTBOUND' | 'TRANS
 export interface ConnectContactFlowEndpoint {
     Address: string;
     Type: 'TELEPHONE_NUMBER';
+}
+
+export interface ConnectContactFlowQueue {
+    ARN: string;
+    Name: string;
 }
 
 export interface ConnectContactFlowResult {

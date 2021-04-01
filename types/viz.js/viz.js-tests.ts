@@ -15,6 +15,15 @@ viz.renderString("string", {files: []});
 viz.renderString("string", {images: ["totally a file"]});
 viz.renderString("string", {format: "svg", engine: "fdp", files: ["test"], images: ["totally an image"], yInvert: false});
 
+// $ExpectType Promise<SVGSVGElement>
+viz.renderSVGElement("string");
+
+// $ExpectType Promise<HTMLImageElement>
+viz.renderImageElement("string");
+
+// $ExpectType Promise<object>
+viz.renderJSONObject("string");
+
 // Incorrect
 new Viz({Module: 1, render}); // $ExpectError
 new Viz({Module: {}, render}); // $ExpectError

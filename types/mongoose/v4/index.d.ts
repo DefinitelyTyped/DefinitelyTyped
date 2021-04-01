@@ -853,6 +853,12 @@ declare module "mongoose" {
      * assigned is Date.
      */
     timestamps?: any;
+    /**
+     * Defaults to false. Provides optimistic
+     * concurrency support for `save()`. `versionKey`
+     * must be set if this is true.
+     */
+    optimisticConcurrency?: boolean;
   }
 
   /*
@@ -2388,6 +2394,21 @@ declare module "mongoose" {
      */
     validate(obj: RegExp | Function | any, errorMsg?: string,
       type?: string): this;
+
+    /** Name of SchemaType instance. e.g. 'Number' */
+    instance: string;
+    /** Path name */
+    path: string;
+    /** Array containing validators */
+    validators: any[];
+    /** Array containing getters */
+    getters: any[];
+    /** Array containing setters */
+    setters: any[];
+    /** Array containing options for instantiated SchemaType */
+    options: SchemaOptions;
+    /** Default value */
+    defaultValue: any;
   }
 
   /*

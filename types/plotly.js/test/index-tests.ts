@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js';
-import { Datum, Layout, PlotData, newPlot, Template } from 'plotly.js';
+import { Config, Datum, Layout, PlotData, newPlot, Template } from 'plotly.js';
 
 const graphDiv = '#test';
 
@@ -232,26 +232,145 @@ const graphDiv = '#test';
 (() => {
     // Test the template with practical types.
     // https://plotly.com/javascript/layout-template/
-    const data: Array<Partial<PlotData>> = [{
-        type: 'bar', name: 'bar', text: ['2', '3', '1', '4'], x: ['Jan', 'Feb', 'Mar', 'Apr'], y: [2, 3, 1, 4]
-    }, {
-        type: 'scatter', name: 'scatter', x: [1, 2, 3, 4], y: [2, 4, 1, 5]
-    }];
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: 'bar',
+            name: 'bar',
+            text: ['2', '3', '1', '4'],
+            x: ['Jan', 'Feb', 'Mar', 'Apr'],
+            y: [2, 3, 1, 4],
+            cliponaxis: false,
+        },
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+        },
+    ];
     const template: Template = {
         data: {
             bar: { marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' },
             scatter: {
                 mode: 'lines+markers',
                 line: { color: 'red', width: 3 },
-                marker: { color: 'red', size: 8, symbol: 'circle-open' }
-            }
+                marker: { color: 'red', size: 8, symbol: 'circle-open' },
+            },
         },
-        layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } }
+        layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } },
     };
     const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template };
+    const config: Partial<Config> = {
+        modeBarButtons: [
+            [
+                {
+                    name: 'save',
+                    title: 'Download plot data',
+                    icon: {
+                        width: 857.1,
+                        height: 1000,
+                        path:
+                            'm214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 ' +
+                            '16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 ' +
+                            '16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z',
+                        ascent: 850,
+                        transform: 'matrix(1 0 0 -1 0 850)',
+                    },
+                    click: (gd, ev) => console.log('Download data'),
+                },
+            ],
+            ['toImage'],
+        ],
+    };
+    Plotly.newPlot('myDiv', data, layout, config);
+})();
+(() => {
+    // should create a boxplot with boxmode 'group'
+    const y: number[] = [];
+    const x: string[] = [];
+    for (let i = 0; i < 50; i++) {
+        y.push(Math.random());
+        x.push('category 1');
+        y.push(Math.random() + 1);
+        x.push('category 2');
+    }
+    const data: Array<Partial<Plotly.BoxPlotData>> = [
+        {
+            y,
+            x,
+            type: 'box',
+            name: 'group A',
+        },
+        {
+            y: y.map(e => e + 1),
+            x,
+            type: 'box',
+            name: 'group B',
+        },
+    ];
+    const layout: Partial<Layout> = {
+        title: 'Grouped Box Plot',
+        boxmode: 'overlay',
+    };
+
     Plotly.newPlot('myDiv', data, layout);
 })();
-
+(() => {
+  // Test slider APIs
+  const data: Array<Partial<PlotData>> = [
+      {
+        colorbar: {
+          title: 'Test',
+        },
+        locationmode: 'ISO-3',
+        locations: ['USA', 'NLD'],
+        reversescale: true,
+        type: 'choropleth',
+        z: [1, 2]
+      },
+  ];
+  const layout: Partial<Layout> = {
+    showlegend: true,
+    title: 'World Map',
+    geo: {
+      projection: { type: 'Mercator'},
+      showcoastlines: true,
+      showframe: true,
+    },
+    sliders: [{
+      pad: {t: 30},
+      y: 1.3,
+      x: 0.2,
+      len: 0.8,
+      currentvalue: {
+        visible: true,
+        prefix: 'Date:',
+        xanchor: 'right',
+        font: {size: 20, color: '#666'}
+      },
+      steps: [{
+        method: 'animate',
+        label: '2019-02-04',
+        args: [
+          [
+            '2019-02-04'
+          ],
+          {
+            mode: 'immediate',
+            transition: {
+              duration: 300,
+            },
+            frame: {
+              duration: 300,
+              redraw: false
+            }
+          }
+        ]
+      }]
+    }]
+  };
+  Plotly.newPlot('myDiv', data, layout);
+})();
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -712,4 +831,34 @@ function rand() {
     });
 
     myPlot.removeAllListeners('plotly_restyle');
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Sunburst specific properties and events
+(async () => {
+    const sunburst = await newPlot(graphDiv, [
+        {
+            type: 'sunburst',
+            ids: ['root', 'child1', 'child2'],
+            branchvalues: 'total',
+            level: 'child1',
+            parents: ['', 'root', 'root'],
+        },
+    ]);
+
+    sunburst.on('plotly_sunburstclick', event => {
+        console.log(`Clicked button ${event.event.button} to navigate to ${event.nextLevel}`);
+
+        const point = event.points[0];
+        console.log(`Clicked id ${point.id} with label ${point.label} and parent label ${point.parent}`);
+        console.log(`Point is number ${point.pointNumber} on trace ${point.curveNumber}`);
+        console.log(`Click happened while at level *labelled* ${point.entry}, and root *labelled* ${point.root}`);
+        console.log(`Point has value ${point.value}`);
+        console.log(
+            `Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`,
+        );
+        console.log(`Colored ${point.color} and hover ${point.hovertext}`);
+        console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
+    });
 })();

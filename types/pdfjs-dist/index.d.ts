@@ -1,4 +1,4 @@
-// Type definitions for PDF.js v2.1
+// Type definitions for PDF.js v2.7
 // Project: https://github.com/mozilla/pdf.js
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 //                 Dmitrii Sorin <https://github.com/1999>
@@ -14,14 +14,6 @@ declare const GlobalWorkerOptions: GlobalWorkerOptions;
 
 interface GlobalWorkerOptions {
     workerSrc: string;
-}
-
-interface PDFPromise<T> {
-    isResolved(): boolean;
-    isRejected(): boolean;
-    resolve(value: T): void;
-    reject(reason: string): void;
-    then<U>(onResolve: (promise: T) => U, onReject?: (reason: string) => void): PDFPromise<U>;
 }
 
 interface PDFTreeNode {
@@ -272,44 +264,49 @@ interface PDFDocumentProxy {
      * @param number The page number to get.  The first page is 1.
      * @return A promise that is resolved with a PDFPageProxy.
      **/
-    getPage(number: number): PDFPromise<PDFPageProxy>;
+    getPage(number: number): Promise<PDFPageProxy>;
 
     /**
      * TODO: return type of Promise<???>
      *  A promise that is resolved with a lookup table for mapping named destinations to reference numbers.
      **/
-    getDestinations(): PDFPromise<any[]>;
+    getDestinations(): Promise<any[]>;
 
     /**
      *  A promise that is resolved with an array of all the JavaScript strings in the name tree.
      **/
-    getJavaScript(): PDFPromise<string[]>;
+    getJavaScript(): Promise<string[]>;
 
     /**
      *  A promise that is resolved with an array that is a tree outline (if it has one) of the PDF.  @see PDFTreeNode
      **/
-    getOutline(): PDFPromise<PDFTreeNode[]>;
+    getOutline(): Promise<PDFTreeNode[]>;
+
+    /**
+     *  A promise that is resolved with an array that contains the permission flags for the PDF document.
+     **/
+    getPermissions(): Promise<number[]>;
 
     /**
      * A promise that is resolved with the info and metadata of the PDF.
      **/
-    getMetadata(): PDFPromise<{ info: PDFInfo; metadata: PDFMetadata }>;
+    getMetadata(): Promise<{ info: PDFInfo; metadata: PDFMetadata }>;
 
     /**
      * Is the PDF encrypted?
      **/
-    isEncrypted(): PDFPromise<boolean>;
+    isEncrypted(): Promise<boolean>;
 
     /**
      * A promise that is resolved with Uint8Array that has the raw PDF data.
      **/
-    getData(): PDFPromise<Uint8Array>;
+    getData(): Promise<Uint8Array>;
 
     /**
      * TODO: return type of Promise<???>
      * A promise that is resolved when the document's data is loaded.
      **/
-    dataLoaded(): PDFPromise<any[]>;
+    dataLoaded(): Promise<any[]>;
 
     /**
      *
@@ -346,6 +343,8 @@ interface PDFPageViewport {
 interface ViewportParameters {
     scale: number; // The desired scale of the viewport.
     rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
+    offsetX?: number; // (optional) The horizontal, i.e. x-axis, offset. The default value is `0`.
+    offsetY?: number; // (optional) The vertical, i.e. y-axis, offset. The default value is `0`.
     dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
 }
 interface PDFAnnotationData {
@@ -363,8 +362,8 @@ interface PDFAnnotations {
     getHtmlElement(commonOjbs: any): HTMLElement; // throw new NotImplementedException()
     getEmptyContainer(tagName: string, rect: number[]): HTMLElement; // deprecated
     isViewable(): boolean;
-    loadResources(keys: any): PDFPromise<any>;
-    getOperatorList(evaluator: any): PDFPromise<any>;
+    loadResources(keys: any): Promise<any>;
+    getOperatorList(evaluator: any): Promise<any>;
     // ... todo
 }
 
@@ -439,7 +438,7 @@ interface PDFPageProxy {
     /**
      * A promise that is resolved with an array of the annotation objects.
      **/
-    getAnnotations(): PDFPromise<PDFAnnotations>;
+    getAnnotations(): Promise<PDFAnnotations>;
 
     /**
      * Begins the process of rendering a page to the desired context.
@@ -451,12 +450,12 @@ interface PDFPageProxy {
     /**
      * A promise that is resolved with the string that is the text content frm the page.
      **/
-    getTextContent(): PDFPromise<TextContent>;
+    getTextContent(): Promise<TextContent>;
 
     /**
      * marked as future feature
      **/
-    //getOperationList(): PDFPromise<>;
+    //getOperationList(): Promise<>;
 
     /**
      * Destroyes resources allocated by the page.
@@ -643,7 +642,7 @@ interface PDFJSStatic {
 }
 
 interface PDFLoadingTask<T> {
-    promise: PDFPromise<T>;
+    promise: Promise<T>;
 }
 
 declare const Util: PDFJSUtilStatic;

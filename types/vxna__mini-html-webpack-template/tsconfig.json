@@ -13,8 +13,14 @@
             "../"
         ],
         "paths": {
-            "@vxna/mini-html-webpack-template": [
-                "vxna__mini-html-webpack-template"
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ],
+            "@vxna/*": [
+                "vxna__*"
             ]
         },
         "types": [],

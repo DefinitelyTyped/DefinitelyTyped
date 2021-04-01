@@ -1,4 +1,8 @@
-declare module "trace_events" {
+declare module 'node:trace_events' {
+    export * from 'trace_events';
+}
+
+declare module 'trace_events' {
     /**
      * The `Tracing` object is used to enable or disable tracing for sets of
      * categories. Instances are created using the

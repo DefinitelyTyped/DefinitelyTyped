@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import SocketIO = require("socket.io");
+import Redis = require("redis");
 
 declare const SocketIORedis: SocketIORedisStatic;
 export = SocketIORedis;
@@ -37,7 +38,7 @@ declare namespace SocketIORedis {
     /**
      * Options to pass to the redis server when creating it
      */
-    interface SocketIORedisOptions {
+    interface SocketIORedisOptions extends Redis.ClientOpts {
 
         /**
          * The optional name of the key to pub/sub events on as prefix
@@ -60,7 +61,7 @@ declare namespace SocketIORedis {
         /**
          * The optional password to connect to redis on
          */
-        auth_pass?: number | string;
+        auth_pass?: string;
 
         /**
          * The optional redis client to publish events on

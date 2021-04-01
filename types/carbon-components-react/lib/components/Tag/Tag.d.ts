@@ -1,7 +1,5 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
-
-interface InheritedProps extends ReactAttr { }
+import { ReactAttr, ReactDivAttr, FCProps, FCReturn } from "../../../typings/shared";
 
 export type TagTypeName =
     "red"
@@ -13,23 +11,29 @@ export type TagTypeName =
     | "green"
     | "gray"
     | "cool-gray"
-    | "warm-gray";
+    | "warm-gray"
+    | "high-contrast";
 
 export declare const types: TagTypeName[];
 
 interface SharedProps {
+    size?: "sm";
     type?: TagTypeName,
 }
 
-export interface FilterTagProps extends InheritedProps, SharedProps {
+export interface FilterTagProps extends ReactDivAttr, SharedProps {
     filter: true,
-    onClose(event: React.MouseEvent<HTMLButtonElement>): void,
+    onClose?(event: React.MouseEvent<HTMLButtonElement>): void,
 }
 
-export interface ChipTagProps extends InheritedProps, SharedProps {
+// div or button, HTMLElement will need to be casted
+export interface ChipTagProps extends ReactAttr, SharedProps {
     filter?: false,
+    renderIcon?: React.ComponentType<any>;
 }
 
-declare const Tag: React.FC<ChipTagProps | FilterTagProps>;
+declare function Tag(props: FCProps<FilterTagProps>): FCReturn;
+// tslint:disable:unified-signatures
+declare function Tag(props: FCProps<ChipTagProps>): FCReturn;
 
 export default Tag;

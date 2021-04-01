@@ -1,31 +1,11 @@
 import { FC } from 'react';
 import { IncomingMessage } from 'http';
-import { GenericObject } from './_utils';
-
-interface Session {
-    user: {
-        name: string;
-        email: string;
-        image: string;
-    };
-    accessToken?: string;
-    expires: string;
-}
-
-interface GetProvidersResponse {
-    [provider: string]: SessionProvider;
-}
-
-interface SessionProvider extends GenericObject {
-    id: string;
-    name: string;
-    type: string;
-    signinUrl: string;
-    callbackUrl: string;
-}
+import { WithAdditionalParams } from './_utils';
+import { Session } from '.';
+import { AppProvider, DefaultProviders, Providers } from './providers';
 
 interface ContextProviderProps {
-    session: Session;
+    session: WithAdditionalParams<Session> | null | undefined;
     options?: SetOptionsParams;
 }
 
@@ -36,6 +16,13 @@ interface SetOptionsParams {
     keepAlive?: number;
 }
 
+interface SignInResponse {
+    error: string | undefined;
+    status: number;
+    ok: boolean;
+    url: string | null;
+}
+
 type ContextProvider = FC<ContextProviderProps>;
 
 interface NextContext {
@@ -43,8 +30,9 @@ interface NextContext {
     ctx?: { req: IncomingMessage };
 }
 
-declare function useSession(): [Session, boolean];
-declare function providers(): Promise<GetProvidersResponse | null>;
+declare function useSession(): [Session | null | undefined, boolean];
+
+declare function providers(): Promise<Record<keyof DefaultProviders | string, AppProvider> | null>;
 declare const getProviders: typeof providers;
 declare function session(
     context?: NextContext & {
@@ -55,13 +43,23 @@ declare const getSession: typeof session;
 declare function csrfToken(context?: NextContext): Promise<string | null>;
 declare const getCsrfToken: typeof csrfToken;
 declare function signin(
-    provider?: string,
-    data?: GenericObject & {
+    provider: 'credentials' | 'email',
+    data?: Record<string, unknown> & {
         callbackUrl?: string;
+        redirect?: false;
     },
+    authorizationParams?: string | string[][] | Record<string, unknown> | URLSearchParams
+  ): Promise<SignInResponse>;
+declare function signin(
+    provider?: string,
+    data?: Record<string, unknown> & {
+        callbackUrl?: string;
+        redirect?: boolean;
+    },
+    authorizationParams?: string | string[][] | Record<string, unknown> | URLSearchParams
 ): Promise<void>;
 declare const signIn: typeof signin;
-declare function signout(data?: { callbackUrl?: string }): Promise<void>;
+declare function signout(data?: { callbackUrl?: string, redirect?: boolean }): Promise<void>;
 declare const signOut: typeof signout;
 declare function options(options: SetOptionsParams): void;
 declare const setOptions: typeof options;
@@ -82,6 +80,4 @@ export {
     options,
     setOptions,
     Provider,
-    Session,
-    SessionProvider,
 };

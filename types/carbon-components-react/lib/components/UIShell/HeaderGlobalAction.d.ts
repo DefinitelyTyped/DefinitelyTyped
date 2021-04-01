@@ -1,8 +1,8 @@
 import { ReactButtonAttr, ForwardRefReturn } from "../../../typings/shared";
+import { ButtonProps } from "../Button";
 
-interface InheritedProps extends Omit<ReactButtonAttr, "type"> { }
-
-export interface HeaderGlobalActionProps extends InheritedProps {
+type ExcludedProps = "hasIconOnly" | "iconDescription" | "ref" | "tooltipPosition" | "type";
+export interface HeaderGlobalActionProps extends Omit<ButtonProps, ExcludedProps> {
     isActive?: boolean,
 }
 

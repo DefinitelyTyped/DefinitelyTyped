@@ -1,28 +1,39 @@
-// Type definitions for yeoman-test 2.0
+// Type definitions for yeoman-test 4.0
 // Project: https://github.com/yeoman/yeoman-test, http://yeoman.io/authoring/testing.html
 // Definitions by: Ika <https://github.com/ikatyang>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
+import Environment = require('yeoman-environment');
+import { Store } from 'mem-fs';
+import { Editor } from 'mem-fs-editor';
 
+/**
+ * Represents a dictionary.
+ */
 export interface Dictionary<T> {
     [key: string]: T;
 }
 
+/**
+ * Represents a constructor.
+ */
 export interface Constructor<T> {
     new (...args: any[]): T;
 }
 
-// Environment from yeoman-environment
-export interface Env extends EventEmitter {
+/**
+ * Represents an environment for running yeoman-generators.
+ */
+export interface Env extends Environment {
     queues: string[];
-    enforceUpdate(env: Env): this;
 }
 
 /**
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  */
 export type Dependency = string | [Generator, string];
 
@@ -88,7 +99,7 @@ export function createDummyGenerator(): Generator;
 
 /**
  * Create a generator, using the given dependencies and controller arguments
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  *
  * @param name - the name of the generator
  * @param dependencies - paths to the generators dependencies
@@ -108,7 +119,7 @@ export function createGenerator(name: string, dependencies: Dependency[], args?:
 
 /**
  * Register a list of dependent generators into the provided env.
- * Dependecies can be path (autodiscovery) or an array [<generator>, <name>]
+ * Dependencies can be path (autodiscovery) or an array [<generator>, <name>]
  *
  * @param dependencies - paths to the generators dependencies
  */
@@ -120,6 +131,9 @@ export function registerDependencies(env: Env, dependencies: Dependency[]): void
  */
 export function run(GeneratorOrNamespace: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 
+/**
+ * Provides settings for creating a `RunContext`.
+ */
 export interface RunContextSettings {
     /**
      * Automatically run this generator in a tmp dir
@@ -139,6 +153,9 @@ export interface RunContextSettings {
     namespace?: string;
 }
 
+/**
+ * Provides the functionality to initialize new `RunContext`s.
+ */
 export interface RunContextConstructor {
     /**
      * This class provide a run context object to façade the complexity involved in setting
@@ -150,14 +167,101 @@ export interface RunContextConstructor {
     new (Generator: string | Constructor<Generator>, settings?: RunContextSettings): RunContext;
 }
 
-export interface RunContext extends RunContextConstructor, EventEmitter {
+/**
+ * Provides options for `RunResult`s.
+ */
+export interface RunResultOptions {
+    /**
+     * The environment of the generator.
+     */
+    env: Environment;
+
+    /**
+     * The working directory after running the generator.
+     */
+    cwd: string;
+
+    /**
+     * The working directory before on running the generator.
+     */
+    oldCwd: string;
+
+    /**
+     * The file-system of the generator.
+     */
+    memFs: Store;
+
+    /**
+     * The file-system editor of the generator.
+     */
+    fs: Editor;
+
+    /**
+     * The mocked generators of the context.
+     */
+    mockedGenerators: Dictionary<Generator>;
+}
+
+export interface RunResult extends RunResultOptions {
+    /**
+     * The options of this result.
+     */
+    options: RunResultOptions;
+
+    /**
+     * Either dumps the contents of the specified files or the name and the contents of each file to the console.
+     */
+    dumpFiles(...files: string[]): void;
+
+    /**
+     * Dumps the name of each file to the console.
+     */
+    dumpFilenames(): void;
+}
+
+/**
+ * Represents the context of a running generator.
+ */
+export interface RunContext extends RunContextConstructor, EventEmitter, Promise<RunResult> {
+    /**
+     * A value indicating whether the generator ran through.
+     */
     ran: boolean;
+
+    /**
+     * A value indicating whether a current directory has been set.
+     */
     inDirSet: boolean;
+
+    /**
+     * The arguments that are passed to the generator.
+     */
     args: string[];
+
+    /**
+     * The options that are passed to the generator.
+     */
     options: {};
+
+    /**
+     * The mocked `inquirer`-answers.
+     */
     answers: Generator.Answers;
+
+    /**
+     * The mocked configuration.
+     */
     localConfig: {};
+
+    /**
+     * A set of generators this generator depends on.
+     */
     dependencies: Dependency[];
+
+    /**
+     * A set of mocked generators.
+     */
+    mockedGenerators: Dictionary<Generator>;
 
     /**
      * Hold the execution until the returned callback is triggered
@@ -169,17 +273,7 @@ export interface RunContext extends RunContextConstructor, EventEmitter {
      * Return a promise representing the generator run process
      * @return Promise resolved on end or rejected on error
      */
-    toPromise(): Promise<string>;
-
-    /**
-     * Promise `.then()` duck typing
-     */
-    then: Promise<string>['then'];
-
-    /**
-     * Promise `.catch()` duck typing
-     */
-    catch: Promise<string>['catch'];
+    toPromise(): Promise<RunResult>;
 
     /**
      * Clean the provided directory, then change directory into it
@@ -199,7 +293,7 @@ export interface RunContext extends RunContextConstructor, EventEmitter {
     cd(dirPath: string): this;
 
     /**
-     * Cleanup a temporary directy and change the CWD into it
+     * Cleanup a temporary directory and change the CWD into it
      *
      * This method is called automatically when creating a RunContext. Only use it if you need
      * to use the callback.
@@ -254,6 +348,12 @@ export interface RunContext extends RunContextConstructor, EventEmitter {
      * @param  localConfig - should look just like if called config.getAll()
      */
     withLocalConfig(localConfig: Dictionary<any>): this;
+
+    /**
+     * Creates mocked generators.
+     * @param namespaces - The namespaces of the mocked generators.
+     */
+    withMockedGenerators(namespaces: string[]): this;
 }
 
 export {};

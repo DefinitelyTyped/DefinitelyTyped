@@ -1,4 +1,13 @@
-import { performance, monitorEventLoopDelay, PerformanceObserverCallback, PerformanceObserver, PerformanceEntry, EntryType, constants, EventLoopUtilization } from 'perf_hooks';
+import {
+    performance,
+    monitorEventLoopDelay,
+    PerformanceObserverCallback,
+    PerformanceObserver,
+    PerformanceEntry,
+    EntryType,
+    constants,
+    EventLoopUtilization,
+} from 'node:perf_hooks';
 
 performance.mark('start');
 (
@@ -26,7 +35,7 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
 };
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
-    entryTypes: ['function'],
+    entryTypes: ['function'] as ReadonlyArray<EntryType>,
     buffered: true,
 });
 

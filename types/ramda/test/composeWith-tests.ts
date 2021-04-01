@@ -40,3 +40,9 @@ import * as R from 'ramda';
     nextThree,
   ]);
 };
+
+() => {
+  const composeWhileNotNil = R.composeWith((f, res) => R.isNil(res) ? res : f(res));
+
+  composeWhileNotNil([R.inc, R.prop('age')])({age: 1}); // => 2
+};

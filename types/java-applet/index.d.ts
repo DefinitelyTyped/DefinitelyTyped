@@ -5,8 +5,6 @@
 
 /**
  * @summary Java applet Status. More details: {@link http://docs.oracle.com/javase/8/docs/technotes/guides/deploy/applet_dev_guide.html#JSDPG719|Applet Status And Event Handlers}
- * @enum {number}
- * @readonly
  */
 declare enum JavaAppletStatus {
     /**
@@ -33,25 +31,21 @@ declare enum JavaAppletStatus {
 interface JavaApplet extends HTMLAppletElement {
     /**
      * @summary Handler if the applet status is {@link JavaAppletStatus#Error}. An error has occurred while loading the applet.
-     * @type {Function}
      */
     onError?: Function;
     
     /**
      * @summary Handler if the applet status is {@link JavaAppletStatus#Ready}. Applet has finished loading and is ready to receive JavaScript calls.
-     * @type {Function}
      */
     onLoad?: Function;
     
     /**
      * @summary Handler if the applet has stopped.
-     * @type {Function}
      */
     onStop?: Function;
     
     /**
      * @summary Java applet Status.
-     * @type {JavaAppletStatus}
      */
     status?: JavaAppletStatus;
 }

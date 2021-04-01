@@ -224,3 +224,22 @@ dt.button(0)
     .css('background', 'blue');
 
 dt.buttons().destroy();
+
+const config_5: DataTables.Settings = {
+    buttons: [
+        {
+            text: 'Create CSV',
+            action(e, dt, node, config) {
+                // Do custom processing
+                // ...
+
+                // Call the default csvHtml5 action method to create the CSV file
+                // TODO: If TypeScript version is bumped to 3.7, we can use the conditional operator i.e. $.fn.dataTable.ext.buttons.csvHtml5.action?.call(this, e, dt, node, config)
+                const action = $.fn.dataTable.ext.buttons.csvHtml5.action;
+                if (action) {
+                    action.call(this, e, dt, node, config);
+                }
+            }
+        }
+    ]
+};

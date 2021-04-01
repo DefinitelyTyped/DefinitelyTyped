@@ -1,5 +1,9 @@
-declare module "domain" {
-    import { EventEmitter } from "events";
+declare module 'node:domain' {
+    export * from 'domain';
+}
+
+declare module 'domain' {
+    import EventEmitter = require('node:events');
 
     global {
         namespace NodeJS {

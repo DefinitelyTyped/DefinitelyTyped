@@ -1,18 +1,46 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>, Gleb Mazovetskiy <https://github.com/glebm>, Shrujal Shah <https://github.com/shrujalshah28>, David <https://github.com/dckorben>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>,
+//                 Gregory Moore <https://github.com/gmoore-sjcorg>,
+//                 Dan Manastireanu <https://github.com/danmana>,
+//                 Michael Cheng <https://github.com/mlcheng>,
+//                 Ivan Bisultanov <https://github.com/IvanBisultanov>,
+//                 Gleb Mazovetskiy <https://github.com/glebm>,
+//                 Shrujal Shah <https://github.com/shrujalshah28>,
+//                 David <https://github.com/dckorben>
+//                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
-
-    function load(visualization: string, version: string, packages: any): void;
+    /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
+    function load(visualization: 'visualization', version: string | number, options: LoadOptions): void;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
     // https://developers.google.com/chart/interactive/docs/basic_load_libs
     namespace charts {
-        function load(version: string, packages: Object): void;
+        /** Loads with `safeMode` enabled. */
+        function safeLoad(options: LoadOptions): Promise<void>;
+        function load(options: LoadOptions): Promise<void>;
+        function load(version: string | number, options: LoadOptions): Promise<void>;
+        /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
+        function load(visualization: 'visualization', version: string | number, options: LoadOptions): Promise<void>;
+
         function setOnLoadCallback(handler: Function): void;
+    }
+
+    export interface LoadOptions {
+        packages?: string | string[];
+        language?: string;
+        callback?: Function;
+        mapsApiKey?: string;
+        safeMode?: boolean;
+        /** not documented */
+        debug?: boolean;
+        /** not documented */
+        pseudo?: boolean;
+        /** not documented, looks for charts-version in url query params */
+        enableUrlSettings?: boolean;
     }
 
     // https://developers.google.com/chart/interactive/docs/reference
@@ -89,21 +117,21 @@ declare namespace google {
             id?: string;
         }
 
-        export class data {
+        namespace data {
             // https://developers.google.com/chart/interactive/docs/reference#data_modifier_functions
-            static month(value: Date): number;
+            function month(value: Date): number;
 
             // https://developers.google.com/chart/interactive/docs/reference#group
-            static sum(values: number[] | string[] | Date[]): number;
-            static avg(values: number[] | string[] | Date[]): number;
-            static min(values: number[] | string[] | Date[]): number | string | Date;
-            static max(values: number[] | string[] | Date[]): number | string | Date;
-            static count(values: any[]): number;
+            function sum(values: ReadonlyArray<number>): number;
+            function avg(values: ReadonlyArray<number>): number;
+            function min(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
+            function max(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
+            function count(values: ReadonlyArray<any>): number;
 
-            static group(data: DataTable | DataView, keys: (number | GroupKeyOptions)[], columns?: GroupColumnOptions[]): DataTable;
+            function group(data: DataTable | DataView, keys: ReadonlyArray<number | GroupKeyOptions>, columns?: ReadonlyArray<GroupColumnOptions>): DataTable;
 
             // https://developers.google.com/chart/interactive/docs/reference#join
-            static join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: number[][], columnsA: number[], columnsB: number[]): DataTable;
+            function join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: ReadonlyArray<[number|string, number|string]>, columnsA: ReadonlyArray<number|string>, columnsB: ReadonlyArray<number|string>): DataTable;
         }
         //#endregion
 
@@ -120,6 +148,7 @@ declare namespace google {
             addRows(rows: any[][]): number;
             clone(): DataTable;
             getColumnId(columnIndex: number): string;
+            getColumnIndex(columnIdentifier: number|string): number;
             getColumnLabel(columnIndex: number): string;
             getColumnPattern(columnIndex: number): string;
             getColumnProperties(columnIndex: number): Properties;
@@ -437,10 +466,21 @@ declare namespace google {
             zoomDelta?: number;
         }
 
-        export interface ChartStrokeFill {
+        export interface ChartStrokeFill extends ChartStroke, ChartFill {
+        }
+
+        export interface ChartStroke {
             stroke?: string;
             strokeWidth?: number;
+        }
+
+        export interface ChartStrokeOpacity extends ChartStroke {
+            strokeOpacity?: number;
+        }
+
+        export interface ChartFill {
             fill?: string;
+            fillOpacity?: number;
         }
 
         export interface ChartArea {
@@ -488,7 +528,7 @@ declare namespace google {
             ticks?: any[];
             title?: string;
             titleTextStyle?: ChartTextStyle;
-            allowContainerBoundaryTextCufoff?: boolean;
+            allowContainerBoundaryTextCutoff?: boolean;
             slantedText?: boolean;
             slantedTextAngle?: number;
             maxAlternation?: number;
@@ -717,6 +757,17 @@ declare namespace google {
             targetAxisIndex?: number;
         }
 
+        // https://developers.google.com/chart/interactive/docs/gallery/intervals#combining-interval-styles
+        export interface Intervals {
+            style?: 'area' | 'bars' | 'boxes' | 'line' | 'points' | 'sticks';
+            color?: string;
+            barWidth?: number;
+            boxWidth?: number;
+            lineWidth?: number;
+            pointSize?: number;
+            fillOpacity?: number;
+        }
+
         // https://developers.google.com/chart/interactive/docs/gallery/linechart#Configuration_Options
         export interface LineChartOptions {
             aggregationTarget?: string;
@@ -749,7 +800,7 @@ declare namespace google {
             pointShape?: ChartPointShape;
             pointSize?: number;
             pointsVisible?: boolean;
-            intervals?: { style: string };
+            intervals?: Intervals;
             interval?: any;
             theme?: string;
             title?: string;
@@ -1161,23 +1212,31 @@ declare namespace google {
             backgroundColor?: string | ChartStrokeFill;
             colors?: string[];
             enableInteractivity?: boolean;
+            fontName?: string;
+            fontSize?: number;
             forceIFrame?: boolean;
             height?: number;
             timeline?: {
                 barLabelStyle?: LabelStyle;
                 colorByRowLabel?: boolean;
                 groupByRowLabel?: boolean;
-                rowLabelStyle?: LabelStyle;
+                rowLabelStyle?: LabelStyle | null;
+                showBarLabels?: boolean;
                 showRowLabels?: boolean;
-                singleColor?: string;
-            }
+                singleColor?: string | null;
+            };
+            tooltip?: {
+                isHtml?: boolean;
+                trigger?: 'focus' | 'none';
+                textStyle?: ChartTextStyle;
+            };
             width?: number;
         }
 
         export interface LabelStyle {
             color: string;
             fontName: string;
-            fontSize: string;
+            fontSize: number;
         }
 
         //#endregion
@@ -1325,32 +1384,36 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar#Configuration_Options
         export interface CalendarOptions {
-            calendar: {
-                cellColor: Object;
-                cellSize: number;
-                dayOfWeekLabel: Object;
-                dayOfWeekRightSpace: number;
-                daysOfWeek: string;
-                focusedCellColor: Object;
-                monthLabel: Object;
-                monthOutlineColor: Object;
-                underMonthSpace: number;
-                underYearSpace: number;
-                unusedMonthOutlineColor: Object;
+            calendar?: {
+                cellColor?: ChartStrokeOpacity;
+                cellSize?: number;
+                dayOfWeekLabel?: ChartTextStyle;
+                dayOfWeekRightSpace?: number;
+                daysOfWeek?: string;
+                focusedCellColor?: ChartStrokeOpacity;
+                monthLabel?: ChartTextStyle;
+                monthOutlineColor?: ChartStrokeOpacity;
+                underMonthSpace?: number;
+                underYearSpace?: number;
+                unusedMonthOutlineColor?: ChartStrokeOpacity;
             };
             colorAxis?: {
-                colors: string[];
-                maxValue: number;
-                minValue: number;
-                values: number[];
+                colors?: string[];
+                maxValue?: number;
+                minValue?: number;
+                values?: number[];
             };
             forceIFrame?: boolean;
             height?: number;
-            noDataPattern?: Object;
-            tooltip: {
+            noDataPattern?: {
+                backgroundColor: string,
+                color: string
+            };
+            tooltip?: {
                 isHtml: boolean;
             };
             width?: number;
+            title?: string;
         }
 
         //#endregion
@@ -1615,6 +1678,119 @@ declare namespace google {
              * @default 'medium'
              */
             size?: string;
+        }
+
+        //#endregion
+        //#region Gantt
+
+        // https://developers.google.com/chart/interactive/docs/gallery/ganttchart
+        export class Gantt extends ChartBaseClearable {
+            draw(data: DataTable | DataView, options: GanttChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/ganttchart#configuration-options
+        export interface GanttChartOptions {
+            backgroundColor?: ChartFill;
+            gantt?: GanttOptions;
+            width?: number;
+            height?: number;
+        }
+
+        export interface GanttOptions {
+            arrow?: GanttArrow;
+            barCornerRadius?: number;
+            barHeight?: number;
+            criticalPathEnabled?: boolean;
+            criticalPathStyle?: ChartStroke;
+            defaultStartDate?: Date | number;
+            innerGridHorizLine?: ChartStroke;
+            innerGridTrack?: ChartFill;
+            innerGridDarkTrack?: ChartFill;
+            labelMaxWidth?: number;
+            labelStyle?: LabelStyle;
+            percentEnabled?: boolean;
+            percentStyle?: ChartFill;
+            shadowEnabled?: boolean;
+            shadowStyle?: ChartFill;
+            shadowOffset?: number;
+            sortTasks?: boolean;
+            trackHeight?: number;
+        }
+
+        export interface GanttArrow {
+            angle?: number;
+            color?: string;
+            length?: number;
+            radius?: number;
+            spaceAfter?: number;
+            width?: number;
+        }
+
+
+        //#endregion
+        //#region Gauge
+
+        // https://developers.google.com/chart/interactive/docs/gallery/gauge
+        // Note: can't extend ChartBaseClearable because Gauge doesn't have getSelection(), setSelection()
+        export class Gauge {
+            constructor(element: Element);
+            getContainer(): Element;
+            clearChart(): void;
+            draw(data: DataTable | DataView, options: GaugeChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/gauge#configuration-options
+        export interface GaugeChartOptions {
+            animation?: TransitionAnimation;
+            forceIFrame?: boolean;
+            width?: number;
+            height?: number;
+            max?: number;
+            min?: number;
+            majorTicks?: string[];
+            minorTicks?: number;
+            greenColor?: string;
+            greenFrom?: number;
+            greenTo?: number;
+            redColor?: string;
+            redFrom?: number;
+            redTo?: number;
+            yellowColor?: string;
+            yellowFrom?: number;
+            yellowTo?: number;
+        }
+
+        //#endregion
+        //#region Sankey
+
+        // https://developers.google.com/chart/interactive/docs/gallery/sankey
+        export class Sankey extends ChartBaseClearable {
+            draw(data: DataTable | DataView, options: SankeyChartOptions): void;
+        }
+
+        // https://developers.google.com/chart/interactive/docs/gallery/sankey#configuration-options
+        export interface SankeyChartOptions {
+            width?: number;
+            forceIFrame?: boolean;
+            height?: number;
+            sankey?: {
+                iterations?: number;
+                link?: {
+                    color?: string | ChartStrokeFill;
+                    colorMode?: 'none' | 'source' | 'target' | 'gradient';
+                    colors?: string[];
+                };
+                node?: {
+                    colorMode?: 'unique';
+                    colors?: string[];
+                    interactivity?: boolean;
+                    label?: ChartTextStyle;
+                    labelPadding?: number;
+                    nodePadding?: number;
+                    width?: number;
+                };
+                tooltip?: ChartTooltip;
+            };
         }
 
         //#endregion

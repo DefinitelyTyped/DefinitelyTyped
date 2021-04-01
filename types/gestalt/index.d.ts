@@ -1,4 +1,4 @@
-// Type definitions for gestalt 12.13
+// Type definitions for gestalt 20.2
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -7,22 +7,67 @@
 //                 Kyle Hensel <https://github.com/k-yle>
 //                 Francisco Jimenez <https://github.com/jimenezff>
 //                 Charlie Gu <https://github.com/czgu>
+//                 Jay Kim <https://github.com/keyworks>
+//                 Vaibhav Sharma <https://github.com/v4iv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+
+/**
+ * Helpers
+ */
 
 export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | Event, U = {}> = (
     arg: U & {
         readonly event: T;
     },
 ) => void;
+export type ReactForwardRef<T, P> = React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<T>>;
 
-/*
-Avatar Props Interface
-https://gestalt.netlify.app/Avatar
-*/
+export type FourDirections = 'up' | 'right' | 'down' | 'left';
 
+export type EventHandlerType = (args: { readonly event: React.SyntheticEvent }) => void;
+
+export interface OnNavigationOptionsType {
+    readonly [key: string]: React.ReactNode | EventHandlerType;
+}
+
+export type OnNavigationType = (args: { href: string, onNavigationOptions?: OnNavigationOptionsType }) => EventHandlerType;
+
+/**
+ * ActivationCard Props Interface
+ * https://gestalt.netlify.app/ActivationCard
+ */
+export interface ActivationCardProps {
+    message: string;
+    status: 'notStarted' | 'pending' | 'needsAttention' | 'complete';
+    statusMessage: string;
+    title: string;
+    dismissButton?: {
+        accessibilityLabel: string;
+        onDismiss: () => void;
+    };
+    link?: {
+        accessibilityLabel?: string;
+        href: string;
+        label: string;
+        onClick?: AbstractEventHandler<
+            | React.MouseEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>
+        >;
+        onNavigationOptions?: OnNavigationOptionsType;
+        rel?: 'none' | 'nofollow';
+        target?: null | 'self' | 'blank';
+    };
+}
+
+/**
+ * Avatar Props Interface
+ * https://gestalt.netlify.app/Avatar
+ */
 export interface AvatarProps {
     name: string;
     accessibilityLabel?: string;
@@ -35,11 +80,10 @@ export interface AvatarProps {
 export type UnsignedUpTo12 = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type SignedUpTo12 = -12 | -11 | -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | -2 | -1 | UnsignedUpTo12;
 
-/*
-AvatarPair Props Interface
-https://gestalt.netlify.app/AvatarPair
-*/
-
+/**
+ * AvatarPair Props Interface
+ * https://gestalt.netlify.app/AvatarPair
+ */
 export interface AvatarPairProps {
     collaborators: ReadonlyArray<{
         name: string;
@@ -48,26 +92,24 @@ export interface AvatarPairProps {
     size?: 'md' | 'lg' | 'fit';
 }
 
-/*
-Badge Props Interface
-https://gestalt.netlify.app/Badge
-*/
-
+/**
+ * Badge Props Interface
+ * https://gestalt.netlify.app/Badge
+ */
 export interface BadgeProps {
     text: string;
     position?: 'middle' | 'top';
 }
 
-/*
-Box Props Interface
-https://gestalt.netlify.app/Box
-*/
-
+/**
+ * Box Props Interface
+ * https://gestalt.netlify.app/Box
+ */
 export interface BoxProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
     alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
-    borderSize?: 'sm' | 'lg' | 'none';
+    borderStyle?: 'sm' | 'lg' | 'shadow' | 'none';
     bottom?: boolean;
     children?: React.ReactNode;
     color?:
@@ -126,14 +168,6 @@ export interface BoxProps {
     smMarginEnd?: SignedUpTo12 | 'auto';
     mdMarginEnd?: SignedUpTo12 | 'auto';
     lgMarginEnd?: SignedUpTo12 | 'auto';
-    marginLeft?: SignedUpTo12 | 'auto';
-    smMarginLeft?: SignedUpTo12 | 'auto';
-    mdMarginLeft?: SignedUpTo12 | 'auto';
-    lgMarginLeft?: SignedUpTo12 | 'auto';
-    marginRight?: SignedUpTo12 | 'auto';
-    smMarginRight?: SignedUpTo12 | 'auto';
-    mdMarginRight?: SignedUpTo12 | 'auto';
-    lgMarginRight?: SignedUpTo12 | 'auto';
     marginStart?: SignedUpTo12 | 'auto';
     smMarginStart?: SignedUpTo12 | 'auto';
     mdMarginStart?: SignedUpTo12 | 'auto';
@@ -161,7 +195,6 @@ export interface BoxProps {
     mdPaddingY?: UnsignedUpTo12;
     lgPaddingY?: UnsignedUpTo12;
     position?: 'static' | 'absolute' | 'relative' | 'fixed';
-    ref?: React.Ref<'div'>;
     right?: boolean;
     role?: string;
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -169,16 +202,13 @@ export interface BoxProps {
     userSelect?: 'auto' | 'none';
     width?: number | string;
     wrap?: boolean;
-    zIndex?: {
-        index(): number;
-    };
+    zIndex?: Indexable;
 }
 
-/*
-Button Props Interface
-https://gestalt.netlify.app/Button
-*/
-
+/**
+ * Button Props Interface
+ * https://gestalt.netlify.app/Button
+ */
 export interface ButtonProps {
     text: string;
     accessibilityControls?: string;
@@ -197,35 +227,43 @@ export interface ButtonProps {
         | React.KeyboardEvent<HTMLAnchorElement>
         | React.KeyboardEvent<HTMLButtonElement>
     >;
-    ref?: React.Ref<'button'> | React.Ref<'a'>;
     rel?: 'none' | 'nofollow';
     role?: 'button' | 'link';
     selected?: boolean;
     size?: 'sm' | 'md' | 'lg';
+    tabIndex?: -1 | 0;
     target?: null | 'self' | 'blank';
     type?: 'submit' | 'button';
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
-/*
-ButtonGroup Props Interface
-https://gestalt.netlify.app/ButtonGroup
-*/
-
+/**
+ * ButtonGroup Props Interface
+ * https://gestalt.netlify.app/ButtonGroup
+ */
 export interface ButtonGroupProps {
     children?: React.ReactNode;
 }
 
-/*
-Callout Props Interface
-https://gestalt.netlify.app/Callout
-*/
-
-export interface LinkData {
-    href: string;
+export interface ActionData {
+    accessibilityLabel?: string;
+    href?: string;
     label: string;
-    onClick?: AbstractEventHandler<React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>>;
+    onClick?: AbstractEventHandler<
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    >;
+    onNavigationOptions?: OnNavigationOptionsType;
+    rel?: 'none' | 'nofollow';
+    target?: null | 'self' | 'blank';
 }
 
+/**
+ * Callout Props Interface
+ * https://gestalt.netlify.app/Callout
+ */
 export interface CalloutProps {
     iconAccessibilityLabel: string;
     message: string;
@@ -234,16 +272,15 @@ export interface CalloutProps {
         accessibilityLabel: string;
         onDismiss: () => void;
     };
-    primaryLink?: LinkData;
-    secondaryLink?: LinkData;
+    primaryAction?: ActionData;
+    secondaryAction?: ActionData;
     title?: string;
 }
 
-/*
-Card Props Interface
-https://gestalt.netlify.app/Card
-*/
-
+/**
+ * Card Props Interface
+ * https://gestalt.netlify.app/Card
+ */
 export interface CardProps {
     active?: boolean;
     children?: React.ReactNode;
@@ -252,11 +289,10 @@ export interface CardProps {
     onMouseLeave?: (args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }) => void;
 }
 
-/*
-Checkbox Props Interface
-https://gestalt.netlify.app/Checkbox
-*/
-
+/**
+ * Checkbox Props Interface
+ * https://gestalt.netlify.app/Checkbox
+ */
 export interface CheckboxProps {
     id: string;
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
@@ -264,19 +300,20 @@ export interface CheckboxProps {
     disabled?: boolean;
     errorMessage?: string;
     hasError?: boolean;
+    image?: React.ReactNode;
     indeterminate?: boolean;
     label?: string;
     name?: string;
 
     onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
-    ref?: React.Ref<'input'>;
     size?: 'sm' | 'md';
+    subtext?: string;
 }
-/*
-Collage Props Interface
-https://gestalt.netlify.app/Column
-*/
 
+/**
+ * Collage Props Interface
+ * https://gestalt.netlify.app/Column
+ */
 export interface CollageProps {
     columns: number;
     height: number;
@@ -287,11 +324,10 @@ export interface CollageProps {
     layoutKey?: number;
 }
 
-/*
-Column Props Interface
-https://gestalt.netlify.app/Column
-*/
-
+/**
+ * Column Props Interface
+ * https://gestalt.netlify.app/Column
+ */
 export interface ColumnProps {
     span: UnsignedUpTo12;
     smSpan?: UnsignedUpTo12;
@@ -300,48 +336,133 @@ export interface ColumnProps {
     children?: React.ReactNode;
 }
 
-/*
-Container Props Interface
-https://gestalt.netlify.app/Container
-*/
-
+/**
+ * Container Props Interface
+ * https://gestalt.netlify.app/Container
+ */
 export interface ContainerProps {
     children?: React.ReactNode;
 }
 
-/*
-Flyout Props Interface
-https://gestalt.netlify.app/Flyout
-*/
-
-export interface FlyoutProps {
-    anchor: HTMLElement; // ideally a HTMLAnchorElement
-    onDismiss: () => void;
-    children?: React.ReactNode;
-    color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
-    idealDirection?: 'up' | 'right' | 'down' | 'left';
-    positionRelativeToAnchor?: boolean;
-    shouldFocus?: boolean;
-    showCaret?: boolean;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number;
+/**
+ * ScrollBoundaryContainer Props Interface
+ * https://gestalt.netlify.app/ScrollBoundaryContainer
+ */
+export interface ScrollBoundaryContainerProps {
+    height?: number | string;
+    overflow?: 'scroll' | 'scrollX' | 'scrollY' | 'auto';
 }
 
-/*
-GroupAvatar Props Interface
-https://gestalt.netlify.app/GroupAvatar
-*/
+export interface DropdownOption {
+    label: string;
+    value: string;
+    subtext?: string;
+}
+/**
+ * Dropdown Props Interface
+ * https://gestalt.netlify.app/Dropdown
+ */
+export interface DropdownProps {
+    children:
+        | React.ReactElement<DropdownItemProps | DropdownSectionProps>
+        | ReadonlyArray<React.ReactElement<DropdownItemProps | DropdownSectionProps>>;
+    /**
+     * Unique id to identify this Dropdown
+     */
+    id: string;
+    onDismiss: () => void;
+    /**
+     * Ref for the element that the Dropdown will attach to, will most likely be a Button
+     */
+    anchor?: HTMLElement;
+    headerContent?: React.ReactNode;
+    /**
+     * Preferred direction for the Dropdown to open
+     *
+     * @default "down"
+     */
+    idealDirection?: FourDirections;
+    onSelect?: AbstractEventHandler<
+        React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+        {
+            item: DropdownOption | undefined | null;
+        }
+    >;
+    zIndex?: Indexable;
+}
 
+export interface DropdownItemProps {
+    handleSelect: AbstractEventHandler<
+        React.FocusEvent<HTMLInputElement>,
+        {
+            item: DropdownOption;
+        }
+    >;
+    option: DropdownOption;
+
+    /**
+     * When supplied, will display a Badge next to the item's label.
+     */
+    badgeText?: string;
+    /**
+     * When supplied, wraps the item in a Link, and directs users to the url when item is selected.
+     */
+    href?: string;
+    /**
+     * When true, adds an arrow icon to the end of the item to signal
+     * this item takes users to an external source.
+     * Do not add if the item navigates users within the app.
+     */
+    isExternal?: boolean;
+    /**
+     * Either the selected item info or an array of selected items,
+     * used to determine when the "selected" icon appears on an item
+     */
+    selected?: DropdownOption | ReadonlyArray<DropdownOption>;
+    onNavigationOptions?: OnNavigationOptionsType;
+}
+
+export interface DropdownSectionProps {
+    children: React.ReactElement<DropdownItemProps> | ReadonlyArray<React.ReactElement<DropdownItemProps>>;
+    label: string;
+}
+
+/**
+ * Flex Props Interface
+ * https://gestalt.netlify.app/Flex
+ */
+export interface FlexProps {
+    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
+    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';
+    children?: React.ReactNode;
+    direction?: 'row' | 'column';
+    fit?: boolean;
+    flex?: 'grow' | 'shrink' | 'none';
+    gap?: UnsignedUpTo12;
+    height?: number | string;
+    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly';
+    maxHeight?: number | string;
+    maxWidth?: number | string;
+    minHeight?: number | string;
+    minWidth?: number | string;
+    wrap?: boolean;
+}
+
+/**
+ * GroupAvatar Props Interface
+ * https://gestalt.netlify.app/GroupAvatar
+ */
 export interface GroupAvatarProps {
     collaborators: ReadonlyArray<{ name: string; src?: string }>;
     outline?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit';
 }
 
-/*
-Heading Props Interface
-https://gestalt.netlify.app/Heading
-*/
-
+/**
+ * Heading Props Interface
+ * https://gestalt.netlify.app/Heading
+ */
 export interface HeaderProps {
     accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6;
     align?: 'left' | 'right' | 'center' | 'justify';
@@ -369,11 +490,6 @@ export interface HeaderProps {
     size?: 'sm' | 'md' | 'lg';
     truncate?: boolean;
 }
-
-/*
-Icon Props Interface
-https://gestalt.netlify.app/Icon
-*/
 
 export type Icons =
     | 'ad'
@@ -437,6 +553,7 @@ export type Icons =
     | 'ellipsis-circle-outline'
     | 'envelope'
     | 'eye'
+    | 'eye-hide'
     | 'facebook'
     | 'face-happy'
     | 'face-sad'
@@ -462,6 +579,7 @@ export type Icons =
     | 'heart'
     | 'heart-outline'
     | 'heart-broken'
+    | "history"
     | 'impressum'
     | 'info-circle'
     | 'key'
@@ -539,7 +657,9 @@ export type Icons =
     | 'view-type-default'
     | 'view-type-dense'
     | 'view-type-list'
+    | "visit"
     | 'workflow-status-all'
+    | 'workflow-status-canceled'
     | 'workflow-status-halted'
     | 'workflow-status-in-progress'
     | 'workflow-status-ok'
@@ -547,6 +667,10 @@ export type Icons =
     | 'workflow-status-unstarted'
     | 'workflow-status-warning';
 
+/**
+ * Icon Props Interface
+ * https://gestalt.netlify.app/Icon
+ */
 export interface IconProps {
     accessibilityLabel: string;
 
@@ -574,11 +698,10 @@ export interface IconProps {
     size?: number | string;
 }
 
-/*
-IconButton Props Interface
-https://gestalt.netlify.app/IconButton
-*/
-
+/**
+ * IconButton Props Interface
+ * https://gestalt.netlify.app/IconButton
+ */
 export interface IconButtonProps {
     bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red';
     accessibilityControls?: string;
@@ -588,23 +711,28 @@ export interface IconButtonProps {
 
     dangerouslySetSvgPath?: { __path: string };
     disabled?: boolean;
+    href?: string;
     icon?: Icons;
     iconColor?: 'gray' | 'darkGray' | 'red' | 'white';
     onClick?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>>;
     padding?: 1 | 2 | 3 | 4 | 5;
-    ref?: React.Ref<'button'>;
+    rel?: 'none' | 'nofollow';
+    role?: 'button' | 'link';
     selected?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    tabIndex?: -1 | 0;
+    target?: null | 'self' | 'blank';
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
-/*
-Image Props Interface
-https://gestalt.netlify.app/Image
-*/
-
+/**
+ * Image Props Interface
+ * https://gestalt.netlify.app/Image
+ */
 export interface ImageProps {
     alt: string;
     color: string;
+    elementTiming?: string;
     naturalHeight: number;
     naturalWidth: number;
     src: string;
@@ -618,29 +746,28 @@ export interface ImageProps {
     srcSet?: string;
 }
 
-/*
-Label Props Interface
-https://gestalt.netlify.app/Label
-*/
-
+/**
+ * Label Props Interface
+ * https://gestalt.netlify.app/Label
+ */
 export interface LabelProps {
     htmlFor: string;
     children?: React.ReactNode;
 }
-/*
-Layer Interface
-https://gestalt.netlify.app/Layer
-*/
 
+/**
+ * Layer Props Interface
+ * https://gestalt.netlify.app/Layer
+ */
 export interface LayerProps {
     children: React.ReactNode;
+    zIndex?: Indexable;
 }
 
-/*
-Letterbox Props Interface
-https://gestalt.netlify.app/Letterbox
-*/
-
+/**
+ * Letterbox Props Interface
+ * https://gestalt.netlify.app/Letterbox
+ */
 export interface LetterboxProps {
     contentAspectRatio: number;
     height: number;
@@ -648,11 +775,10 @@ export interface LetterboxProps {
     children?: React.ReactNode;
 }
 
-/*
-Link Props Interface
-https://gestalt.netlify.app/Link
-*/
-
+/**
+ * Link Props Interface
+ * https://gestalt.netlify.app/Link
+ */
 export interface LinkProps {
     href: string;
     accessibilityLabel?: string;
@@ -669,13 +795,13 @@ export interface LinkProps {
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
     tapStyle?: 'none' | 'compress';
     target?: null | 'self' | 'blank';
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
-/*
-Mask Props Interface
-https://gestalt.netlify.app/Mask
-*/
-
+/**
+ * Mask Props Interface
+ * https://gestalt.netlify.app/Mask
+ */
 export interface MaskProps {
     children?: React.ReactNode;
     height?: number | string;
@@ -685,11 +811,10 @@ export interface MaskProps {
     willChangeTransform?: boolean;
 }
 
-/*
-Masonry Props Interface
-https://gestalt.netlify.app/Masonry
-*/
-
+/**
+ * Masonry Props Interface
+ * https://gestalt.netlify.app/Masonry
+ */
 export interface MasonryProps<T = any> {
     comp: React.ComponentType<{ data: T; itemIdx?: number; isMeasuring?: boolean }>;
     items: T[];
@@ -706,28 +831,72 @@ export interface MasonryProps<T = any> {
     virtualize?: boolean;
 }
 
-/*
-Modal Props Interface
-https://gestalt.netlify.app/Modal
-*/
-
+/**
+ * Modal Props Interface
+ * https://gestalt.netlify.app/Modal
+ */
 export interface ModalProps {
     accessibilityModalLabel: string;
     onDismiss: () => void;
+    /**
+     * Use to specify the alignment of `heading` & `subHeading` strings
+     *
+     * @default "center"
+     */
+    align?: 'center' | 'left';
     children?: React.ReactNode;
+    /**
+     * Close the modal when you click outside of it
+     *
+     * @default true
+     */
     closeOnOutsideClick?: boolean;
     footer?: React.ReactNode;
-    heading?: string | React.ReactNode;
-    ref?: React.Ref<'div'>;
+    heading?: React.ReactNode;
     role?: 'alertdialog' | 'dialog';
     size?: 'sm' | 'md' | 'lg' | number;
+    /**
+     * Only renders with `heading` strings
+     */
+    subHeading?: string;
 }
 
-/*
-Pog Props Interface
-https://gestalt.netlify.app/Pog
-*/
+/**
+ * Module Props Interface
+ * https://gestalt.netlify.app/Module
+ */
+export interface ModuleProps {
+    id: string;
+    icon?: Icons;
+    iconAccessibilityLabel?: string;
+    title?: string;
+    type: "error" | "info";
+}
 
+/**
+ * Module.Expandable Props Interface
+ * https://gestalt.netlify.app/Module
+ */
+export interface ModuleExpandableProps {
+    accessibilityCollapseLabel: string;
+    accessibilityExpandLabel: string;
+    id: string;
+    items: ReadonlyArray<{
+        title: string;
+        icon?: Icons;
+        summary?: ReadonlyArray<string>;
+        type?: 'info' | 'error';
+        iconAccessibilityLabel?: string;
+        children?: React.ReactNode;
+    }>;
+    expandedIndex?: number | null;
+    onExpandedChange?: (expandedIndex: number | null) => void;
+}
+
+/**
+ * Pog Props Interface
+ * https://gestalt.netlify.app/Pog
+ */
 export interface PogProps {
     accessibilityLabel?: string;
     active?: boolean;
@@ -742,47 +911,62 @@ export interface PogProps {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
-/*
-Provider Props Interface
-https://gestalt.netlify.app/ProviderProps
-*/
+/**
+ * Popover Props Interface
+ * https://gestalt.netlify.app/Popover
+ */
+export interface PopoverProps {
+    anchor: HTMLElement; // ideally a HTMLAnchorElement
+    onDismiss: () => void;
+    children?: React.ReactNode;
+    color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray';
+    idealDirection?: FourDirections;
+    positionRelativeToAnchor?: boolean;
+    shouldFocus?: boolean;
+    showCaret?: boolean;
+    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number;
+}
 
+/**
+ * Provider Props Interface
+ * https://gestalt.netlify.app/ProviderProps
+ */
 export interface ProviderProps {
     colorScheme?: 'light' | 'dark' | 'userPreference';
     id?: string;
+    onNavigation?: OnNavigationType;
 }
 
-/*
-Pulsar Props Interface
-https://gestalt.netlify.app/Pulsar
-*/
-
+/**
+ * Pulsar Props Interface
+ * https://gestalt.netlify.app/Pulsar
+ */
 export interface PulsarProps {
     paused?: boolean;
     size?: number;
 }
 
-/*
-RadioButton Props Interface
-https://gestalt.netlify.app/RadioButton
-*/
-
+/**
+ * RadioButton Props Interface
+ * https://gestalt.netlify.app/RadioButton
+ */
 export interface RadioButtonProps {
     id: string;
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
     checked?: boolean;
     disabled?: boolean;
+    image?: React.ReactNode;
     label?: string;
     name?: string;
-    value?: string;
     size?: 'sm' | 'md';
+    subtext?: string;
+    value?: string;
 }
 
-/*
-Row Props Interface
-https://gestalt.netlify.app/Row
-*/
-
+/**
+ * Row Props Interface
+ * https://gestalt.netlify.app/Row
+ */
 export interface RowProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
@@ -801,11 +985,10 @@ export interface RowProps {
     wrap?: boolean;
 }
 
-/*
-SearchField Props Interface
-https://gestalt.netlify.app/SearchField
-*/
-
+/**
+ * SearchField Props Interface
+ * https://gestalt.netlify.app/SearchField
+ */
 export interface SearchFieldProps {
     accessibilityLabel: string;
     id: string;
@@ -815,16 +998,14 @@ export interface SearchFieldProps {
     onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
     onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     placeholder?: string;
-    ref?: React.Ref<'input'>;
     size?: 'md' | 'lg';
     value?: string;
 }
 
-/*
-SegmentedControl Props Interface
-https://gestalt.netlify.app/SegmentedControl
-*/
-
+/**
+ * SegmentedControl Props Interface
+ * https://gestalt.netlify.app/SegmentedControl
+ */
 export interface SegmentedControlProps {
     items: React.ReactNode[];
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeIndex: number }) => void;
@@ -833,11 +1014,10 @@ export interface SegmentedControlProps {
     size?: 'md' | 'lg';
 }
 
-/*
-SelectList Props Interface
-https://gestalt.netlify.app/SelectList
-*/
-
+/**
+ * SelectList Props Interface
+ * https://gestalt.netlify.app/SelectList
+ */
 export interface SelectListProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLElement>; value: string }) => void;
@@ -852,11 +1032,27 @@ export interface SelectListProps {
     value?: string;
 }
 
-/*
-Spinner Props Interface
-https://gestalt.netlify.app/Spinner
-*/
+/**
+ * Sheet Props Interface
+ * https://gestalt.netlify.app/Sheet
+ */
+export type SheetNodeOrRenderProp = ((prop: { onDismissStart: () => void }) => React.ReactNode) | React.ReactNode;
+export interface SheetProps {
+    accessibilityDismissButtonLabel: string;
+    accessibilitySheetLabel: string;
+    onDismiss: () => void;
+    children?: SheetNodeOrRenderProp;
+    closeOnOutsideClick?: boolean;
+    footer?: SheetNodeOrRenderProp;
+    heading?: string;
+    size?: 'sm' | 'md' | 'lg';
+    subHeading?: SheetNodeOrRenderProp;
+}
 
+/**
+ * Spinner Props Interface
+ * https://gestalt.netlify.app/Spinner
+ */
 export interface SpinnerProps {
     accessibilityLabel: string;
     show: boolean;
@@ -864,11 +1060,10 @@ export interface SpinnerProps {
     size?: 'sm' | 'md';
 }
 
-/*
-Stack Props Interface
-https://gestalt.netlify.app/Stack
-*/
-
+/**
+ * Stack Props Interface
+ * https://gestalt.netlify.app/Stack
+ */
 export interface StackProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
@@ -887,11 +1082,10 @@ export interface StackProps {
     wrap?: boolean;
 }
 
-/*
-Sticky Props Interface
-https://gestalt.netlify.app/Sticky
-*/
-
+/**
+ * Sticky Props Interface
+ * https://gestalt.netlify.app/Sticky
+ */
 export interface StickyProps {
     bottom?: number | string;
     children?: React.ReactNode;
@@ -899,14 +1093,13 @@ export interface StickyProps {
     left?: number | string;
     right?: number | string;
     top?: number | string;
-    zIndex?: { index(): number };
+    zIndex?: Indexable;
 }
 
-/*
-Switch Props Interface
-https://gestalt.netlify.app/Switch
-*/
-
+/**
+ * Switch Props Interface
+ * https://gestalt.netlify.app/Switch
+ */
 export interface SwitchProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: boolean }) => void;
@@ -915,15 +1108,14 @@ export interface SwitchProps {
     switched?: boolean;
 }
 
-/*
-Table Props Interface
-https://gestalt.netlify.app/Table
-*/
-
+/**
+ * Table Props Interface
+ * https://gestalt.netlify.app/Table
+ */
 export interface TableProps {
-    borderSize?: 'sm' | 'none';
+    borderStyle?: 'sm' | 'none';
     children?: React.ReactNode;
-    maxHeight?: 'number' | 'string';
+    maxHeight?: number | string;
 }
 
 export interface TableBodyProps {
@@ -953,6 +1145,21 @@ export interface TableRowProps {
     children?: React.ReactNode;
 }
 
+export interface TableRowExpandableProps {
+    accessibilityCollapseLabel: string;
+    accessibilityExpandLabel: string;
+    expandedContents: React.ReactNode;
+    id: string;
+    children?: React.ReactNode;
+    hoverStyle?: 'none' | 'gray';
+    onExpand?: AbstractEventHandler<
+        | React.MouseEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+    >;
+}
+
 export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
     onSortChange: AbstractEventHandler<
         React.MouseEvent<HTMLTableCellElement> | React.KeyboardEvent<HTMLTableCellElement>
@@ -961,11 +1168,10 @@ export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
     status: 'active' | 'inactive';
 }
 
-/*
-Tabs Props Interface
-https://gestalt.netlify.app/Tabs
-*/
-
+/**
+ * Tabs Props Interface
+ * https://gestalt.netlify.app/Tabs
+ */
 export interface TabsProps {
     activeTabIndex: number;
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeTabIndex: number }) => void;
@@ -974,11 +1180,42 @@ export interface TabsProps {
     wrap?: boolean;
 }
 
-/*
-TabArea Props Interface
-https://gestalt.netlify.app/TapArea
-*/
+/**
+ * Tag Props Interface
+ * https://gestalt.netlify.app/Tag
+ */
+export interface TagProps {
+    /**
+     * Short text to render inside the tag.
+     */
+    text: string;
+    /**
+     * Set a disabled state so the tag looks inactive and cannot be interacted with.
+     *
+     * @default false
+     */
+    disabled?: boolean;
+    /**
+     * Set an error state on the tag. The message is used as an accessibility label for the error icon.
+     * Keep it short so it doesn't overwhelm the user.
+     */
+    errorMessage?: string;
+    /**
+     * Callback fired when the tag is removed. Should handle state updates to stop rendering the component.
+     * Required unless the tag is in a disabled state.
+     */
+    onRemove?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>>;
+    /**
+     * Accessibility label for the icon button to remove the tag, ideally something like "Remove [Tag Name] Tag".
+     * Required unless the tag is in a disabled state.
+     */
+    removeIconAccessibilityLabel?: string;
+}
 
+/**
+ * TabArea Props Interface
+ * https://gestalt.netlify.app/TapArea
+ */
 export interface TapAreaProps {
     accessibilityControls?: string;
     accessibilityExpanded?: boolean;
@@ -988,22 +1225,31 @@ export interface TapAreaProps {
     disabled?: boolean;
     fullHeight?: boolean;
     fullWidth?: boolean;
+    href?: string;
     mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut';
-    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement>>;
-    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement>>;
-    onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
-    onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement>>;
-    onTap?: AbstractEventHandler<React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>>;
-    ref?: React.Ref<'div'>;
-    tapStyle?: 'none' | 'compress';
+    onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>>;
+    onTap?: AbstractEventHandler<
+        | React.MouseEvent<HTMLDivElement>
+        | React.KeyboardEvent<HTMLDivElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+    >;
+    rel?: 'none' | 'nofollow';
+    role?: 'button' | 'link';
     rounding?: 'pill' | 'circule' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    tabIndex?: -1 | 0;
+    tapStyle?: 'none' | 'compress';
+    target?: null | 'self' | 'blank';
+    onNavigationOptions?: OnNavigationOptionsType;
 }
 
-/*
-Text Props Interface
-https://gestalt.netlify.app/Text
-*/
-
+/**
+ * Text Props Interface
+ * https://gestalt.netlify.app/Text
+ */
 export interface TextProps {
     align?: 'left' | 'right' | 'center' | 'justify';
     children?: React.ReactNode;
@@ -1027,17 +1273,16 @@ export interface TextProps {
         | 'white';
     inline?: boolean;
     italic?: boolean;
-    overflow?: 'normal' | 'breakWord';
+    overflow?: 'normal' | 'breakWord' | 'noWrap';
     size?: 'sm' | 'md' | 'lg';
     truncate?: boolean;
     weight?: 'bold' | 'normal';
 }
 
-/*
-TextArea Interface Props
-https://gestalt.netlify.app/TextArea
-*/
-
+/**
+ * TextArea Props Interface
+ * https://gestalt.netlify.app/TextArea
+ */
 export interface TextAreaProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
@@ -1050,21 +1295,34 @@ export interface TextAreaProps {
     onFocus?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     placeholder?: string;
+    /**
+     * Number of text rows to display.
+     * Note that tags take up more space, and will show fewer rows than specified.
+     */
     rows?: number;
+    /**
+     * List of tags to display in the component
+     */
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
     value?: string;
 }
 
-/*
-TextField Interface Props
-https://gestalt.netlify.app/TextField
-*/
-
+/**
+ * TextField Props Interface
+ * https://gestalt.netlify.app/TextField
+ */
 export interface TextFieldProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
     autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password';
+    /**
+     * @default false
+     */
     disabled?: boolean;
     errorMessage?: string;
+    /**
+     * More information about how to complete the form field
+     */
     helperText?: string;
     label?: string;
     name?: string;
@@ -1072,43 +1330,52 @@ export interface TextFieldProps {
     onFocus?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void;
     placeholder?: string;
-    ref?: React.Ref<'input'>;
+    /**
+     * md: 40px, lg: 48px
+     *
+     * @default "md"
+     */
     size?: 'md' | 'lg';
+    /**
+     * List of tags to display in the component
+     */
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
+    /**
+     * @default "text"
+     */
     type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url';
     value?: string;
 }
 
-/*
-Toast Interface Props
-https://gestalt.netlify.app/Toast
-*/
-
+/**
+ * Toast Props Interface
+ * https://gestalt.netlify.app/Toast
+ */
 export interface ToastProps {
     button?: React.ReactNode;
-    color?: 'darkGray' | 'red';
-    text?: string | React.ReactElement;
+    color?: 'white' | 'red';
+    text?: string | React.ReactNode;
     thumbnail?: React.ReactNode;
     thumbnailShape?: 'circle' | 'rectangle' | 'square';
 }
 
-/*
-Tooltip Interface Props
-https://gestalt.netlify.app/Tooltip
-*/
-
+/**
+ * Tooltip Props Interface
+ * https://gestalt.netlify.app/Tooltip
+ */
 export interface TooltipProps {
     children: React.ReactNode;
     text: string;
-    idealDirection?: 'up' | 'right' | 'down' | 'left';
+    idealDirection?: FourDirections;
     inline?: boolean;
     link?: React.ReactNode;
+    zIndex?: Indexable;
 }
 
-/*
-Typeahead Interface Props
-https://gestalt.netlify.app/Typeahead
-*/
-
+/**
+ * Typeahead Props Interface
+ * https://gestalt.netlify.app/Typeahead
+ */
 export interface TypeaheadProps {
     id: string;
     noResultText: string;
@@ -1134,16 +1401,54 @@ export interface TypeaheadProps {
             | undefined;
     }) => void;
     placeholder?: string;
-    ref?: React.Ref<'input'>;
     size?: 'md' | 'lg';
+    /**
+     * List of tags to display in the component
+     */
+    tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>>;
     value?: string;
+    zIndex?: Indexable;
 }
 
-/*
-Video Props Interface
-https://gestalt.netlify.app/Video
-*/
+/**
+ * Upsell Props Interface
+ * https://gestalt.netlify.app/Upsell
+ */
+export interface UpsellProps {
+    message: string;
+    dismissButton?: {
+        accessibilityLabel: string;
+        onDismiss: () => void;
+    };
+    imageData?: {
+        component: React.ReactElement<any, typeof Image | typeof Icon>;
+        width?: number;
+        mask?: {
+            rounding: 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+            wash: boolean;
+        };
+    };
+    primaryAction?: ActionData;
+    secondaryAction?: ActionData;
+    title?: string;
+}
 
+export interface UpsellFormProps {
+    onSubmit: AbstractEventHandler<
+        | React.MouseEvent<HTMLButtonElement>
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+    >;
+    submitButtonText: string;
+    submitButtonAccessibilityLabel: string;
+    submitButtonDisabled?: boolean;
+}
+
+/**
+ * Video Props Interface
+ * https://gestalt.netlify.app/Video
+ */
 export interface VideoProps {
     accessibilityMaximizeLabel?: string;
     accessibilityMinimizeLabel?: string;
@@ -1162,6 +1467,7 @@ export interface VideoProps {
     controls?: boolean;
     crossOrigin?: 'anonymous' | 'use-credentials';
     loop?: boolean;
+    objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
     onDurationChange?: (args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void;
     onEnded?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>>;
     onFullscreenChange?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>, { fullscreen: boolean }>;
@@ -1179,40 +1485,76 @@ export interface VideoProps {
     poster?: string;
 }
 
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#zindex
+ */
+export interface Indexable {
+    index(): number;
+}
+
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#FixedZIndex
+ */
+export class FixedZIndex implements Indexable {
+    z: number;
+    constructor(z: number);
+    index(): number;
+}
+
+/**
+ * https://gestalt.netlify.app/ZIndexClasses#CompositeZIndex
+ */
+export class CompositeZIndex implements Indexable {
+    deps: Array<FixedZIndex | CompositeZIndex>;
+    constructor(deps: Array<FixedZIndex | CompositeZIndex>);
+    index(): number;
+}
+
+export class ActivationCard extends React.Component<ActivationCardProps, any> {}
 export class Avatar extends React.Component<AvatarProps, any> {}
 export class AvatarPair extends React.Component<AvatarPairProps, any> {}
 export class Badge extends React.Component<BadgeProps, any> {}
-export class Box extends React.Component<BoxProps, any> {}
-export class Button extends React.Component<ButtonProps, any> {}
+export const Box: ReactForwardRef<HTMLDivElement, BoxProps>;
+export const Button: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>;
 export class ButtonGroup extends React.Component<ButtonGroupProps, any> {}
 export class Callout extends React.Component<CalloutProps, any> {}
 export class Card extends React.Component<CardProps, any> {}
-export class Checkbox extends React.Component<CheckboxProps, any> {}
+export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
 export class Collage extends React.Component<CollageProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
+export class ScrollBoundaryContainer extends React.Component<ScrollBoundaryContainerProps, any> {}
 export class Divider extends React.Component<{}, any> {}
-export class Flyout extends React.Component<FlyoutProps, any> {}
+export class Dropdown extends React.Component<DropdownProps, any> {
+    static Item: React.FC<DropdownItemProps>;
+    static Section: React.FC<DropdownSectionProps>;
+}
+export class Flex extends React.Component<FlexProps, any> {}
 export class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
 export class Heading extends React.Component<HeaderProps, any> {}
 export class Icon extends React.Component<IconProps, any> {}
-export class IconButton extends React.Component<IconButtonProps, any> {}
+export const IconButton: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, IconButtonProps>;
 export class Image extends React.Component<ImageProps, any> {}
 export class Label extends React.Component<LabelProps, any> {}
 export class Layer extends React.Component<LayerProps, any> {}
 export class Letterbox extends React.Component<LetterboxProps, any> {}
-export class Link extends React.Component<LinkProps, any> {}
+export const Link: ReactForwardRef<HTMLAnchorElement, LinkProps>;
 export class Mask extends React.Component<MaskProps, any> {}
 export class Masonry extends React.Component<MasonryProps, any> {}
-export class Modal extends React.Component<ModalProps, any> {}
+export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
+export class Module extends React.Component<ModuleProps, any> {
+    static Expandable: React.FC<ModuleExpandableProps>;
+}
 export class Pog extends React.Component<PogProps, any> {}
+export class Popover extends React.Component<PopoverProps, any> {}
 export class Provider extends React.Component<ProviderProps, any> {}
 export class Pulsar extends React.Component<PulsarProps, any> {}
-export class RadioButton extends React.Component<RadioButtonProps, any> {}
+export const RadioButton: ReactForwardRef<HTMLInputElement, RadioButtonProps>;
 export class Row extends React.Component<RowProps, any> {}
-export class SearchField extends React.Component<SearchFieldProps, any> {}
+export const SearchField: ReactForwardRef<HTMLInputElement, SearchFieldProps>;
 export class SegmentedControl extends React.Component<SegmentedControlProps, any> {}
 export class SelectList extends React.Component<SelectListProps, any> {}
+export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
 export class Spinner extends React.Component<SpinnerProps, any> {}
 export class Stack extends React.Component<StackProps, any> {}
 export class Sticky extends React.Component<StickyProps, any> {}
@@ -1224,14 +1566,22 @@ export class Table extends React.Component<TableProps, any> {
     static Header: React.FC<TableHeaderProps>;
     static HeaderCell: React.FC<TableHeaderCellProps>;
     static Row: React.FC<TableRowProps>;
+    static RowExpandable: React.FC<TableRowExpandableProps>;
     static SortableHeaderCell: React.FC<TableSortableHeaderCellProps>;
 }
 export class Tabs extends React.Component<TabsProps, any> {}
-export class TapArea extends React.Component<TapAreaProps, any> {}
+export class Tag extends React.Component<TagProps, any> {}
+export const TapArea: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, TapAreaProps>;
 export class Text extends React.Component<TextProps, any> {}
-export class TextArea extends React.Component<TextAreaProps, any> {}
-export class TextField extends React.Component<TextFieldProps, any> {}
+export const TextArea: ReactForwardRef<HTMLTextAreaElement, TextAreaProps>;
+export const TextField: ReactForwardRef<HTMLInputElement, TextFieldProps>;
 export class Toast extends React.Component<ToastProps, any> {}
 export class Tooltip extends React.Component<TooltipProps, any> {}
-export class Typeahead extends React.Component<TypeaheadProps, any> {}
+export const Typeahead: ReactForwardRef<HTMLInputElement, TypeaheadProps>;
+export class Upsell extends React.Component<UpsellProps, any> {
+    static Form: React.FC<UpsellFormProps>;
+}
 export class Video extends React.Component<VideoProps, any> {}
+
+export function useReducedMotion(): boolean;
+export function useFocusVisible(): { isFocusVisible: boolean };

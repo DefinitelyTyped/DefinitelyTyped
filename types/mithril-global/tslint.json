@@ -2,10 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "no-reference-import": false,
-        "quotemark": [
-            false,
-            "double"
-        ],
         "semicolon": false,
         "strict-export-declare-modifiers": false
     }

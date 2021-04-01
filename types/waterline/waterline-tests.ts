@@ -37,7 +37,7 @@ const config: Waterline.Config = {
     adapters: {
         memory: {},
     },
-    connections: {
+    datastores: {
         default: {
             adapter: 'memory',
         },
@@ -286,6 +286,8 @@ User.findOrCreate({ name: 'Walter Jr' }, {}, (err, user) => {}).exec((err, users
 User.update({ name: 'Walter Jr' }, { name: 'Flynn' }, (err, value) => {}).exec((err, users) => {});
 // .destroy( criteria , [callback] )
 User.destroy({ name: 'Flynn' }, (err, value) => {}).exec(err => {});
+// .destroyOne( criteria , [callback] )
+User.destroyOne({ name: 'Flynn' }, (err, value) => {}).exec(err => {});
 // .query( query, [data], callback )
 const Movie: Waterline.Model = {} as any;
 const title = 'The Speech';

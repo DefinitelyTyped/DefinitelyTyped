@@ -1,5 +1,5 @@
-import { ComponentClass, KeyboardEvent, ReactElement, ReactType } from 'react';
-import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
+import { ComponentClass, KeyboardEvent, ReactElement, ReactType } from "react";
+import { ReactWidgetsCommonDropdownProps, AutoFocus } from "./CommonProps";
 
 declare namespace DateTimePicker {
     type Open = false | "date" | "time";
@@ -88,7 +88,7 @@ declare namespace DateTimePicker {
          * parsing yourself. When parse is unspecified and the format prop is a String parse will
          * automatically use that format as its default
          */
-        parse?: ((str: string) => Date) | string[] | string;
+        parse?: ((str: string) => Date | undefined) | string[] | string;
         /**
          * The starting and lowest level view the calendar can navigate down to.
          */

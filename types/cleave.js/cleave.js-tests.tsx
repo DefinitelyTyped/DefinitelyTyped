@@ -18,6 +18,7 @@ const ExampleElement1 = () => {
     const cleave = new Cleave(input, { date: true });
     cleave.setRawValue("2001/01/01");
     const formattedDate: string = cleave.getISOFormatDate();
+    cleave.properties.result; // $ExpectType string
     cleave.destroy();
 };
 

@@ -4,6 +4,15 @@ import imageminSvgo = require('imagemin-svgo');
 imagemin(['*.svg'], {
     plugins: [
         imageminSvgo(),
-        imageminSvgo({ floatPrecision: 2 })
-    ]
+        imageminSvgo({}),
+        imageminSvgo({
+            floatPrecision: 2,
+            plugins: [
+                {
+                    removeViewBox: false,
+                },
+            ],
+            multipass: false,
+        }),
+    ],
 });

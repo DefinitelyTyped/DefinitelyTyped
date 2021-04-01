@@ -1,6 +1,6 @@
-import * as p from "process";
-import { ok } from "assert";
-import { EventEmitter } from "events";
+import * as p from 'node:process';
+import assert = require('node:assert');
+import EventEmitter = require('node:events');
 
 {
     let eventEmitter: EventEmitter;
@@ -10,7 +10,7 @@ import { EventEmitter } from "events";
     _p = p;
 }
 {
-    ok(process.argv[0] === process.argv0);
+    assert.ok(process.argv[0] === process.argv0);
 }
 {
     process.on("message", (req: any) => { });
@@ -20,7 +20,6 @@ import { EventEmitter } from "events";
     process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
     process.on("uncaughtException", (error: Error) => { });
     process.once("uncaughtExceptionMonitor", (error: Error) => { });
-    // tslint:disable-next-line: no-null-undefined-union
     process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
     process.once("warning", (warning: Error) => { });
     process.prependListener("message", (message: any, sendHandle: any) => { });
@@ -84,4 +83,13 @@ import { EventEmitter } from "events";
     let strDict: NodeJS.Dict<string>;
     strDict = process.versions;
     strDict = p.versions;
+}
+{
+    process.traceDeprecation = true;
+}
+
+{
+    function abortNeverReturns() {
+        process.abort(); // $ExpectType never
+    }
 }

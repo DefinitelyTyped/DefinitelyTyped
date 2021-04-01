@@ -16,6 +16,9 @@ tokenizer = new natural.WordPunctTokenizer();
 console.log(tokenizer.tokenize("my dog hasn't any fleas."));
 // [ 'my',  'dog',  'hasn',  '\'',  't',  'any',  'fleas',  '.' ]
 
+tokenizer = new natural.SentenceTokenizer();
+console.log(tokenizer.tokenize('One sentence. Another sentence.'));
+
 // String Distance
 console.log(natural.JaroWinklerDistance('dixon', 'dicksonx'));
 console.log(natural.JaroWinklerDistance('not', 'same'));

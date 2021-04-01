@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-// Last module version validated against: 1.2.2
+// Last module version validated against: 1.2.4
 
 export interface require {
     (name: string, ...names: string[]): Promise<any>;

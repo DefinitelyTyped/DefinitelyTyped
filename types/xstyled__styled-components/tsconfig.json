@@ -17,7 +17,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@xstyled/styled-components": ["xstyled__styled-components"]
+            "@xstyled/*": ["xstyled__*"]
         }
     },
     "files": [

@@ -27,7 +27,6 @@ assert['fail'](true, true, 'works like a charm');
 }
 
 {
-    // tslint:disable-next-line: no-null-undefined-union
     const a = 13 as number | null | undefined;
     assert(a);
     a; // $ExpectType number
@@ -40,7 +39,6 @@ assert['fail'](true, true, 'works like a charm');
 }
 
 {
-    // tslint:disable-next-line: no-null-undefined-union
     const a = 13 as number | null | undefined;
     assert.ok(a);
     a; // $ExpectType number
@@ -53,11 +51,21 @@ assert['fail'](true, true, 'works like a charm');
 }
 
 {
+    const a = 'test' as any;
+    assert.strict.equal(a, 'test');
+    a; // $ExpectType string
+}
+
+{
     const a = { b: 2 } as any;
     assert.deepStrictEqual(a, { b: 2 });
     a; // $ExpectType { b: number; }
 }
 
-assert.strict; // $ExpectType typeof assert
+{
+    const a = { b: 2 } as any;
+    assert.strict.deepEqual(a, { b: 2 });
+    a; // $ExpectType { b: number; }
+}
 
 assert.fail(); // $ExpectType never
