@@ -1,4 +1,4 @@
-// Type definitions for gestalt 20.2
+// Type definitions for gestalt 20.3
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -894,6 +894,18 @@ export interface ModuleExpandableProps {
 }
 
 /**
+ * PageHeader Props Interface
+ * https://gestalt.netlify.app/PageHeader
+ */
+export interface PageHeaderProps {
+    title: string;
+    maxWidth?: number | string;
+    primaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip>;
+    secondaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip>;
+    subtext?: string;
+}
+
+/**
  * Pog Props Interface
  * https://gestalt.netlify.app/Pog
  */
@@ -1545,6 +1557,7 @@ export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
 export class Module extends React.Component<ModuleProps, any> {
     static Expandable: React.FC<ModuleExpandableProps>;
 }
+export class PageHeader extends React.Component<PageHeaderProps, any> {}
 export class Pog extends React.Component<PogProps, any> {}
 export class Popover extends React.Component<PopoverProps, any> {}
 export class Provider extends React.Component<ProviderProps, any> {}
