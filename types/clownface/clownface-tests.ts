@@ -228,6 +228,12 @@ function testFilter() {
     }
 
     const typeGuarded: clownface.AnyPointer<Variable, Dataset> = anyPointer.filter(onlyVariables);
+
+    function onlyNamedOrBlank(ptr: clownface.GraphPointer): ptr is clownface.GraphPointer<NamedNode> | clownface.GraphPointer<BlankNode> {
+        return true;
+    }
+
+    const multipleTypeGuarded: clownface.AnyPointer<NamedNode | BlankNode, Dataset> = anyPointer.filter<NamedNode | BlankNode>(onlyNamedOrBlank);
 }
 
 function testForEach() {
