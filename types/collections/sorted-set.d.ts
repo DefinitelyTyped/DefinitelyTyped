@@ -74,14 +74,22 @@ declare namespace internal {
         getNext(): Node<T> | undefined;
         getPrevious(): Node<T> | undefined;
         log(charmap: object, logNode: Function, log: Function, logAbove: Function): void;
-        reduce(
-            cb: (result: any, val: any, key: any, collection: any) => any,
-            basis: any,
+        reduce<U>(
+            callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
+            initialValue: U,
             index: number,
-            thisp: any,
-            tree: any,
-            depth: number,
-        ): any;
+            thisArg: any,
+            tree: SortedSet<T>,
+            depth?: number,
+        ): U;
+        reduceRight<U>(
+            callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
+            initialValue: U,
+            index: number,
+            thisArg: any,
+            tree: SortedSet<T>,
+            depth?: number,
+        ): U;
         summary(): string;
         touch(): void;
     }
@@ -124,8 +132,16 @@ declare namespace internal {
         splay(value: T): void;
         splayIndex(index: number): boolean;
 
-        reduce(callback: (result: any, val: any, key: any, collection: any) => any, basis?: any, thisp?: any): any;
-        reduceRight(callback: (result: any, val: any, key: any, collection: any) => any, basis?: any, thisp?: any): any;
+        reduce<U>(
+            callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
+            initialValue?: U,
+            thisArg?: any,
+        ): U;
+        reduceRight<U>(
+            callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
+            initialValue?: U,
+            thisArg?: any,
+        ): U;
 
         iterate(start: number, stop: number): Iterator<T>;
     }
