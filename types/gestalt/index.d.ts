@@ -1009,6 +1009,7 @@ export interface SearchFieldProps {
     errorMessage?: string;
     onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
     onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
+    onKeyDown?: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
     placeholder?: string;
     size?: 'md' | 'lg';
     value?: string;
