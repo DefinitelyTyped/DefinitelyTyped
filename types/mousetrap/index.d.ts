@@ -32,6 +32,10 @@ declare namespace Mousetrap {
             callback: (e: ExtendedKeyboardEvent, combo: string) => any,
             action?: string,
         ): void;
+
+        /** https://craig.is/killing/mice#extensions.pause */
+        pause(): MousetrapInstance;
+        unpause(): MousetrapInstance;
     }
 
     interface MousetrapInstance {
@@ -45,6 +49,10 @@ declare namespace Mousetrap {
         trigger(keys: string, action?: string): this;
         handleKey(character: string, modifiers: string[], e: ExtendedKeyboardEvent): void;
         reset(): this;
+
+        /** https://craig.is/killing/mice#extensions.pause */
+        pause(): this;
+        unpause(): this;
     }
 }
 
