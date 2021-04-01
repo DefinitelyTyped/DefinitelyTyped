@@ -45,7 +45,7 @@ export {
  * Should prefer using interface defined in ./hooks.js
  */
 export { ConnectionHandler } from 'relay-runtime';
-interface QueryRendererProps<TOperation extends OperationType> {
+export interface QueryRendererProps<TOperation extends OperationType> {
     environment: IEnvironment;
     query: GraphQLTaggedNode | null | undefined;
     render: (renderProps: {
