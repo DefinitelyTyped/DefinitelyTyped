@@ -57,26 +57,33 @@ declare namespace internal {
     }
 
     class Node<T> {
-        value: T;
+        readonly value: T;
+        readonly left: Node<T>;
+        readonly right: Node<T>;
+        readonly length: number;
 
+        constructor(value: T);
+
+        checkIntegrity(): number;
+        getNext(): Node<T> | undefined;
+        getPrevious(): Node<T> | undefined;
+        log(charmap: object, logNode: Function, log: Function, logAbove: Function): void;
         reduce(
-            cb: (result?: any, val?: any, key?: any, collection?: any) => any,
+            cb: (result: any, val: any, key: any, collection: any) => any,
             basis: any,
             index: number,
             thisp: any,
             tree: any,
             depth: number,
         ): any;
-        touch(...plus: any[]): void;
-        checkIntegrity(...plus: any[]): number;
-        getNext(...plus: any[]): Node<T> | undefined;
-        getPrevious(...plus: any[]): Node<T> | undefined;
-        summary(...plus: any[]): string;
-        log(charmap: any, logNode: any, log: any, logAbove: any): any;
+        summary(): string;
+        touch(): void;
     }
 
     class Iterator<T> {
-        next(): { done: true; value: T | null | undefined };
+        constructor(set: any, start: any, end: any);
+
+        next(): { done: boolean; value: T | null | undefined };
     }
 
     class SortedSet<T> extends AbstractSet {
@@ -117,12 +124,8 @@ declare namespace internal {
         splay(value: T): void;
         splayIndex(index: number): boolean;
 
-        reduce(callback: (result?: any, val?: any, key?: any, collection?: any) => any, basis?: any, thisp?: any): any;
-        reduceRight(
-            callback: (result?: any, val?: any, key?: any, collection?: any) => any,
-            basis?: any,
-            thisp?: any,
-        ): any;
+        reduce(callback: (result: any, val: any, key: any, collection: any) => any, basis?: any, thisp?: any): any;
+        reduceRight(callback: (result: any, val: any, key: any, collection: any) => any, basis?: any, thisp?: any): any;
 
         iterate(start: number, stop: number): Iterator<T>;
     }
