@@ -509,3 +509,8 @@ class MyDay extends Day {
         return date.toString();
     }
 }
+
+// Using backgroundEvents
+{
+    ReactDOM.render(<Calendar backgroundEvents={getEvents()} localizer={momentLocalizer(moment)} />, document.body);
+}
