@@ -333,13 +333,16 @@ client.signin('credentials', { data: 'foo', redirect: false });
 client.signin('email', { data: 'foo', redirect: false });
 
 // $ExpectType Promise<void>
-client.signin('github', { data: 'foo', redirect: false }, { login: 'username' });
+client.signin('github', { data: 'foo' }, { login: 'username' });
+
+// $ExpectType Promise<void>
+client.signin('github', { data: 'foo' });
 
 // $ExpectType Promise<void>
 client.signin('email', { data: 'foo', redirect: true });
 
 // $ExpectType Promise<void>
-client.signin('github', { data: 'foo' });
+client.signin('email', { data: 'foo' });
 
 // $ExpectType Promise<SignOutResponse>
 client.signout({ callbackUrl: 'https://foo.com/callback', redirect: false });

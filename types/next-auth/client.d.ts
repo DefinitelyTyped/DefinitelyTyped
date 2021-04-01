@@ -50,21 +50,29 @@ declare function signin(
     provider: 'credentials' | 'email',
     data: Record<string, unknown> & {
         callbackUrl?: string;
-        redirect: false;
+        redirect?: true;
     },
     authorizationParams?: string | string[][] | Record<string, unknown> | URLSearchParams
-  ): Promise<SignInResponse>;
+  ): Promise<void>;
 declare function signin(
-    provider?: string,
+    provider: 'credentials' | 'email',
+    data: Record<string, unknown> & {
+        callbackUrl?: string;
+        redirect: boolean;
+    },
+    authorizationParams?: string | string[][] | Record<string, unknown> | URLSearchParams
+): Promise<SignInResponse>;
+declare function signin(
+    provider?: Omit<string, 'credentials' | 'email'>,
     data?: Record<string, unknown> & {
         callbackUrl?: string;
-        redirect?: boolean;
+        redirect?: true;
     },
     authorizationParams?: string | string[][] | Record<string, unknown> | URLSearchParams
 ): Promise<void>;
 declare const signIn: typeof signin;
-declare function signout(data: { callbackUrl?: string, redirect: false }): Promise<SignOutResponse>;
-declare function signout(data?: { callbackUrl?: string, redirect?: boolean }): Promise<void>;
+declare function signout(data: { callbackUrl?: string, redirect: boolean }): Promise<SignOutResponse>;
+declare function signout(data?: { callbackUrl?: string, redirect?: true }): Promise<void>;
 declare const signOut: typeof signout;
 declare function options(options: SetOptionsParams): void;
 declare const setOptions: typeof options;
