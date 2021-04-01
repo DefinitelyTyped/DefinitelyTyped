@@ -56,6 +56,12 @@ declare namespace internal {
         makePropertyObservable(...plus: any[]): any;
     }
 
+    class Iterator<T> {
+        constructor(set: any, start: any, end: any);
+
+        next(): { done: boolean; value: T | null | undefined };
+    }
+
     class Node<T> {
         readonly value: T;
         readonly left: Node<T>;
@@ -80,21 +86,15 @@ declare namespace internal {
         touch(): void;
     }
 
-    class Iterator<T> {
-        constructor(set: any, start: any, end: any);
-
-        next(): { done: boolean; value: T | null | undefined };
-    }
-
     class SortedSet<T> extends AbstractSet {
-        length: number;
+        readonly length: number;
 
         constructor(values?: T[], equals?: (a: T, b: T) => boolean, compare?: (a: T, b: T) => number, getDefault?: any);
         constructClone(values?: T[]): SortedSet<T>;
 
         add(value: T): boolean;
         clear(): void;
-        ["delete"](value: T): boolean;
+        delete(value: T): boolean;
 
         find(value: T): Node<T> | undefined;
         findGreatest(n?: Node<T>): Node<T> | undefined;
@@ -112,14 +112,14 @@ declare namespace internal {
         indexOf(value: T): number;
 
         pop(): T | undefined;
-        push(...rest: T[]): void;
+        push(...values: T[]): void;
 
         shift(): T | undefined;
-        unshift(...rest: T[]): void;
+        unshift(...values: T[]): void;
 
         slice(start?: number, end?: number): T[];
-        splice(start: Node<T>, length: number, ...values: T[]): T[];
-        swap(start: number, length: number, values?: T[]): T[];
+        splice(start: number, length: number, ...values: T[]): T[];
+        swap(start: number, length: number, ...values: T[]): T[];
 
         splay(value: T): void;
         splayIndex(index: number): boolean;
