@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "aws-sdk": "^2.865.0",
+        "dynamodb-lock-client": "^0.7.2"
+    }
+}
