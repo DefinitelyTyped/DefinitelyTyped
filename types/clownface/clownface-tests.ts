@@ -221,6 +221,13 @@ function testFilter() {
         const copy: never = quad;
         return true;
     });
+    
+    const anyPointer: clownface.AnyPointer<AnyContext, Dataset> = <any> {};
+    function onlyVariables(ptr: clownface.GraphPointer): ptr is clownface.GraphPointer<Variable> {
+        return true
+    }
+    
+    const typeGuarded: AnyPointer<Variable, Dataset> = anyPointer.filter(onlyVariables);
 }
 
 function testForEach() {
