@@ -16,6 +16,7 @@ declare namespace Gtag {
             eventParams?: ControlParams | EventParams | CustomParams,
         ): void;
         (command: "get", targetId: string, fieldName: FieldNames | string, callback?: (field: string) => any): void;
+        (command: "consent", consentArg: ConsentArg | string, consentParams: ConsentParams): void;
     }
 
     interface CustomParams {
@@ -99,4 +100,12 @@ declare namespace Gtag {
     }
 
     type FieldNames = "client_id" | "session_id" | "gclid";
+
+    type ConsentArg = "default" | "update";
+    interface ConsentParams {
+        ad_storage?: "granted" | "denied";
+        analytics_storage?: "allowed" | "denied";
+        wait_for_update?: number;
+        region?: string[];
+    }
 }
