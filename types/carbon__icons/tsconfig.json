@@ -15,5 +15,5 @@
           "@carbon/*": ["carbon__*"]
       }
   },
-  "files": ["index.d.ts", "carbon__icons-tests.ts"]
+  "files": ["index.d.ts", "metadata.d.ts", "carbon__icons-tests.ts"]
 }
