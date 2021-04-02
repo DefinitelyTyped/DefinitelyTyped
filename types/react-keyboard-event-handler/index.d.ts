@@ -5,15 +5,23 @@
 
 import * as React from "react";
 
-export interface KeyboardEventHandlerProps {
-    handleKeys?: readonly string[];
-    handleEventType?: "keydown" | "keyup" | "keypress";
-    handleFocusableElements?: boolean;
-    onKeyEvent?: (key: string, event: KeyboardEvent) => void;
-    isDisabled?: boolean;
-    isExclusive?: boolean;
-    children?: React.ReactNode;
+declare namespace KeyboardEventHandler {
+    interface KeyboardEventHandlerProps {
+        handleKeys?: readonly string[];
+        handleEventType?: "keydown" | "keyup" | "keypress";
+        handleFocusableElements?: boolean;
+        onKeyEvent?: (key: string, event: KeyboardEvent) => void;
+        isDisabled?: boolean;
+        isExclusive?: boolean;
+        children?: React.ReactNode;
+    }
 }
 
-declare const KeyboardEventHandler: React.SFC<KeyboardEventHandlerProps>;
-export default KeyboardEventHandler;
+type KeyboardEventHandler = React.SFC<KeyboardEventHandler.KeyboardEventHandlerProps>;
+
+declare const KeyboardEventHandler: KeyboardEventHandler & {
+    default: KeyboardEventHandler;
+};
+
+export = KeyboardEventHandler;
+export as namespace KeyboardEventHandler;
