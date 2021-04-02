@@ -393,6 +393,11 @@ new Tagify(inputElement, { mixTagsInterpolator: ["", "", ""] });
 // $ExpectError
 new Tagify(inputElement, { mixTagsInterpolator: [""] });
 
+new Tagify<TagData>(inputElement, { tagTextProp: "foobar" });
+new Tagify<MyTagData>(inputElement, { tagTextProp: "active" });
+// $ExpectError
+new Tagify<MyTagData>(inputElement, { tagTextProp: "foobar" });
+
 const tagArray: TagData[] = tagify.value;
 const scopeEl: HTMLElement = tagify.DOM.scope;
 const spanEl: HTMLSpanElement = tagify.DOM.input;
@@ -895,10 +900,10 @@ tagify.dropdown.refilter.call(this, "filter value");
 
 tagify.removeAllTags();
 tagify.removeAllTags({});
-tagify.removeAllTags({withoutChangeEvent: false});
-tagify.removeAllTags({withoutChangeEvent: true});
+tagify.removeAllTags({ withoutChangeEvent: false });
+tagify.removeAllTags({ withoutChangeEvent: true });
 tagify.getCleanValue();
 tagify.update();
 tagify.update({});
-tagify.update({withoutChangeEvent: true});
+tagify.update({ withoutChangeEvent: true });
 tagify.destroy();
