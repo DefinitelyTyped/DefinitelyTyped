@@ -10,14 +10,19 @@
 
 /// <reference types="node" />
 
-import { ConnectionOptions } from 'typeorm';
-import { Adapter } from './adapters';
-import { JWTEncodeParams, JWTDecodeParams, JWTOptions, JWT } from './jwt';
-import { AppProvider, Providers } from './providers';
-import { NextApiRequest, NextApiResponse, NextApiHandler } from './_next';
-import { NonNullParams, WithAdditionalParams } from './_utils';
+import { ConnectionOptions } from "typeorm";
+import { Adapter, Profile, VerificationRequest, Session as DBSession } from "./adapters";
+import { JWTEncodeParams, JWTDecodeParams, JWTOptions, JWT } from "./jwt";
+import { AppProvider, Providers } from "./providers";
+import { NextApiRequest, NextApiResponse, NextApiHandler } from "./_next";
+import { NonNullParams, WithAdditionalParams } from "./_utils";
 
-export interface NextAuthOptions {
+export interface NextAuthOptions<
+    TUser extends User = any,
+    TProfile extends Profile = any,
+    TSession extends DBSession = any,
+    TVerificationRequest extends VerificationRequest = any
+> {
     providers: Providers;
     database?: string | Record<string, any> | ConnectionOptions;
     secret?: string;
@@ -26,12 +31,12 @@ export interface NextAuthOptions {
     pages?: PagesOptions;
     callbacks?: CallbacksOptions;
     debug?: boolean;
-    adapter?: Adapter;
-    events?: EventsOptions;
+    adapter?: Adapter<TUser, TProfile, TSession, TVerificationRequest>;
+    events?: Partial<JWTEventOptions<TUser> | SessionEventsOptions<TUser, TSession>>;
     useSecureCookies?: boolean;
     cookies?: CookiesOptions;
     logger?: LoggerInstance;
-    theme?: 'light' | 'dark' | 'auto';
+    theme?: "light" | "dark" | "auto";
 }
 
 export interface LoggerInstance {
@@ -40,40 +45,50 @@ export interface LoggerInstance {
     debug: (code?: string, ...message: unknown[]) => void;
 }
 
-interface InternalOptions extends Omit<NextAuthOptions, 'providers' | 'database' | 'session' | 'useSecureCookie'> {
+interface InternalOptions extends Omit<NextAuthOptions, "providers" | "database" | "session" | "useSecureCookie"> {
     pkce: {
-        code_verifier?: string
-        code_challenge_method?: 'S256'
+        code_verifier?: string;
+        code_challenge_method?: "S256";
     };
     provider?: string;
     baseUrl?: string;
     basePath?: string;
-    action?: 'providers' | 'session' | 'csrf' | 'signin' | 'signout' | 'callback' | 'verify-request' | 'error';
+    action?: "providers" | "session" | "csrf" | "signin" | "signout" | "callback" | "verify-request" | "error";
     csrfToken?: string;
 }
 
-export interface AppOptions extends Omit<NextApiRequest, 'cookies'>, NonNullParams<InternalOptions> {
+export interface AppOptions extends Omit<NextApiRequest, "cookies">, NonNullParams<InternalOptions> {
     providers: AppProvider[];
 }
 
 export interface CallbacksOptions {
     signIn?:
         | (() => true)
-        | ((user: User, account: Record<string, unknown>, profile: Record<string, unknown>) => Promise<never | string | boolean>);
-    redirect?: ((url: string, baseUrl: string) => Promise<string>);
+        | ((
+              user: User,
+              account: Record<string, unknown>,
+              profile: Record<string, unknown>,
+          ) => Promise<never | string | boolean>);
+    redirect?: (url: string, baseUrl: string) => Promise<string>;
     session?:
         | ((session: Session) => WithAdditionalParams<Session>)
         | ((session: Session, userOrToken: User | JWT) => Promise<WithAdditionalParams<Session>>);
     jwt?:
         | ((token: JWT) => WithAdditionalParams<JWT>)
-        | ((token: JWT, user: User, account: Record<string, unknown>, profile: Record<string, unknown>, isNewUser: boolean) => Promise<WithAdditionalParams<JWT>>);
+        | ((
+              token: JWT,
+              user: User,
+              account: Record<string, unknown>,
+              profile: Record<string, unknown>,
+              isNewUser: boolean,
+          ) => Promise<WithAdditionalParams<JWT>>);
 }
 
 export interface CookieOption {
     name: string;
     options: {
         httpOnly: boolean;
-        sameSite: true | 'strict' | 'lax' | 'none';
+        sameSite: true | "strict" | "lax" | "none";
         path?: string;
         secure: boolean;
         maxAge?: number;
@@ -88,18 +103,54 @@ export interface CookiesOptions {
     pkceCodeVerifier?: CookieOption;
 }
 
-export type EventType=
-    | 'signIn'
-    | 'signOut'
-    | 'createUser'
-    | 'updateUser'
-    | 'linkAccount'
-    | 'session'
-    | 'error';
+export type EventCallback<MessageType = any> = (message: MessageType) => Promise<void>;
 
-export type EventCallback = (message: any) => Promise<void>;
+export type SessionEventMessage = {
+    session: WithAdditionalParams<Session>;
+    jwt?: JWT;
+};
 
-export type EventsOptions = Partial<Record<EventType, EventCallback>>;
+// If using a `credentials` type auth the user is the raw response from your
+// credential provider.
+// For other providers, you'll get the hydrated User object, the account,
+// and an indicator if the user was new to your Adapter.
+export type SignInEventMessage<TUser> = {
+    user: TUser | unknown;
+    account: Record<string, unknown>;
+    isNewUser?: boolean;
+};
+
+export type LinkAccountEventMessage<TUser> = {
+    user: TUser;
+    providerAccount: Record<string, unknown>;
+};
+
+export interface EventOptions<TUser> {
+    signIn: EventCallback<SignInEventMessage<TUser>>;
+    signOut: EventCallback;
+    createUser: EventCallback<TUser>;
+    updateUser: EventCallback<TUser>;
+    linkAccount: EventCallback<LinkAccountEventMessage<TUser>>;
+    session: EventCallback;
+    error: EventCallback;
+}
+
+export interface JWTEventOptions<TUser> extends EventOptions<TUser> {
+    signOut: EventCallback<WithAdditionalParams<JWT>>;
+    session: EventCallback<{
+        session: WithAdditionalParams<Session>;
+        jwt: JWT;
+    }>;
+}
+
+export interface SessionEventsOptions<TUser, TAdapterSession> extends EventOptions<TUser> {
+    signOut: EventCallback<TAdapterSession | null>;
+    session: EventCallback<{
+        session: WithAdditionalParams<Session>;
+    }>;
+}
+
+export type EventType = keyof EventOptions<any>;
 
 export interface PagesOptions {
     signIn?: string;
@@ -128,12 +179,20 @@ export interface User {
 }
 
 export interface NextAuthRequest extends NextApiRequest {
-  options: InternalOptions;
+    options: InternalOptions;
 }
 export type NextAuthResponse = NextApiResponse;
 
-declare function NextAuthHandler(req: NextApiRequest, res: NextApiResponse, options?: NextAuthOptions): ReturnType<NextApiHandler>;
-declare function NextAuth(req: NextApiRequest, res: NextApiResponse, options?: NextAuthOptions): ReturnType<NextApiHandler>;
+declare function NextAuthHandler(
+    req: NextApiRequest,
+    res: NextApiResponse,
+    options?: NextAuthOptions,
+): ReturnType<NextApiHandler>;
+declare function NextAuth(
+    req: NextApiRequest,
+    res: NextApiResponse,
+    options?: NextAuthOptions,
+): ReturnType<NextApiHandler>;
 declare function NextAuth(options: NextAuthOptions): ReturnType<typeof NextAuthHandler>;
 
 export { NextAuthHandler, NextAuth };

@@ -185,19 +185,24 @@ const allConfig = {
         ) => Promise.resolve({}),
     },
     events: {
-        signIn: async (message: string) => {
+        signIn: async (
+            message: NextAuthTypes.SignInEventMessage<NextAuthTypes.User>
+        ) => {
             return undefined;
         },
-        signOut: async (message: string) => {
+        signOut: async (message: Session | null) => {
             return undefined;
         },
-        createUser: async (message: string) => {
+        createUser: async (message: NextAuthTypes.User) => {
             return undefined;
         },
-        linkAccount: async (message: string) => {
+        updateUser: async (message: NextAuthTypes.User) => {
             return undefined;
         },
-        session: async (message: string) => {
+        linkAccount: async (message: NextAuthTypes.LinkAccountEventMessage<NextAuthTypes.User>) => {
+            return undefined;
+        },
+        session: async (message: { session: NextAuthTypes.Session }) => {
             return undefined;
         },
         error: async (message: string) => {
