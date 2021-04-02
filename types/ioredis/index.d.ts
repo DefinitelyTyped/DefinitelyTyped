@@ -321,6 +321,8 @@ declare namespace IORedis {
 
         lpop(key: KeyType, callback: Callback<string>): void;
         lpop(key: KeyType): Promise<string>;
+        lpop(key: KeyType, count: number, callback: Callback<string[]>): void;
+        lpop(key: KeyType, count: number): Promise<string[]>;
 
         lpos(key: KeyType, value: ValueType, rank?: number, count?: number, maxlen?: number): Promise<number | null>;
 

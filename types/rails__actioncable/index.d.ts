@@ -196,6 +196,7 @@ export function createWebSocketURL(url: string): string;
  */
 export const logger: {
     log(...messages: any[]): void;
+    enabled?: boolean;
 };
 
 /**

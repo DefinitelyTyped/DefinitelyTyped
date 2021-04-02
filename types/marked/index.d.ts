@@ -53,15 +53,6 @@ declare namespace marked {
     function lexer(src: string, options?: MarkedOptions): TokensList;
 
     /**
-     * @param src String of markdown source to be compiled
-     * @param links Array of links
-     * @param options Hash of options
-     * @return String of compiled HTML
-     */
-
-    function inlineLexer(src: string, links: string[], options?: MarkedOptions): string;
-
-    /**
      * Compiles markdown to HTML.
      *
      * @param src String of markdown source to be compiled
@@ -122,85 +113,81 @@ declare namespace marked {
 
     /**
      * Use Extension
-     * @param Renderer
+     * @param MarkedExtension
      */
-    function use(options: MarkedOptions): void;
+    function use(options: MarkedExtension): void;
 
-    class InlineLexer {
-        constructor(links: string[], options?: MarkedOptions);
-        options: MarkedOptions;
-        links: string[];
-        rules: Rules;
-        renderer: Renderer;
-        static rules: Rules;
-        static output(src: string, links: string[], options?: MarkedOptions): string;
-        output(src: string): string;
-        static escapes(text: string): string;
-        outputLink(cap: string[], link: string): string;
-        smartypants(text: string): string;
-        mangle(text: string): string;
-    }
-
-    class Tokenizer {
+    class Tokenizer<T = never> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        space(src: string): Tokens.Space;
-        code(src: string): Tokens.Code;
-        fences(src: string): Tokens.Code;
-        heading(src: string): Tokens.Heading;
-        nptable(src: string): Tokens.Table;
-        hr(src: string): Tokens.Hr;
-        blockquote(src: string): Tokens.Blockquote;
-        list(src: string): Tokens.List;
-        html(src: string): Tokens.HTML;
-        def(src: string): Tokens.Def;
-        table(src: string): Tokens.Table;
-        lheading(src: string): Tokens.Heading;
-        paragraph(src: string): Tokens.Paragraph;
-        text(src: string): Tokens.Text;
-        escape(src: string): Tokens.Escape;
-        tag(src: string, inLink: boolean, inRawBlock: boolean): Tokens.Tag;
-        link(src: string): Tokens.Image | Tokens.Link;
-        reflink(src: string, links: Tokens.Link[] | Tokens.Image[]): Tokens.Link | Tokens.Image | Tokens.Text;
-        emStrong(src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong;
-        codespan(src: string): Tokens.Codespan;
-        br(src: string): Tokens.Br;
-        del(src: string): Tokens.Del;
-        autolink(src: string, mangle: (cap: string) => string): Tokens.Link;
-        url(src: string, mangle: (cap: string) => string): Tokens.Link;
-        inlineText(src: string, inRawBlock: boolean, smartypants: (cap: string) => string): Tokens.Text;
+        space(src: string): Tokens.Space | T;
+        code(src: string): Tokens.Code | T;
+        fences(src: string): Tokens.Code | T;
+        heading(src: string): Tokens.Heading | T;
+        nptable(src: string): Tokens.Table | T;
+        hr(src: string): Tokens.Hr | T;
+        blockquote(src: string): Tokens.Blockquote | T;
+        list(src: string): Tokens.List | T;
+        html(src: string): Tokens.HTML | T;
+        def(src: string): Tokens.Def | T;
+        table(src: string): Tokens.Table | T;
+        lheading(src: string): Tokens.Heading | T;
+        paragraph(src: string): Tokens.Paragraph | T;
+        text(src: string): Tokens.Text | T;
+        escape(src: string): Tokens.Escape | T;
+        tag(src: string, inLink: boolean, inRawBlock: boolean): Tokens.Tag | T;
+        link(src: string): Tokens.Image | Tokens.Link | T;
+        reflink(
+            src: string,
+            links: Tokens.Link[] | Tokens.Image[],
+        ): Tokens.Link | Tokens.Image | Tokens.Text | T;
+        emStrong(src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong | T;
+        codespan(src: string): Tokens.Codespan | T;
+        br(src: string): Tokens.Br | T;
+        del(src: string): Tokens.Del | T;
+        autolink(src: string, mangle: (cap: string) => string): Tokens.Link | T;
+        url(src: string, mangle: (cap: string) => string): Tokens.Link | T;
+        inlineText(
+            src: string,
+            inRawBlock: boolean,
+            smartypants: (cap: string) => string,
+        ): Tokens.Text | T;
     }
 
-    class Renderer {
+    type TokenizerObject = Partial<Omit<Tokenizer<false>, "constructor" | "options">>;
+
+    class Renderer<T = never> {
         constructor(options?: MarkedOptions);
         options: MarkedOptions;
-        code(code: string, language: string | undefined, isEscaped: boolean): string;
-        blockquote(quote: string): string;
-        html(html: string): string;
-        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string;
-        hr(): string;
-        list(body: string, ordered: boolean, start: number): string;
-        listitem(text: string): string;
-        checkbox(checked: boolean): string;
-        paragraph(text: string): string;
-        table(header: string, body: string): string;
-        tablerow(content: string): string;
+        code(code: string, language: string | undefined, isEscaped: boolean): string | T;
+        blockquote(quote: string): string | T;
+        html(html: string): string | T;
+        heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: Slugger): string | T;
+        hr(): string | T;
+        list(body: string, ordered: boolean, start: number): string | T;
+        listitem(text: string): string | T;
+        checkbox(checked: boolean): string | T;
+        paragraph(text: string): string | T;
+        table(header: string, body: string): string | T;
+        tablerow(content: string): string | T;
         tablecell(
             content: string,
             flags: {
                 header: boolean;
-                align: 'center' | 'left' | 'right' | null;
+                align: "center" | "left" | "right" | null;
             },
-        ): string;
-        strong(text: string): string;
-        em(text: string): string;
-        codespan(code: string): string;
-        br(): string;
-        del(text: string): string;
-        link(href: string | null, title: string | null, text: string): string;
-        image(href: string | null, title: string | null, text: string): string;
-        text(text: string): string;
+        ): string | T;
+        strong(text: string): string | T;
+        em(text: string): string | T;
+        codespan(code: string): string | T;
+        br(): string | T;
+        del(text: string): string | T;
+        link(href: string | null, title: string | null, text: string): string | T;
+        image(href: string | null, title: string | null, text: string): string | T;
+        text(text: string): string | T;
     }
+
+    type RendererObject = Partial<Omit<Renderer<false>, "constructor" | "options">>;
 
     class TextRenderer {
         strong(text: string): string;
@@ -220,13 +207,13 @@ declare namespace marked {
         token: Token | null;
         options: MarkedOptions;
         renderer: Renderer;
+        textRenderer: TextRenderer;
         slugger: Slugger;
         static parse(src: TokensList, options?: MarkedOptions): string;
+        static parseInline(src: TokensList, options?: MarkedOptions): string;
         parse(src: TokensList): string;
+        parseInline(src: TokensList, renderer: Renderer): string;
         next(): Token;
-        peek(): Token | 0;
-        parseText(): string;
-        tok(): string;
     }
 
     class Lexer {
@@ -235,10 +222,12 @@ declare namespace marked {
         options: MarkedOptions;
         rules: Rules;
         static rules: Rules;
-        static lex(src: TokensList, options?: MarkedOptions): TokensList;
+        static lex(src: string, options?: MarkedOptions): TokensList;
+        static lexInline(src: string, options?: MarkedOptions): TokensList;
         lex(src: string): TokensList;
-        token(src: string, top: boolean): TokensList;
+        blockTokens(src: string, tokens: TokensList, top: boolean): TokensList;
         inline(tokens: TokensList): TokensList;
+        inlineTokens(src: string, tokens: TokensList, inLink: boolean, inRawBlock: boolean): TokensList;
     }
 
     class Slugger {
@@ -287,56 +276,56 @@ declare namespace marked {
 
     namespace Tokens {
         interface Space {
-            type: 'space';
+            type: "space";
             raw: string;
         }
 
         interface Code {
-            type: 'code';
+            type: "code";
             raw: string;
-            codeBlockStyle?: 'indented';
+            codeBlockStyle?: "indented";
             lang?: string;
             text: string;
         }
 
         interface Heading {
-            type: 'heading';
+            type: "heading";
             raw: string;
             depth: number;
             text: string;
         }
 
         interface Table {
-            type: 'table';
+            type: "table";
             raw: string;
             header: string[];
-            align: Array<'center' | 'left' | 'right' | null>;
+            align: Array<"center" | "left" | "right" | null>;
             cells: string[][];
         }
 
         interface Hr {
-            type: 'hr';
+            type: "hr";
             raw: string;
         }
 
         interface Blockquote {
-            type: 'blockquote';
+            type: "blockquote";
             raw: string;
             text: string;
         }
 
         interface BlockquoteStart {
-            type: 'blockquote_start';
+            type: "blockquote_start";
             raw: string;
         }
 
         interface BlockquoteEnd {
-            type: 'blockquote_end';
+            type: "blockquote_end";
             raw: string;
         }
 
         interface List {
-            type: 'list';
+            type: "list";
             raw: string;
             ordered: boolean;
             start: boolean;
@@ -345,7 +334,7 @@ declare namespace marked {
         }
 
         interface ListItem {
-            type: 'list_item';
+            type: "list_item";
             raw: string;
             task: boolean;
             checked: boolean;
@@ -354,21 +343,21 @@ declare namespace marked {
         }
 
         interface Paragraph {
-            type: 'paragraph';
+            type: "paragraph";
             raw: string;
             pre?: boolean;
             text: string;
         }
 
         interface HTML {
-            type: 'html';
+            type: "html";
             raw: string;
             pre: boolean;
             text: string;
         }
 
         interface Text {
-            type: 'text';
+            type: "text";
             raw: string;
             text: string;
         }
@@ -380,13 +369,13 @@ declare namespace marked {
         }
 
         interface Escape {
-            type: 'escape';
+            type: "escape";
             raw: string;
             text: string;
         }
 
         interface Tag {
-            type: 'text' | 'html';
+            type: "text" | "html";
             raw: string;
             inLink: boolean;
             inRawBlock: boolean;
@@ -394,7 +383,7 @@ declare namespace marked {
         }
 
         interface Link {
-            type: 'link';
+            type: "link";
             raw: string;
             href: string;
             title: string;
@@ -403,7 +392,7 @@ declare namespace marked {
         }
 
         interface Image {
-            type: 'image';
+            type: "image";
             raw: string;
             href: string;
             title: string;
@@ -411,36 +400,36 @@ declare namespace marked {
         }
 
         interface Strong {
-            type: 'strong';
+            type: "strong";
             raw: string;
             text: string;
         }
 
         interface Em {
-            type: 'em';
+            type: "em";
             raw: string;
             text: string;
         }
 
         interface Codespan {
-            type: 'codespan';
+            type: "codespan";
             raw: string;
             text: string;
         }
 
         interface Br {
-            type: 'br';
+            type: "br";
             raw: string;
         }
 
         interface Del {
-            type: 'del';
+            type: "del";
             raw: string;
             text: string;
         }
     }
 
-    interface MarkedOptions {
+    interface MarkedExtension {
         /**
          * A prefix URL for any relative link.
          */
@@ -498,7 +487,7 @@ declare namespace marked {
          *
          * An object containing functions to render tokens to HTML.
          */
-        renderer?: Renderer;
+        renderer?: Renderer | RendererObject;
 
         /**
          * Sanitize the output. Ignore any HTML that has been input.
@@ -528,7 +517,7 @@ declare namespace marked {
         /**
          * The tokenizer defines how to turn markdown text into tokens.
          */
-        tokenizer?: Tokenizer;
+        tokenizer?: Tokenizer | TokenizerObject;
 
         /**
          * The walkTokens function gets called with every token.
@@ -541,5 +530,19 @@ declare namespace marked {
          * Generate closing slash for self-closing tags (<br/> instead of <br>)
          */
         xhtml?: boolean;
+    }
+
+    interface MarkedOptions extends MarkedExtension {
+        /**
+         * Type: object Default: new Renderer()
+         *
+         * An object containing functions to render tokens to HTML.
+         */
+        renderer?: Renderer;
+
+        /**
+         * The tokenizer defines how to turn markdown text into tokens.
+         */
+        tokenizer?: Tokenizer;
     }
 }

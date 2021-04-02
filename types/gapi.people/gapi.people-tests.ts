@@ -5,7 +5,10 @@
   // Developer Console, https://console.developers.google.com
   var CLIENT_ID = '<YOUR_CLIENT_ID>';
 
-  var SCOPES = ["https://www.googleapis.com/auth/contacts.readonly"];
+  var SCOPES = [
+      "https://www.googleapis.com/auth/contacts.readonly",
+      "https://www.googleapis.com/auth/contacts.other.readonly"
+  ];
 
   /**
    * Check if current user has authorized this application.
@@ -54,7 +57,12 @@
    * of 10 connections.
    */
   function loadPeopleApi() {
-    gapi.client.load('https://people.googleapis.com/$discovery/rest', 'v1', listConnectionNames);
+    gapi.client.load('https://people.googleapis.com/$discovery/rest', 'v1', listContacts);
+  }
+
+  function listContacts() {
+      listConnectionNames();
+      listOtherContactNames();
   }
 
   /**
@@ -72,18 +80,43 @@
         appendPre('Connections:');
 
         if (connections.length > 0) {
-          for (var i = 0; i < connections.length; i++) {
-            var person = connections[i];
-            if (person.names && person.names.length > 0) {
-              appendPre(person.names[0].displayName)
-            } else {
-              appendPre("No display name found for connection.");
-            }
-          }
+          listNames(connections)
         } else {
           appendPre('No upcoming events found.');
         }
       });
+  }
+
+  /**
+   * Print the display name if available for 10 other contacts.
+   */
+  function listOtherContactNames() {
+    var request = gapi.client.people.otherContacts.list({
+        'pageSize': 10,
+        'readMask': 'names'
+      });
+
+      request.execute(function(resp) {
+        var otherContacts = resp.otherContacts;
+        appendPre('Other contacts:');
+
+        if (otherContacts.length > 0) {
+          listNames(otherContacts);
+        } else {
+          appendPre('No upcoming events found.');
+        }
+      });
+  }
+
+  function listNames(contacts: gapi.client.people.Person[]) {
+      for (var i = 0; i < contacts.length; i++) {
+        var person = contacts[i];
+        if (person.names && person.names.length > 0) {
+          appendPre(person.names[0].displayName)
+        } else {
+          appendPre("No display name found for the contact.");
+        }
+      }
   }
 
   /**

@@ -48,7 +48,7 @@ sanitize.defaults.allowedSchemesAppliedToAttributes; // $ExpectType string[]
 sanitize.defaults.allowedSchemesByTag; // $ExpectType { [index: string]: string[]; }
 sanitize.defaults.allowedTags; // $ExpectType string[]
 sanitize.defaults.allowProtocolRelative; // $ExpectType boolean
-sanitize.defaults.disallowedTagsMode; // $ExpectType string
+sanitize.defaults.disallowedTagsMode; // $ExpectType DisallowedTagsModes
 sanitize.defaults.enforceHtmlBoundary; // $ExpectType boolean
 sanitize.defaults.selfClosing; // $ExpectType string[]
 
@@ -61,3 +61,5 @@ options.parser = {
 };
 
 safe = sanitize(unsafe, options);
+
+sanitize(unsafe, sanitize.defaults);

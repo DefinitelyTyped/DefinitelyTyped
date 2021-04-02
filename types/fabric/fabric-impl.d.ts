@@ -578,7 +578,7 @@ interface IGradientOptionsCoords {
 }
 
 type IGradientOptionsColorStops = Array<{
-    offset: string;
+    offset: number;
     color: string;
 }>;
 

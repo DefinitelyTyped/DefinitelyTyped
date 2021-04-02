@@ -59,6 +59,8 @@ import {
     let res = AsyncResource.bind((x: number) => x)(42);
     const asyncResource = new AsyncResource('');
     res = asyncResource.bind((x: number) => x)(42);
+    // $ExpectType AsyncResource
+    asyncResource.emitDestroy();
 }
 
 {

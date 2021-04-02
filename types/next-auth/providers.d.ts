@@ -13,9 +13,10 @@ export interface Provider<T extends string | undefined = undefined, U = T extend
     requestTokenUrl: string;
     authorizationUrl: string;
     profileUrl: string;
-    profile: (profile: Record<string, unknown>, tokens: unknown) => User & { id: string };
+    profile: (profile: Record<string, any>, tokens: any) => User & { id: string } | Promise<User & { id: string }>;
     clientId: string;
     clientSecret: string | Record<string, unknown>;
+    idToken?: boolean;
 }
 
 export interface AppProvider extends Pick<Provider, 'id' | 'name' | 'type'> {
@@ -38,18 +39,22 @@ export interface DefaultProviders {
     Email: Email;
     EVEOnline: EVEOnline;
     Facebook: Facebook;
+    FACEIT: FACEIT;
     Foursquare: Foursquare;
     FusionAuth: FusionAuth;
     GitHub: GitHub;
     GitLab: GitLab;
     Google: Google;
     IdentityServer4: IdentityServer4;
+    Instagram: Instagram;
+    Kakao: Kakao;
     LINE: LINE;
     LinkedIn: LinkedIn;
     MailRu: MailRu;
     Medium: Medium;
     Netlify: Netlify;
     Okta: Okta;
+    Osso: Osso;
     Reddit: Reddit;
     Salesforce: Salesforce;
     Slack: Slack;
@@ -59,9 +64,10 @@ export interface DefaultProviders {
     Twitter: Twitter;
     VK: VK;
     Yandex: Yandex;
+    Zoho: Zoho;
 }
 
-export type Providers = Array<ReturnType<DefaultProviders[keyof DefaultProviders]>>;
+export type Providers = Array<Provider | ReturnType<DefaultProviders[keyof DefaultProviders]>>;
 
 declare const Providers: DefaultProviders;
 
@@ -122,10 +128,19 @@ type OptionsBase = {
     [K in keyof Omit<Provider, 'id'>]?: Provider[K]
 };
 
+/**
+ * Provider options
+ * @see {@link https://next-auth.js.org/configuration/providers#oauth-provider-options}
+ */
 interface ProviderCommonOptions extends OptionsBase {
-    name?: string;
+    authorizationParams?: Record<string, string>;
     clientId: string;
     clientSecret: string;
+    headers?: Record<string, any>;
+    idToken?: boolean;
+    name?: string;
+    protection?: "pkce" | "state" | "none";
+    state?: boolean;
 }
 
 /**
@@ -296,7 +311,11 @@ type Atlassian = (options: ProviderCommonOptions) => Provider<'atlassian'>;
 /**
  * AzureADB2C
  */
-type AzureADB2C = (options: ProviderCommonOptions) => Provider<'azure-ad-b2c'>;
+type AzureADB2C = (options: ProviderAzureADB2COptions) => Provider<"azure-ad-b2c">;
+
+interface ProviderAzureADB2COptions extends ProviderCommonOptions {
+    tenantId?: string;
+}
 
 /**
  * Bungie
@@ -309,6 +328,11 @@ type Bungie = (options: ProviderCommonOptions) => Provider<'bungie'>;
 type EVEOnline = (options: ProviderCommonOptions) => Provider<'eveonline'>;
 
 /**
+ * FACEIT
+ */
+type FACEIT = (options: ProviderCommonOptions) => Provider<'faceit'>;
+
+/**
  * Foursquare
  */
 type Foursquare = (options: ProviderCommonOptions) => Provider<'foursquare'>;
@@ -316,7 +340,22 @@ type Foursquare = (options: ProviderCommonOptions) => Provider<'foursquare'>;
 /**
  * FusionAuth
  */
-type FusionAuth = (options: ProviderCommonOptions) => Provider<'fusionauth'>;
+type FusionAuth = (options: ProviderFusionAuthOptions) => Provider<"fusionauth">;
+
+interface ProviderFusionAuthOptions extends ProviderCommonOptions {
+    tenantId?: string;
+    domain?: string;
+}
+
+/**
+ * Instagram
+ */
+type Instagram = (options: ProviderCommonOptions) => Provider<'instagram'>;
+
+/**
+ * Kakao
+ */
+type Kakao = (options: ProviderCommonOptions) => Provider<'kakao'>;
 
 /**
  * LINE
@@ -339,6 +378,11 @@ type Medium = (options: ProviderCommonOptions) => Provider<'medium'>;
 type Netlify = (options: ProviderCommonOptions) => Provider<'netlify'>;
 
 /**
+ * Osso
+ */
+type Osso = (options: ProviderCommonOptions) => Provider<'osso'>;
+
+/**
  * Salesforce
  */
 type Salesforce = (options: ProviderCommonOptions) => Provider<'salesforce'>;
@@ -352,3 +396,8 @@ type Strava = (options: ProviderCommonOptions) => Provider<'strava'>;
  * VK
  */
 type VK = (options: ProviderCommonOptions) => Provider<'vk'>;
+
+/**
+ * Zoho
+ */
+type Zoho = (options: ProviderCommonOptions) => Provider<'zoho'>;

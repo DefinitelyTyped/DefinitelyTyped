@@ -257,7 +257,7 @@ function test_steppedAreaChart() {
 }
 
 function test_lineChart() {
-    var data = google.visualization.arrayToDataTable([
+    const data = google.visualization.arrayToDataTable([
         ['Year', 'Sales', 'Expenses'],
         ['2004',  1000,      400],
         ['2005',  1170,      460],
@@ -265,13 +265,17 @@ function test_lineChart() {
         ['2007',  1030,      540]
     ]);
 
-    var options = {
-        title: 'Company Performance'
+    const options: google.visualization.LineChartOptions = {
+        title: 'Company Performance',
+        intervals: {
+            style: 'boxes',
+            boxWidth: 1,
+        },
     };
 
-    var container = document.getElementById('chart_div');
+    const container = document.getElementById('chart_div');
     if (container) {
-        var chart = new google.visualization.LineChart(container);
+        const chart = new google.visualization.LineChart(container);
         chart.draw(data, options);
     }
 }

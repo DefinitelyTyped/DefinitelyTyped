@@ -68,7 +68,7 @@ export class Query<T> extends Readable implements Promise<T> {
 
     where(conditions: Object | string): Query<T>;
 
-    finally<never>(): Promise<T>;
+    finally(): Promise<T>;
 
     [Symbol.toStringTag]: 'Promise';
 

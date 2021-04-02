@@ -89,3 +89,7 @@ Mousetrap(element).bind(unionTypeKeys, () => {
 Mousetrap(element).handleKey = (character: string, modifiers: string[], e: KeyboardEvent) => {
     console.log('Override handleKey test');
 };
+
+// pause & unpause
+Mousetrap.pause();
+Mousetrap.unpause();
