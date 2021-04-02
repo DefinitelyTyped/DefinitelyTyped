@@ -110,12 +110,12 @@ export type SessionEventMessage = {
     jwt?: JWT;
 };
 
-// If using a `credentials` type auth the user is the raw response from your
+// If using a `credentials` type auth, the user is the raw response from your
 // credential provider.
-// For other providers, you'll get the hydrated User object, the account,
+// For other providers, you'll get the User object from your adapter, the account,
 // and an indicator if the user was new to your Adapter.
 export type SignInEventMessage<TUser> = {
-    user: TUser | unknown;
+    user: TUser;
     account: Record<string, unknown>;
     isNewUser?: boolean;
 };
