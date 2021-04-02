@@ -26,8 +26,7 @@
     },
     "files": [
         "index.d.ts",
-        "dist/react.tagify.d.ts",
         "yaireo__tagify-tests.ts",
-        "yaireo__tagify-react-tests.tsx"
+        "test/yaireo__tagify-react-tests.tsx"
     ]
 }
