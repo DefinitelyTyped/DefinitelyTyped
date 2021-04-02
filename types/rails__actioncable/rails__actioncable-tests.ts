@@ -40,7 +40,7 @@ consumer.ensureActiveConnection(); // $ExpectType boolean | void
 
 {
     const subscription = consumer.subscriptions.create(
-        { channel: 'channel', room: 'room' },
+        { channel: 'channel', room: 'room', chat_id: 1 },
         {
             received(data) {
                 this.appendLine(data);
