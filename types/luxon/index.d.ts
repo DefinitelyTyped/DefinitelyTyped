@@ -590,5 +590,5 @@ export class FixedOffsetZone extends Zone {
 export class InvalidZone extends Zone { }
 
 export class LocalZone extends Zone {
-    static get instance(): LocalZone;
+    static readonly instance: LocalZone;
 }
