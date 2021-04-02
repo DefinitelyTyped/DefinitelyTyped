@@ -35,7 +35,7 @@ export type EmailAppProvider = AppProvider & {
     maxAge: number | undefined;
 };
 
-export interface AdapterInstance<TUser, TProfile, TSession, TVerificationRequest> {
+export interface AdapterInstance<TUser extends User, TProfile extends Profile, TSession extends Session, TVerificationRequest extends VerificationRequest> {
     createUser(profile: TProfile): Promise<TUser>;
     getUser(id: string): Promise<TUser | null>;
     getUserByEmail(email: string): Promise<TUser | null>;
@@ -76,7 +76,7 @@ export interface AdapterInstance<TUser, TProfile, TSession, TVerificationRequest
     ): Promise<void>;
 }
 
-interface Adapter<TUser extends User = any, TProfile extends Profile = any, TSession extends Session = any, TVerificationRequest extends VerificationRequest = any> {
+interface Adapter<TUser extends User = User, TProfile extends Profile = Profile, TSession extends Session = Session, TVerificationRequest extends VerificationRequest = VerificationRequest> {
     getAdapter(appOptions: AppOptions): Promise<AdapterInstance<TUser, TProfile, TSession, TVerificationRequest>>;
 }
 

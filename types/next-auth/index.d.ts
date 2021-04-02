@@ -18,10 +18,10 @@ import { NextApiRequest, NextApiResponse, NextApiHandler } from "./_next";
 import { NonNullParams, WithAdditionalParams } from "./_utils";
 
 export interface NextAuthOptions<
-    TUser extends User = any,
-    TProfile extends Profile = any,
-    TSession extends DBSession = any,
-    TVerificationRequest extends VerificationRequest = any
+    TUser extends User = User,
+    TProfile extends Profile = Profile,
+    TSession extends DBSession = DBSession,
+    TVerificationRequest extends VerificationRequest = VerificationRequest
 > {
     providers: Providers;
     database?: string | Record<string, any> | ConnectionOptions;
