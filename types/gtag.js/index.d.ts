@@ -6,17 +6,17 @@
 declare var gtag: Gtag.Gtag;
 declare namespace Gtag {
     interface Gtag {
-        (command: "config", targetId: string, config?: ControlParams | EventParams | CustomParams): void;
-        (command: "set", targetId: string, config: CustomParams): void;
-        (command: "set", config: CustomParams): void;
-        (command: "js", config: Date): void;
+        (command: 'config', targetId: string, config?: ControlParams | EventParams | CustomParams): void;
+        (command: 'set', targetId: string, config: CustomParams): void;
+        (command: 'set', config: CustomParams): void;
+        (command: 'js', config: Date): void;
         (
-            command: "event",
+            command: 'event',
             eventName: EventNames | string,
             eventParams?: ControlParams | EventParams | CustomParams,
         ): void;
-        (command: "get", targetId: string, fieldName: FieldNames | string, callback?: (field: string) => any): void;
-        (command: "consent", consentArg: ConsentArg | string, consentParams: ConsentParams): void;
+        (command: 'get', targetId: string, fieldName: FieldNames | string, callback?: (field: string) => any): void;
+        (command: 'consent', consentArg: ConsentArg | string, consentParams: ConsentParams): void;
     }
 
     interface CustomParams {
@@ -31,29 +31,29 @@ declare namespace Gtag {
     }
 
     type EventNames =
-        | "add_payment_info"
-        | "add_to_cart"
-        | "add_to_wishlist"
-        | "begin_checkout"
-        | "checkout_progress"
-        | "exception"
-        | "generate_lead"
-        | "login"
-        | "page_view"
-        | "purchase"
-        | "refund"
-        | "remove_from_cart"
-        | "screen_view"
-        | "search"
-        | "select_content"
-        | "set_checkout_option"
-        | "share"
-        | "sign_up"
-        | "timing_complete"
-        | "view_item"
-        | "view_item_list"
-        | "view_promotion"
-        | "view_search_results";
+        | 'add_payment_info'
+        | 'add_to_cart'
+        | 'add_to_wishlist'
+        | 'begin_checkout'
+        | 'checkout_progress'
+        | 'exception'
+        | 'generate_lead'
+        | 'login'
+        | 'page_view'
+        | 'purchase'
+        | 'refund'
+        | 'remove_from_cart'
+        | 'screen_view'
+        | 'search'
+        | 'select_content'
+        | 'set_checkout_option'
+        | 'share'
+        | 'sign_up'
+        | 'timing_complete'
+        | 'view_item'
+        | 'view_item_list'
+        | 'view_promotion'
+        | 'view_search_results';
 
     interface EventParams {
         checkout_option?: string;
@@ -99,12 +99,12 @@ declare namespace Gtag {
         name?: string;
     }
 
-    type FieldNames = "client_id" | "session_id" | "gclid";
+    type FieldNames = 'client_id' | 'session_id' | 'gclid';
 
-    type ConsentArg = "default" | "update";
+    type ConsentArg = 'default' | 'update';
     interface ConsentParams {
-        ad_storage?: "granted" | "denied";
-        analytics_storage?: "allowed" | "denied";
+        ad_storage?: 'granted' | 'denied';
+        analytics_storage?: 'allowed' | 'denied';
         wait_for_update?: number;
         region?: string[];
     }
