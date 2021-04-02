@@ -1,5 +1,5 @@
 import { CarbonPictogramSize, CarbonPictogramMetadataOutput } from "@carbon/pictograms";
-import * as metadata from "@carbon/pictograms/metadata.json";
+import * as metadata from "@carbon/pictograms/metadata";
 
 metadata.icons.forEach(icon => {
     icon.name;
