@@ -526,6 +526,13 @@ provider.use(async (ctx, next) => {
     //
 });
 
+const _clientJwtAuthExpectedAudience = provider.OIDCContext.prototype.clientJwtAuthExpectedAudience;
+provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJwtAuthExpectedAudience() {
+    const acceptedAudiences = _clientJwtAuthExpectedAudience.call(this);
+    acceptedAudiences.add('https://as.example.com/token');
+    return acceptedAudiences;
+};
+
 (async () => {
     const client = await provider.Client.find('foo');
     if (client !== undefined) {
