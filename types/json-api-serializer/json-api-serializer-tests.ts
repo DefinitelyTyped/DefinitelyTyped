@@ -1,4 +1,4 @@
-import JSONAPISerializer, { JSONAPIDocument } from 'json-api-serializer';
+import JSONAPISerializer = require('json-api-serializer');
 
 const data = [
   {
@@ -119,7 +119,7 @@ Serializer.serialize('article', data, {count: 2});
 Serializer.serialize('article', data, 'default', {count: 2}, true);
 Serializer.serializeAsync('article', data, 'default', {count: 2}, true).then(() => {});
 
-const jsonDocument: JSONAPIDocument = {
+const jsonDocument = {
   data: {
     type: 'article',
     id: '1',
