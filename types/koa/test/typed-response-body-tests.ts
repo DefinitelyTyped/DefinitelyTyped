@@ -13,7 +13,9 @@ const middleware: Koa.Middleware<Koa.DefaultState, Koa.DefaultContext, CustomRes
 
     ctx.response.body = {
         a: 1,
-        b: 'text'
+        b: 'text',
+        // $ExpectError
+        c: true
     };
 
     return next();
