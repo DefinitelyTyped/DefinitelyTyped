@@ -31,15 +31,15 @@ export interface FailOpenConfig extends GenericConfig {
     trustLocalTime?: boolean;
 }
 
-export class LockClient<PartitionTableKeyType = string | number> {
+export class LockClient<PartitionTableKeyType extends string | number> {
     acquireLock(id: PartitionTableKeyType, callback: (error: Error, lock: Lock) => void): void;
 }
 
-export class FailClosed<PartitionTableKeyType = string | number> extends LockClient<PartitionTableKeyType> {
+export class FailClosed<PartitionTableKeyType extends string | number> extends LockClient<PartitionTableKeyType> {
     constructor(config: FailClosedConfig);
 }
 
-export class FailOpen<PartitionTableKeyType = string | number> extends LockClient<PartitionTableKeyType> {
+export class FailOpen<PartitionTableKeyType extends string | number> extends LockClient<PartitionTableKeyType> {
     constructor(config: FailOpenConfig);
 }
 
