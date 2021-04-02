@@ -16,3 +16,5 @@ gtag('set', {
   country: 'US',
   currency: 'USD'
 });
+
+gtag('get', 'GA-TRACKING_ID', 'client_id', (_clientId) => {});
