@@ -15,7 +15,7 @@ export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
     kind: 'sequence' | 'scalar' | 'mapping' | null;
     resolve(data: any): boolean;
-    construct(data: any): any;
+    construct(data: any, type?: string): any;
     instanceOf: object | null;
     predicate: ((data: object) => boolean) | null;
     represent: ((data: object) => any) | { [x: string]: (data: object) => any } | null;
@@ -105,7 +105,7 @@ export interface DumpOptions {
 export interface TypeConstructorOptions {
     kind?: 'sequence' | 'scalar' | 'mapping';
     resolve?: (data: any) => boolean;
-    construct?: (data: any) => any;
+    construct?: (data: any, type?: string) => any;
     instanceOf?: object;
     predicate?: (data: object) => boolean;
     represent?: ((data: object) => any) | { [x: string]: (data: object) => any };
