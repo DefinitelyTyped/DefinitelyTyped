@@ -101,7 +101,7 @@ const exampleVerificatoinRequest: VerificationRequest = {
     expires: new Date(),
 };
 
-const adapter: Adapter<NextAuthTypes.User, Profile, Session, VerificationRequest> = {
+const adapter: Adapter = {
     getAdapter(appOptions: NextAuthTypes.AppOptions) {
         return Promise.resolve({
             createUser: (profile: Profile) => Promise.resolve(exampleUser),

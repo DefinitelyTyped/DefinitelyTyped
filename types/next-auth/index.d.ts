@@ -6,7 +6,7 @@
 //                 Balázs <https://github.com/balazsorban44>
 //                 Euxn <https://github.com/euxn23>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 3.6
 
 /// <reference types="node" />
 
@@ -105,25 +105,25 @@ export interface CookiesOptions {
 
 export type EventCallback<MessageType = any> = (message: MessageType) => Promise<void>;
 
-export type SessionEventMessage = {
+export interface SessionEventMessage {
     session: WithAdditionalParams<Session>;
     jwt?: JWT;
-};
+}
 
 // If using a `credentials` type auth, the user is the raw response from your
 // credential provider.
 // For other providers, you'll get the User object from your adapter, the account,
 // and an indicator if the user was new to your Adapter.
-export type SignInEventMessage<TUser> = {
+export interface SignInEventMessage<TUser> {
     user: TUser;
     account: Record<string, unknown>;
     isNewUser?: boolean;
-};
+}
 
-export type LinkAccountEventMessage<TUser> = {
+export interface LinkAccountEventMessage<TUser> {
     user: TUser;
     providerAccount: Record<string, unknown>;
-};
+}
 
 export interface EventOptions<TUser> {
     signIn: EventCallback<SignInEventMessage<TUser>>;
