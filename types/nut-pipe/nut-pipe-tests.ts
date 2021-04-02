@@ -140,3 +140,9 @@ const test3 = async () => {
 
     const response: APIGatewayProxyStructuredResultV2 = await lambdaFunc(event, createContext());
 };
+
+test1();
+
+test2();
+
+test3();
