@@ -265,8 +265,9 @@ declare namespace Tags {
      * {@link BaseTagData},specify the allowed properties and use that as the
      * type parameter.
      */
-    interface TagifyMixedTagsReactProps<T extends BaseTagData = TagData> extends TagifyBaseReactProps<T> {
-    }
+    // Export is not actually available yet in 4.0.1, probably a bug
+    // interface TagifyMixedTagsReactProps<T extends BaseTagData = TagData> extends TagifyBaseReactProps<T> {
+    // }
 
     /**
      * React wrapper component that renders a tagify editor in mixed-mode. This
@@ -274,9 +275,10 @@ declare namespace Tags {
      * @param props Optional properties for configuring the tagify editor.
      * @returns The rendered React tagify element.
      */
+    // Export is not actually available yet in 4.0.1, probably a bug
     // Type parameter is used more than once within the TagifyMixedTagsReactProps interface
     // tslint:disable-next-line no-unnecessary-generics
-    function MixedTags<T extends BaseTagData = TagData>(props: TagifyMixedTagsReactProps<T>): ReactElement;
+    // function MixedTags<T extends BaseTagData = TagData>(props: TagifyMixedTagsReactProps<T>): ReactElement;
 }
 
 /**

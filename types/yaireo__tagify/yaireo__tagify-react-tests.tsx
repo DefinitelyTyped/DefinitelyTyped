@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Tagify, { BaseTagData, ChangeEventData, EventData, TagifySettings } from '@yaireo/tagify';
-import Tags, { MixedTags, TagifyTagsReactProps } from '@yaireo/tagify/dist/react.tagify';
+import Tags, { TagifyTagsReactProps } from '@yaireo/tagify/dist/react.tagify';
 
 // Tests the minimal required attribute for the Tags component
 export function TestTagsMinimal(): React.ReactElement {
@@ -215,6 +215,8 @@ export function TestTagsTypeParam(): React.ReactElement {
     </div>);
 }
 
+/*
+
 // Tests the minimal required attribute for the MixedTags component
 export function TestMixedTagsMinimal(): React.ReactElement {
     return (<div>
@@ -257,39 +259,39 @@ export function TestMixedTagsOnCallbacks(): React.ReactElement {
     return (<div>
         <Tags
             onAdd={e => {
-                // $ExpectType AddEventData<TagData>
+                // // $ExpectType AddEventData<TagData>
                 e.detail;
             }}
             onBlur={e => {
-                // $ExpectType BlurEventData<TagData>
+                // // $ExpectType BlurEventData<TagData>
                 e.detail;
             }}
             onChange={e => {
-                // $ExpectType ChangeEventData<TagData>
+                // // $ExpectType ChangeEventData<TagData>
                 e.detail;
             }}
             onClick={e => {
-                // $ExpectType ClickEventData<TagData>
+                // // $ExpectType ClickEventData<TagData>
                 e.detail;
             }}
             onFocus={e => {
-                // $ExpectType FocusEventData<TagData>
+                // // $ExpectType FocusEventData<TagData>
                 e.detail;
             }}
             onInput={e => {
-                // $ExpectType InputEventData<TagData>
+                // // $ExpectType InputEventData<TagData>
                 e.detail;
             }}
             onInvalid={e => {
-                // $ExpectType InvalidTagEventData<TagData>
+                // // $ExpectType InvalidTagEventData<TagData>
                 e.detail;
             }}
             onKeydown={e => {
-                // $ExpectType KeydownEventData<TagData>
+                // // $ExpectType KeydownEventData<TagData>
                 e.detail;
             }}
             onRemove={e => {
-                // $ExpectType RemoveEventData<TagData>
+                // // $ExpectType RemoveEventData<TagData>
                 e.detail;
             }}
         />
@@ -370,46 +372,46 @@ export function TestMixedTagsTypeParam(): React.ReactElement {
     return (<div>
         <Tags<ValueTagData>
             onAdd={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             onBlur={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             onChange={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             onClick={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             onFocus={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             onInput={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             onInvalid={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             onKeydown={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             onRemove={e => {
-                // $ExpectType ValueTagData[]
+                // // $ExpectType ValueTagData[]
                 e.detail.tagify.value;
             }}
             value={[John]}
             whitelist={[John, Mary, Odo]}
         />
         {
-            // $ExpectError
+            // // $ExpectError
             <Tags<ValueTagData> value={[John]} whitelist={[InvalidTag]} />
         }
     </div>);
@@ -419,11 +421,13 @@ export function TestMixedTagsTypeParam(): React.ReactElement {
 export function TestMixedTagsNoInputMode(): React.ReactElement {
     return (<div>
         {
-            // $ExpectError
+            // // $ExpectError
             <MixedTags InputMode='textarea' />
         }
     </div>);
 }
+
+*/
 
 // Taken from the official example for the react wrapper
 // https://codesandbox.io/s/tagify-react-wrapper-oempc
