@@ -1298,7 +1298,7 @@ declare namespace Matter {
          * @param {composite} composite
          * @return {constraint[]} All the constraints
          */
-        static allConstraints(composite: Composite): Array<Composite>;
+        static allConstraints(composite: Composite): Array<Constraint>;
 
         /**
          * Removes all bodies, constraints and composites from the given composite.
@@ -1539,7 +1539,7 @@ declare namespace Matter {
          * @param {number} length
          * @return {composite} A new composite newtonsCradle body
          */
-        newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
+        static newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
 
         /**
          * Create a new composite containing bodies created in the callback in a pyramid arrangement.
@@ -1986,7 +1986,6 @@ declare namespace Matter {
          * @param {HTMLElement} element
          * @param {object} [options]
          * @return {engine} engine
-         * @deprecated
          */
         static create(element?: HTMLElement | IEngineDefinition, options?: IEngineDefinition): Engine;
 
@@ -2492,6 +2491,29 @@ declare namespace Matter {
          * default undefined
          */
         wireframeBackground?: string
+
+        /**
+         * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
+         * @type boolean
+         * default true
+         */
+        showSleeping?: boolean;
+    }
+
+    interface IRenderLookAtObject {
+        bounds?: Bounds;
+        position?: {
+            x: number;
+            y: number;
+        };
+        min?: {
+            x: number;
+            y: number;
+        };
+        max?: {
+            x: number;
+            y: number;
+        };
     }
 
     /**
@@ -2538,6 +2560,15 @@ declare namespace Matter {
          * @param {engine} engine
          */
         static world(render: Render): void;
+        /**
+         * Positions and sizes the viewport around the given object bounds.
+         * @method lookAt
+         * @param {Render} render
+         * @param {IRenderLookAtObject | IRenderLookAtObject[]} objects
+         * @param {Vector} paddiing
+         * @param {boolean} center
+         */
+        static lookAt(render: Render, objects: IRenderLookAtObject | IRenderLookAtObject[], paddiing?: Vector, center?: boolean): void;
 
         /**
         * A back-reference to the `Matter.Render` module.

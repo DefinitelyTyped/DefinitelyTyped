@@ -531,13 +531,15 @@ declare namespace P {
         hooks?: {
             /**
              * Allows for manipulating the parameters passed to logger methods. The signature for this hook is
-             * logMethod (args, method) {}, where args is an array of the arguments that were passed to the
-             * log method and method is the log method itself. This hook must invoke the method function by
+             * logMethod (args, method, level) {}, where args is an array of the arguments that were passed to the
+             * log method and method is the log method itself, and level is the log level. This hook must invoke the method function by
              * using apply, like so: method.apply(this, newArgumentsArray).
              */
-            logMethod?: (args: any[], method: LogFn) => void;
+            logMethod?: (args: any[], method: LogFn, level: number) => void;
         };
     }
+
+    type MessageFormatFunc = (log: LogDescriptor, messageKey: string, levelLabel: string) => string;
 
     interface PrettyOptions {
         /**
@@ -561,8 +563,19 @@ declare namespace P {
         timestampKey?: string;
         /**
          * Format output of message, e.g. {level} - {pid} will output message: INFO - 1123 Default: `false`.
+         *
+         * @example
+         * ```typescript
+         * {
+         *   messageFormat: (log, messageKey) => {
+         *     const message = log[messageKey];
+         *     if (log.requestId) return `[${log.requestId}] ${message}`;
+         *     return message;
+         *   }
+         * }
+         * ```
          */
-        messageFormat?: false | string;
+        messageFormat?: false | string | MessageFormatFunc;
         /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */

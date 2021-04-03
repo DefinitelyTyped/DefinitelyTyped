@@ -1,1 +1,3 @@
-export { Archive as default } from "../../";
+import { Archive } from "../../";
+
+export = Archive;

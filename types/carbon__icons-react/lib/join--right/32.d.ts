@@ -1,1 +1,3 @@
-export { JoinRight32 as default } from "../../";
+import { JoinRight32 } from "../../";
+
+export = JoinRight32;

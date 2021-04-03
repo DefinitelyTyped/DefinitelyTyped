@@ -1,1 +1,3 @@
-export { RequestQuote16 as default } from "../../";
+import { RequestQuote16 } from "../../";
+
+export = RequestQuote16;

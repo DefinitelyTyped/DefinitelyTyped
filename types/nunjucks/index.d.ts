@@ -104,7 +104,6 @@ export interface ILoader {
     async?: boolean;
     getSource(name: string): LoaderSource;
     getSource(name: string, callback: Callback<Error, LoaderSource>): void;
-    extend?(extender: ILoader): ILoader;
 }
 
 // Needs both Loader and ILoader since nunjucks uses a custom object system
@@ -114,7 +113,7 @@ export class Loader {
     emit(name: string, ...args: any[]): void;
     resolve(from: string, to: string): string;
     isRelative(filename: string): boolean;
-    extend(toExtend: ILoader): ILoader;
+    static extend<LoaderClass extends typeof Loader>(this: LoaderClass, toExtend: ILoader): LoaderClass;
 }
 
 export interface LoaderSource {

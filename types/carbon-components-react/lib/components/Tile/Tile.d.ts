@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ReactAnchorAttr, ReactDivAttr, ReactLabelAttr, ReactButtonAttr } from "../../../typings/shared";
+import { LinkProps } from "../Link";
 
 // Tile
 
@@ -11,7 +12,7 @@ export declare class Tile extends React.Component<TileProps> { }
 
 // ClickableTile
 
-export interface ClickableTileProps extends Omit<ReactAnchorAttr, "onClick" | "onKeyDown"> {
+export interface ClickableTileProps extends Omit<LinkProps, "onClick" | "onKeyDown"> {
     handleClick?: ReactAnchorAttr["onClick"],
     handleKeyDown?: ReactAnchorAttr["onKeyDown"],
     light?: boolean,
@@ -46,7 +47,9 @@ export interface ExpandableTileProps extends Omit<ReactButtonAttr, "onClick"> {
     light?: boolean,
     onBeforeClick?(e: React.MouseEvent<HTMLButtonElement>): void,
     tileCollapsedIconText?: string,
+    tileCollapsedLabel?: string,
     tileExpandedIconText?: string,
+    tileExpandedLabel?: string,
     tileMaxHeight?: number,
     tilePadding?: number,
 }

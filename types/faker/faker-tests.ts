@@ -2,6 +2,7 @@ let resultStr: string;
 let resultBool: boolean;
 let resultNum: number;
 let resultStrArr: string[];
+let resultStrNumArray: Array<string | number>;
 let resultDate: Date;
 
 import faker = require('faker');
@@ -72,6 +73,36 @@ resultStr = faker.database.column();
 resultStr = faker.database.type();
 resultStr = faker.database.collation();
 resultStr = faker.database.engine();
+
+resultNum = faker.datatype.number();
+resultNum = faker.datatype.number(0);
+resultNum = faker.datatype.number({
+    min: 0,
+    max: 0,
+    precision: 0,
+});
+resultNum = faker.datatype.float();
+resultNum = faker.datatype.float(0);
+resultNum = faker.datatype.float({
+    min: 0,
+    max: 0,
+    precision: 0,
+});
+resultDate = faker.datatype.datetime();
+resultDate = faker.datatype.datetime(0);
+resultDate = faker.datatype.datetime({
+    min: 0,
+    max: 0,
+});
+resultStr = faker.datatype.string();
+resultStr = faker.datatype.string(0);
+resultStr = faker.datatype.uuid();
+resultBool = faker.datatype.boolean();
+resultStr = faker.datatype.hexaDecimal();
+resultStr = faker.datatype.hexaDecimal(0);
+resultStr = faker.datatype.json();
+resultStrNumArray = faker.datatype.array();
+resultStrNumArray = faker.datatype.array(0);
 
 resultDate = faker.date.past();
 resultDate = faker.date.future();
@@ -301,6 +332,18 @@ resultStr = faker.vehicle.type();
 resultStr = faker.vehicle.fuel();
 resultStr = faker.vehicle.vin();
 resultStr = faker.vehicle.color();
+
+resultNum = faker.unique(faker.random.number);
+resultNum = faker.unique(faker.random.number, undefined, { maxTime: new Date('3000-01-01').getTime() });
+resultNum = faker.unique(faker.random.number, undefined, { maxRetries: 999 });
+resultNum = faker.unique(faker.random.number, [{ min: 0, max: 100, precision: 2 }]);
+resultStr = faker.unique(faker.random.word);
+resultStr = faker.unique(faker.random.word, ['noun']);
+resultStr = faker.unique(faker.random.words, [10]);
+resultDate = faker.unique(faker.date.past);
+resultDate = faker.unique<typeof faker.date.between>(faker.date.between, ['foo', 'bar']);
+resultDate = faker.unique(faker.date.between, [new Date(), new Date()]);
+resultDate = faker.unique(faker.date.soon, [100, new Date()]);
 
 import fakerAz = require('faker/locale/az');
 resultStr = fakerAz.name.firstName();

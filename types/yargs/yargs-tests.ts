@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import yargs = require('yargs');
+import yargsHelpers = require('yargs/helpers');
 import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
@@ -970,7 +971,7 @@ function Argv$inferOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.boolean("x").argv.x;
 
-    // $ExpectType "red" | "blue" | "green" | undefined
+    // $ExpectType "red" | "blue" | "green" | undefined || Color | undefined
     yargs.choices("x", colors).argv.x;
 
     // $ExpectType number | undefined
@@ -1192,10 +1193,10 @@ function Argv$inferRepeatedOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.string("a").boolean("a").argv.a;
 
-    // $ExpectType string | undefined
+    // $ExpectType string | undefined || ToString<number | undefined>
     yargs.number("a").string("a").argv.a;
 
-    // $ExpectType number | undefined
+    // $ExpectType number | undefined || ToNumber<string | undefined>
     yargs.string("a").number("a").argv.a;
 
     // $ExpectType boolean | undefined
@@ -1301,4 +1302,28 @@ function Argv$strictOptions() {
     })
     .strictOptions()
     .argv;
+}
+
+function Argv$strictCommands() {
+    const argv1 = yargs.strictCommands().command('foo', 'foo command').argv;
+    const argv2 = yargs.strictCommands(true).command('foo', 'foo command').argv;
+}
+
+function Argv$applyExtendsHelper() {
+    // $ExpectType Record<string, any>
+    const arvg = yargsHelpers.applyExtends(
+        { extends: './package.json', apple: 'red' },
+        process.cwd(),
+        true
+    );
+}
+
+function Argv$hideBinHelper() {
+    // $ExpectType string[]
+    const arvg = yargsHelpers.hideBin(process.argv);
+}
+
+function Argv$ParserHelper() {
+    // $ExpectType Arguments
+    const argv = yargsHelpers.Parser('--foo --bar=99');
 }

@@ -2,7 +2,7 @@
 // Project: https://github.com/slackhq/csp-html-webpack-plugin
 // Definitions by: Porama Ruengrairatanaroj <https://github.com/Seally>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import { Compiler as WebpackCompiler } from 'webpack';
 import { AsyncSeriesWaterfallHook } from 'tapable';

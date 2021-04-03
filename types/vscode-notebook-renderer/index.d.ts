@@ -1,4 +1,4 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.48
+// Type definitions for non-npm package vscode-notebook-renderer 1.55
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,26 +14,16 @@ export interface VSCodeEvent<T> {
     (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
 }
 
-export interface NotebookOutputEventParams  {
-    element: HTMLElement;
-    outputId: string;
-    output: NotebookOutput;
-    mimeType: string;
-}
-
 /**
- * Notebook output data -- corresponds to the `CellDisplayOutput` in the VS Code types.
+ * Notebook output event -- a supertype of the `NotebookCellOutputItem` in the VS Code types.
  */
-export interface NotebookOutput {
-    data: { [mimeType: string]: any };
-    metadata?: NotebookCellOutputMetadata;
-}
+export interface NotebookOutputEventParams  {
+    readonly element: HTMLElement;
+    readonly outputId: string;
 
-export interface NotebookCellOutputMetadata {
-    /**
-     * Additional attributes of a cell metadata.
-     */
-    custom?: { [key: string]: any; };
+    readonly mime: string;
+    readonly value: any;
+    readonly metadata?: Record<string, any>;
 }
 
 export interface NotebookRendererApi<T> {

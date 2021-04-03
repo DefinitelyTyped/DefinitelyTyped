@@ -1,17 +1,18 @@
-// Type definitions for auth0-lock 11.4
+// Type definitions for auth0-lock 11.27
 // Project: http://auth0.com, https://github.com/auth0/lock
 // Definitions by: Brian Caruso <https://github.com/carusology>
 //                 Dan Caddigan <https://github.com/goldcaddy77>
 //                 Larry Faudree <https://github.com/lfaudreejr>
 //                 Will Caulfield <https://github.com/willcaul>
+//                 Thomas Pearson <https://github.com/xsv24>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 4.1
 
 /// <reference types="auth0-js" />
 
 interface Auth0LockAdditionalSignUpFieldOption {
-  value: string;
-  label: string;
+    value: string;
+    label: string;
 }
 
 type Auth0LockAdditionalSignUpFieldOptionsCallback =
@@ -93,6 +94,7 @@ interface Auth0LockAuthParamsOptions {
     request_id?: any;
     scope?: string;
     state?: string;
+    [key: string]: any; // Auth0 rules can use custom params.
 }
 
 interface Auth0LockAuthOptions {
@@ -174,31 +176,39 @@ interface Auth0LockShowOptions {
     languageDictionary?: any;
 }
 
+interface Auth0IdTokenPayload {
+    name?: string;
+    nickname?: string;
+    picture?: string;
+    email?: string;
+    email_verified?: boolean;
+    aud: string;
+    exp: number;
+    iat: number;
+    iss: string;
+    sub: string;
+    acr?: string;
+    amr?: string[];
+    [key: string]: any;
+}
+
 interface AuthResult {
     accessToken: string;
     appState?: any;
     expiresIn: number;
     idToken: string;
-    idTokenPayload: {
-        aud: string;
-        exp: number;
-        iat: number;
-        iss: string;
-        sub: string;
-    };
+    idTokenPayload: Auth0IdTokenPayload;
     refreshToken?: string;
     scope?: string;
     state: string;
     tokenType: string;
-  }
+}
 
-interface Auth0LockStatic {
-    new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
-
+interface Auth0LockCore {
     // deprecated
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
-    checkSession(options: any, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
+    checkSession(options: Auth0LockAuthParamsOptions, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
     resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
     show(options?: Auth0LockShowOptions): void;
@@ -211,8 +221,21 @@ interface Auth0LockStatic {
     on(event: string, callback: (...args: any[]) => void): void;
 }
 
-declare var Auth0Lock: Auth0LockStatic;
+interface Auth0LockStatic extends Auth0LockCore {
+    new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
+}
+
+// additional options for passwordless mode
+interface Auth0LockPasswordlessConstructorOptions extends Auth0LockConstructorOptions {
+    passwordlessMethod?: string;
+}
+
+interface Auth0LockPasswordlessStatic extends Auth0LockCore {
+    new (clientId: string, domain: string, options?: Auth0LockPasswordlessConstructorOptions): Auth0LockPasswordlessStatic;
+}
 
 declare module "auth0-lock" {
     export default Auth0Lock;
+    export const Auth0Lock: Auth0LockStatic;
+    export const Auth0LockPasswordless: Auth0LockPasswordlessStatic;
 }

@@ -1,1 +1,3 @@
-export { TextVerticalAlignment32 as default } from "../../";
+import { TextVerticalAlignment32 } from "../../";
+
+export = TextVerticalAlignment32;

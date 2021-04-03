@@ -33,7 +33,6 @@
 //                 Thomas Pischulski <https://github.com/nephix>
 //                 Sam Kim <https://github.com/rlaace423>
 //                 Dongjun Lee <https://github.com/ChazEpps>
-//                 Valentin Agachi <https://github.com/avaly>
 //                 Jan Nemcik <https://github.com/JanNemcik>
 //                 Cl3dson <https://github.com/cl3dson>
 //                 Richard Simko <https://github.com/richardsimko>
@@ -2620,6 +2619,12 @@ declare module "mongoose" {
      * operators are included in the update. When set to false, mongoose will wrap the update in a $set.
      */
     overwrite?: boolean;
+
+    /**
+     * allow setting the discriminator key in the update.
+     * Will use the correct discriminator schema if the update changes the discriminator key.
+     */
+     overwriteDiscriminatorKey?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -3806,6 +3811,12 @@ declare module "mongoose" {
      *  Turn on this option to aggregate all the cast errors.
      */
     multipleCastError?: boolean;
+
+    /**
+     * allow setting the discriminator key in the update.
+     * Will use the correct discriminator schema if the update changes the discriminator key.
+     */
+    overwriteDiscriminatorKey?: boolean;
   }
 
   interface ModelMapReduceOption<T, Key, Val> {

@@ -10,6 +10,13 @@ export const iMatrix: number[];
 export let textureSize: number;
 export let copiedText: string;
 export let copiedTextStyle: any[];
+export let charWidthsCache: {
+    [key: string]: { // example: montserrat
+        [key: string]: { // example: normal_normal
+            [key: string]: number; // example: A: 286
+        }
+    }
+};
 
 /////////////////////////////////////////////////////////////
 // fabric Functions
@@ -578,7 +585,7 @@ interface IGradientOptionsCoords {
 }
 
 type IGradientOptionsColorStops = Array<{
-    offset: string;
+    offset: number;
     color: string;
 }>;
 
@@ -1654,9 +1661,12 @@ export class StaticCanvas {
 interface ICanvasOptions extends IStaticCanvasOptions {
     /**
      * When true, objects can be transformed by one side (unproportionally)
+     * when dragged on the corners that normally would not do that.
      * @type Boolean
+     * @default
+     * @since fabric 4.0 // changed name and default value
      */
-    uniScaleTransform?: boolean;
+    uniformScaling?: boolean;
 
     /**
      * Indicates which key enable unproportional scaling
@@ -3371,7 +3381,7 @@ export class Object {
      * @param e Event to operate upon
      * @param [pointer] Pointer to operate upon (instead of event)
      */
-    getLocalPointer(e: Event, pointer?: { x: number; y: number }): { x: number; y: number };
+    getLocalPointer(e: Event | undefined, pointer?: { x: number; y: number }): { x: number; y: number };
 
     /**
      * Basic getter
@@ -3752,7 +3762,7 @@ export class Object {
     /**
      * return correct set of coordinates for intersection
      */
-    getCoords(absolute?: boolean, calculate?: boolean): any;
+    getCoords(absolute?: boolean, calculate?: boolean): [fabric.Point, fabric.Point, fabric.Point, fabric.Point];
     /**
      * Returns height of an object bounding box counting transformations
      * before 2.0 it was named getHeight();

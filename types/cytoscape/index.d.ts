@@ -398,7 +398,7 @@ declare namespace cytoscape {
         /**
          * Add elements to the graph and return them.
          */
-        add(eles: ElementDefinition | ElementDefinition[] | CollectionArgument): CollectionReturnValue;
+        add(eles: ElementDefinition | ElementDefinition[] | ElementsDefinition | CollectionArgument): CollectionReturnValue;
 
         /**
          * Remove elements in collecion or match the selector from the graph and return them.
@@ -4820,7 +4820,7 @@ declare namespace cytoscape {
         // put depths in concentric circles if true, put depths top down if false
         circle: boolean;
         // the roots of the trees
-        roots?: string;
+        roots?: string[];
         // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
         maximalAdjustments: number;
     }

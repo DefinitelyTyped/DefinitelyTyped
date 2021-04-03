@@ -5,6 +5,7 @@ import Pulsar = require('pulsar-client');
         serviceUrl: 'pulsar://localhost:6650',
         ioThreads: 5,
         messageListenerThreads: 5,
+        log: (level, file, line, message) => console.log({ level, file, line, message }),
     });
 
     const producer = await client.createProducer({
@@ -41,6 +42,9 @@ import Pulsar = require('pulsar-client');
         topic: 'my-topic',
         subscription: 'my-subscription',
         subscriptionType: 'Exclusive',
+        listener: (callbackMessage, callbackConsumer) => {
+            callbackConsumer.acknowledge(callbackMessage);
+        },
     });
 
     const msg: Pulsar.Message = await consumer.receive();

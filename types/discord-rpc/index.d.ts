@@ -4,6 +4,7 @@
 //                 Jack Baron <https://github.com/lolPants>
 //                 Dylan Hackworth <https://github.com/dylhack>
 //                 Sankarsan Kampa <https://github.com/k3rn31p4nic>
+//                 Brian Dashore <https://github.com/bdashore3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
@@ -194,9 +195,11 @@ export interface Presence {
     smallImageKey?: string;
     smallImageText?: string;
     instance?: boolean;
+    partyId?: string;
     partySize?: number;
     partyMax?: number;
     matchSecret?: string;
     spectateSecret?: string;
     joinSecret?: string;
+    buttons?: Array<{ label: string, url: string }>;
 }

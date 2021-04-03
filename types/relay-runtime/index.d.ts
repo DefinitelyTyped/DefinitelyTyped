@@ -34,6 +34,9 @@ export {
     Network as INetwork,
     PayloadData,
     PayloadError,
+    ReactFlightPayloadData,
+    ReactFlightPayloadQuery,
+    ReactFlightServerTree,
     SubscribeFunction,
     Uploadable,
     UploadableMap,
@@ -62,6 +65,7 @@ export {
     MissingFieldHandler,
     ModuleImportPointer,
     NormalizationSelector,
+    OperationAvailability,
     OperationDescriptor,
     OperationLoader,
     OperationTracker,
@@ -71,6 +75,8 @@ export {
     PluralReaderSelector,
     Props,
     PublishQueue,
+    ReactFlightPayloadDeserializer,
+    ReactFlightClientResponse,
     ReaderSelector,
     ReadOnlyRecordProxy,
     RecordProxy,
@@ -90,6 +96,7 @@ export {
     NormalizationDefer,
     NormalizationConnection,
     NormalizationField,
+    NormalizationFlightField,
     NormalizationLinkedField,
     NormalizationLinkedHandle,
     NormalizationLocalArgumentDefinition,
@@ -103,8 +110,8 @@ export { NormalizationOperation } from './lib/util/NormalizationNode';
 export {
     ReaderArgument,
     ReaderArgumentDefinition,
-    ReaderConnection,
     ReaderField,
+    ReaderFlightField,
     ReaderFragment,
     ReaderInlineDataFragment,
     ReaderInlineDataFragmentSpread,
@@ -113,8 +120,10 @@ export {
     ReaderPaginationMetadata,
     ReaderRefetchableFragment,
     ReaderRefetchMetadata,
+    ReaderRequiredField,
     ReaderScalarField,
     ReaderSelection,
+    RequiredFieldAction,
 } from './lib/util/ReaderNode';
 export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
 export * from './lib/util/RelayRuntimeTypes';
@@ -174,6 +183,7 @@ export { applyOptimisticMutation } from './lib/mutations/applyOptimisticMutation
 export { commitLocalUpdate } from './lib/mutations/commitLocalUpdate';
 export { commitMutation } from './lib/mutations/commitMutation';
 export { fetchQuery } from './lib/query/fetchQuery';
+export { fetchQuery_DEPRECATED } from './lib/query/fetchQuery_DEPRECATED';
 export { isRelayModernEnvironment } from './lib/store/isRelayModernEnvironment';
 export { requestSubscription } from './lib/subscription/requestSubscription';
 

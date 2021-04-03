@@ -4,7 +4,7 @@
  * would cancel the subscription.
  */
 export interface Disposable {
-    dispose(): void;
+    dispose: DisposeFn;
 }
 
 export type DataID = string;

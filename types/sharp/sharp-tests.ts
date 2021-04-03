@@ -199,6 +199,7 @@ sharp(input)
 
 sharp(input)
     .resize(100, 100)
+    .toFormat('jpg')
     .toBuffer({ resolveWithObject: false })
     .then((outputBuffer: Buffer) => {
         // Resolves with a Buffer object when resolveWithObject is false
@@ -255,6 +256,19 @@ sharp('input.gif')
 // Extract raw RGB pixel data from JPEG input
 sharp('input.jpg')
     .raw()
+    .toBuffer({ resolveWithObject: true })
+    .then(({ data, info }) => {
+        console.log(data);
+        console.log(info);
+    });
+
+sharp(input)
+    .avif()
+    .avif({})
+    .avif({ quality: 50, lossless: false, speed: 5 })
+    .heif()
+    .heif({})
+    .heif({ quality: 50, compression: 'hevc', lossless: false, speed: 5 })
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
         console.log(data);

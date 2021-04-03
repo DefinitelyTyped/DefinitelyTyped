@@ -1,1 +1,3 @@
-export { QTAlt20 as default } from "../../../";
+import { QTAlt20 } from "../../../";
+
+export = QTAlt20;

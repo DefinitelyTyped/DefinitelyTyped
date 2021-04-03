@@ -8,6 +8,10 @@ import {
     VASTClientCustomStorage,
     VASTClientUrlHandler,
     VastCreativeCompanion,
+    VastAdvertiser,
+    VastUrlValue,
+    StaticResource,
+    VastAdExtension,
 } from 'vast-client';
 
 const VASTUrl = 'http://example.dailymotion.com/vast.xml';
@@ -16,14 +20,20 @@ const VASTXml = new DOMParser().parseFromString('<vast></vast>', 'text/xml');
 function cbSuccess(response: VastResponse): void {
     // process the VAST response
     const ads: VastAd[] = response.ads;
+    const advertiser: VastAdvertiser[] = ads[0].advertiser;
+    const impressionUrls: VastUrlValue[] = ads[0].impressionURLTemplates;
+    const extensions: VastAdExtension[] = ads[0].extensions;
+    const extensionName: string | null = extensions[0].name;
+    const extensionValue: any = extensions[0].value;
     const linearCreative = response.ads[0].creatives.filter(creative => {
         return creative.type === 'linear';
     });
     if (linearCreative && linearCreative.length > 0) {
         const creative = linearCreative[0] as VastCreativeLinear;
-        if (!!creative.videoCustomClickURLTemplates) {
-        }
         const mediaFiles = creative.mediaFiles;
+        const videoClickThroughURLTemplate: VastUrlValue | null = creative.videoClickThroughURLTemplate;
+        const videoClickTrackingURLTemplates: VastUrlValue[] = creative.videoClickTrackingURLTemplates;
+        const videoCustomClickURLTemplates: VastUrlValue[] = creative.videoCustomClickURLTemplates;
     }
 }
 
@@ -329,5 +339,32 @@ const invitationButton = document.getElementById('invitationButtonId') as HTMLBu
 // Bind click listener to the button
 invitationButton.addEventListener('click', () => {
     vastTracker.track('acceptInvitation');
-    vastTracker.track('acceptInvitationLinear', false);
+    vastTracker.track('acceptInvitationLinear', {once: false});
+    vastTracker.track('acceptInvitationLinear', {macros: {test: 'value'}, once: false});
+    vastTracker.track('acceptInvitationLinear', {macros: {test: 'value'}});
 });
+
+const vastAdvertiserWithId: VastAdvertiser = {
+    id: '123',
+    value: 'advertiser',
+};
+const vastAdvertiserWithoutId: VastAdvertiser = {
+    id: null,
+    value: 'advertiser',
+};
+const vastUrlValueWithId: VastUrlValue = {
+    id: '123',
+    url: 'https://my-sample.url',
+};
+const vastUrlValueWithoutId: VastUrlValue = {
+    id: null,
+    url: 'https://my-sample.url',
+};
+const staticResourceWithType: StaticResource = {
+    url: 'https://my-sample.url',
+    creativeType: 'COMPANION',
+};
+const staticResourceWithoutType: StaticResource = {
+    url: 'https://my-sample.url',
+    creativeType: null,
+};

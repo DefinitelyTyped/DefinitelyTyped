@@ -1,1 +1,3 @@
-export { Wheat as default } from "../../";
+import { Wheat } from "../../";
+
+export = Wheat;

@@ -1,1 +1,3 @@
-export { DataError20 as default } from "../../";
+import { DataError20 } from "../../";
+
+export = DataError20;

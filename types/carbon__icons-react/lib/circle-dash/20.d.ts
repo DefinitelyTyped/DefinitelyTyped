@@ -1,1 +1,3 @@
-export { CircleDash20 as default } from "../../";
+import { CircleDash20 } from "../../";
+
+export = CircleDash20;

@@ -48,9 +48,11 @@ const modernEnvironment = new Environment({ network, store });
 type MyQueryVariables = {
     pageID: string;
 };
+
 type MyQueryResponse = {
     name: string;
 };
+
 type MyQuery = {
     variables: MyQueryVariables;
     response: MyQueryResponse;

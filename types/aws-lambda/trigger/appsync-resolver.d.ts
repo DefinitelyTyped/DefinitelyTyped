@@ -2,6 +2,10 @@ import { Handler } from '../handler';
 
 export type AppSyncResolverHandler<T, V> = Handler<AppSyncResolverEvent<T>, V | V[]>;
 
+export interface AppSyncResolverEventHeaders {
+    [name: string]: string | undefined;
+}
+
 /**
  * See https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html
  *
@@ -10,9 +14,9 @@ export type AppSyncResolverHandler<T, V> = Handler<AppSyncResolverEvent<T>, V | 
 export interface AppSyncResolverEvent<T> {
     arguments: T;
     identity?: AppSyncIdentityIAM | AppSyncIdentityCognito;
-    source?: { [key: string]: any };
+    source: { [key: string]: any } | null;
     request: {
-        headers: { [key: string]: string };
+        headers: AppSyncResolverEventHeaders;
     };
     info: {
         selectionSetList: string[];
@@ -21,6 +25,8 @@ export interface AppSyncResolverEvent<T> {
         fieldName: string;
         variables: { [key: string]: any };
     };
+    prev: { result: { [key: string]: any } } | null;
+    stash: { [key: string]: any };
 }
 
 export interface AppSyncIdentityIAM {
@@ -41,4 +47,5 @@ export interface AppSyncIdentityCognito {
     claims: any;
     sourceIp: string[];
     defaultAuthStrategy: string;
+    groups: string[] | null;
 }

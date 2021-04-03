@@ -138,9 +138,9 @@ declare namespace Dockerode {
         get(callback: Callback<NodeJS.ReadableStream>): void;
         get(): Promise<NodeJS.ReadableStream>;
 
-        push(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+        push(options: ImagePushOptions, callback: Callback<NodeJS.ReadableStream>): void;
         push(callback: Callback<NodeJS.ReadableStream>): void;
-        push(options?: {}): Promise<NodeJS.ReadableStream>;
+        push(options?: ImagePushOptions): Promise<NodeJS.ReadableStream>;
 
         tag(options: {}, callback: Callback<any>): void;
         tag(callback: Callback<any>): void;
@@ -803,6 +803,38 @@ declare namespace Dockerode {
         };
     }
 
+    interface ImageBuildOptions {
+        authconfig?: AuthConfig;
+        dockerfile?: string;
+        t?: string;
+        extrahosts?: string;
+        remote?: string;
+        q?: boolean;
+        cachefrom?: string;
+        pull?: string;
+        rm?: boolean;
+        forcerm?: boolean;
+        memory?: number;
+        memswap?: number;
+        cpushares?: number;
+        cpusetcpus?: number;
+        cpuperiod?: number;
+        cpuquota?: number;
+        buildargs?: {[key: string]: string};
+        shmsize?: number;
+        squash?: boolean;
+        labels?: {[key: string]: string};
+        networkmode?: string;
+        platform?: string;
+        target?: string;
+        outputs?: string;
+    }
+
+    interface ImagePushOptions {
+        tag?: string;
+        authconfig?: AuthConfig;
+    }
+
     interface AuthConfig {
         username: string;
         password: string;
@@ -1269,6 +1301,10 @@ declare namespace Dockerode {
         EndpointSpec?: EndpointSpec;
     }
 
+    interface CreateServiceOptions extends ServiceSpec {
+        authconfig?: AuthConfig;
+    }
+
     interface ServiceCreateResponse {
         ID: string;
         Warnings?: string[];
@@ -1623,7 +1659,7 @@ declare class Dockerode {
 
     buildImage(
         file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext,
-        options: {},
+        options: Dockerode.ImageBuildOptions,
         callback: Callback<NodeJS.ReadableStream>,
     ): void;
     buildImage(
@@ -1632,7 +1668,7 @@ declare class Dockerode {
     ): void;
     buildImage(
         file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext,
-        options?: {},
+        options?: Dockerode.ImageBuildOptions,
     ): Promise<NodeJS.ReadableStream>;
 
     getContainer(id: string): Dockerode.Container;
@@ -1723,8 +1759,9 @@ declare class Dockerode {
     createVolume(options: {}, callback: Callback<any>): void;
     createVolume(options: {}): Promise<any>;
 
-    createService(options: Dockerode.ServiceSpec, callback: Callback<Dockerode.ServiceCreateResponse>): void;
-    createService(options: Dockerode.ServiceSpec): Promise<Dockerode.ServiceCreateResponse>;
+    createService(options: Dockerode.CreateServiceOptions, callback: Callback<Dockerode.ServiceCreateResponse>): void;
+    createService(options: Dockerode.CreateServiceOptions): Promise<Dockerode.ServiceCreateResponse>;
+    createService(auth: Dockerode.AuthConfig, options: Dockerode.ServiceSpec): Promise<Dockerode.ServiceCreateResponse>;
 
     createNetwork(options: Dockerode.NetworkCreateOptions, callback: Callback<Dockerode.Network>): void;
     createNetwork(options: Dockerode.NetworkCreateOptions): Promise<Dockerode.Network>;

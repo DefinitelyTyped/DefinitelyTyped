@@ -28,10 +28,10 @@ export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type ResponsiveStyleValue<T> = T | Array<T | null>;
 
 /**
- * All non-vendor-prefixed CSS properties. (Allow `number` to support CSS-in-JS libs,
+ * All CSS properties. (Allow `number` to support CSS-in-JS libs,
  * since they are converted to pixels)
  */
-export interface CSSProperties extends CSS.StandardProperties<number | string>, CSS.SvgProperties<number | string> {}
+export interface CSSProperties extends CSS.StandardProperties<number | string>, CSS.SvgProperties<number | string>, CSS.VendorProperties<number | string> {}
 
 /**
  * Map of all CSS pseudo selectors (`:hover`, `:focus`, ...)

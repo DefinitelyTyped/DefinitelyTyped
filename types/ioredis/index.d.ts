@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.17
+// Type definitions for ioredis 4.22
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -16,6 +16,7 @@
 //                 Andrew Lavers <https://github.com/alavers>
 //                 Claudiu Ceia <https://github.com/ClaudiuCeia>
 //                 Asyrique <https://github.com/asyrique>
+//                 Michael Salaverry <https://github.com/barakplasma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -320,6 +321,10 @@ declare namespace IORedis {
 
         lpop(key: KeyType, callback: Callback<string>): void;
         lpop(key: KeyType): Promise<string>;
+        lpop(key: KeyType, count: number, callback: Callback<string[]>): void;
+        lpop(key: KeyType, count: number): Promise<string[]>;
+
+        lpos(key: KeyType, value: ValueType, rank?: number, count?: number, maxlen?: number): Promise<number | null>;
 
         lpopBuffer(key: KeyType, callback: Callback<Buffer>): void;
         lpopBuffer(key: KeyType): Promise<Buffer>;
@@ -444,6 +449,10 @@ declare namespace IORedis {
         zrange(key: KeyType, start: number, stop: number, withScores: 'WITHSCORES', callback: Callback<string[]>): void;
         zrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
 
+        zrangeBuffer(key: KeyType, start: number, stop: number, callback: Callback<Buffer[]>): void;
+        zrangeBuffer(key: KeyType, start: number, stop: number, withScores: 'WITHSCORES', callback: Callback<Buffer[]>): void;
+        zrangeBuffer(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<Buffer[]>;
+
         zrevrange(key: KeyType, start: number, stop: number, callback: Callback<string[]>): void;
         zrevrange(
             key: KeyType,
@@ -453,6 +462,16 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
         zrevrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
+
+        zrevrangeBuffer(key: KeyType, start: number, stop: number, callback: Callback<Buffer[]>): void;
+        zrevrangeBuffer(
+            key: KeyType,
+            start: number,
+            stop: number,
+            withScores: 'WITHSCORES',
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrevrangeBuffer(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<Buffer[]>;
 
         zrangebyscore(
             key: KeyType,
@@ -503,6 +522,57 @@ declare namespace IORedis {
             offset: number,
             count: number,
             callback: Callback<string[]>,
+        ): void;
+
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores?: 'WITHSCORES',
+        ): Promise<Buffer[]>;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrangebyscoreBuffer(key: KeyType, min: number | string, max: number | string, callback: Callback<Buffer[]>): void;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
         ): void;
 
         zrevrangebyscore(
@@ -556,6 +626,57 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
 
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores?: 'WITHSCORES',
+        ): Promise<Buffer[]>;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrevrangebyscoreBuffer(key: KeyType, max: number | string, min: number | string, callback: Callback<Buffer[]>): void;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores: 'WITHSCORES',
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
+        ): void;
+
         zrangebylex(
             key: KeyType,
             min: string,
@@ -585,6 +706,35 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
 
+        zrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+        ): Promise<Buffer[]>;
+        zrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
+        ): void;
+
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -612,6 +762,35 @@ declare namespace IORedis {
             offset: number,
             count: number,
             callback: Callback<string[]>,
+        ): void;
+
+        zrevrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+        ): Promise<Buffer[]>;
+        zrevrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<Buffer[]>;
+        zrevrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            callback: Callback<Buffer[]>,
+        ): void;
+        zrevrangebylexBuffer(
+            key: KeyType,
+            min: string,
+            max: string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+            callback: Callback<Buffer[]>,
         ): void;
 
         zcount(key: KeyType, min: number | string, max: number | string, callback: Callback<number>): void;
@@ -629,7 +808,7 @@ declare namespace IORedis {
         zrevrank(key: KeyType, member: string, callback: Callback<number | null>): void;
         zrevrank(key: KeyType, member: string): Promise<number | null>;
 
-        hset: OverloadedKeyedHashCommand<ValueType, Ok>;
+        hset: OverloadedKeyedHashCommand<ValueType, number>;
 
         hsetBuffer(key: KeyType, field: string, value: ValueType, callback: Callback<BooleanResponse>): void;
         hsetBuffer(key: KeyType, field: string, value: ValueType): Promise<Buffer>;
@@ -671,6 +850,48 @@ declare namespace IORedis {
 
         hexists(key: KeyType, field: string, callback: Callback<BooleanResponse>): void;
         hexists(key: KeyType, field: string): Promise<BooleanResponse>;
+
+        geoadd(key: KeyType, longitude: number, latitude: number, member: string, callback: Callback<number>): void;
+        geoadd(key: KeyType, longitude: number, latitude: number, member: string): Promise<number>;
+
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi', callback: Callback<string | null>): void;
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi'): Promise<string | null>;
+
+        geohash: OverloadedKeyCommand<string, string[]>;
+
+        geopos: OverloadedKeyCommand<string, string[]>;
+
+        georadius(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            radius: number,
+            unit: 'm'|'km'|'ft'|'mi',
+            callback: Callback<string[]>,
+        ): void;
+        georadius(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            radius: number,
+            unit: 'm'|'km'|'ft'|'mi',
+            sort?: 'ASC' | 'DESC'
+        ): Promise<string[]>;
+        georadius(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            radius: number,
+            unit: 'm'|'km'|'ft'|'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC'
+        ): Promise<string[]>;
+
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', callback: Callback<string[]>): void;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback: Callback<string[]>): void;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi'): Promise<string[]>;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number): Promise<string[]>;
 
         incrby(key: KeyType, increment: number, callback: Callback<number>): void;
         incrby(key: KeyType, increment: number): Promise<number>;
@@ -928,7 +1149,7 @@ declare namespace IORedis {
 
         xrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
-        xread: OverloadedListCommand<ValueType, Array<[string, string[]]>>;
+        xread: OverloadedListCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
         xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
@@ -1100,7 +1321,7 @@ declare namespace IORedis {
 
         smembers(key: KeyType, callback?: Callback<string[]>): Pipeline;
 
-        zadd(key: KeyType, ...args: string[]): Pipeline;
+        zadd(key: KeyType, ...scoresAndMembers: Array<number|string>): Pipeline;
 
         zincrby(key: KeyType, increment: number, member: string, callback?: Callback<string>): Pipeline;
 
@@ -1229,6 +1450,20 @@ declare namespace IORedis {
         hgetall(key: KeyType, callback?: Callback<Record<string, string>>): Pipeline;
 
         hexists(key: KeyType, field: string, callback?: Callback<BooleanResponse>): Pipeline;
+
+        geoadd(key: KeyType, longitude: number, latitude: number, member: string, callback?: Callback<number>): Pipeline;
+
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string | null>): Pipeline;
+
+        geohash(key: KeyType, ...fields: string[]): Pipeline;
+
+        geopos(key: KeyType, ...fields: string[]): Pipeline;
+
+        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string[]>): Pipeline;
+        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
+
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string[]>): Pipeline;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
 
         incrby(key: KeyType, increment: number, callback?: Callback<number>): Pipeline;
 
@@ -1438,6 +1673,7 @@ declare namespace IORedis {
         readonly status: string;
         connect(): Promise<void>;
         disconnect(): void;
+        duplicate(overrideStartupNodes?: ReadonlyArray<ClusterNode>, overrideOptions?: ClusterOptions): Cluster;
         nodes(role?: NodeRole): Redis[];
     }
 
@@ -1638,11 +1874,13 @@ declare namespace IORedis {
     interface ScanStreamOption {
         match?: string;
         count?: number;
+        type?: string;
+        key?: string;
     }
 
     type DNSLookupFunction = (
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family?: number) => void,
     ) => void;
     interface NatMap {
         [key: string]: { host: string; port: number };

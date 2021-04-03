@@ -1,1 +1,3 @@
-export { ExpandAll32 as default } from "../../";
+import { ExpandAll32 } from "../../";
+
+export = ExpandAll32;

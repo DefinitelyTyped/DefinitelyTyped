@@ -1,1 +1,3 @@
-export { LetterSs32 as default } from "../../";
+import { LetterSs32 } from "../../";
+
+export = LetterSs32;

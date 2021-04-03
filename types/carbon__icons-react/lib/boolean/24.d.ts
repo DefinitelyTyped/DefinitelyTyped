@@ -1,1 +1,3 @@
-export { Boolean24 as default } from "../../";
+import { Boolean24 } from "../../";
+
+export = Boolean24;

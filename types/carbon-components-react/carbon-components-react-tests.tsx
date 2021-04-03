@@ -27,6 +27,7 @@ import {
     TableRow,
     Tag,
     TileGroup,
+    Tooltip,
     TooltipDefinition,
     TextArea,
     TextInput,
@@ -280,7 +281,18 @@ const t4 = (
                 <TableHeader {...data.getHeaderProps({ header, randomAttr: 'asdf' })}>{header.header}</TableHeader>
             ));
             data.headers.map(header => (
-                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}>
+                <TableHeader
+                    {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}
+                    translateWithId={(mId, args) => {
+                        if (args) {
+                            console.log(args.header);
+                            console.log(args.isSortHeader);
+                            console.log(args.sortDirection);
+                            console.log(args.sortStates);
+                        }
+                        return "string";
+                    }}
+                >
                     {header.header}
                 </TableHeader>
             ));
@@ -293,7 +305,10 @@ const t4 = (
             ));
             let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
             let batchActions = (
-                <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}>
+                <TableBatchActions
+                    {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}
+                    translateWithId={(mId, args) => `${args ? args.totalSelected : 0}`}
+                >
                     Content
                 </TableBatchActions>
             );
@@ -389,6 +404,10 @@ const t5 = (
                             <React.Fragment key={row.id}>
                                 <DataTable.TableRow {...renderProps.getRowProps({ row })}>
                                     <DataTable.TableSelectRow {...renderProps.getSelectionProps({ row })} />
+                                    <DataTable.TableSelectRow
+                                        {...renderProps.getSelectionProps({ row })}
+                                        onChange={(val, idOrName, evt) => console.log(val, idOrName, evt)}
+                                    />
                                     {row.cells.map(cell => (
                                         <DataTable.TableCell key={cell.id}>{cell.value}</DataTable.TableCell>
                                     ))}
@@ -550,48 +569,65 @@ const tileGroupA = (
     />
 );
 
+// Tooltip
+const tooltipHasAlign = <Tooltip triggerText="tooltip" align="end" >tooltip</Tooltip>;
+
 // TooltipDefinition
 const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" />;
 
 const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />;
 
 // Tabs
+{
+    const tabsBasicExample = (
+        <Tabs selected={1} onSelectionChange={idx => {}}>
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+        </Tabs>
+    );
 
-const tabsBasicExample = (
-    <Tabs selected={1} onSelectionChange={idx => {}}>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-    </Tabs>
-);
+    const tabsRenderContentExample = (
+        <Tabs>
+            <Tab
+                renderAnchor={(props) => <div/>}
+                renderButton={(props) => <div/>}
+                renderContent={props => {
+                    const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
+                    return hidden ? null : (
+                        <div id={id} className={className} aria-hidden={ariaHidden}>
+                            Selected: {selected}
+                        </div>
+                    );
+                }}
+            >
+                Render Content Tab
+            </Tab>
+        </Tabs>
+    );
 
-const tabsRenderContentExample = (
-    <Tabs>
-        <Tab
-            renderContent={props => {
-                const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
-                return hidden ? null : (
-                    <div id={id} className={className} aria-hidden={ariaHidden}>
-                        Selected: {selected}
-                    </div>
-                );
-            }}
-        >
-            Render Content Tab
-        </Tab>
-    </Tabs>
-);
-
-const tabCanBeDisabled = <Tab href="#" disabled />;
+    const tabCanBeDisabled = <Tab href="#" disabled />;
+}
 
 // Slider
 const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue => newValue.value} />;
 
 // Tag
-const ChipTagFilterUndef = <Tag />;
+{
+    const ChipTagFilterUndef = <Tag />;
 
-const ChipTagFalse = <Tag filter={false} />;
+    const TagCustomComp1: React.FC = () => <div />;
+    const ChipTagIcon1 = <Tag renderIcon={TagCustomComp1} size="sm" />;
 
-const FilterTag = <Tag filter onClose={() => {}} />;
+    const TagCustomComp2: React.FC<{ optionalProp?: string }> = () => <div />;
+    const ChipTagIcon2 = <Tag renderIcon={TagCustomComp2} />;
+
+    class TagCustomComp3 extends React.Component {}
+    const ChipTagIcon3 = <Tag renderIcon={TagCustomComp3} />;
+
+    const ChipTagFalse = <Tag filter={false} />;
+
+    const FilterTag = <Tag filter onClose={() => {}} />;
+}
 
 // TextArea
 const textAreaWithDefaultRef = <TextArea labelText="" />;
@@ -658,6 +694,24 @@ const multiSelect = (
     />
 );
 
+interface MultiSelectObjType1 {
+    id: number,
+    name: string,
+    someBoolProp?: boolean
+}
+
+const multiSelectObjs = (
+    <MultiSelect<MultiSelectObjType1>
+        id="disks"
+        items={[
+            { id: 1, name: "one" },
+            { id: 2, name: "two", someBoolProp: true }
+        ]}
+        itemToString={(item) => item && item.name || ""}
+        onChange={({ selectedItems }) => {}}
+    />
+);
+
 const multiSelectFilterable = (
     <MultiSelect.Filterable
         id="clusters"
@@ -671,26 +725,26 @@ const multiSelectFilterable = (
     />
 );
 
-const multiSelectFilterableObjs = [
+const multiSelectFilterableObjs: MultiSelectObjType1[] = [
     {
-        id: "1",
+        id: 1,
         name: "One"
     },
     {
-        id: "2",
+        id: 2,
         name: "Two",
-        label: "label"
+        someBoolProp: true,
     }
 ];
 const multiSelectFilterableObj = (
-    <MultiSelect.Filterable
+    <MultiSelect.Filterable<MultiSelectObjType1>
         id="clusters"
         initialSelectedItems={[multiSelectFilterableObjs[0]]}
         items={multiSelectFilterableObjs}
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item && item.label ? item.label : ""}
+        itemToString={item => item && item.name ? item.name : ""}
         onChange={({ selectedItems }) => {}}
     />
 );

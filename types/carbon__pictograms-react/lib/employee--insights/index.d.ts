@@ -1,1 +1,3 @@
-export { EmployeeInsights as default } from "../../";
+import { EmployeeInsights } from "../../";
+
+export = EmployeeInsights;

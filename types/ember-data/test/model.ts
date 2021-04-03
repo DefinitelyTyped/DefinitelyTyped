@@ -2,6 +2,7 @@ import Ember from 'ember';
 import DS, { ChangedAttributes } from 'ember-data';
 import { assertType } from './lib/assert';
 import RSVP from 'rsvp';
+import { Point } from './transform';
 
 const Person = DS.Model.extend({
     firstName: DS.attr(),
@@ -12,7 +13,20 @@ const Person = DS.Model.extend({
     fullName: Ember.computed('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
+
+    point: DS.attr('point', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
+    oldPoint: DS.attr('oldPoint', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
+
+    // Can't have a non-primitive as default
+    anotherPoint: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 })}) // $ExpectError
 });
+
+const person = Person.create();
+assertType<Point>(person.get('point'));
+assertType<Point>(person.get('oldPoint'));
+
+assertType<DS.Errors>(person.get('errors'));
+assertType<DS.Errors>(person.errors);
 
 const User = DS.Model.extend({
     username: DS.attr('string'),

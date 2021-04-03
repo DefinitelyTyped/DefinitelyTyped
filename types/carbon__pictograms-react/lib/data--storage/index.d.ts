@@ -1,1 +1,3 @@
-export { DataStorage as default } from "../../";
+import { DataStorage } from "../../";
+
+export = DataStorage;

@@ -1,1 +1,3 @@
-export { InspectData as default } from "../../";
+import { InspectData } from "../../";
+
+export = InspectData;

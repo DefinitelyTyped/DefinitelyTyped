@@ -1,1 +1,3 @@
-export { Monument20 as default } from "../../";
+import { Monument20 } from "../../";
+
+export = Monument20;

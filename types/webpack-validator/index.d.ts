@@ -2,9 +2,7 @@
 // Project: https://github.com/js-dxtools/webpack-validator
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="webpack" />
+// TypeScript Version: 3.7
 
 declare module "webpack-validator" {
     import { Configuration } from "webpack";

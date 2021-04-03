@@ -37,6 +37,51 @@ function test_dataTableAddRow() {
     dataTable.addRow(['row3', 0]);
 }
 
+function test_dataTableGetColumn() {
+    const dataTable = test_ctorDataTable();
+    dataTable.addColumn('number', 'x');
+    dataTable.addColumn('number', 'y');
+    dataTable.addRow([0, 0]);
+    dataTable.addRow([1, 1]);
+
+    // Check column 0 called 'x'.
+    let index: number = dataTable.getColumnIndex(0);
+    let label: string = dataTable.getColumnLabel(index);
+    let role: string = dataTable.getColumnRole(index);
+    let type: string = dataTable.getColumnType(index);
+
+    // Check column 1 called 'y'.
+    index = dataTable.getColumnIndex('y');
+    label = dataTable.getColumnLabel(index);
+    role = dataTable.getColumnRole(index);
+    type = dataTable.getColumnType(index);
+}
+
+function test_calendarChart() {
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'date', id: 'Date' });
+    dataTable.addColumn({ type: 'number', id: 'Value' });
+    dataTable.addRows([
+        [new Date(2021, 3, 15), 100],
+        [new Date(2021, 3, 16), -75],
+        [new Date(2021, 3, 17), 150],
+        [new Date(2021, 3, 18), -100],
+        [new Date(2021, 3, 19), 200]
+    ]);
+
+    var options = {
+        title: "Test Calendar",
+        height: 350,
+        colorAxis: { colors: ['red', 'white', 'green'], values: [-250, 0, 250] }
+    };
+
+    var container = document.getElementById('chart_div');
+    if (container) {
+        var chart = new google.visualization.Calendar(container);
+        chart.draw(dataTable, options);
+    }
+}
+
 function test_geoChart() {
     var data = google.visualization.arrayToDataTable([
         ['Country',   'Population', 'Area Percentage'],
@@ -212,7 +257,7 @@ function test_steppedAreaChart() {
 }
 
 function test_lineChart() {
-    var data = google.visualization.arrayToDataTable([
+    const data = google.visualization.arrayToDataTable([
         ['Year', 'Sales', 'Expenses'],
         ['2004',  1000,      400],
         ['2005',  1170,      460],
@@ -220,13 +265,17 @@ function test_lineChart() {
         ['2007',  1030,      540]
     ]);
 
-    var options = {
-        title: 'Company Performance'
+    const options: google.visualization.LineChartOptions = {
+        title: 'Company Performance',
+        intervals: {
+            style: 'boxes',
+            boxWidth: 1,
+        },
     };
 
-    var container = document.getElementById('chart_div');
+    const container = document.getElementById('chart_div');
     if (container) {
-        var chart = new google.visualization.LineChart(container);
+        const chart = new google.visualization.LineChart(container);
         chart.draw(data, options);
     }
 }
@@ -365,7 +414,38 @@ function test_timeline() {
             [ 'Adams',      new Date(1797, 2, 3),  new Date(1801, 2, 3) ],
             [ 'Jefferson',  new Date(1801, 2, 3),  new Date(1809, 2, 3) ]]);
 
-        chart.draw(dataTable);
+        chart.draw(dataTable, {
+            avoidOverlappingGridLines: true,
+            backgroundColor: 'white',
+            colors: ['red','#004411'],
+            enableInteractivity: true,
+            fontName: 'Arial',
+            fontSize: 16,
+            forceIFrame: false,
+            height: 100,
+            timeline: {
+                barLabelStyle: {
+                    color: 'white',
+                    fontName: 'Arial',
+                    fontSize: 16
+                },
+                colorByRowLabel: false,
+                groupByRowLabel: true,
+                rowLabelStyle: {
+                    color: 'white',
+                    fontName: 'Arial',
+                    fontSize: 16
+                },
+                showBarLabels: true,
+                showRowLabels: true,
+                singleColor: null,
+            },
+            tooltip: {
+                isHtml: true,
+                trigger: 'focus'
+            },
+            width: 100,
+        });
     }
 }
 
@@ -896,8 +976,96 @@ function test_GanttChart() {
                     fill: '#666'
                 },
                 shadowOffset: 1,
-                trackHeight: 30
-            }
+            },
         });
     }
+}
+
+function test_Sankey() {
+    google.charts.load('current', { packages: ['sankey'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+        data.addRows([
+            ['A', 'X', 5],
+            ['A', 'Y', 7],
+            ['A', 'Z', 6],
+            ['B', 'X', 2],
+            ['B', 'Y', 9],
+            ['B', 'Z', 4],
+        ]);
+
+        var element = document.getElementById('sankey_basic');
+
+        if (!element) {
+            return;
+        }
+
+        // Instantiates and draws our chart, passing in some options.
+        var chart = new google.visualization.Sankey(element);
+
+        chart.draw(data, {
+            width: 600,
+            height: 400,
+            sankey: {
+                node: {
+                    label: {
+                        fontName: 'Times-Roman',
+                        fontSize: 12,
+                        color: '#000',
+                        bold: true,
+                        italic: false,
+                    },
+                    interactivity: true,
+                    labelPadding: 6,
+                    nodePadding: 10,
+                    width: 5,
+                    colors: ['#a6cee3', '#b2df8a', '#fb9a99'],
+                },
+                link: {
+                    color: {
+                        fill: '#efd',
+                        fillOpacity: 0.8,
+                        stroke: 'black',
+                        strokeWidth: 1,
+                    },
+                    colors: ['#a6cee3', '#b2df8a', '#fb9a99'],
+                },
+                tooltip: {
+                    textStyle: {
+                        color: '#FF0000',
+                    },
+                    showColorCode: true,
+                },
+            },
+        });
+    }
+}
+
+function test_dataNamespace() {
+    const month: number = google.visualization.data.month(new Date());
+
+    const exampleNumbers: ReadonlyArray<number> = [1, month];
+    let result: number;
+
+    result = google.visualization.data.sum(exampleNumbers);
+    result = google.visualization.data.avg(exampleNumbers);
+    result = google.visualization.data.count(exampleNumbers);
+
+    let minMax: number | string | Date | null;
+    minMax = google.visualization.data.min([1, 2]);
+    minMax = google.visualization.data.max(['1', '2']);
+
+    let dt = new google.visualization.DataTable();
+    dt.addColumn('number', 'x');
+    dt.addColumn('number', 'y');
+
+    dt = google.visualization.data.group(dt, [0],
+        [{column: 1, aggregation: google.visualization.data.sum, type: 'number'}]);
+
+    dt = google.visualization.data.join(dt, dt, 'inner', [['x', 0]], [1], ['y']);
 }

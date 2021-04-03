@@ -14,7 +14,6 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-    ART,
     AccessibilityInfo,
     AsyncStorage,
     Alert,
@@ -23,7 +22,6 @@ import {
     Appearance,
     BackHandler,
     Button,
-    CheckBox,
     ColorPropType,
     ColorValue,
     DataSourceAssetCallback,
@@ -119,6 +117,8 @@ import {
     useWindowDimensions,
     SectionListData,
     ToastAndroid,
+    Touchable,
+    LayoutAnimation,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -300,7 +300,7 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 };
 
-function eventHandler<T extends React.BaseSyntheticEvent>(e: T) { }
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
 
 function handler(e: GestureResponderEvent) {
     eventHandler(e);
@@ -331,7 +331,7 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         const { rootView } = this.refs;
 
         rootView.setNativeProps({});
-        rootView.measure((x: number, y: number, width: number, height: number) => { });
+        rootView.measure((x: number, y: number, width: number, height: number) => {});
     }
 
     testFindNodeHandle() {
@@ -362,6 +362,24 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
 
 export default Welcome;
 
+// TouchableTest
+function TouchableTest() {
+    function basicUsage() {
+        if (Touchable.TOUCH_TARGET_DEBUG) {
+            return Touchable.renderDebugView({
+                color: 'mediumspringgreen',
+                hitSlop: { bottom: 5, top: 5 },
+            });
+        }
+    }
+
+    function defaultHitSlop() {
+        return Touchable.renderDebugView({
+            color: 'red',
+        });
+    }
+}
+
 // TouchableNativeFeedbackTest
 export class TouchableNativeFeedbackTest extends React.Component {
     onPressButton = (e: GestureResponderEvent) => {
@@ -372,11 +390,43 @@ export class TouchableNativeFeedbackTest extends React.Component {
 
     render() {
         return (
-            <TouchableNativeFeedback onPress={this.onPressButton}>
-                <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
-                    <Text style={{ margin: 30 }}>Button</Text>
-                </View>
-            </TouchableNativeFeedback>
+            <>
+                <TouchableNativeFeedback onPress={this.onPressButton}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', true)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', true, 30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground(30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless()}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless(30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </TouchableNativeFeedback>
+            </>
         );
     }
 }
@@ -423,10 +473,10 @@ export class PressableTest extends React.Component<{}> {
                                 <Text>Pressed</Text>
                             </View>
                         ) : (
-                                <View>
-                                    <Text>Not Pressed</Text>
-                                </View>
-                            )
+                            <View>
+                                <Text>Not Pressed</Text>
+                            </View>
+                        )
                     }
                 </Pressable>
                 {/* Android Ripple */}
@@ -734,7 +784,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
-                            onScrollToTop={() => { }}
+                            onScrollToTop={() => {}}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
                         />
@@ -769,7 +819,7 @@ class TabBarTest extends React.Component {
                     badgeColor="red"
                     icon={{ uri: undefined }}
                     selected={true}
-                    onPress={() => { }}
+                    onPress={() => {}}
                     renderAsOriginal={true}
                     selectedIcon={undefined}
                     systemIcon="history"
@@ -786,13 +836,13 @@ class AlertTest extends React.Component {
             'Title',
             'Message',
             [
-                { text: 'First button', onPress: () => { } },
-                { text: 'Second button', onPress: () => { } },
-                { text: 'Third button', onPress: () => { } },
+                { text: 'First button', onPress: () => {} },
+                { text: 'Second button', onPress: () => {} },
+                { text: 'Third button', onPress: () => {} },
             ],
             {
                 cancelable: false,
-                onDismiss: () => { },
+                onDismiss: () => {},
             },
         );
     }
@@ -838,20 +888,6 @@ class MaskedViewTest extends React.Component {
     }
 }
 
-const CheckboxTest = () => (
-    <CheckBox
-        testID="testId"
-        disabled={false}
-        onChange={value => {
-            console.log(value);
-        }}
-        onValueChange={value => {
-            console.log(value);
-        }}
-        value={true}
-    />
-);
-
 class InputAccessoryViewTest extends React.Component {
     render() {
         const uniqueID = 'foobar';
@@ -896,10 +932,10 @@ const sub4 = androidEventEmitter.addListener('event', (event: object) => event, 
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub3);
 
-class CustomEventEmitter extends NativeEventEmitter { }
+class CustomEventEmitter extends NativeEventEmitter {}
 
 const customEventEmitter = new CustomEventEmitter();
-customEventEmitter.addListener('event', () => { });
+customEventEmitter.addListener('event', () => {});
 
 class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
@@ -991,6 +1027,8 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput multiline onContentSizeChange={this.handleOnContentSizeChange} />
 
                 <TextInput contextMenuHidden={true} textAlignVertical="top" />
+
+                <TextInput textAlign="center" />
             </View>
         );
     }
@@ -1084,7 +1122,7 @@ export class ImageTest extends React.Component {
         testNativeSyntheticEvent(e);
         console.log('height:', e.nativeEvent.source.height);
         console.log('width:', e.nativeEvent.source.width);
-        console.log('url:', e.nativeEvent.source.url);
+        console.log('uri:', e.nativeEvent.source.uri);
     };
 
     handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
@@ -1139,18 +1177,15 @@ class AccessibilityTest extends React.Component {
             <View
                 accessibilityElementsHidden={true}
                 importantForAccessibility={'no-hide-descendants'}
-                accessibilityTraits={'none'}
-                onAccessibilityTap={() => { }}
+                onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
                 accessibilityHint="Very important header"
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
-                onMagicTap={() => { }}
-                onAccessibilityEscape={() => { }}
+                onMagicTap={() => {}}
+                onAccessibilityEscape={() => {}}
             >
-                <Text accessibilityTraits={['key', 'text']} accessibilityIgnoresInvertColors>
-                    Text
-                </Text>
+                <Text accessibilityIgnoresInvertColors>Text</Text>
                 <View />
             </View>
         );
@@ -1232,7 +1267,7 @@ const DatePickerAndroidTest = () => {
 };
 
 const PickerTest = () => (
-    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => { }}>
+    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
         <Picker.Item label="Item1" value="v1" />
         <Picker.Item label="Item2" value="v2" />
     </Picker>
@@ -1275,6 +1310,10 @@ const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
         <View nativeID={'nativeID'} />
         <Text nativeID={'nativeID'}>Text</Text>
+        <Image
+            source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+            nativeID={'nativeID'}
+        />
     </ScrollView>
 );
 
@@ -1307,10 +1346,20 @@ const KeyboardTest = () => {
     Keyboard.dismiss();
 
     // Android Keyboard Event
-    Keyboard.scheduleLayoutAnimation({ duration: 0, easing: 'keyboard', endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 } })
+    Keyboard.scheduleLayoutAnimation({
+        duration: 0,
+        easing: 'keyboard',
+        endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
+    });
 
     // IOS Keyboard Event
-    Keyboard.scheduleLayoutAnimation({ duration: 0, easing: 'easeInEaseOut', endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 }, startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 }, isEventFromThisApp: true })
+    Keyboard.scheduleLayoutAnimation({
+        duration: 0,
+        easing: 'easeInEaseOut',
+        endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
+        startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
+        isEventFromThisApp: true,
+    });
 };
 
 const PermissionsAndroidTest = () => {
@@ -1365,6 +1414,16 @@ const PlatformTest = () => {
     }
 };
 
+const PlatformConstantsTest = () => {
+    const testing: boolean = Platform.constants.isTesting;
+    if (Platform.OS === 'ios') {
+        const hasForceTouch: boolean = Platform.constants.forceTouchAvailable;
+    } else if (Platform.OS === 'android') {
+        const { major, prerelease } = Platform.constants.reactNativeVersion;
+        const v = Platform.constants.Version;
+        const host: string | undefined = Platform.constants.ServerHost;
+    }
+};
 Platform.select({ native: 1 }); // $ExpectType number | undefined
 Platform.select({ native: 1, web: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1 }); // $ExpectType number | undefined
@@ -1660,3 +1719,12 @@ const I18nManagerTest = () => {
 
     console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
 };
+
+// LayoutAnimations
+LayoutAnimation.configureNext(LayoutAnimation.create(
+    123,
+    LayoutAnimation.Types.easeIn,
+    LayoutAnimation.Properties.opacity,
+));
+
+LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));

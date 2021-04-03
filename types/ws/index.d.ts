@@ -7,6 +7,7 @@
 //                 reduckted <https://github.com/reduckted>
 //                 teidesu <https://github.com/teidesu>
 //                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
+//                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -22,22 +23,35 @@ import { SecureContextOptions } from 'tls';
 
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
-    static CONNECTING: number;
-    static OPEN: number;
-    static CLOSING: number;
-    static CLOSED: number;
+    /** The connection is not yet open. */
+    static CONNECTING: 0;
+    /** The connection is open and ready to communicate. */
+    static OPEN: 1;
+    /** The connection is in the process of closing. */
+    static CLOSING: 2;
+    /** The connection is closed. */
+    static CLOSED: 3;
 
     binaryType: string;
     bufferedAmount: number;
     extensions: string;
     protocol: string;
-    readyState: number;
+    /** The current state of the connection */
+    readyState:
+        | typeof WebSocket.CONNECTING
+        | typeof WebSocket.OPEN
+        | typeof WebSocket.CLOSING
+        | typeof WebSocket.CLOSED;
     url: string;
 
-    CONNECTING: number;
-    OPEN: number;
-    CLOSING: number;
-    CLOSED: number;
+    /** The connection is not yet open. */
+    CONNECTING: 0;
+    /** The connection is open and ready to communicate. */
+    OPEN: 1;
+    /** The connection is in the process of closing. */
+    CLOSING: 2;
+    /** The connection is closed. */
+    CLOSED: 3;
 
     onopen: (event: WebSocket.OpenEvent) => void;
     onerror: (event: WebSocket.ErrorEvent) => void;

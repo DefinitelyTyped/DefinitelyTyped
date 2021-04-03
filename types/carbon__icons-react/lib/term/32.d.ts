@@ -1,1 +1,3 @@
-export { Term32 as default } from "../../";
+import { Term32 } from "../../";
+
+export = Term32;

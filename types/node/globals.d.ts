@@ -6,7 +6,7 @@ interface ErrorConstructor {
     /**
      * Optional override for formatting stack traces
      *
-     * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
+     * @see https://v8.dev/docs/stack-trace-api#customizing-stack-traces
      */
     prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
 
@@ -47,13 +47,13 @@ declare var console: Console;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function setTimeout(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
 declare namespace setTimeout {
     function __promisify__(ms: number): Promise<void>;
     function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
 declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
-declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function setInterval(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
 declare function clearInterval(intervalId: NodeJS.Timeout): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
@@ -72,6 +72,8 @@ declare var exports: any;
 
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
+
+type WithImplicitCoercion<T> = T | { valueOf(): T };
 
 /**
  * Raw data is stored in instances of the Buffer class.
@@ -132,25 +134,19 @@ declare class Buffer extends Uint8Array {
      *
      * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
      */
-    static from(arrayBuffer: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
+    static from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    static from(data: ReadonlyArray<number>): Buffer;
-    static from(data: Uint8Array): Buffer;
-    /**
-     * Creates a new buffer containing the coerced value of an object
-     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
-     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
-     */
-    static from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
+    static from(data: Uint8Array | ReadonlyArray<number>): Buffer;
+    static from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
      */
-    static from(str: string, encoding?: BufferEncoding): Buffer;
+    static from(str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string }, encoding?: BufferEncoding): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param values to create a new Buffer
@@ -523,8 +519,8 @@ declare namespace NodeJS {
         parseFloat: typeof parseFloat;
         parseInt: typeof parseInt;
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
-        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
-        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
+        setInterval: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => Timeout;
+        setTimeout: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => Timeout;
         queueMicrotask: typeof queueMicrotask;
         undefined: typeof undefined;
         unescape: (str: string) => string;

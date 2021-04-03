@@ -2,8 +2,9 @@
 // Project: https://github.com/stephencookdev/speed-measure-webpack-plugin#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
-import { Configuration } from 'webpack';
+import { Compiler, Configuration } from 'webpack';
 
 /**
  * See how fast (or not) your plugins and loaders are, so you can optimise your builds
@@ -12,6 +13,7 @@ declare class SpeedMeasurePlugin {
     constructor(options?: SpeedMeasurePlugin.Options);
 
     wrap(config: Configuration): Configuration;
+    apply(compiler: Compiler): void;
 }
 
 declare namespace SpeedMeasurePlugin {

@@ -2,6 +2,7 @@
 // Project: https://github.com/markshapiro/webpack-merge-and-include-globally#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin, compilation } from 'webpack';
 

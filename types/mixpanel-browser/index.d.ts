@@ -4,6 +4,7 @@
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
 //                 Kristian Randall <https://github.com/randak>
 //                 Dan Wilt <https://github.com/dwilt>
+//                 Lee Dogeon <https://github.com/moreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -153,7 +154,7 @@ export interface Mixpanel {
     has_opted_in_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
     has_opted_out_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
     identify(unique_id?: string): any;
-    init(token: string, config?: Partial<Config>, name?: string): Mixpanel;
+    init(token: string, config: Partial<Config>, name: string): Mixpanel;
     opt_in_tracking(options?: Partial<InTrackingOptions>): void;
     opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
     push(item: PushItem): void;
@@ -177,6 +178,11 @@ export interface Mixpanel {
     people: People;
 }
 
+export interface OverridedMixpanel extends Mixpanel {
+    init(token: string, config: Partial<Config>, name: string): Mixpanel;
+    init(token: string, config?: Partial<Config>): undefined;
+}
+
 export function add_group(group_key: string, group_id: string, callback?: Callback): void;
 export function alias(alias: string, original?: string): void;
 export function clear_opt_in_out_tracking(options?: Partial<ClearOptOutInOutOptions>): void;
@@ -188,7 +194,8 @@ export function get_property(property_name: string): any;
 export function has_opted_in_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
 export function has_opted_out_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
 export function identify(unique_id?: string): any;
-export function init(token: string, config?: Partial<Config>, name?: string): Mixpanel;
+export function init(token: string, config: Partial<Config>, name: string): Mixpanel;
+export function init(token: string, config?: Partial<Config>): undefined;
 export function opt_in_tracking(options?: Partial<InTrackingOptions>): void;
 export function opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
 export function push(item: PushItem): void;
@@ -219,5 +226,5 @@ export function track_with_groups(event_name: string, properties: Dict, groups: 
 export function unregister(property: string): void;
 export const people: People;
 
-declare const mixpanel: Mixpanel;
+declare const mixpanel: OverridedMixpanel;
 export default mixpanel;

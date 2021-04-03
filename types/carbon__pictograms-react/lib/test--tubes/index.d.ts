@@ -1,1 +1,3 @@
-export { TestTubes as default } from "../../";
+import { TestTubes } from "../../";
+
+export = TestTubes;

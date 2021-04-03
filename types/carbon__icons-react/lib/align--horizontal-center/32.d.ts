@@ -1,1 +1,3 @@
-export { AlignHorizontalCenter32 as default } from "../../";
+import { AlignHorizontalCenter32 } from "../../";
+
+export = AlignHorizontalCenter32;

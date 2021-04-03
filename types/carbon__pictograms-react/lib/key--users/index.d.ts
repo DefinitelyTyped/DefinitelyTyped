@@ -1,1 +1,3 @@
-export { KeyUsers as default } from "../../";
+import { KeyUsers } from "../../";
+
+export = KeyUsers;

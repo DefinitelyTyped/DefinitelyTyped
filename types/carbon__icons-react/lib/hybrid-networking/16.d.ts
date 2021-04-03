@@ -1,1 +1,3 @@
-export { HybridNetworking16 as default } from "../../";
+import { HybridNetworking16 } from "../../";
+
+export = HybridNetworking16;

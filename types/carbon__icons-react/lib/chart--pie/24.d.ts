@@ -1,1 +1,3 @@
-export { ChartPie24 as default } from "../../";
+import { ChartPie24 } from "../../";
+
+export = ChartPie24;

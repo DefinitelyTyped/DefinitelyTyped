@@ -9,7 +9,7 @@ import {
     TooltipPosition,
 } from "../../../typings/shared";
 
-export type ButtonKind = "danger" | "danger--primary" | "ghost" | "primary" | "secondary" | "tertiary";
+export type ButtonKind = "danger" | "danger--ghost" | "danger--primary" | "danger--tertiary" | "ghost" | "primary" | "secondary" | "tertiary";
 export type ButtonSize = "default" | "field" | "lg" | "sm" | "small" | "xl";
 
 export interface ButtonRenderIconRenderProps {
@@ -27,6 +27,7 @@ export interface ButtonKindProps {
 interface ButtonBaseIsolatedProps {
     hasIconOnly?: boolean;
     iconDescription?: string;
+    isSelected?: boolean;
     // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
     // if anon render props type is desired, import ButtonRenderIconRenderProps.
     renderIcon?: any;

@@ -4,7 +4,9 @@
 //                 Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { WebpackPluginInstance, Compiler } from 'webpack';
 
@@ -189,6 +191,26 @@ export namespace BundleAnalyzerPlugin {
          */
         logLevel?: 'info' | 'warn' | 'error' | 'silent';
     }
+
+    interface JsonReportItem {
+        label: string;
+        /** in bytes */
+        gzipSize: number;
+        concatenated?: boolean;
+        /** in bytes */
+        statSize: number;
+        /** in bytes */
+        parsedSize: number;
+
+        groups?: JsonReportItem[];
+        path?: string;
+        inaccurateSizes?: boolean;
+        id?: number | null;
+        isAsset?: boolean;
+    }
+
+    /** The json report that will be produced if `analyzerMode: 'json'` */
+    type JsonReport = JsonReportItem[];
 }
 
 export class BundleAnalyzerPlugin implements WebpackPluginInstance {

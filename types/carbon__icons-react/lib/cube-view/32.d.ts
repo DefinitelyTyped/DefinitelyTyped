@@ -1,1 +1,3 @@
-export { CubeView32 as default } from "../../";
+import { CubeView32 } from "../../";
+
+export = CubeView32;

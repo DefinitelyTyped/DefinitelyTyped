@@ -97,9 +97,20 @@ declare class Chart {
         [key: string]: Chart;
     };
 }
+type Plugin = Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions;
+interface PluginDescriptor {
+    plugin: Plugin;
+    options: Chart.ChartPluginsOptions;
+}
+
 declare class PluginServiceStatic {
-    register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
-    unregister(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
+    register(plugin: Plugin): void;
+    unregister(plugin: Plugin): void;
+    clear(): void;
+    count(): number;
+    getAll(): Plugin[];
+    notify(chart: Chart, hook: keyof Chart.PluginServiceRegistrationOptions, args: any): boolean;
+    descriptors(chart: Chart): PluginDescriptor[];
 }
 
 interface Meta {
@@ -503,45 +514,48 @@ declare namespace Chart {
     }
 
     interface ChartArcOptions {
-        angle?: number;
-        backgroundColor?: ChartColor;
-        borderAlign?: BorderAlignment;
-        borderColor?: ChartColor;
-        borderWidth?: number;
+        angle?: number | Scriptable<number>;
+        backgroundColor?: ChartDataSets["backgroundColor"];
+        borderAlign?: BorderAlignment | Scriptable<BorderAlignment>;
+        borderColor?: ChartColor | Scriptable<ChartColor>;
+        borderWidth?: number | Scriptable<number>;
     }
 
+    type CubicInterpolationMode = 'default' | 'monotone';
+    type FillMode = 'zero' | 'top' | 'bottom' | boolean;
+
     interface ChartLineOptions {
-        cubicInterpolationMode?: 'default' | 'monotone';
-        tension?: number;
-        backgroundColor?: ChartColor;
-        borderWidth?: number;
-        borderColor?: ChartColor;
-        borderCapStyle?: string;
-        borderDash?: any[];
-        borderDashOffset?: number;
-        borderJoinStyle?: string;
-        capBezierPoints?: boolean;
-        fill?: 'zero' | 'top' | 'bottom' | boolean;
-        stepped?: boolean;
+        cubicInterpolationMode?: CubicInterpolationMode | Scriptable<CubicInterpolationMode>;
+        tension?: number | Scriptable<number>;
+        backgroundColor?: ChartDataSets["backgroundColor"];
+        borderWidth?: number | Scriptable<number>;
+        borderColor?: ChartColor | Scriptable<ChartColor>;
+        borderCapStyle?: string | Scriptable<string>;
+        borderDash?: any[] | Scriptable<any[]>;
+        borderDashOffset?: number | Scriptable<number>;
+        borderJoinStyle?: string | Scriptable<string>;
+        capBezierPoints?: boolean | Scriptable<boolean>;
+        fill?: FillMode | Scriptable<FillMode>;
+        stepped?: boolean | Scriptable<boolean>;
     }
 
     interface ChartPointOptions {
-        radius?: number;
-        pointStyle?: PointStyle;
-        rotation?: number;
-        backgroundColor?: ChartColor;
-        borderWidth?: number;
-        borderColor?: ChartColor;
-        hitRadius?: number;
-        hoverRadius?: number;
-        hoverBorderWidth?: number;
+        radius?: number | Scriptable<number>;
+        pointStyle?: PointStyle | Scriptable<PointStyle>;
+        rotation?: number | Scriptable<number>;
+        backgroundColor?: ChartDataSets["backgroundColor"];
+        borderWidth?: number | Scriptable<number>;
+        borderColor?: ChartColor | Scriptable<ChartColor>;
+        hitRadius?: number | Scriptable<number>;
+        hoverRadius?: number | Scriptable<number>;
+        hoverBorderWidth?: number | Scriptable<number>;
     }
 
     interface ChartRectangleOptions {
-        backgroundColor?: ChartColor;
-        borderWidth?: number;
-        borderColor?: ChartColor;
-        borderSkipped?: string;
+        backgroundColor?: ChartDataSets["backgroundColor"];
+        borderWidth?: number | Scriptable<number>;
+        borderColor?: ChartColor | Scriptable<ChartColor>;
+        borderSkipped?: string | Scriptable<string>;
     }
 
     interface ChartLayoutOptions {
@@ -615,6 +629,7 @@ declare namespace Chart {
         minRotation?: number;
         mirror?: boolean;
         padding?: number;
+        precision?: number;
         reverse?: boolean;
         /**
          * The number of ticks to examine when deciding how many labels will fit.
@@ -673,7 +688,7 @@ declare namespace Chart {
     }) => T;
 
     interface ChartDataSets {
-        cubicInterpolationMode?: 'default' | 'monotone';
+        cubicInterpolationMode?: CubicInterpolationMode | Scriptable<CubicInterpolationMode>;
         backgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         barPercentage?: number;
         barThickness?: number | "flex";
