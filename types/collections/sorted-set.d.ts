@@ -1,4 +1,27 @@
+declare const SortedSet: internal.SortedSetStatic;
+
+declare namespace SortedSet {
+    type Iterator<T> = internal.Iterator<T>;
+    type Node<T> = internal.Node<T>;
+    type SortedSet<T> = internal.SortedSet<T>;
+}
+
 declare namespace internal {
+    interface SortedSetStatic {
+        <T>(
+            values?: T[],
+            equals?: (a: T, b: T) => boolean,
+            compare?: (a: T, b: T) => number,
+            getDefault?: any,
+        ): SortedSet<T>;
+        new <T>(
+            values?: T[],
+            equals?: (a: T, b: T) => boolean,
+            compare?: (a: T, b: T) => number,
+            getDefault?: any,
+        ): SortedSet<T>;
+    }
+
     // TODO: These methods can be similar in others collection. One's should make some
     // class model.
     abstract class AbstractSet {
@@ -147,4 +170,4 @@ declare namespace internal {
     }
 }
 
-export = internal.SortedSet;
+export = SortedSet;
