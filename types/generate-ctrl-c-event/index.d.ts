@@ -4,14 +4,12 @@
 //                 Khairul Azhar Kasmiran <https://github.com/kazarmy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace GenerateCtrlCEvent {
-  interface Funcs {
-    generateCtrlC(): boolean;
-    generateCtrlCAsync(): Promise<boolean>;
-    generateCtrlBreak(dwProcessGroupId?: number): boolean;
-    generateCtrlBreakAsync(dwProcessGroupId?: number): Promise<boolean>;
-  }
+interface GenerateCtrlCEvent {
+  generateCtrlC(): boolean;
+  generateCtrlCAsync(): Promise<boolean>;
+  generateCtrlBreak(dwProcessGroupId?: number): boolean;
+  generateCtrlBreakAsync(dwProcessGroupId?: number): Promise<boolean>;
 }
 
-declare var funcs: GenerateCtrlCEvent.Funcs;
+declare var funcs: GenerateCtrlCEvent;
 export = funcs;
