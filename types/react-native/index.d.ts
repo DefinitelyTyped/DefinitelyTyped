@@ -8741,8 +8741,33 @@ export namespace Animated {
     class Animated {
         // Internal class, no public API.
     }
+    class AnimatedNode {
+        /**
+         * Adds an asynchronous listener to the value so you can observe updates from
+         * animations.  This is useful because there is no way to
+         * synchronously read the value because it might be driven natively.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#addlistener
+         */
+        addListener(callback: (value: any) => any): string;
+        /**
+         * Unregister a listener. The `id` param shall match the identifier
+         * previously returned by `addListener()`.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#removelistener
+         */
+        removeListener(id: string): void;
+        /**
+         * Remove all registered listeners.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#removealllisteners
+         */
+        removeAllListeners(): void;
 
-    class AnimatedWithChildren extends Animated {
+        hasListeners(): boolean;
+    }
+
+    class AnimatedWithChildren extends AnimatedNode {
         // Internal class, no public API.
     }
 
@@ -9381,18 +9406,18 @@ type ScreenRect = {
 type BaseKeyboardEvent = {
     duration: number;
     easing: KeyboardEventEasing;
-    endCoordinates: ScreenRect
-}
+    endCoordinates: ScreenRect;
+};
 
 type AndroidKeyboardEvent = BaseKeyboardEvent & {
-    duration: 0,
-    easing: 'keyboard'
-}
+    duration: 0;
+    easing: 'keyboard';
+};
 
 type IOSKeyboardEvent = BaseKeyboardEvent & {
-  startCoordinates: ScreenRect,
-  isEventFromThisApp: boolean
-}
+    startCoordinates: ScreenRect;
+    isEventFromThisApp: boolean;
+};
 
 export type KeyboardEvent = AndroidKeyboardEvent | IOSKeyboardEvent;
 
@@ -9431,7 +9456,7 @@ export interface KeyboardStatic extends NativeEventEmitter {
      * Useful for syncing TextInput (or other keyboard accessory view) size of
      * position changes with keyboard movements.
      */
-    scheduleLayoutAnimation: (event: KeyboardEvent) => void
+    scheduleLayoutAnimation: (event: KeyboardEvent) => void;
 }
 
 /**
