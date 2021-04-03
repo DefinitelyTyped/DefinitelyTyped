@@ -105,14 +105,14 @@ declare namespace internal {
         delete(value: T): boolean;
 
         find(value: T): Node<T> | undefined;
-        findGreatest(n?: Node<T>): Node<T> | undefined;
+        findGreatest(): Node<T> | undefined;
         findGreatestLessThan(value: T): Node<T> | undefined;
         findGreatestLessThanOrEqual(value: T): Node<T> | undefined;
-        findLeast(n?: Node<T>): Node<T> | undefined;
+        findLeast(): Node<T> | undefined;
         findLeastGreaterThan(value: T): Node<T> | undefined;
         findLeastGreaterThanOrEqual(value: T): Node<T> | undefined;
-        max(n?: Node<T>): T | undefined;
-        min(n?: Node<T>): T | undefined;
+        max(): T | undefined;
+        min(): T | undefined;
         one(): T | undefined;
 
         get(elt: T): T | undefined;
