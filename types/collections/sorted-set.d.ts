@@ -57,9 +57,9 @@ declare namespace internal {
     }
 
     class Iterator<T> {
-        constructor(set: any, start: any, end: any);
+        constructor(set: SortedSet<T>, start?: T, end?: T);
 
-        next(): { done: boolean; value: T | null | undefined };
+        next(): { done: boolean; value: T | undefined };
     }
 
     class Node<T> {
@@ -143,7 +143,7 @@ declare namespace internal {
             thisArg?: any,
         ): U;
 
-        iterate(start: number, stop: number): Iterator<T>;
+        iterate(): Iterator<T>;
     }
 }
 
