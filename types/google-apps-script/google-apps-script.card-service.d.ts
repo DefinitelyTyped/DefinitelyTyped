@@ -290,6 +290,10 @@ declare namespace GoogleAppsScript {
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
       newUpdateDraftBodyAction(): UpdateDraftBodyAction;
+      newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
+      newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
+      newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
+      newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
     }
     /**
      * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -700,6 +704,10 @@ declare namespace GoogleAppsScript {
     interface UpdateDraftActionResponseBuilder {
       build(): UpdateDraftActionResponse;
       setUpdateDraftBodyAction(updateDraftBodyAction: UpdateDraftBodyAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftBccRecipientsAction(updateDraftBccRecipientsAction: UpdateDraftBccRecipientsAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftCcRecipientsAction(updateDraftCcRecipientsAction: UpdateDraftCcRecipientsAction):	UpdateDraftActionResponseBuilder;
+      setUpdateDraftSubjectAction(updateDraftSubjectAction: UpdateDraftSubjectAction):	UpdateDraftActionResponseBuilder;
+      setUpdateDraftToRecipientsAction(updateDraftToRecipientsAction: UpdateDraftToRecipientsAction): UpdateDraftActionResponseBuilder;
     }
     /**
      * Represents an action that updates the email draft body.
@@ -707,6 +715,34 @@ declare namespace GoogleAppsScript {
     interface UpdateDraftBodyAction {
       addUpdateContent(content: string, contentType: ContentType): UpdateDraftBodyAction;
       setUpdateType(updateType: UpdateDraftBodyType): UpdateDraftBodyAction;
+    }
+
+    /**
+     * Sets an action that updates the email Bcc recipients of a draft.
+     */
+    interface UpdateDraftBccRecipientsAction {
+      addUpdateBccRecipients(bccRecipientEmails: string[]): UpdateDraftBccRecipientsAction;
+    }
+
+    /**
+     * Sets an action that updates the Cc recipients of a draft.
+     */
+    interface UpdateDraftCcRecipientsAction {
+      addUpdateCcRecipients(ccRecipientEmails: string[]): UpdateDraftCcRecipientsAction;
+    }
+
+    /**
+     * Updates the subject line of an email draft.
+     */
+    interface UpdateDraftSubjectAction {
+      addUpdateSubject(subject: string): UpdateDraftSubjectAction;
+    }
+
+    /**
+     * Updates the To recipients of an email draft.
+     */
+    interface UpdateDraftToRecipientsAction {
+      addUpdateToRecipients(toRecipientEmails: string): UpdateDraftToRecipientsAction;
     }
     /**
      * The fixed footer shown at the bottom of an add-on Card.
