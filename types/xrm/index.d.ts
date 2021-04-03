@@ -3681,6 +3681,14 @@ declare namespace Xrm {
      */
     interface Entity {
         /**
+         * Adds a function to be called after the OnSave is complete.
+         * @param handler The handler.
+         * @remarks Added in 9.2
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/events/postsave External Link: PostSave Event Documentation}
+         */
+        addOnPostSave(handler: Events.ContextSensitiveHandler): void;
+
+         /**
          * Adds a handler to be called when the record is saved.
          * @param handler The handler.
          */
