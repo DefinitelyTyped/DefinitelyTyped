@@ -18,7 +18,7 @@ export class Box2 {
     set(min: Vector2, max: Vector2): Box2;
     setFromPoints(points: Vector2[]): Box2;
     setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
-    clone(): Box2;
+    clone(): this;
     copy(box: Box2): this;
     makeEmpty(): Box2;
     isEmpty(): boolean;

@@ -28,5 +28,5 @@ export class LightningStorm {
     constructor(stormParams?: StormParams);
     update(time: number): void;
     copy(source: LightningStorm): LightningStorm;
-    clone(): LightningStorm;
+    clone(): this;
 }

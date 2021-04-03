@@ -93,7 +93,7 @@ export class WebGLRenderTarget extends EventDispatcher {
 
     setTexture(texture: Texture): void;
     setSize(width: number, height: number, depth?: number): void;
-    clone(): WebGLRenderTarget;
+    clone(): this;
     copy(source: WebGLRenderTarget): this;
     dispose(): void;
 }

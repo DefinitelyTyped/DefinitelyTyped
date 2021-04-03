@@ -15,6 +15,7 @@ import {
 
 export interface MaterialParameters {
     alphaTest?: number;
+    alphaToCoverage?: boolean;
     blendDst?: BlendingDstFactor;
     blendDstAlpha?: number;
     blendEquation?: BlendingEquation;
@@ -67,6 +68,12 @@ export class Material extends EventDispatcher {
      * @default 0
      */
     alphaTest: number;
+
+    /**
+     * Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.
+     * @default false
+     */
+    alphaToCoverage: boolean;
 
     /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
@@ -354,7 +361,7 @@ export class Material extends EventDispatcher {
     /**
      * Return a new material with the same parameters as this material.
      */
-    clone(): Material;
+    clone(): this;
 
     /**
      * Copy the parameters from the passed material into this material.

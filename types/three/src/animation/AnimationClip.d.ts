@@ -30,7 +30,7 @@ export class AnimationClip {
     trim(): AnimationClip;
     validate(): boolean;
     optimize(): AnimationClip;
-    clone(): AnimationClip;
+    clone(): this;
     toJSON(clip: AnimationClip): any;
 
     static CreateFromMorphTargetSequence(

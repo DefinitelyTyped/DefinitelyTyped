@@ -39,7 +39,7 @@ export class KeyframeTrack {
     trim(startTime: number, endTime: number): KeyframeTrack;
     validate(): boolean;
     optimize(): KeyframeTrack;
-    clone(): KeyframeTrack;
+    clone(): this;
 
     static toJSON(track: KeyframeTrack): any;
 }
