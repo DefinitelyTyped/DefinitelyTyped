@@ -7,7 +7,7 @@
 
 import { Readable } from 'stream';
 
-export interface Response {
+interface Response {
     name: string;
     title: string;
     description: string;
@@ -52,22 +52,29 @@ export interface Response {
     views: string;
 }
 
-/**
- * Validates facebook url
- */
-export function validateURL(url: string): boolean;
+declare class FBDL {
+    /**
+     * Validates facebook url
+     */
+    static validateURL(url: string): boolean;
 
-/**
- * Downloads facebook video
- */
-export function download(url: string): Promise<Readable>;
+    /**
+     * Downloads facebook video
+     */
+    static download(url: string): Promise<Readable>;
 
-/**
- * Fetches facebook video info
- */
-export function getInfo(url: string): Promise<Response | null>;
+    /**
+     * Fetches facebook video info
+     */
+    static getInfo(url: string): Promise<Response | null>;
 
-/**
- * Parses time in ms
- */
-export function parseTime(duration: string): string;
+    /**
+     * Parses time in ms
+     */
+    static parseTime(duration: string): string;
+
+    /** @ignore */
+    private _parseHTML(url: string): Promise<string>;
+}
+
+export = FBDL;
