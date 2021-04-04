@@ -1,10 +1,11 @@
+/// <reference lib="dom" />
 import Email = require('email-templates');
 import { createTransport } from 'nodemailer';
 import path = require('path');
 
 const locals = {
     locale: 'en',
-    name: 'Elon',
+    name: 'Edward',
 };
 
 let email = new Email();
@@ -34,9 +35,12 @@ email.render('mars/html.pug', locals);
 const sendPromise: Promise<any> = email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals});
 email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals})
 .then(res => {
-    console.log('res.originalMessage', res.originalMessage);
+    res; // $ExpectType any
 })
-.catch(console.error);
+.catch(err => {
+    err; // $ExpectType any
+});
+
 emailNoTransporter.render('mars/html.pug', locals);
 
 interface Locals {
@@ -52,10 +56,10 @@ const withTransportInstance = new Email<Locals>({
     })
 });
 
-withTransportInstance.render('tmpl', { firstName: 'TypeScript' });
+withTransportInstance.render('template', { firstName: 'TypeScript' });
 
 const emailOptions: Email.EmailOptions<Locals> = {
-    template: 'tmpl',
+    template: 'template',
     locals: {
         firstName: 'TypeScript'
     },
@@ -111,7 +115,7 @@ let emailNoMessage = new Email();
 emailNoMessage = new Email({});
 
 emailNoMessage.send({
-    template: 'sometemplate',
+    template: 'some-template',
     message: {
         from: 'definitelytyped@example.org',
         to: 'recipient@example.com',
