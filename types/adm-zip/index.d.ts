@@ -38,7 +38,7 @@ declare class AdmZip {
      * @param callback Called with the resulting string.
      * @param encoding If no encoding is specified `"utf8"` is used.
      */
-    readAsTextAsync(fileName: string | AdmZip.IZipEntry, callback: (data: string) => any, encoding?: string): void;
+    readAsTextAsync(fileName: string | AdmZip.IZipEntry, callback: (data: string, err: string) => any, encoding?: string): void;
     /**
      * Remove the entry from the file or the entry and all its nested directories
      * and files if the given entry is a directory.
@@ -113,7 +113,7 @@ declare class AdmZip {
      * @param name Name of the file or folder to retrieve.
      * @return The entry corresponding to the `name`.
      */
-    getEntry(name: string): AdmZip.IZipEntry;
+    getEntry(name: string): AdmZip.IZipEntry | null;
     /**
      * Extracts the given entry to the given `targetPath`.
      * If the entry is a directory inside the archive, the entire directory and
@@ -170,6 +170,10 @@ declare class AdmZip {
         onItemStart?: (name: string) => void,
         onItemEnd?: (name: string) => void,
     ): void;
+    /**
+     * Test the archive.
+     */
+    test(): boolean;
 }
 
 declare namespace AdmZip {
@@ -204,7 +208,7 @@ declare namespace AdmZip {
         /**
          * Get the header associated with this ZipEntry.
          */
-        header: Buffer;
+        readonly header: EntryHeader;
         attr: number;
         /**
          * Retrieve the compressed data for this entry. Note that this may trigger
@@ -227,7 +231,7 @@ declare namespace AdmZip {
         /**
          * Asynchronously get the decompressed data associated with this entry.
          */
-        getDataAsync(callback: (data: Buffer) => void): void;
+        getDataAsync(callback: (data: Buffer, err: string) => any): void;
         /**
          * Returns the CEN Entry Header to be written to the output zip file, plus
          * the extra data and the entry comment.
@@ -238,6 +242,45 @@ declare namespace AdmZip {
          * the ZipEntry.
          */
         toString(): string;
+    }
+
+    interface EntryHeader {
+        made: number;
+        version: number;
+        flags: number;
+        method: number;
+        time: Date;
+        crc: number;
+        compressedSize: number;
+        size: number;
+        fileNameLength: number;
+        extraLength: number;
+        commentLength: number;
+        diskNumStart: number;
+        inAttr: number;
+        attr: number;
+        offset: number;
+        readonly encripted: boolean;
+        readonly entryHeaderSize: number;
+        readonly realDataOffset: number;
+        readonly dataHeader: DataHeader;
+        loadDataHeaderFromBinary(data: Buffer): void;
+        loadFromBinary(data: Buffer): void;
+        dataHeaderToBinary(): Buffer;
+        entryHeaderToBinary(): Buffer;
+        toString(): string;
+    }
+
+    interface DataHeader {
+        version: number;
+        flags: number;
+        method: number;
+        time: number;
+        crc: number;
+        compressedSize: number;
+        size: number;
+        fnameLen: number;
+        extraLen: number;
     }
 }
 
