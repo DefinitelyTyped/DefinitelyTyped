@@ -1321,6 +1321,10 @@
             "libraryName": "has-yarn",
             "asOfVersion": "2.0.0"
         },
+        "hash-it": {
+            "libraryName": "hash-it",
+            "asOfVersion": "5.0.0"
+        },
         "hasha": {
             "libraryName": "hasha",
             "asOfVersion": "4.0.0"
