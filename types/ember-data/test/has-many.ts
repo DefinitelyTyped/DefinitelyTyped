@@ -60,10 +60,10 @@ class Polymorphic extends DS.Model {
     paymentMethods = DS.hasMany('payment-method', { polymorphic: true });
 }
 
- // $ExpectType Model | undefined
+ // $ExpectType BlogComment | undefined
 blogPost.hasMany('commentsAsync').value()!.get('firstObject');
 
- // $ExpectType Model | undefined
+ // $ExpectType BlogComment | undefined
 blogPost.hasMany('commentsSync').value()!.get('firstObject');
 
 // $ExpectError

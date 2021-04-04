@@ -30,6 +30,7 @@ folder.set('parent', folder);
 folder.set('parent', folder.get('parent'));
 folder.set('parent', store.findRecord('folder', 3));
 
-folder.belongsTo('parent').value(); // $ExpectType Model | null
-folder.belongsTo('parentSync').value(); // $ExpectType Model | null
+folder.belongsTo('parent').value(); // $ExpectType Folder | null
+folder.belongsTo('parentSync').value(); // $ExpectType Folder | null
+folder.belongsTo('name'); // $ExpectType never
 folder.belongsTo('non-existing').value(); // $ExpectError

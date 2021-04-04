@@ -109,20 +109,20 @@ function testBelongsToInvalidKeys() {
     blogPost.belongsTo('non-existing'); // $ExpectError
 
     // Neither of DS.Model properties can be a relationship
-    blogPost.belongsTo('isNew'); // $ExpectType BelongsToReference<Model>
+    blogPost.belongsTo('isNew'); // $ExpectType never
 
     // accessing an own property which is known as not a relationship beforehand
-    blogPost.belongsTo('title'); // $ExpectType BelongsToReference<Model>
+    blogPost.belongsTo('title'); // $ExpectType never
 }
 
 function testHasManyInvalidKeys() {
     blogPost.hasMany('non-existing'); // $ExpectError
 
     // Neither of DS.Model properties can be a relationship
-    blogPost.hasMany('isNew'); // $ExpectType HasManyReference<Model>
+    blogPost.hasMany('isNew'); // $ExpectType never
 
     // accessing an own property which is known as not a relationship beforehand
-    blogPost.hasMany('title'); // $ExpectType HasManyReference<Model>
+    blogPost.hasMany('title'); // never
 }
 
 // make sure DS.BelongsToReference works w/o an explicit generic argument

@@ -26,19 +26,21 @@ type ModelKeys<Model extends DS.Model> = Exclude<keyof Model, keyof DS.Model>;
 
 type AttributesFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to attr properties only (TS 2.8)
 
+type MaybeModel<T> = T extends DS.Model ? T : undefined;
+
 type UnboxBelongsTo<T> =
     T extends DS.AsyncBelongsTo<infer C> ? C
         : T extends DS.Model ? T
-        : T extends DS.AsyncHasMany<any> ? never
-        : T extends DS.SyncHasMany<any> ? never
-        : DS.Model;
+        : T extends Ember.ComputedProperty<DS.AsyncBelongsTo<infer C>, infer C | DS.PromiseObject<infer C>> ? MaybeModel<C>
+        : T extends Ember.ComputedProperty<infer C, infer C | DS.PromiseObject<infer C>> ? MaybeModel<C>
+        : undefined;
 
 type UnboxHasMany<T> =
     T extends DS.AsyncHasMany<infer C> ? C
       : T extends DS.SyncHasMany<infer C> ? C
-      : T extends DS.AsyncBelongsTo<any> ? never
-      : T extends DS.Model ? never
-      : DS.Model;
+      : T extends Ember.ComputedProperty<DS.SyncHasMany<infer C>, DS.SyncHasMany<infer C>> ? MaybeModel<C>
+      : T extends Ember.ComputedProperty<DS.AsyncHasMany<infer C>, Ember.Array<infer C>> ? MaybeModel<C>
+      : undefined;
 
 type BelongsToModels<Model extends DS.Model> = {
     [K in keyof Model]: UnboxBelongsTo<Model[K]>
@@ -587,16 +589,16 @@ export namespace DS {
          * Get the reference for the specified belongsTo relationship.
          */
         belongsTo<T extends Model, K extends keyof BelongsToModels<T>>(this: T, name: K)
-            : BelongsToModels<T>[K] extends never
-                ? never
-                : BelongsToReference<BelongsToModels<T>[K]>;
+            : BelongsToModels<T>[K] extends Model
+                ? BelongsToReference<BelongsToModels<T>[K]>
+                : never;
         /**
          * Get the reference for the specified hasMany relationship.
          */
         hasMany<T extends Model, K extends keyof HasManyModels<T>>(this: T, name: K):
-            HasManyModels<T>[K] extends never
-                ? never
-                : HasManyReference<HasManyModels<T>[K]>;
+            HasManyModels<T>[K] extends Model
+                ? HasManyReference<HasManyModels<T>[K]>
+                : never;
         /**
          * Given a callback, iterates over each of the relationships in the model,
          * invoking the callback with the name of each relationship and its relationship
