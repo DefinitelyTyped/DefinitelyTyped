@@ -51,4 +51,7 @@ async function datasets(req: express.Request, res: express.Response) {
 
 async function attach(req: express.Request, res: express.Response) {
     await rdfHandler.attach(req, res);
+    await rdfHandler.attach(req, res, {
+        baseIriFromRequest: true
+    });
 }
