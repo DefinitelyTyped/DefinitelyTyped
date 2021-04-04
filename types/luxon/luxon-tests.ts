@@ -6,6 +6,7 @@ import {
     IANAZone,
     Info,
     Interval,
+    LocalZone,
     Settings,
     Zone,
     ZoneOffsetFormat,
@@ -57,6 +58,8 @@ FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier('UTC+6');
+
+LocalZone.instance; // $ExpectType LocalZone
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO('2017-05-15T08:30:00'); // => May 15, 2017 at midnight
