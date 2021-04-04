@@ -37,7 +37,6 @@ ShareMenuReactView.continueInApp({ extraData: "extra" });
 const data = ShareMenuReactView.data();
 data.then(() => {});
 data.then(share => {
-    const mimeType = share?.mimeType;
-    const data = share?.data;
-    const extraData = share?.extraData;
+    const mimeType = share.mimeType;
+    const data = share.data;
 });
