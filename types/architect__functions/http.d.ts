@@ -133,7 +133,7 @@ export interface StaticOptions {
 export interface Helpers {
     bodyParser: (req: HttpRequest) => Record<string, any>;
     interpolate: (req: HttpRequest) => HttpRequest;
-    static: (asset: string, options: StaticOptions) => string;
+    static: (asset: string, options?: StaticOptions) => string;
     url: (url: string) => string;
 }
 
