@@ -742,7 +742,7 @@ declare namespace GoogleAppsScript {
      * Updates the To recipients of an email draft.
      */
     interface UpdateDraftToRecipientsAction {
-      addUpdateToRecipients(toRecipientEmails: string): UpdateDraftToRecipientsAction;
+      addUpdateToRecipients(toRecipientEmails: string[]): UpdateDraftToRecipientsAction;
     }
     /**
      * The fixed footer shown at the bottom of an add-on Card.
