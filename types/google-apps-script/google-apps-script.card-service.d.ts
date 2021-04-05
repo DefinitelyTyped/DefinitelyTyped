@@ -703,8 +703,8 @@ declare namespace GoogleAppsScript {
      */
     interface UpdateDraftActionResponseBuilder {
       build(): UpdateDraftActionResponse;
-      setUpdateDraftBodyAction(updateDraftBodyAction: UpdateDraftBodyAction): UpdateDraftActionResponseBuilder;
       setUpdateDraftBccRecipientsAction(updateDraftBccRecipientsAction: UpdateDraftBccRecipientsAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftBodyAction(updateDraftBodyAction: UpdateDraftBodyAction): UpdateDraftActionResponseBuilder;
       setUpdateDraftCcRecipientsAction(updateDraftCcRecipientsAction: UpdateDraftCcRecipientsAction):	UpdateDraftActionResponseBuilder;
       setUpdateDraftSubjectAction(updateDraftSubjectAction: UpdateDraftSubjectAction):	UpdateDraftActionResponseBuilder;
       setUpdateDraftToRecipientsAction(updateDraftToRecipientsAction: UpdateDraftToRecipientsAction): UpdateDraftActionResponseBuilder;
