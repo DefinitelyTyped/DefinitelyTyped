@@ -289,8 +289,8 @@ declare namespace GoogleAppsScript {
       newTextParagraph(): TextParagraph;
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
-      newUpdateDraftBodyAction(): UpdateDraftBodyAction;
       newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
+      newUpdateDraftBodyAction(): UpdateDraftBodyAction;
       newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
       newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
       newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
