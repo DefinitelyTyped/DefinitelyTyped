@@ -6,6 +6,8 @@
 
 // The documentation is mainly copied from the source repo README.
 
+/// <reference lib="dom" />
+
 declare namespace Inputmask {
     type Range = { start: string, end: string } | [string, string];
 
