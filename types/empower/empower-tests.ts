@@ -1,17 +1,17 @@
-import empower = require("empower");
+import empower = require('empower');
 
-var baseAssert:any;
-var fakeFormatter:any;
+const baseAssert: any = {};
+const fakeFormatter: any = {};
 
-()=> {
-    var assert = empower(baseAssert, fakeFormatter);
-};
+{
+    const assert = empower(baseAssert, fakeFormatter);
+}
 
-var option:empower.Options = {
+const option: empower.Options = {
     modifyMessageOnRethrow: false,
-    saveContextOnRethrow: false
+    saveContextOnRethrow: false,
 };
 
-()=> {
-    var assert = empower(baseAssert, fakeFormatter, option);
-};
+{
+    const assert = empower(baseAssert, fakeFormatter, option);
+}
