@@ -104,5 +104,5 @@ export class LightningStrike {
     update(time: number): void;
 
     copy(source: LightningStrike): LightningStrike;
-    clone(): LightningStrike;
+    clone(): this;
 }

@@ -89,7 +89,7 @@ export class Curve<T extends Vector> {
         binormals: Vector3[];
     };
 
-    clone(): Curve<T>;
+    clone(): this;
     copy(source: Curve<T>): this;
     toJSON(): object;
     fromJSON(json: object): this;

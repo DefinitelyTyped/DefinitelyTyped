@@ -18,7 +18,7 @@ export class Ray {
     direction: Vector3;
 
     set(origin: Vector3, direction: Vector3): Ray;
-    clone(): Ray;
+    clone(): this;
     copy(ray: Ray): this;
     at(t: number, target: Vector3): Vector3;
     lookAt(v: Vector3): Ray;

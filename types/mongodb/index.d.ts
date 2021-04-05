@@ -1877,8 +1877,8 @@ export type SetFields<TSchema> = ({
 
 export type PushOperator<TSchema> = ({
     readonly [key in KeysOfAType<TSchema, ReadonlyArray<any>>]?:
-        | UpdateOptionalId<Unpacked<TSchema[key]>>
-        | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
+        | Unpacked<TSchema[key]>
+        | ArrayOperator<Array<Unpacked<TSchema[key]>>>;
 } &
     NotAcceptedFields<TSchema, ReadonlyArray<any>>) & {
     readonly [key: string]: ArrayOperator<any> | any;

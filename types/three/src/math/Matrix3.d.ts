@@ -72,7 +72,7 @@ export class Matrix3 implements Matrix {
         n33: number,
     ): Matrix3;
     identity(): Matrix3;
-    clone(): Matrix3;
+    clone(): this;
     copy(m: Matrix3): this;
     extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix3;
     setFromMatrix4(m: Matrix4): Matrix3;

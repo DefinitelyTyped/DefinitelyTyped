@@ -81,8 +81,8 @@ declare namespace Autosuggest {
 
     interface InputProps<TSuggestion>
         extends Omit<React.InputHTMLAttributes<HTMLElement>, 'onChange' | 'onBlur'> {
-        onChange(event: React.FormEvent<HTMLElement>, params: ChangeEvent): void;
-        onBlur?(event: React.FocusEvent<HTMLElement>, params?: BlurEvent<TSuggestion>): void;
+        onChange: (event: React.FormEvent<HTMLElement>, params: ChangeEvent) => void;
+        onBlur?: (event: React.FocusEvent<HTMLElement>, params?: BlurEvent<TSuggestion>) => void;
         value: string;
         ref?: React.Ref<HTMLInputElement>;
     }

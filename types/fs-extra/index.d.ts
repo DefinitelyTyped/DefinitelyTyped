@@ -240,13 +240,15 @@ export namespace realpath {
 export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
 
+export function rm(path: PathLike, options?: fs.RmOptions): Promise<void>;
+
 /**
  * Asynchronous rmdir - removes the directory specified in {path}
  *
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function rmdir(path: PathLike): Promise<void>;
+export function rmdir(path: PathLike, options?: fs.RmDirOptions): Promise<void>;
 
 export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: PathLike): Promise<Stats>;

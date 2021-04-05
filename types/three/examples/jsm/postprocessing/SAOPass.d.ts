@@ -28,7 +28,7 @@ export interface SAOPassParams {
     saoScale: number;
     saoKernelRadius: number;
     saoMinResolution: number;
-    saoBlur: number;
+    saoBlur: boolean;
     saoBlurRadius: number;
     saoBlurStdDev: number;
     saoBlurDepthCutoff: number;

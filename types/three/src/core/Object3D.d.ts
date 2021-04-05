@@ -360,7 +360,7 @@ export class Object3D extends EventDispatcher {
 
     toJSON(meta?: { geometries: any; materials: any; textures: any; images: any }): any;
 
-    clone(recursive?: boolean): Object3D;
+    clone(recursive?: boolean): this;
 
     /**
      *

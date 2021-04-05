@@ -369,3 +369,24 @@ export const StreamCopyUsage: Usage;
 export enum GLSLVersion {}
 export const GLSL1: GLSLVersion;
 export const GLSL3: GLSLVersion;
+
+export type BuiltinShaderAttributeName =
+    | 'position'
+    | 'normal'
+    | 'uv'
+    | 'color'
+    | 'skinIndex'
+    | 'skinWeight'
+    | 'instanceMatrix'
+    | 'morphTarget0'
+    | 'morphTarget1'
+    | 'morphTarget2'
+    | 'morphTarget3'
+    | 'morphTarget4'
+    | 'morphTarget5'
+    | 'morphTarget6'
+    | 'morphTarget7'
+    | 'morphNormal0'
+    | 'morphNormal1'
+    | 'morphNormal2'
+    | 'morphNormal3';

@@ -26,7 +26,7 @@ export class Box3 {
     setFromPoints(points: Vector3[]): this;
     setFromCenterAndSize(center: Vector3, size: Vector3): this;
     setFromObject(object: Object3D): this;
-    clone(): Box3;
+    clone(): this;
     copy(box: Box3): this;
     makeEmpty(): this;
     isEmpty(): boolean;
