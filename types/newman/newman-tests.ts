@@ -18,6 +18,10 @@ import * as http from 'http';
 
 const collection: CollectionDefinition = {};
 const environment: VariableScopeDefinition = {};
+const envVar: Array<{key: string, value: string}> = [
+    {key: "keyA", value: "valueA"},
+    {key: "keyB", value: "valueB"}
+];
 const globals: VariableScopeDefinition = {};
 const folder: string | string[] = ['collectionFolderA', 'collectionFolderB'];
 const color = 'auto';
@@ -30,6 +34,7 @@ run(
     {
         collection,
         environment,
+        envVar,
         globals,
         folder,
         color,
@@ -50,6 +55,7 @@ run(
 newman.run({
     collection: 'collection.json',
     environment: 'env.json',
+    envVar: [{key: "keyA", value: "valueA"}],
     iterationData: 'data.csv',
     globals: 'globals.json',
     iterationCount: 2,

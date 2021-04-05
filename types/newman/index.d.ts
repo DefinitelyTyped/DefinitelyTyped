@@ -19,7 +19,7 @@ export interface NewmanRunOptions {
     /** An environment JSON / file path for the current collection run. */
     environment?: VariableScope | VariableScopeDefinition | string;
     /** An override to environment variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
-    envVar?: Collection | CollectionDefinition | string;
+    envVar?: Array<{key: string, value: string}>;
     /** A globals JSON / file path for the current collection run. */
     globals?: VariableScope | VariableScopeDefinition | string;
     /** The relative path to export the globals file from the current run to  */
