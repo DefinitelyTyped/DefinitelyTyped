@@ -1,1 +1,3 @@
-export { Chart_3D24 as default } from "../../";
+import { Chart_3D24 } from "../../";
+
+export = Chart_3D24;

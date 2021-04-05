@@ -1,1 +1,3 @@
-export { LogoJupyter20 as default } from "../../";
+import { LogoJupyter20 } from "../../";
+
+export = LogoJupyter20;

@@ -1048,6 +1048,10 @@ declare namespace sharp {
         cropOffsetLeft?: number;
         /** Only defined when using a crop strategy */
         cropOffsetTop?: number;
+        /** Only defined when using a trim method */
+        trimOffsetLeft?: number;
+        /** Only defined when using a trim method */
+        trimOffsetTop?: number;
     }
 
     interface AvailableFormatInfo {
@@ -1145,6 +1149,7 @@ declare namespace sharp {
         heif: AvailableFormatInfo;
         input: AvailableFormatInfo;
         jpeg: AvailableFormatInfo;
+        jpg: AvailableFormatInfo;
         magick: AvailableFormatInfo;
         openslide: AvailableFormatInfo;
         pdf: AvailableFormatInfo;

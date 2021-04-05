@@ -1,1 +1,3 @@
-export { Cursor_216 as default } from "../../";
+import { Cursor_216 } from "../../";
+
+export = Cursor_216;

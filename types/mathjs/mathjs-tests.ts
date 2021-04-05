@@ -12,7 +12,7 @@ import {
 Basic usage examples
 */
 {
-    const math = create(all, {});
+    const math = create(all);
 
     // functions and constants
     math.round(math.e, 3);

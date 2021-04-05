@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactNotification, { store } from 'react-notifications-component';
+import ReactNotification, { ReactNotificationOptions, store } from 'react-notifications-component';
 
 const SampleNotification = () => {
     store.addNotification({
@@ -32,4 +32,24 @@ const ComponentTest: React.SFC = () => {
 const WrongPropTest: React.SFC = () => {
     // $ExpectError
     return <ReactNotification randomProp={false} />;
+};
+
+const OptionsTest: ReactNotificationOptions = {
+    container: 'bottom-full',
+    touchSlidingExit: {
+        fade: {
+            duration: 3,
+            timingFunction: 'ease',
+            delay: 10
+        }
+    }
+};
+
+const WrongOptionsTest: ReactNotificationOptions = {
+    // $ExpectError
+    container: 'center-full',
+    touchSlidingExit: {
+        // $ExpectError
+        notValid: 1,
+    }
 };

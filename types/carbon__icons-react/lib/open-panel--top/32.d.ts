@@ -1,1 +1,3 @@
-export { OpenPanelTop32 as default } from "../../";
+import { OpenPanelTop32 } from "../../";
+
+export = OpenPanelTop32;

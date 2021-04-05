@@ -267,11 +267,13 @@ declare namespace Chai {
         greaterThan: NumberComparer;
         least: NumberComparer;
         gte: NumberComparer;
+        greaterThanOrEqual: NumberComparer;
         below: NumberComparer;
         lt: NumberComparer;
         lessThan: NumberComparer;
         most: NumberComparer;
         lte: NumberComparer;
+        lessThanOrEqual: NumberComparer;
         within(start: number, finish: number, message?: string): Assertion;
         within(start: Date, finish: Date, message?: string): Assertion;
     }
@@ -466,7 +468,7 @@ declare namespace Chai {
         equal<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts non-strict inequality (==) of actual and expected.
+         * Asserts non-strict inequality (!=) of actual and expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -486,7 +488,7 @@ declare namespace Chai {
         strictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts strict inequality (==) of actual and expected.
+         * Asserts strict inequality (!==) of actual and expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.

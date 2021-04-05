@@ -1,1 +1,3 @@
-export { NoodleBowl32 as default } from "../../";
+import { NoodleBowl32 } from "../../";
+
+export = NoodleBowl32;

@@ -22,7 +22,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
     - [`<my-package>-tests.ts`](#my-package-teststs)
     - [Linter: `tslint.json`](#linter-tslintjson)
     - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#package.json)
+    - [`package.json`](#packagejson)
     - [`OTHER_FILES.txt`](#other_filestxt)
     - [Erros comuns](#erros-comuns)
     </details>
@@ -73,11 +73,11 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.3 e anteriores)
+#### Versões antigas do TypeScript (3.4 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.4 e acima são testadas.
-Se você está usando as versões 2.0 a 3.3 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 3.5 e acima são testadas.
+Se você está usando as versões 2.0 a 3.4 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
@@ -453,7 +453,7 @@ e adicione os tipos e testes específicos para a nova versão do TypeScript. Voc
 }
 ```
 
-Você pode verificar [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) e [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) para exemplos.
+Você pode verificar [aqui](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) e [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) para exemplos.
 
 #### Eu quero adicionar uma API da DOM não presente no TypeScript por padrão.
 

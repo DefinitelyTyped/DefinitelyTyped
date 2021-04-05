@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch 6.8
+// Type definitions for react-instantsearch 6.10
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -43,6 +43,7 @@ export { connectRange } from 'react-instantsearch-core';
 export { connectRefinementList } from 'react-instantsearch-core';
 export { connectScrollTo } from 'react-instantsearch-core';
 export { connectSearchBox } from 'react-instantsearch-core';
+export { connectRelevantSort } from 'react-instantsearch-core';
 export { connectSortBy } from 'react-instantsearch-core';
 export { connectStateResults } from 'react-instantsearch-core';
 export { connectStats } from 'react-instantsearch-core';
@@ -116,13 +117,23 @@ export interface SearchBoxProps extends CommonWidgetProps {
  */
 export class SearchBox extends React.Component<SearchBoxProps> {}
 export class Snippet extends React.Component<any> {}
+export interface RelevantSortComponentProps {
+  isRelevantSorted: boolean;
+}
+/**
+ * The RelevantSort component displays an informative banner and a button that toggle the `relevancyStrictness` between 0 and the value setted on the dashboard.
+ */
+export class RelevantSort extends React.Component<{
+  buttonTextComponent?: React.FunctionComponent<RelevantSortComponentProps>;
+  textComponent?: React.FunctionComponent<RelevantSortComponentProps>;
+}> {}
 export class SortBy extends React.Component<any> {}
 /**
  * The Stats component displays the total number of matching hits and the time it took to get them (time spent in the Algolia server).
  */
 export class Stats extends React.Component<{
   translations?: {
-    [key: string]: (n: number, ms: number) => string;
+    [key: string]: (n: number, ms: number, nSortedHits: number, areHitsSorted: boolean) => string;
   };
 }> {}
 export class ToggleRefinement extends React.Component<any> {}

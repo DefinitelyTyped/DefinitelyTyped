@@ -3,6 +3,7 @@ import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
+const multiCompiler = webpack([{}]);
 const compilerWithPublicPath = webpack({
     output: {
         publicPath: '/assets/',
@@ -11,6 +12,8 @@ const compilerWithPublicPath = webpack({
 
 // options
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(multiCompiler);
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compilerWithPublicPath, {});
 
@@ -25,6 +28,7 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     },
     publicPath: '/assets/',
     serverSideRender: false,
+    stats: 'errors-only',
     outputFileSystem: compiler.outputFileSystem,
     index: 'index.html',
 });

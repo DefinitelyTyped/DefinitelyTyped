@@ -1,1 +1,3 @@
-export { ChevronDown32 as default } from "../../";
+import { ChevronDown32 } from "../../";
+
+export = ChevronDown32;

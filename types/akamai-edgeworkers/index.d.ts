@@ -14,6 +14,15 @@ declare namespace EW {
         getHeader(name: string): string[] | null;
     }
 
+    // This is what we return from the API. Hence the type is string[]
+    interface Headers {
+        [others: string]: string[];
+    }
+
+    interface ReadAllHeader {
+        getHeaders(): Headers;
+    }
+
     interface MutatesHeaders {
         /**
          * Sets header value(s), replacing previous one(s)
@@ -227,7 +236,7 @@ declare namespace EW {
     }
 
     // responseProvider
-    interface ResponseProviderRequest extends Request, ReadsHeaders {
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader {
     }
 
     interface Destination {
@@ -583,7 +592,7 @@ declare module "http-request" {
     /**
      * Describes the result of a `httpRequest()`.
      */
-    interface HttpResponse extends EW.ReadsHeaders {
+    interface HttpResponse extends EW.ReadsHeaders, EW.ReadAllHeader {
         /**
          * The HTTP status code
          */

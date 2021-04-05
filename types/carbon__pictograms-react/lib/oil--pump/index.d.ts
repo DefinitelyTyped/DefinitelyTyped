@@ -1,1 +1,3 @@
-export { OilPump as default } from "../../";
+import { OilPump } from "../../";
+
+export = OilPump;

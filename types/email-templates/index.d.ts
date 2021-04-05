@@ -8,8 +8,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 ksewo <https://github.com/ksewo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="nodemailer"/>
 
 import { HtmlToTextOptions } from 'html-to-text';
@@ -67,7 +65,7 @@ declare namespace Email {
 
      interface ViewOptions {
         /**
-         *  View extansion. defaults to 'pug', and is the default file extension for templates
+         *  View extension. defaults to 'pug', and is the default file extension for templates
          */
         extension?: string;
 
@@ -90,13 +88,31 @@ declare namespace Email {
         root?: string;
 
         options?: ViewOptions;
+
+        /**
+         * Default locals to pass to templates for rendering
+         */
+        locals?: {
+            /**
+             * Whether or not to cache templates.
+             * Defaults to false for development and test environments, and true for all others (via process.env.NODE_ENV)
+             */
+            cache?: boolean;
+            /**
+             * @deprecated
+             * Adds whitespace to the resulting HTML to make it easier for a human to read using '  ' as indentation.
+             * Defaults to true, but is automatically set to false for subject templates and text-based emails
+             */
+            pretty?: boolean;
+            [key: string]: any;
+        };
     }
 
      interface EmailConfig<T = any> {
          /**
           * The message <Nodemailer.com/message/>
           */
-         message: Mail.Options;
+         message?: Mail.Options;
          /**
           * The nodemailer Transport created via nodemailer.createTransport
           */
@@ -173,13 +189,13 @@ declare namespace Email {
         /**
          * The template name
          */
-        template: string;
+        template?: string;
         /**
          * Nodemailer Message <Nodemailer.com/message/>
          *
          * Overrides what is given for constructor
          */
-        message: Mail.Options;
+        message?: Mail.Options;
         /**
          * The Template Variables
          */
@@ -221,7 +237,7 @@ declare class Email<T = any> {
     /**
      * Send the Email
      */
-    send(options: Email.EmailOptions<T>): Promise<any>;
+    send(options?: Email.EmailOptions<T>): Promise<any>;
 }
 
 export = Email;

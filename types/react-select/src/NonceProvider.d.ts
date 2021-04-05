@@ -1,7 +1,8 @@
 import { Component } from 'react';
 
 export interface NonceProviderProps {
-  nonce: string;
+    nonce: string;
+    cacheKey: string;
 }
 
 export class NonceProvider extends Component<NonceProviderProps> {}

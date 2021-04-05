@@ -1,1 +1,3 @@
-export { Script16 as default } from "../../";
+import { Script16 } from "../../";
+
+export = Script16;

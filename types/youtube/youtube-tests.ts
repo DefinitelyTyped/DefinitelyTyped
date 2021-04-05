@@ -280,4 +280,7 @@ player.addEventListener("onApiChange", (event: YT.PlayerEvent) => {});
 
 const frame: HTMLIFrameElement = player.getIframe();
 
+const sphericalProperties: YT.SphericalProperties = player.getSphericalProperties();
+player.setSphericalProperties({yaw: 1, pitch: 2, roll: 3, fov: 50, enableOrientationSensor: true});
+
 player.destroy();

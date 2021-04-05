@@ -2,6 +2,8 @@
 // Project: https://github.com/shellscape/webpack-manifest-plugin
 // Definitions by: Andrew Makarov <https://github.com/r3nya>, Jeremy Monson <https://github.com/monsonjeremy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
+// TypeScript Version: 3.7
 
 import { WebpackPluginInstance, Chunk, Compiler } from 'webpack';
 import { SyncWaterfallHook } from 'tapable';

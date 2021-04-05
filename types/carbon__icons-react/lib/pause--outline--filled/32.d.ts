@@ -1,1 +1,3 @@
-export { PauseOutlineFilled32 as default } from "../../";
+import { PauseOutlineFilled32 } from "../../";
+
+export = PauseOutlineFilled32;

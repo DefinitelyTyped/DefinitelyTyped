@@ -1,1 +1,3 @@
-export { FlashOffFilled32 as default } from "../../";
+import { FlashOffFilled32 } from "../../";
+
+export = FlashOffFilled32;

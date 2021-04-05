@@ -1,1 +1,3 @@
-export { Mov24 as default } from "../../";
+import { Mov24 } from "../../";
+
+export = Mov24;

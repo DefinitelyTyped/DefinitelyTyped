@@ -6,6 +6,7 @@
 //                 Frédéric Barthelet <https://github.com/fredericbarthelet>
 //                 Bryan Hunter <https://github.com/bryan-hunter>
 //                 Thomas Aribart <https://github.com/thomasaribart>
+//                 Gareth Jones <https://github.com/G-Rath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');

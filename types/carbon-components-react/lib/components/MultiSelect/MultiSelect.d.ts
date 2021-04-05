@@ -35,7 +35,7 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     open?: boolean,
     selectionFeedback?: "fixed" | "top" | "top-after-reopen",
     size?: ListBoxSize,
-    titleText?: string,
+    titleText?: React.ReactNode,
     type?: ListBoxProps["type"],
     useTitleInItem?: boolean,
     warn?: boolean,

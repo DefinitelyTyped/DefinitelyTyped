@@ -1,1 +1,3 @@
-export { ChartMinimum24 as default } from "../../";
+import { ChartMinimum24 } from "../../";
+
+export = ChartMinimum24;

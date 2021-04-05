@@ -1,1 +1,3 @@
-export { SecurityHygiene as default } from "../../";
+import { SecurityHygiene } from "../../";
+
+export = SecurityHygiene;

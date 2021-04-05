@@ -1,1 +1,3 @@
-export { GlobalFinanceNetwork as default } from "../../";
+import { GlobalFinanceNetwork } from "../../";
+
+export = GlobalFinanceNetwork;

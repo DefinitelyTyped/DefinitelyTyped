@@ -1,1 +1,3 @@
-export { ProtectCriticalAssets as default } from "../../";
+import { ProtectCriticalAssets } from "../../";
+
+export = ProtectCriticalAssets;

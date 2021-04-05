@@ -1,1 +1,3 @@
-export { ArrowsHorizontal32 as default } from "../../";
+import { ArrowsHorizontal32 } from "../../";
+
+export = ArrowsHorizontal32;

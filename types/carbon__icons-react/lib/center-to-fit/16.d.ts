@@ -1,1 +1,3 @@
-export { CenterToFit16 as default } from "../../";
+import { CenterToFit16 } from "../../";
+
+export = CenterToFit16;

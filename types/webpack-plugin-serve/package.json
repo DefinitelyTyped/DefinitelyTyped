@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "globby": "^11.0.1"
+        "globby": "^11.0.1",
+        "http-proxy-middleware": "^1.0.0"
     }
 }

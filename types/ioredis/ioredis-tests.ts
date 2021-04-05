@@ -27,6 +27,10 @@ redis.del('foo', 'bar').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
+redis.lpop('list', cb);
+redis.lpop('list', 2, cb);
+redis.lpop('list').then(console.log);
+redis.lpop('list', 2).then(console.log);
 redis.brpop('list', 0).then(console.log);
 redis.brpop('listA', 'listB', 0).then(console.log);
 redis.brpop(['listA', 'listB', 0]).then(console.log);
@@ -69,6 +73,11 @@ redis.sinter('keya', 'keyb').then(console.log);
 redis.sinter('keya', 'keyb', cb);
 redis.sunion('keya', 'keyb').then(console.log);
 redis.sunion('keya', 'keyb', cb);
+
+// Test list index command
+redis.rpush('lposlist', 'foo', 'bar', 'baz');
+redis.lpos('lposlist', 'foo').then(console.log);
+redis.lpos('lposlist', 'baz', 0, 1, 3).then(console.log);
 
 // Test OverloadedKeyCommand
 redis.hdel('foo', 'bar').then(console.log);
@@ -431,6 +440,13 @@ redis
     .hscan('hash', '0')
     .zscan('zset', 0)
     .zscan('zset', '0')
+    .zadd('key', 1, 'a')
+    .zadd('key', 1, 'a', 2, 'b')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e')
+    .zadd('key', 1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e', 6, 'f')
+    .zadd('key', '1', 'a', '2', 'b', '3', 'c', '4', 'd', '5', 'e', '6', 'f')
     .exec((err, results) => {
         // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
     });
@@ -509,6 +525,11 @@ redis.xrevrange('streamName', '+', '-', 'COUNT', 1, cb);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000).then(console.log);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000, cbNumber);
 
+redis.scanStream({match: "pattern"});
+redis.scanStream({type: "del"});
+redis.scanStream({count: 100});
+redis.scanStream({key: "foo"});
+
 redis.zrangebyscore('set', 0, 100).then(console.log);
 redis.zrangebyscore('set', 0, 100);
 redis.zrangebyscore('set', 0, 100, 'WITHSCORES').then(console.log);
@@ -569,16 +590,22 @@ new Redis.Cluster([], {
 });
 
 // Cluster types
+const clusterNodes: Redis.ClusterNode[] = [
+    {
+        host: 'localhost',
+        port: 6379,
+    },
+];
+
 const clusterOptions: Redis.ClusterOptions = {};
-const cluster = new Redis.Cluster(
-    [
-        {
-            host: 'localhost',
-            port: 6379,
-        },
-    ],
-    clusterOptions,
-);
+
+const cluster = new Redis.Cluster(clusterNodes, clusterOptions);
+
+cluster.duplicate(); // $ExpectType Cluster
+cluster.duplicate(clusterNodes); // $ExpectType Cluster
+cluster.duplicate(clusterNodes, clusterOptions); // $ExpectType Cluster
+cluster.duplicate(undefined, clusterOptions); // $ExpectType Cluster
+
 cluster.on('end', () => console.log('on end'));
 cluster.nodes().map(node => {
     node.pipeline()

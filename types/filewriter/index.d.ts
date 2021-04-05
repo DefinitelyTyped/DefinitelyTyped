@@ -25,19 +25,16 @@ interface FileSaver extends EventTarget {
 
     /**
      * The blob is being written.
-     * @readonly
      */
     INIT: number;
 
     /**
      * The object has been constructed, but there is no pending write.
-     * @readonly
      */
     WRITING: number;
 
     /**
      * The entire Blob has been written to the file, an error occurred during the write, or the write was aborted using abort(). The FileSaver is no longer writing the blob.
-     * @readonly
      */
     DONE: number;
 
@@ -48,13 +45,11 @@ interface FileSaver extends EventTarget {
      * <li>WRITING</li>
      * <li>DONE</li>
      * <ul>
-     * @readonly
      */
     readyState: number;
 
     /**
      * The last error that occurred on the FileSaver.
-     * @readonly
      */
     error: Error;
 

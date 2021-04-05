@@ -6,7 +6,6 @@
 //                 Antonio Román <https://github.com/kyranet>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
-//                 Brandon Wilson <https://github.com/wilsonianb>
 //                 Steve Faulkner <https://github.com/southpolesteve>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Savin <https://github.com/alexandrusavin>
@@ -136,6 +135,7 @@ export class Blob {
     readonly type: string;
     readonly size: number;
     slice(start?: number, end?: number): Blob;
+    text(): Promise<string>;
 }
 
 export class Body {

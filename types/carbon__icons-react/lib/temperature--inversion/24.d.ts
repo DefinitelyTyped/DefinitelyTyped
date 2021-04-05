@@ -1,1 +1,3 @@
-export { TemperatureInversion24 as default } from "../../";
+import { TemperatureInversion24 } from "../../";
+
+export = TemperatureInversion24;

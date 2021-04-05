@@ -1,1 +1,3 @@
-export { LocationStarFilled20 as default } from "../../";
+import { LocationStarFilled20 } from "../../";
+
+export = LocationStarFilled20;

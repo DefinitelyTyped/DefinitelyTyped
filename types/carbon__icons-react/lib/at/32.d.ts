@@ -1,1 +1,3 @@
-export { At32 as default } from "../../";
+import { At32 } from "../../";
+
+export = At32;

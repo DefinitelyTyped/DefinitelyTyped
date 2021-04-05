@@ -1,1 +1,3 @@
-export { PassengerPlus16 as default } from "../../";
+import { PassengerPlus16 } from "../../";
+
+export = PassengerPlus16;

@@ -1,1 +1,3 @@
-export { Harbor20 as default } from "../../";
+import { Harbor20 } from "../../";
+
+export = Harbor20;

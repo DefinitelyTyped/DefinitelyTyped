@@ -1,13 +1,13 @@
-// Type definitions for react-autosuggest 10.0
+// Type definitions for react-autosuggest 10.1
 // Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
 //                 Robert Essig <https://github.com/robessog>
 //                 Terry Bayne <https://github.com/tbayne>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
-//                 Kevin Ross <https://github.com/rosskevin>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 ulrichb <https://github.com/ulrichb>
+//                 Arthur Fücher <https://github.com/afucher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -74,13 +74,20 @@ declare namespace Autosuggest {
         highlightedSuggestion: TSuggestion;
     }
 
-    interface InputProps<TSuggestion>
-        extends Omit<React.InputHTMLAttributes<any>, 'onChange' | 'onBlur'> {
-        onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
-        onBlur?(event: React.FocusEvent<any>, params?: BlurEvent<TSuggestion>): void;
+    interface RenderInputComponentProps extends React.InputHTMLAttributes<any> {
         value: string;
         ref?: React.Ref<HTMLInputElement>;
     }
+
+    interface InputProps<TSuggestion>
+        extends Omit<React.InputHTMLAttributes<HTMLElement>, 'onChange' | 'onBlur'> {
+        onChange: (event: React.FormEvent<HTMLElement>, params: ChangeEvent) => void;
+        onBlur?: (event: React.FocusEvent<HTMLElement>, params?: BlurEvent<TSuggestion>) => void;
+        value: string;
+        ref?: React.Ref<HTMLInputElement>;
+    }
+
+    interface ContainerProps extends React.InputHTMLAttributes<any> {}
 
     interface SuggestionSelectedEventData<TSuggestion> {
         suggestion: TSuggestion;
@@ -132,7 +139,7 @@ declare namespace Autosuggest {
         event: React.FormEvent<any>,
         data: SuggestionSelectedEventData<TSuggestion>,
     ) => void;
-    type RenderInputComponent<TSuggestion> = (inputProps: InputProps<TSuggestion>) => React.ReactNode;
+    type RenderInputComponent = (inputProps: RenderInputComponentProps) => React.ReactNode;
     type RenderSuggestionsContainer = (params: RenderSuggestionsContainerParams) => React.ReactNode;
     type RenderSectionTitle = (section: any) => React.ReactNode;
     type RenderSuggestion<TSuggestion> = (
@@ -167,6 +174,10 @@ declare namespace Autosuggest {
          */
         inputProps: InputProps<TSuggestion>;
         /**
+         * Provides arbitrary properties to the outer `div` container of Autosuggest. Allows the override of accessibility properties.
+         */
+        containerProps?: ContainerProps;
+        /**
          * Will be called every time the highlighted suggestion changes.
          */
         onSuggestionHighlighted?: OnSuggestionHighlighted;
@@ -185,7 +196,7 @@ declare namespace Autosuggest {
         /**
          * Use it only if you need to customize the rendering of the input.
          */
-        renderInputComponent?: RenderInputComponent<TSuggestion>;
+        renderInputComponent?: RenderInputComponent;
         /**
          * Use it if you want to customize things inside the suggestions container beyond rendering the suggestions themselves.
          */

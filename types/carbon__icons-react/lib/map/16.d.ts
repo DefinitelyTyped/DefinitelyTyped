@@ -1,1 +1,3 @@
-export { Map16 as default } from "../../";
+import { Map16 } from "../../";
+
+export = Map16;

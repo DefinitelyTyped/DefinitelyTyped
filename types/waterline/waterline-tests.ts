@@ -37,7 +37,7 @@ const config: Waterline.Config = {
     adapters: {
         memory: {},
     },
-    connections: {
+    datastores: {
         default: {
             adapter: 'memory',
         },

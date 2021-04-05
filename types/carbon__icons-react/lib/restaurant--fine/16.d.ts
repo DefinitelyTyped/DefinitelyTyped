@@ -1,1 +1,3 @@
-export { RestaurantFine16 as default } from "../../";
+import { RestaurantFine16 } from "../../";
+
+export = RestaurantFine16;

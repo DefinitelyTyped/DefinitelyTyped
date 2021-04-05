@@ -52,10 +52,10 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.t
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de TypeScript (3.3 y anteriores)
+#### Versiones más viejas de TypeScript (3.4 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 3.4 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.3, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Actualmente, las versiones 3.5 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.4, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
 Versiones soportadas:
 
 Versión | Liberado | Fin de soporte
@@ -125,9 +125,9 @@ Añade a tu `tsconfig.json`:
 Crea un `types/foo/index.d.ts` que contenga declaraciones del módulo "foo".
 Ahora deberías poder importar desde `"foo"` a tu código y te enviara a un nuevo tipo de definición.
 Entonces compila *y* ejecuta el código para asegurarte que el tipo de definición en realidad corresponde a lo que suceda en el momento de la ejecución.
-Una vez que hayas probado tus definiciones con el código real, haz un [PR](#make-a-pull-request)
-luego sigue las instrucciones para [editar un paquete existente](#edit-an-existing-package) o
-[crear un nuevo paquete](#create-a-new-package).
+Una vez que hayas probado tus definiciones con el código real, haz un [PR](#haz-un-pull-request)
+luego sigue las instrucciones para [editar un paquete existente](#editar-un-paquete-existente) o
+[crear un nuevo paquete](#crear-un-nuevo-paquete).
 
 
 ### Haz un pull request

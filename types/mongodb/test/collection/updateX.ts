@@ -1,4 +1,4 @@
-import { connect, Decimal128, Double, Int32, Long, ObjectId, UpdateQuery } from 'mongodb';
+import { connect, Decimal128, Double, Int32, Long, ObjectId, UpdateQuery, Timestamp } from 'mongodb';
 import { connectionString } from '../index';
 
 // collection.updateX tests
@@ -31,6 +31,7 @@ async function run() {
         maybeFruitTags?: FruitTypes[];
         subInterfaceField: SubTestModel;
         subInterfaceArray: SubTestModel[];
+        timestampField: Timestamp;
     }
     const collectionTType = db.collection<TestModel>('test.update');
 
@@ -43,6 +44,7 @@ async function run() {
     buildUpdateQuery({ $currentDate: { dateField: true } });
     buildUpdateQuery({ $currentDate: { otherDateField: { $type: 'date' } } });
     buildUpdateQuery({ $currentDate: { otherDateField: { $type: 'timestamp' } } });
+    buildUpdateQuery({ $currentDate: { timestampField: { $type: 'timestamp' } } });
     buildUpdateQuery({ $currentDate: { 'dot.notation': true } });
     buildUpdateQuery({ $currentDate: { 'subInterfaceArray.$': true } });
     buildUpdateQuery({ $currentDate: { 'subInterfaceArray.$[bla]': { $type: 'date' } } });
@@ -211,7 +213,7 @@ async function run() {
     buildUpdateQuery({ $push: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({
         $push: {
-            subInterfaceArray: { field1: 'foo' },
+            subInterfaceArray: { _id: new ObjectId(), field1: 'foo' },
         },
     });
     buildUpdateQuery({
@@ -227,6 +229,7 @@ async function run() {
             subInterfaceArray: {
                 $each: [
                     {
+                        _id: new ObjectId(),
                         field1: 'foo',
                         field2: 'bar',
                     },
@@ -251,4 +254,27 @@ async function run() {
             },
         },
     );
+}
+
+async function testPushWithId () {
+    interface Model {
+        _id: ObjectId;
+        foo: Array<{ _id?: string, name: string }>;
+    }
+
+    const client = await connect(connectionString);
+    const db = client.db('test');
+    const collection = db.collection<Model>('test');
+
+    await collection.updateOne({}, {
+        $push: {
+            foo: { name: 'Foo' }
+        }
+    });
+
+    await collection.updateOne({}, {
+        $push: {
+            foo: { _id: 'foo', name: 'Foo' }
+        }
+    });
 }

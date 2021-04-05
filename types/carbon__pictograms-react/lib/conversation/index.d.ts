@@ -1,1 +1,3 @@
-export { Conversation as default } from "../../";
+import { Conversation } from "../../";
+
+export = Conversation;

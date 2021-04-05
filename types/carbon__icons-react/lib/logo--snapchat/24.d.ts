@@ -1,1 +1,3 @@
-export { LogoSnapchat24 as default } from "../../";
+import { LogoSnapchat24 } from "../../";
+
+export = LogoSnapchat24;

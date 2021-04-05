@@ -1,4 +1,8 @@
-declare module "vm" {
+declare module 'node:vm' {
+    export * from 'vm';
+}
+
+declare module 'vm' {
     interface Context extends NodeJS.Dict<any> { }
     interface BaseOptions {
         /**
@@ -21,6 +25,7 @@ declare module "vm" {
         displayErrors?: boolean;
         timeout?: number;
         cachedData?: Buffer;
+        /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean;
     }
     interface RunningScriptOptions extends BaseOptions {
@@ -94,6 +99,10 @@ declare module "vm" {
              */
             wasm?: boolean;
         };
+        /**
+         * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
+         */
+        microtaskMode?: 'afterEvaluate';
     }
 
     type MeasureMemoryMode = 'summary' | 'detailed';
@@ -119,6 +128,7 @@ declare module "vm" {
         runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
         runInThisContext(options?: RunningScriptOptions): any;
         createCachedData(): Buffer;
+        cachedDataRejected?: boolean;
     }
     function createContext(sandbox?: Context, options?: CreateContextOptions): Context;
     function isContext(sandbox: Context): boolean;

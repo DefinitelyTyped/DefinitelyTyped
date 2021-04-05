@@ -1,1 +1,3 @@
-export { HdFilled32 as default } from "../../";
+import { HdFilled32 } from "../../";
+
+export = HdFilled32;

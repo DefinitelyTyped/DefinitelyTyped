@@ -425,3 +425,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 {
     let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey('testpem');
 }
+
+{
+    publicKeyRsa.n.bitLength();
+}

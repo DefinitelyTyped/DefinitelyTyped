@@ -1,16 +1,48 @@
-import assert = require("assert");
-import * as fs from "fs";
-import * as url from "url";
-import * as util from "util";
-import * as http from "http";
-import * as https from "https";
-import * as console2 from "console";
-import * as timers from "timers";
-import * as dns from "dns";
-import * as inspector from "inspector";
-import * as trace_events from "trace_events";
-import * as dgram from "dgram";
-import Module = require("module");
+import '../test/globals';
+import '../test/wasi';
+import '../test/assert';
+import '../test/async_hooks';
+import '../test/buffer';
+import '../test/child_process';
+import '../test/cluster';
+import '../test/crypto';
+import '../test/dgram';
+import '../test/dns';
+import '../test/events';
+import '../test/fs';
+import '../test/global';
+import '../test/http';
+import '../test/http2';
+import '../test/net';
+import '../test/os';
+import '../test/path';
+import '../test/perf_hooks';
+import '../test/process';
+import '../test/readline';
+import '../test/repl';
+import '../test/stream';
+import '../test/string_decoder';
+import '../test/tls';
+import '../test/tty';
+import '../test/util';
+import '../test/v8';
+import '../test/vm';
+import '../test/worker_threads';
+import '../test/zlib';
+
+import assert = require('node:assert');
+import * as fs from 'node:fs';
+import * as url from 'node:url';
+import * as util from 'node:util';
+import * as http from 'node:http';
+import * as https from 'node:https';
+import * as console2 from 'node:console';
+import * as timers from 'node:timers';
+import * as dns from 'node:dns';
+import * as inspector from 'node:inspector';
+import * as trace_events from 'node:trace_events';
+import * as dgram from 'node:dgram';
+import Module = require('node:module');
 
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
@@ -419,119 +451,6 @@ import Module = require("module");
     }
 }
 
-///////////////////////////////////////////////////
-/// DNS Tests : https://nodejs.org/api/dns.html ///
-///////////////////////////////////////////////////
-
-{
-    dns.lookup("nodejs.org", (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: string = address;
-        const _family: number = family;
-    });
-    dns.lookup("nodejs.org", 4, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: string = address;
-        const _family: number = family;
-    });
-    dns.lookup("nodejs.org", 6, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: string = address;
-        const _family: number = family;
-    });
-    dns.lookup("nodejs.org", {}, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: string = address;
-        const _family: number = family;
-    });
-    dns.lookup(
-        "nodejs.org",
-        {
-            family: 4,
-            hints: dns.ADDRCONFIG | dns.V4MAPPED,
-            all: false
-        },
-        (err, address, family) => {
-            const _err: NodeJS.ErrnoException | null = err;
-            const _address: string = address;
-            const _family: number = family;
-        }
-    );
-    dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: dns.LookupAddress[] = addresses;
-    });
-    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: dns.LookupAddress[] = addresses;
-    });
-
-    function trueOrFalse(): boolean {
-        return Math.random() > 0.5 ? true : false;
-    }
-    dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _addresses: string | dns.LookupAddress[] = addresses;
-        const _family: number | undefined = family;
-    });
-
-    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _hostname: string = hostname;
-        const _service: string = service;
-    });
-
-    dns.resolve("nodejs.org", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve("nodejs.org", "A", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve("nodejs.org", "ANY", (err, addresses) => {
-        const _addresses: dns.AnyRecord[] = addresses;
-    });
-    dns.resolve("nodejs.org", "MX", (err, addresses) => {
-        const _addresses: dns.MxRecord[] = addresses;
-    });
-
-    dns.resolve4("nodejs.org", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve4("nodejs.org", { ttl: true }, (err, addresses) => {
-        const _addresses: dns.RecordWithTtl[] = addresses;
-    });
-    {
-        const ttl = false;
-        dns.resolve4("nodejs.org", { ttl }, (err, addresses) => {
-            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
-        });
-    }
-
-    dns.resolve6("nodejs.org", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
-        const _addresses: dns.RecordWithTtl[] = addresses;
-    });
-    {
-        const ttl = false;
-        dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
-            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
-        });
-    }
-    {
-        const resolver = new dns.Resolver();
-        resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
-        resolver.resolve("nodejs.org", (err, addresses) => {
-            const _addresses: string[] = addresses;
-        });
-        resolver.cancel();
-    }
-}
-
 /*****************************************************************************
  *                                                                           *
  * The following tests are the modules not mentioned in document but existed *
@@ -542,7 +461,7 @@ import Module = require("module");
 /// Constants Tests                                     ///
 ///////////////////////////////////////////////////////////
 
-import * as constants from 'constants';
+import * as constants from 'node:constants';
 {
     let str: string;
     let num: number;
@@ -750,7 +669,7 @@ import * as constants from 'constants';
 ////////////////////////////////////////////////////
 /// module tests : http://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
-import moduleModule = require('module');
+import moduleModule = require('node:module');
 
 {
     require.extensions[".ts"] = () => "";
@@ -787,8 +706,8 @@ import moduleModule = require('module');
 /////////////////////////////////////////////////////////
 /// stream tests : https://nodejs.org/api/stream.html ///
 /////////////////////////////////////////////////////////
-import stream = require('stream');
-import tty = require('tty');
+import stream = require('node:stream');
+import tty = require('node:tty');
 
 {
     const writeStream = fs.createWriteStream('./index.d.ts');

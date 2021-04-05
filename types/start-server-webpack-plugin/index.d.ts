@@ -2,6 +2,7 @@
 // Project: https://github.com/ericclemmons/start-server-webpack-plugin
 // Definitions by: AGenson <https://github.com/AGenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin, Compiler } from 'webpack';
 

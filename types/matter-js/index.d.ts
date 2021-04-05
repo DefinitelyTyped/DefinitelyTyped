@@ -1539,7 +1539,7 @@ declare namespace Matter {
          * @param {number} length
          * @return {composite} A new composite newtonsCradle body
          */
-        newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
+        static newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
 
         /**
          * Create a new composite containing bodies created in the callback in a pyramid arrangement.
@@ -1986,7 +1986,6 @@ declare namespace Matter {
          * @param {HTMLElement} element
          * @param {object} [options]
          * @return {engine} engine
-         * @deprecated
          */
         static create(element?: HTMLElement | IEngineDefinition, options?: IEngineDefinition): Engine;
 

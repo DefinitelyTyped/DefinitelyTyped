@@ -1,1 +1,3 @@
-export { Idea32 as default } from "../../";
+import { Idea32 } from "../../";
+
+export = Idea32;

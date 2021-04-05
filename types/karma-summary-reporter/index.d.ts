@@ -1,10 +1,11 @@
-// Type definitions for karma-summary-reporter 1.7
+// Type definitions for karma-summary-reporter 1.10
 // Project: https://github.com/sth/karma-summary-reporter#readme
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+//                 Stephan Hohe <https://github.com/sth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import 'karam';
+import 'karma';
 
 declare module 'karma' {
     interface ConfigOptions {
@@ -33,5 +34,12 @@ declare module 'karma' {
          * ("failed" if the test failed anywhere, ...)
          */
         overviewColumn?: boolean;
+        /**
+         * Show the list of connected browsers before the result table:
+         * * 'always': Show always (default)
+         * * 'never': Show never
+         * * 'ifneeded': Show only if there are test results shown from multiple browsers
+         */
+        browserList?: 'always' | 'never' | 'ifneeded';
     }
 }

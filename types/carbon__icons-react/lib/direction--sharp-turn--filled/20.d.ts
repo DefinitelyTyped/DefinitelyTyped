@@ -1,1 +1,3 @@
-export { DirectionSharpTurnFilled20 as default } from "../../";
+import { DirectionSharpTurnFilled20 } from "../../";
+
+export = DirectionSharpTurnFilled20;

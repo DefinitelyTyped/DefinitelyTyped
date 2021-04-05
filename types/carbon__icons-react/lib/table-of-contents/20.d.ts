@@ -1,1 +1,3 @@
-export { TableOfContents20 as default } from "../../";
+import { TableOfContents20 } from "../../";
+
+export = TableOfContents20;

@@ -44,6 +44,11 @@ export interface Props {
     inputRef?: React.LegacyRef<HTMLDivElement>;
 
     /**
+     * The path used to prefix the src attributes of annotation SVGs.
+     */
+    imageResourcesPath?: string;
+
+    /**
      * Defines what the component should display while loading.
      * @default 'Loading PDF…'
      */

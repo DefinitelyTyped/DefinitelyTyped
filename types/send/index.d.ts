@@ -131,67 +131,56 @@ declare namespace send {
 
         /**
          * Emit error with `status`.
-         * @private
          */
         error(status: number, error?: Error): void;
 
         /**
          * Check if the pathname ends with "/".
-         * @private
          */
         hasTrailingSlash(): boolean;
 
         /**
          * Check if this is a conditional GET request.
-         * @private
          */
         isConditionalGET(): boolean;
 
         /**
          * Strip content-* header fields.
-         * @private
          */
         removeContentHeaderFields(): void;
 
         /**
          * Respond with 304 not modified.
-         * @private
          */
         notModified(): void;
 
         /**
          * Raise error that headers already sent.
-         * @private
          */
         headersAlreadySent(): void;
 
         /**
          * Check if the request is cacheable, aka responded with 2xx or 304 (see RFC 2616 section 14.2{5,6}).
-         * @private
          */
         isCachable(): boolean;
 
         /**
          * Handle stat() error.
-         * @private
          */
         onStatError(error: Error): void;
 
         /**
          * Check if the cache is fresh.
-         * @private
          */
         isFresh(): boolean;
 
         /**
          * Check if the range is fresh.
-         * @private
          */
         isRangeFresh(): boolean;
 
         /**
          * Redirect to path.
-         * @private
          */
         redirect(path: string): void;
 
@@ -207,31 +196,26 @@ declare namespace send {
 
         /**
          * Transfer file for `path`.
-         * @private
          */
         sendFile(path: string): void;
 
         /**
          * Transfer index for `path`.
-         * @private
          */
         sendIndex(path: string): void;
 
         /**
          * Transfer index for `path`.
-         * @private
          */
         stream(path: string, options?: {}): void;
 
         /**
          * Set content-type based on `path` if it hasn't been explicitly set.
-         * @private
          */
         type(path: string): void;
 
         /**
          * Set response header fields, most fields may be pre-defined.
-         * @private
          */
         setHeader(path: string, stat: fs.Stats): void;
     }

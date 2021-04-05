@@ -1,1 +1,3 @@
-export { ReportData32 as default } from "../../";
+import { ReportData32 } from "../../";
+
+export = ReportData32;

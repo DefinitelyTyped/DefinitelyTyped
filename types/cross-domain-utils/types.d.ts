@@ -8,8 +8,8 @@ export interface CrossDomainWindowType {
     close: () => void;
     focus: () => void;
     top: CrossDomainWindowType;
-    frames: ReadonlyArray<CrossDomainWindowType> | CrossDomainWindowType;
-    opener?: CrossDomainWindowType;
+    frames: CrossDomainWindowType;
+    opener: CrossDomainWindowType | null;
     parent: CrossDomainWindowType;
     length: number;
     postMessage: (a: string, b: string) => void;

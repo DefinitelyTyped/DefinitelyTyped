@@ -99,7 +99,7 @@ const CommonWrapperHelper = {
         wrapper.invoke('requiredFunctionProp'); // $ExpectType () => void
         wrapper.invoke('singleArg'); // $ExpectType (arg: any) => void
         wrapper.invoke('multipleArg'); // $ExpectType (arg1: number, arg2: string, arg3: boolean) => void
-        wrapper.invoke('multipleReturn'); // $ExpectType () => string | number | boolean | void | null | undefined
+        wrapper.invoke('multipleReturn'); // $ExpectType () => string | number | boolean | void | null | undefined || () => string | number | boolean | void | null
         wrapper.invoke(undefined); // $ExpectError
         wrapper.invoke(null); // $ExpectError
         wrapper.invoke('nonFun'); // $ExpectError

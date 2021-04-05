@@ -27,9 +27,13 @@ export interface CalendarPickerProps {
     selectedDayColor?: string;
     selectedDayStyle?: StyleProp<ViewStyle>;
     selectedDayTextColor?: string;
+    selectedDayTextStyle?: StyleProp<TextStyle>;
+    selectedRangeStartTextStyle?: StyleProp<TextStyle>;
+    selectedRangeEndTextStyle?: StyleProp<TextStyle>;
     selectedRangeStartStyle?: StyleProp<ViewStyle>;
     selectedRangeEndStyle?: StyleProp<ViewStyle>;
     selectedRangeStyle?: StyleProp<ViewStyle>;
+    selectedDisabledDatesTextStyle?: StyleProp<TextStyle>;
     disabledDates?: Date[] | DisabledDatesFunc;
     disabledDatesTextStyle?: StyleProp<TextStyle>;
     selectedStartDate?: Date;
@@ -54,12 +58,17 @@ export interface CalendarPickerProps {
     onMonthChange?: DateChangedCallback;
     dayShape?: 'circle' | 'square';
     headingLevel?: number;
+    selectMonthTitle?: string;
+    selectYearTitle?: string;
     previousTitleStyle?: StyleProp<TextStyle>;
     nextTitleStyle?: StyleProp<TextStyle>;
     previousComponent?: React.ReactNode;
     nextComponent?: React.ReactNode;
     dayLabelsWrapper?: StyleProp<ViewStyle>;
     monthYearHeaderWrapperStyle?: StyleProp<ViewStyle>;
+    headerWrapperStyle?: StyleProp<ViewStyle>;
+    monthTitleStyle?: StyleProp<TextStyle>;
+    yearTitleStyle?: StyleProp<TextStyle>;
     customDayHeaderStyles?: CustomDayHeaderStylesFunc;
 }
 

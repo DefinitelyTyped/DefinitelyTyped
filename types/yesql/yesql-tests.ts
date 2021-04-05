@@ -4,13 +4,13 @@ yesql(''); // $ExpectType string
 yesql('', { pg: true }); // $ExpectType string
 yesql('', { type: 'mysql' }); // $ExpectType string
 
-yesql.pg(''); // $ExpectType (params: Record<string, any>) => { text: string; values: any[]; }
+yesql.pg(''); // $ExpectType (params: Record<string, any>) => { text: string; values: any[]; } || (params: AnyParams) => { text: string; values: any[]; }
 yesql.pg('')({}); // $ExpectType { text: string; values: any[]; }
 
 yesql.pg('')('demo'); // $ExpectError
 yesql.pg('')(42); // $ExpectError
 
-yesql.mysql(''); // $ExpectType (params: Record<string, any>) => { sql: string; values: any[]; }
+yesql.mysql(''); // $ExpectType (params: Record<string, any>) => { sql: string; values: any[]; } || (params: AnyParams) => { sql: string; values: any[]; }
 yesql.mysql('')({}); // $ExpectType { sql: string; values: any[]; }
 
 yesql.mysql('')('demo'); // $ExpectError

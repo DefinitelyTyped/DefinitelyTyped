@@ -1,1 +1,3 @@
-export { CloudyHazy as default } from "../../";
+import { CloudyHazy } from "../../";
+
+export = CloudyHazy;

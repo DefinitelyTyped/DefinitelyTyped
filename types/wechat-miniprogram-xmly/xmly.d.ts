@@ -25,7 +25,7 @@ interface RequestResponse {
 export default class XMLY {
   /**
    * 通用请求方法，支持开放平台对外输出的所有接口请求。
-   *  1.这是一个万金油方法，只要 url 对了，都可以请求通；
+   * 这是一个万金油方法，只要 url 对了，都可以请求通；
    *
    * @param param0
    * @param param0.url 请求 url
@@ -46,7 +46,13 @@ export default class XMLY {
    */
   post(url?: string, params?: object): Promise<RequestResponse>
   /**
-   * 提取设备ID
+   *  绑定第三方账户，需要当前已登陆喜马账号
+   *  @param uid 第三方账户id
    */
-  getDeviceId(): string
+  bindThirdUid(uid: string): Promise<RequestResponse>
+  /**
+   *  解绑第三方账户，需要当前已登陆喜马账号
+   *  @param uid 第三方账户id
+   */
+  unbindThirdUid(uid: string): Promise<RequestResponse>
 }

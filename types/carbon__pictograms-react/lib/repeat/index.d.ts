@@ -1,1 +1,3 @@
-export { Repeat as default } from "../../";
+import { Repeat } from "../../";
+
+export = Repeat;

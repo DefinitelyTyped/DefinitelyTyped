@@ -1,1 +1,3 @@
-export { FlowConnection32 as default } from "../../";
+import { FlowConnection32 } from "../../";
+
+export = FlowConnection32;
