@@ -38,7 +38,6 @@ async function handlerhelpers(req: arc.HttpRequest): Promise<arc.HttpResponse | 
     };
 }
 
-
 ////////////////////
 // tests for arc.http.session: https://arc.codes/docs/en/reference/runtime/node#arc.http.session
 async function handlersession(req: arc.HttpRequest): Promise<arc.HttpResponse | undefined> {
