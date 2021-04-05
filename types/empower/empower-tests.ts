@@ -1,17 +1,20 @@
+import baseAssert = require('assert');
 import empower = require('empower');
+import { Formatter } from 'power-assert-formatter';
 
-const baseAssert: any = {};
-const fakeFormatter: any = {};
+const fakeFormatter: Formatter = (_context: any) => '';
 
 {
-    const assert = empower(baseAssert, fakeFormatter);
+    const assert: typeof baseAssert = empower(baseAssert, fakeFormatter);
 }
 
-const option: empower.Options = {
+const options: empower.Options = {
     modifyMessageOnRethrow: false,
     saveContextOnRethrow: false,
 };
 
 {
-    const assert = empower(baseAssert, fakeFormatter, option);
+    const assert: typeof baseAssert = empower(baseAssert, fakeFormatter, options);
 }
+
+const defaultOptions: empower.Options = empower.defaultOptions();
