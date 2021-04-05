@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import KeyboardEventHandler from "react-keyboard-event-handler";
+import KeyboardEventHandler = require("react-keyboard-event-handler");
 
 export const ReactKeyboardEventHandlerTest: React.FC = () => (
     <div>
