@@ -6,6 +6,17 @@ import {
     BlurEventData,
     ChangeEventData,
     ClickEventData,
+    DropDownHideEventData,
+    DropDownNoMatchEventData,
+    DropDownScrollEventData,
+    DropDownSelectEventData,
+    DropDownShowEventData,
+    DropDownUpdatedEventData,
+    EditBeforeUpdateEventData,
+    EditKeydownEventData,
+    EditInputEventData,
+    EditStartEventData,
+    EditUpdatedEventData,
     FocusEventData,
     InputEventData,
     InvalidTagEventData,
@@ -35,11 +46,7 @@ declare namespace Tags {
      * {@link BaseTagData},specify the allowed properties and use that as the
      * type parameter.
      */
-     interface TagifyBaseReactProps<T extends BaseTagData = TagData> {
-        // broken for now in tagify, my best guess at what the types might be for later
-        // children?: string[] | ReactElement[];
-        // defaultValue?: string | string[];
-
+    interface TagifyBaseReactProps<T extends BaseTagData = TagData> {
         /**
          * Should the component have focus on mount. Must be unique, per-page.
          *
@@ -50,6 +57,12 @@ declare namespace Tags {
         autoFocus?: boolean;
 
         /**
+         * Initial value, i.e. the initial tags that are shown.
+         * @deprecated Specify the tags via the `value` property.
+         */
+        children?: string | string[];
+
+        /**
          * Optional class name to be added to the component.
          *
          * This property __cannot be updated__, i.e. setting this to a different
@@ -57,6 +70,18 @@ declare namespace Tags {
          * @default undefined
          */
         className?: string;
+
+        /**
+         * Same as `value`. Initial value, i.e. the initial tags that are shown.
+         * Can be either a string separated by the delimiter set in the
+         * settings, an array of tag values, or an array of tag items.
+         *
+         * This property can be updated, i.e. setting this to a different value
+         * after the initial render will update the tagify editor
+         * correspondingly.
+         * @default undefined
+         */
+        defaultValue?: string | string[] | T[];
 
         /**
          * Toggles loading state for the whole component.
@@ -113,6 +138,116 @@ declare namespace Tags {
          * @default () => {}
          */
         onClick?: (event: CustomEvent<ClickEventData<T>>) => void;
+
+        /**
+         * Callback invoked when the suggestions dropdown has been removed from
+         * the DOM.
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onDropdownHide?: (event: CustomEvent<DropDownHideEventData<T>>) => void;
+
+        /**
+         * Callback invoked when no whitelist suggestion item matched for the
+         * typed input. At this point it is possible to manually set
+         * `suggestedListItems` to any possible custom value, for example:
+         * `[{ value:"default" }]`.
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onDropdownNoMatch?: (event: CustomEvent<DropDownNoMatchEventData<T>>) => void;
+
+        /**
+         * Callback invoked when the dropdown was scrolled by the user. Use
+         * `event.detail.percentage` to get the percentage scrolled.
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onDropdownScroll?: (event: CustomEvent<DropDownScrollEventData<T>>) => void;
+
+        /**
+         * Callback invoked when a suggestions dropdown item was selected (by
+         * mouse / keyboard / touch).
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onDropdownSelect?: (event: CustomEvent<DropDownSelectEventData<T>>) => void;
+
+        /**
+         * Callback invoked when the suggestions dropdown is about to be
+         * rendered. The dropdown DOM node is passed to the callback.
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onDropdownShow?: (event: CustomEvent<DropDownShowEventData<T>>) => void;
+
+        /**
+         * Callback invoked when the dropdown menu is open and its items were
+         * recomputed via `Tagify.refilter`.
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onDropdownUpdated?: (event: CustomEvent<DropDownUpdatedEventData<T>>) => void;
+
+        /**
+         * Callback invoked just before a tag has been updated, while still in
+         * "edit" mode.
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onEditBeforeUpdate?: (event: CustomEvent<EditBeforeUpdateEventData<T>>) => void;
+
+        /**
+         * Callback invoked when typing inside an edited tag.
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onEditInput?: (event: CustomEvent<EditInputEventData<T>>) => void;
+
+        /**
+         * Callback invoked when a keydown event occurs while an edited tag is
+         * in focus.
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onEditKeydown?: (event: CustomEvent<EditKeydownEventData<T>>) => void;
+
+        /**
+         * Callback invoked when a tag is now in "edit mode".
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onEditStart?: (event: CustomEvent<EditStartEventData<T>>) => void;
+
+        /**
+         * Callback invoked when a tag has been updated (changed view editing or
+         * by directly calling the `replaceTag` method).
+         *
+         * This property __cannot be updated__, i.e. setting this to a different
+         * value after the initial render is not supported.
+         * @default () => {}
+         */
+        onEditUpdated?: (event: CustomEvent<EditUpdatedEventData<T>>) => void;
 
         /**
          * Callback invoked when the component gained focus.
@@ -220,9 +355,9 @@ declare namespace Tags {
         tagifyRef?: MutableRefObject<Tagify | undefined>;
 
         /**
-         * Initial value, i.e. the initial tags that are shown. Can be either a
-         * string separated by the delimiter set in the settings, an array of
-         * tag values, or an array of tag items.
+         * Same as `defaultValue`. Initial value, i.e. the initial tags that are
+         * shown. Can be either a string separated by the delimiter set in the
+         * settings, an array of tag values, or an array of tag items.
          *
          * This property can be updated, i.e. setting this to a different value
          * after the initial render will update the tagify editor
@@ -265,9 +400,8 @@ declare namespace Tags {
      * {@link BaseTagData},specify the allowed properties and use that as the
      * type parameter.
      */
-    // Export is not actually available yet in 4.0.1, probably a bug
-    // interface TagifyMixedTagsReactProps<T extends BaseTagData = TagData> extends TagifyBaseReactProps<T> {
-    // }
+    interface TagifyMixedTagsReactProps<T extends BaseTagData = TagData> extends TagifyBaseReactProps<T> {
+    }
 
     /**
      * React wrapper component that renders a tagify editor in mixed-mode. This
@@ -275,10 +409,9 @@ declare namespace Tags {
      * @param props Optional properties for configuring the tagify editor.
      * @returns The rendered React tagify element.
      */
-    // Export is not actually available yet in 4.0.1, probably a bug
     // Type parameter is used more than once within the TagifyMixedTagsReactProps interface
     // tslint:disable-next-line no-unnecessary-generics
-    // function MixedTags<T extends BaseTagData = TagData>(props: TagifyMixedTagsReactProps<T>): ReactElement;
+    function MixedTags<T extends BaseTagData = TagData>(props: TagifyMixedTagsReactProps<T>): ReactElement;
 }
 
 /**

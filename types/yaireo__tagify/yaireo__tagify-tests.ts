@@ -404,6 +404,13 @@ const spanEl: HTMLSpanElement = tagify.DOM.input;
 const dropdownEl: HTMLDivElement = tagify.DOM.dropdown;
 const inputEl: HTMLInputElement | HTMLTextAreaElement = tagify.DOM.originalInput;
 
+if (tagify.suggestedListItems !== undefined) {
+    const item: TagData = tagify.suggestedListItems[0];
+}
+if (typedTagify.suggestedListItems !== undefined) {
+    const item: MyTagData = typedTagify.suggestedListItems[0];
+}
+
 // $ExpectType Tagify<TagData>
 tagify.on('add', (event) => { });
 // $ExpectType Tagify<TagData>

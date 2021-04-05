@@ -829,9 +829,9 @@ declare namespace Tagify {
     interface DropDownUpdatedEventData<T extends BaseTagData = TagData> extends DropDownEventData<T> { }
 
     /**
-     * No whitelist suggestion item matched for the the typed input. At this
-     * point it is possible to manually set `suggestedListItems` to any
-     * possible custom value, for example: `[{ value:"default" }]`.
+     * No whitelist suggestion item matched for the typed input. At this point
+     * it is possible to manually set `suggestedListItems` to any possible
+     * custom value, for example: `[{ value:"default" }]`.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownNoMatchEventData<T extends BaseTagData = TagData> extends SingleEventData<T, string> { }
@@ -957,32 +957,34 @@ declare namespace Tagify {
         'dblclick': DoubleClickEventData<T>;
 
         /**
-         * Suggestions dropdown item selected (by mouse / keyboard/ touch).
-         */
-        'dropdown:select': DropDownSelectEventData<T>;
-
-        /**
-         * Tells the percentage scrolled. (`event.detail.percentage`).
-         */
-        'dropdown:scroll': DropDownScrollEventData<T>;
-
-        /**
-         * Suggestions dropdown is to be rendered. The dropdown DOM node is
-         * passed in the callback.
-         */
-        'dropdown:show': DropDownShowEventData<T>;
-
-        /**
          * Suggestions dropdown has been removed from the DOM.
          */
         'dropdown:hide': DropDownHideEventData<T>;
 
         /**
-         * No whitelist suggestion item matched for the the typed input. At this
+         * No whitelist suggestion item matched for the typed input. At this
          * point it is possible to manually set `suggestedListItems` to any
          * possible custom value, for example: `[{ value:"default" }]`.
          */
         'dropdown:noMatch': DropDownNoMatchEventData<T>;
+
+        /**
+         * The dropdown was scrolled by the user. Use `event.detail.percentage`
+         * to get the percentage scrolled.
+         */
+        'dropdown:scroll': DropDownScrollEventData<T>;
+
+        /**
+         * A suggestions dropdown item got selected (by mouse / keyboard /
+         * touch).
+         */
+        'dropdown:select': DropDownSelectEventData<T>;
+
+        /**
+         * Suggestions dropdown is about to be rendered. The dropdown DOM node
+         * is passed to the callback.
+         */
+        'dropdown:show': DropDownShowEventData<T>;
 
         /**
          * When the dropdown menu is open and its items were recomputed via
@@ -1011,7 +1013,7 @@ declare namespace Tagify {
         'edit:start': EditStartEventData<T>;
 
         /**
-         * A tag as been updated (changed view editing or by directly calling
+         * A tag has been updated (changed view editing or by directly calling
          * the `replaceTag` method).
          */
         'edit:updated': EditUpdatedEventData<T>;
@@ -1112,21 +1114,6 @@ declare namespace Tagify {
  */
 declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     /**
-     * The current settings of this tagify instance.
-     */
-    settings: Tagify.TagifySettings<T>;
-
-    /**
-     * Array with tag data of the currently selected tags.
-     */
-    value: T[];
-
-    /**
-     * References to DOM elements used by this tagify instance.
-     */
-    DOM: Tagify.DomReference;
-
-    /**
      * Dropdown specific methods.
      */
     dropdown: {
@@ -1169,6 +1156,26 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
          */
         selectAll(this: Tagify<T>): void;
     };
+
+    /**
+     * The current settings of this tagify instance.
+     */
+    settings: Tagify.TagifySettings<T>;
+
+    /**
+     * List with the currently available options for the dropdown.
+     */
+    suggestedListItems?: T[];
+
+    /**
+     * Array with tag data of the currently selected tags.
+     */
+    value: T[];
+
+    /**
+     * References to DOM elements used by this tagify instance.
+     */
+    DOM: Tagify.DomReference;
 
     /**
      * Creates a new tagify editor on the given input element.
