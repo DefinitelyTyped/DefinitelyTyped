@@ -1,4 +1,4 @@
-import { Schema } from '@wordpress/api-fetch';
+import { Schema } from '@wordpress/core-data';
 import { dispatch, select } from '@wordpress/data';
 
 declare const USER_VIEW: Schema.User;

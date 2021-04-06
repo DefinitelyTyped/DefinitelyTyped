@@ -1,4 +1,4 @@
-import { Schema } from '@wordpress/api-fetch';
+import { Schema } from '@wordpress/core-data';
 
 export type UploadMediaErrorCode =
     | 'MIME_TYPE_NOT_ALLOWED_FOR_USER'

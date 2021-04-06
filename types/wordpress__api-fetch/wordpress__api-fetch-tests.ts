@@ -1,4 +1,5 @@
-import apiFetch, { Middleware, Schema } from '@wordpress/api-fetch';
+import { Schema } from '@wordpress/core-data';
+import apiFetch, { Middleware } from '@wordpress/api-fetch';
 
 async function foo() {
     apiFetch<Schema.Post[]>({ path: '/wp/v2/posts' }).then(posts =>
