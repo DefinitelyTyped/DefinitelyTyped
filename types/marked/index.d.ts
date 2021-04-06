@@ -363,6 +363,7 @@ declare namespace marked {
         }
 
         interface Def {
+            type: "def";
             raw: string;
             href: string;
             title: string;
