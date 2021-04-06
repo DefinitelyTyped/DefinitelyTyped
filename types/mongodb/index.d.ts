@@ -58,38 +58,38 @@ export { Binary, DBRef, Decimal128, Double, Int32, Long, MaxKey, MinKey, ObjectI
 
 type NumericTypes = number | Decimal128 | Double | Int32 | Long;
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html */
 export class MongoClient extends EventEmitter {
     constructor(uri: string, options?: MongoClientOptions);
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect */
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
     static connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
     static connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#connect */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#connect */
     connect(): Promise<MongoClient>;
     connect(callback: MongoCallback<MongoClient>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#close */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#close */
     close(callback: MongoCallback<void>): void;
     close(force?: boolean): Promise<void>;
     close(force: boolean, callback: MongoCallback<void>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#db */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#db */
     db(dbName?: string, options?: MongoClientCommonOption): Db;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#isConnected */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#isConnected */
     isConnected(options?: MongoClientCommonOption): boolean;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#logout */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#logout */
     logout(callback: MongoCallback<any>): void;
     logout(options?: { dbName?: string }): Promise<any>;
     logout(options: { dbName?: string }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#startSession */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#startSession */
     startSession(options?: SessionOptions): ClientSession;
     /** @see https://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch */
     watch<TSchema extends object = { _id: ObjectId }>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
     ): ChangeStream<TSchema>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#withSession */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#withSession */
     withSession(options: SessionOptions, operation: (session: ClientSession) => Promise<any>): Promise<void>;
 
     readPreference: ReadPreference;
@@ -903,7 +903,7 @@ export interface SocketOptions {
     socketTimeoutMS?: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Server.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Server.html */
 export interface ServerOptions extends SSLOptions {
     /**
      * If you're connected to a single server or mongos proxy (as opposed to a replica set),
@@ -986,7 +986,7 @@ export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions {
 
 export type ProfilingLevel = 'off' | 'slow_only' | 'all';
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html */
 export class Db extends EventEmitter {
     constructor(databaseName: string, serverConfig: Server | ReplSet | Mongos, options?: DbCreateOptions);
 
@@ -998,13 +998,13 @@ export class Db extends EventEmitter {
     slaveOk: boolean;
     writeConcern: WriteConcern;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#addUser */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#addUser */
     addUser(username: string, password: string, callback: MongoCallback<any>): void;
     addUser(username: string, password: string, options?: DbAddUserOptions): Promise<any>;
     addUser(username: string, password: string, options: DbAddUserOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#admin */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#admin */
     admin(): Admin;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collection */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collection */
     collection<TSchema = DefaultSchema>(
         name: string,
         callback?: MongoCallback<Collection<TSchema>>,
@@ -1014,10 +1014,10 @@ export class Db extends EventEmitter {
         options: DbCollectionOptions,
         callback?: MongoCallback<Collection<TSchema>>,
     ): Collection<TSchema>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collections */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collections */
     collections(): Promise<Array<Collection<Default>>>;
     collections(callback: MongoCallback<Array<Collection<Default>>>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#command */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#command */
     command(command: object, callback: MongoCallback<any>): void;
     command(
         command: object,
@@ -1028,7 +1028,7 @@ export class Db extends EventEmitter {
         options: { readPreference: ReadPreferenceOrMode; session?: ClientSession },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#createCollection */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createCollection */
     createCollection<TSchema = DefaultSchema>(name: string, callback: MongoCallback<Collection<TSchema>>): void;
     createCollection<TSchema = DefaultSchema>(
         name: string,
@@ -1039,17 +1039,17 @@ export class Db extends EventEmitter {
         options: CollectionCreateOptions,
         callback: MongoCallback<Collection<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#createIndex */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createIndex */
     createIndex(name: string, fieldOrSpec: string | object, callback: MongoCallback<any>): void;
     createIndex(name: string, fieldOrSpec: string | object, options?: IndexOptions): Promise<any>;
     createIndex(name: string, fieldOrSpec: string | object, options: IndexOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#dropCollection */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#dropCollection */
     dropCollection(name: string): Promise<boolean>;
     dropCollection(name: string, callback: MongoCallback<boolean>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#dropDatabase */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#dropDatabase */
     dropDatabase(): Promise<any>;
     dropDatabase(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#executeDbAdminCommand */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#executeDbAdminCommand */
     executeDbAdminCommand(command: object, callback: MongoCallback<any>): void;
     executeDbAdminCommand(
         command: object,
@@ -1060,7 +1060,7 @@ export class Db extends EventEmitter {
         options: { readPreference?: ReadPreferenceOrMode; session?: ClientSession },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#indexInformation */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#indexInformation */
     indexInformation(name: string, callback: MongoCallback<any>): void;
     indexInformation(name: string, options?: { full?: boolean; readPreference?: ReadPreferenceOrMode }): Promise<any>;
     indexInformation(
@@ -1068,7 +1068,7 @@ export class Db extends EventEmitter {
         options: { full?: boolean; readPreference?: ReadPreferenceOrMode },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#listCollections */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#listCollections */
     listCollections(
         filter?: object,
         options?: {
@@ -1078,20 +1078,20 @@ export class Db extends EventEmitter {
             session?: ClientSession;
         },
     ): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#profilingInfo */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#profilingInfo */
     /** @deprecated Query the system.profile collection directly. */
     profilingInfo(callback: MongoCallback<any>): void;
     profilingInfo(options?: { session?: ClientSession }): Promise<void>;
     profilingInfo(options: { session?: ClientSession }, callback: MongoCallback<void>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#profilingLevel */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#profilingLevel */
     profilingLevel(callback: MongoCallback<ProfilingLevel>): void;
     profilingLevel(options?: { session?: ClientSession }): Promise<ProfilingLevel>;
     profilingLevel(options: { session?: ClientSession }, callback: MongoCallback<ProfilingLevel>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#removeUser */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#removeUser */
     removeUser(username: string, callback: MongoCallback<any>): void;
     removeUser(username: string, options?: CommonOptions): Promise<any>;
     removeUser(username: string, options: CommonOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#renameCollection */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#renameCollection */
     renameCollection<TSchema = DefaultSchema>(
         fromCollection: string,
         toCollection: string,
@@ -1108,7 +1108,7 @@ export class Db extends EventEmitter {
         options: { dropTarget?: boolean },
         callback: MongoCallback<Collection<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#setProfilingLevel */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#setProfilingLevel */
     setProfilingLevel(level: ProfilingLevel, callback: MongoCallback<ProfilingLevel>): void;
     setProfilingLevel(level: ProfilingLevel, options?: { session?: ClientSession }): Promise<ProfilingLevel>;
     setProfilingLevel(
@@ -1116,7 +1116,7 @@ export class Db extends EventEmitter {
         options: { session?: ClientSession },
         callback: MongoCallback<ProfilingLevel>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#stats */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#stats */
     stats(callback: MongoCallback<any>): void;
     stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
@@ -1133,7 +1133,7 @@ export interface CommonOptions extends WriteConcern {
 
 /**
  * @deprecated
- * @see https://mongodb.github.io/node-mongodb-native/3.1/api/Server.html
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Server.html
  */
 export class Server extends EventEmitter {
     constructor(host: string, port: number, options?: ServerOptions);
@@ -1143,7 +1143,7 @@ export class Server extends EventEmitter {
 
 /**
  * @deprecated
- * @see https://mongodb.github.io/node-mongodb-native/3.1/api/ReplSet.html
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ReplSet.html
  */
 export class ReplSet extends EventEmitter {
     constructor(servers: Server[], options?: ReplSetOptions);
@@ -1153,7 +1153,7 @@ export class ReplSet extends EventEmitter {
 
 /**
  * @deprecated
- * @see https://mongodb.github.io/node-mongodb-native/3.1/api/Mongos.html
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Mongos.html
  */
 export class Mongos extends EventEmitter {
     constructor(servers: Server[], options?: MongosOptions);
@@ -1163,14 +1163,14 @@ export class Mongos extends EventEmitter {
 
 /**
  * @deprecated
- * @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#addUser
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#addUser
  */
 export interface DbAddUserOptions extends CommonOptions {
     customData?: object;
     roles?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#createCollection */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createCollection */
 export interface CollectionCreateOptions extends CommonOptions {
     raw?: boolean;
     pkFactory?: object;
@@ -1199,7 +1199,7 @@ export interface CollectionCreateOptions extends CommonOptions {
     collation?: CollationDocument;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collection */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collection */
 export interface DbCollectionOptions extends CommonOptions {
     raw?: boolean;
     pkFactory?: object;
@@ -1209,7 +1209,7 @@ export interface DbCollectionOptions extends CommonOptions {
     readConcern?: ReadConcern;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#createIndex */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createIndex */
 export interface IndexOptions extends CommonOptions {
     /**
      * Creates an unique index.
@@ -1258,17 +1258,17 @@ export interface IndexOptions extends CommonOptions {
     default_language?: string;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html */
 export interface Admin {
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#addUser */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#addUser */
     addUser(username: string, password: string, callback: MongoCallback<any>): void;
     addUser(username: string, password: string, options?: AddUserOptions): Promise<any>;
     addUser(username: string, password: string, options: AddUserOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#buildInfo */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#buildInfo */
     buildInfo(options?: { session?: ClientSession }): Promise<any>;
     buildInfo(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     buildInfo(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#command */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#command */
     command(command: object, callback: MongoCallback<any>): void;
     command(command: object, options?: { readPreference?: ReadPreferenceOrMode; maxTimeMS?: number }): Promise<any>;
     command(
@@ -1276,43 +1276,43 @@ export interface Admin {
         options: { readPreference?: ReadPreferenceOrMode; maxTimeMS?: number },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#listDatabases */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#listDatabases */
     listDatabases(options?: { nameOnly?: boolean; session?: ClientSession }): Promise<any>;
     listDatabases(options: { nameOnly?: boolean; session?: ClientSession }, callback: MongoCallback<any>): void;
     listDatabases(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#ping */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#ping */
     ping(options?: { session?: ClientSession }): Promise<any>;
     ping(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     ping(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#removeUser */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#removeUser */
     removeUser(username: string, callback: MongoCallback<any>): void;
     removeUser(username: string, options?: FSyncOptions): Promise<any>;
     removeUser(username: string, options: FSyncOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#replSetGetStatus */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#replSetGetStatus */
     replSetGetStatus(options?: { session?: ClientSession }): Promise<any>;
     replSetGetStatus(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     replSetGetStatus(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#serverInfo */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#serverInfo */
     serverInfo(): Promise<any>;
     serverInfo(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#serverStatus */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#serverStatus */
     serverStatus(options?: { session?: ClientSession }): Promise<any>;
     serverStatus(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     serverStatus(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#validateCollection */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#validateCollection */
     validateCollection(collectionNme: string, callback: MongoCallback<any>): void;
     validateCollection(collectionNme: string, options?: object): Promise<any>;
     validateCollection(collectionNme: string, options: object, callback: MongoCallback<any>): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#addUser */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#addUser */
 export interface AddUserOptions extends CommonOptions {
     fsync: boolean;
     customData?: object;
     roles?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#removeUser */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#removeUser */
 export interface FSyncOptions extends CommonOptions {
     fsync?: boolean;
 }
@@ -1342,7 +1342,7 @@ export type OptionalId<TSchema extends { _id?: any }> = ObjectId extends TSchema
 // this adds _id as a required property
 export type WithId<TSchema> = EnhancedOmit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html */
 export interface Collection<TSchema extends { [key: string]: any } = DefaultSchema> {
     /**
      * Get the collection name.
@@ -1384,24 +1384,24 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         callback: MongoCallback<BulkWriteOpResultObject>,
     ): void;
     /**
-     * @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#count
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#count
      * @deprecated Use countDocuments or estimatedDocumentCount
      */
     count(callback: MongoCallback<number>): void;
     count(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     count(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
     count(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#countDocuments */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#countDocuments */
     countDocuments(callback: MongoCallback<number>): void;
     countDocuments(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     countDocuments(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
     countDocuments(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#createIndex */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndex */
     createIndex(fieldOrSpec: string | any, callback: MongoCallback<string>): void;
     createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
     createIndex(fieldOrSpec: string | any, options: IndexOptions, callback: MongoCallback<string>): void;
     /**
-     * @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#createIndexes
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndexes
      * @see https://docs.mongodb.org/manual/reference/command/createIndexes/
      */
     createIndexes(indexSpecs: IndexSpecification[], callback: MongoCallback<any>): void;
@@ -1411,7 +1411,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: { session?: ClientSession },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#deleteMany */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#deleteMany */
     deleteMany(filter: FilterQuery<TSchema>, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteMany(filter: FilterQuery<TSchema>, options?: CommonOptions): Promise<DeleteWriteOpResultObject>;
     deleteMany(
@@ -1419,7 +1419,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CommonOptions,
         callback: MongoCallback<DeleteWriteOpResultObject>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#deleteOne */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#deleteOne */
     deleteOne(filter: FilterQuery<TSchema>, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteOne(
         filter: FilterQuery<TSchema>,
@@ -1430,7 +1430,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CommonOptions & { bypassDocumentValidation?: boolean },
         callback: MongoCallback<DeleteWriteOpResultObject>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#distinct */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#distinct */
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
         callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>,
@@ -1460,19 +1460,19 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: MongoDistinctPreferences,
         callback: MongoCallback<any[]>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#drop */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#drop */
     drop(options?: { session: ClientSession }): Promise<any>;
     drop(callback: MongoCallback<any>): void;
     drop(options: { session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#dropIndex */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#dropIndex */
     dropIndex(indexName: string, callback: MongoCallback<any>): void;
     dropIndex(indexName: string, options?: CommonOptions & { maxTimeMS?: number }): Promise<any>;
     dropIndex(indexName: string, options: CommonOptions & { maxTimeMS?: number }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#dropIndexes */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#dropIndexes */
     dropIndexes(options?: { session?: ClientSession; maxTimeMS?: number }): Promise<any>;
     dropIndexes(callback?: MongoCallback<any>): void;
     dropIndexes(options: { session?: ClientSession; maxTimeMS?: number }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#estimatedDocumentCount */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#estimatedDocumentCount */
     estimatedDocumentCount(callback: MongoCallback<number>): void;
     estimatedDocumentCount(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     estimatedDocumentCount(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
@@ -1553,11 +1553,11 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: FindOneAndUpdateOption<TSchema>,
         callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#geoHaystackSearch */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
     geoHaystackSearch(x: number, y: number, options: GeoHaystackSearchOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#group */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#group */
     /** @deprecated MongoDB 3.6 or higher no longer supports the group command. We recommend rewriting using the aggregation framework. */
     group(
         keys: object | any[] | Function | Code,
@@ -1592,11 +1592,11 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#indexes */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexes */
     indexes(options?: { session: ClientSession }): Promise<any>;
     indexes(callback: MongoCallback<any>): void;
     indexes(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#indexExists */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexExists */
     indexExists(indexes: string | string[], callback: MongoCallback<boolean>): void;
     indexExists(indexes: string | string[], options?: { session: ClientSession }): Promise<boolean>;
     indexExists(
@@ -1604,15 +1604,15 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: { session: ClientSession },
         callback: MongoCallback<boolean>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#indexInformation */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexInformation */
     indexInformation(callback: MongoCallback<any>): void;
     indexInformation(options?: { full: boolean; session: ClientSession }): Promise<any>;
     indexInformation(options: { full: boolean; session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#initializeOrderedBulkOp */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#initializeOrderedBulkOp */
     initializeOrderedBulkOp(options?: CommonOptions): OrderedBulkOperation;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#initializeUnorderedBulkOp */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#initializeUnorderedBulkOp */
     initializeUnorderedBulkOp(options?: CommonOptions): UnorderedBulkOperation;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne */
     /** @deprecated Use insertOne, insertMany or bulkWrite */
     insert(docs: OptionalId<TSchema>, callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>): void;
     /** @deprecated Use insertOne, insertMany or bulkWrite */
@@ -1626,7 +1626,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CollectionInsertOneOptions,
         callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertMany */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertMany */
     insertMany(docs: Array<OptionalId<TSchema>>, callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>): void;
     insertMany(
         docs: Array<OptionalId<TSchema>>,
@@ -1637,7 +1637,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CollectionInsertManyOptions,
         callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne */
     insertOne(docs: OptionalId<TSchema>, callback: MongoCallback<InsertOneWriteOpResult<WithId<TSchema>>>): void;
     insertOne(
         docs: OptionalId<TSchema>,
@@ -1648,17 +1648,17 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CollectionInsertOneOptions,
         callback: MongoCallback<InsertOneWriteOpResult<WithId<TSchema>>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#isCapped */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#isCapped */
     isCapped(options?: { session: ClientSession }): Promise<any>;
     isCapped(callback: MongoCallback<any>): void;
     isCapped(options: { session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#listIndexes */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#listIndexes */
     listIndexes(options?: {
         batchSize?: number;
         readPreference?: ReadPreferenceOrMode;
         session?: ClientSession;
     }): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#mapReduce */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#mapReduce */
     mapReduce<TKey, TValue>(
         map: CollectionMapFunction<TSchema> | string,
         reduce: CollectionReduceFunction<TKey, TValue> | string,
@@ -1675,19 +1675,19 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: MapReduceOptions,
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#options */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#options */
     options(options?: { session: ClientSession }): Promise<any>;
     options(callback: MongoCallback<any>): void;
     options(options: { session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#parallelCollectionScan */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#parallelCollectionScan */
     parallelCollectionScan(callback: MongoCallback<Array<Cursor<any>>>): void;
     parallelCollectionScan(options?: ParallelCollectionScanOptions): Promise<Array<Cursor<any>>>;
     parallelCollectionScan(options: ParallelCollectionScanOptions, callback: MongoCallback<Array<Cursor<any>>>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#reIndex */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#reIndex */
     reIndex(options?: { session: ClientSession }): Promise<any>;
     reIndex(callback: MongoCallback<any>): void;
     reIndex(options: { session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#remove */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#remove */
     /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
     remove(selector: object, callback: MongoCallback<WriteOpResult>): void;
     /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
@@ -1698,7 +1698,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options?: CommonOptions & { single?: boolean },
         callback?: MongoCallback<WriteOpResult>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#rename */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#rename */
     rename(newName: string, callback: MongoCallback<Collection<TSchema>>): void;
     rename(newName: string, options?: { dropTarget?: boolean; session?: ClientSession }): Promise<Collection<TSchema>>;
     rename(
@@ -1706,7 +1706,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: { dropTarget?: boolean; session?: ClientSession },
         callback: MongoCallback<Collection<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#replaceOne */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#replaceOne */
     replaceOne(filter: FilterQuery<TSchema>, doc: TSchema, callback: MongoCallback<ReplaceWriteOpResult>): void;
     replaceOne(filter: FilterQuery<TSchema>, doc: TSchema, options?: ReplaceOneOptions): Promise<ReplaceWriteOpResult>;
     replaceOne(
@@ -1715,18 +1715,18 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: ReplaceOneOptions,
         callback: MongoCallback<ReplaceWriteOpResult>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#save */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#save */
     /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: TSchema, callback: MongoCallback<WriteOpResult>): void;
     /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: TSchema, options?: CommonOptions): Promise<WriteOpResult>;
     /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: TSchema, options: CommonOptions, callback: MongoCallback<WriteOpResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#stats */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#stats */
     stats(callback: MongoCallback<CollStats>): void;
     stats(options?: { scale: number; session?: ClientSession }): Promise<CollStats>;
     stats(options: { scale: number; session?: ClientSession }, callback: MongoCallback<CollStats>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#update */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#update */
     /** @deprecated use updateOne, updateMany or bulkWrite */
     update(
         filter: FilterQuery<TSchema>,
@@ -1746,7 +1746,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: UpdateOneOptions & { multi?: boolean },
         callback: MongoCallback<WriteOpResult>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateMany */
     updateMany(
         filter: FilterQuery<TSchema>,
         update: UpdateQuery<TSchema> | Partial<TSchema>,
@@ -1763,7 +1763,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: UpdateManyOptions,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateOne */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne */
     updateOne(
         filter: FilterQuery<TSchema>,
         update: UpdateQuery<TSchema> | Partial<TSchema>,
@@ -2328,7 +2328,7 @@ export interface WiredTigerData {
     };
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#aggregate */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#aggregate */
 export interface CollectionAggregationOptions {
     readPreference?: ReadPreferenceOrMode;
     /**
@@ -2364,7 +2364,7 @@ export interface CollectionAggregationOptions {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertMany */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertMany */
 export interface CollectionInsertManyOptions extends CommonOptions {
     /**
      * Serialize functions on any object.
@@ -2384,7 +2384,7 @@ export interface CollectionInsertManyOptions extends CommonOptions {
     ordered?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#bulkWrite */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#bulkWrite */
 export interface CollectionBulkWriteOptions extends CommonOptions {
     /**
      * Serialize functions on any object.
@@ -2402,7 +2402,7 @@ export interface CollectionBulkWriteOptions extends CommonOptions {
     forceServerObjectId?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~BulkWriteOpResult */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~BulkWriteOpResult */
 export interface BulkWriteOpResultObject {
     insertedCount?: number;
     matchedCount?: number;
@@ -2414,7 +2414,7 @@ export interface BulkWriteOpResultObject {
     result?: any;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#count */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#count */
 export interface MongoCountPreferences {
     /**
      * The limit of documents to count.
@@ -2442,7 +2442,7 @@ export interface MongoCountPreferences {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#distinct */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#distinct */
 export interface MongoDistinctPreferences {
     /**
      * The preferred read preference
@@ -2458,7 +2458,7 @@ export interface MongoDistinctPreferences {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~deleteWriteOpResult */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~deleteWriteOpResult */
 export interface DeleteWriteOpResultObject {
     //The raw result returned from MongoDB, field will vary depending on server version.
     result: {
@@ -2473,7 +2473,7 @@ export interface DeleteWriteOpResultObject {
     deletedCount?: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~findAndModifyWriteOpResult */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~findAndModifyWriteOpResult */
 export interface FindAndModifyWriteOpResultObject<TSchema> {
     //Document returned from findAndModify command.
     value?: TSchema;
@@ -2516,7 +2516,7 @@ export interface FindOneAndDeleteOption<T> {
     collation?: CollationDocument;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#geoHaystackSearch */
 export interface GeoHaystackSearchOptions {
     readPreference?: ReadPreferenceOrMode;
     maxDistance?: number;
@@ -2525,23 +2525,23 @@ export interface GeoHaystackSearchOptions {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Code.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Code.html */
 export class Code {
     constructor(code: string | Function, scope?: object);
     code: string | Function;
     scope: any;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/OrderedBulkOperation.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html */
 export interface OrderedBulkOperation {
     length: number;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/OrderedBulkOperation.html#execute */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#execute */
     execute(callback: MongoCallback<BulkWriteResult>): void;
     execute(options?: FSyncOptions): Promise<BulkWriteResult>;
     execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/OrderedBulkOperation.html#find */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#find */
     find(selector: object): FindOperatorsOrdered;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/OrderedBulkOperation.html#insert */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#insert */
     insert(doc: object): OrderedBulkOperation;
 }
 
@@ -2626,7 +2626,7 @@ export interface BulkWriteResult {
     hasWriteErrors(): boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/WriteError.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/WriteError.html */
 export interface WriteError {
     //Write concern error code.
     code: number;
@@ -2636,7 +2636,7 @@ export interface WriteError {
     errmsg: string;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/WriteConcernError.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/WriteConcernError.html */
 export interface WriteConcernError {
     //Write concern error code.
     code: number;
@@ -2644,7 +2644,7 @@ export interface WriteConcernError {
     errmsg: string;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/FindOperatorsOrdered.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperatorsOrdered.html */
 export interface FindOperatorsOrdered {
     delete(): OrderedBulkOperation;
     deleteOne(): OrderedBulkOperation;
@@ -2654,21 +2654,21 @@ export interface FindOperatorsOrdered {
     upsert(): FindOperatorsOrdered;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/UnorderedBulkOperation.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html */
 export interface UnorderedBulkOperation {
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/lib_bulk_unordered.js.html line 339 */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/lib_bulk_unordered.js.html line 339 */
     length: number;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/UnorderedBulkOperation.html#execute */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#execute */
     execute(callback: MongoCallback<BulkWriteResult>): void;
     execute(options?: FSyncOptions): Promise<BulkWriteResult>;
     execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/UnorderedBulkOperation.html#find */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#find */
     find(selector: object): FindOperatorsUnordered;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/UnorderedBulkOperation.html#insert */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#insert */
     insert(doc: object): UnorderedBulkOperation;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/FindOperatorsUnordered.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperatorsUnordered.html */
 export interface FindOperatorsUnordered {
     length: number;
     remove(): UnorderedBulkOperation;
@@ -2713,7 +2713,7 @@ export interface FindOneOptions<T> {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne */
 export interface CollectionInsertOneOptions extends CommonOptions {
     /**
      * Serialize functions on any object.
@@ -2725,7 +2725,7 @@ export interface CollectionInsertOneOptions extends CommonOptions {
     bypassDocumentValidation?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertWriteOpResult */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~insertWriteOpResult */
 export interface InsertWriteOpResult<TSchema extends { _id: any }> {
     insertedCount: number;
     ops: TSchema[];
@@ -2734,7 +2734,7 @@ export interface InsertWriteOpResult<TSchema extends { _id: any }> {
     result: { ok: number; n: number };
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertOneWriteOpResult */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~insertOneWriteOpResult */
 export interface InsertOneWriteOpResult<TSchema extends { _id: any }> {
     insertedCount: number;
     ops: TSchema[];
@@ -2743,7 +2743,7 @@ export interface InsertOneWriteOpResult<TSchema extends { _id: any }> {
     result: { ok: number; n: number };
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#parallelCollectionScan */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#parallelCollectionScan */
 export interface ParallelCollectionScanOptions {
     readPreference?: ReadPreferenceOrMode;
     batchSize?: number;
@@ -2752,24 +2752,24 @@ export interface ParallelCollectionScanOptions {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#replaceOne */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#replaceOne */
 export interface ReplaceOneOptions extends CommonOptions {
     upsert?: boolean;
     bypassDocumentValidation?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateOne */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne */
 export interface UpdateOneOptions extends ReplaceOneOptions {
     arrayFilters?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateMany */
 export interface UpdateManyOptions extends CommonOptions {
     upsert?: boolean;
     arrayFilters?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~updateWriteOpResult */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~updateWriteOpResult */
 export interface UpdateWriteOpResult {
     result: { ok: number; n: number; nModified: number };
     connection: any;
@@ -2784,7 +2784,7 @@ export interface ReplaceWriteOpResult extends UpdateWriteOpResult {
     ops: any[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#mapReduce */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#mapReduce */
 export interface MapReduceOptions {
     readPreference?: ReadPreferenceOrMode;
     out?: object;
@@ -2804,109 +2804,109 @@ export type CollectionMapFunction<TSchema> = (this: TSchema) => void;
 
 export type CollectionReduceFunction<TKey, TValue> = (key: TKey, values: TValue[]) => TValue;
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~WriteOpResult */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~WriteOpResult */
 export interface WriteOpResult {
     ops: any[];
     connection: any;
     result: any;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#~resultCallback */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~resultCallback */
 export type CursorResult = object | null | boolean;
 
 type Default = any;
 type DefaultSchema = any;
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html */
 export class Cursor<T = Default> extends Readable {
     [Symbol.asyncIterator](): AsyncIterableIterator<T>;
     sortValue: string;
     timeout: boolean;
     readPreference: ReadPreference;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#addCursorFlag */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addCursorFlag */
     addCursorFlag(flag: string, value: boolean): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#addQueryModifier */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addQueryModifier */
     addQueryModifier(name: string, value: boolean): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#batchSize */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#batchSize */
     batchSize(value: number): Cursor<T>;
     bufferedCount(): number;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#clone */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#clone */
     clone(): Cursor<T>; // still returns the same type
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#close */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#close */
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#collation */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#collation */
     collation(value: CollationDocument): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#comment */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#comment */
     comment(value: string): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#count */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#count */
     count(callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, callback: MongoCallback<number>): void;
     count(options: CursorCommentOptions, callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, options: CursorCommentOptions, callback: MongoCallback<number>): void;
     count(applySkipLimit?: boolean, options?: CursorCommentOptions): Promise<number>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#explain */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#explain */
     explain(): Promise<CursorResult>;
     explain(callback: MongoCallback<CursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#filter */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#filter */
     filter(filter: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#forEach */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#forEach */
     forEach(iterator: IteratorCallback<T>, callback: EndCallback): void;
     forEach(iterator: IteratorCallback<T>): Promise<void>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#hasNext */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#hasNext */
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#hint */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#hint */
     hint(hint: string | object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#isClosed */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#isClosed */
     isClosed(): boolean;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#limit */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#limit */
     limit(value: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#map */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#map */
     map<U>(transform: (document: T) => U): Cursor<U>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#max */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#max */
     max(max: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#maxAwaitTimeMS */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxAwaitTimeMS */
     maxAwaitTimeMS(value: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#maxScan */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxScan */
     maxScan(maxScan: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#maxTimeMS */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxTimeMS */
     maxTimeMS(value: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#min */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#min */
     min(min: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#next */
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#project */
     project<U = T>(value: SchemaMember<T, ProjectionOperators | number | boolean | any>): Cursor<U>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#read */
     read(size: number): string | Buffer | void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#returnKey */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#returnKey */
     returnKey(returnKey: boolean): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#rewind */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#rewind */
     rewind(): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#setCursorOption */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#setCursorOption */
     setCursorOption(field: string, value: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#setReadPreference */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#setReadPreference */
     setReadPreference(readPreference: ReadPreferenceOrMode): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#showRecordId */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#showRecordId */
     showRecordId(showRecordId: boolean): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#skip */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#skip */
     skip(value: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#snapshot */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#snapshot */
     snapshot(snapshot: object): Cursor<T>;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#sort */
     sort(keyOrList: string | Array<[string, number]> | SortOptionObject<T>, direction?: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#stream */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#stream */
     stream(options?: { transform?: (document: T) => any }): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#toArray */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#toArray */
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#unshift */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#unshift */
     unshift(stream: Buffer | string): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#count */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#count */
 export interface CursorCommentOptions {
     skip?: number;
     limit?: number;
@@ -2915,143 +2915,143 @@ export interface CursorCommentOptions {
     readPreference?: ReadPreferenceOrMode;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#~iteratorCallback */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~iteratorCallback */
 export interface IteratorCallback<T> {
     (doc: T): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#~endCallback */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~endCallback */
 export interface EndCallback {
     (error: MongoError): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#~resultCallback */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#~resultCallback */
 export type AggregationCursorResult = object | null;
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html */
 export class AggregationCursor<T = Default> extends Cursor<T> {
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#batchSize */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#batchSize */
     batchSize(value: number): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#clone */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#clone */
     clone(): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#close */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#close */
     close(): Promise<AggregationCursorResult>;
     close(callback: MongoCallback<AggregationCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#each */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#each */
     each(callback: MongoCallback<AggregationCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#explain */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#explain */
     explain(): Promise<AggregationCursorResult>;
     explain(callback: MongoCallback<AggregationCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#geoNear */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#geoNear */
     geoNear(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#group */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#group */
     group<U = T>(document: object): AggregationCursor<U>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#hasNext */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#hasNext */
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#isClosed */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#isClosed */
     isClosed(): boolean;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#limit */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#limit */
     limit(value: number): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#lookup */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#lookup */
     lookup(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#match */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#match */
     match(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#maxTimeMS */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#maxTimeMS */
     maxTimeMS(value: number): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#next */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#next */
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#out */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#out */
     out(destination: string): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#project */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#project */
     project<U = T>(document: object): AggregationCursor<U>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#read */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#read */
     read(size: number): string | Buffer | void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#redact */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#redact */
     redact(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#rewind */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#rewind */
     rewind(): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#setEncoding */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#setEncoding */
     skip(value: number): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#sort */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#sort */
     sort(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#toArray */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#toArray */
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unshift */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#unshift */
     unshift(stream: Buffer | string): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unwind */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#unwind */
     unwind<U = T>(
         field: string | { path: string; includeArrayIndex?: string; preserveNullAndEmptyArrays?: boolean },
     ): AggregationCursor<U>;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#~resultCallback */
 export type CommandCursorResult = object | null;
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html */
 export class CommandCursor extends Readable {
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#hasNext */
     hasNext(): Promise<boolean>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#hasNext */
     hasNext(callback: MongoCallback<boolean>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#batchSize */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#batchSize */
     batchSize(value: number): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#clone */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#clone */
     clone(): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#close */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#close */
     close(): Promise<CommandCursorResult>;
     close(callback: MongoCallback<CommandCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#each */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#each */
     each(callback: MongoCallback<CommandCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#isClosed */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#isClosed */
     isClosed(): boolean;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#maxTimeMS */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#maxTimeMS */
     maxTimeMS(value: number): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#next */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#next */
     next(): Promise<CommandCursorResult>;
     next(callback: MongoCallback<CommandCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#read */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#read */
     read(size: number): string | Buffer | void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#rewind */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#rewind */
     rewind(): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#setReadPreference */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#setReadPreference */
     setReadPreference(readPreference: ReadPreferenceOrMode): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#toArray */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#toArray */
     toArray(): Promise<any[]>;
     toArray(callback: MongoCallback<any[]>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#unshift */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#unshift */
     unshift(stream: Buffer | string): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html */
 export class GridFSBucket {
     constructor(db: Db, options?: GridFSBucketOptions);
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#delete */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#delete */
     delete(id: ObjectId, callback?: GridFSBucketErrorCallback): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#drop */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#drop */
     drop(callback?: GridFSBucketErrorCallback): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#find */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#find */
     find(filter?: object, options?: GridFSBucketFindOptions): Cursor<any>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openDownloadStream */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openDownloadStream */
     openDownloadStream(id: ObjectId, options?: { start: number; end: number }): GridFSBucketReadStream;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openDownloadStreamByName */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openDownloadStreamByName */
     openDownloadStreamByName(
         filename: string,
         options?: { revision: number; start: number; end: number },
     ): GridFSBucketReadStream;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openUploadStream */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStream */
     openUploadStream(filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openUploadStreamWithId */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStreamWithId */
     openUploadStreamWithId(
         id: GridFSBucketWriteStreamId,
         filename: string,
         options?: GridFSBucketOpenUploadStreamOptions,
     ): GridFSBucketWriteStream;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#rename */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#rename */
     rename(id: ObjectId, filename: string, callback?: GridFSBucketErrorCallback): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html */
 export interface GridFSBucketOptions {
     bucketName?: string;
     chunkSizeBytes?: number;
@@ -3062,7 +3062,7 @@ export interface GridFSBucketOptions {
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#~errorCallback */
 export interface GridFSBucketErrorCallback extends MongoCallback<void> {}
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#find */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#find */
 export interface GridFSBucketFindOptions {
     batchSize?: number;
     limit?: number;
@@ -3072,7 +3072,7 @@ export interface GridFSBucketFindOptions {
     sort?: object;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucket.html#openUploadStream */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStream */
 export interface GridFSBucketOpenUploadStreamOptions {
     chunkSizeBytes?: number;
     metadata?: object;
@@ -3080,7 +3080,7 @@ export interface GridFSBucketOpenUploadStreamOptions {
     aliases?: string[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketReadStream.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketReadStream.html */
 export class GridFSBucketReadStream extends Readable {
     id: ObjectId;
     constructor(
@@ -3092,7 +3092,7 @@ export class GridFSBucketReadStream extends Readable {
     );
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketReadStream.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketReadStream.html */
 export interface GridFSBucketReadStreamOptions {
     sort?: number;
     skip?: number;
@@ -3100,7 +3100,7 @@ export interface GridFSBucketReadStreamOptions {
     end?: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketWriteStream.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html */
 export class GridFSBucketWriteStream extends Writable {
     id: GridFSBucketWriteStreamId;
     constructor(bucket: GridFSBucket, filename: string, options?: GridFSBucketWriteStreamOptions);
@@ -3114,7 +3114,7 @@ export class GridFSBucketWriteStream extends Writable {
     abort(callback?: GridFSBucketErrorCallback): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketWriteStream.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html */
 export interface GridFSBucketWriteStreamOptions extends WriteConcern {
     /**
      * Custom file id for the GridFS file.
@@ -3193,22 +3193,22 @@ export class ChangeStream<TSchema extends { [key: string]: any } = DefaultSchema
 
     constructor(parent: MongoClient | Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#close */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#close */
     close(): Promise<any>;
     close(callback: MongoCallback<any>): void;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#hasNext */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#hasNext */
     hasNext(): Promise<any>;
     hasNext(callback: MongoCallback<any>): void;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#isClosed */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#isClosed */
     isClosed(): boolean;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#next */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#next */
     next(): Promise<any>;
     next(callback: MongoCallback<any>): void;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html#stream */
+    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#stream */
     stream(options?: { transform?: Function }): Cursor;
 }
 
@@ -3336,7 +3336,7 @@ export interface LoggerState {
     date: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.1/api/Logger.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html */
 export class Logger {
     constructor(className: string, options?: LoggerOptions);
     /**
