@@ -72,6 +72,25 @@ async () => {
     // $ExpectType string
     result.cwd;
 
+    helpers
+        .create('namespace', {}, {})
+        .cd('dir')
+        .doInDir(_dir => {}) // prepares the test dir
+        .withGenerators([]) // registers additional generators
+        .withOptions({}) // passes options to the generator
+        .withLocalConfig({}) // sets the generator config as soon as it is instantiated
+        .withPrompts({}) // simulates the prompt answers
+        .run()
+        .then(res => {
+            res.assertFile('file.txt');
+            res.assertNoFile('file.txt');
+            res.assertFileContent('file.txt', 'content');
+            res.assertEqualsFileContent('file.txt', 'content');
+            res.assertNoFileContent('file.txt', 'content');
+            res.assertJsonFileContent('file.txt', {});
+            res.assertNoJsonFileContent('file.txt', {});
+        });
+
     before(done => {
         helpers.run(path.join(__dirname, '../app'))
             .on('error', error => { /* ... */ })
