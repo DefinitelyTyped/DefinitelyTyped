@@ -42,10 +42,10 @@
 /// <reference types="node" />
 /// <reference lib="esnext.asynciterable" />
 
-import { Binary, Decimal128, Double, Int32, Long, ObjectId, Timestamp } from 'bson';
-import { EventEmitter } from 'events';
-import { Readable, Writable } from 'stream';
-import { checkServerIdentity } from 'tls';
+import { Binary, Decimal128, Double, Int32, Long, ObjectId, Timestamp } from "bson";
+import { EventEmitter } from "events";
+import { Readable, Writable } from "stream";
+import { checkServerIdentity } from "tls";
 
 type FlattenIfArray<T> = T extends ReadonlyArray<infer R> ? R : T;
 export type WithoutProjection<T> = T & { fields?: undefined; projection?: undefined };
@@ -54,7 +54,7 @@ export function connect(uri: string, options?: MongoClientOptions): Promise<Mong
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
 export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
 
-export { Binary, DBRef, Decimal128, Double, Int32, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
+export { Binary, DBRef, Decimal128, Double, Int32, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from "bson";
 
 type NumericTypes = number | Decimal128 | Double | Int32 | Long;
 
@@ -183,7 +183,7 @@ export interface ClientSession extends EventEmitter {
 }
 
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#ReadConcern */
-type ReadConcernLevel = 'local' | 'available' | 'majority' | 'linearizable' | 'snapshot';
+type ReadConcernLevel = "local" | "available" | "majority" | "linearizable" | "snapshot";
 
 /**
  * The MongoDB ReadConcern, which allows for control of the consistency and isolation properties
@@ -205,7 +205,7 @@ interface WriteConcern {
      * propagated to a specified number of mongod hosts
      * @default 1
      */
-    w?: number | 'majority' | string;
+    w?: number | "majority" | string;
     /**
      * requests acknowledgement from MongoDB that the write operation has
      * been written to the journal
@@ -411,20 +411,20 @@ export interface MongoClientOptions
      * reference for supported options.
      */
     authMechanism?:
-        | 'DEFAULT'
-        | 'GSSAPI'
-        | 'PLAIN'
-        | 'MONGODB-X509'
-        | 'MONGODB-CR'
-        | 'MONGODB-AWS'
-        | 'SCRAM-SHA-1'
-        | 'SCRAM-SHA-256'
+        | "DEFAULT"
+        | "GSSAPI"
+        | "PLAIN"
+        | "MONGODB-X509"
+        | "MONGODB-CR"
+        | "MONGODB-AWS"
+        | "SCRAM-SHA-1"
+        | "SCRAM-SHA-256"
         | string;
 
     /** Type of compression to use */
     compression?: {
         /** The selected compressors in preference order */
-        compressors?: Array<'snappy' | 'zlib'>;
+        compressors?: Array<"snappy" | "zlib">;
     };
 
     /**
@@ -691,7 +691,7 @@ export interface HighAvailabilityOptions {
 }
 
 export type ReadPreferenceTags = ReadonlyArray<Record<string, string>>;
-export type ReadPreferenceMode = 'primary' | 'primaryPreferred' | 'secondary' | 'secondaryPreferred' | 'nearest';
+export type ReadPreferenceMode = "primary" | "primaryPreferred" | "secondary" | "secondaryPreferred" | "nearest";
 export type ReadPreferenceOrMode = ReadPreference | ReadPreferenceMode;
 export type ReadPreferenceOptions = {
     /** Server mode in which the same query is dispatched in parallel to multiple replica set members. */
@@ -713,11 +713,11 @@ export class ReadPreference {
     constructor(mode: ReadPreferenceMode, tags: object, options?: ReadPreferenceOptions);
     mode: ReadPreferenceMode;
     tags: ReadPreferenceTags;
-    static PRIMARY: 'primary';
-    static PRIMARY_PREFERRED: 'primaryPreferred';
-    static SECONDARY: 'secondary';
-    static SECONDARY_PREFERRED: 'secondaryPreferred';
-    static NEAREST: 'nearest';
+    static PRIMARY: "primary";
+    static PRIMARY_PREFERRED: "primaryPreferred";
+    static SECONDARY: "secondary";
+    static SECONDARY_PREFERRED: "secondaryPreferred";
+    static NEAREST: "nearest";
     isValid(mode: ReadPreferenceMode | string): boolean;
     static isValid(mode: string): boolean;
     /**
@@ -984,7 +984,7 @@ export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions {
     socketOptions?: SocketOptions;
 }
 
-export type ProfilingLevel = 'off' | 'slow_only' | 'all';
+export type ProfilingLevel = "off" | "slow_only" | "all";
 
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html */
 export class Db extends EventEmitter {
@@ -1191,8 +1191,8 @@ export interface CollectionCreateOptions extends CommonOptions {
     flags?: number;
     storageEngine?: object;
     validator?: object;
-    validationLevel?: 'off' | 'strict' | 'moderate';
-    validationAction?: 'error' | 'warn';
+    validationLevel?: "off" | "strict" | "moderate";
+    validationAction?: "error" | "warn";
     indexOptionDefaults?: object;
     viewOn?: string;
     pipeline?: any[];
@@ -1333,14 +1333,14 @@ type ExtractIdType<TSchema> = TSchema extends { _id: infer U } // user has defin
     : ObjectId; // user has not defined _id on schema
 
 // this makes _id optional
-export type OptionalId<TSchema extends { _id?: any }> = ObjectId extends TSchema['_id']
+export type OptionalId<TSchema extends { _id?: any }> = ObjectId extends TSchema["_id"]
     ? // a Schema with ObjectId _id type or "any" or "indexed type" provided
-      EnhancedOmit<TSchema, '_id'> & { _id?: ExtractIdType<TSchema> }
+      EnhancedOmit<TSchema, "_id"> & { _id?: ExtractIdType<TSchema> }
     : // a Schema provided but _id type is not ObjectId
       WithId<TSchema>;
 
 // this adds _id as a required property
-export type WithId<TSchema> = EnhancedOmit<TSchema, '_id'> & { _id: ExtractIdType<TSchema> };
+export type WithId<TSchema> = EnhancedOmit<TSchema, "_id"> & { _id: ExtractIdType<TSchema> };
 
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html */
 export interface Collection<TSchema extends { [key: string]: any } = DefaultSchema> {
@@ -1842,14 +1842,14 @@ type UpdateOptionalId<T> = T extends { _id?: any } ? OptionalId<T> : T;
 export type SortValues = -1 | 1;
 
 /** @see https://docs.mongodb.com/manual/reference/operator/aggregation/meta/#proj._S_meta */
-export type MetaSortOperators = 'textScore' | 'indexKey';
+export type MetaSortOperators = "textScore" | "indexKey";
 
 export type MetaProjectionOperators =
     | MetaSortOperators
     /** Only for Atlas Search https://docs.atlas.mongodb.com/reference/atlas-search/scoring/ */
-    | 'searchScore'
+    | "searchScore"
     /** Only for Atlas Search https://docs.atlas.mongodb.com/reference/atlas-search/highlighting/ */
-    | 'searchHighlights';
+    | "searchHighlights";
 
 export type SchemaMember<T, V> = { [P in keyof T]?: V } | { [key: string]: V };
 
@@ -1903,7 +1903,7 @@ export type PullAllOperator<TSchema> = ({
 /** @see https://docs.mongodb.com/manual/reference/operator/update */
 export type UpdateQuery<TSchema> = {
     /** @see https://docs.mongodb.com/manual/reference/operator/update-field/ */
-    $currentDate?: OnlyFieldsOfType<TSchema, Date | Timestamp, true | { $type: 'date' | 'timestamp' }>;
+    $currentDate?: OnlyFieldsOfType<TSchema, Date | Timestamp, true | { $type: "date" | "timestamp" }>;
     $inc?: OnlyFieldsOfType<TSchema, NumericTypes | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;
@@ -1911,7 +1911,7 @@ export type UpdateQuery<TSchema> = {
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;
-    $unset?: OnlyFieldsOfType<TSchema, any, '' | 1 | true>;
+    $unset?: OnlyFieldsOfType<TSchema, any, "" | 1 | true>;
 
     /** @see https://docs.mongodb.com/manual/reference/operator/update-array/ */
     $addToSet?: SetFields<TSchema>;
@@ -1922,7 +1922,7 @@ export type UpdateQuery<TSchema> = {
 
     /** @see https://docs.mongodb.com/manual/reference/operator/update-bitwise/ */
     $bit?: {
-        [key: string]: { [key in 'and' | 'or' | 'xor']?: number };
+        [key: string]: { [key in "and" | "or" | "xor"]?: number };
     };
 };
 
@@ -1955,28 +1955,28 @@ export enum BSONType {
 }
 
 type BSONTypeAlias =
-    | 'number'
-    | 'double'
-    | 'string'
-    | 'object'
-    | 'array'
-    | 'binData'
-    | 'undefined'
-    | 'objectId'
-    | 'bool'
-    | 'date'
-    | 'null'
-    | 'regex'
-    | 'dbPointer'
-    | 'javascript'
-    | 'symbol'
-    | 'javascriptWithScope'
-    | 'int'
-    | 'timestamp'
-    | 'long'
-    | 'decimal'
-    | 'minKey'
-    | 'maxKey';
+    | "number"
+    | "double"
+    | "string"
+    | "object"
+    | "array"
+    | "binData"
+    | "undefined"
+    | "objectId"
+    | "bool"
+    | "date"
+    | "null"
+    | "regex"
+    | "dbPointer"
+    | "javascript"
+    | "symbol"
+    | "javascriptWithScope"
+    | "int"
+    | "timestamp"
+    | "long"
+    | "decimal"
+    | "minKey"
+    | "maxKey";
 
 /** @see https://docs.mongodb.com/manual/reference/operator/query-bitwise */
 type BitwiseQuery =
@@ -2194,137 +2194,137 @@ export interface CollStats {
 
 export interface WiredTigerData {
     LSM: {
-        'bloom filter false positives': number;
-        'bloom filter hits': number;
-        'bloom filter misses': number;
-        'bloom filter pages evicted from cache': number;
-        'bloom filter pages read into cache': number;
-        'bloom filters in the LSM tree': number;
-        'chunks in the LSM tree': number;
-        'highest merge generation in the LSM tree': number;
-        'queries that could have benefited from a Bloom filter that did not exist': number;
-        'sleep for LSM checkpoint throttle': number;
-        'sleep for LSM merge throttle': number;
-        'total size of bloom filters': number;
+        "bloom filter false positives": number;
+        "bloom filter hits": number;
+        "bloom filter misses": number;
+        "bloom filter pages evicted from cache": number;
+        "bloom filter pages read into cache": number;
+        "bloom filters in the LSM tree": number;
+        "chunks in the LSM tree": number;
+        "highest merge generation in the LSM tree": number;
+        "queries that could have benefited from a Bloom filter that did not exist": number;
+        "sleep for LSM checkpoint throttle": number;
+        "sleep for LSM merge throttle": number;
+        "total size of bloom filters": number;
     };
-    'block-manager': {
-        'allocations requiring file extension': number;
-        'blocks allocated': number;
-        'blocks freed': number;
-        'checkpoint size': number;
-        'file allocation unit size': number;
-        'file bytes available for reuse': number;
-        'file magic number': number;
-        'file major version number': number;
-        'file size in bytes': number;
-        'minor version number': number;
+    "block-manager": {
+        "allocations requiring file extension": number;
+        "blocks allocated": number;
+        "blocks freed": number;
+        "checkpoint size": number;
+        "file allocation unit size": number;
+        "file bytes available for reuse": number;
+        "file magic number": number;
+        "file major version number": number;
+        "file size in bytes": number;
+        "minor version number": number;
     };
     btree: {
-        'btree checkpoint generation': number;
-        'column-store fixed-size leaf pages': number;
-        'column-store internal pages': number;
-        'column-store variable-size RLE encoded values': number;
-        'column-store variable-size deleted values': number;
-        'column-store variable-size leaf pages': number;
-        'fixed-record size': number;
-        'maximum internal page key size': number;
-        'maximum internal page size': number;
-        'maximum leaf page key size': number;
-        'maximum leaf page size': number;
-        'maximum leaf page value size': number;
-        'maximum tree depth': number;
-        'number of key/value pairs': number;
-        'overflow pages': number;
-        'pages rewritten by compaction': number;
-        'row-store internal pages': number;
-        'row-store leaf pages': number;
+        "btree checkpoint generation": number;
+        "column-store fixed-size leaf pages": number;
+        "column-store internal pages": number;
+        "column-store variable-size RLE encoded values": number;
+        "column-store variable-size deleted values": number;
+        "column-store variable-size leaf pages": number;
+        "fixed-record size": number;
+        "maximum internal page key size": number;
+        "maximum internal page size": number;
+        "maximum leaf page key size": number;
+        "maximum leaf page size": number;
+        "maximum leaf page value size": number;
+        "maximum tree depth": number;
+        "number of key/value pairs": number;
+        "overflow pages": number;
+        "pages rewritten by compaction": number;
+        "row-store internal pages": number;
+        "row-store leaf pages": number;
     };
     cache: {
-        'bytes currently in the cache': number;
-        'bytes read into cache': number;
-        'bytes written from cache': number;
-        'checkpoint blocked page eviction': number;
-        'data source pages selected for eviction unable to be evicted': number;
-        'hazard pointer blocked page eviction': number;
-        'in-memory page passed criteria to be split': number;
-        'in-memory page splits': number;
-        'internal pages evicted': number;
-        'internal pages split during eviction': number;
-        'leaf pages split during eviction': number;
-        'modified pages evicted': number;
-        'overflow pages read into cache': number;
-        'overflow values cached in memory': number;
-        'page split during eviction deepened the tree': number;
-        'page written requiring lookaside records': number;
-        'pages read into cache': number;
-        'pages read into cache requiring lookaside entries': number;
-        'pages requested from the cache': number;
-        'pages written from cache': number;
-        'pages written requiring in-memory restoration': number;
-        'tracked dirty bytes in the cache': number;
-        'unmodified pages evicted': number;
+        "bytes currently in the cache": number;
+        "bytes read into cache": number;
+        "bytes written from cache": number;
+        "checkpoint blocked page eviction": number;
+        "data source pages selected for eviction unable to be evicted": number;
+        "hazard pointer blocked page eviction": number;
+        "in-memory page passed criteria to be split": number;
+        "in-memory page splits": number;
+        "internal pages evicted": number;
+        "internal pages split during eviction": number;
+        "leaf pages split during eviction": number;
+        "modified pages evicted": number;
+        "overflow pages read into cache": number;
+        "overflow values cached in memory": number;
+        "page split during eviction deepened the tree": number;
+        "page written requiring lookaside records": number;
+        "pages read into cache": number;
+        "pages read into cache requiring lookaside entries": number;
+        "pages requested from the cache": number;
+        "pages written from cache": number;
+        "pages written requiring in-memory restoration": number;
+        "tracked dirty bytes in the cache": number;
+        "unmodified pages evicted": number;
     };
     cache_walk: {
-        'Average difference between current eviction generation when the page was last considered': number;
-        'Average on-disk page image size seen': number;
-        'Clean pages currently in cache': number;
-        'Current eviction generation': number;
-        'Dirty pages currently in cache': number;
-        'Entries in the root page': number;
-        'Internal pages currently in cache': number;
-        'Leaf pages currently in cache': number;
-        'Maximum difference between current eviction generation when the page was last considered': number;
-        'Maximum page size seen': number;
-        'Minimum on-disk page image size seen': number;
-        'On-disk page image sizes smaller than a single allocation unit': number;
-        'Pages created in memory and never written': number;
-        'Pages currently queued for eviction': number;
-        'Pages that could not be queued for eviction': number;
-        'Refs skipped during cache traversal': number;
-        'Size of the root page': number;
-        'Total number of pages currently in cache': number;
+        "Average difference between current eviction generation when the page was last considered": number;
+        "Average on-disk page image size seen": number;
+        "Clean pages currently in cache": number;
+        "Current eviction generation": number;
+        "Dirty pages currently in cache": number;
+        "Entries in the root page": number;
+        "Internal pages currently in cache": number;
+        "Leaf pages currently in cache": number;
+        "Maximum difference between current eviction generation when the page was last considered": number;
+        "Maximum page size seen": number;
+        "Minimum on-disk page image size seen": number;
+        "On-disk page image sizes smaller than a single allocation unit": number;
+        "Pages created in memory and never written": number;
+        "Pages currently queued for eviction": number;
+        "Pages that could not be queued for eviction": number;
+        "Refs skipped during cache traversal": number;
+        "Size of the root page": number;
+        "Total number of pages currently in cache": number;
     };
     compression: {
-        'compressed pages read': number;
-        'compressed pages written': number;
-        'page written failed to compress': number;
-        'page written was too small to compress': number;
-        'raw compression call failed, additional data available': number;
-        'raw compression call failed, no additional data available': number;
-        'raw compression call succeeded': number;
+        "compressed pages read": number;
+        "compressed pages written": number;
+        "page written failed to compress": number;
+        "page written was too small to compress": number;
+        "raw compression call failed, additional data available": number;
+        "raw compression call failed, no additional data available": number;
+        "raw compression call succeeded": number;
     };
     cursor: {
-        'bulk-loaded cursor-insert calls': number;
-        'create calls': number;
-        'cursor-insert key and value bytes inserted': number;
-        'cursor-remove key bytes removed': number;
-        'cursor-update value bytes updated': number;
-        'insert calls': number;
-        'next calls': number;
-        'prev calls': number;
-        'remove calls': number;
-        'reset calls': number;
-        'restarted searches': number;
-        'search calls': number;
-        'search near calls': number;
-        'truncate calls': number;
-        'update calls': number;
+        "bulk-loaded cursor-insert calls": number;
+        "create calls": number;
+        "cursor-insert key and value bytes inserted": number;
+        "cursor-remove key bytes removed": number;
+        "cursor-update value bytes updated": number;
+        "insert calls": number;
+        "next calls": number;
+        "prev calls": number;
+        "remove calls": number;
+        "reset calls": number;
+        "restarted searches": number;
+        "search calls": number;
+        "search near calls": number;
+        "truncate calls": number;
+        "update calls": number;
     };
     reconciliation: {
-        'dictionary matches': number;
-        'fast-path pages deleted': number;
-        'internal page key bytes discarded using suffix compression': number;
-        'internal page multi-block writes': number;
-        'internal-page overflow keys': number;
-        'leaf page key bytes discarded using prefix compression': number;
-        'leaf page multi-block writes': number;
-        'leaf-page overflow keys': number;
-        'maximum blocks required for a page': number;
-        'overflow values written': number;
-        'page checksum matches': number;
-        'page reconciliation calls': number;
-        'page reconciliation calls for eviction': number;
-        'pages deleted': number;
+        "dictionary matches": number;
+        "fast-path pages deleted": number;
+        "internal page key bytes discarded using suffix compression": number;
+        "internal page multi-block writes": number;
+        "internal-page overflow keys": number;
+        "leaf page key bytes discarded using prefix compression": number;
+        "leaf page multi-block writes": number;
+        "leaf-page overflow keys": number;
+        "maximum blocks required for a page": number;
+        "overflow values written": number;
+        "page checksum matches": number;
+        "page reconciliation calls": number;
+        "page reconciliation calls for eviction": number;
+        "pages deleted": number;
     };
 }
 
@@ -2729,7 +2729,7 @@ export interface CollectionInsertOneOptions extends CommonOptions {
 export interface InsertWriteOpResult<TSchema extends { _id: any }> {
     insertedCount: number;
     ops: TSchema[];
-    insertedIds: { [key: number]: TSchema['_id'] };
+    insertedIds: { [key: number]: TSchema["_id"] };
     connection: any;
     result: { ok: number; n: number };
 }
@@ -2738,7 +2738,7 @@ export interface InsertWriteOpResult<TSchema extends { _id: any }> {
 export interface InsertOneWriteOpResult<TSchema extends { _id: any }> {
     insertedCount: number;
     ops: TSchema[];
-    insertedId: TSchema['_id'];
+    insertedId: TSchema["_id"];
     connection: any;
     result: { ok: number; n: number };
 }
@@ -3215,14 +3215,14 @@ export class ChangeStream<TSchema extends { [key: string]: any } = DefaultSchema
 export class ResumeToken {}
 
 export type ChangeEventTypes =
-    | 'insert'
-    | 'delete'
-    | 'replace'
-    | 'update'
-    | 'drop'
-    | 'rename'
-    | 'dropDatabase'
-    | 'invalidate';
+    | "insert"
+    | "delete"
+    | "replace"
+    | "update"
+    | "drop"
+    | "rename"
+    | "dropDatabase"
+    | "invalidate";
 export interface ChangeEventBase<TSchema extends { [key: string]: any } = DefaultSchema> {
     _id: ResumeToken;
     /**
@@ -3243,7 +3243,7 @@ export interface ChangeEventBase<TSchema extends { [key: string]: any } = Defaul
 }
 export interface ChangeEventCR<TSchema extends { [key: string]: any } = DefaultSchema>
     extends ChangeEventBase<TSchema> {
-    operationType: 'insert' | 'replace';
+    operationType: "insert" | "replace";
     fullDocument?: TSchema;
     documentKey: {
         _id: ExtractIdType<TSchema>;
@@ -3252,7 +3252,7 @@ export interface ChangeEventCR<TSchema extends { [key: string]: any } = DefaultS
 type FieldUpdates<TSchema> = Partial<TSchema> & { [key: string]: any };
 export interface ChangeEventUpdate<TSchema extends { [key: string]: any } = DefaultSchema>
     extends ChangeEventBase<TSchema> {
-    operationType: 'update';
+    operationType: "update";
     updateDescription: {
         /**
          * This is an object with all changed fields; if they are nested,
@@ -3268,14 +3268,14 @@ export interface ChangeEventUpdate<TSchema extends { [key: string]: any } = Defa
 }
 export interface ChangeEventDelete<TSchema extends { [key: string]: any } = DefaultSchema>
     extends ChangeEventBase<TSchema> {
-    operationType: 'delete';
+    operationType: "delete";
     documentKey: {
         _id: ExtractIdType<TSchema>;
     };
 }
 export interface ChangeEventRename<TSchema extends { [key: string]: any } = DefaultSchema>
     extends ChangeEventBase<TSchema> {
-    operationType: 'rename';
+    operationType: "rename";
     to: {
         db: string;
         coll: string;
@@ -3284,12 +3284,12 @@ export interface ChangeEventRename<TSchema extends { [key: string]: any } = Defa
 
 export interface ChangeEventOther<TSchema extends { [key: string]: any } = DefaultSchema>
     extends ChangeEventBase<TSchema> {
-    operationType: 'drop' | 'dropDatabase';
+    operationType: "drop" | "dropDatabase";
 }
 
 export interface ChangeEventInvalidate<TSchema extends { [key: string]: any } = DefaultSchema> {
     _id: ResumeToken;
-    operationType: 'invalidate';
+    operationType: "invalidate";
     clusterTime: Timestamp;
 }
 
@@ -3303,7 +3303,7 @@ export type ChangeEvent<TSchema extends object = { _id: ObjectId }> =
 
 /** @see https://mongodb.github.io/node-mongodb-native/3.3/api/global.html#ChangeStreamOptions */
 export interface ChangeStreamOptions {
-    fullDocument?: 'default' | 'updateLookup';
+    fullDocument?: "default" | "updateLookup";
     maxAwaitTimeMS?: number;
     resumeAfter?: ResumeToken;
     startAfter?: ResumeToken;
@@ -3418,7 +3418,7 @@ export interface IndexSpecification {
     default_language?: string;
     language_override?: string;
     textIndexVersion?: number;
-    '2dsphereIndexVersion'?: number;
+    "2dsphereIndexVersion"?: number;
     bits?: number;
     min?: number;
     max?: number;
