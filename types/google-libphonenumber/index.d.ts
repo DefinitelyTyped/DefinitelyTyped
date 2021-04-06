@@ -120,6 +120,7 @@ declare namespace libphonenumber {
         static getInstance(): PhoneNumberUtil
         extractCountryCode(fullNumber: StringBuffer, nationalNumber: StringBuffer): number;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
+        formatInOriginalFormat(phoneNumber: PhoneNumber, regionDialingFrom?: string): string;
         formatOutOfCountryCallingNumber(phoneNumber: PhoneNumber, regionDialingFrom?: string): string;
         getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
         getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
