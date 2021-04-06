@@ -36,6 +36,7 @@ datePicker.isOpen;
 
 $(".whatever").datepicker();
 $(".whatever").datepicker({ defaultDate: new Date() });
+$(".whatever").datepicker({ defaultDate: null });
 $(".whatever").datepicker("open");
 $(".whatever").datepicker("destroy");
 $(".whatever").datepicker("setDate", new Date());

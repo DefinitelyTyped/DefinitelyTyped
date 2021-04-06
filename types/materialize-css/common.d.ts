@@ -30,6 +30,8 @@ declare namespace M {
         options: TOptions;
     }
 
+    type PartialWithNullable<T, K extends keyof T = never> = Partial<Omit<T, K>> & { [ P in K ] ?: T[P] | null };
+
     interface Openable {
         isOpen: boolean;
         open(): void;

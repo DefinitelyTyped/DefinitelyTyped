@@ -10,12 +10,12 @@ declare namespace M {
         /**
          * Init Datepicker
          */
-        static init(els: Element, options?: Partial<DatepickerOptions>): Datepicker;
+        static init(els: Element, options?: PartialWithNullable<DatepickerOptions, "defaultDate">): Datepicker;
 
         /**
          * Init Datepickers
          */
-        static init(els: MElements, options?: Partial<DatepickerOptions>): Datepicker[];
+        static init(els: MElements, options?: PartialWithNullable<DatepickerOptions, "defaultDate">): Datepicker[];
 
         /**
          * If the picker is open.
@@ -197,5 +197,5 @@ interface JQuery {
     datepicker(method: keyof Pick<M.Datepicker, "open" | "close" | "destroy">): JQuery;
     datepicker(method: keyof Pick<M.Datepicker, "setDate">, date?: Date): JQuery;
     datepicker(method: keyof Pick<M.Datepicker, "gotoDate">, date: Date): JQuery;
-    datepicker(options?: Partial<M.DatepickerOptions>): JQuery;
+    datepicker(options?: M.PartialWithNullable<M.DatepickerOptions, "defaultDate">): JQuery;
 }
