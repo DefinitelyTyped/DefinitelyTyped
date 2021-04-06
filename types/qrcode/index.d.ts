@@ -198,7 +198,7 @@ export function toCanvas(
 export function toCanvas(
     canvasElement: HTMLCanvasElement,
     text: string | QRCodeSegment[],
-    options: QRCodeRenderersOptions,
+    options?: QRCodeRenderersOptions,
     callback: (error: Error) => void,
 ): void;
 /**
