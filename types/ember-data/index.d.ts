@@ -31,6 +31,7 @@ type MaybeModel<T> = T extends DS.Model ? T : undefined;
 type UnboxBelongsTo<T> =
     T extends DS.AsyncBelongsTo<infer C> ? C
         : T extends DS.Model ? T
+        : null extends T ? null
         : T extends Ember.ComputedProperty<DS.AsyncBelongsTo<infer C>, infer C | DS.PromiseObject<infer C>> ? MaybeModel<C>
         : T extends Ember.ComputedProperty<infer C, infer C | DS.PromiseObject<infer C>> ? MaybeModel<C>
         : undefined;
@@ -589,8 +590,7 @@ export namespace DS {
          * Get the reference for the specified belongsTo relationship.
          */
         belongsTo<T extends Model, K extends keyof BelongsToModels<T>>(this: T, name: K)
-            : BelongsToModels<T>[K] extends Model
-                ? BelongsToReference<BelongsToModels<T>[K]>
+            : BelongsToModels<T>[K] extends Model|null ? BelongsToReference<BelongsToModels<T>[K]>
                 : never;
         /**
          * Get the reference for the specified hasMany relationship.
@@ -773,7 +773,7 @@ export namespace DS {
      * addon author to perform meta-operations on a belongs-to
      * relationship.
      */
-    class BelongsToReference<T extends Model = Model> {
+    class BelongsToReference<T extends Model|null = Model> {
         /**
          * This returns a string that represents how the reference will be
          * looked up when it is loaded. If the relationship has a link it will

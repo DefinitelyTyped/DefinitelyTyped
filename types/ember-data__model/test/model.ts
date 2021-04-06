@@ -1,4 +1,4 @@
-import { computed } from '@ember/object';
+import { computed, set } from '@ember/object';
 import Model, { attr, belongsTo, AsyncBelongsTo, hasMany, AsyncHasMany, SyncHasMany } from '@ember-data/model';
 import DS, { ChangedAttributes } from 'ember-data';
 import RSVP from 'rsvp';
@@ -41,7 +41,9 @@ const User = Model.extend({
 class Human extends Model {
     @attr age: number;
     @belongsTo('human') mother: AsyncBelongsTo<Human>;
+    @belongsTo('human') motherNullable: AsyncBelongsTo<Human>|null;
     @belongsTo('human', { async: false }) motherSync: Human;
+    @belongsTo('human', { async: false }) motherSyncNullable: Human|null;
     @hasMany('person') children: AsyncHasMany<Person>;
     @hasMany('person', { async: false }) childrenSync: SyncHasMany<Person>;
 
@@ -107,10 +109,22 @@ function testBelongsTo() {
 
     human.belongsTo('motherSync'); // $ExpectType BelongsToReference<Human>
 
+    human.belongsTo('motherSyncNullable'); // $ExpectType BelongsToReference<Human | null>
+
     // wrong relationship kind
     human.belongsTo('children'); // $ExpectType never
 
     human.belongsTo('undefined'); // $ExpectError
+}
+
+function testBelongsSetter() {
+    set(human, 'mother', null); // $ExpectError
+
+    set(human, 'motherSync', null); // $ExpectError
+
+    set(human, 'motherNullable', null);
+
+    set(human, 'motherSyncNullable', null);
 }
 
 function testHasMany() {
