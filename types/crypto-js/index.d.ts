@@ -6,7 +6,7 @@
 //                 Doma <https://github.com/SevenOutman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = CryptoJS;
+export default  CryptoJS;
 
 type WordArray = CryptoJS.lib.WordArray;
 type CipherParams = CryptoJS.lib.CipherParams;
@@ -15,7 +15,7 @@ type X64Word = CryptoJS.x64.Word;
 /**
  * Encoding strategy.
  */
-interface Encoder {
+export interface Encoder {
     /**
      * Converts a word array to a hex string.
      *
@@ -269,7 +269,7 @@ interface CipherStatic {
     create(xformMode: number, key: WordArray, cfg?: CipherOption): Cipher;
 }
 
-interface CipherHelper {
+export interface CipherHelper {
     encrypt(message: WordArray | string, key: WordArray | string, cfg?: CipherOption): CipherParams;
     decrypt(ciphertext: CipherParams | string, key: WordArray | string, cfg?: CipherOption): WordArray;
 }
