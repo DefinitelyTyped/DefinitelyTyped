@@ -808,6 +808,8 @@ declare namespace Pubnub {
         start?: string | number; // timetoken
         end?: string | number; // timetoken
         withMessageActions?: boolean;
+        includeMessageType?: boolean;
+        includeUUID?: boolean;
         includeMeta?: boolean;
         includeMessageActions?: boolean;
     }
@@ -818,6 +820,8 @@ declare namespace Pubnub {
                 channel: string;
                 message: any;
                 timetoken: string | number;
+                messageType?: string | number;
+                uuid?: string;
                 meta?: {
                     [key: string]: any;
                 };
