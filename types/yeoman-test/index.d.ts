@@ -276,7 +276,7 @@ export interface RunResult extends RunResultOptions {
      * result.assertFileContent(arg);
      */
     assertFileContent(file: string, reg: string | RegExp): void;
-    assertFileContent(pairs: Array<[string, RegExp]>): void;
+    assertFileContent(pairs: Array<[string, string | RegExp]>): void;
 
     /**
      * Assert that a file's content is the same as the given string
@@ -320,7 +320,7 @@ export interface RunResult extends RunResultOptions {
      * result.assertNoFileContent(arg);
      */
     assertNoFileContent(file: string, reg: RegExp | string): void;
-    assertNoFileContent(pairs: Array<[string, RegExp]>): void;
+    assertNoFileContent(pairs: Array<[string, string | RegExp]>): void;
 
     /**
      * Assert that two strings are equal after standardization of newlines
