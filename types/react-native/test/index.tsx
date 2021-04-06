@@ -1306,6 +1306,10 @@ const SwitchColorTest = () => <Switch trackColor={{ true: 'pink', false: 'red' }
 
 const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 
+const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => null} />;
+const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
+const SwitchOnChangeTest = () => <Switch onChange={(event: { value: boolean }) => null} />;
+
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
         <View nativeID={'nativeID'} />
