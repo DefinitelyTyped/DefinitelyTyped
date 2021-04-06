@@ -258,6 +258,23 @@ const awsServerless: Aws.Serverless = {
                 NotResource: 'testNotResource'
             }
         ],
+        iam: {
+            role: {
+                statements: [
+                    {
+                        Effect: 'Allow',
+                        Sid: 'testSid',
+                        Condition: {
+                            testcondition: 'testconditionvalue'
+                        },
+                        Action: 'testAction',
+                        NotAction: 'testNotAction',
+                        Resource: 'testResource',
+                        NotResource: 'testNotResource'
+                    }
+                ]
+            }
+        },
         stackPolicy: [
             {
                 Effect: 'Allow',
@@ -459,6 +476,28 @@ const awsServerless: Aws.Serverless = {
                         rules: [
                             {
                                 prefix: 'testprefix',
+                                suffix: 'testsuffix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                prefix: 'testprefix'
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
                                 suffix: 'testsuffix',
                             }
                         ],
