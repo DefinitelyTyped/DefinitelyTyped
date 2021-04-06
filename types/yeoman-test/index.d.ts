@@ -1,4 +1,4 @@
-// Type definitions for yeoman-test 5.0
+// Type definitions for yeoman-test 4.0
 // Project: https://github.com/yeoman/yeoman-test, http://yeoman.io/authoring/testing.html
 // Definitions by: Ika <https://github.com/ikatyang>
 //                 Manuel Thalmann <https://github.com/manuth>
@@ -275,7 +275,7 @@ export interface RunResult extends RunResultOptions {
      * ]
      * result.assertFileContent(arg);
      */
-    assertFileContent(file: string | string[], reg: string | RegExp): void;
+    assertFileContent(file: string, reg: string | RegExp): void;
     assertFileContent(pairs: Array<[string, RegExp]>): void;
 
     /**
@@ -319,7 +319,7 @@ export interface RunResult extends RunResultOptions {
      * ]
      * result.assertNoFileContent(arg);
      */
-    assertNoFileContent(file: string | string[], reg: RegExp | string): void;
+    assertNoFileContent(file: string, reg: RegExp | string): void;
     assertNoFileContent(pairs: Array<[string, RegExp]>): void;
 
     /**
@@ -336,28 +336,28 @@ export interface RunResult extends RunResultOptions {
      * @param obj      Object that should match the given pattern
      * @param content  An object of key/values the object should contains
      */
-    assertObjectContent(obj: object, content: object): void;
+    assertObjectContent(obj: object, content: { [key: string]: any }): void;
 
     /**
      * Assert an object does not contain the provided keys
      * @param obj Object that should not match the given pattern
      * @param content An object of key/values the object should not contain
      */
-    assertNoObjectContent(obj: object, content: object): void;
+    assertNoObjectContent(obj: object, content: { [key: string]: any }): void;
 
     /**
      * Assert a JSON file contains the provided keys
      * @param filename
      * @param content An object of key/values the file should contains
      */
-    assertJsonFileContent(filename: string, content: object): void;
+    assertJsonFileContent(filename: string, content: { [key: string]: any }): void;
 
     /**
      * Assert a JSON file does not contain the provided keys
      * @param filename
      * @param content An object of key/values the file should not contain
      */
-    assertNoJsonFileContent(filename: string, content: object): void;
+    assertNoJsonFileContent(filename: string, content: { [key: string]: any }): void;
 
     /**
      * Reverts to old cwd.
