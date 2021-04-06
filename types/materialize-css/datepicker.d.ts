@@ -88,6 +88,7 @@ declare namespace M {
 
         /**
          * The initial date to view when first opened.
+         * @default null
          */
         defaultDate: Date;
 
