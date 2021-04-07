@@ -1413,7 +1413,10 @@ declare module "../index" {
          * @param wrapper The wrapper function.
          * @return Returns the new function.
          */
-        wrap<T, TArgs, TResult>(value: T, wrapper: (value: T, ...args: TArgs[]) => TResult): (...args: TArgs[]) => TResult;
+        wrap<T, TResult>(
+          value: T,
+          wrapper: (value: T, ...args: T extends (...args: any[]) => any ? Parameters<T> : undefined[]) => TResult
+        ) => (...args: T extends (...args: any[]) => any ? Parameters<T> : never[]) => TResult;;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
