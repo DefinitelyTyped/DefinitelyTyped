@@ -1,25 +1,29 @@
-// Type definitions for BufferList v4.1
+// Type definitions for BufferList v5.0
 // Project: https://github.com/rvagg/bl
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Francis Gulotta <https://github.com/reconbot>
 //                 Ben Allfree <https://github.com/benallfree>
+//                 Alex Potsides <https://github.com/achingbrain>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare class BufferList {
-    constructor(initialData?: Buffer | Buffer[] | BufferList | BufferList[] | string);
+import BufferList = require('./BufferList');
+import { Duplex } from 'readable-stream';
+
+declare class BufferListStream extends Duplex {
+    constructor(initialData?: Buffer | Buffer[] | BufferList | BufferList[] | BufferListStream | BufferListStream[] | string);
 
     length: number;
-    append(buffer: Buffer | Buffer[] | BufferList | BufferList[] | string): BufferList;
+    append(buffer: Buffer | Buffer[] | BufferList | BufferList[] | BufferListStream | BufferListStream[] | string): BufferListStream;
     get(index: number): number;
     slice(start?: number, end?: number): Buffer;
-    shallowSlice(start?: number, end?: number): BufferList;
+    shallowSlice(start?: number, end?: number): BufferListStream;
     copy(dest: Buffer, destStart?: number, srcStart?: number, srcEnd?: number): Buffer;
-    duplicate(): BufferList;
+    duplicate(): BufferListStream;
     consume(bytes?: number): void;
     toString(encoding?: string, start?: number, end?: number): string;
-    indexOf(value: string | number | Uint8Array | BufferList | Buffer, byteOffset?: number, encoding?: string): number;
+    indexOf(value: string | number | Uint8Array | BufferListStream | Buffer, byteOffset?: number, encoding?: string): number;
     readDoubleBE(offset?: number): number;
     readDoubleLE(offset?: number): number;
     readFloatBE(offset?: number): number;
@@ -34,5 +38,13 @@ declare class BufferList {
     readUInt16LE(offset?: number): number;
     readInt8(offset: number): number;
     readUInt8(offset: number): number;
+
+    static isBufferList(other: any): boolean;
 }
-export = BufferList;
+
+export default BufferListStream;
+
+export {
+    BufferList,
+    BufferListStream
+};

@@ -1,10 +1,39 @@
-import BufferList = require('bl');
+import BufferList, {
+  BufferList as BufferListNamedExport,
+  BufferListStream as BufferListStreamNamedExport
+} from 'bl';
+import BufferListDeepExport from 'bl/BufferList';
 
 var bl: BufferList;
 var buffer: Buffer;
 var offset: number;
 var num: number;
 var str: string;
+
+BufferList.isBufferList({});
+
+var bufferList = new BufferListNamedExport();
+
+// is assignable
+bufferList = bl;
+
+var bufferListStream = new BufferListStreamNamedExport();
+
+// has Duplex methods
+bufferListStream.pause();
+bufferListStream.resume();
+
+// is assignable
+bufferList = bufferListStream;
+
+var bufferListDeep = new BufferListDeepExport();
+
+// is assignable
+bufferListDeep = bl.duplicate();
+
+// is not assignable as it lacks the Duplex methods
+var bl2: BufferList;
+bl2 = bufferListDeep; // $ExpectError
 
 bl = new BufferList();
 bl = new BufferList(bl);
