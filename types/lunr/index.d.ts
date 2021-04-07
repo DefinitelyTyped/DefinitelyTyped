@@ -575,7 +575,7 @@ declare namespace lunr {
             /** Whether the term should have wildcards appended or prepended. @see Query.wildcard */
             wildcard: number;
             /** Whether the term is optional, required, or prohibited. @see Query.presence */
-            presence: Query.presence;
+            presence: presence;
         }
     }
 
