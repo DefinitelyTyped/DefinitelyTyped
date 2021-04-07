@@ -27,6 +27,10 @@ redis.del('foo', 'bar').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
+redis.lpop('list', cb);
+redis.lpop('list', 2, cb);
+redis.lpop('list').then(console.log);
+redis.lpop('list', 2).then(console.log);
 redis.brpop('list', 0).then(console.log);
 redis.brpop('listA', 'listB', 0).then(console.log);
 redis.brpop(['listA', 'listB', 0]).then(console.log);
@@ -317,6 +321,9 @@ new Redis({
     port: 6379, // Redis port
     host: '127.0.0.1', // Redis host
     family: 4, // 4 (IPv4) or 6 (IPv6)
+    noDelay: true,
+    stringNumbers: false,
+    maxScriptsCachingTime: 60000,
     username: 'user',
     password: 'auth',
     db: 0,

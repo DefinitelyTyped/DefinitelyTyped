@@ -63,7 +63,7 @@ configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
-            filename: ({ chunk }) => `${chunk.name.replace('/js/', '/css/')}.css`,
+            filename: ({ chunk }) => chunk?.name ? `${chunk.name.replace('/js/', '/css/')}.css` : "unknown",
             chunkFilename: 'style.css',
         }),
     ],
@@ -101,4 +101,4 @@ configuration = {
     ],
 };
 
-new MiniCssExtractPlugin().apply(new webpack.Compiler());
+new MiniCssExtractPlugin().apply(new webpack.Compiler("context"));

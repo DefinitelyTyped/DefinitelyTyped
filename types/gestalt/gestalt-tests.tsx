@@ -30,6 +30,7 @@ import {
     Masonry,
     Modal,
     Module,
+    PageHeader,
     Pog,
     Popover,
     Provider,
@@ -185,6 +186,7 @@ const CheckUseReducedMotion = () => {
     expandedIndex={1}
     onExpandedChange={(index) => {}}
 ></Module.Expandable>;
+<PageHeader title='Home'/>;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Provider colorScheme={'light'} id="docsExample" onNavigation={({ href, onNavigationOptions }) => {

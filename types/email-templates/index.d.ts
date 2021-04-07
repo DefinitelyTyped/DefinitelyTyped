@@ -8,8 +8,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 ksewo <https://github.com/ksewo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="nodemailer"/>
 
 import { HtmlToTextOptions } from 'html-to-text';
@@ -67,7 +65,7 @@ declare namespace Email {
 
      interface ViewOptions {
         /**
-         *  View extansion. defaults to 'pug', and is the default file extension for templates
+         *  View extension. defaults to 'pug', and is the default file extension for templates
          */
         extension?: string;
 

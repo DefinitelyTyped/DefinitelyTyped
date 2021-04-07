@@ -1321,6 +1321,10 @@
             "libraryName": "has-yarn",
             "asOfVersion": "2.0.0"
         },
+        "hash-it": {
+            "libraryName": "hash-it",
+            "asOfVersion": "5.0.0"
+        },
         "hasha": {
             "libraryName": "hasha",
             "asOfVersion": "4.0.0"
@@ -1348,6 +1352,10 @@
         "hirestime": {
             "libraryName": "hirestime",
             "asOfVersion": "6.0.0"
+        },
+        "hls.js": {
+            "libraryName": "hls.js",
+            "asOfVersion": "1.0.0"
         },
         "homeworks": {
             "libraryName": "homeworks",
@@ -3697,6 +3705,10 @@
         "svg-pan-zoom": {
             "libraryName": "svg-pan-zoom",
             "asOfVersion": "3.4.0"
+        },
+        "svg-tag-names": {
+            "libraryName": "svg-tag-names",
+            "asOfVersion": "3.0.0"
         },
         "svg.js": {
             "libraryName": "svg.js",
