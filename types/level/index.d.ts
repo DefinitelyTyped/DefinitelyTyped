@@ -7,15 +7,14 @@ import { AbstractOptions, ErrorCallback } from "abstract-leveldown";
 
 import EncodingDown from "encoding-down";
 
-import { LevelUp } from "levelup";
+import { LevelUp, errors } from "levelup";
 
 declare namespace Level {
     interface LevelDB<K = any, V = any> extends LevelUp<EncodingDown<K, V>> {
-        errors: /* typeof levelerrors */ any; // ? level-errors is not in DT
+        errors: typeof errors;
     }
     interface Constructor {
-        // tslint:disable-next-line:no-unnecessary-generics
-        <K = any, V = any>(location: string, options?: AbstractOptions, callback?: ErrorCallback): LevelDB<K, V>;
+        (location: string, options?: AbstractOptions, callback?: ErrorCallback): LevelDB;
     }
 }
 
