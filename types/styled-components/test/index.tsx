@@ -660,17 +660,17 @@ const ForwardedAsWithNestedAsExternalTest = (
     </>
 );
 
-interface OtherComponentProps {
+interface OtherExternalComponentProps {
     requiredProp: 'test';
 }
 
-const OtherComponent: React.FC<OtherComponentProps> = () => null;
-const HasAttributesOfAsComponent = (
+const OtherExternalComponent: React.FC<OtherExternalComponentProps> = () => null;
+const HasAttributesOfAsOrForwardedAsComponent = (
     <>
         <WrappedExternalAsComponent as="a" type="primitive" href="/" />
         <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
-        <WrappedExternalAsComponent as={OtherComponent} type="primitive" requiredProp="test" />
-        <WrappedExternalAsComponent forwardedAs={OtherComponent} type="complex" requiredProp="test" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" />
+        <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
     </>
 );
 
