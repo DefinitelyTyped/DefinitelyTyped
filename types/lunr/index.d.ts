@@ -515,8 +515,10 @@ declare namespace lunr {
          * token and mapping the resulting tokens back to strings.
          *
          * @param str - The string to pass through the pipeline.
+         * @param metadata - Optional metadata to associate with the token
+         * passed to the pipeline.
          */
-        runString(str: string): string[];
+        runString(str: string, metadata?: object): string[];
 
         /**
          * Resets the pipeline by removing any existing processors.
@@ -704,9 +706,9 @@ declare namespace lunr {
     class Token {
         /**
          * @param [str=''] - The string token being wrapped.
-         * @param [metadata={}] - Metadata associated with this token.
+         * @param [metadata={}] - Optional metadata associated with this token.
          */
-        constructor(str: string, metadata: object);
+        constructor(str: string, metadata?: object);
 
         /**
          * Returns the token string that is being wrapped by this object.
