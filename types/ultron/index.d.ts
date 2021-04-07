@@ -63,4 +63,8 @@ declare const Ultron: {
     new (ee: EventEmitter): Ultron;
 };
 
+declare namespace Ultron {
+    export { Listener, EventEmitter };
+}
+
 export = Ultron;

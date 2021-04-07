@@ -4,6 +4,7 @@ import EventEmitter = require("events");
 import Ultron = require("ultron");
 
 const ee = new EventEmitter();
+const assignable: Ultron.EventEmitter = ee;
 
 {
     const constructed: Ultron = new Ultron(ee);
@@ -13,7 +14,7 @@ const ee = new EventEmitter();
 
 {
     const ultron = new Ultron(ee);
-    const handler = () => {};
+    const handler: Ultron.Listener = () => {};
     ultron.on("event-name", handler, { custom: "function context" });
     ultron.once("event-name", handler, { custom: "function context" });
     ultron.remove("event-name");
