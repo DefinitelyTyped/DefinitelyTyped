@@ -1,11 +1,9 @@
-import Emitter from "./emittermixin";
-
 export interface BindChain {
     to(observable: Observable, ...bindProperties: Array<Observable | string | Function>): void;
     toMany(observable: Observable[], ...bindProperties: Array<Observable | string | Function>): void;
 }
 
-export default abstract class Observable extends Emitter {
+export interface Observable {
     /**
      * Creates and sets the value of an observable property of this object. Such a property becomes a part
      * of the state and is observable.
@@ -144,3 +142,7 @@ export default abstract class Observable extends Emitter {
      */
     decorate(methodName: string): void;
 }
+
+declare const ObservableMixin: Observable;
+
+export default ObservableMixin;

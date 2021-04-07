@@ -1,7 +1,8 @@
 import EventInfo from "./eventinfo";
 import { PriorityString } from "./priorities";
+import * as engine from "@ckeditor/ckeditor5-engine";
 
-export default abstract class Emitter {
+export interface Emitter {
     /**
      * Registers a callback function to be executed when an event is fired.
      *
@@ -11,7 +12,11 @@ export default abstract class Emitter {
      * the priority value the sooner the callback will be fired. Events having the same priority are called in the
      * order they were added.
      */
-    on: (event: string, callback: Function, options?: { priority: PriorityString | number }) => void;
+    on: (
+        event: string,
+        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
+        options?: { priority: PriorityString | number },
+    ) => void;
     /**
      * Registers a callback function to be executed on the next time the event is fired only. This is similar to
      * calling {@link #on} followed by {@link #off} in the callback.
@@ -19,13 +24,17 @@ export default abstract class Emitter {
      * the priority value the sooner the callback will be fired. Events having the same priority are called in the
      * order they were added.
      */
-    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    once(
+        event: string,
+        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        options?: { priority: PriorityString | number },
+    ): void;
     /**
      * Stops executing the callback on the given event.
      * Shorthand for {@link #stopListening `this.stopListening( this, event, callback )`}.
      *
      */
-    off(event: string, callback?: Function): void;
+    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
     /**
      * Registers a callback function to be executed when an event is fired in a specific (emitter) object.
      *
@@ -52,7 +61,7 @@ export default abstract class Emitter {
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: Function,
+        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
     /**
@@ -66,7 +75,11 @@ export default abstract class Emitter {
      * for all events from `emitter`.
      * `event`.
      */
-    stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
+    stopListening(
+        emitter?: Emitter,
+        event?: string,
+        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+    ): void;
     /**
      * Fires an event, executing all callbacks registered for it.
      *
@@ -108,3 +121,7 @@ export default abstract class Emitter {
 export interface EmitterMixinDelegateChain {
     to(emitter: Emitter, nameOrFunction?: string | ((name: string) => string)): void;
 }
+
+declare const EmitterMixin: Emitter;
+
+export default EmitterMixin;
