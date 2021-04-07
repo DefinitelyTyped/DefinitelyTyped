@@ -5,8 +5,11 @@
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Kyle Hensel <https://github.com/k-yle>
+//                 Kelvin Stott <https://github.com/ksstott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
+
+/// <reference types="node" />
 
 import { WebpackPluginInstance, Compiler } from 'webpack';
 
