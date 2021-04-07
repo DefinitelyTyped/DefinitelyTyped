@@ -572,8 +572,10 @@ declare namespace lunr {
             editDistance: number;
             /** Whether the term should be passed through the search pipeline. */
             usePipeline: boolean;
-            /** Whether the term should have wildcards appended or prepended. */
+            /** Whether the term should have wildcards appended or prepended. @see Query.wildcard */
             wildcard: number;
+            /** Whether the term is optional, required, or prohibited. @see Query.presence */
+            presence: Query.presence;
         }
     }
 
