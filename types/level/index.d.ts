@@ -15,4 +15,4 @@ export interface LevelDB<K = any, V = any> extends LevelUp<EncodingDown<K, V>> {
 
 declare function level(location: string, options?: AbstractOptions, callback?: ErrorCallback): LevelDB;
 
-export default level;
+export = level;

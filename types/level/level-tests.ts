@@ -1,4 +1,5 @@
-import level, { LevelDB } from 'level';
+import level = require('level');
+import { LevelDB } from 'level';
 
 const testString = (db: LevelDB<string, string>) => {
   db.put("key1", "value");
