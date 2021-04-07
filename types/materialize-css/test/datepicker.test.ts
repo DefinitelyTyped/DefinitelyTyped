@@ -34,6 +34,20 @@ datePicker.el;
 // $ExpectType boolean
 datePicker.isOpen;
 
+// $ExpectType Datepicker
+const _datePickerWithNullableOptions = new materialize.Datepicker(elem, {
+    defaultDate: null,
+    minDate: null,
+    maxDate: null,
+    container: null,
+    parse: null,
+    disableDayFn: null,
+    onSelect : null,
+    onOpen : null,
+    onClose : null,
+    onDraw : null,
+});
+
 $(".whatever").datepicker();
 $(".whatever").datepicker({ defaultDate: new Date() });
 $(".whatever").datepicker({
