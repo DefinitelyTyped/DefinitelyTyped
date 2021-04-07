@@ -22,7 +22,7 @@ export type BaseOrArray<T> = T | readonly T[];
  * which accepts a single argument. If the continuation is called with a truthy
  * value or `false`, the router will skip all remaining handlers.
  */
-export type Handler<ThisType> = (this: ThisType, ...args: any[]) => void;
+export type Handler<ThisType> = (this: ThisType, ...args: any[]) => any;
 
 export type RouteEntry<ThisType> = BaseOrArray<Handler<ThisType>>;
 
