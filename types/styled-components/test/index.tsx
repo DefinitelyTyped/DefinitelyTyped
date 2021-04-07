@@ -645,6 +645,8 @@ interface ExternalAsComponentProps {
 }
 const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
 const WrappedExternalAsComponent = styled(ExternalAsComponent)``;
+const testRequiredProp = <WrappedExternalAsComponent />; // $ExpectError
+const testRequiredPropWhenForwardedAs = <WrappedExternalAsComponent forwardedAs="h2" />; // $ExpectError
 const ForwardedAsWithWrappedExternalTest = (
     <>
         <WrappedExternalAsComponent forwardedAs="h2" type="primitive" />
@@ -655,6 +657,20 @@ const ForwardedAsWithNestedAsExternalTest = (
     <>
         <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs="h2" type="primitive" />
         <ForwardedAsNestedComponent as={ExternalAsComponent} forwardedAs={WithComponentH2} type="complex" />
+    </>
+);
+
+interface OtherComponentProps {
+    requiredProp: 'test';
+}
+
+const OtherComponent: React.FC<OtherComponentProps> = () => null;
+const HasAttributesOfAsComponent = (
+    <>
+        <WrappedExternalAsComponent as="a" type="primitive" href="/" />
+        <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
+        <WrappedExternalAsComponent as={OtherComponent} type="primitive" requiredProp="test" />
+        <WrappedExternalAsComponent forwardedAs={OtherComponent} type="complex" requiredProp="test" />
     </>
 );
 
@@ -679,7 +695,8 @@ class Test2Container extends React.Component<Test2ContainerProps> {
     }
 }
 
-const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
+const containerTest = <StyledTestContainer as={Test2Container} type="foo" size="big"/>;
+const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
 
 // 4.0 refs
 
