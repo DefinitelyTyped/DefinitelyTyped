@@ -83,6 +83,7 @@ declare namespace M {
 
         /**
          * Used to create date object from current input string.
+         * @default null
          */
         parse: (value: string, format: string) => Date;
 
@@ -106,6 +107,7 @@ declare namespace M {
 
         /**
          * Custom function to disable certain days.
+         * @default null
          */
         disableDayFn: (day: Date) => boolean;
 
@@ -117,11 +119,13 @@ declare namespace M {
 
         /**
          * The earliest date that can be selected.
+         * @default null
          */
         minDate: Date;
 
         /**
          * The latest date that can be selected.
+         * @default null
          */
         maxDate: Date;
 
@@ -174,21 +178,25 @@ declare namespace M {
 
         /**
          * Callback function when date is selected, first parameter is the newly selected date.
+         * @default null
          */
         onSelect: (this: Datepicker, selectedDate: Date) => void;
 
         /**
          * Callback function when Datepicker is opened
+         * @default null
          */
         onOpen: (this: Datepicker) => void;
 
         /**
          * Callback function when Datepicker is closed
+         * @default null
          */
         onClose: (this: Datepicker) => void;
 
         /**
          * Callback function when Datepicker HTML is refreshed
+         * @default null
          */
         onDraw: (this: Datepicker) => void;
     }
