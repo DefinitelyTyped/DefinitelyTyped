@@ -1696,6 +1696,18 @@ declare namespace IORedis {
          * TCP KeepAlive on the socket with a X ms delay before start. Set to a non-number value to disable keepAlive.
          */
         keepAlive?: number;
+        /**
+         * Whether to disable the Nagle's Algorithm.
+         */
+        noDelay?: boolean;
+        /**
+         * Force numbers to be always returned as JavaScript strings. This option is necessary when dealing with big numbers (exceed the [-2^53, +2^53] range).
+         */
+        stringNumbers?: boolean;
+        /**
+         * Default script definition caching time.
+         */
+        maxScriptsCachingTime?: number;
         connectionName?: string;
         /**
          * If set, client will send AUTH command with the value of this option as the first argument when connected. The `password` option must be set too. Username should only be set for Redis >=6.
