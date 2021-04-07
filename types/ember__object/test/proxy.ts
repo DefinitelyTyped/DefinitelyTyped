@@ -10,7 +10,7 @@ interface Book {
 class DefaultProxy extends ObjectProxy {}
 DefaultProxy.create().content; // $ExpectType object | undefined
 
-class BookProxy extends ObjectProxy<Book> {
+class BookProxy extends ObjectProxy<Book | null> {
     private readonly baz = 'baz';
 
     altTitle = 'Alt';
@@ -25,7 +25,7 @@ class BookProxy extends ObjectProxy<Book> {
 }
 
 const book = BookProxy.create();
-book.content; // $ExpectType Book | undefined
+book.content; // $ExpectType Book | null | undefined
 
 book.get('unknownProperty'); // $ExpectError
 book.get('title'); // $ExpectType string | undefined
