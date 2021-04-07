@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "readable-stream": "*"
+        "readable-stream": "../readable-stream"
     }
 }
