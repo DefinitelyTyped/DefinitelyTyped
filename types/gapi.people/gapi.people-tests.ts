@@ -122,7 +122,7 @@
           appendPre('Contacts found:');
           listNames(resp.results.map(result => result.person));
         } else {
-          appendPre('No upcoming events found.');
+          appendPre('No contacts found.');
         }
       });
   }
