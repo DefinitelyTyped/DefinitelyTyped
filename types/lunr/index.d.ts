@@ -1,6 +1,7 @@
 // Type definitions for lunr.js 2.3
 // Project: https://github.com/olivernn/lunr.js, http://lunrjs.com
-// Definitions by: Sean Tan <https://github.com/seantanly>, Andrés Pérez <https://github.com/hokiegeek>
+// Definitions by: Sean Tan <https://github.com/seantanly>, Andrés Pérez <https://github.com/hokiegeek>,
+// Derek Kershner <https://github.com/dkershner6>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
