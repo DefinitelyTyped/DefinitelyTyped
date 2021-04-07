@@ -55,12 +55,12 @@ declare const Ultron: {
     /**
      * @param ee EventEmitter instance we need to wrap.
      */
-    (events: EventEmitter): Ultron;
+    (ee: EventEmitter): Ultron;
 
     /**
      * @param ee EventEmitter instance we need to wrap.
      */
-    new (events: EventEmitter): Ultron;
+    new (ee: EventEmitter): Ultron;
 };
 
 export = Ultron;
