@@ -7,7 +7,6 @@
         "prefer-const": false,
         "trim-file": false,
         "typedef-whitespace": false,
-        "whitespace": false,
-        "npm-naming": [true,{"mode":"code","errors":[["NoDefaultExport",false],["NeedsExportEquals",false]]}]
+        "whitespace": false
     }
 }

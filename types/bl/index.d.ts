@@ -42,9 +42,4 @@ declare class BufferListStream extends Duplex {
     static isBufferList(other: any): boolean;
 }
 
-export default BufferListStream;
-
-export {
-    BufferList,
-    BufferListStream
-};
+export = BufferListStream;

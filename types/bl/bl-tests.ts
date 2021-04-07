@@ -1,7 +1,4 @@
-import BufferList, {
-  BufferList as BufferListNamedExport,
-  BufferListStream as BufferListStreamNamedExport
-} from 'bl';
+import BufferList from 'bl';
 import BufferListDeepExport from 'bl/BufferList';
 
 var bl: BufferList;
@@ -12,19 +9,9 @@ var str: string;
 
 BufferList.isBufferList({});
 
-var bufferList = new BufferListNamedExport();
-
-// is assignable
-bufferList = bl;
-
-var bufferListStream = new BufferListStreamNamedExport();
-
 // has Duplex methods
-bufferListStream.pause();
-bufferListStream.resume();
-
-// is assignable
-bufferList = bufferListStream;
+bl.pause();
+bl.resume();
 
 var bufferListDeep = new BufferListDeepExport();
 
@@ -34,6 +21,10 @@ bufferListDeep = bl.duplicate();
 // is not assignable as it lacks the Duplex methods
 var bl2: BufferList;
 bl2 = bufferListDeep; // $ExpectError
+
+// does not have Duplex methods
+bufferListDeep.pause(); // $ExpectError
+bufferListDeep.resume(); // $ExpectError
 
 bl = new BufferList();
 bl = new BufferList(bl);
