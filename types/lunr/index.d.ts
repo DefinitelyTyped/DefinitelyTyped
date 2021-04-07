@@ -756,13 +756,33 @@ declare namespace lunr {
     class TokenSet {
         constructor()
 
+        id: number;
+        final: boolean;
+
+        /**
+         * Key is a single character, the letter that represents the
+         * possibilty for that letter to occur in the nested order of TokenSets.
+         */
+        edges: Record<string, TokenSet>;
+
         /**
          * Creates a TokenSet instance from the given sorted array of words.
          *
          * @param arr - A sorted array of strings to create the set from.
          * @throws Will throw an error if the input array is not sorted.
          */
-        fromArray(arr: string[]): TokenSet;
+        static fromArray(arr: string[]): TokenSet;
+
+        /**
+         * Creates a token set from a query clause.
+         *
+         * @private
+         * @param {Object} clause - A single clause from lunr.Query.
+         * @param {string} clause.term - The query clause term.
+         * @param {number} [clause.editDistance] - The optional edit distance for the term.
+         * @returns {lunr.TokenSet}
+         */
+        static fromClause(clause: Query.Clause): TokenSet;
 
         /**
          * Creates a token set representing a single string with a specified
@@ -778,7 +798,7 @@ declare namespace lunr {
          * @param str - The string to create the token set from.
          * @param editDistance - The allowed edit distance to match.
          */
-        fromFuzzyString(str: string, editDistance: number): Vector;
+        static fromFuzzyString(str: string, editDistance: number): TokenSet;
 
         /**
          * Creates a TokenSet from a string.
@@ -789,7 +809,7 @@ declare namespace lunr {
          *
          * @param str - The string to create a TokenSet from.
          */
-        fromString(str: string): TokenSet;
+        static fromString(str: string): TokenSet;
 
         /**
          * Converts this TokenSet into an array of strings
