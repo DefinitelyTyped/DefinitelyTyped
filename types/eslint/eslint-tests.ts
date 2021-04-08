@@ -1,7 +1,7 @@
 import { Comment, WhileStatement } from "estree";
 import { AST, SourceCode, Rule, Linter, ESLint, CLIEngine, RuleTester, Scope } from "eslint";
 import { ESLintRules } from "eslint/rules";
-import * as _noUnusedExpressions from 'eslint/lib/rules/no-unused-expressions';
+import * as _noUnusedExpressions from "eslint/lib/rules/no-unused-expressions";
 
 const SOURCE = `var foo = bar;`;
 
