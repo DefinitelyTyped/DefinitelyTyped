@@ -161,6 +161,5 @@ export function listLanguages(): string[];
  * // ^ Works!
  * ```
  */
-export function alias(name: string, alias: string): void;
-export function alias(name: string, aliases: string[]): void;
+export function alias(name: string, alias: string | string[]): void;
 export function alias(aliases: Record<string, string | string[]>): void;
