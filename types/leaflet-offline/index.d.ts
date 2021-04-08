@@ -6,7 +6,6 @@
 import * as L from 'leaflet';
 import * as LO from 'leaflet-offline';
 declare module 'leaflet' {  
-  export type DoneCallback = (error?: Error, tile?: HTMLElement) => void;
   export class TileLayerOffline {
     constructor(urlTemplate: string, tilesDb: object, options?: TileLayerOptions);
     initialize(url: string, tilesDb: object, options: object): void;
