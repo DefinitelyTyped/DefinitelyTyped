@@ -1269,21 +1269,21 @@ declare global {
                 type?: any;
                 constant?: boolean;
                 default?: any;
-                options?: Array<any>|Function;
-                error?: String
+                options?: any[]|Function;
+                error?: String;
             }
             interface ValidatorFields {
-                [field: string]: ValidatorField,
+                [field: string]: ValidatorField;
             }
             interface Validator {
                 requireUser?: boolean;
                 requireMaster?: boolean;
                 validateMasterKey?: boolean;
                 skipWithMasterKey?: boolean;
-                requireAnyUserRoles?: Array<String>|Function;
-                requireAllUserRoles?: Array<String>|Function;
-                fields?: ValidatorFields|Array<String>;
-                requireUserKeys?: ValidatorFields|Array<String>;
+                requireAnyUserRoles?: String[]|Function;
+                requireAllUserRoles?: String[]|Function;
+                fields?: ValidatorFields|String[];
+                requireUserKeys?: ValidatorFields|String[];
             }
 
             interface Cookie {
