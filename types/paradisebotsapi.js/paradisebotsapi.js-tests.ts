@@ -1,5 +1,5 @@
 import PBL = require('paradisebotsapi.js');
 
-const pbl = new PBL();
+const pbl = new PBL.get('111122222', 'xxx-xx-x');
 
-pbl.get('222', (data) => {}); // $ExpectType Promise<void>
+pbl.post(1, 1); // $ExpectType Promise<void>
