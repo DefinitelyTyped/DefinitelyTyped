@@ -17,11 +17,11 @@
 
 /// <reference types="node"/>
 
-import stream = require('stream');
-import http = require('http');
-import { EventEmitter } from 'events';
-import SonicBoom = require('sonic-boom');
-import * as pinoStdSerializers from 'pino-std-serializers';
+import stream = require("stream");
+import http = require("http");
+import { EventEmitter } from "events";
+import SonicBoom = require("sonic-boom");
+import * as pinoStdSerializers from "pino-std-serializers";
 import * as PinoPretty from "pino-pretty";
 
 export = P;
@@ -48,32 +48,32 @@ declare namespace P {
     const LOG_VERSION: number;
     const levels: LevelMapping;
     const symbols: {
-        readonly setLevelSym: unique symbol,
-        readonly getLevelSym: unique symbol,
-        readonly levelValSym: unique symbol,
-        readonly useLevelLabelsSym: unique symbol,
-        readonly mixinSym: unique symbol,
-        readonly lsCacheSym: unique symbol,
-        readonly chindingsSym: unique symbol,
-        readonly parsedChindingsSym: unique symbol,
-        readonly asJsonSym: unique symbol,
-        readonly writeSym: unique symbol,
-        readonly serializersSym: unique symbol,
-        readonly redactFmtSym: unique symbol,
-        readonly timeSym: unique symbol,
-        readonly timeSliceIndexSym: unique symbol,
-        readonly streamSym: unique symbol,
-        readonly stringifySym: unique symbol,
-        readonly stringifiersSym: unique symbol,
-        readonly endSym: unique symbol,
-        readonly formatOptsSym: unique symbol,
-        readonly messageKeySym: unique symbol,
-        readonly nestedKeySym: unique symbol,
-        readonly wildcardFirstSym: unique symbol,
-        readonly needsMetadataGsym: unique symbol,
-        readonly useOnlyCustomLevelsSym: unique symbol,
-        readonly formattersSym: unique symbol,
-        readonly hooksSym: unique symbol,
+        readonly setLevelSym: unique symbol;
+        readonly getLevelSym: unique symbol;
+        readonly levelValSym: unique symbol;
+        readonly useLevelLabelsSym: unique symbol;
+        readonly mixinSym: unique symbol;
+        readonly lsCacheSym: unique symbol;
+        readonly chindingsSym: unique symbol;
+        readonly parsedChindingsSym: unique symbol;
+        readonly asJsonSym: unique symbol;
+        readonly writeSym: unique symbol;
+        readonly serializersSym: unique symbol;
+        readonly redactFmtSym: unique symbol;
+        readonly timeSym: unique symbol;
+        readonly timeSliceIndexSym: unique symbol;
+        readonly streamSym: unique symbol;
+        readonly stringifySym: unique symbol;
+        readonly stringifiersSym: unique symbol;
+        readonly endSym: unique symbol;
+        readonly formatOptsSym: unique symbol;
+        readonly messageKeySym: unique symbol;
+        readonly nestedKeySym: unique symbol;
+        readonly wildcardFirstSym: unique symbol;
+        readonly needsMetadataGsym: unique symbol;
+        readonly useOnlyCustomLevelsSym: unique symbol;
+        readonly formattersSym: unique symbol;
+        readonly hooksSym: unique symbol;
     };
     /**
      * Exposes the Pino package version. Also available on the logger instance.
@@ -192,7 +192,9 @@ declare namespace P {
      *                writing performance it is strongly recommended to use `pino.destination` to create the destination stream.
      * @returns A Sonic-Boom  stream to be used as destination for the pino function
      */
-    function destination(dest?: string | number | DestinationObjectOptions | DestinationStream | NodeJS.WritableStream): SonicBoom;
+    function destination(
+        dest?: string | number | DestinationObjectOptions | DestinationStream | NodeJS.WritableStream,
+    ): SonicBoom;
 
     /**
      * Create an extreme mode destination. This yields an additional 60% performance boost.
@@ -326,12 +328,14 @@ declare namespace P {
          * Enables pino.pretty. This is intended for non-production configurations. This may be set to a configuration
          * object as outlined in http://getpino.io/#/docs/API?id=pretty. Default: `false`.
          */
-        prettyPrint?: boolean | PinoPretty.PrettyOptions & {
-            /**
-             * Suppress warning on first synchronous flushing.
-             */
-            suppressFlushSyncWarning?: boolean;
-        };
+        prettyPrint?:
+            | boolean
+            | (PinoPretty.PrettyOptions & {
+                  /**
+                   * Suppress warning on first synchronous flushing.
+                   */
+                  suppressFlushSyncWarning?: boolean;
+              });
         /**
          * Allows to optionally define which prettifier module to use.
          */
@@ -508,26 +512,26 @@ declare namespace P {
          * For example, they can be used to change the level key name or to enrich the default metadata.
          */
         formatters?: {
-          /**
-           * Changes the shape of the log level.
-           * The default shape is { level: number }.
-           * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
-           */
-          level?: (level: string, number: number) => object;
-          /**
-           * Changes the shape of the bindings.
-           * The default shape is { pid, hostname }.
-           * The function takes a single argument, the bindings object.
-           * It will be called every time a child logger is created.
-           */
-          bindings?: (bindings: Bindings) => object;
-          /**
-           * Changes the shape of the log object.
-           * This function will be called every time one of the log methods (such as .info) is called.
-           * All arguments passed to the log method, except the message, will be pass to this function.
-           * By default it does not change the shape of the log object.
-           */
-          log?: (object: object) => object;
+            /**
+             * Changes the shape of the log level.
+             * The default shape is { level: number }.
+             * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
+             */
+            level?: (level: string, number: number) => object;
+            /**
+             * Changes the shape of the bindings.
+             * The default shape is { pid, hostname }.
+             * The function takes a single argument, the bindings object.
+             * It will be called every time a child logger is created.
+             */
+            bindings?: (bindings: Bindings) => object;
+            /**
+             * Changes the shape of the log object.
+             * This function will be called every time one of the log methods (such as .info) is called.
+             * All arguments passed to the log method, except the message, will be pass to this function.
+             * By default it does not change the shape of the log object.
+             */
+            log?: (object: object) => object;
         };
 
         /**
@@ -548,8 +552,8 @@ declare namespace P {
     // Re-export for backward compatibility
     type PrettyOptions = PinoPretty.PrettyOptions;
 
-    type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
-    type LevelWithSilent = Level | 'silent';
+    type Level = "fatal" | "error" | "warn" | "info" | "debug" | "trace";
+    type LevelWithSilent = Level | "silent";
 
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
@@ -660,12 +664,12 @@ declare namespace P {
          * @param event: only ever fires the `'level-change'` event
          * @param listener: The listener is passed four arguments: `levelLabel`, `levelValue`, `previousLevelLabel`, `previousLevelValue`.
          */
-        on(event: 'level-change', listener: LevelChangeEventListener): this;
-        addListener(event: 'level-change', listener: LevelChangeEventListener): this;
-        once(event: 'level-change', listener: LevelChangeEventListener): this;
-        prependListener(event: 'level-change', listener: LevelChangeEventListener): this;
-        prependOnceListener(event: 'level-change', listener: LevelChangeEventListener): this;
-        removeListener(event: 'level-change', listener: LevelChangeEventListener): this;
+        on(event: "level-change", listener: LevelChangeEventListener): this;
+        addListener(event: "level-change", listener: LevelChangeEventListener): this;
+        once(event: "level-change", listener: LevelChangeEventListener): this;
+        prependListener(event: "level-change", listener: LevelChangeEventListener): this;
+        prependOnceListener(event: "level-change", listener: LevelChangeEventListener): this;
+        removeListener(event: "level-change", listener: LevelChangeEventListener): this;
 
         /**
          * Creates a child logger, setting all key-value pairs in `bindings` as properties in the log lines. All serializers will be applied to the given pair.
