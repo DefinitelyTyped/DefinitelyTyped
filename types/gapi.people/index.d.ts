@@ -85,7 +85,7 @@ declare namespace gapi.client.people {
   }
 
   interface SearchContactsResponse {
-    results: SearchContactsResult[],
+    results?: SearchContactsResult[],
   }
 
   interface SearchContactsResult {

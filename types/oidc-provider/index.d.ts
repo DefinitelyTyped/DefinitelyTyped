@@ -1213,7 +1213,7 @@ export type EncryptionEncValues =
 export interface InteractionResults {
     login?: {
         remember?: boolean;
-        account: string;
+        accountId: string;
         ts?: number;
         amr?: string[];
         acr?: string;

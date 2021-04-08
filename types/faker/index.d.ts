@@ -266,13 +266,13 @@ declare namespace Faker {
         };
 
         system: {
-            fileName(ext?: string, type?: string): string;
-            commonFileName(ext: string, type?: string): string;
+            fileName(): string;
+            commonFileName(ext?: string): string;
             mimeType(): string;
             commonFileType(): string;
             commonFileExt(): string;
             fileType(): string;
-            fileExt(mimeType: string): string;
+            fileExt(mimeType?: string): string;
             directoryPath(): string;
             filePath(): string;
             semver(): string;
