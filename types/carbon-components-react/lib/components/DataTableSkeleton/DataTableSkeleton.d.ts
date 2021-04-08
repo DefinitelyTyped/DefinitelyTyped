@@ -7,7 +7,7 @@ export interface DataTableSkeletonHeader {
 export interface DataTableSkeletonProps extends React.TableHTMLAttributes<HTMLTableElement> {
     compact?: boolean;
     columnCount?: number;
-    headers?: readonly DataTableSkeletonHeader[]; // doesn't seem to be used anymore but prop type is still there so leaving this commented out.
+    headers?: readonly DataTableSkeletonHeader[];
     rowCount?: number;
     showHeader?: boolean;
     showToolbar?: boolean;
