@@ -22,8 +22,7 @@ declare namespace internal {
         ): SortedSet<T>;
     }
 
-    // TODO: These methods can be similar in others collection. One's should make some
-    // class model.
+    // TODO: move somewhere else
     abstract class AbstractSet {
         union(...plus: any[]): any;
         intersection(...plus: any[]): any;
@@ -96,7 +95,21 @@ declare namespace internal {
         checkIntegrity(): number;
         getNext(): Node<T> | undefined;
         getPrevious(): Node<T> | undefined;
-        log(charmap: object, logNode: Function, log: Function, logAbove: Function): void;
+        log(
+            charmap: {
+                branchUp: string;
+                branchDown: string;
+                fromAbove: string;
+                fromBelow: string;
+                fromBoth: string;
+                intersection: string;
+                strafe: string;
+                through: string;
+            },
+            logNode: (n: Node<T>, innerWrite: (line: string) => void, innerWriteAbove: (line: string) => void) => void,
+            log: (line: string) => void,
+            logAbove: (line: string) => void,
+        ): void;
         reduce<U>(
             callback: (accumulator: U, currentValue: T, index: number, set: SortedSet<T>) => U,
             initialValue: U,
@@ -134,13 +147,14 @@ declare namespace internal {
         findLeast(): Node<T> | undefined;
         findLeastGreaterThan(value: T): Node<T> | undefined;
         findLeastGreaterThanOrEqual(value: T): Node<T> | undefined;
-        max(): T | undefined;
-        min(): T | undefined;
-        one(): T | undefined;
 
         get(elt: T): T | undefined;
         has(elt: T): boolean;
         indexOf(value: T): number;
+
+        max(): T | undefined;
+        min(): T | undefined;
+        one(): T | undefined;
 
         pop(): T | undefined;
         push(...values: T[]): void;
