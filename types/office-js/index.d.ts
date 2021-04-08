@@ -11218,6 +11218,8 @@ declare namespace Office {
          * Adds categories to an item. Each category must be in the categories master list on that mailbox and so must have a unique name
          * but multiple categories can use the same color.
          *
+         * **Important**: In Outlook on the web, you can't use the API to manage categories applied to a message or appointment item in Compose mode.
+         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks
@@ -11240,8 +11242,12 @@ declare namespace Office {
         /**
          * Gets an item's categories.
          *
-         * **Important**: If there are no categories on the item, `null` or an empty array will be returned depending on the Outlook version
+         * **Important**:
+         *
+         * - If there are no categories on the item, `null` or an empty array will be returned depending on the Outlook version
          * so make sure to handle both cases.
+         *
+         * - In Outlook on the web, you can't use the API to manage categories applied to a message in Compose mode.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -11260,8 +11266,12 @@ declare namespace Office {
         /**
          * Gets an item's categories.
          *
-         * **Important**: If there are no categories on the item, `null` or an empty array will be returned depending on the Outlook version
+         * **Important**:
+         *
+         * - If there are no categories on the item, `null` or an empty array will be returned depending on the Outlook version
          * so make sure to handle both cases.
+         *
+         * - In Outlook on the web, you can't use the API to manage categories applied to a message in Compose mode.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -11277,6 +11287,8 @@ declare namespace Office {
         getAsync(callback: (asyncResult: Office.AsyncResult<CategoryDetails[]>) => void): void;
         /**
          * Removes categories from an item.
+         *
+         * **Important**: In Outlook on the web, you can't use the API to manage categories applied to a message in Compose mode.
          *
          * [Api set: Mailbox 1.8]
          *
