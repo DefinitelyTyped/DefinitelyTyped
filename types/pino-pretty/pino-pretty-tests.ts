@@ -6,6 +6,9 @@ const options: PrettyOptions = {
     crlf: false,
     errorLikeObjectKeys: ["err", "error"],
     errorProps: "",
+    hideObject: true,
+    levelKey: "level",
+    levelLabel: "foo",
     messageFormat: false,
     ignore: "",
     levelFirst: false,
@@ -13,6 +16,7 @@ const options: PrettyOptions = {
     timestampKey: "timestamp",
     translateTime: "UTC:h:MM:ss TT Z",
     search: "foo == `bar`",
+    singleLine: false,
 };
 
 const pretty = prettyFactory(options);
