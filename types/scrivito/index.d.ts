@@ -343,6 +343,7 @@ export class Obj {
     static getByPermalink(permalink: string): Obj | null;
     static root(): Obj | null;
     static where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: ObjSearchValue, boost?: any): ObjSearch;
+    static siteId(): string | null;
 
     // Instance methods
     id(): string;
@@ -375,7 +376,6 @@ export class Obj {
     widgets(): Widget[];
     updateReferences(mapping: (refId: string) => string | undefined): Promise<void>;
     finishSaving(): Promise<void>;
-    siteId(): string | null;
     onAllSites(): SiteContext;
     onSite(siteId: string): SiteContext;
 }
