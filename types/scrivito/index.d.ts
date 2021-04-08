@@ -452,6 +452,10 @@ interface ObjComponentProps {
 type WidgetComponent = React.FC<WidgetComponentProps>;
 type ObjComponent = React.FC<ObjComponentProps>;
 
+export interface AuthGroupsOptions {
+    [groupName: string]: string;
+}
+
 export class Editor {
     private constructor();
     id(): string;
@@ -484,6 +488,7 @@ export function openDialog(name: string): void;
 export function preload(preloadDump: any): Promise<{ dumpLoaded: boolean }>;
 export function provideComponent(className: string, component: WidgetComponent | ObjComponent): void;
 export function provideEditingConfig(name: string, editingConfig: EditingConfig): void;
+export function provideAuthGroups(options: AuthGroupsOptions): void;
 
 export function createObjClass(options: ObjClassOptions): Obj;
 export function createWidgetClass(options: WidgetClassOptions): AbstractWidgetClass;
