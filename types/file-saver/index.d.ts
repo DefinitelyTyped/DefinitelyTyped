@@ -4,6 +4,7 @@
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Chris Barr <https://github.com/chrismbarr>
 //                 HitkoDev <https://github.com/HitkoDev>
+//                 JounQin <https://github.com/JounQin>
 // Definitions:  https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/file-saver
 
 declare namespace FileSaver {
