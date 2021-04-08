@@ -343,7 +343,7 @@ export class Obj {
     static getByPermalink(permalink: string): Obj | null;
     static root(): Obj | null;
     static where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: ObjSearchValue, boost?: any): ObjSearch;
-    static siteId(): string | null;
+    static onSite(siteId: string): SiteContext;
 
     // Instance methods
     id(): string;
@@ -378,6 +378,7 @@ export class Obj {
     finishSaving(): Promise<void>;
     onAllSites(): SiteContext;
     onSite(siteId: string): SiteContext;
+    siteId(): string | null;
 }
 
 type ExtractableTextAttributes = 'string' | 'html' | 'widgetlist' | 'blob:text';
