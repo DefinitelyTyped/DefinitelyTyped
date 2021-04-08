@@ -22,7 +22,6 @@
 //                  Kent Robin Haugen <https://github.com/kentrh>
 //                  Asen Lekov <https://github.com/L3K0V>
 //                  Switt Kongdachalert <https://github.com/swittk>
-//                  Daniel Blyth <https://github.com/dblythy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
