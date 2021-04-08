@@ -22,6 +22,7 @@
 //                  Kent Robin Haugen <https://github.com/kentrh>
 //                  Asen Lekov <https://github.com/L3K0V>
 //                  Switt Kongdachalert <https://github.com/swittk>
+//                  Daniel Blyth <https://github.com/dblythy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -1305,6 +1306,27 @@ declare global {
                 user?: User;
             }
 
+            interface ValidatorField {
+                type?: any;
+                constant?: boolean;
+                default?: any;
+                options?: Array<any>|Function;
+                error?: String
+            }
+            interface ValidatorFields {
+                [field: string]: ValidatorField,
+            }
+            interface Validator {
+                requireUser?: boolean;
+                requireMaster?: boolean;
+                validateMasterKey?: boolean;
+                skipWithMasterKey?: boolean;
+                requireAnyUserRoles?: Array<String>|Function;
+                requireAllUserRoles?: Array<String>|Function;
+                fields?: ValidatorFields|Array<String>;
+                requireUserKeys?: ValidatorFields|Array<String>;
+            }
+
             interface Cookie {
                 name?: string;
                 options?: CookieOptions;
@@ -1361,45 +1383,53 @@ declare global {
             function afterDelete<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: AfterDeleteRequest<T>) => Promise<void> | void,
+                validator?: Validator|((request: FunctionRequest) => any),
             ): void;
             function afterSave<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: AfterSaveRequest<T>) => Promise<void> | void,
+                validator?: Validator|((request: FunctionRequest) => any),
             ): void;
             function beforeDelete<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: BeforeDeleteRequest<T>) => Promise<void> | void,
+                validator?: Validator|((request: FunctionRequest) => any),
             ): void;
             function beforeSave<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: BeforeSaveRequest<T>) => Promise<void> | void,
+                validator?: Validator|((request: FunctionRequest) => any),
             ): void;
             function beforeFind<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void,
+                validator?: Validator|((request: FunctionRequest) => any),
             ): void;
             function afterFind<T extends Object = Object>(
                 arg1: { new (): T } | string,
                 func?: (request: AfterFindRequest<T>) => any,
+                validator?: Validator|((request: FunctionRequest) => any),
             ): void;
 
             function beforeLogin(func?: (request: TriggerRequest<User>) => PromiseLike<void> | void): void;
-            function afterLogin(func?: (request: TriggerRequest<User>) => PromiseLike<void> | void): void;
-            function afterLogout(func?: (request: TriggerRequest<Session>) => PromiseLike<void> | void): void;
+            function afterLogin(func?: (request: TriggerRequest<User>) => PromiseLike<void> | void, validator?: Validator|((request: FunctionRequest) => any)): void;
+            function afterLogout(func?: (request: TriggerRequest<Session>) => PromiseLike<void> | void, validator?: Validator|((request: FunctionRequest) => any)): void;
 
-            function beforeSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<File> | void): void;
-            function afterSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
-            function beforeDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
-            function afterDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void): void;
+            function beforeSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<File> | void, validator?: Validator|((request: FunctionRequest) => any)): void;
+            function afterSaveFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void, validator?: Validator|((request: FunctionRequest) => any)): void;
+            function beforeDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void, validator?: Validator|((request: FunctionRequest) => any)): void;
+            function afterDeleteFile(func?: (request: FileTriggerRequest) => PromiseLike<void> | void, validator?: Validator|((request: FunctionRequest) => any)): void;
 
-            function define(name: string, func: (request: FunctionRequest) => any): void;
+            function define(name: string, func: (request: FunctionRequest) => any, validator?: Validator|((request: FunctionRequest) => any)): void;
             function define<T extends () => any>(
                 name: string,
                 func: (request: FunctionRequest<{}>) => Promise<ReturnType<T>> | ReturnType<T>,
+                validator?: Validator|((request: FunctionRequest) => any),
             ): void;
             function define<T extends (param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }) => any>(
                 name: string,
                 func: (request: FunctionRequest<Parameters<T>[0]>) => Promise<ReturnType<T>> | ReturnType<T>,
+                validator?: Validator|((request: FunctionRequest) => any),
             ): void;
             /**
              * Gets data for the current set of cloud jobs.
