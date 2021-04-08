@@ -158,7 +158,7 @@ export class WidgetTag extends React.Component<WidgetTagProps, any> { }
 
 interface ConfigOptions {
     tenant: string;
-    homepage?: () => Obj;
+    homepage?: () => Obj | null;
     origin?: string;
     routingBasePath?: string;
     visitorAuthentication?: boolean;
