@@ -167,6 +167,8 @@ interface ConfigOptions {
     endpoint?: string;
     priority?: 'foreground' | 'background';
     adoptUi?: boolean;
+    baseUrlForSite?: (siteId: string) => string | undefined;
+    siteForUrl?: (url: string) => {siteId: string, baseUrl: string} | undefined;
 }
 
 /**
