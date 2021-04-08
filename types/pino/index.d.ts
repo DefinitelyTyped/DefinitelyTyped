@@ -328,14 +328,7 @@ declare namespace P {
          * Enables pino.pretty. This is intended for non-production configurations. This may be set to a configuration
          * object as outlined in http://getpino.io/#/docs/API?id=pretty. Default: `false`.
          */
-        prettyPrint?:
-            | boolean
-            | (PinoPretty.PrettyOptions & {
-                  /**
-                   * Suppress warning on first synchronous flushing.
-                   */
-                  suppressFlushSyncWarning?: boolean;
-              });
+        prettyPrint?: boolean | PrettyOptions;
         /**
          * Allows to optionally define which prettifier module to use.
          */
@@ -550,7 +543,12 @@ declare namespace P {
     }
 
     // Re-export for backward compatibility
-    type PrettyOptions = PinoPretty.PrettyOptions;
+    type PrettyOptions = PinoPretty.PrettyOptions & {
+        /**
+         * Suppress warning on first synchronous flushing.
+         */
+        suppressFlushSyncWarning?: boolean;
+    };
 
     type Level = "fatal" | "error" | "warn" | "info" | "debug" | "trace";
     type LevelWithSilent = Level | "silent";
