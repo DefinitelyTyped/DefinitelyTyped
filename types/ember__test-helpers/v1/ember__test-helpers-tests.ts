@@ -19,8 +19,6 @@ import {
     getRootElement,
     pauseTest,
     resumeTest,
-    scrollTo,
-    select,
     waitFor,
     waitUntil,
     settled,
@@ -60,8 +58,6 @@ test('DOM interactions', async () => {
     await triggerKeyEvent(messageElement, 'keydown', 'Enter', { ctrlKey: true });
     await fillIn(messageElement, 'content');
     await typeIn(messageElement, 'content');
-    await select(messageElement, 'content');
-    await scrollTo(messageElement, 0, 0);
 
     const allMessages = findAll('.message');
     for (const element of allMessages) {
