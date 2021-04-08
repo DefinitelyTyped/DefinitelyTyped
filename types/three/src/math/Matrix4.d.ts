@@ -1,7 +1,7 @@
 import { Vector3 } from './Vector3';
 import { Euler } from './Euler';
 import { Quaternion } from './Quaternion';
-import { Matrix } from './Matrix3';
+import { Matrix, Matrix3 } from './Matrix3';
 
 export type Matrix4Tuple = [
     number,
@@ -78,6 +78,7 @@ export class Matrix4 implements Matrix {
     clone(): Matrix4;
     copy(m: Matrix4): this;
     copyPosition(m: Matrix4): Matrix4;
+    setFromMatrix3(m: Matrix3): Matrix4;
     extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
     makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
 
