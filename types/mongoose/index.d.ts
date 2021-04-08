@@ -1609,6 +1609,12 @@ declare module "mongoose" {
         modifiedPaths(): string[];
 
         /**
+         * If this document is a subdocument or populated document, returns the document's parent.
+         * Returns undefined otherwise.
+         */
+        parent(): undefined | MongooseDocument;
+
+        /**
          * Populates document references, executing the callback when complete.
          * If you want to use promises instead, use this function with
          * execPopulate()
@@ -1749,6 +1755,8 @@ declare module "mongoose" {
         class Subdocument extends MongooseDocument {
             /** Returns the top level document of this sub-document. */
             ownerDocument(): MongooseDocument;
+            /** Returns this sub-document's parent document. */
+            parent(): MongooseDocument;
 
             /**
              * Null-out this subdoc
@@ -1959,9 +1967,9 @@ declare module "mongoose" {
 
             /** Returns the top level document of this sub-document. */
             ownerDocument(): MongooseDocument;
-            /** Returns this sub-documents parent document. */
+            /** Returns this sub-document's parent document. */
             parent(): MongooseDocument;
-            /** Returns this sub-documents parent array. */
+            /** Returns this sub-document's parent array. */
             parentArray(): DocumentArray<MongooseDocument>;
 
             /** Removes the subdocument from its parent array. */

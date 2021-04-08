@@ -724,7 +724,7 @@ interface ModelWithFunction extends mongoose.Document {
 
     selfRefArray2?: ModelWithFunction[] | mongodb.ObjectID[];
 
-    parent?: {
+    myParent?: {
         ref:
             | {
                   _id: mongodb.ObjectId;

@@ -935,6 +935,7 @@ mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, { modelName: "Executive", tim
 // The constructor is private api, but we'll use it to test
 var subdocument: mongoose.Types.Subdocument = new mongoose.Types.Subdocument();
 subdocument.ownerDocument().errors;
+subdocument.parent().parent();
 subdocument.remove({}, function (err) {
     return 6;
 });

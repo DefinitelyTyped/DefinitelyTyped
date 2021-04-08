@@ -31,6 +31,7 @@ doc.isModified("path").valueOf();
 doc.isSelected("path").valueOf();
 doc.markModified("path");
 doc.modifiedPaths()[0].toLowerCase();
+doc.parent();
 doc.populate(function (err, doc) {
     doc.populate("path", function (err, doc) {
         doc.populate({
