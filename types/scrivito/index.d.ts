@@ -341,7 +341,7 @@ export class Obj {
     static get(id: string): Obj | null;
     static getByPath(path: string): Obj | null;
     static getByPermalink(permalink: string): Obj | null;
-    static root(): Obj;
+    static root(): Obj | null;
     static where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: ObjSearchValue, boost?: any): ObjSearch;
 
     // Instance methods
