@@ -91,3 +91,12 @@ num = bl.readInt8(offset);
 num = bl.readInt8(offset);
 num = bl.readUInt8(offset);
 num = bl.readUInt8(offset);
+num = bl.readIntBE(offset);
+num = bl.readIntLE(offset);
+num = bl.readUIntBE(offset);
+num = bl.readUIntLE(offset);
+
+BufferList.isBufferList(bl); // $ExpectTrue
+BufferList.isBufferList({}); // $ExpectFalse
+BufferListDeepExport.isBufferList(bufferListDeep); // $ExpectTrue
+BufferListDeepExport.isBufferList({}); // $ExpectFalse

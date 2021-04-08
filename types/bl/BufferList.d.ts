@@ -35,5 +35,11 @@ declare class BufferList {
   readUInt16LE(offset?: number): number;
   readInt8(offset: number): number;
   readUInt8(offset: number): number;
+  readIntBE(offset: number): number;
+  readIntLE(offset: number): number;
+  readUIntBE(offset: number): number;
+  readUIntLE(offset: number): number;
+
+  static isBufferList(other: any): boolean;
 }
 export = BufferList;
