@@ -1,4 +1,4 @@
-// Type definitions for serverless 1.78
+// Type definitions for serverless 2.32
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
@@ -55,8 +55,9 @@ declare namespace Serverless {
     type Event = ApiGatewayValidate.ApiGatewayEvent | object;
 
     interface Package {
-        include: string[];
-        exclude: string[];
+        include?: string[]; // deprecated
+        exclude?: string[]; // deprecated
+        patterns?: string[];
         artifact?: string;
         individually?: boolean;
     }

@@ -327,8 +327,7 @@ const awsServerless: Aws.Serverless = {
         }
     },
     package: {
-        include: ['testinclude'],
-        exclude: ['testexclude'],
+        patterns: ['!testpatternexclude', 'testpatterninclude'],
         excludeDevDependencies: false,
         artifact: 'testartifact',
         individually: true
@@ -360,8 +359,7 @@ const awsServerless: Aws.Serverless = {
                 subnetIds: ['testsubnetIds']
             },
             package: {
-                include: ['testinclude'],
-                exclude: ['testexclude'],
+                patterns: ['!testpatternexclude', 'testpatterninclude'],
                 excludeDevDependencies: false,
                 artifact: 'testartifact',
                 individually: true
