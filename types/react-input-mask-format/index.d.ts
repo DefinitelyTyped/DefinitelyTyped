@@ -1,5 +1,6 @@
 // Type definitions for react-input-mask-format 1.0
 // Project: https://github.com/temirtator/react-input-mask-format
+// Definitions by: Temirlan Shagyrov <https://github.com/temirtator>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
