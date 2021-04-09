@@ -55,8 +55,10 @@ declare namespace Serverless {
     type Event = ApiGatewayValidate.ApiGatewayEvent | object;
 
     interface Package {
-        include?: string[]; // deprecated
-        exclude?: string[]; // deprecated
+        /** @deprecated use `patterns` instead */
+        include?: string[];
+        /** @deprecated use `patterns` instead */
+        exclude?: string[];
         patterns?: string[];
         artifact?: string;
         individually?: boolean;
