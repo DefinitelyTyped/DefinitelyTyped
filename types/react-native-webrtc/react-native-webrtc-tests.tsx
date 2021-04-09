@@ -43,7 +43,10 @@ const peer = new RTCPeerConnection({
             ]
         }
     ],
-    iceTransportPolicy: "all"
+    iceTransportPolicy: "all",
+    bundlePolicy: "balanced",
+    iceCandidatePoolSize: 10,
+    rtcpMuxPolicy: "require"
 });
 
 peer.onaddstream = () => {};
