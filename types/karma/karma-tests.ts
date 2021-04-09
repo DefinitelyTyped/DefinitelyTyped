@@ -13,30 +13,44 @@ karma.stopper.stop({ port: 9876 }, exitCode => {
     process.exit(exitCode);
 });
 
-const server = new Server({ logLevel: "debug", port: 9876 }, (exitCode: number) => {
+new Server({ logLevel: "debug", port: 9876 }, (exitCode: number) => {
     console.log("Karma has exited with " + exitCode);
     process.exit(exitCode);
 });
 
-server.start();
+karma.config.parseConfig(null, { port: 9876 }, { promiseConfig: true, throwErrors: true }).then(karmaConfig => {
+    const server = new Server(karmaConfig, function doneCallback(exitCode) {
+        console.log("Karma has exited with " + exitCode);
+        process.exit(exitCode);
+    });
 
-server.refreshFiles();
+    server.start();
 
-server.on("browser_register", (browser: any) => {
-    console.log("A new browser was registered");
-});
+    server.refreshFiles();
 
-server.on("run_complete", (browsers, results) => {
-    results.disconnected = false;
-    results.error = false;
-    results.exitCode = 0;
-    results.failed = 9;
-    results.success = 10;
-});
+    server.on("browser_register", (browser: any) => {
+        console.log("A new browser was registered");
+    });
 
-karma.runner.run({ port: 9876 }, (exitCode: number) => {
-    console.log("Karma has exited with " + exitCode);
-    process.exit(exitCode);
+    server.on("run_complete", (browsers, results) => {
+        results.disconnected = false;
+        results.error = false;
+        results.exitCode = 0;
+        results.failed = 9;
+        results.success = 10;
+    });
+
+    karma.runner.run(karmaConfig, (exitCode: number) => {
+        console.log("Karma has exited with " + exitCode);
+        process.exit(exitCode);
+    });
+
+    karma.stopper.stop(karmaConfig, (exitCode: number) => {
+        if (exitCode === 0) {
+            console.log("Server stop as initiated");
+        }
+        process.exit(exitCode);
+    });
 });
 
 const testLauncher = (launcher: karma.launcher.Launcher) => {
@@ -187,10 +201,33 @@ const pluginsTests = (config: karma.Config) => {
 console.log(karma.constants.DEFAULT_HOSTNAME);
 console.log(karma.VERSION);
 
-karma.config.parseConfig("karma.conf.js", {
+const syncConfig: karma.Config = karma.config.parseConfig("karma.conf.js", {
     singleRun: true,
     restartOnFileChange: true,
 });
+
+const syncConfig2: karma.Config = karma.config.parseConfig(
+    "karma.conf.js",
+    {
+        singleRun: true,
+        restartOnFileChange: true,
+    },
+    {
+        promiseConfig: false,
+    },
+);
+
+const asyncConfig: Promise<karma.Config> = karma.config.parseConfig(
+    "karma.conf.js",
+    {
+        singleRun: true,
+        restartOnFileChange: true,
+    },
+    {
+        promiseConfig: true,
+        throwErrors: true,
+    },
+);
 
 // constants
 karma.VERSION; // $ExpectType string

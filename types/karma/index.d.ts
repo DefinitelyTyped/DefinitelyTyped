@@ -1,4 +1,4 @@
-// Type definitions for karma 6.1
+// Type definitions for karma 6.3
 // Project: https://github.com/karma-runner/karma, http://karma-runner.github.io
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
@@ -37,6 +37,9 @@ export namespace launcher {
 }
 
 export interface Runner {
+    run(options?: Config, callback?: ServerCallback): void;
+    /** @deprecated */
+    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
     run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
 }
 
@@ -44,6 +47,9 @@ export interface Stopper {
     /**
      * This function will signal a running server to stop. The equivalent of karma stop.
      */
+    stop(options?: Config, callback?: ServerCallback): void;
+    /** @deprecated */
+    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
     stop(options?: ConfigOptions, callback?: ServerCallback): void;
 }
 
@@ -56,6 +62,9 @@ export interface TestResults {
 }
 
 export class Server extends EventEmitter {
+    constructor(options?: Config, callback?: ServerCallback);
+    /** @deprecated */
+    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
     constructor(options?: ConfigOptions | ConfigFile, callback?: ServerCallback);
     /**
      * Start the server
@@ -676,6 +685,33 @@ export interface BrowserConsoleLogOptions {
     terminal?: boolean;
 }
 
+interface ParseOptions {
+    /**
+     * When true, the return value of the function is a Promise of Config instead of Config.
+     * Should be set to true to support async Karma configuration file.
+     *
+     * @deprecated Will become a default in the next major release.
+     */
+    promiseConfig?: boolean;
+
+    /**
+     * When true, function will throw error or return rejected Promise instead of calling process.exit(1).
+     *
+     * @deprecated Will become a default in the next major release.
+     */
+    throwErrors?: boolean;
+}
+
 export namespace config {
     function parseConfig(configFilePath: string, cliOptions: ConfigOptions): Config;
+    function parseConfig(
+        configFilePath: string | null | undefined,
+        cliOptions: ConfigOptions,
+        parseOptions?: ParseOptions & { promiseConfig: true },
+    ): Promise<Config>;
+    function parseConfig(
+        configFilePath: string | null | undefined,
+        cliOptions: ConfigOptions,
+        parseOptions?: ParseOptions,
+    ): Config;
 }
