@@ -34,6 +34,7 @@ const User = Model.extend({
         },
     }),
     mother: belongsTo('person'),
+    motherSync: belongsTo('person', { async: false }),
     father: belongsTo('person'),
     friends: hasMany('human'),
 });
@@ -41,9 +42,10 @@ const User = Model.extend({
 class Human extends Model {
     @attr age: number;
     @belongsTo('human') mother: AsyncBelongsTo<Human>;
-    @belongsTo('human') motherNullable: AsyncBelongsTo<Human>|null;
     @belongsTo('human', { async: false }) motherSync: Human;
-    @belongsTo('human', { async: false }) motherSyncNullable: Human|null;
+    @belongsTo('human') motherNullable: AsyncBelongsTo<Human> | null;
+    @belongsTo('human') father: AsyncBelongsTo<Human | null>;
+    @belongsTo('human', { async: false }) fatherSync: Human | null;
     @hasMany('person') children: AsyncHasMany<Person>;
     @hasMany('person', { async: false }) childrenSync: SyncHasMany<Person>;
 
@@ -73,10 +75,22 @@ user.get('id'); // $ExpectType string
 user.get('username'); // $ExpectType string
 user.get('verified'); // $ExpectType boolean
 user.get('createdAt'); // $ExpectType Date
+user.get('mother'); // $ExpectType AsyncBelongsTo<Person | null>
+user.get('motherSync'); // $ExpectType Person | null
 
 user.serialize();
 user.serialize({ includeId: true });
 user.serialize({ includeId: true });
+
+const human = Human.create({ age: 42 });
+human.get('mother'); // $ExpectType AsyncBelongsTo<Human>
+human.get('father'); // $ExpectType AsyncBelongsTo<Human | null>
+human.get('mother').then((m) => {
+  m; // $ExpectType Human
+});
+human.get('father').then((f) => {
+  f; // $ExpectType Human | null
+});
 
 const attributes: ChangedAttributes = user.changedAttributes();
 
@@ -102,14 +116,12 @@ reloaded = user.reload({});
 reloaded = user.reload({ adapterOptions: {} });
 reloaded = user.reload({ adapterOptions: { fastAsCanBe: 'yessirree' } });
 
-const human = Human.create();
-
 function testBelongsTo() {
     human.belongsTo('mother'); // $ExpectType BelongsToReference<Human>
 
     human.belongsTo('motherSync'); // $ExpectType BelongsToReference<Human>
 
-    human.belongsTo('motherSyncNullable'); // $ExpectType BelongsToReference<Human | null>
+    human.belongsTo('fatherSync'); // $ExpectType BelongsToReference<Human | null>
 
     // wrong relationship kind
     human.belongsTo('children'); // $ExpectType never
@@ -124,7 +136,7 @@ function testBelongsSetter() {
 
     set(human, 'motherNullable', null);
 
-    set(human, 'motherSyncNullable', null);
+    set(human, 'fatherSync', null);
 }
 
 function testHasMany() {
