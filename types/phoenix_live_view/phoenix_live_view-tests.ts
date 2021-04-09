@@ -1,11 +1,11 @@
 import { Socket } from "phoenix";
-import { LiveSocket, SocketOptions, ViewHookInterface, UploadEntryInterface } from "phoenix_live_view";
+import { LiveSocket, SocketOptions, ViewHook, UploadEntry } from "phoenix_live_view";
 
 function test_socket() {
   // Hooks
   const testHook = {
     mounted() {
-      const hook = this as unknown as ViewHookInterface;
+      const hook = this as unknown as ViewHook;
       console.log('TestHook mounted');
       hook.pushEvent('hook-mounted', { name: 'testHook' },
         (reply, ref) => {
@@ -15,7 +15,7 @@ function test_socket() {
   };
 
   // Uploaders
-  function testUploader(entries: UploadEntryInterface[], _onViewError: any) {
+  function testUploader(entries: UploadEntry[], _onViewError: any) {
     entries.forEach(entry => {
       console.log(`file: ${entry.file.name}`);
       console.log(`meta: ${JSON.stringify(entry.meta)}`);

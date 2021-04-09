@@ -136,7 +136,7 @@ export class Rendered {
   // toOutputBuffer(rendered: any, output: object): any;
 }
 
-export interface ViewHookInterface {
+export interface ViewHook {
   el: HTMLElement;
   viewName: string;
   pushEvent(event: string, payload: object, onReply?: (reply: any, ref: number) => any): void;
@@ -173,7 +173,7 @@ export class View {
   destroy(callback?: () => void): void;
   destroyAllChildren(): void;
   destroyDescendent(id: string): any;
-  destroyHook(hook: ViewHookInterface): void;
+  destroyHook(hook: ViewHook): void;
   dispatchEvents(events: Array<[string, object]>): void;
   displayError(): void;
   dropPendingRefs(): void;
@@ -182,7 +182,7 @@ export class View {
   formsForRecovery(html: string): HTMLElement[];
   getChildById(id: string): any;
   getDescendentByEl(el: HTMLElement): any;
-  getHook(el: HTMLElement): ViewHookInterface;
+  getHook(el: HTMLElement): ViewHook;
   getScheduledSubmit(formEl: HTMLElement): any;
   getSession(): any;
   getStatic(): string | null;
@@ -235,9 +235,15 @@ export class View {
   withinTargets(phxTarget: string, callback: any): void;
 }
 
-export interface UploadEntryInterface {
+export interface LiveViewFile extends File {
+  _phxRef?: string;
+}
+
+export class UploadEntry {
+  constructor(fileEl: HTMLInputElement, file: LiveViewFile, view: View);
+
   fileEl: HTMLInputElement;
-  file: File;
+  file: LiveViewFile;
   view: View;
   meta: object | null;
   metadata: () => object | null;
