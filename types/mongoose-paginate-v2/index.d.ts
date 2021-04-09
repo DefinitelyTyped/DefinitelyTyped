@@ -28,11 +28,11 @@ declare module 'mongoose' {
     }
 
     interface PaginateOptions {
-        select?: object | string;
-        sort?: object | string;
+        select?: Object | string;
+        sort?: Object | string;
         customLabels?: CustomLabels;
         collation?: CollationOptions;
-        populate?: object[] | string[] | object | string | QueryPopulateOptions;
+        populate?: Object[] | string[] | Object | string | QueryPopulateOptions;
         lean?: boolean;
         leanWithId?: boolean;
         offset?: number;
