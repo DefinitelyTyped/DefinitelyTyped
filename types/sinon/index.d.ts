@@ -775,17 +775,13 @@ declare namespace Sinon {
         (obj: any): SinonMock;
     }
 
-    type SinonTimerId = FakeTimers.TimerId;
-
-    type SinonFakeTimers = FakeTimers.InstalledMethods &
-        FakeTimers.NodeClock &
-        FakeTimers.BrowserClock & {
-            /**
-             * Restore the faked methods.
-             * Call in e.g. tearDown.
-             */
-            restore(): void;
-        };
+    type SinonFakeTimers = FakeTimers.Clock & {
+        /**
+         * Restores the original clock
+         * Identical to uninstall()
+         */
+        restore(): void;
+    };
 
     interface SinonFakeTimersConfig {
         now: number | Date;
@@ -1661,7 +1657,7 @@ declare namespace Sinon {
         expectation: SinonExpectationStatic;
 
         clock: {
-            create(now: number | Date): SinonFakeTimers;
+            create(now: number | Date): FakeTimers.Clock;
         };
 
         FakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;

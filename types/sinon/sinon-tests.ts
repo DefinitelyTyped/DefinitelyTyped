@@ -143,7 +143,7 @@ function testClock() {
     let clock = sinon.clock.create(1000);
     clock = sinon.clock.create(new Date());
 
-    let now: sinon.SinonTimerId = 0;
+    let now: number = 0;
     now = clock.now;
 
     const fn = () => {};
@@ -187,7 +187,6 @@ function testClock() {
     clock.reset();
     clock.runMicrotasks();
     clock.runToFrame();
-    clock.restore();
     clock.uninstall();
     clock.setSystemTime(1000);
     clock.setSystemTime(new Date());
