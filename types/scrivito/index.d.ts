@@ -344,6 +344,7 @@ export class Obj {
     static root(): Obj | null;
     static where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: ObjSearchValue, boost?: any): ObjSearch;
     static onSite(siteId: string): SiteContext;
+    static onAllSites(): SiteContext;
 
     // Instance methods
     id(): string;
