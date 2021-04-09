@@ -330,6 +330,36 @@ declare namespace THREE {
     }
 
     class Quaternion {
+        x: number;
+        y: number;
+        z: number;
+        w: number;
+
+        constructor(x?: number, y?: number, z?: number, w?: number);
+
+        static slerp(qa: Quaternion, qb: Quaternion, qm: Quaternion, t: number): Quaternion;
+
+        clone(): Quaternion;
+        conjugate(): Quaternion;
+        copy(q: Quaternion): Quaternion;
+        dot(v: Vector3): number;
+        equals(v: Quaternion): boolean;
+        fromArray(xyzw: number[], offset?: number): Quaternion;
+        inverse(): Quaternion;
+        length(): number;
+        lengthSq(): number;
+        multiply(q: Quaternion): Quaternion;
+        multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
+        multiplyVector3(vector: Vector3): Vector3;
+        normalize(): Quaternion;
+        onChange: () => void;
+        set(x: number, y: number, z: number, w: number): Quaternion;
+        setFromAxisAngle(axis: Vector3, angle: number): Quaternion;
+        setFromEuler(euler: Euler, update?: boolean): Quaternion;
+        setFromRotationMatrix(m: Matrix4): Quaternion;
+        setFromUnitVectors(vFrom: Vector3, vTo: Vector3): Quaternion;
+        slerp(qb: Quaternion, t: number): Quaternion;
+        toArray(xyzw?: number[], offset?: number): number[];
     }
 
     class Ray {
