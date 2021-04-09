@@ -5,22 +5,22 @@
 // TypeScript Version: 2.3
 import * as L from 'leaflet';
 declare module 'leaflet' {
-  export class TileLayerOffline {
+  class TileLayerOffline {
     constructor(urlTemplate: string, tilesDb: object, options?: TileLayerOptions);
     initialize(url: string, tilesDb: object, options: object): void;
     createTile(coords: object, done: DoneCallback): HTMLElement;
     getTileUrl(coords: object): string;
     getTileUrls(bounds: object, zoom: number): any[];
   }
-  export namespace tileLayer {
+  namespace tileLayer {
     function offline(url: string, tilesDb: object, options: object): TileLayerOffline;
   }
-  export class ControlOffline {
+  class ControlOffline {
     constructor(baseLayer: object, tilesDb: object, options: object);
     initialize (baseLayer: object, tilesDb: object, options: object): void;
     onAdd(map: object): HTMLElement;
   }
-  export namespace control {
+  namespace control {
     function offline(baseLayer: object, tilesDb: object, options: object): ControlOffline;
   }
 }
