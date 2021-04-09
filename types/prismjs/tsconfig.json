@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
+        "components.d.ts",
+        "components/index.d.ts",
         "prismjs-tests.ts"
     ]
 }
