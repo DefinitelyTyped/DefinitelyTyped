@@ -1,8 +1,8 @@
 import arrayFindIndex = require("array-find-index");
 
-arrayFindIndex(['rainbow', 'unicorn', 'pony'], x => x === 'unicorn');
+arrayFindIndex(['typescript', 'javascript', 'python'], x => x === 'javascript');
 
-const ctx = {foo: 'rainbow'};
-arrayFindIndex(['rainbow', 'unicorn', 'pony'], function(x) {
+const ctx = {foo: 'typescript'};
+arrayFindIndex(['typescript', 'javascript', 'python'], function(x) {
     return x === this.foo;
 }, ctx);
