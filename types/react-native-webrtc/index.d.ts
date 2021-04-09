@@ -112,6 +112,9 @@ export interface ConfigurationParamWithUrl extends ConfigurationParam {
 export interface RTCPeerConnectionConfiguration {
     iceServers: ConfigurationParamWithUrls[] | ConfigurationParamWithUrl[];
     iceTransportPolicy?: "all" | "relay" | "nohost" | "none";
+    bundlePolicy?: "balanced" | "max-compat" | "max-bundle";
+    rtcpMuxPolicy?: "negotiate" | "require";
+    iceCandidatePoolSize?: number;
 }
 
 export interface EventOnCandidate {
