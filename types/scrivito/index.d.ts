@@ -476,7 +476,7 @@ export class Team {
 export function canWrite(): boolean;
 export function configure(options: ConfigOptions): void;
 export function configureContentBrowser(options: any): void;
-export function connect<C>(component: C): C;
+export function connect<C extends React.ComponentType<any>>(component: C): C;
 export function currentPage(): Obj;
 export function currentPageParams(): any;
 export function extendMenu(menuCallback: any): void;
