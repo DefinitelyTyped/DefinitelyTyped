@@ -1,5 +1,5 @@
-import BufferList from 'bl';
-import BufferListDeepExport from 'bl/BufferList';
+import BufferList = require('bl');
+import BufferListDeepExport = require('bl/BufferList');
 
 var bl: BufferList;
 var buffer: Buffer;
