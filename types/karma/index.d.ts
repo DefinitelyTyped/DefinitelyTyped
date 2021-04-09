@@ -69,7 +69,7 @@ export class Server extends EventEmitter {
     /**
      * Start the server
      */
-    start(): void;
+    start(): Promise<void>;
     /**
      * Get properties from the injector
      * @param token

@@ -24,7 +24,7 @@ karma.config.parseConfig(null, { port: 9876 }, { promiseConfig: true, throwError
         process.exit(exitCode);
     });
 
-    server.start();
+    server.start(); // $ExpectType Promise<void>
 
     server.refreshFiles();
 
