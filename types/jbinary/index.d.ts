@@ -46,6 +46,10 @@ declare namespace jBinary {
  * Class for working with binary data.
  */
 declare class jBinary {
+    // =================================================================================================================
+    //                                          ??? = test this please
+    // =================================================================================================================
+
     /**
      * Loads data from a given source and returns it in a callback.
      * @param source Source of the data to be loaded.
@@ -53,7 +57,7 @@ declare class jBinary {
      */
     static loadData(
         source: jBinary.SourceType,
-        callback: (error: Error | null, data: jBinary.DataType | undefined) => void,
+        callback: (error: Error | null, data: jBinary.DataType | undefined) => void, // ???
     ): void;
 
     /**
@@ -61,7 +65,7 @@ declare class jBinary {
      * @param source Source of the data to be loaded.
      * @returns Promise with the loaded data as parameter.
      */
-    static loadData(source: jBinary.SourceType): Promise<jBinary.DataType>;
+    static loadData(source: jBinary.SourceType): Promise<jBinary.DataType>; // ???
 
     /**
      * Loads data from a given source and calls a callback with the jBinary object.
@@ -72,7 +76,7 @@ declare class jBinary {
     static load(
         source: jBinary.SourceType,
         typeSet?: jBinary.TypeSet,
-        callback?: (error: Error | null, jb: jBinary) => void,
+        callback?: (error: Error | null, jb: jBinary) => void, // ???
     ): void;
 
     /**
@@ -81,7 +85,7 @@ declare class jBinary {
      * @param typeSet Typeset to use for loading the data.
      * @returns Promise with the jBinary object as parameter.
      */
-    static load(source: jBinary.SourceType, typeSet?: jBinary.TypeSet): Promise<jBinary>;
+    static load(source: jBinary.SourceType, typeSet?: jBinary.TypeSet): Promise<jBinary>; // ???
 
     /**
      * Saves binary data to a given destination and calls a callback when finished.
@@ -92,7 +96,7 @@ declare class jBinary {
     static saveAs(
         destination: jBinary.DestinationType,
         mimeType?: string,
-        callback?: (error: Error | undefined) => void,
+        callback?: (error: Error | undefined) => void, // ???
     ): void;
 
     /**
@@ -101,7 +105,7 @@ declare class jBinary {
      * @param mimeType MIME-Type of the data. @default "application/octet-stream"
      * @returns Promise with the jBinary object as parameter.
      */
-    static saveAs(destination: jBinary.DestinationType, mimeType?: string): Promise<jBinary>;
+    static saveAs(destination: jBinary.DestinationType, mimeType?: string): Promise<jBinary>; // ???
 
     /**
      * Returns a URI suitable for usage in DOM elements.
@@ -110,26 +114,61 @@ declare class jBinary {
      */
     static toURI(mimeType?: string): Blob | string;
 
-    constructor(data: Array<number>);
-    constructor(data: jDataView, typeSet: jBinary.TypeSet);
-    constructor(bufferSize: number, typeSet: jBinary.TypeSet);
+    /**
+     * Creates a new jBinary instance with the provided binary string as data.
+     * @param data The binary string data.
+     * @param typeSet Optional TypeSet object with all the defined types.
+     */
+    constructor(data: string, typeSet?: jBinary.TypeSet);
+
+    /**
+     * Creates a new jBinary instance with the provided array as data.
+     * @param data The binary data.
+     * @param typeSet Optional TypeSet object with all the defined types.
+     */
+    constructor(data: Array<number>, typeSet?: jBinary.TypeSet);
+
+    /**
+     * Creates a new jBinary instance with a jDataView object as data.
+     * @param data The binary data.
+     * @param typeSet Optional TypeSet object with all the defined types.
+     */
+    constructor(data: jDataView, typeSet?: jBinary.TypeSet);
+
+    /**
+     * Creates a new jBinary instance with an empty buffer as data.
+     * @param bufferSize The size of the empty buffer in bytes.
+     * @param typeSet Optional TypeSet object with all the defined types.
+     */
+    constructor(bufferSize: number, typeSet?: jBinary.TypeSet);
 
     /**
      * Property for accessing the encapulated data view.
      */
     view: jDataView;
 
-    read(type: string, offset?: number): unknown;
-    readAll(): unknown;
-
-    write(type: string, data: unknown, offset?: number): number;
-    writeAll(data: unknown): number;
+    /**
+     * Casts a jBinary instance to the given TypeSet while pointing to the
+     * same data, pointers and methods as the original instance.
+     * @param typeSet The new TypeSet for the resulting instance.
+     * @param modifyOriginal If true the original instance will be modified instead of being inherited.
+     */
+    as(typeSet: jBinary.TypeSet, modifyOriginal?: boolean): jBinary;
 
     /**
-     * Returns the current position in the binary data.
-     * @returns The current position in the binary data.
+     * Read a value of a specified type.
+     * @param type The name of the type to read. (eg: "uint8", "uint32", etc.)
+     * @param offset If provided, read from this offset position, otherwise read it from the current position
+     *               and move data pointer forward (streaming mode).
+     * @returns The read value.
      */
-    tell(): number;
+    read(type: string, offset?: number): unknown;
+
+    /**
+     * Read the entire data as one value of the type specified by the "jBinary.all" key in the TypeSet.
+     * @returns The read value.
+     */
+    readAll(): unknown;
 
     /**
      * Go to "position" in the binary data.
@@ -143,7 +182,7 @@ declare class jBinary {
      * @param callback Possible callback to execute at the new position.
      * @returns The data returned by the callback.
      */
-    seek(position: number, callback: (jb: jBinary) => unknown): unknown;
+    seek(position: number, callback: (jb: jBinary /* ??? */) => unknown): unknown;
 
     /**
      * Advance in the binary data by "count" bytes.
@@ -157,10 +196,37 @@ declare class jBinary {
      * @param callback Possible callback to execute at the new position.
      * @returns The data returned by the callback.
      */
-    skip(count: number, callback?: (jb: jBinary) => unknown): unknown;
+    skip(count: number, callback?: (jb: jBinary /* ??? */) => unknown): unknown;
 
+    /**
+     * Returns a sliced version of the current binary with same type set.
+     * @param start Slice start position.
+     * @param end Slice end position.
+     * @param forceCopy If true a new jDataView will be created and the original data is not linked to it.
+     *                  Changes will therefore be isolated from the original binary.
+     */
     slice(start: number, end: number, forceCopy?: boolean): jBinary;
-    as(typeSet: jBinary.TypeSet, modifyOriginal?: boolean): jBinary;
+
+    /**
+     * Returns the current position in the binary data.
+     * @returns The current position in the binary data.
+     */
+    tell(): number;
+
+    /**
+     * Write a value of a specified type.
+     * @param type The name of the type to write. (eg: "uint8", "uint32", etc.)
+     * @param data The value to write.
+     * @param offset If provided, write to this offset position, otherwise write it to the current position
+     *               and move data pointer forward (streaming mode).
+     */
+    write(type: string, data: unknown, offset?: number): void;
+
+    /**
+     * Write the entire data as one value of the type specified by the "jBinary.all" key in the TypeSet.
+     * @param data The value to write.
+     */
+    writeAll(data: unknown): void;
 }
 
 export = jBinary;
