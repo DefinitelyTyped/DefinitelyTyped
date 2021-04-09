@@ -1,4 +1,4 @@
-// Type definitions for @carbon/elements 10.24
+// Type definitions for @carbon/elements 10.28
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/elements
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,6 +27,7 @@ export const white: {
     icon02: '#525252';
     icon03: '#ffffff';
     link01: '#0f62fe';
+    link02: '#0043ce';
     inverseLink: '#78a9ff';
     field01: '#f4f4f4';
     field02: '#ffffff';
@@ -297,13 +298,15 @@ export const white: {
         fontWeight: 300;
         lineHeight: 1.334;
         letterSpacing: 0;
-        lg: {
-            fontSize: '1.75rem';
-            lineHeight: 1.29;
-        };
-        max: {
-            fontSize: '2rem';
-            lineHeight: 1.25;
+        breakpoints: {
+            lg: {
+                fontSize: '1.75rem';
+                lineHeight: 1.29;
+            };
+            max: {
+                fontSize: '2rem';
+                lineHeight: 1.25;
+            };
         };
     };
     quotation01: {
@@ -1093,13 +1096,15 @@ export const expressiveParagraph01: {
     fontWeight: 300;
     lineHeight: 1.334;
     letterSpacing: 0;
-    lg: {
-        fontSize: '1.75rem';
-        lineHeight: 1.29;
-    };
-    max: {
-        fontSize: '2rem';
-        lineHeight: 1.25;
+    breakpoints: {
+        lg: {
+            fontSize: '1.75rem';
+            lineHeight: 1.29;
+        };
+        max: {
+            fontSize: '2rem';
+            lineHeight: 1.25;
+        };
     };
 };
 export const quotation01: {
@@ -1304,6 +1309,7 @@ export const g10: {
     icon02: '#525252';
     icon03: '#ffffff';
     link01: '#0f62fe';
+    link02: '#0043ce';
     inverseLink: '#78a9ff';
     field01: '#ffffff';
     field02: '#f4f4f4';
@@ -1574,13 +1580,15 @@ export const g10: {
         fontWeight: 300;
         lineHeight: 1.334;
         letterSpacing: 0;
-        lg: {
-            fontSize: '1.75rem';
-            lineHeight: 1.29;
-        };
-        max: {
-            fontSize: '2rem';
-            lineHeight: 1.25;
+        breakpoints: {
+            lg: {
+                fontSize: '1.75rem';
+                lineHeight: 1.29;
+            };
+            max: {
+                fontSize: '2rem';
+                lineHeight: 1.25;
+            };
         };
     };
     quotation01: {
@@ -1786,6 +1794,7 @@ export const g90: {
     icon02: '#c6c6c6';
     icon03: '#ffffff';
     link01: '#78a9ff';
+    link02: '#a6c8ff';
     inverseLink: '#0f62fe';
     field01: '#393939';
     field02: '#525252';
@@ -2056,13 +2065,15 @@ export const g90: {
         fontWeight: 300;
         lineHeight: 1.334;
         letterSpacing: 0;
-        lg: {
-            fontSize: '1.75rem';
-            lineHeight: 1.29;
-        };
-        max: {
-            fontSize: '2rem';
-            lineHeight: 1.25;
+        breakpoints: {
+            lg: {
+                fontSize: '1.75rem';
+                lineHeight: 1.29;
+            };
+            max: {
+                fontSize: '2rem';
+                lineHeight: 1.25;
+            };
         };
     };
     quotation01: {
@@ -2268,6 +2279,7 @@ export const g100: {
     icon02: '#c6c6c6';
     icon03: '#ffffff';
     link01: '#78a9ff';
+    link02: '#a6c8ff';
     inverseLink: '#0f62fe';
     field01: '#262626';
     field02: '#393939';
@@ -2312,7 +2324,7 @@ export const g100: {
     decorative01: '#525252';
     buttonSeparator: '#161616';
     skeleton01: '#353535';
-    skeleton02: '#393939';
+    skeleton02: '#525252';
     brand01: '#0f62fe';
     brand02: '#6f6f6f';
     brand03: '#ffffff';
@@ -2538,13 +2550,15 @@ export const g100: {
         fontWeight: 300;
         lineHeight: 1.334;
         letterSpacing: 0;
-        lg: {
-            fontSize: '1.75rem';
-            lineHeight: 1.29;
-        };
-        max: {
-            fontSize: '2rem';
-            lineHeight: 1.25;
+        breakpoints: {
+            lg: {
+                fontSize: '1.75rem';
+                lineHeight: 1.29;
+            };
+            max: {
+                fontSize: '2rem';
+                lineHeight: 1.25;
+            };
         };
     };
     quotation01: {
@@ -5870,6 +5884,7 @@ export const icon01: '#161616';
 export const icon02: '#525252';
 export const icon03: '#ffffff';
 export const link01: '#0f62fe';
+export const link02: '#0043ce';
 export const inverseLink: '#78a9ff';
 export const field01: '#f4f4f4';
 export const field02: '#ffffff';
@@ -6025,6 +6040,13 @@ export const easings: {
         expressive: 'cubic-bezier(0.4, 0.14, 1, 1)';
     };
 };
+
+export const fast01: '70ms';
+export const fast02: '110ms';
+export const moderate01: '150ms';
+export const moderate02: '240ms';
+export const slow01: '400ms';
+export const slow02: '700ms';
 
 export function motion(name: EasingName, mode: EasingMode): undefined | typeof easings[EasingName][EasingMode];
 export type FontFamilyName = keyof typeof fontFamilies;

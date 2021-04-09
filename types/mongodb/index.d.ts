@@ -33,6 +33,7 @@
 //                 Julien TASSIN <https://github.com/jtassin>
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
+//                 Wyatt Johnson <https://github.com/wyattjoh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
@@ -47,7 +48,7 @@ import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
 
 type FlattenIfArray<T> = T extends ReadonlyArray<infer R> ? R : T;
-type WithoutProjection<T> = T & { fields?: undefined, projection?: undefined };
+export type WithoutProjection<T> = T & { fields?: undefined; projection?: undefined };
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -178,7 +179,7 @@ export interface ClientSession extends EventEmitter {
      * @param fn
      * @param options - settings for the transaction
      */
-    withTransaction<T>(fn: WithTransactionCallback<T>, options?: TransactionOptions): Promise<void>;
+    withTransaction(fn: WithTransactionCallback, options?: TransactionOptions): Promise<any>;
 }
 
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#ReadConcern */
@@ -261,7 +262,7 @@ export interface MongoCallback<T> {
  *                  This should be passed into each operation within the lambda.
  * @returns - the resulting {@link Promise} of operations run within this transaction
  */
-export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
+export type WithTransactionCallback = (session: ClientSession) => Promise<void>;
 
 /**
  * Creates a new MongoError
@@ -431,6 +432,136 @@ export interface MongoClientOptions
      * @default false
      */
     directConnection?: boolean;
+
+    /*
+     * Optionally enable client side auto encryption.
+     */
+    autoEncryption?: AutoEncryptionOptions;
+}
+
+/**
+ * Extra options related to the mongocryptd process.
+ * See {@link https://mongodb.github.io/node-mongodb-native/3.6/api/AutoEncrypter.html#~AutoEncryptionExtraOptions documentation}
+ * for more info.
+ */
+export interface AutoEncryptionExtraOptions {
+    /**
+     * A local process the driver communicates with to determine how to encrypt
+     * values in a command. Defaults to "mongodb:///var/mongocryptd.sock" if
+     * domain sockets are available or "mongodb://localhost:27020" otherwise.
+     */
+    mongocryptdURI?: string;
+
+    /**
+     * If true, autoEncryption will not attempt to spawn a mongocryptd before
+     * connecting.
+     */
+    mongocryptdBypassSpawn?: boolean;
+
+    /**
+     * The path to the mongocryptd executable on the system.
+     */
+    mongocryptdSpawnPath?: string;
+
+    /**
+     * Command line arguments to use when auto-spawning a mongocryptd.
+     */
+    mongocryptdSpawnArgs?: string[];
+}
+
+/**
+ * Configuration options that are used by specific KMS providers during key
+ * generation, encryption, and decryption.
+ * See {@link http://mongodb.github.io/node-mongodb-native/3.6/api/global.html#KMSProviders documentation}
+ * for more info.
+ */
+export interface KMSProviders {
+    /**
+     * Configuration options for using 'aws' as your KMS provider.
+     */
+    aws?: {
+        /**
+         * The access key used for the AWS KMS provider.
+         */
+        accessKeyId?: string;
+
+        /**
+         * The secret access key used for the AWS KMS provider.
+         */
+        secretAccessKey?: string;
+    };
+
+    /**
+     * Configuration options for using `gcp` as your KMS provider.
+     */
+    gcp?: {
+        /**
+         * The service account email to authenticate.
+         */
+        email?: string;
+
+        /**
+         * A PKCS#8 encrypted key. This can either be a base64 string or a
+         * binary representation.
+         */
+        privateKey?: string | Buffer;
+
+        /**
+         * If present, a host with optional port. E.g. "example.com" or
+         * "example.com:443". Defaults to "oauth2.googleapis.com".
+         */
+        endpoint?: string;
+    };
+
+    /**
+     * Configuration options for using 'local' as your KMS provider.
+     */
+    local?: {
+        /**
+         * The master key used to encrypt/decrypt data keys. A 96-byte long
+         * Buffer.
+         */
+        key?: Buffer;
+    };
+}
+
+/**
+ * Configuration options for a automatic client encryption.
+ * See {@link https://mongodb.github.io/node-mongodb-native/3.6/api/AutoEncrypter.html#~AutoEncryptionOptions documentation}
+ * for more info.
+ */
+export interface AutoEncryptionOptions {
+    /**
+     * A MongoClient used to fetch keys from a key vault
+     */
+    keyVaultClient?: MongoClient;
+
+    /**
+     * The namespace where keys are stored in the key vault.
+     */
+    keyVaultNamespace?: string;
+
+    /**
+     * Configuration options that are used by specific KMS providers during key
+     * generation, encryption, and decryption.
+     */
+    kmsProviders?: KMSProviders;
+
+    /**
+     * A map of namespaces to a local JSON schema for encryption.
+     */
+    schemaMap?: object;
+
+    /**
+     * Allows the user to bypass auto encryption, maintaining implicit
+     * decryption.
+     */
+    bypassAutoEncryption?: boolean;
+
+    /**
+     * Extra options related to the mongocryptd process.
+     */
+    extraOptions?: AutoEncryptionExtraOptions;
 }
 
 export interface SSLOptions {
@@ -1352,19 +1483,10 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     ): void;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#find */
     find(query?: FilterQuery<TSchema>): Cursor<TSchema>;
-    find(
-        query: FilterQuery<TSchema>,
-        options?: WithoutProjection<FindOneOptions<TSchema>>,
-    ): Cursor<TSchema>;
-    find<T = TSchema>(
-        query: FilterQuery<TSchema>,
-        options: FindOneOptions<T extends TSchema ? TSchema : T>,
-    ): Cursor<T>;
+    find(query: FilterQuery<TSchema>, options?: WithoutProjection<FindOneOptions<TSchema>>): Cursor<TSchema>;
+    find<T = TSchema>(query: FilterQuery<TSchema>, options: FindOneOptions<T extends TSchema ? TSchema : T>): Cursor<T>;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
-    findOne(
-        filter: FilterQuery<TSchema>,
-        callback: MongoCallback<TSchema>,
-    ): void;
+    findOne(filter: FilterQuery<TSchema>, callback: MongoCallback<TSchema>): void;
     findOne(
         filter: FilterQuery<TSchema>,
         options?: WithoutProjection<FindOneOptions<TSchema>>,
@@ -1755,8 +1877,8 @@ export type SetFields<TSchema> = ({
 
 export type PushOperator<TSchema> = ({
     readonly [key in KeysOfAType<TSchema, ReadonlyArray<any>>]?:
-        | UpdateOptionalId<Unpacked<TSchema[key]>>
-        | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
+        | Unpacked<TSchema[key]>
+        | ArrayOperator<Array<Unpacked<TSchema[key]>>>;
 } &
     NotAcceptedFields<TSchema, ReadonlyArray<any>>) & {
     readonly [key: string]: ArrayOperator<any> | any;
@@ -1781,7 +1903,7 @@ export type PullAllOperator<TSchema> = ({
 /** @see https://docs.mongodb.com/manual/reference/operator/update */
 export type UpdateQuery<TSchema> = {
     /** @see https://docs.mongodb.com/manual/reference/operator/update-field/ */
-    $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
+    $currentDate?: OnlyFieldsOfType<TSchema, Date | Timestamp, true | { $type: 'date' | 'timestamp' }>;
     $inc?: OnlyFieldsOfType<TSchema, NumericTypes | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;

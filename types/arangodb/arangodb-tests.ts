@@ -4,6 +4,7 @@ import { createRouter } from "@arangodb/foxx";
 import sessionsMiddleware = require("@arangodb/foxx/sessions");
 import jwtStorage = require("@arangodb/foxx/sessions/storages/jwt");
 import cookieTransport = require("@arangodb/foxx/sessions/transports/cookie");
+import createAuth = require("@arangodb/foxx/auth");
 
 console.warnStack(new Error(), "something went wrong");
 
@@ -147,6 +148,10 @@ console.log(
         RETURN u
     `.toArray()
 );
+
+const auth = createAuth({ method: "pbkdf2" });
+const authData = auth.create("hunter2");
+console.log(authData.iter);
 
 const view = db._view("yolo")!;
 view.properties({

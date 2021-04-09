@@ -5,6 +5,8 @@ declare module 'fs/promises' {
 declare module 'node:fs/promises' {
     import {
         Stats,
+        BigIntStats,
+        StatOptions,
         WriteVResult,
         ReadVResult,
         PathLike,
@@ -96,7 +98,9 @@ declare module 'node:fs/promises' {
         /**
          * Asynchronous fstat(2) - Get file status.
          */
-        stat(): Promise<Stats>;
+        stat(opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+        stat(opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
 
         /**
          * Asynchronous ftruncate(2) - Truncate a file to a specified length.
@@ -362,22 +366,20 @@ declare module 'node:fs/promises' {
     function symlink(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
 
     /**
-     * Asynchronous fstat(2) - Get file status.
-     * @param handle A `FileHandle`.
-     */
-    function fstat(handle: FileHandle): Promise<Stats>;
-
-    /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstat(path: PathLike): Promise<Stats>;
+    function lstat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    function lstat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+    function lstat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     /**
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function stat(path: PathLike): Promise<Stats>;
+    function stat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    function stat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.

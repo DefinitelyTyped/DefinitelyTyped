@@ -47,7 +47,7 @@ export class BufferAttribute {
     onUploadCallback: () => void;
     onUpload(callback: () => void): this;
     setUsage(usage: Usage): this;
-    clone(): BufferAttribute;
+    clone(): this;
     copy(source: BufferAttribute): this;
     copyAt(index1: number, attribute: BufferAttribute, index2: number): this;
     copyArray(array: ArrayLike<number>): this;

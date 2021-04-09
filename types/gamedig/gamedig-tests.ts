@@ -8,7 +8,8 @@ Gamedig.query({
   socketTimeout: 2000,
   attemptTimeout: 10000,
   givenPortOnly: true,
-  debug: false
+  debug: false,
+  requestRules: true
 }, (error, state) => {
   if (error) throw error();
 

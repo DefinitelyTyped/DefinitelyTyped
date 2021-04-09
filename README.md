@@ -13,6 +13,7 @@
 * [How can I contribute?](#how-can-i-contribute)
   - [Testing](#testing)
   - [Make a pull request](#make-a-pull-request)<details><summary></summary>
+    - [Partial clone](#partial-clone)
     - [Edit an existing package](#edit-an-existing-package)
     - [Create a new package](#create-a-new-package)
     - [Removing a package](#removing-a-package)
@@ -71,11 +72,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (3.3 and earlier)
+#### Older versions of TypeScript (3.4 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 3.4 and above are tested.
-If you're using TypeScript 2.0 to 3.3, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 3.5 and above are tested.
+If you're using TypeScript 2.0 to 3.4, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -152,11 +153,25 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
+First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it, install [node](https://nodejs.org/), and run `npm install`. If using `npm` v7 you need to add the `--legacy-peer-deps` flag to the command.
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
 
 <img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+
+#### Partial clone
+
+You can clone the entire repository [as per usual](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository), but it's large and includes a massive directory of type packages. This will take some time to clone and may be unnecessarily unwieldy.
+
+For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt), and [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) features. This will reduce clone time and improve git performance.
+
+>:warning: This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
+
+1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
+    - `--sparse` initializes the sparse-checkout file so the working directory starts with only the files in the root of the repository.
+    - `--filter=blob:none` will exclude files, fetching them only as needed.
+    - `--depth=1` will further improve clone speed by truncating commit history, but it may cause issues as summarized [here](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
+2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
 
 #### Edit an existing package
 

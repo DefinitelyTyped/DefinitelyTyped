@@ -267,11 +267,13 @@ declare namespace Chai {
         greaterThan: NumberComparer;
         least: NumberComparer;
         gte: NumberComparer;
+        greaterThanOrEqual: NumberComparer;
         below: NumberComparer;
         lt: NumberComparer;
         lessThan: NumberComparer;
         most: NumberComparer;
         lte: NumberComparer;
+        lessThanOrEqual: NumberComparer;
         within(start: number, finish: number, message?: string): Assertion;
         within(start: Date, finish: Date, message?: string): Assertion;
     }

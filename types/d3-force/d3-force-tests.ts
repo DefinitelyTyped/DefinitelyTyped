@@ -181,6 +181,15 @@ num = simLink.s;
 
 // id (node id accessor)
 
+// Using id of type number.
+forceLink = forceLink.id((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
+    return i;
+});
+
+// Using id of type string.
 forceLink = forceLink.id((node, index, nodes) => {
     const n: SimNode = node;
     const i: number = index;

@@ -178,6 +178,11 @@ export interface Mixpanel {
     people: People;
 }
 
+export interface OverridedMixpanel extends Mixpanel {
+    init(token: string, config: Partial<Config>, name: string): Mixpanel;
+    init(token: string, config?: Partial<Config>): undefined;
+}
+
 export function add_group(group_key: string, group_id: string, callback?: Callback): void;
 export function alias(alias: string, original?: string): void;
 export function clear_opt_in_out_tracking(options?: Partial<ClearOptOutInOutOptions>): void;
@@ -221,5 +226,5 @@ export function track_with_groups(event_name: string, properties: Dict, groups: 
 export function unregister(property: string): void;
 export const people: People;
 
-declare const mixpanel: Mixpanel;
+declare const mixpanel: OverridedMixpanel;
 export default mixpanel;

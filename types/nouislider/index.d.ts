@@ -177,7 +177,7 @@ declare namespace noUiSlider {
         /**
          * Unbind event to the slider.
          */
-        off(eventName: string): void;
+        off(eventName?: string): void;
         /**
          * Destroy's the slider.
          */

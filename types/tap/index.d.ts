@@ -46,6 +46,13 @@ declare class Test {
     cleanSnapshot: (s: string) => string;
     formatSnapshot: (obj: any) => string;
 
+    fixture(type: 'symlink' | 'link', content: string): Fixture.Instance;
+    fixture(type: 'file', content: string | Buffer): Fixture.Instance;
+    fixture(type: 'dir', content: Fixture.Spec): Fixture.Instance;
+
+    testdir(spec?: Fixture.Spec): string;
+    readonly testdirName: string;
+
     context: any;
     name: string;
     runOnly: boolean;
@@ -327,6 +334,17 @@ declare namespace Assertions {
     ) => boolean;
 }
 
+declare namespace Fixture {
+    interface Instance {
+        type: 'symlink' | 'link' | 'file' | 'dir';
+        content: string | Buffer | Spec;
+    }
+
+    interface Spec {
+        [pathname: string]: string | Buffer | Instance | Spec;
+    }
+}
+
 interface Mocha {
     it: (name?: string, fn?: (a: any) => any) => void;
     describe: (name?: string, fn?: (a: any) => any) => void;
@@ -335,7 +353,7 @@ interface Mocha {
 
 // Little hack to simulate the Test class on the tap export
 interface TestConstructor {
-    new(options?: Options.Test): Test;
+    new (options?: Options.Test): Test;
     prototype: Test;
 }
 

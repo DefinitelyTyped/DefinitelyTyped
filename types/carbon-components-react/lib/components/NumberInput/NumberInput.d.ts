@@ -16,6 +16,9 @@ export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedAttribute
     id: string,
     invalid?: boolean,
     invalidText?: React.ReactNode,
+    /**
+     * @deprecated
+     */
     isMobile?: boolean,
     label?: React.ReactNode,
     light?: boolean,

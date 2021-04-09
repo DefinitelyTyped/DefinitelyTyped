@@ -55,6 +55,42 @@ const transformWithRecastParseOptions: Transform = (file, { j }) => {
     }).toSource();
 };
 
+const transformExportDefaultArrow: Transform = (file, { j }) => {
+    return j(file.source)
+        .find(j.ExportDefaultDeclaration, {
+            type: "ExportDefaultDeclaration",
+            declaration: {
+                type: "ArrowFunctionExpression",
+            },
+        })
+        .forEach((path) => {
+            const arrow = path.node.declaration as import("ast-types/gen/kinds").ArrowFunctionExpressionKind;
+            const body = arrow.body.type === "BlockStatement" ? arrow.body :
+                j.blockStatement([
+                    j.returnStatement(arrow.body)
+                ]);
+            j(path).replaceWith(
+                j.exportDefaultDeclaration(
+                    j.functionDeclaration.from({
+                        async: arrow.async,
+                        body,
+                        comments: arrow.comments,
+                        defaults: arrow.defaults,
+                        expression: arrow.expression,
+                        generator: arrow.generator,
+                        id: null,
+                        loc: arrow.loc,
+                        params: arrow.params,
+                        rest: arrow.rest,
+                        returnType: arrow.returnType,
+                        typeParameters: arrow.typeParameters,
+                    })
+                )
+            );
+        })
+        .toSource();
+};
+
 // `ASTNode` supports type narrowing.
 {
     const node = ({} as any) as ASTNode;

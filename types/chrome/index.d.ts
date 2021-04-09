@@ -12,11 +12,13 @@
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
 //                 pokutuna <https://github.com/pokutuna>
+//                 Jason Xian <https://github.com/JasonXian>
+//                 userTim <https://github.com/usertim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="filesystem" />
-/// <reference path="har-format/index.d.ts" />
+/// <reference path="./har-format/index.d.ts" />
 
 ////////////////////
 // Global object
@@ -146,7 +148,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function disable(tabId: number, callback: () => void): void;
+    export function disable(tabId: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -154,7 +156,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function enable(tabId: number, callback: () => void): void;
+    export function enable(tabId: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -204,7 +206,7 @@ declare namespace chrome.action {
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
+    export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -213,7 +215,7 @@ declare namespace chrome.action {
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setIcon(details: TabIconDetails, callback?: Function): void;
+    export function setIcon(details: TabIconDetails, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -221,7 +223,7 @@ declare namespace chrome.action {
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setPopup(details: PopupDetails, callback: () => void): void;
+    export function setPopup(details: PopupDetails, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -6559,6 +6561,74 @@ declare namespace chrome.runtime {
 }
 
 ////////////////////
+// Scripting
+////////////////////
+/**
+ * Use the chrome.scripting API to execute script in different contexts.
+ * Permissions: "scripting", Manifest v3+
+ * @since Chrome 88.
+ */
+declare namespace chrome.scripting {
+
+    /* The CSS style origin for a style change. */
+    export type StyleOrigin = "AUTHOR" | "USER";
+
+    export interface InjectionResult {
+        /* The frame associated with the injection. */
+        frameId: number;
+        /* The result of the script execution. */
+        result?: any;
+    }
+
+    export interface InjectionTarget {
+        /* Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if frameIds is specified. */
+        allFrames?: boolean;
+        /* The IDs of specific frames to inject into. */
+        frameIds?: number[];
+        /* The ID of the tab into which to inject. */
+        tabId: number;
+    }
+
+    export interface CSSInjection {
+        /* A string containing the CSS to inject. Exactly one of files and css must be specified. */
+        css?: string;
+        /* The path of the CSS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and css must be specified. */
+        files?: string[];
+        /* The style origin for the injection. Defaults to 'AUTHOR'. */
+        origin?: StyleOrigin;
+        /* Details specifying the target into which to insert the CSS. */
+        target: InjectionTarget;
+    }
+
+    export interface ScriptInjection {
+        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
+        files?: string[];
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        function?: () => void;
+        /* Details specifying the target into which to inject the script. */
+        target: InjectionTarget;
+    }
+
+    /**
+     * Injects a script into a target context. The script will be run at document_end.
+     * @param injection
+     * The details of the script which to inject.
+     * @param callback
+     * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
+     */
+    export function executeScript(injection: ScriptInjection, callback?: (results: InjectionResult[]) => void): void;
+
+    /**
+     * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
+     * @param injection
+     * The details of the styles to insert.
+     * @param callback
+     * Invoked upon completion of the injection.
+     */
+    export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+}
+
+////////////////////
 // Script Badge
 ////////////////////
 declare namespace chrome.scriptBadge {
@@ -7652,6 +7722,11 @@ declare namespace chrome.tabs {
          * @since Chrome 31.
          */
         sessionId?: string;
+        /**
+         * The ID of the group that the tab belongs to.
+         * @since Chrome 88
+         */
+        groupId: number;
     }
 
     /**
@@ -7835,6 +7910,18 @@ declare namespace chrome.tabs {
         frameId?: number;
     }
 
+    export interface GroupOptions {
+        /** Optional. Configurations for creating a group. Cannot be used if groupId is already specified. */
+        createProperties?: {
+            /** Optional. The window of the new group. Defaults to the current window. */
+            windowId?: number
+        },
+        /** Optional. The ID of the group to add the tabs to. If not specified, a new group will be created. */
+        groupId?: number;
+        /** TOptional. he tab ID or list of tab IDs to add to the specified group. */
+        tabIds?: number | number[];
+    }
+
     export interface HighlightInfo {
         /** One or more tab indices to highlight. */
         tabs: number | number[];
@@ -7902,6 +7989,11 @@ declare namespace chrome.tabs {
          * @since Chrome 45.
          */
         muted?: boolean;
+        /**
+         * Optional. The ID of the group that the tabs are in, or chrome.tabGroups.TAB_GROUP_ID_NONE for ungrouped tabs.
+         * @since Chrome 88
+         */
+        groupId?: number;
     }
 
     export interface TabHighlightInfo {
@@ -8210,6 +8302,7 @@ declare namespace chrome.tabs {
      * @since Chrome 16.
      */
     export function query(queryInfo: QueryInfo, callback: (result: Tab[]) => void): void;
+    export function query(queryInfo: QueryInfo): Promise<Tab[]>;
     /**
      * Detects the primary language of the content in a tab.
      * @param callback
@@ -8316,7 +8409,13 @@ declare namespace chrome.tabs {
      * @param callback Optional. Called after the operation is completed.
      */
     export function goBack(tabId: number, callback?: () => void): void;
-
+    /**
+     * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+     * @since Chrome 88
+     * @param options Configurations object
+     * @param callback Optional.
+     */
+    export function group(options: GroupOptions, callback?: (groupId: number) => void): void
     /**
      * Fired when the highlighted or selected tabs in a window changes.
      * @since Chrome 18.
@@ -8372,6 +8471,106 @@ declare namespace chrome.tabs {
      * @since Chrome 46.
      */
     export var TAB_ID_NONE: -1;
+}
+
+////////////////////
+// Tab Groups
+////////////////////
+/**
+ * Use the chrome.tabGroups API to interact with the browser's tab grouping system. You can use this API to modify and rearrange tab groups in the browser. To group and ungroup tabs, or to query what tabs are in groups, use the chrome.tabs API.
+ * Permissions:  "tabGroups"
+ * @since Chrome 89. Manifest V3 and above.
+ */
+ declare namespace chrome.tabGroups {
+
+    /** An ID that represents the absence of a group. */
+    export var TAB_GROUP_ID_NONE: -1;
+
+    export type ColorEnum = 'grey' | 'blue' | 'red' | 'yellow' | 'green' | 'pink' | 'purple' | 'cyan';
+
+    export interface TabGroup {
+        /** Whether the group is collapsed. A collapsed group is one whose tabs are hidden. */
+        collapsed: boolean;
+        /** The group's color. */
+        color: ColorEnum;
+        /** The ID of the group. Group IDs are unique within a browser session. */
+        id: number;
+        /** Optional. The title of the group. */
+        title?: string;
+        /** The ID of the window that contains the group. */
+        windowId: number;
+    }
+
+    export interface MoveProperties {
+        /** The position to move the group to. Use -1 to place the group at the end of the window. */
+        index: number;
+        /** Optional. The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with chrome.windows.WindowType type "normal". */
+        windowId?: number;
+    }
+
+    export interface QueryInfo {
+        /** Optional. Whether the groups are collapsed. */
+        collapsed?: boolean;
+        /** Optional. The color of the groups. */
+        color?: ColorEnum;
+        /** Optional. Match group titles against a pattern. */
+        title?: string;
+        /** Optional. The ID of the window that contains the group. */
+        windowId?: number;
+    }
+
+    export interface UpdateProperties {
+        /** Optional. Whether the group should be collapsed. */
+        collapsed?: boolean;
+        /** Optional. The color of the group. */
+        color?: ColorEnum;
+        /** Optional. The title of the group. */
+        title?: string;
+    }
+
+    /**
+     * Retrieves details about the specified group.
+     * @param groupId The ID of the tab group.
+     * @param callback Called with the retrieved tab group.
+     */
+    export function get(groupId: number, callback: (group: TabGroup) => void): void;
+
+    /**
+     * Moves the group and all its tabs within its window, or to a new window.
+     * @param groupId The ID of the group to move.
+     * @param moveProperties Information on how to move the group.
+     * @param callback Optional.
+    */
+    export function move(groupId: number, moveProperties: MoveProperties, callback?: (group: TabGroup) => void): void;
+
+    /**
+     * Gets all groups that have the specified properties, or all groups if no properties are specified.
+     * @param queryInfo Object with search parameters.
+     * @param callback Called with retrieved tab groups.
+     */
+     export function query(queryInfo: QueryInfo, callback: (result: TabGroup[]) => void): void;
+
+    /**
+     * Modifies the properties of a group. Properties that are not specified in updateProperties are not modified.
+     * @param groupId The ID of the group to modify.
+     * @param updateProperties Information on how to update the group.
+     * @param callback Optional.
+     */
+    export function update(groupId: number, updateProperties: UpdateProperties, callback?: (group: TabGroup) => void): void;
+
+    export interface TabGroupCreatedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupMovedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupRemovedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupUpdated extends chrome.events.Event<(group: TabGroup) => void> { }
+
+    /** Fired when a group is created. */
+    export var onCreated: TabGroupCreatedEvent;
+    /** Fired when a group is moved within a window. Move events are still fired for the individual tabs within the group, as well as for the group itself. This event is not fired when a group is moved between windows; instead, it will be removed from one window and created in another. */
+    export var onMoved: TabGroupMovedEvent;
+    /** Fired when a group is closed, either directly by the user or automatically because it contained zero. */
+    export var onRemoved: TabGroupRemovedEvent;
+    /** Fired when a group is updated. */
+    export var onUpdated: TabGroupUpdated;
 }
 
 ////////////////////

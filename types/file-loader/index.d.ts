@@ -2,7 +2,7 @@
 // Project: https://github.com/webpack-contrib/file-loader
 // Definitions by: Gareth Jones <https://github.com/g-rath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { loader } from 'webpack';
 

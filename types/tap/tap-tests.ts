@@ -232,3 +232,33 @@ tap.skip('skip', t => {
 tap.test('test with options', { only: true, skip: true, todo: true, timeout: 1000 }, t => {
     t.pass();
 });
+
+const topLevelDir = tap.testdir();
+
+tap.test('testdir', t => {
+    const cwd = t.testdir({
+        'demo.jpg': Buffer.from('a jpg'),
+        'package.json': JSON.stringify({
+            name: 'pj',
+        }),
+        src: {
+            'index.js': 'yay',
+            hardlinked: t.fixture('link', '../target'),
+            softlinked: t.fixture('symlink', '../target'),
+        },
+        target: {},
+    });
+    t.notEqual(cwd, topLevelDir);
+    t.equals(cwd, t.testdirName);
+});
+
+tap.test('fixture', t => {
+    // fairly infrequent vs testdir() sugar
+    t.fixture('dir', {});
+    t.fixture('file', 'content');
+    t.fixture('file', Buffer.from('content'));
+
+    // much more common, as sugar does not exist
+    t.fixture('link', 'target');
+    t.fixture('symlink', 'target');
+});

@@ -16,17 +16,21 @@ export interface NavigationProps {
     pause?: () => void;
 }
 
+export interface Step {
+    id: string;
+}
+
 export interface UseStepParams {
     initialStep?: number;
     autoAdvanceDuration?: number;
-    steps: string[] | number;
+    steps: Step[] | number;
 }
 
 export interface UseStepResponse {
     autoAdvanceDuration: number;
     isPaused: boolean;
     index: number;
-    step: number;
+    step: Step | number;
     navigation: NavigationProps;
 }
 
@@ -34,17 +38,15 @@ export function useStep(params: UseStepParams): UseStepResponse;
 
 export interface FormTarget {
     target: {
-        name: string, // object property name or Dot separated when hierarchical
-        value: any,
-        type?: string,
-        checked?: boolean,
+        name: string; // object property name or Dot separated when hierarchical
+        value: any;
+        type?: string;
+        checked?: boolean;
     };
 }
 
-export type SetForm = (event:
-    | React.SyntheticEvent<HTMLInputElement>
-    | React.ChangeEvent<HTMLInputElement>
-    | FormTarget
+export type SetForm = (
+    event: React.SyntheticEvent<HTMLInputElement> | React.ChangeEvent<HTMLInputElement> | FormTarget,
 ) => void;
 
 export function useForm<T>(defaultFormConfig: T): [T, SetForm];

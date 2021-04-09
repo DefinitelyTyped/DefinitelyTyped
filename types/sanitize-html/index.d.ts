@@ -38,7 +38,7 @@ declare namespace sanitize {
     allowedSchemesAppliedToAttributes: string[];
     allowedTags: string[];
     allowProtocolRelative: boolean;
-    disallowedTagsMode: string;
+    disallowedTagsMode: DisallowedTagsModes;
     enforceHtmlBoundary: boolean;
     selfClosing: string[];
   }

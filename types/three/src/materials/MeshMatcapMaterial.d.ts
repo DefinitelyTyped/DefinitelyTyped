@@ -20,6 +20,7 @@ export interface MeshMatcapMaterialParameters extends MaterialParameters {
     skinning?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
+    flatShading?: boolean;
 }
 
 export class MeshMatcapMaterial extends Material {
@@ -109,6 +110,12 @@ export class MeshMatcapMaterial extends Material {
      * @default false
      */
     morphNormals: boolean;
+
+    /**
+     * Define whether the material is rendered with flat shading. Default is false.
+     * @default false
+     */
+    flatShading: boolean;
 
     setValues(parameters: MeshMatcapMaterialParameters): void;
 }

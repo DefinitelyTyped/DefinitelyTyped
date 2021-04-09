@@ -4,41 +4,44 @@ import unless = require('express-unless');
 
 const app = express();
 
-app.use(jwt({
-    algorithms: ['HS256'],
-    secret: 'shhhhhhared-secret'
-}));
+app.use(
+    jwt({
+        algorithms: ['HS256'],
+        secret: 'shhhhhhared-secret',
+    }),
+);
 
-app.use(jwt({
-    algorithms: ['HS256'],
-    secret: 'shhhhhhared-secret',
-    userProperty: 'auth'
-}));
+app.use(
+    jwt({
+        algorithms: ['HS256'],
+        secret: 'shhhhhhared-secret',
+        userProperty: 'auth',
+    }),
+);
 
-app.use(jwt({
-    algorithms: ['HS256'],
-    secret: (req: express.Request,
-        payload: any,
-        done: (err: any, secret: string) => void) => {
-        done(null, 'shhhhhhared-secret');
-    },
-    userProperty: 'auth'
-}));
+app.use(
+    jwt({
+        algorithms: ['HS256'],
+        secret: (req: express.Request, payload: any, done: (err: any, secret: string) => void) => {
+            done(null, 'shhhhhhared-secret');
+        },
+        userProperty: 'auth',
+    }),
+);
 
-app.use(jwt({
-    algorithms: ['HS256'],
-    secret: (req: express.Request,
-        header: any,
-        payload: any,
-        done: (err: any, secret: string) => void) => {
-        done(null, 'shhhhhhared-secret');
-    },
-    userProperty: 'auth'
-}));
+app.use(
+    jwt({
+        algorithms: ['HS256'],
+        secret: (req: express.Request, header: any, payload: any, done: (err: any, secret: string) => void) => {
+            done(null, 'shhhhhhared-secret');
+        },
+        userProperty: 'auth',
+    }),
+);
 
 const jwtCheck = jwt({
     algorithms: ['HS256'],
-    secret: 'shhhhhhared-secret'
+    secret: 'shhhhhhared-secret',
 });
 jwtCheck.unless = unless;
 
@@ -53,4 +56,8 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
     } else {
         next(new jwt.UnauthorizedError('invalid_token', new Error('error-message')));
     }
+});
+
+app.use((req, res) => {
+    const user = req.user;
 });

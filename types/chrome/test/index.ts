@@ -331,8 +331,13 @@ function contentSettings() {
 }
 
 // tabs: https://developer.chrome.com/extensions/tabs#
-function testTabInterface() {
-    chrome.tabs.query({ active: true, currentWindow: true, url: ['http://*/*', 'https://*/*'] }, tabs => {
+async function testTabInterface() {
+    const options = { active: true, currentWindow: true, url: ['http://*/*', 'https://*/*'] };
+
+    chrome.tabs.query(options, tabs => {
+        // $ExpectType Tab[]
+        tabs;
+
         const [tab] = tabs;
         tab.id; // $ExpectType number | undefined
         tab.index; // $ExpectType number
@@ -356,7 +361,50 @@ function testTabInterface() {
         tab.height; // $ExpectType number | undefined
         tab.sessionId; // $ExpectType string | undefined
     });
+
+    // $ExpectType Tab[]
+    const tabs = await chrome.tabs.query(options);
+
+    const [tab] = tabs;
+    tab.id; // $ExpectType number | undefined
+    tab.index; // $ExpectType number
+    tab.windowId; // $ExpectType number
+    tab.openerTabId; // $ExpectType number | undefined
+    tab.selected; // $ExpectType boolean
+    tab.highlighted; // $ExpectType boolean
+    tab.active; // $ExpectType boolean
+    tab.pinned; // $ExpectType boolean
+    tab.audible; // $ExpectType boolean | undefined
+    tab.discarded; // $ExpectType boolean
+    tab.autoDiscardable; // $ExpectType boolean
+    tab.mutedInfo; // $ExpectType MutedInfo | undefined
+    tab.url; // $ExpectType string | undefined
+    tab.pendingUrl; // $ExpectType string | undefined
+    tab.title; // $ExpectType string | undefined
+    tab.favIconUrl; // $ExpectType string | undefined
+    tab.status; // $ExpectType string | undefined
+    tab.incognito; // $ExpectType boolean
+    tab.width; // $ExpectType number | undefined
+    tab.height; // $ExpectType number | undefined
+    tab.sessionId; // $ExpectType string | undefined
 }
+
+// tabGroups: https://developer.chrome.com/extensions/tabGroups#
+async function testTabGroupInterface() {
+    const options = { collapsed: false, title: 'Test' };
+
+    chrome.tabGroups.query(options, tabGroups => {
+        // $ExpectType TabGroup[]
+        tabGroups;
+
+        const [tabGroup] = tabGroups;
+        tabGroup.collapsed; // $ExpectType boolean
+        tabGroup.color; // $ExpectType ColorEnum
+        tabGroup.id; // $ExpectType number
+        tabGroup.title; // $ExpectType string | undefined
+        tabGroup.windowId; // $ExpectType number
+    });
+  }
 
 // https://developer.chrome.com/extensions/runtime#method-openOptionsPage
 function testOptionsPage() {

@@ -369,6 +369,10 @@ declare namespace Sinon {
          */
         <F extends (...args: any[]) => any>(func: F): SinonSpy<Parameters<F>, ReturnType<F>>;
         /**
+         * Spies on all the object’s methods.
+         */
+        <T>(obj: T): SinonSpiedInstance<T>;
+        /**
          * Creates a spy for object.method and replaces the original method with the spy.
          * An exception is thrown if the property is not already a function.
          * The spy acts exactly like the original method in all cases.
@@ -384,6 +388,14 @@ declare namespace Sinon {
             set: SinonSpy<[T[K]], void>;
         };
     }
+
+    type SinonSpiedInstance<T> = {
+        [P in keyof T]: SinonSpiedMember<T[P]>;
+    };
+
+    type SinonSpiedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue
+        ? SinonSpy<TArgs, TReturnValue>
+         : T;
 
     interface SinonStub<TArgs extends any[] = any[], TReturnValue = any> extends SinonSpy<TArgs, TReturnValue> {
         /**

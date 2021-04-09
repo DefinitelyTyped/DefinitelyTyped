@@ -1,4 +1,4 @@
-// Type definitions for scrivito 1.19
+// Type definitions for scrivito 1.20
 // Project: https://www.scrivito.com/
 // Definitions by: Julian Krieger <https://github.com/juliankrieger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,6 +10,7 @@ import { CSSProperties, Component, FC } from 'react';
  * Attribute definitions
  */
 type Attribute =
+    'boolean' |
     'date' |
     'datetime' |
     'enum' |
@@ -164,6 +165,7 @@ interface ConfigOptions {
     constraintsValidation?: (constraints: any) => any;
     endpoint?: string;
     priority?: 'foreground' | 'background';
+    adoptUi: boolean;
 }
 
 /**
@@ -279,14 +281,6 @@ export class MetadataCollection {
     get(name: string): string | string[] | number | Date | null;
 }
 
-/**
- * Obj definitions
- */
-
-interface CreateAttributes {
-    attributes: any;
-}
-
 type ObjSearchOperator = 'equals'|'contains'|'containsPrefix'|'equals'|'startsWith'|'isLessThan'|'isGreaterThan'|'linksTo'|'refersTo';
 
 type ObjSearchSingleAttribute = '*'|'id'|'_createdAt'|'_lastChanged'|'_objClass'|'_path'|'_permalink'|'_restriction'|'MetadataCollection'|string;
@@ -331,21 +325,22 @@ export class Obj {
     private _path: string;
     private _permalink: string;
     private readonly _publishedAt: Date;
+    private readonly _siteId: string | null;
 
     // Static methods
     static all(): any;
-    static create(attributes: CreateAttributes): void;
-    static createFromFile(file: File, attributes: CreateAttributes): void;
+    static create(attributes: object): void;
+    static createFromFile(file: File, attributes: object): Promise<void>;
     static get(id: string): Obj | null;
     static getByPath(path: string): Obj | null;
     static getByPermalink(permalink: string): Obj | null;
-    static root(): Obj;
+    static root(): Obj | null;
     static where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: string, boost?: any): ObjSearch;
 
     // Instance methods
     id(): string;
     ancestors(): Obj[];
-    backlings(): Obj[];
+    backlinks(): Obj[];
     children(): Obj[];
     contentLength(): number;
     contentType(): string;
@@ -371,9 +366,25 @@ export class Obj {
     update(attributes: any): void;
     widget(id: string): Widget | null;
     widgets(): Widget[];
+    updateReferences(mapping: (refId: string) => string | undefined): Promise<void>;
+    finishSaving(): Promise<void>;
+    siteId(): string | null;
+    onAllSites(): SiteContext;
+    onSite(siteId: string): SiteContext;
 }
 
 type ExtractableTextAttributes = 'string' | 'html' | 'widgetlist' | 'blob:text';
+
+interface SiteContext {
+    all(): ObjSearch;
+    create(attributes: object): Obj;
+    createFromFile(file: File, attributes: object): Promise<void>;
+    get(id: string): Obj | null;
+    getByPath(path: string): Obj | null;
+    getByPermalink(permalink: string): Obj | null;
+    root(): Obj | null;
+    where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: string, boost?: any): ObjSearch;
+}
 
 interface ObjClassOptions {
     attributes: Record<string, Attribute | AttributeWithOptions>;
@@ -481,10 +492,11 @@ export function updateContent(): void;
 export function updateMenuExtensions(): void;
 export function urlFor(target: Obj | Binary | Link, options?: { query?: string; hash?: string }): void;
 export function useHistory(history: History): void;
-export function validationResults(model: Obj | Widget, attribute: string): object[];
+export function validationResultsFor(model: Obj | Widget, attribute: string): object[];
 export function isComparisonActive(): boolean;
 export function currentWorkspaceId(): string;
 export function currentEditor(): Editor | null;
+export function configureObjClassForContentType(mapping?: {[key: string]: string}): void;
 
 // Fix automatic exports
 
@@ -497,7 +509,6 @@ export type {
     ChildListTagProps,
     ConfigOptions,
     ContentTagProps,
-    CreateAttributes,
     CSSImageStyleBackgroundProps,
     EditingConfig,
     EditingConfigAttributes,
@@ -513,7 +524,8 @@ export type {
     PropertiesGroup,
     WidgetClassOptions,
     WidgetComponentProps,
-    WidgetTagProps
+    WidgetTagProps,
+    SiteContext
 };
 
 export {};

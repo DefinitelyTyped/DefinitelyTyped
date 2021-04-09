@@ -3,7 +3,7 @@ import ActionHandler from '@ember/object/-private/action-handler';
 import Transition from '@ember/routing/-private/transition';
 import Evented from '@ember/object/evented';
 import { RenderOptions, RouteQueryParam } from '@ember/routing/types';
-import Controller, { Registry as ControllerRegistry } from '@ember/controller';
+import Controller from '@ember/controller';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 type RouteModel = object | string | number;
@@ -12,7 +12,7 @@ type RouteModel = object | string | number;
  * The `Ember.Route` class is used to define individual routes. Refer to
  * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
  */
-export default class Route extends EmberObject.extend(ActionHandler, Evented) {
+export default class Route<Model = any> extends EmberObject.extend(ActionHandler, Evented) {
     // methods
     /**
      * This hook is called after this route's model has resolved.
@@ -22,7 +22,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * logic that can only take place after the model has already
      * resolved.
      */
-    afterModel(resolvedModel: any, transition: Transition): any;
+    afterModel(resolvedModel: Model, transition: Transition): any;
 
     /**
      * This hook is the first of the route entry validation hooks
@@ -66,7 +66,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * A hook you can implement to convert the URL into the model for
      * this route.
      */
-    model(params: {}, transition: Transition): any;
+    model(params: {}, transition: Transition): Model | PromiseLike<Model>;
 
     /**
      * Returns the model of a parent (or any ancestor) route
@@ -77,7 +77,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * it can call `this.modelFor(theNameOfParentRoute)` to
      * retrieve it.
      */
-    modelFor(name: string): {};
+    modelFor(name: string): any;
 
     /**
      * Retrieves parameters, for current route using the state.params
@@ -105,7 +105,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * both the resolved model and attempted entry into this route
      * are considered to be fully validated.
      */
-    redirect(model: {}, transition: Transition): void;
+    redirect(model: Model, transition: Transition): void;
 
     /**
      * Refresh the model on this route and any child routes, firing the
@@ -142,7 +142,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * This method can be overridden to set up and render additional or
      * alternative templates.
      */
-    renderTemplate(controller: Controller, model: {}): void;
+    renderTemplate(controller: Controller, model: Model): void;
 
     /**
      * Transition into another route while replacing the current URL, if possible.
@@ -175,7 +175,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * This method is called when `transitionTo` is called with a context
      * in order to populate the URL.
      */
-    serialize(model: {}, params: string[]): string | object;
+    serialize(model: Model, params: string[]): string | object;
 
     /**
      * A hook you can use to setup the controller for the current route.
@@ -188,7 +188,7 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * when implementing your `setupController` function, make sure to call
      * `_super`
      */
-    setupController(controller: Controller, model: {}, transition: Transition): void;
+    setupController(controller: Controller, model: Model, transition: Transition): void;
 
     /**
      * Transition the application into another route. The route may
@@ -431,6 +431,11 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * * returned from a call to `controllerFor` for the route.
      */
     controllerName: string;
+
+    /**
+     * The name of the route, dot-delimited, including the engine prefix if applicable.
+     */
+    fullRouteName: string;
 
     /**
      * Configuration hash for this route's queryParams.

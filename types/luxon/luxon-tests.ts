@@ -1,17 +1,24 @@
 import {
+    VERSION,
     DateTime,
     Duration,
     FixedOffsetZone,
     IANAZone,
     Info,
     Interval,
+    LocalZone,
     Settings,
     Zone,
     ZoneOffsetFormat,
     ZoneOffsetOptions,
 } from 'luxon';
 
+/* VERSION */
+VERSION; // $ExpectType string
+
 /* DateTime */
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
 DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
@@ -51,6 +58,8 @@ FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier('UTC+6');
+
+LocalZone.instance; // $ExpectType LocalZone
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO('2017-05-15T08:30:00'); // => May 15, 2017 at midnight
@@ -194,8 +203,6 @@ if (Interval.isInterval(anything)) {
 
 /* Info */
 Info.months();
-// $ExpectError
-Info.months('2-digit', { outputCalendar: 'unknown' });
 Info.weekdays('long');
 // $ExpectError
 Info.weekdays('2-digit');

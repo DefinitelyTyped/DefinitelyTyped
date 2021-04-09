@@ -49,8 +49,8 @@ declare namespace Evaporate {
         signParams?: object;
         signHeaders?: object;
         customAuthMethod?: null | ((
-            signParams: string,
-            signHeaders: string,
+            signParams: object,
+            signHeaders: object,
             stringToSign: string,
             signatureDateTime: string,
             canonicalRequest: string
