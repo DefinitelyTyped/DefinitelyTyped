@@ -473,13 +473,37 @@ export class Team {
     name(): string;
 }
 
+interface MenuPosition {
+    before: string;
+    after: string;
+}
+
+interface MenuInsertParameters {
+    id: string;
+    title: string;
+    icon?: string;
+    description?: string;
+    position?: MenuPosition;
+    group?: string;
+    onClick: () => void;
+    enabled?: boolean;
+}
+
+type MenuModifyParameters = Pick<MenuInsertParameters, 'id' | 'group' | 'icon' | 'position' | 'title'>;
+
+interface Menu {
+    insert: (params: MenuInsertParameters) => void;
+    remove: (id: string) => void;
+    modify: (params: MenuModifyParameters) => void;
+}
+
 export function canWrite(): boolean;
 export function configure(options: ConfigOptions): void;
 export function configureContentBrowser(options: any): void;
 export function connect<C>(component: C): C;
 export function currentPage(): Obj;
 export function currentPageParams(): any;
-export function extendMenu(menuCallback: any): void;
+export function extendMenu(menuCallback: (menu: Menu) => void): void;
 export function extractText(obj: Obj, options: { length: number }): string;
 export function finishLoading(): Promise<{}>;
 export function getClass(name: string): ObjClass | WidgetClass | null;
