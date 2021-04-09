@@ -70,11 +70,18 @@ export class Server extends EventEmitter {
      * Start the server
      */
     start(): Promise<void>;
+
+    /**
+     * Stop the server
+     */
+    stop(): Promise<void>;
+
     /**
      * Get properties from the injector
      * @param token
      */
     get(token: string): any;
+
     /**
      * Force a refresh of the file list
      */

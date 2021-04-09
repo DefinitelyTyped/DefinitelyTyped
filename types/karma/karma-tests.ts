@@ -40,6 +40,8 @@ karma.config.parseConfig(null, { port: 9876 }, { promiseConfig: true, throwError
         results.success = 10;
     });
 
+    server.stop(); // $ExpectType Promise<void>
+
     karma.runner.run(karmaConfig, (exitCode: number) => {
         console.log("Karma has exited with " + exitCode);
         process.exit(exitCode);
