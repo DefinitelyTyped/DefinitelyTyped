@@ -443,6 +443,42 @@ declare namespace THREE {
         set(origin: Vector3, direction: Vector3): Ray;
     }
 
+    interface Intersection {
+        distance: number;
+        point: Vector3;
+        face: Face3;
+        object: Object3D;
+    }
+
+    interface RaycasterParameters {
+        Sprite?: any;
+        Mesh?: any;
+        PointCloud?: any;
+        LOD?: any;
+        Line?: any;
+    }
+
+    class Raycaster {
+        ray: Ray;
+        near: number;
+        far: number;
+        params: RaycasterParameters;
+        precision: number;
+        linePrecision: number;
+
+        constructor(
+            origin?: Vector3,
+            direction?: Vector3,
+            near?: number,
+            far?: number
+        );
+
+        intersectObject(object: Object3D, recursive?: boolean): Intersection[];
+        intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[];
+        set(origin: Vector3, direction: Vector3): void;
+        setFromCamera(coords: { x: number; y: number }, camera: Camera): void;
+    }
+
     class Scene {
     }
 
