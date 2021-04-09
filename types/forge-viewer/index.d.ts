@@ -645,6 +645,7 @@ declare namespace Autodesk {
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
             getInverseModelToViewerTransform(): THREE.Matrix4;
+            getInversePlacementWithOffset(): THREE.Matrix4;
             getModelKey(): string;
             getModelToViewerTransform(): THREE.Matrix4;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
