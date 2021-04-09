@@ -87,10 +87,6 @@ const CheckUseReducedMotion = () => {
         label: "foo",
         accessibilityLabel: "foo",
         onClick: (({ event }) => { event.stopPropagation(); }),
-        onNavigationOptions: {
-            foo: <div />,
-            bar: ({ event }) => { event.stopPropagation(); }
-        },
         rel: "nofollow",
         target: "blank"
     }}
@@ -112,10 +108,7 @@ const CheckUseReducedMotion = () => {
 <Badge text="Nicolas" />;
 <Box ref={React.createRef<HTMLDivElement>()} />;
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
-<Button text="" onNavigationOptions={{
-    foo: <div />,
-    bar: ({ event }) => { event.stopPropagation(); }
-}} />;
+<Button text="" />;
 <ButtonGroup>
     <Button text={'Click me'} />
     <Button text={'Click me'} />
@@ -189,9 +182,7 @@ const CheckUseReducedMotion = () => {
 <PageHeader title='Home'/>;
 <Pog />;
 <Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
-<Provider colorScheme={'light'} id="docsExample" onNavigation={({ href, onNavigationOptions }) => {
-    return (event) => {};
-}} />;
+<Provider colorScheme={'light'} id="docsExample" />;
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
 <Row gap={1}>
