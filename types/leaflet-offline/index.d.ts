@@ -11,9 +11,8 @@ declare module 'leaflet' {
     initialize(url: string, tilesDb: object, options: object): void;
     createTile(coords: object, done: DoneCallback): HTMLElement;
     getTileUrl(coords: object): string;
-    getTileUrls(bounds: object, zoom: Number): any[];
+    getTileUrls(bounds: object, zoom: number): any[];
   }
-  export function tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
   export namespace tileLayer {
     function offline(url: string, tilesDb: object, options: object): TileLayerOffline;
   }
@@ -22,7 +21,6 @@ declare module 'leaflet' {
     initialize (baseLayer: object, tilesDb: object, options: object): void;
     onAdd(map: object): HTMLElement;
   }
-  export function control();
   export namespace control {
     function offline(baseLayer: object, tilesDb: object, options: object): ControlOffline;
   }
