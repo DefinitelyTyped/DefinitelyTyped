@@ -101,6 +101,14 @@ declare namespace THREE {
     }
 
     class Camera {
+        matrixWorldInverse: Matrix4;
+        projectionMatrix: Matrix4;
+
+        constructor();
+
+        clone(camera?: Camera): Camera;
+        getWorldDirection(optionalTarget?: Vector3): Vector3;
+        lookAt(vector: Vector3): void;
     }
 
     class Color {
@@ -132,9 +140,31 @@ declare namespace THREE {
     }
 
     class ExtrudeGeometry {
+        constructor(shapes?: Shape | Shape[], options?: any);
+
+        WorldUVGenerator: {
+            generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+            generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
+        };
+
+        addShape(shape: Shape, options?: any): void;
+        addShapeList(shapes: Shape[], options?: any): void;
     }
 
     class Face3 {
+        a: number;
+        b: number;
+        c: number;
+        color: Color;
+        materialIndex: number;
+        normal: Vector3;
+        vertexColors: Color[];
+        vertexNormals: Vector3[];
+        vertexTangents: number[];
+
+        constructor(a: number, b: number, c: number, normal?: Vector3 | Vector3[], color?: Color | Color[], materialIndex?: number);
+
+        clone(): Face3;
     }
 
     class Geometry {
