@@ -383,7 +383,7 @@ declare namespace Autodesk {
           getCustomLoadOptions?: any;
           ignoreGlobalOffset?: boolean;
           multiViewerFactory?: any;
-          propagateInputEvents?: boolean;
+          propagateInputEventTypes?: string[];
           unloadUnfinishedModels?: boolean;
           useDynamicGlobalOffset?: boolean;
           viewerConfig?: any;
@@ -644,6 +644,7 @@ declare namespace Autodesk {
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
+            getInverseModelToViewerTransform(): THREE.Matrix4;
             getModelKey(): string;
             getModelToViewerTransform(): THREE.Matrix4;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
@@ -1127,6 +1128,12 @@ declare namespace Autodesk {
             isHighlightDisabled(): boolean;
             isHighlightPaused(): boolean;
             isHighlightActive(): boolean;
+            isLoadDone(include?: {
+              geometry?: boolean,
+              onlyModels?: boolean,
+              propDb?: boolean,
+              textures?: boolean
+            }): boolean;
             isSelectionDisabled(): boolean;
             loadExtension(extensionId: string, options?: object): Promise<Extension>;
             getExtension(extensionId: string, callback?: (ext: Extension) => void): Extension;
@@ -1147,6 +1154,12 @@ declare namespace Autodesk {
             hasEventListener(type: string, callback: (event: any) => void): any;
             removeEventListener(type: string, callback: (event: any) => void): any;
             dispatchEvent(event: object): void;
+            waitForLoadDone(include?: {
+              geometry?: boolean,
+              onlyModels?: boolean,
+              propDb?: boolean,
+              textures?: boolean
+            }): Promise<void>;
         }
 
         class GuiViewer3D extends Viewer3D {
@@ -1791,6 +1804,7 @@ declare namespace Autodesk {
             onPropertyRightClick(property: object, event: Event): void;
             removeAllProperties(): void;
             removeProperty(name: string, value: string, category: string, options?: object): boolean;
+            setAggregatedProperties(propSet: PropertySet): void;
             setCategoryCollapsed(category: object, collapsed: boolean): void;
             setProperties(properties: Array<{displayName: string, displayValue: any}>, options?: object): void;
             showDefaultProperties(): void;
@@ -2050,7 +2064,7 @@ declare namespace Autodesk {
           addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
           getChildLeafs(results: SurfaceShadingNode[]): void;
           getLeafsById(id: string, results: SurfaceShadingNode[]): SurfaceShadingNode[];
-          getNodeById(id: string): SurfaceShadingGroup;
+          getNodeById(id: string): SurfaceShadingGroup|SurfaceShadingNode;
           update(model: Viewing.Model): void;
         }
 
