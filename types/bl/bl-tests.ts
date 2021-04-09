@@ -26,6 +26,10 @@ bls2 = bl; // $ExpectError
 bl.pause(); // $ExpectError
 bl.resume(); // $ExpectError
 
+bl.append(buffer);
+bl.append(bl);
+bl.append(bls);
+
 bls = new BufferListStream();
 bls = new BufferListStream(bls);
 bls = new BufferListStream([bls]);
@@ -34,6 +38,8 @@ bls = new BufferListStream([Buffer.from('asdf')]);
 bls = new BufferListStream('hi');
 
 bls.append(buffer);
+bls.append(bl);
+bls.append(bls);
 num = bls.length;
 
 num = bls.get(num);
