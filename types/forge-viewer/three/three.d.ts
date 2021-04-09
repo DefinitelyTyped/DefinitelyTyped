@@ -13,6 +13,50 @@ declare namespace THREE {
     const FaceColors = 1;
     const VertexColors = 2;
 
+    // Mapping modes
+    enum Mapping {}
+    const UVMapping: Mapping;
+    const CubeReflectionMapping: Mapping;
+    const CubeRefractionMapping: Mapping;
+    const EquirectangularReflectionMapping: Mapping;
+    const EquirectangularRefractionMapping: Mapping;
+    const SphericalReflectionMapping: Mapping;
+
+    // Wrapping modes
+    enum Wrapping {}
+    const RepeatWrapping: Wrapping;
+    const ClampToEdgeWrapping: Wrapping;
+    const MirroredRepeatWrapping: Wrapping;
+
+    // Filters
+    enum TextureFilter {}
+    const NearestFilter: TextureFilter;
+    const NearestMipMapNearestFilter: TextureFilter;
+    const NearestMipMapLinearFilter: TextureFilter;
+    const LinearFilter: TextureFilter;
+    const LinearMipMapNearestFilter: TextureFilter;
+    const LinearMipMapLinearFilter: TextureFilter;
+
+    // Data types
+    enum TextureDataType {}
+    const UnsignedByteType: TextureDataType;
+    const ByteType: TextureDataType;
+    const ShortType: TextureDataType;
+    const UnsignedShortType: TextureDataType;
+    const IntType: TextureDataType;
+    const UnsignedIntType: TextureDataType;
+    const FloatType: TextureDataType;
+    const HalfFloatType: TextureDataType;
+
+    // Pixel formats
+    enum PixelFormat {}
+    const AlphaFormat: PixelFormat;
+    const RGBFormat: PixelFormat;
+    const RGBAFormat: PixelFormat;
+    const LuminanceFormat: PixelFormat;
+    const LuminanceAlphaFormat: PixelFormat;
+    const RGBEFormat: PixelFormat;
+
     class Box2 {
         min: Vector2;
         max: Vector2;
@@ -427,6 +471,57 @@ declare namespace THREE {
         set(center: Vector3, radius: number): Sphere;
         setFromPoints(points: Vector3[], optionalCenter?: Vector3): Sphere;
         translate(offset: Vector3): Sphere;
+    }
+
+    class Texture {
+        id: number;
+        uuid: string;
+        name: string;
+        sourceFile: string;
+        image: any; // HTMLImageElement or ImageData ;
+        mipmaps: ImageData[];
+        mapping: Mapping;
+        wrapS: Wrapping;
+        wrapT: Wrapping;
+        magFilter: TextureFilter;
+        minFilter: TextureFilter;
+        anisotropy: number;
+        format: PixelFormat;
+        type: TextureDataType;
+        offset: Vector2;
+        repeat: Vector2;
+        generateMipmaps: boolean;
+        premultiplyAlpha: boolean;
+        flipY: boolean;
+        unpackAlignment: number;
+        needsUpdate: boolean;
+
+        onUpdate: () => void;
+
+        static DEFAULT_IMAGE: any;
+        static DEFAULT_MAPPING: any;
+
+        constructor(
+            image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+            mapping?: Mapping,
+            wrapS?: Wrapping,
+            wrapT?: Wrapping,
+            magFilter?: TextureFilter,
+            minFilter?: TextureFilter,
+            format?: PixelFormat,
+            type?: TextureDataType,
+            anisotropy?: number
+        );
+
+        clone(): Texture;
+        dispose(): void;
+        update(): void;
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any }): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
     }
 
     class TransformControls {
