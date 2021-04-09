@@ -1,5 +1,5 @@
-import BufferListStream = require('bl');
-import BufferList = require('bl/BufferList');
+import BufferListStream = require("bl");
+import BufferList = require("bl/BufferList");
 
 var bls: BufferListStream;
 var buffer: Buffer;
@@ -33,9 +33,9 @@ bl.append(bls);
 bls = new BufferListStream();
 bls = new BufferListStream(bls);
 bls = new BufferListStream([bls]);
-bls = new BufferListStream(Buffer.from('asdf'));
-bls = new BufferListStream([Buffer.from('asdf')]);
-bls = new BufferListStream('hi');
+bls = new BufferListStream(Buffer.from("asdf"));
+bls = new BufferListStream([Buffer.from("asdf")]);
+bls = new BufferListStream("hi");
 
 bls.append(buffer);
 bls.append(bl);
@@ -63,8 +63,8 @@ str = bls.toString(str, num, num);
 str = bls.toString(str, num);
 str = bls.toString(str);
 str = bls.toString();
-bls.indexOf('foo', 0, 'hex') === 1;
-bls.indexOf(Buffer.from('foo')) === 1;
+bls.indexOf("foo", 0, "hex") === 1;
+bls.indexOf(Buffer.from("foo")) === 1;
 bls.indexOf(4) === 1;
 bls.indexOf(bls) === 1;
 bls.indexOf(new Uint8Array([1, 3, 4])) === 2;
