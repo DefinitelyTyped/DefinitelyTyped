@@ -21,7 +21,7 @@ declare module 'leaflet' {
         initialize(baseLayer: object, tilesDb: object, options: object): void;
         onAdd(map: object): HTMLElement;
     }
-    function control();
+    function control(): Control;
     namespace control {
         function offline(baseLayer: object, tilesDb: object, options: object): ControlOffline;
     }
