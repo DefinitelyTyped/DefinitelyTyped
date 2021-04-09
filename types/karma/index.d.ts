@@ -10,11 +10,11 @@
 /// <reference types="node" />
 
 // See Karma public API https://karma-runner.github.io/latest/dev/public-api.html
-import https = require('https');
-import { Appender } from 'log4js';
-import { EventEmitter } from 'events';
-import * as constants from './lib/constants';
-import { VERSION } from './lib/constants';
+import https = require("https");
+import { Appender } from "log4js";
+import { EventEmitter } from "events";
+import * as constants from "./lib/constants";
+import { VERSION } from "./lib/constants";
 
 export { constants, VERSION };
 /**
@@ -94,7 +94,7 @@ export class Server extends EventEmitter {
     /**
      * Listen to the 'run_complete' event.
      */
-    on(event: 'run_complete', listener: (browsers: any, results: TestResults) => void): this;
+    on(event: "run_complete", listener: (browsers: any, results: TestResults) => void): this;
 
     /**
      * Backward-compatibility with karma-intellij bundled with WebStorm.
@@ -139,21 +139,21 @@ export interface ConfigFile {
  * - `Safari` - launcher requires karma-safari-launcher plugin
  */
 export type AutomatedBrowsers =
-    | 'Chrome'
-    | 'ChromeCanary'
-    | 'ChromeHeadless'
-    | 'PhantomJS'
-    | 'Firefox'
-    | 'FirefoxHeadless'
-    | 'FirefoxDeveloper'
-    | 'FirefoxDeveloperHeadless'
-    | 'FirefoxAurora'
-    | 'FirefoxAuroraHeadless'
-    | 'FirefoxNightly'
-    | 'FirefoxNightlyHeadless'
-    | 'Opera'
-    | 'IE'
-    | 'Safari';
+    | "Chrome"
+    | "ChromeCanary"
+    | "ChromeHeadless"
+    | "PhantomJS"
+    | "Firefox"
+    | "FirefoxHeadless"
+    | "FirefoxDeveloper"
+    | "FirefoxDeveloperHeadless"
+    | "FirefoxAurora"
+    | "FirefoxAuroraHeadless"
+    | "FirefoxNightly"
+    | "FirefoxNightlyHeadless"
+    | "Opera"
+    | "IE"
+    | "Safari";
 
 export interface CustomHeaders {
     /** Regular expression string to match files */
@@ -208,9 +208,9 @@ export type PluginName = string;
 // tslint:disable-next-line:ban-types support for constructor function and classes
 export type ConstructorFn = Function | (new (...params: any[]) => any);
 export type FactoryFn = (...params: any[]) => any;
-export type ConstructorFnType = ['type', ConstructorFn];
-export type FactoryFnType = ['factory', FactoryFn];
-export type ValueType = ['value', any];
+export type ConstructorFnType = ["type", ConstructorFn];
+export type FactoryFnType = ["factory", FactoryFn];
+export type ValueType = ["value", any];
 export type InlinePluginType = FactoryFnType | ConstructorFnType | ValueType;
 export type InlinePluginDef = Record<PluginName, InlinePluginType>;
 
@@ -639,7 +639,7 @@ export interface ClientOptions {
 }
 
 /** type to use when including a file */
-export type FilePatternTypes = 'css' | 'html' | 'js' | 'module' | 'dom';
+export type FilePatternTypes = "css" | "html" | "js" | "module" | "dom";
 
 export interface FilePattern {
     /**
@@ -687,7 +687,7 @@ export interface CustomLauncher {
 
 export interface BrowserConsoleLogOptions {
     /** the desired log-level, where level log always is logged */
-    level?: 'log' | 'error' | 'warn' | 'info' | 'debug';
+    level?: "log" | "error" | "warn" | "info" | "debug";
     /**
      * The format is a string where `%b`, `%t`, `%T`, and `%m` are replaced with the browser string,
      * log type in lower-case, log type in uppercase, and log message, respectively.
