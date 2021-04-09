@@ -15,11 +15,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "@sinonjs/*": [
-                "sinonjs__*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
