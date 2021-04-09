@@ -269,8 +269,10 @@ declare namespace Aws {
     }
 
     interface Package {
-        include?: string[]; // deprecated
-        exclude?: string[]; // deprecated
+        /** @deprecated use `patterns` instead */
+        include?: string[];
+        /** @deprecated use `patterns` instead */
+        exclude?: string[];
         patterns?: string[];
         excludeDevDependencies?: boolean;
         artifact?: string;
