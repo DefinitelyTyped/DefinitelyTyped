@@ -1069,3 +1069,37 @@ function test_dataNamespace() {
 
     dt = google.visualization.data.join(dt, dt, 'inner', [['x', 0]], [1], ['y']);
 }
+
+function test_chartSelection() {
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Fruit');
+    data.addColumn('number', 'Calories');
+    data.addRows([
+        ['Apple', 95],
+        ['Banana', 105],
+        ['Kiwi', 42],
+    ]);
+    const container = document.getElementById('chart_div');
+    if (container) {
+        const chart = new google.visualization.BarChart(container);
+        google.visualization.events.addOneTimeListener(chart, 'ready', () => {
+            console.log('Fruit chart ready');
+            const button1 = document.getElementById('select_apple_button')!;
+            button1.addEventListener('click', () => {
+                chart.setSelection([{row: 0}]);
+            });
+            const button2 = document.getElementById('select_apple_button')!;
+            button2.addEventListener('click', () => {
+                chart.setSelection();
+            });
+        });
+        google.visualization.events.addListener(chart, 'select', () => {
+            const {row, column} = chart.getSelection()[0];
+            console.log(`Selection: row=${row} column=${column}`);
+            if (row != null && column != null) {
+                console.log(`Selected: ${data.getValue(row, column)}`);
+            }
+        });
+        chart.draw(data, {});
+    }
+}
