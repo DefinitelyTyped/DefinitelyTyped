@@ -111,7 +111,7 @@ export interface ConfigurationParamWithUrl extends ConfigurationParam {
 
 export interface RTCPeerConnectionConfiguration {
     iceServers: ConfigurationParamWithUrls[] | ConfigurationParamWithUrl[];
-    iceTransportPolicy?: "all" | "public" | "relay";
+    iceTransportPolicy?: "all" | "relay" | "nohost" | "none";
 }
 
 export interface EventOnCandidate {
