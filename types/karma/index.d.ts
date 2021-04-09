@@ -17,18 +17,6 @@ import * as constants from "./lib/constants";
 import { VERSION } from "./lib/constants";
 
 export { constants, VERSION };
-/**
- * `start` method is deprecated since 0.13. It will be removed in 0.14.
- * Please use
- * <code>
- *     server = new Server(config, [done])
- *     server.start()
- * </code>
- * instead.
- *
- * @deprecated
- */
-export const server: DeprecatedServer;
 export const runner: Runner;
 export const stopper: Stopper;
 
@@ -46,12 +34,6 @@ export namespace launcher {
         areAllCaptured(): boolean;
         markCaptured(id: string): void;
     }
-}
-
-/** @deprecated */
-export interface DeprecatedServer {
-    /** @deprecated */
-    start(options?: any, callback?: ServerCallback): void;
 }
 
 export interface Runner {
@@ -95,12 +77,6 @@ export class Server extends EventEmitter {
      * Listen to the 'run_complete' event.
      */
     on(event: "run_complete", listener: (browsers: any, results: TestResults) => void): this;
-
-    /**
-     * Backward-compatibility with karma-intellij bundled with WebStorm.
-     * Deprecated since version 0.13, to be removed in 0.14
-     */
-    // static start(): void;
 }
 
 export type ServerCallback = (exitCode: number) => void;
