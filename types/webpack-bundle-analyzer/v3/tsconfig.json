@@ -19,9 +19,9 @@
             "tapable": [
                 "tapable/v1"
             ],
-            "webpack-bundle-analyser": [
-                "webpack-bundle-analyser/v3"
-            ],
+            "webpack-bundle-analyzer": [
+                "webpack-bundle-analyzer/v3"
+            ]
         },
         "types": [],
         "noEmit": true,
