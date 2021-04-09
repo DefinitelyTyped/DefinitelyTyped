@@ -651,6 +651,7 @@ declare namespace Autodesk {
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
+            getPropertyDb(): PropDbLoader;
             getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): void;
             getPropertySetAsync(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
             geomPolyCount(): number;
@@ -755,6 +756,10 @@ declare namespace Autodesk {
             DIFF_TOOL_DEACTIVATED = 'diff.tool.deactivated',
             DIFF_TOOL_MODEL_VISIBILITY_CHANGED = 'diff.tool.model.visibility.changed'
           }
+        }
+
+        interface PropDbLoader {
+          executeUserFunction(userFunc: (pdb: any, ...args: any[]) => any, args?: any): Promise<any>;
         }
 
         interface PropertyResult {
