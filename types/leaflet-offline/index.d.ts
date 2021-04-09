@@ -24,6 +24,6 @@ declare module 'leaflet' {
   }
   export function control();
   export namespace control {
-    export function offline(baseLayer: object, tilesDb: object, options: object): ControlOffline;
+    function offline(baseLayer: object, tilesDb: object, options: object): ControlOffline;
   }
 }
