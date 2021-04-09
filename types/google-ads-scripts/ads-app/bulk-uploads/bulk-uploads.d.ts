@@ -1,3 +1,4 @@
+// tslint:disable: unified-signatures
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
         /**
