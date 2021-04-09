@@ -151,3 +151,26 @@
 /// <reference path="./ads-manager-app/ads-manager-app.d.ts" />
 /// <reference path="./ads-manager-app/managed-account/managed-account.d.ts" />
 /// <reference path="./base.d.ts" />
+
+// TODO: Remove code below to pass tests
+declare namespace GoogleAdsScripts {
+  namespace GoogleAppsScript {
+    namespace Base {
+      interface Blob {
+        blobMethod(): void;
+      }
+    }
+
+    namespace Spreadsheet {
+      interface Sheet {
+        sheetMethod(): void;
+      }
+    }
+
+    namespace Drive {
+      interface File {
+        fileMethod(): void;
+      }
+    }
+  }
+}
