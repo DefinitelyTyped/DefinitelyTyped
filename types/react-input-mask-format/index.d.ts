@@ -1,8 +1,5 @@
 // Type definitions for react-input-mask-format 1.0
 // Project: https://github.com/temirtator/react-input-mask-format
-// Definitions by: Alexandre Paré <https://github.com/apare>
-//                 Dima Danylyuk <https://github.com/dima7a14>
-//                 Lucas Rêgo <https://github.com/lucasraziel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -59,7 +56,5 @@ export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   beforeMaskedStateChange?(states: BeforeMaskedStateChangeStates): InputState;
 }
 
-export class ReactInputMask extends React.Component<Props> {
+export default class ReactInputMask extends React.Component<Props> {
 }
-
-export default ReactInputMask;
