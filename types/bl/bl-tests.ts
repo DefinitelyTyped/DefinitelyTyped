@@ -1,103 +1,104 @@
-import BufferList = require('bl');
-import BufferListDeepExport = require('bl/BufferList');
+import BufferListStream = require('bl');
+import BufferList = require('bl/BufferList');
 
-var bl: BufferList;
+var bls: BufferListStream;
 var buffer: Buffer;
 var offset: number;
 var num: number;
 var str: string;
 
-BufferList.isBufferList({});
+BufferListStream.isBufferList({});
 
 // has Duplex methods
-bl.pause();
-bl.resume();
+bls.pause();
+bls.resume();
 
-var bufferListDeep = new BufferListDeepExport();
+var bl = new BufferList();
 
 // is assignable
-bufferListDeep = bl.duplicate();
+bl = bls.duplicate();
 
 // is not assignable as it lacks the Duplex methods
-var bl2: BufferList;
-bl2 = bufferListDeep; // $ExpectError
+var bls2: BufferListStream;
+bls2 = bl; // $ExpectError
 
 // does not have Duplex methods
-bufferListDeep.pause(); // $ExpectError
-bufferListDeep.resume(); // $ExpectError
+bl.pause(); // $ExpectError
+bl.resume(); // $ExpectError
 
-bl = new BufferList();
-bl = new BufferList(bl);
-bl = new BufferList([bl]);
-bl = new BufferList(Buffer.from('asdf'));
-bl = new BufferList([Buffer.from('asdf')]);
-bl = new BufferList('hi');
+bls = new BufferListStream();
+bls = new BufferListStream(bls);
+bls = new BufferListStream([bls]);
+bls = new BufferListStream(Buffer.from('asdf'));
+bls = new BufferListStream([Buffer.from('asdf')]);
+bls = new BufferListStream('hi');
 
-bl.append(buffer);
-num = bl.length;
+bls.append(buffer);
+num = bls.length;
 
-num = bl.get(num);
+num = bls.get(num);
 
-buffer = bl.slice(num, num);
-buffer = bl.slice(num);
-buffer = bl.slice();
-bl.shallowSlice(0, 1).shallowSlice();
+buffer = bls.slice(num, num);
+buffer = bls.slice(num);
+buffer = bls.slice();
+bls.shallowSlice(0, 1).shallowSlice();
 
-bl.copy(buffer, num, num, num);
-bl.copy(buffer, num, num);
-bl.copy(buffer, num);
-bl.copy(buffer);
+bls.copy(buffer, num, num, num);
+bls.copy(buffer, num, num);
+bls.copy(buffer, num);
+bls.copy(buffer);
 
-bl = bl.duplicate();
+bls = bls.duplicate();
 
-bl.consume();
-bl.consume(num);
+bls.consume();
+bls.consume(num);
 
-str = bl.toString(str, num, num);
-str = bl.toString(str, num);
-str = bl.toString(str);
-str = bl.toString();
-bl.indexOf('foo', 0, 'hex') === 1;
-bl.indexOf(Buffer.from('foo')) === 1;
-bl.indexOf(4) === 1;
-bl.indexOf(bl) === 1;
-bl.indexOf(new Uint8Array([1, 3, 4])) === 2;
-bl.indexOf(bufferListDeep) === 0;
+str = bls.toString(str, num, num);
+str = bls.toString(str, num);
+str = bls.toString(str);
+str = bls.toString();
+bls.indexOf('foo', 0, 'hex') === 1;
+bls.indexOf(Buffer.from('foo')) === 1;
+bls.indexOf(4) === 1;
+bls.indexOf(bls) === 1;
+bls.indexOf(new Uint8Array([1, 3, 4])) === 2;
+bls.indexOf(bl) === 0;
+bl.indexOf(bls) === 0;
 
-num = bl.readDoubleBE(offset);
-num = bl.readDoubleBE(offset);
-num = bl.readDoubleLE(offset);
-num = bl.readDoubleLE(offset);
-num = bl.readFloatBE(offset);
-num = bl.readFloatBE(offset);
-num = bl.readFloatLE(offset);
-num = bl.readFloatLE(offset);
-num = bl.readInt32BE(offset);
-num = bl.readInt32BE(offset);
-num = bl.readInt32LE(offset);
-num = bl.readInt32LE(offset);
-num = bl.readUInt32BE(offset);
-num = bl.readUInt32BE(offset);
-num = bl.readUInt32LE(offset);
-num = bl.readUInt32LE(offset);
-num = bl.readInt16BE(offset);
-num = bl.readInt16BE(offset);
-num = bl.readInt16LE(offset);
-num = bl.readInt16LE(offset);
-num = bl.readUInt16BE(offset);
-num = bl.readUInt16BE(offset);
-num = bl.readUInt16LE(offset);
-num = bl.readUInt16LE(offset);
-num = bl.readInt8(offset);
-num = bl.readInt8(offset);
-num = bl.readUInt8(offset);
-num = bl.readUInt8(offset);
-num = bl.readIntBE(offset);
-num = bl.readIntLE(offset);
-num = bl.readUIntBE(offset);
-num = bl.readUIntLE(offset);
+num = bls.readDoubleBE(offset);
+num = bls.readDoubleBE(offset);
+num = bls.readDoubleLE(offset);
+num = bls.readDoubleLE(offset);
+num = bls.readFloatBE(offset);
+num = bls.readFloatBE(offset);
+num = bls.readFloatLE(offset);
+num = bls.readFloatLE(offset);
+num = bls.readInt32BE(offset);
+num = bls.readInt32BE(offset);
+num = bls.readInt32LE(offset);
+num = bls.readInt32LE(offset);
+num = bls.readUInt32BE(offset);
+num = bls.readUInt32BE(offset);
+num = bls.readUInt32LE(offset);
+num = bls.readUInt32LE(offset);
+num = bls.readInt16BE(offset);
+num = bls.readInt16BE(offset);
+num = bls.readInt16LE(offset);
+num = bls.readInt16LE(offset);
+num = bls.readUInt16BE(offset);
+num = bls.readUInt16BE(offset);
+num = bls.readUInt16LE(offset);
+num = bls.readUInt16LE(offset);
+num = bls.readInt8(offset);
+num = bls.readInt8(offset);
+num = bls.readUInt8(offset);
+num = bls.readUInt8(offset);
+num = bls.readIntBE(offset);
+num = bls.readIntLE(offset);
+num = bls.readUIntBE(offset);
+num = bls.readUIntLE(offset);
 
+BufferListStream.isBufferList(bls); // $ExpectTrue
+BufferListStream.isBufferList({}); // $ExpectFalse
 BufferList.isBufferList(bl); // $ExpectTrue
 BufferList.isBufferList({}); // $ExpectFalse
-BufferListDeepExport.isBufferList(bufferListDeep); // $ExpectTrue
-BufferListDeepExport.isBufferList({}); // $ExpectFalse

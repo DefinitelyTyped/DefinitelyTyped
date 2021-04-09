@@ -34,4 +34,5 @@ declare class BufferList {
 
   static isBufferList(other: any): boolean;
 }
+
 export = BufferList;
