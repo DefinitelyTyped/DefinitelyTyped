@@ -23,7 +23,7 @@ declare class BufferListStream extends Duplex {
   duplicate(): BufferListStream;
   consume(bytes?: number): void;
   toString(encoding?: string, start?: number, end?: number): string;
-  indexOf(value: string | number | Uint8Array | BufferListStream | Buffer, byteOffset?: number, encoding?: string): number;
+  indexOf(value: string | number | Uint8Array | BufferList | BufferListStream | Buffer, byteOffset?: number, encoding?: string): number;
   readDoubleBE(offset?: number): number;
   readDoubleLE(offset?: number): number;
   readFloatBE(offset?: number): number;

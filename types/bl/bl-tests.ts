@@ -62,6 +62,7 @@ bl.indexOf(Buffer.from('foo')) === 1;
 bl.indexOf(4) === 1;
 bl.indexOf(bl) === 1;
 bl.indexOf(new Uint8Array([1, 3, 4])) === 2;
+bl.indexOf(bufferListDeep) === 0;
 
 num = bl.readDoubleBE(offset);
 num = bl.readDoubleBE(offset);
