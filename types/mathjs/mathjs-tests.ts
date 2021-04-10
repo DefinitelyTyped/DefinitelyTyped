@@ -277,10 +277,10 @@ Matrices examples
         const a = [[1, 2], [3, 4]];
         const b: math.Matrix = math.matrix([[5, 6], [1, 1]]);
 
-        const c = math.row(a,1)
+        const c = math.row(a, 1);
         const d = math.column(a, 1);
-        const e: math.Matrix = math.row(b,1)
-        const f: math.Matrix = math.column(b,1)
+        const e: math.Matrix = math.row(b, 1);
+        const f: math.Matrix = math.column(b, 1);
     }
 
     // get a sub matrix
