@@ -88,33 +88,6 @@ declare class jBinary {
     ): void;
 
     /**
-     * Saves binary data to a given destination and calls a callback when finished.
-     * @param destination Destination of the binary data to be saved.
-     * @param mimeType MIME-Type of the data. @default "application/octet-stream"
-     * @param callback Function called when data is saved.
-     */
-    static saveAs(
-        destination: jBinary.DestinationType,
-        mimeType?: string,
-        callback?: (error: Error | undefined) => void, // ???
-    ): void;
-
-    /**
-     * Saves binary data to a given destination and returns a promise with the jBinary object.
-     * @param destination Destination of the binary data to be saved.
-     * @param mimeType MIME-Type of the data. @default "application/octet-stream"
-     * @returns Promise with the jBinary object as parameter.
-     */
-    static saveAs(destination: jBinary.DestinationType, mimeType?: string): Promise<jBinary>; // ???
-
-    /**
-     * Returns a URI suitable for usage in DOM elements.
-     * @param mimeType MIME-Type of the data. @default "application/octet-stream"
-     * @returns Blob URIs where supported, data-URIs in other cases.
-     */
-    static toURI(mimeType?: string): Blob | string;
-
-    /**
      * Creates a new jBinary instance with the provided binary string as data.
      * @param data The binary string data.
      * @param typeSet Optional TypeSet object with all the defined types.
@@ -171,6 +144,26 @@ declare class jBinary {
     readAll(): unknown;
 
     /**
+     * Saves binary data to a given destination and returns a promise with the jBinary object.
+     * @param destination Destination of the binary data to be saved.
+     * @param mimeType MIME-Type of the data. @default "application/octet-stream"
+     * @returns Promise with no data.
+     */
+    saveAs(destination: jBinary.DestinationType, mimeType?: string): Promise<undefined>;
+
+    /**
+     * Saves binary data to a given destination and calls a callback when finished.
+     * @param destination Destination of the binary data to be saved.
+     * @param mimeType MIME-Type of the data. @default "application/octet-stream"
+     * @param callback Function called when data is saved.
+     */
+    saveAs(
+        destination: jBinary.DestinationType,
+        mimeType?: string,
+        callback?: (error: Error | undefined) => void,
+    ): void;
+
+    /**
      * Go to "position" in the binary data.
      * @param position Byte position to seek to in the binary data.
      */
@@ -212,6 +205,13 @@ declare class jBinary {
      * @returns The current position in the binary data.
      */
     tell(): number;
+
+    /**
+     * Returns a URI suitable for usage in DOM elements.
+     * @param mimeType MIME-Type of the data. @default "application/octet-stream"
+     * @returns Blob URIs where supported, data-URIs in other cases.
+     */
+    toURI(mimeType?: string): Blob | string;
 
     /**
      * Write a value of a specified type.
