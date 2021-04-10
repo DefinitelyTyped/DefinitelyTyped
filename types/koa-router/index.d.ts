@@ -47,7 +47,7 @@ declare namespace Router {
         /**
          * url params
          */
-        params: { [key: string]: string };
+        params: Record<string, string>;
         /**
          * the router instance
          */
