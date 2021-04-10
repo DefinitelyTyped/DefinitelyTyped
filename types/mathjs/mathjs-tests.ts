@@ -272,6 +272,16 @@ Matrices examples
         const f: math.Matrix = math.matrix([1, 0]);
         const d: math.Matrix = f.subset(math.index(1, 0));
     }
+    // find row and column. Arrays and Matrices can be used mixed.
+    {
+        const a = [[1, 2], [3, 4]];
+        const b: math.Matrix = math.matrix([[5, 6], [1, 1]]);
+
+        const c = math.row(a,1)
+        const d = math.column(a, 1);
+        const e: math.Matrix = math.row(b,1)
+        const f: math.Matrix = math.column(b,1)
+    }
 
     // get a sub matrix
     {

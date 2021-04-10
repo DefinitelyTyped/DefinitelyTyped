@@ -1447,7 +1447,28 @@ declare namespace math {
             size: MathArray | Matrix,
             defaultValue?: number | string
         ): T;
+        
+        /**
+         * Return a row from a Matrix.
+         * @param {Array | Matrix } value   An array or matrix
+         * @param {row number}              The index of the row
+         * @return {Array | Matrix}         The retrieved row
+         */
+         row<T extends MathArray | Matrix>(
+            value: T,
+            row: number
+        ): T;
 
+        /**
+         * Return a column from a Matrix.
+         * @param {Array | Matrix } value   An array or matrix
+         * @param {number} column             The index of the column
+         * @return {Array | Matrix}         The retrieved column
+         */
+         column<T extends MathArray | Matrix>(
+            value: T,
+            column: number
+        ): T;
         /**
          * Calculate the size of a matrix or scalar.
          * @param A matrix
