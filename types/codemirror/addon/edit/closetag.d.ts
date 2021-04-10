@@ -1,15 +1,8 @@
-// Type definitions for codemirror
-// Project: https://github.com/codemirror/CodeMirror
-// Definitions by: ficristo <https://github.com/ficristo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import '../../';
 
-// See docs https://codemirror.net/doc/manual.html#addon_closetag
-
-import * as CodeMirror from 'codemirror';
-
-declare module 'codemirror' {
+declare module '../../' {
     interface CommandActions {
-        closeTag(cm: CodeMirror.Editor): void;
+        closeTag(cm: Editor): void;
     }
 
     interface AutoCloseTags {
@@ -26,19 +19,19 @@ declare module 'codemirror' {
         /**
          * An array of tag names that should not be autoclosed. (default is empty tags for HTML, none for XML)
          */
-        dontCloseTags?: Array<string>;
+        dontCloseTags?: ReadonlyArray<string>;
 
         /**
          * An array of tag names that should, when opened, cause a
          * blank line to be added inside the tag, and the blank line and
          * closing line to be indented. (default is block tags for HTML, none for XML)
          */
-        indentTags?: Array<string>;
+        indentTags?: ReadonlyArray<string>;
 
         /**
          * An array of XML tag names that should be autoclosed with '/>'. (default is none)
          */
-        emptyTags: Array<string>;
+        emptyTags: ReadonlyArray<string>;
     }
 
     interface EditorConfiguration {
