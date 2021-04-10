@@ -1,6 +1,6 @@
 // Type definitions for leaflet-offline 1.1
 // Project: https://github.com/robertomlsoares/leaflet-offline#readme
-// Definitions by: roblo53@hotmail.com <https://github.com/BETOXL>
+// Definitions by: BETOXL <https://github.com/BETOXL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as L from 'leaflet';
