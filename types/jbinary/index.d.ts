@@ -19,7 +19,7 @@ declare namespace jBinary {
     /**
      * Possible source types for loading binary data.
      */
-    type SourceType = string | Readable;
+    type SourceType = string | Readable | File;
 
     /**
      * Possible destination types for saving binary data.
@@ -51,21 +51,29 @@ declare class jBinary {
     // =================================================================================================================
 
     /**
+     * Loads data from a given source and returns it in a promise.
+     * @param source Source of the data to be loaded.
+     * @returns Promise with the loaded data as parameter.
+     */
+    static loadData(source: jBinary.SourceType): Promise<jBinary.DataType>;
+
+    /**
      * Loads data from a given source and returns it in a callback.
      * @param source Source of the data to be loaded.
      * @param callback Function called when data is loaded.
      */
     static loadData(
         source: jBinary.SourceType,
-        callback: (error: Error | null, data: jBinary.DataType | undefined) => void, // ???
+        callback: (error: Error | null, data: jBinary.DataType | undefined) => void,
     ): void;
 
     /**
-     * Loads data from a given source and returns it in a promise.
+     * Loads data from a given source and returns a promise with the jBinary object.
      * @param source Source of the data to be loaded.
-     * @returns Promise with the loaded data as parameter.
+     * @param typeSet Typeset to use for loading the data.
+     * @returns Promise with the jBinary object as parameter.
      */
-    static loadData(source: jBinary.SourceType): Promise<jBinary.DataType>; // ???
+    static load(source: jBinary.SourceType, typeSet?: jBinary.TypeSet): Promise<jBinary>;
 
     /**
      * Loads data from a given source and calls a callback with the jBinary object.
@@ -76,16 +84,8 @@ declare class jBinary {
     static load(
         source: jBinary.SourceType,
         typeSet?: jBinary.TypeSet,
-        callback?: (error: Error | null, jb: jBinary) => void, // ???
+        callback?: (error: Error | null, jb: jBinary) => void,
     ): void;
-
-    /**
-     * Loads data from a given source and returns a promise with the jBinary object.
-     * @param source Source of the data to be loaded.
-     * @param typeSet Typeset to use for loading the data.
-     * @returns Promise with the jBinary object as parameter.
-     */
-    static load(source: jBinary.SourceType, typeSet?: jBinary.TypeSet): Promise<jBinary>; // ???
 
     /**
      * Saves binary data to a given destination and calls a callback when finished.
