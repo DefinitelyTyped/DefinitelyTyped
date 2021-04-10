@@ -4154,6 +4154,10 @@
             "libraryName": "@wordpress/escape-html",
             "asOfVersion": "1.8.0"
         },
+        "wordpress__hooks": {
+            "libraryName": "@wordpress/hooks",
+            "asOfVersion": "2.11.0"
+        },
         "wordpress__html-entities": {
             "libraryName": "@wordpress/html-entities",
             "asOfVersion": "2.7.0"
