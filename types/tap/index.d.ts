@@ -15,32 +15,93 @@ export = tap;
 
 declare class Test extends DeprecatedAssertionSynonyms {
     constructor(options?: Options.Test);
+
+    /**
+     * Run the supplied function when t.end() is called, or when t.plan is met.
+     * 
+     * This function can return a promise to support async actions.
+     * @see {@link https://node-tap.org/docs/api/test-lifecycle-events}
+     * @param fn 
+     */
     tearDown(fn: () => void | Promise<void>): void;
     teardown(fn: () => void | Promise<void>): void;
+
+    /**
+     * Fail the test with a timeout error if it goes longer than the specified number of ms.
+     * 
+     * Call t.setTimeout(0) to remove the timeout setting.
+     * 
+     * When this is called on the top-level tap object, it sets the runners timeout value
+     * to the specified value for that test process as well.
+     */
     setTimeout(n: number): void;
+
     endAll(): void;
+
+    /**
+     * When an uncaught exception is raised in the context of a test,
+     * then this method is used to handle the error. It fails the test,
+     * and prints out appropriate information about the stack, message, current test,
+     * and so on.
+     * 
+     * Generally, you never need to worry about this directly.
+     */
     threw(error: Error, extra?: Error, proxy?: Test): void;
+
+    /**
+     * Sets a pragma switch for a set of boolean keys in the argument.
+     * 
+     * The only pragma currently supported by the TAP parser is strict,
+     * which tells the parser to treat non-TAP output as a failure.
+     */
     pragma(set: Options.Pragma): void;
+
+    /**
+     * Specify that a given number of tests are going to be run.
+     * 
+     * This may only be called before running any asserts or child tests.
+     */
     plan(n: number, comment?: string): void;
+
     end(): void;
+
     test(name: string, extra?: Options.Test, cb?: (t: Test) => Promise<void> | void): Promise<void>;
     test(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
+
     todo(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
     todo(name: string, extra?: Options.Test, cb?: (t: Test) => Promise<void> | void): Promise<void>;
+
     skip(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
     skip(name: string, extra?: Options.Test, cb?: (t: Test) => Promise<void> | void): Promise<void>;
+
     only(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
     only(name: string, extra?: Options.Test, cb?: (t: Test) => Promise<void> | void): Promise<void>;
+
     current(): Test;
+
     stdin(name: string, extra?: Options.Bag): Promise<void>;
+
     spawn(cmd: string, args: string, options?: Options.Bag, name?: string, extra?: Options.Spawn): Promise<void>;
+
     done(): void;
+
+    /**
+     * Return true if everything so far is ok.
+     */
     passing(): boolean;
+
     pass(message?: string, extra?: Options.Assert): boolean;
+
     fail(message?: string, extra?: Options.Assert): boolean;
+
     addAssert(name: string, length: number, fn: (...args: any[]) => boolean): boolean;
+
     comment(message: string, ...args: any[]): void;
-    bailout(message?: string): void;
+
+    /**
+     * Use this when things are severely broken, and cannot be reasonably handled. Immediately terminates the entire test run.
+     */
+    bailout(reason?: string): void;
 
     beforeEach(fn: (done: () => void, childTest: Test) => void | Promise<void>): void;
     afterEach(fn: (done: () => void, childTest: Test) => void | Promise<void>): void;
@@ -48,19 +109,57 @@ declare class Test extends DeprecatedAssertionSynonyms {
     cleanSnapshot: (s: string) => string;
     formatSnapshot: (obj: any) => string;
 
+    /**
+     * Create a fixture object to specify hard links and symbolic links
+     * in the fixture definition object passed to t.testdir().
+     */
     fixture(type: 'symlink' | 'link', content: string): Fixture.Instance;
     fixture(type: 'file', content: string | Buffer): Fixture.Instance;
     fixture(type: 'dir', content: Fixture.Spec): Fixture.Instance;
 
+    /**
+     * Create a fresh directory with the specified fixtures,
+     * which is deleted on test teardown. Returns the directory name.
+     * 
+     * @see {@link https://node-tap.org/docs/api/fixtures/}
+     */
     testdir(spec?: Fixture.Spec): string;
+
+
     readonly testdirName: string;
 
+    /**
+     * This is an object which is inherited by child tests, and is a handy place to put
+     * various contextual information.
+     * 
+     * t.context will only be inherited by child tests if it is an object.
+     * 
+     * This typically will be used with lifecycle events, such as beforeEach or afterEach.
+     * @see {@link https://node-tap.org/docs/api/test-lifecycle-events}
+     */
     context: any;
+    
+    /**
+     * This is a read-only property set to the string value provided
+     * as the name argument to t.test(), or an empty string if no name is provided.
+     */
     readonly name: string;
+
+    /**
+     * Set to true to only run child tests that have only: true
+     * set in their options (or are run with t.only(), which is the same thing).
+     */
     runOnly: boolean;
+
+    /**
+     * If you set the t.jobs property to a number greater than 1,
+     * then it will enable parallel execution of all of this test's children.
+     */
     jobs: number;
 
-    // Assertions
+    // ----
+    // Assertions below this line!
+    // ----
 
     /**
      * Verifies that the object is truthy.
