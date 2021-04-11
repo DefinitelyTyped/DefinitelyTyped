@@ -1,7 +1,8 @@
-// Type definitions for tap 14.10
+// Type definitions for tap 15.0.1
 // Project: https://github.com/tapjs/node-tap
 // Definitions by: Tomas Della Vedova <https://github.com/delvedor>
 //                 Ulf Winkelvos <https://github.com/uwinkelvos>
+//                 zkldi <https://github.com/zkldi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO: can be removed as soon as https://github.com/tapjs/node-tap/pull/607 is merged
@@ -12,7 +13,7 @@ import { EventEmitter } from 'events';
 declare const tap: Tap;
 export = tap;
 
-declare class Test {
+declare class Test extends DeprecatedAssertionSynonyms {
     constructor(options?: Options.Test);
     tearDown(fn: () => void | Promise<void>): void;
     teardown(fn: () => void | Promise<void>): void;
@@ -62,19 +63,16 @@ declare class Test {
 
     // Verifies that the object is truthy.
     ok: Assertions.Basic;
-    true: Assertions.Basic;
-    assert: Assertions.Basic;
+
 
     // Verifies that the object is not truthy.
     notOk: Assertions.Basic;
-    false: Assertions.Basic;
-    assertNot: Assertions.Basic;
+    
 
     // If the object is an error, then the assertion fails.
     // Note: if an error is encountered unexpectedly, it's often better to simply throw it. The Test object will handle this as a failure.
     error: Assertions.Basic;
-    ifErr: Assertions.Basic;
-    ifError: Assertions.Basic;
+    
 
     // Verify that the event emitter emits the named event before the end of the test.
     emits(eventEmitter: EventEmitter, event: string, message?: string, extra?: Options.Assert): void;
@@ -143,14 +141,12 @@ declare class Test {
     // The expected error is tested against the throw error using t.match, so regular expressions and the like are fine. If the expected error is an Error object, then the stack field is ignored,
     // since that will generally never match.
     throws: Assertions.Throws;
-    throw: Assertions.Throws;
 
     // Verify that the provided function does not throw.
     // If the function has a name, and the message is not provided, then the function name will be used as the message.
     // If the function is not provided, then this will be treated as a todo test.
     // Note: if an error is encountered unexpectedly, it's often better to simply throw it. The Test object will handle this as a failure.
     doesNotThrow: Assertions.DoesNotThrow;
-    notThrow: Assertions.DoesNotThrow;
 
     // Expect the function to throw an uncaught exception at some point in the future, before the test ends. If the test ends without having thrown the expected error, then the test fails.
     // This is useful for verifying that an error thrown in some part of your code will not be handled, which would normally result in a program crash, and verify behavior in those scenarios.
@@ -167,68 +163,25 @@ declare class Test {
 
     // Verify that the object found is exactly the same (that is, ===) to the object that is wanted.
     equal: Assertions.Equal;
-    equals: Assertions.Equal;
-    isEqual: Assertions.Equal;
-    is: Assertions.Equal;
-    strictEqual: Assertions.Equal;
-    strictEquals: Assertions.Equal;
-    strictIs: Assertions.Equal;
-    isStrict: Assertions.Equal;
-    isStrictly: Assertions.Equal;
 
     // Inverse of t.equal().
     // Verify that the object found is not exactly the same (that is, !==) as the object that is wanted.
-    notEqual: Assertions.NotEqual;
-    notEquals: Assertions.NotEqual;
-    inequal: Assertions.NotEqual;
-    notStrictEqual: Assertions.NotEqual;
-    notStrictEquals: Assertions.NotEqual;
-    isNotEqual: Assertions.NotEqual;
-    isNot: Assertions.NotEqual;
-    doesNotEqual: Assertions.NotEqual;
-    isInequal: Assertions.NotEqual;
+    not: Assertions.NotEqual;
 
     // Verify that the found object is deeply equivalent to the wanted object. Use non-strict equality for scalars (ie, ==). See: tcompare
     same: Assertions.Equal;
-    equivalent: Assertions.Equal;
-    looseEqual: Assertions.Equal;
-    looseEquals: Assertions.Equal;
-    deepEqual: Assertions.Equal;
-    deepEquals: Assertions.Equal;
-    isLoose: Assertions.Equal;
-    looseIs: Assertions.Equal;
 
     // Inverse of t.same().
     // Verify that the found object is not deeply equivalent to the unwanted object. Uses non-strict inequality (ie, !=) for scalars.
     notSame: Assertions.NotEqual;
-    inequivalent: Assertions.NotEqual;
-    looseInequal: Assertions.NotEqual;
-    notDeep: Assertions.NotEqual;
-    deepInequal: Assertions.NotEqual;
-    notLoose: Assertions.NotEqual;
-    looseNot: Assertions.NotEqual;
 
     // Strict version of t.same().
     // Verify that the found object is deeply equivalent to the wanted object. Use strict equality for scalars (ie, ===).
     strictSame: Assertions.Equal;
-    strictEquivalent: Assertions.Equal;
-    strictDeepEqual: Assertions.Equal;
-    sameStrict: Assertions.Equal;
-    deepIs: Assertions.Equal;
-    isDeeply: Assertions.Equal;
-    isDeep: Assertions.Equal;
-    strictDeepEquals: Assertions.Equal;
 
     // Inverse of t.strictSame().
     // Verify that the found object is not deeply equivalent to the unwanted object. Use strict equality for scalars (ie, ===).
     strictNotSame: Assertions.NotEqual;
-    strictInequivalent: Assertions.NotEqual;
-    strictDeepInequal: Assertions.NotEqual;
-    notSameStrict: Assertions.NotEqual;
-    deepNot: Assertions.NotEqual;
-    notDeeply: Assertions.NotEqual;
-    strictDeepInequals: Assertions.NotEqual;
-    notStrictSame: Assertions.NotEqual;
 
     // Verify that the found object contains all of the provided fields, and that they are of the same type and value as the pattern provided.
     // This does not do advanced/loose matching based on constructor, regexp patterns, and so on, like t.match() does. You may specify key: undefined in the pattern to ensure that a field is not
@@ -236,37 +189,30 @@ declare class Test {
     // Note that t.has(), the un-strict version of this function, is an alias for t.match().
     hasStrict: Assertions.Match;
 
-    // Verify that the found object matches the pattern provided.
-    // If pattern is a regular expression, and found is a string, then verify that the string matches the pattern.
-    // If the pattern is a string, and found is a string, then verify that the pattern occurs within the string somewhere.
-    // If pattern is an object, then verify that all of the (enumerable) fields in the pattern match the corresponding fields in the object using this same algorithm. For example, the pattern
-    // // {x:/a[sdf]{3}/} would successfully match {x:'asdf',y:'z'}.
-    // This is useful when you want to verify that an object has a certain set of required fields, but additional fields are ok.
-    // See tcompare for the full details on how this works.
+    /**
+     * Verify that the found object matches the pattern provided.
+     * 
+     * If pattern is a regular expression, and found is a string, then verify that the string matches the pattern.
+     * If the pattern is a string, and found is a string, then verify that the pattern occurs within the string somewhere.
+     * If pattern is an object, then verify that all of the (enumerable) fields in the pattern match the corresponding fields in the object using this same algorithm.
+     * @example {x:/a[sdf]{3}/} would successfully match {x:'asdf',y:'z'}.
+     * 
+     * This is useful when you want to verify that an object has a certain set of required fields, but additional fields are ok.
+     */
     match: Assertions.Match;
+
+    /**
+     * Verify that the found object contains all of the provided fields, and that they coerce to the same values, even if the types do not match.
+     * 
+     * This does not do advanced/loose matching based on constructor, regexp patterns, and so on, like t.match() does.
+     * You may specify key: undefined in the pattern to ensure that a field is not defined in the found object,
+     * but it will not differentiate between a missing property and a property set to undefined.
+     */
     has: Assertions.Match;
-    hasFields: Assertions.Match;
-    matches: Assertions.Match;
-    similar: Assertions.Match;
-    like: Assertions.Match;
-    isLike: Assertions.Match;
-    includes: Assertions.Match;
-    include: Assertions.Match;
-    contains: Assertions.Match;
 
     // Inverse of match()
     // Verify that the found object does not match the pattern provided.
     notMatch: Assertions.Match;
-    dissimilar: Assertions.Match;
-    unsimilar: Assertions.Match;
-    notSimilar: Assertions.Match;
-    unlike: Assertions.Match;
-    isUnlike: Assertions.Match;
-    notLike: Assertions.Match;
-    isNotLike: Assertions.Match;
-    doesNotHave: Assertions.Match;
-    isNotSimilar: Assertions.Match;
-    isDissimilar: Assertions.Match;
 
     // Verify that the object is of the type provided.
     // Type can be a string that matches the typeof value of the object, or the string name of any constructor in the object's prototype chain, or a constructor function in the
@@ -275,8 +221,318 @@ declare class Test {
     // t.type(new Date(), 'Date');
     // t.type(new Date(), Date);
     type: Assertions.Type;
+}
+
+/**
+ * Tap v15 deprecates **ALL** synonyms for assertions.
+ */
+declare class DeprecatedAssertionSynonyms {
+    /**
+     * @deprecated use ok() instead.
+     */
+    true: Assertions.Basic;
+    /**
+     * @deprecated use ok() instead.
+     */
+    assert: Assertions.Basic;
+
+    /**
+     * @deprecated use notOk() instead.
+     */
+     false: Assertions.Basic;
+     /**
+      * @deprecated use assertNot() instead.
+      */
+     assertNot: Assertions.Basic;
+
+     /**
+     * @deprecated use error() instead.
+     */
+    ifErr: Assertions.Basic;
+    /**
+     * @deprecated use error() instead.
+     */
+    ifError: Assertions.Basic;
+
+    /**
+     * @deprecated use doesNotThrow() instead.
+     */
+     notThrow: Assertions.DoesNotThrow;
+
+     /**
+     * @deprecated use throws() instead.
+     */
+    throw: Assertions.Throws;
+
+    /**
+     * @deprecated use equal() instead.
+     */
+     equals: Assertions.Equal;
+     /**
+      * @deprecated use equal() instead.
+      */
+     isEqual: Assertions.Equal;
+     /**
+      * @deprecated use equal() instead.
+      */
+     is: Assertions.Equal;
+     /**
+      * @deprecated use equal() instead.
+      */
+     strictEqual: Assertions.Equal;
+     /**
+      * @deprecated use equal() instead.
+      */
+     strictEquals: Assertions.Equal;
+     /**
+      * @deprecated use equal() instead.
+      */
+     strictIs: Assertions.Equal;
+     /**
+      * @deprecated use equal() instead.
+      */
+     isStrict: Assertions.Equal;
+     /**
+      * @deprecated use equal() instead.
+      */
+     isStrictly: Assertions.Equal;
+
+     /**
+     * @deprecated use not() instead.
+     */
+    notEqual: Assertions.NotEqual;
+    /**
+     * @deprecated use not() instead.
+     */
+    notEquals: Assertions.NotEqual;
+    /**
+     * @deprecated use not() instead.
+     */
+    inequal: Assertions.NotEqual;
+    /**
+     * @deprecated use not() instead.
+     */
+    notStrictEqual: Assertions.NotEqual;
+    /**
+     * @deprecated use not() instead.
+     */
+    notStrictEquals: Assertions.NotEqual;
+    /**
+     * @deprecated use not() instead.
+     */
+    isNotEqual: Assertions.NotEqual;
+    /**
+     * @deprecated use not() instead.
+     */
+    isNot: Assertions.NotEqual;
+    /**
+     * @deprecated use not() instead.
+     */
+    doesNotEqual: Assertions.NotEqual;
+    /**
+     * @deprecated use not() instead.
+     */
+    isInequal: Assertions.NotEqual;
+
+    /**
+         * @deprecated use same() instead.
+         */
+    equivalent: Assertions.Equal;
+    /**
+     * @deprecated use same() instead.
+     */
+    looseEqual: Assertions.Equal;
+    /**
+     * @deprecated use same() instead.
+     */
+    looseEquals: Assertions.Equal;
+    /**
+     * @deprecated use same() instead.
+     */
+    deepEqual: Assertions.Equal;
+    /**
+     * @deprecated use same() instead.
+     */
+    deepEquals: Assertions.Equal;
+    /**
+     * @deprecated use same() instead.
+     */
+    isLoose: Assertions.Equal;
+    /**
+     * @deprecated use same() instead.
+     */
+    looseIs: Assertions.Equal;
+
+        /**
+     * @deprecated use notSame() instead.
+     */
+         inequivalent: Assertions.NotEqual;
+         /**
+          * @deprecated use notSame() instead.
+          */
+         looseInequal: Assertions.NotEqual;
+         /**
+          * @deprecated use notSame() instead.
+          */
+         notDeep: Assertions.NotEqual;
+         /**
+          * @deprecated use notSame() instead.
+          */
+         deepInequal: Assertions.NotEqual;
+         /**
+          * @deprecated use notSame() instead.
+          */
+         notLoose: Assertions.NotEqual;
+         /**
+          * @deprecated use notSame() instead.
+          */
+         looseNot: Assertions.NotEqual;
+
+    /**
+     * @deprecated use strictSame() instead.
+     */
+     strictEquivalent: Assertions.Equal;
+     /**
+      * @deprecated use strictSame() instead.
+      */
+     strictDeepEqual: Assertions.Equal;
+     /**
+      * @deprecated use strictSame() instead.
+      */
+     sameStrict: Assertions.Equal;
+     /**
+      * @deprecated use strictSame() instead.
+      */
+     deepIs: Assertions.Equal;
+     /**
+      * @deprecated use strictSame() instead.
+      */
+     isDeeply: Assertions.Equal;
+     /**
+      * @deprecated use strictSame() instead.
+      */
+     isDeep: Assertions.Equal;
+     /**
+      * @deprecated use strictSame() instead.
+      */
+     strictDeepEquals: Assertions.Equal;
+
+    /**
+     * @deprecated use strictNotSame() instead.
+     */
+     strictInequivalent: Assertions.NotEqual;
+     /**
+      * @deprecated use strictNotSame() instead.
+      */
+     strictDeepInequal: Assertions.NotEqual;
+     /**
+      * @deprecated use strictNotSame() instead.
+      */
+     notSameStrict: Assertions.NotEqual;
+     /**
+      * @deprecated use strictNotSame() instead.
+      */
+     deepNot: Assertions.NotEqual;
+     /**
+      * @deprecated use strictNotSame() instead.
+      */
+     notDeeply: Assertions.NotEqual;
+     /**
+      * @deprecated use strictNotSame() instead.
+      */
+     strictDeepInequals: Assertions.NotEqual;
+     /**
+      * @deprecated use strictNotSame() instead.
+      */
+     notStrictSame: Assertions.NotEqual;
+
+         /**
+     * @deprecated use match() instead.
+     */
+    matches: Assertions.Match;
+    /**
+     * @deprecated use match() instead.
+     */
+    similar: Assertions.Match;
+    /**
+     * @deprecated use match() instead.
+     */
+    like: Assertions.Match;
+    /**
+     * @deprecated use match() instead.
+     */
+    isLike: Assertions.Match;
+    /**
+     * @deprecated use match() instead.
+     */
+    isSimilar: Assertions.Match;
+
+    /**
+     * @deprecated use notMatch() instead.
+     */
+     dissimilar: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     unsimilar: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     notSimilar: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     unlike: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     isUnlike: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     notLike: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     isNotLike: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     doesNotHave: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     isNotSimilar: Assertions.Match;
+     /**
+      * @deprecated use notMatch() instead.
+      */
+     isDissimilar: Assertions.Match;
+
+    /**
+     * @deprecated use type() instead.
+     */
     isa: Assertions.Type;
+    /**
+     * @deprecated use type() instead.
+     */
     isA: Assertions.Type;
+
+    /**
+     * @deprecated use has() instead.
+     */
+    hasFields: Assertions.Match;
+    /**
+     * @deprecated use has() instead.
+     */
+    includes: Assertions.Match;
+    /**
+     * @deprecated use has() instead.
+     */
+    include: Assertions.Match;
+    /**
+     * @deprecated use has() instead.
+     */
+    contains: Assertions.Match;
 }
 
 declare namespace Options {
@@ -353,7 +609,7 @@ interface Mocha {
 
 // Little hack to simulate the Test class on the tap export
 interface TestConstructor {
-    new (options?: Options.Test): Test;
+    new(options?: Options.Test): Test;
     prototype: Test;
 }
 
