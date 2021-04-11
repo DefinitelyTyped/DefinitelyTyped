@@ -63,17 +63,52 @@ declare class Test extends DeprecatedAssertionSynonyms {
      */
     plan(n: number, comment?: string): void;
 
+    /**
+     * Call when tests are done running. This is not necessary if t.plan() was used, 
+     * or if the test function returns a Promise.
+     * 
+     * If you call t.end() explicitly more than once, an error will be raised.
+     */
     end(): void;
 
+    /**
+     * Create a subtest.
+     * 
+     * Returns a Promise which resolves with the parent when the child test is completed.
+     * @param name - The name for this subtest.
+     * @param extra - Any options this subtest should adhere to.
+     * @param cb - The function containing the sub-tests. If not present, the test
+     * will automatically be marked as a todo.
+     */
     test(name: string, extra?: Options.Test, cb?: (t: Test) => Promise<void> | void): Promise<void>;
+
+    /**
+     * Create a subtest.
+     * 
+     * Returns a Promise which resolves with the parent when the child test is completed.
+     * @param name - The name for this subtest.
+     * @param cb - The function containing the sub-tests. If not present, the test
+     * will automatically be marked as a todo.
+     */
     test(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
 
+    /**
+     * Exactly the same as t.test(), but adds todo: true in the options.
+     */
     todo(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
     todo(name: string, extra?: Options.Test, cb?: (t: Test) => Promise<void> | void): Promise<void>;
 
+    /**
+     * Exactly the same as t.test(), but adds skip: true in the options.
+     */
     skip(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
     skip(name: string, extra?: Options.Test, cb?: (t: Test) => Promise<void> | void): Promise<void>;
 
+    /**
+     * Exactly the same as t.test(), but adds only: true in the options.
+     * 
+     * @see {@link https://node-tap.org/docs/api/only}
+     */
     only(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
     only(name: string, extra?: Options.Test, cb?: (t: Test) => Promise<void> | void): Promise<void>;
 
@@ -103,8 +138,8 @@ declare class Test extends DeprecatedAssertionSynonyms {
      */
     bailout(reason?: string): void;
 
-    beforeEach(fn: (done: () => void, childTest: Test) => void | Promise<void>): void;
-    afterEach(fn: (done: () => void, childTest: Test) => void | Promise<void>): void;
+    beforeEach(fn: () => void | Promise<void>): void;
+    afterEach(fn: () => void | Promise<void>): void;
 
     cleanSnapshot: (s: string) => string;
     formatSnapshot: (obj: any) => string;
