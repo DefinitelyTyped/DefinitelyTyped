@@ -173,7 +173,7 @@ declare class jBinary {
      * @param callback Possible callback to execute at the new position.
      * @returns The data returned by the callback.
      */
-    seek(position: number, callback: (jb: jBinary /* ??? */) => unknown): unknown;
+    seek(position: number, callback: () => unknown): unknown;
 
     /**
      * Advance in the binary data by "count" bytes.
