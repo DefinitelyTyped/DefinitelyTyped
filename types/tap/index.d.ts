@@ -61,7 +61,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * 
      * This may only be called before running any asserts or child tests.
      */
-    plan(n: number, comment?: string): void;
+    plan(n: number): void;
 
     end(): void;
 
