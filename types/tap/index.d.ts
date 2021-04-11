@@ -139,8 +139,6 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     done(): void;
 
-    assertAt
-
     /**
      * Return true if everything so far is ok.
      */
@@ -375,8 +373,12 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     // As of version 11, tap supports saving and then comparing against "snapshot" strings. This is a powerful technique for testing programs that generate output, but it comes with some caveats.
 
-    // this function does not exist anymore? atleast, it's not documented. - zkldi
-    // matchSnapshot(output: any, message?: string, extra?: Options.Assert): boolean;
+    /**
+     * Checks if the output in data matches the data with this snapshot name.
+     * 
+     * @see {@link https://node-tap.org/docs/api/snapshot-testing/}
+     */
+    matchSnapshot(output: any, message?: string, extra?: Options.Assert): boolean;
 
     /**
      * Expect the function to throw an error.
@@ -514,15 +516,6 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * @example type(new Date(), Date) - true
      */
     type: Assertions.Type;
-
-    // this is not in the documentation anymore?
-    
-    /**
-     * Checks if the output in data matches the data with this snapshot name.
-     * 
-     * @see {@link https://node-tap.org/docs/api/snapshot-testing/}
-     */
-    matchSnapshot: (data: any, snapshotName: string) => boolean;
 }
 
 /**
