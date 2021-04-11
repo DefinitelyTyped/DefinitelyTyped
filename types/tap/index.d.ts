@@ -184,7 +184,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * If this function returns a promise, it will wait for the promise to
      * resolve, before running any tests.
      */
-    before(fn: () => any | Promise<any>): void;
+    before(fn: () => any): void;
 
     /**
      * Before any child test (or any children of any child tests, etc.) the
@@ -194,16 +194,14 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * doneness. Thus, async functions automatically end when all of their
      * awaited Promises are complete.
      */
-    beforeEach(fn: () => any | Promise<any>): void;
-    beforeEach(fn: (childTest: any) => any | Promise<any>): void;
+    beforeEach(fn: (() => any) | ((childTest: any) => any)): void;
 
     /**
      * This is called after each child test (or any children of any child tests,
      * on down the tree). Like beforeEach, it's called with the child test
      * object, and can return a Promise to perform asynchronous operations.
      */
-    afterEach(fn: () => any | Promise<any>): void;
-    afterEach(fn: (childTest: any) => any | Promise<any>): void;
+    afterEach(fn: (() => any) | ((childTest: any) => any)): void;
 
     /**
      * Formats a string from a snapshot. This can be used to remove variables
@@ -288,9 +286,8 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * @param mocks - The key/value pairs of paths (relative to the current test)
      * and the value that should be returned when anything in the loaded module requires
      * those modules.
-     * @param ModuleType - The type of the module that be exported. Defaults to any.
      */
-    mock<ModuleType = any>(modulePath: string, mocks: Record<string, any>): ModuleType;
+    mock(modulePath: string, mocks: Record<string, any>): any;
 
     // ----
     // Assertions below this line!
