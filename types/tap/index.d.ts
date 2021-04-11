@@ -36,6 +36,9 @@ declare class Test extends DeprecatedAssertionSynonyms {
      */
     setTimeout(n: number): void;
 
+    /**
+     * Call the end() method on all child tests, and then on this one.
+     */
     endAll(): void;
 
     /**
@@ -114,11 +117,29 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     current(): Test;
 
+    /**
+     * Parse standard input as if it was a child test named /dev/stdin.
+     * 
+     * Returns a Promise which resolves with the parent when the input stream is
+     * completed.
+     */
     stdin(name: string, extra?: Options.Bag): Promise<void>;
 
+    /**
+     * Sometimes, instead of running a child test directly inline, you might
+     * want to run a TAP producting test as a child process, and treat its
+     * standard output as the TAP stream.
+     * 
+     * Returns a Promise which resolves with the parent when the child process 
+     * is completed.
+     * 
+     * @see {@link https://node-tap.org/docs/api/advanced/#tspawncommand-arguments-options-name}
+     */
     spawn(cmd: string, args: string, options?: Options.Bag, name?: string, extra?: Options.Spawn): Promise<void>;
 
     done(): void;
+
+    assertAt
 
     /**
      * Return true if everything so far is ok.
@@ -129,6 +150,28 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     fail(message?: string, extra?: Options.Assert): boolean;
 
+    /**
+     * This is used for creating assertion methods on the Test class.
+     * 
+     * @param name The name of the assertion method.
+     * @param length The amount of arguments the assertion has.
+     * @param fn The code to be ran when this assertion is called.
+     * 
+     * @example 
+     * // Add an assertion that a string is in Title Case
+     * // It takes one argument (the string to be tested)
+     * t.Test.prototype.addAssert('titleCase', 1, function (str, message, extra) {
+     *     message = message || 'should be in Title Case'
+     *     // the string in Title Case
+     *     const tc = str.toLowerCase().replace(/\b./, match => match.toUpperCase())
+     *     // should always return another assert call, or
+     *     // this.pass(message) or this.fail(message, extra)
+     *     return this.equal(str, tc, message, extra)
+     * })
+     * 
+     * t.titleCase('This Passes')
+     * t.titleCase('however, tHis tOTaLLy faILS')
+     */
     addAssert(name: string, length: number, fn: (...args: any[]) => boolean): boolean;
 
     comment(message: string, ...args: any[]): void;
@@ -138,12 +181,52 @@ declare class Test extends DeprecatedAssertionSynonyms {
      */
     bailout(reason?: string): void;
 
+    /**
+     * Run the provided function once before any tests are ran.
+     * If this function returns a promise, it will wait for the promise to
+     * resolve, before running any tests.
+     */
     before(fn: () => any | Promise<any>): void;
 
+    /**
+     * Before any child test (or any children of any child tests, etc.) the
+     * supplied function is called with the test object that it's prefixing.
+     * 
+     * If the function returns a Promise, then that is used as the indication of
+     * doneness. Thus, async functions automatically end when all of their
+     * awaited Promises are complete.
+     */
     beforeEach(fn: () => any | Promise<any>): void;
-    afterEach(fn: () => any | Promise<any>): void;
+    beforeEach(fn: (childTest: any) => any | Promise<any>): void;
 
+    /**
+     * This is called after each child test (or any children of any child tests,
+     * on down the tree). Like beforeEach, it's called with the child test
+     * object, and can return a Promise to perform asynchronous operations.
+     */
+    afterEach(fn: () => any | Promise<any>): void;
+    afterEach(fn: (childTest: any) => any | Promise<any>): void;
+
+    /**
+     * Formats a string from a snapshot. This can be used to remove variables
+     * and replace them with sentinel values.
+     * 
+     * @see {@link https://node-tap.org/docs/api/snapshot-testing/}
+     * 
+     * @example
+     * t.cleanSnapshot = s => {
+     *     return s.replace(/ time=[0-9]+$/g, ' time={time}')
+     * }
+     */
     cleanSnapshot: (s: string) => string;
+
+    /**
+     * Formats the data argument of any snapshot into this string.
+     * 
+     * @see {@link https://node-tap.org/docs/api/snapshot-testing/}
+     * 
+     * @example t.formatSnapshot = object => JSON.stringify(object)
+     */
     formatSnapshot: (obj: any) => string;
 
     /**
@@ -198,6 +281,10 @@ declare class Test extends DeprecatedAssertionSynonyms {
     // return the type of module provided unioned with the mocks?
 
     /**
+     * Takes a path to a module and returns the specified module in context of the
+     * mocks provided.
+     * 
+     * @see {@link https://node-tap.org/docs/api/mocks/}
      * 
      * @param modulePath - The string path to the module that is being required,
      * relative to the current test file.
@@ -427,6 +514,15 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * @example type(new Date(), Date) - true
      */
     type: Assertions.Type;
+
+    // this is not in the documentation anymore?
+    
+    /**
+     * Checks if the output in data matches the data with this snapshot name.
+     * 
+     * @see {@link https://node-tap.org/docs/api/snapshot-testing/}
+     */
+    matchSnapshot: (data: any, snapshotName: string) => boolean;
 }
 
 /**

@@ -234,9 +234,11 @@ tap.test("lifecycle", t => {
 
     t.beforeEach(() => true);
     t.beforeEach(async () => true);
+    t.beforeEach(async (childTest: any) => childTest.foo);
 
     t.afterEach(() => true);
     t.afterEach(async () => true);
+    t.afterEach(async (childTest: any) => childTest.foo);
 })
 
 tap.test("mocks", t => {
