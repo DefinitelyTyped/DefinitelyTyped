@@ -76,7 +76,7 @@ export class MongoClient extends EventEmitter {
      * @param uri The connection URI string
      * @param options Optional settings
      * @param callback The optional command result callback
-     * @returns Promise if no callback passed
+     * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect
      */
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -87,7 +87,7 @@ export class MongoClient extends EventEmitter {
      * https://docs.mongodb.org/manual/reference/connection-string/
      *
      * @param callback The optional command result callback
-     * @returns Promise if no callback passed
+     * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#connect
      */
     connect(): Promise<MongoClient>;
@@ -97,17 +97,20 @@ export class MongoClient extends EventEmitter {
      *
      * @param force Optional force close, emitting no events
      * @param callback The optional result callback
-     * @returns Promise if no callback passed
+     * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#close
      */
     close(callback: MongoCallback<void>): void;
     close(force?: boolean): Promise<void>;
     close(force: boolean, callback: MongoCallback<void>): void;
     /**
-     * Create a new Db instance sharing the current socket connections. Be aware that the new db instances are related in a parent-child relationship to the original instance so that events are correctly emitted on child db instances. Child db instances are cached so performing db('db1') twice will return the same instance. You can control these behaviors with the options noListener and returnNonCachedInstance.
+     * Create a new Db instance sharing the current socket connections.
+     * Be aware that the new db instances are related in a parent-child relationship to the original instance so that events are correctly emitted on child db instances.
+     * Child db instances are cached so performing db('db1') twice will return the same instance.
+     * You can control these behaviors with the options noListener and returnNonCachedInstance.
      *
      * @param dbName The name of the database we want to use. If not provided, use database name from connection string.
-     * @param options Optional settings.
+     * @param options Optional settings
      * @returns The Db object
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#db
      */
@@ -115,7 +118,7 @@ export class MongoClient extends EventEmitter {
     /**
      * Check if MongoClient is connected
      *
-     * @param options Optional settings.
+     * @param options Optional settings
      * @returns Whether the MongoClient is connected or not
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#isConnected
      */
@@ -129,9 +132,11 @@ export class MongoClient extends EventEmitter {
      */
     startSession(options?: SessionOptions): ClientSession;
     /**
-     * Create a new Change Stream, watching for new changes (insertions, updates, replacements, deletions, and invalidations) in this cluster. Will ignore all changes to system collections, as well as the local, admin, and config databases.
+     * Create a new Change Stream, watching for new changes (insertions, updates, replacements, deletions, and invalidations) in this cluster.
+     * Will ignore all changes to system collections, as well as the local, admin, and config databases.
      *
-     * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/|aggregation pipeline stages} through which to pass change stream documents. This allows for filtering (using $match) and manipulating the change stream documents.
+     * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents.
+     * This allows for filtering (using $match) and manipulating the change stream documents.
      * @param options Optional settings
      * @returns ChangeStream instance.
      * @see https://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch
@@ -151,14 +156,6 @@ export class MongoClient extends EventEmitter {
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#withSession */
     withSession(options: SessionOptions, operation: (session: ClientSession) => Promise<any>): Promise<void>;
-    /**
-     * The callback format for results
-     *
-     * @param error An error instance representing the error during the execution.
-     * @param client The connected client.
-     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#~connectCallback
-     */
-    connectCallback(error: MongoError, client: MongoClient): Promise<MongoClient>
 
     readPreference: ReadPreference;
     writeConcern: WriteConcern;
@@ -167,6 +164,8 @@ export class MongoClient extends EventEmitter {
 export type ClientSessionId = unknown;
 
 /**
+ * A class representing a client session on the server
+ * WARNING: not meant to be instantiated directly.
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html
  */
 export interface ClientSession extends EventEmitter {
@@ -175,64 +174,69 @@ export interface ClientSession extends EventEmitter {
 
     /**
      * Aborts the currently active transaction in this session.
+     *
+     * @param callback Optional callback for completion of this operation
+     * @returns Promise if no callback is provided
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html#abortTransaction
      */
     abortTransaction(): Promise<void>;
-    /**
-     * Aborts the currently active transaction in this session.
-     * @param callback for completion of this operation
-     */
     abortTransaction(callback?: MongoCallback<void>): void;
 
     /**
      * Advances the operationTime for a {@link ClientSession}.
+     *
+     * @param operationTime The `BSON.Timestamp` of the operation type it is desired to advance to
      */
     advanceOperationTime(operationTime: Timestamp): void;
 
     /**
      * Commits the currently active transaction in this session.
+     *
+     * @param callback Optional callback for completion of this operation
+     * @returns Promise if no callback is provided
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html#commitTransaction
      */
     commitTransaction(): Promise<void>;
-    /**
-     * Commits the currently active transaction in this session.
-     * @param callback - for completion of this operation
-     */
     commitTransaction(callback: MongoCallback<void>): void;
 
     /**
      * Ends this session on the server
-     * @param callback - for completion of this operation
+     *
+     * @param options Optional settings Currently reserved for future use
+     * @param callback Optional callback for completion of this operation
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html#endSession
      */
     endSession(callback?: MongoCallback<void>): void;
-    /**
-     * Ends this session on the server
-     * @param options - settings. Currently reserved for future use
-     * @param callback - for completion of this operation
-     */
-    endSession(options: unknown, callback: MongoCallback<void>): void;
-    /**
-     * Ends this session on the server
-     * @param options - settings. Currently reserved for future use
-     */
-    endSession(options?: unknown): Promise<void>;
+    endSession(options: Object, callback: MongoCallback<void>): void;
+    endSession(options?: Object): Promise<void>;
 
     /**
      * Used to determine if this session equals another
      *
      * @param session - a class representing a client session on the server
      * @returns `true` if the sessions are equal
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html#equals
      */
     equals(session: ClientSession): boolean;
 
-    /** Increment the transaction number on the internal `ServerSession` */
+    /**
+     * Increment the transaction number on the internal `ServerSession`
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html#incrementTransactionNumber
+     */
     incrementTransactionNumber(): void;
 
     /**
      * @returns whether this session is currently in a transaction or not
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html#inTransaction
      */
     inTransaction(): boolean;
 
     /**
      * Starts a new transaction with the given options.
+     *
+     * @param options Options for the transaction
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html#startTransaction
      */
     startTransaction(options?: TransactionOptions): void;
 
@@ -241,16 +245,21 @@ export interface ClientSession extends EventEmitter {
      * or entire transaction as needed (and when the error permits) to better ensure that
      * the transaction can complete successfully.
      *
-     * IMPORTANT: This method requires the user to return a {@link Promise}, all lambdas that do not
-     * return a {@link Promise} will result in undefined behavior.
+     * IMPORTANT: This method requires the user to return a Promise, all lambdas that do not
+     * return a Promise will result in undefined behavior.
      *
-     * @param fn
-     * @param options - settings for the transaction
+     * @param fn A user provided function to be run within a transaction
+     * @param options Optional settings for the transaction
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ClientSession.html#withTransaction
      */
     withTransaction(fn: WithTransactionCallback, options?: TransactionOptions): Promise<any>;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#ReadConcern */
+/**
+ * The MongoDB ReadConcern, which allows for control of the consistency and isolation properties
+ * of the data read from replica sets and replica set shards.
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#ReadConcern
+ */
 type ReadConcernLevel = "local" | "available" | "majority" | "linearizable" | "snapshot";
 
 /**
@@ -265,6 +274,10 @@ export interface ReadConcern {
 /**
  * A MongoDB WriteConcern, which describes the level of acknowledgement
  * requested from MongoDB for write operations.
+ *
+ * @param w requests acknowledgement that the write operation has propagated to a specified number of mongod hosts
+ * @param j requests acknowledgement from MongoDB that the write operation has been written to the journal
+ * @param timeout a time limit, in milliseconds, for the write concern
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#WriteConcern
  */
 interface WriteConcern {
@@ -288,6 +301,9 @@ interface WriteConcern {
 
 /**
  * Options to pass when creating a Client Session
+ *
+ * @param causalConsistency Whether causal consistency should be enabled on this session
+ * @param defaultTransactionOptions The default TransactionOptions to use for transactions started on this session.
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#SessionOptions
  */
 export interface SessionOptions {
@@ -304,6 +320,10 @@ export interface SessionOptions {
 
 /**
  * Configuration options for a transaction.
+ *
+ * @param readConcern A default read concern for commands in this transaction
+ * @param writeConcern A default writeConcern for commands in this transaction
+ * @param readPreference A default read preference for commands in this transaction
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#TransactionOptions
  */
 export interface TransactionOptions {
@@ -312,13 +332,22 @@ export interface TransactionOptions {
     readPreference?: ReadPreferenceOrMode;
 }
 
+/**
+ * @param noListener Do not make the db an event listener to the original connection.
+ * @param returnNonCachedInstance Control if you want to return a cached instance or have a new one created
+ */
 export interface MongoClientCommonOption {
-    /** Do not make the db an event listener to the original connection. */
     noListener?: boolean;
-    /** Control if you want to return a cached instance or have a new one created */
     returnNonCachedInstance?: boolean;
 }
 
+/**
+ * The callback format for results
+ *
+ * @param error An error instance representing the error during the execution.
+ * @param result The result object if the command was executed successfully.
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#~resultCallback
+ */
 export interface MongoCallback<T> {
     (error: MongoError, result: T): void;
 }
@@ -326,25 +355,35 @@ export interface MongoCallback<T> {
 /**
  * A user provided function to be run within a transaction
  *
- * @param session - the parent session of the transaction running the operation.
- *                  This should be passed into each operation within the lambda.
- * @returns - the resulting {@link Promise} of operations run within this transaction
+ * @param session The parent session of the transaction running the operation. This should be passed into each operation within the lambda.
+ * @returns Resulting Promise of operations run within this transaction
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#WithTransactionCallback
  */
 export type WithTransactionCallback = (session: ClientSession) => Promise<void>;
 
 /**
  * Creates a new MongoError
+ *
+ * @param message The error message
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoError.html
  */
 export class MongoError extends Error {
     constructor(message: string | Error | object);
     /**
+     * Creates a new MongoError object
+     *
+     * @param options The options used to create the error.
+     * @returns A MongoError instance
      * @deprecated Use `new MongoError()` instead.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoError.html#.create
      */
     static create(options: string | Error | object): MongoError;
     /**
      * Checks the error to see if it has an error label
-     * @return `true` if the error has the provided error label
+     *
+     * @param options The options used to create the error.
+     * @returns `true` if the error has the provided error label
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoError.html#hasErrorLabel
      */
     hasErrorLabel(label: string): boolean;
     readonly errorLabels: string[];
@@ -373,18 +412,25 @@ export class MongoError extends Error {
 
 /**
  * An error indicating an issue with the network, including TCP errors and timeouts
+ *
+ * @param message The error message
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoNetworkError.html
  */
 export class MongoNetworkError extends MongoError {}
 
 /**
  * An error used when attempting to parse a value (like a connection string)
+ *
+ * @param message The error message
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoParseError.html
  */
 export class MongoParseError extends MongoError {}
 
 /**
  * An error signifying a client-side timeout event
+ *
+ * @param message The error message
+ * @param reason The reason the timeout occured
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoTimeoutError.html
  */
 export class MongoTimeoutError extends MongoError {
@@ -397,12 +443,18 @@ export class MongoTimeoutError extends MongoError {
 
 /**
  * An error signifying a client-side server selection error
+ *
+ * @param message The error message
+ * @param reason The reason the timeout occured
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoServerSelectionError.html
  */
 export class MongoServerSelectionError extends MongoTimeoutError {}
 
 /**
  * An error thrown when the server reports a writeConcernError
+ *
+ * @param message The error message
+ * @param reason The reason the timeout occured
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoWriteConcernError.html
  */
 export class MongoWriteConcernError extends MongoError {
@@ -412,7 +464,11 @@ export class MongoWriteConcernError extends MongoError {
     result?: object;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect */
+/**
+ * Optional settings for MongoClient.connect()
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect
+ */
 export interface MongoClientOptions
     extends DbCreateOptions,
         ServerOptions,
@@ -509,8 +565,8 @@ export interface MongoClientOptions
 
 /**
  * Extra options related to the mongocryptd process.
- * See {@link https://mongodb.github.io/node-mongodb-native/3.6/api/AutoEncrypter.html#~AutoEncryptionExtraOptions documentation}
- * for more info.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AutoEncrypter.html#~AutoEncryptionExtraOptions
  */
 export interface AutoEncryptionExtraOptions {
     /**
@@ -540,8 +596,8 @@ export interface AutoEncryptionExtraOptions {
 /**
  * Configuration options that are used by specific KMS providers during key
  * generation, encryption, and decryption.
- * See {@link http://mongodb.github.io/node-mongodb-native/3.6/api/global.html#KMSProviders documentation}
- * for more info.
+ *
+ * @see http://mongodb.github.io/node-mongodb-native/3.6/api/global.html#KMSProviders
  */
 export interface KMSProviders {
     /**
@@ -595,8 +651,8 @@ export interface KMSProviders {
 
 /**
  * Configuration options for a automatic client encryption.
- * See {@link https://mongodb.github.io/node-mongodb-native/3.6/api/AutoEncrypter.html#~AutoEncryptionOptions documentation}
- * for more info.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AutoEncrypter.html#~AutoEncryptionOptions
  */
 export interface AutoEncryptionOptions {
     /**
@@ -635,14 +691,14 @@ export interface AutoEncryptionOptions {
 export interface SSLOptions {
     /**
      * Passed directly through to tls.createSecureContext.
-     * See {@link https://nodejs.org/dist/latest/docs/api/tls.html#tls_tls_createsecurecontext_options documentation}
-     * for more info.
+     *
+     * @see https://nodejs.org/dist/latest/docs/api/tls.html#tls_tls_createsecurecontext_options
      */
     ciphers?: string;
     /**
      * Passed directly through to tls.createSecureContext.
-     * See {@link https://nodejs.org/dist/latest/docs/api/tls.html#tls_tls_createsecurecontext_options documentation}
-     * for more info.
+     *
+     * @see https://nodejs.org/dist/latest/docs/api/tls.html#tls_tls_createsecurecontext_options
      */
     ecdhCurve?: string;
     /**
@@ -747,7 +803,7 @@ export interface HighAvailabilityOptions {
     domainsEnabled?: boolean;
 
     /**
-     * The {@link ReadPreference} mode as listed
+     * The ReadPreference mode as listed
      * {@link https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html here}
      */
     readPreference?: ReadPreferenceOrMode;
@@ -796,12 +852,16 @@ export class ReadPreference {
     /**
      * Are the two read preference equal
      * @param readPreference - the read preference with which to check equality
-     * @return `true` if the two {@link ReadPreference}s are equivalent
+     * @returns `true` if the two ReadPreferences are equivalent
      */
     equals(readPreference: ReadPreference): boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html */
+/**
+ * Optional settings for creating a new Db instance
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html
+ */
 export interface DbCreateOptions extends CommonOptions {
     /**
      * If the database authentication is dependent on another databaseName.
@@ -929,7 +989,11 @@ export interface UnifiedTopologyOptions {
     waitQueueTimeoutMS?: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Server.html */
+/**
+ * Optional socket options
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Server.html
+ */
 export interface SocketOptions {
     /**
      * Reconnect on error.
@@ -971,7 +1035,11 @@ export interface SocketOptions {
     socketTimeoutMS?: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Server.html */
+/**
+ * Optional settings for creating a new Server instance
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Server.html
+ */
 export interface ServerOptions extends SSLOptions {
     /**
      * If you're connected to a single server or mongos proxy (as opposed to a replica set),
@@ -1019,7 +1087,11 @@ export interface ServerOptions extends SSLOptions {
     fsync?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Mongos.html */
+/**
+ * Optional settings for creating a new Mongos instance
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Mongos.html
+ */
 export interface MongosOptions extends SSLOptions, HighAvailabilityOptions {
     /**
      * Cutoff latency point in MS for MongoS proxy selection
@@ -1033,7 +1105,11 @@ export interface MongosOptions extends SSLOptions, HighAvailabilityOptions {
     socketOptions?: SocketOptions;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ReplSet.html */
+/**
+ * Optional settings for creating a new ReplSet instance
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ReplSet.html
+ */
 export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions {
     /**
      * The max staleness to secondary reads (values under 10 seconds cannot be guaranteed);
@@ -1048,13 +1124,30 @@ export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions {
      * @default 15
      */
     secondaryAcceptableLatencyMS?: number;
+    /**
+     * If the driver should connect even if no primary is available
+     * @default false
+     */
     connectWithNoPrimary?: boolean;
+    /**
+     * Optional socket options
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Server.html
+     */
     socketOptions?: SocketOptions;
 }
 
 export type ProfilingLevel = "off" | "slow_only" | "all";
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html */
+/**
+ * Creates a new Db instance
+ *
+ * @param databaseName The name of the database this instance represents.
+ * @param topology The server topology for the database.
+ * @param options Optional settings
+ * @returns Db instance
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html
+ */
 export class Db extends EventEmitter {
     constructor(databaseName: string, serverConfig: Server | ReplSet | Mongos, options?: DbCreateOptions);
 
@@ -1066,13 +1159,35 @@ export class Db extends EventEmitter {
     slaveOk: boolean;
     writeConcern: WriteConcern;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#addUser */
+    /**
+     * Add a user to the database
+     *
+     * @param username The username
+     * @param password The password
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#addUser
+     */
     addUser(username: string, password: string, callback: MongoCallback<any>): void;
     addUser(username: string, password: string, options?: DbAddUserOptions): Promise<any>;
     addUser(username: string, password: string, options: DbAddUserOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#admin */
+    /**
+     * Return the Admin db instance
+     *
+     * @returns the new Admin db instance
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#admin
+     */
     admin(): Admin;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collection */
+    /**
+     * Fetch a specific collection (containing the actual collection information).
+     * If the application does not use strict mode you can use it without a callback in the following way: `const collection = db.collection('mycollection');`
+     *
+     * @param name The collection name you wish to access.
+     * @param options Optional settings
+     * @param callback The collection result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collection
+     */
     collection<TSchema = DefaultSchema>(
         name: string,
         callback?: MongoCallback<Collection<TSchema>>,
@@ -1082,10 +1197,25 @@ export class Db extends EventEmitter {
         options: DbCollectionOptions,
         callback?: MongoCallback<Collection<TSchema>>,
     ): Collection<TSchema>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collections */
+    /**
+     * Fetch all collections for the current db.
+     *
+     * @param options Optional settings
+     * @param callback The collection result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collections
+     */
     collections(): Promise<Array<Collection<Default>>>;
     collections(callback: MongoCallback<Array<Collection<Default>>>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#command */
+    /**
+     * Execute a command
+     *
+     * @param command The command hash
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#command
+     */
     command(command: object, callback: MongoCallback<any>): void;
     command(
         command: object,
@@ -1096,7 +1226,16 @@ export class Db extends EventEmitter {
         options: { readPreference: ReadPreferenceOrMode; session?: ClientSession },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createCollection */
+    /**
+     * Create a new collection on a server with the specified options. Use this to create capped collections.
+     * More information about command options available at {@link https://docs.mongodb.com/manual/reference/command/create/}
+     *
+     * @param name The collection name we wish to access.
+     * @param options Optional settings
+     * @param callback The results callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createCollection
+     */
     createCollection<TSchema = DefaultSchema>(name: string, callback: MongoCallback<Collection<TSchema>>): void;
     createCollection<TSchema = DefaultSchema>(
         name: string,
@@ -1107,17 +1246,49 @@ export class Db extends EventEmitter {
         options: CollectionCreateOptions,
         callback: MongoCallback<Collection<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createIndex */
+    /**
+     * Creates an index on the db and collection.
+     *
+     * @param name Name of the collection to create the index on.
+     * @param fieldOrSpec Defines the index.
+     * @param options Optional settings
+     * @param callback The results callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createIndex
+     */
     createIndex(name: string, fieldOrSpec: string | object, callback: MongoCallback<any>): void;
-    createIndex(name: string, fieldOrSpec: string | object, options?: IndexOptions): Promise<any>;
-    createIndex(name: string, fieldOrSpec: string | object, options: IndexOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#dropCollection */
+    createIndex(name: string, fieldOrSpec: string | object, options?: CreateIndexOptions): Promise<any>;
+    createIndex(name: string, fieldOrSpec: string | object, options: CreateIndexOptions, callback: MongoCallback<any>): void;
+    /**
+     * Drop a collection from the database, removing it permanently. New accesses will create a new collection.
+     *
+     * @param name Name of collection to drop
+     * @param options Optional settings
+     * @param callback The results callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#dropCollection
+     */
     dropCollection(name: string): Promise<boolean>;
     dropCollection(name: string, callback: MongoCallback<boolean>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#dropDatabase */
+    /**
+     * Drop a database, removing it permanently from the server.
+     *
+     * @param options Optional settings
+     * @param callback The results callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#dropDatabase
+     */
     dropDatabase(): Promise<any>;
     dropDatabase(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#executeDbAdminCommand */
+    /**
+     * Runs a command on the database as admin.
+     *
+     * @param command The command hash
+     * @param options Optional Settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#executeDbAdminCommand
+     */
     executeDbAdminCommand(command: object, callback: MongoCallback<any>): void;
     executeDbAdminCommand(
         command: object,
@@ -1128,7 +1299,15 @@ export class Db extends EventEmitter {
         options: { readPreference?: ReadPreferenceOrMode; session?: ClientSession },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#indexInformation */
+    /**
+     * Retrieves this collections index info.
+     *
+     * @param name The name of the collection
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#indexInformation
+     */
     indexInformation(name: string, callback: MongoCallback<any>): void;
     indexInformation(name: string, options?: { full?: boolean; readPreference?: ReadPreferenceOrMode }): Promise<any>;
     indexInformation(
@@ -1136,7 +1315,13 @@ export class Db extends EventEmitter {
         options: { full?: boolean; readPreference?: ReadPreferenceOrMode },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#listCollections */
+    /**
+     * Get the list of all collection information for the specified db.
+     *
+     * @param filter Query to filter collections by
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#listCollections
+     */
     listCollections(
         filter?: object,
         options?: {
@@ -1146,20 +1331,48 @@ export class Db extends EventEmitter {
             session?: ClientSession;
         },
     ): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#profilingInfo */
-    /** @deprecated Query the system.profile collection directly. */
+    /**
+     * Retrieve the current profiling information for MongoDB
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#profilingInfo
+     * @deprecated Query the system.profile collection directly.
+     */
     profilingInfo(callback: MongoCallback<any>): void;
     profilingInfo(options?: { session?: ClientSession }): Promise<void>;
     profilingInfo(options: { session?: ClientSession }, callback: MongoCallback<void>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#profilingLevel */
+    /**
+     * Retrieve the current profiling Level for MongoDB
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#profilingLevel
+     */
     profilingLevel(callback: MongoCallback<ProfilingLevel>): void;
     profilingLevel(options?: { session?: ClientSession }): Promise<ProfilingLevel>;
     profilingLevel(options: { session?: ClientSession }, callback: MongoCallback<ProfilingLevel>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#removeUser */
+    /**
+     * Remove a user from a database
+     *
+     * @param username The username
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#removeUser
+     */
     removeUser(username: string, callback: MongoCallback<any>): void;
     removeUser(username: string, options?: CommonOptions): Promise<any>;
     removeUser(username: string, options: CommonOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#renameCollection */
+    /**
+     * Rename a collection
+     *
+     * @param fromCollection Name of current collection to rename.
+     * @param toCollection New name of of the collection.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#renameCollection
+     */
     renameCollection<TSchema = DefaultSchema>(
         fromCollection: string,
         toCollection: string,
@@ -1176,7 +1389,15 @@ export class Db extends EventEmitter {
         options: { dropTarget?: boolean },
         callback: MongoCallback<Collection<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#setProfilingLevel */
+    /**
+     * Set the current profiling level of MongoDB
+     *
+     * @param level The new profiling level (off, slow_only, all).
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#setProfilingLevel
+     */
     setProfilingLevel(level: ProfilingLevel, callback: MongoCallback<ProfilingLevel>): void;
     setProfilingLevel(level: ProfilingLevel, options?: { session?: ClientSession }): Promise<ProfilingLevel>;
     setProfilingLevel(
@@ -1184,11 +1405,32 @@ export class Db extends EventEmitter {
         options: { session?: ClientSession },
         callback: MongoCallback<ProfilingLevel>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#stats */
+    /**
+     * Get all the db statistics.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#stats
+     */
     stats(callback: MongoCallback<any>): void;
     stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.3/api/Db.html#watch */
+    /**
+     * Unref all sockets
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#unref
+     */
+    unref(): void;
+    /**
+     * Create a new Change Stream, watching for new changes (insertions, updates, replacements, deletions, and invalidations) in this database.
+     * Will ignore all changes to system collections.
+     *
+     * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents.
+     * This allows for filtering (using $match) and manipulating the change stream documents.
+     * @param options Optional settings
+     * @returns ChangeStream instance.
+     * @see https://mongodb.github.io/node-mongodb-native/3.3/api/Db.html#watch
+     */
     watch<TSchema extends object = { _id: ObjectId }>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
@@ -1200,6 +1442,12 @@ export interface CommonOptions extends WriteConcern {
 }
 
 /**
+ * Creates a new Server instance
+ *
+ * @param host The host for the server, can be either an IP4, IP6 or domain socket style host.
+ * @param port The server port if IP4.
+ * @param options Optional settings
+ * @returns Server instance
  * @deprecated
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Server.html
  */
@@ -1210,6 +1458,10 @@ export class Server extends EventEmitter {
 }
 
 /**
+ * Creates a new ReplSet instance
+ *
+ * @param servers A seedlist of servers participating in the replicaset.
+ * @param options Optional settings
  * @deprecated
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ReplSet.html
  */
@@ -1220,6 +1472,10 @@ export class ReplSet extends EventEmitter {
 }
 
 /**
+ * Creates a new Mongos instance
+ *
+ * @param servers A seedlist of servers participating in the replicaset.
+ * @param options Optional settings
  * @deprecated
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Mongos.html
  */
@@ -1230,7 +1486,8 @@ export class Mongos extends EventEmitter {
 }
 
 /**
- * @deprecated
+ * Optional settings for adding a user to the database
+ *
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#addUser
  */
 export interface DbAddUserOptions extends CommonOptions {
@@ -1238,7 +1495,11 @@ export interface DbAddUserOptions extends CommonOptions {
     roles?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createCollection */
+/**
+ * Options for creating a new collection on a server
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createCollection
+ */
 export interface CollectionCreateOptions extends CommonOptions {
     raw?: boolean;
     pkFactory?: object;
@@ -1267,7 +1528,11 @@ export interface CollectionCreateOptions extends CommonOptions {
     collation?: CollationDocument;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collection */
+/**
+ * Options for fetching a specific collection.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#collection
+ */
 export interface DbCollectionOptions extends CommonOptions {
     raw?: boolean;
     pkFactory?: object;
@@ -1277,8 +1542,12 @@ export interface DbCollectionOptions extends CommonOptions {
     readConcern?: ReadConcern;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createIndex */
-export interface IndexOptions extends CommonOptions {
+/**
+ * Options for creating an index on the db and collection.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createIndex
+ */
+export interface CreateIndexOptions extends CommonOptions {
     /**
      * Creates an unique index.
      */
@@ -1326,17 +1595,46 @@ export interface IndexOptions extends CommonOptions {
     default_language?: string;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html */
+/**
+ * Create a new Admin instance (INTERNAL TYPE, do not instantiate directly)
+ *
+ * @returns Collection instance
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html
+ */
 export interface Admin {
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#addUser */
+    /**
+     * Add a user to the database.
+     *
+     * @param username The username
+     * @param password The password
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#addUser
+     */
     addUser(username: string, password: string, callback: MongoCallback<any>): void;
     addUser(username: string, password: string, options?: AddUserOptions): Promise<any>;
     addUser(username: string, password: string, options: AddUserOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#buildInfo */
+    /**
+     * Retrieve the server information for the current instance of the db client
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#buildInfo
+     */
     buildInfo(options?: { session?: ClientSession }): Promise<any>;
     buildInfo(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     buildInfo(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#command */
+    /**
+     * Execute a command
+     *
+     * @param command The command hash
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#command
+     */
     command(command: object, callback: MongoCallback<any>): void;
     command(command: object, options?: { readPreference?: ReadPreferenceOrMode; maxTimeMS?: number }): Promise<any>;
     command(
@@ -1344,30 +1642,81 @@ export interface Admin {
         options: { readPreference?: ReadPreferenceOrMode; maxTimeMS?: number },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#listDatabases */
+    /**
+     * List the available databases
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#listDatabases
+     */
     listDatabases(options?: { nameOnly?: boolean; session?: ClientSession }): Promise<any>;
     listDatabases(options: { nameOnly?: boolean; session?: ClientSession }, callback: MongoCallback<any>): void;
     listDatabases(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#ping */
+    /**
+     * Ping the MongoDB server and retrieve results
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#ping
+     */
     ping(options?: { session?: ClientSession }): Promise<any>;
     ping(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     ping(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#removeUser */
+    /**
+     * Remove a user from a database
+     *
+     * @param username The username
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#removeUser
+     */
     removeUser(username: string, callback: MongoCallback<any>): void;
     removeUser(username: string, options?: FSyncOptions): Promise<any>;
     removeUser(username: string, options: FSyncOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#replSetGetStatus */
+    /**
+     * Get ReplicaSet status
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#replSetGetStatus
+     */
     replSetGetStatus(options?: { session?: ClientSession }): Promise<any>;
     replSetGetStatus(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     replSetGetStatus(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#serverInfo */
+    /**
+     * Retrieve the server information for the current instance of the db client
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#serverInfo
+     */
     serverInfo(): Promise<any>;
     serverInfo(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#serverStatus */
+    /**
+     * Retrieve this db's server status.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#serverStatus
+     */
     serverStatus(options?: { session?: ClientSession }): Promise<any>;
     serverStatus(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     serverStatus(callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#validateCollection */
+    /**
+     * Validate an existing collection
+     *
+     * @param collectionNme The name of the collection to validate.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#validateCollection
+     */
     validateCollection(collectionNme: string, callback: MongoCallback<any>): void;
     validateCollection(collectionNme: string, options?: object): Promise<any>;
     validateCollection(collectionNme: string, options: object, callback: MongoCallback<any>): void;
@@ -1466,8 +1815,8 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     countDocuments(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndex */
     createIndex(fieldOrSpec: string | any, callback: MongoCallback<string>): void;
-    createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
-    createIndex(fieldOrSpec: string | any, options: IndexOptions, callback: MongoCallback<string>): void;
+    createIndex(fieldOrSpec: string | any, options?: CreateIndexOptions): Promise<string>;
+    createIndex(fieldOrSpec: string | any, options: CreateIndexOptions, callback: MongoCallback<string>): void;
     /**
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndexes
      * @see https://docs.mongodb.org/manual/reference/command/createIndexes/
