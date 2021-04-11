@@ -362,16 +362,20 @@ declare class Test extends DeprecatedAssertionSynonyms {
         extra?: Options.Assert,
     ): Promise<void>;
 
-    // Verifies that the promise (or promise-returning function) resolves, and furthermore that the value of the promise matches the snapshot.
-    // Note: since promises always reject and resolve asynchronously, this assertion is implemented asynchronously. As such, it does not return a boolean to indicate its passing status.
-    // Instead, it returns a Promise that resolves when it is completed.
+    /**
+     * Verifies that the promise (or promise-returning function) resolves, and
+     * furthermore that the value of the promise matches the snapshot.
+     * 
+     * Note: since promises always reject and resolve asynchronously, this
+     * assertion is implemented asynchronously. As such, it does not return a
+     * boolean to indicate its passing status. Instead, it returns a Promise
+     * that resolves when it is completed.
+     */
     resolveMatchSnapshot(
         promiseOrFn: Promise<any> | ((...args: any[]) => Promise<any>),
         message?: string,
         extra?: Options.Assert,
     ): Promise<void>;
-
-    // As of version 11, tap supports saving and then comparing against "snapshot" strings. This is a powerful technique for testing programs that generate output, but it comes with some caveats.
 
     // WARN: This is not described in the documentation formally anymore?
 
