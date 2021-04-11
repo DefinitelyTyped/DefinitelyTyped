@@ -1257,8 +1257,13 @@ export class Db extends EventEmitter {
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createIndex
      */
     createIndex(name: string, fieldOrSpec: string | object, callback: MongoCallback<any>): void;
-    createIndex(name: string, fieldOrSpec: string | object, options?: CreateIndexOptions): Promise<any>;
-    createIndex(name: string, fieldOrSpec: string | object, options: CreateIndexOptions, callback: MongoCallback<any>): void;
+    createIndex(name: string, fieldOrSpec: string | object, options?: IndexOptions): Promise<any>;
+    createIndex(
+        name: string,
+        fieldOrSpec: string | object,
+        options: IndexOptions,
+        callback: MongoCallback<any>,
+    ): void;
     /**
      * Drop a collection from the database, removing it permanently. New accesses will create a new collection.
      *
@@ -1547,7 +1552,7 @@ export interface DbCollectionOptions extends CommonOptions {
  *
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#createIndex
  */
-export interface CreateIndexOptions extends CommonOptions {
+export interface IndexOptions extends CommonOptions {
     /**
      * Creates an unique index.
      */
@@ -1815,8 +1820,8 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     countDocuments(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndex */
     createIndex(fieldOrSpec: string | any, callback: MongoCallback<string>): void;
-    createIndex(fieldOrSpec: string | any, options?: CreateIndexOptions): Promise<string>;
-    createIndex(fieldOrSpec: string | any, options: CreateIndexOptions, callback: MongoCallback<string>): void;
+    createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
+    createIndex(fieldOrSpec: string | any, options: IndexOptions, callback: MongoCallback<string>): void;
     /**
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndexes
      * @see https://docs.mongodb.org/manual/reference/command/createIndexes/
