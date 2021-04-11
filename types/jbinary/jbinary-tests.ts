@@ -15,22 +15,25 @@ import jBinary = require("jbinary");
     });
 })();
 
-(function () {
-    const title = '"loadData" (with Promise and file path)';
-    jBinary
-        .loadData("./test.bin")
-        .then((data) => {
-            console.log(`[OK.] ${title} => Loaded ${data.length} bytes of data.`);
-        })
-        .catch((reason) => {
-            if (reason instanceof Error) {
-                console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
-            }
-        });
-})();
+// Note: The following test fails, because of an open bug in jBinary: https://github.com/jDataView/jBinary/issues/46
+// (function () {
+//     const title = '"loadData" (with Promise and ReadableStream)';
+//     const inputStream = fs.createReadStream("./test.bin");
+//     jBinary
+//         .loadData(inputStream)
+//         .then((data) => {
+//             console.log(`[OK.] ${title} => Loaded ${data.length} bytes of data.`);
+//         })
+//         .catch((reason) => {
+//             if (reason instanceof Error) {
+//                 console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
+//             }
+//         });
+// })();
 // #endregion loadData
 
 // #region load
+// Note: The following test fails, because of an open bug in jBinary: https://github.com/jDataView/jBinary/issues/46
 // (function () {
 //     const title = '"load" (with Callback and ReadableStream)';
 //     const inputStream = fs.createReadStream("./test.bin");
@@ -43,20 +46,19 @@ import jBinary = require("jbinary");
 //     });
 // })();
 
-// (function () {
-//     const title = '"load" (with Promise and ReadableStream)';
-//     const inputStream = fs.createReadStream("./test.bin");
-//     jBinary
-//         .load(inputStream)
-//         .then((jb) => {
-//             console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
-//         })
-//         .catch((reason) => {
-//             if (reason instanceof Error) {
-//                 console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
-//             }
-//         });
-// })();
+(function () {
+    const title = '"load" (with Promise and file path)';
+    jBinary
+        .load("./test.bin")
+        .then(jb => {
+            console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
+        })
+        .catch(reason => {
+            if (reason instanceof Error) {
+                console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
+            }
+        });
+})();
 // #endregion load
 
 // #region saveAs
@@ -64,7 +66,7 @@ import jBinary = require("jbinary");
     const title = '"saveAs" (with Callback, file path and text as data)';
     const filePath = "./test-saveas-callback.txt";
     const binary = new jBinary("ABCDEFG");
-    binary.saveAs(filePath, "text/plain", (err) => {
+    binary.saveAs(filePath, "text/plain", err => {
         if (err instanceof Error) {
             console.log(`[ERR] ${title} => Error writing file: ${err.message}`);
         } else {
@@ -84,7 +86,7 @@ import jBinary = require("jbinary");
         .then(() => {
             console.log(`[OK.] ${title} => Data saved.`);
         })
-        .catch((reason) => {
+        .catch(reason => {
             if (reason instanceof Error) {
                 console.log(`[ERR] ${title} => Error writing file: ${reason.message}`);
             }
@@ -96,11 +98,6 @@ import jBinary = require("jbinary");
 })();
 // #endregion saveAs
 
-// var originalData = [0x05, 0x03, 0x7f, 0x1e];
-// var b1 = new jBinary(originalData);
-// console.log(b1.readAll());
-// console.log(b1.read("int8"));
-
 // b1.seek(4);
 // console.log(b1.read("int8"));
 
@@ -110,6 +107,31 @@ import jBinary = require("jbinary");
 // b1.writeAll(originalData);
 
 // console.log(b1.slice(0, 2));
+
+// #region read
+(function () {
+    const title = '"read"';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    const data = binary.read("uint8");
+    console.log(`[OK.] ${title} => Read the following data byte: "${String(data)}"`);
+})();
+
+(function () {
+    const title = '"read (with custom position)"';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    const data = binary.read("uint8", 1);
+    console.log(`[OK.] ${title} => Read the following data byte: "${String(data)}"`);
+})();
+// #endregion read
+
+// #region readAll
+(function () {
+    const title = '"readAll (with typeset)"';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e], { "jBinary.all": "uint8" });
+    const data = binary.readAll();
+    console.log(`[OK.] ${title} => Read the following data: "${String(data)}"`);
+})();
+// #endregion readAll
 
 // #region toURI
 (function () {
@@ -125,4 +147,4 @@ import jBinary = require("jbinary");
 })();
 // #endregion toURI
 
-// TODO: as, read, readAll, seek, skip, slice, tell, write, writeAll
+// TODO: as, seek, skip, slice, tell, write, writeAll
