@@ -373,6 +373,8 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     // As of version 11, tap supports saving and then comparing against "snapshot" strings. This is a powerful technique for testing programs that generate output, but it comes with some caveats.
 
+    // WARN: This is not described in the documentation formally anymore?
+
     /**
      * Checks if the output in data matches the data with this snapshot name.
      * 
