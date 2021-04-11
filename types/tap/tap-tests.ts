@@ -231,6 +231,12 @@ interface MockModule {
 tap.test("lifecycle", t => {
     t.before(() => true);
     t.before(async () => true);
+
+    t.beforeEach(() => true);
+    t.beforeEach(async () => true);
+
+    t.afterEach(() => true);
+    t.afterEach(async () => true);
 })
 
 tap.test("mocks", t => {
