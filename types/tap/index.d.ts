@@ -309,10 +309,6 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * then the t.throws() or t.rejects() methods are more appropriate.
      * 
      * If called multiple times, then the uncaught exception errors must be emitted in the order called.
-     * 
-     * This method will NOT properly link a thrown error to the correct test object
-     * in some cases involving native modules on Node version 8.
-     * @see {@link https://node-tap.org/docs/api/asserts/#texpectuncaughtexceptionfn-expectederror-message-extra}
      */
     expectUncaughtException(
         fn?: (...args: any[]) => any,
