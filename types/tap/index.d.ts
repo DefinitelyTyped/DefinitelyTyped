@@ -138,10 +138,10 @@ declare class Test extends DeprecatedAssertionSynonyms {
      */
     bailout(reason?: string): void;
 
-    before(fn: () => void | Promise<void>): void;
+    before(fn: () => any | Promise<any>): void;
 
-    beforeEach(fn: () => void | Promise<void>): void;
-    afterEach(fn: () => void | Promise<void>): void;
+    beforeEach(fn: () => any | Promise<any>): void;
+    afterEach(fn: () => any | Promise<any>): void;
 
     cleanSnapshot: (s: string) => string;
     formatSnapshot: (obj: any) => string;

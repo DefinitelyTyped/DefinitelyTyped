@@ -228,6 +228,11 @@ interface MockModule {
     }
 }
 
+tap.test("lifecycle", t => {
+    t.before(() => true);
+    t.before(async () => true);
+})
+
 tap.test("mocks", t => {
     const genericMockModule = tap.mock<MockModule>("../my-module", {
         "fs": {
