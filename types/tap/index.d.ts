@@ -256,7 +256,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * @see {@link https://node-tap.org/docs/api/test-lifecycle-events}
      */
     context: any;
-    
+
     /**
      * This is a read-only property set to the string value provided
      * as the name argument to t.test(), or an empty string if no name is provided.
@@ -314,7 +314,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * it's often better to simply throw it. The Test object will handle this as a failure.
      */
     error: Assertions.Basic;
-    
+
 
     /**
      * Verify that the event emitter emits the named event before the end of the test.
@@ -540,15 +540,15 @@ declare class DeprecatedAssertionSynonyms {
     /**
      * @deprecated use notOk() instead.
      */
-     false: Assertions.Basic;
-     /**
-      * @deprecated use assertNot() instead.
-      */
-     assertNot: Assertions.Basic;
-
-     /**
-     * @deprecated use error() instead.
+    false: Assertions.Basic;
+    /**
+     * @deprecated use assertNot() instead.
      */
+    assertNot: Assertions.Basic;
+
+    /**
+    * @deprecated use error() instead.
+    */
     ifErr: Assertions.Basic;
     /**
      * @deprecated use error() instead.
@@ -558,49 +558,49 @@ declare class DeprecatedAssertionSynonyms {
     /**
      * @deprecated use doesNotThrow() instead.
      */
-     notThrow: Assertions.DoesNotThrow;
+    notThrow: Assertions.DoesNotThrow;
 
-     /**
-     * @deprecated use throws() instead.
-     */
+    /**
+    * @deprecated use throws() instead.
+    */
     throw: Assertions.Throws;
 
     /**
      * @deprecated use equal() instead.
      */
-     equals: Assertions.Equal;
-     /**
-      * @deprecated use equal() instead.
-      */
-     isEqual: Assertions.Equal;
-     /**
-      * @deprecated use equal() instead.
-      */
-     is: Assertions.Equal;
-     /**
-      * @deprecated use equal() instead.
-      */
-     strictEqual: Assertions.Equal;
-     /**
-      * @deprecated use equal() instead.
-      */
-     strictEquals: Assertions.Equal;
-     /**
-      * @deprecated use equal() instead.
-      */
-     strictIs: Assertions.Equal;
-     /**
-      * @deprecated use equal() instead.
-      */
-     isStrict: Assertions.Equal;
-     /**
-      * @deprecated use equal() instead.
-      */
-     isStrictly: Assertions.Equal;
-
-     /**
-     * @deprecated use not() instead.
+    equals: Assertions.Equal;
+    /**
+     * @deprecated use equal() instead.
      */
+    isEqual: Assertions.Equal;
+    /**
+     * @deprecated use equal() instead.
+     */
+    is: Assertions.Equal;
+    /**
+     * @deprecated use equal() instead.
+     */
+    strictEqual: Assertions.Equal;
+    /**
+     * @deprecated use equal() instead.
+     */
+    strictEquals: Assertions.Equal;
+    /**
+     * @deprecated use equal() instead.
+     */
+    strictIs: Assertions.Equal;
+    /**
+     * @deprecated use equal() instead.
+     */
+    isStrict: Assertions.Equal;
+    /**
+     * @deprecated use equal() instead.
+     */
+    isStrictly: Assertions.Equal;
+
+    /**
+    * @deprecated use not() instead.
+    */
     notEqual: Assertions.NotEqual;
     /**
      * @deprecated use not() instead.
@@ -664,92 +664,92 @@ declare class DeprecatedAssertionSynonyms {
      */
     looseIs: Assertions.Equal;
 
-        /**
+    /**
+ * @deprecated use notSame() instead.
+ */
+    inequivalent: Assertions.NotEqual;
+    /**
      * @deprecated use notSame() instead.
      */
-         inequivalent: Assertions.NotEqual;
-         /**
-          * @deprecated use notSame() instead.
-          */
-         looseInequal: Assertions.NotEqual;
-         /**
-          * @deprecated use notSame() instead.
-          */
-         notDeep: Assertions.NotEqual;
-         /**
-          * @deprecated use notSame() instead.
-          */
-         deepInequal: Assertions.NotEqual;
-         /**
-          * @deprecated use notSame() instead.
-          */
-         notLoose: Assertions.NotEqual;
-         /**
-          * @deprecated use notSame() instead.
-          */
-         looseNot: Assertions.NotEqual;
+    looseInequal: Assertions.NotEqual;
+    /**
+     * @deprecated use notSame() instead.
+     */
+    notDeep: Assertions.NotEqual;
+    /**
+     * @deprecated use notSame() instead.
+     */
+    deepInequal: Assertions.NotEqual;
+    /**
+     * @deprecated use notSame() instead.
+     */
+    notLoose: Assertions.NotEqual;
+    /**
+     * @deprecated use notSame() instead.
+     */
+    looseNot: Assertions.NotEqual;
 
     /**
      * @deprecated use strictSame() instead.
      */
-     strictEquivalent: Assertions.Equal;
-     /**
-      * @deprecated use strictSame() instead.
-      */
-     strictDeepEqual: Assertions.Equal;
-     /**
-      * @deprecated use strictSame() instead.
-      */
-     sameStrict: Assertions.Equal;
-     /**
-      * @deprecated use strictSame() instead.
-      */
-     deepIs: Assertions.Equal;
-     /**
-      * @deprecated use strictSame() instead.
-      */
-     isDeeply: Assertions.Equal;
-     /**
-      * @deprecated use strictSame() instead.
-      */
-     isDeep: Assertions.Equal;
-     /**
-      * @deprecated use strictSame() instead.
-      */
-     strictDeepEquals: Assertions.Equal;
+    strictEquivalent: Assertions.Equal;
+    /**
+     * @deprecated use strictSame() instead.
+     */
+    strictDeepEqual: Assertions.Equal;
+    /**
+     * @deprecated use strictSame() instead.
+     */
+    sameStrict: Assertions.Equal;
+    /**
+     * @deprecated use strictSame() instead.
+     */
+    deepIs: Assertions.Equal;
+    /**
+     * @deprecated use strictSame() instead.
+     */
+    isDeeply: Assertions.Equal;
+    /**
+     * @deprecated use strictSame() instead.
+     */
+    isDeep: Assertions.Equal;
+    /**
+     * @deprecated use strictSame() instead.
+     */
+    strictDeepEquals: Assertions.Equal;
 
     /**
      * @deprecated use strictNotSame() instead.
      */
-     strictInequivalent: Assertions.NotEqual;
-     /**
-      * @deprecated use strictNotSame() instead.
-      */
-     strictDeepInequal: Assertions.NotEqual;
-     /**
-      * @deprecated use strictNotSame() instead.
-      */
-     notSameStrict: Assertions.NotEqual;
-     /**
-      * @deprecated use strictNotSame() instead.
-      */
-     deepNot: Assertions.NotEqual;
-     /**
-      * @deprecated use strictNotSame() instead.
-      */
-     notDeeply: Assertions.NotEqual;
-     /**
-      * @deprecated use strictNotSame() instead.
-      */
-     strictDeepInequals: Assertions.NotEqual;
-     /**
-      * @deprecated use strictNotSame() instead.
-      */
-     notStrictSame: Assertions.NotEqual;
-
-         /**
-     * @deprecated use match() instead.
+    strictInequivalent: Assertions.NotEqual;
+    /**
+     * @deprecated use strictNotSame() instead.
      */
+    strictDeepInequal: Assertions.NotEqual;
+    /**
+     * @deprecated use strictNotSame() instead.
+     */
+    notSameStrict: Assertions.NotEqual;
+    /**
+     * @deprecated use strictNotSame() instead.
+     */
+    deepNot: Assertions.NotEqual;
+    /**
+     * @deprecated use strictNotSame() instead.
+     */
+    notDeeply: Assertions.NotEqual;
+    /**
+     * @deprecated use strictNotSame() instead.
+     */
+    strictDeepInequals: Assertions.NotEqual;
+    /**
+     * @deprecated use strictNotSame() instead.
+     */
+    notStrictSame: Assertions.NotEqual;
+
+    /**
+* @deprecated use match() instead.
+*/
     matches: Assertions.Match;
     /**
      * @deprecated use match() instead.
@@ -771,43 +771,43 @@ declare class DeprecatedAssertionSynonyms {
     /**
      * @deprecated use notMatch() instead.
      */
-     dissimilar: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     unsimilar: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     notSimilar: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     unlike: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     isUnlike: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     notLike: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     isNotLike: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     doesNotHave: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     isNotSimilar: Assertions.Match;
-     /**
-      * @deprecated use notMatch() instead.
-      */
-     isDissimilar: Assertions.Match;
+    dissimilar: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    unsimilar: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    notSimilar: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    unlike: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    isUnlike: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    notLike: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    isNotLike: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    doesNotHave: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    isNotSimilar: Assertions.Match;
+    /**
+     * @deprecated use notMatch() instead.
+     */
+    isDissimilar: Assertions.Match;
 
     /**
      * @deprecated use type() instead.
