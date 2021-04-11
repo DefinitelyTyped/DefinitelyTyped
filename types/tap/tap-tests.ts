@@ -221,6 +221,32 @@ tap.test('async test', async t => {
     await t.resolveMatchSnapshot(promiseProvider);
 });
 
+interface MockModule {
+    fs: {
+        readFile: () => string;
+        writeFile: () => string;
+    }
+}
+
+tap.test("mocks", t => {
+    const genericMockModule = tap.mock<MockModule>("../my-module", {
+        "fs": {
+            readFile: () => false,
+        }
+    });
+
+    genericMockModule.fs.readFile;
+    genericMockModule.fs.writeFile;
+
+    const anyMockModule = tap.mock("../my-module", {
+        "fs": {
+            readFile: () => false,
+        }
+    });
+
+    anyMockModule.any.thing;
+});
+
 tap.only('only', t => {
     t.pass();
 });

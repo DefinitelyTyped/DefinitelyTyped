@@ -138,6 +138,8 @@ declare class Test extends DeprecatedAssertionSynonyms {
      */
     bailout(reason?: string): void;
 
+    before(fn: () => void | Promise<void>): void;
+
     beforeEach(fn: () => void | Promise<void>): void;
     afterEach(fn: () => void | Promise<void>): void;
 
@@ -191,6 +193,20 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * then it will enable parallel execution of all of this test's children.
      */
     jobs: number;
+
+    // TODO: Investigate whether - using generics - this could
+    // return the type of module provided unioned with the mocks?
+
+    /**
+     * 
+     * @param modulePath - The string path to the module that is being required,
+     * relative to the current test file.
+     * @param mocks - The key/value pairs of paths (relative to the current test)
+     * and the value that should be returned when anything in the loaded module requires
+     * those modules.
+     * @param ModuleType - The type of the module that be exported. Defaults to any.
+     */
+    mock<ModuleType = any>(modulePath: string, mocks: Record<string, any>): ModuleType;
 
     // ----
     // Assertions below this line!
