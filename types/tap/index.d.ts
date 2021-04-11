@@ -56,7 +56,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
     readonly testdirName: string;
 
     context: any;
-    name: string;
+    readonly name: string;
     runOnly: boolean;
     jobs: number;
 
