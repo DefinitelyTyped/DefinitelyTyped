@@ -1,4 +1,4 @@
-// Type definitions for tap 15.0.1
+// Type definitions for tap 15.0
 // Project: https://github.com/tapjs/node-tap
 // Definitions by: Tomas Della Vedova <https://github.com/delvedor>
 //                 Ulf Winkelvos <https://github.com/uwinkelvos>
@@ -8,7 +8,7 @@
 // TODO: can be removed as soon as https://github.com/tapjs/node-tap/pull/607 is merged
 
 /// <reference types="node" />
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare const tap: Tap;
 export = tap;
@@ -18,19 +18,19 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Run the supplied function when t.end() is called, or when t.plan is met.
-     * 
+     *
      * This function can return a promise to support async actions.
      * @see {@link https://node-tap.org/docs/api/test-lifecycle-events}
-     * @param fn 
+     * @param fn
      */
     tearDown(fn: () => void | Promise<void>): void;
     teardown(fn: () => void | Promise<void>): void;
 
     /**
      * Fail the test with a timeout error if it goes longer than the specified number of ms.
-     * 
+     *
      * Call t.setTimeout(0) to remove the timeout setting.
-     * 
+     *
      * When this is called on the top-level tap object, it sets the runners timeout value
      * to the specified value for that test process as well.
      */
@@ -46,14 +46,14 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * then this method is used to handle the error. It fails the test,
      * and prints out appropriate information about the stack, message, current test,
      * and so on.
-     * 
+     *
      * Generally, you never need to worry about this directly.
      */
     threw(error: Error, extra?: Error, proxy?: Test): void;
 
     /**
      * Sets a pragma switch for a set of boolean keys in the argument.
-     * 
+     *
      * The only pragma currently supported by the TAP parser is strict,
      * which tells the parser to treat non-TAP output as a failure.
      */
@@ -61,22 +61,22 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Specify that a given number of tests are going to be run.
-     * 
+     *
      * This may only be called before running any asserts or child tests.
      */
     plan(n: number, comment?: string): void;
 
     /**
-     * Call when tests are done running. This is not necessary if t.plan() was used, 
+     * Call when tests are done running. This is not necessary if t.plan() was used,
      * or if the test function returns a Promise.
-     * 
+     *
      * If you call t.end() explicitly more than once, an error will be raised.
      */
     end(): void;
 
     /**
      * Create a subtest.
-     * 
+     *
      * Returns a Promise which resolves with the parent when the child test is completed.
      * @param name - The name for this subtest.
      * @param extra - Any options this subtest should adhere to.
@@ -87,7 +87,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Create a subtest.
-     * 
+     *
      * Returns a Promise which resolves with the parent when the child test is completed.
      * @param name - The name for this subtest.
      * @param cb - The function containing the sub-tests. If not present, the test
@@ -109,7 +109,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Exactly the same as t.test(), but adds only: true in the options.
-     * 
+     *
      * @see {@link https://node-tap.org/docs/api/only}
      */
     only(name: string, cb?: (t: Test) => Promise<void> | void): Promise<void>;
@@ -119,7 +119,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Parse standard input as if it was a child test named /dev/stdin.
-     * 
+     *
      * Returns a Promise which resolves with the parent when the input stream is
      * completed.
      */
@@ -129,10 +129,10 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * Sometimes, instead of running a child test directly inline, you might
      * want to run a TAP producting test as a child process, and treat its
      * standard output as the TAP stream.
-     * 
-     * Returns a Promise which resolves with the parent when the child process 
+     *
+     * Returns a Promise which resolves with the parent when the child process
      * is completed.
-     * 
+     *
      * @see {@link https://node-tap.org/docs/api/advanced/#tspawncommand-arguments-options-name}
      */
     spawn(cmd: string, args: string, options?: Options.Bag, name?: string, extra?: Options.Spawn): Promise<void>;
@@ -150,12 +150,12 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * This is used for creating assertion methods on the Test class.
-     * 
+     *
      * @param name The name of the assertion method.
      * @param length The amount of arguments the assertion has.
      * @param fn The code to be ran when this assertion is called.
-     * 
-     * @example 
+     *
+     * @example
      * // Add an assertion that a string is in Title Case
      * // It takes one argument (the string to be tested)
      * t.Test.prototype.addAssert('titleCase', 1, function (str, message, extra) {
@@ -166,7 +166,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
      *     // this.pass(message) or this.fail(message, extra)
      *     return this.equal(str, tc, message, extra)
      * })
-     * 
+     *
      * t.titleCase('This Passes')
      * t.titleCase('however, tHis tOTaLLy faILS')
      */
@@ -189,7 +189,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
     /**
      * Before any child test (or any children of any child tests, etc.) the
      * supplied function is called with the test object that it's prefixing.
-     * 
+     *
      * If the function returns a Promise, then that is used as the indication of
      * doneness. Thus, async functions automatically end when all of their
      * awaited Promises are complete.
@@ -208,9 +208,9 @@ declare class Test extends DeprecatedAssertionSynonyms {
     /**
      * Formats a string from a snapshot. This can be used to remove variables
      * and replace them with sentinel values.
-     * 
+     *
      * @see {@link https://node-tap.org/docs/api/snapshot-testing/}
-     * 
+     *
      * @example
      * t.cleanSnapshot = s => {
      *     return s.replace(/ time=[0-9]+$/g, ' time={time}')
@@ -220,9 +220,9 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Formats the data argument of any snapshot into this string.
-     * 
+     *
      * @see {@link https://node-tap.org/docs/api/snapshot-testing/}
-     * 
+     *
      * @example t.formatSnapshot = object => JSON.stringify(object)
      */
     formatSnapshot: (obj: any) => string;
@@ -231,27 +231,26 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * Create a fixture object to specify hard links and symbolic links
      * in the fixture definition object passed to t.testdir().
      */
-    fixture(type: 'symlink' | 'link', content: string): Fixture.Instance;
-    fixture(type: 'file', content: string | Buffer): Fixture.Instance;
-    fixture(type: 'dir', content: Fixture.Spec): Fixture.Instance;
+    fixture(type: "symlink" | "link", content: string): Fixture.Instance;
+    fixture(type: "file", content: string | Buffer): Fixture.Instance;
+    fixture(type: "dir", content: Fixture.Spec): Fixture.Instance;
 
     /**
      * Create a fresh directory with the specified fixtures,
      * which is deleted on test teardown. Returns the directory name.
-     * 
+     *
      * @see {@link https://node-tap.org/docs/api/fixtures/}
      */
     testdir(spec?: Fixture.Spec): string;
-
 
     readonly testdirName: string;
 
     /**
      * This is an object which is inherited by child tests, and is a handy place to put
      * various contextual information.
-     * 
+     *
      * t.context will only be inherited by child tests if it is an object.
-     * 
+     *
      * This typically will be used with lifecycle events, such as beforeEach or afterEach.
      * @see {@link https://node-tap.org/docs/api/test-lifecycle-events}
      */
@@ -281,9 +280,9 @@ declare class Test extends DeprecatedAssertionSynonyms {
     /**
      * Takes a path to a module and returns the specified module in context of the
      * mocks provided.
-     * 
+     *
      * @see {@link https://node-tap.org/docs/api/mocks/}
-     * 
+     *
      * @param modulePath - The string path to the module that is being required,
      * relative to the current test file.
      * @param mocks - The key/value pairs of paths (relative to the current test)
@@ -309,12 +308,11 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * If the object is an error, then the assertion fails.
-     * 
+     *
      * Note: if an error is encountered unexpectedly,
      * it's often better to simply throw it. The Test object will handle this as a failure.
      */
     error: Assertions.Basic;
-
 
     /**
      * Verify that the event emitter emits the named event before the end of the test.
@@ -323,7 +321,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Verifies that the promise (or promise-returning function) rejects.
-     * 
+     *
      * If an expected error is provided,
      * then also verify that the rejection matches the expected error.
      */
@@ -352,7 +350,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
     /**
      * Verifies that the promise (or promise-returning function) resolves
      * and that the value of the promise matches the wanted pattern using t.match.
-     * 
+     *
      * @see match
      */
     resolveMatch(
@@ -365,7 +363,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
     /**
      * Verifies that the promise (or promise-returning function) resolves, and
      * furthermore that the value of the promise matches the snapshot.
-     * 
+     *
      * Note: since promises always reject and resolve asynchronously, this
      * assertion is implemented asynchronously. As such, it does not return a
      * boolean to indicate its passing status. Instead, it returns a Promise
@@ -381,7 +379,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Checks if the output in data matches the data with this snapshot name.
-     * 
+     *
      * @see {@link https://node-tap.org/docs/api/snapshot-testing/}
      */
     matchSnapshot(output: any, message?: string, extra?: Options.Assert): boolean;
@@ -390,22 +388,22 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * Expect the function to throw an error.
      * If an expected error is provided, then also verify that the thrown error
      * matches the expected error.
-     * 
+     *
      * If the function has a name, and the message is not provided,
      * then the function name will be used as the message.
-     * 
+     *
      * If the function is not provided, then this will be treated as a todo test.
      */
     throws: Assertions.Throws;
 
     /**
      * Verify that the provided function does not throw.
-     * 
+     *
      * If the function has a name, and the message is not provided,
      * then the function name will be used as the message.
-     * 
+     *
      * If the function is not provided, then this will be treated as a todo test.
-     * 
+     *
      * Note: If an error is encountered unexpectedly,
      * it's often better to simply throw it. The Test object will handle this as a failure.
      */
@@ -415,10 +413,10 @@ declare class Test extends DeprecatedAssertionSynonyms {
      * Expect the function to throw an uncaught exception at some point in the future,
      * before the test ends.
      * If the test ends without having thrown the expected error, then the test fails.
-     * 
+     *
      * If the error is thrown synchronously, or within a promise,
      * then the t.throws() or t.rejects() methods are more appropriate.
-     * 
+     *
      * If called multiple times, then the uncaught exception errors must be emitted in the order called.
      */
     expectUncaughtException(
@@ -436,7 +434,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Inverse of t.equal().
-     * 
+     *
      * Verify that the object found is not exactly the same (that is, !==)
      * as the object that is wanted.
      */
@@ -444,14 +442,14 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Verify that the found object is deeply equivalent to the wanted object.
-     * 
+     *
      * Uses non-strict equality for scalars (ie, ==).
      */
     same: Assertions.Equal;
 
     /**
      * Inverse of t.same().
-     * 
+     *
      * Verify that the found object is not deeply equivalent to the unwanted object.
      * Uses non-strict inequality (ie, !=) for scalars.
      */
@@ -459,7 +457,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Strict version of t.same().
-     * 
+     *
      * Verify that the found object is deeply equivalent to the wanted object.
      * Uses strict equality for scalars (ie, ===).
      */
@@ -467,7 +465,7 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Inverse of t.strictSame().
-     * 
+     *
      * Verify that the found object is not deeply equivalent to the unwanted object.
      * Uses strict equality for scalars (ie, ===).
      */
@@ -476,27 +474,27 @@ declare class Test extends DeprecatedAssertionSynonyms {
     /**
      * Verify that the found object contains all of the provided fields,
      * and that they are of the same type and value as the pattern provided.
-     * 
+     *
      * @see has
      */
     hasStrict: Assertions.Match;
 
     /**
      * Verify that the found object matches the pattern provided.
-     * 
+     *
      * If pattern is a regular expression, and found is a string, then verify that the string matches the pattern.
      * If the pattern is a string, and found is a string, then verify that the pattern occurs within the string somewhere.
      * If pattern is an object, then verify that all of the (enumerable) fields in the pattern match the corresponding fields in the object using this same algorithm.
-     * 
+     *
      * This is useful when you want to verify that an object has a certain set of required fields, but additional fields are ok.
-     * 
+     *
      * @example {x:/a[sdf]{3}/} would successfully match {x:'asdf',y:'z'}.
      */
     match: Assertions.Match;
 
     /**
      * Verify that the found object contains all of the provided fields, and that they coerce to the same values, even if the types do not match.
-     * 
+     *
      * This does not do advanced/loose matching based on constructor, regexp patterns, and so on, like t.match() does.
      * You may specify key: undefined in the pattern to ensure that a field is not defined in the found object,
      * but it will not differentiate between a missing property and a property set to undefined.
@@ -505,18 +503,18 @@ declare class Test extends DeprecatedAssertionSynonyms {
 
     /**
      * Inverse of match().
-     * 
+     *
      * Verify that the found object does not match the pattern provided.
      */
     notMatch: Assertions.Match;
 
     /**
      * Verify that the object is of the type provided.
-     * 
+     *
      * Type can be a string that matches the typeof value of the object,
      * or the string name of any constructor in the object's prototype chain,
      * or a constructor function in the object's prototype chain.
-     * 
+     *
      * @example type(new Date(), "object") - true
      * @example type(new Date(), "Date") - true
      * @example type(new Date(), Date) - true
@@ -547,8 +545,8 @@ declare class DeprecatedAssertionSynonyms {
     assertNot: Assertions.Basic;
 
     /**
-    * @deprecated use error() instead.
-    */
+     * @deprecated use error() instead.
+     */
     ifErr: Assertions.Basic;
     /**
      * @deprecated use error() instead.
@@ -561,8 +559,8 @@ declare class DeprecatedAssertionSynonyms {
     notThrow: Assertions.DoesNotThrow;
 
     /**
-    * @deprecated use throws() instead.
-    */
+     * @deprecated use throws() instead.
+     */
     throw: Assertions.Throws;
 
     /**
@@ -599,8 +597,8 @@ declare class DeprecatedAssertionSynonyms {
     isStrictly: Assertions.Equal;
 
     /**
-    * @deprecated use not() instead.
-    */
+     * @deprecated use not() instead.
+     */
     notEqual: Assertions.NotEqual;
     /**
      * @deprecated use not() instead.
@@ -636,8 +634,8 @@ declare class DeprecatedAssertionSynonyms {
     isInequal: Assertions.NotEqual;
 
     /**
-         * @deprecated use same() instead.
-         */
+     * @deprecated use same() instead.
+     */
     equivalent: Assertions.Equal;
     /**
      * @deprecated use same() instead.
@@ -665,8 +663,8 @@ declare class DeprecatedAssertionSynonyms {
     looseIs: Assertions.Equal;
 
     /**
- * @deprecated use notSame() instead.
- */
+     * @deprecated use notSame() instead.
+     */
     inequivalent: Assertions.NotEqual;
     /**
      * @deprecated use notSame() instead.
@@ -748,8 +746,8 @@ declare class DeprecatedAssertionSynonyms {
     notStrictSame: Assertions.NotEqual;
 
     /**
-* @deprecated use match() instead.
-*/
+     * @deprecated use match() instead.
+     */
     matches: Assertions.Match;
     /**
      * @deprecated use match() instead.
@@ -893,7 +891,7 @@ declare namespace Assertions {
 
 declare namespace Fixture {
     interface Instance {
-        type: 'symlink' | 'link' | 'file' | 'dir';
+        type: "symlink" | "link" | "file" | "dir";
         content: string | Buffer | Spec;
     }
 
@@ -910,7 +908,7 @@ interface Mocha {
 
 // Little hack to simulate the Test class on the tap export
 interface TestConstructor {
-    new(options?: Options.Test): Test;
+    new (options?: Options.Test): Test;
     prototype: Test;
 }
 
