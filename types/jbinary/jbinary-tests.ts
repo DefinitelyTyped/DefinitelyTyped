@@ -117,7 +117,7 @@ import jBinary = require("jbinary");
 })();
 
 (function () {
-    const title = '"read (with custom position)"';
+    const title = '"read" (with custom position)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.read("uint8", 1);
     console.log(`[OK.] ${title} => Read the following data byte: "${String(data)}"`);
@@ -126,12 +126,31 @@ import jBinary = require("jbinary");
 
 // #region readAll
 (function () {
-    const title = '"readAll (with typeset)"';
+    const title = '"readAll" (with typeset)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e], { "jBinary.all": "uint8" });
     const data = binary.readAll();
     console.log(`[OK.] ${title} => Read the following data: "${String(data)}"`);
 })();
 // #endregion readAll
+
+// #region seek
+(function () {
+    const title = '"seek"';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    binary.seek(3);
+    const data = binary.read("uint8");
+    console.log(`[OK.] ${title} => Read the following data after seek: "${String(data)}"`);
+})();
+
+(function () {
+    const title = '"seek" (with Callback)';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    const data = binary.seek(3, () => {
+        return binary.read("uint8");
+    });
+    console.log(`[OK.] ${title} => Read the following data after seek: "${String(data)}"`);
+})();
+// #endregion seek
 
 // #region toURI
 (function () {
@@ -147,4 +166,4 @@ import jBinary = require("jbinary");
 })();
 // #endregion toURI
 
-// TODO: as, seek, skip, slice, tell, write, writeAll
+// TODO: as, skip, slice, tell, write, writeAll
