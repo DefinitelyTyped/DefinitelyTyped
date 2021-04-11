@@ -32,13 +32,11 @@ declare namespace jBinary {
     type DataType = string | Buffer;
 
     /**
-     * A set that defines how to read and write certain types of data.
+     * Defines how to read and write certain types of data as well as some global options.
+     * @see https://github.com/jDataView/jBinary/wiki/Typesets
      */
     type TypeSet = {
-        [type: string]: {
-            read?: () => DataType;
-            write?: (data: DataType) => void;
-        };
+        [setting: string]: unknown;
     };
 }
 
@@ -144,7 +142,7 @@ declare class jBinary {
     readAll(): unknown;
 
     /**
-     * Saves binary data to a given destination and returns a promise with the jBinary object.
+     * Saves binary data to a given destination and returns a promise.
      * @param destination Destination of the binary data to be saved.
      * @param mimeType MIME-Type of the data. @default "application/octet-stream"
      * @returns Promise with no data.
