@@ -58,39 +58,107 @@ export { Binary, DBRef, Decimal128, Double, Int32, Long, MaxKey, MinKey, ObjectI
 
 type NumericTypes = number | Decimal128 | Double | Int32 | Long;
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html */
+/**
+ * Creates a new MongoClient instance
+ *
+ * @param uri The connection URI string
+ * @param options Optional settings
+ * @param callback The optional command result callback
+ * @returns MongoClient instance
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html
+ */
 export class MongoClient extends EventEmitter {
     constructor(uri: string, options?: MongoClientOptions);
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect */
+    /**
+     * Connect to MongoDB using a url as documented at
+     * https://docs.mongodb.org/manual/reference/connection-string/
+     *
+     * @param uri The connection URI string
+     * @param options Optional settings
+     * @param callback The optional command result callback
+     * @returns Promise if no callback passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect
+     */
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
     static connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
     static connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#connect */
+    /**
+     * Connect to MongoDB using a url as documented at
+     * https://docs.mongodb.org/manual/reference/connection-string/
+     *
+     * @param callback The optional command result callback
+     * @returns Promise if no callback passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#connect
+     */
     connect(): Promise<MongoClient>;
     connect(callback: MongoCallback<MongoClient>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#close */
+    /**
+     * Close the db and its underlying connections
+     *
+     * @param force Optional force close, emitting no events
+     * @param callback The optional result callback
+     * @returns Promise if no callback passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#close
+     */
     close(callback: MongoCallback<void>): void;
     close(force?: boolean): Promise<void>;
     close(force: boolean, callback: MongoCallback<void>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#db */
+    /**
+     * Create a new Db instance sharing the current socket connections. Be aware that the new db instances are related in a parent-child relationship to the original instance so that events are correctly emitted on child db instances. Child db instances are cached so performing db('db1') twice will return the same instance. You can control these behaviors with the options noListener and returnNonCachedInstance.
+     *
+     * @param dbName The name of the database we want to use. If not provided, use database name from connection string.
+     * @param options Optional settings.
+     * @returns The Db object
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#db
+     */
     db(dbName?: string, options?: MongoClientCommonOption): Db;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#isConnected */
+    /**
+     * Check if MongoClient is connected
+     *
+     * @param options Optional settings.
+     * @returns Whether the MongoClient is connected or not
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#isConnected
+     */
     isConnected(options?: MongoClientCommonOption): boolean;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#logout */
-    logout(callback: MongoCallback<any>): void;
-    logout(options?: { dbName?: string }): Promise<any>;
-    logout(options: { dbName?: string }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#startSession */
+    /**
+     * Starts a new session on the server
+     *
+     * @param options Optional settings for a driver session~
+     * @returns Newly established session
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#startSession
+     */
     startSession(options?: SessionOptions): ClientSession;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch */
+    /**
+     * Create a new Change Stream, watching for new changes (insertions, updates, replacements, deletions, and invalidations) in this cluster. Will ignore all changes to system collections, as well as the local, admin, and config databases.
+     *
+     * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/|aggregation pipeline stages} through which to pass change stream documents. This allows for filtering (using $match) and manipulating the change stream documents.
+     * @param options Optional settings
+     * @returns ChangeStream instance.
+     * @see https://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch
+     */
     watch<TSchema extends object = { _id: ObjectId }>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
     ): ChangeStream<TSchema>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#withSession */
+    /**
+     * Runs a given operation with an implicitly created session. The lifetime of the session will be handled without the need for user interaction.
+     * NOTE: presently the operation MUST return a Promise (either explicit or implicity as an async function)
+     *
+     * @param options Optional settings to be appled to implicitly created session
+     * @param operation An operation to execute with an implicitly created session. The signature of this MUST be `(session) => {}`
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#withSession
+     */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#withSession */
     withSession(options: SessionOptions, operation: (session: ClientSession) => Promise<any>): Promise<void>;
+    /**
+     * The callback format for results
+     *
+     * @param error An error instance representing the error during the execution.
+     * @param client The connected client.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#~connectCallback
+     */
+    connectCallback(error: MongoError, client: MongoClient): Promise<MongoClient>
 
     readPreference: ReadPreference;
     writeConcern: WriteConcern;
