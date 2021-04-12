@@ -6,7 +6,7 @@
 
 import * as pg from "pg";
 
-export interface CursorQueryConfig {
+interface CursorQueryConfig {
     /**
      * By default rows come out as a Record<string,any>.
      * Pass the string 'array' here to receive each row as an array of values.
@@ -19,7 +19,7 @@ export interface CursorQueryConfig {
     types?: pg.CustomTypesConfig;
 }
 
-export type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: pg.QueryResult) => void;
+type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: pg.QueryResult) => void;
 
 declare class Cursor<Row = any> {
     constructor(query: string, values?: any[], config?: CursorQueryConfig);
