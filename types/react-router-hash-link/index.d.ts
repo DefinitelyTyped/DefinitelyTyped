@@ -15,8 +15,8 @@ export interface HashLinkProps extends LinkProps {
 
 export interface NavHashLinkProps extends NavLinkProps, HashLinkProps { }
 
-export declare class HashLink extends React.Component<HashLinkProps, any> { }
+export class HashLink extends React.Component<HashLinkProps, any> { }
 
-export declare class NavHashLink extends React.Component<NavHashLinkProps, any> { }
+export class NavHashLink extends React.Component<NavHashLinkProps, any> { }
 
-export declare function genericHashLink<P>(Component: React.FunctionComponent<P>): React.FunctionComponent<P>;
+export function genericHashLink<P>(Component: React.FunctionComponent<P>): React.FunctionComponent<P>;

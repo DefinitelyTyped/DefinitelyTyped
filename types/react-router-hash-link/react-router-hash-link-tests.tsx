@@ -16,7 +16,7 @@ interface Props extends NavHashLinkProps {
 
 const getIsActive = (extraProp: string) => (match: match<any>, location: H.Location) => !!extraProp;
 
-export default function (props: Props) {
+export default function(props: Props) {
   const { extraProp, ...rest } = props;
   const isActive = getIsActive(extraProp);
   return (
