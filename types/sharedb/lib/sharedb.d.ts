@@ -142,15 +142,31 @@ export class Doc<T = any> extends EventEmitter {
     flush(): void;
 }
 
-export type QueryEvent = 'ready' | 'error' | 'changed' | 'insert' | 'move' | 'remove' | 'extra';
-export class Query extends EventEmitter {
+export type QueryEvent = keyof QueryEventMap<any>;
+export class Query<T = any> extends EventEmitter {
+    action: 'qf' | 'qs';
+    connection: Connection;
+    id: string;
+    collection: string;
+    query: any;
     ready: boolean;
-    results: Doc[];
+    sent: boolean;
+    results: Array<Doc<T>>;
     extra: any;
-    on(event: QueryEvent, callback: (...args: any[]) => any): this;
-    addListener(event: QueryEvent, callback: (...args: any[]) => any): this;
-    removeListener(event: QueryEvent, listener: (...args: any[]) => any): this;
-    destroy(): void;
+    on<E extends QueryEvent>(on: E, callback: QueryEventMap<T>[E]): this;
+    addListener<E extends QueryEvent>(on: E, callback: QueryEventMap<T>[E]): this;
+    removeListener<E extends QueryEvent>(on: E, callback: QueryEventMap<T>[E]): this;
+    destroy(callback?: Callback): void;
+}
+
+export interface QueryEventMap<T> {
+    ready: () => void;
+    error: (error: any) => void;
+    insert: (inserted: Array<Doc<T>>, index: number) => void;
+    remove: (removed: Array<Doc<T>>, index: number) => void;
+    move: (moved: Array<Doc<T>>, from: number, to: number) => void;
+    changed: (docs: Array<Doc<T>>) => void;
+    extra: (extra: any) => void;
 }
 
 export type ReceivePresenceListener<T> = (id: string, value: T) => void;
