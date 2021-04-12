@@ -16,9 +16,9 @@
   function checkAuth() {
     gapi.auth.authorize(
       {
-        'client_id': CLIENT_ID,
-        'scope': SCOPES.join(' '),
-        'immediate': true
+        client_id: CLIENT_ID,
+        scope: SCOPES.join(' '),
+        immediate: true
       }, handleAuthResult);
   }
 
@@ -70,9 +70,9 @@
    */
   function listConnectionNames() {
     var request = gapi.client.people.people.connections.list({
-        'resourceName': 'people/me',
-        'pageSize': 10,
-        'personFields': 'names'
+        resourceName: 'people/me',
+        pageSize: 10,
+        personFields: 'names'
       });
 
       request.execute(function(resp) {
@@ -92,8 +92,8 @@
    */
   function listOtherContactNames() {
     var request = gapi.client.people.otherContacts.list({
-        'pageSize': 10,
-        'readMask': 'names'
+        pageSize: 10,
+        readMask: 'names'
       });
 
       request.execute(function(resp) {
@@ -104,6 +104,25 @@
           listNames(otherContacts);
         } else {
           appendPre('No upcoming events found.');
+        }
+      });
+  }
+  /**
+   * Print the display name that matches the query if available
+   */
+  function searchAndListContactNames() {
+    var request = gapi.client.people.otherContacts.search({
+        query: 'Name',
+        pageSize: 10,
+        readMask: 'names'
+      });
+
+      request.execute(function(resp) {
+        if (resp.results && resp.results.length > 0) {
+          appendPre('Contacts found:');
+          listNames(resp.results.map(result => result.person));
+        } else {
+          appendPre('No contacts found.');
         }
       });
   }

@@ -1,5 +1,5 @@
 /**
- * Tests for JSX
+ * Tests for h.JSX
  */
 
 /** @jsx h */
@@ -80,7 +80,7 @@ declare function Component(props: { prop1: string; prop2?: number }): string;
 
 // -------- Component accepts no children -------- //
 
-declare function NoChild(): JSX.Element;
+declare function NoChild(): h.JSX.Element;
 
 // $ExpectType string
 <NoChild />;
@@ -102,7 +102,7 @@ declare function NoChild(): JSX.Element;
 
 // Note: This is a pedantic example. A typical childless component will simply
 // not define a `children` prop, as shown in the test case above.
-declare function EmptyChild(props: { children: [] }): JSX.Element;
+declare function EmptyChild(props: { children: [] }): h.JSX.Element;
 
 // $ExpectType string
 <EmptyChild />;
@@ -122,7 +122,7 @@ declare function EmptyChild(props: { children: [] }): JSX.Element;
 
 // -------- Component accepts exactly one child (using tuple type) -------- //
 
-declare function OneChild(props: { children: [string] }): JSX.Element;
+declare function OneChild(props: { children: [string] }): h.JSX.Element;
 
 // $ExpectType string
 <OneChild>Foo</OneChild>;
@@ -142,7 +142,7 @@ declare function OneChild(props: { children: [string] }): JSX.Element;
 
 // -------- Component accepts exactly zero or one child -------- //
 
-declare function ZeroOrOneChild(props: { children: [boolean?] }): JSX.Element;
+declare function ZeroOrOneChild(props: { children: [boolean?] }): h.JSX.Element;
 
 // $ExpectType string
 <ZeroOrOneChild />;
@@ -161,7 +161,7 @@ declare function ZeroOrOneChild(props: { children: [boolean?] }): JSX.Element;
 
 // -------- Component accepts arbitrary number of children -------- //
 
-declare function AnyNumberOfChildren(props: { children: string[] }): JSX.Element;
+declare function AnyNumberOfChildren(props: { children: string[] }): h.JSX.Element;
 
 // $ExpectType string
 <AnyNumberOfChildren />;
@@ -181,7 +181,7 @@ declare function AnyNumberOfChildren(props: { children: string[] }): JSX.Element
 
 // For vhtml, props.children must be an array
 // This function should not be allowed as a component
-declare function BadComponentType(props: { children: string }): JSX.Element;
+declare function BadComponentType(props: { children: string }): h.JSX.Element;
 
 // $ExpectError
 <BadComponentType />;
