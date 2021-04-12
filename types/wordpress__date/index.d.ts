@@ -49,7 +49,7 @@ export interface DateSettings {
  *
  * @returns - Formatted date.
  */
-export function date(dateFormat: string, dateValue?: MomentInput, timezone?: string|boolean|undefined): string;
+export function date(dateFormat: string, dateValue?: MomentInput, timezone?: string|boolean): string;
 
 /**
  * Formats a date (like `date_i18n()` in PHP).
@@ -64,7 +64,7 @@ export function date(dateFormat: string, dateValue?: MomentInput, timezone?: str
  *
  * @returns - Formatted date.
  */
-export function dateI18n(dateFormat: string, dateValue?: MomentInput, timezone?: string|boolean|undefined): string;
+export function dateI18n(dateFormat: string, dateValue?: MomentInput, timezone?: string|boolean): string;
 
 /**
  * Formats a date. Does not alter the date's timezone.
