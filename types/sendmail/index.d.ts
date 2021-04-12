@@ -44,6 +44,7 @@ declare namespace sendMailFactory {
         id?: string;
         headers?: object;
         content?: string;
+        text?: string;
         html?: string;
         attachments?: Array<{
             type?: string;

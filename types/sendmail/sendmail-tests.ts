@@ -20,5 +20,12 @@ sendEmail({
     from: "Test Mail <noreply@mydomain.com>",
     to: "test@mydomain.com",
     subject: "First Test",
-    html: "This is a Test message!",
+    html: "This is a <b>HTML</b> Test message!",
+});
+
+sendEmail({
+    from: "Test Mail <noreply@mydomain.com>",
+    to: "test@mydomain.com",
+    subject: "Second Test",
+    text: "This is a Plain-Text Test message!",
 });
