@@ -218,6 +218,8 @@ function within() {
 function above() {
     expect(5).to.be.above(2);
     (5).should.be.above(2);
+    expect(5).to.be.gt(2);
+    (5).should.be.gt(2);
     expect(5).to.be.greaterThan(2);
     (5).should.be.greaterThan(2);
     expect(5).to.not.be.above(5);
@@ -257,6 +259,10 @@ function above() {
 function least() {
     expect(5).to.be.at.least(2);
     (5).should.be.at.least(2);
+    expect(5).to.be.gte(2);
+    (5).should.be.gte(2);
+    expect(5).to.be.greaterThanOrEqual(2);
+    (5).should.be.greaterThanOrEqual(2);
     expect(5).to.be.at.least(5);
     (5).should.be.at.least(5);
     expect(5).to.not.be.at.least(6);
@@ -297,6 +303,8 @@ function least() {
 function below() {
     expect(2).to.be.below(5);
     (2).should.be.below(5);
+    expect(2).to.be.lt(5);
+    (2).should.be.lt(5);
     expect(2).to.be.lessThan(5);
     (2).should.be.lessThan(5);
     expect(2).to.not.be.below(2);
@@ -336,6 +344,10 @@ function below() {
 function most() {
     expect(2).to.be.at.most(5);
     (2).should.be.at.most(5);
+    expect(2).to.be.lte(5);
+    (2).should.be.lte(5);
+    expect(2).to.be.lessThanOrEqual(5);
+    (2).should.be.lessThanOrEqual(5);
     expect(2).to.be.at.most(2);
     (2).should.be.at.most(2);
     expect(2).to.not.be.at.most(1);

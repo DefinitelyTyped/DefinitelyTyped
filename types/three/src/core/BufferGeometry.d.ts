@@ -6,6 +6,7 @@ import { Vector2 } from './../math/Vector2';
 import { Vector3 } from './../math/Vector3';
 import { EventDispatcher } from './EventDispatcher';
 import { InterleavedBufferAttribute } from './InterleavedBufferAttribute';
+import { BuiltinShaderAttributeName } from '../constants';
 
 /**
  * This is a superefficent class for geometries because it saves all data in buffers.
@@ -91,10 +92,13 @@ export class BufferGeometry extends EventDispatcher {
     getIndex(): BufferAttribute | null;
     setIndex(index: BufferAttribute | number[] | null): BufferGeometry;
 
-    setAttribute(name: string, attribute: BufferAttribute | InterleavedBufferAttribute): BufferGeometry;
-    getAttribute(name: string): BufferAttribute | InterleavedBufferAttribute;
-    deleteAttribute(name: string): BufferGeometry;
-    hasAttribute(name: string): boolean;
+    setAttribute(
+        name: BuiltinShaderAttributeName | (string & {}),
+        attribute: BufferAttribute | InterleavedBufferAttribute,
+    ): BufferGeometry;
+    getAttribute(name: BuiltinShaderAttributeName | (string & {})): BufferAttribute | InterleavedBufferAttribute;
+    deleteAttribute(name: BuiltinShaderAttributeName | (string & {})): BufferGeometry;
+    hasAttribute(name: BuiltinShaderAttributeName | (string & {})): boolean;
 
     addGroup(start: number, count: number, materialIndex?: number): void;
     clearGroups(): void;

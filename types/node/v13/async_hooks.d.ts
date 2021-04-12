@@ -131,7 +131,7 @@ declare module "async_hooks" {
         /**
          * Call AsyncHooks destroy callbacks.
          */
-        emitDestroy(): void;
+        emitDestroy(): this;
 
         /**
          * @return the unique ID assigned to this AsyncResource instance.

@@ -447,6 +447,14 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
     context(context: null): this;
 }
 
+export interface RibbonArrowGenerator<This, RibbonDatum, RibbonSubgroupDatum> extends RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
+    headRadius(): (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number;
+
+    headRadius(radius: number): this;
+
+    headRadius(radius: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
+}
+
 /**
  * Creates a new ribbon generator with the default settings.
  */
@@ -473,3 +481,30 @@ export function ribbon<Datum, SubgroupDatum>(): RibbonGenerator<any, Datum, Subg
  * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
 export function ribbon<This, Datum, SubgroupDatum>(): RibbonGenerator<This, Datum, SubgroupDatum>;
+
+/**
+ * Creates a new arrow ribbon generator with the default settings.
+ */
+export function ribbonArrow(): RibbonArrowGenerator<any, Ribbon, RibbonSubgroup>;
+/**
+ * Creates a new arrow ribbon generator with the default settings.
+ *
+ * Accessor functions must be configured for the ribbon generator, should the datum types differ from the defaults.
+ *
+ * The first generic corresponds to the datum type representing a chord for which the ribbon is to be generated. The default type is Chord.
+ *
+ * The second generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
+ */
+export function ribbonArrow<Datum, SubgroupDatum>(): RibbonArrowGenerator<any, Datum, SubgroupDatum>;
+/**
+ * Creates a new arrow ribbon generator with the default settings.
+ *
+ * Accessor functions must be configured for the ribbon generator, should the datum types differ from the defaults.
+ *
+ * The first generic corresponds to the type of the "this" context within which the ribbon generator and its accessor functions will be invoked.
+ *
+ * The second generic corresponds to the datum type representing a chord for which the ribbon is to be generated. The default type is Chord.
+ *
+ * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
+ */
+export function ribbonArrow<This, Datum, SubgroupDatum>(): RibbonArrowGenerator<This, Datum, SubgroupDatum>;

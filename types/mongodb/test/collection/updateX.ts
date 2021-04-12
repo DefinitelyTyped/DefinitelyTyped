@@ -213,7 +213,7 @@ async function run() {
     buildUpdateQuery({ $push: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({
         $push: {
-            subInterfaceArray: { field1: 'foo' },
+            subInterfaceArray: { _id: new ObjectId(), field1: 'foo' },
         },
     });
     buildUpdateQuery({
@@ -229,6 +229,7 @@ async function run() {
             subInterfaceArray: {
                 $each: [
                     {
+                        _id: new ObjectId(),
                         field1: 'foo',
                         field2: 'bar',
                     },
@@ -253,4 +254,27 @@ async function run() {
             },
         },
     );
+}
+
+async function testPushWithId () {
+    interface Model {
+        _id: ObjectId;
+        foo: Array<{ _id?: string, name: string }>;
+    }
+
+    const client = await connect(connectionString);
+    const db = client.db('test');
+    const collection = db.collection<Model>('test');
+
+    await collection.updateOne({}, {
+        $push: {
+            foo: { name: 'Foo' }
+        }
+    });
+
+    await collection.updateOne({}, {
+        $push: {
+            foo: { _id: 'foo', name: 'Foo' }
+        }
+    });
 }

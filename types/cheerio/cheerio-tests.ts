@@ -45,6 +45,8 @@ $ = cheerio.load(html, {
     recognizeSelfClosing: true,
 });
 
+const [$ele1] = Array.from($('.class'));
+
 /**
  * Selectors
  */

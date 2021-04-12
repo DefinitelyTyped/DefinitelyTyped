@@ -1,4 +1,4 @@
-// Type definitions for svgo 2.0
+// Type definitions for svgo 2.3
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -8,7 +8,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 export interface DefaultPlugin<N extends string, P = never> {
     active?: boolean;
@@ -261,6 +260,11 @@ export type MergePathsPlugin = DefaultPlugin<
         noSpaceAfterFlags?: boolean;
     }
 >;
+
+/**
+ * merge multiple style elements into one
+ */
+export type MergeStylesPlugin = DefaultPlugin<'mergeStyles'>;
 
 /**
  * minifies styles and removes unused styles based on usage data
@@ -585,6 +589,7 @@ export type DefaultPlugins =
     | ConvertTransformPlugin
     | InlineStylesPlugin
     | MergePathsPlugin
+    | MergeStylesPlugin
     | MinifyStylesPlugin
     | MoveElemsAttrsToGroupPlugin
     | MoveGroupAttrsToElemsPlugin

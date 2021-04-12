@@ -52,6 +52,7 @@ declare var identifier: ESTree.Identifier;
 declare var literal: ESTree.Literal;
 declare var simpleLiteral: ESTree.SimpleLiteral;
 declare var regExpLiteral: ESTree.RegExpLiteral;
+declare var bigIntLiteral: ESTree.BigIntLiteral;
 declare var unaryOperator: ESTree.UnaryOperator;
 declare var binaryOperator: ESTree.BinaryOperator;
 declare var logicalOperator: ESTree.LogicalOperator;

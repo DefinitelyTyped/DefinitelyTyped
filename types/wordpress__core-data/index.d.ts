@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { Schema } from '@wordpress/api-fetch';
-import { dispatch, select } from '@wordpress/data';
+import { Schema } from './schema';
+export { Schema } from './schema';
 
 declare module '@wordpress/data' {
     function dispatch(key: 'core'): typeof import('./actions');

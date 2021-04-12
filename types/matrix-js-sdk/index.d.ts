@@ -24,6 +24,18 @@ export class MatrixError {
     constructor(errorJson: object)
 }
 
+export interface StateEvent {
+    type: string;
+    /**
+     * A unique key which defines the overwriting semantics for this piece of room state.
+     * This value is often a zero-length string (""). The presence of this key makes this event a State Event.
+     * State keys starting with an @ are reserved for referencing user IDs, such as room members.
+     * With the exception of a few events, state events set with a given user's ID as the state key MUST only be set by that user.
+     */
+    state_key: string;
+    content: Record<string, unknown> | string;
+}
+
 export class Room {
     roomId: string;              // The ID of this room.
     name: string;              // The human-readable display name for this room.
@@ -870,11 +882,37 @@ export class TimelineWindow {
 }
 
 export interface CreateRoomOptions {
-    invite?: string[];  //  <string> A list of user IDs to invite to this room.
-    name?: string;         //  The name to give this room.
-    room_alias_name?: string;         //  The alias localpart to assign to this room.
-    topic?: string;         //  The topic to give this room.
-    visibility?: 'public' | 'private';         //  Either 'public' or 'private'.
+    /**
+     * <string> A list of user IDs to invite to this room.
+     */
+    invite?: string[];
+    /**
+     * The name to give this room.
+     */
+    name?: string;
+    /**
+     * The alias localpart to assign to this room.
+     */
+    room_alias_name?: string;
+    /**
+     * The topic to give this room.
+     */
+    topic?: string;
+    visibility?: "public" | "private";
+    /**
+     * Convenience parameter for setting various default state events based on a preset.
+     * If unspecified, the server should use the visibility to determine which preset to use.
+     * A visbility of public equates to a preset of public_chat and private visibility equates to a preset of private_chat.
+     * One of: ["private_chat", "public_chat", "trusted_private_chat"]
+     */
+    preset?: "private_chat" | "public_chat" | "trusted_private_chat";
+    is_direct?: boolean;
+    /**
+     * A list of state events to set in the new room. This allows the user to override the default state events set in the new room.
+     * The expected format of the state events are an object with type, state_key and content keys set.
+     * Takes precedence over events set by preset, but gets overriden by name and topic keys.
+     */
+    initial_state?: StateEvent[];
 }
 
 export type FilterComponent = any;

@@ -1,7 +1,7 @@
 import ReactTextareaAutocomplete from "webscopeio__react-textarea-autocomplete";
 import * as React from "react";
 
-const Loading: React.SFC = () => {
+const Loading: React.FC = () => {
     return <div>Loading</div>;
 };
 
@@ -10,18 +10,23 @@ interface ItemProps {
     entity: string;
 }
 
-const Item: React.SFC<ItemProps> = (props: ItemProps) => {
+const Item: React.FC<ItemProps> = (props: ItemProps) => {
     return <div className={`item${props.selected ? " selected" : ""}`}>props</div>;
 };
 
+type MyTextAreaProps = {myCustomTextAreaProp: string} & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+const MyTextArea: React.FC<MyTextAreaProps> = (props: MyTextAreaProps) => {
+    return <textarea {...props} />;
+};
 class Autocomplete extends React.Component {
-    private rta: ReactTextareaAutocomplete<string> | null;
+    private rta: ReactTextareaAutocomplete<string, MyTextAreaProps> | null;
     private textarea: HTMLTextAreaElement;
 
     private readonly names = [ "abc", "def", "ghi" ];
 
     render() {
-        return <ReactTextareaAutocomplete<string>
+        return <ReactTextareaAutocomplete<string, MyTextAreaProps>
             rows={8}
             className="my-textarea"
             loadingComponent={Loading}
@@ -52,7 +57,6 @@ class Autocomplete extends React.Component {
                 }
             }}
             value="aaa"
-            closeOnClickOutside={false}
             movePopupAsYouType={false}
             onBlur={(evt: React.FocusEvent<HTMLTextAreaElement>) => { console.log(evt); }}
             onSelect={(evt: React.SyntheticEvent<HTMLTextAreaElement>) => { console.log(evt); }}
@@ -68,6 +72,12 @@ class Autocomplete extends React.Component {
             itemStyle={{ width: "100%", margin: "14px"}}
             listStyle={{ width: "100%", margin: "14px"}}
             loaderStyle={{ width: "100%", margin: "14px"}}
+            boundariesElement={document.body}
+            textAreaComponent={MyTextArea}
+            myCustomTextAreaProp="hello"
+            renderToBody={false}
+            onItemHighlighted={(evt: {currentTrigger: string, item: string | null}) => { console.log(evt); }}
+            onItemSelected={(evt: {currentTrigger: string, item: string}) => { console.log(evt); }}
         />;
     }
 }

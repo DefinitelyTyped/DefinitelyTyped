@@ -1,6 +1,8 @@
 /// <reference types="nwsapi"/>
 import matcher = NW.Dom;
 
+matcher; // $ExpectType NWSAPI
+
 matcher.byTag("html", document); // $ExpectType HTMLHtmlElement[]
 matcher.byTag("custom-element", document); // $ExpectType Element[]
 

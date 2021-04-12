@@ -148,3 +148,7 @@ const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
     description: "TEST_DESC",
     displayName: "TEST_NAME"
 };
+
+const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFilterByCurrentUserOptions = "reviewer";
+
+const initiatorType: MicrosoftGraph.InitiatorType = "user";
