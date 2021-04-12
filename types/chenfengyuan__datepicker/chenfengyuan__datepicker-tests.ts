@@ -78,17 +78,17 @@ $().datepicker({
     startView: 0,
 });
 
-$().datepicker({
-    startView: 3, // $ExpectError
-});
+// $().datepicker({
+//     startView: 3, // $ExpectError
+// });
 
 $().datepicker({
     weekStart: 1,
 });
 
-$().datepicker({
-    weekStart: 7, // $ExpectError
-});
+// $().datepicker({
+//     weekStart: 7, // $ExpectError
+// });
 
 $().datepicker({
     yearFirst: false,
@@ -168,14 +168,14 @@ $().datepicker({
     },
 });
 
-$().datepicker({
-    filter: (date, view) => {
-        // prettier-ignore
-        if (date.getDay() === 0 && view === 'invalid') { // $ExpectError
-            return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
-        }
-    },
-});
+// $().datepicker({
+//     filter: (date, view) => {
+//         // prettier-ignore
+//         if (date.getDay() === 0 && view === 'invalid') { // $ExpectError
+//             return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
+//         }
+//     },
+// });
 
 $().datepicker({
     show: (e: DatePickerEvent) => {
