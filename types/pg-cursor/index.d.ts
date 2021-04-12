@@ -21,7 +21,7 @@ export interface CursorQueryConfig {
 
 export type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: pg.QueryResult) => void;
 
-export default class Cursor<Row = any> {
+class Cursor<Row = any> {
     constructor(query: string, values?: any[], config?: CursorQueryConfig);
 
     submit: (connection: pg.Connection) => void;
@@ -29,3 +29,6 @@ export default class Cursor<Row = any> {
     read: (maxRows: number, callback: ResultCallback<Row>) => void;
     close: (callback: (err: Error) => void) => void;
 }
+
+export = Cursor;
+
