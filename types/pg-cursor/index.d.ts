@@ -1,6 +1,7 @@
 // Type definitions for pg-cursor 2.5
 // Project: https://github.com/brianc/node-postgres#readme
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions By: Tiogshi Laj <https://github.com/Tiogshi>
 /// <reference types="node" />
 
 import * as pg from "pg";
