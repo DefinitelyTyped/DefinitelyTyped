@@ -21,7 +21,7 @@ export interface CursorQueryConfig {
 
 export type ResultCallback<RowType> = (err: Error | undefined, rows: RowType[], result: pg.QueryResult) => void;
 
-class Cursor<Row = any> {
+declare class Cursor<Row = any> {
     constructor(query: string, values?: any[], config?: CursorQueryConfig);
 
     submit: (connection: pg.Connection) => void;
@@ -31,4 +31,3 @@ class Cursor<Row = any> {
 }
 
 export = Cursor;
-
