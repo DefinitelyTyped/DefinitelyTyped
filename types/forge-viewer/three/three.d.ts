@@ -313,6 +313,42 @@ declare namespace THREE {
     }
 
     class Material {
+        id: number;
+        uuid: string;
+        name: string;
+        type: string;
+        side: Side;
+        opacity: number;
+        blending: Blending;
+        blendSrc: BlendingDstFactor;
+        blendDst: BlendingSrcFactor;
+        blendEquation: BlendingEquation;
+        blendSrcAlpha: number;
+        blendDstAlpha: number;
+        blendEquationAlpha: number;
+        depthTest: boolean;
+        depthWrite: boolean;
+        colorWrite: boolean;
+        polygonOffset: boolean;
+        polygonOffsetFactor: number;
+        polygonOffsetUnits: number;
+        alphaTest: number;
+        overdraw: number;
+        visible: boolean;
+        needsUpdate: boolean;
+
+        constructor();
+
+        clone(material?: Material): Material;
+        dispose(): void;
+        setValues(values: object): void;
+        toJSON(): any;
+        update(): void;
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any; }): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
     }
 
     class Matrix3 {
