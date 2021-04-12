@@ -32,10 +32,12 @@ declare namespace sendMailFactory {
 
     interface MailInput {
         from: string;
+        sender?: string;
         to: string;
         cc?: string;
         bcc?: string;
         replyTo?: string;
+        inReplyTo?: string;
         returnTo?: string;
         subject: string;
         type?: string;
