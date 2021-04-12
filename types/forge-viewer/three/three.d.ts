@@ -3,15 +3,84 @@
 // this package contains only types used by Forge viewer and may be incomplete
 
 declare namespace THREE {
+    const REVISION: string;
+
+    enum MOUSE {}
+    const LEFT: MOUSE;
+    const MIDDLE: MOUSE;
+    const RIGHT: MOUSE;
+
+    // GL STATE CONSTANTS
+    enum CullFace {}
+    const CullFaceNone: CullFace;
+    const CullFaceBack: CullFace;
+    const CullFaceFront: CullFace;
+    const CullFaceFrontBack: CullFace;
+
+    enum FrontFaceDirection {}
+    const FrontFaceDirectionCW: FrontFaceDirection;
+    const FrontFaceDirectionCCW: FrontFaceDirection;
+
+    // Shadowing Type
+    enum ShadowMapType {}
+    const BasicShadowMap: ShadowMapType;
+    const PCFShadowMap: ShadowMapType;
+    const PCFSoftShadowMap: ShadowMapType;
+
     // side
-    const FrontSide = 0;
-    const BackSide = 1;
-    const DoubleSide = 2;
+    enum Side {}
+    const FrontSide: Side;
+    const BackSide: Side;
+    const DoubleSide: Side;
 
     // colors
-    const NoColors = 0;
-    const FaceColors = 1;
-    const VertexColors = 2;
+    enum Colors {}
+    const NoColors: Colors;
+    const FaceColors: Colors;
+    const VertexColors: Colors;
+
+    // blending modes
+    enum Blending {}
+    const NoBlending: Blending;
+    const NormalBlending: Blending;
+    const AdditiveBlending: Blending;
+    const SubtractiveBlending: Blending;
+    const MultiplyBlending: Blending;
+    const CustomBlending: Blending;
+
+    // custom blending equations
+    // (numbers start from 100 not to clash with other
+    //  mappings to OpenGL constants defined in Texture.js)
+    enum BlendingEquation {}
+    const AddEquation: BlendingEquation;
+    const SubtractEquation: BlendingEquation;
+    const ReverseSubtractEquation: BlendingEquation;
+    const MinEquation: BlendingEquation;
+    const MaxEquation: BlendingEquation;
+
+    // custom blending destination factors
+    enum BlendingDstFactor {}
+    const ZeroFactor: BlendingDstFactor;
+    const OneFactor: BlendingDstFactor;
+    const SrcColorFactor: BlendingDstFactor;
+    const OneMinusSrcColorFactor: BlendingDstFactor;
+    const SrcAlphaFactor: BlendingDstFactor;
+    const OneMinusSrcAlphaFactor: BlendingDstFactor;
+    const DstAlphaFactor: BlendingDstFactor;
+    const OneMinusDstAlphaFactor: BlendingDstFactor;
+
+    // custom blending src factors
+    enum BlendingSrcFactor {}
+    const DstColorFactor: BlendingSrcFactor;
+    const OneMinusDstColorFactor: BlendingSrcFactor;
+    const SrcAlphaSaturateFactor: BlendingSrcFactor;
+
+    // TEXTURE CONSTANTS
+    // Operations
+    enum Combine {}
+    const MultiplyOperation: Combine;
+    const MixOperation: Combine;
+    const AddOperation: Combine;
 
     // Mapping modes
     enum Mapping {}
@@ -48,6 +117,12 @@ declare namespace THREE {
     const FloatType: TextureDataType;
     const HalfFloatType: TextureDataType;
 
+    // Pixel types
+    enum PixelType {}
+    const UnsignedShort4444Type: PixelType;
+    const UnsignedShort5551Type: PixelType;
+    const UnsignedShort565Type: PixelType;
+
     // Pixel formats
     enum PixelFormat {}
     const AlphaFormat: PixelFormat;
@@ -56,6 +131,20 @@ declare namespace THREE {
     const LuminanceFormat: PixelFormat;
     const LuminanceAlphaFormat: PixelFormat;
     const RGBEFormat: PixelFormat;
+
+    // Compressed texture formats
+    // DDS / ST3C Compressed texture formats
+    enum CompressedPixelFormat {}
+    const RGB_S3TC_DXT1_Format: CompressedPixelFormat;
+    const RGBA_S3TC_DXT1_Format: CompressedPixelFormat;
+    const RGBA_S3TC_DXT3_Format: CompressedPixelFormat;
+    const RGBA_S3TC_DXT5_Format: CompressedPixelFormat;
+
+    // PVRTC compressed texture formats
+    const RGB_PVRTC_4BPPV1_Format: CompressedPixelFormat;
+    const RGB_PVRTC_2BPPV1_Format: CompressedPixelFormat;
+    const RGBA_PVRTC_4BPPV1_Format: CompressedPixelFormat;
+    const RGBA_PVRTC_2BPPV1_Format: CompressedPixelFormat;
 
     class Box2 {
         min: Vector2;
