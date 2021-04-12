@@ -14,6 +14,7 @@ declare namespace PouchDB {
     }
 }
 
+// tslint:disable-next-line:no-declare-current-package no-single-declare-module
 declare module 'transform-pouch' {
     const plugin: PouchDB.Plugin & {transform: () => void, filter: () => void};
     export = plugin;
