@@ -8,8 +8,6 @@ interface Options extends Record<string | symbol, boolean | undefined | {max?: n
     padded?: boolean;
 }
 
-declare module "random-ipv6" {
-    function randomIPv6(schema?: Options): string;
-    function randomIPv6(schema: string, options?: Options): string;
-    export = randomIPv6;
-}
+declare function randomIPv6(schema?: Options): string;
+declare function randomIPv6(schema: string, options?: Options): string;
+export = randomIPv6;
