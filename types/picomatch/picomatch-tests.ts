@@ -44,3 +44,6 @@ pm.makeRe('foo/{01..25}/bar', {
       return `(<fill-range output>)`;
     }
 });
+
+const isMatchWithIgnore = pm('*.!(*a)', {ignore: 'single-string'});
+const isMatchWithMultipleIgnores = pm('*.!(*a)', {ignore: ['many', 'strings']});
