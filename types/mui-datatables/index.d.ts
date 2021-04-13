@@ -205,6 +205,11 @@ export interface MUIDataTableColumnState extends MUIDataTableColumnOptions {
     label?: string;
 }
 
+export interface CustomHeadLabelRenderOptions extends MUIDataTableColumnState {
+    index: number;
+    colPos: number;
+}
+
 export interface MUIDataTableColumnOptions {
     /**
      * Function that returns a string or React component.
@@ -232,7 +237,7 @@ export interface MUIDataTableColumnOptions {
      * Used for creating a custom header to a column.
      * This method only affects the display in the table's header, other areas of the table (such as the View Columns popover), will use the column's label.
      */
-    customHeadLabelRender?: (dataIndex: number, rowIndex: number) => string | React.ReactNode;
+    customHeadLabelRender?: (options: CustomHeadLabelRenderOptions) => string | React.ReactNode;
     /**
      * These options only affect the filter chips that display after filter are selected.
      * To modify the filters themselves, see filterOptions.
