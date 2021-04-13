@@ -51,8 +51,8 @@ const MuiCustomTable: React.FC<Props> = props => {
             name: 'amount',
             label: 'Amount',
             options: {
-                customHeadLabelRender: (dataIndex: number, rowIndex: number) => {
-                    return <p>Some customize Header</p>;
+                customHeadLabelRender: (options) => {
+                    return <p>Some customize Header - {options.name}</p>;
                 },
             },
         },
