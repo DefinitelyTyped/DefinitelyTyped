@@ -8,16 +8,19 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "webpack": [
-                "./node_modules/webpack"
+                "webpack/v4"
             ],
             "tapable": [
-                "./node_modules/tapable"
+                "tapable/v1"
+            ],
+            "webpack-bundle-analyzer": [
+                "webpack-bundle-analyzer/v3"
             ]
         },
         "types": [],
