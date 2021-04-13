@@ -91,6 +91,9 @@ declare module 'worker_threads' {
          * Additional data to send in the first worker message.
          */
         transferList?: TransferListItem[];
+        /**
+         * @default true
+         */
         trackUnmanagedFds?: boolean;
     }
 

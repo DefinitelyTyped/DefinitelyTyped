@@ -8,6 +8,11 @@ import { Http2ServerResponse } from 'node:http2';
 // Simplified constructors
 function simplified_stream_ctor_test() {
     new Readable({
+        construct(cb) {
+            // $ExpectType Readable
+            this;
+            cb();
+        },
         read(size) {
             // $ExpectType Readable
             this;
@@ -23,6 +28,11 @@ function simplified_stream_ctor_test() {
     });
 
     new Writable({
+        construct(cb) {
+            // $ExpectType Writable
+            this;
+            cb();
+        },
         write(chunk, enc, cb) {
             // $ExpectType Writable
             this;
@@ -59,6 +69,11 @@ function simplified_stream_ctor_test() {
     });
 
     new Duplex({
+        construct(cb) {
+            // $ExpectType Duplex
+            this;
+            cb();
+        },
         read(size) {
             // $ExpectType Duplex
             this;
@@ -104,6 +119,11 @@ function simplified_stream_ctor_test() {
     });
 
     new Transform({
+        construct(cb) {
+            // $ExpectType Transform
+            this;
+            cb();
+        },
         read(size) {
             // $ExpectType Transform
             this;

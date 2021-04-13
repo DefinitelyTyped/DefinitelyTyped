@@ -5,6 +5,7 @@ declare module 'node:stream' {
 
 declare module 'stream' {
     import EventEmitter = require('node:events');
+    import * as streamPromises from "node:stream/promises";
 
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
@@ -20,6 +21,7 @@ declare module 'stream' {
             encoding?: BufferEncoding;
             objectMode?: boolean;
             read?(this: Readable, size: number): void;
+            construct?(this: Readable, callback: (error?: Error | null) => void): void;
             destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
             autoDestroy?: boolean;
         }
@@ -39,6 +41,7 @@ declare module 'stream' {
             readonly readableObjectMode: boolean;
             destroyed: boolean;
             constructor(opts?: ReadableOptions);
+            _construct?(callback: (error?: Error | null) => void): void;
             _read(size: number): void;
             read(size?: number): any;
             setEncoding(encoding: BufferEncoding): this;
@@ -135,6 +138,7 @@ declare module 'stream' {
             defaultEncoding?: BufferEncoding;
             objectMode?: boolean;
             emitClose?: boolean;
+            construct?(this: Writable, callback: (error?: Error | null) => void): void;
             write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Writable, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
@@ -154,6 +158,7 @@ declare module 'stream' {
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
+            _construct?(callback: (error?: Error | null) => void): void;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
@@ -240,6 +245,7 @@ declare module 'stream' {
             readableHighWaterMark?: number;
             writableHighWaterMark?: number;
             writableCorked?: number;
+            construct?(this: Duplex, callback: (error?: Error | null) => void): void;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
@@ -274,6 +280,7 @@ declare module 'stream' {
         type TransformCallback = (error?: Error | null, data?: any) => void;
 
         interface TransformOptions extends DuplexOptions {
+            construct?(this: Transform, callback: (error?: Error | null) => void): void;
             read?(this: Transform, size: number): void;
             write?(this: Transform, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Transform, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
@@ -442,6 +449,8 @@ declare module 'stream' {
             ref(): void;
             unref(): void;
         }
+
+        const promises: typeof streamPromises;
     }
 
     export = internal;
