@@ -88,6 +88,7 @@ export interface PopValueActionMeta<OptionType extends OptionTypeBase> {
 
 export interface ClearActionMeta {
     action: 'clear';
+    removedValues: OptionType[];
     name?: string;
 }
 
