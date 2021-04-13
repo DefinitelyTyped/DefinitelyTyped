@@ -53,6 +53,8 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      await rows[1].save(); // save updates
      await rows[1].delete(); // delete a rowa
 
+    await sheet.loadCells(); // load all cells
+
      await sheet.loadCells('A1:E10'); // loads a range of cells
      console.log(sheet.cellStats); // total cells, loaded, how many non-empty
      const a1 = sheet.getCell(0, 0); // access cells using a zero-based index

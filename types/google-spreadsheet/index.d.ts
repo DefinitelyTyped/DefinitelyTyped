@@ -736,8 +736,9 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * @param filters single or array of filters
      * - strings are treated as an A1 range
      * - objects are treated as a WorksheetGridRange
+     * - if skipped, all cells are loaded
      */
-    loadCells(filters: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
+    loadCells(filters?: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
 
     /**
      * @description
