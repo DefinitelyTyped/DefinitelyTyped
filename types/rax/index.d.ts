@@ -331,12 +331,58 @@ declare namespace Rax {
   interface RenderOption {
     driver: any;
   }
-  function render<T>(
-    element: Element,
-    parent: Element | Document,
-    options?: RenderOption,
-    callback?: () => void
-  ): void;
+  export const render: Renderer;
+
+  export interface Renderer {
+    <T extends Element>(
+        element: DOMElement<DOMAttributes<T>, T>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): T;
+
+    (
+        element: Array<DOMElement<DOMAttributes<any>, any>>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): Element;
+
+    (
+        element: FunctionComponentElement<any> | Array<FunctionComponentElement<any>>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): void;
+
+    <P, T extends Component<P, ComponentState>>(
+        element: CElement<P, T>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): T;
+
+    (
+        element: Array<CElement<any, Component<any, ComponentState>>>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): Component<any, ComponentState>;
+
+    <P>(
+        element: RaxElement<P>,
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): Component<P, ComponentState> | Element | void;
+
+    (
+        element: RaxElement[],
+        container: Element | DocumentFragment | null,
+        options?: RenderOption,
+        callback?: () => void
+    ): Component<any, ComponentState> | Element | void;
+  }
 
   /**
    * ======================================================================

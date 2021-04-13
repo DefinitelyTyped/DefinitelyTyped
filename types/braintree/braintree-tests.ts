@@ -203,3 +203,24 @@ const gateway2: BraintreeGateway = braintree.connect({
     if (!response) return;
     const id = response.merchantAccount.masterMerchantAccount?.id;
 })();
+
+/**
+ * Disbursement webhook kind
+ */
+(async () => {
+    const notification = await gateway.webhookTesting.sampleNotification('disbursement', 'disbursementId');
+    const result = await gateway.webhookNotification.parse((notification).bt_signature, notification.bt_payload);
+
+    if (result.kind === 'disbursement') {
+        const id = result.disbursement.id;
+        const amount = result.disbursement.amount;
+        const disbursementDate = result.disbursement.disbursementDate;
+        const disbursementType = result.disbursement.disbursementType;
+        const transactionIds = result.disbursement.transactionIds;
+        const merchantAccount = result.disbursement.merchantAccount;
+        const retry = result.disbursement.retry;
+        const success = result.disbursement.success;
+        const exceptionMessage = result.disbursement.exceptionMessage;
+        const followUpAction = result.disbursement.followUpAction;
+    }
+})();

@@ -324,6 +324,7 @@ import { URL } from 'node:url';
         response.end('', 'utf8', () => {});
         response.end(Buffer.from([]));
         response.end(Buffer.from([]), () => {});
+        const writable: boolean = response.writable;
 
         request.on('aborted', (hadError: boolean, code: number) => {});
         request.on('close', () => {});

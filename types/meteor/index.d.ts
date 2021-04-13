@@ -41,6 +41,7 @@
 /// <reference path="./globals/http.d.ts" />
 /// <reference path="./meteor.d.ts" />
 /// <reference path="./globals/meteor.d.ts" />
+/// <reference path="./modern-browsers.d.ts" />
 /// <reference path="./mongo.d.ts" />
 /// <reference path="./globals/mongo.d.ts" />
 /// <reference path="./promise.d.ts" />

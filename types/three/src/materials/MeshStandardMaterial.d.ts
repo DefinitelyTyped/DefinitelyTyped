@@ -36,6 +36,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     vertexTangents?: boolean;
     morphTargets?: boolean;
     morphNormals?: boolean;
+    flatShading?: boolean;
 }
 
 export class MeshStandardMaterial extends Material {
@@ -215,6 +216,14 @@ export class MeshStandardMaterial extends Material {
      * @default false
      */
     morphNormals: boolean;
+
+    /**
+     * Define whether the material is rendered with flat shading. Default is false.
+     * @default false
+     */
+    flatShading: boolean;
+
+    isMeshStandardMaterial: boolean;
 
     setValues(parameters: MeshStandardMaterialParameters): void;
 }

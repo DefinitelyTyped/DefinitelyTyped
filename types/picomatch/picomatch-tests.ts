@@ -4,6 +4,11 @@ import { Matcher, PicomatchOptions } from 'picomatch';
 // main function
 const isMatch = pm('*.!(*a)');
 
+// main function with state
+const isMatch2 = pm('*.!(*a)', {}, true);
+// $ExpectType boolean
+isMatch2.state.negated;
+
 // $ExpectType boolean
 isMatch('abcd');
 

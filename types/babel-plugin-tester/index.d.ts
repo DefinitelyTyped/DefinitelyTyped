@@ -1,6 +1,7 @@
 // Type definitions for babel-plugin-tester 9.0
 // Project: https://github.com/babel-utils/babel-plugin-tester#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
+//                 Mathieu TUDISCO <https://github.com/mathieutu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
@@ -152,6 +153,12 @@ export interface TestObject {
      *
      */
     babelOptions?: Babel.TransformOptions;
+
+    /**
+     * This can be used to pass options into your plugin at transform time.
+     *
+     */
+    pluginOptions?: Babel.PluginOptions;
 }
 
 export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
@@ -283,7 +290,10 @@ export default function pluginTester(options: PluginTesterOptions): void;
 /**
  * Formatter used for the snapshots.
  */
-export function prettierFormatter(code: string, options: Options): string;
+export function prettierFormatter(
+    code: string,
+    options?: { cwd?: string; filename?: string; config?: Options },
+): string;
 
 export const unstringSnapshotSerializer: {
     test(value: unknown): value is string;

@@ -27,6 +27,7 @@ export default class Sample extends React.Component<{}, State> {
             <Calendar
               onChange={this.onChange}
               showWeekNumbers
+              closeCalendar={true}
               value={value}
             />
           </main>

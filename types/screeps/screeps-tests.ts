@@ -152,6 +152,12 @@ function resources(o: GenericStore): ResourceConstant[] {
 
         creep = new StructureSpawn.Spawning("" as Id<Spawning>);
         creep = StructureSpawn.Spawning("" as Id<Spawning>);
+
+        const invaderCore = new StructureInvaderCore("" as Id<StructureInvaderCore>);
+        const invader = invaderCore.spawning;
+        if (invader) {
+            const name = invader.name;
+        }
     }
 }
 
@@ -420,6 +426,10 @@ function resources(o: GenericStore): ResourceConstant[] {
     const avgPrice: number = priceHistory[0].avgPrice;
     const stddevPrice: number = priceHistory[0].stddevPrice;
     const volume: number = priceHistory[0].volume;
+
+    // Game.market.getHistory([resourceType])
+    const energyHistory = Game.market.getHistory(RESOURCE_ENERGY);
+    const pixelHistory = Game.market.getHistory(PIXEL);
 }
 
 // PathFinder

@@ -1,4 +1,5 @@
 import constantsImport = require('./constants');
+import parse = require('./parse');
 import parseImport = require('./parse');
 import scanImport = require('./scan');
 
@@ -21,15 +22,19 @@ import scanImport = require('./scan');
  * @return Returns a matcher function.
  * @api public
  */
-declare function picomatch(
+declare function picomatch<T extends true | false>(
     glob: string | string[],
     options?: picomatch.PicomatchOptions,
-    returnState?: boolean,
-): picomatch.Matcher;
+    returnState?: T,
+): T extends true ? picomatch.MatcherWithState : picomatch.Matcher;
 
 declare namespace picomatch {
     interface Matcher {
         (test: string): boolean;
+    }
+
+    interface MatcherWithState extends Matcher {
+        state: parse.ParseState;
     }
 
     interface Result {

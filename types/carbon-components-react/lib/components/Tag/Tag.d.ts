@@ -26,7 +26,8 @@ export interface FilterTagProps extends ReactDivAttr, SharedProps {
     onClose?(event: React.MouseEvent<HTMLButtonElement>): void,
 }
 
-export interface ChipTagProps extends ReactAttr<HTMLSpanElement>, SharedProps {
+// div or button, HTMLElement will need to be casted
+export interface ChipTagProps extends ReactAttr, SharedProps {
     filter?: false,
     renderIcon?: React.ComponentType<any>;
 }

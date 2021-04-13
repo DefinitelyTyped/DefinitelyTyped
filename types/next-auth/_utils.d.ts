@@ -1,32 +1,9 @@
-import { IncomingMessage, ServerResponse } from 'http';
-import { User } from './index';
+export type NonNullParams<T> = {
+    [K in keyof T]: T[K] extends Record<string, unknown> ? NonNullParams<T[K]> : NonNullable<T[K]>;
+};
 
-interface GenericObject {
-    [key: string]: any;
-}
+export type NullableParams<T> = {
+    [K in keyof T]: T[K] | undefined | null
+};
 
-interface NextApiRequest extends IncomingMessage, GenericObject {
-    query: {
-        [key: string]: string | string[];
-    };
-    cookies: {
-        [key: string]: string;
-    };
-    body: any;
-}
-
-interface NextApiResponse<T = any> extends ServerResponse, GenericObject {
-    send: Send<T>;
-    json: Send<T>;
-    status: (statusCode: number) => NextApiResponse<T>;
-}
-
-type Send<T> = (body: T) => void;
-
-interface SessionBase {
-    user: User;
-    accessToken?: string;
-    expires: string;
-}
-
-export { GenericObject, SessionBase, NextApiRequest, NextApiResponse };
+export type WithAdditionalParams<T extends Record<string, any>> = T & Record<string, unknown>;

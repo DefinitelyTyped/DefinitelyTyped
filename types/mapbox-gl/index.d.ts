@@ -1925,10 +1925,11 @@ declare namespace mapboxgl {
         pitch?: number;
         /** If zooming, the zoom center (defaults to map center) */
         around?: LngLatLike;
+        /** Dimensions in pixels applied on each side of the viewport for shifting the vanishing point. */
+        padding?: number | PaddingOptions;
     }
 
     export interface CameraForBoundsOptions extends CameraOptions {
-        padding?: number | PaddingOptions;
         offset?: PointLike;
         maxZoom?: number;
     }
@@ -1960,7 +1961,6 @@ declare namespace mapboxgl {
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
         linear?: boolean;
-        padding?: number | mapboxgl.PaddingOptions;
         offset?: mapboxgl.PointLike;
         maxZoom?: number;
         maxDuration?: number;

@@ -605,3 +605,36 @@ function testMultiSections() {
         renderSuggestion={suggestion => suggestion}
     />;
 }
+
+const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = event => {
+    const element = event.target;
+    // `value` only exists on the input element, but sometimes this function is
+    // called with a `target` pointing to a non-input element. For example, when
+    // the user clicks on a suggestion. Reduced test case:
+    // https://stackblitz.com/edit/oliverjash-react-autosuggest-1lhfk3?file=index.tsx
+    element.value; // $ExpectError
+};
+
+{
+    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, "onChange">> = props => null;
+
+    const invalidOnChange = (event: React.FormEvent<HTMLDivElement>) => { };
+    const onChange = (event: React.FormEvent<HTMLElement>) => { };
+    <CustomInput
+        // $ExpectError
+        onChange={invalidOnChange}
+    />;
+    <CustomInput onChange={onChange} />;
+}
+
+{
+    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, "onBlur">> = props => null;
+
+    const invalidOnBlur = (event: React.FocusEvent<HTMLDivElement>) => { };
+    const onBlur = (event: React.FocusEvent<HTMLElement>) => { };
+    <CustomInput
+        // $ExpectError
+        onBlur={invalidOnBlur}
+    />;
+    <CustomInput onBlur={onBlur} />;
+}

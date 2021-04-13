@@ -5,7 +5,7 @@
 // Minimum TypeScript Version: 3.8
 /// <reference types="node" />
 
-import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
+import { Options as HttpProxyMiddlewareConfig, RequestHandler as Proxy } from 'http-proxy-middleware';
 import * as Koa from 'koa';
 import { ServerOptions as Http2ServerOptions, SecureServerOptions as Http2SecureServerOptions } from 'http2';
 import { ServerOptions as HttpsServerOptions } from 'https';

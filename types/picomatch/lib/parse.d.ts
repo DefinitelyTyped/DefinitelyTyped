@@ -1,4 +1,4 @@
-declare function parse(input: string, options: { maxLength: number }): parse.State;
+declare function parse(input: string, options: { maxLength: number }): parse.ParseState;
 
 declare namespace parse {
     interface Token {
@@ -7,17 +7,23 @@ declare namespace parse {
         output: any;
     }
 
-    interface State {
-        globstar: boolean;
-        consumed: string;
-        tokens: Token[];
+    interface ParseState {
+        input: string;
         index: number;
         start: number;
-        brackets: number;
-        parens: number;
-        braces: number;
-        backtrack: boolean;
+        dot: boolean;
+        consumed: string;
         output: string;
+        prefix: string;
+        backtrack: boolean;
+        negated: boolean;
+        negatedExtglob?: boolean;
+        brackets: number;
+        braces: number;
+        parens: number;
+        quotes: number;
+        globstar: boolean;
+        tokens: Token[];
     }
 }
 

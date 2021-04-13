@@ -2,6 +2,7 @@ let resultStr: string;
 let resultBool: boolean;
 let resultNum: number;
 let resultStrArr: string[];
+let resultStrNumArray: Array<string | number>;
 let resultDate: Date;
 
 import faker = require('faker');
@@ -72,6 +73,36 @@ resultStr = faker.database.column();
 resultStr = faker.database.type();
 resultStr = faker.database.collation();
 resultStr = faker.database.engine();
+
+resultNum = faker.datatype.number();
+resultNum = faker.datatype.number(0);
+resultNum = faker.datatype.number({
+    min: 0,
+    max: 0,
+    precision: 0,
+});
+resultNum = faker.datatype.float();
+resultNum = faker.datatype.float(0);
+resultNum = faker.datatype.float({
+    min: 0,
+    max: 0,
+    precision: 0,
+});
+resultDate = faker.datatype.datetime();
+resultDate = faker.datatype.datetime(0);
+resultDate = faker.datatype.datetime({
+    min: 0,
+    max: 0,
+});
+resultStr = faker.datatype.string();
+resultStr = faker.datatype.string(0);
+resultStr = faker.datatype.uuid();
+resultBool = faker.datatype.boolean();
+resultStr = faker.datatype.hexaDecimal();
+resultStr = faker.datatype.hexaDecimal(0);
+resultStr = faker.datatype.json();
+resultStrNumArray = faker.datatype.array();
+resultStrNumArray = faker.datatype.array(0);
 
 resultDate = faker.date.past();
 resultDate = faker.date.future();
@@ -278,13 +309,15 @@ resultStr = faker.random.alphaNumeric(0);
 resultStr = faker.random.hexaDecimal();
 resultStr = faker.random.hexaDecimal(0);
 
-resultStr = faker.system.fileName('foo', 'bar');
-resultStr = faker.system.commonFileName('foo', 'bar');
+resultStr = faker.system.fileName();
+resultStr = faker.system.commonFileName();
+resultStr = faker.system.commonFileName("foo");
 resultStr = faker.system.mimeType();
 resultStr = faker.system.commonFileType();
 resultStr = faker.system.commonFileExt();
 resultStr = faker.system.fileType();
-resultStr = faker.system.fileExt('foo');
+resultStr = faker.system.fileExt();
+resultStr = faker.system.fileExt("foo");
 resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
 resultStr = faker.system.semver();

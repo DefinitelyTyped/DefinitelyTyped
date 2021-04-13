@@ -6,6 +6,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Ma Tianqi <https://github.com/tqma113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import * as webpack from 'webpack';
 import { NextHandleFunction } from 'connect';
@@ -13,7 +14,7 @@ import { NextHandleFunction } from 'connect';
 export = WebpackDevMiddleware;
 
 declare function WebpackDevMiddleware(
-    compiler: webpack.Compiler,
+    compiler: webpack.Compiler | webpack.MultiCompiler,
     options?: WebpackDevMiddleware.Options,
 ): WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 

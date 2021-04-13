@@ -6,10 +6,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import EventEmitter = require("events");
+
 export interface Params {
     progress: number;
     eta: number;
-    startTime: Date;
+    startTime: number;
     total: number;
     value: number;
     maxWidth: number;
@@ -142,7 +144,7 @@ export interface Preset {
     format: string;
 }
 
-export class SingleBar {
+export class SingleBar extends EventEmitter {
     /** Initialize a new Progress bar. An instance can be used multiple times! it's not required to re-create it! */
     constructor(opt: Options, preset?: Preset);
 
@@ -176,7 +178,7 @@ export class SingleBar {
     update(payload: object): void;
 }
 
-export class MultiBar {
+export class MultiBar extends EventEmitter {
     constructor(opt: Options, preset?: Preset);
 
     create(total: number, startValue: number, payload?: any): SingleBar;

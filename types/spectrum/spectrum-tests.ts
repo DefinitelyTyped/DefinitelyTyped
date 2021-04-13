@@ -48,10 +48,49 @@ $("#picker").spectrum({
     ]
 });
 
+const paletteModMod: string[][] = [["#000"]];
+const paletteUnmodMod: ReadonlyArray<string[]> = [["#000"]];
+const paletteModUnmod: Array<ReadonlyArray<string>> = [["#000"]];
+const paletteUnmodUnmod: ReadonlyArray<ReadonlyArray<string>> = [["#000"]];
+$("#picker").spectrum({
+    palette: paletteModMod,
+});
+$("#picker").spectrum({
+    palette: paletteModUnmod,
+});
+$("#picker").spectrum({
+    palette: paletteUnmodMod,
+});
+$("#picker").spectrum({
+    palette: paletteUnmodUnmod,
+});
+$("#picker").spectrum("option", "palette", paletteModMod);
+$("#picker").spectrum("option", "palette", paletteModUnmod);
+$("#picker").spectrum("option", "palette", paletteUnmodMod);
+$("#picker").spectrum("option", "palette", paletteUnmodUnmod);
+const palette = $("#picker").spectrum("option", "palette");
+if (palette) {
+    // Disallowed, must use "option" method to apply settings
+    // $ExpectError
+    palette[0][0] = "";
+    // $ExpectError
+    palette[0] = [""];
+}
+
 $("#picker").spectrum({
     showPalette: true,
     showSelectionPalette: true,
+    selectionPalette: ["red", "green", "blue"],
     localStorageKey: "spectrum.homepage",
+});
+
+const selectionPaletteMod: string[] = ["red", "green", "blue"];
+const selectionPaletteUnmod: ReadonlyArray<string> = ["red", "green", "blue"];
+$("#picker").spectrum({
+    selectionPalette: selectionPaletteMod,
+});
+$("#picker").spectrum({
+    selectionPalette: selectionPaletteUnmod,
 });
 
 $("#picker").spectrum({
@@ -61,6 +100,14 @@ $("#picker").spectrum({
 $("#picker").spectrum({
     clickoutFiresChange: true
 });
+$("#picker").spectrum("option", "selectionPalette", selectionPaletteMod);
+$("#picker").spectrum("option", "selectionPalette", selectionPaletteUnmod);
+const selectionPalette = $("#picker").spectrum("option", "selectionPalette");
+if (selectionPalette) {
+    // Disallowed, must use "option" method to apply settings
+    // $ExpectError
+    selectionPaletteUnmod[0] = "red";
+}
 
 $("#picker").spectrum({
     showInitial: true,
@@ -68,7 +115,9 @@ $("#picker").spectrum({
 });
 $("#picker").spectrum({
     chooseText: "Alright",
-    cancelText: "No way"
+    cancelText: "No way",
+    clearText: "Start over",
+    noColorSelectedText: "A world of gray",
 });
 
 $("#picker").spectrum({

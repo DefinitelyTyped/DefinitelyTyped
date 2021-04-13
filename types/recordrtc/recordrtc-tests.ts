@@ -26,6 +26,16 @@ navigator.getUserMedia(
 
         // $ExpectType string
         instance.getState();
+
+        // $ExpectType { onRecordingStopped: (callback: () => void) => void; }
+        instance.setRecordingDuration(1);
+
+        const fiveMinutes = 5 * 1000 * 60;
+        // $ExpectType void
+        instance.setRecordingDuration(fiveMinutes, () => {});
+
+        // $ExpectType void
+        instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
     },
     console.error,
 );

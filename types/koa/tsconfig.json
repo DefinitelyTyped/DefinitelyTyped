@@ -3,8 +3,8 @@
         "index.d.ts",
         "test/index.ts",
         "test/default.ts",
-        "test/response-body.ts",
-        "test/settings.ts"
+        "test/settings.ts",
+        "test/typed-response-body-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -21,6 +21,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     }
 }

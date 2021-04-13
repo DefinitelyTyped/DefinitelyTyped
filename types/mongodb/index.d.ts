@@ -48,7 +48,7 @@ import { Readable, Writable } from 'stream';
 import { checkServerIdentity } from 'tls';
 
 type FlattenIfArray<T> = T extends ReadonlyArray<infer R> ? R : T;
-type WithoutProjection<T> = T & { fields?: undefined; projection?: undefined };
+export type WithoutProjection<T> = T & { fields?: undefined; projection?: undefined };
 
 export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
 export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
@@ -179,7 +179,7 @@ export interface ClientSession extends EventEmitter {
      * @param fn
      * @param options - settings for the transaction
      */
-    withTransaction<T>(fn: WithTransactionCallback<T>, options?: TransactionOptions): Promise<void>;
+    withTransaction(fn: WithTransactionCallback, options?: TransactionOptions): Promise<any>;
 }
 
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#ReadConcern */
@@ -262,7 +262,7 @@ export interface MongoCallback<T> {
  *                  This should be passed into each operation within the lambda.
  * @returns - the resulting {@link Promise} of operations run within this transaction
  */
-export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
+export type WithTransactionCallback = (session: ClientSession) => Promise<void>;
 
 /**
  * Creates a new MongoError
@@ -1877,8 +1877,8 @@ export type SetFields<TSchema> = ({
 
 export type PushOperator<TSchema> = ({
     readonly [key in KeysOfAType<TSchema, ReadonlyArray<any>>]?:
-        | UpdateOptionalId<Unpacked<TSchema[key]>>
-        | ArrayOperator<Array<UpdateOptionalId<Unpacked<TSchema[key]>>>>;
+        | Unpacked<TSchema[key]>
+        | ArrayOperator<Array<Unpacked<TSchema[key]>>>;
 } &
     NotAcceptedFields<TSchema, ReadonlyArray<any>>) & {
     readonly [key: string]: ArrayOperator<any> | any;
@@ -1903,7 +1903,7 @@ export type PullAllOperator<TSchema> = ({
 /** @see https://docs.mongodb.com/manual/reference/operator/update */
 export type UpdateQuery<TSchema> = {
     /** @see https://docs.mongodb.com/manual/reference/operator/update-field/ */
-    $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
+    $currentDate?: OnlyFieldsOfType<TSchema, Date | Timestamp, true | { $type: 'date' | 'timestamp' }>;
     $inc?: OnlyFieldsOfType<TSchema, NumericTypes | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;

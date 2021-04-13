@@ -532,7 +532,7 @@ interface KnockoutUtils {
 
     postJson(urlOrForm: any, data: any, options: any): void;
 
-    peekObservable<T>(value: KnockoutObservable<T>): T;
+    peekObservable<T>(value: KnockoutObservable<T> | T): T;
 
     range(min: any, max: any): any;
 

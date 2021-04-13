@@ -39,6 +39,7 @@ export { connectRange } from 'react-instantsearch-core';
 export { connectRefinementList } from 'react-instantsearch-core';
 export { connectScrollTo } from 'react-instantsearch-core';
 export { connectSearchBox } from 'react-instantsearch-core';
+export { connectRelevantSort } from 'react-instantsearch-core';
 export { connectSortBy } from 'react-instantsearch-core';
 export { connectStateResults } from 'react-instantsearch-core';
 export { connectStats } from 'react-instantsearch-core';

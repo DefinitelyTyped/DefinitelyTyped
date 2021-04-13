@@ -5,8 +5,8 @@ declare let us: UsAtlas;
 declare let world: WorldAtlas;
 
 interface UsAtlasObjects extends TopoJSON.Objects {
-    counties: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
-    states: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+    counties: { type: "GeometryCollection"; geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> };
+    states: { type: "GeometryCollection"; geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> };
     nation: TopoJSON.GeometryCollection;
 }
 
@@ -25,42 +25,64 @@ interface TestProp {
     size: number;
 }
 
-const selectedGeometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> =
-    us.objects.states.geometries.filter((g) => ["be", 2, undefined].indexOf(g.id) >= 0);
+const selectedGeometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon> = us.objects.states.geometries.filter(
+    g => ["be", 2, undefined].indexOf(g.id) >= 0,
+);
 
 const topoWithProp = {
     type: "Topology" as "Topology",
-    transform: {scale: [1, 1] as [number, number], translate: [0, 0] as [number, number]},
+    transform: { scale: [1, 1] as [number, number], translate: [0, 0] as [number, number] },
     objects: {
-        foo: {type: "Polygon" as "Polygon", properties: {color: "orange", size: 42}, arcs: [[0]]},
-        bar: {type: "Polygon" as "Polygon", properties: {name: "hello"}, arcs: [[0]]},
-        more: {type: "Polygon" as "Polygon", arcs: [[0]]},
+        foo: { type: "Polygon" as "Polygon", properties: { color: "orange", size: 42 }, arcs: [[0]] },
+        bar: { type: "Polygon" as "Polygon", properties: { name: "hello" }, arcs: [[0]] },
+        more: { type: "Polygon" as "Polygon", arcs: [[0]] },
         coll: {
-            type: "GeometryCollection" as "GeometryCollection", geometries: [
-                {type: "Polygon" as "Polygon", properties: {color: "orange", size: 42}, arcs: [[0]]},
-            ],
+            type: "GeometryCollection" as "GeometryCollection",
+            geometries: [{ type: "Polygon" as "Polygon", properties: { color: "orange", size: 42 }, arcs: [[0]] }],
         },
     },
     arcs: [
-        [[0, 0], [1, 0], [0, 1], [-1, 0], [0, -1]],
-        [[0, 0], [1, 0], [0, 1]],
-        [[1, 1], [-1, 0], [0, -1]],
+        [
+            [0, 0],
+            [1, 0],
+            [0, 1],
+            [-1, 0],
+            [0, -1],
+        ],
+        [
+            [0, 0],
+            [1, 0],
+            [0, 1],
+        ],
+        [
+            [1, 1],
+            [-1, 0],
+            [0, -1],
+        ],
         [[1, 1]],
-        [[0, 0]]
+        [[0, 0]],
     ],
 };
 
-const featurePolygon: GeoJSON.Feature<GeoJSON.Polygon> =
-    topojson.feature(topoWithProp, topoWithProp.objects.foo);
+const featurePolygon: GeoJSON.Feature<GeoJSON.Polygon> = topojson.feature(topoWithProp, topoWithProp.objects.foo);
 
-const featurePolygonWithProp: GeoJSON.Feature<GeoJSON.Polygon, TestProp> =
-    topojson.feature(topoWithProp, topoWithProp.objects.foo);
+const featurePolygonWithProp: GeoJSON.Feature<GeoJSON.Polygon, TestProp> = topojson.feature(
+    topoWithProp,
+    topoWithProp.objects.foo,
+);
 
-const featureCollection: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> =
-    topojson.feature(us, us.objects.counties);
+const featureCollection: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> = topojson.feature(us, us.objects.counties);
 
-const featureObject: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject, {}> =
-    topojson.feature(topoWithProp, topoWithProp.objects.foo as TopoJSON.GeometryObject);
+const featureObject:
+    | GeoJSON.Feature<GeoJSON.GeometryObject>
+    | GeoJSON.FeatureCollection<GeoJSON.GeometryObject, {}> = topojson.feature(
+    topoWithProp,
+    topoWithProp.objects.foo as TopoJSON.GeometryObject,
+);
+
+const featureName:
+    | GeoJSON.Feature<GeoJSON.GeometryObject>
+    | GeoJSON.FeatureCollection<GeoJSON.GeometryObject, {}> = topojson.feature(topoWithProp, "foo");
 
 const propColor = topojson.feature(topoWithProp, topoWithProp.objects.foo).properties;
 color = propColor.color;
@@ -93,16 +115,16 @@ const n: number[][] = topojson.neighbors(world.objects.countries.geometries);
 const usTransform: TopoJSON.Transform = us.transform;
 
 bbox = topojson.bbox(us);
-bbox = topojson.bbox({type: "Topology", objects: {}, arcs: []});
+bbox = topojson.bbox({ type: "Topology", objects: {}, arcs: [] });
 
 newUs = topojson.quantize(us, 1e4);
-newUs = topojson.quantize(us, {scale: [1, 1], translate: [0, 0]});
+newUs = topojson.quantize(us, { scale: [1, 1], translate: [0, 0] });
 newUs = topojson.quantize(us, us.transform);
 
 transformer = topojson.transform(null);
-transformer = topojson.transform({scale: [1, 1], translate: [0, 0]});
+transformer = topojson.transform({ scale: [1, 1], translate: [0, 0] });
 transformer = topojson.transform(usTransform);
 
 transformer = topojson.untransform(null);
-transformer = topojson.untransform({scale: [1, 1], translate: [0, 0]});
+transformer = topojson.untransform({ scale: [1, 1], translate: [0, 0] });
 transformer = topojson.untransform(usTransform);

@@ -1,7 +1,6 @@
 /**
  * SRC
  */
-export * from './polyfills';
 export * from './constants';
 export * from './Three.Legacy';
 /**
