@@ -102,7 +102,7 @@ export type ActionMeta<OptionType extends OptionTypeBase> =
     | DeselectOptionActionMeta<OptionType>
     | RemoveValueActionMeta<OptionType>
     | PopValueActionMeta<OptionType>
-    | ClearActionMeta
+    | ClearActionMeta<OptionType>
     | CreateOptionActionMeta;
 
 export type Action = ActionMeta<OptionTypeBase>['action'];
