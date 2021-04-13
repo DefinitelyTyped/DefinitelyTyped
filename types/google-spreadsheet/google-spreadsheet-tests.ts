@@ -16,6 +16,10 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      // OR use API key -- only for read-only access to public sheets
      doc.useApiKey('YOUR-API-KEY');
 
+     doc.useOAuth2Client({
+         getAccessToken: () => ({ token: "test_token" })
+     });
+
      await doc.loadInfo(); // loads document properties and worksheets
      console.log(doc.title);
      await doc.updateProperties({ title: 'renamed doc' });

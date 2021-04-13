@@ -286,6 +286,10 @@ export interface ServiceAccountCredentials {
     private_key: string;
 }
 
+export interface OAuth2Client {
+    getAccessToken: () => { token: string };
+}
+
 // #endregion
 
 // #region GOOGLE SPREADSHEET CELL
@@ -1040,6 +1044,15 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param key API key for your Google project
      */
     useApiKey(key: string): void;
+
+
+    /**
+     * @description
+     * Use Google's OAuth2Client to authenticate on behalf of a user
+     *
+     * @param oAuth2Client Configured OAuth2Client
+     */
+    useOAuth2Client(oAuth2Client: OAuth2Client): void;
 
     /**
      * @description
