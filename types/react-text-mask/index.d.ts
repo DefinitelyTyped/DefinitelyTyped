@@ -47,5 +47,5 @@ export default class MaskedInput extends React.Component<
 export function conformToMask(
     text: string,
     mask: maskArray | ((value: string) => maskArray),
-    config: any
+    config?: any
 ): conformToMaskResult;

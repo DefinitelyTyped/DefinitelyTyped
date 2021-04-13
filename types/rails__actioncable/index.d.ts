@@ -39,6 +39,11 @@ export interface Mixin {
     [key: string]: any;
 }
 
+export interface ChannelNameWithParams {
+    channel: string;
+    [key: string]: any;
+}
+
 /**
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/internal.js
  */
@@ -175,7 +180,7 @@ export class Subscriptions<C = Consumer> {
 
     readonly subscriptions: Array<Subscription<C>>;
 
-    create<M>(channelName: string | { channel: string; room?: string }, mixin?: Mixin & M): Subscription<C> & Mixin & M;
+    create<M>(channelName: string | ChannelNameWithParams, mixin?: Mixin & M): Subscription<C> & Mixin & M;
 }
 
 /**
@@ -196,6 +201,7 @@ export function createWebSocketURL(url: string): string;
  */
 export const logger: {
     log(...messages: any[]): void;
+    enabled?: boolean;
 };
 
 /**

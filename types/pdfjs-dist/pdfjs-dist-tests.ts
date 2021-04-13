@@ -1,4 +1,6 @@
-import { getDocument, PDFDocumentProxy, Util } from 'pdfjs-dist';
+import { getDocument, PDFDocumentProxy, Util, GlobalWorkerOptions, PDFWorker } from 'pdfjs-dist';
+
+GlobalWorkerOptions.workerPort = new PDFWorker();
 
 //
 // Fetch the PDF document from the URL using promises

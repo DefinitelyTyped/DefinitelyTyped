@@ -15,6 +15,12 @@
         "paths": {
             "copy-webpack-plugin": [
                 "copy-webpack-plugin/v5"
+            ],
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
             ]
         },
         "types": [],

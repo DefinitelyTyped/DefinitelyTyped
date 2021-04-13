@@ -3,7 +3,6 @@
 // Definitions by: James Darbyshire <https://github.com/darbio>
 //                 Michael Skarum <https://github.com/skarum>
 //                 Stef Heyenrath <https://github.com/StefH>
-//                 Toby Hede <https://github.com/tobyhede>
 //                 Rich Buggy <https://github.com/buggy>
 //                 Yoriki Yamaguchi <https://github.com/y13i>
 //                 wwwy3y3 <https://github.com/wwwy3y3>

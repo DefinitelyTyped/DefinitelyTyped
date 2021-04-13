@@ -44,6 +44,14 @@
             "libraryName": "ajv",
             "asOfVersion": "1.0.0"
         },
+        "algoliasearch": {
+            "libraryName": "algoliasearch",
+            "asOfVersion": "4.0.0"
+        },
+        "algoliasearch-helper": {
+            "libraryName": "algoliasearch-helper",
+            "asOfVersion": "3.0.0"
+        },
         "all-keys": {
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
@@ -1005,6 +1013,10 @@
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
         },
+        "feedme": {
+            "libraryName": "feedme",
+            "asOfVersion": "2.0.2"
+        },
         "feedsub": {
             "libraryName": "feedsub",
             "asOfVersion": "0.7.5"
@@ -1265,10 +1277,6 @@
             "libraryName": "handsontable",
             "asOfVersion": "0.35.0"
         },
-        "hapi-auth-jwt2": {
-            "libraryName": "hapi-auth-jwt2",
-            "asOfVersion": "8.6.1"
-        },
         "hapi__accept": {
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.0"
@@ -1305,6 +1313,10 @@
             "libraryName": "@hapi/wreck",
             "asOfVersion": "17.0.0"
         },
+        "hapi-auth-jwt2": {
+            "libraryName": "hapi-auth-jwt2",
+            "asOfVersion": "8.6.1"
+        },
         "hard-rejection": {
             "libraryName": "hard-rejection",
             "asOfVersion": "2.0.0"
@@ -1316,6 +1328,10 @@
         "has-yarn": {
             "libraryName": "has-yarn",
             "asOfVersion": "2.0.0"
+        },
+        "hash-it": {
+            "libraryName": "hash-it",
+            "asOfVersion": "5.0.0"
         },
         "hasha": {
             "libraryName": "hasha",
@@ -1344,6 +1360,10 @@
         "hirestime": {
             "libraryName": "hirestime",
             "asOfVersion": "6.0.0"
+        },
+        "hls.js": {
+            "libraryName": "hls.js",
+            "asOfVersion": "1.0.0"
         },
         "homeworks": {
             "libraryName": "homeworks",
@@ -2017,10 +2037,6 @@
             "libraryName": "matcher",
             "asOfVersion": "2.0.0"
         },
-        "material-components-web": {
-            "libraryName": "material-components-web",
-            "asOfVersion": "1.0.0"
-        },
         "material__animation": {
             "libraryName": "@material/animation",
             "asOfVersion": "1.0.0"
@@ -2127,6 +2143,10 @@
         },
         "material__top-app-bar": {
             "libraryName": "@material/top-app-bar",
+            "asOfVersion": "1.0.0"
+        },
+        "material-components-web": {
+            "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
         "matrix-appservice-bridge": {
@@ -3694,6 +3714,10 @@
             "libraryName": "svg-pan-zoom",
             "asOfVersion": "3.4.0"
         },
+        "svg-tag-names": {
+            "libraryName": "svg-tag-names",
+            "asOfVersion": "3.0.0"
+        },
         "svg.js": {
             "libraryName": "svg.js",
             "asOfVersion": "2.3.1"
@@ -4129,6 +4153,10 @@
         "wordpress__escape-html": {
             "libraryName": "@wordpress/escape-html",
             "asOfVersion": "1.8.0"
+        },
+        "wordpress__hooks": {
+            "libraryName": "@wordpress/hooks",
+            "asOfVersion": "2.11.0"
         },
         "wordpress__html-entities": {
             "libraryName": "@wordpress/html-entities",

@@ -1,4 +1,4 @@
-// Type definitions for next-auth 3.7
+// Type definitions for next-auth 3.13
 // Project: https://github.com/iaincollins/next-auth#readme
 // Definitions by: Lluis <https://github.com/lluia>
 //                 Iain <https://github.com/iaincollins>

@@ -6,6 +6,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { WebpackPluginInstance, Compiler } from 'webpack';
 

@@ -257,7 +257,7 @@ function test_steppedAreaChart() {
 }
 
 function test_lineChart() {
-    var data = google.visualization.arrayToDataTable([
+    const data = google.visualization.arrayToDataTable([
         ['Year', 'Sales', 'Expenses'],
         ['2004',  1000,      400],
         ['2005',  1170,      460],
@@ -265,13 +265,17 @@ function test_lineChart() {
         ['2007',  1030,      540]
     ]);
 
-    var options = {
-        title: 'Company Performance'
+    const options: google.visualization.LineChartOptions = {
+        title: 'Company Performance',
+        intervals: {
+            style: 'boxes',
+            boxWidth: 1,
+        },
     };
 
-    var container = document.getElementById('chart_div');
+    const container = document.getElementById('chart_div');
     if (container) {
-        var chart = new google.visualization.LineChart(container);
+        const chart = new google.visualization.LineChart(container);
         chart.draw(data, options);
     }
 }
@@ -1064,4 +1068,38 @@ function test_dataNamespace() {
         [{column: 1, aggregation: google.visualization.data.sum, type: 'number'}]);
 
     dt = google.visualization.data.join(dt, dt, 'inner', [['x', 0]], [1], ['y']);
+}
+
+function test_chartSelection() {
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Fruit');
+    data.addColumn('number', 'Calories');
+    data.addRows([
+        ['Apple', 95],
+        ['Banana', 105],
+        ['Kiwi', 42],
+    ]);
+    const container = document.getElementById('chart_div');
+    if (container) {
+        const chart = new google.visualization.BarChart(container);
+        google.visualization.events.addOneTimeListener(chart, 'ready', () => {
+            console.log('Fruit chart ready');
+            const button1 = document.getElementById('select_apple_button')!;
+            button1.addEventListener('click', () => {
+                chart.setSelection([{row: 0}]);
+            });
+            const button2 = document.getElementById('select_apple_button')!;
+            button2.addEventListener('click', () => {
+                chart.setSelection();
+            });
+        });
+        google.visualization.events.addListener(chart, 'select', () => {
+            const {row, column} = chart.getSelection()[0];
+            console.log(`Selection: row=${row} column=${column}`);
+            if (row != null && column != null) {
+                console.log(`Selected: ${data.getValue(row, column)}`);
+            }
+        });
+        chart.draw(data, {});
+    }
 }

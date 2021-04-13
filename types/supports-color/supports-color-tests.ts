@@ -1,4 +1,6 @@
-import { stdout, stderr } from "supports-color";
+/// <reference types="node" />
+
+import { stdout, stderr, supportsColor } from "supports-color";
 
 if (stdout) {
     // Terminal standard output supports color
@@ -31,3 +33,13 @@ if (stderr) {
         // Terminal standard error supports 16 million colors (truecolor)
     }
 }
+
+supportsColor(process.stdout, { sniffFlags: true }); // $ExpectType SupportsColor
+supportsColor(process.stdout, { sniffFlags: false }); // $ExpectType SupportsColor
+supportsColor(
+    {
+        isTTY: true,
+    },
+    { sniffFlags: true },
+);
+supportsColor({ isTTY: true });

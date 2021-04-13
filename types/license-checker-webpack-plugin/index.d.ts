@@ -2,7 +2,7 @@
 // Project: https://github.com/Microsoft/license-checker-webpack-plugin#readme
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { Compiler, WebpackPluginInstance } from 'webpack';
 

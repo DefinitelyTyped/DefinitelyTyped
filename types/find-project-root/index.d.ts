@@ -6,10 +6,7 @@
 /**
  * Finds the project root by custom markers
  */
-declare function findProjectRoot(
-    path: string,
-    options?: findProjectRoot.Options
-): null | string;
+declare function findProjectRoot(path: string, options?: findProjectRoot.Options): null | string;
 
 declare namespace findProjectRoot {
     interface Options {
@@ -22,6 +19,9 @@ declare namespace findProjectRoot {
          */
         markers?: string[];
     }
+
+    const MAX_DEPTH: 9;
+    const MARKERS: [".git", ".hg"];
 }
 
 export = findProjectRoot;
