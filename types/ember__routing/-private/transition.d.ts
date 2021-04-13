@@ -1,7 +1,7 @@
 import RouteInfo from './route-info';
 import RouteInfoWithAttributes from './route-info-with-attributes';
 
-export default interface Transition<T = any> extends Partial<Promise<T>> {
+export default interface Transition<T = unknown> extends Partial<Promise<T>> {
     /**
      * Custom state can be stored on a Transition's `data` object.
      * This can be useful for decorating a Transition within an earlier hook and shared with a later hook.
