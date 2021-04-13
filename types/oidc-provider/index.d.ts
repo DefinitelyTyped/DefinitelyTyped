@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.1
+// Type definitions for oidc-provider 7.2
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -703,6 +703,8 @@ declare class OIDCContext {
     readonly params?: UnknownObject;
 
     getAccessToken(opts?: { acceptDPoP?: boolean; acceptQueryParam?: boolean }): string;
+
+    clientJwtAuthExpectedAudience(): Set<string>;
 }
 
 export type KoaContextWithOIDC = Koa.ParameterizedContext<
