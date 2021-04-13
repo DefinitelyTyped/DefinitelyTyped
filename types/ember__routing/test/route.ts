@@ -99,7 +99,7 @@ class RedirectRoute extends Route {
 
 class InvalidRedirect extends Route {
     // $ExpectError
-    redirect(model: {}, a: Transition<Route>, anOddArg: any) {
+    redirect(model: {}, a: Transition, anOddArg: any) {
         if (!model) {
             this.transitionTo('there');
         }
