@@ -1,4 +1,4 @@
-// Type definitions for jaeger-client 3.15
+// Type definitions for jaeger-client 3.18
 // Project: https://github.com/jaegertracing/jaeger-client-node#readme
 // Definitions by: jgeth <https://github.com/jgeth>
 //                 tsachis <https://github.com/tsachi>
@@ -6,7 +6,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+// This extracts the core definitions from express to prevent a circular dependency between express and serve-static
+/// <reference types="node" />
+
 // opentracing requires typescript version ^2.1
+import { SocketOptions, SocketType } from "dgram";
 import * as opentracing from "opentracing";
 import * as prometheus from "prom-client";
 
@@ -44,6 +48,7 @@ export interface ReporterConfig {
     logSpans?: boolean;
     agentHost?: string;
     agentPort?: number;
+    agentSocketType?: SocketType | SocketOptions;
     collectorEndpoint?: string;
     username?: string;
     password?: string;
@@ -79,6 +84,7 @@ export interface TracingOptions {
     metrics?: PrometheusMetricsFactory;
     logger?: Logger;
     tags?: any;
+    traceId128bit?: boolean;
 }
 
 export interface Injector {
@@ -106,7 +112,7 @@ export function initTracerFromEnv(
 ): JaegerTracer;
 
 export class PrometheusMetricsFactory {
-    constructor(client: typeof prometheus, serviceName: string);
+    constructor(client: typeof prometheus, serviceName?: string);
     createCounter(name: string, tags: {}): Counter;
     createGauge(name: string, tags: {}): Gauge;
 }
