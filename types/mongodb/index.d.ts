@@ -2201,7 +2201,8 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      * @param options Optional settings
      * @param callback The command result callback
      * @returns Promise if no callback is passed
-     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexExists */
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexExists
+     */
     indexExists(indexes: string | string[], callback: MongoCallback<boolean>): void;
     indexExists(indexes: string | string[], options?: { session: ClientSession }): Promise<boolean>;
     indexExists(
