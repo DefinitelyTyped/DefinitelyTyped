@@ -3,6 +3,7 @@ import LoaderRegistry = require('rdf-loaders-registry');
 
 interface Options {
     basePath?: string;
+    context?: unknown;
 }
 
 type EcmaScriptLoader = Loader<unknown, Options> & {
