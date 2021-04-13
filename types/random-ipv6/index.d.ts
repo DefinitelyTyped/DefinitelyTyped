@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options extends Record<string | symbol, boolean | undefined | {max?: number | string, min?: number | string}> {
-	compressed?: boolean;
-	padded?: boolean;
+    compressed?: boolean;
+    padded?: boolean;
 }
 
 declare module "random-ipv6" {
-	function randomIPv6(schema?: Options): string;
-	function randomIPv6(schema: string, options?: Options): string;
-	export = randomIPv6;
+    function randomIPv6(schema?: Options): string;
+    function randomIPv6(schema: string, options?: Options): string;
+    export = randomIPv6;
 }
