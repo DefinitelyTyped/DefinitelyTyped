@@ -11,6 +11,11 @@ declare namespace PouchDB {
             incoming?(doc: Core.Document<Content>): Core.Document<NewContent> | Promise<Core.Document<NewContent>>;
             outgoing?(doc: Core.Document<NewContent>): Core.Document<Content> | Promise<Core.Document<Content>>;
         }): void;
+        // api.filter provided for backwards compat with the old "filter-pouch"
+        filter<NewContent>(config: {
+            incoming?(doc: Core.Document<Content>): Core.Document<NewContent> | Promise<Core.Document<NewContent>>;
+            outgoing?(doc: Core.Document<NewContent>): Core.Document<Content> | Promise<Core.Document<Content>>;
+        }): void;
     }
 }
 
