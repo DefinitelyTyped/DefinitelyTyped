@@ -31,6 +31,7 @@ export interface StaticObject {
 export interface WebpackPluginServeOptions {
     client?: {
         address?: string;
+        protocol?: 'ws' | 'wss';
         retry?: boolean;
         silent?: boolean;
     };
