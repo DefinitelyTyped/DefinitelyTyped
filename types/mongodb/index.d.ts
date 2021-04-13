@@ -109,7 +109,7 @@ export class MongoClient extends EventEmitter {
      * Child db instances are cached so performing db('db1') twice will return the same instance.
      * You can control these behaviors with the options noListener and returnNonCachedInstance.
      *
-     * @param dbName The name of the database we want to use. If not provided, use database name from connection string.
+     * @param dbName The name of the database we want to use. If not provided, use database name from connection string
      * @param options Optional settings
      * @returns The Db object
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#db
@@ -138,7 +138,7 @@ export class MongoClient extends EventEmitter {
      * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents.
      * This allows for filtering (using $match) and manipulating the change stream documents.
      * @param options Optional settings
-     * @returns ChangeStream instance.
+     * @returns ChangeStream instance
      * @see https://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch
      */
     watch<TSchema extends object = { _id: ObjectId }>(
@@ -154,7 +154,6 @@ export class MongoClient extends EventEmitter {
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#withSession
      */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#withSession */
     withSession(options: SessionOptions, operation: (session: ClientSession) => Promise<any>): Promise<void>;
 
     readPreference: ReadPreference;
@@ -372,16 +371,16 @@ export class MongoError extends Error {
     /**
      * Creates a new MongoError object
      *
-     * @param options The options used to create the error.
+     * @param options The options used to create the error
      * @returns A MongoError instance
-     * @deprecated Use `new MongoError()` instead.
+     * @deprecated Use `new MongoError()` instead
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoError.html#.create
      */
     static create(options: string | Error | object): MongoError;
     /**
      * Checks the error to see if it has an error label
      *
-     * @param options The options used to create the error.
+     * @param options The options used to create the error
      * @returns `true` if the error has the provided error label
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoError.html#hasErrorLabel
      */
@@ -491,7 +490,7 @@ export interface MongoClientOptions
     logger?: object | log;
 
     /**
-     * Validate MongoClient passed in options for correctness.
+     * Validate MongoClient passed in options for correctness
      * @default false
      */
     validateOptions?: object | boolean;
@@ -702,7 +701,7 @@ export interface SSLOptions {
      */
     ecdhCurve?: string;
     /**
-     * Number of connections for each server instance; set to 5 as default for legacy reasons.
+     * Number of connections for each server instance; set to 5 as default for legacy reasons
      * @default 5
      */
     poolSize?: number;
@@ -788,7 +787,7 @@ export interface TLSOptions {
 
 export interface HighAvailabilityOptions {
     /**
-     * Turn on high availability monitoring.
+     * Turn on high availability monitoring
      * @default true
      */
     ha?: boolean;
@@ -868,32 +867,32 @@ export interface DbCreateOptions extends CommonOptions {
      */
     authSource?: string;
     /**
-     * Force server to assign `_id` fields instead of driver.
+     * Force server to assign `_id` fields instead of driver
      * @default false
      */
     forceServerObjectId?: boolean;
     /**
-     * Use c++ bson parser.
+     * Use c++ bson parser
      * @default false
      */
     native_parser?: boolean;
     /**
-     * Serialize functions on any object.
+     * Serialize functions on any object
      * @default false
      */
     serializeFunctions?: boolean;
     /**
-     * Specify if the BSON serializer should ignore undefined fields.
+     * Specify if the BSON serializer should ignore undefined fields
      * @default false
      */
     ignoreUndefined?: boolean;
     /**
-     * Return document results as raw BSON buffers.
+     * Return document results as raw BSON buffers
      * @default false
      */
     raw?: boolean;
     /**
-     * Promotes Long values to number if they fit inside the 53 bits resolution.
+     * Promotes Long values to number if they fit inside the 53 bits resolution
      * @default true
      */
     promoteLongs?: boolean;
@@ -903,7 +902,7 @@ export interface DbCreateOptions extends CommonOptions {
      */
     promoteBuffers?: boolean;
     /**
-     * Promotes BSON values to native types where possible, set to false to only receive wrapper types.
+     * Promotes BSON values to native types where possible, set to false to only receive wrapper types
      * @default true
      */
     promoteValues?: boolean;
@@ -960,7 +959,7 @@ export interface UnifiedTopologyOptions {
 
     /**
      *  **Only applies to the unified topology**
-     * The maximum number of connections that may be associated with a pool at a given time.
+     * The maximum number of connections that may be associated with a pool at a given time
      * This includes in use and available connections
      * @default 10
      */
@@ -968,14 +967,14 @@ export interface UnifiedTopologyOptions {
 
     /**
      * **Only applies to the unified topology**
-     * The minimum number of connections that MUST exist at any moment in a single connection pool.
+     * The minimum number of connections that MUST exist at any moment in a single connection pool
      * @default 0
      */
     minPoolSize?: number;
 
     /**
      * **Only applies to the unified topology**
-     * The maximum amount of time a connection should remain idle in the connection pool before being marked idle.
+     * The maximum amount of time a connection should remain idle in the connection pool before being marked idle
      * @default Infinity
      */
     maxIdleTimeMS?: number;
@@ -996,32 +995,32 @@ export interface UnifiedTopologyOptions {
  */
 export interface SocketOptions {
     /**
-     * Reconnect on error.
+     * Reconnect on error
      * @default true
      */
     autoReconnect?: boolean;
     /**
-     * TCP Socket NoDelay option.
+     * TCP Socket NoDelay option
      * @default true
      */
     noDelay?: boolean;
     /**
-     * TCP KeepAlive enabled on the socket.
+     * TCP KeepAlive enabled on the socket
      * @default true
      */
     keepAlive?: boolean;
     /**
-     * TCP KeepAlive initial delay before sending first keep-alive packet when idle.
+     * TCP KeepAlive initial delay before sending first keep-alive packet when idle
      * @default 30000
      */
     keepAliveInitialDelay?: number;
     /**
-     * TCP Connection timeout setting.
+     * TCP Connection timeout setting
      * @default 10000
      */
     connectTimeoutMS?: number;
     /**
-     * Version of IP stack. Can be 4, 6 or null.
+     * Version of IP stack. Can be 4, 6 or null
      * @default null
      *
      * If null, will attempt to connect with IPv6, and will fall back to IPv4 on failure
@@ -1029,7 +1028,7 @@ export interface SocketOptions {
      */
     family?: 4 | 6 | null;
     /**
-     * TCP Socket timeout setting.
+     * TCP Socket timeout setting
      * @default 360000
      */
     socketTimeoutMS?: number;
@@ -1182,7 +1181,7 @@ export class Db extends EventEmitter {
      * Fetch a specific collection (containing the actual collection information).
      * If the application does not use strict mode you can use it without a callback in the following way: `const collection = db.collection('mycollection');`
      *
-     * @param name The collection name you wish to access.
+     * @param name The collection name you wish to access
      * @param options Optional settings
      * @param callback The collection result callback
      * @returns Promise if no callback is passed
@@ -1230,7 +1229,7 @@ export class Db extends EventEmitter {
      * Create a new collection on a server with the specified options. Use this to create capped collections.
      * More information about command options available at {@link https://docs.mongodb.com/manual/reference/command/create/}
      *
-     * @param name The collection name we wish to access.
+     * @param name The collection name we wish to access
      * @param options Optional settings
      * @param callback The results callback
      * @returns Promise if no callback is passed
@@ -1249,8 +1248,8 @@ export class Db extends EventEmitter {
     /**
      * Creates an index on the db and collection.
      *
-     * @param name Name of the collection to create the index on.
-     * @param fieldOrSpec Defines the index.
+     * @param name Name of the collection to create the index on
+     * @param fieldOrSpec Defines the index
      * @param options Optional settings
      * @param callback The results callback
      * @returns Promise if no callback is passed
@@ -1258,12 +1257,7 @@ export class Db extends EventEmitter {
      */
     createIndex(name: string, fieldOrSpec: string | object, callback: MongoCallback<any>): void;
     createIndex(name: string, fieldOrSpec: string | object, options?: IndexOptions): Promise<any>;
-    createIndex(
-        name: string,
-        fieldOrSpec: string | object,
-        options: IndexOptions,
-        callback: MongoCallback<any>,
-    ): void;
+    createIndex(name: string, fieldOrSpec: string | object, options: IndexOptions, callback: MongoCallback<any>): void;
     /**
      * Drop a collection from the database, removing it permanently. New accesses will create a new collection.
      *
@@ -1371,8 +1365,8 @@ export class Db extends EventEmitter {
     /**
      * Rename a collection
      *
-     * @param fromCollection Name of current collection to rename.
-     * @param toCollection New name of of the collection.
+     * @param fromCollection Name of current collection to rename
+     * @param toCollection New name of of the collection
      * @param options Optional settings
      * @param callback The command result callback
      * @returns Promise if no callback is passed
@@ -1397,7 +1391,7 @@ export class Db extends EventEmitter {
     /**
      * Set the current profiling level of MongoDB
      *
-     * @param level The new profiling level (off, slow_only, all).
+     * @param level The new profiling level (off, slow_only, all)
      * @param options Optional settings
      * @param callback The command result callback
      * @returns Promise if no callback is passed
@@ -1433,7 +1427,7 @@ export class Db extends EventEmitter {
      * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents.
      * This allows for filtering (using $match) and manipulating the change stream documents.
      * @param options Optional settings
-     * @returns ChangeStream instance.
+     * @returns ChangeStream instance
      * @see https://mongodb.github.io/node-mongodb-native/3.3/api/Db.html#watch
      */
     watch<TSchema extends object = { _id: ObjectId }>(
@@ -1716,7 +1710,7 @@ export interface Admin {
     /**
      * Validate an existing collection
      *
-     * @param collectionNme The name of the collection to validate.
+     * @param collectionNme The name of the collection to validate
      * @param options Optional settings
      * @param callback The command result callback
      * @returns Promise if no callback is passed
@@ -1727,14 +1721,22 @@ export interface Admin {
     validateCollection(collectionNme: string, options: object, callback: MongoCallback<any>): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#addUser */
+/**
+ * Options for adding a user to the database
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#addUser
+ */
 export interface AddUserOptions extends CommonOptions {
     fsync: boolean;
     customData?: object;
     roles?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#removeUser */
+/**
+ * Options for removing a user from the database
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Admin.html#removeUser
+ */
 export interface FSyncOptions extends CommonOptions {
     fsync?: boolean;
 }
@@ -1764,7 +1766,11 @@ export type OptionalId<TSchema extends { _id?: any }> = ObjectId extends TSchema
 // this adds _id as a required property
 export type WithId<TSchema> = EnhancedOmit<TSchema, "_id"> & { _id: ExtractIdType<TSchema> };
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html */
+/**
+ * Create a new Collection instance (INTERNAL TYPE, do not instantiate directly)
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html
+ */
 export interface Collection<TSchema extends { [key: string]: any } = DefaultSchema> {
     /**
      * Get the collection name.
@@ -1786,7 +1792,14 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      * Get current index hint for collection.
      */
     hint: any;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#aggregate */
+    /**
+     * Execute an aggregation framework pipeline against the collection, needs MongoDB >= 2.2
+     *
+     * @param pipeline Array containing all the aggregation framework commands for the execution
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @see https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#aggregate
+     */
     aggregate<T = TSchema>(callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     aggregate<T = TSchema>(pipeline: object[], callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     aggregate<T = TSchema>(
@@ -1794,7 +1807,17 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options?: CollectionAggregationOptions,
         callback?: MongoCallback<AggregationCursor<T>>,
     ): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
+    /**
+     * Perform a bulkWrite operation without a fluent API
+     * If documents passed in do not contain the **_id** field,
+     * one will be added to each of the documents missing it by the driver, mutating the document. This behavior
+     * can be overridden by setting the **forceServerObjectId** flag.
+     *
+     * @param operations Bulk operations to perform
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @see https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite
+     */
     bulkWrite(operations: Array<BulkWriteOperation<TSchema>>, callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(
         operations: Array<BulkWriteOperation<TSchema>>,
@@ -1806,25 +1829,56 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         callback: MongoCallback<BulkWriteOpResultObject>,
     ): void;
     /**
+     * An estimated count of matching documents in the db to a query.
+     *
+     * @param query The query for the count
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#count
-     * @deprecated Use countDocuments or estimatedDocumentCount
+     * @deprecated Use `countDocuments` or `estimatedDocumentCount`
      */
     count(callback: MongoCallback<number>): void;
     count(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     count(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
     count(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#countDocuments */
+    /**
+     * Gets the number of documents matching the filter
+     * For a fast count of the total documents in a collection see `estimatedDocumentCount`.
+     *
+     * @param query The query for the count
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#countDocuments
+     */
     countDocuments(callback: MongoCallback<number>): void;
     countDocuments(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     countDocuments(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
     countDocuments(query: FilterQuery<TSchema>, options: MongoCountPreferences, callback: MongoCallback<number>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndex */
+    /**
+     * Creates an index on the db and collection collection.
+     *
+     * @param fieldOrSpec Defines the index
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndex
+     */
     createIndex(fieldOrSpec: string | any, callback: MongoCallback<string>): void;
     createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
     createIndex(fieldOrSpec: string | any, options: IndexOptions, callback: MongoCallback<string>): void;
     /**
+     * Creates multiple indexes in the collection, this method is only supported for MongoDB 2.6 or higher.
+     * Earlier version of MongoDB will throw a command not supported error.
+     * **Note:** Unlike `createIndex`, this function takes in raw index specifications.
+     * Index specifications are defined {@link http://docs.mongodb.org/manual/reference/command/createIndexes/ here}.
+     *
+     * @param indexSpecs An array of index specifications to be created
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#createIndexes
-     * @see https://docs.mongodb.org/manual/reference/command/createIndexes/
      */
     createIndexes(indexSpecs: IndexSpecification[], callback: MongoCallback<any>): void;
     createIndexes(indexSpecs: IndexSpecification[], options?: { session?: ClientSession }): Promise<any>;
@@ -1833,7 +1887,15 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: { session?: ClientSession },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#deleteMany */
+    /**
+     * Delete multiple documents from a collection
+     *
+     * @param filter The Filter used to select the documents to remove
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#deleteMany
+     */
     deleteMany(filter: FilterQuery<TSchema>, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteMany(filter: FilterQuery<TSchema>, options?: CommonOptions): Promise<DeleteWriteOpResultObject>;
     deleteMany(
@@ -1841,7 +1903,15 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CommonOptions,
         callback: MongoCallback<DeleteWriteOpResultObject>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#deleteOne */
+    /**
+     * Delete a document from a collection
+     *
+     * @param filter The Filter used to select the document to remove
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#deleteOne
+     */
     deleteOne(filter: FilterQuery<TSchema>, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteOne(
         filter: FilterQuery<TSchema>,
@@ -1852,7 +1922,16 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CommonOptions & { bypassDocumentValidation?: boolean },
         callback: MongoCallback<DeleteWriteOpResultObject>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#distinct */
+    /**
+     * The distinct command returns a list of distinct values for the given key across a collection.
+     *
+     * @param key Field of the document to find distinct values for.
+     * @param query The optional query for filtering the set of documents to which we apply the distinct filter.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#distinct
+     */
     distinct<Key extends keyof WithId<TSchema>>(
         key: Key,
         callback: MongoCallback<Array<FlattenIfArray<WithId<TSchema>[Key]>>>,
@@ -1882,19 +1961,48 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: MongoDistinctPreferences,
         callback: MongoCallback<any[]>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#drop */
+    /**
+     * Drop the collection from the database, removing it permanently. New accesses will create a new collection.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#drop
+     */
     drop(options?: { session: ClientSession }): Promise<any>;
     drop(callback: MongoCallback<any>): void;
     drop(options: { session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#dropIndex */
+    /**
+     * Drops an index from this collection.
+     *
+     * @param indexName Name of the index to drop.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#dropIndex
+     */
     dropIndex(indexName: string, callback: MongoCallback<any>): void;
     dropIndex(indexName: string, options?: CommonOptions & { maxTimeMS?: number }): Promise<any>;
     dropIndex(indexName: string, options: CommonOptions & { maxTimeMS?: number }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#dropIndexes */
+    /**
+     * Drops all indexes from this collection.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#dropIndexes
+     */
     dropIndexes(options?: { session?: ClientSession; maxTimeMS?: number }): Promise<any>;
     dropIndexes(callback?: MongoCallback<any>): void;
     dropIndexes(options: { session?: ClientSession; maxTimeMS?: number }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#estimatedDocumentCount */
+    /**
+     * Gets an estimate of the count of documents in a collection using collection metadata.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#estimatedDocumentCount
+     */
     estimatedDocumentCount(callback: MongoCallback<number>): void;
     estimatedDocumentCount(query: FilterQuery<TSchema>, callback: MongoCallback<number>): void;
     estimatedDocumentCount(query?: FilterQuery<TSchema>, options?: MongoCountPreferences): Promise<number>;
@@ -1903,11 +2011,25 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: MongoCountPreferences,
         callback: MongoCallback<number>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#find */
+    /**
+     * Creates a cursor for a query that can be used to iterate over results from MongoDB
+     *
+     * @param query The cursor query object
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#find
+     */
     find(query?: FilterQuery<TSchema>): Cursor<TSchema>;
     find(query: FilterQuery<TSchema>, options?: WithoutProjection<FindOneOptions<TSchema>>): Cursor<TSchema>;
     find<T = TSchema>(query: FilterQuery<TSchema>, options: FindOneOptions<T extends TSchema ? TSchema : T>): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
+    /**
+     * Fetches the first document that matches the query
+     *
+     * @param query Query for find Operation
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne
+     */
     findOne(filter: FilterQuery<TSchema>, callback: MongoCallback<TSchema>): void;
     findOne(
         filter: FilterQuery<TSchema>,
@@ -1927,7 +2049,15 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: FindOneOptions<T extends TSchema ? TSchema : T>,
         callback: MongoCallback<T extends TSchema ? TSchema : T | null>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
+    /**
+     * Find a document and delete it in one atomic operation. Requires a write lock for the duration of the operation.
+     *
+     * @param filter The Filter used to select the document to remove
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete
+     */
     findOneAndDelete(
         filter: FilterQuery<TSchema>,
         callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>,
@@ -1941,7 +2071,16 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: FindOneAndDeleteOption<TSchema>,
         callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace */
+    /**
+     * Find a document and replace it in one atomic operation. Requires a write lock for the duration of the operation.
+     *
+     * @param filter The Filter used to select the document to replace
+     * @param replacement The Document that replaces the matching document
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace
+     */
     findOneAndReplace(
         filter: FilterQuery<TSchema>,
         replacement: object,
@@ -1958,7 +2097,16 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: FindOneAndReplaceOption<TSchema>,
         callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate */
+    /**
+     * Find a document and update it in one atomic operation. Requires a write lock for the duration of the operation.
+     *
+     * @param filter The Filter used to select the document to update
+     * @param update Update operations to be performed on the document
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate
+     */
     findOneAndUpdate(
         filter: FilterQuery<TSchema>,
         update: UpdateQuery<TSchema> | TSchema,
@@ -1975,12 +2123,35 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: FindOneAndUpdateOption<TSchema>,
         callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#geoHaystackSearch */
+    /**
+     * Execute a geo search using a geo haystack index on a collection.
+     *
+     * @param x Point to search on the x axis, ensure the indexes are ordered in the same order.
+     * @param y Point to search on the y axis, ensure the indexes are ordered in the same order.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#geoHaystackSearch
+     * @deprecated See {@link https://docs.mongodb.com/manual/geospatial-queries/ geospatial queries docs} for current geospatial support
+     */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
     geoHaystackSearch(x: number, y: number, options: GeoHaystackSearchOptions, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#group */
-    /** @deprecated MongoDB 3.6 or higher no longer supports the group command. We recommend rewriting using the aggregation framework. */
+    /**
+     * Run a group command across a collection
+     *
+     * @param keys An object, array or function expressing the keys to group by.
+     * @param condition An optional condition that must be true for a row to be considered.
+     * @param initial Initial value of the aggregation counter object.
+     * @param reduce The reduce function aggregates (reduces) the objects iterated.
+     * @param finalize An optional function to be run on each item in the result set just before the item is returned.
+     * @param command Specify if you wish to run using the internal group command or using eval, default is true.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#group
+     * @deprecated MongoDB 3.6 or higher no longer supports the group command. We recommend rewriting using the aggregation framework.
+     */
     group(
         keys: object | any[] | Function | Code,
         condition: object,
@@ -1990,7 +2161,6 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         command: boolean,
         callback: MongoCallback<any>,
     ): void;
-    /** @deprecated MongoDB 3.6 or higher no longer supports the group command. We recommend rewriting using the aggregation framework. */
     group(
         keys: object | any[] | Function | Code,
         condition: object,
@@ -2000,7 +2170,6 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         command: boolean,
         options?: { readPreference?: ReadPreferenceOrMode; session?: ClientSession },
     ): Promise<any>;
-    /** @deprecated MongoDB 3.6 or higher no longer supports the group command. We recommend rewriting using the aggregation framework. */
     group(
         keys: object | any[] | Function | Code,
         condition: object,
@@ -2014,11 +2183,25 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         },
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexes */
+    /**
+     * Retrieve all the indexes on the collection.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexes
+     */
     indexes(options?: { session: ClientSession }): Promise<any>;
     indexes(callback: MongoCallback<any>): void;
     indexes(options: { session?: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexExists */
+    /**
+     * Checks if one or more indexes exist on the collection, fails on first non-existing index
+     *
+     * @param indexes One or more index names to check.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexExists */
     indexExists(indexes: string | string[], callback: MongoCallback<boolean>): void;
     indexExists(indexes: string | string[], options?: { session: ClientSession }): Promise<boolean>;
     indexExists(
@@ -2026,29 +2209,64 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: { session: ClientSession },
         callback: MongoCallback<boolean>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexInformation */
+    /**
+     * Retrieves this collections index info.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#indexInformation
+     */
     indexInformation(callback: MongoCallback<any>): void;
     indexInformation(options?: { full: boolean; session: ClientSession }): Promise<any>;
     indexInformation(options: { full: boolean; session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#initializeOrderedBulkOp */
+    /**
+     * Initiate an In order bulk write operation. Operations will be serially executed in the order they are added, creating a new operation for each switch in types.
+     *
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#initializeOrderedBulkOp
+     */
     initializeOrderedBulkOp(options?: CommonOptions): OrderedBulkOperation;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#initializeUnorderedBulkOp */
+    /**
+     * Initiate an Out of order batch write operation. All operations will be buffered into insert/update/remove commands executed out of order.
+     *
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#initializeUnorderedBulkOp
+     */
     initializeUnorderedBulkOp(options?: CommonOptions): UnorderedBulkOperation;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne */
-    /** @deprecated Use insertOne, insertMany or bulkWrite */
+    /**
+     * Inserts a single document or a an array of documents into MongoDB. If documents passed in do not contain the **_id** field,
+     * one will be added to each of the documents missing it by the driver, mutating the document. This behavior
+     * can be overridden by setting the **forceServerObjectId** flag.
+     *
+     * @param docs Documents to insert.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insert
+     * @deprecated Use insertOne, insertMany or bulkWrite
+     */
     insert(docs: OptionalId<TSchema>, callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>): void;
-    /** @deprecated Use insertOne, insertMany or bulkWrite */
     insert(
         docs: OptionalId<TSchema>,
         options?: CollectionInsertOneOptions,
     ): Promise<InsertWriteOpResult<WithId<TSchema>>>;
-    /** @deprecated Use insertOne, insertMany or bulkWrite */
     insert(
         docs: OptionalId<TSchema>,
         options: CollectionInsertOneOptions,
         callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertMany */
+    /**
+     * Inserts an array of documents into MongoDB. If documents passed in do not contain the **_id** field,
+     * one will be added to each of the documents missing it by the driver, mutating the document. This behavior
+     * can be overridden by setting the **forceServerObjectId** flag.
+     *
+     * @param docs Documents to insert.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertMany
+     */
     insertMany(docs: Array<OptionalId<TSchema>>, callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>): void;
     insertMany(
         docs: Array<OptionalId<TSchema>>,
@@ -2059,7 +2277,17 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CollectionInsertManyOptions,
         callback: MongoCallback<InsertWriteOpResult<WithId<TSchema>>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne */
+    /**
+     * Inserts a single document into MongoDB. If documents passed in do not contain the **_id** field,
+     * one will be added to each of the documents missing it by the driver, mutating the document. This behavior
+     * can be overridden by setting the **forceServerObjectId** flag.
+     *
+     * @param doc Document to insert.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne
+     */
     insertOne(docs: OptionalId<TSchema>, callback: MongoCallback<InsertOneWriteOpResult<WithId<TSchema>>>): void;
     insertOne(
         docs: OptionalId<TSchema>,
@@ -2070,17 +2298,38 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: CollectionInsertOneOptions,
         callback: MongoCallback<InsertOneWriteOpResult<WithId<TSchema>>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#isCapped */
+    /**
+     * Returns if the collection is a capped collection
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#isCapped
+     */
     isCapped(options?: { session: ClientSession }): Promise<any>;
     isCapped(callback: MongoCallback<any>): void;
     isCapped(options: { session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#listIndexes */
+    /**
+     * Get the list of all indexes information for the collection.
+     *
+     * @param options Optional settings.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#listIndexes
+     */
     listIndexes(options?: {
         batchSize?: number;
         readPreference?: ReadPreferenceOrMode;
         session?: ClientSession;
     }): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#mapReduce */
+    /**
+     * Run Map Reduce across a collection. Be aware that the inline option for out will return an array of results not a collection.
+     *
+     * @param map The mapping function.
+     * @param reduce The reduce function.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#mapReduce
+     */
     mapReduce<TKey, TValue>(
         map: CollectionMapFunction<TSchema> | string,
         reduce: CollectionReduceFunction<TKey, TValue> | string,
@@ -2097,30 +2346,68 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: MapReduceOptions,
         callback: MongoCallback<any>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#options */
+    /**
+     * Returns the options of the collection.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#options
+     */
     options(options?: { session: ClientSession }): Promise<any>;
     options(callback: MongoCallback<any>): void;
     options(options: { session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#parallelCollectionScan */
+    /**
+     * Return N number of parallel cursors for a collection allowing parallel reading of entire collection. There are
+     * no ordering guarantees for returned results.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#parallelCollectionScan
+     */
     parallelCollectionScan(callback: MongoCallback<Array<Cursor<any>>>): void;
     parallelCollectionScan(options?: ParallelCollectionScanOptions): Promise<Array<Cursor<any>>>;
     parallelCollectionScan(options: ParallelCollectionScanOptions, callback: MongoCallback<Array<Cursor<any>>>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#reIndex */
+    /**
+     * Reindex all indexes on the collection
+     * Warning: reIndex is a blocking operation (indexes are rebuilt in the foreground) and will be slow for large collections.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#reIndex
+     * @deprecated use db.command instead
+     */
     reIndex(options?: { session: ClientSession }): Promise<any>;
     reIndex(callback: MongoCallback<any>): void;
     reIndex(options: { session: ClientSession }, callback: MongoCallback<any>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#remove */
-    /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
+    /**
+     * Remove documents.
+     *
+     * @param selector The selector for the update operation.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#remove
+     * @deprecated Use use deleteOne, deleteMany or bulkWrite
+     */
     remove(selector: object, callback: MongoCallback<WriteOpResult>): void;
-    /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
     remove(selector: object, options?: CommonOptions & { single?: boolean }): Promise<WriteOpResult>;
-    /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
     remove(
         selector: object,
         options?: CommonOptions & { single?: boolean },
         callback?: MongoCallback<WriteOpResult>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#rename */
+    /**
+     * Rename the collection
+     *
+     * @param newName New name of of the collection.
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#rename
+     */
     rename(newName: string, callback: MongoCallback<Collection<TSchema>>): void;
     rename(newName: string, options?: { dropTarget?: boolean; session?: ClientSession }): Promise<Collection<TSchema>>;
     rename(
@@ -2128,7 +2415,16 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: { dropTarget?: boolean; session?: ClientSession },
         callback: MongoCallback<Collection<TSchema>>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#replaceOne */
+    /**
+     * Replace a document in a collection with another document
+     *
+     * @param filter The Filter used to select the document to replace
+     * @param doc The Document that replaces the matching document
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#replaceOne
+     */
     replaceOne(filter: FilterQuery<TSchema>, doc: TSchema, callback: MongoCallback<ReplaceWriteOpResult>): void;
     replaceOne(filter: FilterQuery<TSchema>, doc: TSchema, options?: ReplaceOneOptions): Promise<ReplaceWriteOpResult>;
     replaceOne(
@@ -2137,38 +2433,68 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: ReplaceOneOptions,
         callback: MongoCallback<ReplaceWriteOpResult>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#save */
-    /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
+    /**
+     * Save a document. Simple full document replacement function. Not recommended for efficiency, use atomic
+     * operators and update instead for more efficient operations.
+     *
+     * @param doc Document to save
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#save
+     * @deprecated Use insertOne, insertMany, updateOne or updateMany
+     */
     save(doc: TSchema, callback: MongoCallback<WriteOpResult>): void;
-    /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: TSchema, options?: CommonOptions): Promise<WriteOpResult>;
-    /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: TSchema, options: CommonOptions, callback: MongoCallback<WriteOpResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#stats */
+    /**
+     * Get all the collection statistics.
+     *
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#stats
+     */
     stats(callback: MongoCallback<CollStats>): void;
     stats(options?: { scale: number; session?: ClientSession }): Promise<CollStats>;
     stats(options: { scale: number; session?: ClientSession }, callback: MongoCallback<CollStats>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#update */
-    /** @deprecated use updateOne, updateMany or bulkWrite */
+    /**
+     * Updates documents
+     *
+     * @param selector The selector for the update operation.
+     * @param update The update operations to be applied to the documents
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#update
+     * @deprecated use updateOne, updateMany or bulkWrite
+     */
     update(
         filter: FilterQuery<TSchema>,
         update: UpdateQuery<TSchema> | Partial<TSchema>,
         callback: MongoCallback<WriteOpResult>,
     ): void;
-    /** @deprecated use updateOne, updateMany or bulkWrite */
     update(
         filter: FilterQuery<TSchema>,
         update: UpdateQuery<TSchema> | Partial<TSchema>,
         options?: UpdateOneOptions & { multi?: boolean },
     ): Promise<WriteOpResult>;
-    /** @deprecated use updateOne, updateMany or bulkWrite */
     update(
         filter: FilterQuery<TSchema>,
         update: UpdateQuery<TSchema> | Partial<TSchema>,
         options: UpdateOneOptions & { multi?: boolean },
         callback: MongoCallback<WriteOpResult>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateMany */
+    /**
+     * Update multiple documents in a collection
+     *
+     * @param filter The Filter used to select the documents to update
+     * @param update The update operations to be applied to the documents
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateMany
+     */
     updateMany(
         filter: FilterQuery<TSchema>,
         update: UpdateQuery<TSchema> | Partial<TSchema>,
@@ -2185,7 +2511,16 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         options: UpdateManyOptions,
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne */
+    /**
+     * Update a single document in a collection
+     *
+     * @param filter The Filter used to select the document to update
+     * @param update The update operations to be applied to the document
+     * @param options Optional settings
+     * @param callback The command result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne
+     */
     updateOne(
         filter: FilterQuery<TSchema>,
         update: UpdateQuery<TSchema> | Partial<TSchema>,
@@ -2203,22 +2538,17 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
         callback: MongoCallback<UpdateWriteOpResult>,
     ): void;
     /**
-     * @param pipeline - an array of
-     * {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages}
-     * through which to pass change stream documents. This allows for filtering (using `$match`) and manipulating
-     * the change stream documents.
+     * Create a new Change Stream, watching for new changes (insertions, updates, replacements, deletions, and invalidations) in this collection.
      *
-     * @param options - optional settings
+     * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages}
+     * through which to pass change stream documents. This allows for filtering (using `$match`) and manipulating the change stream documents.
+     * @param options Optional settings
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#watch
      */
     watch<T = TSchema>(
         pipeline?: object[],
         options?: ChangeStreamOptions & { session?: ClientSession },
     ): ChangeStream<T>;
-    /**
-     * @param options - optional settings
-     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#watch
-     */
     watch<T = TSchema>(options?: ChangeStreamOptions & { session?: ClientSession }): ChangeStream<T>;
 }
 
@@ -2234,7 +2564,7 @@ type AcceptedFields<TSchema, FieldType, AssignableType> = {
     readonly [key in KeysOfAType<TSchema, FieldType>]?: AssignableType;
 };
 
-/** It avoid uses fields of non Type */
+/** It avoids using fields with not acceptable types */
 type NotAcceptedFields<TSchema, FieldType> = {
     readonly [key in KeysOfOtherType<TSchema, FieldType>]?: never;
 };
