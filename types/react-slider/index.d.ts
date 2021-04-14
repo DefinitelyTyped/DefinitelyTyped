@@ -36,8 +36,11 @@ export interface ReactSliderProps<T extends number | number[] = number> {
      * If a number is passed a slider with one thumb will be rendered.
      * If an array is passed each value will determine the position of one thumb.
      * The values in the array must be sorted.
+     *
+     * Don't pass a default value if the slider is controlled (i.e. if you already
+     * use the `value` prop).
      */
-    defaultValue?: T;
+    defaultValue?: this["value"] extends T ? never : T;
 
     /**
      * If `true` the thumbs can't be moved.
