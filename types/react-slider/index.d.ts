@@ -83,20 +83,20 @@ export interface ReactSliderProps {
      * will only be called if the action resulted in a change. The
      * function will be called with one argument,  the result value(s).
      */
-    onAfterChange?: (value: number | number[] | undefined | null) => void;
+    onAfterChange?: (value: number | number[]) => void;
 
     /**
      * Callback called before starting to move a thumb. The callback will
      * only be called if the action will result in a change. The function
      * will be called with one argument, the initial value(s).
      */
-    onBeforeChange?: (value: number | number[] | undefined | null) => void;
+    onBeforeChange?: (value: number | number[]) => void;
 
     /**
      * Callback called on every value change. The function will be called
      * with one argument, the new value(s).
      */
-    onChange?: (value: number | number[] | undefined | null) => void;
+    onChange?: (value: number | number[]) => void;
 
     /**
      * Callback called when the the slider is clicked (thumb or tracks).
