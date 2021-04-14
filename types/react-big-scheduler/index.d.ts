@@ -15,6 +15,16 @@ export interface SchedulerProps {
     nextClick(schedulerData: SchedulerData): void;
     onSelectDate(schedulerData: SchedulerData, date: string): void;
     onViewChange(schedulerData: SchedulerData, view: View): void;
+    newEvent(
+    schedulerData: any,
+    slotId: any,
+    slotName: any,
+    start: any,
+    end: any,
+    type: any,
+    item: any
+  ): void
+
 }
 
 export class SchedulerData {
