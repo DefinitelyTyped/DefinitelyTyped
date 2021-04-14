@@ -22,6 +22,9 @@ export interface ReactSliderProps {
      */
     ariaValuetext?: string | ((value: { index: number; value: number | number[]; valueNow: number }) => string);
 
+    // Disallow children
+    children?: never;
+
     /**
      * The css class set on the slider node.
      */
