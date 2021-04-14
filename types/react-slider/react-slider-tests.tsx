@@ -75,6 +75,7 @@ function MultipleThumbSliders() {
         <>
             <ReactSlider
                 defaultValue={[10, 50]}
+                ariaLabel={["foo", "bar"]}
                 ariaValuetext={({ value }) => `${value.join()}`}
                 onAfterChange={value => value.join()}
                 onBeforeChange={value => value.join()}
@@ -105,20 +106,20 @@ function SliderWithRef() {
 function InvalidUses() {
     return (
         <>
-            <ReactSlider
-                // @ts-expect-error - single-thumb slider by default, so `ariaLabel` must be `string`
-                ariaLabel={["foo", "bar"]}
-                // @ts-expect-error - only `horizontal` and `vertical` are allowed
-                orientation="foo"
-                // @ts-expect-error - `pageFn` function must return a number
-                pageFn={() => "foo"}
-            />
+            {/* @ts-expect-error: single-thumb slider by default, so `ariaLabel` must be `string` */}
+            <ReactSlider ariaLabel={["foo", "bar"]} />
 
-            <ReactSlider
-                value={1}
-                // @ts-expect-error - forbid providing both `value` and `defaultValue`
-                defaultValue={0}
-            />
+            {/* @ts-expect-error: multiple-thumb slider, so `ariaLabel` must be `string[]` */}
+            <ReactSlider ariaLabel={"foo"} value={[0, 10]} />
+
+            {/* @ts-expect-error: only `horizontal` and `vertical` are allowed */}
+            <ReactSlider orientation="foo" />
+
+            {/* @ts-expect-error: `pageFn` must return `number` */}
+            <ReactSlider pageFn={() => "foo"} />
+
+            {/* @ts-expect-error: forbid providing both `value` and `defaultValue` */}
+            <ReactSlider value={1} defaultValue={0} />
 
             {/* @ts-expect-error - no children allowed */}
             <ReactSlider>Test</ReactSlider>
