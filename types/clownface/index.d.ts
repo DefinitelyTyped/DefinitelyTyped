@@ -72,7 +72,10 @@ declare namespace clownface {
     blankNode(values: string[] | MultiPointer<BlankNode, D> | Iterable<BlankNode> | Iterable<GraphPointer<BlankNode, D>>): AnyPointer<BlankNode[], D>;
 
     literal(value: SingleOrOneElementArray<boolean | string | number | Term | null> | AnyPointer<Literal, D>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal, D>;
-    literal(values: Array<boolean | string | number | Term | null> | MultiPointer<Literal, D> | Iterable<Literal> | Iterable<GraphPointer<Literal, D>>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal[], D>;
+    literal(
+      values: Array<boolean | string | number | Term | null> | MultiPointer<Literal, D> | Iterable<Literal> | Iterable<GraphPointer<Literal, D>>,
+      languageOrDatatype?: string | NamedNode
+    ): AnyPointer<Literal[], D>;
 
     namedNode(value: SingleOrOneElementArray<string | NamedNode> | AnyPointer<NamedNode, D>): AnyPointer<NamedNode, D>;
     namedNode(values: Array<string | NamedNode> | MultiPointer<NamedNode, D> | Iterable<NamedNode> | Iterable<GraphPointer<NamedNode, D>>): AnyPointer<NamedNode[], D>;
