@@ -3,12 +3,13 @@
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 //                 Björgvin Bæhrenz Þórðarson <https://github.com/bjorgvin>
 //                 Loïc Huder <https://github.com/loichuder>
+//                 Axel Bocciarelli <https://github.com/axelboc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { Component } from "../react";
 
-export interface ReactSliderProps<T extends number | number[] = number> {
+export interface ReactSliderProps<T extends number | ReadonlyArray<number> = number> {
     // Disallow children
     children?: never;
 
@@ -18,7 +19,7 @@ export interface ReactSliderProps<T extends number | number[] = number> {
      * Use an array for more than one thumb.
      * The length of the array must match the number of thumbs in the `value` array.
      */
-    ariaLabel?: T extends number ? string : string[];
+    ariaLabel?: T extends number ? string : ReadonlyArray<string>;
 
     /**
      * `aria-valuetext` for screen-readers.
@@ -85,7 +86,7 @@ export interface ReactSliderProps<T extends number | number[] = number> {
      *
      * @default []
      */
-    marks?: boolean | number | number[];
+    marks?: boolean | number | ReadonlyArray<number>;
 
     /**
      * The maximum value of the slider.
@@ -262,7 +263,7 @@ export interface ReactSliderProps<T extends number | number[] = number> {
     withTracks?: boolean;
 }
 
-declare class ReactSlider<T extends number | number[] = number> extends Component<ReactSliderProps<T>> {
+declare class ReactSlider<T extends number | ReadonlyArray<number> = number> extends Component<ReactSliderProps<T>> {
     /**
      * Tell the slider to resize, for example if the parent container has resized
      * independently of the window.

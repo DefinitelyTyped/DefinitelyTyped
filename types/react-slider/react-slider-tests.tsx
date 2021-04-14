@@ -64,6 +64,9 @@ function SingleThumbSliders() {
                 renderTrack={() => null}
                 value={1}
             />
+
+            <ReactSlider marks={[0, 1, 2]} />
+            <ReactSlider marks={[0, 1, 2] as const} />
         </>
     );
 }
@@ -87,6 +90,8 @@ function MultipleThumbSliders() {
                     return <span {...props}>{value.join()}</span>;
                 }}
             />
+
+            <ReactSlider defaultValue={[10, 50] as const} ariaLabel={["foo", "bar"] as const} />
 
             <ReactSlider value={value} onChange={setValue} />
         </>
@@ -120,6 +125,14 @@ function InvalidUses() {
 
             {/* @ts-expect-error: forbid providing both `value` and `defaultValue` */}
             <ReactSlider value={1} defaultValue={0} />
+
+            <ReactSlider
+                value={[0, 1] as readonly number[]}
+                onChange={value => {
+                    // @ts-expect-error
+                    value.push(2);
+                }}
+            />
 
             {/* @ts-expect-error - no children allowed */}
             <ReactSlider>Test</ReactSlider>
