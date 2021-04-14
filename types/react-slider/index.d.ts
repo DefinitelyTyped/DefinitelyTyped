@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
-import { Component, HTMLProps, RefCallback } from "../react";
+import { Component, HTMLProps, RefCallback } from "react";
 
 interface HTMLPropsWithRefCallback<T> extends HTMLProps<T> {
     ref: RefCallback<T>;
