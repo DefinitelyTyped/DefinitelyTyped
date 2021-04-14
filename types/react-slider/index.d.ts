@@ -193,7 +193,12 @@ export interface ReactSliderProps {
     withTracks?: boolean;
 }
 
-declare class ReactSlider extends Component<ReactSliderProps> {}
+declare class ReactSlider extends Component<ReactSliderProps> {
+    /**
+     * Tell the slider to resize, for example if the parent container has resized
+     * independently of the window.
+     */
+    resize: () => void;
+}
 
-export type ReactSliderRef = React.ElementRef<typeof ReactSlider>;
 export default ReactSlider;
