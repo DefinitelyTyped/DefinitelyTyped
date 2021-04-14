@@ -60,6 +60,7 @@ declare namespace clownface {
 
     node<X extends Term>(value: SingleOrOneElementArray<X> | AnyPointer<X, D>, options?: NodeOptions): AnyPointer<X, D>;
     node<X extends Term>(value: MultiPointer<X, D> | Iterable<X>, options?: NodeOptions): AnyPointer<X[], D>;
+    node<X extends Term>(value: Iterable<GraphPointer<X, D>>, options?: NodeOptions): MultiPointer<X, D>;
     node<X extends Term[]>(values: X, options?: NodeOptions): AnyPointer<X, D>;
 
     node(value: null, options?: NodeOptions): AnyPointer<BlankNode, D>;

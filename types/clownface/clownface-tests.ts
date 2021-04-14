@@ -322,6 +322,9 @@ function testNode() {
 
     const set: Set<Literal | NamedNode> = <any> {};
     const fromSet: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.node(set);
+
+    const pointers: Array<clownface.GraphPointer<Literal | NamedNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.node(pointers);
 }
 
 function testOut() {
