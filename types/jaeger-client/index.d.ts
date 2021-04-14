@@ -3,6 +3,7 @@
 // Definitions by: jgeth <https://github.com/jgeth>
 //                 tsachis <https://github.com/tsachi>
 //                 MiLk <https://github.com/MiLk>
+//                 doochik <https://github.com/doochik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
