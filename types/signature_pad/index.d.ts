@@ -43,7 +43,7 @@ declare namespace SignaturePad {
     _point(t: number, start: number, c1: number, c2: number, end: number): number;
   }
 
-  interface SignaturePadOptions {
+  interface Options {
     /*
      * (float or function) Radius of a single dot.
      */
@@ -103,7 +103,7 @@ declare class SignaturePad {
   maxWidth: number;
   minDistance: number;
   minWidth: number;
-  options: SignaturePad.SignaturePadOptions;
+  options: SignaturePad.Options;
   penColor: string;
   throttle: number;
   velocityFilterWeight: number;
@@ -184,7 +184,7 @@ declare class SignaturePad {
   _fromData: (pointGroups: Array<Array<SignaturePad.Point>>, drawCurve: (_a: { color: string, curve: SignaturePad.Bezier }) => void, drawDot: (_a: { color: string, point: SignaturePad.Point }) => void) => void;
   _toSVG: () => string;
 
-  constructor(canvas: HTMLCanvasElement, options?: SignaturePad.SignaturePadOptions);
+  constructor(canvas: HTMLCanvasElement, options?: SignaturePad.Options);
 }
 
 export = SignaturePad;
