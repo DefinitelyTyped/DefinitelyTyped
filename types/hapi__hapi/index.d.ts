@@ -2476,7 +2476,8 @@ export type RouteRequestExtType = 'onPreAuth'
     | 'onPostAuth'
     | 'onPreHandler'
     | 'onPostHandler'
-    | 'onPreResponse';
+    | 'onPreResponse'
+    | 'onPostResponse';
 
 export type ServerRequestExtType =
     RouteRequestExtType
