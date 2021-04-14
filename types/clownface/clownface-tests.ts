@@ -137,6 +137,9 @@ function testBlankNode() {
     const fromOther: clownface.AnyPointer<BlankNode, Dataset> = cf.blankNode(singleBlank);
     const fromMultipleOther: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(multiBlankContext);
     const fromSet: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(set);
+
+    const pointers: Array<clownface.GraphPointer<BlankNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<BlankNode, Dataset> = cf.blankNode(pointers);
 }
 
 function testDeleteIn() {
@@ -280,6 +283,9 @@ function testLiteral() {
 
     const set: Set<Literal> = <any> {};
     const fromSet: clownface.MultiPointer<Literal | NamedNode, Dataset> = cf.literal(set);
+
+    const pointers: Array<clownface.GraphPointer<Literal, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<Literal, Dataset> = cf.literal(pointers);
 }
 
 function testMap() {
@@ -302,6 +308,9 @@ function testNamedNode() {
     const fromOther: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(cfSingleNamed);
     const fromMultipleOther: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(cfNamedMany);
     const fromSet: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(set);
+
+    const pointers: Array<clownface.GraphPointer<NamedNode, Dataset>> = <any> {};
+    const fromArray: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(pointers);
 }
 
 function testNode() {
