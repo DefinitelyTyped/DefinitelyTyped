@@ -1,7 +1,7 @@
-import * as React from 'react';
-import ReactSlider from 'react-slider';
+import * as React from "react";
+import ReactSlider, { ReactSliderProps } from "react-slider";
 
-class Slider extends React.Component<ReactSlider.ReactSliderProps> {
+class Slider extends React.Component<ReactSliderProps> {
     render() {
         return (
             <ReactSlider
@@ -14,4 +14,114 @@ class Slider extends React.Component<ReactSlider.ReactSliderProps> {
             />
         );
     }
+}
+
+function SingleThumbSliders() {
+    return (
+        <>
+            <ReactSlider />
+
+            <ReactSlider
+                ariaLabel="Slider"
+                ariaValuetext="Text"
+                className="slider"
+                defaultValue={10}
+                disabled
+                invert
+                markClassName="mark"
+                marks
+                max={90}
+                min={10}
+                minDistance={10}
+                onAfterChange={value => value > 1}
+                onBeforeChange={value => value > 1}
+                onChange={value => value > 1}
+                onSliderClick={value => value > 1}
+                orientation="horizontal"
+                pageFn={step => step * 15}
+                pearling
+                renderMark={props => <span {...props} />}
+                renderThumb={(props, { index, value, valueNow }) => {
+                    return <span {...props}>{index + valueNow + value}</span>;
+                }}
+                renderTrack={(props, { index, value }) => {
+                    return <span {...props}>{index + value}</span>;
+                }}
+                snapDragDisabled
+                step={2}
+                thumbActiveClassName={"thumb-active"}
+                thumbClassName={"thumb"}
+                trackClassName={"track"}
+                withTracks
+            />
+
+            <ReactSlider
+                ariaValuetext={({ index, value, valueNow }) => `${index + valueNow + value}`}
+                marks={5}
+                orientation="vertical"
+                renderMark={() => null}
+                renderThumb={() => null}
+                renderTrack={() => null}
+                value={1}
+            />
+        </>
+    );
+}
+
+function MultipleThumbSliders() {
+    const [value, setValue] = React.useState([0, 50, 100]);
+
+    return (
+        <>
+            <ReactSlider
+                defaultValue={[10, 50]}
+                ariaValuetext={({ value }) => `${value.join()}`}
+                onAfterChange={value => value.join()}
+                onBeforeChange={value => value.join()}
+                onChange={value => value.join()}
+                renderThumb={(props, { value }) => {
+                    return <span {...props}>{value.join()}</span>;
+                }}
+                renderTrack={(props, { value }) => {
+                    return <span {...props}>{value.join()}</span>;
+                }}
+            />
+
+            <ReactSlider value={value} onChange={setValue} />
+        </>
+    );
+}
+
+function SliderWithRef() {
+    const ref = React.useRef<ReactSlider>(null);
+
+    React.useEffect(() => {
+        ref.current?.resize();
+    });
+
+    return <ReactSlider ref={ref} />;
+}
+
+function InvalidUses() {
+    return (
+        <>
+            <ReactSlider
+                // @ts-expect-error - single-thumb slider by default, so `ariaLabel` must be `string`
+                ariaLabel={["foo", "bar"]}
+                // @ts-expect-error - only `horizontal` and `vertical` are allowed
+                orientation="foo"
+                // @ts-expect-error - `pageFn` function must return a number
+                pageFn={() => "foo"}
+            />
+
+            <ReactSlider
+                value={1}
+                // @ts-expect-error - forbid providing both `value` and `defaultValue`
+                defaultValue={0}
+            />
+
+            {/* @ts-expect-error - no children allowed */}
+            <ReactSlider>Test</ReactSlider>
+        </>
+    );
 }

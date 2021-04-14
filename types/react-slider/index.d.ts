@@ -8,19 +8,19 @@
 
 import { Component } from "../react";
 
-export interface ReactSliderProps {
+export interface ReactSliderProps<T extends number | number[] = number> {
     /**
      * aria-label for screen-readers to apply to the thumbs.
      * Use an array for more than one thumb.
      * The length of the array must match the number of thumbs in the value array.
      */
-    ariaLabel?: string | string[];
+    ariaLabel?: T extends number ? string : string[];
 
     /**
      * aria-valuetext for screen-readers.
      * Can be a static string, or a function that returns a string.
      */
-    ariaValuetext?: string | ((value: { index: number; value: number | number[]; valueNow: number }) => string);
+    ariaValuetext?: string | ((value: { index: number; value: T; valueNow: number }) => string);
 
     // Disallow children
     children?: never;
@@ -37,7 +37,7 @@ export interface ReactSliderProps {
      * If an array is passed each value will determine the position of one thumb.
      * The values in the array must be sorted.
      */
-    defaultValue?: number | number[];
+    defaultValue?: T;
 
     /**
      * If `true` the thumbs can't be moved.
@@ -83,20 +83,20 @@ export interface ReactSliderProps {
      * will only be called if the action resulted in a change. The
      * function will be called with one argument,  the result value(s).
      */
-    onAfterChange?: (value: number | number[]) => void;
+    onAfterChange?: (value: T) => void;
 
     /**
      * Callback called before starting to move a thumb. The callback will
      * only be called if the action will result in a change. The function
      * will be called with one argument, the initial value(s).
      */
-    onBeforeChange?: (value: number | number[]) => void;
+    onBeforeChange?: (value: T) => void;
 
     /**
      * Callback called on every value change. The function will be called
      * with one argument, the new value(s).
      */
-    onChange?: (value: number | number[]) => void;
+    onChange?: (value: T) => void;
 
     /**
      * Callback called when the the slider is clicked (thumb or tracks).
@@ -139,7 +139,7 @@ export interface ReactSliderProps {
      */
     renderThumb?: (
         props: React.HTMLProps<HTMLDivElement>,
-        state: { index: number; value: number | number[]; valueNow: number },
+        state: { index: number; value: T; valueNow: number },
     ) => JSX.Element | null;
 
     /**
@@ -147,10 +147,7 @@ export interface ReactSliderProps {
      * The render function will be passed two arguments. The first is
      * an object that should be added to your handle node.
      */
-    renderTrack?: (
-        props: React.HTMLProps<HTMLDivElement>,
-        state: { index: number; value: number | number[] },
-    ) => JSX.Element | null;
+    renderTrack?: (props: React.HTMLProps<HTMLDivElement>, state: { index: number; value: T }) => JSX.Element | null;
 
     /**
      * Disables thumb move when clicking the slider track
@@ -188,7 +185,7 @@ export interface ReactSliderProps {
      * Like `defaultValue` but for
      * [controlled components](http://facebook.github.io/react/docs/forms.html#controlled-components).
      */
-    value?: number | number[];
+    value?: T;
 
     /**
      * If `true` tracks between the thumbs will be rendered.
@@ -196,7 +193,7 @@ export interface ReactSliderProps {
     withTracks?: boolean;
 }
 
-declare class ReactSlider extends Component<ReactSliderProps> {
+declare class ReactSlider<T extends number | number[] = number> extends Component<ReactSliderProps<T>> {
     /**
      * Tell the slider to resize, for example if the parent container has resized
      * independently of the window.
