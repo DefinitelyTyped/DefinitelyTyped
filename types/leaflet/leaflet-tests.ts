@@ -79,6 +79,8 @@ point = L.LineUtil.closestPointOnSegment(point, point, point);
 points = L.PolyUtil.clipPolygon(points, bounds);
 points = L.PolyUtil.clipPolygon(points, bounds, true);
 
+L.LineUtil.clipSegment(point, point, bounds);
+
 let mapOptions: L.MapOptions = {};
 
 const crs: L.CRS[] = [

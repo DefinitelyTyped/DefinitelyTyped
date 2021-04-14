@@ -28,6 +28,19 @@ const testContainerBuilder: azdata.ContainerBuilder<azdata.InputBoxComponent, an
 };
 testContainerBuilder.component();
 
+const testButtonComponent: azdata.ButtonComponent = {
+    id: 'my-loading-component',
+    onDidClick: (listener: (e: any) => any) => new StubDisposable(),
+    updateProperty: async (key: string, value: any) => { },
+    updateCssStyles: async (cssStyles) => { },
+    updateProperties: async (properties: { [key: string]: any }) => { },
+    valid: false,
+    validate: async () => false,
+    focus: async () => { },
+    onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable()
+};
+testButtonComponent.validate();
+
 const testLoadingComponent: azdata.LoadingComponent = {
     loading: false,
     component: testContainerBuilder.component(),

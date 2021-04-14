@@ -11,6 +11,7 @@
 //                 Isabela Morais <https://github.com/isabela-morais>
 //                 Raimondo Butera <https://github.com/rbutera>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Dan Ursin <https://github.com/danursin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
@@ -1339,6 +1340,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     unblockUserByIdentifier(params: ObjectWithIdentifier, cb: (err: Error, response: string) => void): void;
 
     // Tokens
+    getAccessToken(): Promise<string>;
+
     getBlacklistedTokens(): Promise<any>;
     getBlacklistedTokens(cb?: (err: Error, data: any) => void): void;
 

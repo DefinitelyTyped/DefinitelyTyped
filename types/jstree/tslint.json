@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "no-redundant-jsdoc-2": false,
         "unified-signatures": false
     }
 }

@@ -2619,6 +2619,12 @@ declare module "mongoose" {
      * operators are included in the update. When set to false, mongoose will wrap the update in a $set.
      */
     overwrite?: boolean;
+
+    /**
+     * allow setting the discriminator key in the update.
+     * Will use the correct discriminator schema if the update changes the discriminator key.
+     */
+     overwriteDiscriminatorKey?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -3805,6 +3811,12 @@ declare module "mongoose" {
      *  Turn on this option to aggregate all the cast errors.
      */
     multipleCastError?: boolean;
+
+    /**
+     * allow setting the discriminator key in the update.
+     * Will use the correct discriminator schema if the update changes the discriminator key.
+     */
+    overwriteDiscriminatorKey?: boolean;
   }
 
   interface ModelMapReduceOption<T, Key, Val> {

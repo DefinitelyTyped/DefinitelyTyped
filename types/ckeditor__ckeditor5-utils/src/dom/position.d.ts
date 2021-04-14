@@ -1,4 +1,5 @@
-import Rect from "@ckeditor/ckeditor5-utils/src/dom/rect";
+import Rect from "./rect";
+
 /**
  * Calculates the `position: absolute` coordinates of a given element so it can be positioned with respect to the
  * target in the visually most efficient way, taking various restrictions like viewport or limiter geometry
@@ -61,21 +62,11 @@ import Rect from "@ckeditor/ckeditor5-utils/src/dom/rect";
  *  element.style.left = left;
  *
  */
-export function getOptimalPosition({
-    element,
-    target,
-    positions,
-    limiter,
-    fitInViewport,
-}: {
-    element: HTMLElement;
-    target: HTMLElement | (() => HTMLElement);
-    positions: Array<(targetRect: Rect, elementRect: Rect) => Position>;
-    limiter?: HTMLElement;
-    fitInViewport?: boolean;
-}): Position;
+export function getOptimalPosition(options: Options): Position;
+
 /**
- * :utils/dom/position~Position
+ * An object describing a position in `position: absolute` coordinate
+ * system, along with position name.
  */
 export interface Position {
     /**
@@ -90,4 +81,37 @@ export interface Position {
      * Name of the position.
      */
     name: string;
+}
+
+/**
+ * The `getOptimalPosition()` helper options.
+ */
+export interface Options {
+    /**
+     * Element that is to be positioned.
+     */
+    element: HTMLElement;
+    /**
+     * Target with respect to which the `element` is to be positioned.
+     */
+    target: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement);
+    /**
+     * An array of functions which return {@link module:utils/dom/position~Position} relative
+     * to the `target`, in the order of preference.
+     *
+     * **Note**: If a function returns `null`, it is ignored by the `getOptimalPosition()`.
+     */
+    positions: Array<(targetRect: Rect, elementRect: Rect) => Position | null>;
+
+    /**
+     * When set, the algorithm will chose position which fits the most in the
+     * limiter's bounding rect.
+     */
+    limiter?: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement);
+
+    /**
+     * When set, the algorithm will chose such a position which fits `element`
+     * the most inside visible viewport.
+     */
+    fitInViewport?: boolean;
 }

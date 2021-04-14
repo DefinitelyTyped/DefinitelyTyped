@@ -10,6 +10,7 @@
         "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
+        "no-redundant-jsdoc-2": false,
         "no-unnecessary-generics": false,
         "no-void-expression": false,
         "prefer-const": false,

@@ -98,8 +98,6 @@ interface LokiObj {
  * LokiEventEmitter is a minimalist version of EventEmitter. It enables any
  * constructor that inherits EventEmitter to emit events and trigger
  * listeners that have been added to the event through the on(event, callback) method
- *
- * @constructor LokiEventEmitter
  */
 declare class LokiEventEmitter {
 
@@ -199,7 +197,6 @@ interface Transform {
 
 /**
  * Loki: The main database class
- * @implements LokiEventEmitter
  */
 declare class Loki extends LokiEventEmitter {
     collections: Collection<any>[];
@@ -583,7 +580,6 @@ interface LokiPersistenceAdapter {
  * @param [options] - memory adapter options
  * @param [options.asyncResponses=false] - whether callbacks are invoked asynchronously
  * @param [options.asyncTimeout=50] - timeout in ms to queue callbacks
- * @constructor LokiMemoryAdapter
  */
 declare class LokiMemoryAdapter implements LokiPersistenceAdapter {
     hashStore: { [name: string]: { savecount: number; lastsave: Date; value: string } };
@@ -642,7 +638,6 @@ interface PageIterator {
  * @param [options.paging] - (default: false) set to true to enable paging collection data.
  * @param [options.pageSize] - (default : 25MB) you can use this to limit size of strings passed to inner adapter.
  * @param [options.delimiter] - allows you to override the default delimeter
- * @constructor LokiPartitioningAdapter
  */
 declare class LokiPartitioningAdapter implements LokiPersistenceAdapter {
     mode: string;
@@ -708,7 +703,6 @@ declare class LokiPartitioningAdapter implements LokiPersistenceAdapter {
 
 /**
  * A loki persistence adapter which persists using node fs module
- * @constructor LokiFsAdapter
  */
 declare class LokiFsAdapter implements LokiPersistenceAdapter {
 
@@ -742,7 +736,6 @@ declare class LokiFsAdapter implements LokiPersistenceAdapter {
 
 /**
  * A loki persistence adapter which persists to web browser's local storage object
- * @constructor LokiLocalStorageAdapter
  */
 declare class LokiLocalStorageAdapter {
 
@@ -1037,8 +1030,6 @@ interface DynamicViewOptions {
  * mydv.applyFind({ 'doors' : 4 });
  * mydv.applyWhere(function(obj) { return obj.name === 'Toyota'; });
  * var results = mydv.data();
- *
- * @implements LokiEventEmitter
  */
 declare class DynamicView<E extends object> extends LokiEventEmitter {
     name: string;
@@ -1330,7 +1321,6 @@ interface CheckIndexOptions {
 
 /**
  * Collection class that handles documents of same type
- * @implements LokiEventEmitter
  * @see {@link Loki#addCollection} for normal creation of collections
  */
 declare class Collection<E extends object> extends LokiEventEmitter {
@@ -1933,8 +1923,8 @@ declare class UniqueIndex<E extends object> {
 
     /**
      * Updates a document's unique index given an updated object.
-     * @param  {Object} obj Original document object
-     * @param  {Object} doc New document object (likely the same as obj)
+     * @param obj Original document object
+     * @param doc New document object (likely the same as obj)
      */
     public update(obj: E/*{ $loki: number }*/, doc: any): void;
 

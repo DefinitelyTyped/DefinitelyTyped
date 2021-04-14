@@ -19,6 +19,8 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
     light?: boolean,
     noLabel?: boolean,
     size?: Extract<CarbonInputSize, "sm" | "xl">,
+    warn?: boolean;
+    warnText?: React.ReactNode;
 }
 
 declare const Select: ForwardRefReturn<HTMLSelectElement, SelectProps>;

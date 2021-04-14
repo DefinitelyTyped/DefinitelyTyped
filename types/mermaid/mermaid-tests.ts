@@ -26,5 +26,6 @@ const insertSvg = (
 
 const graphDefinition = "graph TB\na-->b";
 let graph: string;
-graph = mermaidAPI.render("graphDiv", graphDefinition, insertSvg);
 graph = mermaidAPI.render("graphDiv", graphDefinition);
+graph = mermaidAPI.render("graphDiv", graphDefinition, insertSvg);
+graph = mermaidAPI.render("graphDiv", graphDefinition, insertSvg, element);

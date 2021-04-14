@@ -1,15 +1,27 @@
-import snmp, { VarBind, Packet } from 'snmp-native';
+import {
+    defaultOptions,
+    DataTypes,
+    PduTypes,
+    Errors,
+    Versions,
+    Session,
+    encode,
+    parse,
+    compareOids,
+    VarBind,
+    Packet
+} from 'snmp-native';
 
-// snmp.defaultOptions
+// defaultOptions
 
-const v_host: string | undefined = snmp.defaultOptions.host;
-const v_community: string | undefined = snmp.defaultOptions.community;
-const v_family: 'udp4' | 'udp6' | undefined = snmp.defaultOptions.family;
-const v_port: number | undefined = snmp.defaultOptions.port;
-const v_bindPort: number | undefined = snmp.defaultOptions.bindPort;
-const v_timeouts: number[] | undefined = snmp.defaultOptions.timeouts;
+const v_host: string | undefined = defaultOptions.host;
+const v_community: string | undefined = defaultOptions.community;
+const v_family: 'udp4' | 'udp6' | undefined = defaultOptions.family;
+const v_port: number | undefined = defaultOptions.port;
+const v_bindPort: number | undefined = defaultOptions.bindPort;
+const v_timeouts: number[] | undefined = defaultOptions.timeouts;
 
-// snmp.Session
+// Session
 
 const options = {
     host: 'localhost',
@@ -18,7 +30,7 @@ const options = {
     timeouts: [1000, 2000, 3000],
 };
 
-const session = new snmp.Session({
+const session = new Session({
     ...options,
     family: 'udp6',
     bindPort: 19840,
@@ -33,7 +45,7 @@ const session = new snmp.Session({
     },
 });
 
-// snmp.Session methods
+// Session methods
 
 const str_oid = '.1.3.6.1.4.1.1.2.3.4';
 const arr_oid = [1, 3, 6, 1, 4, 1, 1, 2, 3, 4];
@@ -77,13 +89,13 @@ session.set({ oid: arr_oid, type: null, }, callback);
 
 session.close();
 
-// snmp.compareOids
+// compareOids
 
-const v_compare: -1 | 0 | 1 = snmp.compareOids(str_oid, arr_oid);
+const v_compare: -1 | 0 | 1 = compareOids(str_oid, arr_oid);
 
-// snmp.parse
+// parse
 
-const vp: Packet = snmp.parse(Buffer.from(''));
+const vp: Packet = parse(Buffer.from(''));
 const pdu = vp.pdu;
 
 const vp_version: 0 | 1 = vp.version;
@@ -94,7 +106,7 @@ const p_error: number = pdu.error;
 const p_errorIndex: number = pdu.errorIndex;
 const p_varbinds: VarBind[] = pdu.varbinds;
 
-// snmp.encode
+// encode
 
 const varbinds: VarBind[] = [];
 const packet: Packet = {
@@ -109,52 +121,55 @@ const packet: Packet = {
     },
 };
 
-const v_encode: Buffer = snmp.encode(packet);
+const v_encode: Buffer = encode(packet);
 
-// snmp.DataTypes
+// DataTypes
 
-const v_Integer: number = snmp.DataTypes.Integer;
-const v_OctetString: number = snmp.DataTypes.OctetString;
-const v_Null: number = snmp.DataTypes.Null;
-const v_ObjectIdentifier: number = snmp.DataTypes.ObjectIdentifier;
-const v_Sequence: number = snmp.DataTypes.Sequence;
-const v_IpAddress: number = snmp.DataTypes.IpAddress;
-const v_Counter: number = snmp.DataTypes.Counter;
-const v_Gauge: number = snmp.DataTypes.Gauge;
-const v_TimeTicks: number = snmp.DataTypes.TimeTicks;
-const v_Opaque: number = snmp.DataTypes.Opaque;
-const v_NsapAddress: number = snmp.DataTypes.NsapAddress;
-const v_Counter64: number = snmp.DataTypes.Counter64;
-const v_NoSuchObject: number = snmp.DataTypes.NoSuchObject;
-const v_NoSuchInstance: number = snmp.DataTypes.NoSuchInstance;
-const v_EndOfMibView: number = snmp.DataTypes.EndOfMibView;
-const v_PDUBase: number = snmp.DataTypes.PDUBase;
+const v_Integer: number = DataTypes.Integer;
+const v_OctetString: number = DataTypes.OctetString;
+const v_Null: number = DataTypes.Null;
+const v_ObjectIdentifier: number = DataTypes.ObjectIdentifier;
+const v_Sequence: number = DataTypes.Sequence;
+const v_IpAddress: number = DataTypes.IpAddress;
+const v_Counter: number = DataTypes.Counter;
+const v_Gauge: number = DataTypes.Gauge;
+const v_TimeTicks: number = DataTypes.TimeTicks;
+const v_Opaque: number = DataTypes.Opaque;
+const v_NsapAddress: number = DataTypes.NsapAddress;
+const v_Counter64: number = DataTypes.Counter64;
+const v_NoSuchObject: number = DataTypes.NoSuchObject;
+const v_NoSuchInstance: number = DataTypes.NoSuchInstance;
+const v_EndOfMibView: number = DataTypes.EndOfMibView;
+const v_PDUBase: number = DataTypes.PDUBase;
 
-// snmp.PduTypes
+// PduTypes
 
-const v_GetRequestPDU: number = snmp.PduTypes.GetRequestPDU;
-const v_GetNextRequestPDU: number = snmp.PduTypes.GetNextRequestPDU;
-const v_GetResponsePDU: number = snmp.PduTypes.GetResponsePDU;
-const v_SetRequestPDU: number = snmp.PduTypes.SetRequestPDU;
+const v_GetRequestPDU: number = PduTypes.GetRequestPDU;
+const v_GetNextRequestPDU: number = PduTypes.GetNextRequestPDU;
+const v_GetResponsePDU: number = PduTypes.GetResponsePDU;
+const v_SetRequestPDU: number = PduTypes.SetRequestPDU;
 
-// snmp.Errors
+// Errors
 
-const v_NoError: number = snmp.Errors.NoError;
-const v_TooBig: number = snmp.Errors.TooBig;
-const v_NoSuchName: number = snmp.Errors.NoSuchName;
-const v_BadValue: number = snmp.Errors.BadValue;
-const v_ReadOnly: number = snmp.Errors.ReadOnly;
-const v_GenErr: number = snmp.Errors.GenErr;
-const v_NoAccess: number = snmp.Errors.NoAccess;
-const v_WrongType: number = snmp.Errors.WrongType;
-const v_WrongLength: number = snmp.Errors.WrongLength;
-const v_WrongEncoding: number = snmp.Errors.WrongEncoding;
-const v_WrongValue: number = snmp.Errors.WrongValue;
-const v_NoCreation: number = snmp.Errors.NoCreation;
-const v_InconsistentValue: number = snmp.Errors.InconsistentValue;
-const v_ResourceUnavailable: number = snmp.Errors.ResourceUnavailable;
-const v_CommitFailed: number = snmp.Errors.CommitFailed;
-const v_UndoFailed: number = snmp.Errors.UndoFailed;
-const v_AuthorizationError: number = snmp.Errors.AuthorizationError;
-const v_NotWritable: number = snmp.Errors.NotWritable;
-const v_InconsistentName: number = snmp.Errors.InconsistentName;
+const v_NoError: number = Errors.NoError;
+const v_TooBig: number = Errors.TooBig;
+const v_NoSuchName: number = Errors.NoSuchName;
+const v_BadValue: number = Errors.BadValue;
+const v_ReadOnly: number = Errors.ReadOnly;
+const v_GenErr: number = Errors.GenErr;
+const v_NoAccess: number = Errors.NoAccess;
+const v_WrongType: number = Errors.WrongType;
+const v_WrongLength: number = Errors.WrongLength;
+const v_WrongEncoding: number = Errors.WrongEncoding;
+const v_WrongValue: number = Errors.WrongValue;
+const v_NoCreation: number = Errors.NoCreation;
+const v_InconsistentValue: number = Errors.InconsistentValue;
+const v_ResourceUnavailable: number = Errors.ResourceUnavailable;
+const v_CommitFailed: number = Errors.CommitFailed;
+const v_UndoFailed: number = Errors.UndoFailed;
+const v_AuthorizationError: number = Errors.AuthorizationError;
+const v_NotWritable: number = Errors.NotWritable;
+const v_InconsistentName: number = Errors.InconsistentName;
+
+const v_SNMPv1: number = Versions.SNMPv1;
+const v_SNMPv2c: number = Versions.SNMPv2c;

@@ -1,104 +1,107 @@
 // Type definitions for Ace Ajax.org Cloud9 Editor
-// Project: http://ace.ajax.org/
-// Definitions by: Diullei Gomes <https://github.com/Diullei>
+// Project: https://ace.c9.io/
+// Definitions by: Diullei Gomes <https://github.com/Diullei> 
+//                 wafuwafu13 <https://github.com/wafuwafu13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AceAjax {
 
     export interface Delta {
-        action: string;
-        range: Range;
-        text: string;
+        action: 'insert' | 'remove';
+        start: Position;
+        end: Position;
         lines: string[];
     }
 
     export interface EditorCommand {
-
-        name:string;
-
-        bindKey:any;
-
-        exec: Function;
-
+        name?: string;
+        bindKey?: string | { mac?: string, win?: string };
+        exec: (editor: Editor, args?: any) => void;
         readOnly?: boolean;
     }
 
+    interface CommandMap {
+        [name: string]: EditorCommand;
+    }
+
+    type execEventHandler = (obj: {
+        editor: Editor,
+        command: EditorCommand,
+        args: any[]
+    }) => void;
+
+    type CommandLike = EditorCommand | ((editor: Editor) => void);
+
     export interface CommandManager {
-
-        byName: any;
-
-        commands: any;
-
+        byName: CommandMap;
+        commands: CommandMap;
+        on(name: 'exec', callback: execEventHandler): Function;
+        on(name: 'afterExec', callback: execEventHandler): Function;
+        once(name: string, callback: Function): void;
+        setDefaultHandler(name: string, callback: Function): void;
+        removeDefaultHandler(name: string, callback: Function): void;
+        on(name: string, callback: Function, capturing?: boolean): Function;
+        addEventListener(name: string, callback: Function, capturing?: boolean): void;
+        off(name: string, callback: Function): void;
+        removeListener(name: string, callback: Function): void;
+        removeEventListener(name: string, callback: Function): void;
+        exec(command: string, editor: Editor, args: any): boolean;
+        toggleRecording(editor: Editor): void;
+        replay(editor: Editor): void;
+        addCommand(command: EditorCommand): void;
+        addCommands(commands: EditorCommand[]): void;
+        removeCommand(command: EditorCommand | string, keepCommand?: boolean): void;
+        bindKey(key: string | { mac?: string, win?: string },
+        command: CommandLike,
+        position?: number): void;
         platform: string;
-
-        addCommands(commands:EditorCommand[]): void;
-
-        addCommand(command:EditorCommand): void;
-
-        exec(name: string, editor: Editor, args: any): void;
     }
 
     export interface Annotation {
-
-         row: number;
-
-         column: number;
-
-         text: string;
-
-         type: string;
+        row?: number;
+        column?: number;
+        text: string;
+        type: string;
     }
 
     export interface TokenInfo {
-
+        type: string;
         value: string;
-
         index?: number;
-
         start?: number;
     }
 
     export interface Position {
-
         row: number;
-
         column: number;
     }
 
+    export interface KeyboardHandler {
+        handleKeyboard: Function;
+    }
+
     export interface KeyBinding {
-
-        setDefaultHandler(kb: any): void;
-
-        setKeyboardHandler(kb: any): void;
-
-        addKeyboardHandler(kb: any, pos: any): void;
-
-        removeKeyboardHandler(kb: any): boolean;
-
-        getKeyboardHandler(): any;
-
-        onCommandKey(e: any, hashId: any, keyCode: any): void;
-
-        onTextInput(text: any): void;
+        setDefaultHandler(kb: KeyboardHandler): void;
+        setKeyboardHandler(kb: KeyboardHandler): void;
+        addKeyboardHandler(kb: KeyboardHandler, pos: number): void;
+        removeKeyboardHandler(kb: KeyboardHandler): boolean;
+        getKeyboardHandler(): KeyboardHandler;
+        onCommandKey(e: any, hashId: number, keyCode: number): boolean;
+        onTextInput(text: string): boolean;
     }
 
     export interface TextMode {
-
-        getTokenizer(): any;
-
-        toggleCommentLines(state: any, doc: any, startRow: any, endRow: any): void;
-
-        getNextLineIndent (state: any, line: any, tab: any): string;
-
-        checkOutdent(state: any, line: any, input: any): boolean;
-
-        autoOutdent(state: any, doc: any, row: any): void;
-
-        createWorker(session: any): any;
-
-        createModeDelegates (mapping: any): void;
-
-        transformAction(state: any, action: any, editor: any, session: any, param: any): any;
+        getTokenizer(): Tokenizer;
+        toggleCommentLines(state: any, session: IEditSession, startRow: number, endRow: number): void;
+        toggleBlockComment(state: any, session: IEditSession, range: Range, cursor: Position): void;
+        getNextLineIndent (state: any, line: string, tab: string): string;
+        checkOutdent(state: any, line: string, input: string): boolean;
+        autoOutdent(state: any, doc: Document, row: number): void;
+        createWorker(session: IEditSession): any;
+        createModeDelegates (mapping: { [key: string]: string }): void;
+        transformAction(state: string, action: string, editor: Editor, session: IEditSession, text: string): any;
+        getKeywords(append?: boolean): Array<string | RegExp>;
+        getCompletions(state: string, session: IEditSession, pos: Position, prefix: string): Completion[];
     }
 
     export interface OptionProvider {
@@ -111,17 +114,17 @@ declare namespace AceAjax {
         /**
          * Sets Configuration Options
         **/
-        setOptions(keyValueTuples: any): void;
+        setOptions(keyValueTuples: { [key: string]: any }): void;
 
         /**
          * Get a Configuration Option
         **/
-        getOption(name: string):any;
+        getOption(name: string): any;
 
         /**
          * Get Configuration Options
         **/
-        getOptions():any;
+        getOptions(optionNames?: string[] | { [key: string]: any }): { [key: string]: any };
     }
 
     ////////////////
@@ -203,12 +206,14 @@ declare namespace AceAjax {
          * @param column The column index to move the anchor to
          * @param noClip Identifies if you want the position to be clipped
         **/
-        setPosition(row: number, column: number, noClip: boolean): void;
+        setPosition(row: number, column: number, noClip?: boolean): void;
 
         /**
          * When called, the `'change'` event listener is removed.
         **/
         detach(): void;
+
+        attach(doc: Document): void;
     }
     var Anchor: {
         /**
@@ -291,6 +296,9 @@ declare namespace AceAjax {
      * Contains the text of the document. Document can be attached to several [[EditSession `EditSession`]]s.
      * At its core, `Document`s are just an array of strings, with each row in the document matching up to the array index.
     **/
+
+    type NewLineMode = "auto" | "unix" | "windows";
+
     export interface Document {
 
         on(event: string, fn: (e: any) => any): void;
@@ -322,12 +330,12 @@ declare namespace AceAjax {
          * [Sets the new line mode.]{: #Document.setNewLineMode.desc}
          * @param newLineMode [The newline mode to use; can be either `windows`, `unix`, or `auto`]{: #Document.setNewLineMode.param}
         **/
-        setNewLineMode(newLineMode: string): void;
+        setNewLineMode(newLineMode: NewLineMode): void;
 
         /**
          * [Returns the type of newlines being used; either `windows`, `unix`, or `auto`]{: #Document.getNewLineMode}
         **/
-        getNewLineMode(): string;
+        getNewLineMode(): NewLineMode;
 
         /**
          * Returns `true` if `text` is a newline character (either `\r\n`, `\r`, or `\n`).
@@ -364,17 +372,19 @@ declare namespace AceAjax {
         **/
         getTextRange(range: Range): string;
 
+        getLinesForRange(range: Range): string[];
+
         /**
          * Inserts a block of `text` and the indicated `position`.
          * @param position The position to start inserting at
          * @param text A chunk of text to insert
         **/
-        insert(position: Position, text: string): any;
+        insert(position: Position, text: string): Position;
 
         /**
          * @deprecated Use the insertFullLines method instead.
          */
-        insertLines(row: number, lines: string[]): any;
+        insertLines(row: number, lines: string[]): Position;
 
         /**
          * Inserts the elements in `lines` into the document as full lines (does not merge with existing line), starting at the row index given by `row`. This method also triggers the `"change"` event.
@@ -390,12 +400,12 @@ declare namespace AceAjax {
          *   ```
          *
          **/
-        insertFullLines(row: number, lines: string[]): any;
+        insertFullLines(row: number, lines: string[]): void;
 
         /**
          * @deprecated Use insertMergedLines(position, ['', '']) instead.
          */
-        insertNewLine(position: Position): any;
+        insertNewLine(position: Position): Position;
 
         /**
          * Inserts the elements in `lines` into the document, starting at the position index given by `row`. This method also triggers the `"change"` event.
@@ -411,20 +421,24 @@ declare namespace AceAjax {
          *   ```
          *
          **/
-        insertMergedLines(row: number, lines: string[]): any;
+        insertMergedLines(row: number, lines: string[]): Position;
 
         /**
          * Inserts `text` into the `position` at the current row. This method also triggers the `'change'` event.
          * @param position The position to insert at
          * @param text A chunk of text
         **/
-        insertInLine(position: any, text: string): any;
+        insertInLine(position: Position, text: string): Position;
+
+        clippedPos(row: number, column: number): Position;
+        clonePos(pos: Position): Position;
+        pos(row: number, column: number): Position;
 
         /**
          * Removes the `range` from the document.
          * @param range A specified Range to remove
         **/
-        remove(range: Range): any;
+        remove(range: Range): Position;
 
         /**
          * Removes the specified columns from the `row`. This method also triggers the `'change'` event.
@@ -432,7 +446,7 @@ declare namespace AceAjax {
          * @param startColumn The column to start removing at
          * @param endColumn The column to stop removing at
         **/
-        removeInLine(row: number, startColumn: number, endColumn: number): any;
+        removeInLine(row: number, startColumn: number, endColumn: number): Position;
 
         /**
          * @deprecated Use the removeFullLines method instead.
@@ -459,7 +473,7 @@ declare namespace AceAjax {
          * @param range A specified Range to replace
          * @param text The new text to use as a replacement
         **/
-        replace(range: Range, text: string): any;
+        replace(range: Range, text: string): Position;
 
         /**
          * Applies all the changes previously accumulated. These can be either `'includeText'`, `'insertLines'`, `'removeText'`, and `'removeLines'`.
@@ -495,7 +509,7 @@ declare namespace AceAjax {
          * @param pos The `{row, column}` to convert
          * @param startRow=0 The row from which to start the conversion
         **/
-        positionToIndex(pos: Position, startRow: number): number;
+        positionToIndex(pos: Position, startRow?: number): number;
     }
     var Document: {
         /**
@@ -2626,7 +2640,9 @@ declare namespace AceAjax {
         /**
          * Returns an object containing two properties: `tokens`, which contains all the tokens; and `state`, the current state.
         **/
-        getLineTokens(): any;
+       removeCapturingGroups(src: string): string;
+       createSplitterRegexp(src: string, flag?: string): RegExp;
+       getLineTokens(line: string, startState: string | string[]): TokenInfo[];
     }
     var Tokenizer: {
         /**

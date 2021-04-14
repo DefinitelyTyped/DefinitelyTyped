@@ -1,10 +1,11 @@
-// Type definitions for k6 0.30
+// Type definitions for k6 0.31
 // Project: https://k6.io/docs
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
 //                 na-- <https://github.com/na-->
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Simon Aronsson <https://github.com/simskij>
+//                 Ivan Mirić <https://github.com/imiric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -116,14 +117,9 @@ export interface Checkers<VT> {
 // --------------------
 
 /**
- * Byte represented as number. Value range [0,256)
+ * Array of numbers. The number range is from 0 to 255.
  */
-export type byte = number;
-
-/**
- * Byte array.
- */
-export type bytes = byte[];
+export type bytes = number[];
 
 // === JSON ===
 // ------------

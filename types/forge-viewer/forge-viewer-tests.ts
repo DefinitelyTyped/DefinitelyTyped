@@ -5,7 +5,7 @@ const options = {
     accessToken: ''
 };
 
-Autodesk.Viewing.Initializer(options, () => {
+Autodesk.Viewing.Initializer(options, async () => {
     const htmlDiv = document.getElementById('forgeViewer');
     if (!htmlDiv)
         return;
@@ -18,34 +18,28 @@ Autodesk.Viewing.Initializer(options, () => {
     }
 
     const documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ';
-    Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
+    const doc = await loadDocument(documentId);
 
-    async function onDocumentLoadSuccess(doc: Autodesk.Viewing.Document) {
-        await doc.downloadAecModelData();
+    await doc.downloadAecModelData();
+    const aecModelData = await Autodesk.Viewing.Document.getAecModelData(doc.getRoot());
+    const defaultViewable = doc.getRoot().getDefaultGeometry();
+    const model = await viewer.loadDocumentNode(doc, defaultViewable);
 
-        const docRoot: Autodesk.Viewing.BubbleNode = doc.getRoot();
-        const aecModelData = await Autodesk.Viewing.Document.getAecModelData(docRoot);
-        const defaultModel = docRoot.getDefaultGeometry();
-
-        const model = await viewer.loadDocumentNode(doc, defaultModel);
-
-        globalTests();
-        bubbleNodeTests(model);
-        callbackTests(viewer);
-        cameraTests(viewer);
-        formattingTests();
-        fragListTests(model);
-        modelTests(model);
-        await dataVizTests(viewer);
-        await edit2DTests(viewer);
-        await measureTests(viewer);
-        await propertyTests(viewer);
-        await searchTests(viewer);
-    }
-
-    function onDocumentLoadFailure() {
-        console.error('Failed fetching Forge manifest');
-    }
+    globalTests();
+    bubbleNodeTests(model);
+    callbackTests(viewer);
+    cameraTests(viewer);
+    formattingTests();
+    fragListTests(model);
+    modelTests(model);
+    await propertyDbTests(model);
+    await dataVizTests(viewer);
+    await dataVizPlanarTests(viewer);
+    await edit2DTests(viewer);
+    await measureTests(viewer);
+    await pixelCompareTests(viewer);
+    await propertyTests(viewer);
+    await searchTests(viewer);
 });
 
 function globalTests(): void {
@@ -88,19 +82,47 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
 
 async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     const ext = await viewer.loadExtension('Autodesk.DataVisualization') as Autodesk.Extensions.DataVisualization;
-    const heatmapData = new Autodesk.DataVisualization.SurfaceShadingData();
-    const level = new Autodesk.DataVisualization.SurfaceShadingGroup('level');
-    const room1 = new Autodesk.DataVisualization.SurfaceShadingNode('room1', 2120);
+    const heatmapData = new Autodesk.DataVisualization.Core.SurfaceShadingData();
+    const level = new Autodesk.DataVisualization.Core.SurfaceShadingGroup('level');
+    const room1 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room1', 2120);
 
-    room1.addPoint(new Autodesk.DataVisualization.SurfaceShadingPoint('sensor1', { x: 10, y: 10, z: 0 }, [ 'temperature' ]));
+    room1.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor1', { x: 10, y: 10, z: 0 }, [ 'temperature' ]));
     level.addChild(room1);
-    const room2 = new Autodesk.DataVisualization.SurfaceShadingNode('room2', 2121);
+    const room2 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room2', 2121);
 
-    room2.addPoint(new Autodesk.DataVisualization.SurfaceShadingPoint('sensor2', { x: 20, y: 20, z: 0 }, [ 'temperature' ]));
+    room2.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor2', { x: 20, y: 20, z: 0 }, [ 'temperature' ]));
     level.addChild(room2);
     heatmapData.addChild(level);
     heatmapData.initialize(viewer.model);
-    ext.setupSurfaceShading(viewer.model, heatmapData);
+    await ext.setupSurfaceShading(viewer.model, heatmapData);
+    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
+
+    const getSensorValue = (device: any, sensorType: any) => {
+        const value = Math.random();
+
+        return value;
+    };
+
+    ext.renderSurfaceShading('level', 'temperature', getSensorValue);
+}
+
+async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.DataVisualization') as Autodesk.Extensions.DataVisualization;
+    const heatmapData = new Autodesk.DataVisualization.Core.SurfaceShadingData();
+    const level = new Autodesk.DataVisualization.Core.SurfaceShadingGroup('level');
+    const room1 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room1', 2120);
+
+    room1.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor1', { x: 10, y: 10, z: 0 }, [ 'temperature' ]));
+    level.addChild(room1);
+    const room2 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room2', 2121);
+
+    room2.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor2', { x: 20, y: 20, z: 0 }, [ 'temperature' ]));
+    level.addChild(room2);
+    heatmapData.addChild(level);
+    heatmapData.initialize(viewer.model);
+    await ext.setupSurfaceShading(viewer.model, heatmapData, {
+        type: 'PlanarHeatmap'
+    });
     ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ]);
 
     const getSensorValue = (device: any, sensorType: any) => {
@@ -120,6 +142,32 @@ function modelTests(model: Autodesk.Viewing.Model): void {
     model.isPdf();
     model.isSceneBuilder();
     model.isSVF2();
+}
+
+async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.Viewing.PixelCompare') as Autodesk.Extensions.PixelCompare.PixelCompare;
+    const secondDoc = await loadDocument('urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LW90aGVyLWZvcmdlLWZpbGUucnZ0');
+    const viewable = secondDoc.getRoot().getDefaultGeometry();
+    const secondaryModel = await viewer.loadDocumentNode(secondDoc, viewable, { keepCurrentModels: true });
+    const mainModel = viewer.model;
+
+    ext.compareTwoModels(mainModel, secondaryModel);
+}
+
+function propertyDbTests(model: Autodesk.Viewing.Model): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        function userFunction(pdb: any) {
+            const names = [];
+
+            pdb.enumAttributes((i: number, attrDef: any) => {
+                names.push(attrDef.displayName);
+            });
+        }
+
+        model.getPropertyDb().executeUserFunction(userFunction).then((result) => {
+            resolve();
+        });
+    });
 }
 
 async function propertyTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
@@ -206,6 +254,16 @@ async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number
             resolve(dbIds);
         }, (err) => {
             reject(err);
+        });
+    });
+}
+
+function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
+    return new Promise<Autodesk.Viewing.Document>((resolve, reject) => {
+        Autodesk.Viewing.Document.load(urn, (doc) => {
+            resolve(doc);
+        }, (errorCode, errorMsg) => {
+            reject(new Error(errorMsg));
         });
     });
 }

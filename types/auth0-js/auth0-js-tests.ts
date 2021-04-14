@@ -216,6 +216,18 @@ webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, 
     // do something with data
 });
 
+webAuth.redirect.signupAndLogin({
+    email: "",
+    password: "",
+    connection: "",
+    userMetadata: {
+        foo: 'bar'
+    }
+}, (err, data) => {
+    if (err) /* handle error */ return;
+    // do something with data
+});
+
 webAuth.login({username: 'bar', password: 'foo', state: '1234'}, (err, data) => {});
 
 // cross-origin verification

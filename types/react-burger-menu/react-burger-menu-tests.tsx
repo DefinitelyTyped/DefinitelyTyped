@@ -12,6 +12,7 @@ class Example extends React.Component {
                 customBurgerIcon={<img src="img/icon.svg" />}
                 customCrossIcon={<img src="img/icon.svg" />}
                 onStateChange={this.onStateChange}
+                itemListElement="div"
                 styles={{}}
             >
                 <a id="home" className="menu-item" href="/">Home</a>

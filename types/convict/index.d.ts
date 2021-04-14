@@ -15,7 +15,7 @@ declare namespace convict {
     // Taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
     type Overwrite<T, U> = { [P in Exclude<keyof T, keyof U>]: T[P] } & U;
 
-    type ValidationMethod = 'strict' | 'warn';
+    type ValidationMethod = "strict" | "warn";
 
     interface ValidateOptions {
         /**
@@ -32,7 +32,7 @@ declare namespace convict {
 
     interface Format {
         name?: string;
-        validate?(val: any): void;
+        validate?(val: any, schema: SchemaObj): void;
         coerce?(val: any): any;
     }
 
@@ -42,17 +42,17 @@ declare namespace convict {
     }
 
     type PredefinedFormat =
-        | '*'
-        | 'int'
-        | 'port'
-        | 'windows_named_pipe'
-        | 'port_or_windows_named_pipe'
-        | 'url'
-        | 'email'
-        | 'ipaddress'
-        | 'duration'
-        | 'timestamp'
-        | 'nat'
+        | "*"
+        | "int"
+        | "port"
+        | "windows_named_pipe"
+        | "port_or_windows_named_pipe"
+        | "url"
+        | "email"
+        | "ipaddress"
+        | "duration"
+        | "timestamp"
+        | "nat"
         | String
         | Object
         | Number
@@ -82,6 +82,7 @@ declare namespace convict {
         env?: string;
         arg?: string;
         sensitive?: boolean;
+        [key: string]: any;
     }
 
     type Schema<T> = {

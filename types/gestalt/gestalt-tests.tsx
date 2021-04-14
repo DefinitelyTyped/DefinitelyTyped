@@ -17,7 +17,6 @@ import {
     Dropdown,
     FixedZIndex,
     Flex,
-    Flyout,
     GroupAvatar,
     Heading,
     Icon,
@@ -31,7 +30,9 @@ import {
     Masonry,
     Modal,
     Module,
+    PageHeader,
     Pog,
+    Popover,
     Provider,
     Pulsar,
     RadioButton,
@@ -86,10 +87,6 @@ const CheckUseReducedMotion = () => {
         label: "foo",
         accessibilityLabel: "foo",
         onClick: (({ event }) => { event.stopPropagation(); }),
-        onNavigationOptions: {
-            foo: <div />,
-            bar: ({ event }) => { event.stopPropagation(); }
-        },
         rel: "nofollow",
         target: "blank"
     }}
@@ -111,10 +108,7 @@ const CheckUseReducedMotion = () => {
 <Badge text="Nicolas" />;
 <Box ref={React.createRef<HTMLDivElement>()} />;
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
-<Button text="" onNavigationOptions={{
-    foo: <div />,
-    bar: ({ event }) => { event.stopPropagation(); }
-}} />;
+<Button text="" />;
 <ButtonGroup>
     <Button text={'Click me'} />
     <Button text={'Click me'} />
@@ -151,7 +145,6 @@ const CheckUseReducedMotion = () => {
     </Dropdown.Section>
 </Dropdown>;
 <Flex />;
-<Flyout onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
 <IconButton accessibilityLabel="icon" />;
@@ -186,10 +179,10 @@ const CheckUseReducedMotion = () => {
     expandedIndex={1}
     onExpandedChange={(index) => {}}
 ></Module.Expandable>;
+<PageHeader title='Home'/>;
 <Pog />;
-<Provider colorScheme={'light'} id="docsExample" onNavigation={({ href, onNavigationOptions }) => {
-    return (event) => {};
-}} />;
+<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
+<Provider colorScheme={'light'} id="docsExample" />;
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
 <Row gap={1}>
@@ -216,6 +209,8 @@ const CheckUseReducedMotion = () => {
     <div>Hello World</div>
 </Sticky>;
 <Switch id="id" onChange={() => {}} />;
+<Table maxHeight={1}/>;
+<Table maxHeight="75vh"/>;
 <Table>
     <Table.Header>
         <Table.Row>

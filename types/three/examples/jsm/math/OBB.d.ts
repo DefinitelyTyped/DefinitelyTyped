@@ -5,10 +5,10 @@ export class OBB {
     halfSize: Vector3;
     rotation: Matrix3;
 
-    constructor(center: Vector3, halfSize: Vector3, rotation: Matrix3);
+    constructor(center?: Vector3, halfSize?: Vector3, rotation?: Matrix3);
     set(center: Vector3, halfSize: Vector3, rotation: Matrix3): this;
     copy(obb: OBB): this;
-    clone(): OBB;
+    clone(): this;
     getSize(result: Vector3): Vector3;
     clampPoint(point: Vector3, result: Vector3): Vector3;
     containsPoint(point: Vector3): boolean;
