@@ -5,7 +5,7 @@
 //                 Loïc Huder <https://github.com/loichuder>
 //                 Axel Bocciarelli <https://github.com/axelboc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.9
 
 import { Component } from "../react";
 
