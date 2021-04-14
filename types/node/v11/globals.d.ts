@@ -816,6 +816,32 @@ declare namespace NodeJS {
         writeReport(fileName?: string, err?: Error): string;
     }
 
+    interface EmitWarningOptions {
+        /**
+         * When `warning` is a `string`, `type` is the name to use for the _type_ of warning being emitted.
+         *
+         * @default 'Warning'
+         */
+        type?: string;
+
+        /**
+         * A unique identifier for the warning instance being emitted.
+         */
+        code?: string;
+
+        /**
+         * When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace.
+         *
+         * @default process.emitWarning
+         */
+        ctor?: Function;
+
+        /**
+         * Additional text to include with the error.
+         */
+        detail?: string;
+    }
+
     interface Process extends EventEmitter {
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
@@ -835,7 +861,22 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
-        emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+
+        /**
+         * The `process.emitWarning()` method can be used to emit custom or application specific process warnings.
+         *
+         * These can be listened for by adding a handler to the `'warning'` event.
+         *
+         * @param warning The warning to emit.
+         * @param type When `warning` is a `string`, `type` is the name to use for the _type_ of warning being emitted. Default: `'Warning'`.
+         * @param code A unique identifier for the warning instance being emitted.
+         * @param ctor When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace. Default: `process.emitWarning`.
+         */
+        emitWarning(warning: string | Error, ctor?: Function): void;
+        emitWarning(warning: string | Error, type?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, type?: string, code?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, options?: EmitWarningOptions): void;
+
         env: ProcessEnv;
         exit(code?: number): never;
         exitCode?: number;
