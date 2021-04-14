@@ -95,7 +95,7 @@ export interface ShareDBSourceOptions { source?: any; }
 
 export type Callback = (err: Error) => any;
 
-export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
+export type DocEvent = keyof DocEventMap<any>;
 
 export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     connection: Connection;
@@ -129,17 +129,17 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
 }
 
 export interface DocEventMap<T> {
-    'load': () => any;
-    'no write pending': () => any;
-    'nothing pending': () => any;
-    'create': (source: any) => any;
-    'op': (ops: any[], source: any) => any;
-    'op batch': (ops: any[], source: any) => any;
-    'before op': (ops: any[], source: any) => any;
-    'before op batch': (ops: any[], source: any) => any;
-    'del': (data: T, source: any) => any;
-    'error': (error: Error) => any;
-    'destroy': () => any;
+    'load': () => void;
+    'no write pending': () => void;
+    'nothing pending': () => void;
+    'create': (source: any) => void;
+    'op': (ops: [any], source: any) => void;
+    'op batch': (ops: any[], source: any) => void;
+    'before op': (ops: [any], source: any) => void;
+    'before op batch': (ops: any[], source: any) => void;
+    'del': (data: T, source: any) => void;
+    'error': (error: Error) => void;
+    'destroy': () => void;
 }
 
 export type QueryEvent = keyof QueryEventMap<any>;
@@ -157,16 +157,16 @@ export class Query<T = any> extends TypedEmitter<QueryEventMap<T>> {
 }
 
 export interface QueryEventMap<T> {
-    'ready': () => any;
-    'error': (error: Error) => any;
-    'insert': (inserted: Array<Doc<T>>, index: number) => any;
-    'remove': (removed: Array<Doc<T>>, index: number) => any;
-    'move': (moved: Array<Doc<T>>, from: number, to: number) => any;
-    'changed': (docs: Array<Doc<T>>) => any;
-    'extra': (extra: any) => any;
+    'ready': () => void;
+    'error': (error: Error) => void;
+    'insert': (inserted: Array<Doc<T>>, index: number) => void;
+    'remove': (removed: Array<Doc<T>>, index: number) => void;
+    'move': (moved: Array<Doc<T>>, from: number, to: number) => void;
+    'changed': (docs: Array<Doc<T>>) => void;
+    'extra': (extra: any) => void;
 }
 
-export type ReceivePresenceListener<T> = (id: string, value: T) => any;
+export type ReceivePresenceListener<T> = (id: string, value: T) => void;
 export class Presence<T = any> extends TypedEmitter<PresenceEventMap<T>> {
     connection: string;
     channel: string;
@@ -182,7 +182,7 @@ export class Presence<T = any> extends TypedEmitter<PresenceEventMap<T>> {
 
 export interface PresenceEventMap<T> {
     'receive': ReceivePresenceListener<T>;
-    'error': (error: Error) => any;
+    'error': (error: Error) => void;
 }
 
 export class LocalPresence<T = any> extends TypedEmitter<LocalPresenceEventMap> {
@@ -197,7 +197,7 @@ export class LocalPresence<T = any> extends TypedEmitter<LocalPresenceEventMap> 
 }
 
 export interface LocalPresenceEventMap {
-    'error': (error: Error) => any;
+    'error': (error: Error) => void;
 }
 
 export type RequestAction = 'qf' | 'qs' | 'qu' | 'bf' | 'bs' | 'bu' | 'f' | 's' | 'u' | 'op' | 'nf' | 'nt';
