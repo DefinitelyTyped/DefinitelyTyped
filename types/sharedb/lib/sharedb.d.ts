@@ -223,7 +223,10 @@ export interface Socket {
 
 /**
  * Typed Emitter from:
- * https://github.com/binier/tiny-typed-emitter/blob/master/lib/index.d.ts
+ * https://github.com/binier/tiny-typed-emitter/
+ *
+ * MIT License
+ * Copyright (c) 2020 Zurab Benashvili (binier) <zura.bena@gmail.com>
  */
 export class TypedEmitter<L extends ListenerSignature<L>> {
     static defaultMaxListeners: number;
