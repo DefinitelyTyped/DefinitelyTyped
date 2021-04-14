@@ -83,9 +83,11 @@ function MultipleThumbSliders() {
                 onAfterChange={value => value.join()}
                 onBeforeChange={value => value.join()}
                 onChange={value => value.join()}
-                renderThumb={(props, { value }) => {
-                    return <span {...props}>{value.join()}</span>;
-                }}
+                renderThumb={({ ref, ...props }, { value }) => (
+                    <span ref={ref} {...props}>
+                        {value.join()}
+                    </span>
+                )}
                 renderTrack={(props, { value }) => {
                     return <span {...props}>{value.join()}</span>;
                 }}
@@ -106,6 +108,25 @@ function SliderWithRef() {
     });
 
     return <ReactSlider ref={ref} />;
+}
+
+interface CustomThumbProps extends React.HTMLProps<HTMLDivElement> {
+    show: boolean;
+}
+
+const CustomThumb = React.forwardRef<HTMLDivElement, CustomThumbProps>((props, ref) => {
+    const { show, ...otherProps } = props;
+    return show ? <span ref={ref} {...otherProps} /> : null;
+});
+
+function SliderWithCustomThumb() {
+    return (
+        <ReactSlider
+            renderThumb={(props, { index }) => {
+                return <CustomThumb show={index > 0} {...props} />;
+            }}
+        />
+    );
 }
 
 function InvalidUses() {

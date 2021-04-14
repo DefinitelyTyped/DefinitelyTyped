@@ -7,7 +7,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
-import { Component } from "../react";
+import { Component, HTMLProps, RefCallback } from "../react";
+
+interface HTMLPropsWithRefCallback<T> extends HTMLProps<T> {
+    ref: RefCallback<T>;
+}
 
 export interface ReactSliderProps<T extends number | ReadonlyArray<number> = number> {
     // Disallow children
@@ -176,7 +180,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default props => <div {...props} />
      */
-    renderMark?: (props: React.HTMLProps<HTMLSpanElement>) => JSX.Element | null;
+    renderMark?: (props: HTMLPropsWithRefCallback<HTMLSpanElement>) => JSX.Element | null;
 
     /**
      * Provide a custom render function for dynamic thumb content.
@@ -192,7 +196,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * @default props => <div {...props} />
      */
     renderThumb?: (
-        props: React.HTMLProps<HTMLDivElement>,
+        props: HTMLPropsWithRefCallback<HTMLDivElement>,
         state: { index: number; value: T; valueNow: number },
     ) => JSX.Element | null;
 
@@ -208,7 +212,10 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default props => <div {...props} />
      */
-    renderTrack?: (props: React.HTMLProps<HTMLDivElement>, state: { index: number; value: T }) => JSX.Element | null;
+    renderTrack?: (
+        props: HTMLPropsWithRefCallback<HTMLDivElement>,
+        state: { index: number; value: T },
+    ) => JSX.Element | null;
 
     /**
      * Disables thumb move when clicking the slider track
