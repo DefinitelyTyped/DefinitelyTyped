@@ -1,4 +1,4 @@
-// Type definitions for validator.js 13.1
+// Type definitions for validator.js 13.5.1
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -11,6 +11,7 @@
 //                 Jace Warren <https://github.com/keatz55>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Vlad Poluch <https://github.com/vlapo>
+//                 Karbust <https://github.com/Karbust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -69,6 +70,7 @@ declare namespace validator {
         | 'ku-IQ'
         | 'ar'
         | 'he'
+        | 'fa-AF'
         | 'fa-IR'
         | 'en-AU'
         | 'en-GB'
@@ -95,7 +97,11 @@ declare namespace validator {
         | 'ar-TN'
         | 'ar-YE'
         | 'pt-BR'
-        | 'pl-Pl';
+        | 'pl-Pl'
+        | 'vi-VN'
+        | 'id-ID'
+        | 'th-TH'
+        | 'az-AZ';
 
     const isAlphaLocales: AlphaLocale[];
 
@@ -133,6 +139,7 @@ declare namespace validator {
         | 'ku-IQ'
         | 'ar'
         | 'he'
+        | 'fa-AF'
         | 'fa-IR'
         | 'en-AU'
         | 'en-GB'
@@ -159,7 +166,11 @@ declare namespace validator {
         | 'ar-TN'
         | 'ar-YE'
         | 'pt-BR'
-        | 'pl-Pl';
+        | 'pl-Pl'
+        | 'vi-VN'
+        | 'id-ID'
+        | 'th-TH'
+        | 'az-AZ';
 
     const isAlphanumericLocales: AlphanumericLocale[];
 
@@ -180,6 +191,18 @@ declare namespace validator {
      */
     function isBase32(str: string): boolean;
 
+    /**
+     * Check if a string is base58 encoded.
+     */
+    function isBase58(str: string): boolean
+
+    interface IsBase64Options {
+        /**
+         * @default false
+         */
+        urlSafe?: boolean;
+    }
+    
     interface IsBase64Options {
         /**
          * @default false
@@ -616,7 +639,7 @@ declare namespace validator {
      */
     function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
-    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
+    type IdentityCardLocale = 'ES' | 'IN' | 'IT' | 'NO' | 'zh-TW' | 'he-IL' | 'ar-LY' | 'ar-TN' | 'zh-CN';
 
     /**
      * Check if the string is a valid identity card code.
@@ -624,6 +647,21 @@ declare namespace validator {
      * @param [locale="any"] - IdentityCardLocale
      */
     function isIdentityCard(str: string, locale?: 'any' | IdentityCardLocale): boolean;
+
+    interface isIMEIOptions {
+        /**
+         * @default false
+         */
+        allow_hyphens?: boolean;
+    }
+
+    /**
+     * Check if the string is a valid IMEI number. Imei should be of format ############### or ##-######-######-#.
+     *
+     * @param str
+     * @param [options] - Options
+     */
+    function isIMEI(str: string, options?: isIMEIOptions): boolean
 
     /**
      * Check if the string is in a array of allowed values.
@@ -714,6 +752,12 @@ declare namespace validator {
          * @default false
          */
         strict?: boolean;
+        /**
+         * If strictSeparator is true, date strings with date and time separated by anything other than a T will be invalid.
+         *
+         * @default false
+        */
+        strictSeparator?: boolean
     }
 
     /**
@@ -790,6 +834,26 @@ declare namespace validator {
      */
     function isLength(str: string, options?: IsLengthOptions): boolean;
 
+    type LicensePlateLocale =
+        | 'de-DE'
+        | 'de-LI'
+        | 'pt-PT'
+        | 'sq-AL'
+        | 'pt-BR'
+
+    const isLicensePlateLocales: LicensePlateLocale[]
+
+    /**
+     * Check if string matches the format of a country's license plate.
+     *
+     * @param str
+     * @param [locale] - Locale
+     */
+    function isLicensePlate(
+        str: string,
+        locale:  'any' | LicensePlateLocale
+    )
+    
     /**
      * Check if the string is a locale.
      */
@@ -842,12 +906,16 @@ declare namespace validator {
         | 'ar-IQ'
         | 'ar-JO'
         | 'ar-KW'
+        | 'ar-LB'
+        | 'ar-MA'
         | 'ar-SA'
         | 'ar-SY'
         | 'ar-TN'
+        | 'az-AZ'
         | 'be-BY'
         | 'bg-BG'
         | 'bn-BD'
+        | 'bs-BA'
         | 'cs-CZ'
         | 'da-DK'
         | 'de-DE'
@@ -858,6 +926,7 @@ declare namespace validator {
         | 'en-GG'
         | 'en-GH'
         | 'en-HK'
+        | 'en-HN'
         | 'en-IE'
         | 'en-IN'
         | 'en-KE'
@@ -865,6 +934,7 @@ declare namespace validator {
         | 'en-MU'
         | 'en-NG'
         | 'en-NZ'
+        | 'en-PH'
         | 'en-PK'
         | 'en-RW'
         | 'en-SG'
@@ -873,10 +943,14 @@ declare namespace validator {
         | 'en-US'
         | 'en-ZA'
         | 'en-ZM'
+        | 'es-AR'
+        | 'es-BO'
         | 'es-CL'
+        | 'es-DO'
         | 'es-ES'
         | 'es-MX'
         | 'es-PA'
+        | 'es-PE'
         | 'es-PY'
         | 'es-UY'
         | 'et-EE'
@@ -894,6 +968,7 @@ declare namespace validator {
         | 'id-ID'
         | 'it-IT'
         | 'ja-JP'
+        | 'ka-GE'
         | 'kk-KZ'
         | 'kl-GL'
         | 'ko-KR'
@@ -915,12 +990,18 @@ declare namespace validator {
         | 'th-TH'
         | 'tr-TR'
         | 'uk-UA'
+        | 'uz-Uz'
         | 'vi-VN'
         | 'zh-CN'
         | 'zh-TW'
         | 'en-CA'
         | 'fr-BE'
-        | 'zh-HK';
+        | 'zh-CN'
+        | 'zh-HK'
+        | 'de-LU'
+        | 'it-SM'
+        | 'sq-AL'
+        | 'ga-IE';
 
     const isMobilePhoneLocales: MobilePhoneLocale[];
 
@@ -992,14 +1073,18 @@ declare namespace validator {
         | 'AD'
         | 'AT'
         | 'AU'
+        | 'AZ'
         | 'BE'
         | 'BG'
         | 'BR'
+        | 'BY'
         | 'CA'
         | 'CH'
+        | 'CN'
         | 'CZ'
         | 'DE'
         | 'DK'
+        | 'DO'
         | 'DZ'
         | 'EE'
         | 'ES'
@@ -1008,11 +1093,13 @@ declare namespace validator {
         | 'GB'
         | 'GR'
         | 'HR'
+        | 'HT'
         | 'HU'
         | 'ID'
         | 'IE'
         | 'IL'
         | 'IN'
+        | 'IR'
         | 'IS'
         | 'IT'
         | 'JP'
@@ -1023,6 +1110,7 @@ declare namespace validator {
         | 'LV'
         | 'MX'
         | 'MT'
+        | 'MY'
         | 'NL'
         | 'NO'
         | 'NZ'
@@ -1033,8 +1121,10 @@ declare namespace validator {
         | 'RU'
         | 'SA'
         | 'SE'
+        | 'SG'
         | 'SI'
         | 'SK'
+        | 'TH'
         | 'TN'
         | 'TW'
         | 'UA'
@@ -1080,6 +1170,20 @@ declare namespace validator {
      */
     function isSurrogatePair(str: string): boolean;
 
+    type TaxIDLocale = 'bg-BG' | 'cs-CZ' | 'de-AT' | 'de-DE' | 'dk-DK' | 'el-CY' | 'el-GR' | 'en-GB' | 'en-IE' | 'en-US' | 'es-ES' | 'et-EE' | 'fi-FI' | 'fr-BE' | 'fr-FR' | 'fr-LU' | 'hr-HR' | 'hu-HU' | 'it-IT' | 'lb-LU' | 'lt-LT' | 'lv-LV' | 'mt-MT' | 'nl-BE' | 'nl-NL' | 'pl-PL' | 'pt-BR' | 'pt-PT' | 'ro-RO' | 'sk-SK' | 'sl-SI' | 'sv-SE'
+    const isTaxIDLocales: TaxIDLocale[]
+
+    /**
+     * Check if the string is an URL.
+     *
+     * @param str
+     * @param [locale] - Locale
+     */
+    function isTaxID(
+        str: string,
+        locale?: 'any' | TaxIDLocale
+    ): boolean
+    
     interface IsURLOptions {
         /**
          * @default ['http','https','ftp']
@@ -1097,6 +1201,10 @@ declare namespace validator {
          * @default true
          */
         require_host?: boolean;
+        /**
+         * @default false
+         */
+        require_port?: boolean;
         /**
          * @default true
          */
@@ -1152,6 +1260,20 @@ declare namespace validator {
      */
     function isVariableWidth(str: string): boolean;
 
+    type VATLocale = 'bg-BG' | 'cs-CZ' | 'de-AT' | 'de-DE' | 'dk-DK' | 'el-CY' | 'el-GR' | 'en-GB' | 'en-IE' | 'en-US' | 'es-ES' | 'et-EE' | 'fi-FI' | 'fr-BE' | 'fr-FR' | 'fr-LU' | 'hr-HR' | 'hu-HU' | 'it-IT' | 'lb-LU' | 'lt-LT' | 'lv-LV' | 'mt-MT' | 'nl-BE' | 'nl-NL' | 'pl-PL' | 'pt-BR' | 'pt-PT' | 'ro-RO' | 'sk-SK' | 'sl-SI' | 'sv-SE'
+    const isVATLocales: VATLocale[]
+
+    /**
+     * Checks that the string is a valid VAT number if validation is available for the given country code matching ISO 3166-1 alpha-2.
+     *
+     * @param str
+     * @param [countryCode] - Country Code
+     */
+    function isVAT(
+        str: string,
+        countryCode: 'any' | VATLocale
+    ): boolean
+    
     /**
      * Checks characters if they appear in the whitelist.
      *
