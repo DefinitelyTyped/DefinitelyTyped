@@ -1396,6 +1396,7 @@ declare namespace google {
                 underMonthSpace?: number;
                 underYearSpace?: number;
                 unusedMonthOutlineColor?: ChartStrokeOpacity;
+                yearLabel?: ChartTextStyle;
             };
             colorAxis?: {
                 colors?: string[];
