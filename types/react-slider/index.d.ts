@@ -127,7 +127,7 @@ export interface ReactSliderProps {
      * The render function will be passed one argument,
      * an object with props that should be added to your handle node.
      */
-    renderMark?: (props: React.HTMLProps<HTMLSpanElement>) => JSX.Element;
+    renderMark?: (props: React.HTMLProps<HTMLSpanElement>) => JSX.Element | null;
 
     /**
      * Provide a custom render function for dynamic thumb content.
@@ -137,7 +137,7 @@ export interface ReactSliderProps {
     renderThumb?: (
         props: React.HTMLProps<HTMLDivElement>,
         state: { index: number; value: number | number[]; valueNow: number },
-    ) => JSX.Element;
+    ) => JSX.Element | null;
 
     /**
      * Provide a custom render function for the track node.
@@ -147,7 +147,7 @@ export interface ReactSliderProps {
     renderTrack?: (
         props: React.HTMLProps<HTMLDivElement>,
         state: { index: number; value: number | number[] },
-    ) => JSX.Element;
+    ) => JSX.Element | null;
 
     /**
      * Disables thumb move when clicking the slider track
