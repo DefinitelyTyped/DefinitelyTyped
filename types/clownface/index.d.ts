@@ -73,7 +73,7 @@ declare namespace clownface {
 
     literal(value: SingleOrOneElementArray<boolean | string | number | Term | null> | AnyPointer<Literal, D>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal, D>;
     literal(
-      values: Array<boolean | string | number | Term | null> | MultiPointer<Literal, D> | Iterable<Literal> | Iterable<GraphPointer<Literal, D>>,
+      values: Array<boolean | string | number | null> | MultiPointer<Literal, D> | Iterable<Literal> | Iterable<GraphPointer<Literal, D>>,
       languageOrDatatype?: string | NamedNode
     ): AnyPointer<Literal[], D>;
 
