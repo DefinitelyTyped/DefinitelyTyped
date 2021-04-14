@@ -1046,7 +1046,6 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      */
     useApiKey(key: string): void;
 
-
     /**
      * @description
      * Use Google's OAuth2Client to authenticate on behalf of a user
