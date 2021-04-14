@@ -1,9 +1,9 @@
 esm/components/CalendarDay.d.ts
 esm/components/CalendarMonth.d.ts
 esm/components/CalendarMonthGrid.d.ts
-esm/components/DataRangerPicker.d.ts
-esm/components/DataRangePickerInput.d.ts
-esm/components/DataRangePickerInputController.d.ts
+esm/components/DateRangePicker.d.ts
+esm/components/DateRangePickerInput.d.ts
+esm/components/DateRangePickerInputController.d.ts
 esm/components/DayPicker.d.ts
 esm/components/DayPickerRangeController.d.ts
 esm/components/DayPickerSingleDateController.d.ts
@@ -14,9 +14,9 @@ esm/components/SingleDatePickerInputController.d.ts
 lib/components/CalendarDay.d.ts
 lib/components/CalendarMonth.d.ts
 lib/components/CalendarMonthGrid.d.ts
-lib/components/DataRangerPicker.d.ts
-lib/components/DataRangePickerInput.d.ts
-lib/components/DataRangePickerInputController.d.ts
+lib/components/DateRangePicker.d.ts
+lib/components/DateRangePickerInput.d.ts
+lib/components/DateRangePickerInputController.d.ts
 lib/components/DayPicker.d.ts
 lib/components/DayPickerRangeController.d.ts
 lib/components/DayPickerSingleDateController.d.ts
@@ -28,7 +28,7 @@ esm/utils/isInclusivelyAfterDay.d.ts
 esm/utils/isInclusivelyBeforeDay.d.ts
 esm/utils/isNextDay.d.ts
 esm/utils/isSameDay.d.ts
-esm/utils/isISODateString.d.ts
+esm/utils/toISODateString.d.ts
 esm/utils/toLocalizedDateString.d.ts
 esm/utils/toMomentObject.d.ts
 
@@ -36,6 +36,6 @@ lib/utils/isInclusivelyAfterDay.d.ts
 lib/utils/isInclusivelyBeforeDay.d.ts
 lib/utils/isNextDay.d.ts
 lib/utils/isSameDay.d.ts
-lib/utils/isISODateString.d.ts
+lib/utils/toISODateString.d.ts
 lib/utils/toLocalizedDateString.d.ts
 lib/utils/toMomentObject.d.ts
