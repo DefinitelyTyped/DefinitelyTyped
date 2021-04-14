@@ -277,8 +277,9 @@ function startClient(callback) {
 
     query.on('ready', () => {});
     query.on('error', (error) => console.log(error));
-    query.on('insert', (inserted) => {
+    query.on('insert', async (inserted) => {
         inserted.forEach((i) => i.data.foo);
+        await new Promise<void>((resolve) => resolve());
     });
     query.on('remove', (removed) => {
         removed.forEach((r) => r.data.bar);

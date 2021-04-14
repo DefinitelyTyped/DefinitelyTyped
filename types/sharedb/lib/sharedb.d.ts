@@ -1,5 +1,3 @@
-import { EventEmitter } from 'events';
-
 import { Connection } from './client';
 
 export type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
@@ -99,7 +97,7 @@ export type Callback = (err: Error) => any;
 
 export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
 
-export class Doc<T = any> extends EventEmitter {
+export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     connection: Connection;
     type: Type | null;
     id: string;
@@ -114,18 +112,6 @@ export class Doc<T = any> extends EventEmitter {
     fetch: (callback?: (err: Error) => void) => void;
     subscribe: (callback?: (err: Error) => void) => void;
     unsubscribe: (callback?: (err: Error) => void) => void;
-
-    on(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
-    on(event: 'create', callback: (source: any) => void): this;
-    on(event: 'op' | 'before op', callback: (ops: any[], source: any) => void): this;
-    on(event: 'del', callback: (data: any, source: any) => void): this;
-    on(event: 'error', callback: (err: Error) => void): this;
-
-    addListener(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
-    addListener(event: 'create', callback: (source: any) => void): this;
-    addListener(event: 'op' | 'before op', callback: (ops: any[], source: any) => void): this;
-    addListener(event: 'del', callback: (data: any, source: any) => void): this;
-    addListener(event: 'error', callback: (err: Error) => void): this;
 
     ingestSnapshot(snapshot: Snapshot<T>, callback?: Callback): void;
     destroy(callback?: Callback): void;
@@ -142,8 +128,22 @@ export class Doc<T = any> extends EventEmitter {
     flush(): void;
 }
 
+export interface DocEventMap<T> {
+    'load': () => any;
+    'no write pending': () => any;
+    'nothing pending': () => any;
+    'create': (source: any) => any;
+    'op': (ops: any[], source: any) => any;
+    'op batch': (ops: any[], source: any) => any;
+    'before op': (ops: any[], source: any) => any;
+    'before op batch': (ops: any[], source: any) => any;
+    'del': (data: T, source: any) => any;
+    'error': (error: Error) => any;
+    'destroy': () => any;
+}
+
 export type QueryEvent = keyof QueryEventMap<any>;
-export class Query<T = any> extends EventEmitter {
+export class Query<T = any> extends TypedEmitter<QueryEventMap<T>> {
     action: 'qf' | 'qs';
     connection: Connection;
     id: string;
@@ -153,24 +153,21 @@ export class Query<T = any> extends EventEmitter {
     sent: boolean;
     results: Array<Doc<T>>;
     extra: any;
-    on<E extends QueryEvent>(on: E, callback: QueryEventMap<T>[E]): this;
-    addListener<E extends QueryEvent>(on: E, callback: QueryEventMap<T>[E]): this;
-    removeListener<E extends QueryEvent>(on: E, callback: QueryEventMap<T>[E]): this;
     destroy(callback?: Callback): void;
 }
 
 export interface QueryEventMap<T> {
-    ready: () => void;
-    error: (error: any) => void;
-    insert: (inserted: Array<Doc<T>>, index: number) => void;
-    remove: (removed: Array<Doc<T>>, index: number) => void;
-    move: (moved: Array<Doc<T>>, from: number, to: number) => void;
-    changed: (docs: Array<Doc<T>>) => void;
-    extra: (extra: any) => void;
+    'ready': () => any;
+    'error': (error: Error) => any;
+    'insert': (inserted: Array<Doc<T>>, index: number) => any;
+    'remove': (removed: Array<Doc<T>>, index: number) => any;
+    'move': (moved: Array<Doc<T>>, from: number, to: number) => any;
+    'changed': (docs: Array<Doc<T>>) => any;
+    'extra': (extra: any) => any;
 }
 
-export type ReceivePresenceListener<T> = (id: string, value: T) => void;
-export class Presence<T = any> extends EventEmitter {
+export type ReceivePresenceListener<T> = (id: string, value: T) => any;
+export class Presence<T = any> extends TypedEmitter<PresenceEventMap<T>> {
     connection: string;
     channel: string;
     wantSubscribe: boolean;
@@ -181,11 +178,14 @@ export class Presence<T = any> extends EventEmitter {
     unsubscribe(callback?: Callback): void;
     create(id?: string): LocalPresence<T>;
     destroy(callback?: Callback): void;
-    on(event: 'receive', callback: ReceivePresenceListener<T>): this;
-    addListener(event: 'receive', callback: ReceivePresenceListener<T>): this;
 }
 
-export class LocalPresence<T = any> extends EventEmitter {
+export interface PresenceEventMap<T> {
+    'receive': ReceivePresenceListener<T>;
+    'error': (error: Error) => any;
+}
+
+export class LocalPresence<T = any> extends TypedEmitter<LocalPresenceEventMap> {
     presence: Presence<T>;
     presenceId: string;
     connection: string;
@@ -194,6 +194,10 @@ export class LocalPresence<T = any> extends EventEmitter {
     submit(value: T, callback?: Callback): void;
     send(callback?: Callback): void;
     destroy(callback?: Callback): void;
+}
+
+export interface LocalPresenceEventMap {
+    'error': (error: Error) => any;
 }
 
 export type RequestAction = 'qf' | 'qs' | 'qu' | 'bf' | 'bs' | 'bu' | 'f' | 's' | 'u' | 'op' | 'nf' | 'nt';
@@ -216,3 +220,30 @@ export interface Socket {
     onerror: (event: any) => void;
     onopen: (event: any) => void;
 }
+
+/**
+ * Typed Emitter from:
+ * https://github.com/binier/tiny-typed-emitter/blob/master/lib/index.d.ts
+ */
+export class TypedEmitter<L extends ListenerSignature<L>> {
+    static defaultMaxListeners: number;
+    addListener<U extends keyof L>(event: U, listener: L[U]): this;
+    prependListener<U extends keyof L>(event: U, listener: L[U]): this;
+    prependOnceListener<U extends keyof L>(event: U, listener: L[U]): this;
+    removeListener<U extends keyof L>(event: U, listener: L[U]): this;
+    removeAllListeners(event?: keyof L): this;
+    once<U extends keyof L>(event: U, listener: L[U]): this;
+    on<U extends keyof L>(event: U, listener: L[U]): this;
+    off<U extends keyof L>(event: U, listener: L[U]): this;
+    emit<U extends keyof L>(event: U, ...args: Parameters<L[U]>): boolean;
+    eventNames(): Array<keyof L>;
+    listenerCount(type: keyof L): number;
+    listeners<U extends keyof L>(type: U): Array<L[U]>;
+    rawListeners<U extends keyof L>(type: U): Array<L[U]>;
+    getMaxListeners(): number;
+    setMaxListeners(n: number): this;
+}
+
+export type ListenerSignature<L> = {
+    [E in keyof L]: (...args: any[]) => any;
+};
