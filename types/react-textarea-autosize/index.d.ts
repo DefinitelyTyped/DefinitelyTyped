@@ -5,9 +5,18 @@
 //                 Rahul Sagore <https://github.com/Rahul-Sagore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-
 declare module "react-textarea-autosize" {
     import * as React from "react";
+
+    type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+    type Style = Omit<NonNullable<TextareaProps["style"]>, "maxHeight" | "minHeight"> & {
+        height?: number;
+    };
+    export type TextareaHeightChangeMeta = {
+        rowHeight: number;
+    };
+
+    export type OnHeightChangeHandler = (height: number, meta?: TextareaHeightChangeMeta) => void;
 
     /**
      * <TextareaAutosize/> properties
@@ -24,9 +33,10 @@ declare module "react-textarea-autosize" {
         onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
         /**
          * Callback on height change
-         * @param height
+         * @param number height
+         * @param meta TextareaHeightChangeMeta
          */
-        onHeightChange?: (height: number) => void;
+        onHeightChange?: OnHeightChangeHandler;
         /**
          * Try to cache DOM measurements performed by component so that we don't
          * touch DOM when it's not needed.
@@ -35,7 +45,7 @@ declare module "react-textarea-autosize" {
          * component.
          * @default false
          */
-        useCacheForDOMMeasurements?: boolean;
+        cacheMeasurements?: boolean;
         /**
          * Minimal number of rows to show.
          */
@@ -52,11 +62,14 @@ declare module "react-textarea-autosize" {
          * Allows an owner to retrieve the DOM node.
          */
         inputRef?: ((node: HTMLTextAreaElement) => void) | React.RefObject<HTMLTextAreaElement>;
+        /**
+         * Style attribute forwarded to `textarea`
+         */
+        style?: Style;
     }
 
     /**
      * <TextareaAutosize/>
      */
-    export default class TextareaAutosize extends React.Component<TextareaAutosizeProps> { }
-
+    export default class TextareaAutosize extends React.Component<TextareaAutosizeProps> {}
 }
