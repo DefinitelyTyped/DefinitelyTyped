@@ -44,27 +44,6 @@ declare namespace jBinary {
  * Class for working with binary data.
  */
 declare class jBinary {
-    // =================================================================================================================
-    //                                          ??? = test this please
-    // =================================================================================================================
-
-    /**
-     * Loads data from a given source and returns it in a promise.
-     * @param source Source of the data to be loaded.
-     * @returns Promise with the loaded data as parameter.
-     */
-    static loadData(source: jBinary.SourceType): Promise<jBinary.DataType>;
-
-    /**
-     * Loads data from a given source and returns it in a callback.
-     * @param source Source of the data to be loaded.
-     * @param callback Function called when data is loaded.
-     */
-    static loadData(
-        source: jBinary.SourceType,
-        callback: (error: Error | null, data: jBinary.DataType | undefined) => void,
-    ): void;
-
     /**
      * Loads data from a given source and returns a promise with the jBinary object.
      * @param source Source of the data to be loaded.
@@ -83,6 +62,23 @@ declare class jBinary {
         source: jBinary.SourceType,
         typeSet?: jBinary.TypeSet,
         callback?: (error: Error | null, jb: jBinary) => void,
+    ): void;
+
+    /**
+     * Loads data from a given source and returns it in a promise.
+     * @param source Source of the data to be loaded.
+     * @returns Promise with the loaded data as parameter.
+     */
+    static loadData(source: jBinary.SourceType): Promise<jBinary.DataType>;
+
+    /**
+     * Loads data from a given source and returns it in a callback.
+     * @param source Source of the data to be loaded.
+     * @param callback Function called when data is loaded.
+     */
+    static loadData(
+        source: jBinary.SourceType,
+        callback: (error: Error | null, data: jBinary.DataType | undefined) => void,
     ): void;
 
     /**
@@ -187,7 +183,7 @@ declare class jBinary {
      * @param callback Possible callback to execute at the new position.
      * @returns The data returned by the callback.
      */
-    skip(count: number, callback?: (jb: jBinary /* ??? */) => unknown): unknown;
+    skip(count: number, callback: () => unknown): unknown;
 
     /**
      * Returns a sliced version of the current binary with same type set.
