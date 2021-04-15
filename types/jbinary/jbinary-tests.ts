@@ -2,7 +2,7 @@ import * as fs from "fs";
 import jBinary = require("jbinary");
 
 // #region as
-(function () {
+(() => {
     const title = '"as"';
     const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const binary2 = binary1.as({ "jBinary.all": "uint8" });
@@ -14,7 +14,7 @@ import jBinary = require("jbinary");
     }
 })();
 
-(function () {
+(() => {
     const title = '"as" (with modifyOriginal)';
     const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const binary2 = binary1.as({ "jBinary.all": "uint8" }, true);
@@ -29,7 +29,7 @@ import jBinary = require("jbinary");
 // #endregion as
 
 // #region load
-(function () {
+(() => {
     const title = '"load" (with Callback and ReadableStream)';
     const inputStream = fs.createReadStream("./test.bin");
     jBinary.load(inputStream, undefined, (err, jb) => {
@@ -41,7 +41,7 @@ import jBinary = require("jbinary");
     });
 })();
 
-(function () {
+(() => {
     const title = '"load" (with Promise and file path)';
     jBinary
         .load("./test.bin")
@@ -57,7 +57,7 @@ import jBinary = require("jbinary");
 // #endregion load
 
 // #region loadData
-(function () {
+(() => {
     const title = '"loadData" (with Callback and file path)';
     jBinary.loadData("./test.bin", (err, data) => {
         if (err) {
@@ -70,7 +70,7 @@ import jBinary = require("jbinary");
     });
 })();
 
-(function () {
+(() => {
     const title = '"loadData" (with Promise and ReadableStream)';
     const inputStream = fs.createReadStream("./test.bin");
     jBinary
@@ -87,7 +87,7 @@ import jBinary = require("jbinary");
 // #endregion loadData
 
 // #region read
-(function () {
+(() => {
     const title = '"read"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.read("uint8");
@@ -98,7 +98,7 @@ import jBinary = require("jbinary");
     }
 })();
 
-(function () {
+(() => {
     const title = '"read" (with custom position)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.read("uint8", 1);
@@ -111,7 +111,7 @@ import jBinary = require("jbinary");
 // #endregion read
 
 // #region readAll
-(function () {
+(() => {
     const title = '"readAll" (with typeset)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e], { "jBinary.all": "uint8" });
     const data = binary.readAll();
@@ -124,7 +124,7 @@ import jBinary = require("jbinary");
 // #endregion readAll
 
 // #region saveAs
-(function () {
+(() => {
     const title = '"saveAs" (with Callback, file path and text as data)';
     const filePath = "./test-saveas-callback.txt";
     const binary = new jBinary("ABCDEFG");
@@ -138,7 +138,7 @@ import jBinary = require("jbinary");
     });
 })();
 
-(function () {
+(() => {
     const title = '"saveAs" (with Promise, WritableStream and Array<number> as data)';
     const filePath = "./test-saveas-promise.bin";
     const outputStream = fs.createWriteStream(filePath);
@@ -161,7 +161,7 @@ import jBinary = require("jbinary");
 // #endregion saveAs
 
 // #region seek
-(function () {
+(() => {
     const title = '"seek"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.seek(3);
@@ -173,7 +173,7 @@ import jBinary = require("jbinary");
     }
 })();
 
-(function () {
+(() => {
     const title = '"seek" (with Callback)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.seek(3, () => {
@@ -188,7 +188,7 @@ import jBinary = require("jbinary");
 // #endregion seek
 
 // #region skip
-(function () {
+(() => {
     const title = '"skip"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.skip(2);
@@ -200,7 +200,7 @@ import jBinary = require("jbinary");
     }
 })();
 
-(function () {
+(() => {
     const title = '"skip" (with Callback)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.skip(2, () => {
@@ -215,7 +215,7 @@ import jBinary = require("jbinary");
 // #endregion skip
 
 // #region slice
-(function () {
+(() => {
     const title = '"slice"';
     const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const binary2 = binary1.slice(1, 2);
@@ -229,7 +229,7 @@ import jBinary = require("jbinary");
 // #endregion slice
 
 // #region tell
-(function () {
+(() => {
     const title = '"tell"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.skip(1);
@@ -243,7 +243,7 @@ import jBinary = require("jbinary");
 // #endregion tell
 
 // #region toURI
-(function () {
+(() => {
     const title = '"toURI"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     if (binary.toURI() === "data:application/octet-stream;base64,BQN/Hg==") {
@@ -253,7 +253,7 @@ import jBinary = require("jbinary");
     }
 })();
 
-(function () {
+(() => {
     const title = '"toURI" (with MIME type)';
     const binary = new jBinary("ABCDEFG");
     if (binary.toURI("text/plain") === "data:text/plain;base64,QUJDREVGRw==") {
@@ -265,7 +265,7 @@ import jBinary = require("jbinary");
 // #endregion toURI
 
 // #region write
-(function () {
+(() => {
     const title = '"write"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.write("uint8", 21);
@@ -278,7 +278,7 @@ import jBinary = require("jbinary");
     }
 })();
 
-(function () {
+(() => {
     const title = '"write" (with offset)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.write("uint8", 21, 3);
@@ -293,7 +293,7 @@ import jBinary = require("jbinary");
 // //#endregion write
 
 // #region writeAll
-(function () {
+(() => {
     const title = '"writeAll"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e], { "jBinary.all": "uint8" });
     binary.writeAll(128);
