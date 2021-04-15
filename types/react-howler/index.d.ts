@@ -42,11 +42,11 @@ declare class ReactHowler extends React.Component<Props> {
     howlerState(): HOWLER_STATE;
     
     load(): void;
-
+    
     pause(id?: number): void;
-
+    
     play(): void;
-
+    
     howler: Howl;
 }
 
