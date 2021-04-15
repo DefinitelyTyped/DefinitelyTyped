@@ -87,5 +87,22 @@ export function deprecate(
          * An optional url to the transition guide on the emberjs.com website.
          */
         url?: string;
+        /**
+         * The library emitting this deprecation
+         */
+        for: string;
+        /**
+         * Information about the stage for this deprecation
+         */
+        since: {
+          /**
+           * The version this deprecation was added in (but not necessarily activated)
+           */
+          available: string;
+          /**
+           * The version this deprecation was/will-be activated
+           */
+          enabled: string;
+        }
     },
 ): void;
