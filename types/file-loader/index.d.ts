@@ -1,4 +1,4 @@
-// Type definitions for file-loader 6.2
+// Type definitions for file-loader 5.0
 // Project: https://github.com/webpack-contrib/file-loader
 // Definitions by: Gareth Jones <https://github.com/g-rath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
