@@ -27,6 +27,7 @@ export class ReactHowlerTest extends React.Component {
                     onStop={id => console.log('sound with id paused', id)}
                     volume={0.5}
                     onVolume={id => console.log('volume changed', id)}
+                    onSeek={id => console.log('playback position changed', id)}
                     loop={true}
                     html5={true}
                     format={['mp3']}
