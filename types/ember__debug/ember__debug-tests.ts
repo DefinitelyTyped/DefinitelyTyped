@@ -87,4 +87,15 @@ deprecate('missing options.since.available', true, { id: 'some.deprecation', unt
 deprecate('missing options.since.enabled', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project' , since: { enabled: '3.1' }}); // $ExpectError
 deprecate('a valid deprecation without url', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project', since: { available: '3.0', enabled: '3.1' } }); // $ExpectType void
 deprecate('incorrect options url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 123, for: 'some-project', since: { available: '3.0', enabled: '3.1' }  }); // $ExpectError
-deprecate('a valid deprecation with url', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project', since: { available: '3.0', enabled: '3.1' }, url: 'https://example.com/ember-deprecations-yo' }); // $ExpectType void
+// $ExpectType void
+deprecate(
+    'a valid deprecation with url',
+    true,
+    {
+        id: 'some.deprecation',
+        until: 'v4.0.0',
+        for: 'some-project',
+        since: { available: '3.0', enabled: '3.1' },
+        url: 'https://example.com/ember-deprecations-yo'
+    }
+);
