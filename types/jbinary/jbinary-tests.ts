@@ -45,10 +45,10 @@ import jBinary = require("jbinary");
     const title = '"load" (with Promise and file path)';
     jBinary
         .load("./test.bin")
-        .then((jb) => {
+        .then(jb => {
             console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
         })
-        .catch((reason) => {
+        .catch(reason => {
             if (reason instanceof Error) {
                 console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
             }
@@ -75,53 +75,16 @@ import jBinary = require("jbinary");
     const inputStream = fs.createReadStream("./test.bin");
     jBinary
         .loadData(inputStream)
-        .then((data) => {
+        .then(data => {
             console.log(`[OK.] ${title} => Loaded ${data.length} bytes of data.`);
         })
-        .catch((reason) => {
+        .catch(reason => {
             if (reason instanceof Error) {
                 console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
             }
         });
 })();
 // #endregion loadData
-
-// #region saveAs
-(function () {
-    const title = '"saveAs" (with Callback, file path and text as data)';
-    const filePath = "./test-saveas-callback.txt";
-    const binary = new jBinary("ABCDEFG");
-    binary.saveAs(filePath, "text/plain", (err) => {
-        if (err instanceof Error) {
-            console.log(`[ERR] ${title} => Error writing file: ${err.message}`);
-        } else {
-            console.log(`[OK.] ${title} => Data saved.`);
-        }
-        fs.unlinkSync(filePath);
-    });
-})();
-
-(function () {
-    const title = '"saveAs" (with Promise, WritableStream and Array<number> as data)';
-    const filePath = "./test-saveas-promise.bin";
-    const outputStream = fs.createWriteStream(filePath);
-    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
-    binary
-        .saveAs(outputStream)
-        .then(() => {
-            console.log(`[OK.] ${title} => Data saved.`);
-        })
-        .catch((reason) => {
-            if (reason instanceof Error) {
-                console.log(`[ERR] ${title} => Error writing file: ${reason.message}`);
-            }
-        })
-        .finally(() => {
-            outputStream.close();
-            fs.unlinkSync(filePath);
-        });
-})();
-// #endregion saveAs
 
 // #region read
 (function () {
@@ -159,6 +122,43 @@ import jBinary = require("jbinary");
     }
 })();
 // #endregion readAll
+
+// #region saveAs
+(function () {
+    const title = '"saveAs" (with Callback, file path and text as data)';
+    const filePath = "./test-saveas-callback.txt";
+    const binary = new jBinary("ABCDEFG");
+    binary.saveAs(filePath, "text/plain", err => {
+        if (err instanceof Error) {
+            console.log(`[ERR] ${title} => Error writing file: ${err.message}`);
+        } else {
+            console.log(`[OK.] ${title} => Data saved.`);
+        }
+        fs.unlinkSync(filePath);
+    });
+})();
+
+(function () {
+    const title = '"saveAs" (with Promise, WritableStream and Array<number> as data)';
+    const filePath = "./test-saveas-promise.bin";
+    const outputStream = fs.createWriteStream(filePath);
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    binary
+        .saveAs(outputStream)
+        .then(() => {
+            console.log(`[OK.] ${title} => Data saved.`);
+        })
+        .catch(reason => {
+            if (reason instanceof Error) {
+                console.log(`[ERR] ${title} => Error writing file: ${reason.message}`);
+            }
+        })
+        .finally(() => {
+            outputStream.close();
+            fs.unlinkSync(filePath);
+        });
+})();
+// #endregion saveAs
 
 // #region seek
 (function () {
@@ -292,6 +292,17 @@ import jBinary = require("jbinary");
 })();
 // //#endregion write
 
-// TODO: write, writeAll
-
-// b1.writeAll(originalData);
+// #region writeAll
+(function () {
+    const title = '"writeAll"';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e], { "jBinary.all": "uint8" });
+    binary.writeAll(128);
+    binary.seek(0);
+    const data = binary.read("uint8");
+    if (data === 128) {
+        console.log(`[OK.] ${title} => Writing to binary went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Unexpected result when reading updated data.`);
+    }
+})();
+//#endregion writeAll
