@@ -78,8 +78,13 @@ deprecate('missing test and options'); // $ExpectError
 deprecate('missing options', true); // $ExpectError
 deprecate('missing options', false); // $ExpectError
 deprecate('missing options body', true, {}); // $ExpectError
-deprecate('missing options id', true, { until: 'v4.0.0' }); // $ExpectError
-deprecate('missing options until', true, { id: 'some.deprecation' }); // $ExpectError
-deprecate('a valid deprecation without url', true, { id: 'some.deprecation', until: 'v4.0.0' }); // $ExpectType void
-deprecate('incorrect options url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 123 }); // $ExpectError
-deprecate('a valid deprecation with url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 'https://example.com/ember-deprecations-yo' }); // $ExpectType void
+deprecate('missing options id', true, { until: 'v4.0.0', for: 'some-project', since: { available: '3.0', enabled: '3.1' } }); // $ExpectError
+deprecate('missing options until', true, { id: 'some.deprecation', for: 'some-project', since: { available: '3.0', enabled: '3.1' } }); // $ExpectError
+deprecate('missing options.for', true, { id: 'some.deprecation', until: 'v4.0.0', since: { available: '3.0', enabled: '3.1' } }); // $ExpectError
+deprecate('missing options.since', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project' }); // $ExpectError
+deprecate('missing options.since{available,enabled}', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project' , since: {}}); // $ExpectError
+deprecate('missing options.since.available', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project' , since: { available: '3.0' }}); // $ExpectError
+deprecate('missing options.since.enabled', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project' , since: { enabled: '3.1' }}); // $ExpectError
+deprecate('a valid deprecation without url', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project', since: { available: '3.0', enabled: '3.1' } }); // $ExpectType void
+deprecate('incorrect options url', true, { id: 'some.deprecation', until: 'v4.0.0', url: 123, for: 'some-project', since: { available: '3.0', enabled: '3.1' }  }); // $ExpectError
+deprecate('a valid deprecation with url', true, { id: 'some.deprecation', until: 'v4.0.0', for: 'some-project', since: { available: '3.0', enabled: '3.1' }, url: 'https://example.com/ember-deprecations-yo' }); // $ExpectType void

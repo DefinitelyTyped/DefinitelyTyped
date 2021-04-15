@@ -1,5 +1,5 @@
-// Type definitions for non-npm package @ember/debug 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fdebug
+// Type definitions for non-npm package @ember/debug 3.24
+// Project: https://emberjs.com/api/ember/3.24/modules/@ember%2Fdebug
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
@@ -95,14 +95,14 @@ export function deprecate(
          * Information about the stage for this deprecation
          */
         since: {
-          /**
-           * The version this deprecation was added in (but not necessarily activated)
-           */
-          available: string;
-          /**
-           * The version this deprecation was/will-be activated
-           */
-          enabled: string;
+            /**
+             * The version this deprecation was added in (but not necessarily activated)
+             */
+            available: string;
+            /**
+             * The version this deprecation was/will-be activated
+             */
+            enabled: string;
         }
     },
 ): void;
