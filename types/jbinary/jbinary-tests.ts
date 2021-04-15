@@ -214,6 +214,20 @@ import jBinary = require("jbinary");
 })();
 // #endregion skip
 
+// #region slice
+(function () {
+    const title = '"slice"';
+    const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    const binary2 = binary1.slice(1, 2);
+    const data = binary2.read("uint8");
+    if (data === 3) {
+        console.log(`[OK.] ${title} => Slicing and reading data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected 3 after slice but got ${data}.`);
+    }
+})();
+// #endregion slice
+
 // #region toURI
 (function () {
     const title = '"toURI"';
@@ -236,7 +250,7 @@ import jBinary = require("jbinary");
 })();
 // #endregion toURI
 
-// TODO: slice, tell, write, writeAll
+// TODO: tell, write, writeAll
 
 // console.log(b1.slice(0, 2));
 // console.log(b1.tell());
