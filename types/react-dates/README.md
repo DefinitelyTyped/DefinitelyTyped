@@ -6,4 +6,4 @@ When a new component or util has been published by `react-dates`:
 
 - Add the type to `index.d.ts`
 - Add your entry import/re-export in `esm` & `lib` folders
-- Add `esm/<type>.d.ts` & `src/<type>.d.ts` to `OTHER_FILES.txt`
+- Add `esm/<type>.d.ts` & `lib/<type>.d.ts` to `OTHER_FILES.txt`
