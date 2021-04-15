@@ -12,7 +12,4 @@
  *
  */
 export default function compareArrays<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): number | ArrayRelation;
-/**
- * :utils/comparearrays~ArrayRelation
- */
 export type ArrayRelation = "extension" | "same" | "prefix";
