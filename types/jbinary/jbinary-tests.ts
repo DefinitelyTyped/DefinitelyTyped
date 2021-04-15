@@ -1,6 +1,33 @@
 import * as fs from "fs";
 import jBinary = require("jbinary");
 
+// #region as
+(function () {
+    const title = '"as"';
+    const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    const binary2 = binary1.as({ "jBinary.all": "uint8" });
+    const data2 = String(binary2.readAll());
+    if (data2 === "5") {
+        console.log(`[OK.] ${title} => Aliasing data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected '5' but got '${data2}'.`);
+    }
+})();
+
+(function () {
+    const title = '"as" (with modifyOriginal)';
+    const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    const binary2 = binary1.as({ "jBinary.all": "uint8" }, true);
+    const data1 = String(binary1.readAll());
+    const data2 = String(binary2.readAll());
+    if (data1 === data2) {
+        console.log(`[OK.] ${title} => Aliasing data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected '${data1}' to be equal to '${data2}'.`);
+    }
+})();
+// #endregion as
+
 // #region loadData
 (function () {
     const title = '"loadData" (with Callback and file path)';
@@ -15,36 +42,34 @@ import jBinary = require("jbinary");
     });
 })();
 
-// Note: The following test fails, because of an open bug in jBinary: https://github.com/jDataView/jBinary/issues/46
-// (function () {
-//     const title = '"loadData" (with Promise and ReadableStream)';
-//     const inputStream = fs.createReadStream("./test.bin");
-//     jBinary
-//         .loadData(inputStream)
-//         .then((data) => {
-//             console.log(`[OK.] ${title} => Loaded ${data.length} bytes of data.`);
-//         })
-//         .catch((reason) => {
-//             if (reason instanceof Error) {
-//                 console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
-//             }
-//         });
-// })();
+(function () {
+    const title = '"loadData" (with Promise and ReadableStream)';
+    const inputStream = fs.createReadStream("./test.bin");
+    jBinary
+        .loadData(inputStream)
+        .then(data => {
+            console.log(`[OK.] ${title} => Loaded ${data.length} bytes of data.`);
+        })
+        .catch(reason => {
+            if (reason instanceof Error) {
+                console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
+            }
+        });
+})();
 // #endregion loadData
 
 // #region load
-// Note: The following test fails, because of an open bug in jBinary: https://github.com/jDataView/jBinary/issues/46
-// (function () {
-//     const title = '"load" (with Callback and ReadableStream)';
-//     const inputStream = fs.createReadStream("./test.bin");
-//     jBinary.load(inputStream, undefined, (err, jb) => {
-//         if (err) {
-//             console.log(`[ERR] ${title} => Error reading file: ${err.message}`);
-//         } else {
-//             console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
-//         }
-//     });
-// })();
+(function () {
+    const title = '"load" (with Callback and ReadableStream)';
+    const inputStream = fs.createReadStream("./test.bin");
+    jBinary.load(inputStream, undefined, (err, jb) => {
+        if (err) {
+            console.log(`[ERR] ${title} => Error reading file: ${err.message}`);
+        } else {
+            console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
+        }
+    });
+})();
 
 (function () {
     const title = '"load" (with Promise and file path)';
@@ -97,16 +122,6 @@ import jBinary = require("jbinary");
         });
 })();
 // #endregion saveAs
-
-// b1.seek(4);
-// console.log(b1.read("int8"));
-
-// console.log(b1.tell());
-
-// b1.write("int8", 0x9a, 2);
-// b1.writeAll(originalData);
-
-// console.log(b1.slice(0, 2));
 
 // #region read
 (function () {
@@ -167,3 +182,9 @@ import jBinary = require("jbinary");
 // #endregion toURI
 
 // TODO: as, skip, slice, tell, write, writeAll
+// console.log(b1.tell());
+
+// b1.write("int8", 0x9a, 2);
+// b1.writeAll(originalData);
+
+// console.log(b1.slice(0, 2));
