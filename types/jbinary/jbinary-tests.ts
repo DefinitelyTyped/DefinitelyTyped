@@ -6,11 +6,11 @@ import jBinary = require("jbinary");
     const title = '"as"';
     const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const binary2 = binary1.as({ "jBinary.all": "uint8" });
-    const data2 = String(binary2.readAll());
-    if (data2 === "5") {
+    const data2 = binary2.readAll();
+    if (data2 === 5) {
         console.log(`[OK.] ${title} => Aliasing data went fine.`);
     } else {
-        console.log(`[ERR] ${title} => Expected '5' but got '${data2}'.`);
+        console.log(`[ERR] ${title} => Expected 5 but got ${data2}.`);
     }
 })();
 
@@ -18,15 +18,43 @@ import jBinary = require("jbinary");
     const title = '"as" (with modifyOriginal)';
     const binary1 = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const binary2 = binary1.as({ "jBinary.all": "uint8" }, true);
-    const data1 = String(binary1.readAll());
-    const data2 = String(binary2.readAll());
+    const data1 = binary1.readAll();
+    const data2 = binary2.readAll();
     if (data1 === data2) {
         console.log(`[OK.] ${title} => Aliasing data went fine.`);
     } else {
-        console.log(`[ERR] ${title} => Expected '${data1}' to be equal to '${data2}'.`);
+        console.log(`[ERR] ${title} => Expected ${data1} to be equal to ${data2}.`);
     }
 })();
 // #endregion as
+
+// #region load
+(function () {
+    const title = '"load" (with Callback and ReadableStream)';
+    const inputStream = fs.createReadStream("./test.bin");
+    jBinary.load(inputStream, undefined, (err, jb) => {
+        if (err) {
+            console.log(`[ERR] ${title} => Error reading file: ${err.message}`);
+        } else {
+            console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
+        }
+    });
+})();
+
+(function () {
+    const title = '"load" (with Promise and file path)';
+    jBinary
+        .load("./test.bin")
+        .then((jb) => {
+            console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
+        })
+        .catch((reason) => {
+            if (reason instanceof Error) {
+                console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
+            }
+        });
+})();
+// #endregion load
 
 // #region loadData
 (function () {
@@ -47,10 +75,10 @@ import jBinary = require("jbinary");
     const inputStream = fs.createReadStream("./test.bin");
     jBinary
         .loadData(inputStream)
-        .then(data => {
+        .then((data) => {
             console.log(`[OK.] ${title} => Loaded ${data.length} bytes of data.`);
         })
-        .catch(reason => {
+        .catch((reason) => {
             if (reason instanceof Error) {
                 console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
             }
@@ -58,40 +86,12 @@ import jBinary = require("jbinary");
 })();
 // #endregion loadData
 
-// #region load
-(function () {
-    const title = '"load" (with Callback and ReadableStream)';
-    const inputStream = fs.createReadStream("./test.bin");
-    jBinary.load(inputStream, undefined, (err, jb) => {
-        if (err) {
-            console.log(`[ERR] ${title} => Error reading file: ${err.message}`);
-        } else {
-            console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
-        }
-    });
-})();
-
-(function () {
-    const title = '"load" (with Promise and file path)';
-    jBinary
-        .load("./test.bin")
-        .then(jb => {
-            console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
-        })
-        .catch(reason => {
-            if (reason instanceof Error) {
-                console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
-            }
-        });
-})();
-// #endregion load
-
 // #region saveAs
 (function () {
     const title = '"saveAs" (with Callback, file path and text as data)';
     const filePath = "./test-saveas-callback.txt";
     const binary = new jBinary("ABCDEFG");
-    binary.saveAs(filePath, "text/plain", err => {
+    binary.saveAs(filePath, "text/plain", (err) => {
         if (err instanceof Error) {
             console.log(`[ERR] ${title} => Error writing file: ${err.message}`);
         } else {
@@ -111,7 +111,7 @@ import jBinary = require("jbinary");
         .then(() => {
             console.log(`[OK.] ${title} => Data saved.`);
         })
-        .catch(reason => {
+        .catch((reason) => {
             if (reason instanceof Error) {
                 console.log(`[ERR] ${title} => Error writing file: ${reason.message}`);
             }
@@ -128,14 +128,22 @@ import jBinary = require("jbinary");
     const title = '"read"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.read("uint8");
-    console.log(`[OK.] ${title} => Read the following data byte: "${String(data)}"`);
+    if (data === 5) {
+        console.log(`[OK.] ${title} => Reading data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected 5 but got ${data}.`);
+    }
 })();
 
 (function () {
     const title = '"read" (with custom position)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     const data = binary.read("uint8", 1);
-    console.log(`[OK.] ${title} => Read the following data byte: "${String(data)}"`);
+    if (data === 3) {
+        console.log(`[OK.] ${title} => Reading data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected 3 but got ${data}.`);
+    }
 })();
 // #endregion read
 
@@ -144,7 +152,11 @@ import jBinary = require("jbinary");
     const title = '"readAll" (with typeset)';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e], { "jBinary.all": "uint8" });
     const data = binary.readAll();
-    console.log(`[OK.] ${title} => Read the following data: "${String(data)}"`);
+    if (data === 5) {
+        console.log(`[OK.] ${title} => Reading data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected 5 but got ${data}.`);
+    }
 })();
 // #endregion readAll
 
@@ -154,7 +166,11 @@ import jBinary = require("jbinary");
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
     binary.seek(3);
     const data = binary.read("uint8");
-    console.log(`[OK.] ${title} => Read the following data after seek: "${String(data)}"`);
+    if (data === 30) {
+        console.log(`[OK.] ${title} => Seeking and reading data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected 30 after seek but got ${data}.`);
+    }
 })();
 
 (function () {
@@ -163,28 +179,66 @@ import jBinary = require("jbinary");
     const data = binary.seek(3, () => {
         return binary.read("uint8");
     });
-    console.log(`[OK.] ${title} => Read the following data after seek: "${String(data)}"`);
+    if (data === 30) {
+        console.log(`[OK.] ${title} => Seeking and reading data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected 30 after seek but got ${data}.`);
+    }
 })();
 // #endregion seek
+
+// #region skip
+(function () {
+    const title = '"skip"';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    binary.skip(2);
+    const data = binary.read("uint8");
+    if (data === 127) {
+        console.log(`[OK.] ${title} => Skipping and reading data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected 127 after skip but got ${data}.`);
+    }
+})();
+
+(function () {
+    const title = '"skip" (with Callback)';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    const data = binary.skip(2, () => {
+        return binary.read("uint8");
+    });
+    if (data === 127) {
+        console.log(`[OK.] ${title} => Skipping and reading data went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected 127 after skip but got ${data}.`);
+    }
+})();
+// #endregion skip
 
 // #region toURI
 (function () {
     const title = '"toURI"';
     const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
-    console.log(`[OK.] ${title} => ${binary.toURI()}`);
+    if (binary.toURI() === "data:application/octet-stream;base64,BQN/Hg==") {
+        console.log(`[OK.] ${title} => URI generation went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Unexpected result.`);
+    }
 })();
 
 (function () {
     const title = '"toURI" (with MIME type)';
     const binary = new jBinary("ABCDEFG");
-    console.log(`[OK.] ${title} => ${binary.toURI("text/plain")}`);
+    if (binary.toURI("text/plain") === "data:text/plain;base64,QUJDREVGRw==") {
+        console.log(`[OK.] ${title} => URI generation went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Unexpected result.`);
+    }
 })();
 // #endregion toURI
 
-// TODO: as, skip, slice, tell, write, writeAll
-// console.log(b1.tell());
-
-// b1.write("int8", 0x9a, 2);
-// b1.writeAll(originalData);
+// TODO: slice, tell, write, writeAll
 
 // console.log(b1.slice(0, 2));
+// console.log(b1.tell());
+// b1.write("int8", 0x9a, 2);
+// b1.writeAll(originalData);
