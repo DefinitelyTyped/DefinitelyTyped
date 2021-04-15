@@ -27,6 +27,7 @@ interface Props {
     onVolume?: (id: number) => void;
     onStop?: (id: number) => void;
     onLoad?: () => void;
+    onSeek?: (id: number) => void;
     onLoadError?: (id: number) => void;
     html5?: boolean;
 }
@@ -39,6 +40,12 @@ declare class ReactHowler extends React.Component<Props> {
     seek(time?: number): number;
 
     howlerState(): HOWLER_STATE;
+    
+    load(): void;
+
+    pause(id?: number): void;
+
+    play(): void;
 
     howler: Howl;
 }
