@@ -96,9 +96,10 @@ export function deprecate(
          */
         since: {
             /**
-             * The version this deprecation was added in (but not necessarily activated)
+             * Optional: The version this deprecation was added in if different than the version
+             * it was enabled in.
              */
-            available: string;
+            available?: string;
             /**
              * The version this deprecation was/will-be activated
              */
