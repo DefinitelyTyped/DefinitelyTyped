@@ -78,6 +78,20 @@ const person = Factory.build<Person>('Person');
 let aString = '';
 aString = person.firstName;
 
+// It supports options not defined in the type definition
+const personWithNicknameFactory = new Factory<Person>()
+  .attr('firstName', 'Frances')
+  .attr('lastName', 'Parker')
+  .option('nickname', null)
+  .attr('fullName', ['firstName', 'lastName', 'nickname'], (firstName, lastName, nickname) => {
+    if (nickname) {
+      return `${firstName} "${nickname}" ${lastName}`;
+    }
+    return `${firstName} ${lastName}`;
+  });
+// $ExpectType Person
+const personWithNickname = personWithNicknameFactory.build({}, { nickname: 'Franny' });
+
 // Unregistered factories
 const unregisteredPersonFactory = new Factory<Person>();
 

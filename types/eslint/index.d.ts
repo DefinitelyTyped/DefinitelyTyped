@@ -154,7 +154,7 @@ export class SourceCode {
 
     getComments(node: ESTree.Node): { leading: ESTree.Comment[]; trailing: ESTree.Comment[] };
 
-    getJSDocComment(node: ESTree.Node): AST.Token | null;
+    getJSDocComment(node: ESTree.Node): ESTree.Comment | null;
 
     getNodeByRangeIndex(index: number): ESTree.Node | null;
 
@@ -167,70 +167,73 @@ export class SourceCode {
     // Inherited methods from TokenStore
     // ---------------------------------
 
-    getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): AST.Token | null;
+    getTokenByRangeStart(offset: number, options?: { includeComments?: boolean }): AST.Token | ESTree.Comment | null;
 
-    getFirstToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getFirstToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | ESTree.Comment | null;
 
-    getFirstTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getFirstTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): Array<AST.Token | ESTree.Comment>;
 
-    getLastToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | null;
+    getLastToken(node: ESTree.Node, options?: SourceCode.CursorWithSkipOptions): AST.Token | ESTree.Comment | null;
 
-    getLastTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): AST.Token[];
+    getLastTokens(node: ESTree.Node, options?: SourceCode.CursorWithCountOptions): Array<AST.Token | ESTree.Comment>;
 
     getTokenBefore(
         node: ESTree.Node | AST.Token | ESTree.Comment,
         options?: SourceCode.CursorWithSkipOptions,
-    ): AST.Token | null;
+    ): AST.Token | ESTree.Comment | null;
 
     getTokensBefore(
         node: ESTree.Node | AST.Token | ESTree.Comment,
         options?: SourceCode.CursorWithCountOptions,
-    ): AST.Token[];
+    ): Array<AST.Token | ESTree.Comment>;
 
     getTokenAfter(
         node: ESTree.Node | AST.Token | ESTree.Comment,
         options?: SourceCode.CursorWithSkipOptions,
-    ): AST.Token | null;
+    ): AST.Token | ESTree.Comment | null;
 
     getTokensAfter(
         node: ESTree.Node | AST.Token | ESTree.Comment,
         options?: SourceCode.CursorWithCountOptions,
-    ): AST.Token[];
+    ): Array<AST.Token | ESTree.Comment>;
 
     getFirstTokenBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
         options?: SourceCode.CursorWithSkipOptions,
-    ): AST.Token | null;
+    ): AST.Token | ESTree.Comment | null;
 
     getFirstTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
         options?: SourceCode.CursorWithCountOptions,
-    ): AST.Token[];
+    ): Array<AST.Token | ESTree.Comment>;
 
     getLastTokenBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
         options?: SourceCode.CursorWithSkipOptions,
-    ): AST.Token | null;
+    ): AST.Token | ESTree.Comment | null;
 
     getLastTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
         options?: SourceCode.CursorWithCountOptions,
-    ): AST.Token[];
+    ): Array<AST.Token | ESTree.Comment>;
 
     getTokensBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
         right: ESTree.Node | AST.Token | ESTree.Comment,
-        padding?: number | SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions,
-    ): AST.Token[];
+        padding?: SourceCode.CursorWithCountOptions,
+    ): Array<AST.Token | ESTree.Comment>;
 
     getTokens(node: ESTree.Node, beforeCount?: number, afterCount?: number): AST.Token[];
-    getTokens(node: ESTree.Node, options: SourceCode.FilterPredicate | SourceCode.CursorWithCountOptions): AST.Token[];
+    getTokens(node: ESTree.Node, options: SourceCode.CursorWithCountOptions): Array<AST.Token | ESTree.Comment>;
 
-    commentsExistBetween(left: ESTree.Node | AST.Token, right: ESTree.Node | AST.Token): boolean;
+    commentsExistBetween(
+        left: ESTree.Node | AST.Token | ESTree.Comment,
+        right: ESTree.Node | AST.Token | ESTree.Comment,
+    ): boolean;
 
     getCommentsBefore(nodeOrToken: ESTree.Node | AST.Token): ESTree.Comment[];
 
@@ -553,7 +556,7 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021;
         sourceType?: "script" | "module";
         ecmaFeatures?: {
             globalReturn?: boolean;

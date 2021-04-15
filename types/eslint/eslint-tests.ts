@@ -1,7 +1,7 @@
 import { Comment, WhileStatement } from "estree";
 import { AST, SourceCode, Rule, Linter, ESLint, CLIEngine, RuleTester, Scope } from "eslint";
 import { ESLintRules } from "eslint/rules";
-import * as _noUnusedExpressions from 'eslint/lib/rules/no-unused-expressions';
+import * as _noUnusedExpressions from "eslint/lib/rules/no-unused-expressions";
 
 const SOURCE = `var foo = bar;`;
 
@@ -56,7 +56,7 @@ sourceCode.getAllComments();
 sourceCode.getComments(AST).leading;
 sourceCode.getComments(AST).trailing;
 
-sourceCode.getJSDocComment(AST);
+sourceCode.getJSDocComment(AST); // $ExpectType Comment | null
 
 sourceCode.getNodeByRangeIndex(0);
 
@@ -70,7 +70,7 @@ loc.column; // $ExpectType number
 
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 
-sourceCode.getTokenByRangeStart(0);
+sourceCode.getTokenByRangeStart(0); // $ExpectType Comment | Token | null
 sourceCode.getTokenByRangeStart(0, { includeComments: true });
 
 sourceCode.getFirstToken(AST);
@@ -214,6 +214,7 @@ sourceCode.getTokens(AST, { includeComments: true, filter: t => t.type === "Iden
 
 sourceCode.commentsExistBetween(AST, AST);
 sourceCode.commentsExistBetween(TOKEN, TOKEN);
+sourceCode.commentsExistBetween(COMMENT, COMMENT);
 
 sourceCode.getCommentsBefore(AST);
 sourceCode.getCommentsBefore(TOKEN);
@@ -443,7 +444,7 @@ linter.verify(SOURCE, {}, { reportUnusedDisableDirectives: true });
 linter.verify(SOURCE, {}, { preprocess: input => input.split(" ") });
 linter.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
 
-linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6 } }, "test.js");
+linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, "test.js");
 linter.verify(
     SOURCE,

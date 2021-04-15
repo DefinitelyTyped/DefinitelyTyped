@@ -23,7 +23,7 @@ export class Triangle {
 
     set(a: Vector3, b: Vector3, c: Vector3): Triangle;
     setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle;
-    clone(): Triangle;
+    clone(): this;
     copy(triangle: Triangle): this;
     getArea(): number;
     getMidpoint(target: Vector3): Vector3;

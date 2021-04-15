@@ -32,6 +32,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     formattingTests();
     fragListTests(model);
     modelTests(model);
+    await propertyDbTests(model);
     await dataVizTests(viewer);
     await dataVizPlanarTests(viewer);
     await edit2DTests(viewer);
@@ -151,6 +152,22 @@ async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
     const mainModel = viewer.model;
 
     ext.compareTwoModels(mainModel, secondaryModel);
+}
+
+function propertyDbTests(model: Autodesk.Viewing.Model): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        function userFunction(pdb: any) {
+            const names = [];
+
+            pdb.enumAttributes((i: number, attrDef: any) => {
+                names.push(attrDef.displayName);
+            });
+        }
+
+        model.getPropertyDb().executeUserFunction(userFunction).then((result) => {
+            resolve();
+        });
+    });
 }
 
 async function propertyTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {

@@ -6,6 +6,5 @@ export class RectAreaLightHelper extends Line {
     light: RectAreaLight;
     color: Color | string | number | undefined;
 
-    update(): void;
     dispose(): void;
 }

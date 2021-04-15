@@ -25,7 +25,7 @@ declare namespace LoaderRegistry {
             TLoader extends Loader<T, TOptions> = Loader<T>,
             TOptions = TLoader extends Loader<T, infer U> ? U : {}>(
                 node: GraphPointer,
-                options?: TOptions): Promise<T | null>;
+                options?: TOptions): Promise<T> | T | null;
         loader(node: GraphPointer): Loader<any, any> | null;
     }
 }

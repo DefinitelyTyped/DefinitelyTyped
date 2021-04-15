@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.39
+// Type definitions for non-npm package Forge Viewer 7.40
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -383,7 +383,7 @@ declare namespace Autodesk {
           getCustomLoadOptions?: any;
           ignoreGlobalOffset?: boolean;
           multiViewerFactory?: any;
-          propagateInputEvents?: boolean;
+          propagateInputEventTypes?: string[];
           unloadUnfinishedModels?: boolean;
           useDynamicGlobalOffset?: boolean;
           viewerConfig?: any;
@@ -644,6 +644,8 @@ declare namespace Autodesk {
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
+            getInverseModelToViewerTransform(): THREE.Matrix4;
+            getInversePlacementWithOffset(): THREE.Matrix4;
             getModelKey(): string;
             getModelToViewerTransform(): THREE.Matrix4;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
@@ -651,6 +653,7 @@ declare namespace Autodesk {
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
+            getPropertyDb(): PropDbLoader;
             getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): void;
             getPropertySetAsync(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
             geomPolyCount(): number;
@@ -755,6 +758,10 @@ declare namespace Autodesk {
             DIFF_TOOL_DEACTIVATED = 'diff.tool.deactivated',
             DIFF_TOOL_MODEL_VISIBILITY_CHANGED = 'diff.tool.model.visibility.changed'
           }
+        }
+
+        interface PropDbLoader {
+          executeUserFunction(userFunc: (pdb: any, ...args: any[]) => any, args?: any): Promise<any>;
         }
 
         interface PropertyResult {
@@ -1122,6 +1129,12 @@ declare namespace Autodesk {
             isHighlightDisabled(): boolean;
             isHighlightPaused(): boolean;
             isHighlightActive(): boolean;
+            isLoadDone(include?: {
+              geometry?: boolean,
+              onlyModels?: boolean,
+              propDb?: boolean,
+              textures?: boolean
+            }): boolean;
             isSelectionDisabled(): boolean;
             loadExtension(extensionId: string, options?: object): Promise<Extension>;
             getExtension(extensionId: string, callback?: (ext: Extension) => void): Extension;
@@ -1142,6 +1155,12 @@ declare namespace Autodesk {
             hasEventListener(type: string, callback: (event: any) => void): any;
             removeEventListener(type: string, callback: (event: any) => void): any;
             dispatchEvent(event: object): void;
+            waitForLoadDone(include?: {
+              geometry?: boolean,
+              onlyModels?: boolean,
+              propDb?: boolean,
+              textures?: boolean
+            }): Promise<void>;
         }
 
         class GuiViewer3D extends Viewer3D {
@@ -1786,6 +1805,7 @@ declare namespace Autodesk {
             onPropertyRightClick(property: object, event: Event): void;
             removeAllProperties(): void;
             removeProperty(name: string, value: string, category: string, options?: object): boolean;
+            setAggregatedProperties(propSet: PropertySet): void;
             setCategoryCollapsed(category: object, collapsed: boolean): void;
             setProperties(properties: Array<{displayName: string, displayValue: any}>, options?: object): void;
             showDefaultProperties(): void;
@@ -2045,7 +2065,7 @@ declare namespace Autodesk {
           addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
           getChildLeafs(results: SurfaceShadingNode[]): void;
           getLeafsById(id: string, results: SurfaceShadingNode[]): SurfaceShadingNode[];
-          getNodeById(id: string): SurfaceShadingGroup;
+          getNodeById(id: string): SurfaceShadingGroup|SurfaceShadingNode;
           update(model: Viewing.Model): void;
         }
 
