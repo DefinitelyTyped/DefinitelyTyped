@@ -45,10 +45,10 @@ import jBinary = require("jbinary");
     const title = '"load" (with Promise and file path)';
     jBinary
         .load("./test.bin")
-        .then((jb) => {
+        .then(jb => {
             console.log(`[OK.] ${title} => Loaded ${jb.view.buffer.length} bytes of data.`);
         })
-        .catch((reason) => {
+        .catch(reason => {
             if (reason instanceof Error) {
                 console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
             }
@@ -75,10 +75,10 @@ import jBinary = require("jbinary");
     const inputStream = fs.createReadStream("./test.bin");
     jBinary
         .loadData(inputStream)
-        .then((data) => {
+        .then(data => {
             console.log(`[OK.] ${title} => Loaded ${data.length} bytes of data.`);
         })
-        .catch((reason) => {
+        .catch(reason => {
             if (reason instanceof Error) {
                 console.log(`[ERR] ${title} => Error reading file: ${reason.message}`);
             }
@@ -91,7 +91,7 @@ import jBinary = require("jbinary");
     const title = '"saveAs" (with Callback, file path and text as data)';
     const filePath = "./test-saveas-callback.txt";
     const binary = new jBinary("ABCDEFG");
-    binary.saveAs(filePath, "text/plain", (err) => {
+    binary.saveAs(filePath, "text/plain", err => {
         if (err instanceof Error) {
             console.log(`[ERR] ${title} => Error writing file: ${err.message}`);
         } else {
@@ -111,7 +111,7 @@ import jBinary = require("jbinary");
         .then(() => {
             console.log(`[OK.] ${title} => Data saved.`);
         })
-        .catch((reason) => {
+        .catch(reason => {
             if (reason instanceof Error) {
                 console.log(`[ERR] ${title} => Error writing file: ${reason.message}`);
             }
@@ -228,6 +228,20 @@ import jBinary = require("jbinary");
 })();
 // #endregion slice
 
+// #region tell
+(function () {
+    const title = '"tell"';
+    const binary = new jBinary([0x05, 0x03, 0x7f, 0x1e]);
+    binary.skip(1);
+    const pos = binary.tell();
+    if (pos === 1) {
+        console.log(`[OK.] ${title} => Telling position in binary went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Expected position in binary to be 1 after skip but was ${pos}.`);
+    }
+})();
+// #endregion tell
+
 // #region toURI
 (function () {
     const title = '"toURI"';
@@ -250,9 +264,8 @@ import jBinary = require("jbinary");
 })();
 // #endregion toURI
 
-// TODO: tell, write, writeAll
+// TODO: write, writeAll
 
 // console.log(b1.slice(0, 2));
-// console.log(b1.tell());
 // b1.write("int8", 0x9a, 2);
 // b1.writeAll(originalData);
