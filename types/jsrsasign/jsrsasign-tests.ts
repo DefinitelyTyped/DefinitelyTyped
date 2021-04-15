@@ -1,4 +1,4 @@
-import { KJUR, KEYUTIL, b64toBA, b64tohex } from 'jsrsasign';
+import { KJUR, KEYUTIL, b64toBA, b64tohex, RSAKey } from 'jsrsasign';
 
 const ec = new KJUR.crypto.ECDSA({ curve: 'secp256r1' });
 ec.generateKeyPairHex();
@@ -31,3 +31,7 @@ b64tohex('ZXhhbXBsZQ=='); // $ExpectType string
 
 KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', { utf8: '123abc' });
 KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', '123abc');
+
+KJUR.jws.JWS.verifyJWT('', new RSAKey(), {});
+KJUR.jws.JWS.verifyJWT('', '', {});
+KJUR.jws.JWS.verifyJWT('', '', { gracePeriod: 1 });
