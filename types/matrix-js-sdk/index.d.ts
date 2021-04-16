@@ -1091,8 +1091,8 @@ export interface CreateClientOption {
 export function createClient(ops: string | CreateClientOption): MatrixClient;
 
 export interface EventContentType {
-    body: string;
-    msgtype: MsgType;
+    body?: string;
+    msgtype?: MsgType;
 }
 
 export interface UnsignedType {
