@@ -3,6 +3,7 @@
 // Definitions by: Tim Bureck <https://github.com/tbureck>
 //                 Krisztián Balla <https://github.com/krisztianb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.4
 
 // Additional notes:
 // Method stubs and types are taken from the official jBinary documentation, which can be found here:
