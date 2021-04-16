@@ -94,7 +94,6 @@ export interface ReactPaginateProps {
      */
     pageLinkClassName?: string;
 
-
     /**
      * Function to set the text on page links. Defaults to `(page) => page`
      */
@@ -153,7 +152,6 @@ export interface ReactPaginateProps {
 
     /**
      * The event to listen onto before changing the selected page. Default is: "onClick".
-
      */
     eventListener?: string;
 }
