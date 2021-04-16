@@ -264,6 +264,67 @@ import jBinary = require("jbinary");
 })();
 // #endregion toURI
 
+// #region Template
+(() => {
+    const title = '"Template"';
+    const binary = new jBinary([0x00, 0x03, 0x04, 0x05, 0x06, 0x07], {
+        DynamicArray: jBinary.Template({
+            setParams(itemType) {
+                this.baseType = {
+                    length: "uint16",
+                    values: ["array", itemType, "length"],
+                };
+            },
+            read() {
+                return this.baseRead().values;
+            },
+            write(values) {
+                this.baseWrite({
+                    length: values.length,
+                    values,
+                });
+            },
+        }),
+        byteArray: ["DynamicArray", "uint8"],
+    });
+    const byteArray = binary.read("byteArray") as number[];
+    if (byteArray.length === 3 && byteArray[0] === 4 && byteArray[1] === 5 && byteArray[2] === 6) {
+        console.log(`[OK.] ${title} => Reading data using template type went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Unexpected result.`);
+    }
+})();
+// #endregion Template
+
+// #region Type
+(() => {
+    const title = '"Type"';
+    const binary = new jBinary([0x00, 0x03, 0x04, 0x05, 0x06, 0x07], {
+        DynamicArray: jBinary.Type({
+            params: ["itemType"],
+            resolve(getType) {
+                this.itemType = getType(this.itemType);
+            },
+            read() {
+                const length = this.binary.read("uint16") as number;
+                return this.binary.read(["array", this.itemType, length]);
+            },
+            write(values: number[]) {
+                this.binary.write("uint16", values.length);
+                this.binary.write(["array", this.itemType], values);
+            },
+        }),
+        byteArray: ["DynamicArray", "uint8"],
+    });
+    const byteArray = binary.read("byteArray") as number[];
+    if (byteArray.length === 3 && byteArray[0] === 4 && byteArray[1] === 5 && byteArray[2] === 6) {
+        console.log(`[OK.] ${title} => Reading data using custom type went fine.`);
+    } else {
+        console.log(`[ERR] ${title} => Unexpected result.`);
+    }
+})();
+// #endregion Type
+
 // #region write
 (() => {
     const title = '"write"';
