@@ -3,7 +3,6 @@
 // Definitions by: Zhang Nan <https://github.com/anyone-developer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference lib="esnext.asynciterable" />
 /// <reference types="node" />
 
 import * as fs from "fs";

@@ -1,5 +1,4 @@
 import constantsImport = require('./constants');
-import parse = require('./parse');
 import parseImport = require('./parse');
 import scanImport = require('./scan');
 
@@ -34,7 +33,7 @@ declare namespace picomatch {
     }
 
     interface MatcherWithState extends Matcher {
-        state: parse.ParseState;
+        state: parseImport.ParseState;
     }
 
     interface Result {
@@ -219,17 +218,17 @@ declare namespace picomatch {
 
     function isMatch(str: string | string[], patterns: string | string[], options?: {}): boolean;
 
-    function parse(pattern: string[], options?: {}): Array<ReturnType<typeof parseImport>>;
-    function parse(pattern: string, options?: {}): ReturnType<typeof parseImport>;
+    function parse(pattern: string[], options?: { maxLength?: number }): parseImport.ParseState[];
+    function parse(pattern: string, options?: { maxLength?: number }): parseImport.ParseState;
     function parse(
         pattern: string | string[],
-        options?: {},
-    ): ReturnType<typeof parseImport> | Array<ReturnType<typeof parseImport>>;
+        options?: { maxLength?: number },
+    ): parseImport.ParseState | parseImport.ParseState[];
 
     const scan: typeof scanImport;
 
     function compileRe(
-        state: ReturnType<typeof parseImport>,
+        state: parseImport.ParseState,
         options?: PicomatchOptions,
         returnOutput?: boolean,
         returnState?: boolean,
