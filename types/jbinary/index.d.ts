@@ -32,11 +32,21 @@ declare namespace jBinary {
     type DataType = string | Buffer;
 
     /**
-     * Defines how to read and write certain types of data as well as some global options.
+     * Defines how to read and write certain types of data.
      * @see https://github.com/jDataView/jBinary/wiki/Typesets
      */
-    type TypeSet = {
-        [setting: string]: unknown;
+    type DataTypeSet = {
+        [typeName: string]: unknown;
+    };
+
+    /**
+     * Defines some global options and how to read and write certain types of data.
+     * @see https://github.com/jDataView/jBinary/wiki/Typesets
+     */
+    type TypeSet = DataTypeSet & {
+        "jBinary.all"?: string;
+        "jBinary.littleEndian"?: boolean;
+        "jBinary.mimeType"?: string;
     };
 }
 
