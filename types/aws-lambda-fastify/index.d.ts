@@ -6,14 +6,14 @@
 /// <reference types="node" />
 
 import { Context, Callback } from 'aws-lambda';
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 
 interface AwsLambdaFastifyOptions {
     binaryMimeTypes?: string[];
     callbackWaitsForEmptyEventLoop?: boolean;
 }
 
-type Handler<TEvent = any, TResult = any> = (
+type Handler<TEvent = FastifyRequest, TResult = FastifyReply> = (
     event: TEvent,
     context: Context,
     callback?: Callback<TResult>,

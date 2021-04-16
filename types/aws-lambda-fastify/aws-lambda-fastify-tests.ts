@@ -1,10 +1,13 @@
 import awsLambdaFastify from './index';
-import fastify from 'fastify';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
+import { Context, Callback } from 'aws-lambda/handler';
+import { RouteGenericInterface } from 'fastify/types/route';
+import { Server, IncomingMessage, ServerResponse } from 'node:http';
 
 const app = fastify();
 const proxy = awsLambdaFastify(app, { binaryMimeTypes: ['application/octet-stream'] });
 
 const handler = proxy;
-const handlerWithCallback = (event, context, callback) => proxy(event, context, callback);
-const handlerFunction = (event, context) => proxy(event, context);
-const handlerWithAsync = async (event, context) => proxy(event, context);
+const handlerWithCallback = (event: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>, context: Context, callback: Callback<FastifyReply<Server, IncomingMessage, ServerResponse, RouteGenericInterface, unknown>> | undefined) => proxy(event, context, callback);
+const handlerFunction = (event: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>, context: Context) => proxy(event, context);
+const handlerWithAsync = async (event: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>, context: Context) => proxy(event, context);
