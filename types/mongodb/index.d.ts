@@ -135,7 +135,7 @@ export class MongoClient extends EventEmitter {
      * Create a new Change Stream, watching for new changes (insertions, updates, replacements, deletions, and invalidations) in this cluster.
      * Will ignore all changes to system collections, as well as the local, admin, and config databases.
      *
-     * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents.
+     * @param pipeline An array of {@link https://docs.mongodb.com/v3.6/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents.
      * This allows for filtering (using $match) and manipulating the change stream documents.
      * @param options Optional settings
      * @returns ChangeStream instance
@@ -530,7 +530,7 @@ export interface MongoClientOptions
 
     /**
      * An authentication mechanism to use for connection authentication,
-     * see the {@link https://docs.mongodb.com/manual/reference/connection-string/#urioption.authMechanism authMechanism}
+     * see the {@link https://docs.mongodb.com/v3.6/reference/connection-string/#urioption.authMechanism authMechanism}
      * reference for supported options.
      */
     authMechanism?:
@@ -808,7 +808,7 @@ export interface HighAvailabilityOptions {
     readPreference?: ReadPreferenceOrMode;
     /**
      * An object representing read preference tags
-     * @see https://docs.mongodb.com/manual/core/read-preference-tags/
+     * @see https://docs.mongodb.com/v3.6/core/read-preference-tags/
      */
     readPreferenceTags?: ReadPreferenceTags;
 }
@@ -830,7 +830,7 @@ export type ReadPreferenceOptions = {
 
 /**
  * The **ReadPreference** class represents a MongoDB ReadPreference and is used to construct connections.
- * @see https://docs.mongodb.com/manual/core/read-preference/
+ * @see https://docs.mongodb.com/v3.6/core/read-preference/
  */
 export class ReadPreference {
     constructor(mode: ReadPreferenceMode, tags: object, options?: ReadPreferenceOptions);
@@ -845,7 +845,7 @@ export class ReadPreference {
     static isValid(mode: string): boolean;
     /**
      * Indicates that this readPreference needs the "slaveOk" bit when sent over the wire
-     * @see https://docs.mongodb.com/manual/reference/mongodb-wire-protocol/#op-query
+     * @see https://docs.mongodb.com/v3.6/reference/mongodb-wire-protocol/#op-query
      */
     slaveOk(): boolean;
     /**
@@ -919,7 +919,7 @@ export interface DbCreateOptions extends CommonOptions {
      */
     promiseLibrary?: PromiseConstructor;
     /**
-     * @see https://docs.mongodb.com/manual/reference/read-concern/#read-concern
+     * @see https://docs.mongodb.com/v3.6/reference/read-concern/#read-concern
      * @since MongoDB 3.2
      */
     readConcern?: ReadConcern | string;
@@ -1227,7 +1227,7 @@ export class Db extends EventEmitter {
     ): void;
     /**
      * Create a new collection on a server with the specified options. Use this to create capped collections.
-     * More information about command options available at {@link https://docs.mongodb.com/manual/reference/command/create/}
+     * More information about command options available at {@link https://docs.mongodb.com/v3.6/reference/command/create/}
      *
      * @param name The collection name we wish to access
      * @param options Optional settings
@@ -1424,7 +1424,7 @@ export class Db extends EventEmitter {
      * Create a new Change Stream, watching for new changes (insertions, updates, replacements, deletions, and invalidations) in this database.
      * Will ignore all changes to system collections.
      *
-     * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents.
+     * @param pipeline An array of {@link https://docs.mongodb.com/v3.6/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents.
      * This allows for filtering (using $match) and manipulating the change stream documents.
      * @param options Optional settings
      * @returns ChangeStream instance
@@ -2132,7 +2132,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      * @param callback The command result callback
      * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#geoHaystackSearch
-     * @deprecated See {@link https://docs.mongodb.com/manual/geospatial-queries/ geospatial queries docs} for current geospatial support
+     * @deprecated See {@link https://docs.mongodb.com/v3.6/geospatial-queries/ geospatial queries docs} for current geospatial support
      */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
@@ -2541,7 +2541,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     /**
      * Create a new Change Stream, watching for new changes (insertions, updates, replacements, deletions, and invalidations) in this collection.
      *
-     * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages}
+     * @param pipeline An array of {@link https://docs.mongodb.com/v3.6/reference/operator/aggregation-pipeline/ aggregation pipeline stages}
      * through which to pass change stream documents. This allows for filtering (using `$match`) and manipulating the change stream documents.
      * @param options Optional settings
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#watch
@@ -2731,7 +2731,7 @@ type BSONTypeAlias =
     | "minKey"
     | "maxKey";
 
-/** @see https://docs.mongodb.com/manual/reference/operator/query-bitwise */
+/** @see https://docs.mongodb.com/v3.6/reference/operator/query-bitwise */
 type BitwiseQuery =
     | number /** <numeric bitmask> */
     | Binary /** <BinData bitmask> */
@@ -2789,22 +2789,22 @@ export type QuerySelector<T> = {
 };
 
 export type RootQuerySelector<T> = {
-    /** @see https://docs.mongodb.com/manual/reference/operator/query/and/#op._S_and */
+    /** @see https://docs.mongodb.com/v3.6/reference/operator/query/and/#op._S_and */
     $and?: Array<FilterQuery<T>>;
-    /** @see https://docs.mongodb.com/manual/reference/operator/query/nor/#op._S_nor */
+    /** @see https://docs.mongodb.com/v3.6/reference/operator/query/nor/#op._S_nor */
     $nor?: Array<FilterQuery<T>>;
-    /** @see https://docs.mongodb.com/manual/reference/operator/query/or/#op._S_or */
+    /** @see https://docs.mongodb.com/v3.6/reference/operator/query/or/#op._S_or */
     $or?: Array<FilterQuery<T>>;
-    /** @see https://docs.mongodb.com/manual/reference/operator/query/text */
+    /** @see https://docs.mongodb.com/v3.6/reference/operator/query/text */
     $text?: {
         $search: string;
         $language?: string;
         $caseSensitive?: boolean;
         $diacriticSensitive?: boolean;
     };
-    /** @see https://docs.mongodb.com/manual/reference/operator/query/where/#op._S_where */
+    /** @see https://docs.mongodb.com/v3.6/reference/operator/query/where/#op._S_where */
     $where?: string | Function;
-    /** @see https://docs.mongodb.com/manual/reference/operator/query/comment/#op._S_comment */
+    /** @see https://docs.mongodb.com/v3.6/reference/operator/query/comment/#op._S_comment */
     $comment?: string;
     // we could not find a proper TypeScript generic to support nested queries e.g. 'user.friends.name'
     // this will mark all unrecognized properties as any (including nested queries)
@@ -2820,14 +2820,14 @@ export type FilterQuery<T> = {
 } &
     RootQuerySelector<T>;
 
-/** @see https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#insertone */
+/** @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#insertone */
 export type BulkWriteInsertOneOperation<TSchema> = {
     insertOne: {
         document: OptionalId<TSchema>;
     };
 };
 
-/** @see https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#updateone-and-updatemany */
+/** @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#updateone-and-updatemany */
 export type BulkWriteUpdateOperation<TSchema> = {
     arrayFilters?: object[];
     collation?: object;
@@ -2843,7 +2843,7 @@ export type BulkWriteUpdateManyOperation<TSchema> = {
     updateMany: BulkWriteUpdateOperation<TSchema>;
 };
 
-/** @see https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#replaceone */
+/** @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#replaceone */
 export type BulkWriteReplaceOneOperation<TSchema> = {
     replaceOne: {
         collation?: object;
@@ -2854,7 +2854,7 @@ export type BulkWriteReplaceOneOperation<TSchema> = {
     };
 };
 
-/** @see https://docs.mongodb.com/manual/reference/method/db.collection.bulkWrite/#deleteone-and-deletemany */
+/** @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#deleteone-and-deletemany */
 export type BulkWriteDeleteOperation<TSchema> = {
     collation?: object;
     filter: FilterQuery<TSchema>;
@@ -3246,11 +3246,11 @@ export interface FindOneAndReplaceOption<T> extends CommonOptions {
     collation?: CollationDocument;
 }
 
-/** @see https://docs.mongodb.com/manual/reference/operator/projection/ */
+/** @see https://docs.mongodb.com/v3.6/reference/operator/projection/ */
 export interface ProjectionOperators {
-    /** @see https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch */
+    /** @see https://docs.mongodb.com/v3.6/reference/operator/projection/elemMatch/#proj._S_elemMatch */
     $elemMatch?: object;
-    /** @see https://docs.mongodb.com/manual/reference/operator/projection/slice/#proj._S_slice */
+    /** @see https://docs.mongodb.com/v3.6/reference/operator/projection/slice/#proj._S_slice */
     $slice?: number | [number, number];
     $meta?: MetaProjectionOperators;
 }
@@ -3298,7 +3298,7 @@ export interface OrderedBulkOperation {
     insert(doc: object): OrderedBulkOperation;
 }
 
-/** @see https://docs.mongodb.com/manual/reference/method/BulkWriteResult/index.html#BulkWriteResult.upserted */
+/** @see https://docs.mongodb.com/v3.6/reference/method/BulkWriteResult/index.html#BulkWriteResult.upserted */
 export interface BulkWriteResultUpsertedIdObject {
     index: number;
     _id: ObjectId;
@@ -3338,7 +3338,7 @@ export interface BulkWriteResult {
 
     /**
      * The number of documents inserted by an
-     * [upsert]{@link https://docs.mongodb.com/manual/reference/method/db.collection.update/#upsert-parameter}.
+     * [upsert]{@link https://docs.mongodb.com/v3.6/reference/method/db.collection.update/#upsert-parameter}.
      */
     nUpserted: number;
 
@@ -4144,7 +4144,7 @@ export class Logger {
     static setLevel(level: string): void;
 }
 
-/** @see https://docs.mongodb.com/manual/reference/collation/#collation-document-fields */
+/** @see https://docs.mongodb.com/v3.6/reference/collation/#collation-document-fields */
 export interface CollationDocument {
     locale: string;
     strength?: number;
@@ -4157,7 +4157,7 @@ export interface CollationDocument {
     normalization?: boolean;
 }
 
-/** @see https://docs.mongodb.com/manual/reference/command/createIndexes/ */
+/** @see https://docs.mongodb.com/v3.6/reference/command/createIndexes/ */
 export interface IndexSpecification {
     key: object;
     name?: string;
