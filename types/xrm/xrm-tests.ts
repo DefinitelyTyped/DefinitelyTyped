@@ -52,8 +52,14 @@ lookupAttribute.addPreSearch(() => { alert("A search was performed."); });
 const lookupValues = lookupAttribute.getAttribute().getValue();
 
 if (lookupValues !== null)
-    if (!lookupValues[0].id || !lookupValues[0].entityType)
+    if (lookupValues[0].id || lookupValues[0].entityType)
         throw new Error("Invalid value in Lookup control.");
+
+lookupAttribute.getAttribute().setValue(null);
+lookupAttribute.getAttribute().setValue([{
+    entityType: "contact",
+    id: "b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
+}]);
 
 /// Demonstrate v7.0 BPF API
 

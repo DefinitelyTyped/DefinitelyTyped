@@ -1,6 +1,6 @@
-import Emitter from "./emittermixin";
-import { KeystrokeInfo } from "./keyboard";
+import { Emitter } from "./emittermixin";
 import { PriorityString } from "./priorities";
+import * as ckEngine from "@ckeditor/ckeditor5-engine";
 
 /**
  * Keystroke handler allows registering callbacks for given keystrokes.
@@ -50,14 +50,14 @@ export default class KeystrokeHandler {
      */
     set(
         keystroke: string | Array<string | number>,
-        callback: (keyEvtData: KeystrokeInfo, cancel: () => void) => void,
+        callback: (keyEvtData: ckEngine.view.observer.KeyEventData, cancel: () => void) => void,
         options?: { priority?: PriorityString | number },
     ): void;
     /**
      * Triggers a keystroke handler for a specified key combination, if such a keystroke was {@link #set defined}.
      *
      */
-    press(keyEvtData: KeystrokeInfo): boolean;
+    press(keyEvtData: ckEngine.view.observer.KeyEventData): boolean;
     /**
      * Destroys the keystroke handler.
      */

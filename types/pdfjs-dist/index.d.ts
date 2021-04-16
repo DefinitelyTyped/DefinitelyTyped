@@ -14,6 +14,7 @@ declare const GlobalWorkerOptions: GlobalWorkerOptions;
 
 interface GlobalWorkerOptions {
     workerSrc: string;
+    workerPort: PDFWorker | null;
 }
 
 interface PDFTreeNode {

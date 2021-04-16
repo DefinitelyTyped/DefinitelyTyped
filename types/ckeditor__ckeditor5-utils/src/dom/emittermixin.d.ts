@@ -1,22 +1,23 @@
-import Emitter from "../emittermixin";
+import { Emitter as BaseEmitter, EmitterMixinDelegateChain } from "../emittermixin";
+import EventInfo from "../eventinfo";
+import { PriorityString } from "../priorities";
 
-/**
- * Mixin that injects the DOM events API into its host. It provides the API
- * compatible with {@link module:utils/emittermixin~EmitterMixin}.
- *
- * DOM emitter mixin is by default available in the {@link module:ui/view~View} class,
- * but it can also be mixed into any other class:
- *
- *  import mix from '../utils/mix.js';
- *  import DomEmitterMixin from '../utils/dom/emittermixin.js';
- *
- *  class SomeView {}
- *  mix( SomeView, DomEmitterMixin );
- *
- *  const view = new SomeView();
- *  view.listenTo( domElement, ( evt, domEvt ) => {
- *   console.log( evt, domEvt );
- *  } );
- *
- */
-export default abstract class DomEmitterMixin extends Emitter {}
+export interface Emitter extends BaseEmitter {
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    listenTo(
+        emitter: Emitter,
+        event: string,
+        callback: Function,
+        options?: { priority?: PriorityString | number },
+    ): void;
+    off(event: string, callback?: Function): void;
+    on: (event: string, callback: Function, options?: { priority: PriorityString | number }) => void;
+    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    stopDelegating(event?: string, emitter?: Emitter): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
+}
+
+declare const DomEmitterMixin: Emitter;
+
+export default DomEmitterMixin;

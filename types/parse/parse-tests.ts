@@ -636,6 +636,35 @@ async function test_cloud_functions() {
         return 'Some result';
     });
 
+    Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
+        return 'Some result';
+    }, {
+        requireUser: true,
+        requireMaster: true,
+        validateMasterKey: true,
+        skipWithMasterKey: true,
+        requireAnyUserRoles: ['a'],
+        requireAllUserRoles: ['a'],
+        fields: {
+            name: {
+                type: String,
+                constant: true,
+                default: true,
+                options: [],
+                error: 'invalid field.'
+            }
+        },
+        requireUserKeys: {
+            name: {
+                type: String,
+                constant: true,
+                default: true,
+                options: [],
+                error: 'invalid field.'
+            }
+        }
+    });
+
     Parse.Cloud.define('AFunc', request => {
         // $ExpectType Params
         request.params;

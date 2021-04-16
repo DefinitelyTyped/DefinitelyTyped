@@ -54,6 +54,7 @@ export interface CanvasRenderingContext2D {
     shadowOffsetY: number;
     strokeStyle: string;
     textAlign: string;
+    textBaseline: string;
     arc: (x: number, y: number, r: number, sAngle: number, eAngle: number, counterClockwise?: boolean) => void;
     arcTo: (x1: number, y1: number, x2: number, y2: number, r: number) => void;
     beginPath: () => void;

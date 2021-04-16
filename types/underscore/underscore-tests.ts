@@ -474,6 +474,46 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     _.chain(anyValue).forEach(anyCollectionIterator); // // $ExpectType _Chain<any, any>
 }
 
+// get
+
+{
+    // no default value
+    // $ExpectType number | undefined
+    _.get({ a: numberValue }, 'a');
+
+    // trying to get the property on a simple path
+    // $ExpectType number
+    _.get({ a: numberValue }, ['a'], numberValue);
+
+    // trying to get the property one level deep
+    // $ExpectType number | { b: number; }
+    _.get({ a: { b: numberValue } }, ['a'], numberValue);
+
+    // trying to get the property one level deep
+    // $ExpectType string | number | { b: number; }
+    _.get({ a: { b: numberValue }, c: "a" }, ['a', 'b'], numberValue);
+
+    // default value if not found of the 'same type'
+    // $ExpectType number
+    _.get({ a: numberValue }, ['b'], numberValue);
+
+    // oop style without default value
+    // $ExpectType number | undefined
+    _({ a: numberValue }).get(['b']);
+
+    // oop style with default value
+    // $ExpectType string | number
+    _({ a: numberValue }).get(['a'], stringValue);
+
+    // chained without default value
+    // $ExpectType _Chain<string | number | undefined, string | number | undefined>
+    _.chain({ a: numberValue, b: stringValue }).get(['a']);
+
+    // chained with default value
+    // $ExpectType _Chain<string | number, string | number>
+    _.chain({ a: numberValue }).get(['a'], stringValue);
+}
+
 // map, collect
 
 // mapping an array with an inferred result type

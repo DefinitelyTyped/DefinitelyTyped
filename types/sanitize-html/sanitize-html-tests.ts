@@ -1,6 +1,7 @@
 import sanitize = require('sanitize-html');
+import { Attributes, IFrame, IOptions } from 'sanitize-html';
 
-const options: sanitize.IOptions = {
+const options: IOptions = {
   allowedTags: sanitize.defaults.allowedTags.concat('h1', 'h2', 'img'),
   allowedAttributes: {
     a: sanitize.defaults.allowedAttributes['a'].concat('rel'),
@@ -22,7 +23,7 @@ const options: sanitize.IOptions = {
   allowedSchemesAppliedToAttributes: [ 'href', 'src', 'cite' ],
     transformTags: {
     a: sanitize.simpleTransform('a', { rel: 'nofollow' }),
-    img: (tagName: string, attribs: sanitize.Attributes) => {
+    img: (tagName: string, attribs: Attributes) => {
       const img = { tagName, attribs };
       img.attribs['alt'] = 'transformed' ;
       return img;
@@ -31,7 +32,7 @@ const options: sanitize.IOptions = {
   textFilter: (text, _) => text,
   allowIframeRelativeUrls: false,
   allowVulnerableTags: true,
-  exclusiveFilter(frame: sanitize.IFrame) {
+  exclusiveFilter(frame: IFrame) {
     return frame.tag === 'a' && !frame.text.trim();
   },
   allowedSchemesByTag: {
@@ -42,7 +43,7 @@ const options: sanitize.IOptions = {
   enforceHtmlBoundary: true,
 };
 
-sanitize.defaults.allowedAttributes; // $ExpectType { [index: string]: AllowedAttribute[]; }
+sanitize.defaults.allowedAttributes; // $ExpectType Record<string, AllowedAttribute[]>
 sanitize.defaults.allowedSchemes; // $ExpectType string[]
 sanitize.defaults.allowedSchemesAppliedToAttributes; // $ExpectType string[]
 sanitize.defaults.allowedSchemesByTag; // $ExpectType { [index: string]: string[]; }
@@ -63,3 +64,9 @@ options.parser = {
 safe = sanitize(unsafe, options);
 
 sanitize(unsafe, sanitize.defaults);
+
+sanitize(unsafe, {
+    allowedTags: false,
+    allowedAttributes: false,
+    nestingLimit: 6,
+});

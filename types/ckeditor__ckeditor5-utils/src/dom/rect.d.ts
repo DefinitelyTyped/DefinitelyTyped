@@ -13,7 +13,7 @@ export default class Rect {
      * Returns a bounding rectangle that contains all the given `rects`.
      *
      */
-    static getBoundingRect(rects: Rect): Rect | null;
+    static getBoundingRect(rects: Iterable<Rect>): Rect | null;
     /**
      * Creates an instance of rect.
      *
@@ -40,6 +40,12 @@ export default class Rect {
      * to get the inner part of the rect.
      *
      */
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+    width: number;
+    height: number;
     constructor(source: HTMLElement | Range | Window | ClientRect | Rect | object);
     /**
      * Returns a clone of the rect.
@@ -47,19 +53,23 @@ export default class Rect {
      */
     clone(): Rect;
     /**
-     * Moves the rect so that its upper–left corner lands in desired `[ x, y ]` location.
+     * Checks whether a rect fully contains another rect instance.
      *
      */
-    moveTo(x: number, y: number): Rect;
-    top: number;
-    right: number;
-    bottom: number;
-    left: number;
+    contains(anotherRect: Rect): boolean;
     /**
-     * Moves the rect in–place by a dedicated offset.
+     * Excludes scrollbars and CSS borders from the rect.
+     *
+     * * Borders are removed when {@link #_source} is an HTML element.
+     * * Scrollbars are excluded from HTML elements and the `window`.
      *
      */
-    moveBy(x: number, y: number): Rect;
+    excludeScrollbarsAndBorders(): Rect;
+    /**
+     * Returns the area of the rect.
+     *
+     */
+    getArea(): number;
     /**
      * Returns a new rect a a result of intersection with another rect.
      *
@@ -70,11 +80,6 @@ export default class Rect {
      *
      */
     getIntersectionArea(anotherRect: Rect): number;
-    /**
-     * Returns the area of the rect.
-     *
-     */
-    getArea(): number;
     /**
      * Returns a new rect, a part of the original rect, which is actually visible to the user,
      * e.g. an original rect cropped by parent element rects which have `overflow` set in CSS
@@ -93,18 +98,13 @@ export default class Rect {
      */
     isEqual(anotherRect: Rect): boolean;
     /**
-     * Checks whether a rect fully contains another rect instance.
+     * Moves the rect so that its upper–left corner lands in desired `[ x, y ]` location.
      *
      */
-    contains(anotherRect: Rect): boolean;
+    moveTo(x: number, y: number): Rect;
     /**
-     * Excludes scrollbars and CSS borders from the rect.
-     *
-     * * Borders are removed when {@link #_source} is an HTML element.
-     * * Scrollbars are excluded from HTML elements and the `window`.
+     * Moves the rect in–place by a dedicated offset.
      *
      */
-    excludeScrollbarsAndBorders(): Rect;
-    width: number;
-    height: number;
+    moveBy(x: number, y: number): Rect;
 }

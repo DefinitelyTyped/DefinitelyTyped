@@ -137,7 +137,8 @@ import * as net from 'node:net';
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        timeout: 15000
+        scheduling: 'lifo',
+        timeout: 15000,
     });
 
     agent = http.globalAgent;
