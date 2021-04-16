@@ -179,6 +179,8 @@ dur.mapUnits((x, u) => u === 'hours' ? x * 2 : x); // $ExpectType Duration
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration
 }
+Duration.invalid(); // $ExpectError
+Duration.invalid('code', 'because I said so'); // $ExpectType Duration
 
 /* Interval */
 const later = DateTime.local();
@@ -196,10 +198,14 @@ i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration
+i.divideEqually(); // $ExpectError
+i.divideEqually(5);
 
 if (Interval.isInterval(anything)) {
     anything; // $ExpectType Interval
 }
+Interval.invalid(); // $ExpectError
+Interval.invalid('code', 'because I said so'); // $ExpectType Interval
 
 /* Info */
 Info.months();
