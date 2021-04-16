@@ -138,7 +138,11 @@ export class User {
     setRawDisplayName(name: string): void;
 }
 
-export type EventType = never
+// this type allows us to define string literals, but also
+// accept just any string. But it will still give autocomplete.
+type LiteralUnion<T extends U, U = string> = T | (U & {});
+
+export type EventType = LiteralUnion<
     | 'm.room.canonical_alias'
     | 'm.room.encryption'
     | 'm.room.guest_access'
@@ -152,7 +156,7 @@ export type EventType = never
     | 'm.room.tombstone'
     | 'm.room.topic'
     | 'm.sticker'
-    | 'm.presence';
+    | 'm.presence'>;
 
 export type MsgType = never
     | 'm.audio'
@@ -934,7 +938,7 @@ export class Filter {
     setTimelineLimit(limit: number): void;
 }
 // TODO: inherits EventEmitter?
-export class MatrixEvent {
+export class MatrixEvent<IEventContentType = EventContentTypeMessage> {
     event: RawEvent;         //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
     sender: RoomMember;      //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
     target: RoomMember;      //  The room member who is the target of this event, e.g. the invitee, the person being banned, etc.
@@ -950,9 +954,9 @@ export class MatrixEvent {
     getRoomId(): string;
     getTs(): Date;
     getDate(): Date;
-    getContent(): EventContentType;
-    getOriginalContent(): EventContentType;
-    getWireContent(): EventContentType;
+    getContent(): IEventContentType;
+    getOriginalContent(): IEventContentType;
+    getWireContent(): IEventContentType;
     getPrevContent(): object;
     getDirectionalContent(): object;
     getAge(): number;
@@ -965,7 +969,7 @@ export class MatrixEvent {
     attemptDecryption(crypto: CryptoModule, isRetry: boolean): Promise<void>;
     cancelAndResendKeyRequest(crypto: CryptoModule, userId: string): Promise<void>;
     getKeyRequestRecipients(userId: string): Array<{ userId: string; deviceId: string; }>;
-    getClearContent(): EventContentType;
+    getClearContent(): IEventContentType;
     isEncrypted(): boolean;
     getSenderKey(): string;
     getKeysClaimed(): { ed25519: string };
@@ -985,7 +989,7 @@ export class MatrixEvent {
     setStatus(status: EventStatus): void;
     replaceLocalEventId(eventId: string): void;
     isRelation(relType?: string): boolean;
-    getRelation(): EventContentType | null;
+    getRelation(): IEventContentType | null;
     makeReplaced(newEvent?: MatrixEvent): void;
     getAssociatedStatus(): EventStatus;
     getServerAggregatedRelation(relType: string): any[];
@@ -1090,18 +1094,33 @@ export interface CreateClientOption {
 
 export function createClient(ops: string | CreateClientOption): MatrixClient;
 
-export interface EventContentType {
+//Spec: https://matrix.org/docs/spec/client_server/latest#m-room-message
+export interface EventContentTypeMessage {
     body: string;
     msgtype: MsgType;
 }
+//re-export for legacy reasons.
+export type EventContentType = EventContentTypeMessage;
 
-export interface UnsignedType {
-    age: number;
-    redacted_because: RawEvent;
+//Spec: https://matrix.org/docs/spec/client_server/latest#m-audio
+export interface EventContentTypeAudioMessage extends EventContentTypeMessage {
+    msgtype: 'm.audio',
+    url: string;
+    info: {
+        duration: number;
+        mimetype: string;
+        size: number;
+    };
 }
 
-export interface RawEvent {
-    content: EventContentType;
+export interface UnsignedType {
+    age?: number;
+    transaction_id?: string;
+    redacted_because?: RawEvent;
+}
+
+export interface RawEvent<IEventContentType = EventContentTypeMessage> {
+    content: IEventContentType;
     origin_server_ts: Date;
     sender: string;
     type: EventType;
