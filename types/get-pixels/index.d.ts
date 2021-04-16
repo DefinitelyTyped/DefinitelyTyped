@@ -15,4 +15,4 @@ declare function getPixels(
     callback?: Callback
 ): void;
 
-export default getPixels;
+export = getPixels;

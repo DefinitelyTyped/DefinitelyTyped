@@ -11,6 +11,6 @@ function callback(error: string | null, array: ndarray | null) {
 		const errorMsg: string = error.toUpperCase();
 	}
 	if (array) {
-		const numPixels: number = array.width * array.height;
+		const numPixels: number = array.shape[0] * array.shape[1];
 	}
 }
