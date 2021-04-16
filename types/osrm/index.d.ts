@@ -13,10 +13,12 @@
  */
 declare class OSRM {
     constructor(name: string);
+
     /**
      * shortest path between given coordinates
      */
     route(options: OSRM.RouteOptions, callback: (err: Error, results: OSRM.RouteResults) => void): void;
+
     /**
      * returns the nearest street segment for a given coordinate
      */
@@ -26,14 +28,17 @@ declare class OSRM {
      * computes distance tables for given coordinates
      */
     table(options: OSRM.TableOptions, callback: (err: Error, results: OSRM.TableResults) => void): void;
+
     /**
      * matches given coordinates to the road network
      */
     match(options: OSRM.MatchOptions, callback: (err: Error, results: OSRM.MatchResults) => void): void;
+
     /**
      * Compute the shortest trip between given coordinates
      */
     trip(options: OSRM.TripOptions, callback: (err: Error, results: OSRM.TripResults) => void): void;
+
     /**
      * Return vector tiles containing debugging info
      */
@@ -42,8 +47,8 @@ declare class OSRM {
 
 declare namespace OSRM {
     const version: number;
-    type GeometriesTypes = 'polyline' | 'geojson' | 'polyline6';
-    type OverviewTypes = 'full' | 'simplified' | 'false';
+    type GeometriesTypes = "polyline" | "geojson" | "polyline6";
+    type OverviewTypes = "full" | "simplified" | "false";
     type Coordinate = number[];
     type Polyline = string;
     type Bearing = number[];
@@ -52,19 +57,19 @@ declare namespace OSRM {
     type Duration = number;
     type Distance = number;
     type Tile = [number, number, number];
-    type StepManeuverTypes = 'turn' | 'new name' | 'depart' | 'arrive' | 'merge' |
-                             'ramp' | 'on ramp' | 'off ramp' | 'fork' | 'end of road' |
-                             'use lane' | 'continue' | 'roundabout' | 'rotary' | 'roundabout turn' |
-                             'notification' | 'exit roundabout' | 'exit rotary';
-    type Indication = 'uturn' | 'sharp right' | 'right' | 'slight rigth' |
-                      'straight' |'slight left' | 'left' | 'sharp left';
+    type StepManeuverTypes = "turn" | "new name" | "depart" | "arrive" | "merge" |
+        "ramp" | "on ramp" | "off ramp" | "fork" | "end of road" |
+        "use lane" | "continue" | "roundabout" | "rotary" | "roundabout turn" |
+        "notification" | "exit roundabout" | "exit rotary";
+    type Indication = "uturn" | "sharp right" | "right" | "slight rigth" |
+        "straight" | "slight left" | "left" | "sharp left";
 
     interface LineString {
-        type: 'LineString';
+        type: "LineString";
         coordinates: Coordinate[];
     }
 
-    interface  Waypoint {
+    interface Waypoint {
         hint: string;
         distance: number;
         name: string;
@@ -470,7 +475,12 @@ declare namespace OSRM {
         /**
          * specify which table results to return.
          */
-        annotations?: Array<('duration' | 'distance')>;
+        annotations?: Array<("duration" | "distance")>;
+        /**
+         * Multiply the table duration values in the table by this number
+         * for more controlled input into a route optimization solver.
+         */
+        scale_factor?: number;
     }
 
     /**
