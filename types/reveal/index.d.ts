@@ -28,7 +28,6 @@ interface RevealStatic {
     next():void;
     prevFragment():boolean;
     nextFragment():boolean;
-    toggleOverview(override?:boolean):void;
 
     // Randomize the order of slides
     shuffle():void;
