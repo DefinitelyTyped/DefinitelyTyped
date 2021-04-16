@@ -20,6 +20,7 @@ class Test extends React.Component {
                 containerClassName={'container'}
                 pageClassName={'page-li'}
                 pageLinkClassName={'page-a'}
+                pageLabelBuilder={(page: number) => `${page}`}
                 activeClassName={'active'}
                 activeLinkClassName={'active'}
                 previousClassName={'previous-li'}
@@ -28,8 +29,9 @@ class Test extends React.Component {
                 nextLinkClassName={'next-a'}
                 disabledClassName={'disabled'}
                 hrefBuilder={(pageIndex: number) => null}
-                pageLabelBuilder={(page: number) => `${page}`}
                 extraAriaContext={'aria'}
+                ariaLabelBuilder={(page, selected) => selected ? 'Current page' : 'Goto page ' + page}
+                eventListener={'onMouseOver'}
             />
         );
     }
