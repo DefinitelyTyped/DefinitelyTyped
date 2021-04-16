@@ -140,7 +140,7 @@ export class User {
 
 // this type allows us to define string literals, but also
 // accept just any string. But it will still give autocomplete.
-type LiteralUnion<T extends U, U = string> = T | (U & {});
+export type LiteralUnion<T extends U, U = string> = T | (U & {});
 
 export type EventType = LiteralUnion<
     | 'm.room.canonical_alias'
@@ -1094,17 +1094,17 @@ export interface CreateClientOption {
 
 export function createClient(ops: string | CreateClientOption): MatrixClient;
 
-//Spec: https://matrix.org/docs/spec/client_server/latest#m-room-message
+// Spec: https://matrix.org/docs/spec/client_server/latest#m-room-message
 export interface EventContentTypeMessage {
     body: string;
     msgtype: MsgType;
 }
-//re-export for legacy reasons.
+// re-export for legacy reasons.
 export type EventContentType = EventContentTypeMessage;
 
-//Spec: https://matrix.org/docs/spec/client_server/latest#m-audio
+// Spec: https://matrix.org/docs/spec/client_server/latest#m-audio
 export interface EventContentTypeAudioMessage extends EventContentTypeMessage {
-    msgtype: 'm.audio',
+    msgtype: 'm.audio';
     url: string;
     info: {
         duration: number;
