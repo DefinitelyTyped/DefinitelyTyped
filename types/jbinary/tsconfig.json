@@ -10,9 +10,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": [
-            "jdataview"
-        ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
