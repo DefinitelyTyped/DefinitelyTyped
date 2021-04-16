@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import ndarray from 'ndarray';
+import ndarray = require('ndarray');
 import * as Stream from 'stream';
 
 // Function overloads. Most types return a Stream, except 'canvas'. Quality option only available for
