@@ -1,12 +1,21 @@
-// Type definitions for Reveal 3.3.0
+// Type definitions for Reveal 4.1.0
 // Project: https://github.com/hakimel/reveal.js/
-// Definitions by: robertop87 <https://github.com/robertop87>, Nava2 <https://github.com/Nava2>
+// Definitions by: robertop87 <https://github.com/robertop87>, Nava2 <https://github.com/Nava2>,
+// JP ten Berge <https://github.com/JPtenBerge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var Reveal:RevealStatic;
+declare const Reveal: RevealStatic;
+
+// Reveal plugins are globals since 4.0 (if not loaded through ES Modules): https://revealjs.com/plugins/
+declare const RevealHighlight: Plugin;
+declare const RevealMarkdown: Plugin;
+declare const RevealSearch: Plugin;
+declare const RevealNotes: Plugin;
+declare const RevealMath: Plugin;
+declare const RevealZoom: Plugin;
 
 interface RevealStatic {
-    initialize:(config:RevealOptions)=>void;
+    initialize:(config:RevealOptions)=>Promise<any>;
     configure:(diff:RevealOptions)=>void;
 
     // Navigation
@@ -19,15 +28,15 @@ interface RevealStatic {
     next():void;
     prevFragment():boolean;
     nextFragment():boolean;
+    toggleOverview(override?:boolean):void;
 
     // Randomize the order of slides
     shuffle():void;
 
-    // Toogle presentation states
+    // Toggle presentation states
     toggleOverview(override?:boolean):void;
     togglePause(override?:boolean):void;
     toggleAutoSlide(override?:boolean):void;
-
 
     // Retrieves the previous and current slide elements
     getPreviousSlide(): Element;
@@ -36,9 +45,15 @@ interface RevealStatic {
     getIndices(slide?:Element):{h:number; v:number;};
     getProgress():number;
     getTotalSlides():number;
+	availableFragments(): { prev: boolean, next: boolean };
 
     // Returns the speaker notes for the current slide
     getSlideNotes(slide?:Element):string;
+
+	// Plugins
+	hasPlugin(name: string): boolean;
+	getPlugin(name: string): Plugin;
+	getPlugins(): { [name: string]: Plugin };
 
     // States
     addEventListener(type:string, listener:(event: any)=>void, useCapture?:boolean):void;
@@ -72,8 +87,9 @@ interface RevealOptions {
     progress?:boolean;
     // https://github.com/hakimel/reveal.js/#slide-number
     slideNumber?:boolean|string;
-   
+
     history?:boolean;
+	plugins?: Plugin[];
 
     // https://github.com/hakimel/reveal.js/#keyboard-bindings
     keyboard?:any;
@@ -177,4 +193,9 @@ interface RevealDependency {
     condition?: ()=>boolean;
     async?:boolean;
     callback?: ()=>void;
+}
+
+interface Plugin {
+	id: string;
+	init(deck: RevealStatic): void | Promise<any>;
 }
