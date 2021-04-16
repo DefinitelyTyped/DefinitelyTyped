@@ -465,7 +465,7 @@ export class MatrixClient extends EventEmitter {
     getUsers(): User[];
     getVisibleRooms(): Room[];
     importRoomKeys(keys: object[]): Promise<void>;
-    initCrypto(): void;
+    initCrypto(): Promise<void>;
     invite(roomId: string, userId: string, callback?: MatrixCallback): Promise<void>;
     inviteByEmail(roomId: string, email: string, callback?: MatrixCallback): Promise<void>;
     inviteByThreePid(roomId: string, medium: string, address: string, callback?: MatrixCallback): Promise<void>;
