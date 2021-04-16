@@ -3,6 +3,8 @@
 // Definitions by: Don McCurdy <https://github.com/donmccurdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import * as ndarray from 'ndarray';
 
 type Callback = (err: string | null, pixels: ndarray | null) => void;
