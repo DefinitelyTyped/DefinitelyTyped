@@ -938,8 +938,9 @@ export class Filter {
     setTimelineLimit(limit: number): void;
 }
 // TODO: inherits EventEmitter?
-export class MatrixEvent<IEventContentType = EventContentTypeMessage> {
-    event: RawEvent;         //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
+export class MatrixEvent<IEventContentType = EventContentTypeMessage, EventTypeName = EventType> {
+    //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
+    event: RawEvent<IEventContentType, EventTypeName>;
     sender: RoomMember;      //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
     target: RoomMember;      //  The room member who is the target of this event, e.g. the invitee, the person being banned, etc.
     status: EventStatus;     //  The sending status of the event.
@@ -949,7 +950,7 @@ export class MatrixEvent<IEventContentType = EventContentTypeMessage> {
     constructor(event: object)
     getId(): string;
     getSender(): string;
-    getType(): EventType;
+    getType(): EventTypeName;
     getWireType(): string;
     getRoomId(): string;
     getTs(): Date;
@@ -1119,11 +1120,11 @@ export interface UnsignedType {
     redacted_because?: RawEvent;
 }
 
-export interface RawEvent<IEventContentType = EventContentTypeMessage> {
+export interface RawEvent<IEventContentType = EventContentTypeMessage, EventTypeName = EventType> {
     content: IEventContentType;
     origin_server_ts: Date;
     sender: string;
-    type: EventType;
+    type: EventTypeName;
     unsigned: UnsignedType;
     event_id: string;
     room_id: string;

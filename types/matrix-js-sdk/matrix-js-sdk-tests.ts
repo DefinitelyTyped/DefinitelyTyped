@@ -67,3 +67,6 @@ interface CustomEventContent {
 }
 const customEvent = new MatrixEvent<CustomEventContent>({});
 customEvent.getContent(); // $ExpectType CustomEventContent
+
+const customEventNameEvent = new MatrixEvent<null, 'com.custom.type'>({});
+customEventNameEvent.getType(); // $ExpectType "com.custom.type"
