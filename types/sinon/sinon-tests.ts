@@ -431,9 +431,11 @@ function testTypedSpy() {
 }
 
 function testInstanceSpy() {
-    const obj: {
-        foo(arg: number): string;
-    } = <any>{};
+    const obj = {
+        foo(arg: number): string {
+            return "xyz";
+        },
+    };
 
     const spy = sinon.spy(obj); // $ExpectType SinonSpiedInstance<{ foo(arg: number): string; }>
 
