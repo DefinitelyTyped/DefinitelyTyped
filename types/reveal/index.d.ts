@@ -1,7 +1,7 @@
 // Type definitions for Reveal 4.1.0
 // Project: https://github.com/hakimel/reveal.js/
 // Definitions by: robertop87 <https://github.com/robertop87>, Nava2 <https://github.com/Nava2>,
-// JP ten Berge <https://github.com/JPtenBerge>
+// JPtenBerge <https://github.com/JPtenBerge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const Reveal: RevealStatic;

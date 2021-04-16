@@ -9,6 +9,7 @@ Reveal.initialize({
     slideNumber: 'c/t',
     width: '100%',
     height: '80%',
+	fragments: true,
 
     postMessage: true,
     postMessageEvents: true,
@@ -29,14 +30,15 @@ Reveal.initialize({
         { src: 'plugin/multiplex/master.js', async: true },
         { src: 'plugin/math/math.js', async: true }
     ]
-});
+}).then(() => { });
 
 // Alternate representations
 Reveal.initialize({
     slideNumber: true,
     width: 20,
-    height: 20
-});
+    height: 20,
+	plugins: [RevealHighlight, RevealMarkdown, RevealSearch, RevealNotes, RevealMath, RevealZoom]
+}).then(() => { });
 
 // Taken from https://github.com/hakimel/reveal.js/#api
 
@@ -73,11 +75,17 @@ Reveal.getPreviousSlide();
 Reveal.getCurrentSlide();
 
 Reveal.getIndices(); // { h: 0, v: 0 } }
+Reveal.availableFragments(); // { prev: true/false, next: true/false };
 Reveal.getProgress(); // 0-1
 Reveal.getTotalSlides();
 
 // Returns the speaker notes for the current slide
 Reveal.getSlideNotes();
+
+// Plugins
+Reveal.getPlugin('test'); // { id: 4, init() }
+Reveal.getPlugins(); // { markdown: Plugin, highlight: Plugin }
+Reveal.hasPlugin('test'); // true/false
 
 // State checks
 Reveal.isFirstSlide();
