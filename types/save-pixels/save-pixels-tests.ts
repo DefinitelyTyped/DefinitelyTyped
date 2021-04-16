@@ -1,5 +1,5 @@
-import savePixels from 'save-pixels';
-import ndarray from 'ndarray';
+import savePixels = require('save-pixels');
+import ndarray = require('ndarray');
 
 const pixels = ndarray(new Float64Array([1, 0, 0, 1]), [2, 2]);
 
