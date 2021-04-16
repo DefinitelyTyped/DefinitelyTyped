@@ -48,6 +48,20 @@ declare namespace jBinary {
         "jBinary.littleEndian"?: boolean;
         "jBinary.mimeType"?: string;
     };
+
+    /**
+     * Type for configuring user defined custom types.
+     * @see https://github.com/jDataView/jBinary/wiki/jBinary.Type
+     * @see https://github.com/jDataView/jBinary/wiki/jBinary.Template
+     */
+    type CustomTypeConfig = {
+        read: (this: any, context: any) => unknown;
+        write: (this: any, data: any, context: any) => void;
+        setParams?: (this: any, ...params: any[]) => void;
+        resolve?: (this: any, getType: (...params: any[]) => any) => void;
+        params?: string[];
+        typeParams?: string[];
+    };
 }
 
 /**
@@ -92,6 +106,18 @@ declare class jBinary {
     ): void;
 
     /**
+     * Creates a custom type based on another type to be used within Typesets.
+     * @param config The config of the custom type.
+     */
+    static Template(config: jBinary.CustomTypeConfig): unknown;
+
+    /**
+     * Creates a custom type to be used within Typesets.
+     * @param config The config of the custom type.
+     */
+    static Type(config: jBinary.CustomTypeConfig): unknown;
+
+    /**
      * Creates a new jBinary instance with the provided binary string as data.
      * @param data The binary data as a string.
      * @param typeSet Typeset object with all the defined types.
@@ -134,12 +160,12 @@ declare class jBinary {
 
     /**
      * Reads a value of a specified type.
-     * @param type The name of the type to read. (eg: "uint8", "uint32", etc.)
+     * @param type The name of the type to read. (eg: "uint8", "uint32", ["array", "uint8", 4] etc.)
      * @param offset If provided, read from this offset position, otherwise read from the current position
      *               and move data pointer forward (streaming mode).
      * @returns The read value.
      */
-    read(type: string, offset?: number): unknown;
+    read(type: string | [string, string, number?], offset?: number): unknown;
 
     /**
      * Reads the entire data as one value of the type specified by the "jBinary.all" key in the Typeset.
@@ -219,12 +245,12 @@ declare class jBinary {
 
     /**
      * Writes a value of a specified type into the binary data.
-     * @param type The name of the type to write. (eg: "uint8", "uint32", etc.)
+     * @param type The name of the type to write. (eg: "uint8", "uint32", ["array", "uint8", 4] etc.)
      * @param data The value to write.
      * @param offset If provided, write to this offset position, otherwise write it to the current position
      *               and move data pointer forward (streaming mode).
      */
-    write(type: string, data: unknown, offset?: number): void;
+    write(type: string | [string, string, number?], data: unknown, offset?: number): void;
 
     /**
      * Writes the given data as one value of the type specified by the "jBinary.all" key in the Typeset
