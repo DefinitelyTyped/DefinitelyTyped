@@ -334,6 +334,8 @@ resultStr = faker.vehicle.type();
 resultStr = faker.vehicle.fuel();
 resultStr = faker.vehicle.vin();
 resultStr = faker.vehicle.color();
+resultStr = faker.vehicle.vrm();
+resultStr = faker.vehicle.bicycle();
 
 resultNum = faker.unique(faker.random.number);
 resultNum = faker.unique(faker.random.number, undefined, { maxTime: new Date('3000-01-01').getTime() });

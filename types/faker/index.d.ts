@@ -8,6 +8,7 @@
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
 //                 Daniel Montesinos <https://github.com/damonpam>
 //                 Shinya Ohyanagi <https://github.com/heavenshell>
+//                 Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -295,6 +296,8 @@ declare namespace Faker {
             fuel(): string;
             vin(): string;
             color(): string;
+            vrm(): string;
+            bicycle(): string;
         };
 
         unique<T extends (...args: any) => any>(
