@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as ndarray from 'ndarray';
+import ndarray = require('ndarray');
 
 type Callback = (err: string | null, pixels: ndarray | null) => void;
 

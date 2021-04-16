@@ -1,5 +1,5 @@
 import getPixels from 'get-pixels';
-import * as ndarray from 'ndarray';
+import ndarray from 'ndarray';
 
 getPixels('path/to/image.png', callback);
 getPixels('path/to/image.png', 'image/png', callback);
