@@ -1,5 +1,5 @@
-import getPixels from "get-pixels";
-import ndarray from "ndarray";
+import getPixels = require("get-pixels");
+import ndarray = require("ndarray");
 
 getPixels("path/to/image.png", callback);
 getPixels("path/to/image.png", "image/png", callback);
