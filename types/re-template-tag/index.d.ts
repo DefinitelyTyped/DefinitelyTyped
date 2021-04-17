@@ -3,4 +3,4 @@
 // Definitions by: Matjah Sonneveld <https://github.com/Raven283>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function re(strs: TemplateStringsArray, ...substs: string[]): string;
+export function re(strs: TemplateStringsArray, ...substs: string[]): RegExp;
