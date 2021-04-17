@@ -952,7 +952,7 @@ export class MatrixEvent {
     getType(): EventType;
     getWireType(): string;
     getRoomId(): string;
-    getTs(): Date;
+    getTs(): number;
     getDate(): Date;
     getContent(): EventContentType;
     getOriginalContent(): EventContentType;
