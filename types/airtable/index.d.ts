@@ -79,6 +79,7 @@ declare global {
         interface Record<TFields> {
             id: string;
             fields: TFields;
+            get(key: string): any;
         }
 
         type Records<TFields> = ReadonlyArray<Record<TFields>>;

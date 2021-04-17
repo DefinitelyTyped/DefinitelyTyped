@@ -87,6 +87,7 @@ async () => {
 
         newRecord.id;
         newRecord.fields;
+        newRecord.get('attachments');
 
         const newRecords = await table.create([newRowData, newRowData]);
 
