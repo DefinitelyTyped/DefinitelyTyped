@@ -310,7 +310,7 @@ export class WebAuth {
      *
      * @see {@link https://auth0.github.io/auth0.js/WebAuth.html#renderCaptcha}
      */
-    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>): void;
+    renderCaptcha(element: HTMLElement, options?: CatpchaConfiguration, callback?: Auth0Callback<any>): Captcha;
 }
 
 export class Redirect {
@@ -572,6 +572,11 @@ export interface AuthOptions {
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
     __tryLocalStorageFirst?: boolean;
+}
+
+export interface Captcha {
+    reload: (done: any) => void;
+    getValue: () => string;
 }
 
 export interface CatpchaConfiguration {

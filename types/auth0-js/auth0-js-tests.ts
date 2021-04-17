@@ -260,8 +260,11 @@ webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
 });
 
 const input: HTMLInputElement = document.querySelector('input[name="captcha"]');
+// $ExpectType Captcha
 webAuth.renderCaptcha(input);
+// $ExpectType Captcha
 webAuth.renderCaptcha(input, {});
+// $ExpectType Captcha
 webAuth.renderCaptcha(input, {
     lang: 'pl',
     templates: {
@@ -272,6 +275,7 @@ webAuth.renderCaptcha(input, {
         recaptcha_v2: challenge => 'recaptcha_v2',
     },
 });
+// $ExpectType Captcha
 webAuth.renderCaptcha(input, {
     lang: 'pl',
     templates: {
