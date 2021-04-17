@@ -6,6 +6,7 @@
 //                 Bartosz Kotrys <https://github.com/bkotrys>
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Tyler Lindell <https://github.com/tylerlindell>
+//                 Henri Kinnunen <https://github.com/hequ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference lib="dom" />
 export as namespace auth0;
