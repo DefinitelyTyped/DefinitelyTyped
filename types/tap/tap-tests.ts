@@ -1,6 +1,9 @@
 import { EventEmitter } from "events";
 import * as tap from "tap";
 
+Tap.Test;
+Tap.Tap;
+
 tap.pass();
 
 tap.test("all-assertions", t => {
@@ -8,7 +11,7 @@ tap.test("all-assertions", t => {
     const found: any = 1;
     const wanted: any = 1;
     const notWanted: any = 1;
-    const fn: (stuff: any) => void = () => {};
+    const fn: (stuff: any) => void = () => { };
     const expectedError: Error = new Error();
     const eventEmitter: EventEmitter = new EventEmitter();
     const pattern: RegExp | string | { [key: string]: RegExp } = "pattern";
