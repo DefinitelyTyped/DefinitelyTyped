@@ -5,7 +5,7 @@
 //                 Ionaru <https://github.com/Ionaru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as expressSession from 'express-session';
+import expressSession, { Store } from 'express-session';
 
 export = MySQLStore;
 
@@ -37,7 +37,7 @@ declare namespace MySQLStore {
     type MySQLStore = MySQLStoreClass;
 }
 
-declare class MySQLStoreClass extends expressSession.Store {
+declare class MySQLStoreClass extends Store {
     constructor(options: MySQLStore.Options, connection?: any, callback?: (error: any) => void);
 
     setDefaultOptions(): void;
