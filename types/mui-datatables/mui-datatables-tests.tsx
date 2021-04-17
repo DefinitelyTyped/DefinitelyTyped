@@ -1,5 +1,6 @@
 import MUIDataTable, { ExpandButton, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps, MUIDataTableState } from 'mui-datatables';
 import * as React from 'react';
+import { createMuiTheme } from '@material-ui/core';
 
 interface Props extends Omit<MUIDataTableProps, 'columns'> {
     columns?: MUIDataTableColumn[];
@@ -229,3 +230,16 @@ const disabledOptions: MUIDataTableOptions = {
 };
 
 <MuiCustomTable title="Disabled Buttons" data={Todos} options={disabledOptions} />;
+
+const MuiTheme = createMuiTheme({
+    overrides: {
+        MUIDataTable: {
+            root: {
+                fontWeight: 300
+            }
+        },
+        MUIDataTableBody: {
+            emptyTitle: {}
+        }
+    }
+});

@@ -11,6 +11,7 @@
 // Minimum TypeScript Version: 3.5
 
 import * as React from 'react';
+import { ComponentNameToClassKey } from '@material-ui/core/styles/overrides';
 
 export type Display = boolean | 'true' | 'false' | 'excluded';
 export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
@@ -1116,3 +1117,171 @@ export const DebounceTableSearch: React.ComponentType<DebouncedMUIDataTableSearc
 export function debounceSearchRender(debounceWait?: number): MUIDataTableOptions['customSearchRender'];
 
 export default MUIDataTable;
+
+declare module '@material-ui/core/styles/overrides' {
+    interface ComponentNameToClassKey {
+        MUIDataTable:
+            | 'root'
+            | 'caption'
+            | 'liveAnnounce'
+            | 'paper'
+            | 'responsiveScroll'
+            | 'tableRoot'
+            ;
+
+        MUIDataTableBody:
+            | 'root'
+            | 'emptyTitle'
+            | 'lastSimpleCell'
+            | 'lastStackedCell'
+            ;
+
+        MUIDataTableBodyCell:
+            | 'root'
+            | 'cellHide'
+            | 'cellStackedSmall'
+            | 'responsiveStackedSmall'
+            | 'responsiveStackedSmallParent'
+            | 'simpleCell'
+            | 'simpleHeader'
+            | 'stackedCommon'
+            | 'stackedCommonAlways'
+            | 'stackedHeader'
+            | 'stackedParent'
+            | 'stackedParentAlways'
+            ;
+
+        MUIDataTableBodyRow:
+            | 'root'
+            | 'hoverCursor'
+            | 'responsiveSimple'
+            | 'responsiveStacked'
+            ;
+
+        MUIDataTableFilter:
+            | 'root'
+            | 'checkbox'
+            | 'checkboxFormControl'
+            | 'checkboxFormControlLabel'
+            | 'checkboxFormGroup'
+            | 'checkboxIcon'
+            | 'checkboxListTitle'
+            | 'checked'
+            | 'filtersSelected'
+            | 'gridListTile'
+            | 'header'
+            | 'noMargin'
+            | 'reset'
+            | 'resetLink'
+            | 'title'
+            ;
+
+        MUIDataTableFilterList: 'root' | 'chip';
+
+        MUIDataTableFooter: 'root';
+
+        MUIDataTableHead:
+            | 'main'
+            | 'responsiveSimple'
+            | 'responsiveStacked'
+            | 'responsiveStackedAlways'
+            ;
+
+        MUIDataTableHeadCell:
+            | 'root'
+            | 'contentWrapper'
+            | 'data'
+            | 'dragCursor'
+            | 'fixedHeader'
+            | 'hintIconAlone'
+            | 'hintIconWithSortIcon'
+            | 'mypopper'
+            | 'sortAction'
+            | 'sortActive'
+            | 'sortLabelRoot'
+            | 'toolButton'
+            | 'tooltip'
+            ;
+
+        MUIDataTableHeadRow: 'root';
+
+        MUIDataTableJumpToPage:
+            | 'root'
+            | 'caption'
+            | 'input'
+            | 'select'
+            | 'selectIcon'
+            | 'selectRoot'
+            ;
+
+        MUIDataTablePagination:
+            | 'root'
+            | '@media screen and (max-width: 400px)'
+            | 'navContainer'
+            | 'selectRoot'
+            | 'tableCellContainer'
+            | 'toolbar'
+            ;
+
+        MUIDataTableResize: 'root' | 'resizer';
+
+        MUIDataTableSearch:
+            | 'clearIcon'
+            | 'main'
+            | 'searchIcon'
+            | 'searchText'
+            ;
+
+        MUIDataTableSelectCell:
+            | 'root'
+            | 'checkboxRoot'
+            | 'checked'
+            | 'disabled'
+            | 'expandDisabled'
+            | 'expanded'
+            | 'fixedHeader'
+            | 'fixedLeft'
+            | 'headerCell'
+            | 'hide'
+            | 'icon'
+            ;
+
+        MUIDataTableToolbar:
+            | 'root'
+            | '@media screen and (max-width: 480px)'
+            | "[theme.breakpoints.down('sm')]"
+            | "[theme.breakpoints.down('xs')]"
+            | 'actions'
+            | 'filterCloseIcon'
+            | 'filterPaper'
+            | 'fullWidthActions'
+            | 'fullWidthLeft'
+            | 'fullWidthRoot'
+            | 'fullWidthTitleText'
+            | 'icon'
+            | 'iconActive'
+            | 'left'
+            | 'searchIcon'
+            | 'titleRoot'
+            | 'titleText'
+            ;
+
+        MUIDataTableToolbarSelect:
+            | 'root'
+            | 'deleteIcon'
+            | 'iconButton'
+            | 'title'
+            ;
+
+        MUIDataTableViewCol:
+            | 'root'
+            | 'checkbox'
+            | 'checkboxRoot'
+            | 'checked'
+            | 'formControl'
+            | 'formGroup'
+            | 'label'
+            | 'title'
+            ;
+    }
+}
