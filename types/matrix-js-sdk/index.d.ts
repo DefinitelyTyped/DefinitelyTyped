@@ -347,7 +347,7 @@ export interface SyncData {
   /**
    * The 'since' token passed to /sync. null for the first successful sync since this client was started. Only present if state=PREPARED or state=SYNCING.
    */
-  oldSyncToken?: string;
+  oldSyncToken?: string | null;
   catchingUp?: boolean;
   fromCache?: boolean;
   error?: Error;
