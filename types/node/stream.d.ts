@@ -328,6 +328,9 @@ declare module 'stream' {
                 (err: NodeJS.ErrnoException | null) => void;
         type PipelinePromise<S extends PipelineDestination<any, any>> =
             S extends PipelineDestinationPromiseFunction<any, infer P> ? Promise<P> : Promise<void>;
+        interface PipelineOptions {
+            signal: AbortSignal;
+        }
 
         function pipeline<A extends PipelineSource<any>,
             B extends PipelineDestination<A, any>>(
@@ -392,14 +395,16 @@ declare module 'stream' {
             function __promisify__<A extends PipelineSource<any>,
                 B extends PipelineDestination<A, any>>(
                 source: A,
-                destination: B
+                destination: B,
+                options?: PipelineOptions
             ): PipelinePromise<B>;
             function __promisify__<A extends PipelineSource<any>,
                 T1 extends PipelineTransform<A, any>,
                 B extends PipelineDestination<T1, any>>(
                 source: A,
                 transform1: T1,
-                destination: B
+                destination: B,
+                options?: PipelineOptions,
             ): PipelinePromise<B>;
             function __promisify__<A extends PipelineSource<any>,
                 T1 extends PipelineTransform<A, any>,
@@ -408,7 +413,8 @@ declare module 'stream' {
                 source: A,
                 transform1: T1,
                 transform2: T2,
-                destination: B
+                destination: B,
+                options?: PipelineOptions
             ): PipelinePromise<B>;
             function __promisify__<A extends PipelineSource<any>,
                 T1 extends PipelineTransform<A, any>,
@@ -419,7 +425,8 @@ declare module 'stream' {
                 transform1: T1,
                 transform2: T2,
                 transform3: T3,
-                destination: B
+                destination: B,
+                options?: PipelineOptions
             ): PipelinePromise<B>;
             function __promisify__<A extends PipelineSource<any>,
                 T1 extends PipelineTransform<A, any>,
@@ -432,14 +439,18 @@ declare module 'stream' {
                 transform2: T2,
                 transform3: T3,
                 transform4: T4,
-                destination: B
+                destination: B,
+                options?: PipelineOptions
             ): PipelinePromise<B>;
 
-            function __promisify__(streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
+            function __promisify__(
+                streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
+                options?: PipelineOptions
+            ): Promise<void>;
             function __promisify__(
                 stream1: NodeJS.ReadableStream,
                 stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
-                ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>,
+                ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>,
             ): Promise<void>;
         }
 
