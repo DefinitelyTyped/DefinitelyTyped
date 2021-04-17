@@ -152,6 +152,8 @@ export type EventType = never
     | 'm.room.tombstone'
     | 'm.room.topic'
     | 'm.sticker'
+    | 'm.direct'
+    | 'm.reaction'
     | 'm.presence';
 
 export type MsgType = never
