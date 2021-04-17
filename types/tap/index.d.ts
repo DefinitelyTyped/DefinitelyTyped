@@ -323,8 +323,7 @@ declare class DeprecatedAssertionSynonyms {
 declare namespace Assertions {
     type Basic = (obj: any, message?: string, extra?: Options.Assert) => boolean;
     interface Throws {
-        (fn?: (...args: any[]) => any, expectedError?: Error, message?: string, extra?: Options.Assert): boolean;
-        (fn?: (...args: any[]) => any, messageOrExpectedError?: string | Error, extra?: Options.Assert): boolean;
+        (fn?: (...args: any[]) => any, expectedError?: any, message?: string, extra?: Options.Assert): boolean;
     }
     type DoesNotThrow = (fn?: (...args: any[]) => any, message?: string, extra?: Options.Assert) => boolean;
     type Equal = (found: any, wanted: any, message?: string, extra?: Options.Assert) => boolean;
