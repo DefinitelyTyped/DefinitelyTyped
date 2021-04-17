@@ -94,5 +94,12 @@ async () => {
             r.id;
             r.fields;
         });
+
+        table.create(newRowData, { typecast: true }, (err, records) => {
+            records.forEach((r: Airtable.Record<Row>) => {
+                r.id;
+                r.fields;
+            });
+        });
     }
 };

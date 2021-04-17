@@ -44,8 +44,10 @@ declare global {
         interface Table<TFields extends FieldSet> {
             select(opt?: SelectOptions): Query<TFields>;
             find(id: string): Promise<Record<TFields>>;
-            create(record: TFields, opts?: { typecast: boolean }): Promise<Record<TFields>>;
-            create(records: TFields[], opts?: { typecast: boolean }): Promise<Records<TFields>>;
+            create(record: TFields, callback?: (err: any, records: any) => void): Promise<Record<TFields>>;
+            create(records: TFields[], callback?: (err: any, records: any) => void): Promise<Records<TFields>>;
+            create(record: TFields, opts?: { typecast: boolean }, callback?: (err: any, records: any) => void): Promise<Record<TFields>>;
+            create(records: TFields[], opts?: { typecast: boolean }, callback?: (err: any, records: any) => void): Promise<Records<TFields>>;
             update(...args: any[]): Promise<any>;
             replace(...args: any[]): Promise<any>;
             destroy(...args: any[]): Promise<any>;
