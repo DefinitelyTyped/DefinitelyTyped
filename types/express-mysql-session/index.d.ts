@@ -5,11 +5,12 @@
 //                 Ionaru <https://github.com/Ionaru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as express from 'express';
 import * as expressSession from 'express-session';
 
 export = MySQLStore;
 
-declare function MySQLStore(session: typeof expressSession.session): typeof MySQLStoreClass;
+declare function MySQLStore(session: typeof express.RequestHandler): typeof MySQLStoreClass;
 
 declare namespace MySQLStore {
     interface Options {
