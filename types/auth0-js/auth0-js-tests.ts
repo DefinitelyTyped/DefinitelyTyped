@@ -330,6 +330,13 @@ webAuth.renderCaptcha(
     },
 );
 
+// $ExpectType void
+webAuth.renderCaptcha(input).reload((err) => {
+    if (err) {
+        // handle error
+    }
+});
+
 const authentication = new auth0.Authentication({
     domain: "me.auth0.com",
     clientID: "...",

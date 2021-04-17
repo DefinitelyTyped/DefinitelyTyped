@@ -575,8 +575,10 @@ export interface AuthOptions {
     __tryLocalStorageFirst?: boolean;
 }
 
+export type DoneCallback = (err?: Auth0Error) => void;
+
 export interface Captcha {
-    reload: (done: any) => void;
+    reload: (done: DoneCallback) => void;
     getValue: () => string;
 }
 
