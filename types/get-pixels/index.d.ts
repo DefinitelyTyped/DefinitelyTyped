@@ -7,7 +7,7 @@
 
 import ndarray = require("ndarray");
 
-type Callback = (err: Error | null, pixels: ndarray | null) => void;
+type Callback = (err: Error | null, pixels: ndarray) => void;
 
 declare function getPixels(path: string, callback: Callback): void;
 declare function getPixels(path: string | Uint8Array, type: string, callback: Callback): void;
