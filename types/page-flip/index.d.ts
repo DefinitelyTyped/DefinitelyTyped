@@ -23,7 +23,7 @@ import { CanvasUI } from "./dist/UI/CanvasUI";
 import { HTMLUI } from "./dist/UI/HTMLUI";
 import { SwipeData, UI } from "./dist/UI/UI";
 
-export as namespace StPageFlip;
+export as namespace St;
 
 export {
   // Enumerations

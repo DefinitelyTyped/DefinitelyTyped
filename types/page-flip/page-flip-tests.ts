@@ -1,80 +1,80 @@
-import * as StPageFlip from "page-flip";
+import * as St from "page-flip";
 
 //// Enumerations
 
 // $ExpectType typeof FlipCorner
-StPageFlip.FlipCorner;
+St.FlipCorner;
 
 // $ExpectType typeof FlipDirection
-StPageFlip.FlipDirection;
+St.FlipDirection;
 
 // $ExpectType typeof FlippingState
-StPageFlip.FlippingState;
+St.FlippingState;
 
 // $ExpectType typeof Orientation
-StPageFlip.Orientation;
+St.Orientation;
 
 // $ExpectType typeof PageDensity
-StPageFlip.PageDensity;
+St.PageDensity;
 
 // $ExpectType typeof PageOrientation
-StPageFlip.PageOrientation;
+St.PageOrientation;
 
 // $ExpectType typeof SizeType
-StPageFlip.SizeType;
+St.SizeType;
 
 //// Classes
 
 // $ExpectType typeof HTMLPageCollection
-StPageFlip.HTMLPageCollection;
+St.HTMLPageCollection;
 
 // $ExpectType typeof ImagePageCollection
-StPageFlip.ImagePageCollection;
+St.ImagePageCollection;
 
 // $ExpectType typeof PageCollection
-StPageFlip.PageCollection;
+St.PageCollection;
 
 // $ExpectType typeof EventObject
-StPageFlip.EventObject;
+St.EventObject;
 
 // $ExpectType typeof Flip
-StPageFlip.Flip;
+St.Flip;
 
 // $ExpectType typeof FlipCalculation
-StPageFlip.FlipCalculation;
+St.FlipCalculation;
 
 // $ExpectType typeof Helper
-StPageFlip.Helper;
+St.Helper;
 
 // $ExpectType typeof HTMLPage
-StPageFlip.HTMLPage;
+St.HTMLPage;
 
 // $ExpectType typeof ImagePage
-StPageFlip.ImagePage;
+St.ImagePage;
 
 // $ExpectType typeof Page
-StPageFlip.Page;
+St.Page;
 
 // $ExpectType typeof CanvasRender
-StPageFlip.CanvasRender;
+St.CanvasRender;
 
 // $ExpectType typeof HTMLRender
-StPageFlip.HTMLRender;
+St.HTMLRender;
 
 // $ExpectType typeof Render
-StPageFlip.Render;
+St.Render;
 
 // $ExpectType typeof CanvasUI
-StPageFlip.CanvasUI;
+St.CanvasUI;
 
 // $ExpectType typeof HTMLUI
-StPageFlip.HTMLUI;
+St.HTMLUI;
 
 // $ExpectType typeof UI
-StPageFlip.UI;
+St.UI;
 
 // $ExpectType typeof PageFlip
-StPageFlip.PageFlip;
+St.PageFlip;
 
 // $ExpectType typeof Settings
-StPageFlip.Settings;
+St.Settings;
