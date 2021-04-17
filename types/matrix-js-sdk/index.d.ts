@@ -1141,8 +1141,8 @@ export class SyncAccumulator {
    * represents all room data that should be stored. This should be paired
    * with the sync token which represents the most recent /sync response
    * provided to accumulate().
-   * @param {boolean} forDatabase True to generate a sync to be saved to storage
-   * @return {Object} An object with a "nextBatch", "roomsData", "groupsData"
+   * @param forDatabase True to generate a sync to be saved to storage
+   * @return An object with a "nextBatch", "roomsData", "groupsData"
    * and "accountData" keys.
    * The "nextBatch" key is a string which represents at what point in the
    * /sync stream the accumulator reached. This token should be used when
