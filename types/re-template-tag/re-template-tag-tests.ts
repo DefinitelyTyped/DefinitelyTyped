@@ -1,3 +1,3 @@
 import { re } from 're-template-tag';
 
-const regexp: string = re`^foo${'bar'}\/baz$`;
+const regexp: RegExp = re`^foo${'bar'}\/baz$`;
