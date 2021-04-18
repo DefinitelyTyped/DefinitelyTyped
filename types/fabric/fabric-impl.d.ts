@@ -3157,6 +3157,8 @@ export class Object {
         mtr?: boolean;
     };
 
+    controls: { [key: string]: Control };
+
     constructor(options?: IObjectOptions);
     initialize(options?: IObjectOptions): Object;
 
