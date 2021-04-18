@@ -2594,7 +2594,11 @@ type UpdateOptionalId<T> = T extends { _id?: any } ? OptionalId<T> : T;
 
 export type SortValues = -1 | 1;
 
-/** @see https://docs.mongodb.com/manual/reference/operator/aggregation/meta/#proj._S_meta */
+/**
+ * Values for the $meta aggregation pipeline operator
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/operator/aggregation/meta/#proj._S_meta
+ */
 export type MetaSortOperators = "textScore" | "indexKey";
 
 export type MetaProjectionOperators =
@@ -2653,9 +2657,32 @@ export type PullAllOperator<TSchema> = ({
     readonly [key: string]: any[];
 };
 
-/** @see https://docs.mongodb.com/manual/reference/operator/update */
+/**
+ * Modifiers to use in update operations
+ * @see https://docs.mongodb.com/v3.6/reference/operator/update
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/operator/update-field/
+ * @param $currentDate Sets the value of a field to current date, either as a Date or a Timestamp.
+ * @param $inc Increments the value of the field by the specified amount.
+ * @param $min Only updates the field if the specified value is less than the existing field value.
+ * @param $max Only updates the field if the specified value is greater than the existing field value.
+ * @param $mul Multiplies the value of the field by the specified amount.
+ * @param $rename Renames a field.
+ * @param $set Sets the value of a field in a document.
+ * @param $setOnInsert Sets the value of a field if an update results in an insert of a document. Has no effect on update operations that modify existing documents.
+ * @param $unset Removes the specified field from a document.
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/operator/update-array/
+ * @param $addToSet Adds elements to an array only if they do not already exist in the set.
+ * @param $pop Removes the first or last item of an array.
+ * @param $pull Removes all array elements that match a specified query.
+ * @param $push Adds an item to an array.
+ * @param $pullAll Removes all matching values from an array.
+ * @param $bit Performs bitwise `AND`, `OR`, and `XOR` updates of integer values.
+ * @see https://docs.mongodb.com/v3.6/reference/operator/update-bitwise/
+ *
+ */
 export type UpdateQuery<TSchema> = {
-    /** @see https://docs.mongodb.com/manual/reference/operator/update-field/ */
     $currentDate?: OnlyFieldsOfType<TSchema, Date | Timestamp, true | { $type: "date" | "timestamp" }>;
     $inc?: OnlyFieldsOfType<TSchema, NumericTypes | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
@@ -2666,20 +2693,22 @@ export type UpdateQuery<TSchema> = {
     $setOnInsert?: MatchKeysAndValues<TSchema>;
     $unset?: OnlyFieldsOfType<TSchema, any, "" | 1 | true>;
 
-    /** @see https://docs.mongodb.com/manual/reference/operator/update-array/ */
     $addToSet?: SetFields<TSchema>;
     $pop?: OnlyFieldsOfType<TSchema, ReadonlyArray<any>, 1 | -1>;
     $pull?: PullOperator<TSchema>;
     $push?: PushOperator<TSchema>;
     $pullAll?: PullAllOperator<TSchema>;
 
-    /** @see https://docs.mongodb.com/manual/reference/operator/update-bitwise/ */
     $bit?: {
         [key: string]: { [key in "and" | "or" | "xor"]?: number };
     };
 };
 
-/** @see https://docs.mongodb.com/manual/reference/operator/query/type/#available-types */
+/**
+ * Available BSON types
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/operator/query/type/#available-types
+ */
 export enum BSONType {
     Double = 1,
     String,
@@ -2743,7 +2772,56 @@ type BitwiseQuery =
 type RegExpForString<T> = T extends string ? RegExp | T : T;
 type MongoAltQuery<T> = T extends ReadonlyArray<infer U> ? T | RegExpForString<U> : RegExpForString<T>;
 
-/** @see https://docs.mongodb.com/manual/reference/operator/query/#query-selectors */
+/**
+ * Available query selector types
+ *
+ * @param $eq Matches values that are equal to a specified value.
+ * @param $gt Matches values that are greater than a specified value.
+ * @param $gte Matches values that are greater than or equal to a specified value.
+ * @param $in Matches values that are greater than or equal to a specified value.
+ * @param $lt Matches values that are less than a specified value.
+ * @param $lte Matches values that are less than or equal to a specified value.
+ * @param $ne Matches all values that are not equal to a specified value.
+ * @param $nin Matches none of the values specified in an array.
+ *
+ * @param $and Joins query clauses with a logical `AND` returns all documents that match the conditions of both clauses.
+ * @param $not Inverts the effect of a query expression and returns documents that do not match the query expression.
+ * @param $nor Joins query clauses with a logical `NOR` returns all documents that fail to match both clauses.
+ * @param $or Joins query clauses with a logical `OR` returns all documents that match the conditions of either clause.
+ *
+ * @param $exists Matches documents that have the specified field.
+ * @param $type Selects documents if a field is of the specified type.
+ *
+ * @param $expr Allows use of aggregation expressions within the query language.
+ * @param $jsonSchema Validate documents against the given JSON Schema.
+ * @param $mod Performs a modulo operation on the value of a field and selects documents with a specified result.
+ * @param $regex Selects documents where values match a specified regular expression.
+ * @param $text Performs text search.
+ * @param $where Matches documents that satisfy a JavaScript expression.
+ *
+ * @param $geoIntersects Selects geometries that intersect with a {@link https://docs.mongodb.com/v3.6/reference/glossary/#term-geojson GeoJSON} geometry.
+ * The {@link https://docs.mongodb.com/v3.6/core/2dsphere/ 2dsphere} index supports {@link https://docs.mongodb.com/v3.6/reference/operator/query/geoIntersects/#op._S_geoIntersects $geoIntersects}.
+ * @param $geoWithin Selects geometries within a bounding {@link https://docs.mongodb.com/v3.6/reference/geojson/#geospatial-indexes-store-geojson GeoJSON geometry}.
+ * The {@link https://docs.mongodb.com/v3.6/core/2dsphere/ 2dsphere} and {@link https://docs.mongodb.com/v3.6/core/2d/ 2d} indexes
+ * support {@link https://docs.mongodb.com/v3.6/reference/operator/query/geoWithin/#op._S_geoWithin $geoWithin}.
+ * @param $near Returns geospatial objects in proximity to a point. Requires a geospatial index. The {@link https://docs.mongodb.com/v3.6/core/2dsphere/ 2dsphere}
+ * and {@link https://docs.mongodb.com/v3.6/core/2d/ 2d} indexes support {@link https://docs.mongodb.com/v3.6/reference/operator/query/near/#op._S_near $near}.
+ * @param $nearSphere Returns geospatial objects in proximity to a point on a sphere. Requires a geospatial index. The {@link https://docs.mongodb.com/v3.6/core/2dsphere/ 2dsphere} and
+ * {@link https://docs.mongodb.com/v3.6/reference/operator/query/nearSphere/#op._S_nearSphere 2d} indexes support
+ * {@link https://docs.mongodb.com/v3.6/reference/operator/query/nearSphere/#op._S_nearSphere $nearSphere}.
+ *
+ * @param $all Matches arrays that contain all elements specified in the query.
+ * @param $elemMatch Selects documents if element in the array field matches all the specified
+ * {@link https://docs.mongodb.com/v3.6/reference/operator/query/elemMatch/#op._S_elemMatch $elemMatch} conditions.
+ * @param $size Selects documents if the array field is a specified size.
+ *
+ * @param $bitsAllClear Matches numeric or binary values in which a set of bit positions all have a value of `0`.
+ * @param $bitsAllSet Matches numeric or binary values in which a set of bit positions all have a value of `1`.
+ * @param $bitsAnyClear Matches numeric or binary values in which any bit from a set of bit positions has a value of `0`.
+ * @param $bitsAnySet Matches numeric or binary values in which any bit from a set of bit positions has a value of `1`.
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/operator/query/#query-selectors
+ */
 export type QuerySelector<T> = {
     // Comparison
     $eq?: T;
@@ -2827,11 +2905,21 @@ export type BulkWriteInsertOneOperation<TSchema> = {
     };
 };
 
-/** @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#updateone-and-updatemany */
+/**
+ * Options for the updateOne and updateMany operations
+ *
+ * @param arrayFilters Optional. An array of filter documents that determines which array elements to modify for an update operation on an array field.
+ * @param collaction Optional. Specifies the collation to use for the operation.
+ * @param filter The selection criteria for the update. The same {@link https://docs.mongodb.com/v3.6/reference/operator/query/#query-selectors query selectors}
+ * as in the {@link https://docs.mongodb.com/v3.6/reference/method/db.collection.find/#db.collection.find find()} method are available.
+ * @param update The modifications to apply.
+ * @param upsert When true, the operation either creates a new document if no documents match the `filter` or updates the document(s) that match the `filter`.
+ * For more details see {@link https://docs.mongodb.com/v3.6/reference/method/db.collection.update/#upsert-behavior upsert behavior}
+ * @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#updateone-and-updatemany
+ */
 export type BulkWriteUpdateOperation<TSchema> = {
     arrayFilters?: object[];
     collation?: object;
-    hint?: string | object;
     filter: FilterQuery<TSchema>;
     update: UpdateQuery<TSchema>;
     upsert?: boolean;
@@ -2843,11 +2931,21 @@ export type BulkWriteUpdateManyOperation<TSchema> = {
     updateMany: BulkWriteUpdateOperation<TSchema>;
 };
 
-/** @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#replaceone */
+/**
+ * Options for the replaceOne operation
+ *
+ * @param collation Optional. Specifies the {@link https://docs.mongodb.com/v3.6/reference/bson-type-comparison-order/#collation collation} to use for the operation.
+ * @param filter The selection criteria for the update. The same {@link https://docs.mongodb.com/v3.6/reference/operator/query/#query-selectors query selectors}
+ * as in the {@link https://docs.mongodb.com/v3.6/reference/method/db.collection.find/#db.collection.find find()} method are available.
+ * @param replacement The replacement document.
+ * @param upsert When true, replaceOne either inserts the document from the `replacement` parameter if no document matches the `filter`
+ * or replaces the document that matches the `filter` with the `replacement` document.
+ * For more details see {@link https://docs.mongodb.com/v3.6/reference/method/db.collection.update/#upsert-behavior upsert behavior}
+ * @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#replaceone
+ */
 export type BulkWriteReplaceOneOperation<TSchema> = {
     replaceOne: {
         collation?: object;
-        hint?: string | object;
         filter: FilterQuery<TSchema>;
         replacement: TSchema;
         upsert?: boolean;
