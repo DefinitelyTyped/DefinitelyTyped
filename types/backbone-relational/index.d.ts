@@ -7,10 +7,10 @@
 
 /// <reference types="jquery" />
 
-import { EventsMixin, Events, Model as BModel, Collection } from 'backbone';
+import { EventsMixin, Events, Model, Collection } from 'backbone';
 
-declare module 'backbone-relational' {
-    class Model extends BModel {
+declare module 'backbone' {
+    class RelationalModel extends Model {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
@@ -48,7 +48,7 @@ declare module 'backbone-relational' {
         static findOrCreate(attributes:any, options?:any);
     }
 
-    export class Relation extends BModel {
+    export class Relation extends Model {
 
         options:any;
         instance:any;
@@ -61,11 +61,11 @@ declare module 'backbone-relational' {
 
         checkPreconditions():boolean;
 
-        setRelated(related:BModel):void;
+        setRelated(related:Model):void;
 
-        setRelated(related:Collection<BModel>):void;
+        setRelated(related:Collection<Model>):void;
 
-        getReverseRelations(model:Model):Relation;
+        getReverseRelations(model:RelationalModel):Relation;
 
         destroy():JQueryXHR | false;
     }
@@ -73,7 +73,7 @@ declare module 'backbone-relational' {
     export class HasOne extends Relation {
         collectionType:any;
 
-        findRelated(options:any):BModel;
+        findRelated(options:any):Model;
 
         setKeyContents(keyContents:string):void;
 
@@ -83,21 +83,21 @@ declare module 'backbone-relational' {
 
         setKeyContents(keyContents:number[]):void;
 
-        setKeyContents(keyContents:Collection<BModel>):void;
+        setKeyContents(keyContents:Collection<Model>):void;
 
-        onChange(model:BModel, attr:any, options:any):void;
+        onChange(model:Model, attr:any, options:any):void;
 
-        handleAddition(model:BModel, coll:Collection<BModel>, options:any):void;
+        handleAddition(model:Model, coll:Collection<Model>, options:any):void;
 
-        handleRemoval(model:BModel, coll:Collection<BModel>, options:any):void;
+        handleRemoval(model:Model, coll:Collection<Model>, options:any):void;
 
-        handleReset(coll:Collection<BModel>, options:any):void;
+        handleReset(coll:Collection<Model>, options:any):void;
 
-        tryAddRelated(model:BModel, coll:any, options:any):void;
+        tryAddRelated(model:Model, coll:any, options:any):void;
 
-        addRelated(model:BModel, options:any):void;
+        addRelated(model:Model, options:any):void;
 
-        removeRelated(model:BModel, coll:any, options:any):void;
+        removeRelated(model:Model, coll:any, options:any):void;
 
     }
 
@@ -105,21 +105,21 @@ declare module 'backbone-relational' {
     export class HasMany extends Relation {
         collectionType:any;
 
-        findRelated(options:any):BModel;
+        findRelated(options:any):Model;
 
         setKeyContents(keyContents:string):void;
 
         setKeyContents(keyContents:number):void;
 
-        setKeyContents(keyContents:BModel):void;
+        setKeyContents(keyContents:Model):void;
 
-        onChange(model:BModel, attr:any, options:any):void;
+        onChange(model:Model, attr:any, options:any):void;
 
-        tryAddRelated(model:BModel, coll:any, options:any):void;
+        tryAddRelated(model:Model, coll:any, options:any):void;
 
-        addRelated(model:BModel, options:any):void;
+        addRelated(model:Model, options:any):void;
 
-        removeRelated(model:BModel, coll:any, options:any):void;
+        removeRelated(model:Model, coll:any, options:any):void;
 
     }
 
@@ -130,9 +130,9 @@ declare module 'backbone-relational' {
 
         removeModelScope(scope):void;
 
-        addSubModels(subModelTypes:Model, superModelType:Model):void;
+        addSubModels(subModelTypes:RelationalModel, superModelType:RelationalModel):void;
 
-        setupSuperModel(modelType:Model):void;
+        setupSuperModel(modelType:RelationalModel):void;
 
         addReverseRelation(relation:any):void;
 
@@ -140,28 +140,28 @@ declare module 'backbone-relational' {
 
         processOrphanRelations():void;
 
-        retroFitRelation(relation:Model, create:boolean):Collection<BModel>;
+        retroFitRelation(relation:RelationalModel, create:boolean):Collection<Model>;
 
-        getCollection(type:Model, create:boolean):Collection<BModel>;
+        getCollection(type:RelationalModel, create:boolean):Collection<Model>;
 
         getObjectByName(name:string):any;
 
 
         resolveIdForItem(type:any, item:any):any;
 
-        static find(type:any, item:string):Model;
+        static find(type:any, item:string):RelationalModel;
 
-        static find(type:any, item:number):Model;
+        static find(type:any, item:number):RelationalModel;
 
-        static find(type:any, item:Model):Model;
+        static find(type:any, item:RelationalModel):RelationalModel;
 
-        static find(type:any, item:any):Model;
+        static find(type:any, item:any):RelationalModel;
 
-        register(model:Model):void;
+        register(model:RelationalModel):void;
 
-        checkId(model:Model, id:any):void;
+        checkId(model:RelationalModel, id:any):void;
 
-        update(model:Model):void;
+        update(model:RelationalModel):void;
 
         // tslint:disable-next-line use-default-type-parameter
         unregister(type: Model | Collection<Model> | typeof Model): void;
@@ -170,7 +170,7 @@ declare module 'backbone-relational' {
 
 
     }
-    
+
     export const store: Store;
 
 }
