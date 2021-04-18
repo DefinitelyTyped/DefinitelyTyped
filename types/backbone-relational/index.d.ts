@@ -48,7 +48,7 @@ declare module 'backbone' {
         static findOrCreate(attributes:any, options?:any);
     }
 
-    export class Relation extends Model {
+    class Relation extends Model {
 
         options:any;
         instance:any;
@@ -63,14 +63,14 @@ declare module 'backbone' {
 
         setRelated(related:Model):void;
 
-        setRelated(related:Collection<Model>):void;
+        setRelated(related:Collection):void;
 
         getReverseRelations(model:RelationalModel):Relation;
 
         destroy():JQueryXHR | false;
     }
 
-    export class HasOne extends Relation {
+    class HasOne extends Relation {
         collectionType:any;
 
         findRelated(options:any):Model;
@@ -83,15 +83,15 @@ declare module 'backbone' {
 
         setKeyContents(keyContents:number[]):void;
 
-        setKeyContents(keyContents:Collection<Model>):void;
+        setKeyContents(keyContents:Collection):void;
 
         onChange(model:Model, attr:any, options:any):void;
 
-        handleAddition(model:Model, coll:Collection<Model>, options:any):void;
+        handleAddition(model:Model, coll:Collection, options:any):void;
 
-        handleRemoval(model:Model, coll:Collection<Model>, options:any):void;
+        handleRemoval(model:Model, coll:Collection, options:any):void;
 
-        handleReset(coll:Collection<Model>, options:any):void;
+        handleReset(coll:Collection, options:any):void;
 
         tryAddRelated(model:Model, coll:any, options:any):void;
 
@@ -102,7 +102,7 @@ declare module 'backbone' {
     }
 
 
-    export class HasMany extends Relation {
+    class HasMany extends Relation {
         collectionType:any;
 
         findRelated(options:any):Model;
@@ -123,7 +123,7 @@ declare module 'backbone' {
 
     }
 
-    export class Store extends EventsMixin implements Events {
+    class Store extends EventsMixin implements Events {
         initializeRelation(model, relation, options);
 
         addModelScope(scope:any):void;
@@ -140,9 +140,9 @@ declare module 'backbone' {
 
         processOrphanRelations():void;
 
-        retroFitRelation(relation:RelationalModel, create:boolean):Collection<Model>;
+        retroFitRelation(relation:RelationalModel, create:boolean):Collection;
 
-        getCollection(type:RelationalModel, create:boolean):Collection<Model>;
+        getCollection(type:RelationalModel, create:boolean):Collection;
 
         getObjectByName(name:string):any;
 
@@ -164,13 +164,13 @@ declare module 'backbone' {
         update(model:RelationalModel):void;
 
         // tslint:disable-next-line use-default-type-parameter
-        unregister(type: Model | Collection<Model> | typeof Model): void;
+        unregister(type: Model | Collection | typeof Model): void;
 
         reset():void;
 
 
     }
 
-    export const store: Store;
+    const store: Store;
 
 }
