@@ -65,11 +65,11 @@ matrixClient.store.getRoomSummaries();  // $ExpectType RoomSummary[]
 interface CustomEventContent {
     data: string;
 }
-const customEvent = new MatrixEvent<CustomEventContent>({
+const customEvent = new MatrixEvent<CustomEventContent, 'com.custom.type'>({
     content: "data string",
     origin_server_ts: 0,
     sender: "senderid",
-    type: "",
+    type: "com.custom.type",
     room_id: "",
     event_id: "",
 });
@@ -79,7 +79,7 @@ const customEventNameEvent = new MatrixEvent<{}, 'com.custom.type'>({
     content: "data string",
     origin_server_ts: 0,
     sender: "senderid",
-    type: "",
+    type: "com.custom.type",
     room_id: "",
     event_id: "",
 });
