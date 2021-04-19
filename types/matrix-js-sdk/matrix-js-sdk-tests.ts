@@ -65,8 +65,22 @@ matrixClient.store.getRoomSummaries();  // $ExpectType RoomSummary[]
 interface CustomEventContent {
     data: string;
 }
-const customEvent = new MatrixEvent<CustomEventContent>({});
+const customEvent = new MatrixEvent<CustomEventContent>({
+    content: "data string",
+    origin_server_ts: 0,
+    sender: "senderid",
+    type: "",
+    room_id: "",
+    event_id: "",
+});
 customEvent.getContent(); // $ExpectType CustomEventContent
 
-const customEventNameEvent = new MatrixEvent<{}, 'com.custom.type'>({});
+const customEventNameEvent = new MatrixEvent<{}, 'com.custom.type'>({
+    content: "data string",
+    origin_server_ts: 0,
+    sender: "senderid",
+    type: "",
+    room_id: "",
+    event_id: "",
+});
 customEventNameEvent.getType(); // $ExpectType "com.custom.type"
