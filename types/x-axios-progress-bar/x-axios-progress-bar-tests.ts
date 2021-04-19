@@ -7,3 +7,5 @@ loadProgressBar({}, axios);
 
 // $ExpectError
 loadProgressBar(null);
+
+axios.get("https://www.example.com", { progress: false });
