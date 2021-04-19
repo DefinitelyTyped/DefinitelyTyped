@@ -60,6 +60,13 @@ declare module 'ipaiva' {
             nodeEvents?: DesignNodeEvents;
             preCreate?(option: PreCreateOption): PreCreateOption;
             overrideRenderProperties?(props: Props): Props;
+
+            /**
+             * extract options
+             *
+             * @param options DesignOptions
+             */
+            extractOptions?(options: DesignOptions): DesignOptions
         }
 
         interface Render {}
