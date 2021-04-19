@@ -192,6 +192,7 @@ declare namespace Faker {
             domainWord(): string;
             ip(): string;
             ipv6(): string;
+            port(): number;
             userAgent(): string;
             color(baseRed255?: number, baseGreen255?: number, baseBlue255?: number): string;
             mac(sep?: string): string;

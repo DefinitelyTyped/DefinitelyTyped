@@ -221,6 +221,7 @@ resultStr = faker.internet.domainName();
 resultStr = faker.internet.domainSuffix();
 resultStr = faker.internet.domainWord();
 resultStr = faker.internet.ip();
+resultNum = faker.internet.port();
 resultStr = faker.internet.userAgent();
 resultStr = faker.internet.color();
 resultStr = faker.internet.color(0, 0, 0);
