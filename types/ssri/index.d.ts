@@ -13,6 +13,7 @@ export interface HashLike {
     algorithm: string;
     digest: string;
     options?: string[];
+    hexDigest(): string;    
 }
 
 export interface IntegrityLike {
