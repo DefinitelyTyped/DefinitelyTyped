@@ -951,7 +951,7 @@ export class MatrixEvent<IEventContentType = EventContentTypeMessage, EventTypeN
     error: Error;            //  most recent error associated with sending the event, if any
     forwardLooking: boolean; //  True if this event is 'forward looking', meaning that getDirectionalContent() will return event.content and not event.prev_content.
 
-    constructor(event: object)
+    constructor(event: RawEvent<IEventContentType, EventTypeName>)
     getId(): string;
     getSender(): string;
     getType(): EventTypeName;
@@ -1126,10 +1126,10 @@ export interface UnsignedType {
 
 export interface RawEvent<IEventContentType = EventContentTypeMessage, EventTypeName = EventType> {
     content: IEventContentType;
-    origin_server_ts: Date;
+    origin_server_ts: number;
     sender: string;
     type: EventTypeName;
-    unsigned: UnsignedType;
+    unsigned?: UnsignedType;
     event_id: string;
     room_id: string;
 }
