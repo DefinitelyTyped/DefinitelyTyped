@@ -377,6 +377,15 @@ cy.png({
   maxWidth: 100,
   maxHeight: 100
 });
+// $ExpectType Promise<Blob>
+cy.png({
+  output: 'blob-promise',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100
+});
 
 aliases(cy.jpg, cy.jpeg);
 // $ExpectType string
@@ -392,6 +401,16 @@ cy.jpg({
 // $ExpectType Blob
 cy.jpg({
   output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100,
+  quality: 0.5
+});
+// $ExpectType Promise<Blob>
+cy.jpg({
+  output: 'blob-promise',
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,
