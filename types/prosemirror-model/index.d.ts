@@ -599,7 +599,7 @@ declare class ProsemirrorNode<S extends Schema = any> {
    * Cut out the part of the document between the given positions, and
    * return it as a `Slice` object.
    */
-  slice(from: number, to?: number): Slice<S>;
+  slice(from: number, to?: number,includeParents?:boolean): Slice<S>;
   /**
    * Replace the part of the document between the given positions with
    * the given slice. The slice must 'fit', meaning its open sides
