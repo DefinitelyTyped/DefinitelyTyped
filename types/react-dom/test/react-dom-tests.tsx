@@ -13,11 +13,13 @@ describe('ReactDOM', () => {
     it('render', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
+        ReactDOM.render(React.createElement('div'), document.createDocumentFragment());
     });
 
     it('hydrate', () => {
         const rootElement = document.createElement('div');
         ReactDOM.hydrate(React.createElement('div'), rootElement);
+        ReactDOM.hydrate(React.createElement('div'), document.createDocumentFragment());
     });
 
     it('unmounts', () => {
