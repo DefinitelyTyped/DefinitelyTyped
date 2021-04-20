@@ -7,6 +7,8 @@
 // These definitions were initially written around 03-2021
 // The files paths and folder structure are designed to match the Google Ads Scripts documentation
 
+/// <reference types="google-apps-script" />
+
 /// <reference path="./ads-app/ad-customizer/items.d.ts" />
 /// <reference path="./ads-app/ad-customizer/sources.d.ts" />
 /// <reference path="./ads-app/ad-extensions/callouts/account-callout.d.ts" />
