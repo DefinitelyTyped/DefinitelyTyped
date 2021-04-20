@@ -1,12 +1,5 @@
 // tslint:disable: prefer-template
 
-// TODO: Replace declarations with Google Apps Script types
-declare const Logger: any;
-declare const Utilities: any;
-declare const SpreadsheetApp: any;
-declare const UrlFetchApp: any;
-declare const DriveApp: any;
-
 // Create an account label
 function createAccountLabels() {
     const labelName = "INSERT_LABEL_NAME_HERE";
