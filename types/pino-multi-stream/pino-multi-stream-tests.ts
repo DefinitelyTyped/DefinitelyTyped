@@ -9,7 +9,8 @@ const streams: pinoms.Streams = [
     { level: 'fatal', stream: fs.createWriteStream('/tmp/fatal.stream.out') },
     { stream: pino.destination() },
     { stream: pinoms.prettyStream() },
-    { stream: pinoms.prettyStream({ prettyPrint: { colorize: true } }) }
+    { stream: pinoms.prettyStream({ prettyPrint: { colorize: true } }) },
+    { level: 'silent', stream: pino.destination()} // "silent" stream
 ];
 const opts: pinoms.MultiStreamOptions = {
     dedupe: true

@@ -1,9 +1,7 @@
 // Type definitions for figlet 1.5
 // Project: https://github.com/patorjk/figlet.js
-// Definitions by: Junyoung Clare Jang <https://github.com/Ailrun>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// TypeScript Version: 2.1
 
 declare namespace figlet {
     type Fonts =
@@ -323,7 +321,17 @@ declare namespace figlet {
         verticalLayout?: KerningMethods;
         printDirection?: PrintDirection;
         showHardBlanks?: boolean;
+        /**
+         * This option allows you to limit the width of the output.
+         * For example, if you want your output to be a max of 80 characters wide, you would set this option to 80.
+         * @default undefined
+         */
         width?: number;
+        /**
+         * This option works in conjunction with "width".
+         * If this option is set to true, then the library will attempt to break text up on whitespace when limiting the width.
+         * @default false
+         */
         whitespaceBreak?: boolean;
     }
     interface FontOptions {

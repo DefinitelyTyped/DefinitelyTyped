@@ -41463,7 +41463,7 @@ declare namespace Excel {
          */
         worksheetRowHiddenChanged = "WorksheetRowHiddenChanged",
         /**
-         * CommentAdded represents the type of event that is registered on commentCollection, and occurs when comments are added.
+         * `CommentAdded` represents the type of event that is registered on a comment collection and occurs when comments are added.
          *
          */
         commentAdded = "CommentAdded",

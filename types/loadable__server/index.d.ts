@@ -111,6 +111,11 @@ export class ChunkExtractor {
     getStyleTags(attr?: {} | AttrFn): string;
 
     /**
+     * Returns the preload assets lists.
+     */
+    getPreAssets(): Chunk[];
+
+    /**
      * Get style links as an array of React `<link>` elements
      */
     getStyleElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
