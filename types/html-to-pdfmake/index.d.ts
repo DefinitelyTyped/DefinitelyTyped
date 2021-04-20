@@ -7,7 +7,7 @@
  * This module will convert some basic and valid HTML code to its equivalent in pdfmake.
  * @see https://www.npmjs.com/package/html-to-pdfmake
  */
-export default function htmlToPdfmake(
+declare function htmlToPdfmake(
     html: string,
     options?: Partial<{
         /**
@@ -32,3 +32,5 @@ export default function htmlToPdfmake(
         window: unknown;
     }>,
 ): import("pdfmake/interfaces").Content;
+
+export = htmlToPdfmake;
