@@ -66,7 +66,9 @@ interface CustomEventContent {
     data: string;
 }
 const customEvent = new MatrixEvent<CustomEventContent, 'com.custom.type'>({
-    content: "data string",
+    content: {
+        data: "data string",
+    },
     origin_server_ts: 0,
     sender: "senderid",
     type: "com.custom.type",
