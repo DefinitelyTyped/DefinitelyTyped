@@ -758,7 +758,7 @@ declare namespace NodeJS {
     }
 
     interface ProcessEnv {
-        [key: string]: string | undefined;
+        [key: string]: string | number | undefined;
     }
 
     interface HRTime {

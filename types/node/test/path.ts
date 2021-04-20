@@ -85,7 +85,7 @@ path.extname('index');
 // returns
 //        ['foo', 'bar', 'baz']
 
-process.env["PATH"]; // $ExpectType string | undefined
+process.env["PATH"]; // $ExpectType string | number | boolean | undefined
 
 path.parse('/home/user/dir/file.txt');
 // returns
