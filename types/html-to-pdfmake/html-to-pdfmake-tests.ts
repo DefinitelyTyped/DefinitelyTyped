@@ -19,7 +19,7 @@ export const validExample: Content = htmlToPdfmake(
             s: { decoration: "lineThrough" },
             em: { italics: true },
             i: { italics: true },
-            h1: { fontSize: 24, bold: true /*marginBottom: 5*/ }, //marginBottom and marginLeft don't work at the moment but that seems to be an error in the pdfmake type
+            h1: { fontSize: 24, bold: true /*marginBottom: 5*/ }, // marginBottom and marginLeft don't work at the moment but that seems to be an error in the pdfmake type
             h2: { fontSize: 22, bold: true /*marginBottom: 5*/ },
             h3: { fontSize: 20, bold: true /*marginBottom: 5*/ },
             h4: { fontSize: 18, bold: true /*marginBottom: 5*/ },
@@ -40,9 +40,7 @@ export const validExample: Content = htmlToPdfmake(
             th: { bold: true, fillColor: "#EEEEEE" },
         },
         fontSizes: [1, 2, 3, 4, 5, 6, 7],
-        replaceText: function (text, _nodes) {
-            return text.replace(/-/g, "\\u2011");
-        },
+        replaceText: (text: string) => text.replace(/-/g, "\\u2011"),
         tableAutoSize: true,
     },
 );
