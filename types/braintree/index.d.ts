@@ -358,6 +358,36 @@ declare namespace braintree {
      */
 
     export class CreditCard {
+        static CardType: {
+            AmEx: 'American Express';
+            CarteBlanche: 'Carte Blanche';
+            ChinaUnionPay: 'China UnionPay';
+            DinersClubInternational: 'Diners Club';
+            Discover: 'Discover';
+            Elo: 'Elo';
+            JCB: 'JCB';
+            Laser: 'Laser';
+            UKMaestro: 'UK Maestro';
+            Maestro: 'Maestro';
+            MasterCard: 'MasterCard';
+            Solo: 'Solo';
+            Switch: 'Switch';
+            Visa: 'Visa';
+            Unknown: 'Unknown';
+            All: () => string[];
+        };
+
+        static CustomerLocation: {
+            International: 'international';
+            US: 'us';
+        };
+
+        static CardTypeIndicator: {
+            Yes: 'Yes';
+            No: 'No';
+            Unknown: 'Unknown';
+        };
+
         billingAddress?: Address;
         bin: string;
         cardholderName?: string;
@@ -692,6 +722,18 @@ declare namespace braintree {
      */
 
     export class MerchantAccount {
+        static Status: {
+            Pending: 'pending',
+            Active: 'active',
+            Suspended: 'suspended'
+        };
+
+        static FundingDestination: {
+            Bank: 'bank',
+            Email: 'email',
+            MobilePhone: 'mobile_phone',
+        };
+
         business?: MerchantBusinessResponse;
         currencyIsoCode: string;
         default: boolean;
