@@ -1066,19 +1066,11 @@ declare namespace BPMNModdle {
          *
          * @param xmlStr
          * XML string
-         */
-        fromXML(xmlStr: string): Promise<Definitions>;
-
-        /**
-         * Instantiates a BPMN model tree from a given xml string.
-         *
-         * @param xmlStr
-         * XML string
          *
          * @param options
          * Options to pass to the underlying reader
          */
-        fromXML(xmlStr: string, options: Option): Promise<Definitions>;
+        fromXML(xmlStr: string, options?: Option): Promise<Definitions>;
 
         /**
          * Instantiates a BPMN model tree from a given xml string.
