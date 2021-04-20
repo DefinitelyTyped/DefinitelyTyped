@@ -89,10 +89,10 @@ interface EventHandler<T> {
 }
 
 // event args need to be manually typed because Blessed.Widgets.NodeWithEvents
-// overloads the event handlers and does not expose the event callbacks as
+// overloads the event handlers (making it impossible? to extract the
+// parameters with TS utils) and does not expose the event callbacks as
 // importable types
 
-// name these ScreenEvent or ScreenEventArg?
 export type ScreenEvent = Blessed.Widgets.Screen;
 export type ScreenEventHandler = EventHandler<ScreenEvent>;
 type ScreenEventProps = EventHandlerProp<ScreenEventNames, ScreenEventHandler>;
@@ -123,10 +123,10 @@ interface EventProps
         KeyPressEventProps,
         WarningEventProps {}
 
-/* BLESSED REACT LOCALLY DEFINED PROPS **************************************/
+/* BLESSED-REACT LOCALLY DEFINED PROPS **************************************/
 
-// style is set to any in @types/blessed but in reality only can only take
-// certain values. define them here.
+// @types/blessed defines 'styles' as 'any' but 'blessed' can only can only
+// take certain values. define them here.
 
 interface BorderStyle {
     type?: "line" | "bg";
@@ -171,20 +171,20 @@ type KnownKeys<T> = {
 type WithClassProp<T, K = T | undefined | false | null> = T & { class?: K | K[] };
 type ProgressBarProps<T> = T extends ProgressBarElement ? ProgressBarEventProps & { style?: ProgressBarStyle } : {};
 type ListProps<T> = T extends ListElement ? ProgressBarEventProps & { style?: ListStyle; selected?: number } : {};
-// layout does not require prop "layout" in Blessed.Widgets.LayoutOptions--make it optional
+// layout does not require prop 'layout' in Blessed.Widgets.LayoutOptions--make it optional
 type LayoutProps<T> = T extends LayoutElement ? Partial<Blessed.Widgets.LayoutOptions> : {};
 
 // remove {[key: string]: any} indexer defined in Blessed.Widgets.IOptions.
-// blessed doesn't exist in a DOM so it probably doesn't make sense to allow any property
+// 'blessed' doesn't exist in a DOM so it probably doesn't make sense to allow any property
 type FilterOptions<T extends Record<any, any>> = Partial<Omit<Pick<T, KnownKeys<T>>, "style" | "children">>;
 
 type ModifiedBlessedOptions<T> = FilterOptions<T> & { children?: React.ReactNode; style?: ElementStyle } & EventProps;
 
-/* BLESSED REACT JSX ********************************************************/
+/* REACT-BLESSED JSX ********************************************************/
 
 /**
  *
- * this type can be used to get props for react-blessed elements in the same
+ * this type can be used to get props for 'react-blessed' elements in the same
  * manner that React.HTMLProps can be used to get DOM element props. e.g.
  * ```ts
  * import { FC } from 'react'
@@ -237,14 +237,14 @@ export interface BlessedIntrinsicElements {
     // program: Blessed.Widgets.Program is not an element
 }
 
-// react-blessed accepts JSX with blessed element names with and without
+// 'react-blessed' accepts JSX with 'blessed' element names with and without
 // a 'blessed-' prefix. see
 // https://github.com/Yomguithereal/react-blessed/blob/f5e1f791dea1788745695d557040b91f573f9ef5/src/fiber/fiber.js#L49
 export type BlessedIntrinsicElementsPrefixed = {
     [Key in keyof BlessedIntrinsicElements as Prefix<"blessed-", Key>]: BlessedIntrinsicElements[Key];
 };
 
-// it isn't possible to use the global JSX namespace because some blessed
+// it isn't possible to use the global JSX namespace because some 'blessed'
 // elements will collide with ones set in react defs.
 
 // augment react JSX when old JSX transform is used
