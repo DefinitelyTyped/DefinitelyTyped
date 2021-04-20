@@ -5,10 +5,13 @@
 // Minimum TypeScript Version: 4.1
 
 // These definitions were initially written around 03-2021
-// The files paths and folder structure are designed to match the Google Ads Scripts documentation
+// The files paths and folder structure are designed to resemble the Google Ads Scripts documentation website folder structure
+// https://developers.google.com/google-ads/scripts/docs/reference/adsapp/adsapp
 
+// Google Apps Script
 /// <reference types="google-apps-script" />
 
+// Google Ads Scripts
 /// <reference path="./ads-app/ad-customizer/items.d.ts" />
 /// <reference path="./ads-app/ad-customizer/sources.d.ts" />
 /// <reference path="./ads-app/ad-extensions/callouts/account-callout.d.ts" />

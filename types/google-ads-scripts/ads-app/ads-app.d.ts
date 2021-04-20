@@ -1,5 +1,12 @@
 declare namespace GoogleAdsScripts {
     namespace AdsApp {
+        /**
+         * Root object of Google Ads scripts API. Exposes methods for
+         *
+         * * Fetching Google Ads entities
+         * * Querying Google Ads reports
+         * * Accessing information about the state of the current execution
+         */
         interface AdsApp {
             /** Returns the Google Ads asset interface. */
             adAssets(): AdAssets;
