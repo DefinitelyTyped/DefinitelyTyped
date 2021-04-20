@@ -1166,10 +1166,13 @@ declare namespace cytoscape {
          */
         quality?: number;
     }
+
     interface ExportJpgStringOptions extends ExportJpgOptions, ExportStringOptions {
     }
+
     interface ExportJpgBlobOptions extends ExportJpgOptions, ExportBlobOptions {
     }
+
     interface ExportJpgBlobPromiseOptions extends ExportJpgOptions, ExportBlobPromiseOptions {
     }
 
