@@ -773,6 +773,10 @@
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
         },
+        "double-metaphone": {
+            "libraryName": "double-metaphone",
+            "asOfVersion": "2.0.0"
+        },
         "dva": {
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
