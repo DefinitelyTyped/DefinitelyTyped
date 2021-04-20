@@ -3742,6 +3742,10 @@
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
         },
+        "syllable": {
+            "libraryName": "syllable",
+            "asOfVersion": "5.0.0"
+        },
         "systeminformation": {
             "libraryName": "systeminformation",
             "asOfVersion": "3.54.0"
