@@ -1,25 +1,26 @@
-import nodes = require("ast-types/gen/nodes");
-import recast = require("recast");
+import astTypes = require("ast-types");
+import nodePath = require("ast-types/lib/node-path");
+import types = require("ast-types/lib/types");
 import Collection = require("../Collection");
 
-type ASTPath<N> = recast.NodePath<N, N>;
+type ASTPath<N> = nodePath.NodePath<N, N>;
 
 export interface TraversalMethods {
     /**
      * Find nodes of a specific type within the nodes of this collection.
      */
-    find<T>(type: recast.Type<T>, filter?: ((value: any) => boolean) | object): Collection.Collection<T>;
+    find<T>(type: types.Type<T>, filter?: ((value: any) => boolean) | object): Collection.Collection<T>;
 
     /**
      * Returns a collection containing the paths that create the scope of the
      * currently selected paths. Dedupes the paths.
      */
-    closestScope(): Collection.Collection<nodes.ASTNode>;
+    closestScope(): Collection.Collection<astTypes.namedTypes.ASTNode>;
 
     /**
      * Traverse the AST up and finds the closest node of the provided type.
      */
-    closest<T>(type: recast.Type<T>, filter?: any): Collection.Collection<T>;
+    closest<T>(type: types.Type<T>, filter?: any): Collection.Collection<T>;
 
     /**
      * Finds the declaration for each selected path. Useful for member expressions
@@ -28,7 +29,7 @@ export interface TraversalMethods {
      *
      * If the callback returns a falsy value, the element is skipped.
      */
-    getVariableDeclarators(nameGetter: (...args: any[]) => any): Collection.Collection<nodes.VariableDeclarator>;
+    getVariableDeclarators(nameGetter: (...args: any[]) => any): Collection.Collection<astTypes.namedTypes.VariableDeclarator>;
 }
 
 export interface MutationMethods<N> {

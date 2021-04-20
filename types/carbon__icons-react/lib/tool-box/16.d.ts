@@ -1,1 +1,3 @@
-export { ToolBox16 as default } from "../../";
+import { ToolBox16 } from "../../";
+
+export = ToolBox16;

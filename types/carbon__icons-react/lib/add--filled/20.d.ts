@@ -1,1 +1,3 @@
-export { AddFilled20 as default } from "../../";
+import { AddFilled20 } from "../../";
+
+export = AddFilled20;

@@ -1,1 +1,3 @@
-export { LondonBigBen as default } from "../../";
+import { LondonBigBen } from "../../";
+
+export = LondonBigBen;

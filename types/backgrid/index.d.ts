@@ -101,9 +101,9 @@ declare namespace Backgrid {
         insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
         moveToNextCell(model: Backbone.Model, cell: Column, command: Command);
         refresh(): Body;
-        remove(): Body;
+        remove(): this;
         removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
-        render(): Body;
+        render(): this;
     }
 
     class Grid extends Backbone.View<Backbone.Model> {
@@ -119,10 +119,10 @@ declare namespace Backgrid {
         getSelectedModels(): Backbone.Model[];
         insertColumn(...options: any[]): Grid;
         insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
-        remove(): Grid;
+        remove(): this;
         removeColumn(...options: any[]): Grid;
         removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
-        render(): Grid;
+        render(): this;
     }
 
 }

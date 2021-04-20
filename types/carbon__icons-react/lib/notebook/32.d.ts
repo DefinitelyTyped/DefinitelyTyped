@@ -1,1 +1,3 @@
-export { Notebook32 as default } from "../../";
+import { Notebook32 } from "../../";
+
+export = Notebook32;

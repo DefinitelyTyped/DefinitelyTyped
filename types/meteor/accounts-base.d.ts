@@ -236,4 +236,20 @@ declare module "meteor/accounts-base" {
          */
         function _checkPassword(user: Meteor.User, password: Password): { userId: string; error?: any };
     }
+
+    module Accounts {
+        type StampedLoginToken = {
+            token: string;
+            when: Date;
+        }
+        type HashedStampedLoginToken = {
+            hashedToken: string;
+            when: Date;
+        }
+
+        function _generateStampedLoginToken(): StampedLoginToken;
+        function _hashStampedToken(token: StampedLoginToken): HashedStampedLoginToken;
+        function _insertHashedLoginToken<T>(userId: string, token: HashedStampedLoginToken, query?: Mongo.Selector<T> | Mongo.ObjectID | string): void;
+        function _hashLoginToken(token: string): string;
+    }
 }

@@ -1,1 +1,3 @@
-export { LogoMedium32 as default } from "../../";
+import { LogoMedium32 } from "../../";
+
+export = LogoMedium32;

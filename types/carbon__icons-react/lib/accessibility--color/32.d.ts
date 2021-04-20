@@ -1,1 +1,3 @@
-export { AccessibilityColor32 as default } from "../../";
+import { AccessibilityColor32 } from "../../";
+
+export = AccessibilityColor32;

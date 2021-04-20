@@ -1,1 +1,3 @@
-export { WirelessModem as default } from "../../";
+import { WirelessModem } from "../../";
+
+export = WirelessModem;

@@ -1,1 +1,3 @@
-export { DocumentSentiment32 as default } from "../../";
+import { DocumentSentiment32 } from "../../";
+
+export = DocumentSentiment32;

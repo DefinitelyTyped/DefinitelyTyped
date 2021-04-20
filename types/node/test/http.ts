@@ -1,6 +1,6 @@
-import * as http from 'http';
-import * as url from 'url';
-import * as net from 'net';
+import * as http from 'node:http';
+import * as url from 'node:url';
+import * as net from 'node:net';
 
 // http Server
 {
@@ -116,7 +116,9 @@ import * as net from 'net';
     req.abort();
 
     // connection
-    req.connection?.on('pause', () => { });
+    if (req.connection) {
+        req.connection.on('pause', () => { });
+    }
 
     if (req.socket) {
         req.socket.on("connect", () => {});

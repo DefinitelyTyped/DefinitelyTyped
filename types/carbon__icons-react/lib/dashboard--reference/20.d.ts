@@ -1,1 +1,3 @@
-export { DashboardReference20 as default } from "../../";
+import { DashboardReference20 } from "../../";
+
+export = DashboardReference20;

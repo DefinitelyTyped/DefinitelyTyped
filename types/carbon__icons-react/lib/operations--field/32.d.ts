@@ -1,1 +1,3 @@
-export { OperationsField32 as default } from "../../";
+import { OperationsField32 } from "../../";
+
+export = OperationsField32;

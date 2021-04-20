@@ -1,13 +1,9 @@
-// Type definitions for ackee-tracker 4.0
+// Type definitions for ackee-tracker 5.0
 // Project: https://github.com/electerious/ackee-tracker
 // Definitions by: Pablo Sáez <https://github.com/PabloSzx>
 //                 Spencer Elliott <https://github.com/elliottsj>
+//                 Sebastian Krüger <https://github.com/mathe42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export interface ServerDetails {
-    server: string;
-    domainId: string;
-}
 
 export interface TrackingOptions {
     /**
@@ -18,10 +14,32 @@ export interface TrackingOptions {
      * Defaults to `false`
      */
     detailed?: boolean;
+    /**
+     * Defaults to `true`
+     */
+    ignoreOwnVisits?: boolean;
+}
+
+export interface AckeeTrackingReturn {
+    stop: () => void;
+}
+
+export interface ActionAttributes {
+    /**
+     * Key that will be used to group similar actions in the Ackee UI.
+     */
+    key: string;
+    /**
+     * Positive float value that is added to all other numerical values of the key.
+     */
+    value?: number;
 }
 
 export interface AckeeInstance {
-    record: (attrs?: ReturnType<typeof attributes>) => { stop: () => void };
+    record: (domainId: string, attrs?: ReturnType<typeof attributes>) => AckeeTrackingReturn;
+    updateRecord: (recordId: string) => AckeeTrackingReturn;
+    action: (eventId: string, attributes: ActionAttributes, callback?: (actionId: string) => void) => void;
+    updateAction: (actionId: string, attributes: ActionAttributes) => void;
 }
 
 export interface DefaultData {
@@ -45,7 +63,7 @@ export interface DetailedData {
     browserHeight: number;
 }
 
-export function create(server: ServerDetails, options?: TrackingOptions): AckeeInstance;
+export function create(server: string, options?: TrackingOptions): AckeeInstance;
 
 export function attributes(detailed?: false): DefaultData;
 export function attributes(detailed: true): DefaultData & DetailedData;

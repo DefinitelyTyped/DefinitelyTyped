@@ -1,1 +1,3 @@
-export { SprayPaint20 as default } from "../../";
+import { SprayPaint20 } from "../../";
+
+export = SprayPaint20;

@@ -1,1 +1,3 @@
-export { Renew16 as default } from "../../";
+import { Renew16 } from "../../";
+
+export = Renew16;

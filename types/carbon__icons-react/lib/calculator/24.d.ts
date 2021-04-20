@@ -1,1 +1,3 @@
-export { Calculator24 as default } from "../../";
+import { Calculator24 } from "../../";
+
+export = Calculator24;

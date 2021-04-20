@@ -1,1 +1,3 @@
-export { Cut24 as default } from "../../";
+import { Cut24 } from "../../";
+
+export = Cut24;

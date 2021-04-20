@@ -19,7 +19,6 @@ jira.findIssue(issueNumber)
   .catch(err => {
     console.error(err);
   });
-
 async function logIssueName() {
   try {
     const issue = await jira.findIssue(issueNumber);

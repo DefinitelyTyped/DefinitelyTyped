@@ -1,1 +1,3 @@
-export { CategoryNewEach20 as default } from "../../";
+import { CategoryNewEach20 } from "../../";
+
+export = CategoryNewEach20;

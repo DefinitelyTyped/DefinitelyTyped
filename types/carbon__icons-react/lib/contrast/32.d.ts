@@ -1,1 +1,3 @@
-export { Contrast32 as default } from "../../";
+import { Contrast32 } from "../../";
+
+export = Contrast32;

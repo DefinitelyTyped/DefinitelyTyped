@@ -203,6 +203,10 @@ export interface AuthCredentials {
     [key: string]: unknown;
 }
 
+export interface AuthArtifacts {
+    [key: string]: unknown;
+}
+
 export type AuthMode = 'required' | 'optional' | 'try';
 
 /**
@@ -219,7 +223,7 @@ export type AuthMode = 'required' | 'optional' | 'try';
  */
 export interface RequestAuth {
     /** an artifact object received from the authentication strategy and used in authentication-related actions. */
-    artifacts: object;
+    artifacts: AuthArtifacts;
     /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
     credentials: AuthCredentials;
     /** the authentication error is failed and mode set to 'try'. */
@@ -736,12 +740,14 @@ export interface ResponseObject extends Podium {
     bytes(length: number): ResponseObject;
 
     /**
-     * Sets the 'Content-Type' HTTP header 'charset' property where:
+     * Controls the 'Content-Type' HTTP header 'charset' property of the response.
+     *  * When invoked without any parameter, will prevent hapijs from applying its default charset normalization to 'utf-8'
+     *  * When 'charset' parameter is provided, will set the 'Content-Type' HTTP header 'charset' property where:
      * @param charset - the charset property value.
      * @return Return value: the current response object.
      * [See docs](https://hapijs.com/api/17.0.1#-responsecharsetcharset)
      */
-    charset(charset: string): ResponseObject;
+    charset(charset?: string): ResponseObject;
 
     /**
      * Sets the HTTP status code where:
@@ -972,7 +978,7 @@ export type ResponseValue = string | object;
 
 export interface AuthenticationData {
     credentials: AuthCredentials;
-    artifacts?: object;
+    artifacts?: AuthArtifacts;
 }
 
 export interface Auth {
@@ -2470,7 +2476,8 @@ export type RouteRequestExtType = 'onPreAuth'
     | 'onPostAuth'
     | 'onPreHandler'
     | 'onPostHandler'
-    | 'onPreResponse';
+    | 'onPreResponse'
+    | 'onPostResponse';
 
 export type ServerRequestExtType =
     RouteRequestExtType
@@ -2700,7 +2707,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
          * The artifacts are used to bypass the default authentication strategies,
          * and are validated directly as if they were received via an authentication scheme. Defaults to no artifacts.
          */
-        artifacts?: object;
+        artifacts?: AuthArtifacts;
     };
     /**
      * sets the initial value of request.app, defaults to {}.

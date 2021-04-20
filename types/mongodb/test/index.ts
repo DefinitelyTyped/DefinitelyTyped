@@ -37,6 +37,7 @@ const options: mongodb.MongoClientOptions = {
     authMechanism: 'SCRAM-SHA-1',
     forceServerObjectId: false,
     promiseLibrary: Promise,
+    directConnection: false,
 };
 
 mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {
@@ -104,3 +105,17 @@ const gridFSBucketTests = (bucket: mongodb.GridFSBucket) => {
 
 // Compression
 const compressedClient = new mongodb.MongoClient(url, { compression: { compressors: ['zlib', 'snappy'] } });
+
+// Client-Side Field Level Encryption
+const keyVaultNamespace = 'encryption.__keyVault';
+const secureClient = new mongodb.MongoClient(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    monitorCommands: true,
+    autoEncryption: {
+        keyVaultNamespace,
+        kmsProviders: {},
+        schemaMap: {},
+        extraOptions: {},
+    },
+});

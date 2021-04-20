@@ -1,1 +1,3 @@
-export { NavaidHelipad20 as default } from "../../";
+import { NavaidHelipad20 } from "../../";
+
+export = NavaidHelipad20;

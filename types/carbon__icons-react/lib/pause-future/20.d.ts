@@ -1,1 +1,3 @@
-export { PauseFuture20 as default } from "../../";
+import { PauseFuture20 } from "../../";
+
+export = PauseFuture20;

@@ -1,1 +1,3 @@
-export { ChevronDown20 as default } from "../../";
+import { ChevronDown20 } from "../../";
+
+export = ChevronDown20;

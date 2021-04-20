@@ -1,1 +1,3 @@
-export { LightFilled16 as default } from "../../";
+import { LightFilled16 } from "../../";
+
+export = LightFilled16;

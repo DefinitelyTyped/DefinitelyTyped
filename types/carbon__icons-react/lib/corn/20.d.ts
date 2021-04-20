@@ -1,1 +1,3 @@
-export { Corn20 as default } from "../../";
+import { Corn20 } from "../../";
+
+export = Corn20;

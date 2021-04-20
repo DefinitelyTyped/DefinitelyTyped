@@ -1,1 +1,3 @@
-export { ScreenOff32 as default } from "../../";
+import { ScreenOff32 } from "../../";
+
+export = ScreenOff32;

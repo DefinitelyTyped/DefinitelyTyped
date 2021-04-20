@@ -1,1 +1,3 @@
-export { Connect24 as default } from "../../";
+import { Connect24 } from "../../";
+
+export = Connect24;

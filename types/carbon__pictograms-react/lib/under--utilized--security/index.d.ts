@@ -1,1 +1,3 @@
-export { UnderUtilizedSecurity as default } from "../../";
+import { UnderUtilizedSecurity } from "../../";
+
+export = UnderUtilizedSecurity;

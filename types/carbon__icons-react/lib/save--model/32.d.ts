@@ -1,1 +1,3 @@
-export { SaveModel32 as default } from "../../";
+import { SaveModel32 } from "../../";
+
+export = SaveModel32;

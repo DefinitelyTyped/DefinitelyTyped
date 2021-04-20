@@ -1,1 +1,3 @@
-export { Fire32 as default } from "../../";
+import { Fire32 } from "../../";
+
+export = Fire32;

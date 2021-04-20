@@ -1,1 +1,3 @@
-export { QqPlot20 as default } from "../../";
+import { QqPlot20 } from "../../";
+
+export = QqPlot20;

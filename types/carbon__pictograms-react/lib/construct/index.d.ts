@@ -1,1 +1,3 @@
-export { Construct as default } from "../../";
+import { Construct } from "../../";
+
+export = Construct;

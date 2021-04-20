@@ -1,1 +1,3 @@
-export { WatsonHealth3DCursorAlt20 as default } from "../../../";
+import { WatsonHealth3DCursorAlt20 } from "../../../";
+
+export = WatsonHealth3DCursorAlt20;

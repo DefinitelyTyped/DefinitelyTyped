@@ -1,1 +1,3 @@
-export { Police32 as default } from "../../";
+import { Police32 } from "../../";
+
+export = Police32;

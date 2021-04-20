@@ -175,6 +175,67 @@ declare class Server extends events.EventEmitter {
   ): this;
 
   once(event: string, listener: () => void): this;
+  once(event: "error", listener: ErrorCallback): this;
+  once(
+      event: "start",
+      listener: (
+          req: http.IncomingMessage,
+          res: http.ServerResponse,
+          target: ProxyTargetUrl
+      ) => void
+  ): this;
+  once(
+      event: "proxyReq",
+      listener: (
+          proxyReq: http.ClientRequest,
+          req: http.IncomingMessage,
+          res: http.ServerResponse,
+          options: Server.ServerOptions
+      ) => void
+  ): this;
+  once(
+      event: "proxyRes",
+      listener: (
+          proxyRes: http.IncomingMessage,
+          req: http.IncomingMessage,
+          res: http.ServerResponse
+      ) => void
+  ): this;
+  once(
+      event: "proxyReqWs",
+      listener: (
+          proxyReq: http.ClientRequest,
+          req: http.IncomingMessage,
+          socket: net.Socket,
+          options: Server.ServerOptions,
+          head: any
+      ) => void
+  ): this;
+  once(
+      event: "econnreset",
+      listener: (
+          err: Error,
+          req: http.IncomingMessage,
+          res: http.ServerResponse,
+          target: ProxyTargetUrl
+      ) => void
+  ): this;
+  once(
+      event: "end",
+      listener: (
+          req: http.IncomingMessage,
+          res: http.ServerResponse,
+          proxyRes: http.IncomingMessage
+      ) => void
+  ): this;
+  once(
+      event: "close",
+      listener: (
+          proxyRes: http.IncomingMessage,
+          proxySocket: net.Socket,
+          proxyHead: any
+      ) => void
+  ): this;
   removeListener(event: string, listener: () => void): this;
   removeAllListeners(event?: string): this;
   getMaxListeners(): number;

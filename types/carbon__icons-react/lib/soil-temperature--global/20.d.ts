@@ -1,1 +1,3 @@
-export { SoilTemperatureGlobal20 as default } from "../../";
+import { SoilTemperatureGlobal20 } from "../../";
+
+export = SoilTemperatureGlobal20;

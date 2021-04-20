@@ -1,1 +1,3 @@
-export { RepeatOne32 as default } from "../../";
+import { RepeatOne32 } from "../../";
+
+export = RepeatOne32;

@@ -1,1 +1,3 @@
-export { LogoDigg32 as default } from "../../";
+import { LogoDigg32 } from "../../";
+
+export = LogoDigg32;

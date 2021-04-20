@@ -1,1 +1,3 @@
-export { LinuxAlt16 as default } from "../../";
+import { LinuxAlt16 } from "../../";
+
+export = LinuxAlt16;

@@ -1,1 +1,3 @@
-export { ParisPompidouCenter as default } from "../../";
+import { ParisPompidouCenter } from "../../";
+
+export = ParisPompidouCenter;

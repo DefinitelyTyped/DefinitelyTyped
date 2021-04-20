@@ -1,1 +1,3 @@
-export { WatsonHealth3rdPartyConnected24 as default } from "../../../";
+import { WatsonHealth3rdPartyConnected24 } from "../../../";
+
+export = WatsonHealth3rdPartyConnected24;

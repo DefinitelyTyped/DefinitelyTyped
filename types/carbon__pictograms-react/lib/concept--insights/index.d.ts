@@ -1,1 +1,3 @@
-export { ConceptInsights as default } from "../../";
+import { ConceptInsights } from "../../";
+
+export = ConceptInsights;

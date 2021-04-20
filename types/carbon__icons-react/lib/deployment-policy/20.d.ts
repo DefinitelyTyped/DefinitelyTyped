@@ -1,1 +1,3 @@
-export { DeploymentPolicy20 as default } from "../../";
+import { DeploymentPolicy20 } from "../../";
+
+export = DeploymentPolicy20;

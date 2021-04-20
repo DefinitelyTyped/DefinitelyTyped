@@ -1,1 +1,3 @@
-export { Fire20 as default } from "../../";
+import { Fire20 } from "../../";
+
+export = Fire20;

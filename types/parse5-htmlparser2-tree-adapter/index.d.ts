@@ -1,16 +1,13 @@
-// Type definitions for parse5-htmlparser2-tree-adapter 5.0
+// Type definitions for parse5-htmlparser2-tree-adapter 6.0
 // Project: https://github.com/inikulin/parse5
 // Definitions by: Ivan Nikulin <https://github.com/inikulin>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 import * as parse5 from "parse5";
 
 declare namespace treeAdapter {
-    /**
-     * htmlparser2 tree adapter Node interface.
-     */
-    interface Node {
+    interface BaseNode {
         /**
          * The type of the node. E.g. {@link Document} will have `type` equal to 'root'`.
          */
@@ -45,24 +42,21 @@ declare namespace treeAdapter {
         nextSibling: Node;
     }
 
-    /**
-     * htmlparser2 tree adapter ParentNode interface.
-     */
-    interface ParentNode extends Node {
+    interface BaseParentNode extends BaseNode {
+        /**
+         * Child nodes.
+         */
+        childNodes: Node[];
         /**
          * Child nodes.
          */
         children: Node[];
         /**
-         * Same as {@link children}. [DOM spec](https://dom.spec.whatwg.org)-compatible alias.
-         */
-        childNodes: Node[];
-        /**
-         * First child of the node.
+         * First child.
          */
         firstChild: Node;
         /**
-         * Last child of the node.
+         * Last child.
          */
         lastChild: Node;
     }
@@ -70,7 +64,7 @@ declare namespace treeAdapter {
     /**
      * htmlparser2 tree adapter DocumentType interface.
      */
-    interface DocumentType extends Node {
+    interface DocumentType extends BaseNode {
         /**
          * The type of the node.
          */
@@ -100,7 +94,7 @@ declare namespace treeAdapter {
     /**
      * htmlparser2 tree adapter Document interface.
      */
-    interface Document extends ParentNode {
+    interface Document extends BaseParentNode {
         /**
          * The type of the node.
          */
@@ -118,7 +112,7 @@ declare namespace treeAdapter {
     /**
      * htmlparser2 tree adapter DocumentFragment interface.
      */
-    interface DocumentFragment extends ParentNode {
+    interface DocumentFragment extends BaseParentNode {
         /**
          * The type of the node.
          */
@@ -132,7 +126,7 @@ declare namespace treeAdapter {
     /**
      * htmlparser2 tree adapter Element interface.
      */
-    interface Element extends ParentNode {
+    interface Element extends BaseParentNode {
         /**
          * The name of the node. Equals to element {@link tagName}.
          */
@@ -166,7 +160,7 @@ declare namespace treeAdapter {
     /**
      * htmlparser2 tree adapter CommentNode interface.
      */
-    interface CommentNode extends Node {
+    interface CommentNode extends BaseNode {
         /**
          * The name of the node.
          */
@@ -188,7 +182,7 @@ declare namespace treeAdapter {
     /**
      * htmlparser2 tree adapter TextNode interface.
      */
-    interface TextNode extends Node {
+    interface TextNode extends BaseNode {
         /**
          * The name of the node.
          */
@@ -206,7 +200,31 @@ declare namespace treeAdapter {
          */
         sourceCodeLocation?: parse5.Location;
     }
+
+    /**
+     * htmlparser2 tree adapter Node type.
+     */
+    type Node = CommentNode | Document | DocumentFragment | DocumentType | Element | TextNode;
+
+    /**
+     * htmlparser2 tree adapter ParentNode interface.
+     */
+    type ParentNode = Document | DocumentFragment | Element;
 }
 
-declare const treeAdapter: parse5.TreeAdapter;
+interface TreeAdapterTypeMap extends parse5.TreeAdapterTypeMap {
+    attribute: parse5.Attribute;
+    childNode: treeAdapter.Node;
+    commentNode: treeAdapter.CommentNode;
+    document: treeAdapter.Document;
+    documentFragment: treeAdapter.DocumentFragment;
+    documentType: treeAdapter.DocumentType;
+    element: treeAdapter.Element;
+    node: treeAdapter.Node;
+    parentNode: treeAdapter.ParentNode;
+    textNode: treeAdapter.TextNode;
+}
+
+declare const treeAdapter: parse5.TypedTreeAdapter<TreeAdapterTypeMap>;
+
 export = treeAdapter;

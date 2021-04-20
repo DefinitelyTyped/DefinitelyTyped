@@ -27,6 +27,7 @@ class Example extends Component {
             <Dialog.Container visible={true} style={{ marginLeft: 20, marginRight: 20 }} avoidKeyboard={true}>
                 <Dialog.Title style={{ marginLeft: 20, marginRight: 20 }}>A nice title</Dialog.Title>
                 <Dialog.Description>A good descr</Dialog.Description>
+                <Dialog.Switch onValueChange={(value: boolean) => console.log(value)} label="Toggle" />
                 <Dialog.Input textInputRef={ref} label="Cancel" />
                 <Dialog.Button label="Cancel" onPress={() => console.log('test')} />
                 <Dialog.Button label="Validate" onPress={() => console.log('test')} />

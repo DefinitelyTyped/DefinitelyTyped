@@ -1,1 +1,3 @@
-export { ChartCustom32 as default } from "../../";
+import { ChartCustom32 } from "../../";
+
+export = ChartCustom32;

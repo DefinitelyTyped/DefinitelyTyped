@@ -1,1 +1,3 @@
-export { Export_02 as default } from "../../";
+import { Export_02 } from "../../";
+
+export = Export_02;

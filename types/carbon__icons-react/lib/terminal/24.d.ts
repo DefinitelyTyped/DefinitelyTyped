@@ -1,1 +1,3 @@
-export { Terminal24 as default } from "../../";
+import { Terminal24 } from "../../";
+
+export = Terminal24;

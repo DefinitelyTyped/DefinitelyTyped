@@ -1,1 +1,3 @@
-export { LetterJj24 as default } from "../../";
+import { LetterJj24 } from "../../";
+
+export = LetterJj24;

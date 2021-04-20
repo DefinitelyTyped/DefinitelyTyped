@@ -1,1 +1,3 @@
-export { SecureData as default } from "../../";
+import { SecureData } from "../../";
+
+export = SecureData;

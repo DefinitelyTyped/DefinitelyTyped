@@ -1,1 +1,3 @@
-export { Lasso32 as default } from "../../";
+import { Lasso32 } from "../../";
+
+export = Lasso32;

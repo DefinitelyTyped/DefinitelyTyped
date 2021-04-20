@@ -1,10 +1,23 @@
 import WellKnownMimeType from './WellKnownMimeType';
 
-export class CompositeMetadata {
+export class CompositeMetadata implements Iterable<Entry> {
     constructor(buffer: Buffer);
 
     [Symbol.iterator](): Iterator<Entry>;
 }
+
+/**
+ * Encode an object where key is either {@link WellKnownMimeType} or {@link string}
+ * and value as a {@link Buffer} into composite metadata {@link Buffer}
+ *
+ * @param metadata key-value based object
+ * @returns buffer
+ */
+export function encodeCompositeMetadata(
+    metadata:
+        | Map<string | WellKnownMimeType | number, (Buffer | (() => Buffer))>
+        | Array<[string | WellKnownMimeType | number, (Buffer | (() => Buffer))]>
+): Buffer;
 
 /**
  * Encode a new sub-metadata information into a composite metadata {@link CompositeByteBuf
@@ -106,6 +119,15 @@ export function encodeCustomMetadataHeader(customMime: string, metadataLength: n
  * @return the encoded mime and metadata length information
  */
 export function encodeWellKnownMetadataHeader(mimeType: number, metadataLength: number): Buffer;
+
+/**
+ * Decode given {@link Buffer} into {@link Iterator<Entry>}
+ *
+ * @param buffer encoded Composite Metadata content
+ * @returns iterator
+ * @since 0.0.21
+ */
+export function decodeCompositeMetadata(buffer: Buffer): Iterator<Entry>;
 
 export interface Entry {
     /**

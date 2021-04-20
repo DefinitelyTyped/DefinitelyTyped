@@ -1,1 +1,3 @@
-export { Insights as default } from "../../";
+import { Insights } from "../../";
+
+export = Insights;

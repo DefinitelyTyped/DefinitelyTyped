@@ -1,1 +1,3 @@
-export { MacOption32 as default } from "../../";
+import { MacOption32 } from "../../";
+
+export = MacOption32;

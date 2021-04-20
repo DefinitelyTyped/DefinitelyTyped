@@ -1,1 +1,3 @@
-export { Care as default } from "../../";
+import { Care } from "../../";
+
+export = Care;

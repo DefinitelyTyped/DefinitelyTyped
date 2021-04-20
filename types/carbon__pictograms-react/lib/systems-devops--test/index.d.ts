@@ -1,1 +1,3 @@
-export { SystemsDevopsTest as default } from "../../";
+import { SystemsDevopsTest } from "../../";
+
+export = SystemsDevopsTest;

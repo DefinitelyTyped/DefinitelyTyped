@@ -1,1 +1,3 @@
-export { WirelessHome as default } from "../../";
+import { WirelessHome } from "../../";
+
+export = WirelessHome;

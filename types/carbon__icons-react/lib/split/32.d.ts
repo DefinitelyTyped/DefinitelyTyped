@@ -1,1 +1,3 @@
-export { Split32 as default } from "../../";
+import { Split32 } from "../../";
+
+export = Split32;

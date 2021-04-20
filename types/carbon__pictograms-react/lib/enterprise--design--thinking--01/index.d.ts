@@ -1,1 +1,3 @@
-export { EnterpriseDesignThinking_01 as default } from "../../";
+import { EnterpriseDesignThinking_01 } from "../../";
+
+export = EnterpriseDesignThinking_01;

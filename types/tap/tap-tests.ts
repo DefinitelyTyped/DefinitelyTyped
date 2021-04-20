@@ -1,9 +1,9 @@
-import { EventEmitter } from 'events';
-import * as tap from 'tap';
+import { EventEmitter } from "events";
+import * as tap from "tap";
 
 tap.pass();
 
-tap.test('all-assertions', t => {
+tap.test("all-assertions", t => {
     const obj: any = {};
     const found: any = 1;
     const wanted: any = 1;
@@ -11,14 +11,12 @@ tap.test('all-assertions', t => {
     const fn: (stuff: any) => void = () => {};
     const expectedError: Error = new Error();
     const eventEmitter: EventEmitter = new EventEmitter();
-    const promise: Promise<any> = Promise.resolve(1);
-    const promiseProvider: () => Promise<void> = () => Promise.resolve();
-    const pattern: RegExp | string | { [key: string]: RegExp } = 'pattern';
+    const pattern: RegExp | string | { [key: string]: RegExp } = "pattern";
 
-    const message = 'message';
+    const message = "message";
     const extra = {
         todo: false,
-        skip: 'skip',
+        skip: "skip",
         diagnostic: true,
         extra_stuff: false,
     };
@@ -41,43 +39,9 @@ tap.test('all-assertions', t => {
     t.ifErr(expectedError);
     t.ifError(expectedError);
 
-    t.emits(eventEmitter, 'event', message, extra);
-    t.emits(eventEmitter, 'event', message);
-    t.emits(eventEmitter, 'event');
-
-    t.rejects(promise, expectedError, message, extra);
-    t.rejects(promise, expectedError, message);
-    t.rejects(promise, expectedError);
-    t.rejects(promise, message, extra);
-    t.rejects(promise, message);
-    t.rejects(promise);
-    t.rejects(promiseProvider, expectedError, message, extra);
-    t.rejects(promiseProvider, expectedError, message);
-    t.rejects(promiseProvider, expectedError);
-    t.rejects(promiseProvider, message, extra);
-    t.rejects(promiseProvider, message);
-    t.rejects(promiseProvider);
-
-    t.resolves(promise, message, extra);
-    t.resolves(promise, message);
-    t.resolves(promise);
-    t.resolves(promiseProvider, message, extra);
-    t.resolves(promiseProvider, message);
-    t.resolves(promiseProvider);
-
-    t.resolveMatch(promise, wanted, message, extra);
-    t.resolveMatch(promise, wanted, message);
-    t.resolveMatch(promise, wanted);
-    t.resolveMatch(promiseProvider, wanted, message, extra);
-    t.resolveMatch(promiseProvider, wanted, message);
-    t.resolveMatch(promiseProvider, wanted);
-
-    t.resolveMatchSnapshot(promise, message, extra);
-    t.resolveMatchSnapshot(promise, message);
-    t.resolveMatchSnapshot(promise);
-    t.resolveMatchSnapshot(promiseProvider, message, extra);
-    t.resolveMatchSnapshot(promiseProvider, message);
-    t.resolveMatchSnapshot(promiseProvider);
+    t.emits(eventEmitter, "event", message, extra);
+    t.emits(eventEmitter, "event", message);
+    t.emits(eventEmitter, "event");
 
     t.matchSnapshot(found, message, extra);
     t.matchSnapshot(found, message);
@@ -201,25 +165,123 @@ tap.test('all-assertions', t => {
     t.isNotSimilar(found, pattern);
     t.isDissimilar(found, pattern);
 
-    t.type(new Date(), 'object', message, extra);
-    t.type(new Date(), 'object', message);
-    t.type(new Date(), 'object');
-    t.isa(new Date(), 'Date');
+    t.type(new Date(), "object", message, extra);
+    t.type(new Date(), "object", message);
+    t.type(new Date(), "object");
+    t.isa(new Date(), "Date");
     t.isA(new Date(), Date);
 });
 
-tap.test('async test', async t => {
+tap.test("async test", async t => {
+    const wanted: any = 1;
+    const expectedError: Error = new Error();
+
+    const message = "message";
+    const extra = {
+        todo: false,
+        skip: "skip",
+        diagnostic: true,
+        extra_stuff: false,
+    };
+    const promise: Promise<any> = Promise.resolve(1);
+    const promiseProvider: () => Promise<void> = () => Promise.resolve();
+
+    await t.rejects(promise, expectedError, message, extra);
+    await t.rejects(promise, expectedError, message);
+    await t.rejects(promise, expectedError);
+    await t.rejects(promise, message, extra);
+    await t.rejects(promise, message);
+    await t.rejects(promise);
+    await t.rejects(promiseProvider, expectedError, message, extra);
+    await t.rejects(promiseProvider, expectedError, message);
+    await t.rejects(promiseProvider, expectedError);
+    await t.rejects(promiseProvider, message, extra);
+    await t.rejects(promiseProvider, message);
+    await t.rejects(promiseProvider);
+
+    await t.resolves(promise, message, extra);
+    await t.resolves(promise, message);
+    await t.resolves(promise);
+    await t.resolves(promiseProvider, message, extra);
+    await t.resolves(promiseProvider, message);
+    await t.resolves(promiseProvider);
+
+    await t.resolveMatch(promise, wanted, message, extra);
+    await t.resolveMatch(promise, wanted, message);
+    await t.resolveMatch(promise, wanted);
+    await t.resolveMatch(promiseProvider, wanted, message, extra);
+    await t.resolveMatch(promiseProvider, wanted, message);
+    await t.resolveMatch(promiseProvider, wanted);
+
+    await t.resolveMatchSnapshot(promise, message, extra);
+    await t.resolveMatchSnapshot(promise, message);
+    await t.resolveMatchSnapshot(promise);
+    await t.resolveMatchSnapshot(promiseProvider, message, extra);
+    await t.resolveMatchSnapshot(promiseProvider, message);
+    await t.resolveMatchSnapshot(promiseProvider);
+});
+
+tap.test("lifecycle", t => {
+    t.before(() => true);
+    t.before(async () => true);
+
+    t.beforeEach(() => true);
+    t.beforeEach(async () => true);
+    t.beforeEach(async (childTest: any) => childTest.foo);
+
+    t.afterEach(() => true);
+    t.afterEach(async () => true);
+    t.afterEach(async (childTest: any) => childTest.foo);
+});
+
+tap.test("mocks", t => {
+    const anyMockModule = tap.mock("../my-module", {
+        fs: {
+            readFile: () => false,
+        },
+    });
+
+    anyMockModule.any.thing;
+});
+
+tap.only("only", t => {
     t.pass();
 });
 
-tap.only('only', t => {
+tap.skip("skip", t => {
     t.pass();
 });
 
-tap.skip('skip', t => {
+tap.test("test with options", { only: true, skip: true, todo: true, timeout: 1000 }, t => {
     t.pass();
 });
 
-tap.test('test with options', { only: true, skip: true, todo: true, timeout: 1000 }, t => {
-    t.pass();
+const topLevelDir = tap.testdir();
+
+tap.test("testdir", t => {
+    const cwd = t.testdir({
+        "demo.jpg": Buffer.from("a jpg"),
+        "package.json": JSON.stringify({
+            name: "pj",
+        }),
+        src: {
+            "index.js": "yay",
+            hardlinked: t.fixture("link", "../target"),
+            softlinked: t.fixture("symlink", "../target"),
+        },
+        target: {},
+    });
+    t.notEqual(cwd, topLevelDir);
+    t.equals(cwd, t.testdirName);
+});
+
+tap.test("fixture", t => {
+    // fairly infrequent vs testdir() sugar
+    t.fixture("dir", {});
+    t.fixture("file", "content");
+    t.fixture("file", Buffer.from("content"));
+
+    // much more common, as sugar does not exist
+    t.fixture("link", "target");
+    t.fixture("symlink", "target");
 });

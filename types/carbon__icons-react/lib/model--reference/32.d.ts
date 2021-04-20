@@ -1,1 +1,3 @@
-export { ModelReference32 as default } from "../../";
+import { ModelReference32 } from "../../";
+
+export = ModelReference32;

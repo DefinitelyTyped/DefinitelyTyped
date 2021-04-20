@@ -1,6 +1,7 @@
-// Type definitions for react-edit-text 2.0
+// Type definitions for react-edit-text 4.0
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
+//                 sakana15 <https://github.com/sakana15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
@@ -21,6 +22,7 @@ export type inputTextType =
 export interface onSaveProps {
     name: string;
     value: string;
+    previousValue: string;
 }
 
 export interface SharedProps {
@@ -37,18 +39,27 @@ export interface SharedProps {
      */
     className?: string;
     /**
-     * value sets the defaultValue for input element and display text of div element
+     * value sets the input value and display text of div element
      */
     value?: string;
+    /**
+     * defaultValue sets the defaultValue for input element and initial display text of div element
+     */
+    defaultValue?: string;
     /**
      * placeholder is displayed in the div element when value is empty
      */
     placeholder?: string;
     /**
      * onSave is called when the input blur event is triggered or enter key is pressed
-     * returns an object: {name, value} which correspond to the input name and value
+     * returns an object: {name, value, previousValue} which correspond to the input name, value, and previous value before changes were made
      */
-    onSave?: ({ name, value }: onSaveProps) => void;
+    onSave?: ({ name, value, previousValue }: onSaveProps) => void;
+    /**
+     * onChange is called when the input value changes and
+     * returns a string which corresponds to the new input value
+     */
+    onChange?: (value: string) => void;
     /**
      * Sets the css styling for both input and div elements
      */

@@ -1,1 +1,3 @@
-export { DropPhotoFilled24 as default } from "../../";
+import { DropPhotoFilled24 } from "../../";
+
+export = DropPhotoFilled24;

@@ -1,7 +1,11 @@
-declare module "repl" {
-    import { Interface, Completer, AsyncCompleter } from "readline";
-    import { Context } from "vm";
-    import { InspectOptions } from "util";
+declare module 'node:repl' {
+    export * from 'repl';
+}
+
+declare module 'repl' {
+    import { Interface, Completer, AsyncCompleter } from 'node:readline';
+    import { Context } from 'node:vm';
+    import { InspectOptions } from 'node:util';
 
     interface ReplOptions {
         /**

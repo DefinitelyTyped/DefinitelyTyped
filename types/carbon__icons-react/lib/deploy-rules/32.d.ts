@@ -1,1 +1,3 @@
-export { DeployRules32 as default } from "../../";
+import { DeployRules32 } from "../../";
+
+export = DeployRules32;

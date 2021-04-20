@@ -1,1 +1,3 @@
-export { Xls24 as default } from "../../";
+import { Xls24 } from "../../";
+
+export = Xls24;

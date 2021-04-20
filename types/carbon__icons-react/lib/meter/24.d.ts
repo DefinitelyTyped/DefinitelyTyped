@@ -1,1 +1,3 @@
-export { Meter24 as default } from "../../";
+import { Meter24 } from "../../";
+
+export = Meter24;

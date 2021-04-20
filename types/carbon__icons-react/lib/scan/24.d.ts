@@ -1,1 +1,3 @@
-export { Scan24 as default } from "../../";
+import { Scan24 } from "../../";
+
+export = Scan24;

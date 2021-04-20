@@ -1,1 +1,3 @@
-export { DistributeVerticalBottom20 as default } from "../../";
+import { DistributeVerticalBottom20 } from "../../";
+
+export = DistributeVerticalBottom20;

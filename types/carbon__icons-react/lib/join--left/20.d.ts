@@ -1,1 +1,3 @@
-export { JoinLeft20 as default } from "../../";
+import { JoinLeft20 } from "../../";
+
+export = JoinLeft20;

@@ -1,1 +1,3 @@
-export { WaveDirection32 as default } from "../../";
+import { WaveDirection32 } from "../../";
+
+export = WaveDirection32;

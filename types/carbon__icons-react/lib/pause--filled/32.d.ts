@@ -1,1 +1,3 @@
-export { PauseFilled32 as default } from "../../";
+import { PauseFilled32 } from "../../";
+
+export = PauseFilled32;

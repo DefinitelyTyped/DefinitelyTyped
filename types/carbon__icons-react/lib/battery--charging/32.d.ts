@@ -1,1 +1,3 @@
-export { BatteryCharging32 as default } from "../../";
+import { BatteryCharging32 } from "../../";
+
+export = BatteryCharging32;

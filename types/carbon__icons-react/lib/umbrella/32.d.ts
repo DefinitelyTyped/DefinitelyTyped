@@ -1,1 +1,3 @@
-export { Umbrella32 as default } from "../../";
+import { Umbrella32 } from "../../";
+
+export = Umbrella32;

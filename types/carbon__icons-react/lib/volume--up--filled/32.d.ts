@@ -1,1 +1,3 @@
-export { VolumeUpFilled32 as default } from "../../";
+import { VolumeUpFilled32 } from "../../";
+
+export = VolumeUpFilled32;

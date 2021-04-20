@@ -1,4 +1,4 @@
-// Type definitions for bull 3.14
+// Type definitions for bull 3.15
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -618,6 +618,11 @@ declare namespace Bull {
      * Resuming a queue that is not paused does nothing.
      */
     resume(isLocal?: boolean): Promise<void>;
+
+    /**
+     * Returns a promise that resolves with a boolean if queue is paused
+     */
+    isPaused(isLocal?: boolean): Promise<boolean>;
 
     /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.

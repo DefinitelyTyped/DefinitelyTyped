@@ -1,1 +1,3 @@
-export { DataStructured32 as default } from "../../";
+import { DataStructured32 } from "../../";
+
+export = DataStructured32;

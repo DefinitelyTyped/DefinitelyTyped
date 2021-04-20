@@ -1,1 +1,3 @@
-export { Corn32 as default } from "../../";
+import { Corn32 } from "../../";
+
+export = Corn32;

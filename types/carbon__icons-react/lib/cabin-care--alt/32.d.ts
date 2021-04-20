@@ -1,1 +1,3 @@
-export { CabinCareAlt32 as default } from "../../";
+import { CabinCareAlt32 } from "../../";
+
+export = CabinCareAlt32;

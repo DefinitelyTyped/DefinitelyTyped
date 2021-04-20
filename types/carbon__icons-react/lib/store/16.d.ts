@@ -1,1 +1,3 @@
-export { Store16 as default } from "../../";
+import { Store16 } from "../../";
+
+export = Store16;

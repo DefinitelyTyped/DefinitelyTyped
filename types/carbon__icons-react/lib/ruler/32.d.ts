@@ -1,1 +1,3 @@
-export { Ruler32 as default } from "../../";
+import { Ruler32 } from "../../";
+
+export = Ruler32;

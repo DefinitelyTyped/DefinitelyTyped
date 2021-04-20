@@ -1,1 +1,3 @@
-export { Carbon20 as default } from "../../";
+import { Carbon20 } from "../../";
+
+export = Carbon20;

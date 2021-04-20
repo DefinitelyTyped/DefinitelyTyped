@@ -1,6 +1,9 @@
-declare module "readline" {
-    import * as events from "events";
-    import * as stream from "stream";
+declare module 'node:readline' {
+    export * from 'readline';
+}
+
+declare module 'readline' {
+    import EventEmitter = require('node:events');
 
     interface Key {
         sequence?: string;
@@ -10,7 +13,7 @@ declare module "readline" {
         shift?: boolean;
     }
 
-    class Interface extends events.EventEmitter {
+    class Interface extends EventEmitter {
         readonly terminal: boolean;
 
         // Need direct access to line/cursor data, for use in external processes
@@ -121,7 +124,7 @@ declare module "readline" {
         [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
 
-    type ReadLine = Interface; // type forwarded for backwards compatiblity
+    type ReadLine = Interface; // type forwarded for backwards compatibility
 
     type Completer = (line: string) => CompleterResult;
     type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => any;

@@ -1,1 +1,3 @@
-export { TextCreation24 as default } from "../../";
+import { TextCreation24 } from "../../";
+
+export = TextCreation24;

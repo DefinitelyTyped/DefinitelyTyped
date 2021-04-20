@@ -66,7 +66,7 @@ export class Relation extends BModel {
 
     getReverseRelations(model:Model):Relation;
 
-    destroy():void;
+    destroy():JQueryXHR | false;
 }
 
 export class HasOne extends Relation {

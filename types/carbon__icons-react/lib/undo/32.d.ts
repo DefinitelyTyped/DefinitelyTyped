@@ -1,1 +1,3 @@
-export { Undo32 as default } from "../../";
+import { Undo32 } from "../../";
+
+export = Undo32;

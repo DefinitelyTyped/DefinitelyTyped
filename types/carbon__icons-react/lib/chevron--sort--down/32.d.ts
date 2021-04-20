@@ -1,1 +1,3 @@
-export { ChevronSortDown32 as default } from "../../";
+import { ChevronSortDown32 } from "../../";
+
+export = ChevronSortDown32;

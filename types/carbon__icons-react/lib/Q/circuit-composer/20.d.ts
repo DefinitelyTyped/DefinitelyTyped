@@ -1,1 +1,3 @@
-export { QCircuitComposer20 as default } from "../../../";
+import { QCircuitComposer20 } from "../../../";
+
+export = QCircuitComposer20;

@@ -1,1 +1,3 @@
-export { NoTicket24 as default } from "../../";
+import { NoTicket24 } from "../../";
+
+export = NoTicket24;

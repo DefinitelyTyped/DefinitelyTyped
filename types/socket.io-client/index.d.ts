@@ -604,7 +604,7 @@ declare namespace SocketIOClient {
          * The port the policy server listens on
          * @default 843
          */
-        policyPost?: number;
+        policyPort?: number;
 
         /**
          * If true and if the previous websocket connection to the server succeeded,
@@ -678,5 +678,9 @@ declare namespace SocketIOClient {
          */
         rejectUnauthorized?: boolean;
 
+        /**
+         * Credentials that are sent when accessing a namespace
+         */
+        auth?: Object;
     }
 }

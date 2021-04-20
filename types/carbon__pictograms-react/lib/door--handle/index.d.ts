@@ -1,1 +1,3 @@
-export { DoorHandle as default } from "../../";
+import { DoorHandle } from "../../";
+
+export = DoorHandle;

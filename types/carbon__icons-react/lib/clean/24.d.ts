@@ -1,1 +1,3 @@
-export { Clean24 as default } from "../../";
+import { Clean24 } from "../../";
+
+export = Clean24;

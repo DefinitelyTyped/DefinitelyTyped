@@ -1,1 +1,3 @@
-export { SoilMoisture24 as default } from "../../";
+import { SoilMoisture24 } from "../../";
+
+export = SoilMoisture24;

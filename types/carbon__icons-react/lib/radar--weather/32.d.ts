@@ -1,1 +1,3 @@
-export { RadarWeather32 as default } from "../../";
+import { RadarWeather32 } from "../../";
+
+export = RadarWeather32;

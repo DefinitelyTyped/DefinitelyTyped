@@ -1,1 +1,3 @@
-export { Robotics as default } from "../../";
+import { Robotics } from "../../";
+
+export = Robotics;

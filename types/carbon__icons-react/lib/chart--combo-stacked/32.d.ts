@@ -1,1 +1,3 @@
-export { ChartComboStacked32 as default } from "../../";
+import { ChartComboStacked32 } from "../../";
+
+export = ChartComboStacked32;

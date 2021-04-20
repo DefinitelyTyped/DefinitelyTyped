@@ -1,1 +1,3 @@
-export { CaretSortDown32 as default } from "../../";
+import { CaretSortDown32 } from "../../";
+
+export = CaretSortDown32;

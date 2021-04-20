@@ -1,1 +1,3 @@
-export { CheckboxIndeterminate32 as default } from "../../";
+import { CheckboxIndeterminate32 } from "../../";
+
+export = CheckboxIndeterminate32;

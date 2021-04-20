@@ -1,1 +1,3 @@
-export { DistributeHorizontalRight16 as default } from "../../";
+import { DistributeHorizontalRight16 } from "../../";
+
+export = DistributeHorizontalRight16;

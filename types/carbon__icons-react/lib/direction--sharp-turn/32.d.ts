@@ -1,1 +1,3 @@
-export { DirectionSharpTurn32 as default } from "../../";
+import { DirectionSharpTurn32 } from "../../";
+
+export = DirectionSharpTurn32;

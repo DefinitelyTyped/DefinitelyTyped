@@ -1,1 +1,3 @@
-export { Theater24 as default } from "../../";
+import { Theater24 } from "../../";
+
+export = Theater24;

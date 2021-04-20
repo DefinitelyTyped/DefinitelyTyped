@@ -1,1 +1,3 @@
-export { Fog32 as default } from "../../";
+import { Fog32 } from "../../";
+
+export = Fog32;

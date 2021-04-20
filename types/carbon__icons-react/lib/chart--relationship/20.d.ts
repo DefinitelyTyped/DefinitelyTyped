@@ -1,1 +1,3 @@
-export { ChartRelationship20 as default } from "../../";
+import { ChartRelationship20 } from "../../";
+
+export = ChartRelationship20;

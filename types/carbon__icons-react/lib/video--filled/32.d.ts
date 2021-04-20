@@ -1,1 +1,3 @@
-export { VideoFilled32 as default } from "../../";
+import { VideoFilled32 } from "../../";
+
+export = VideoFilled32;

@@ -23,6 +23,7 @@ async function test() {
     console.log('Created:', fileName);
     const { db } = await database.connect();
     const mongoConnectionSettings = await config.read();
+    config.set(mongoConnectionSettings);
     const migrated = await up(db);
     migrated.forEach(fileName => console.log('Migrated:', fileName));
     const migratedDown = await down(db);

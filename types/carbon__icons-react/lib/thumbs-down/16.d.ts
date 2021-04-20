@@ -1,1 +1,3 @@
-export { ThumbsDown16 as default } from "../../";
+import { ThumbsDown16 } from "../../";
+
+export = ThumbsDown16;

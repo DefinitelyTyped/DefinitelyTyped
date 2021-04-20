@@ -1,1 +1,3 @@
-export { Screen24 as default } from "../../";
+import { Screen24 } from "../../";
+
+export = Screen24;

@@ -1,1 +1,3 @@
-export { Outage24 as default } from "../../";
+import { Outage24 } from "../../";
+
+export = Outage24;

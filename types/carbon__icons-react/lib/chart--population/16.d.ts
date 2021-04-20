@@ -1,1 +1,3 @@
-export { ChartPopulation16 as default } from "../../";
+import { ChartPopulation16 } from "../../";
+
+export = ChartPopulation16;

@@ -1,1 +1,3 @@
-export { CollapseCategories16 as default } from "../../";
+import { CollapseCategories16 } from "../../";
+
+export = CollapseCategories16;

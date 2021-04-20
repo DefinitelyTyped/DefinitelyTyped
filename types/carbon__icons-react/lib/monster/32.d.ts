@@ -1,1 +1,3 @@
-export { Monster32 as default } from "../../";
+import { Monster32 } from "../../";
+
+export = Monster32;

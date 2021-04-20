@@ -1,1 +1,3 @@
-export { Asset16 as default } from "../../";
+import { Asset16 } from "../../";
+
+export = Asset16;

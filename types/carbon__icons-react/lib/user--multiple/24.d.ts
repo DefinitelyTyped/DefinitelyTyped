@@ -1,1 +1,3 @@
-export { UserMultiple24 as default } from "../../";
+import { UserMultiple24 } from "../../";
+
+export = UserMultiple24;

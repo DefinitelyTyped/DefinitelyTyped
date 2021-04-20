@@ -1,1 +1,3 @@
-export { BaggageClaim24 as default } from "../../";
+import { BaggageClaim24 } from "../../";
+
+export = BaggageClaim24;

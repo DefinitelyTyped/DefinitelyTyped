@@ -7,7 +7,6 @@
 //                 Steffen Kowalski <https://github.com/scipper>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference path="jqlite.d.ts" />
 
@@ -1904,11 +1903,15 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng/provider/$sceDelegateProvider
     ///////////////////////////////////////////////////////////////////////////
     interface ISCEDelegateProvider extends IServiceProvider {
+        /** @deprecated since 1.8.1 */
         resourceUrlBlacklist(): any[];
+        /** @deprecated since 1.8.1 */
         resourceUrlBlacklist(bannedList: any[]): void;
         bannedResourceUrlList(): any[];
         bannedResourceUrlList(bannedList: any[]): void;
+        /** @deprecated since 1.8.1 */
         resourceUrlWhitelist(): any[];
+        /** @deprecated since 1.8.1 */
         resourceUrlWhitelist(trustedList: any[]): void;
         trustedResourceUrlList(): any[];
         trustedResourceUrlList(trustedList: any[]): void;

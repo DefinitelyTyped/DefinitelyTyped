@@ -1,1 +1,3 @@
-export { DataCheck20 as default } from "../../";
+import { DataCheck20 } from "../../";
+
+export = DataCheck20;

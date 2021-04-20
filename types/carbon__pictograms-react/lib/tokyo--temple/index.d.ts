@@ -1,1 +1,3 @@
-export { TokyoTemple as default } from "../../";
+import { TokyoTemple } from "../../";
+
+export = TokyoTemple;

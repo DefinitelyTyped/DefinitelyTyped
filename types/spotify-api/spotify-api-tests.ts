@@ -15,6 +15,321 @@
  */
 
 
+ /**
+  * Get the User's Currently Playing (Track)
+  * 
+  * GET /v1/me/player/currently-playing
+  * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-the-users-currently-playing-track
+  */
+const playingNowTrack : SpotifyApi.CurrentlyPlayingResponse = {
+  "timestamp": 1614523995043,
+  "device": {
+    "id": "123456789",
+    "is_active": true,
+    "is_restricted": false,
+    "name": "Name Test",
+    "type": "Computer",
+    "volume_percent": 48
+  },
+  "context": {
+    "external_urls": {
+      "spotify": "https://open.spotify.com/playlist/37i9dQZEVXbKyJS56d1pgi"
+    },
+    "href": "https://api.spotify.com/v1/playlists/37i9dQZEVXbKyJS56d1pgi",
+    "type": "playlist",
+    "uri": "spotify:playlist:37i9dQZEVXbKyJS56d1pgi"
+  },
+  "progress_ms": 57934,
+  "item": {
+    "album": {
+      "album_type": "album",
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/5jfz7uWPwf03hdEewW8AI8"
+          },
+          "href": "https://api.spotify.com/v1/artists/5jfz7uWPwf03hdEewW8AI8",
+          "id": "5jfz7uWPwf03hdEewW8AI8",
+          "name": "Wet Bed Gang",
+          "type": "artist",
+          "uri": "spotify:artist:5jfz7uWPwf03hdEewW8AI8"
+        }
+      ],
+      "external_urls": {
+        "spotify": "https://open.spotify.com/album/4ZgWBr16niSFDwCIiJ4iBk"
+      },
+      "href": "https://api.spotify.com/v1/albums/4ZgWBr16niSFDwCIiJ4iBk",
+      "id": "4ZgWBr16niSFDwCIiJ4iBk",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab67616d0000b2738fcc285014bb2e52ba1e3505",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e028fcc285014bb2e52ba1e3505",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d000048518fcc285014bb2e52ba1e3505",
+          "width": 64
+        }
+      ],
+      "name": "Ngana Zambi",
+      "release_date": "2021-02-22",
+      "release_date_precision": "day",
+      "type": "album",
+      "uri": "spotify:album:4ZgWBr16niSFDwCIiJ4iBk"
+    },
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/5jfz7uWPwf03hdEewW8AI8"
+        },
+        "href": "https://api.spotify.com/v1/artists/5jfz7uWPwf03hdEewW8AI8",
+        "id": "5jfz7uWPwf03hdEewW8AI8",
+        "name": "Wet Bed Gang",
+        "type": "artist",
+        "uri": "spotify:artist:5jfz7uWPwf03hdEewW8AI8"
+      }
+    ],
+    "disc_number": 1,
+    "duration_ms": 214654,
+    "explicit": false,
+    "external_ids": {
+      "isrc": "ES71G2103800"
+    },
+    "external_urls": {
+      "spotify": "https://open.spotify.com/track/4E7BWWaFUfafkyU8JOniFx"
+    },
+    "href": "https://api.spotify.com/v1/tracks/4E7BWWaFUfafkyU8JOniFx",
+    "id": "4E7BWWaFUfafkyU8JOniFx",
+    "is_local": false,
+    "is_playable": true,
+    "name": "Perseus",
+    "popularity": 42,
+    "preview_url": "https://p.scdn.co/mp3-preview/d62134878b56c38f895a2c608d8ab329310cbada?cid=774b29d4f13844c495f206cafdad9c86",
+    "track_number": 12,
+    "type": "track",
+    "uri": "spotify:track:4E7BWWaFUfafkyU8JOniFx"
+  },
+  "currently_playing_type": "track",
+  "actions": {
+    "disallows": {
+      "resuming": true,
+      "seeking": true,
+      "skipping_prev": true,
+      "skipping_next": true,
+      "interrupting_playback": true,
+      "transferring_playback": true
+    }
+  },
+  "is_playing": true
+};
+
+ /**
+  * Get the User's Currently Playing (Episode)
+  * 
+  * GET /v1/me/player/currently-playing
+  * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-the-users-currently-playing-track
+  */
+ const playingNowEpisode : SpotifyApi.CurrentlyPlayingResponse = {
+  "timestamp": 1614525764500,
+  "device": {
+    "id": "123456789",
+    "is_active": true,
+    "is_restricted": false,
+    "name": "Name Test",
+    "type": "Computer",
+    "volume_percent": 48
+  },
+  "context": {
+    "external_urls": {
+      "spotify": "https://open.spotify.com/show/5TsHqHjwAkyoUtDixSDjAv"
+    },
+    "href": "https://api.spotify.com/v1/shows/5TsHqHjwAkyoUtDixSDjAv",
+    "type": "show",
+    "uri": "spotify:show:5TsHqHjwAkyoUtDixSDjAv"
+  },
+  "progress_ms": 3210,
+  "item": {
+    "audio_preview_url": "https://p.scdn.co/mp3-preview/a5a9580f9c95680b56f6a9198e605c41cce1f6fd",
+    "description": "Com Luís Franco-Bastos",
+    "duration_ms": 278700,
+    "explicit": false,
+    "external_urls": {
+      "spotify": "https://open.spotify.com/episode/37tiGYf2ULC615a87yV9JO"
+    },
+    "href": "https://api.spotify.com/v1/episodes/37tiGYf2ULC615a87yV9JO",
+    "id": "37tiGYf2ULC615a87yV9JO",
+    "images": [
+      {
+        "height": 640,
+        "url": "https://i.scdn.co/image/076fddd53799dc18a13ad6055756e84f76ff6b06",
+        "width": 640
+      },
+      {
+        "height": 300,
+        "url": "https://i.scdn.co/image/6b97b492af94872d757b4e273261f2f11dcb6df5",
+        "width": 300
+      },
+      {
+        "height": 64,
+        "url": "https://i.scdn.co/image/b691379f9095e81e658208650fa368a8ec83036b",
+        "width": 64
+      }
+    ],
+    "is_externally_hosted": false,
+    "is_playable": true,
+    "language": "pt-PT",
+    "languages": [
+      "pt-PT"
+    ],
+    "name": "RFM - Informação Privilegiada: ENTREVISTA AO SARS-COV-2",
+    "release_date": "2020-12-11",
+    "release_date_precision": "day",
+    "show": {
+      "available_markets": [
+        "AD",
+        "AE",
+        "AL",
+        "AR",
+        "AT",
+        "AU",
+        "BA",
+        "BE",
+        "BG",
+        "BH",
+        "BO",
+        "BR",
+        "CA",
+        "CH",
+        "CL",
+        "CO",
+        "CR",
+        "CY",
+        "CZ",
+        "DE",
+        "DK",
+        "DO",
+        "DZ",
+        "EC",
+        "EE",
+        "ES",
+        "FI",
+        "FR",
+        "GB",
+        "GR",
+        "GT",
+        "HK",
+        "HN",
+        "HR",
+        "HU",
+        "ID",
+        "IE",
+        "IL",
+        "IN",
+        "IS",
+        "IT",
+        "JO",
+        "JP",
+        "KW",
+        "LB",
+        "LI",
+        "LT",
+        "LU",
+        "LV",
+        "MA",
+        "MC",
+        "ME",
+        "MK",
+        "MT",
+        "MX",
+        "MY",
+        "NI",
+        "NL",
+        "NO",
+        "NZ",
+        "OM",
+        "PA",
+        "PE",
+        "PH",
+        "PL",
+        "PS",
+        "PT",
+        "PY",
+        "QA",
+        "RO",
+        "RS",
+        "SE",
+        "SG",
+        "SI",
+        "SK",
+        "SV",
+        "TH",
+        "TN",
+        "TR",
+        "TW",
+        "US",
+        "UY",
+        "VN",
+        "XK",
+        "ZA"
+      ],
+      "copyrights": [],
+      "description": "Todos os dias, Luís Franco-Bastos traz à RFM Informação Privilegiada. Uma entrevista, um depoimento, um comentário de alguém que todos os meios de comunicação queriam, mas a que só a RFM teve acesso. Esse alguém fica a cargo da imaginação e da voz do Luís - mails, processos e eventuais queixas ficam a cargo de advogadodarfm.naomechateiem@telepac.pt",
+      "explicit": false,
+      "external_urls": {
+        "spotify": "https://open.spotify.com/show/5TsHqHjwAkyoUtDixSDjAv"
+      },
+      "href": "https://api.spotify.com/v1/shows/5TsHqHjwAkyoUtDixSDjAv",
+      "id": "5TsHqHjwAkyoUtDixSDjAv",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/076fddd53799dc18a13ad6055756e84f76ff6b06",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://i.scdn.co/image/6b97b492af94872d757b4e273261f2f11dcb6df5",
+          "width": 300
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/b691379f9095e81e658208650fa368a8ec83036b",
+          "width": 64
+        }
+      ],
+      "is_externally_hosted": false,
+      "languages": [
+        "pt"
+      ],
+      "media_type": "audio",
+      "name": "RFM - Informação Privilegiada",
+      "publisher": "RFM",
+      "total_episodes": 50,
+      "type": "show",
+      "uri": "spotify:show:5TsHqHjwAkyoUtDixSDjAv"
+    },
+    "type": "episode",
+    "uri": "spotify:episode:37tiGYf2ULC615a87yV9JO"
+  },
+  "currently_playing_type": "episode",
+  "actions": {
+    "disallows": {
+      "resuming": true,
+      "skipping_prev": true,
+      "toggling_repeat_context": true,
+      "toggling_repeat_track": true,
+      "toggling_shuffle": true
+    }
+  },
+  "is_playing": true
+};
+
 
 /**
  * Get an Album
@@ -5445,6 +5760,154 @@ const checkUsersSavedAlbums : SpotifyApi.CheckUserSavedAlbumsResponse = [ true, 
 
 
 /**
+ * Get user's saved shows
+ * 
+ * GET /v1/me/shows
+ * https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-shows/
+ */
+const usersSavedShows: SpotifyApi.UsersSavedShowsResponse = {
+  "href": "https://api.spotify.com/v1/me/shows?offset=0&limit=20",
+  "items": [
+      {
+          "added_at": "2019-12-08T21:14:30Z",
+          "show": {
+              "available_markets": [
+                  "AD",
+                  "AE"
+              ],
+              "copyrights": [],
+              "description": "Explore the dark side of the Internet with host Jack Rhysider as he takes you on a journey through the chilling world of privacy hacks, data breaches, and cyber crime. The masterful criminal hackers who dwell on the dark side show us just how vulnerable we all are.",
+              "explicit": false,
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/show/4XPl3uEEL9hvqMkoZrzbx5"
+              },
+              "href": "https://api.spotify.com/v1/shows/4XPl3uEEL9hvqMkoZrzbx5",
+              "id": "4XPl3uEEL9hvqMkoZrzbx5",
+              "images": [
+                  {
+                      "height": 640,
+                      "url": "https://i.scdn.co/image/53ba2adaaf2d3e47898aed9edb64026145032e7b",
+                      "width": 640
+                  },
+                  {
+                      "height": 300,
+                      "url": "https://i.scdn.co/image/5f4726afb1e227c80f228b6b1ea7a6a1209ebe97",
+                      "width": 300
+                  },
+                  {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/33cf2b6fea8d62ab730f902b52b0dc1f676cf015",
+                      "width": 64
+                  }
+              ],
+              "is_externally_hosted": false,
+              "languages": [
+                  "en"
+              ],
+              "media_type": "audio",
+              "name": "Darknet Diaries",
+              "publisher": "Jack Rhysider",
+              "type": "show",
+              "uri": "spotify:show:4XPl3uEEL9hvqMkoZrzbx5"
+          }
+      },
+      {
+          "added_at": "2019-11-22T11:08:10Z",
+          "show": {
+              "available_markets": [
+                  "AD",
+                  "AE"
+              ],
+              "copyrights": [],
+              "description": "Fest & Flauschig mit Jan Böhmermann und Olli Schulz. Der preisgekrönte, verblüffend fabelhafte, grenzenlos fantastische Podcast für sie, ihn und es.",
+              "explicit": false,
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/show/1OLcQdw2PFDPG1jo3s0wbp"
+              },
+              "href": "https://api.spotify.com/v1/shows/1OLcQdw2PFDPG1jo3s0wbp",
+              "id": "1OLcQdw2PFDPG1jo3s0wbp",
+              "images": [
+                  {
+                      "height": 640,
+                      "url": "https://i.scdn.co/image/79364dab39c9d3757838940fc7cb133c75fdaad2",
+                      "width": 640
+                  },
+                  {
+                      "height": 300,
+                      "url": "https://i.scdn.co/image/eaf33726dff2bcafeff475813f5bd18ddf51b89d",
+                      "width": 300
+                  },
+                  {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/a6514cfa222d1ee22ece832500334903154ffa83",
+                      "width": 64
+                  }
+              ],
+              "is_externally_hosted": false,
+              "languages": [
+                  "de"
+              ],
+              "media_type": "audio",
+              "name": "Fest & Flauschig",
+              "publisher": "Jan Böhmermann & Olli Schulz",
+              "type": "show",
+              "uri": "spotify:show:1OLcQdw2PFDPG1jo3s0wbp"
+          }
+      },
+      {
+          "added_at": "2019-10-19T10:57:38Z",
+          "show": {
+              "available_markets": [
+                  "AD",
+                  "AE"
+              ],
+              "copyrights": [],
+              "description": "A series about what it's really like to start a business.",
+              "explicit": false,
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/show/5CnDmMUG0S5bSSw612fs8C"
+              },
+              "href": "https://api.spotify.com/v1/shows/5CnDmMUG0S5bSSw612fs8C",
+              "id": "5CnDmMUG0S5bSSw612fs8C",
+              "images": [
+                  {
+                      "height": 640,
+                      "url": "https://i.scdn.co/image/6fe88d8c175bdec76c7f9f204c60f4331ce89bdc",
+                      "width": 640
+                  },
+                  {
+                      "height": 300,
+                      "url": "https://i.scdn.co/image/00511e028a3b993efaf5e2e12b552cda1e979206",
+                      "width": 300
+                  },
+                  {
+                      "height": 64,
+                      "url": "https://i.scdn.co/image/aa1dbf8c6c545c623d088d5e432afdf8dee3029d",
+                      "width": 64
+                  }
+              ],
+              "is_externally_hosted": false,
+              "languages": [
+                  "en"
+              ],
+              "media_type": "audio",
+              "name": "StartUp Podcast",
+              "publisher": "Gimlet",
+              "type": "show",
+              "uri": "spotify:show:5CnDmMUG0S5bSSw612fs8C"
+          }
+      }
+  ],
+  "limit": 20,
+  "next": null,
+  "offset": 0,
+  "previous": null,
+  "total": 3
+};
+
+
+
+/**
  * Get a User’s Top Artists and Tracks (Note: This is only Artists)
  * 
  * GET /v1/me/top/{type}
@@ -7147,6 +7610,374 @@ const searchTracks : SpotifyApi.TrackSearchResponse = {
 
 
 /**
+ * Search for a show
+ * 
+ * GET /v1/search?type=show
+ * https://developer.spotify.com/web-api/search-item/
+ */
+const searchShow: SpotifyApi.ShowSearchResponse = {
+  "shows": {
+    "href": "https://api.spotify.com/v1/search?query=Test&type=show&market=US&offset=5&limit=2",
+    "items": [
+      {
+        "available_markets": [
+          "AD",
+          "AE",
+          "AL",
+          "AR",
+          "AT",
+          "AU",
+          "BA",
+          "BE",
+          "BG",
+          "BH",
+          "BO",
+          "BR",
+          "CA",
+          "CH",
+          "CL",
+          "CO",
+          "CR",
+          "CY",
+          "CZ",
+          "DE",
+          "DK",
+          "DO",
+          "DZ",
+          "EC",
+          "EE",
+          "ES",
+          "FI",
+          "FR",
+          "GB",
+          "GR",
+          "GT",
+          "HK",
+          "HN",
+          "HR",
+          "HU",
+          "ID",
+          "IE",
+          "IL",
+          "IN",
+          "IS",
+          "IT",
+          "JO",
+          "JP",
+          "KW",
+          "LB",
+          "LI",
+          "LT",
+          "LU",
+          "LV",
+          "MA",
+          "MC",
+          "ME",
+          "MK",
+          "MT",
+          "MX",
+          "MY",
+          "NI",
+          "NL",
+          "NO",
+          "NZ",
+          "OM",
+          "PA",
+          "PE",
+          "PH",
+          "PL",
+          "PS",
+          "PT",
+          "PY",
+          "QA",
+          "RO",
+          "RS",
+          "SE",
+          "SG",
+          "SI",
+          "SK",
+          "SV",
+          "TH",
+          "TN",
+          "TR",
+          "TW",
+          "US",
+          "UY",
+          "VN",
+          "XK",
+          "ZA"
+        ],
+        "copyrights": [],
+        "description": "Kris Keefer puts bikes, gear, accessories, hard parts... you name it, through the paces to bring you the straight verdict.",
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/show/0zyTcPkKwiDCuThj0R9PwP"
+        },
+        "href": "https://api.spotify.com/v1/shows/0zyTcPkKwiDCuThj0R9PwP",
+        "id": "0zyTcPkKwiDCuThj0R9PwP",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/9365c283c45f3b53767056d32989f00994f638a3",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/48ff416863f1be6abc2f83f8920fce84d959e94b",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/74c72c3abaa35ac5750cf3e0aa92bbc59e6cd37e",
+            "width": 64
+          }
+        ],
+        "is_externally_hosted": false,
+        "languages": [
+          "en"
+        ],
+        "media_type": "audio",
+        "name": "Rocky Mountain ATV/MC Keefer Tested ",
+        "publisher": "Kris Keefer",
+        "total_episodes": 211,
+        "type": "show",
+        "uri": "spotify:show:0zyTcPkKwiDCuThj0R9PwP"
+      },
+      {
+        "available_markets": [
+          "AD",
+          "AE",
+          "AL",
+          "AR",
+          "AT",
+          "AU",
+          "BA",
+          "BE",
+          "BG",
+          "BH",
+          "BO",
+          "BR",
+          "CA",
+          "CH",
+          "CL",
+          "CO",
+          "CR",
+          "CY",
+          "CZ",
+          "DE",
+          "DK",
+          "DO",
+          "DZ",
+          "EC",
+          "EE",
+          "ES",
+          "FI",
+          "FR",
+          "GB",
+          "GR",
+          "GT",
+          "HK",
+          "HN",
+          "HR",
+          "HU",
+          "ID",
+          "IE",
+          "IL",
+          "IN",
+          "IS",
+          "IT",
+          "JO",
+          "JP",
+          "KW",
+          "LB",
+          "LI",
+          "LT",
+          "LU",
+          "LV",
+          "MA",
+          "MC",
+          "ME",
+          "MK",
+          "MT",
+          "MX",
+          "MY",
+          "NI",
+          "NL",
+          "NO",
+          "NZ",
+          "OM",
+          "PA",
+          "PE",
+          "PH",
+          "PL",
+          "PS",
+          "PT",
+          "PY",
+          "QA",
+          "RO",
+          "RS",
+          "SE",
+          "SG",
+          "SI",
+          "SK",
+          "SV",
+          "TH",
+          "TN",
+          "TR",
+          "TW",
+          "US",
+          "UY",
+          "VN",
+          "XK",
+          "ZA"
+        ],
+        "copyrights": [],
+        "description": "This is the official podcast of Tested.com. Tested brings you the week's technology and science news, with hosts Will Smith, Norman Chan, and Jeremy Williams. There's no jargon here, just solid explanations of the week's news--and plenty of wacky tangents. Make sure you stick around after the outro for fake outtakes!",
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/show/4B7l3R0HeI8gkp0n6BVlyy"
+        },
+        "href": "https://api.spotify.com/v1/shows/4B7l3R0HeI8gkp0n6BVlyy",
+        "id": "4B7l3R0HeI8gkp0n6BVlyy",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/c76d88429ed0133d40aaa9ecbee817bd635bc758",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/96052147877b6ebe042e470f50db896c7d0b097a",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/95ebbfca4b610bceeac6c2f9a9467c24914304cc",
+            "width": 64
+          }
+        ],
+        "is_externally_hosted": false,
+        "languages": [
+          "en"
+        ],
+        "media_type": "audio",
+        "name": "This is Only a Test",
+        "publisher": "Will Smith, Norman Chan, Jeremy Williams",
+        "total_episodes": 577,
+        "type": "show",
+        "uri": "spotify:show:4B7l3R0HeI8gkp0n6BVlyy"
+      }
+    ],
+    "limit": 2,
+    "next": "https://api.spotify.com/v1/search?query=Test&type=show&market=US&offset=7&limit=2",
+    "offset": 5,
+    "previous": "https://api.spotify.com/v1/search?query=Test&type=show&market=US&offset=3&limit=2",
+    "total": 16889
+  }
+}
+
+
+
+/**
+ * Search for a episode
+ * 
+ * GET /v1/search?type=episode
+ * https://developer.spotify.com/web-api/search-item/
+ */
+const searchEpisode: SpotifyApi.EpisodeSearchResponse = {
+  "episodes": {
+    "href": "https://api.spotify.com/v1/search?query=Test&type=episode&market=US&offset=5&limit=2",
+    "items": [
+      {
+        "audio_preview_url": "https://p.scdn.co/mp3-preview/e1576ab4ef989d498d2845d1cb7ceb92f7876dd5",
+        "description": "Disinformation, foreign interference, a global pandemic and an incumbent president who refused to say he'd accept the results — all were concerns headed into the 2020 election. If those challenges were a test of America's democratic system, did we pass? Jelani Cobb of The New Yorker and election law expert Michael Kang weigh in, with Joe Biden on the verge of becoming the president-elect. Listen to more election coverage from NPR: Up First on Apple Podcasts or Spotify The NPR Politics Podcast on Apple Podcasts or SpotifyIn participating regions, you'll also hear a local news segment that will help you make sense of what's going on in your community.Email us at considerthis@npr.org.",
+        "duration_ms": 842553,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/episode/0ObtgY2z58L4lf0p56j1OK"
+        },
+        "href": "https://api.spotify.com/v1/episodes/0ObtgY2z58L4lf0p56j1OK",
+        "id": "0ObtgY2z58L4lf0p56j1OK",
+        "images": [
+          {
+            "height": 360,
+            "url": "https://i.scdn.co/image/15b43be47adba7e36f3076f7765734a80fc72adf",
+            "width": 640
+          },
+          {
+            "height": 169,
+            "url": "https://i.scdn.co/image/c0ce5f0622a4499bccc6682de60add60271e7c76",
+            "width": 300
+          },
+          {
+            "height": 36,
+            "url": "https://i.scdn.co/image/dfd94939fb2925145faf81f973635075fd4a8e00",
+            "width": 64
+          }
+        ],
+        "is_externally_hosted": false,
+        "is_playable": true,
+        "language": "en-US",
+        "languages": [
+          "en-US"
+        ],
+        "name": "The 2020 Election Has Tested American Democracy. Are We Passing?",
+        "release_date": "2020-11-06",
+        "release_date_precision": "day",
+        "type": "episode",
+        "uri": "spotify:episode:0ObtgY2z58L4lf0p56j1OK"
+      },
+      {
+        "audio_preview_url": "https://p.scdn.co/mp3-preview/dde954d108987fec62dc87ee142627c12fc549bc",
+        "description": "Even though we've been living with the pandemic for months, there's still lots of confusion about coronavirus tests and what the results do — and don't — mean. NPR correspondent Rob Stein explains the types of tests, when they are most accurate and how to make sense of the results. Email the show at shortwave@npr.org.",
+        "duration_ms": 643527,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/episode/08FNi0gs2eA14wHUxGftKw"
+        },
+        "href": "https://api.spotify.com/v1/episodes/08FNi0gs2eA14wHUxGftKw",
+        "id": "08FNi0gs2eA14wHUxGftKw",
+        "images": [
+          {
+            "height": 360,
+            "url": "https://i.scdn.co/image/1d4ac5d0fe5c6787d231a5bbaa38aefae78291fd",
+            "width": 640
+          },
+          {
+            "height": 169,
+            "url": "https://i.scdn.co/image/6e42cd576c88a4c8e14d6c43460ce1265bd90be7",
+            "width": 300
+          },
+          {
+            "height": 36,
+            "url": "https://i.scdn.co/image/ea43372526ac1aea1c9e141de361529990854681",
+            "width": 64
+          }
+        ],
+        "is_externally_hosted": false,
+        "is_playable": true,
+        "language": "en-US",
+        "languages": [
+          "en-US"
+        ],
+        "name": "What Coronavirus Test Results Do — And Don't — Mean",
+        "release_date": "2020-10-08",
+        "release_date_precision": "day",
+        "type": "episode",
+        "uri": "spotify:episode:08FNi0gs2eA14wHUxGftKw"
+      }
+    ],
+    "limit": 2,
+    "next": "https://api.spotify.com/v1/search?query=Test&type=episode&market=US&offset=7&limit=2",
+    "offset": 5,
+    "previous": "https://api.spotify.com/v1/search?query=Test&type=episode&market=US&offset=3&limit=2",
+    "total": 50000
+  }
+};
+
+
+
+/**
  * Get a track
  * 
  * GET /v1/tracks/{id}
@@ -7627,6 +8458,458 @@ const tracks : SpotifyApi.MultipleTracksResponse = {
       "uri": "spotify:track:3n3Ppam7vgaVa1iaRUc9Lp"
     }
   ]
+};
+
+
+
+/**
+ * Get an Show
+ * 
+ * GET /v1/shows/{id}
+ * https://developer.spotify.com/web-api/get-show/
+ */
+const show: SpotifyApi.SingleShowResponse = {
+  "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SK", "SV", "TH", "TR", "TW", "US", "UY", "VN", "ZA" ],
+  "copyrights" : [ ],
+  "description" : "Vi är där historien är. Ansvarig utgivare: Nina Glans",
+  "episodes" : {
+    "href" : "https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ/episodes?offset=0&limit=50",
+    "items" : [{
+      "audio_preview_url" : "https://p.scdn.co/mp3-preview/99180ec43a984c61b079bd3e71443a1886d0290c",
+      "description" : "Tobias Svanelid besöker den svenska arkeologiska expeditionen på Cypern där man nu söker efter svaret på vad som drabbade bronsåldersstäderna för 3000 år sedan och orsakade bronsålderns kollaps.  - Det är som att jobba som Indiana Jones, berättar Alfred Sjelvgren som är en av arkeologerna som gräver på platsen. I Hala Sultan Tekke vid Larnaca på Cypern har svenska arkeologer under ledning av Peter Fischer grävt sedan 2010. Det de hittat är en av bronsålderns största och rikaste städer, där brons och purpurfärgade textilier en gång exporterades runt Medelhavet och ända upp till Sverige för drygt 3000 år sedan. Men den rika handelsstadens öde blev våldsamt. I likhet med så många andra Medelhavsstäder gick Hala Sultan Tekke under i en våldsam händelse som beskrivits som bronsålderns kollaps och kanske kan fynden från utgrävningen ge svar på vad som hände. - Jag tror att det är en kombination av bidragande orsaker som orsakade kollapsen, menar Peter Fischer, arkeologiprofessor vid Göteborgs universitet. Klimatförändringar, revolutioner och folkvandringar gjorde att många av bronsålderns högkulturer, inklusive den på Cypern, gick under.",
+      "duration_ms" : 2666659,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/episode/4nLBHCqEvCcRyWImnKo009"
+      },
+      "href" : "https://api.spotify.com/v1/episodes/4nLBHCqEvCcRyWImnKo009",
+      "id" : "4nLBHCqEvCcRyWImnKo009",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/80a842ffc3d0c5fc1ec69e3e4987a99052454f26",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/3a2ca33937fcef64124f492b6bd67d3583f1278e",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/fe428e98ad84732dff1ea73ae7f3fae5110e658c",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "is_playable" : true,
+      "language" : "sv",
+      "languages" : [ "sv" ],
+      "name" : "Bronsåldersstadens kollaps",
+      "release_date" : "2018-06-12",
+      "release_date_precision" : "day",
+      "type" : "episode",
+      "uri" : "spotify:episode:4nLBHCqEvCcRyWImnKo009"
+    }],
+    "limit" : 50,
+    "next" : "https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ/episodes?offset=50&limit=50",
+    "offset" : 0,
+    "previous" : null,
+    "total" : 520
+  },
+  "explicit" : false,
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/show/38bS44xjbVVZ3No3ByF1dJ"
+  },
+  "href" : "https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ",
+  "id" : "38bS44xjbVVZ3No3ByF1dJ",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://i.scdn.co/image/3c59a8b611000c8b10c8013013c3783dfb87a3bc",
+    "width" : 640
+  }, {
+    "height" : 300,
+    "url" : "https://i.scdn.co/image/2d70c06ac70d8c6144c94cabf7f4abcf85c4b7e4",
+    "width" : 300
+  }, {
+    "height" : 64,
+    "url" : "https://i.scdn.co/image/3dc007829bc0663c24089e46743a9f4ae15e65f8",
+    "width" : 64
+  } ],
+  "is_externally_hosted" : false,
+  "languages" : [ "sv" ],
+  "media_type" : "audio",
+  "name" : "Vetenskapsradion Historia",
+  "publisher" : "Sveriges Radio",
+  "type" : "show",
+  "uri" : "spotify:show:38bS44xjbVVZ3No3ByF1dJ"
+};
+
+
+
+/**
+ * Get Several Shows
+ * 
+ * GET /v1/shows?ids={ids}
+ * https://developer.spotify.com/documentation/web-api/reference/shows/get-several-shows/
+ */
+const shows: SpotifyApi.MultipleShowsResponse = {
+  "shows" : [ {
+    "available_markets" : [ "AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA" ],
+    "copyrights" : [ ],
+    "description" : "Candid conversations with entrepreneurs, artists, athletes, visionaries of all kinds—about their successes, and their failures, and what they learned from both. Hosted by Alex Blumberg, from Gimlet Media.",
+    "explicit" : true,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/show/5CfCWKI5pZ28U0uOzXkDHe"
+    },
+    "href" : "https://api.spotify.com/v1/shows/5CfCWKI5pZ28U0uOzXkDHe",
+    "id" : "5CfCWKI5pZ28U0uOzXkDHe",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/12903409b9e5dd26f2a41e401cd7fcabd5164ed4",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/4f19eb7986a7c2246d713dcc46684e2187ccea4f",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/c0b072976a28792a4b451dfc7011a2176ec8cd34",
+      "width" : 64
+    } ],
+    "is_externally_hosted" : false,
+    "languages" : [ "en" ],
+    "media_type" : "audio",
+    "name" : "Without Fail",
+    "publisher" : "Gimlet",
+    "type" : "show",
+    "uri" : "spotify:show:5CfCWKI5pZ28U0uOzXkDHe"
+  }, {
+    "available_markets" : [ "AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA" ],
+    "copyrights" : [ ],
+    "description" : "Giant Bomb discusses the latest video game news and new releases, taste-test questionable beverages, and get wildly off-topic in this weekly podcast.",
+    "explicit" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/show/5as3aKmN2k11yfDDDSrvaZ"
+    },
+    "href" : "https://api.spotify.com/v1/shows/5as3aKmN2k11yfDDDSrvaZ",
+    "id" : "5as3aKmN2k11yfDDDSrvaZ",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/9bd9b3be1111810a91cd768115a57ee5a08c7145",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/1f5c122086aa4602742ba2301302f2f9bc1f0345",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/b97f288023e547f40862976c89a5c342eacaaac1",
+      "width" : 64
+    } ],
+    "is_externally_hosted" : false,
+    "languages" : [ "en-US" ],
+    "media_type" : "audio",
+    "name" : "Giant Bombcast",
+    "publisher" : "Giant Bomb",
+    "type" : "show",
+    "uri" : "spotify:show:5as3aKmN2k11yfDDDSrvaZ"
+  } ]
+};
+
+
+
+/**
+ * Get an Episode
+ * 
+ * GET /v1/episodes/{id}
+ * https://developer.spotify.com/documentation/web-api/reference/episodes/get-an-episode/
+ */
+const episode: SpotifyApi.SingleEpisodeResponse = {
+  "audio_preview_url": "https://p.scdn.co/mp3-preview/566fcc94708f39bcddc09e4ce84a8e5db8f07d4d",
+  "description": "En ny tysk bok granskar för första gången Tredje rikets drogberoende, från Führerns knarkande till hans soldater på speed. Och kändisförfattaren Antony Beevor får nu kritik av en svensk kollega.  Hitler var beroende av sin livläkare, som gav honom mängder av narkotiska preparat, och blitzkrigssoldaterna knaprade 35 miljoner speedtabletter under invasionen av Frankrike 1940. I den nyutkomna boken Der Totale Rausch, Det totala ruset, ger författaren Norman Ohler för första gången en samlad bild av knarkandet i Tredje riket. Mycket tyder på att Hitler var gravt drogpåverkad under flera avgörande beslut under kriget, säger han, och får medhåll av medicinhistorikern Peter Steinkamp som undersökt de tyska soldaternas intensiva användande av pervitin, en variant av crystal meth.Dessutom får nu den kände militärhistoriska författaren Antony Beevor kritik för att hans senaste bok om Ardenneroffensiven lutar sig alltför tungt mot amerikanska källor, och dessutom innehåller många felaktiga detaljer. Det menar författarkollegan Christer Bergström, som själv skrivit en bok om striderna i Ardennerna.Programledare är Tobias Svanelid.",
+  "duration_ms": 1502795,
+  "explicit": false,
+  "external_urls": {
+      "spotify": "https://open.spotify.com/episode/512ojhOuo1ktJprKbVcKyQ"
+  },
+  "href": "https://api.spotify.com/v1/episodes/512ojhOuo1ktJprKbVcKyQ",
+  "id": "512ojhOuo1ktJprKbVcKyQ",
+  "images": [
+      {
+          "height": 640,
+          "url": "https://i.scdn.co/image/6bcff849a483dd3c2883b3f0272848b909f1bbce",
+          "width": 640
+      },
+      {
+          "height": 300,
+          "url": "https://i.scdn.co/image/66250bd121ee949ed5026decbfd97e255b25a5c8",
+          "width": 300
+      },
+      {
+          "height": 64,
+          "url": "https://i.scdn.co/image/e29c75799cad73927fad713011edad574868d8da",
+          "width": 64
+      }
+  ],
+  "is_externally_hosted": false,
+  "is_playable": true,
+  "language": "sv",
+  "languages": [
+      "sv"
+  ],
+  "name": "Tredje rikets knarkande granskas",
+  "release_date": "2015-10-01",
+  "release_date_precision": "day",
+  "show": {
+      "available_markets": [
+          "AD",
+          "AE",
+          "AR",
+          "AT",
+          "AU",
+          "BE",
+          "BG",
+          "BH",
+          "BO",
+          "BR",
+          "CA",
+          "CH",
+          "CL",
+          "CO",
+          "CR",
+          "CY",
+          "CZ",
+          "DE",
+          "DK",
+          "DO",
+          "DZ",
+          "EC",
+          "EE",
+          "ES",
+          "FI",
+          "FR",
+          "GB",
+          "GR",
+          "GT",
+          "HK",
+          "HN",
+          "HU",
+          "ID",
+          "IE",
+          "IL",
+          "IN",
+          "IS",
+          "IT",
+          "JO",
+          "JP",
+          "KW",
+          "LB",
+          "LI",
+          "LT",
+          "LU",
+          "LV",
+          "MA",
+          "MC",
+          "MT",
+          "MX",
+          "MY",
+          "NI",
+          "NL",
+          "NO",
+          "NZ",
+          "OM",
+          "PA",
+          "PE",
+          "PH",
+          "PL",
+          "PS",
+          "PT",
+          "PY",
+          "QA",
+          "RO",
+          "SE",
+          "SG",
+          "SK",
+          "SV",
+          "TH",
+          "TN",
+          "TR",
+          "TW",
+          "US",
+          "UY",
+          "VN",
+          "ZA"
+      ],
+      "copyrights": [],
+      "description": "Vi är där historien är. Ansvarig utgivare: Nina Glans",
+      "explicit": false,
+      "external_urls": {
+          "spotify": "https://open.spotify.com/show/38bS44xjbVVZ3No3ByF1dJ"
+      },
+      "href": "https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ",
+      "id": "38bS44xjbVVZ3No3ByF1dJ",
+      "images": [
+          {
+              "height": 640,
+              "url": "https://i.scdn.co/image/3c59a8b611000c8b10c8013013c3783dfb87a3bc",
+              "width": 640
+          },
+          {
+              "height": 300,
+              "url": "https://i.scdn.co/image/2d70c06ac70d8c6144c94cabf7f4abcf85c4b7e4",
+              "width": 300
+          },
+          {
+              "height": 64,
+              "url": "https://i.scdn.co/image/3dc007829bc0663c24089e46743a9f4ae15e65f8",
+              "width": 64
+          }
+      ],
+      "is_externally_hosted": false,
+      "languages": [
+          "sv"
+      ],
+      "media_type": "audio",
+      "name": "Vetenskapsradion Historia",
+      "publisher": "Sveriges Radio",
+      "type": "show",
+      "uri": "spotify:show:38bS44xjbVVZ3No3ByF1dJ"
+  },
+  "type": "episode",
+  "uri": "spotify:episode:512ojhOuo1ktJprKbVcKyQ"
+};
+
+
+
+/**
+ * Get Several Episodes
+ * 
+ * GET /v1/episodes?ids={ids}
+ * https://developer.spotify.com/documentation/web-api/reference/episodes/get-several-episodes/
+ */
+const episodes: SpotifyApi.MultipleEpisodesResponse = {
+  "episodes" : [ {
+    "audio_preview_url" : "https://p.scdn.co/mp3-preview/7e8f7a00f1425d495bcb992bae48a19c31342490",
+    "description" : "Följ med till Riddarhuset och hör om dråpliga motiv och billiga lösningar på husets drygt 2 300 vapensköldar som nu studerats. Och hör hur stormakten Sveriges krig finansierades av Frankrike.  Skelögda ugglor och halshuggna troll är några av motiven på de drygt 2&nbsp;300 vapensköldar som hänger i Riddarhuset i Stockholm. Den svenska adelns grafiska profiler har nu hamnat under luppen när heraldikern Magnus Bäckmark som förste forskare skärskådat detta bortglömda kulturarvs estetik och historia. Vetenskapsradion Historia följer med honom till Riddarhuset för att fascineras av både vackra och tokfula motiv. Dessutom om att den svenska stormaktstiden nu måste omvärderas efter att historikern Svante Norrhem undersökt de enorma summor som Sverige erhöll av Frankrike. Under närmare 170 år var Sverige närmast en klientstat till Frankrike, där närmare 20 procent av svensk ekonomi bestod av franska subsidier. Tobias Svanelid undersöker hur förhållandet påverkade länderna och hur mycket av den svenska stormaktstiden som egentligen var fransk.",
+    "duration_ms" : 2685023,
+    "explicit" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/episode/77o6BIVlYM3msb4MMIL1jH"
+    },
+    "href" : "https://api.spotify.com/v1/episodes/77o6BIVlYM3msb4MMIL1jH",
+    "id" : "77o6BIVlYM3msb4MMIL1jH",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/8092469858486ff19eeefcea7ec5c17b72c9590a",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/7e921e844f4deb5a8fbdacba7abb6210357237e5",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/729df823ef7f9a6f8aaf57d532490c9aab43e0dc",
+      "width" : 64
+    } ],
+    "is_externally_hosted" : false,
+    "is_playable" : true,
+    "language" : "sv",
+    "name" : "Riddarnas vapensköldar under lupp",
+    "release_date" : "2019-09-10",
+    "release_date_precision" : "day",
+    "show" : {
+      "available_markets" : [ "AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA" ],
+      "copyrights" : [ ],
+      "description" : "Vi är där historien är. Ansvarig utgivare: Nina Glans",
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/show/38bS44xjbVVZ3No3ByF1dJ"
+      },
+      "href" : "https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ",
+      "id" : "38bS44xjbVVZ3No3ByF1dJ",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/3c59a8b611000c8b10c8013013c3783dfb87a3bc",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/2d70c06ac70d8c6144c94cabf7f4abcf85c4b7e4",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/3dc007829bc0663c24089e46743a9f4ae15e65f8",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "languages" : [ "sv" ],
+      "media_type" : "audio",
+      "name" : "Vetenskapsradion Historia",
+      "publisher" : "Sveriges Radio",
+      "type" : "show",
+      "uri" : "spotify:show:38bS44xjbVVZ3No3ByF1dJ"
+    },
+    "type" : "episode",
+    "uri" : "spotify:episode:77o6BIVlYM3msb4MMIL1jH"
+  }, {
+    "audio_preview_url" : "https://p.scdn.co/mp3-preview/83bc7f2d40e850582a4ca118b33c256358de06ff",
+    "description" : "Följ med Tobias Svanelid till Sveriges äldsta tegelkyrka, till Edsleskog mitt i den dalsländska granskogen, där ett religiöst skrytbygge skulle resas över ett skändligt brott.  I Edsleskog i Dalsland gräver arkeologerna nu ut vad som en gång verkar ha varit en av Sveriges största medeltidskyrkor, och kanske också den äldsta som byggts i tegel, 1200-talets high-tech-material. Tobias Svanelid reser dit för att höra historien om den märkliga och bortglömda kyrkan som grundlades på platsen för ett prästmord och dessutom kan ha varit Skarabiskopens försök att lägga beslag på det vilda Dalsland. Dessutom om sjudagarsveckan  idag ett välkänt koncept runt hela världen, men hur gammal är egentligen veckans historia? Dick Harrison vet svaret.",
+    "duration_ms" : 2685023,
+    "explicit" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/episode/0Q86acNRm6V9GYx55SXKwf"
+    },
+    "href" : "https://api.spotify.com/v1/episodes/0Q86acNRm6V9GYx55SXKwf",
+    "id" : "0Q86acNRm6V9GYx55SXKwf",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/b2398424d6158a21fe8677e2de5f6f3d1dc4a04f",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/a52780a1d7e1bc42619413c3dea7042396c87f49",
+      "width" : 300
+    }, {
+      "height" : 64,
+      "url" : "https://i.scdn.co/image/88e21be860cf11f0b95ee8dfb47ddb08a13319a7",
+      "width" : 64
+    } ],
+    "is_externally_hosted" : false,
+    "is_playable" : true,
+    "language" : "sv",
+    "name" : "Okända katedralen i Dalsland",
+    "release_date" : "2019-09-03",
+    "release_date_precision" : "day",
+    "show" : {
+      "available_markets" : [ "AD", "AE", "AR", "AT", "AU", "BE", "BG", "BH", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "SE", "SG", "SK", "SV", "TH", "TN", "TR", "TW", "US", "UY", "VN", "ZA" ],
+      "copyrights" : [ ],
+      "description" : "Vi är där historien är. Ansvarig utgivare: Nina Glans",
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/show/38bS44xjbVVZ3No3ByF1dJ"
+      },
+      "href" : "https://api.spotify.com/v1/shows/38bS44xjbVVZ3No3ByF1dJ",
+      "id" : "38bS44xjbVVZ3No3ByF1dJ",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/3c59a8b611000c8b10c8013013c3783dfb87a3bc",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/2d70c06ac70d8c6144c94cabf7f4abcf85c4b7e4",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/3dc007829bc0663c24089e46743a9f4ae15e65f8",
+        "width" : 64
+      } ],
+      "is_externally_hosted" : false,
+      "languages" : [ "sv" ],
+      "media_type" : "audio",
+      "name" : "Vetenskapsradion Historia",
+      "publisher" : "Sveriges Radio",
+      "type" : "show",
+      "uri" : "spotify:show:38bS44xjbVVZ3No3ByF1dJ"
+    },
+    "type" : "episode",
+    "uri" : "spotify:episode:0Q86acNRm6V9GYx55SXKwf"
+  } ]
 };
 
 

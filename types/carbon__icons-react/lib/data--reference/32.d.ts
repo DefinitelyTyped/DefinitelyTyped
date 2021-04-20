@@ -1,1 +1,3 @@
-export { DataReference32 as default } from "../../";
+import { DataReference32 } from "../../";
+
+export = DataReference32;

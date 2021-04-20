@@ -1,1 +1,3 @@
-export { CollapseAll20 as default } from "../../";
+import { CollapseAll20 } from "../../";
+
+export = CollapseAll20;

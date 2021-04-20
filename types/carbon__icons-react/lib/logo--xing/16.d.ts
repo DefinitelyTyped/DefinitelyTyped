@@ -1,1 +1,3 @@
-export { LogoXing16 as default } from "../../";
+import { LogoXing16 } from "../../";
+
+export = LogoXing16;

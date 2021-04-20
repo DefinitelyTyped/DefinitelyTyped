@@ -1,1 +1,3 @@
-export { CameraAction20 as default } from "../../";
+import { CameraAction20 } from "../../";
+
+export = CameraAction20;

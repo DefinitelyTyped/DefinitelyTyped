@@ -143,7 +143,7 @@ function testClock() {
     let clock = sinon.clock.create(1000);
     clock = sinon.clock.create(new Date());
 
-    let now: sinon.SinonTimerId = 0;
+    let now = 0;
     now = clock.now;
 
     const fn = () => {};
@@ -154,9 +154,10 @@ function testClock() {
     clock.setImmediate(fn);
     clock.requestAnimationFrame(fn);
 
-    now = clock.setTimeout(fnWithArgs, 0, 1234, 'abc');
-    now = clock.setInterval(fnWithArgs, 0, 1234, 'abc');
-    now = clock.setImmediate(fnWithArgs, 1234, 'abc');
+    // TODO (43081j): uncomment theses when sinon#371 lands
+    // now = clock.setTimeout(fnWithArgs, 0, 1234, 'abc');
+    // now = clock.setInterval(fnWithArgs, 0, 1234, 'abc');
+    // now = clock.setImmediate(fnWithArgs, 1234, 'abc');
 
     let timer = clock.setTimeout(fn, 0);
     clock.clearTimeout(timer);
@@ -187,7 +188,6 @@ function testClock() {
     clock.reset();
     clock.runMicrotasks();
     clock.runToFrame();
-    clock.restore();
     clock.uninstall();
     clock.setSystemTime(1000);
     clock.setSystemTime(new Date());
@@ -428,6 +428,17 @@ function testTypedSpy() {
 
     const setterSpy = sinon.spy(instance, 'setterTest', ['set']);
     setterSpy.set.calledWith(100);
+}
+
+function testInstanceSpy() {
+    const obj: {
+        foo(arg: number): string
+    } = <any> {};
+
+    const spy = sinon.spy(obj); // $ExpectType SinonSpiedInstance<{ foo(arg: number): string; }>
+
+    spy.foo.calledWith(5);
+    spy.foo.returns('bar'); // $ExpectError
 }
 
 function testSpy() {

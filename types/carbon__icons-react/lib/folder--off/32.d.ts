@@ -1,1 +1,3 @@
-export { FolderOff32 as default } from "../../";
+import { FolderOff32 } from "../../";
+
+export = FolderOff32;

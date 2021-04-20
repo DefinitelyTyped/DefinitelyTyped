@@ -1,1 +1,3 @@
-export { Table16 as default } from "../../";
+import { Table16 } from "../../";
+
+export = Table16;

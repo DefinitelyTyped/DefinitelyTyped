@@ -1,1 +1,3 @@
-export { Linux16 as default } from "../../";
+import { Linux16 } from "../../";
+
+export = Linux16;

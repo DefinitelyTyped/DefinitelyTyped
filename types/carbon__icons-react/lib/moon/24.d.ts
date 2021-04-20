@@ -1,1 +1,3 @@
-export { Moon24 as default } from "../../";
+import { Moon24 } from "../../";
+
+export = Moon24;

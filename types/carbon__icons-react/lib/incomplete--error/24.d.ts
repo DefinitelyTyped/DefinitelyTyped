@@ -1,1 +1,3 @@
-export { IncompleteError24 as default } from "../../";
+import { IncompleteError24 } from "../../";
+
+export = IncompleteError24;

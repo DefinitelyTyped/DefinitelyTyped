@@ -1,1 +1,3 @@
-export { LicenseGlobal16 as default } from "../../";
+import { LicenseGlobal16 } from "../../";
+
+export = LicenseGlobal16;

@@ -2,13 +2,14 @@ import * as React from "react";
 import {
     DateRange,
     DateRangePicker,
-    OnChangeProps
+    OnChangeProps,
+    RangeWithKey
 } from "react-date-range";
 
-const range = {
+const range: RangeWithKey = {
     startDate: new Date('2020-11-01'),
     endDate: new Date('2020-11-30'),
-    key: 'selected'
+    key: 'selection'
 };
 
 class ReactDatePicker extends React.Component<any, any> {

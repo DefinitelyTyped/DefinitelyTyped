@@ -1,1 +1,3 @@
-export { FaceSatisfiedFilled32 as default } from "../../";
+import { FaceSatisfiedFilled32 } from "../../";
+
+export = FaceSatisfiedFilled32;

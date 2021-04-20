@@ -1,1 +1,3 @@
-export { ListBulleted32 as default } from "../../";
+import { ListBulleted32 } from "../../";
+
+export = ListBulleted32;

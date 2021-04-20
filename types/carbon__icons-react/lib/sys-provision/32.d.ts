@@ -1,1 +1,3 @@
-export { SysProvision32 as default } from "../../";
+import { SysProvision32 } from "../../";
+
+export = SysProvision32;

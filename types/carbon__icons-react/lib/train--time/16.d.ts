@@ -1,1 +1,3 @@
-export { TrainTime16 as default } from "../../";
+import { TrainTime16 } from "../../";
+
+export = TrainTime16;

@@ -22,6 +22,7 @@ export { RefinementList } from 'react-instantsearch-dom';
 export { ScrollTo } from 'react-instantsearch-dom';
 export { SearchBox, SearchBoxProps } from 'react-instantsearch-dom';
 export { Snippet } from 'react-instantsearch-dom';
+export { RelevantSort } from 'react-instantsearch-dom';
 export { SortBy } from 'react-instantsearch-dom';
 export { Stats } from 'react-instantsearch-dom';
 export { ToggleRefinement } from 'react-instantsearch-dom';

@@ -31,6 +31,7 @@
         "test/cognito-tests.ts",
         "test/dynamodb-tests.ts",
         "test/eventbridge-tests.ts",
+        "test/iot-tests.ts",
         "test/kinesis-tests.ts",
         "test/lex-tests.ts",
         "test/s3-tests.ts",

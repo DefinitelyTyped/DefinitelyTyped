@@ -1,1 +1,3 @@
-export { Delete24 as default } from "../../";
+import { Delete24 } from "../../";
+
+export = Delete24;

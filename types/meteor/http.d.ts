@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 declare module "meteor/http" {
     module HTTP {
         interface HTTPRequest {

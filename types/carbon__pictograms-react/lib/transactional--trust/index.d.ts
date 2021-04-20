@@ -1,1 +1,3 @@
-export { TransactionalTrust as default } from "../../";
+import { TransactionalTrust } from "../../";
+
+export = TransactionalTrust;

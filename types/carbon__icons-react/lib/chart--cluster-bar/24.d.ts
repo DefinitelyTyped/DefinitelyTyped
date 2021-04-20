@@ -1,1 +1,3 @@
-export { ChartClusterBar24 as default } from "../../";
+import { ChartClusterBar24 } from "../../";
+
+export = ChartClusterBar24;

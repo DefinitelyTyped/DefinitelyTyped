@@ -1,1 +1,3 @@
-export { ConsumerEngagementFoodJourney as default } from "../../";
+import { ConsumerEngagementFoodJourney } from "../../";
+
+export = ConsumerEngagementFoodJourney;

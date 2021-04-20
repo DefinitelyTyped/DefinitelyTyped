@@ -16,6 +16,9 @@ export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedAttribute
     id: string,
     invalid?: boolean,
     invalidText?: React.ReactNode,
+    /**
+     * @deprecated
+     */
     isMobile?: boolean,
     label?: React.ReactNode,
     light?: boolean,
@@ -25,6 +28,8 @@ export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedAttribute
     warnText?: React.ReactNode,
 }
 
-declare const NumberInput: ForwardRefReturn<HTMLInputElement, NumberInputProps>;
+declare class NumberInputComponent extends React.Component<NumberInputProps> { }
+export { NumberInputComponent as NumberInput };
 
+declare const NumberInput: ForwardRefReturn<HTMLInputElement, NumberInputProps>;
 export default NumberInput;

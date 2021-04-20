@@ -1,1 +1,3 @@
-export { NoodleBowl16 as default } from "../../";
+import { NoodleBowl16 } from "../../";
+
+export = NoodleBowl16;

@@ -1,1 +1,3 @@
-export { EmailNew32 as default } from "../../";
+import { EmailNew32 } from "../../";
+
+export = EmailNew32;

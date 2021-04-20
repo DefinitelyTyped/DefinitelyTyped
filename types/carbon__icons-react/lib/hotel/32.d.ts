@@ -1,1 +1,3 @@
-export { Hotel32 as default } from "../../";
+import { Hotel32 } from "../../";
+
+export = Hotel32;

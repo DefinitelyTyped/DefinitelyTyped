@@ -1,1 +1,3 @@
-export { Sprout16 as default } from "../../";
+import { Sprout16 } from "../../";
+
+export = Sprout16;

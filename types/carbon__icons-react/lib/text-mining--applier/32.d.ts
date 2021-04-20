@@ -1,1 +1,3 @@
-export { TextMiningApplier32 as default } from "../../";
+import { TextMiningApplier32 } from "../../";
+
+export = TextMiningApplier32;

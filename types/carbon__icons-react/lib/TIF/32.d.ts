@@ -1,1 +1,3 @@
-export { Tif32 as default } from "../../";
+import { Tif32 } from "../../";
+
+export = Tif32;

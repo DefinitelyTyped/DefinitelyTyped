@@ -1,1 +1,3 @@
-export { TrainTicket24 as default } from "../../";
+import { TrainTicket24 } from "../../";
+
+export = TrainTicket24;

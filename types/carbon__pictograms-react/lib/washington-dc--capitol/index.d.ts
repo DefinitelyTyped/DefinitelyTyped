@@ -1,1 +1,3 @@
-export { WashingtonDcCapitol as default } from "../../";
+import { WashingtonDcCapitol } from "../../";
+
+export = WashingtonDcCapitol;

@@ -1,1 +1,3 @@
-export { HdFilled24 as default } from "../../";
+import { HdFilled24 } from "../../";
+
+export = HdFilled24;

@@ -1,1 +1,3 @@
-export { Research as default } from "../../";
+import { Research } from "../../";
+
+export = Research;

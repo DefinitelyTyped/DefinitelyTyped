@@ -1,1 +1,3 @@
-export { Meter32 as default } from "../../";
+import { Meter32 } from "../../";
+
+export = Meter32;

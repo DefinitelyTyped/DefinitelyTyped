@@ -37,6 +37,7 @@
 
 import * as CSS from 'csstype';
 import * as PropTypes from 'prop-types';
+import { Interaction as SchedulerInteraction } from 'scheduler/tracing';
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -52,14 +53,9 @@ type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 type Booleanish = boolean | 'true' | 'false';
 
-/**
- * defined in scheduler/tracing
- */
-interface SchedulerInteraction {
-    id: number;
-    name: string;
-    timestamp: number;
-}
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+// Destructors are only allowed to return void.
+type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 
 // tslint:disable-next-line:export-just-namespace
 export = React;
@@ -82,7 +78,7 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
-        | ((props: P) => ReactElement | null)
+        | ((props: P) => ReactElement<any, any> | null)
         | (new (props: P) => Component<P, any>);
 
     interface RefObject<T> {
@@ -891,8 +887,7 @@ declare namespace React {
     type DependencyList = ReadonlyArray<any>;
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
-    // The destructor is itself only allowed to return void.
-    type EffectCallback = () => (void | (() => void | undefined));
+    type EffectCallback = () => (void | Destructor);
 
     interface MutableRefObject<T> {
         current: T;

@@ -1,1 +1,3 @@
-export { DirectionRight_02Filled32 as default } from "../../";
+import { DirectionRight_02Filled32 } from "../../";
+
+export = DirectionRight_02Filled32;

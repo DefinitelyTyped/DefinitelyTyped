@@ -1,1 +1,3 @@
-export { WatsonMachineLearning32 as default } from "../../";
+import { WatsonMachineLearning32 } from "../../";
+
+export = WatsonMachineLearning32;

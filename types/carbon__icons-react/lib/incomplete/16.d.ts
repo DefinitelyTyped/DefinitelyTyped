@@ -1,1 +1,3 @@
-export { Incomplete16 as default } from "../../";
+import { Incomplete16 } from "../../";
+
+export = Incomplete16;

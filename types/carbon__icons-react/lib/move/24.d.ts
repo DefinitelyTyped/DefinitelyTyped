@@ -1,1 +1,3 @@
-export { Move24 as default } from "../../";
+import { Move24 } from "../../";
+
+export = Move24;

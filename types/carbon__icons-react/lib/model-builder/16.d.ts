@@ -1,1 +1,3 @@
-export { ModelBuilder16 as default } from "../../";
+import { ModelBuilder16 } from "../../";
+
+export = ModelBuilder16;

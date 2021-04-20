@@ -1,1 +1,3 @@
-export { Translate32 as default } from "../../";
+import { Translate32 } from "../../";
+
+export = Translate32;

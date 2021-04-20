@@ -1,1 +1,3 @@
-export { WatsonHealth3DPrintMesh20 as default } from "../../../";
+import { WatsonHealth3DPrintMesh20 } from "../../../";
+
+export = WatsonHealth3DPrintMesh20;

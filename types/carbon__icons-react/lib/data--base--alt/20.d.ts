@@ -1,1 +1,3 @@
-export { DataBaseAlt20 as default } from "../../";
+import { DataBaseAlt20 } from "../../";
+
+export = DataBaseAlt20;

@@ -1,1 +1,3 @@
-export { Power24 as default } from "../../";
+import { Power24 } from "../../";
+
+export = Power24;

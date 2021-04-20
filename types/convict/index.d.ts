@@ -1,13 +1,13 @@
-// Type definitions for convict 5.2
+// Type definitions for convict 6.0
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Eli Young <https://github.com/elyscape>
-//                 Suntharesan Mohan <https://github.com/vanthiyathevan>
+//                 Suntharesan Mohan <https://github.com/msuntharesan>
 //                 Igor Strebezhev <https://github.com/xamgore>
 //                 Peter Somogyvari <https://github.com/petermetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.1
 
 /// <reference types="node" />
 
@@ -15,7 +15,7 @@ declare namespace convict {
     // Taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
     type Overwrite<T, U> = { [P in Exclude<keyof T, keyof U>]: T[P] } & U;
 
-    type ValidationMethod = 'strict' | 'warn';
+    type ValidationMethod = "strict" | "warn";
 
     interface ValidateOptions {
         /**
@@ -32,7 +32,7 @@ declare namespace convict {
 
     interface Format {
         name?: string;
-        validate?(val: any): void;
+        validate?(val: any, schema: SchemaObj): void;
         coerce?(val: any): any;
     }
 
@@ -42,17 +42,17 @@ declare namespace convict {
     }
 
     type PredefinedFormat =
-        | '*'
-        | 'int'
-        | 'port'
-        | 'windows_named_pipe'
-        | 'port_or_windows_named_pipe'
-        | 'url'
-        | 'email'
-        | 'ipaddress'
-        | 'duration'
-        | 'timestamp'
-        | 'nat'
+        | "*"
+        | "int"
+        | "port"
+        | "windows_named_pipe"
+        | "port_or_windows_named_pipe"
+        | "url"
+        | "email"
+        | "ipaddress"
+        | "duration"
+        | "timestamp"
+        | "nat"
         | String
         | Object
         | Number
@@ -82,6 +82,7 @@ declare namespace convict {
         env?: string;
         arg?: string;
         sensitive?: boolean;
+        [key: string]: any;
     }
 
     type Schema<T> = {
@@ -90,7 +91,7 @@ declare namespace convict {
 
     interface InternalSchema<T> {
         properties: {
-            [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] }
+            [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] };
         };
     }
 
@@ -99,90 +100,77 @@ declare namespace convict {
         args?: string[];
     }
 
+    // Taken from https://twitter.com/diegohaz/status/1309489079378219009
+    type PathImpl<T, K extends keyof T> = K extends string
+        ? T[K] extends Record<string, any>
+            ? T[K] extends ArrayLike<any>
+                ? K | `${K}.${PathImpl<T[K], Exclude<keyof T[K], keyof any[]>>}`
+                : K | `${K}.${PathImpl<T[K], keyof T[K]>}`
+            : K
+        : never;
+
+    type Path<T> = PathImpl<T, keyof T> | keyof T;
+
+    type PathValue<T, P extends Path<T>> = P extends `${infer K}.${infer Rest}`
+        ? K extends keyof T
+            ? Rest extends Path<T[K]>
+                ? PathValue<T[K], Rest>
+                : never
+            : never
+        : P extends keyof T
+        ? T[P]
+        : never;
+
     interface Config<T> {
         /**
          * @returns the current value of the name property. name can use dot
          * notation to reference nested values
          */
-        get<K extends keyof T | string | null | undefined = undefined>(name?: K):
-            K extends null | undefined ? T :
-            K extends keyof T ? T[K] :
-            any;
-        get<K extends keyof T, K2 extends keyof T[K]>(name: string): T[K][K2];
-        get<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2]>(name: K): T[K][K2][K3];
-        get<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2],
-            K4 extends keyof T[K][K2][K3]
-            >(name: string): T[K][K2][K3][K4];
+        get<K extends Path<T> | null | undefined = undefined>(
+            name?: K,
+        ): K extends null | undefined ? T : K extends Path<T> ? PathValue<T, K> : never;
+
         /**
          * @returns the default value of the name property. name can use dot
          * notation to reference nested values
          */
-        default<K extends keyof T | string | null | undefined = undefined>(name?: K):
-            K extends keyof T ? T[K] :
-            K extends null | undefined ? T :
-            any;
-        default<K extends keyof T>(name?: K): T[K];
-        default<K extends keyof T, K2 extends keyof T[K]>(name: string): T[K][K2];
-        default<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2]>(name: K): T[K][K2][K3];
-        default<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2],
-            K4 extends keyof T[K][K2][K3]
-            >(name: string): T[K][K2][K3][K4];
+        default<K extends Path<T> | null | undefined = undefined>(
+            name?: K,
+        ): K extends null | undefined ? T : K extends Path<T> ? PathValue<T, K> : never;
+
         /**
          * @returns true if the property name is defined, or false otherwise
          */
-        has<K extends keyof T | string = string>(name: K): boolean;
-        has<K extends keyof T, K2 extends keyof T[K]>(name: string): boolean;
-        has<K extends keyof T, K2 extends keyof T[K], K3 extends keyof T[K][K2]>(name: K): boolean;
-        has<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2],
-            K4 extends keyof T[K][K2][K3]
-            >(name: string): boolean;
+        has<K extends Path<T>>(name: K): boolean;
+
         /**
          * Sets the value of name to value. name can use dot notation to reference
          * nested values, e.g. "database.port". If objects in the chain don't yet
          * exist, they will be initialized to empty objects
          */
-        set<K extends keyof T | string>(name: K, value: K extends keyof T ? T[K] : any): Config<T>;
-        set<
-            K extends keyof T,
-            K2 extends keyof T[K] | string
-            >(name: K, value: K2 extends keyof T[K] ? T[K][K2] : any): Config<T>;
-        set<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2] | string
-            >(name: K, value: K3 extends keyof T[K][K2] ? T[K][K2][K3] : any): Config<T>;
-        set<
-            K extends keyof T,
-            K2 extends keyof T[K],
-            K3 extends keyof T[K][K2],
-            K4 extends keyof T[K][K2][K3] | string
-            >(name: K, value: K4 extends keyof T[K][K2][K3] ? T[K][K2][K3][K4] : any): Config<T>;
+        set<K extends Path<T> | string>(name: K, value: K extends Path<T> ? PathValue<T, K> : any): Config<T>;
+
         /**
          * Loads and merges a JavaScript object into config
          */
         load<U>(conf: U): Config<Overwrite<T, U>>;
+
         /**
          * Loads and merges JSON configuration file(s) into config
          */
+
         loadFile<U>(files: string | string[]): Config<Overwrite<T, U>>;
         /**
          * Validates config against the schema used to initialize it
          */
         validate(options?: ValidateOptions): Config<T>;
+
         /**
          * Exports all the properties (that is the keys and their current values) as a {JSON} {Object}
          * @returns A {JSON} compliant {Object}
          */
         getProperties(): T;
+
         /**
          * Exports the schema as a {JSON} {Object}
          * @returns A {JSON} compliant {Object}
@@ -200,6 +188,18 @@ declare namespace convict {
          * @returns A string representing the schema of this {Config}
          */
         getSchemaString(): string;
+
+        /**
+         * Gets the environment variable map, using the override passed to the
+         * convict function or process.env if no override was passed.
+         */
+        getEnv(): string[];
+
+        /**
+         * Gets the array of process arguments, using the override passed to the
+         * convict function or process.argv if no override was passed.
+         */
+        getArgs(): string[];
     }
 }
 

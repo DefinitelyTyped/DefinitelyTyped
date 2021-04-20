@@ -1,1 +1,3 @@
-export { CurrencyYen32 as default } from "../../";
+import { CurrencyYen32 } from "../../";
+
+export = CurrencyYen32;

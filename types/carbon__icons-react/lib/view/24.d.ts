@@ -1,1 +1,3 @@
-export { View24 as default } from "../../";
+import { View24 } from "../../";
+
+export = View24;

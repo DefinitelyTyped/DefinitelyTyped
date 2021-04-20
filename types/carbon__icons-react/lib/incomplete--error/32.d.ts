@@ -1,1 +1,3 @@
-export { IncompleteError32 as default } from "../../";
+import { IncompleteError32 } from "../../";
+
+export = IncompleteError32;

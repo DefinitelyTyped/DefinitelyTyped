@@ -1,1 +1,3 @@
-export { MadridStatue as default } from "../../";
+import { MadridStatue } from "../../";
+
+export = MadridStatue;

@@ -1,1 +1,3 @@
-export { DubaiPalmIslands as default } from "../../";
+import { DubaiPalmIslands } from "../../";
+
+export = DubaiPalmIslands;

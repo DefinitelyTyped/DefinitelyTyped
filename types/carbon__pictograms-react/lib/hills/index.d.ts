@@ -1,1 +1,3 @@
-export { Hills as default } from "../../";
+import { Hills } from "../../";
+
+export = Hills;

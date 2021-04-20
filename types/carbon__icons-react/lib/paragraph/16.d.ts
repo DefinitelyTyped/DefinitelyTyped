@@ -1,1 +1,3 @@
-export { Paragraph16 as default } from "../../";
+import { Paragraph16 } from "../../";
+
+export = Paragraph16;

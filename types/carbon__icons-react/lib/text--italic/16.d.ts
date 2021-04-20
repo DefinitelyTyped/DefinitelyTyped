@@ -1,1 +1,3 @@
-export { TextItalic16 as default } from "../../";
+import { TextItalic16 } from "../../";
+
+export = TextItalic16;

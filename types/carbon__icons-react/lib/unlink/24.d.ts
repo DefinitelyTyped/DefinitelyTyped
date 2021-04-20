@@ -1,1 +1,3 @@
-export { Unlink24 as default } from "../../";
+import { Unlink24 } from "../../";
+
+export = Unlink24;

@@ -659,6 +659,18 @@ declare namespace YT
          */
         index?: number;
     }
+    
+    /**
+     * The spherical video config object, including information about the 
+     * viewport headings and zoom level.
+     */
+    export interface SphericalProperties {
+      enableOrientationSensor?: boolean;
+      fov?: number;
+      pitch?: number;
+      roll?: number;
+      yaw?: number;
+    }
 
     /**
      * Creates and controls a YouTube player in an <iframe>.
@@ -926,6 +938,19 @@ declare namespace YT
          * @returns YouTube.com URL for the currently loaded/playing video.
          */
         getVideoUrl(): string;
+        
+        /**
+         * @returns The spherical video config object, with information about the viewport
+         * headings and zoom level.
+         */
+        getSphericalProperties(): SphericalProperties;
+
+        /**
+         * Sets the spherical video config object. The call will be No-Op for non-360
+         * videos, and will change the view port according to the input for 360
+         * videos.
+         */
+        setSphericalProperties(option: SphericalProperties): void;
 
         /**
          * @returns Embed code for the currently loaded/playing video.

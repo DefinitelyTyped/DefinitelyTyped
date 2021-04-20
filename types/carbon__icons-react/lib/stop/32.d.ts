@@ -1,1 +1,3 @@
-export { Stop32 as default } from "../../";
+import { Stop32 } from "../../";
+
+export = Stop32;

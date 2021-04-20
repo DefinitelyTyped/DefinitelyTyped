@@ -787,6 +787,9 @@ function slideableNavigation() {
                     menuButton.classList.remove('cross');
                 }
             },
+            lazyImageReady: (slideEl, imageEl) => {
+                //
+            }
         }
     });
 }

@@ -1,1 +1,3 @@
-export { PedestrianChild24 as default } from "../../";
+import { PedestrianChild24 } from "../../";
+
+export = PedestrianChild24;

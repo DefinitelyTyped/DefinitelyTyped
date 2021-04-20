@@ -1,1 +1,3 @@
-export { WatsonHealthCdCreateArchive20 as default } from "../../../";
+import { WatsonHealthCdCreateArchive20 } from "../../../";
+
+export = WatsonHealthCdCreateArchive20;

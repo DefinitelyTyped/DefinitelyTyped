@@ -1,1 +1,3 @@
-export { InformationSquare32 as default } from "../../";
+import { InformationSquare32 } from "../../";
+
+export = InformationSquare32;

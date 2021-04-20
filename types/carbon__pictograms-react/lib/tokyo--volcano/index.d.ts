@@ -1,1 +1,3 @@
-export { TokyoVolcano as default } from "../../";
+import { TokyoVolcano } from "../../";
+
+export = TokyoVolcano;

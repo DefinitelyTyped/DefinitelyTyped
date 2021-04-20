@@ -1,7 +1,7 @@
 // Type definitions for parcel-bundler 1.12
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: pinage404 <https://github.com/pinage404>
-//                 Nick Woodward <https://github.com/nick-woodward>
+//                 Ceci Woodward <https://github.com/ceci-woodward>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -150,6 +150,13 @@ declare namespace ParcelBundler {
          * @default false
          */
         hmr?: true | false;
+
+        /**
+         * Enable or disable auto install of missing dependencies found during bundling
+         *
+         * @default true
+         */
+        autoInstall?: boolean;
     }
 
     type ParcelAsset = any;

@@ -1,1 +1,3 @@
-export { Money24 as default } from "../../";
+import { Money24 } from "../../";
+
+export = Money24;

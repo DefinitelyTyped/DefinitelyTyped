@@ -1,1 +1,3 @@
-export { DownToBottom16 as default } from "../../";
+import { DownToBottom16 } from "../../";
+
+export = DownToBottom16;

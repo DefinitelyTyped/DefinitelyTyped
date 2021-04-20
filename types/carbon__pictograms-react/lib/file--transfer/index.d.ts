@@ -1,1 +1,3 @@
-export { FileTransfer as default } from "../../";
+import { FileTransfer } from "../../";
+
+export = FileTransfer;

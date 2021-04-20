@@ -21,7 +21,7 @@ export interface OnLoadData {
     naturalSize: {
         height: number;
         width: number;
-        orientation: 'horizontal' | 'landscape';
+        orientation: 'portrait' | 'landscape';
     };
 }
 

@@ -1,1 +1,3 @@
-export { DoubleInteger32 as default } from "../../";
+import { DoubleInteger32 } from "../../";
+
+export = DoubleInteger32;

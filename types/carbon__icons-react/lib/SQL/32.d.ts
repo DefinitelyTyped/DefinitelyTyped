@@ -1,1 +1,3 @@
-export { Sql32 as default } from "../../";
+import { Sql32 } from "../../";
+
+export = Sql32;

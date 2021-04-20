@@ -1,1 +1,3 @@
-export { ContentView32 as default } from "../../";
+import { ContentView32 } from "../../";
+
+export = ContentView32;

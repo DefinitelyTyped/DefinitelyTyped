@@ -1,1 +1,3 @@
-export { Dashboard32 as default } from "../../";
+import { Dashboard32 } from "../../";
+
+export = Dashboard32;

@@ -1,1 +1,3 @@
-export { Fork16 as default } from "../../";
+import { Fork16 } from "../../";
+
+export = Fork16;

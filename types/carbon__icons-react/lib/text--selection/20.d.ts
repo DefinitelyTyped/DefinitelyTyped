@@ -1,1 +1,3 @@
-export { TextSelection20 as default } from "../../";
+import { TextSelection20 } from "../../";
+
+export = TextSelection20;

@@ -3,7 +3,6 @@
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
-//                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Benjamin Toueg <https://github.com/btoueg>
@@ -12,7 +11,6 @@
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
-//                 Flarna <https://github.com/Flarna>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Huw <https://github.com/hoo29>
@@ -31,7 +29,6 @@
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
-//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Marcin Kopacz <https://github.com/chyzwar>
 //                 Trivikram Kamat <https://github.com/trivikr>
@@ -44,6 +41,7 @@
 //                 Anna Henningsen <https://github.com/addaleax>
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Victor Perin <https://github.com/victorperin>
+//                 Yongsheng Zhang <https://github.com/ZYSzys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.7.

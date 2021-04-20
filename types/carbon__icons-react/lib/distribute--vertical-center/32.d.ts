@@ -1,1 +1,3 @@
-export { DistributeVerticalCenter32 as default } from "../../";
+import { DistributeVerticalCenter32 } from "../../";
+
+export = DistributeVerticalCenter32;

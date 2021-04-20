@@ -1,1 +1,3 @@
-export { WatsonHealthPetImageO20 as default } from "../../../";
+import { WatsonHealthPetImageO20 } from "../../../";
+
+export = WatsonHealthPetImageO20;

@@ -1,1 +1,3 @@
-export { Tools as default } from "../../";
+import { Tools } from "../../";
+
+export = Tools;

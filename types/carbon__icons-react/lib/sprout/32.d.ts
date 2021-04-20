@@ -1,1 +1,3 @@
-export { Sprout32 as default } from "../../";
+import { Sprout32 } from "../../";
+
+export = Sprout32;

@@ -1,1 +1,3 @@
-export { SettingsAdjust32 as default } from "../../";
+import { SettingsAdjust32 } from "../../";
+
+export = SettingsAdjust32;

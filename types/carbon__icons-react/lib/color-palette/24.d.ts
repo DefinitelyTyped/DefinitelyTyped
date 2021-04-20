@@ -1,1 +1,3 @@
-export { ColorPalette24 as default } from "../../";
+import { ColorPalette24 } from "../../";
+
+export = ColorPalette24;

@@ -38,6 +38,9 @@ import React = require('.');
 
 export {};
 
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+
 declare module '.' {
     export interface SuspenseProps {
         /**
@@ -110,12 +113,12 @@ declare module '.' {
 
     // undocumented, considered for removal
     export function unstable_withSuspenseConfig(
-        scope: () => void | undefined,
+        scope: () => VoidOrUndefinedOnly,
         config: SuspenseConfig | null | undefined,
     ): void;
 
     // must be synchronous
-    export type TransitionFunction = () => void | undefined;
+    export type TransitionFunction = () => VoidOrUndefinedOnly;
     // strange definition to allow vscode to show documentation on the invocation
     export interface TransitionStartFunction {
         /**

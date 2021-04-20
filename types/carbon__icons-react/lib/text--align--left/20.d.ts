@@ -1,1 +1,3 @@
-export { TextAlignLeft20 as default } from "../../";
+import { TextAlignLeft20 } from "../../";
+
+export = TextAlignLeft20;

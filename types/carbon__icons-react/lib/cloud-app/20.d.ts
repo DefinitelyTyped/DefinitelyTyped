@@ -1,1 +1,3 @@
-export { CloudApp20 as default } from "../../";
+import { CloudApp20 } from "../../";
+
+export = CloudApp20;

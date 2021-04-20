@@ -1,4 +1,4 @@
-import { Readable, Writable } from 'stream';
+import { Readable, Writable } from 'node:stream';
 
 {
     const x: NodeModule = {} as any;

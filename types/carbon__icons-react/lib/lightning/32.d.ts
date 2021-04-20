@@ -1,1 +1,3 @@
-export { Lightning32 as default } from "../../";
+import { Lightning32 } from "../../";
+
+export = Lightning32;

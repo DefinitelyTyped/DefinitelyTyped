@@ -1,1 +1,3 @@
-export { Radar24 as default } from "../../";
+import { Radar24 } from "../../";
+
+export = Radar24;

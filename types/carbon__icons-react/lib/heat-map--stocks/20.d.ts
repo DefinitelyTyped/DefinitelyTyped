@@ -1,1 +1,3 @@
-export { HeatMapStocks20 as default } from "../../";
+import { HeatMapStocks20 } from "../../";
+
+export = HeatMapStocks20;

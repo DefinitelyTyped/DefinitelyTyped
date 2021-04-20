@@ -1,1 +1,3 @@
-export { RecentlyViewed24 as default } from "../../";
+import { RecentlyViewed24 } from "../../";
+
+export = RecentlyViewed24;

@@ -1,1 +1,3 @@
-export { TagGroup24 as default } from "../../";
+import { TagGroup24 } from "../../";
+
+export = TagGroup24;

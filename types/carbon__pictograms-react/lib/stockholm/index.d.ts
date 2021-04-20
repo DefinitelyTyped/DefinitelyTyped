@@ -1,1 +1,3 @@
-export { Stockholm as default } from "../../";
+import { Stockholm } from "../../";
+
+export = Stockholm;

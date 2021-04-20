@@ -277,3 +277,5 @@ openpgp.util.Uint8Array_to_str(openpgp.util.str_to_Uint8Array(''));
 
 new openpgp.wkd.WKD().lookup({ email: 'test-wkd@metacode.biz', rawBytes: true });
 new openpgp.wkd.WKD().lookup({ email: 'test-wkd@metacode.biz' });
+
+new openpgp.HKP("https://keyserver.ubuntu.com").lookup({query: 'test@test.com'});

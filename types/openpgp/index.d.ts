@@ -9,6 +9,7 @@
 //                 Ryo Ota <https://github.com/nwtgck>
 //                 Sergey Bakulin <https://github.com/vansergen>
 //                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
+//                 Ugo Sangiorgi <https://github.com/ugosan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import BN = require('bn.js');
 import stream = require('stream');
@@ -1642,6 +1643,17 @@ export namespace enums {
     function read(): void;
 }
 
+export interface HKPOptions {
+    /**
+     * (optionsl) The long public key ID.
+     */
+    keyId?: string;
+    /**
+     * (optional) This can be any part of the key user ID such as name or email address.
+     */
+    query?: string;
+}
+
 export namespace hkp {
     class HKP {
         /**
@@ -1659,7 +1671,7 @@ export namespace hkp {
          *        or email address.
          * @returns The ascii armored public key.
          */
-        lookup(): Promise<String>;
+        lookup(options: HKPOptions): Promise<String>;
 
         /**
          * Upload a public key to the server.
@@ -1686,7 +1698,7 @@ export class HKP {
      *        or email address.
      * @returns The ascii armored public key.
      */
-    lookup(): Promise<String>;
+    lookup(options: HKPOptions): Promise<String>;
 
     /**
      * Upload a public key to the server.

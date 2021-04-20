@@ -1,1 +1,3 @@
-export { Stethoscope32 as default } from "../../";
+import { Stethoscope32 } from "../../";
+
+export = Stethoscope32;

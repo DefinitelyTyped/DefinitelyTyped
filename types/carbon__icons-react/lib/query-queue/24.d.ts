@@ -1,1 +1,3 @@
-export { QueryQueue24 as default } from "../../";
+import { QueryQueue24 } from "../../";
+
+export = QueryQueue24;

@@ -1,1 +1,3 @@
-export { JoinInner32 as default } from "../../";
+import { JoinInner32 } from "../../";
+
+export = JoinInner32;

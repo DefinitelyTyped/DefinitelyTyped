@@ -1,1 +1,3 @@
-export { TypePattern16 as default } from "../../";
+import { TypePattern16 } from "../../";
+
+export = TypePattern16;

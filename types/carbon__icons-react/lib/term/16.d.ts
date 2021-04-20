@@ -1,1 +1,3 @@
-export { Term16 as default } from "../../";
+import { Term16 } from "../../";
+
+export = Term16;

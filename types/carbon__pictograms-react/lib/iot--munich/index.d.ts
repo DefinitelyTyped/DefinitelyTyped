@@ -1,1 +1,3 @@
-export { IotMunich as default } from "../../";
+import { IotMunich } from "../../";
+
+export = IotMunich;

@@ -1,1 +1,3 @@
-export { Search16 as default } from "../../";
+import { Search16 } from "../../";
+
+export = Search16;

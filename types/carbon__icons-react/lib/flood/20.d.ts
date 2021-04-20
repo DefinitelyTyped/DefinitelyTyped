@@ -1,1 +1,3 @@
-export { Flood20 as default } from "../../";
+import { Flood20 } from "../../";
+
+export = Flood20;

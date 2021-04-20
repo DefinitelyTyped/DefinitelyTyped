@@ -47,8 +47,21 @@ export interface LoadableComponentMethods<Props> {
     load(props?: Props): Promise<React.ComponentType<Props>>;
 }
 
-export type LoadableComponent<Props> = React.ComponentType<Props & { fallback?: JSX.Element }> &
+export interface ExtraComponentProps {
+    fallback?: JSX.Element;
+}
+
+export type LoadableComponent<Props> = React.ComponentType<Props & ExtraComponentProps> &
     LoadableComponentMethods<Props>;
+
+export interface ExtraClassComponentProps<Component extends React.ComponentClass> extends ExtraComponentProps {
+    ref?: React.LegacyRef<InstanceType<Component>>;
+}
+
+export type LoadableClassComponent<Component extends React.ComponentClass> = React.ComponentType<
+    React.ComponentProps<Component> & ExtraClassComponentProps<Component>
+> &
+    LoadableComponentMethods<React.ComponentProps<Component>>;
 
 export type LoadableLibrary<Module> = React.ComponentType<{
     fallback?: JSX.Element;
@@ -72,6 +85,11 @@ declare function loadableFunc<Props>(
     loadFn: (props: Props) => Promise<DefaultComponent<Props>>,
     options?: OptionsWithoutResolver<Props>,
 ): LoadableComponent<Props>;
+
+declare function loadableFunc<Component extends React.ComponentClass<any>>(
+    loadFn: (props: React.ComponentProps<Component>) => Promise<Component | { default: Component }>,
+    options?: Options<React.ComponentProps<Component>, Component>,
+): LoadableClassComponent<Component>;
 
 declare const loadable: typeof loadableFunc & { lib: typeof lib };
 

@@ -16,12 +16,12 @@ import { EventEmitter } from "events";
 
 /**
  * Contains an Iri, RDF blank Node, RDF literal, variable name, default graph, or a quad
- * @see NamedNode
- * @see BlankNode
- * @see Literal
- * @see Variable
- * @see DefaultGraph
- * @see Quad
+ * @see {@link NamedNode}
+ * @see {@link BlankNode}
+ * @see {@link Literal}
+ * @see {@link Variable}
+ * @see {@link DefaultGraph}
+ * @see {@link Quad}
  */
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph | BaseQuad;
 
@@ -142,34 +142,34 @@ export interface DefaultGraph {
 
 /**
  * The subject, which is a NamedNode, BlankNode or Variable.
- * @see NamedNode
- * @see BlankNode
- * @see Variable
+ * @see {@link NamedNode}
+ * @see {@link BlankNode}
+ * @see {@link Variable}
  */
 export type Quad_Subject = NamedNode | BlankNode | Quad | Variable;
 
 /**
  * The predicate, which is a NamedNode or Variable.
- * @see NamedNode
- * @see Variable
+ * @see {@link NamedNode}
+ * @see {@link Variable}
  */
 export type Quad_Predicate = NamedNode | Variable;
 
 /**
  * The object, which is a NamedNode, Literal, BlankNode or Variable.
- * @see NamedNode
- * @see Literal
- * @see BlankNode
- * @see Variable
+ * @see {@link NamedNode}
+ * @see {@link Literal}
+ * @see {@link BlankNode}
+ * @see {@link Variable}
  */
 export type Quad_Object = NamedNode | Literal | BlankNode | Quad | Variable;
 
 /**
  * The named graph, which is a DefaultGraph, NamedNode, BlankNode or Variable.
- * @see DefaultGraph
- * @see NamedNode
- * @see BlankNode
- * @see Variable
+ * @see {@link DefaultGraph}
+ * @see {@link NamedNode}
+ * @see {@link BlankNode}
+ * @see {@link Variable}
  */
 export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
 
@@ -253,7 +253,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
     /**
      * @param value The IRI for the named node.
      * @return A new instance of NamedNode.
-     * @see NamedNode
+     * @see {@link NamedNode}
      */
     namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
 
@@ -262,7 +262,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @return A new instance of BlankNode.
      *                         If the `value` parameter is undefined a new identifier
      *                         for the blank node is generated for each call.
-     * @see BlankNode
+     * @see {@link BlankNode}
      */
     blankNode(value?: string): BlankNode;
 
@@ -274,7 +274,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      *                                                    Otherwise `languageOrDatatype` is used for the value
      *                                                    of `NamedNode.language`.
      * @return A new instance of Literal.
-     * @see Literal
+     * @see {@link Literal}
      */
     literal(value: string, languageOrDatatype?: string | NamedNode): Literal;
 
@@ -282,7 +282,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * This method is optional.
      * @param value The variable name
      * @return A new instance of Variable.
-     * @see Variable
+     * @see {@link Variable}
      */
     variable?(value: string): Variable;
 
@@ -297,7 +297,7 @@ export interface DataFactory<OutQuad extends BaseQuad = Quad, InQuad extends Bas
      * @param object    The quad object term.
      * @param graph     The quad graph term.
      * @return A new instance of Quad.
-     * @see Quad
+     * @see {@link Quad}
      */
     quad(subject: InQuad['subject'], predicate: InQuad['predicate'], object: InQuad['object'], graph?: InQuad['graph']): OutQuad;
 }
@@ -361,7 +361,7 @@ export interface Sink<InputStream extends EventEmitter, OutputStream extends Eve
      *
      * The `end` and `error` events are used like described in the Stream interface.
      * Depending on the use case, subtypes of EventEmitter or Stream are used.
-     * @see Stream
+     * @see {@link Stream}
      *
      * @param stream The stream that will be consumed.
      * @return The resulting event emitter.
@@ -382,7 +382,7 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Stream
      * Removes all streamed quads.
      *
      * The end and error events are used like described in the Stream interface.
-     * @see Stream
+     * @see {@link Stream}
      *
      * @param stream The stream that will be consumed.
      * @return The resulting event emitter.
@@ -393,7 +393,7 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Stream
      * All quads matching the pattern will be removed.
      *
      * The `end` and `error` events are used like described in the Stream interface.
-     * @see Stream
+     * @see {@link Stream}
      *
      * @param subject   The optional exact subject or subject regex to match.
      * @param predicate The optional exact predicate or predicate regex to match.
@@ -408,7 +408,7 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Stream
      * Deletes the given named graph.
      *
      * The `end` and `error` events are used like described in the Stream interface.
-     * @see Stream
+     * @see {@link Stream}
      *
      * @param graph The graph term or string to match.
      * @return The resulting event emitter.

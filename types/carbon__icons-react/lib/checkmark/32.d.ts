@@ -1,1 +1,3 @@
-export { Checkmark32 as default } from "../../";
+import { Checkmark32 } from "../../";
+
+export = Checkmark32;

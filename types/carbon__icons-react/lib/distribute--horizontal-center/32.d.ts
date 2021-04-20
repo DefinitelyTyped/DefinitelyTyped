@@ -1,1 +1,3 @@
-export { DistributeHorizontalCenter32 as default } from "../../";
+import { DistributeHorizontalCenter32 } from "../../";
+
+export = DistributeHorizontalCenter32;

@@ -1,1 +1,3 @@
-export { CertificateCheck32 as default } from "../../";
+import { CertificateCheck32 } from "../../";
+
+export = CertificateCheck32;

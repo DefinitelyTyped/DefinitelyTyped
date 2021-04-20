@@ -1,1 +1,3 @@
-export { MagicWand32 as default } from "../../";
+import { MagicWand32 } from "../../";
+
+export = MagicWand32;

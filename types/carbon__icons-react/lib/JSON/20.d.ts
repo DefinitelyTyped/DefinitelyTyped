@@ -1,1 +1,3 @@
-export { Json20 as default } from "../../";
+import { Json20 } from "../../";
+
+export = Json20;

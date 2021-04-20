@@ -1,7 +1,6 @@
 import * as util from 'util';
 import assert = require('assert');
 import { readFile } from 'fs';
-import { expectType } from '../node-tests';
 
 {
     // Old and new util.inspect APIs
@@ -44,6 +43,12 @@ import { expectType } from '../node-tests';
     util.inspect({
         [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
     });
+
+    util.format('%s:%s', 'foo');
+    util.format('%s:%s', 'foo', 'bar', 'baz');
+    util.format(1, 2, 3);
+    util.format('%% %s');
+    util.format();
 
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
@@ -201,13 +206,13 @@ function testUtilTypes(
     readonlyMapOrRecord: ReadonlyMap<any, any> | Record<any, any>,
 ) {
     if (util.types.isAnyArrayBuffer(object)) {
-        expectType<ArrayBufferLike>(object);
+        const expected: ArrayBufferLike = object;
     }
     if (util.types.isArgumentsObject(object)) {
         object; // $ExpectType IArguments
     }
     if (util.types.isArrayBufferView(object)) {
-        expectType<NodeJS.ArrayBufferView>(object);
+        object; // $ExpectType ArrayBufferView
     }
     if (util.types.isBigInt64Array(object)) {
         object; // $ExpectType BigInt64Array
@@ -219,7 +224,7 @@ function testUtilTypes(
         object; // $ExpectType Boolean
     }
     if (util.types.isBoxedPrimitive(object)) {
-        expectType<String | Number | BigInt | Boolean | Symbol>(object);
+        object; // $ExpectType String | Number | Boolean | BigInt | Symbol
     }
     if (util.types.isDataView(object)) {
         object; // $ExpectType DataView
@@ -237,7 +242,7 @@ function testUtilTypes(
         object; // $ExpectType GeneratorFunction
     }
     if (util.types.isGeneratorObject(object)) {
-        expectType<Generator>(object);
+        object; // $ExpectType Generator<unknown, any, unknown>
     }
     if (util.types.isInt8Array(object)) {
         object; // $ExpectType Int8Array
@@ -297,7 +302,7 @@ function testUtilTypes(
         object; // $ExpectType Symbol
     }
     if (util.types.isTypedArray(object)) {
-        expectType<NodeJS.TypedArray>(object);
+        object; // $ExpectType TypedArray
     }
     if (util.types.isUint8Array(object)) {
         object; // $ExpectType Uint8Array

@@ -1,1 +1,3 @@
-export { Love as default } from "../../";
+import { Love } from "../../";
+
+export = Love;

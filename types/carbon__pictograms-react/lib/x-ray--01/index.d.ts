@@ -1,1 +1,3 @@
-export { XRay_01 as default } from "../../";
+import { XRay_01 } from "../../";
+
+export = XRay_01;

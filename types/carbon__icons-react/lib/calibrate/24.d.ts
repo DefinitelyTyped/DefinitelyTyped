@@ -1,1 +1,3 @@
-export { Calibrate24 as default } from "../../";
+import { Calibrate24 } from "../../";
+
+export = Calibrate24;

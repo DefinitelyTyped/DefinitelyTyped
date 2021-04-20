@@ -1,1 +1,3 @@
-export { QU132 as default } from "../../../";
+import { QU132 } from "../../../";
+
+export = QU132;

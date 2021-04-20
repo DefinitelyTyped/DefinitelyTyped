@@ -1,1 +1,3 @@
-export { Add16 as default } from "../../";
+import { Add16 } from "../../";
+
+export = Add16;

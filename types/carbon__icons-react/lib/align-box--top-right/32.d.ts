@@ -1,1 +1,3 @@
-export { AlignBoxTopRight32 as default } from "../../";
+import { AlignBoxTopRight32 } from "../../";
+
+export = AlignBoxTopRight32;

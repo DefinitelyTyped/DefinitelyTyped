@@ -1,1 +1,3 @@
-export { Maximize20 as default } from "../../";
+import { Maximize20 } from "../../";
+
+export = Maximize20;

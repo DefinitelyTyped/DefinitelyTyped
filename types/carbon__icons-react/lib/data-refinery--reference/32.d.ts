@@ -1,1 +1,3 @@
-export { DataRefineryReference32 as default } from "../../";
+import { DataRefineryReference32 } from "../../";
+
+export = DataRefineryReference32;

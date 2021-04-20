@@ -1,1 +1,3 @@
-export { FinancialNews as default } from "../../";
+import { FinancialNews } from "../../";
+
+export = FinancialNews;

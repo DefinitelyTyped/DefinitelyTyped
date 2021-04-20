@@ -1,1 +1,3 @@
-export { WindStream16 as default } from "../../";
+import { WindStream16 } from "../../";
+
+export = WindStream16;

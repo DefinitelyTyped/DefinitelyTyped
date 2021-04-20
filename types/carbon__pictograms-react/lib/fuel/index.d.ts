@@ -1,1 +1,3 @@
-export { Fuel as default } from "../../";
+import { Fuel } from "../../";
+
+export = Fuel;

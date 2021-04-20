@@ -1,1 +1,3 @@
-export { UndefinedFilled24 as default } from "../../";
+import { UndefinedFilled24 } from "../../";
+
+export = UndefinedFilled24;

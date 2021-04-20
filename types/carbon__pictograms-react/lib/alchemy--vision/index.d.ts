@@ -1,1 +1,3 @@
-export { AlchemyVision as default } from "../../";
+import { AlchemyVision } from "../../";
+
+export = AlchemyVision;

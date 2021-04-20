@@ -1,1 +1,3 @@
-export { VideoOffFilled20 as default } from "../../";
+import { VideoOffFilled20 } from "../../";
+
+export = VideoOffFilled20;

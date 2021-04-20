@@ -1,1 +1,3 @@
-export { TrainTicket32 as default } from "../../";
+import { TrainTicket32 } from "../../";
+
+export = TrainTicket32;

@@ -1,1 +1,3 @@
-export { CaretDownGlyph as default } from "../../";
+import { CaretDownGlyph } from "../../";
+
+export = CaretDownGlyph;

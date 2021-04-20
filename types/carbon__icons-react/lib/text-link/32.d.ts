@@ -1,1 +1,3 @@
-export { TextLink32 as default } from "../../";
+import { TextLink32 } from "../../";
+
+export = TextLink32;

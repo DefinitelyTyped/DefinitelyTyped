@@ -1,1 +1,3 @@
-export { Scale16 as default } from "../../";
+import { Scale16 } from "../../";
+
+export = Scale16;

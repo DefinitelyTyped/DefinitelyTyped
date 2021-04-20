@@ -1,1 +1,3 @@
-export { SolarPanel as default } from "../../";
+import { SolarPanel } from "../../";
+
+export = SolarPanel;

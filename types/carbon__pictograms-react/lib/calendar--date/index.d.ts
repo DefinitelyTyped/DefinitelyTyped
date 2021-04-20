@@ -1,1 +1,3 @@
-export { CalendarDate as default } from "../../";
+import { CalendarDate } from "../../";
+
+export = CalendarDate;

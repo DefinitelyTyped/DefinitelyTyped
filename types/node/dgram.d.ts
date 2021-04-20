@@ -1,7 +1,11 @@
-declare module "dgram" {
-    import { AddressInfo } from "net";
-    import * as dns from "dns";
-    import * as events from "events";
+declare module 'node:dgram' {
+    export * from 'dgram';
+}
+
+declare module 'dgram' {
+    import { AddressInfo } from 'node:net';
+    import * as dns from 'node:dns';
+    import EventEmitter = require('node:events');
 
     interface RemoteInfo {
         address: string;
@@ -34,7 +38,7 @@ declare module "dgram" {
     function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    class Socket extends events.EventEmitter {
+    class Socket extends EventEmitter {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         address(): AddressInfo;
         bind(port?: number, address?: string, callback?: () => void): void;

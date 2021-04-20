@@ -1,1 +1,3 @@
-export { DirectionRotaryRight24 as default } from "../../";
+import { DirectionRotaryRight24 } from "../../";
+
+export = DirectionRotaryRight24;

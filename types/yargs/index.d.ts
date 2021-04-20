@@ -1,4 +1,4 @@
-// Type definitions for yargs 15.0
+// Type definitions for yargs 16.0
 // Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>

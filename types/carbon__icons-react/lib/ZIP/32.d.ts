@@ -1,1 +1,3 @@
-export { Zip32 as default } from "../../";
+import { Zip32 } from "../../";
+
+export = Zip32;

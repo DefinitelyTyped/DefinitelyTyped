@@ -1,1 +1,3 @@
-export { TextAllCaps24 as default } from "../../";
+import { TextAllCaps24 } from "../../";
+
+export = TextAllCaps24;

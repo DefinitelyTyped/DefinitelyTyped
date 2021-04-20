@@ -27,6 +27,7 @@ import {
     TableRow,
     Tag,
     TileGroup,
+    Tooltip,
     TooltipDefinition,
     TextArea,
     TextInput,
@@ -37,13 +38,36 @@ import {
     SideNav,
     SideNavItem,
     SideNavItems,
+    StructuredListWrapper,
+    StructuredListHead,
+    StructuredListBody,
+    StructuredListRow,
+    StructuredListInput,
+    StructuredListCell,
     ButtonRenderIconRenderProps,
     Modal,
     InlineLoading,
     DataTableSkeleton,
     TableCell,
+    unstable_Heading as UnstableHeading,
+    unstable_Section as UnstableSection
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
+import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
+
+// test components for "as" props
+interface TestCompProps {
+    children?: React.ReactNode;
+    someProp: number;
+}
+
+class TestComp1 extends React.Component<TestCompProps> {
+    render() {
+        return <div />;
+    }
+}
+
+const TestComp2 = (props: TestCompProps) => <div />;
 
 // AccordionItem
 const titleNode = (
@@ -280,7 +304,18 @@ const t4 = (
                 <TableHeader {...data.getHeaderProps({ header, randomAttr: 'asdf' })}>{header.header}</TableHeader>
             ));
             data.headers.map(header => (
-                <TableHeader {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}>
+                <TableHeader
+                    {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}
+                    translateWithId={(mId, args) => {
+                        if (args) {
+                            console.log(args.header);
+                            console.log(args.isSortHeader);
+                            console.log(args.sortDirection);
+                            console.log(args.sortStates);
+                        }
+                        return "string";
+                    }}
+                >
                     {header.header}
                 </TableHeader>
             ));
@@ -293,7 +328,10 @@ const t4 = (
             ));
             let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
             let batchActions = (
-                <TableBatchActions {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}>
+                <TableBatchActions
+                    {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}
+                    translateWithId={(mId, args) => `${args ? args.totalSelected : 0}`}
+                >
                     Content
                 </TableBatchActions>
             );
@@ -389,6 +427,10 @@ const t5 = (
                             <React.Fragment key={row.id}>
                                 <DataTable.TableRow {...renderProps.getRowProps({ row })}>
                                     <DataTable.TableSelectRow {...renderProps.getSelectionProps({ row })} />
+                                    <DataTable.TableSelectRow
+                                        {...renderProps.getSelectionProps({ row })}
+                                        onChange={(val, idOrName, evt) => console.log(val, idOrName, evt)}
+                                    />
                                     {row.cells.map(cell => (
                                         <DataTable.TableCell key={cell.id}>{cell.value}</DataTable.TableCell>
                                     ))}
@@ -414,20 +456,39 @@ const t5 = (
     />
 );
 
-// Dropdown
+// unstable_Heading
+{
+    const headingT1 = <UnstableHeading onClick={(e) => e.preventDefault()}>Heading Text</UnstableHeading>;
+}
+
+// unstable_Section
+{
+    const sectionT1 = (
+        <UnstableSection onClick={(e: React.MouseEvent<HTMLElement>) => e.preventDefault()}>Text</UnstableSection>
+    );
+    const sectionIntrinsicT1 = (
+        <UnstableSection
+            as="div"
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
+        >
+            Text
+        </UnstableSection>
+    );
+    const sectionIntrinsicT2 = (
+        <UnstableSection
+            as="fieldset"
+            disabled
+            form="test"
+        >
+            Text
+        </UnstableSection>
+    );
+    const sectionComponentT1 = (
+        <UnstableSection as={TestComp2} someProp={5}>Text</UnstableSection>
+    );
+}
 
 // UIShell - Link
-interface TestCompProps {
-    someProp: number;
-}
-
-class TestComp1 extends React.Component<TestCompProps> {
-    render() {
-        return <div />;
-    }
-}
-
-const TestComp2 = (props: TestCompProps) => <div />;
 
 const uisLinkT1 = <Link href="#test">Test</Link>;
 const uisLinkT2 = <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
@@ -536,6 +597,25 @@ const dropdownItemCanBeElement = (
     />
 );
 
+// Popover
+{
+    const popoverT1 = (
+        <Popover open align="bottom" caret>
+            <PopoverContent>Content</PopoverContent>
+        </Popover>
+    );
+    const popoverIntrinsicT1 = (
+        <Popover open={false}>
+            <PopoverContent as="fieldset" disabled form="test">Content</PopoverContent>
+        </Popover>
+    );
+    const popoverCustomComponentT1 = (
+        <Popover open>
+            <PopoverContent as={TestComp2} someProp={2}>Content</PopoverContent>
+        </Popover>
+    );
+}
+
 // TileGroup
 // Value nor name can be undefined
 let value: string | number = 5;
@@ -550,48 +630,89 @@ const tileGroupA = (
     />
 );
 
+// Tooltip
+const tooltipHasAlign = <Tooltip triggerText="tooltip" align="end" >tooltip</Tooltip>;
+
 // TooltipDefinition
 const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" />;
 
 const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />;
 
 // Tabs
+{
+    const tabsBasicExample = (
+        <Tabs selected={1} onSelectionChange={idx => {}}>
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+        </Tabs>
+    );
 
-const tabsBasicExample = (
-    <Tabs selected={1} onSelectionChange={idx => {}}>
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-    </Tabs>
-);
+    const tabsRenderContentExample = (
+        <Tabs>
+            <Tab
+                renderAnchor={(props) => <div/>}
+                renderButton={(props) => <div/>}
+                renderContent={props => {
+                    const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
+                    return hidden ? null : (
+                        <div id={id} className={className} aria-hidden={ariaHidden}>
+                            Selected: {selected}
+                        </div>
+                    );
+                }}
+            >
+                Render Content Tab
+            </Tab>
+        </Tabs>
+    );
 
-const tabsRenderContentExample = (
-    <Tabs>
-        <Tab
-            renderContent={props => {
-                const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
-                return hidden ? null : (
-                    <div id={id} className={className} aria-hidden={ariaHidden}>
-                        Selected: {selected}
-                    </div>
-                );
-            }}
-        >
-            Render Content Tab
-        </Tab>
-    </Tabs>
-);
-
-const tabCanBeDisabled = <Tab href="#" disabled />;
+    const tabCanBeDisabled = <Tab href="#" disabled />;
+}
 
 // Slider
 const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue => newValue.value} />;
 
+// Structured List
+{
+    const structuredListT1 = (
+        <StructuredListWrapper>
+            <StructuredListHead>
+                <StructuredListRow head>
+                    <StructuredListCell head>Heading 1</StructuredListCell>
+                    <StructuredListCell head>Heading 2</StructuredListCell>
+                </StructuredListRow>
+            </StructuredListHead>
+            <StructuredListBody>
+                <StructuredListRow>
+                    <StructuredListCell>Cell 1</StructuredListCell>
+                    <StructuredListInput value="val"></StructuredListInput>
+                </StructuredListRow>
+                <StructuredListRow label htmlFor="id">
+                    <StructuredListCell>Cell 1</StructuredListCell>
+                    <StructuredListInput value="val"></StructuredListInput>
+                </StructuredListRow>
+            </StructuredListBody>
+        </StructuredListWrapper>
+    );
+}
+
 // Tag
-const ChipTagFilterUndef = <Tag />;
+{
+    const ChipTagFilterUndef = <Tag />;
 
-const ChipTagFalse = <Tag filter={false} />;
+    const TagCustomComp1: React.FC = () => <div />;
+    const ChipTagIcon1 = <Tag renderIcon={TagCustomComp1} size="sm" />;
 
-const FilterTag = <Tag filter onClose={() => {}} />;
+    const TagCustomComp2: React.FC<{ optionalProp?: string }> = () => <div />;
+    const ChipTagIcon2 = <Tag renderIcon={TagCustomComp2} />;
+
+    class TagCustomComp3 extends React.Component {}
+    const ChipTagIcon3 = <Tag renderIcon={TagCustomComp3} />;
+
+    const ChipTagFalse = <Tag filter={false} />;
+
+    const FilterTag = <Tag filter onClose={() => {}} />;
+}
 
 // TextArea
 const textAreaWithDefaultRef = <TextArea labelText="" />;
@@ -658,6 +779,24 @@ const multiSelect = (
     />
 );
 
+interface MultiSelectObjType1 {
+    id: number,
+    name: string,
+    someBoolProp?: boolean
+}
+
+const multiSelectObjs = (
+    <MultiSelect<MultiSelectObjType1>
+        id="disks"
+        items={[
+            { id: 1, name: "one" },
+            { id: 2, name: "two", someBoolProp: true }
+        ]}
+        itemToString={(item) => item && item.name || ""}
+        onChange={({ selectedItems }) => {}}
+    />
+);
+
 const multiSelectFilterable = (
     <MultiSelect.Filterable
         id="clusters"
@@ -671,26 +810,26 @@ const multiSelectFilterable = (
     />
 );
 
-const multiSelectFilterableObjs = [
+const multiSelectFilterableObjs: MultiSelectObjType1[] = [
     {
-        id: "1",
+        id: 1,
         name: "One"
     },
     {
-        id: "2",
+        id: 2,
         name: "Two",
-        label: "label"
+        someBoolProp: true,
     }
 ];
 const multiSelectFilterableObj = (
-    <MultiSelect.Filterable
+    <MultiSelect.Filterable<MultiSelectObjType1>
         id="clusters"
         initialSelectedItems={[multiSelectFilterableObjs[0]]}
         items={multiSelectFilterableObjs}
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item && item.label ? item.label : ""}
+        itemToString={item => item && item.name ? item.name : ""}
         onChange={({ selectedItems }) => {}}
     />
 );

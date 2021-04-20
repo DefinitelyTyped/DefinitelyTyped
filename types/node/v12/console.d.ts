@@ -1,3 +1,7 @@
-declare module "console" {
+declare module 'node:console' {
+    export = console;
+}
+
+declare module 'console' {
     export = console;
 }

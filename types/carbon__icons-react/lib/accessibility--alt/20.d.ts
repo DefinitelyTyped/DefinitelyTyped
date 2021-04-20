@@ -1,1 +1,3 @@
-export { AccessibilityAlt20 as default } from "../../";
+import { AccessibilityAlt20 } from "../../";
+
+export = AccessibilityAlt20;

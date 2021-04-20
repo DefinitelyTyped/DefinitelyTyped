@@ -1,1 +1,3 @@
-export { DocumentUnknown32 as default } from "../../";
+import { DocumentUnknown32 } from "../../";
+
+export = DocumentUnknown32;

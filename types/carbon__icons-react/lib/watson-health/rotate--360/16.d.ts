@@ -1,1 +1,3 @@
-export { WatsonHealthRotate_36016 as default } from "../../../";
+import { WatsonHealthRotate_36016 } from "../../../";
+
+export = WatsonHealthRotate_36016;

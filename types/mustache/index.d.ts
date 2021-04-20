@@ -161,7 +161,7 @@ declare class MustacheScanner {
  */
 declare class MustacheContext {
     view: any;
-    parentContext: MustacheContext | undefined;
+    parent: MustacheContext | undefined;
 
     /**
      * Initializes a new instance of the `MustacheContext` class.
@@ -235,7 +235,7 @@ declare class MustacheWriter {
         template: string,
         view: any | MustacheContext,
         partials?: PartialsOrLookupFn,
-        tags?: OpeningAndClosingTags,
+        config?: OpeningAndClosingTags | RenderOptions,
     ): string;
 
     /**
@@ -260,6 +260,7 @@ declare class MustacheWriter {
         context: MustacheContext,
         partials?: PartialsOrLookupFn,
         originalTemplate?: string,
+        config?: RenderOptions,
     ): string;
 
     /**
@@ -282,6 +283,7 @@ declare class MustacheWriter {
         context: MustacheContext,
         partials?: PartialsOrLookupFn,
         originalTemplate?: string,
+        config?: RenderOptions,
     ): string;
 
     /**
@@ -304,6 +306,7 @@ declare class MustacheWriter {
         context: MustacheContext,
         partials?: PartialsOrLookupFn,
         originalTemplate?: string,
+        config?: RenderOptions,
     ): string;
 
     /**
@@ -339,7 +342,7 @@ declare class MustacheWriter {
         token: string[],
         context: MustacheContext,
         partials?: PartialsOrLookupFn,
-        tags?: OpeningAndClosingTags,
+        config?: OpeningAndClosingTags | RenderOptions,
     ): string;
 
     /**
@@ -362,7 +365,11 @@ declare class MustacheWriter {
      * @param context
      * The context to use for rendering the token.
      */
-    escapedValue(token: string[], context: MustacheContext): string;
+    escapedValue(
+        token: string[],
+        context: MustacheContext,
+        config?: RenderOptions,
+    ): string;
 
     /**
      * Renders a raw token.
@@ -412,8 +419,8 @@ type PartialsOrLookupFn = Record<string, string> | PartialLookupFn;
 type PartialLookupFn = (partialName: string) => string | undefined;
 
 interface RenderOptions {
-    escape: EscapeFunction;
-    tags: OpeningAndClosingTags;
+    escape?: EscapeFunction;
+    tags?: OpeningAndClosingTags;
 }
 
 interface TemplateCache {

@@ -1,1 +1,3 @@
-export { QBlochSphere20 as default } from "../../../";
+import { QBlochSphere20 } from "../../../";
+
+export = QBlochSphere20;

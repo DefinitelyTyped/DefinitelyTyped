@@ -1,1 +1,3 @@
-export { HandicapActive as default } from "../../";
+import { HandicapActive } from "../../";
+
+export = HandicapActive;

@@ -32,7 +32,8 @@ export interface TabStandaloneProps extends Omit<ReactLIAttr, ExcludedAttributes
     /**
      * @deprecated
      */
-    renderAnchor?: React.FC<TabCustomButtonProvidedProps>,
+    renderAnchor?: (props: TabCustomButtonProvidedProps) => React.ReactNode;
+    renderButton?: (props: TabCustomButtonProvidedProps) => React.ReactNode;
     role?: string, // marked as required, but render code overwrites it currently, also has default
     selected: boolean,
 }

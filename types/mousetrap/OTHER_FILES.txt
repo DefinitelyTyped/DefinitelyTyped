@@ -1,0 +1,2 @@
+extensions/global.d.ts
+extensions/pause.d.ts

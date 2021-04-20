@@ -1,1 +1,3 @@
-export { DataTableReference32 as default } from "../../";
+import { DataTableReference32 } from "../../";
+
+export = DataTableReference32;

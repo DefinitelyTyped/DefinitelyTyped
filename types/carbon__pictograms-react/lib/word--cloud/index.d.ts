@@ -1,1 +1,3 @@
-export { WordCloud as default } from "../../";
+import { WordCloud } from "../../";
+
+export = WordCloud;

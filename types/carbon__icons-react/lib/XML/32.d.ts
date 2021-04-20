@@ -1,1 +1,3 @@
-export { Xml32 as default } from "../../";
+import { Xml32 } from "../../";
+
+export = Xml32;

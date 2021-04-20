@@ -1,1 +1,3 @@
-export { Close20 as default } from "../../";
+import { Close20 } from "../../";
+
+export = Close20;

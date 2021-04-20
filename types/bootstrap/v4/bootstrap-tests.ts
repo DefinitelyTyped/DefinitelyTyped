@@ -300,6 +300,7 @@ $("#tooltip").on("hide.bs.tooltip", () => {});
 $("#tooltip").tooltip({
     animation: false,
     container: "#container",
+    customClass: 'custom-class',
     delay: {show: 500, hide: 100},
     html: true,
     placement: "auto",
@@ -323,6 +324,7 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     container: document.getElementById("#container") as HTMLElement,
+    customClass: () => 'a b',
 });
 
 $("#tooltip").tooltip({

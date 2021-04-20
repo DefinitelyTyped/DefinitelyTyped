@@ -1,1 +1,3 @@
-export { Exit32 as default } from "../../";
+import { Exit32 } from "../../";
+
+export = Exit32;

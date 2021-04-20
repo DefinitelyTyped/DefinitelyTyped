@@ -1,1 +1,3 @@
-export { BoxPlot24 as default } from "../../";
+import { BoxPlot24 } from "../../";
+
+export = BoxPlot24;

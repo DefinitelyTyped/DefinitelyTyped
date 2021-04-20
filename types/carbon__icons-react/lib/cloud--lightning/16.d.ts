@@ -1,1 +1,3 @@
-export { CloudLightning16 as default } from "../../";
+import { CloudLightning16 } from "../../";
+
+export = CloudLightning16;

@@ -205,8 +205,8 @@ export interface FunctionNodePlain extends CssNodeCommon {
     children: CssNodePlain[];
 }
 
-export interface HexColor extends CssNodeCommon {
-    type: 'HexColor';
+export interface Hash extends CssNodeCommon {
+    type: 'Hash';
     value: string;
 }
 
@@ -411,7 +411,7 @@ export type CssNode =
     | DeclarationList
     | Dimension
     | FunctionNode
-    | HexColor
+    | Hash
     | IdSelector
     | Identifier
     | MediaFeature
@@ -453,7 +453,7 @@ export type CssNodePlain =
     | DeclarationListPlain
     | Dimension
     | FunctionNodePlain
-    | HexColor
+    | Hash
     | IdSelector
     | Identifier
     | MediaFeature
@@ -559,7 +559,7 @@ export type WalkOptions =
     | WalkOptionsVisit<DeclarationList>
     | WalkOptionsVisit<Dimension>
     | WalkOptionsVisit<FunctionNode>
-    | WalkOptionsVisit<HexColor>
+    | WalkOptionsVisit<Hash>
     | WalkOptionsVisit<IdSelector>
     | WalkOptionsVisit<Identifier>
     | WalkOptionsVisit<MediaFeature>

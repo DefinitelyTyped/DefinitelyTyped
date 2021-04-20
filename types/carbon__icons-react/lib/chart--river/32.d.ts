@@ -1,1 +1,3 @@
-export { ChartRiver32 as default } from "../../";
+import { ChartRiver32 } from "../../";
+
+export = ChartRiver32;

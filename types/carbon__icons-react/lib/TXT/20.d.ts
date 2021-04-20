@@ -1,1 +1,3 @@
-export { Txt20 as default } from "../../";
+import { Txt20 } from "../../";
+
+export = Txt20;

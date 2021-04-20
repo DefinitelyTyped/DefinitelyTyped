@@ -1,1 +1,3 @@
-export { DeliverInsights as default } from "../../";
+import { DeliverInsights } from "../../";
+
+export = DeliverInsights;

@@ -1,1 +1,3 @@
-export { AirlineRapidBoard32 as default } from "../../";
+import { AirlineRapidBoard32 } from "../../";
+
+export = AirlineRapidBoard32;

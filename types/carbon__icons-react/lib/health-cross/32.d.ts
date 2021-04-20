@@ -1,1 +1,3 @@
-export { HealthCross32 as default } from "../../";
+import { HealthCross32 } from "../../";
+
+export = HealthCross32;

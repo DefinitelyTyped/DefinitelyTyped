@@ -1,1 +1,3 @@
-export { QQPlot as default } from "../../";
+import { QQPlot } from "../../";
+
+export = QQPlot;

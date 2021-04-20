@@ -1,1 +1,3 @@
-export { IsoFilled32 as default } from "../../";
+import { IsoFilled32 } from "../../";
+
+export = IsoFilled32;

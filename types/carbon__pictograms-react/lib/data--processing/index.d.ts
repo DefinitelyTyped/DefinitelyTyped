@@ -1,1 +1,3 @@
-export { DataProcessing as default } from "../../";
+import { DataProcessing } from "../../";
+
+export = DataProcessing;

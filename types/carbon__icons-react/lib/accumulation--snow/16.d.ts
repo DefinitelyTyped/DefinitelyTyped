@@ -1,1 +1,3 @@
-export { AccumulationSnow16 as default } from "../../";
+import { AccumulationSnow16 } from "../../";
+
+export = AccumulationSnow16;

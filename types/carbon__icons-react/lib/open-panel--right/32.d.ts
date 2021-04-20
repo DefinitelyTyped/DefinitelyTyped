@@ -1,1 +1,3 @@
-export { OpenPanelRight32 as default } from "../../";
+import { OpenPanelRight32 } from "../../";
+
+export = OpenPanelRight32;

@@ -1,1 +1,3 @@
-export { View16 as default } from "../../";
+import { View16 } from "../../";
+
+export = View16;

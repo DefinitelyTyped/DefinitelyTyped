@@ -1,1 +1,3 @@
-export { FingerprintRecognition32 as default } from "../../";
+import { FingerprintRecognition32 } from "../../";
+
+export = FingerprintRecognition32;

@@ -1,1 +1,3 @@
-export { DataShare32 as default } from "../../";
+import { DataShare32 } from "../../";
+
+export = DataShare32;

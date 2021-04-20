@@ -1,1 +1,3 @@
-export { TextKerning32 as default } from "../../";
+import { TextKerning32 } from "../../";
+
+export = TextKerning32;

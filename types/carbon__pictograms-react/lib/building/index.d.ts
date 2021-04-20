@@ -1,1 +1,3 @@
-export { Building as default } from "../../";
+import { Building } from "../../";
+
+export = Building;

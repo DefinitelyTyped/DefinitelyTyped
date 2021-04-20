@@ -1,4 +1,4 @@
-// Type definitions for @lifeomic/axios-fetch 1.4
+// Type definitions for @lifeomic/axios-fetch 1.5
 // Project: https://github.com/lifeomic/axios-fetch
 // Definitions by: Jason Di Benedetto <https://github.com/jasondibenedetto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

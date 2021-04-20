@@ -1,1 +1,3 @@
-export { NycStatueOfLiberty as default } from "../../";
+import { NycStatueOfLiberty } from "../../";
+
+export = NycStatueOfLiberty;

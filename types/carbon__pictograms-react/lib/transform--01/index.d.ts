@@ -1,1 +1,3 @@
-export { Transform_01 as default } from "../../";
+import { Transform_01 } from "../../";
+
+export = Transform_01;

@@ -1,1 +1,3 @@
-export { Contrast24 as default } from "../../";
+import { Contrast24 } from "../../";
+
+export = Contrast24;

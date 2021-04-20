@@ -1,1 +1,3 @@
-export { BeeBat24 as default } from "../../";
+import { BeeBat24 } from "../../";
+
+export = BeeBat24;

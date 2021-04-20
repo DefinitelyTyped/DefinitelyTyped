@@ -1,1 +1,3 @@
-export { LocationHazard20 as default } from "../../";
+import { LocationHazard20 } from "../../";
+
+export = LocationHazard20;

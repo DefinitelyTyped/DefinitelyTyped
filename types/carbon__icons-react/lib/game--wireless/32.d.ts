@@ -1,1 +1,3 @@
-export { GameWireless32 as default } from "../../";
+import { GameWireless32 } from "../../";
+
+export = GameWireless32;

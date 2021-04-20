@@ -1,1 +1,3 @@
-export { ImageSearch32 as default } from "../../";
+import { ImageSearch32 } from "../../";
+
+export = ImageSearch32;

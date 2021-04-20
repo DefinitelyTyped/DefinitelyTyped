@@ -1,1 +1,3 @@
-export { DistributeVerticalTop32 as default } from "../../";
+import { DistributeVerticalTop32 } from "../../";
+
+export = DistributeVerticalTop32;

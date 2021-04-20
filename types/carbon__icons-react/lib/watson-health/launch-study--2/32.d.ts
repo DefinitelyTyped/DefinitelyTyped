@@ -1,1 +1,3 @@
-export { WatsonHealthLaunchStudy_232 as default } from "../../../";
+import { WatsonHealthLaunchStudy_232 } from "../../../";
+
+export = WatsonHealthLaunchStudy_232;

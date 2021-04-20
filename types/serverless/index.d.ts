@@ -6,6 +6,7 @@
 //                 Frédéric Barthelet <https://github.com/fredericbarthelet>
 //                 Bryan Hunter <https://github.com/bryan-hunter>
 //                 Thomas Aribart <https://github.com/thomasaribart>
+//                 Gareth Jones <https://github.com/G-Rath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
@@ -31,8 +32,9 @@ declare namespace Serverless {
     }
 
     interface FunctionDefinition {
-        name: string;
-        package: Package;
+        name?: string;
+        package?: Package;
+        reservedConcurrency?: number;
         runtime?: string;
         timeout?: number;
         memorySize?: number;
@@ -53,8 +55,11 @@ declare namespace Serverless {
     type Event = ApiGatewayValidate.ApiGatewayEvent | object;
 
     interface Package {
-        include: string[];
-        exclude: string[];
+        /** @deprecated use `patterns` instead */
+        include?: string[];
+        /** @deprecated use `patterns` instead */
+        exclude?: string[];
+        patterns?: string[];
         artifact?: string;
         individually?: boolean;
     }

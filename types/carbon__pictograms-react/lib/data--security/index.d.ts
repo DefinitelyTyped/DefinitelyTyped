@@ -1,1 +1,3 @@
-export { DataSecurity as default } from "../../";
+import { DataSecurity } from "../../";
+
+export = DataSecurity;

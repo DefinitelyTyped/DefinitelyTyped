@@ -1,1 +1,3 @@
-export { ResearchHintonPlot16 as default } from "../../";
+import { ResearchHintonPlot16 } from "../../";
+
+export = ResearchHintonPlot16;

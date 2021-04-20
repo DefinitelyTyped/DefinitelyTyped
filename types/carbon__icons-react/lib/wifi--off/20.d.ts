@@ -1,1 +1,3 @@
-export { WifiOff20 as default } from "../../";
+import { WifiOff20 } from "../../";
+
+export = WifiOff20;

@@ -1,1 +1,3 @@
-export { Error24 as default } from "../../";
+import { Error24 } from "../../";
+
+export = Error24;

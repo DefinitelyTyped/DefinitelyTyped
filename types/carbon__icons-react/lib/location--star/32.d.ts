@@ -1,1 +1,3 @@
-export { LocationStar32 as default } from "../../";
+import { LocationStar32 } from "../../";
+
+export = LocationStar32;

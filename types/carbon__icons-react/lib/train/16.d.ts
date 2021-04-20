@@ -1,1 +1,3 @@
-export { Train16 as default } from "../../";
+import { Train16 } from "../../";
+
+export = Train16;

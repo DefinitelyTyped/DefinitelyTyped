@@ -1,1 +1,3 @@
-export { LetterNn32 as default } from "../../";
+import { LetterNn32 } from "../../";
+
+export = LetterNn32;

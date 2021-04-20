@@ -1,1 +1,3 @@
-export { Download24 as default } from "../../";
+import { Download24 } from "../../";
+
+export = Download24;

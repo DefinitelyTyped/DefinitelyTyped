@@ -1,1 +1,3 @@
-export { ChartArea32 as default } from "../../";
+import { ChartArea32 } from "../../";
+
+export = ChartArea32;

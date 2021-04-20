@@ -1,1 +1,3 @@
-export { ServerRack as default } from "../../";
+import { ServerRack } from "../../";
+
+export = ServerRack;

@@ -1,1 +1,3 @@
-export { PaintBrushAlt24 as default } from "../../";
+import { PaintBrushAlt24 } from "../../";
+
+export = PaintBrushAlt24;

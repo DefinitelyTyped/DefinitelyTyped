@@ -1427,7 +1427,7 @@ declare module "../index" {
          * @example
          *
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
-         * // => [1.1, 2.2]
+         * // => [1.1, 2.3]
          */
         sortedUniqBy<T>(array: List<T> | null | undefined, iteratee: ValueIteratee<T>): T[];
     }

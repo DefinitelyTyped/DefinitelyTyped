@@ -1,1 +1,3 @@
-export { TrafficFlow32 as default } from "../../";
+import { TrafficFlow32 } from "../../";
+
+export = TrafficFlow32;

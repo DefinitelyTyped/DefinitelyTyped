@@ -1,1 +1,3 @@
-export { TelAviv as default } from "../../";
+import { TelAviv } from "../../";
+
+export = TelAviv;

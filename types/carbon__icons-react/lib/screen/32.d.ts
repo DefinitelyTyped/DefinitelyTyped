@@ -1,1 +1,3 @@
-export { Screen32 as default } from "../../";
+import { Screen32 } from "../../";
+
+export = Screen32;

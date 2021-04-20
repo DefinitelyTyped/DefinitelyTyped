@@ -1,1 +1,3 @@
-export { CenterSquare24 as default } from "../../";
+import { CenterSquare24 } from "../../";
+
+export = CenterSquare24;

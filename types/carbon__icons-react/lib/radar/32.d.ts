@@ -1,1 +1,3 @@
-export { Radar32 as default } from "../../";
+import { Radar32 } from "../../";
+
+export = Radar32;

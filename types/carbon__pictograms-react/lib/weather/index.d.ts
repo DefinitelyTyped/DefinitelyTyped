@@ -1,1 +1,3 @@
-export { Weather as default } from "../../";
+import { Weather } from "../../";
+
+export = Weather;

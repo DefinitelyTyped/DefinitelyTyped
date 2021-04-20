@@ -1,1 +1,3 @@
-export { Swim32 as default } from "../../";
+import { Swim32 } from "../../";
+
+export = Swim32;

@@ -2611,7 +2611,7 @@ declare namespace math {
      * Factory and Dependencies
      ************************************************************************/
     interface FactoryDependencies {
-        create: (factories: FactoryFunctionMap, config: ConfigOptions) => Partial<MathJsStatic>;
+        create: (factories: FactoryFunctionMap, config?: ConfigOptions) => Partial<MathJsStatic>;
         factory: <T>(
             name: string,
             dependencies: MathJsFunctionName[],
@@ -2970,8 +2970,8 @@ declare namespace math {
             callback: (a: any, b: number, c: Matrix) => void,
             skipZeros?: boolean
         ): void;
-        toArray(): MathArray | Matrix;
-        valueOff(): MathArray | Matrix;
+        toArray(): MathArray;
+        valueOf(): MathArray;
         format(options?: FormatOptions | number | ((value: any) => string)): string;
         toString(): string;
         toJSON(): any;

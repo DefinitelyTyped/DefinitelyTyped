@@ -1,13 +1,11 @@
 import { ReactDivAttr, FCProps, FCReturn } from "../../../typings/shared";
 import { CopyProps } from "../Copy";
 
-interface InheritedDivProps extends Omit<ReactDivAttr, "children"> { }
-interface InheritedInlineProps extends Omit<CopyProps, "children" | "type"> { }
-
 interface SharedProps {
     children?: string,
     copyLabel?: string,
     copyButtonDescription?: string,
+    disabled?: boolean,
     feedback?: CopyProps["feedback"],
     hideCopyButton?: boolean,
     light?: boolean,
@@ -16,11 +14,11 @@ interface SharedProps {
     wrapText?: boolean,
 }
 
-export interface CodeSnippetDivProps extends SharedProps, InheritedDivProps {
+export interface CodeSnippetDivProps extends SharedProps, Omit<ReactDivAttr, "children"> {
     type?: 'single' | 'multi' | null;
 }
 
-export interface CodeSnippetInlineProps extends SharedProps, InheritedInlineProps {
+export interface CodeSnippetInlineProps extends SharedProps, Omit<CopyProps, "children" | "type"> {
     type: "inline",
 }
 

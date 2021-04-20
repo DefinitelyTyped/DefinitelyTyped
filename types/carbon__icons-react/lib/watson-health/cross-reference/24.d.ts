@@ -1,1 +1,3 @@
-export { WatsonHealthCrossReference24 as default } from "../../../";
+import { WatsonHealthCrossReference24 } from "../../../";
+
+export = WatsonHealthCrossReference24;

@@ -1,1 +1,3 @@
-export { Overlay32 as default } from "../../";
+import { Overlay32 } from "../../";
+
+export = Overlay32;

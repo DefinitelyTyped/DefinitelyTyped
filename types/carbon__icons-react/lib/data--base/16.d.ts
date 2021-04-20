@@ -1,1 +1,3 @@
-export { DataBase16 as default } from "../../";
+import { DataBase16 } from "../../";
+
+export = DataBase16;

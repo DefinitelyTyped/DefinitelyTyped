@@ -1,1 +1,3 @@
-export { CalendarTools20 as default } from "../../";
+import { CalendarTools20 } from "../../";
+
+export = CalendarTools20;

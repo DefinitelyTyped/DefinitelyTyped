@@ -1,1 +1,3 @@
-export { JoinLeft32 as default } from "../../";
+import { JoinLeft32 } from "../../";
+
+export = JoinLeft32;

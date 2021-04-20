@@ -1,1 +1,3 @@
-export { PicnicArea32 as default } from "../../";
+import { PicnicArea32 } from "../../";
+
+export = PicnicArea32;

@@ -1,1 +1,3 @@
-export { WindyStrong32 as default } from "../../";
+import { WindyStrong32 } from "../../";
+
+export = WindyStrong32;

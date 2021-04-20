@@ -1,1 +1,3 @@
-export { Dashboard24 as default } from "../../";
+import { Dashboard24 } from "../../";
+
+export = Dashboard24;

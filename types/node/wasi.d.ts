@@ -1,3 +1,7 @@
+declare module 'node:wasi' {
+    export * from 'wasi';
+}
+
 declare module 'wasi' {
     interface WASIOptions {
         /**

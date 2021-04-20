@@ -1,1 +1,3 @@
-export { Restart32 as default } from "../../";
+import { Restart32 } from "../../";
+
+export = Restart32;

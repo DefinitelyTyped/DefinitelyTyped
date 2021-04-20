@@ -37,7 +37,7 @@ declare const URI: {
     build(parts: URI.URIOptions): string;
     buildAuthority(parts: { username?: string; password?: string; hostname?: string; port?: string }): string;
     buildHost(parts: { hostname?: string; port?: string }): string;
-    buildQuery(qry: object, duplicates?: boolean): string;
+    buildQuery(data: object, duplicateQueryParameters?: boolean, escapeQuerySpace?: boolean): string;
     buildUserinfo(parts: { username?: string; password?: string }): string;
 
     commonPath(path1: string, path2: string): string;
@@ -96,7 +96,7 @@ declare const URI: {
 
     unicode(): void;
 
-    withinString(source: string, func: (url: string) => string): string;
+    withinString(source: string, func: (url: string, start: number, end: number, source: string) => string): string;
 };
 
 declare namespace URI {

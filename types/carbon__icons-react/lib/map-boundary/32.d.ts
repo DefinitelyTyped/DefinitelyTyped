@@ -1,1 +1,3 @@
-export { MapBoundary32 as default } from "../../";
+import { MapBoundary32 } from "../../";
+
+export = MapBoundary32;

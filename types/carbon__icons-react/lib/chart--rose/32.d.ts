@@ -1,1 +1,3 @@
-export { ChartRose32 as default } from "../../";
+import { ChartRose32 } from "../../";
+
+export = ChartRose32;

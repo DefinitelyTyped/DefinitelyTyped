@@ -1,1 +1,3 @@
-export { SystemsDevopsDeploy as default } from "../../";
+import { SystemsDevopsDeploy } from "../../";
+
+export = SystemsDevopsDeploy;

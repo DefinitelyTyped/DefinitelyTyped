@@ -1,1 +1,3 @@
-export { Apps20 as default } from "../../";
+import { Apps20 } from "../../";
+
+export = Apps20;

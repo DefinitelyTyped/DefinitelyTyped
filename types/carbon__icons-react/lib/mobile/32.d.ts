@@ -1,1 +1,3 @@
-export { Mobile32 as default } from "../../";
+import { Mobile32 } from "../../";
+
+export = Mobile32;

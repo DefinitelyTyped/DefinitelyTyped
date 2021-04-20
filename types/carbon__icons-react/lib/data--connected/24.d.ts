@@ -1,1 +1,3 @@
-export { DataConnected24 as default } from "../../";
+import { DataConnected24 } from "../../";
+
+export = DataConnected24;

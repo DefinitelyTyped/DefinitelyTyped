@@ -1,1 +1,3 @@
-export { Alarm32 as default } from "../../";
+import { Alarm32 } from "../../";
+
+export = Alarm32;

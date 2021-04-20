@@ -1,1 +1,3 @@
-export { Pending20 as default } from "../../";
+import { Pending20 } from "../../";
+
+export = Pending20;

@@ -1,6 +1,7 @@
 // Type definitions for picomatch 2.2
 // Project: https://github.com/micromatch/picomatch
-// Definitions by: Patrick <https://github.com/Patcher56>
+// Definitions by: Patrick <https://github.com/p-kuen>
+//                 Daniel Tschinder <https://github.com/danez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
@@ -18,7 +19,30 @@ interface PicomatchOptions {
     format?: (input: string) => string;
 }
 
+interface ParseState {
+    input: string;
+    index: number;
+    start: number;
+    dot: boolean;
+    consumed: string;
+    output: string;
+    prefix: string;
+    backtrack: boolean;
+    negated: boolean;
+    negatedExtglob?: boolean;
+    brackets: number;
+    braces: number;
+    parens: number;
+    quotes: number;
+    globstar: boolean;
+    tokens: Array<Record<string, unknown>>;
+}
+
 type Matcher = (test: string) => boolean;
+
+interface MatcherWithState extends Matcher {
+    state: ParseState;
+}
 
 interface Result {
     glob: string;
@@ -51,7 +75,11 @@ interface Picomatch {
      * @return Returns a matcher function.
      * @api public
      */
-    (glob: string | string[], options?: PicomatchOptions, returnState?: boolean): Matcher;
+     <T extends true | false>(
+        glob: string | string[],
+        options?: PicomatchOptions,
+        returnState?: T
+   ): T extends true ? MatcherWithState : Matcher;
 
     test(
         input: string,

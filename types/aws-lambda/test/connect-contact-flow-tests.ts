@@ -1,16 +1,18 @@
 import {
-    ConnectContactFlowHandler,
-    ConnectContactFlowResult,
+    ConnectContactFlowChannel,
     ConnectContactFlowEndpoint,
     ConnectContactFlowEvent,
-    ConnectContactFlowChannel,
-    ConnectContactFlowInitiationMethod
+    ConnectContactFlowHandler,
+    ConnectContactFlowInitiationMethod,
+    ConnectContactFlowQueue,
+    ConnectContactFlowResult,
 } from 'aws-lambda';
 
 const contactFlowHandler: ConnectContactFlowHandler = async (event, context, callback) => {
     let endpoint: ConnectContactFlowEndpoint | null;
     let channel: ConnectContactFlowChannel;
     let initiationMethod: ConnectContactFlowInitiationMethod;
+    let queue: ConnectContactFlowQueue | null;
 
     strOrUndefined = event.Details.ContactData.Attributes[num];
     channel = event.Details.ContactData.Channel;
@@ -23,7 +25,7 @@ const contactFlowHandler: ConnectContactFlowHandler = async (event, context, cal
     strOrUndefined = event.Details.ContactData.MediaStreams.Customer.Audio.StartTimestamp;
     strOrUndefined = event.Details.ContactData.MediaStreams.Customer.Audio.StreamARN;
     str = event.Details.ContactData.PreviousContactId;
-    strOrNull = event.Details.ContactData.Queue;
+    queue = event.Details.ContactData.Queue;
     endpoint = event.Details.ContactData.SystemEndpoint;
     strOrUndefined = event.Details.Parameters[num];
     str = event.Name;

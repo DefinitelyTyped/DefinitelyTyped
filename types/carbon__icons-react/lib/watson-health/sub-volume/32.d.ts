@@ -1,1 +1,3 @@
-export { WatsonHealthSubVolume32 as default } from "../../../";
+import { WatsonHealthSubVolume32 } from "../../../";
+
+export = WatsonHealthSubVolume32;

@@ -1,1 +1,3 @@
-export { Lock_02 as default } from "../../";
+import { Lock_02 } from "../../";
+
+export = Lock_02;

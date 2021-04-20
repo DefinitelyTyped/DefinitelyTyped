@@ -1,1 +1,3 @@
-export { Raw32 as default } from "../../";
+import { Raw32 } from "../../";
+
+export = Raw32;

@@ -16,6 +16,8 @@ export interface DatePickerInputProps extends Omit<ReactInputAttr, ExcludedAttri
     openCalendar?: React.MouseEventHandler,
     pattern?: string,
     size?: Extract<CarbonInputSize, "sm" | "xl">,
+    warn?: boolean;
+    warnText?: React.ReactNode,
 }
 
 declare class DatePickerInput extends React.Component<DatePickerInputProps> { }

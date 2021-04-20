@@ -1,1 +1,3 @@
-export { ListBoxes16 as default } from "../../";
+import { ListBoxes16 } from "../../";
+
+export = ListBoxes16;

@@ -632,10 +632,10 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * as when the nodes or links change, being passed the node, the zero-based index of the node in the node array, and the node array.
      *
      * @param id A node id accessor function which is invoked for each node in the simulation,
-     * being passed the node, the zero-based index of the node in the node array, and the node array. It returns a string to represent the node id which can be used
+     * being passed the node, the zero-based index of the node in the node array, and the node array. It returns a string or number to represent the node id which can be used
      * for matching link source and link target strings during the ForceLink initialization.
      */
-    id(id: (node: NodeDatum, i: number, nodesData: NodeDatum[]) => string): this;
+    id(id: (node: NodeDatum, i: number, nodesData: NodeDatum[]) => (string | number)): this;
 
     /**
      * Return the current distance accessor, which defaults to implying a default distance of 30.

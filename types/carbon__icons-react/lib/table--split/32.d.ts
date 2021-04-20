@@ -1,1 +1,3 @@
-export { TableSplit32 as default } from "../../";
+import { TableSplit32 } from "../../";
+
+export = TableSplit32;

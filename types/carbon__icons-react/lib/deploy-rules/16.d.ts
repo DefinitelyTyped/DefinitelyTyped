@@ -1,1 +1,3 @@
-export { DeployRules16 as default } from "../../";
+import { DeployRules16 } from "../../";
+
+export = DeployRules16;

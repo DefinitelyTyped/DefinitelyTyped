@@ -1,1 +1,3 @@
-export { ImproveRelevance32 as default } from "../../";
+import { ImproveRelevance32 } from "../../";
+
+export = ImproveRelevance32;

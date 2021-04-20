@@ -90,6 +90,11 @@ export class ArgumentError extends Error {
     str(): string;
 }
 
+// An error from trying to convert a command line string to a type.
+export class ArgumentTypeError extends Error {
+    constructor(message: string);
+}
+
 // Passed to the Action constructor.  Subclasses are just expected to relay this to
 // the super() constructor, so using an "opaque type" pattern is probably fine.
 // Someone may want to fill this out in the future.

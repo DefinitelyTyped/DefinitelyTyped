@@ -1,1 +1,3 @@
-export { CaretDown20 as default } from "../../";
+import { CaretDown20 } from "../../";
+
+export = CaretDown20;

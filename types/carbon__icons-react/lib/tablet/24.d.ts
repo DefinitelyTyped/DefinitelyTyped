@@ -1,1 +1,3 @@
-export { Tablet24 as default } from "../../";
+import { Tablet24 } from "../../";
+
+export = Tablet24;

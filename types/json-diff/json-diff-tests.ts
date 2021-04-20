@@ -1,4 +1,6 @@
-import { diff, diffString } from "json-diff";
+import { diff, diffString } from 'json-diff';
 
-diff({}, { Hello : "World"});
-diffString({}, { Hello : "World"});
+diff({}, { Hello: 'World' });
+diffString({}, { Hello: 'World' });
+diffString({}, { Hello: 'World' }, {});
+diffString({}, { Hello: 'World' }, { color: true });

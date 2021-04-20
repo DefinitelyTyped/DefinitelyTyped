@@ -1,1 +1,3 @@
-export { TextFootnote24 as default } from "../../";
+import { TextFootnote24 } from "../../";
+
+export = TextFootnote24;

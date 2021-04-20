@@ -1,1 +1,3 @@
-export { HeartHealth as default } from "../../";
+import { HeartHealth } from "../../";
+
+export = HeartHealth;

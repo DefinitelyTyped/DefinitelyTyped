@@ -29,8 +29,7 @@ interface Cookies {
      * the current context to allow chaining.If the value is omitted,
      * an outbound header with an expired date is used to delete the cookie.
      */
-    set(name: string, value: string, opts?: Cookies.SetOption): this;
-    set(name: string, opts?: Cookies.SetOption): this;
+    set(name: string, value?: string | null, opts?: Cookies.SetOption): this;
 }
 
 declare namespace Cookies {

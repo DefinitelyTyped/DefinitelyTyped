@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Calendar, CalendarList, Agenda, LocaleConfig } from 'react-native-calendars';
 
-declare const Arrow: React.SFC<unknown>;
+declare const Arrow: React.FC<unknown>;
 
 // this is copied directly from the documentation at https://github.com/wix/react-native-calendars#basic-parameters
 // and then linting errors are addressed which is why formatting is slightly inconsistent
@@ -427,3 +427,37 @@ const workout = { key: 'workout', color: 'green' };
         </View>
     )}
 />;
+
+LocaleConfig.locales['fr'] = {
+    monthNames: [
+        'Janvier',
+        'Février',
+        'Mars',
+        'Avril',
+        'Mai',
+        'Juin',
+        'Juillet',
+        'Août',
+        'Septembre',
+        'Octobre',
+        'Novembre',
+        'Décembre',
+    ],
+    monthNamesShort: [
+        'Janv.',
+        'Févr.',
+        'Mars',
+        'Avril',
+        'Mai',
+        'Juin',
+        'Juil.',
+        'Août',
+        'Sept.',
+        'Oct.',
+        'Nov.',
+        'Déc.',
+    ],
+    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+    today: "Aujourd'hui",
+};

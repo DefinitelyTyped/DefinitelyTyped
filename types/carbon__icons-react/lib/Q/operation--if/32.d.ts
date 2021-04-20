@@ -1,1 +1,3 @@
-export { QOperationIf32 as default } from "../../../";
+import { QOperationIf32 } from "../../../";
+
+export = QOperationIf32;

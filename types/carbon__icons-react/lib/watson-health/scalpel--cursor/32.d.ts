@@ -1,1 +1,3 @@
-export { WatsonHealthScalpelCursor32 as default } from "../../../";
+import { WatsonHealthScalpelCursor32 } from "../../../";
+
+export = WatsonHealthScalpelCursor32;

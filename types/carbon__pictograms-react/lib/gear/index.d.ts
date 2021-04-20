@@ -1,1 +1,3 @@
-export { Gear as default } from "../../";
+import { Gear } from "../../";
+
+export = Gear;

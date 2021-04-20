@@ -1,1 +1,3 @@
-export { Melbourne as default } from "../../";
+import { Melbourne } from "../../";
+
+export = Melbourne;

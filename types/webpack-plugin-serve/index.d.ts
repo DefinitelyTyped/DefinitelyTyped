@@ -1,11 +1,11 @@
-// Type definitions for webpack-plugin-serve 1.2
+// Type definitions for webpack-plugin-serve 1.4
 // Project: https://github.com/shellscape/webpack-plugin-serve
 // Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 /// <reference types="node" />
 
-import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
+import { Options as HttpProxyMiddlewareConfig, RequestHandler as Proxy } from 'http-proxy-middleware';
 import * as Koa from 'koa';
 import { ServerOptions as Http2ServerOptions, SecureServerOptions as Http2SecureServerOptions } from 'http2';
 import { ServerOptions as HttpsServerOptions } from 'https';
@@ -31,6 +31,7 @@ export interface StaticObject {
 export interface WebpackPluginServeOptions {
     client?: {
         address?: string;
+        protocol?: 'ws' | 'wss';
         retry?: boolean;
         silent?: boolean;
     };

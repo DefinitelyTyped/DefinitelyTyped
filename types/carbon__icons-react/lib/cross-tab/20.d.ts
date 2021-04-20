@@ -1,1 +1,3 @@
-export { CrossTab20 as default } from "../../";
+import { CrossTab20 } from "../../";
+
+export = CrossTab20;

@@ -6,6 +6,9 @@ import {
     ReactButtonAttr, ForwardRefReturn, VerticalDirection
 } from "../../../typings/shared";
 
+// NOTE: The index does not export * on this file because some non-default exports are not exported via the top-level index.
+//       You'll need to export types manually in this directory's index file.
+
 type GetMenuOffsetFn = ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | undefined));
 export declare const getMenuOffset: GetMenuOffsetFn;
 
@@ -31,6 +34,8 @@ export interface OverflowMenuProps extends Omit<ReactButtonAttr, ExcludedAttribu
     size?: "sm" | "xl",
 }
 
-declare const OverflowMenu: ForwardRefReturn<HTMLButtonElement, OverflowMenuProps>;
+declare class OverflowMenuComponent extends React.Component<OverflowMenuProps> { }
+export { OverflowMenuComponent as OverflowMenu };
 
+declare const OverflowMenu: ForwardRefReturn<HTMLButtonElement, OverflowMenuProps>;
 export default OverflowMenu;

@@ -1,1 +1,3 @@
-export { LogoQuora16 as default } from "../../";
+import { LogoQuora16 } from "../../";
+
+export = LogoQuora16;

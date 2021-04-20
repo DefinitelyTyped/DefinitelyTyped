@@ -157,5 +157,5 @@ textMarker.clear();
 
 const marks = myCodeMirror.getAllMarks();
 
-// $ExpectType TextMarker
+// $ExpectType TextMarker<MarkerRange | Position>
 const mark = marks[0];

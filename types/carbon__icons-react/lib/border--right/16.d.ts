@@ -1,1 +1,3 @@
-export { BorderRight16 as default } from "../../";
+import { BorderRight16 } from "../../";
+
+export = BorderRight16;

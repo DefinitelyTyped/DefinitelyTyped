@@ -1,1 +1,3 @@
-export { MedicationReminder32 as default } from "../../";
+import { MedicationReminder32 } from "../../";
+
+export = MedicationReminder32;

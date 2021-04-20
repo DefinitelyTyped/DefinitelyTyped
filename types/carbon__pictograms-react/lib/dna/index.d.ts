@@ -1,1 +1,3 @@
-export { Dna as default } from "../../";
+import { Dna } from "../../";
+
+export = Dna;

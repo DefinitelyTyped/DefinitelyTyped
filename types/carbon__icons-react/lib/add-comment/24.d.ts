@@ -1,1 +1,3 @@
-export { AddComment24 as default } from "../../";
+import { AddComment24 } from "../../";
+
+export = AddComment24;

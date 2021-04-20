@@ -1,1 +1,3 @@
-export { Time as default } from "../../";
+import { Time } from "../../";
+
+export = Time;

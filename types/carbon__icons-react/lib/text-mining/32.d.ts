@@ -1,1 +1,3 @@
-export { TextMining32 as default } from "../../";
+import { TextMining32 } from "../../";
+
+export = TextMining32;

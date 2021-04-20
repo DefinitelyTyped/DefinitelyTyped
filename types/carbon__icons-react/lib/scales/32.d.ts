@@ -1,1 +1,3 @@
-export { Scales32 as default } from "../../";
+import { Scales32 } from "../../";
+
+export = Scales32;

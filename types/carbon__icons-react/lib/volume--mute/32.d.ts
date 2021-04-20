@@ -1,1 +1,3 @@
-export { VolumeMute32 as default } from "../../";
+import { VolumeMute32 } from "../../";
+
+export = VolumeMute32;

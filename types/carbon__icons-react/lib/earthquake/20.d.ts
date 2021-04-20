@@ -1,1 +1,3 @@
-export { Earthquake20 as default } from "../../";
+import { Earthquake20 } from "../../";
+
+export = Earthquake20;

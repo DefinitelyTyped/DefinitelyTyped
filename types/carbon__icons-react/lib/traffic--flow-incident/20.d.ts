@@ -1,1 +1,3 @@
-export { TrafficFlowIncident20 as default } from "../../";
+import { TrafficFlowIncident20 } from "../../";
+
+export = TrafficFlowIncident20;

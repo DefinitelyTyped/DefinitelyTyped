@@ -1,1 +1,3 @@
-export { Queued20 as default } from "../../";
+import { Queued20 } from "../../";
+
+export = Queued20;

@@ -1,1 +1,3 @@
-export { MobileAdd20 as default } from "../../";
+import { MobileAdd20 } from "../../";
+
+export = MobileAdd20;

@@ -40,3 +40,11 @@ function testCustomClientAuth() {
     var adapter = ioRedis({ pubClient: pub, subClient: sub });
     io.adapter(adapter);
 }
+
+function testConnectClientWithTls() {
+    var io = socketIO.listen(80);
+    var pub: redis.RedisClient = redis.createClient(8080, 'localhost', { tls: { rejectUnauthorized: false } });
+    var sub: redis.RedisClient = redis.createClient(8081, 'localhost', { tls: { rejectUnauthorized: false } });
+    var adapter = ioRedis({ pubClient: pub, subClient: sub });
+    io.adapter(adapter);
+}

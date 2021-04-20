@@ -907,9 +907,9 @@ declare namespace ArangoDB {
         write?: string | string[];
         allowImplicit?: boolean;
     }
-    interface Transaction {
+    interface Transaction<ReturnType = any> {
         collections: TransactionCollections | string[];
-        action: (params: object) => void | string;
+        action: (params: object) => ReturnType;
         waitForSync?: boolean;
         lockTimeout?: number;
         params?: object;
@@ -993,7 +993,7 @@ declare namespace ArangoDB {
         // Global
         _engine(): EngineType;
         _engineStats(): { [key: string]: any };
-        _executeTransaction(transaction: Transaction): void;
+        _executeTransaction<T>(transaction: Transaction<T>): T;
     }
 }
 
@@ -1655,6 +1655,7 @@ declare module "@arangodb/foxx/sessions/transports/header" {
 declare module "@arangodb/foxx/auth" {
     interface AuthData {
         method: string;
+        iter?: number;
         salt: string;
         hash: string;
     }
@@ -1666,7 +1667,12 @@ declare module "@arangodb/foxx/auth" {
         method?: ArangoDB.HashAlgorithm;
         saltLength?: number;
     }
-    function createAuth(options?: AuthOptions): Authenticator;
+    interface Pbkdf2AuthOptions {
+        method: "pbkdf2";
+        saltLength?: number;
+        workFactor?: number;
+    }
+    function createAuth(options?: AuthOptions | Pbkdf2AuthOptions): Authenticator;
     export = createAuth;
 }
 

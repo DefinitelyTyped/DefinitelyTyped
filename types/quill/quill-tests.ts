@@ -36,6 +36,11 @@ function test_disable() {
     quillEditor.disable();
 }
 
+function test_isEnabled() {
+    const quillEditor = new Quill('#Editor');
+    quillEditor.isEnabled();
+}
+
 function test_enable() {
     const quillEditor = new Quill('#Editor');
     quillEditor.enable();
@@ -120,6 +125,13 @@ function test_formatLine3() {
         align: 'right',
         bold: false,
     });
+}
+
+function test_sources() {
+    const quillEditor = new Quill('#editor');
+    quillEditor.formatLine(1, 3, Quill.sources.API);
+    quillEditor.formatLine(1, 3, Quill.sources.SILENT);
+    quillEditor.formatLine(1, 3, Quill.sources.USER);
 }
 
 function test_insertEmbed() {

@@ -1,1 +1,3 @@
-export { Lightning as default } from "../../";
+import { Lightning } from "../../";
+
+export = Lightning;

@@ -1,1 +1,3 @@
-export { Launch as default } from "../../";
+import { Launch } from "../../";
+
+export = Launch;

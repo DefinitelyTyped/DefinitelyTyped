@@ -1,1 +1,3 @@
-export { TextItalic32 as default } from "../../";
+import { TextItalic32 } from "../../";
+
+export = TextItalic32;

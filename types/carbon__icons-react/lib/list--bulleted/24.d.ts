@@ -1,1 +1,3 @@
-export { ListBulleted24 as default } from "../../";
+import { ListBulleted24 } from "../../";
+
+export = ListBulleted24;

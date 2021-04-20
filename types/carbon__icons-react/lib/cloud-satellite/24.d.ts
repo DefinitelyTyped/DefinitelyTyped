@@ -1,1 +1,3 @@
-export { CloudSatellite24 as default } from "../../";
+import { CloudSatellite24 } from "../../";
+
+export = CloudSatellite24;

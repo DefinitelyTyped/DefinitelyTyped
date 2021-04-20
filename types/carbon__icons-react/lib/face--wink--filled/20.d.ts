@@ -1,1 +1,3 @@
-export { FaceWinkFilled20 as default } from "../../";
+import { FaceWinkFilled20 } from "../../";
+
+export = FaceWinkFilled20;

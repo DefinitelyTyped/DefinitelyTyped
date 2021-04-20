@@ -1,1 +1,3 @@
-export { TreeViewAlt20 as default } from "../../";
+import { TreeViewAlt20 } from "../../";
+
+export = TreeViewAlt20;

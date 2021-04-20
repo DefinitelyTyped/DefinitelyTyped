@@ -1,1 +1,3 @@
-export { BackToTop32 as default } from "../../";
+import { BackToTop32 } from "../../";
+
+export = BackToTop32;

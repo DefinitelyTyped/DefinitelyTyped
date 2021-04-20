@@ -1,1 +1,3 @@
-export { MovementInOverlappingNetworks as default } from "../../";
+import { MovementInOverlappingNetworks } from "../../";
+
+export = MovementInOverlappingNetworks;

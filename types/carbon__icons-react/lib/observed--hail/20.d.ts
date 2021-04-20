@@ -1,1 +1,3 @@
-export { ObservedHail20 as default } from "../../";
+import { ObservedHail20 } from "../../";
+
+export = ObservedHail20;

@@ -1,1 +1,3 @@
-export { QuestionAndAnswer as default } from "../../";
+import { QuestionAndAnswer } from "../../";
+
+export = QuestionAndAnswer;

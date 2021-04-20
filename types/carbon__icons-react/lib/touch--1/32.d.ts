@@ -1,1 +1,3 @@
-export { Touch_132 as default } from "../../";
+import { Touch_132 } from "../../";
+
+export = Touch_132;

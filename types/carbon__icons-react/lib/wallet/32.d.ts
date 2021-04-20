@@ -1,1 +1,3 @@
-export { Wallet32 as default } from "../../";
+import { Wallet32 } from "../../";
+
+export = Wallet32;

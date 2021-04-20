@@ -1,1 +1,3 @@
-export { Touch as default } from "../../";
+import { Touch } from "../../";
+
+export = Touch;

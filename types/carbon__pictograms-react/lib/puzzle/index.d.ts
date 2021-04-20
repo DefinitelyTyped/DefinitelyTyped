@@ -1,1 +1,3 @@
-export { Puzzle as default } from "../../";
+import { Puzzle } from "../../";
+
+export = Puzzle;

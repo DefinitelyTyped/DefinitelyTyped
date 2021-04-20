@@ -1,1 +1,3 @@
-export { Sports as default } from "../../";
+import { Sports } from "../../";
+
+export = Sports;

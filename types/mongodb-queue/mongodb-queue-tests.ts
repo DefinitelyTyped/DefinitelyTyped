@@ -88,12 +88,12 @@ mongoClient.connect().then(() => {
         }
     });
 
-    mongoQueue.inflight((err, res) => {
+    mongoQueue.inFlight((err, res) => {
         if (err) {
             console.log('error: ' + err);
         } else {
-            const inflight: number = res;
-            console.log('inflight: ' + inflight);
+            const inFlight: number = res;
+            console.log('inFlight: ' + inFlight);
         }
     });
 

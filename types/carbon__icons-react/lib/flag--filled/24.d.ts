@@ -1,1 +1,3 @@
-export { FlagFilled24 as default } from "../../";
+import { FlagFilled24 } from "../../";
+
+export = FlagFilled24;

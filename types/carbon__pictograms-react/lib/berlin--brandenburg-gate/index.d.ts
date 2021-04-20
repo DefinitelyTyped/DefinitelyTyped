@@ -1,1 +1,3 @@
-export { BerlinBrandenburgGate as default } from "../../";
+import { BerlinBrandenburgGate } from "../../";
+
+export = BerlinBrandenburgGate;

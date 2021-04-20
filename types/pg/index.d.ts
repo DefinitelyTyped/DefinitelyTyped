@@ -9,6 +9,7 @@
 import events = require('events');
 import stream = require('stream');
 import pgTypes = require('pg-types');
+import { NoticeMessage } from 'pg-protocol/dist/messages';
 
 import { ConnectionOptions } from 'tls';
 
@@ -29,6 +30,7 @@ export interface ClientConfig {
     idle_in_transaction_session_timeout?: number;
     application_name?: string;
     connectionTimeoutMillis?: number;
+    types?: CustomTypesConfig;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -54,6 +56,11 @@ export interface QueryConfig<I extends any[] = any[]> {
     name?: string;
     text: string;
     values?: I;
+    types?: CustomTypesConfig;
+}
+
+export interface CustomTypesConfig {
+    getTypeParser: typeof pgTypes.getTypeParser;
 }
 
 export interface Submittable {
@@ -242,7 +249,8 @@ export class ClientBase extends events.EventEmitter {
     escapeLiteral(str: string): string;
 
     on(event: 'drain', listener: () => void): this;
-    on(event: 'error' | 'notice', listener: (err: Error) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'notice', listener: (notice: NoticeMessage) => void): this;
     on(event: 'notification', listener: (message: Notification) => void): this;
     // tslint:disable-next-line unified-signatures
     on(event: 'end', listener: () => void): this;

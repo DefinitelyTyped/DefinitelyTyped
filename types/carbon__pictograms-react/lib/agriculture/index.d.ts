@@ -1,1 +1,3 @@
-export { Agriculture as default } from "../../";
+import { Agriculture } from "../../";
+
+export = Agriculture;

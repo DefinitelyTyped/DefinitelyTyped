@@ -8,7 +8,12 @@ const page2Leaf: expressSitemapXml.LeafObject = {
     url: '/page2',
 };
 
-const leaves = ['/page1', page2Leaf];
+const page3Leaf: expressSitemapXml.LeafObject = {
+    lastMod: true,
+    url: '/page3',
+};
+
+const leaves = ['/page1', page2Leaf, page3Leaf];
 const base = 'http://example.com';
 const getLeaves = () => leaves;
 const getLeavesPromise = () => Promise.resolve(leaves);
@@ -40,5 +45,5 @@ async () => {
         '/4',
     ];
     // $ExpectType Sitemap
-    const sitemap = await buildSitemaps(urls, 'https://example.com');
+    await buildSitemaps(urls, 'https://example.com');
 };

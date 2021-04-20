@@ -1,1 +1,3 @@
-export { Credentials32 as default } from "../../";
+import { Credentials32 } from "../../";
+
+export = Credentials32;

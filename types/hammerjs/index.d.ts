@@ -17,27 +17,27 @@ interface HammerStatic
 
   VERSION: number;
 
-  INPUT_START:  number;
-  INPUT_MOVE:   number;
-  INPUT_END:    number;
-  INPUT_CANCEL: number;
+  INPUT_START:  1;
+  INPUT_MOVE:   2;
+  INPUT_END:    4;
+  INPUT_CANCEL: 8;
 
-  STATE_POSSIBLE:   number;
-  STATE_BEGAN:      number;
-  STATE_CHANGED:    number;
-  STATE_ENDED:      number;
-  STATE_RECOGNIZED: number;
-  STATE_CANCELLED:  number;
-  STATE_FAILED:     number;
+  STATE_POSSIBLE:   1;
+  STATE_BEGAN:      2;
+  STATE_CHANGED:    4;
+  STATE_ENDED:      8;
+  STATE_RECOGNIZED: 8; // same as STATE_ENDED
+  STATE_CANCELLED:  16;
+  STATE_FAILED:     32;
 
-  DIRECTION_NONE:       number;
-  DIRECTION_LEFT:       number;
-  DIRECTION_RIGHT:      number;
-  DIRECTION_UP:         number;
-  DIRECTION_DOWN:       number;
-  DIRECTION_HORIZONTAL: number;
-  DIRECTION_VERTICAL:   number;
-  DIRECTION_ALL:        number;
+  DIRECTION_NONE:       1;
+  DIRECTION_LEFT:       2;
+  DIRECTION_RIGHT:      4;
+  DIRECTION_UP:         8;
+  DIRECTION_DOWN:       16;
+  DIRECTION_HORIZONTAL: 6;  // DIRECTION_LEFT | DIRECTION_RIGHT
+  DIRECTION_VERTICAL:   24; // DIRECTION_UP | DIRECTION_DOWN
+  DIRECTION_ALL:        30; // DIRECTION_HORIZONTAL | DIRECTION_VERTICAL
 
   Manager:     HammerManagerConstructor;
   Input:       HammerInput;
@@ -171,6 +171,12 @@ declare class HammerInput
   /** Highest velocityX/Y value. */
   velocity:number;
 
+  overallVelocity:number;
+
+  overallVelocityX:number;
+
+  overallVelocityY:number;
+
   /** Direction moved. Matches the DIRECTION constants. */
   direction:number;
 
@@ -196,7 +202,10 @@ declare class HammerInput
   pointerType:string;
 
   /** Event type, matches the INPUT constants. */
-  eventType:number;
+  eventType: HammerStatic['INPUT_START'] |
+             HammerStatic['INPUT_MOVE'] |
+             HammerStatic['INPUT_END'] |
+             HammerStatic['INPUT_CANCEL'];
 
   /** true when the first input. */
   isFirst:boolean;
@@ -209,6 +218,12 @@ declare class HammerInput
 
   /** Array with all new/moved/lost pointers. */
   changedPointers:any[];
+
+  /** Maximum number of pointers detected in the gesture */
+  maxPointers:number;
+
+  /** Timestamp of a gesture */
+  timeStamp:number;
 
   /** Reference to the srcEvent.preventDefault() method. Only for experts! */
   preventDefault:Function;

@@ -1,1 +1,3 @@
-export { Bot32 as default } from "../../";
+import { Bot32 } from "../../";
+
+export = Bot32;

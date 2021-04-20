@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.8
+// Type definitions for D3JS d3-array module 2.9
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -7,9 +7,8 @@
 //                 Hugues Stefanski <https://github.com/ledragon>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.8.0
+// Last module patch version validated against: 2.9.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -888,6 +887,12 @@ export function reverse<T>(iterable: Iterable<T>): T[];
  * Equivalent to array.sort, except that it does not mutate the given iterable, and the comparator defaults to natural order instead of lexicographic order.
  */
 export function sort<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => number): T[];
+/**
+ * Returns an array containing the values in the given iterable in the sorted order defined by the given accessor function.
+ * This is equivalent to a comparator using natural order.
+ * The accessor is only invoked once per element, and thus may be nondeterministic.
+ */
+export function sort<T>(iterable: Iterable<T>, accessor: (a: T) => unknown): T[];
 
 // --------------------------------------------------------------------------------------
 // Sets

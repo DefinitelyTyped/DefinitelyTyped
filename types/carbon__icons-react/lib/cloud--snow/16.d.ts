@@ -1,1 +1,3 @@
-export { CloudSnow16 as default } from "../../";
+import { CloudSnow16 } from "../../";
+
+export = CloudSnow16;

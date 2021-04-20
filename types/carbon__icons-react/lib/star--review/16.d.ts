@@ -1,1 +1,3 @@
-export { StarReview16 as default } from "../../";
+import { StarReview16 } from "../../";
+
+export = StarReview16;

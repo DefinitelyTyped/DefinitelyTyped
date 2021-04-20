@@ -1,1 +1,3 @@
-export { BatteryHalf16 as default } from "../../";
+import { BatteryHalf16 } from "../../";
+
+export = BatteryHalf16;

@@ -1,1 +1,3 @@
-export { ListBullet as default } from "../../";
+import { ListBullet } from "../../";
+
+export = ListBullet;

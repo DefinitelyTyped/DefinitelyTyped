@@ -1,1 +1,3 @@
-export { PicnicArea24 as default } from "../../";
+import { PicnicArea24 } from "../../";
+
+export = PicnicArea24;

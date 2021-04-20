@@ -1,1 +1,3 @@
-export { DataClass32 as default } from "../../";
+import { DataClass32 } from "../../";
+
+export = DataClass32;

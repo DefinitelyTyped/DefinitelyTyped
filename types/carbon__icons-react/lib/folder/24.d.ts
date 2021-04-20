@@ -1,1 +1,3 @@
-export { Folder24 as default } from "../../";
+import { Folder24 } from "../../";
+
+export = Folder24;

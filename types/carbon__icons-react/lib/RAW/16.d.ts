@@ -1,1 +1,3 @@
-export { Raw16 as default } from "../../";
+import { Raw16 } from "../../";
+
+export = Raw16;

@@ -1,1 +1,3 @@
-export { WatsonHealthBrushFreehand20 as default } from "../../../";
+import { WatsonHealthBrushFreehand20 } from "../../../";
+
+export = WatsonHealthBrushFreehand20;

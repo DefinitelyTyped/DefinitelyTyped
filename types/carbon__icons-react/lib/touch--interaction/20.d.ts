@@ -1,1 +1,3 @@
-export { TouchInteraction20 as default } from "../../";
+import { TouchInteraction20 } from "../../";
+
+export = TouchInteraction20;

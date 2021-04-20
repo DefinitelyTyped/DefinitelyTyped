@@ -1,1 +1,3 @@
-export { DriverAnalysis24 as default } from "../../";
+import { DriverAnalysis24 } from "../../";
+
+export = DriverAnalysis24;

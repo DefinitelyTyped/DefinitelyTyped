@@ -1,1 +1,3 @@
-export { NotSent32 as default } from "../../";
+import { NotSent32 } from "../../";
+
+export = NotSent32;

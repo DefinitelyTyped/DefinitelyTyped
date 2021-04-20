@@ -1,1 +1,3 @@
-export { Rule24 as default } from "../../";
+import { Rule24 } from "../../";
+
+export = Rule24;

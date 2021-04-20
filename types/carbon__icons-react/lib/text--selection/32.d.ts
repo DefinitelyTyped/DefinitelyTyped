@@ -1,1 +1,3 @@
-export { TextSelection32 as default } from "../../";
+import { TextSelection32 } from "../../";
+
+export = TextSelection32;

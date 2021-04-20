@@ -1,1 +1,3 @@
-export { OpenPanelBottom16 as default } from "../../";
+import { OpenPanelBottom16 } from "../../";
+
+export = OpenPanelBottom16;

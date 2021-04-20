@@ -1,1 +1,3 @@
-export { Arrival32 as default } from "../../";
+import { Arrival32 } from "../../";
+
+export = Arrival32;

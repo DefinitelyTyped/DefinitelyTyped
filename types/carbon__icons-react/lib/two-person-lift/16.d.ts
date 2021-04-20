@@ -1,1 +1,3 @@
-export { TwoPersonLift16 as default } from "../../";
+import { TwoPersonLift16 } from "../../";
+
+export = TwoPersonLift16;

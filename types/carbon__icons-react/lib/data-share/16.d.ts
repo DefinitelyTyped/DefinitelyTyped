@@ -1,1 +1,3 @@
-export { DataShare16 as default } from "../../";
+import { DataShare16 } from "../../";
+
+export = DataShare16;

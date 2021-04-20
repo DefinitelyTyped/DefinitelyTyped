@@ -1,1 +1,3 @@
-export { QZ24 as default } from "../../../";
+import { QZ24 } from "../../../";
+
+export = QZ24;

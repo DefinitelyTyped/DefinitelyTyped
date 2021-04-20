@@ -1,1 +1,3 @@
-export { VirtualMachine24 as default } from "../../";
+import { VirtualMachine24 } from "../../";
+
+export = VirtualMachine24;

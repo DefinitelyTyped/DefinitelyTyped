@@ -4,6 +4,7 @@ import { createRouter } from "@arangodb/foxx";
 import sessionsMiddleware = require("@arangodb/foxx/sessions");
 import jwtStorage = require("@arangodb/foxx/sessions/storages/jwt");
 import cookieTransport = require("@arangodb/foxx/sessions/transports/cookie");
+import createAuth = require("@arangodb/foxx/auth");
 
 console.warnStack(new Error(), "something went wrong");
 
@@ -86,6 +87,28 @@ router.get("/", (req, res) => {
     }
 });
 
+router.put(
+    (request: Foxx.Request, response: Foxx.Response) => {
+        try {
+            // $ExpectType string
+            const id = db._executeTransaction({
+                collections: {
+                    read: "users",
+                    write: ["groups", "member"],
+                    allowImplicit: false,
+                },
+                action: (params) => {
+                    return "1234";
+                },
+                params: JSON.parse(request.body),
+            });
+            response.json({id});
+        } catch (e) {
+            e.error = true;
+            response.json(e);
+        }
+    });
+
 router.use((req, res, next) => {
     if (req.is("json")) res.throw("too many requests");
     next();
@@ -125,6 +148,10 @@ console.log(
         RETURN u
     `.toArray()
 );
+
+const auth = createAuth({ method: "pbkdf2" });
+const authData = auth.create("hunter2");
+console.log(authData.iter);
 
 const view = db._view("yolo")!;
 view.properties({

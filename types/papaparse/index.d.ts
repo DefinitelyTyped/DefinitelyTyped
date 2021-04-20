@@ -5,7 +5,6 @@
 //                 João Loff <https://github.com/jfloff>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Alberto Restifo <https://github.com/albertorestifo>
-//                 Behind The Math <https://github.com/BehindTheMath>
 //                 Janne Liuhtonen <https://github.com/jliuhtonen>
 //                 Raphaël Barbazza <https://github.com/rbarbazz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>

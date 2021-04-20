@@ -1,1 +1,3 @@
-export { Steel as default } from "../../";
+import { Steel } from "../../";
+
+export = Steel;

@@ -1,1 +1,3 @@
-export { QrCode32 as default } from "../../";
+import { QrCode32 } from "../../";
+
+export = QrCode32;

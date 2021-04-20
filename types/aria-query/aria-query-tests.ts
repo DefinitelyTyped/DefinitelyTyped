@@ -7,7 +7,7 @@ function prettyRole(roleName: ARIARoleDefintionKey) {
     console.log(`props: ${Object.keys(role.props).join(', ')}`);
     console.log(`Is ${!role.abstract ? 'not abstract' : 'abstract'}`);
     console.log(
-        `${role.childrenPresentational ? 'Has Child Presentational characteristics' : 'No special cahracteristics'}`,
+        `${role.childrenPresentational ? 'Has Child Presentational characteristics' : 'No special characteristics'}`,
     );
     console.log('baseConcepts:');
     role.baseConcepts.forEach(prettyRoleRelation);

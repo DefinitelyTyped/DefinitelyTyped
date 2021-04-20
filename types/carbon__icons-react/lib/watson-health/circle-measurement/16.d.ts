@@ -1,1 +1,3 @@
-export { WatsonHealthCircleMeasurement16 as default } from "../../../";
+import { WatsonHealthCircleMeasurement16 } from "../../../";
+
+export = WatsonHealthCircleMeasurement16;

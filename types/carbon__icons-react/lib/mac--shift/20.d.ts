@@ -1,1 +1,3 @@
-export { MacShift20 as default } from "../../";
+import { MacShift20 } from "../../";
+
+export = MacShift20;

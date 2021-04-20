@@ -1,1 +1,3 @@
-export { BeijingTower as default } from "../../";
+import { BeijingTower } from "../../";
+
+export = BeijingTower;

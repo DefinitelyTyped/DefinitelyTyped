@@ -1,1 +1,3 @@
-export { SkillLevelBasic24 as default } from "../../";
+import { SkillLevelBasic24 } from "../../";
+
+export = SkillLevelBasic24;

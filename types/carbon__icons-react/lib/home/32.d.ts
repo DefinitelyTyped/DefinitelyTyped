@@ -1,1 +1,3 @@
-export { Home32 as default } from "../../";
+import { Home32 } from "../../";
+
+export = Home32;

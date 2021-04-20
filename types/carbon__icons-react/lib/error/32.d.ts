@@ -1,1 +1,3 @@
-export { Error32 as default } from "../../";
+import { Error32 } from "../../";
+
+export = Error32;

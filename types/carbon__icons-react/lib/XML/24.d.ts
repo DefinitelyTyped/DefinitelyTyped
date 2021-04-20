@@ -1,1 +1,3 @@
-export { Xml24 as default } from "../../";
+import { Xml24 } from "../../";
+
+export = Xml24;

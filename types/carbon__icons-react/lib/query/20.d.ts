@@ -1,1 +1,3 @@
-export { Query20 as default } from "../../";
+import { Query20 } from "../../";
+
+export = Query20;
