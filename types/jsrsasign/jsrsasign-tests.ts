@@ -1,4 +1,4 @@
-import { KJUR, KEYUTIL, b64toBA, b64tohex, RSAKey } from 'jsrsasign';
+import { KJUR, KEYUTIL, b64toBA, b64tohex, RSAKey, X509 } from 'jsrsasign';
 
 const ec = new KJUR.crypto.ECDSA({ curve: 'secp256r1' });
 ec.generateKeyPairHex();
@@ -35,3 +35,12 @@ KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', '123abc');
 KJUR.jws.JWS.verifyJWT('', new RSAKey(), {});
 KJUR.jws.JWS.verifyJWT('', '', {});
 KJUR.jws.JWS.verifyJWT('', '', { gracePeriod: 1 });
+
+const pemPublicKey = '74657374206365727469666963617465';
+const pemCert = 'A1UECBMFVG9reW8xEDAOBgNVBAcTB0NodW8ta3UxETAPBgNVBAoTCEZyYW5rNERE';
+
+const pubKey = KEYUTIL.getKey(pemPublicKey); // or certificate
+const x509 = new X509();
+x509.readCertPEM(pemCert);
+x509.verifySignature(pubKey); // $ExpectType boolean
+x509.verifySignature(pemCert); // $ExpectType boolean
