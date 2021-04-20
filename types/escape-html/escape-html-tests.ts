@@ -7,6 +7,6 @@ const fullName = 'John "Johnny" Smith';
 console.dir(`<input name="full_name" value="${escapeHtml(fullName)}">`);
 console.dir(`<textarea name="desc">${escapeHtml(desc)}</textarea>`);
 
-console.log("no arg", escapeHtml())
-console.log("null", escapeHtml(null))
-console.log("undefined", escapeHtml(undefined))
+console.log("no arg", escapeHtml());
+console.log("null", escapeHtml(null));
+console.log("undefined", escapeHtml(undefined));
