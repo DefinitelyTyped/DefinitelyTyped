@@ -1129,7 +1129,12 @@ export interface SyncData {
 }
 
 export class SyncAccumulator {
-  constructor()
+  constructor(options?: {
+    /**
+     * Default is 50.
+     */
+    maxTimelineEntries?: number;
+  })
 
   /**
    * @param fromDatabase default is false
