@@ -400,6 +400,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classnames": {
+            "libraryName": "classnames",
+            "asOfVersion": "2.3.0"
+        },
         "clean-stack": {
             "libraryName": "clean-stack",
             "asOfVersion": "2.1.0"
