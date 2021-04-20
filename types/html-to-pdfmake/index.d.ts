@@ -21,7 +21,7 @@ export default function htmlToPdfmake(
         /**
          * By passing replaceText as a function with two parameters (text and nodes) you can modify the text of all the nodes in your HTML document.
          */
-        replaceText: (text: string, nodes: import("pdfmake/interfaces").Node[]) => string;
+        replaceText: (text: string, nodes: Array<import("pdfmake/interfaces").Node>) => string;
         /**
          * By passing tableAutoSize with true, then the program will try to define widths and heights for the tables, based on CSS properties width and height that have been provided to TH or TD.
          */
