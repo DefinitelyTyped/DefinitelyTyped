@@ -400,7 +400,7 @@ declare namespace Chai {
     }
 
     interface DeltaAssertion extends Assertion {
-        by(delta: number, msg?: string): Assertion
+        by(delta: number, msg?: string): Assertion;
     }
 
     export interface Assert {
