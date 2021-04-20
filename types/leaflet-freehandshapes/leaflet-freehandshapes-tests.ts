@@ -9,13 +9,13 @@ const polygonOptions: L.PolylineOptions = {
     weight: 2,
     opacity: 0.75,
     fillColor: '#000000'
-}
+};
 
 const polylineOptions: L.PolylineOptions = {
     smoothFactor: 1,
     noClip: true,
     weight: 3
-}
+};
 
 const freehandOptions: L.FreeHandShapesOptions = {
     polygon: polygonOptions,
@@ -23,9 +23,9 @@ const freehandOptions: L.FreeHandShapesOptions = {
     simplify_tolerance: 0.01,
     merge_polygons: false,
     concave_polygons: undefined
-}
+};
 
-const leafletMouseEvent: L.LeafletMouseEvent = {} as L.LeafletMouseEvent;
+const leafletMouseEvent: L.LeafletMouseEvent = {} as unknown as L.LeafletMouseEvent;
 
 const simplePolygonLatLngs: L.LatLngExpression[] = [[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]];
 const polygon = new L.Polygon(simplePolygonLatLngs);
