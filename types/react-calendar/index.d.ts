@@ -6,9 +6,9 @@
 
 export type CalendarType = 'ISO 8601' | 'US' | 'Arabic' | 'Hebrew';
 export type Detail = 'month' | 'year' | 'decade' | 'century';
-export type DateCallback = (date: Date) => void;
-export type ClickWeekNumberCallback = (weekNumber: number, date: Date) => void;
-export type OnChangeDateCallback = (date: Date | Date[]) => void;
+export type DateCallback = (date: Date, event: React.SyntheticEvent) => void;
+export type ClickWeekNumberCallback = (weekNumber: number, date: Date, event: React.SyntheticEvent) => void;
+export type OnChangeDateCallback = (date: Date | Date[], event: React.SyntheticEvent) => void;
 export type FormatterCallback = (locale: string, date: Date) => string;
 export type ViewCallback = (props: ViewCallbackProperties) => void;
 
