@@ -10253,6 +10253,8 @@ declare namespace chrome.declarativeNetRequest {
      */
     export function getMatchedRules(filter: MatchedRulesFilter | undefined, callback: (details: RulesMatchedDetails) => void): void;
 
+    export function getMatchedRules(callback: (details: RulesMatchedDetails) => void): void;
+
     /** Returns the current set of session scoped rules for the extension.
      *
      * @param callback Called with the set of session scoped rules.
