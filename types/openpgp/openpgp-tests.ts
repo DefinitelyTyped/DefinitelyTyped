@@ -261,8 +261,7 @@ openpgp.message.readArmored('');
 
 message.packets.filterByTag(openpgp.enums.packet.literal).write();
 message.packets.indexOfTag(openpgp.enums.packet.literal).filter(() => {});
-const literal = message.packets.findPacket(openpgp.enums.packet.literal) as openpgp.packet.Literal;
-literal.setText('hello world');
+message.packets.findPacket(openpgp.enums.packet.literal) as openpgp.packet.Literal;
 openpgp.packet.fromStructuredClone({});
 openpgp.packet.newPacketFromTag('');
 
