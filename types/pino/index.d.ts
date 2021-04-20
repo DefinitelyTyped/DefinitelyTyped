@@ -524,7 +524,7 @@ declare namespace P {
              * All arguments passed to the log method, except the message, will be pass to this function.
              * By default it does not change the shape of the log object.
              */
-            log?: (object: object & {err?: Error}) => object;
+            log?: (object: object) => object;
         };
 
         /**
