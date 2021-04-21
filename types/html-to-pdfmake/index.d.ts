@@ -11,7 +11,8 @@ declare function htmlToPdfmake(
     html: string,
     options?: Partial<{
         /**
-         * You can overwrite the default styles using defaultStyles
+         * You can overwrite the default styles using defaultStyles.
+         * Please, note that the above default styles are stronger than the ones defined in the style classes.
          */
         defaultStyles: import("pdfmake/interfaces").StyleDictionary;
         /**
