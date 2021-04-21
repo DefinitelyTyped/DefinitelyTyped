@@ -2711,7 +2711,7 @@
         },
         "pdfjs-dist": {
             "libraryName": "pdfjs-dist",
-            "asOfVersion": "2.8.0"
+            "asOfVersion": "2.8.335"
         },
         "peerjs": {
             "libraryName": "peerjs",
