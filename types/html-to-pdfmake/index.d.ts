@@ -29,7 +29,7 @@ declare function htmlToPdfmake(
         /**
          * If you use Node, then you'll have to pass the window object
          */
-        window: unknown;
+        window: import("jsdom").DOMWindow;
     }>,
 ): import("pdfmake/interfaces").Content;
 
