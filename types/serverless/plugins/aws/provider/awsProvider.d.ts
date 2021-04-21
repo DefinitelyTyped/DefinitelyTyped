@@ -81,16 +81,16 @@ declare namespace Aws {
     }
 
     interface IamSettings {
-        role?: string | IamLogicalRole;
+        role?: string | IamRole;
         deploymentRole?: string;
     }
-    
-    interface IamLogicalRole {
+
+    interface IamRole {
         name?: string;
         permissionBoundary?: string;
         statements?: IamRoleStatement[];
         managedPolicies?: string[];
-        tags?: Tags; 
+        tags?: Tags;
     }
 
     interface Tags {
