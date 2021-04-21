@@ -158,6 +158,13 @@ export class Fragment<S extends Schema = any> {
      */
     findDiffEnd(other: Fragment<S>): { a: number; b: number } | null | undefined;
     /**
+     * : (number, ?number) → {index: number, offset: number}
+     * Find the index and inner offset corresponding to a given relative
+     * position in this fragment. The result object will be reused
+     * (overwritten) the next time the function is called. (Not public.)
+     */
+    findIndex(pos: number, round?: number): { index: number; offset: number }
+    /**
      * Return a debugging string that describes this fragment.
      */
     toString(): string;
@@ -597,7 +604,7 @@ declare class ProsemirrorNode<S extends Schema = any> {
      * Cut out the part of the document between the given positions, and
      * return it as a `Slice` object.
      */
-    slice(from: number, to?: number): Slice<S>;
+    slice(from: number, to?: number, includeParents?: boolean): Slice<S>;
     /**
      * Replace the part of the document between the given positions with
      * the given slice. The slice must 'fit', meaning its open sides
