@@ -95,9 +95,9 @@ declare namespace GoogleAdsScripts {
             /** Sets the mobile final URL of the new ad to the specified value. */
             withMobileFinalUrl(mobileFinalUrl: string): this;
             /** Sets the first path that appears with the new ad's displayed URL. */
-            withPath1(): this;
+            withPath1(path1: string): this;
             /** Sets the second path that appears with the new ad's displayed URL. */
-            withPath2(): this;
+            withPath2(path2: string): this;
             /** Sets the tracking template of the new ad to the specified value. */
             withTrackingTemplate(trackingTemplate: string): this;
         }
