@@ -139,7 +139,7 @@ export class MongoClient extends EventEmitter {
      * This allows for filtering (using $match) and manipulating the change stream documents.
      * @param options Optional settings
      * @returns ChangeStream instance
-     * @see https://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html#watch
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#watch
      */
     watch<TSchema extends object = { _id: ObjectId }>(
         pipeline?: object[],
@@ -1428,7 +1428,7 @@ export class Db extends EventEmitter {
      * This allows for filtering (using $match) and manipulating the change stream documents.
      * @param options Optional settings
      * @returns ChangeStream instance
-     * @see https://mongodb.github.io/node-mongodb-native/3.3/api/Db.html#watch
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Db.html#watch
      */
     watch<TSchema extends object = { _id: ObjectId }>(
         pipeline?: object[],
@@ -1798,7 +1798,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      * @param pipeline Array containing all the aggregation framework commands for the execution
      * @param options Optional settings
      * @param callback The command result callback
-     * @see https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#aggregate
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#aggregate
      */
     aggregate<T = TSchema>(callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     aggregate<T = TSchema>(pipeline: object[], callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
@@ -1816,7 +1816,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      * @param operations Bulk operations to perform
      * @param options Optional settings
      * @param callback The command result callback
-     * @see https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#bulkWrite
      */
     bulkWrite(operations: Array<BulkWriteOperation<TSchema>>, callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(
@@ -3402,7 +3402,7 @@ export interface BulkWriteResultUpsertedIdObject {
     _id: ObjectId;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.5/api/BulkWriteResult.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/BulkWriteResult.html */
 export interface BulkWriteResult {
     /**
      * Evaluates to `true` if the bulk operation correctly executes
@@ -4036,7 +4036,7 @@ interface ChangeStreamEvents<TSchema extends { [key: string]: any } = DefaultSch
     resumeTokenChanged: (newToken: ResumeToken) => void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.3/api/ChangeStream.html */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html */
 export class ChangeStream<TSchema extends { [key: string]: any } = DefaultSchema> extends TypedEventEmitter<
     ChangeStreamEvents<TSchema>
 > {
@@ -4152,7 +4152,7 @@ export type ChangeEvent<TSchema extends object = { _id: ObjectId }> =
     | ChangeEventOther<TSchema>
     | ChangeEventInvalidate<TSchema>;
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.3/api/global.html#ChangeStreamOptions */
+/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#ChangeStreamOptions */
 export interface ChangeStreamOptions {
     fullDocument?: "default" | "updateLookup";
     maxAwaitTimeMS?: number;
