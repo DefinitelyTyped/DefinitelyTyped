@@ -4218,7 +4218,7 @@ declare namespace cytoscape {
              *  * The special value none can be used to denote 0deg.
              *  * Rotations works best with left- to - right text.
              */
-            "text-rotation": PropertyValue<SingularType, number>;
+            "text-rotation": PropertyValue<SingularType, number | 'autorotate'>;
 
             /**
              * (For the source label of an edge.)
