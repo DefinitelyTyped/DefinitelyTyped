@@ -687,6 +687,11 @@ declare namespace braintree {
      */
 
     export class Disbursement {
+        static Types: {
+            Credit: 'credit';
+            Debit: 'debit';
+        };
+
         id: string;
         amount: string;
         disbursementDate: Date;
@@ -1133,6 +1138,15 @@ declare namespace braintree {
      */
 
     export class Subscription {
+        static Status: {
+            Active: 'Active';
+            Canceled: 'Canceled';
+            Expired: 'Expired';
+            PastDue: 'Past Due';
+            Pending: 'Pending';
+            All: () => string[];
+        };
+
         addOns?: AddOn[];
         balance: string;
         billingDayOfMonth?: number;
@@ -1206,7 +1220,7 @@ declare namespace braintree {
         subscriptionSource: SubscriptionSource;
     }
 
-    export type SubscriptionStatus = 'Active' | 'Canceled' | 'Expired' | 'PastDue' | 'Pending';
+    export type SubscriptionStatus = 'Active' | 'Canceled' | 'Expired' | 'Past Due' | 'Pending';
 
     export type SubscriptionSource = 'api' | 'control_panel' | 'recurring';
 
@@ -1215,6 +1229,49 @@ declare namespace braintree {
      */
 
     export class Transaction {
+        static EscrowStatus: {
+            HoldPending: 'hold_pending';
+            Held: 'held';
+            ReleasePending: 'release_pending';
+            Released: 'released';
+            Refunded: 'refunded';
+        };
+
+        static Type: {
+            Credit: 'credit';
+            Sale: 'sale';
+            All: () => string[];
+        };
+
+        static GatewayRejectionReason: {
+            ApplicationIncomplete: 'application_incomplete';
+            Avs: 'avs';
+            Cvv: 'cvv';
+            AvsAndCvv: 'avs_and_cvv';
+            Duplicate: 'duplicate';
+            Fraud: 'fraud';
+            RiskThreshold: 'risk_threshold';
+            ThreeDSecure: 'three_d_secure';
+            TokenIssuance: 'token_issuance';
+        };
+
+        static Status: {
+            AuthorizationExpired: 'authorization_expired';
+            Authorizing: 'authorizing';
+            Authorized: 'authorized';
+            GatewayRejected: 'gateway_rejected';
+            Failed: 'failed';
+            ProcessorDeclined: 'processor_declined';
+            Settled: 'settled';
+            Settling: 'settling';
+            SettlementConfirmed: 'settlement_confirmed';
+            SettlementDeclined: 'settlement_declined';
+            SettlementPending: 'settlement_pending';
+            SubmittedForSettlement: 'submitted_for_settlement';
+            Voided: 'voided';
+            All: () => string[];
+        };
+
         addOns?: AddOn[];
         additionalProccessorResponse: string;
         amount: string;
@@ -1665,6 +1722,7 @@ declare namespace braintree {
         | 'authorization_expired'
         | 'authorized'
         | 'authorizing'
+        | 'settlement_confirmed'
         | 'settlement_pending'
         | 'settlement_declined'
         | 'failed'
