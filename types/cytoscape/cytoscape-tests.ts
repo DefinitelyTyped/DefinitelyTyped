@@ -50,6 +50,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'edge',
     css: {
+      'text-rotation': 'autorotate',
       'target-arrow-shape': 'triangle',
       'curve-style': 'taxi',
       'source-endpoint': 'outside-to-node',
