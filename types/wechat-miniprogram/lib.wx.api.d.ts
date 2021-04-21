@@ -395,11 +395,11 @@ declare namespace WechatMiniprogram {
     }
     interface BLEPeripheralServerCloseOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: SocketTaskCloseCompleteCallback
+        complete?: FileSystemManagerCloseCompleteCallback
         /** 接口调用失败的回调函数 */
         fail?: SocketTaskCloseFailCallback
         /** 接口调用成功的回调函数 */
-        success?: SocketTaskCloseSuccessCallback
+        success?: FileSystemManagerCloseSuccessCallback
     }
     /** 描述service的Object */
     interface BLEPeripheralService {
@@ -870,6 +870,22 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 收货人姓名 */
         userName: string
     }
+    interface ChooseContactOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ChooseContactCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ChooseContactFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: ChooseContactSuccessCallback
+    }
+    interface ChooseContactSuccessCallbackOption {
+        /** 联系人姓名 */
+        displayName: string
+        /** 手机号 */
+        phoneNumber: string
+        /** 选定联系人的所有手机号（部分 Android 系统只能选联系人而不能选特定手机号） */
+        phoneNumberList: string
+    }
     /** 返回选择的文件的本地临时文件对象数组 */
     interface ChooseFile {
         /** 选择的文件名称 */
@@ -982,9 +998,9 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 详细地址 */
         address: string
         /** 纬度，浮点数，范围为-90~90，负数表示南纬。使用 gcj02 国测局坐标系 */
-        latitude: string
+        latitude: number
         /** 经度，浮点数，范围为-180~180，负数表示西经。使用 gcj02 国测局坐标系 */
-        longitude: string
+        longitude: number
         /** 位置名称 */
         name: string
         errMsg: string
@@ -1053,6 +1069,29 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     interface ChooseMessageFileSuccessCallbackResult {
         /** 返回选择的文件的本地临时文件对象数组 */
         tempFiles: ChooseFile[]
+        errMsg: string
+    }
+    interface ChoosePoiOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ChoosePoiCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ChoosePoiFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: ChoosePoiSuccessCallback
+    }
+    interface ChoosePoiSuccessCallbackResult {
+        /** 详细地址 */
+        address: string
+        /** 城市名称 */
+        city: number
+        /** 纬度，浮点数，范围为-90~90，负数表示南纬。使用 gcj02 国测局坐标系 */
+        latitude: number
+        /** 经度，浮点数，范围为-180~180，负数表示西经。使用 gcj02 国测局坐标系 */
+        longitude: number
+        /** 位置名称 */
+        name: string
+        /** 选择城市时，值为 1，选择精确位置时，值为 2 */
+        type: number
         errMsg: string
     }
     interface ChooseVideoOption {
@@ -1128,6 +1167,13 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 接口调用成功的回调函数 */
         success?: CloseBluetoothAdapterSuccessCallback
     }
+    interface CloseFailCallbackResult {
+        /** 错误信息
+         *
+         * 可选值：
+         * - 'bad file descriptor': 无效的文件描述符; */
+        errMsg: string
+    }
     interface CloseSocketOption {
         /** 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。 */
         code?: number
@@ -1139,6 +1185,10 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         reason?: string
         /** 接口调用成功的回调函数 */
         success?: CloseSocketSuccessCallback
+    }
+    interface CloseSyncOption {
+        /** 需要被关闭的文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
     }
     /** 颜色。可以用以下几种方式来表示 canvas 中使用的颜色：
      *
@@ -1348,14 +1398,6 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         tempFilePath: string
         errMsg: string
     }
-    interface ConnectOption {
-        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: ConnectCompleteCallback
-        /** 接口调用失败的回调函数 */
-        fail?: ConnectFailCallback
-        /** 接口调用成功的回调函数 */
-        success?: ConnectSuccessCallback
-    }
     interface ConnectSocketOption {
         /** 开发者服务器 wss 接口地址 */
         url: string
@@ -1480,6 +1522,20 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 视频比特率（kbps），最小值 600，最大值 3000 */
         videoBitsPerSecond?: number
     }
+    interface CreateOffscreenCanvasOption {
+        /** 在自定义组件下，当前组件实例的 this */
+        compInst?: Component.TrivialInstance | Page.TrivialInstance
+        /** 画布高度 */
+        height?: number
+        /** 创建的离屏 canvas 类型
+         *
+         * 可选值：
+         * - 'webgl': webgl类型上下文;
+         * - '2d': 2d类型上下文; */
+        type?: 'webgl' | '2d'
+        /** 画布宽度 */
+        width?: number
+    }
     interface CreateRewardedVideoAdOption {
         /** 广告单元 id */
         adUnitId: string
@@ -1490,7 +1546,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     }
     /** 可选参数 */
     interface CreateWorkerOption {
-        /** 是否使用实验worker。在iOS下，实验worker的JS运行效率比非实验worker提升近十倍，如需在worker内进行重度计算的建议开启此选项。
+        /** 是否使用实验worker。在iOS下，实验worker的JS运行效率比非实验worker提升近十倍，如需在worker内进行重度计算的建议开启此选项。同时，实验worker存在极小概率会在系统资源紧张时被系统回收，因此建议配合 worker.onProcessKilled 事件使用，在worker被回收后可重新创建一个。
          *
          * 最低基础库： `2.13.0` */
         useExperimentalWorker?: boolean
@@ -1701,6 +1757,16 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 本地文件大小，以字节为单位 */
         size: number
     }
+    interface FileSystemManagerCloseOption {
+        /** 需要被关闭的文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: FileSystemManagerCloseCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: FileSystemManagerCloseFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: FileSystemManagerCloseSuccessCallback
+    }
     interface FileSystemManagerGetFileInfoOption {
         /** 要读取的文件路径 (本地路径) */
         filePath: string
@@ -1782,6 +1848,63 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         fail?: FromScreenLocationFailCallback
         /** 接口调用成功的回调函数 */
         success?: FromScreenLocationSuccessCallback
+    }
+    interface FstatFailCallbackResult {
+        /** 错误信息
+         *
+         * 可选值：
+         * - 'bad file descriptor': 无效的文件描述符;
+         * - 'fail permission denied': 指定的 fd 路径没有读权限; */
+        errMsg: string
+    }
+    interface FstatOption {
+        /** 文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: FstatCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: FstatFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: FstatSuccessCallback
+    }
+    interface FstatSuccessCallbackResult {
+        /** [Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html)
+         *
+         * Stats 对象，包含了文件的状态信息 */
+        stats: Stats
+        errMsg: string
+    }
+    interface FstatSyncOption {
+        /** 文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+    }
+    interface FtruncateFailCallbackResult {
+        /** 错误信息
+         *
+         * 可选值：
+         * - 'bad file descriptor': 无效的文件描述符;
+         * - 'fail permission denied': 指定的 fd 没有写权限;
+         * - 'fail the maximum size of the file storage limit is exceeded': 存储空间不足;
+         * - 'fail sdcard not mounted': android sdcard 挂载失败; */
+        errMsg: string
+    }
+    interface FtruncateOption {
+        /** 文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+        /** 截断位置，默认0。如果 length 小于文件长度（单位：字节），则只有前面 length 个字节会保留在文件中，其余内容会被删除；如果 length 大于文件长度，则会对其进行扩展，并且扩展部分将填充空字节（'\0'） */
+        length: number
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: FtruncateCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: FtruncateFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: FtruncateSuccessCallback
+    }
+    interface FtruncateSyncOption {
+        /** 文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+        /** 截断位置，默认0。如果 length 小于文件长度（单位：字节），则只有前面 length 个字节会保留在文件中，其余内容会被删除；如果 length 大于文件长度，则会对其进行扩展，并且扩展部分将填充空字节（'\0'） */
+        length: number
     }
     interface GetAtqaOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -2243,6 +2366,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * - 'unknown': Android 下不常见的网络类型;
          * - 'none': 无网络; */
         networkType: 'wifi' | '2g' | '3g' | '4g' | '5g' | 'unknown' | 'none'
+        /** 信号强弱，单位 dbm */
+        signalStrength: number
         errMsg: string
     }
     interface GetRandomValuesOption {
@@ -2536,9 +2661,31 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         success?: GetUserProfileSuccessCallback
     }
     interface GetUserProfileSuccessCallbackResult {
+        /** 敏感数据对应的云 ID，开通[云开发](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)的小程序才会返回，可通过云调用直接获取开放数据，详细见[云调用直接获取开放数据](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/signature.html#method-cloud)
+         *
+         * 最低基础库： `2.10.4` */
+        cloudID: string
+        /** 包括敏感数据在内的完整用户信息的加密数据，详见 [用户数据的签名验证和加解密]((signature#加密数据解密算法))
+         *
+         * 最低基础库： `2.10.4` */
+        encryptedData: string
+        /** 加密算法的初始向量，详见 [用户数据的签名验证和加解密]((signature#加密数据解密算法))
+         *
+         * 最低基础库： `2.10.4` */
+        iv: string
+        /** 不包括敏感信息的原始数据字符串，用于计算签名
+         *
+         * 最低基础库： `2.10.4` */
+        rawData: string
+        /** 使用 sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息，详见 [用户数据的签名验证和加解密](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/signature.html)
+         *
+         * 最低基础库： `2.10.4` */
+        signature: string
         /** [UserInfo](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/UserInfo.html)
          *
-         * 用户信息对象 */
+         * 用户信息对象
+         *
+         * 最低基础库： `2.10.4` */
         userInfo: UserInfo
         errMsg: string
     }
@@ -2687,6 +2834,13 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         fail?: HideToastFailCallback
         /** 接口调用成功的回调函数 */
         success?: HideToastSuccessCallback
+    }
+    /** 当前小程序运行的宿主环境
+     *
+     * 最低基础库： `2.12.3` */
+    interface Host {
+        /** 宿主 app 对应的 appId */
+        appId: string
     }
     interface IBeaconInfo {
         /** iBeacon 设备的距离 */
@@ -3069,7 +3223,7 @@ innerAudioContext.onError((res) => {
         timeout?: number
     }
     interface LoginSuccessCallbackResult {
-        /** 用户登录凭证（有效期五分钟）。开发者需要在开发者服务器后台调用 [auth.code2Session](https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html)，使用 code 换取 openid 和 session_key 等信息 */
+        /** 用户登录凭证（有效期五分钟）。开发者需要在开发者服务器后台调用 [auth.code2Session](https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html)，使用 code 换取 openid、unionid、session_key 等信息 */
         code: string
         errMsg: string
     }
@@ -3346,6 +3500,14 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: NdefCloseSuccessCallback
     }
+    interface NdefConnectOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ConnectCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ConnectFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: ConnectSuccessCallback
+    }
     interface NodeCallbackResult {
         /** 节点对应的 Node 实例 */
         node: IAnyObject
@@ -3381,6 +3543,15 @@ innerAudioContext.onError((res) => {
         /** 屏幕方向（ `landscape` 或 `portrait` ） */
         orientation: string
         /** 页面宽度（ px 为单位） */
+        width: number
+    }
+    /** 离屏 canvas 实例，可通过 [wx.createOffscreenCanvas](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/wx.createOffscreenCanvas.html) 创建。
+     *
+     * 最低基础库： `2.7.0` */
+    interface OffscreenCanvas {
+        /** 画布高度 */
+        height: number
+        /** 画布宽度 */
         width: number
     }
     interface OnAccelerometerChangeCallbackResult {
@@ -3763,6 +3934,13 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: OpenDocumentSuccessCallback
     }
+    interface OpenFailCallbackResult {
+        /** 错误信息
+         *
+         * 可选值：
+         * - 'fail no such file or directory "${filePath}"': 上级目录不存在; */
+        errMsg: string
+    }
     interface OpenLocationOption {
         /** 纬度，范围为-90~90，负数表示南纬。使用 gcj02 国测局坐标系 */
         latitude: number
@@ -3795,6 +3973,44 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: OpenMapAppSuccessCallback
     }
+    interface OpenOption {
+        /** 文件路径 (本地路径) */
+        filePath: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: OpenCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: OpenFailCallback
+        /** 文件系统标志，默认值: 'r'
+         *
+         * 可选值：
+         * - 'a': 打开文件用于追加。 如果文件不存在，则创建该文件;
+         * - 'ax': 类似于 'a'，但如果路径存在，则失败;
+         * - 'a+': 打开文件用于读取和追加。 如果文件不存在，则创建该文件;
+         * - 'ax+': 类似于 'a+'，但如果路径存在，则失败;
+         * - 'as': 打开文件用于追加（在同步模式中）。 如果文件不存在，则创建该文件;
+         * - 'as+': 打开文件用于读取和追加（在同步模式中）。 如果文件不存在，则创建该文件;
+         * - 'r': 打开文件用于读取。 如果文件不存在，则会发生异常;
+         * - 'r+': 打开文件用于读取和写入。 如果文件不存在，则会发生异常;
+         * - 'w': 打开文件用于写入。 如果文件不存在则创建文件，如果文件存在则截断文件;
+         * - 'wx': 类似于 'w'，但如果路径存在，则失败;
+         * - 'w+': 打开文件用于读取和写入。 如果文件不存在则创建文件，如果文件存在则截断文件;
+         * - 'wx+': 类似于 'w+'，但如果路径存在，则失败; */
+        flag?:
+            | 'a'
+            | 'ax'
+            | 'a+'
+            | 'ax+'
+            | 'as'
+            | 'as+'
+            | 'r'
+            | 'r+'
+            | 'w'
+            | 'wx'
+            | 'w+'
+            | 'wx+'
+        /** 接口调用成功的回调函数 */
+        success?: OpenSuccessCallback
+    }
     interface OpenSettingOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: OpenSettingCompleteCallback
@@ -3819,6 +4035,43 @@ innerAudioContext.onError((res) => {
          * 最低基础库： `2.10.3` */
         subscriptionsSetting: SubscriptionsSetting
         errMsg: string
+    }
+    interface OpenSuccessCallbackResult {
+        /** 文件描述符 */
+        fd: string
+        errMsg: string
+    }
+    interface OpenSyncOption {
+        /** 文件路径 (本地路径) */
+        filePath: string
+        /** 文件系统标志，默认值: 'r'
+         *
+         * 可选值：
+         * - 'a': 打开文件用于追加。 如果文件不存在，则创建该文件;
+         * - 'ax': 类似于 'a'，但如果路径存在，则失败;
+         * - 'a+': 打开文件用于读取和追加。 如果文件不存在，则创建该文件;
+         * - 'ax+': 类似于 'a+'，但如果路径存在，则失败;
+         * - 'as': 打开文件用于追加（在同步模式中）。 如果文件不存在，则创建该文件;
+         * - 'as+': 打开文件用于读取和追加（在同步模式中）。 如果文件不存在，则创建该文件;
+         * - 'r': 打开文件用于读取。 如果文件不存在，则会发生异常;
+         * - 'r+': 打开文件用于读取和写入。 如果文件不存在，则会发生异常;
+         * - 'w': 打开文件用于写入。 如果文件不存在则创建文件，如果文件存在则截断文件;
+         * - 'wx': 类似于 'w'，但如果路径存在，则失败;
+         * - 'w+': 打开文件用于读取和写入。 如果文件不存在则创建文件，如果文件存在则截断文件;
+         * - 'wx+': 类似于 'w+'，但如果路径存在，则失败; */
+        flag?:
+            | 'a'
+            | 'ax'
+            | 'a+'
+            | 'ax+'
+            | 'as'
+            | 'as+'
+            | 'r'
+            | 'r+'
+            | 'w'
+            | 'wx'
+            | 'w+'
+            | 'wx+'
     }
     interface OpenVideoEditorOption {
         /** 视频源的路径，只支持本地路径 */
@@ -4009,6 +4262,18 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: ReadBLECharacteristicValueSuccessCallback
     }
+    interface ReadFailCallbackResult {
+        /** 错误信息
+         *
+         * 可选值：
+         * - 'bad file descriptor': 无效的文件描述符;
+         * - 'fail permission denied': 指定的 fd 路径没有读权限;
+         * - 'fail the value of "offset" is out of range': 传入的 offset 不合法;
+         * - 'fail the value of "length" is out of range': 传入的 length 不合法;
+         * - 'fail sdcard not mounted': android sdcard 挂载失败;
+         * - 'bad file descriptor': 无效的文件描述符; */
+        errMsg: string
+    }
     interface ReadFileFailCallbackResult {
         /** 错误信息
          *
@@ -4066,6 +4331,50 @@ innerAudioContext.onError((res) => {
         /** 文件内容 */
         data: string | ArrayBuffer
         errMsg: string
+    }
+    interface ReadOption {
+        /** 数据写入的缓冲区，必须是 ArrayBuffer 实例 */
+        arrayBuffer: ArrayBuffer
+        /** 文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ReadCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ReadFailCallback
+        /** 要从文件中读取的字节数，默认0 */
+        length?: number
+        /** 缓冲区中的写入偏移量，默认0 */
+        offset?: number
+        /** 文件读取的起始位置，如不传或传 null，则会从当前文件指针的位置读取。如果 position 是正整数，则文件指针位置会保持不变并从 position 读取文件。 */
+        position?: number
+        /** 接口调用成功的回调函数 */
+        success?: ReadSuccessCallback
+    }
+    /** 文件读取结果。 通过 [FileSystemManager.readSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readSync.html) 接口返回 */
+    interface ReadResult {
+        /** 被写入的缓存区的对象，即接口入参的 arrayBuffer */
+        arrayBuffer: ArrayBuffer
+        /** 实际读取的字节数 */
+        bytesRead: string
+    }
+    interface ReadSuccessCallbackResult {
+        /** 被写入的缓存区的对象，即接口入参的 arrayBuffer */
+        arrayBuffer: ArrayBuffer
+        /** 实际读取的字节数 */
+        bytesRead: string
+        errMsg: string
+    }
+    interface ReadSyncOption {
+        /** 数据写入的缓冲区，必须是 ArrayBuffer 实例 */
+        arrayBuffer: ArrayBuffer
+        /** 文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+        /** 要从文件中读取的字节数，默认0 */
+        length?: number
+        /** 缓冲区中的写入偏移量，默认0 */
+        offset?: number
+        /** 文件读取的起始位置，如不传或传 null，则会从当前文件指针的位置读取。如果 position 是正整数，则文件指针位置会保持不变并从 position 读取文件。 */
+        position?: number
     }
     interface ReaddirFailCallbackResult {
         /** 错误信息
@@ -4398,6 +4707,33 @@ innerAudioContext.onError((res) => {
          *
          * 最低基础库： `2.10.0` */
         timeout?: number
+    }
+    interface RequestOrderPaymentOption {
+        /** 随机字符串，长度为32个字符以下 */
+        nonceStr: string
+        /** 统一下单接口返回的 prepay_id 参数值，提交格式如：prepay_id=*** */
+        package: string
+        /** 签名，具体见微信支付文档 */
+        paySign: string
+        /** 时间戳，从 1970 年 1 月 1 日 00:00:00 至今的秒数，即当前的时间 */
+        timeStamp: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: RequestOrderPaymentCompleteCallback
+        /** 外部APP用户ID */
+        extUserUin?: string
+        /** 接口调用失败的回调函数 */
+        fail?: RequestOrderPaymentFailCallback
+        /** 订单信息，仅在需要校验的场景下需要传递，具体见[接口说明](/miniprogram/dev/framework/ministore/minishopopencomponent2/API/order/requestOrderPayment) */
+        orderInfo?: IAnyObject
+        /** 签名算法，应与后台下单时的值一致
+         *
+         * 可选值：
+         * - 'MD5': 仅在 v2 版本接口适用;
+         * - 'HMAC-SHA256': 仅在 v2 版本接口适用;
+         * - 'RSA': 仅在 v3 版本接口适用; */
+        signType?: 'MD5' | 'HMAC-SHA256' | 'RSA'
+        /** 接口调用成功的回调函数 */
+        success?: RequestOrderPaymentSuccessCallback
     }
     interface RequestPaymentOption {
         /** 随机字符串，长度为32个字符以下 */
@@ -4754,9 +5090,22 @@ innerAudioContext.onError((res) => {
         /** 初始速度 */
         velocity?: number
     }
-    /** 增强 ScrollView 实例
-     *
-     * 最低基础库： `2.14.4` */
+    /** 增强 ScrollView 实例，可通过 [wx.createSelectorQuery](https://developers.weixin.qq.com/miniprogram/dev/api/wxml/wx.createSelectorQuery.html) 的 [NodesRef.node](https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.node.html) 方法获取。 仅在 scroll-view 组件开启 enhanced 属性后生效。
+*
+* **示例代码**
+*
+*
+* ```js
+wx.createSelectorQuery()
+  .select('#scrollview')
+  .node()
+  .exec((res) => {
+    const scrollView = res[0].node;
+    scrollView.scrollEnabled = false;
+  })
+```
+*
+* 最低基础库： `2.14.4` */
     interface ScrollViewContext {
         /** 设置滚动边界弹性 (仅在 iOS 下生效) */
         bounces: boolean
@@ -4935,6 +5284,14 @@ innerAudioContext.onError((res) => {
         /** 接口调用成功的回调函数 */
         success?: SetKeepScreenOnSuccessCallback
     }
+    interface SetLocMarkerIconOption {
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: SetLocMarkerIconCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: SetLocMarkerIconFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: SetLocMarkerIconSuccessCallback
+    }
     interface SetMICVolumeOption {
         /** 音量大小，范围是 0.0-1.0 */
         volume: number
@@ -5092,6 +5449,16 @@ innerAudioContext.onError((res) => {
         zoom: number
         errMsg: string
     }
+    interface ShareToWeRunOption {
+        /** 运动数据列表 */
+        recordList: WxaSportRecord[]
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ShareToWeRunCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: ShareToWeRunFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: ShareToWeRunSuccessCallback
+    }
     interface ShowActionSheetOption {
         /** 按钮的文字数组，数组长度最大为 6 */
         itemList: string[]
@@ -5136,18 +5503,10 @@ innerAudioContext.onError((res) => {
         confirmColor?: string
         /** 确认按钮的文字，最多 4 个字符 */
         confirmText?: string
-        /** 提示的内容，editable 为 true 时，会输入框默认文本 */
+        /** 提示的内容 */
         content?: string
-        /** 是否显示输入框
-         *
-         * 最低基础库： `2.15.0` */
-        editable?: boolean
         /** 接口调用失败的回调函数 */
         fail?: ShowModalFailCallback
-        /** 输入框提示文本
-         *
-         * 最低基础库： `2.15.0` */
-        placeholderText?: string
         /** 是否显示取消按钮 */
         showCancel?: boolean
         /** 接口调用成功的回调函数 */
@@ -5285,13 +5644,13 @@ innerAudioContext.onError((res) => {
         /** 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。 */
         code?: number
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: SocketTaskCloseCompleteCallback
+        complete?: FileSystemManagerCloseCompleteCallback
         /** 接口调用失败的回调函数 */
         fail?: SocketTaskCloseFailCallback
         /** 一个可读的字符串，表示连接被关闭的原因。这个字符串必须是不长于 123 字节的 UTF-8 文本（不是字符）。 */
         reason?: string
         /** 接口调用成功的回调函数 */
-        success?: SocketTaskCloseSuccessCallback
+        success?: FileSystemManagerCloseSuccessCallback
     }
     interface SocketTaskOnCloseCallbackResult {
         /** 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。 */
@@ -5862,6 +6221,10 @@ wx.getSetting({
          *
          * 最低基础库： `1.5.0` */
         fontSizeSetting: number
+        /** 当前小程序运行的宿主环境
+         *
+         * 最低基础库： `2.12.3` */
+        host: Host
         /** 微信设置的语言 */
         language: string
         /** 允许微信使用定位的开关
@@ -6040,6 +6403,41 @@ wx.getSetting({
         moveWithRotate?: boolean
         /** 接口调用成功的回调函数 */
         success?: TranslateMarkerSuccessCallback
+    }
+    interface TruncateFailCallbackResult {
+        /** 错误信息
+         *
+         * 可选值：
+         * - 'fail no such file or directory, open ${filePath}': 指定的 filePath 所在目录不存在;
+         * - 'fail illegal operation on a directory, open "${filePath}"': 指定的 filePath 是一个已经存在的目录;
+         * - 'fail permission denied, open ${dirPath}': 指定的 filePath 路径没有写权限;
+         * - 'fail the maximum size of the file storage limit is exceeded': 存储空间不足;
+         * - 'fail sdcard not mounted': android sdcard 挂载失败; */
+        errMsg: string
+    }
+    interface TruncateOption {
+        /** 要截断的文件路径 (本地路径) */
+        filePath: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: TruncateCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: TruncateFailCallback
+        /** 截断位置，默认0。如果 length 小于文件长度（字节），则只有前面 length 个字节会保留在文件中，其余内容会被删除；如果 length 大于文件长度，则会对其进行扩展，并且扩展部分将填充空字节（'\0'） */
+        length?: number
+        /** 接口调用成功的回调函数 */
+        success?: TruncateSuccessCallback
+    }
+    interface TruncateSyncOption {
+        /** 要截断的文件路径 (本地路径) */
+        filePath: string
+        /** 截断位置，默认0。如果 length 小于文件长度（字节），则只有前面 length 个字节会保留在文件中，其余内容会被删除；如果 length 大于文件长度，则会对其进行扩展，并且扩展部分将填充空字节（'\0'） */
+        length?: number
+    }
+    interface UDPSocketConnectOption {
+        /** 要发消息的地址 */
+        address: string
+        /** 要发送消息的端口号 */
+        port: number
     }
     interface UDPSocketOnErrorCallbackResult {
         /** 错误信息 */
@@ -6356,6 +6754,15 @@ wx.getSetting({
         /** 接口调用成功的回调函数 */
         success?: WriteCharacteristicValueSuccessCallback
     }
+    interface WriteFailCallbackResult {
+        /** 错误信息
+         *
+         * 可选值：
+         * - 'bad file descriptor': 无效的文件描述符;
+         * - 'fail permission denied': 指定的 fd 路径没有写权限;
+         * - 'fail sdcard not mounted': android sdcard 挂载失败; */
+        errMsg: string
+    }
     interface WriteFileFailCallbackResult {
         /** 错误信息
          *
@@ -6417,6 +6824,98 @@ wx.getSetting({
         texts?: any[]
         /** uri 数组 */
         uris?: any[]
+    }
+    interface WriteOption {
+        /** 写入的内容，类型为 String 或 ArrayBuffer */
+        data: string | ArrayBuffer
+        /** 文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: WriteCompleteCallback
+        /** 只在 data 类型是 String 时有效，指定写入文件的字符编码，默认为 utf8
+         *
+         * 可选值：
+         * - 'ascii': ;
+         * - 'base64': ;
+         * - 'binary': ;
+         * - 'hex': ;
+         * - 'ucs2': 以小端序读取;
+         * - 'ucs-2': 以小端序读取;
+         * - 'utf16le': 以小端序读取;
+         * - 'utf-16le': 以小端序读取;
+         * - 'utf-8': ;
+         * - 'utf8': ;
+         * - 'latin1': ; */
+        encoding?:
+            | 'ascii'
+            | 'base64'
+            | 'binary'
+            | 'hex'
+            | 'ucs2'
+            | 'ucs-2'
+            | 'utf16le'
+            | 'utf-16le'
+            | 'utf-8'
+            | 'utf8'
+            | 'latin1'
+        /** 接口调用失败的回调函数 */
+        fail?: WriteFailCallback
+        /** 只在 data 类型是 ArrayBuffer 时有效，指定要写入的字节数，默认为 arrayBuffer 从0开始偏移 offset 个字节后剩余的字节数 */
+        length?: number
+        /** 只在 data 类型是 ArrayBuffer 时有效，决定 arrayBuffe 中要被写入的部位，即 arrayBuffer 中的索引，默认0 */
+        offset?: number
+        /** 指定文件开头的偏移量，即数据要被写入的位置。当 position 不传或者传入非 Number 类型的值时，数据会被写入当前指针所在位置。 */
+        position?: number
+        /** 接口调用成功的回调函数 */
+        success?: WriteSuccessCallback
+    }
+    /** 文件写入结果。 通过 [FileSystemManager.writeSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.writeSync.html) 接口返回 */
+    interface WriteResult {
+        /** 实际被写入到文件中的字节数（注意，被写入的字节数不一定与被写入的字符串字符数相同） */
+        bytesWritten: number
+    }
+    interface WriteSuccessCallbackResult {
+        /** 实际被写入到文件中的字节数（注意，被写入的字节数不一定与被写入的字符串字符数相同） */
+        bytesWritten: number
+        errMsg: string
+    }
+    interface WriteSyncOption {
+        /** 写入的内容，类型为 String 或 ArrayBuffer */
+        data: string | ArrayBuffer
+        /** 文件描述符。fd 通过 [FileSystemManager.open](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html) 或 [FileSystemManager.openSync](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html) 接口获得 */
+        fd: string
+        /** 只在 data 类型是 String 时有效，指定写入文件的字符编码，默认为 utf8
+         *
+         * 可选值：
+         * - 'ascii': ;
+         * - 'base64': ;
+         * - 'binary': ;
+         * - 'hex': ;
+         * - 'ucs2': 以小端序读取;
+         * - 'ucs-2': 以小端序读取;
+         * - 'utf16le': 以小端序读取;
+         * - 'utf-16le': 以小端序读取;
+         * - 'utf-8': ;
+         * - 'utf8': ;
+         * - 'latin1': ; */
+        encoding?:
+            | 'ascii'
+            | 'base64'
+            | 'binary'
+            | 'hex'
+            | 'ucs2'
+            | 'ucs-2'
+            | 'utf16le'
+            | 'utf-16le'
+            | 'utf-8'
+            | 'utf8'
+            | 'latin1'
+        /** 只在 data 类型是 ArrayBuffer 时有效，指定要写入的字节数，默认为 arrayBuffer 从0开始偏移 offset 个字节后剩余的字节数 */
+        length?: number
+        /** 只在 data 类型是 ArrayBuffer 时有效，决定 arrayBuffe 中要被写入的部位，即 arrayBuffer 中的索引，默认0 */
+        offset?: number
+        /** 指定文件开头的偏移量，即数据要被写入的位置。当 position 不传或者传入非 Number 类型的值时，数据会被写入当前指针所在位置。 */
+        position?: number
     }
     interface WxGetFileInfoOption {
         /** 本地文件路径 (本地路径) */
@@ -6489,6 +6988,19 @@ wx.getSetting({
         fail?: StopRecordFailCallback
         /** 接口调用成功的回调函数 */
         success?: WxStopRecordSuccessCallback
+    }
+    /** 运动数据列表 */
+    interface WxaSportRecord {
+        /** 消耗卡路里 */
+        calorie: number
+        /** 运动距离 */
+        distance: number
+        /** 运动时长 */
+        time: number
+        /** 运动项目id */
+        typeId: string
+        /** 小程序app内跳转url */
+        url: string
     }
     interface Animation {
         /** [Object Animation.export()](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/Animation.export.html)
@@ -8618,6 +9130,18 @@ ctx.draw()
             color: string
         ): void
     }
+    interface CloseSyncError {
+        /** 错误信息
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 | */ errMsg: string
+        /** 错误码
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 | */ errCode: number
+    }
     interface Console {
         /** [console.debug()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/console.debug.html)
          *
@@ -8980,6 +9504,30 @@ this.editorCtx.insertImage({
                 | 'utf8'
                 | 'latin1'
         ): void
+        /** [FileSystemManager.close(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.close.html)
+*
+* 关闭文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+// 打开文件
+fs.open({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+',
+  success(res) {
+    // 关闭文件
+    fs.close({
+      fd: res.fd
+    })
+  }
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        close(option: FileSystemManagerCloseOption): void
         /** [FileSystemManager.copyFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.copyFile.html)
          *
          * 复制文件 */
@@ -8993,6 +9541,61 @@ this.editorCtx.insertImage({
             /** 目标文件路径，支持本地路径 */
             destPath: string
         ): void
+        /** [FileSystemManager.fstat(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.fstat.html)
+*
+* 获取文件的状态信息
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+// 打开文件
+fs.open({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+',
+  success(res) {
+    // 获取文件的状态信息
+    fs.fstat({
+      fd: res.fd,
+      success(res) {
+        console.log(res.stats)
+      }
+    })
+  }
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        fstat(option: FstatOption): void
+        /** [FileSystemManager.ftruncate(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.ftruncate.html)
+*
+* 对文件内容进行截断操作
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+// 打开文件
+fs.open({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+',
+  success(res) {
+    // 对文件内容进行截断操作
+    fs.ftruncate({
+      fd: res.fd,
+      length: 10, // 从第10个字节开始截断文件
+      success(res) {
+        console.log(res)
+      }
+    })
+  }
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        ftruncate(option: FtruncateOption): void
         /** [FileSystemManager.getFileInfo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.getFileInfo.html)
          *
          * 获取该小程序下的 本地临时文件 或 本地缓存文件 信息 */
@@ -9016,6 +9619,56 @@ this.editorCtx.insertImage({
              * 最低基础库： `2.3.0` */
             recursive?: boolean
         ): void
+        /** [FileSystemManager.open(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.open.html)
+*
+* 打开文件，返回文件描述符
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.open({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+',
+  success(res) {
+    console.log(res.fd)
+  }
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        open(option: OpenOption): void
+        /** [FileSystemManager.read(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.read.html)
+*
+* 读文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+const ab = new ArrayBuffer(1024)
+// 打开文件
+fs.open({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+',
+  success(res) {
+    // 读取文件到 ArrayBuffer 中
+    fs.read({
+      fd: res.fd,
+      arrayBuffer: ab,
+      length: 10,
+      success(res) {
+        console.log(res)
+      }
+    })
+  }
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        read(option: ReadOption): void
         /** [FileSystemManager.readFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readFile.html)
          *
          * 读取本地文件内容 */
@@ -9064,6 +9717,26 @@ this.editorCtx.insertImage({
          *
          * 获取文件 Stats 对象 */
         stat(option: StatOption): void
+        /** [FileSystemManager.truncate(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.truncate.html)
+*
+* 对文件内容进行截断操作
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.truncate({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  length: 10, // 从第10个字节开始截断
+  success(res) {
+    console.log(res)
+  }
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        truncate(option: TruncateOption): void
         /** [FileSystemManager.unlink(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.unlink.html)
          *
          * 删除文件 */
@@ -9079,6 +9752,34 @@ this.editorCtx.insertImage({
          *
          * 解压文件 */
         unzip(option: UnzipOption): void
+        /** [FileSystemManager.write(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.write.html)
+*
+* 写入文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+// 打开文件
+fs.open({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+',
+  success(res) {
+    // 写入文件
+    fs.write({
+      fd: res.fd,
+      data: 'some text',
+      success(res) {
+        console.log(res.bytesWritten)
+      }
+    })
+  }
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        write(option: WriteOption): void
         /** [FileSystemManager.writeFile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.writeFile.html)
          *
          * 写文件 */
@@ -9118,6 +9819,49 @@ this.editorCtx.insertImage({
                 | 'utf8'
                 | 'latin1'
         ): void
+        /** [[ReadResult](https://developers.weixin.qq.com/miniprogram/dev/api/file/ReadResult.html) FileSystemManager.readSync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.readSync.html)
+*
+* 读文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+const ab = new ArrayBuffer(1024)
+const fd = fs.openSync({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+'
+})
+const res = fs.readSync({
+  fd: fd,
+  arrayBuffer: ab,
+  length: 10
+})
+console.log(res)
+```
+*
+* 最低基础库： `2.16.1` */
+        readSync(option: ReadSyncOption): ReadResult
+        /** [[Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html) FileSystemManager.fstatSync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.fstatSync.html)
+*
+* 同步获取文件的状态信息
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+const fd = fs.openSync({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+'
+})
+const stats = fs.fstatSync({fd: fd})
+console.log(stats)
+```
+*
+* 最低基础库： `2.16.1` */
+        fstatSync(option: FstatSyncOption): Stats
         /** [[Stats](https://developers.weixin.qq.com/miniprogram/dev/api/file/Stats.html)|Object FileSystemManager.statSync(string path, boolean recursive)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.statSync.html)
          *
          * [FileSystemManager.stat](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.stat.html) 的同步版本 */
@@ -9129,6 +9873,46 @@ this.editorCtx.insertImage({
              * 最低基础库： `2.3.0` */
             recursive?: boolean
         ): Stats | IAnyObject
+        /** [[WriteResult](https://developers.weixin.qq.com/miniprogram/dev/api/file/WriteResult.html) FileSystemManager.writeSync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.writeSync.html)
+*
+* 同步写入文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+const fd = fs.openSync({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+'
+})
+const res = fs.writeSync({
+  fd: fd,
+  data: 'some text'
+})
+console.log(res.bytesWritten)
+```
+*
+* 最低基础库： `2.16.1` */
+        writeSync(option: WriteSyncOption): WriteResult
+        /** [string FileSystemManager.openSync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.openSync.html)
+*
+* 同步打开文件，返回文件描述符
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+const fd = fs.openSync({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+'
+})
+console.log(fd)
+```
+*
+* 最低基础库： `2.16.1` */
+        openSync(option: OpenSyncOption): string
         /** [string FileSystemManager.saveFileSync(string tempFilePath, string filePath)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.saveFileSync.html)
          *
          * [FileSystemManager.saveFile](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.saveFile.html) 的同步版本 */
@@ -9179,6 +9963,96 @@ this.editorCtx.insertImage({
              * 最低基础库： `2.10.0` */
             length?: number
         ): string | ArrayBuffer
+        /** [undefined FileSystemManager.closeSync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.closeSync.html)
+*
+* 同步关闭文件
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+const fd = fs.openSync({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+'
+})
+
+// 关闭文件
+fs.closeSync({fd: fd})
+```
+*
+* 最低基础库： `2.16.1` */
+        closeSync(option: CloseSyncOption): undefined
+        /** [undefined FileSystemManager.ftruncateSync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.ftruncateSync.html)
+*
+* 对文件内容进行截断操作
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+const fd = fs.openSync({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  flag: 'a+'
+})
+fs.ftruncateSync({
+  fd: fd,
+  length: 10 // 从第10个字节开始截断文件
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        ftruncateSync(option: FtruncateSyncOption): undefined
+        /** [undefined FileSystemManager.truncateSync(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.truncateSync.html)
+*
+* 对文件内容进行截断操作 (truncate 的同步版本)
+*
+* **示例代码**
+*
+*
+* ```js
+const fs = wx.getFileSystemManager()
+fs.truncateSync({
+  filePath: `${wx.env.USER_DATA_PATH}/hello.txt`,
+  length: 10, // 从第10个字节开始截断
+})
+```
+*
+* 最低基础库： `2.16.1` */
+        truncateSync(option: TruncateSyncOption): undefined
+    }
+    interface FstatSyncError {
+        /** 错误信息
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 |
+         * | fail permission denied | 指定的 fd 路径没有读权限 | */ errMsg: string
+        /** 错误码
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 |
+         * | fail permission denied | 指定的 fd 路径没有读权限 | */ errCode: number
+    }
+    interface FtruncateSyncError {
+        /** 错误信息
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 |
+         * | fail permission denied | 指定的 fd 没有写权限 |
+         * | fail the maximum size of the file storage limit is exceeded | 存储空间不足 |
+         * | fail sdcard not mounted | android sdcard 挂载失败 | */ errMsg: string
+        /** 错误码
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 |
+         * | fail permission denied | 指定的 fd 没有写权限 |
+         * | fail the maximum size of the file storage limit is exceeded | 存储空间不足 |
+         * | fail sdcard not mounted | android sdcard 挂载失败 | */ errCode: number
     }
     interface GeneralCallbackResult {
         errMsg: string
@@ -9553,7 +10427,7 @@ Page({
          * 连接 NFC 标签
          *
          * 最低基础库： `2.11.2` */
-        connect(option?: ConnectOption): void
+        connect(option?: NdefConnectOption): void
         /** [IsoDep.getHistoricalBytes(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/IsoDep.getHistoricalBytes.html)
          *
          * 获取复位信息
@@ -9776,7 +10650,7 @@ Page({
     interface MapContext {
         /** [MapContext.addCustomLayer(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.addCustomLayer.html)
          *
-         * 添加个性化图层。
+         * 添加个性化图层。图层创建[参考文档](https://lbs.qq.com/dev/console/customLayer/create)
          *
          * 最低基础库： `2.12.0` */
         addCustomLayer(option: AddCustomLayerOption): void
@@ -9933,6 +10807,12 @@ Page({
          *
          * 最低基础库： `2.10.0` */
         setCenterOffset(option: SetCenterOffsetOption): void
+        /** [MapContext.setLocMarkerIcon(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.setLocMarkerIcon.html)
+         *
+         * 设置定位点图标，支持网络路径、本地路径、代码包路径
+         *
+         * 最低基础库： `2.16.0` */
+        setLocMarkerIcon(option?: SetLocMarkerIconOption): void
         /** [MapContext.toScreenLocation(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/map/MapContext.toScreenLocation.html)
          *
          * 获取经纬度对应的屏幕坐标，坐标原点为地图左上角。
@@ -10042,12 +10922,6 @@ Page({
         ): void
     }
     interface MediaRecorder {
-        /** [MediaRecorder.destroy()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.destroy.html)
-         *
-         * 销毁录制器
-         *
-         * 最低基础库： `2.11.0` */
-        destroy(): void
         /** [MediaRecorder.off(string eventName, function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.off.html)
          *
          * 取消监听录制事件。当对应事件触发时，该回调函数不再执行。
@@ -10074,36 +10948,42 @@ Page({
             /** 事件触发时执行的回调函数 */
             callback: (...args: any[]) => any
         ): void
-        /** [MediaRecorder.pause()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.pause.html)
+        /** [Promise MediaRecorder.destroy()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.destroy.html)
+         *
+         * 销毁录制器
+         *
+         * 最低基础库： `2.11.0` */
+        destroy(): Promise<any>
+        /** [Promise MediaRecorder.pause()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.pause.html)
          *
          * 暂停录制
          *
          * 最低基础库： `2.11.0` */
-        pause(): void
-        /** [MediaRecorder.requestFrame(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.requestFrame.html)
+        pause(): Promise<any>
+        /** [Promise MediaRecorder.requestFrame(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.requestFrame.html)
          *
          * 请求下一帧录制，在 callback 里完成一帧渲染后开始录制当前帧
          *
          * 最低基础库： `2.11.0` */
-        requestFrame(callback: (...args: any[]) => any): void
-        /** [MediaRecorder.resume()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.resume.html)
+        requestFrame(callback: (...args: any[]) => any): Promise<any>
+        /** [Promise MediaRecorder.resume()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.resume.html)
          *
          * 恢复录制
          *
          * 最低基础库： `2.11.0` */
-        resume(): void
-        /** [MediaRecorder.start()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.start.html)
+        resume(): Promise<any>
+        /** [Promise MediaRecorder.start()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.start.html)
          *
          * 开始录制
          *
          * 最低基础库： `2.11.0` */
-        start(): void
-        /** [MediaRecorder.stop()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.stop.html)
+        start(): Promise<any>
+        /** [Promise MediaRecorder.stop()](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/MediaRecorder.stop.html)
          *
          * 结束录制
          *
          * 最低基础库： `2.11.0` */
-        stop(): void
+        stop(): Promise<any>
     }
     interface MifareClassic {
         /** [MifareClassic.close(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/MifareClassic.close.html)
@@ -10117,7 +10997,7 @@ Page({
          * 连接 NFC 标签
          *
          * 最低基础库： `2.11.2` */
-        connect(option?: ConnectOption): void
+        connect(option?: NdefConnectOption): void
         /** [MifareClassic.getMaxTransceiveLength(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/MifareClassic.getMaxTransceiveLength.html)
          *
          * 获取最大传输长度
@@ -10155,7 +11035,7 @@ Page({
          * 连接 NFC 标签
          *
          * 最低基础库： `2.11.2` */
-        connect(option?: ConnectOption): void
+        connect(option?: NdefConnectOption): void
         /** [MifareUltralight.getMaxTransceiveLength(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/MifareUltralight.getMaxTransceiveLength.html)
          *
          * 获取最大传输长度
@@ -10299,7 +11179,7 @@ Page({
          * 连接 NFC 标签
          *
          * 最低基础库： `2.11.2` */
-        connect(option?: ConnectOption): void
+        connect(option?: NdefConnectOption): void
         /** [Ndef.isConnected(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/Ndef.isConnected.html)
          *
          * 检查是否已连接
@@ -10343,7 +11223,7 @@ Page({
          * 连接 NFC 标签
          *
          * 最低基础库： `2.11.2` */
-        connect(option?: ConnectOption): void
+        connect(option?: NdefConnectOption): void
         /** [NfcA.getAtqa(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcA.getAtqa.html)
          *
          * 获取ATQA信息
@@ -10393,7 +11273,7 @@ Page({
          * 连接 NFC 标签
          *
          * 最低基础库： `2.11.2` */
-        connect(option?: ConnectOption): void
+        connect(option?: NdefConnectOption): void
         /** [NfcB.getMaxTransceiveLength(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcB.getMaxTransceiveLength.html)
          *
          * 获取最大传输长度
@@ -10431,7 +11311,7 @@ Page({
          * 连接 NFC 标签
          *
          * 最低基础库： `2.11.2` */
-        connect(option?: ConnectOption): void
+        connect(option?: NdefConnectOption): void
         /** [NfcF.getMaxTransceiveLength(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcF.getMaxTransceiveLength.html)
          *
          * 获取最大传输长度
@@ -10469,7 +11349,7 @@ Page({
          * 连接 NFC 标签
          *
          * 最低基础库： `2.11.2` */
-        connect(option?: ConnectOption): void
+        connect(option?: NdefConnectOption): void
         /** [NfcV.getMaxTransceiveLength(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/nfc/NfcV.getMaxTransceiveLength.html)
          *
          * 获取最大传输长度
@@ -10646,7 +11526,7 @@ Page({
         ): SelectorQuery
         /** [[SelectorQuery](https://developers.weixin.qq.com/miniprogram/dev/api/wxml/SelectorQuery.html) NodesRef.node(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.node.html)
 *
-* 获取 Node 节点实例。目前支持 [Canvas](https://developers.weixin.qq.com/miniprogram/dev/component/canvas.html) 的获取。
+* 获取 Node 节点实例。
 *
 * **示例代码**
 *
@@ -10691,23 +11571,45 @@ Page({
         ): SelectorQuery
     }
     interface OffscreenCanvas {
+        /** [[Image](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/Image.html) OffscreenCanvas.createImage()](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/OffscreenCanvas.createImage.html)
+         *
+         * 创建一个图片对象。支持在 2D Canvas 和 WebGL Canvas 下使用, 但不支持混用 2D 和 WebGL 的方法。
+         *
+         * ****
+         *
+         * 注意不允许混用 webgl 和 2d 画布创建的图片对象，使用时请注意尽量使用 canvas 自身的 `createImage` 创建图片对象。
+         *
+         * 最低基础库： `2.7.3` */
+        createImage(): Image
         /** [[RenderingContext](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/RenderingContext.html) OffscreenCanvas.getContext(string contextType)](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/OffscreenCanvas.getContext.html)
          *
          * 该方法返回 OffscreenCanvas 的绘图上下文
          *
          * ****
          *
-         * 注意不允许混用 WebGL 和 2d 绘图上下文
+         * 注意不允许混用 webgl 和 2d 绘图上下文，传入的 contextType 必须要与 `wx.createOffscreenCanvas` 传入的 type 类型一致。
          *
          * 最低基础库： `2.7.0` */
         getContext(
-            /**
+            /** 绘图上下文类型，需要与 createOffscreenCanvas 时传入的 type 一致
              *
              * 参数 contextType 可选值：
-             * - 'webgl': 创建 WebGL 绘图上下文;
-             * - '2d': 创建 2d 绘图上下文; */
+             * - 'webgl': webgl类型上下文;
+             * - '2d': 2d类型上下文; */
             contextType: 'webgl' | '2d'
         ): any
+    }
+    interface OpenSyncError {
+        /** 错误信息
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | fail no such file or directory "${filePath}" | 上级目录不存在 | */ errMsg: string
+        /** 错误码
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | fail no such file or directory "${filePath}" | 上级目录不存在 | */ errCode: number
     }
     interface Performance {
         /** [Array Performance.getEntries()](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/Performance.getEntries.html)
@@ -10758,10 +11660,32 @@ Page({
             options: IAnyObject
         ): void
     }
+    interface ReadSyncError {
+        /** 错误信息
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 |
+         * | fail permission denied | 指定的 fd 路径没有读权限 |
+         * | fail the value of "offset" is out of range | 传入的 offset 不合法 |
+         * | fail the value of "length" is out of range | 传入的 length 不合法 |
+         * | fail sdcard not mounted | android sdcard 挂载失败 |
+         * | bad file descriptor | 无效的文件描述符 | */ errMsg: string
+        /** 错误码
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 |
+         * | fail permission denied | 指定的 fd 路径没有读权限 |
+         * | fail the value of "offset" is out of range | 传入的 offset 不合法 |
+         * | fail the value of "length" is out of range | 传入的 length 不合法 |
+         * | fail sdcard not mounted | android sdcard 挂载失败 |
+         * | bad file descriptor | 无效的文件描述符 | */ errCode: number
+    }
     interface RealtimeLogManager {
         /** [RealtimeLogManager.addFilterMsg(string msg)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeLogManager.addFilterMsg.html)
          *
-         * 添加过滤关键字
+         * 添加过滤关键字，暂不支持在插件使用
          *
          * 最低基础库： `2.8.1` */
         addFilterMsg(
@@ -10770,7 +11694,7 @@ Page({
         ): void
         /** [RealtimeLogManager.error()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeLogManager.error.html)
          *
-         * 写 error 日志
+         * 写 error 日志，暂不支持在插件使用
          *
          * 最低基础库： `2.7.1` */
         error(
@@ -10779,7 +11703,7 @@ Page({
         ): void
         /** [RealtimeLogManager.in(Page pageInstance)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeLogManager.in.html)
          *
-         * 设置实时日志page参数所在的页面
+         * 设置实时日志page参数所在的页面，暂不支持在插件使用
          *
          * 最低基础库： `2.9.1` */
         in(
@@ -10788,7 +11712,7 @@ Page({
         ): void
         /** [RealtimeLogManager.info()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeLogManager.info.html)
          *
-         * 写 info 日志
+         * 写 info 日志，暂不支持在插件使用
          *
          * 最低基础库： `2.7.1` */
         info(
@@ -10797,7 +11721,7 @@ Page({
         ): void
         /** [RealtimeLogManager.setFilterMsg(string msg)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeLogManager.setFilterMsg.html)
          *
-         * 设置过滤关键字
+         * 设置过滤关键字，暂不支持在插件使用
          *
          * 最低基础库： `2.7.3` */
         setFilterMsg(
@@ -10806,12 +11730,74 @@ Page({
         ): void
         /** [RealtimeLogManager.warn()](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeLogManager.warn.html)
          *
-         * 写 warn 日志
+         * 写 warn 日志，暂不支持在插件使用
          *
          * 最低基础库： `2.7.1` */
         warn(
             /** 日志内容，可以有任意多个。每次调用的参数的总大小不超过5Kb */
             ...args: any[]
+        ): void
+        /** [[RealtimeTagLogManager](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeTagLogManager.html) RealtimeLogManager.tag(string tagName)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeLogManager.tag.html)
+         *
+         * 获取给定标签的日志管理器实例，目前只支持在插件使用
+         *
+         * 最低基础库： `2.16.0` */
+        tag(
+            /** 标签名 */
+            tagName: string
+        ): RealtimeTagLogManager
+    }
+    interface RealtimeTagLogManager {
+        /** [RealtimeTagLogManager.addFilterMsg(string msg)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeTagLogManager.addFilterMsg.html)
+         *
+         * 添加过滤关键字
+         *
+         * 最低基础库： `2.16.0` */
+        addFilterMsg(
+            /** 是setFilterMsg的添加接口。用于设置多个过滤关键字。 */
+            msg: string
+        ): void
+        /** [RealtimeTagLogManager.error(string key, Object|Array.&lt;any&gt;|number|string value)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeTagLogManager.error.html)
+         *
+         * 写 error 日志
+         *
+         * 最低基础库： `2.16.0` */
+        error(
+            /** 日志的 key */
+            key: string,
+            /** 日志的值，每次调用的参数的总大小不超过5Kb */
+            value: IAnyObject | any[] | number | string
+        ): void
+        /** [RealtimeTagLogManager.info(string key, Object|Array.&lt;any&gt;|number|string value)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeTagLogManager.info.html)
+         *
+         * 写 info 日志
+         *
+         * 最低基础库： `2.16.0` */
+        info(
+            /** 日志的 key */
+            key: string,
+            /** 日志的值，每次调用的参数的总大小不超过5Kb */
+            value: IAnyObject | any[] | number | string
+        ): void
+        /** [RealtimeTagLogManager.setFilterMsg(string msg)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeTagLogManager.setFilterMsg.html)
+         *
+         * 设置过滤关键字
+         *
+         * 最低基础库： `2.16.0` */
+        setFilterMsg(
+            /** 过滤关键字，最多不超过1Kb，可以在小程序管理后台根据设置的内容搜索得到对应的日志。 */
+            msg: string
+        ): void
+        /** [RealtimeTagLogManager.warn(string key, Object|Array.&lt;any&gt;|number|string value)](https://developers.weixin.qq.com/miniprogram/dev/api/base/debug/RealtimeTagLogManager.warn.html)
+         *
+         * 写 warn 日志
+         *
+         * 最低基础库： `2.16.0` */
+        warn(
+            /** 日志的 key */
+            key: string,
+            /** 日志的值，每次调用的参数的总大小不超过5Kb */
+            value: IAnyObject | any[] | number | string
         ): void
     }
     interface RecorderManager {
@@ -11012,7 +11998,7 @@ Page({
         ): void
     }
     interface ScrollViewContext {
-        /** [ScrollViewContext.scrollIntoView(string selector)](https://developers.weixin.qq.com/miniprogram/dev/api/media/scrollview/ScrollViewContext.scrollIntoView.html)
+        /** [ScrollViewContext.scrollIntoView(string selector)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/scroll/ScrollViewContext.scrollIntoView.html)
          *
          * 滚动至指定位置
          *
@@ -11021,7 +12007,7 @@ Page({
             /** 元素选择器 */
             selector: string
         ): void
-        /** [ScrollViewContext.scrollTo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/scrollview/ScrollViewContext.scrollTo.html)
+        /** [ScrollViewContext.scrollTo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/scroll/ScrollViewContext.scrollTo.html)
          *
          * 滚动至指定位置
          *
@@ -11150,11 +12136,37 @@ Component({
          * 判断当前文件是否一个普通文件 */
         isFile(): boolean
     }
+    interface TruncateSyncError {
+        /** 错误信息
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | fail no such file or directory, open ${filePath} | 指定的 filePath 所在目录不存在 |
+         * | fail illegal operation on a directory, open "${filePath}" | 指定的 filePath 是一个已经存在的目录 |
+         * | fail permission denied, open ${dirPath} | 指定的 filePath 路径没有写权限 |
+         * | fail the maximum size of the file storage limit is exceeded | 存储空间不足 |
+         * | fail sdcard not mounted | android sdcard 挂载失败 | */ errMsg: string
+        /** 错误码
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | fail no such file or directory, open ${filePath} | 指定的 filePath 所在目录不存在 |
+         * | fail illegal operation on a directory, open "${filePath}" | 指定的 filePath 是一个已经存在的目录 |
+         * | fail permission denied, open ${dirPath} | 指定的 filePath 路径没有写权限 |
+         * | fail the maximum size of the file storage limit is exceeded | 存储空间不足 |
+         * | fail sdcard not mounted | android sdcard 挂载失败 | */ errCode: number
+    }
     interface UDPSocket {
         /** [UDPSocket.close()](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.close.html)
          *
          * 关闭 UDP Socket 实例，相当于销毁。 在关闭之后，UDP Socket 实例不能再发送消息，每次调用 `UDPSocket.send` 将会触发错误事件，并且 message 事件回调函数也不会再也执行。在 `UDPSocket` 实例被创建后将被 Native 强引用，保证其不被 GC。在 `UDPSocket.close` 后将解除对其的强引用，让 UDPSocket 实例遵从 GC。 */
         close(): void
+        /** [UDPSocket.connect(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.connect.html)
+         *
+         * 预先连接到指定的 IP 和 port，需要配合 write 方法一起使用
+         *
+         * 最低基础库： `2.15.0` */
+        connect(option: UDPSocketConnectOption): void
         /** [UDPSocket.offClose(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.offClose.html)
          *
          * 取消监听关闭事件 */
@@ -11215,6 +12227,12 @@ Component({
          *
          * 向指定的 IP 和 port 发送消息 */
         send(option: UDPSocketSendOption): void
+        /** [UDPSocket.write()](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.write.html)
+         *
+         * 用法与 send 方法相同，如果没有预先调用 connect 则与 send 无差异（注意即使调用了 connect 也需要在本接口填入地址和端口参数）
+         *
+         * 最低基础库： `2.15.0` */
+        write(): void
         /** [number UDPSocket.bind(number port)](https://developers.weixin.qq.com/miniprogram/dev/api/network/udp/UDPSocket.bind.html)
          *
          * 绑定一个系统随机分配的可用端口，或绑定一个指定的端口号 */
@@ -11297,6 +12315,12 @@ Component({
         ): void
     }
     interface VideoContext {
+        /** [VideoContext.exitBackgroundPlayback()](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/VideoContext.exitBackgroundPlayback.html)
+         *
+         * 退出后台音频播放模式。
+         *
+         * 最低基础库： `2.14.3` */
+        exitBackgroundPlayback(): void
         /** [VideoContext.exitFullScreen()](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/VideoContext.exitFullScreen.html)
          *
          * 退出全屏
@@ -11330,6 +12354,12 @@ Component({
             /** 倍率，支持 0.5/0.8/1.0/1.25/1.5，2.6.3 起支持 2.0 倍速 */
             rate: number
         ): void
+        /** [VideoContext.requestBackgroundPlayback()](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/VideoContext.requestBackgroundPlayback.html)
+         *
+         * 进入后台音频播放模式。
+         *
+         * 最低基础库： `2.14.3` */
+        requestBackgroundPlayback(): void
         /** [VideoContext.requestFullScreen(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/VideoContext.requestFullScreen.html)
          *
          * 进入全屏。若有自定义内容需在全屏时展示，需将内容节点放置到 video 节点内。
@@ -11370,6 +12400,33 @@ Component({
          *
          * 最低基础库： `2.11.0` */
         getFrameData(): FrameDataOptions
+        /** [Promise VideoDecoder.remove()](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.remove.html)
+         *
+         * 移除解码器
+         *
+         * 最低基础库： `2.11.0` */
+        remove(): Promise<any>
+        /** [Promise VideoDecoder.seek(number position)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.seek.html)
+         *
+         * 跳到某个时间点解码
+         *
+         * 最低基础库： `2.11.0` */
+        seek(
+            /** 跳转的解码位置，单位 ms */
+            position: number
+        ): Promise<any>
+        /** [Promise VideoDecoder.start(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.start.html)
+         *
+         * 开始解码
+         *
+         * 最低基础库： `2.11.0` */
+        start(option: VideoDecoderStartOption): Promise<any>
+        /** [Promise VideoDecoder.stop()](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.stop.html)
+         *
+         * 停止解码
+         *
+         * 最低基础库： `2.11.0` */
+        stop(): Promise<any>
         /** [VideoDecoder.off(string eventName, function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.off.html)
          *
          * 取消监听录制事件。当对应事件触发时，该回调函数不再执行
@@ -11399,33 +12456,6 @@ Component({
             /** 事件触发时执行的回调函数 */
             callback: (...args: any[]) => any
         ): void
-        /** [VideoDecoder.remove()](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.remove.html)
-         *
-         * 移除解码器
-         *
-         * 最低基础库： `2.11.0` */
-        remove(): void
-        /** [VideoDecoder.seek(number position)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.seek.html)
-         *
-         * 跳到某个时间点解码
-         *
-         * 最低基础库： `2.11.0` */
-        seek(
-            /** 跳转的解码位置，单位 ms */
-            position: number
-        ): void
-        /** [VideoDecoder.start(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.start.html)
-         *
-         * 开始解码
-         *
-         * 最低基础库： `2.11.0` */
-        start(option: VideoDecoderStartOption): void
-        /** [VideoDecoder.stop()](https://developers.weixin.qq.com/miniprogram/dev/api/media/video-decoder/VideoDecoder.stop.html)
-         *
-         * 停止解码
-         *
-         * 最低基础库： `2.11.0` */
-        stop(): void
     }
     interface WifiError {
         /** 错误信息
@@ -11475,9 +12505,9 @@ Component({
         ): void
         /** [Worker.onProcessKilled(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/worker/Worker.onProcessKilled.html)
          *
-         * 监听 worker进程被系统回收事件（当iOS系统资源紧张时，处于后台的小程序/小游戏的worker存在被系统回收的可能，开发者可监听此事件并重新创建一个worker） */
+         * 监听 worker线程被系统回收事件（当iOS系统资源紧张时，worker线程存在被系统回收的可能，开发者可监听此事件并重新创建一个worker）。仅限在主线程 worker 对象上调用。 */
         onProcessKilled(
-            /** worker进程被系统回收事件的回调函数 */
+            /** worker线程被系统回收事件的回调函数 */
             callback: OnProcessKilledCallback
         ): void
         /** [Worker.postMessage(Object message)](https://developers.weixin.qq.com/miniprogram/dev/api/worker/Worker.postMessage.html)
@@ -11511,15 +12541,23 @@ worker.postMessage({
          * 结束当前 Worker 线程。仅限在主线程 worker 对象上调用。 */
         terminate(): void
     }
+    interface WriteSyncError {
+        /** 错误信息
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 |
+         * | fail permission denied | 指定的 fd 路径没有写权限 |
+         * | fail sdcard not mounted | android sdcard 挂载失败 | */ errMsg: string
+        /** 错误码
+         *
+         * | 错误信息 | 说明 |
+         * | - | - |
+         * | bad file descriptor | 无效的文件描述符 |
+         * | fail permission denied | 指定的 fd 路径没有写权限 |
+         * | fail sdcard not mounted | android sdcard 挂载失败 | */ errCode: number
+    }
     interface Wx {
-        /**
-小程序云开发
-*/
-        cloud: WxCloud
-        /**
-文件系统中的用户目录路径
-*/
-        env: { USER_DATA_PATH: string }
         /** [ArrayBuffer wx.base64ToArrayBuffer(string base64)](https://developers.weixin.qq.com/miniprogram/dev/api/base/wx.base64ToArrayBuffer.html)
          *
          * 将 Base64 字符串转成 ArrayBuffer 对象
@@ -11903,12 +12941,71 @@ logger.warn({str: 'hello world'}, 'warn log', 100, [1, 2, 3])
          *
          * 最低基础库： `2.11.2` */
         getNFCAdapter(): NFCAdapter
-        /** [[OffscreenCanvas](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/OffscreenCanvas.html) wx.createOffscreenCanvas()](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/wx.createOffscreenCanvas.html)
+        /** [[OffscreenCanvas](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/OffscreenCanvas.html) wx.createOffscreenCanvas(object object, number width, number height, Object this)](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/wx.createOffscreenCanvas.html)
          *
          * 创建离屏 canvas 实例
          *
-         * 最低基础库： `2.7.0` */
-        createOffscreenCanvas(): OffscreenCanvas
+         * **离屏 Canvas 类型不可混用**
+         *
+         *
+         * 由于 webgl canvas 和 2d canvas 的底层实现方式不同，因此必须要在调用 `wx.createOffscreenCanvas` 时提前指定类型。
+         *
+         * 指定类型后，离屏 canvas `getContext(type)` 调用不允许混用，如不能对 webgl canvas 调用 `getContext('2d')`。
+         *
+         * 同样的，不同类型 canvas 调用 `createImage` 创建的图片对象也不支持混用，使用时请注意尽量使用 canvas 自身的 `createImage` 创建图片对象。
+         *
+         * **与 MediaRecorder 结合**
+         *
+         *
+         * 离屏 webgl canvas 支持作为参数传递给 [`wx.createMediaRecorder`](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/wx.createMediaRecorder.html), 离屏 2d canvas 暂不支持。
+         *
+         * **旧版 createOffscreenCanvas**
+         *
+         *
+         * 旧版函数签名为 `wx.createOffscreenCanvas(width: number, height: number, this: object): OffscreenCanvas`，从基础库 2.7.0 开始支持
+         *
+         * 从基础库 2.16.1 开始改为 `wx.createOffscreenCanvas(options: object): OffscreenCanvas`，向下兼容旧版入参。
+         * 但需注意旧版入参只能创建 webgl 类型，如需创建 2d 类型则必须使用新版。
+         *
+         * 最低基础库： `2.16.1` */
+        createOffscreenCanvas(
+            /** 画布宽度 */
+            width: number,
+            /** 画布高度 */
+            height: number,
+            /** 在自定义组件下，当前组件实例的 this */
+            component?: Component.TrivialInstance | Page.TrivialInstance
+        ): OffscreenCanvas
+        /** [[OffscreenCanvas](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/OffscreenCanvas.html) wx.createOffscreenCanvas(object object, number width, number height, Object this)](https://developers.weixin.qq.com/miniprogram/dev/api/canvas/wx.createOffscreenCanvas.html)
+         *
+         * 创建离屏 canvas 实例
+         *
+         * **离屏 Canvas 类型不可混用**
+         *
+         *
+         * 由于 webgl canvas 和 2d canvas 的底层实现方式不同，因此必须要在调用 `wx.createOffscreenCanvas` 时提前指定类型。
+         *
+         * 指定类型后，离屏 canvas `getContext(type)` 调用不允许混用，如不能对 webgl canvas 调用 `getContext('2d')`。
+         *
+         * 同样的，不同类型 canvas 调用 `createImage` 创建的图片对象也不支持混用，使用时请注意尽量使用 canvas 自身的 `createImage` 创建图片对象。
+         *
+         * **与 MediaRecorder 结合**
+         *
+         *
+         * 离屏 webgl canvas 支持作为参数传递给 [`wx.createMediaRecorder`](https://developers.weixin.qq.com/miniprogram/dev/api/media/media-recorder/wx.createMediaRecorder.html), 离屏 2d canvas 暂不支持。
+         *
+         * **旧版 createOffscreenCanvas**
+         *
+         *
+         * 旧版函数签名为 `wx.createOffscreenCanvas(width: number, height: number, this: object): OffscreenCanvas`，从基础库 2.7.0 开始支持
+         *
+         * 从基础库 2.16.1 开始改为 `wx.createOffscreenCanvas(options: object): OffscreenCanvas`，向下兼容旧版入参。
+         * 但需注意旧版入参只能创建 webgl 类型，如需创建 2d 类型则必须使用新版。
+         *
+         * 最低基础库： `2.16.1` */
+        createOffscreenCanvas(
+            option: CreateOffscreenCanvasOption
+        ): OffscreenCanvas
         /** [[Performance](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/Performance.html) wx.getPerformance()](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/performance/wx.getPerformance.html)
 *
 * 获取当前小程序性能相关的信息。
@@ -11956,10 +13053,18 @@ observer.observe({ entryTypes: ['render', 'script'] })
 *
 *
 * ```js
+// 小程序端
 const logger = wx.getRealtimeLogManager()
 logger.info({str: 'hello world'}, 'info log', 100, [1, 2, 3])
 logger.error({str: 'hello world'}, 'error log', 100, [1, 2, 3])
 logger.warn({str: 'hello world'}, 'warn log', 100, [1, 2, 3])
+
+// 插件端，基础库 2.16.0 版本后支持，只允许采用 key-value 的新格式上报
+const logManager = wx.getRealtimeLogManager()
+const logger = logManager.tag('plugin-log1')
+logger.info('key1', 'value1')
+logger.error('key2', {str: 'value2'})
+logger.warn('key3', 'value3')
 ```
 *
 * 最低基础库： `2.7.1` */
@@ -12114,7 +13219,7 @@ wx.chooseImage({
         createVideoDecoder(): VideoDecoder
         /** [[Worker](https://developers.weixin.qq.com/miniprogram/dev/api/worker/Worker.html) wx.createWorker(string scriptPath, object options)](https://developers.weixin.qq.com/miniprogram/dev/api/worker/wx.createWorker.html)
 *
-* 创建一个 [Worker 线程](https://developers.weixin.qq.com/miniprogram/dev/framework/workers.html)
+* 创建一个 Worker 线程
 *
 * **示例代码**
 *
@@ -12125,8 +13230,15 @@ wx.createWorker('workers/index.js')
 ```
 * ```js
 // 创建实验worker
-wx.createWorker('workers/index.js', {
+const worker = wx.createWorker('workers/index.js', {
   useExperimentalWorker: true
+})
+// 监听worker被系统回收事件
+worker.onProcessKilled(() => {
+  // 重新创建一个worker
+  wx.createWorker('workers/index.js', {
+    useExperimentalWorker: true
+  })
 })
 ```
 *
@@ -12474,7 +13586,6 @@ wx.checkIsSupportSoterAuthentication({
         /** [wx.checkSession(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/login/wx.checkSession.html)
 *
 * 检查登录态是否过期。
-*
 * 通过 wx.login 接口获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。开发者只需要调用 wx.checkSession 接口检测当前用户登录态是否有效。
 *
 * 登录态过期后开发者可以再调用 wx.login 获取新的用户登录态。调用成功说明当前 session_key 未过期，调用失败说明 session_key 已过期。更多使用方法详见 [小程序登录](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html)。
@@ -12523,6 +13634,12 @@ wx.chooseAddress({
         chooseAddress<T extends ChooseAddressOption = ChooseAddressOption>(
             option?: T
         ): PromisifySuccessResult<T, ChooseAddressOption>
+        /** [wx.chooseContact(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/contact/wx.chooseContact.html)
+         *
+         * 拉起手机通讯录，选择联系人。
+         *
+         * 最低基础库： `2.8.0` */
+        chooseContact(option?: ChooseContactOption): void
         /** [wx.chooseImage(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/image/wx.chooseImage.html)
 *
 * 从本地相册选择图片或使用相机拍照。
@@ -12632,6 +13749,12 @@ wx.chooseMessageFile({
         >(
             option: T
         ): PromisifySuccessResult<T, ChooseMessageFileOption>
+        /** [wx.choosePoi(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.choosePoi.html)
+         *
+         * 打开地图选择位置，支持模糊定位（精确到市）和精确定位混选。 */
+        choosePoi<T extends ChoosePoiOption = ChoosePoiOption>(
+            option: T
+        ): PromisifySuccessResult<T, ChoosePoiOption>
         /** [wx.chooseVideo(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/media/video/wx.chooseVideo.html)
 *
 * 拍摄视频或从手机相册中选视频。
@@ -12805,6 +13928,11 @@ wx.connectWifi({
   }
 })
 ```
+*
+* **注意**
+*
+*
+* Android 7.0.22 以上微信 connectWifi 的实现在Android 10及以上的手机无法生效，对于 Android 10 及以上手机 连接 wifi 之后，（受系统能力限制）其他进程无法使用当前连接的 wifi；配置 maunal 连上的 wifi 才是整个设备可用的。
 *
 * 最低基础库： `1.6.0` */
         connectWifi<T extends ConnectWifiOption = ConnectWifiOption>(
@@ -13680,10 +14808,74 @@ Page({
             option: T
         ): PromisifySuccessResult<T, GetUserInfoOption>
         /** [wx.getUserProfile(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/wx.getUserProfile.html)
-         *
-         * 获取用户信息。每次请求都会弹出授权窗口，用户同意后返回 `userInfo`。
-         *
-         * 最低基础库： `2.10.4` */
+*
+* 获取用户信息。页面产生点击事件（例如 `button` 上 `bindtap` 的回调中）后才可调用，每次请求都会弹出授权窗口，用户同意后返回 `userInfo`。该接口用于替换 `wx.getUserInfo`，详见 [用户信息接口调整说明](https://developers.weixin.qq.com/community/develop/doc/000cacfa20ce88df04cb468bc52801?highLine=login)。
+*
+* **示例代码**
+*
+*
+* [在微信开发者工具中查看示例](https://developers.weixin.qq.com/s/tsJaq2mP7Mp4)
+*
+* **Bug & Tip**
+*
+*
+* 1. `tip`：仅小程序中 `wx.getUserInfo` 接口进行调整，小游戏中不受影响；
+* 2. `tip`：开发者工具中仅 2.10.4 及以上版本可访问 `wx.getUserProfile` 接口，在真机上可参考示例代码进行判断，无需根据版本号或者 `canIUse` 进行条件。
+* 3. `tip`：`wx.getUserprofile` 返回的加密数据中不包含 `openId` 和 `unionId` 字段。
+*
+* ```html
+* <view class="container">
+*   <view class="userinfo">
+*     <block wx:if="{{!hasUserInfo}}">
+*       <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+*       <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+*     </block>
+*     <block wx:else>
+*       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+*       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+*     </block>
+*   </view>
+* </view>
+* ```
+*
+* ```js
+Page({
+  data: {
+    userInfo: {},
+    hasUserInfo: false,
+    canIUseGetUserProfile: false,
+  },
+  onLoad() {
+    if (wx.getUserProfile) {
+      this.setData({
+        canIUseGetUserProfile: true
+      })
+    }
+  },
+  getUserProfile(e) {
+    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
+    // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+    wx.getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    })
+  },
+  getUserInfo(e) {
+    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+  },
+})
+```
+*
+* 最低基础库： `2.10.4` */
         getUserProfile<T extends GetUserProfileOption = GetUserProfileOption>(
             option: T
         ): PromisifySuccessResult<T, GetUserProfileOption>
@@ -13884,7 +15076,7 @@ wx.loadFontFace({
         ): PromisifySuccessResult<T, LoadFontFaceOption>
         /** [wx.login(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/login/wx.login.html)
 *
-* 调用接口获取登录凭证（code）。通过凭证进而换取用户登录态信息，包括用户的唯一标识（openid）及本次登录的会话密钥（session_key）等。用户数据的加解密通讯需要依赖会话密钥完成。更多使用方法详见 [小程序登录](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html)。
+* 调用接口获取登录凭证（code）。通过凭证进而换取用户登录态信息，包括用户在当前小程序的唯一标识（openid）、微信开放平台帐号下的唯一标识（unionid，若当前小程序已绑定到微信开放平台帐号）及本次登录的会话密钥（session_key）等。用户数据的加解密通讯需要依赖会话密钥完成。更多使用方法详见 [小程序登录](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html)。
 *
 * **示例代码**
 *
@@ -15482,14 +16674,16 @@ wx.reportAnalytics('purchase', {
             /** 上报的自定义数据，key 为配置中的字段名，value 为上报的数据。 */
             data: IAnyObject
         ): void
-        /** [wx.reportEvent(string eventId)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/report/wx.reportEvent.html)
+        /** [wx.reportEvent(string eventId, object data)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/report/wx.reportEvent.html)
          *
          * 事件上报
          *
          * 最低基础库： `2.14.4` */
         reportEvent(
             /** 在 mp 实验系统中设置的事件英文名 */
-            eventId: string
+            eventId: string,
+            /** 可被 JSON.stringily 的对象，将一起上报至系统 */
+            data?: IAnyObject
         ): void
         /** [wx.reportMonitor(string name, number value)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/report/wx.reportMonitor.html)
 *
@@ -15535,6 +16729,23 @@ wx.reportPerformance(1101, 680, 'custom')
             /** 自定义维度 (选填) */
             dimensions?: string | any[]
         ): void
+        /** [wx.requestOrderPayment(Object args)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/payment/wx.requestOrderPayment.html)
+         *
+         * 创建自定义版交易组件订单，并发起支付。
+         * 仅接入了[自定义版交易组件](/miniprogram/dev/framework/ministore/minishopopencomponent2/Introduction2)的小程序需要使用，普通小程序可直接使用 [`wx.requestPayment`](./wx.requestPayment)。
+         *
+         * **前置检查**
+         *
+         *
+         * 接入自定义版交易组件之后，若要发起微信支付，请先查询[需要校验的场景](/miniprogram/dev/framework/ministore/minishopopencomponent2/API/order/check_scene)。
+         * 在需要校验的场景中，发起微信支付时，必须使用该接口，需要按照要求传入相关的[订单信息](/miniprogram/dev/framework/ministore/minishopopencomponent2/API/order/add_order)进行校验，校验通过后用户才可以完成当前订单的支付，非需要校验的场景则可以按照商家要求自行选择传入订单信息或不传入。
+         *
+         * 最低基础库： `2.16.0` */
+        requestOrderPayment<
+            T extends RequestOrderPaymentOption = RequestOrderPaymentOption
+        >(
+            args: T
+        ): PromisifySuccessResult<T, RequestOrderPaymentOption>
         /** [wx.requestPayment(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/payment/wx.requestPayment.html)
 *
 * 发起微信支付。调用前需在[小程序微信公众平台](https://mp.weixin.qq.com/) -功能-微信支付入口申请接入微信支付。了解更多信息，可以参考 [微信支付开发文档](https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pages/api.shtml)：
@@ -15750,7 +16961,9 @@ wx.scanCode({
     console.log(res)
   }
 })
-``` */
+```
+*
+* 最低基础库： `1.0.0` */
         scanCode<T extends ScanCodeOption = ScanCodeOption>(
             option: T
         ): PromisifySuccessResult<T, ScanCodeOption>
@@ -16199,6 +17412,12 @@ wx.getWifiList()
          * @deprecated 基础库版本 [2.11.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 起已废弃
          *  */
         setWindowSize(option: SetWindowSizeOption): void
+        /** [wx.shareToWeRun(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/werun/wx.shareToWeRun.html)
+         *
+         * 分享数据到微信运动。 */
+        shareToWeRun<T extends ShareToWeRunOption = ShareToWeRunOption>(
+            option: T
+        ): PromisifySuccessResult<T, ShareToWeRunOption>
         /** [wx.showActionSheet(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showActionSheet.html)
 *
 * 显示操作菜单
@@ -17029,6 +18248,10 @@ wx.writeBLECharacteristicValue({
         >(
             option: T
         ): PromisifySuccessResult<T, WriteBLECharacteristicValueOption>
+        /** 小程序云开发 */
+        cloud: WxCloud
+        /** 文件系统中的用户目录路径 */
+        env: { USER_DATA_PATH: string }
     }
 
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -17228,6 +18451,14 @@ wx.writeBLECharacteristicValue({
         result: ChooseAddressSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ChooseContactCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type ChooseContactFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type ChooseContactSuccessCallback = (
+        option: ChooseContactSuccessCallbackOption
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ChooseImageCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type ChooseImageFailCallback = (res: GeneralCallbackResult) => void
@@ -17278,6 +18509,14 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type ChooseMessageFileSuccessCallback = (
         result: ChooseMessageFileSuccessCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ChoosePoiCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type ChoosePoiFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type ChoosePoiSuccessCallback = (
+        result: ChoosePoiSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ChooseVideoCompleteCallback = (res: GeneralCallbackResult) => void
@@ -17449,6 +18688,18 @@ wx.writeBLECharacteristicValue({
         /** 节点的相关信息 */
         res: IAnyObject
     ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type FileSystemManagerCloseCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type FileSystemManagerCloseFailCallback = (
+        result: CloseFailCallbackResult
+    ) => void
+    /** 接口调用成功的回调函数 */
+    type FileSystemManagerCloseSuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
     /** 接口调用失败的回调函数 */
     type FileSystemManagerGetFileInfoFailCallback = (
         result: GetFileInfoFailCallbackResult
@@ -17479,6 +18730,18 @@ wx.writeBLECharacteristicValue({
     type FromScreenLocationSuccessCallback = (
         result: GetCenterLocationSuccessCallbackResult
     ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type FstatCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type FstatFailCallback = (result: FstatFailCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type FstatSuccessCallback = (result: FstatSuccessCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type FtruncateCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type FtruncateFailCallback = (result: FtruncateFailCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type FtruncateSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type GetAtqaCompleteCallback = (res: Nfcrwerror) => void
     /** 接口调用失败的回调函数 */
@@ -18376,7 +19639,7 @@ wx.writeBLECharacteristicValue({
     type OnPlayCallback = (res: GeneralCallbackResult) => void
     /** 用户在系统音乐播放面板点击上一曲事件的回调函数 */
     type OnPrevCallback = (res: GeneralCallbackResult) => void
-    /** worker进程被系统回收事件的回调函数 */
+    /** worker线程被系统回收事件的回调函数 */
     type OnProcessKilledCallback = (res: GeneralCallbackResult) => void
     /** 录音继续事件的回调函数 */
     type OnResumeCallback = (res: GeneralCallbackResult) => void
@@ -18448,11 +19711,15 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type OpenCardSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type OpenCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type OpenDocumentCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type OpenDocumentFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type OpenDocumentSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type OpenFailCallback = (result: OpenFailCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type OpenLocationCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -18473,6 +19740,8 @@ wx.writeBLECharacteristicValue({
     type OpenSettingSuccessCallback = (
         result: OpenSettingSuccessCallbackResult
     ) => void
+    /** 接口调用成功的回调函数 */
+    type OpenSuccessCallback = (result: OpenSuccessCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type OpenVideoEditorCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -18572,6 +19841,10 @@ wx.writeBLECharacteristicValue({
         res: BluetoothError
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ReadCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type ReadFailCallback = (result: ReadFailCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ReadFileCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type ReadFileFailCallback = (result: ReadFileFailCallbackResult) => void
@@ -18579,6 +19852,8 @@ wx.writeBLECharacteristicValue({
     type ReadFileSuccessCallback = (
         result: ReadFileSuccessCallbackResult
     ) => void
+    /** 接口调用成功的回调函数 */
+    type ReadSuccessCallback = (result: ReadSuccessCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ReaddirCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -18671,6 +19946,16 @@ wx.writeBLECharacteristicValue({
     type RequestFullScreenFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type RequestFullScreenSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type RequestOrderPaymentCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type RequestOrderPaymentFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type RequestOrderPaymentSuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type RequestPaymentCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
@@ -18911,6 +20196,12 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type SetKeepScreenOnSuccessCallback = (res: GeneralCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type SetLocMarkerIconCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type SetLocMarkerIconFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type SetLocMarkerIconSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type SetMICVolumeCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type SetMICVolumeFailCallback = (res: GeneralCallbackResult) => void
@@ -19005,6 +20296,12 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type SetZoomSuccessCallback = (result: SetZoomSuccessCallbackResult) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type ShareToWeRunCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type ShareToWeRunFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type ShareToWeRunSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ShowActionSheetCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type ShowActionSheetFailCallback = (res: GeneralCallbackResult) => void
@@ -19082,12 +20379,8 @@ wx.writeBLECharacteristicValue({
     type SnapshotCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type SnapshotFailCallback = (res: GeneralCallbackResult) => void
-    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-    type SocketTaskCloseCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type SocketTaskCloseFailCallback = (res: GeneralCallbackResult) => void
-    /** 接口调用成功的回调函数 */
-    type SocketTaskCloseSuccessCallback = (res: GeneralCallbackResult) => void
     /** WebSocket 连接关闭事件的回调函数 */
     type SocketTaskOnCloseCallback = (
         result: SocketTaskOnCloseCallbackResult
@@ -19458,6 +20751,12 @@ wx.writeBLECharacteristicValue({
     type TranslateMarkerFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type TranslateMarkerSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type TruncateCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type TruncateFailCallback = (result: TruncateFailCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type TruncateSuccessCallback = (res: GeneralCallbackResult) => void
     type UDPSocketOffCloseCallback = (res: GeneralCallbackResult) => void
     /** 错误事件的回调函数 */
     type UDPSocketOffErrorCallback = (
@@ -19578,6 +20877,10 @@ wx.writeBLECharacteristicValue({
         res: GeneralCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type WriteCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type WriteFailCallback = (result: WriteFailCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type WriteFileCompleteCallback = (res: GeneralCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type WriteFileFailCallback = (result: WriteFileFailCallbackResult) => void
@@ -19589,6 +20892,8 @@ wx.writeBLECharacteristicValue({
     type WriteNdefMessageFailCallback = (res: Nfcrwerror) => void
     /** 接口调用成功的回调函数 */
     type WriteNdefMessageSuccessCallback = (res: Nfcrwerror) => void
+    /** 接口调用成功的回调函数 */
+    type WriteSuccessCallback = (result: WriteSuccessCallbackResult) => void
     /** 接口调用失败的回调函数 */
     type WxGetFileInfoFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
