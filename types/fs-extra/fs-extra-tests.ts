@@ -307,7 +307,9 @@ fs.realpath.native('src', { encoding: 'buffer' });
 fs.realpath.native('src', { encoding: null });
 
 async function rmTest() {
+    // $ExpectType void
     await fs.rm('path');
+    // $ExpectType void
     await fs.rm('path', {
         force: true,
         maxRetries: 1,
@@ -317,6 +319,8 @@ async function rmTest() {
 }
 
 async function rmDirTest() {
+    // $ExpectType void
     await fs.rmdir('dir');
+    // $ExpectType void
     await fs.rmdir('dir', { maxRetries: 1, recursive: true, retryDelay: 200 });
 }

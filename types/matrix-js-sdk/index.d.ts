@@ -152,6 +152,8 @@ export type EventType = never
     | 'm.room.tombstone'
     | 'm.room.topic'
     | 'm.sticker'
+    | 'm.direct'
+    | 'm.reaction'
     | 'm.presence';
 
 export type MsgType = never
@@ -465,7 +467,7 @@ export class MatrixClient extends EventEmitter {
     getUsers(): User[];
     getVisibleRooms(): Room[];
     importRoomKeys(keys: object[]): Promise<void>;
-    initCrypto(): void;
+    initCrypto(): Promise<void>;
     invite(roomId: string, userId: string, callback?: MatrixCallback): Promise<void>;
     inviteByEmail(roomId: string, email: string, callback?: MatrixCallback): Promise<void>;
     inviteByThreePid(roomId: string, medium: string, address: string, callback?: MatrixCallback): Promise<void>;
@@ -500,7 +502,7 @@ export class MatrixClient extends EventEmitter {
     members(
         roomId: string, includeMembership: string, excludeMembership: string, atEventId: string, callback?: MatrixCallback,
     ): Promise<object>;
-    mxcUrlToHttp(mxcUrl: string, width: number | null, height: number | null, resizeMethod: string | null, allowDirectLinks: boolean | null): null | string;
+    mxcUrlToHttp(mxcUrl: string, width?: number | null, height?: number | null, resizeMethod?: string | null, allowDirectLinks?: boolean | null): null | string;
     paginateEventTimeline(eventTimeline: EventTimeline, opts?: object): Promise<boolean>;
     peekInRoom(roomId: string): Promise<object>;
     prepareKeyBackupVersion(password: string): Promise<object>;
@@ -581,10 +583,10 @@ export class MatrixClient extends EventEmitter {
         results: Array<{ user_id: string; display_name?: string | null; avatar_url?: string | null; }>;
     }>;
     sendEmoteMessage(
-        roomId: string, body: string, txnId: string, callback?: MatrixCallback,
+        roomId: string, body: string, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendEvent(
-        roomId: string, eventType: EventType, content: object, txnId: string, callback?: MatrixCallback,
+        roomId: string, eventType: EventType, content: object, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendHtmlEmote(
         roomId: string, body: string, htmlBody: string, callback?: MatrixCallback,
@@ -605,7 +607,7 @@ export class MatrixClient extends EventEmitter {
         roomId: string, content: object, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendNotice(
-        roomId: string, body: string, txnId: string, callback?: MatrixCallback,
+        roomId: string, body: string, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendReadReceipt(event: MatrixEvent, callback?: MatrixCallback): Promise<void>;
     sendReceipt(event: MatrixEvent, receiptType: string, callback?: MatrixCallback): Promise<void>;
@@ -615,7 +617,7 @@ export class MatrixClient extends EventEmitter {
     sendStickerMessage(
         roomId: string, url: string, info: object, text: string, callback?: MatrixCallback,
     ): Promise<void>;
-    sendTextMessage(roomId: string, body: string, txnId: string, callback?: MatrixCallback): Promise<void>;
+    sendTextMessage(roomId: string, body: string, txnId?: string, callback?: MatrixCallback): Promise<void>;
     sendToDevice(eventType: EventType, contentMap: {
         [key: string]: {
             [key2: string]: object
@@ -631,6 +633,7 @@ export class MatrixClient extends EventEmitter {
     setDisplayName(name: string, callback?: MatrixCallback): Promise<void>;
     setForceTURN(forceTURN: boolean): void;
     setGlobalBlacklistUnverifiedDevices(value: boolean): void;
+    setGlobalErrorOnUnknownDevices(value: boolean): void;
     setGroupJoinPolicy(groupId: string, policy: object): Promise<void>;
     setGroupProfile(groupId: string, profile: {
         name: string;  // <optional> Name of the group
@@ -699,12 +702,13 @@ export class MatrixClient extends EventEmitter {
     updateGroupRoomVisibility(groupId: string, roomId: string, isPublic: boolean): Promise<void>;
     upgradeRoom(roomId: string, newVersion: string): Promise<{ replacement_room: object }>;
     uploadContent(file: any, opts: {
-        includeFilename: boolean;  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
-        type: string;  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
-        rawResponse: boolean;  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
-        onlyContentUri: boolean; // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
+        name?: string;
+        includeFilename?: boolean;  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
+        type?: string;  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
+        rawResponse?: boolean;  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
+        onlyContentUri?: boolean; // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
         callback?: (...args: any[]) => any;  // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
-        progressHandler: (...args: any[]) => any; // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
+        progressHandler?: (...args: any[]) => any; // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
     }): Promise<string>;
     uploadKeys(): object;
     uploadKeysRequest(content: object, opts?: object, callback?: MatrixCallback): Promise<object>;

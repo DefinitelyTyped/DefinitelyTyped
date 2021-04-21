@@ -2,18 +2,18 @@
  * The event object passed to event callbacks. It is used to provide information about the event as well as a tool to
  * manipulate it.
  */
-export default class EventInfo<T> {
-    constructor(source: T, name: string);
+export default class EventInfo<S extends object = {}, N extends string = ""> {
+    constructor(source: S, name: N);
     /**
      * The object that fired the event.
      *
      */
-    readonly source: T;
+    readonly source: S;
     /**
      * The event name.
      *
      */
-    readonly name: string;
+    readonly name: N;
     /**
      * Path this event has followed. See {@link module:utils/emittermixin~EmitterMixin#delegate}.
      *

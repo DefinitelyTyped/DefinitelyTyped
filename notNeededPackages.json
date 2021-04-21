@@ -44,6 +44,14 @@
             "libraryName": "ajv",
             "asOfVersion": "1.0.0"
         },
+        "algoliasearch": {
+            "libraryName": "algoliasearch",
+            "asOfVersion": "4.0.0"
+        },
+        "algoliasearch-helper": {
+            "libraryName": "algoliasearch-helper",
+            "asOfVersion": "3.0.0"
+        },
         "all-keys": {
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
@@ -391,6 +399,10 @@
         "ci-info": {
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
+        },
+        "classnames": {
+            "libraryName": "classnames",
+            "asOfVersion": "2.3.0"
         },
         "clean-stack": {
             "libraryName": "clean-stack",
@@ -760,6 +772,10 @@
         "dotenv": {
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
+        },
+        "double-metaphone": {
+            "libraryName": "double-metaphone",
+            "asOfVersion": "2.0.0"
         },
         "dva": {
             "libraryName": "dva",
@@ -1321,6 +1337,10 @@
             "libraryName": "has-yarn",
             "asOfVersion": "2.0.0"
         },
+        "hash-it": {
+            "libraryName": "hash-it",
+            "asOfVersion": "5.0.0"
+        },
         "hasha": {
             "libraryName": "hasha",
             "asOfVersion": "4.0.0"
@@ -1348,6 +1368,10 @@
         "hirestime": {
             "libraryName": "hirestime",
             "asOfVersion": "6.0.0"
+        },
+        "hls.js": {
+            "libraryName": "hls.js",
+            "asOfVersion": "1.0.0"
         },
         "homeworks": {
             "libraryName": "homeworks",
@@ -3718,6 +3742,10 @@
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
         },
+        "syllable": {
+            "libraryName": "syllable",
+            "asOfVersion": "5.0.0"
+        },
         "systeminformation": {
             "libraryName": "systeminformation",
             "asOfVersion": "3.54.0"
@@ -4137,6 +4165,10 @@
         "wordpress__escape-html": {
             "libraryName": "@wordpress/escape-html",
             "asOfVersion": "1.8.0"
+        },
+        "wordpress__hooks": {
+            "libraryName": "@wordpress/hooks",
+            "asOfVersion": "2.11.0"
         },
         "wordpress__html-entities": {
             "libraryName": "@wordpress/html-entities",
