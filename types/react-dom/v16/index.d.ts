@@ -6,6 +6,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Jessica Franco <https://github.com/Jessidhia>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
