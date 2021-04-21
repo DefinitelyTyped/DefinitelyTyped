@@ -2709,6 +2709,10 @@
             "libraryName": "path-type",
             "asOfVersion": "4.0.0"
         },
+        "pdfjs-dist": {
+            "libraryName": "pdfjs-dist",
+            "asOfVersion": "2.8.0"
+        },
         "peerjs": {
             "libraryName": "peerjs",
             "asOfVersion": "1.1.0"
