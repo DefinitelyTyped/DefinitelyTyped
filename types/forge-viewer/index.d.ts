@@ -2035,13 +2035,23 @@ declare namespace Autodesk {
           constructor(id: number, name: string, bounds: THREE.Box3);
 
           get bounds(): THREE.Box3;
-          get devices(): object[];
+          get devices(): RoomDevice[];
           get id(): number;
           get info(): { properties: any[] };
           set info(value: { properties: any[] });
           get name(): string;
 
-          addDevice(device: object): void;
+          addDevice(device: RoomDevice): void;
+        }
+
+        class RoomDevice {
+          id: string;
+          position: {
+            x: number;
+            y: number;
+            z: number;
+          };
+          sensorTypes: string[];
         }
 
         class SpriteViewable extends CustomViewable {
