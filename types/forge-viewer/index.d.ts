@@ -2413,6 +2413,29 @@ declare namespace Autodesk {
         }
 
         class EllipseArc {
+          cx: number;
+          cy: number;
+          rx: number;
+          ry: number;
+          rotation: number;
+          startAngle: number;
+          endAngle: number;
+          ccw: boolean;
+
+          constructor(cx: number, cy: number, rx: number, ry: number, rotation: number, startAngle: number, endAngle: number, ccw: boolean);
+
+          computeBBox(targetBox: THREE.Box2): THREE.Box2;
+          getAngleDelta(): number;
+          getPoint(t: number, target: THREE.Vector2): THREE.Vector2;
+          isValid(): boolean;
+          set(cx: number, cy: number, rx: number, ry: number, rotation: number, startAngle: number, endAngle: number, ccw: boolean): EllipseArc;
+          setFromSvgArc(rx: number, ry: number,
+            xAxisRotation: number,
+            largeArcFlag: boolean,
+            sweepFlag: boolean,
+            start: { x: number; y: number; },
+            end: { x: number; y: number; }): EllipseArc;
+          tesselate(ctx: Path2D | LmvCanvasContext, maxSegments: number, minSegmentLength: number): void;
         }
 
         class IntervalTree {
