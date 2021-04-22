@@ -409,7 +409,7 @@ declare namespace Autodesk {
           initViewerInstance(parentDiv: HTMLDivElement, options?: AggregatedViewInitOptions): void;
           isBimWalkActive(): boolean;
           isEmpty(): boolean;
-          isLoadDone(): boolean;
+          isLoadDone(checkTextures?: boolean): boolean;
           isOtgManifestMissing(bubbleNode: BubbleNode): boolean;
           isVisible(node: BubbleNode): boolean;
           load(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
