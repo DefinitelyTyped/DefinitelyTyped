@@ -1,5 +1,5 @@
 import { Data, Node, Point, Position } from 'unist';
-import { Attributes, Literal, Root, Element, Doctype, Comment, Text, Instruction, Cdata } from 'xast';
+import { Parent, Attributes, Literal, Root, Element, Doctype, Comment, Text, Instruction, Cdata } from 'xast';
 
 const data: Data = {
     string: 'string',
@@ -70,6 +70,13 @@ const instruction: Instruction = {
 };
 
 let element: Element = getElement();
+
+const parent: Parent = {
+    type: 'parent',
+    data,
+    position,
+    children: [getElement(), docType, comment, text, instruction, cdata],
+};
 
 let root: Root = {
     type: 'root',

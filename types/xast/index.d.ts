@@ -10,6 +10,7 @@
 import { Parent as UnistParent, Literal as UnistLiteral, Node as UnistNode } from 'unist';
 
 export { UnistNode as Node };
+export { UnistParent as Parent };
 
 /**
  * Node in xast containing a value.
