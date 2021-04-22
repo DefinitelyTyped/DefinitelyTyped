@@ -605,10 +605,24 @@ declare namespace Autodesk {
             enumNodeFragments(node: any, callback: (fragId: number) => void, recursive?: boolean): void;
             getChildCount(dbId: number): number;
             getNodeBox(dbId: number, nodeBox: Float32Array): void;
+            getNodeIndex(dbId: number): number;
+            getNodeName(dbId: number): string;
             getNodeParentId(dbId: number): number;
+            getNodeType(dbId: number): number;
             getRootId(): number;
+            isNodeExplodeLocked(dbId: number): boolean;
+            isNodeHidden(dbId: number): boolean;
+            isNodeOff(dbId: number): boolean;
+            isNodeSelectable(dbId: number): boolean;
+            isNodeSelectionLocked(dbId: number): boolean;
+            isNodeVisibleLocked(dbId: number): boolean;
+            lockNodeExplode(dbId: number, value: boolean): boolean;
+            lockNodeSelection(dbId: number, value: boolean): boolean;
+            lockNodeVisible(dbId: number, value: boolean): boolean;
             setFlagGlobal(flag: any, value: any): void;
             setFlagNode(dbId: number, flag: any, value: any): boolean;
+            setNodeHidden(dbId: number, flag: any, value: boolean): boolean;
+            setNodeOff(dbId: number, flag: any, value: boolean): boolean;
         }
 
         class InstanceTreeAccess {
