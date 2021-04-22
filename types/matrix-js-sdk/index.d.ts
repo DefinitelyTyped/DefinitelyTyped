@@ -1073,6 +1073,40 @@ export class RoomState {
     setTypingEvent(event: MatrixEvent): void;
     setUnknownStateEvents(events: MatrixEvent): void;
 }
+                         
+export interface WebStorage {
+  getItem(key: string): string | null;
+  setItem(key: string, value: string): void;
+  removeItem(key: string): void;
+  key(index: number): string | null;
+  readonly length: number;
+}
+
+export class WebStorageSessionStore {
+  constructor(webStore: WebStorage)
+  store: WebStorage;
+
+
+  removeEndToEndAccount(): void;
+  getEndToEndAccount(): string;
+  getAllEndToEndDevices(): { [id: string]: string | null; }
+  getEndToEndDeviceTrackingStatus(): string;
+  getEndToEndDeviceSyncToken(): string;
+  removeEndToEndDeviceData(): void;
+  getEndToEndSessions(): Record<string, any>;
+  getAllEndToEndSessions(): Record<string, any>;
+  removeAllEndToEndSessions(): void;
+  getAllEndToEndInboundGroupSessionKeys(): {
+    senderKey: string;
+    sessionId: string;
+  };
+  getEndToEndInboundGroupSession(): string;
+  removeAllEndToEndInboundGroupSessions(): void;
+  getAllEndToEndRooms(): Record<string, any>;
+  removeAllEndToEndRooms(): void;
+  setLocalTrustedBackupPubKey(pubkey: string): void;
+  getLocalTrustedBackupPubKey(): string;
+}
 
 export interface CreateClientOption {
     baseUrl?: string;
@@ -1083,6 +1117,7 @@ export interface CreateClientOption {
     deviceToImport?: any;
     identityServer?: { getAccessToken: () => Promise<string> };
     store?: MatrixStore;
+    sessionStore?: WebStorageSessionStore;
     scheduler?: MatrixScheduler;
     cryptoStore?: any;
     deviceId?: string;
