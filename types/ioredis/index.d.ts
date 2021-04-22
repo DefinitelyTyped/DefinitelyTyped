@@ -1163,7 +1163,7 @@ declare namespace IORedis {
         readonly options: RedisOptions;
         readonly status: string;
         connect(callback?: () => void): Promise<void>;
-        disconnect(): void;
+        disconnect(reconnect?: boolean): void;
         duplicate(): Redis;
 
         send_command(command: string, ...args: ValueType[]): Promise<any>;
@@ -1672,7 +1672,7 @@ declare namespace IORedis {
         readonly options: ClusterOptions;
         readonly status: string;
         connect(): Promise<void>;
-        disconnect(): void;
+        disconnect(reconnect?: boolean): void;
         duplicate(overrideStartupNodes?: ReadonlyArray<ClusterNode>, overrideOptions?: ClusterOptions): Cluster;
         nodes(role?: NodeRole): Redis[];
     }
