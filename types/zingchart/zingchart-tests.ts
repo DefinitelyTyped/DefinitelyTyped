@@ -1,3 +1,6 @@
+zingchart.ASYNC = true;
+zingchart.DEV.CANVASVERSION = 2;
+
 zingchart.render({
     id: 'myChart',
     data: {
