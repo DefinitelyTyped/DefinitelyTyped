@@ -110,6 +110,7 @@ export class Fragment<S extends Schema = any> {
      * Cut out the sub-fragment between the two given positions.
      */
     cut(from: number, to?: number): Fragment<S>;
+    cutByIndex(from: number, to: number): Fragment<S>;
     /**
      * Create a new fragment in which the node at the given index is
      * replaced by the given node.
