@@ -1,37 +1,35 @@
 export as namespace zingchart;
+
 export function render(config: object): null;
+export function bind(id: string, eventName: string, cb?: any): void;
+export function exec(id: string, call: string, params: any): any;
+export function unbind(id: string, event: string, fn?: any): void;
 
-declare module 'zingchart/es6/index' {
-  var BUILDCODE: string[];
-  var LICENSE: string[];
-  var LICENSEKEY: string[];
-  var ASYNC: boolean;
-  function bind(id: string, eventName: string, cb?: Function): void;
-  function exec(id: string, call: string, params: any): any | void;
-  var FONTFAMILY: string[];
-  var FONTSIZE: string[];
-  var MODULESDIR: string[];
-  function unbind(id: string, event: string, fn?: Function): void;
-  var ZCOUTPUT: boolean;
-  var SYNTAX: string;
-  var EXPORTURL: string;
-  var AJAXEXPORT: boolean;
-
-  var DEV: {
-    CANVASVERSION?: number;
-    CACHECANVASTEXT?: boolean;
-    CACHESELECTION?: boolean;
-    CHECKDECIMALS?: boolean;
-    COPYDATA?: boolean;
-    KEEPSOURCE?: boolean;
-    MEDIARULES?: boolean;
-    PLOTSTATS?: boolean;
-    SKIPTRACKERS?: boolean;
-    SKIPPROGRESS?: boolean;
-    SORTTOKENS?: boolean;
-    RESOURCES?: boolean;
-  }
-}
+export let BUILDCODE: string[];
+export let LICENSE: string[];
+export let LICENSEKEY: string[];
+export let ASYNC: boolean;
+export let FONTFAMILY: string[];
+export let FONTSIZE: string[];
+export let MODULESDIR: string[];
+export let ZCOUTPUT: boolean;
+export let SYNTAX: string;
+export let EXPORTURL: string;
+export let AJAXEXPORT: boolean;
+export let DEV: {
+  CANVASVERSION?: number;
+  CACHECANVASTEXT?: boolean;
+  CACHESELECTION?: boolean;
+  CHECKDECIMALS?: boolean;
+  COPYDATA?: boolean;
+  KEEPSOURCE?: boolean;
+  MEDIARULES?: boolean;
+  PLOTSTATS?: boolean;
+  SKIPTRACKERS?: boolean;
+  SKIPPROGRESS?: boolean;
+  SORTTOKENS?: boolean;
+  RESOURCES?: boolean;
+};
 
 export interface data {
   globals?: globals;
