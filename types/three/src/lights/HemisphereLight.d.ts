@@ -20,9 +20,9 @@ export class HemisphereLight extends Light {
      */
     position: Vector3;
 
-    skyColor:  Color | string | number;
+    skyColor: Color | string | number;
     
-    groundColor:  Color | string | number;
+    groundColor: Color | string | number;
 
     readonly isHemisphereLight: true;
 }
