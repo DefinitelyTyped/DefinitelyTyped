@@ -1,6 +1,7 @@
 // Type definitions for SmtpJs v3
 // Project: https://smtpjs.com/
 // Definitions by: Linda Paiste <https://github.com/lindapaiste>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * The SmtpJS script exposes a variable `Email` on the global `window` object.
