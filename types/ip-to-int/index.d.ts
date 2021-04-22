@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function ipInt(ip: string): { 
-        "toInt": {(): number}
-        "toIp": {(): string}
+        "toInt": {(): number};
+        "toIp": {(): string};
 }
