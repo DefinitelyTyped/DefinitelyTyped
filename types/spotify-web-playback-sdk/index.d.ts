@@ -14,8 +14,6 @@ interface Window {
 }
 
 declare namespace Spotify {
-    const Player: typeof SpotifyPlayer;
-
     interface Album {
         uri: string;
         name: string;
@@ -102,7 +100,7 @@ declare namespace Spotify {
         & ((event: 'player_state_changed', cb: PlaybackStateListener) => void)
         & ((event: ErrorTypes, cb: ErrorListener) => void);
 
-    class SpotifyPlayer {
+    class Player {
         readonly _options: PlayerInit & {id: string};
         constructor(options: PlayerInit);
 
