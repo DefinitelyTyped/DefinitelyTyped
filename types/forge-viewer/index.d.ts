@@ -2052,6 +2052,7 @@ declare namespace Autodesk {
             z: number;
           };
           sensorTypes: string[];
+          type: string;
         }
 
         class SpriteViewable extends CustomViewable {
