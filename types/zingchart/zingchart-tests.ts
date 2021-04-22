@@ -1,3 +1,6 @@
+zingchart.DEV.CANVASVERSION = 2;
+zingchart.BUILDCODE = ['test', 'test'];
+
 zingchart.render({
     id: 'myChart',
     data: {
@@ -23,3 +26,4 @@ zingchart.render({
         },
     },
 });
+ 
