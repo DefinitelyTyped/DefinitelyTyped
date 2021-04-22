@@ -1,5 +1,8 @@
+import { zingchart, ZC } from "zingchart/server/zingchart-nodejs.min.js";
+
 zingchart.ASYNC = true;
 zingchart.DEV.CANVASVERSION = 2;
+ZC.VERSION = '2.9.4';
 
 zingchart.render({
     id: 'myChart',
