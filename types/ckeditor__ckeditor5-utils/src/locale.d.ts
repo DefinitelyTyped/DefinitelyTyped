@@ -2,14 +2,6 @@
  * Represents the localization services.
  */
 export default class Locale {
-    /**
-     * Creates a new instance of the locale class. Learn more about
-     * {@glink features/ui-language configuring the language of the editor}.
-     *
-     * [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) format. See {@link #uiLanguage}.
-     * [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) format. If not specified, the same as `options.language`.
-     * See {@link #contentLanguage}.
-     */
     constructor(options?: { uiLanguage: string; contentLanguage: string });
     /**
      * The editor UI language code in the [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) format.
@@ -84,12 +76,4 @@ export default class Locale {
      * For messages supporting plural forms the first value will determine the plural form.
      */
     t: (message: string, values?: string[]) => string;
-    /**
-     * The editor UI language code in the [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) format.
-     *
-     * **Note**: This property was deprecated. Please use {@link #uiLanguage} and {@link #contentLanguage}
-     * properties instead.
-     *
-     */
-    readonly language: string;
 }

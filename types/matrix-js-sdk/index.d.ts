@@ -138,7 +138,11 @@ export class User {
     setRawDisplayName(name: string): void;
 }
 
-export type EventType = never
+// this type allows us to define string literals, but also
+// accept just any string. But it will still give autocomplete.
+export type LiteralUnion<T extends U, U = string> = T | (U & {});
+
+export type EventType = LiteralUnion<
     | 'm.room.canonical_alias'
     | 'm.room.encryption'
     | 'm.room.guest_access'
@@ -152,7 +156,9 @@ export type EventType = never
     | 'm.room.tombstone'
     | 'm.room.topic'
     | 'm.sticker'
-    | 'm.presence';
+    | 'm.direct'
+    | 'm.reaction'
+    | 'm.presence'>;
 
 export type MsgType = never
     | 'm.audio'
@@ -465,7 +471,7 @@ export class MatrixClient extends EventEmitter {
     getUsers(): User[];
     getVisibleRooms(): Room[];
     importRoomKeys(keys: object[]): Promise<void>;
-    initCrypto(): void;
+    initCrypto(): Promise<void>;
     invite(roomId: string, userId: string, callback?: MatrixCallback): Promise<void>;
     inviteByEmail(roomId: string, email: string, callback?: MatrixCallback): Promise<void>;
     inviteByThreePid(roomId: string, medium: string, address: string, callback?: MatrixCallback): Promise<void>;
@@ -500,7 +506,7 @@ export class MatrixClient extends EventEmitter {
     members(
         roomId: string, includeMembership: string, excludeMembership: string, atEventId: string, callback?: MatrixCallback,
     ): Promise<object>;
-    mxcUrlToHttp(mxcUrl: string, width: number | null, height: number | null, resizeMethod: string | null, allowDirectLinks: boolean | null): null | string;
+    mxcUrlToHttp(mxcUrl: string, width?: number | null, height?: number | null, resizeMethod?: string | null, allowDirectLinks?: boolean | null): null | string;
     paginateEventTimeline(eventTimeline: EventTimeline, opts?: object): Promise<boolean>;
     peekInRoom(roomId: string): Promise<object>;
     prepareKeyBackupVersion(password: string): Promise<object>;
@@ -581,10 +587,10 @@ export class MatrixClient extends EventEmitter {
         results: Array<{ user_id: string; display_name?: string | null; avatar_url?: string | null; }>;
     }>;
     sendEmoteMessage(
-        roomId: string, body: string, txnId: string, callback?: MatrixCallback,
+        roomId: string, body: string, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendEvent(
-        roomId: string, eventType: EventType, content: object, txnId: string, callback?: MatrixCallback,
+        roomId: string, eventType: EventType, content: object, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendHtmlEmote(
         roomId: string, body: string, htmlBody: string, callback?: MatrixCallback,
@@ -605,7 +611,7 @@ export class MatrixClient extends EventEmitter {
         roomId: string, content: object, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendNotice(
-        roomId: string, body: string, txnId: string, callback?: MatrixCallback,
+        roomId: string, body: string, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendReadReceipt(event: MatrixEvent, callback?: MatrixCallback): Promise<void>;
     sendReceipt(event: MatrixEvent, receiptType: string, callback?: MatrixCallback): Promise<void>;
@@ -615,7 +621,7 @@ export class MatrixClient extends EventEmitter {
     sendStickerMessage(
         roomId: string, url: string, info: object, text: string, callback?: MatrixCallback,
     ): Promise<void>;
-    sendTextMessage(roomId: string, body: string, txnId: string, callback?: MatrixCallback): Promise<void>;
+    sendTextMessage(roomId: string, body: string, txnId?: string, callback?: MatrixCallback): Promise<void>;
     sendToDevice(eventType: EventType, contentMap: {
         [key: string]: {
             [key2: string]: object
@@ -631,6 +637,7 @@ export class MatrixClient extends EventEmitter {
     setDisplayName(name: string, callback?: MatrixCallback): Promise<void>;
     setForceTURN(forceTURN: boolean): void;
     setGlobalBlacklistUnverifiedDevices(value: boolean): void;
+    setGlobalErrorOnUnknownDevices(value: boolean): void;
     setGroupJoinPolicy(groupId: string, policy: object): Promise<void>;
     setGroupProfile(groupId: string, profile: {
         name: string;  // <optional> Name of the group
@@ -699,12 +706,13 @@ export class MatrixClient extends EventEmitter {
     updateGroupRoomVisibility(groupId: string, roomId: string, isPublic: boolean): Promise<void>;
     upgradeRoom(roomId: string, newVersion: string): Promise<{ replacement_room: object }>;
     uploadContent(file: any, opts: {
-        includeFilename: boolean;  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
-        type: string;  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
-        rawResponse: boolean;  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
-        onlyContentUri: boolean; // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
+        name?: string;
+        includeFilename?: boolean;  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
+        type?: string;  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
+        rawResponse?: boolean;  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
+        onlyContentUri?: boolean; // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
         callback?: (...args: any[]) => any;  // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
-        progressHandler: (...args: any[]) => any; // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
+        progressHandler?: (...args: any[]) => any; // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
     }): Promise<string>;
     uploadKeys(): object;
     uploadKeysRequest(content: object, opts?: object, callback?: MatrixCallback): Promise<object>;
@@ -934,25 +942,26 @@ export class Filter {
     setTimelineLimit(limit: number): void;
 }
 // TODO: inherits EventEmitter?
-export class MatrixEvent {
-    event: RawEvent;         //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
+export class MatrixEvent<IEventContentType = EventContentTypeMessage, EventTypeName = EventType> {
+    //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
+    event: RawEvent<IEventContentType, EventTypeName>;
     sender: RoomMember;      //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
     target: RoomMember;      //  The room member who is the target of this event, e.g. the invitee, the person being banned, etc.
     status: EventStatus;     //  The sending status of the event.
     error: Error;            //  most recent error associated with sending the event, if any
     forwardLooking: boolean; //  True if this event is 'forward looking', meaning that getDirectionalContent() will return event.content and not event.prev_content.
 
-    constructor(event: object)
+    constructor(event: RawEvent<IEventContentType, EventTypeName>)
     getId(): string;
     getSender(): string;
-    getType(): EventType;
+    getType(): EventTypeName;
     getWireType(): string;
     getRoomId(): string;
     getTs(): Date;
     getDate(): Date;
-    getContent(): EventContentType;
-    getOriginalContent(): EventContentType;
-    getWireContent(): EventContentType;
+    getContent(): IEventContentType;
+    getOriginalContent(): IEventContentType;
+    getWireContent(): IEventContentType;
     getPrevContent(): object;
     getDirectionalContent(): object;
     getAge(): number;
@@ -965,7 +974,7 @@ export class MatrixEvent {
     attemptDecryption(crypto: CryptoModule, isRetry: boolean): Promise<void>;
     cancelAndResendKeyRequest(crypto: CryptoModule, userId: string): Promise<void>;
     getKeyRequestRecipients(userId: string): Array<{ userId: string; deviceId: string; }>;
-    getClearContent(): EventContentType;
+    getClearContent(): IEventContentType;
     isEncrypted(): boolean;
     getSenderKey(): string;
     getKeysClaimed(): { ed25519: string };
@@ -985,7 +994,7 @@ export class MatrixEvent {
     setStatus(status: EventStatus): void;
     replaceLocalEventId(eventId: string): void;
     isRelation(relType?: string): boolean;
-    getRelation(): EventContentType | null;
+    getRelation(): IEventContentType | null;
     makeReplaced(newEvent?: MatrixEvent): void;
     getAssociatedStatus(): EventStatus;
     getServerAggregatedRelation(relType: string): any[];
@@ -1090,22 +1099,37 @@ export interface CreateClientOption {
 
 export function createClient(ops: string | CreateClientOption): MatrixClient;
 
-export interface EventContentType {
+// Spec: https://matrix.org/docs/spec/client_server/latest#m-room-message
+export interface EventContentTypeMessage {
     body: string;
     msgtype: MsgType;
 }
+// re-export for legacy reasons.
+export type EventContentType = EventContentTypeMessage;
 
-export interface UnsignedType {
-    age: number;
-    redacted_because: RawEvent;
+// Spec: https://matrix.org/docs/spec/client_server/latest#m-audio
+export interface EventContentTypeAudioMessage extends EventContentTypeMessage {
+    msgtype: 'm.audio';
+    url: string;
+    info: {
+        duration: number;
+        mimetype: string;
+        size: number;
+    };
 }
 
-export interface RawEvent {
-    content: EventContentType;
-    origin_server_ts: Date;
+export interface UnsignedType {
+    age?: number;
+    transaction_id?: string;
+    redacted_because?: RawEvent;
+}
+
+export interface RawEvent<IEventContentType = EventContentTypeMessage, EventTypeName = EventType> {
+    content: IEventContentType;
+    origin_server_ts: number;
     sender: string;
-    type: EventType;
-    unsigned: UnsignedType;
+    type: EventTypeName;
+    unsigned?: UnsignedType;
     event_id: string;
     room_id: string;
 }

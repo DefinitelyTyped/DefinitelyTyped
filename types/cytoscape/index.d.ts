@@ -1151,6 +1151,13 @@ declare namespace cytoscape {
         output?: "blob";
     }
 
+    interface ExportBlobPromiseOptions extends ExportOptions {
+        /**
+         * output Whether the output should be 'base64uri' (default), 'base64', 'blob', or 'blob-promise'.
+         */
+        output?: "blob-promise";
+    }
+
     interface ExportJpgOptions extends ExportOptions {
         /**
          * quality Specifies the quality of the image from 0
@@ -1159,9 +1166,14 @@ declare namespace cytoscape {
          */
         quality?: number;
     }
+
     interface ExportJpgStringOptions extends ExportJpgOptions, ExportStringOptions {
     }
+
     interface ExportJpgBlobOptions extends ExportJpgOptions, ExportBlobOptions {
+    }
+
+    interface ExportJpgBlobPromiseOptions extends ExportJpgOptions, ExportBlobPromiseOptions {
     }
 
     interface CoreExport {
@@ -1170,18 +1182,21 @@ declare namespace cytoscape {
          */
         png(options?: ExportStringOptions): string;
         png(options?: ExportBlobOptions): Blob;
+        png(options?: ExportBlobPromiseOptions): Promise<Blob>;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
         jpg(options?: ExportJpgStringOptions): string;
         jpg(options?: ExportJpgBlobOptions): Blob;
+        jpg(options?: ExportJpgBlobPromiseOptions): Promise<Blob>;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
         jpeg(options?: ExportJpgStringOptions): string;
         jpeg(options?: ExportJpgBlobOptions): Blob;
+        jpeg(options?: ExportJpgBlobPromiseOptions): Promise<Blob>;
 
         /**
          * Export the graph as JSON, the same format used at initialisation.
