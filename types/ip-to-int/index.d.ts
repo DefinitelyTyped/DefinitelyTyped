@@ -3,11 +3,7 @@
 // Definitions by: Cogi <https://github.com/dbwodlf3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'ip-to-int' {
-    function ipInt(ip: string): { 
+export function ipInt(ip: string): { 
         "toInt": {(): number}
         "toIp": {(): string}
-    }
-
-    export = ipInt
 }
