@@ -2397,14 +2397,20 @@ declare namespace jsts {
             reducePrecision(geometry: geom.Geometry): void;
         }
 
-
-
         export class WKTWriter {
             /**
              * @constructor
              */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
-            
+
+            /**
+             * Converts a <code>Geometry</code> to its Well-known Text representation.
+             *
+             * @param {Geometry} geometry a <code>Geometry</code> to process.
+             * @return {string} a <Geometry Tagged Text> string (see the OpenGIS Simple
+             *         Features Specification).
+             */
+             write(geometry: geom.Geometry): string;
         }
     }
 
