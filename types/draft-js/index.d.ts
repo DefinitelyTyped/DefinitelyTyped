@@ -1112,6 +1112,7 @@ import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 
+import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
 import Entity = Draft.Model.Entity.DraftEntity;
@@ -1165,6 +1166,7 @@ export {
     EditorBlock,
     EditorState,
     EditorChangeType,
+    DraftDecoratorType,
     DraftDecorator,
     CompositeDecorator,
     Entity,

@@ -1,7 +1,8 @@
-import Emitter, { EmitterMixinDelegateChain } from "./emittermixin";
-import EventInfo from "./eventinfo";
-import Observable, { BindChain } from "./observablemixin";
+import { Emitter, EmitterMixinDelegateChain } from "./emittermixin";
+import { Emitter as DomEmitter } from "./dom/emittermixin";
+import { BindChain, Observable } from "./observablemixin";
 import { PriorityString } from "./priorities";
+import EventInfo from "./eventinfo";
 
 /**
  * Allows observing a group of `HTMLElement`s whether at least one of them is focused.
@@ -16,7 +17,7 @@ import { PriorityString } from "./priorities";
  * Check out the {@glink framework/guides/deep-dive/ui/focus-tracking "Deep dive into focus tracking" guide} to learn more.
  *
  */
-export default class FocusTracker implements Observable {
+export default class FocusTracker implements Observable, Emitter, DomEmitter {
     /**
      * Starts tracking the specified element.
      *

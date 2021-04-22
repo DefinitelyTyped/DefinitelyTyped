@@ -614,3 +614,27 @@ const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = e
     // https://stackblitz.com/edit/oliverjash-react-autosuggest-1lhfk3?file=index.tsx
     element.value; // $ExpectError
 };
+
+{
+    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, "onChange">> = props => null;
+
+    const invalidOnChange = (event: React.FormEvent<HTMLDivElement>) => { };
+    const onChange = (event: React.FormEvent<HTMLElement>) => { };
+    <CustomInput
+        // $ExpectError
+        onChange={invalidOnChange}
+    />;
+    <CustomInput onChange={onChange} />;
+}
+
+{
+    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, "onBlur">> = props => null;
+
+    const invalidOnBlur = (event: React.FocusEvent<HTMLDivElement>) => { };
+    const onBlur = (event: React.FocusEvent<HTMLElement>) => { };
+    <CustomInput
+        // $ExpectError
+        onBlur={invalidOnBlur}
+    />;
+    <CustomInput onBlur={onBlur} />;
+}

@@ -1,4 +1,4 @@
-// Type definitions for google-protobuf 3.7
+// Type definitions for google-protobuf 3.15
 // Project: https://github.com/google/google-protobuf
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
 //                 Chaitanya Kamatham <https://github.com/kamthamc>

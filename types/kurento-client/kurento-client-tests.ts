@@ -66,6 +66,15 @@ async () => {
 };
 
 async () => {
+    // Test RecorderEndpoint
+    const kurentoClient = await kurento('//server');
+    const pipeline = await kurentoClient.create('MediaPipeline'); // $ExpectType MediaPipeline
+    await pipeline.create('RecorderEndpoint', { uri: '' }); // $ExpectType RecorderEndpoint
+    await pipeline.create('RecorderEndpoint', { uri: '', mediaProfile: 'MP4' }); // $ExpectType RecorderEndpoint
+    await pipeline.create('RecorderEndpoint', { uri: '', mediaProfile: 'MP4', stopOnEndOfStream: true }); // $ExpectType RecorderEndpoint
+};
+
+async () => {
     const kurentoClient = await kurento('//server');
     const pipeline = await kurentoClient.create('MediaPipeline'); // $ExpectType MediaPipeline
     const webRtcEp = await pipeline.create('WebRtcEndpoint'); // $ExpectType WebRtcEndpoint

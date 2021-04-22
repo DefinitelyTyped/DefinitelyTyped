@@ -111,12 +111,12 @@ class TransitionToExamples extends Route {
     // because the overload for the version where `models` are passed
     // necessarily includes all objects.
     transitionToModelAndQP() {
-        // $ExpectType Transition<any>
+        // $ExpectType Transition<unknown>
         this.transitionTo('somewhere', { queryParams: { neat: true } });
     }
 
     transitionToJustQP() {
-        // $ExpectType Transition<any>
+        // $ExpectType Transition<unknown>
         this.transitionTo({ queryParams: { neat: 'true' } });
     }
 
@@ -129,22 +129,22 @@ class TransitionToExamples extends Route {
     }
 
     transitionToId() {
-        // $ExpectType Transition<any>
+        // $ExpectType Transition<unknown>
         this.transitionTo('blog-post', 1);
     }
 
     transitionToIdWithQP() {
-        // $ExpectType Transition<any>
+        // $ExpectType Transition<unknown>
         this.transitionTo('blog-post', 1, { queryParams: { includeComments: true } });
     }
 
     transitionToIds() {
-        // $ExpectType Transition<any>
+        // $ExpectType Transition<unknown>
         this.transitionTo('blog-comment', 1, '13');
     }
 
     transitionToIdsWithQP() {
-        // $ExpectType Transition<any>
+        // $ExpectType Transition<unknown>
         this.transitionTo('blog-comment', 1, '13', { queryParams: { includePost: true } });
     }
 

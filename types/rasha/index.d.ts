@@ -6,7 +6,7 @@
 export as namespace Rasha;
 
 export interface Jwk {
-    kty: string;
+    kty: "RSA";
     n: string;
     e: string;
     d: string;

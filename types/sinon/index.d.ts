@@ -1,4 +1,4 @@
-// Type definitions for Sinon 9.0
+// Type definitions for Sinon 10.0
 // Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Lukas Spieß <https://github.com/lumaxis>
@@ -11,7 +11,7 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as FakeTimers from '@sinonjs/fake-timers';
+import * as FakeTimers from "@sinonjs/fake-timers";
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
@@ -170,7 +170,7 @@ declare namespace Sinon {
     interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
         extends Pick<
             SinonSpyCallApi<TArgs, TReturnValue>,
-            Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
+            Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, "args">
         > {
         // Properties
         /**
@@ -383,7 +383,7 @@ declare namespace Sinon {
             ? SinonSpy<TArgs, TReturnValue>
             : SinonSpy;
 
-        <T, K extends keyof T>(obj: T, method: K, types: Array<'get' | 'set'>): PropertyDescriptor & {
+        <T, K extends keyof T>(obj: T, method: K, types: Array<"get" | "set">): PropertyDescriptor & {
             get: SinonSpy<[], T[K]>;
             set: SinonSpy<[T[K]], void>;
         };
@@ -395,7 +395,7 @@ declare namespace Sinon {
 
     type SinonSpiedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue
         ? SinonSpy<TArgs, TReturnValue>
-         : T;
+        : T;
 
     interface SinonStub<TArgs extends any[] = any[], TReturnValue = any> extends SinonSpy<TArgs, TReturnValue> {
         /**
@@ -775,17 +775,13 @@ declare namespace Sinon {
         (obj: any): SinonMock;
     }
 
-    type SinonTimerId = FakeTimers.TimerId;
-
-    type SinonFakeTimers = FakeTimers.InstalledMethods &
-        FakeTimers.NodeClock &
-        FakeTimers.BrowserClock & {
-            /**
-             * Restore the faked methods.
-             * Call in e.g. tearDown.
-             */
-            restore(): void;
-        };
+    type SinonFakeTimers = FakeTimers.Clock & {
+        /**
+         * Restores the original clock
+         * Identical to uninstall()
+         */
+        restore(): void;
+    };
 
     interface SinonFakeTimersConfig {
         now: number | Date;
@@ -1661,7 +1657,7 @@ declare namespace Sinon {
         expectation: SinonExpectationStatic;
 
         clock: {
-            create(now: number | Date): SinonFakeTimers;
+            create(now: number | Date): FakeTimers.Clock;
         };
 
         FakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;

@@ -40,9 +40,21 @@
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
         },
+        "airtable": {
+            "libraryName": "airtable",
+            "asOfVersion": "0.10.0"
+        },
         "ajv": {
             "libraryName": "ajv",
             "asOfVersion": "1.0.0"
+        },
+        "algoliasearch": {
+            "libraryName": "algoliasearch",
+            "asOfVersion": "4.0.0"
+        },
+        "algoliasearch-helper": {
+            "libraryName": "algoliasearch-helper",
+            "asOfVersion": "3.0.0"
         },
         "all-keys": {
             "libraryName": "all-keys",
@@ -392,6 +404,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classnames": {
+            "libraryName": "classnames",
+            "asOfVersion": "2.3.0"
+        },
         "clean-stack": {
             "libraryName": "clean-stack",
             "asOfVersion": "2.1.0"
@@ -564,6 +580,10 @@
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
         },
+        "country-emoji": {
+            "libraryName": "country-emoji",
+            "asOfVersion": "1.5.6"
+        },
         "countup.js": {
             "libraryName": "countup.js",
             "asOfVersion": "2.0.3"
@@ -575,6 +595,10 @@
         "cpy": {
             "libraryName": "cpy",
             "asOfVersion": "7.1.1"
+        },
+        "create-banner": {
+            "libraryName": "create-banner",
+            "asOfVersion": "2.0.0"
         },
         "create-html-element": {
             "libraryName": "create-html-element",
@@ -752,6 +776,10 @@
         "dotenv": {
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
+        },
+        "double-metaphone": {
+            "libraryName": "double-metaphone",
+            "asOfVersion": "2.0.0"
         },
         "dva": {
             "libraryName": "dva",
@@ -996,6 +1024,10 @@
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
+        },
+        "feedme": {
+            "libraryName": "feedme",
+            "asOfVersion": "2.0.2"
         },
         "feedsub": {
             "libraryName": "feedsub",
@@ -1257,10 +1289,6 @@
             "libraryName": "handsontable",
             "asOfVersion": "0.35.0"
         },
-        "hapi-auth-jwt2": {
-            "libraryName": "hapi-auth-jwt2",
-            "asOfVersion": "8.6.1"
-        },
         "hapi__accept": {
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.0"
@@ -1297,6 +1325,10 @@
             "libraryName": "@hapi/wreck",
             "asOfVersion": "17.0.0"
         },
+        "hapi-auth-jwt2": {
+            "libraryName": "hapi-auth-jwt2",
+            "asOfVersion": "8.6.1"
+        },
         "hard-rejection": {
             "libraryName": "hard-rejection",
             "asOfVersion": "2.0.0"
@@ -1308,6 +1340,10 @@
         "has-yarn": {
             "libraryName": "has-yarn",
             "asOfVersion": "2.0.0"
+        },
+        "hash-it": {
+            "libraryName": "hash-it",
+            "asOfVersion": "5.0.0"
         },
         "hasha": {
             "libraryName": "hasha",
@@ -1336,6 +1372,10 @@
         "hirestime": {
             "libraryName": "hirestime",
             "asOfVersion": "6.0.0"
+        },
+        "hls.js": {
+            "libraryName": "hls.js",
+            "asOfVersion": "1.0.0"
         },
         "homeworks": {
             "libraryName": "homeworks",
@@ -2009,10 +2049,6 @@
             "libraryName": "matcher",
             "asOfVersion": "2.0.0"
         },
-        "material-components-web": {
-            "libraryName": "material-components-web",
-            "asOfVersion": "1.0.0"
-        },
         "material__animation": {
             "libraryName": "@material/animation",
             "asOfVersion": "1.0.0"
@@ -2119,6 +2155,10 @@
         },
         "material__top-app-bar": {
             "libraryName": "@material/top-app-bar",
+            "asOfVersion": "1.0.0"
+        },
+        "material-components-web": {
+            "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
         "matrix-appservice-bridge": {
@@ -3686,6 +3726,10 @@
             "libraryName": "svg-pan-zoom",
             "asOfVersion": "3.4.0"
         },
+        "svg-tag-names": {
+            "libraryName": "svg-tag-names",
+            "asOfVersion": "3.0.0"
+        },
         "svg.js": {
             "libraryName": "svg.js",
             "asOfVersion": "2.3.1"
@@ -3701,6 +3745,10 @@
         "sweetalert": {
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
+        },
+        "syllable": {
+            "libraryName": "syllable",
+            "asOfVersion": "5.0.0"
         },
         "systeminformation": {
             "libraryName": "systeminformation",
@@ -3802,6 +3850,10 @@
             "libraryName": "to-semver",
             "asOfVersion": "2.0.0"
         },
+        "tokenizr": {
+            "libraryName": "tokenizr",
+            "asOfVersion": "1.6.0"
+        },
         "transliteration": {
             "libraryName": "transliteration",
             "asOfVersion": "1.6.6"
@@ -3833,6 +3885,10 @@
         "tween.js": {
             "libraryName": "@tweenjs/tween.js",
             "asOfVersion": "18.6.1"
+        },
+        "twilio": {
+            "libraryName": "twilio",
+            "asOfVersion": "3.19.2"
         },
         "typed.js": {
             "libraryName": "typed.js",
@@ -4113,6 +4169,10 @@
         "wordpress__escape-html": {
             "libraryName": "@wordpress/escape-html",
             "asOfVersion": "1.8.0"
+        },
+        "wordpress__hooks": {
+            "libraryName": "@wordpress/hooks",
+            "asOfVersion": "2.11.0"
         },
         "wordpress__html-entities": {
             "libraryName": "@wordpress/html-entities",

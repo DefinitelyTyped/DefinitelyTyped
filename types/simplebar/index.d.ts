@@ -1,6 +1,9 @@
 // Type definitions for simplebar.js 5.1
 // Project: https://github.com/Grsmto/simplebar, https://grsmto.github.io/simplebar
-// Definitions by: Valikhan Akhmedov <https://github.com/val-o>, Gregor Woiwode <https://github.com/gregonnet>, Leonard Thieu <https://github.com/leonard-thieu>
+// Definitions by: Valikhan Akhmedov <https://github.com/val-o>
+//                 Gregor Woiwode <https://github.com/gregonnet>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
+//                 Brad Adams <https://github.com/breadadams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -16,6 +19,7 @@ declare class SimpleBar {
     recalculate(): void;
     getScrollElement(): Element;
     getContentElement(): Element;
+    unMount(): void;
 }
 
 declare namespace SimpleBar {

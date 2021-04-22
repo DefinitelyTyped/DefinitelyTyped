@@ -95,26 +95,23 @@ declare namespace ScCommunicator {
      * Get current environment
      * If environment was not previously configured, use default environment
      *
-     * @public
-     * @returns {Object} Current or default environment
+     * @returns Current or default environment
      */
     getCurrentEnvironment(): Environment;
 
     /**
      * Get specific environment
      *
-     * @public
-     * @param {string} name - Environment name
-     * @returns {Object} Specific or default environment
+     * @param name - Environment name
+     * @returns Specific or default environment
      */
     getSpecificEnvironment(name: string): Environment;
 
     /**
      * Set current environment
      *
-     * @public
-     * @param {string|Object} env - Environment name or custom environment object
-     * @returns {Object} Named or custom environment
+     * @param env - Environment name or custom environment object
+     * @returns Named or custom environment
      */
     setCurrentEnvironment(env: any): Environment;
 

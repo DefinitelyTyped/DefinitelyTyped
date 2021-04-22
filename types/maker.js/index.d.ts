@@ -1651,9 +1651,6 @@ declare namespace MakerJs.measure {
     function boundingHexagon(modelToMeasure: IModel): IBoundingHex;
 }
 declare namespace MakerJs.exporter {
-    /**
-     * @private
-     */
     interface IExportOptions {
         /**
          * Unit system to embed in exported file.
@@ -1662,12 +1659,10 @@ declare namespace MakerJs.exporter {
     }
     /**
      * Try to get the unit system from a model
-     * @private
      */
     function tryGetModelUnits(itemToExport: any): string;
     /**
      * Class to traverse an item 's models or paths and ultimately render each path.
-     * @private
      */
     class Exporter {
         private map;
@@ -1892,14 +1887,12 @@ declare namespace MakerJs.model {
 declare namespace MakerJs.exporter {
     /**
      * Attributes for an XML tag.
-     * @private
      */
     interface IXmlTagAttrs {
         [name: string]: any;
     }
     /**
      * Class for an XML tag.
-     * @private
      */
     class XmlTag {
         name: string;

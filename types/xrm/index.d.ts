@@ -738,6 +738,18 @@ declare namespace Xrm {
         addOnLoad(handler: Events.ContextSensitiveHandler): void;
 
         /**
+         * Gets a boolean value indicating whether the form data has been modified.
+         * @returns Returns true if the form data has changed; false otherwise.
+         */
+        getIsDirty(): boolean;
+
+        /**
+         * Gets a boolean value indicating whether all of the form data is valid. This includes the main entity and any unbound attributes.
+         * @returns Returns true if all of the form data is valid; false otherwise.
+         */
+        isValid(): boolean;
+
+        /**
          * Asynchronously refreshes data on the form, without reloading the page.
          * @param save true to save the record, after the refresh.
          * @returns Returns an asynchronous promise.
@@ -1825,7 +1837,7 @@ declare namespace Xrm {
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.EnumAttribute} instead.
          */
-        interface EnumAttribute extends Attributes.EnumAttribute { }
+        interface EnumAttribute extends Attributes.EnumAttribute<number | boolean> { }
 
         /**
          * Interface for a Boolean attribute.
@@ -2223,7 +2235,7 @@ declare namespace Xrm {
         /**
          * Interface for an Entity attribute.
          */
-        interface Attribute {
+        interface Attribute<T = any> {
             /**
              * Adds a handler to be called when the attribute's value is changed.
              * @param handler The function reference.
@@ -2340,20 +2352,21 @@ declare namespace Xrm {
              * Gets the value.
              * @returns The value.
              */
-            getValue(): any;
+            getValue(): T | null;
 
             /**
              * Sets the value.
              * @param value The value.
+             * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
-            setValue(value: any): void;
+            setValue(value: T | null): void;
         }
 
         /**
          * Interface for a Number attribute.
          * @see {@link Attribute}
          */
-        interface NumberAttribute extends Attribute {
+        interface NumberAttribute extends Attribute<number> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2380,19 +2393,6 @@ declare namespace Xrm {
             getPrecision(): number;
 
             /**
-             * Gets the value.
-             * @returns The value.
-             */
-            getValue(): number;
-
-            /**
-             * Sets the value.
-             * @param value The value.
-             * @remarks Attributes on Quick Create Forms will not save values set with this method.
-             */
-            setValue(value: number): void;
-
-            /**
              * A collection of all the controls on the form that interface with this attribute.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
@@ -2403,7 +2403,7 @@ declare namespace Xrm {
          * Interface for a String attribute.
          * @see {@link Attribute}
          */
-        interface StringAttribute extends Attribute {
+        interface StringAttribute extends Attribute<string> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2419,20 +2419,13 @@ declare namespace Xrm {
             getMaxLength(): number;
 
             /**
-             * Gets the value.
-             *
-             * @returns The value.
-             */
-            getValue(): string;
-
-            /**
              * Sets the value.
              * @param value The value.
              * @remarks A String field with the {@link Attribute.getFormat|email} format enforces email
              *          address formatting. Attributes on Quick Create Forms will not save values set
              *          with this method.
              */
-            setValue(value: string): void;
+            setValue(value: string | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2445,39 +2438,20 @@ declare namespace Xrm {
          * Common interface for enumeration attributes (OptionSet and Boolean).
          * @see {@link Attribute}
          */
-        interface EnumAttribute extends Attribute {
+        interface EnumAttribute<T extends number | boolean> extends Attribute<T> {
             /**
              * Gets the initial value of the attribute.
              * @returns The initial value.
              * @remarks Valid for OptionSet and boolean attribute types
              */
-            getInitialValue(): number | boolean;
+            getInitialValue(): T | null;
         }
 
         /**
          * Interface for a Boolean attribute.
          * @see {@link EnumAttribute}
          */
-        interface BooleanAttribute extends EnumAttribute {
-            /**
-             * Gets the initial value of the attribute.
-             * @returns The initial value.
-             * @remarks Valid for OptionSet and boolean attribute types
-             */
-            getInitialValue(): boolean;
-
-            /**
-             * Gets the value.
-             * @returns true if it succeeds, false if it fails.
-             */
-            getValue(): boolean;
-
-            /**
-             * Sets the value.
-             * @param value The value.
-             * @remarks Attributes on Quick Create Forms will not save values set with this method.
-             */
-            setValue(value: boolean): void;
+        interface BooleanAttribute extends EnumAttribute<boolean> {
         }
 
         /**
@@ -2485,7 +2459,7 @@ declare namespace Xrm {
          *
          * @see {@link Attribute}
          */
-        interface DateAttribute extends Attribute {
+        interface DateAttribute extends Attribute<Date> {
             /**
              * Gets the attribute format.
              *
@@ -2493,19 +2467,6 @@ declare namespace Xrm {
              * Values returned are: date, datetime
              */
             getFormat(): DateAttributeFormat;
-
-            /**
-             * Gets the value.
-             * @returns The value.
-             */
-            getValue(): Date;
-
-            /**
-             * Sets the value.
-             * @param value The value.
-             * @remarks Attributes on Quick Create Forms will not save values set with this method.
-             */
-            setValue(value: Date): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2518,20 +2479,13 @@ declare namespace Xrm {
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-        interface OptionSetAttribute extends EnumAttribute {
+        interface OptionSetAttribute extends EnumAttribute<number> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
              * Values returned are: language, timezone
              */
             getFormat(): OptionSetAttributeFormat;
-
-            /**
-             * Gets the initial value of the attribute.
-             * @returns The initial value.
-             * @remarks Valid for OptionSet and boolean attribute types
-             */
-            getInitialValue(): number;
 
             /**
              * Gets the option matching a value.
@@ -2566,12 +2520,6 @@ declare namespace Xrm {
             getText(): string;
 
             /**
-             * Gets the value.
-             * @returns The value.
-             */
-            getValue(): number;
-
-            /**
              * Sets the value.
              * @param value The value.
              * @remarks     The getOptions() method returns option values as strings. You must use parseInt
@@ -2579,7 +2527,7 @@ declare namespace Xrm {
              *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
-            setValue(value: number): void;
+            setValue(value: number | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2593,25 +2541,12 @@ declare namespace Xrm {
          *
          * @see {@link Attribute}
          */
-        interface LookupAttribute extends Attribute {
+        interface LookupAttribute extends Attribute<LookupValue[]> {
             /**
              * Gets a boolean value indicating whether the Lookup is a multi-value PartyList.
              * @returns true the attribute is a PartyList, otherwise false.
              */
             getIsPartyList(): boolean;
-
-            /**
-             * Gets the value.
-             * @returns An array of LookupValue.
-             */
-            getValue(): LookupValue[];
-
-            /**
-             * Sets the value.
-             * @param value The value.
-             * @remarks Attributes on Quick Create Forms will not save values set with this method.
-             */
-            setValue(value: LookupValue[]): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2729,7 +2664,7 @@ declare namespace Xrm {
             /**
              * Use this to add a function as an event handler for the keypress event so that the function is called when you type a character in the specific text or number field.
              * For a sample JavaScript code that uses the addOnKeyPress method to configure the auto-completion experience, see Sample: Auto-complete in CRM controls.
-             * @deprecated Deprecated in v9.
+             * @deprecated Deprecated in v9.1; Use a custom control.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * @param handler The function reference.
              */
@@ -2737,12 +2672,14 @@ declare namespace Xrm {
 
             /**
              * Use this to manually fire an event handler that you created for a specific text or number field to be executed on the keypress event.
+             * @deprecated Deprecated in v9.1; Use a custom control.
+             * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              */
             fireOnKeyPress(): void;
 
             /**
              * Use this to remove an event handler for a text or number field that you added using addOnKeyPress.
-             * @deprecated Deprecated in v9.
+             * @deprecated Deprecated in v9.1; Use a custom control.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
              * Remarks:  If an anonymous function is set using addOnKeyPress, it can’t be removed using this method.
              * @param handler The function reference.
@@ -3415,6 +3352,7 @@ declare namespace Xrm {
             /**
              * Gets the query string value passed to Silverlight.
              * @returns The data.
+             * @deprecated Silverlight is no longer supported. These methods won't be available after October 2020.
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getData(): string;
@@ -3422,6 +3360,7 @@ declare namespace Xrm {
             /**
              * Sets the query string value passed to Silverlight.
              * @param data The data.
+             * @deprecated Silverlight is no longer supported. These methods won't be available after October 2020.
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             setData(data: string): void;
@@ -3665,6 +3604,14 @@ declare namespace Xrm {
      */
     interface Entity {
         /**
+         * Adds a function to be called after the OnSave is complete.
+         * @param handler The handler.
+         * @remarks Added in 9.2
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/events/postsave External Link: PostSave Event Documentation}
+         */
+        addOnPostSave(handler: Events.ContextSensitiveHandler): void;
+
+         /**
          * Adds a handler to be called when the record is saved.
          * @param handler The handler.
          */
@@ -3725,10 +3672,11 @@ declare namespace Xrm {
         removeOnSave(handler: Events.ContextSensitiveHandler): void;
 
         /**
-         * Saves the record.
+         * Saves the record synchronously with the options to close the form or open a new form after the save is completed.
          * @remarks  When using quick create forms in the web application the saveandnew option is not
          *           applied. It will always work as if saveandclose were used. Quick create forms in
          *           Microsoft Dynamics CRM for tablets will apply the saveandnew behavior.
+         * @deprecated Deprecated in v9.1; This method is deprecated and we recommend to use the formContext.data.save method.
          */
         save(): void;
 
@@ -4647,7 +4595,7 @@ declare namespace Xrm {
             /**
              * Type of view to load. Specify "savedquery" or "userquery".
              * */
-            viewType?: "savedquery" |"userquery";
+            viewType?: "savedquery" | "userquery";
         }
 
         interface PageInputHtmlWebResource {
@@ -5557,10 +5505,10 @@ declare namespace XrmEnum {
         Finished = "finished"
     }
 
-     /**
-      * Constant Enum: Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
-      * @see {@link Xrm.Url.CmdBarDisplay}
-      */
+    /**
+     * Constant Enum: Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
+     * @see {@link Xrm.Url.CmdBarDisplay}
+     */
     const enum CmdBarDisplay {
         True = "true",
         False = "false"

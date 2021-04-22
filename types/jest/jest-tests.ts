@@ -1493,3 +1493,4 @@ test.only.each`
 });
 
 expect('').toHaveProperty('path.to.thing');
+expect('').toHaveProperty('path.to.thing', {});

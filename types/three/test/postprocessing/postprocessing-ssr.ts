@@ -11,8 +11,8 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 const params = {
     enableSSR: true,
     autoRotate: true,
-    isOtherMeshes: true,
-    isGroundReflector: true,
+    otherMeshes: true,
+    groundReflector: true,
 };
 let composer: EffectComposer;
 let ssrPass: SSRPass;
@@ -152,8 +152,8 @@ function init() {
         height: innerHeight,
         encoding: THREE.sRGBEncoding,
         isPerspectiveCamera,
-        groundReflector: params.isGroundReflector ? groundReflector : null,
-        selects: params.isGroundReflector ? selects : null,
+        groundReflector: params.groundReflector ? groundReflector : null,
+        selects: params.groundReflector ? selects : null,
         // morphTargets: true,
     });
     // window.ssrPass = ssrPass

@@ -740,12 +740,14 @@ export interface ResponseObject extends Podium {
     bytes(length: number): ResponseObject;
 
     /**
-     * Sets the 'Content-Type' HTTP header 'charset' property where:
+     * Controls the 'Content-Type' HTTP header 'charset' property of the response.
+     *  * When invoked without any parameter, will prevent hapijs from applying its default charset normalization to 'utf-8'
+     *  * When 'charset' parameter is provided, will set the 'Content-Type' HTTP header 'charset' property where:
      * @param charset - the charset property value.
      * @return Return value: the current response object.
      * [See docs](https://hapijs.com/api/17.0.1#-responsecharsetcharset)
      */
-    charset(charset: string): ResponseObject;
+    charset(charset?: string): ResponseObject;
 
     /**
      * Sets the HTTP status code where:
@@ -2474,7 +2476,8 @@ export type RouteRequestExtType = 'onPreAuth'
     | 'onPostAuth'
     | 'onPreHandler'
     | 'onPostHandler'
-    | 'onPreResponse';
+    | 'onPreResponse'
+    | 'onPostResponse';
 
 export type ServerRequestExtType =
     RouteRequestExtType

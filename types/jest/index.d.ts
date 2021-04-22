@@ -1073,10 +1073,7 @@ declare namespace jest {
     ExpectProperties &
     AndNot<CustomAsyncMatchers<TMatchers>> &
     ExtendedExpectFunction<TMatchers>;
-    /**
-     * Construct a type with the properties of T except for those in type K.
-     */
-    type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
     type NonPromiseMatchers<T extends JestMatchersShape<any>> = Omit<T, 'resolves' | 'rejects' | 'not'>;
     type PromiseMatchers<T extends JestMatchersShape> = Omit<T['resolves'], 'not'>;
 

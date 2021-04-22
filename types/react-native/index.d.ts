@@ -628,20 +628,26 @@ export namespace AppRegistry {
     function getRunnable(appKey: string): Runnable | undefined;
 }
 
-export interface LayoutAnimationTypes {
-    spring: string;
-    linear: string;
-    easeInEaseOut: string;
-    easeIn: string;
-    easeOut: string;
-    keyboard: string;
+export type LayoutAnimationType =
+    | 'spring'
+    | 'linear'
+    | 'easeInEaseOut'
+    | 'easeIn'
+    | 'easeOut'
+    | 'keyboard';
+
+export type LayoutAnimationTypes = {
+    [type in LayoutAnimationType]: type;
 }
 
-export interface LayoutAnimationProperties {
-    opacity: string;
-    scaleX: string;
-    scaleY: string;
-    scaleXY: string;
+export type LayoutAnimationProperty =
+    | 'opacity'
+    | 'scaleX'
+    | 'scaleY'
+    | 'scaleXY';
+
+export type LayoutAnimationProperties = {
+    [prop in LayoutAnimationProperty]: prop;
 }
 
 export interface LayoutAnimationAnim {
@@ -649,8 +655,8 @@ export interface LayoutAnimationAnim {
     delay?: number;
     springDamping?: number;
     initialVelocity?: number;
-    type?: string; //LayoutAnimationTypes
-    property?: string; //LayoutAnimationProperties
+    type?: LayoutAnimationType;
+    property?: LayoutAnimationProperty;
 }
 
 export interface LayoutAnimationConfig {
@@ -679,8 +685,8 @@ export interface LayoutAnimationStatic {
     /** Helper for creating a config for configureNext. */
     create: (
         duration: number,
-        type?: keyof LayoutAnimationTypes,
-        creationProp?: keyof LayoutAnimationProperties
+        type?: LayoutAnimationType,
+        creationProp?: LayoutAnimationProperty
     ) => LayoutAnimationConfig;
     Types: LayoutAnimationTypes;
     Properties: LayoutAnimationProperties;
@@ -4031,6 +4037,11 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
     testID?: string;
 
     /**
+     * Used to reference react managed images from native code.
+     */
+    nativeID?: string;
+
+    /**
      * A static image to display while downloading the final image off the network.
      */
     defaultSource?: ImageURISource | number;
@@ -7001,6 +7012,10 @@ export interface NativeScrollEvent {
     layoutMeasurement: NativeScrollSize;
     velocity?: NativeScrollVelocity;
     zoomScale: number;
+    /**
+     * @platform ios
+     */
+    targetContentOffset?: NativeScrollPoint;
 }
 
 export interface SnapshotViewIOSProps extends ViewProps {
@@ -8611,7 +8626,7 @@ export interface SwitchProps extends SwitchPropsIOS {
      *
      * Color when false and color when true
      */
-    trackColor?: { false: ColorValue; true: ColorValue };
+    trackColor?: { false?: ColorValue | null; true?: ColorValue | null };
 
     /**
      * If true the user won't be able to toggle the switch.
@@ -8764,7 +8779,33 @@ export namespace Animated {
         // Internal class, no public API.
     }
 
-    class AnimatedWithChildren extends Animated {
+    class AnimatedNode {
+        /**
+         * Adds an asynchronous listener to the value so you can observe updates from
+         * animations.  This is useful because there is no way to
+         * synchronously read the value because it might be driven natively.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#addlistener
+         */
+        addListener(callback: (value: any) => any): string;
+        /**
+         * Unregister a listener. The `id` param shall match the identifier
+         * previously returned by `addListener()`.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#removelistener
+         */
+        removeListener(id: string): void;
+        /**
+         * Remove all registered listeners.
+         *
+         * See https://reactnative.dev/docs/animatedvalue.html#removealllisteners
+         */
+        removeAllListeners(): void;
+
+        hasListeners(): boolean;
+    }
+
+    class AnimatedWithChildren extends AnimatedNode {
         // Internal class, no public API.
     }
 

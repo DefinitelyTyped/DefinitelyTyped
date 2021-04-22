@@ -66,6 +66,8 @@ export class WebGLState {
     ): void;
     enable(id: number): void;
     disable(id: number): void;
+    bindFramebuffer(target: number, framebuffer: WebGLFramebuffer | null): void;
+    bindXRFramebuffer(framebuffer: WebGLFramebuffer | null): void;
     useProgram(program: any): boolean;
     setBlending(
         blending: Blending,

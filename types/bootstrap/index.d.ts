@@ -38,6 +38,14 @@ declare global {
         toast: Toast.jQueryInterface;
         [Tooltip.NAME]: Tooltip.jQueryInterface;
     }
+
+    interface Element {
+        addEventListener(
+            type: Carousel.Events,
+            listener: (this: Element, ev: Carousel.Event) => any,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+    }
 }
 
 export { Alert, Button, Carousel, Collapse, Dropdown, Tab, Modal, Offcanvas, Popover, ScrollSpy, Toast, Tooltip };

@@ -1,7 +1,6 @@
-import { Schema } from '@wordpress/api-fetch';
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance } from '@wordpress/blocks';
-import { Autosave } from '@wordpress/core-data';
+import { Autosave, Schema } from '@wordpress/core-data';
 
 export {
     canInsertBlockType,

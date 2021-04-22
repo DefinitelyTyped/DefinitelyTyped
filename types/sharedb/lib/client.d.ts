@@ -11,15 +11,15 @@ export class Connection {
     agent: Agent | null;
     close(): void;
     get(collectionName: string, documentID: string): Doc;
-    createFetchQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
-    createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]} | null, callback: (err: Error, results: any[]) => void): Query;
+    createFetchQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
+    createSubscribeQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
     fetchSnapshot(collection: string, id: string, version: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
     fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
     getPresence(channel: string): Presence;
     getDocPresence(collection: string, id: string): Presence;
 }
 export type Doc<T = any> = ShareDB.Doc<T>;
-export type Query = ShareDB.Query;
+export type Query<T = any> = ShareDB.Query<T>;
 export type Presence<T = any> = ShareDB.Presence<T>;
 export type Error = ShareDB.Error;
 export type Op = ShareDB.Op;
