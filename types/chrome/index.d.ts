@@ -9637,9 +9637,7 @@ declare namespace chrome.windows {
         focused?: boolean;
         /** Optional. Whether the new window should be an incognito window. */
         incognito?: boolean;
-        /**
-         * Optional. Specifies what type of browser window to create.
-         */
+        /** Optional. Specifies what type of browser window to create. */
         type?: createTypeEnum;
         /**
          * Optional.
@@ -9699,7 +9697,6 @@ declare namespace chrome.windows {
 
     /**
      * Specifies what type of browser window to create.
-     * 
      * 'panel' is deprecated and is available only to existing whitelisted extensions on Chrome OS.
      * @since Chrome 44.
      */
