@@ -153,8 +153,8 @@ declare module '.' {
      *
      * The `useTransition` hook returns two values in an array.
      *
-     * The first is a function that takes a callback. We can use it to tell React which state we want to defer.
-     * The seconda boolean. It’s React’s way of informing us whether we’re waiting for the transition to finish.
+     * The first is a boolean. It’s React’s way of informing us whether we’re waiting for the transition to finish.
+     * The second is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
      * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
      *
@@ -162,7 +162,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
-    export function unstable_useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
+    export function unstable_useTransition(config?: SuspenseConfig | null): [boolean, TransitionStartFunction];
 
     const opaqueIdentifierBranding: unique symbol;
     /**
