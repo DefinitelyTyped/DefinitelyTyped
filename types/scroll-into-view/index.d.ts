@@ -1,4 +1,4 @@
-// Type definitions for scroll-into-view 1.6.0
+// Type definitions for scroll-into-view 1.13.1
 // Project: https://github.com/KoryNunn/scroll-into-view
 // Definitions by: zivni <https://github.com/zivni>
 //                 Thibaut <https://github.com/Thibaut-Fatus>
@@ -10,7 +10,12 @@ declare module __ScrollIntoView {
         time?: number
         ease?: (value: number) => number
         validTarget?: (target: HTMLElement, parentsScrolled: number) => boolean
-        align?: Alignment
+        align?: Alignment,
+        isScrollable?: (target: HTMLElement, defaultIsScrollable: (target: HTMLElement) => boolean) => boolean,
+        isWindow?: (target: HTMLElement) => boolean,
+        cancellable?: boolean,
+        maxSynchronousAlignments?: number,
+        debug?: boolean
     }
 
     interface Alignment {
