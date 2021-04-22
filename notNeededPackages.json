@@ -400,6 +400,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classnames": {
+            "libraryName": "classnames",
+            "asOfVersion": "2.3.0"
+        },
         "clean-stack": {
             "libraryName": "clean-stack",
             "asOfVersion": "2.1.0"
@@ -768,6 +772,10 @@
         "dotenv": {
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
+        },
+        "double-metaphone": {
+            "libraryName": "double-metaphone",
+            "asOfVersion": "2.0.0"
         },
         "dva": {
             "libraryName": "dva",
@@ -3733,6 +3741,10 @@
         "sweetalert": {
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
+        },
+        "syllable": {
+            "libraryName": "syllable",
+            "asOfVersion": "5.0.0"
         },
         "systeminformation": {
             "libraryName": "systeminformation",

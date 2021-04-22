@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "syllable-tests.ts"
+        "transform-pouch-tests.ts"
     ]
 }
