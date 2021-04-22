@@ -779,10 +779,10 @@ declare namespace Bull {
      * Returns the queue specific key.
      */
     toKey(queueType: string): string;
-                       
+
     /**
      * Completely destroys the queue and all of its contents irreversibly.
-     * @param force Obliterate the queue even if there are active jobs
+     * @param ops.force Obliterate the queue even if there are active jobs
      */
     obliterate(ops?: { force: boolean}): Promise<void>;
 
