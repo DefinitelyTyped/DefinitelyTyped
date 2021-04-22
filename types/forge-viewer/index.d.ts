@@ -1252,7 +1252,7 @@ declare namespace Autodesk {
                 enableMSDFText?: boolean;
                 enableTextSearch?: boolean;
                 useTextLayer?: boolean;
-              })
+              });
             }
 
             class PDFLoader {
