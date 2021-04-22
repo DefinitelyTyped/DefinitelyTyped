@@ -1073,7 +1073,7 @@ export class RoomState {
     setTypingEvent(event: MatrixEvent): void;
     setUnknownStateEvents(events: MatrixEvent): void;
 }
-                         
+
 export interface WebStorage {
   getItem(key: string): string | null;
   setItem(key: string, value: string): void;
@@ -1086,10 +1086,9 @@ export class WebStorageSessionStore {
   constructor(webStore: WebStorage)
   store: WebStorage;
 
-
   removeEndToEndAccount(): void;
   getEndToEndAccount(): string;
-  getAllEndToEndDevices(): { [id: string]: string | null; }
+  getAllEndToEndDevices(): { [id: string]: string | null; };
   getEndToEndDeviceTrackingStatus(): string;
   getEndToEndDeviceSyncToken(): string;
   removeEndToEndDeviceData(): void;
