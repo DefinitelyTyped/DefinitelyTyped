@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.41
+// Type definitions for non-npm package Forge Viewer 7.42
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -2332,6 +2332,114 @@ declare namespace Autodesk {
     }
 
     namespace Extensions {
+      namespace CompGeom {
+        const DefaultTessParams: {
+          minSegLenFraction: number;
+          numIterations: number;
+        };
+        const ONE_INTERSECTION: number;
+        const OVERLAP: number;
+        const TOL: number;
+        const VERSION: string;
+
+        function angleInsideArc(angle: number, start: number, end: number, ccw?: boolean): boolean;
+        function angleInsideArcCCW(angle: number, start: number, end: number): boolean;
+        function convertToPlaneCoords(planeBasis: any, edges3d: any[], bbox: THREE.Box3): void;
+        function getAngleDelta(startAngle: number, endAngle: number, ccw: boolean): number;
+        function getCubeBezierPoint(t: number, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          px4: number, py4: number,
+          optionalTarget?: THREE.Vector2): any;
+        function getEllipseArcPoint(t: number, cx: number, cy: number, rx: number, ry: number, startAngle: number, endAngle: number, rotation?: number, target?: THREE.Vector2): THREE.Vector2;
+        function getEllipsePoint(angle: number, cx: number, cy: number, rx: number, ry: number, rotation?: number, target?: THREE.Vector2): THREE.Vector2;
+        function isEqual(a: number, b: number): boolean;
+        function isZero(f: number): boolean;
+        function makePlaneBasis(plane: THREE.Plane): any;
+        function normalizeAngle(angle: number): number;
+        function pointOnLine(x: number, y: number, checkInsideSegment: any, precisionDistance: number, outPt: any): boolean;
+        function polygonArea(pts: Array<{ x: number; y: number; }>): number;
+        function segmentsIntersect(e1: any, e2: any, precisionDistance: number): any;
+        function SetTesselationParams(minSegLenFraction: number, numIterations: number): void;
+        function TesselateCubic(ctx: any, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          px4: number, py4: number,
+          maxdim?: number, tessParams?: any, isFont?: boolean): void;
+        function TesselateQuad(ctx: any, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          maxdim?: number, tessParams?: any, isFont?: boolean): void;
+        function xBoxBox(minx1: number, miny1: number, maxx1: number, maxy1: number, minx2: number, miny2: number, maxx2: number, maxy2: number): boolean;
+        function xBoxPlane(plane: THREE.Plane, box: THREE.Box3): boolean;
+        function xLineBox(x0: number, y0: number, x1: number, y1: number, xmin: number, ymin: number, xmax: number, ymax: number): boolean;
+        function xMeshPlane(plane: THREE.Plane, mesh: THREE.Mesh, intersects: any[]): void;
+        function xPlaneSegment(plane: THREE.Plane, pt0: THREE.Vector3, pt1: THREE.Vector3, res1: THREE.Vector3, res2: THREE.Vector3): number;
+        function xTrianglePlane(plane: THREE.Plane, pt0: THREE.Vector3, pt1: THREE.Vector3, pt2: THREE.Vector3, i0: any, i1: any, i2: any, res: THREE.Vector3, meshId: any): void;
+
+        class ComplexPolygon {
+          constructor(uniquePoints: THREE.Vector3[], customInsideChecker?: any, bbox?: THREE.Box3);
+
+          addContour(indices: number[]): void;
+          pointInContour(x: number, y: number, cntr: number[]): boolean;
+          pointInPolygon(x: number, y: number): boolean;
+          triangulate(): void;
+        }
+
+        class ContourSet {
+          constructor();
+
+          addContour(verts: any[], skipZeroAreas: boolean): void;
+          addContourSet(cset: ContourSet): void;
+          area(): number;
+          areaNet(): number;
+          containsPointFrom(cs2: ContourSet): boolean;
+          getThemeColor(): { r: number; g: number; b: number; };
+          hash(): string;
+          perimeter(): number;
+          stitchContours(): void;
+          toExtrudedMesh(thickness: number): any;
+          toPolygonMesh(packNormals: boolean): any;
+          triangulate(customInsideChecker?: any): void;
+        }
+
+        class EdgeSet {
+          constructor(edges: any[], bbox: THREE.Box3, precisionTolerance: number);
+
+          snapEdges(): void;
+          sanitizeEdges(): void;
+          stitchContours(): void;
+          triangulate(): void;
+        }
+
+        class EllipseArc {
+        }
+
+        class IntervalTree {
+        }
+
+        class LmvCanvasContext {
+        }
+
+        class Path2D {
+        }
+
+        class Point {
+        }
+
+        class PointError {
+        }
+
+        class QuadTree {
+        }
+
+        class Triangle {
+        }
+
+        class UniquePointList {
+        }
+      }
+
       namespace Measure {
         class MeasureExtension extends Viewing.Extension {
           activeStatus: boolean;
