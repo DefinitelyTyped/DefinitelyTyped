@@ -1997,6 +1997,7 @@ declare namespace Autodesk {
     namespace DataVisualization {
       namespace Core {
         const MOUSE_CLICK = 'DATAVIZ_OBJECT_CLICK';
+        const MOUSE_CLICK_OUT = 'DATAVIZ_CLICK_OUT';
         const MOUSE_HOVERING = 'DATAVIZ_OBJECT_HOVERING';
 
         enum ViewableType {
