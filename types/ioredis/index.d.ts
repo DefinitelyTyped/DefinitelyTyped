@@ -1746,6 +1746,14 @@ declare namespace IORedis {
          */
         maxRetriesPerRequest?: number | null;
         /**
+         * The milliseconds before a timeout occurs when executing a single
+         * command. By default, there is no timeout and the client will wait
+         * indefinitely. The timeout is enforced only on the client side, not
+         * server side. The server may still complete the operation after a
+         * timeout error occurs on the client side.
+         */
+        commandTimeout?: number;
+        /**
          * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
          * the error and do nothing.
          */
