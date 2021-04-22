@@ -18,8 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "server/zingchart-nodejs.min.js/index.d.ts",
         "zingchart-tests.ts",
         "zingchart-tests-nodejs.ts",
+        "server/zingchart-nodejs.min.js/index.d.ts"
     ]
 }
