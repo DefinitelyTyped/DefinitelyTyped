@@ -158,7 +158,6 @@ export class Fragment<S extends Schema = any> {
      */
     findDiffEnd(other: Fragment<S>): { a: number; b: number } | null | undefined;
     /**
-     * : (number, ?number) → {index: number, offset: number}
      * Find the index and inner offset corresponding to a given relative
      * position in this fragment. The result object will be reused
      * (overwritten) the next time the function is called. (Not public.)
