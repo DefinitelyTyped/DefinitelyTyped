@@ -103,6 +103,6 @@ export as namespace SmtpJS;
  */
 declare global {
     interface Window {
-        Email: Email;
+        Email: typeof Email;
     }
 }
