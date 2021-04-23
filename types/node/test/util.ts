@@ -52,6 +52,8 @@ import { readFile } from 'node:fs';
 
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
+    const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
+
     // util.callbackify
     class callbackifyTest {
         static fn(): Promise<void> {
