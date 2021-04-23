@@ -1,9 +1,9 @@
-import Email from ".";
+import Email = require("smtpjs.com");
 
 const attachment: Email.Attachment = {
     name: "smtpjs.png",
     path: "https://networkprogramming.files.wordpress.com/2017/11/smtpjs.png"
-}
+};
 
 const email: Email.UnsecureEmail = {
     Host: "smtp.yourisp.com",
@@ -13,10 +13,10 @@ const email: Email.UnsecureEmail = {
     From: "you@isp.com",
     Subject: "This is the subject",
     Body: "And this is the body"
-}
+};
 
 // $ExpectType Promise<void>
-Email.send(email).then(message => alert(message));
+Email.send(email).then(alert);
 
 // $ExpectType Promise<string>
 Email.send({...email, Attachments: [attachment]});
