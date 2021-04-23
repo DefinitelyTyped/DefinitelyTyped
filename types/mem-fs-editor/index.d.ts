@@ -1,7 +1,8 @@
-// Type definitions for mem-fs-editor 7.0
+// Type definitions for mem-fs-editor 8.1
 // Project: https://github.com/SBoudrias/mem-fs-editor#readme
 // Definitions by: My Food Bag <https://github.com/MyFoodBag>
 //                 Jason Kwok <https://github.com/JasonHK>
+//                 James Fox <https://github.com/shladdergoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -29,6 +30,8 @@ export interface Editor {
     writeJSON(filepath: string, contents: any, replacer?: WriteJsonReplacer, space?: WriteJsonSpace): string;
 
     append(filepath: string, contents: WriteContents, options?: AppendOptions): string;
+
+    appendTpl(filepath: string, contents: WriteContents, context?: TemplateData, templateOptions?: TemplateOptions, options?: AppendOptions): void;
 
     extendJSON(filepath: string, contents: any, replacer?: WriteJsonReplacer, space?: WriteJsonSpace): void;
 
