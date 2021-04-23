@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-redundant-jsdoc": false,
+        "npm-naming": [
+            true,
+            {
+                "mode": "code",
+                "errors": [
+                    [ "NeedsExportEquals", false ]
+                ]
+            }
+        ]
+    }
+}

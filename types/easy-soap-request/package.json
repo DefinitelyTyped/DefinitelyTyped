@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "axios": "^0.21.1",
+        "@types/node": "^14.14.41"
+    }
+}
