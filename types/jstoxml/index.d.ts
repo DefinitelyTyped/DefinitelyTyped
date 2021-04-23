@@ -16,17 +16,17 @@ export interface XmlElement {
     /**
      * Element's attributes.
      */
-    _attrs?: XmlAttrs|XmlAttrs[];
+    _attrs?: XmlAttrs | XmlAttrs[];
 
     /**
      * Element's content.
      */
-    _content?: XmlElement|XmlElement[]|unknown;
+    _content?: XmlElement | XmlElement[] | unknown;
 
     /**
      * Another way to create (sub)-elements (like in _content).
      */
-    [key: string]: XmlElement|XmlElement[]|unknown;
+    [key: string]: XmlElement | XmlElement[] | unknown;
 }
 
 export interface XmlOptions {
@@ -47,12 +47,12 @@ export interface XmlOptions {
      * when setting to true the default xml header will be added.
      * @default false
      */
-    header?: string|boolean;
+    header?: string | boolean;
 
     /**
      * Custom filter for XML entities.
      */
-     filter?: {[char: string]: string};
+    filter?: { [char: string]: string };
 
     /**
      * Custom filter for XML attributes
@@ -76,7 +76,7 @@ export interface XmlOptions {
     _selfCloseTag?: boolean;
 }
 
-export function toXML(obj?: XmlElement|XmlElement[], options?: XmlOptions): string;
+export function toXML(obj?: XmlElement | XmlElement[], options?: XmlOptions): string;
 
 // do not export every type by default
 export {};
