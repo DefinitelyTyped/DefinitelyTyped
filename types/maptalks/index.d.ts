@@ -2,7 +2,6 @@
 // Project: https://github.com/maptalks/maptalks.js
 // Definitions by: Yu Yan <https://github.com/yanyu510>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 export = maptalks;
 export as namespace maptalks;
