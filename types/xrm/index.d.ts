@@ -556,7 +556,7 @@ declare namespace Xrm {
 
         /**
          * A reference from a control to the Id of a menu item.
-         * 
+         *
          * Most entities will not return a MenuItemId value. Only the following entities will return this value:
          * BusinessUnit
          * Connection
@@ -577,7 +577,6 @@ declare namespace Xrm {
          * Territory
          */
         MenuItemId: string;
-
     }
 
     /**
@@ -585,14 +584,13 @@ declare namespace Xrm {
      * SelectedControlSelectedItemReferences
      * SelectedControlAllItemReferences
      * SelectedControlUnselectedItemReferences
-     * 
+     *
      * Not to be confused with the more commonly used LookupValue.
-     * 
+     *
      * @see LookupValue
      * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)#remarks}
      */
     interface EntityReference {
-
         /**
          * A string of the GUID Id value for the record.
          */
