@@ -2185,6 +2185,10 @@
             "libraryName": "menubar",
             "asOfVersion": "6.0.0"
         },
+        "meow": {
+            "libraryName": "meow",
+            "asOfVersion": "6.0.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
