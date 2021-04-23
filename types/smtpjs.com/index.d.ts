@@ -9,7 +9,7 @@
  * <script src="https://smtpjs.com/v3/smtp.js"></script>
  * Load this types package in order to access the `window.Email` variable with type safety.
  */
-declare namespace Email {
+export as namespace Email {
     /**
      * One or more attachments can be added to the email in the following format.
      * An attachment should have a `name` and can specify it's content through
@@ -96,5 +96,3 @@ declare namespace Email {
      */
     function send(email: UnsecureEmail | SecureEmail): Promise<string>;
 }
-
-export default Email;
