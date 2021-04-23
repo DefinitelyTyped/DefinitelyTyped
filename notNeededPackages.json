@@ -3838,6 +3838,10 @@
             "libraryName": "theme-ui",
             "asOfVersion": "0.3.1"
         },
+        "theme-ui__components": {
+            "libraryName": "@theme-ui/components",
+            "asOfVersion": "0.6.0"
+        },
         "theming": {
             "libraryName": "theming",
             "asOfVersion": "2.0.0"
