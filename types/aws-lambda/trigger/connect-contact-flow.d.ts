@@ -20,11 +20,7 @@ export interface ConnectContactFlowEvent {
             SystemEndpoint: ConnectContactFlowEndpoint | null;
             MediaStreams: {
                 Customer: {
-                    Audio: {
-                        StartFragmentNumber?: string;
-                        StartTimestamp?: string;
-                        StreamARN?: string;
-                    };
+                    Audio: CustomerAudio;
                 };
             };
         };
@@ -49,4 +45,20 @@ export interface ConnectContactFlowQueue {
 
 export interface ConnectContactFlowResult {
     [key: string]: string | null;
+}
+
+type CustomerAudio =
+    | null // If Media Streaming has never been started.
+    | StartedCustomerAudio // If Media Streaming has been started, but not stopped.
+    | StartedCustomerAudio & StoppedCustomerAudio // If Media Streaming has been started and stopped.
+
+type StartedCustomerAudio = {
+    StartFragmentNumber: string;
+    StartTimestamp: string;
+    StreamARN: string;
+}
+
+type StoppedCustomerAudio = {
+    StopFragmentNumber: string,
+    StopTimestamp: string,
 }
