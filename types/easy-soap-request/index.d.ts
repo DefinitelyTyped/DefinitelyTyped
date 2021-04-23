@@ -3,7 +3,7 @@
 // Definitions by: Steven Snoeijen <https://github.com/stevensnoeijen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { AxiosProxyConfig, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { AxiosProxyConfig, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
 export interface Options {
     /**
@@ -68,4 +68,4 @@ export interface Response {
  * @returns parsed from a AxiosResponse
  * @throws {any|AxiosError} response from AxiosError.response.data
  */
- export default function soapRequest(options: Options): Promise<Response>;
+export default function soapRequest(options: Options): Promise<Response>;

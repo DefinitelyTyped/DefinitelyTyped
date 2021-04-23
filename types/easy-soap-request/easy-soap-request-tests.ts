@@ -3,8 +3,8 @@ import soapRequest, { Response } from "easy-soap-request";
 // minimal required options
 // $ExpectType Promise<Response>
 const promise = soapRequest({
-    url: 'http://example.com/soap',
-    xml: '<xml></xml>',
+    url: "http://example.com/soap",
+    xml: "<xml></xml>",
 });
 // response
 promise.then((response: Response) => {});
@@ -12,17 +12,17 @@ promise.then((response: Response) => {});
 // all posible options
 // $ExpectType Promise<Response>
 soapRequest({
-    url: 'http://example.com/soap',
-    xml: '<xml></xml>',
+    url: "http://example.com/soap",
+    xml: "<xml></xml>",
     timeout: 100000,
     headers: {
-        SoapAction: 'test',
+        SoapAction: "test",
     },
     maxBodyLength: 100,
     maxContentLength: 100,
-    method: 'PUT',
+    method: "PUT",
     proxy: {
-        host: 'http://proxy.example.com',
+        host: "http://proxy.example.com",
         port: 1080,
     },
     extraOpts: {
@@ -30,7 +30,7 @@ soapRequest({
         maxRedirects: 1,
         decompress: false,
         socketPath: null,
-    }
+    },
 });
 
 // Missing required options
