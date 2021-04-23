@@ -1983,25 +1983,25 @@ declare namespace videojs {
     };
 
     interface ControlBarOptions extends ComponentOptions {
-        volumePanel?: VolumePanelOptions | false;
-        playToggle?: false;
-        captionsButton?: false;
-        chaptersButton?: false;
-        subtitlesButton?: false;
-        remainingTimeDisplay?: false;
-        progressControl?: ProgressControlOptions | false;
-        fullscreenToggle?: false;
-        playbackRateMenuButton?: false;
-        pictureInPictureToggle?: false;
-        currentTimeDisplay?: false;
-        timeDivider?: false;
-        durationDisplay?: false;
-        liveDisplay?: false;
-        seekToLive?: false;
-        customControlSpacer?: false;
-        descriptionsButton?: false;
-        subsCapsButton?: false;
-        audioTrackButton?: false;
+        volumePanel?: VolumePanelOptions | boolean;
+        playToggle?: boolean;
+        captionsButton?: boolean;
+        chaptersButton?: boolean;
+        subtitlesButton?: boolean;
+        remainingTimeDisplay?: boolean;
+        progressControl?: ProgressControlOptions | boolean;
+        fullscreenToggle?: boolean;
+        playbackRateMenuButton?: boolean;
+        pictureInPictureToggle?: boolean;
+        currentTimeDisplay?: boolean;
+        timeDivider?: boolean;
+        durationDisplay?: boolean;
+        liveDisplay?: boolean;
+        seekToLive?: boolean;
+        customControlSpacer?: boolean;
+        descriptionsButton?: boolean;
+        subsCapsButton?: boolean;
+        audioTrackButton?: boolean;
     }
 
     /**
