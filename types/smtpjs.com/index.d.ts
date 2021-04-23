@@ -1,4 +1,4 @@
-// Type definitions for SmtpJs v3
+// Type definitions for SmtpJs 3.0
 // Project: https://smtpjs.com/
 // Definitions by: Linda Paiste <https://github.com/lindapaiste>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -89,8 +89,8 @@ declare namespace Email {
     /**
      * The only public method of the `window.Email` object is the `send` function, which is used to send an email.
      *
-     * @param {UnsecureEmail | SecureEmail} email - The email object to send.
-     * @return {Promise<string>} - The send function returns a Promise which will resolve when the email has been sent
+     * @param email - The email object to send.
+     * @return - The send function returns a Promise which will resolve when the email has been sent
      * or an error has occurred.  The resolved value of the Promise is a message of "OK" for success or an error
      * message on failure.
      */
