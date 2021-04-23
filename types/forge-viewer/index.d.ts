@@ -2463,6 +2463,17 @@ declare namespace Autodesk {
         }
       }
 
+      namespace DocumentBrowser {
+        class DocumentBrowser extends Viewing.Extension {
+          currNode: Viewing.BubbleNode;
+          geometries: Viewing.BubbleNode[];
+          rootNode: Viewing.BubbleNode;
+
+          loadNextModel(viewerConfig?: any, loadOptions?: any): void;
+          loadPrevModel(viewerConfig?: any, loadOptions?: any): void;
+        }
+      }
+
       namespace Measure {
         class MeasureExtension extends Viewing.Extension {
           activeStatus: boolean;
