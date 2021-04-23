@@ -14,4 +14,9 @@ declare module 'timers/promises' {
      * Returns a promise that resolves in the next tick.
      */
     function setImmediate<T>(value: T, options?: TimerOptions): Promise<T>;
+
+    /**
+     * Returns an async iterator that generates values in an interval of delay ms.
+     */
+    function setInterval<T>(delay: number, value?: T, options?: TimerOptions): Promise<T>;
 }
