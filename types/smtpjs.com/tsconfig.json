@@ -10,7 +10,8 @@
             "../"
         ],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "types": []
     },
     "files": [
         "index.d.ts",
