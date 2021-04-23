@@ -1,9 +1,12 @@
-import * as emojiFlags from 'emoji-flags';
+import emojiFlags = require("emoji-flags");
 
-function emojiFlagTest() {
-    emojiFlags.countryCode('US');
-    emojiFlags.countryCode('US').emoji;
+emojiFlags.countryCode("US"); // $ExpectTYpe string
+emojiFlags.countryCode("US").emoji; // $ExpectTYpe string
+emojiFlags.data; // $ExpectType CountryData[]
+emojiFlags.DK; // $ExpectType CountryData
+emojiFlags.DK.emoji; // $ExpectType string
 
-    emojiFlags.DK;
-    emojiFlags.DK.emoji;
-}
+emojiFlags.emojis; // $ExpectType string[]
+emojiFlags.codes; // $ExpectType string[]
+emojiFlags.names; // $ExpectType string[]
+emojiFlags.unicodes; // $ExpectType string[]
