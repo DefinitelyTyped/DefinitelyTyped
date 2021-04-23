@@ -1,3 +1,5 @@
+import Email from "smtpjs.com";
+
 const attachment: Email.Attachment = {
     name: "smtpjs.png",
     path: "https://networkprogramming.files.wordpress.com/2017/11/smtpjs.png"
