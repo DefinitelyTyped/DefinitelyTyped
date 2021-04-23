@@ -2349,6 +2349,10 @@
             "libraryName": "next",
             "asOfVersion": "9.0.0"
         },
+        "next-auth": {
+            "libraryName": "next-auth",
+            "asOfVersion": "3.15.0"
+        },
         "next-redux-wrapper": {
             "libraryName": "next-redux-wrapper",
             "asOfVersion": "3.0.0"
