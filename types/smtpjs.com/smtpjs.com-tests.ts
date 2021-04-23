@@ -15,10 +15,14 @@ const email: Email.UnsecureEmail = {
     Body: "And this is the body"
 }
 
+// $ExpectType Promise<void>
 Email.send(email).then(message => alert(message));
-Email.send({...email, Attachments: [attachment]}).then(message => alert(message));
 
-const promise: Promise<string> = Email.send({
+// $ExpectType Promise<string>
+Email.send({...email, Attachments: [attachment]});
+
+// $ExpectType Promise<string>
+Email.send({
     SecureToken: "C973D7AD-F097-4B95-91F4-40ABC5567812",
     To: 'them@website.com',
     From: "you@isp.com",
