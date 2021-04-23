@@ -91,7 +91,7 @@ declare namespace Email {
     function send(email: UnsecureEmail | SecureEmail): Promise<string>;
 }
 
-export = Email;
+export default Email;
 
 export as namespace SmtpJS;
 
