@@ -98,11 +98,19 @@ declare module 'cluster' {
         Worker: Worker;
         disconnect(callback?: () => void): void;
         fork(env?: any): Worker;
+        isPrimary: boolean;
+
+        /** @deprecated since v16.0.0 - use isPrimary. */
         isMaster: boolean;
+
         isWorker: boolean;
         schedulingPolicy: number;
         settings: ClusterSettings;
+        setupPrimary(settings?: ClusterSettings): void;
+
+        /** @deprecated since v16.0.0 - use setupPrimary. */
         setupMaster(settings?: ClusterSettings): void;
+
         worker?: Worker;
         workers?: NodeJS.Dict<Worker>;
 
@@ -184,7 +192,11 @@ declare module 'cluster' {
     const isWorker: boolean;
     let schedulingPolicy: number;
     const settings: ClusterSettings;
+    function setupPrimary(settings?: ClusterSettings): void;
+
+    /** @deprecated since v16.0.0 - use setupPrimary. */
     function setupMaster(settings?: ClusterSettings): void;
+
     const worker: Worker;
     const workers: NodeJS.Dict<Worker>;
 
