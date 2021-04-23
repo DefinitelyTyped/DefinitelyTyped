@@ -133,6 +133,9 @@ import * as net from 'node:net';
 
     // method
     const method: string = req.method;
+
+    // getRawHeaderNames
+    const headerNames: string[] = req.getRawHeaderNames();
 }
 
 {

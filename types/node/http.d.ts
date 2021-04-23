@@ -311,6 +311,8 @@ declare module 'http' {
         prependOnceListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
         prependOnceListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        getRawHeaderNames(): string[];
     }
 
     class IncomingMessage extends stream.Readable {
