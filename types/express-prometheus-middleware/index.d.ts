@@ -23,7 +23,7 @@ interface UserOptions {
    * This option supports Promise results.
    */
   authenticate?: ((req: express.Request) => boolean) | ((req: express.Request) => Promise<boolean>);
-  /** Whether or not to collect prom-client default metrics. These metrics are usefull for collecting saturation metrics, for example. Defaults to true */
+  /** Whether or not to collect prom-client default metrics. These metrics are useful for collecting saturation metrics, for example. Defaults to true */
   collectDefaultMetrics?: boolean;
   /**
    * Whether or not to collect garbage collection metrics via module prometheus-gc-stats.
@@ -33,6 +33,10 @@ interface UserOptions {
   collectGCMetrics?: boolean;
   /** Buckets for the request duration metrics (in milliseconds) histogram. */
   requestDurationBuckets?: number[];
+  /** Buckets for the request length metrics (in bytes) histogram. Defaults to [] */
+  requestLengthBuckets?: number[];
+  /** Buckets for the response length metrics (in bytes) histogram. Defaults to [] */
+  responseLengthBuckets?: number[];
   /** Optional, list of regexes to be used as argument to url-value-parser, this will cause extra route params, to be replaced with a #val placeholder. */
   extraMasks?: RegExp[];
   /** Optional prefix for the metrics name. By default, no prefix is added. */
@@ -41,6 +45,8 @@ interface UserOptions {
   customLabels?: string[];
   /** Optional function(labels, req, res) adds to the labels object dynamic values for each label in customLabels */
   transformLabels?: (labels: Labels, req: express.Request, res: express.Response) => void;
+  /** Whether or not to normalize http status codes. Defaults to true */
+  normalizeStatus?: boolean;
 }
 
 declare function expressPrometheusMiddleware(userOptions: UserOptions): express.Express;
