@@ -107,6 +107,8 @@ declare namespace chayns {
 
     function findSite(name: string, skip?: number, take?: number): Promise<Site[]>;
 
+    function uploadCloudImage(): Promise<UploadCloudImageResult>;
+
     /**
      * UI Functions
      * Waitcursor
@@ -935,4 +937,16 @@ interface DialogFacebookResultSelection {
 interface UiTooltipInitConfig {
     tooltipClass: string;
     preventAnimation: boolean;
+}
+
+interface UploadCloudImageResult {
+    base: string;
+    imageLocations: string[];
+    key: string;
+    meta: {
+        height: number;
+        preview: string;
+        width: number;
+    };
+    url: string;
 }
