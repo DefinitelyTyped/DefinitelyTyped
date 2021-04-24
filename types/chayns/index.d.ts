@@ -962,12 +962,14 @@ interface UploadCloudImageResult {
     base: string;
     imageLocations: string[];
     key: string;
-    meta: {
-        height: number;
-        preview: string;
-        width: number;
-    };
+    meta: UploadCloudImageResultMeta;
     url: string;
+}
+
+interface UploadCloudImageResultMeta {
+    height: number;
+    preview: string;
+    width: number;
 }
 
 interface AdvancedDateDialogConfig {
@@ -1102,8 +1104,10 @@ interface TextBlock {
 
 interface AdvancedDateDialogResult {
     buttonType: number;
-    selectedDates: {
-        isSelected: boolean;
-        timestamp: number;
-    }[];
+    selectedDates: SelectedDate[];
+}
+
+interface SelectedDate {
+    isSelected: boolean;
+    timestamp: number;
 }
