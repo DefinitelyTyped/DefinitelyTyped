@@ -1071,13 +1071,13 @@ interface AdvancedDateDialogConfig {
 interface IntervalObject {
     /**
      * start of the interval
-     * @type date/timestamp (in seconds)
+     * date/timestamp (in seconds)
      */
     start: Date | number;
 
     /**
      * end of the interval
-     * @type date/timestamp (in seconds)
+     * date/timestamp (in seconds)
      */
     end: Date | number;
 }
