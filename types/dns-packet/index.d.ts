@@ -13,72 +13,72 @@
  * The currently defined set of DNS record types.
  */
 export type RecordType =
-  | "A"
-  | "AAAA"
-  | "AFSDB"
-  | "APL"
-  | "AXFR"
-  | "CAA"
-  | "CDNSKEY"
-  | "CDS"
-  | "CERT"
-  | "CNAME"
-  | "DNAME"
-  | "DHCID"
-  | "DLV"
-  | "DNSKEY"
-  | "DS"
-  | "HINFO"
-  | "HIP"
-  | "IXFR"
-  | "IPSECKEY"
-  | "KEY"
-  | "KX"
-  | "LOC"
-  | "MX"
-  | "NAPTR"
-  | "NS"
-  | "NSEC"
-  | "NSEC3"
-  | "NSEC3PARAM"
-  | "NULL"
-  | "OPT"
-  | "PTR"
-  | "RRSIG"
-  | "RP"
-  | "SIG"
-  | "SOA"
-  | "SRV"
-  | "SSHFP"
-  | "TA"
-  | "TKEY"
-  | "TLSA"
-  | "TSIG"
-  | "TXT"
-  | "URI";
+    | "A"
+    | "AAAA"
+    | "AFSDB"
+    | "APL"
+    | "AXFR"
+    | "CAA"
+    | "CDNSKEY"
+    | "CDS"
+    | "CERT"
+    | "CNAME"
+    | "DNAME"
+    | "DHCID"
+    | "DLV"
+    | "DNSKEY"
+    | "DS"
+    | "HINFO"
+    | "HIP"
+    | "IXFR"
+    | "IPSECKEY"
+    | "KEY"
+    | "KX"
+    | "LOC"
+    | "MX"
+    | "NAPTR"
+    | "NS"
+    | "NSEC"
+    | "NSEC3"
+    | "NSEC3PARAM"
+    | "NULL"
+    | "OPT"
+    | "PTR"
+    | "RRSIG"
+    | "RP"
+    | "SIG"
+    | "SOA"
+    | "SRV"
+    | "SSHFP"
+    | "TA"
+    | "TKEY"
+    | "TLSA"
+    | "TSIG"
+    | "TXT"
+    | "URI";
 
 export interface Question {
-  type: RecordType;
-  name: string;
+    type: RecordType;
+    name: string;
 }
 
 export interface SrvData {
-  port: number;
-  target: string;
-  priority?: number;
-  weight?: number;
+    port: number;
+    target: string;
+    priority?: number;
+    weight?: number;
 }
 
 export interface HInfoData {
-  cpu: string;
-  os: string;
+    cpu: string;
+    os: string;
 }
 
 export interface BaseAnswer<T, D> {
-  type: T;
-  name: string;
-  ttl?: number;
-  data: D;
+    type: T;
+    name: string;
+    ttl?: number;
+    data: D;
 }
 
 /**
@@ -91,42 +91,42 @@ export type StringRecordType = "A" | "AAAA" | "CNAME" | "DNAME" | "PTR";
  * field.
  */
 export type OtherRecordType =
-  | "AFSDB"
-  | "APL"
-  | "AXFR"
-  | "CAA"
-  | "CDNSKEY"
-  | "CDS"
-  | "CERT"
-  | "DHCID"
-  | "DLV"
-  | "DNSKEY"
-  | "DS"
-  | "HIP"
-  | "IXFR"
-  | "IPSECKEY"
-  | "KEY"
-  | "KX"
-  | "LOC"
-  | "MX"
-  | "NAPTR"
-  | "NS"
-  | "NSEC"
-  | "NSEC3"
-  | "NSEC3PARAM"
-  | "NULL"
-  | "OPT"
-  | "RRSIG"
-  | "RP"
-  | "SIG"
-  | "SOA"
-  | "SSHFP"
-  | "TA"
-  | "TKEY"
-  | "TLSA"
-  | "TSIG"
-  | "TXT"
-  | "URI";
+    | "AFSDB"
+    | "APL"
+    | "AXFR"
+    | "CAA"
+    | "CDNSKEY"
+    | "CDS"
+    | "CERT"
+    | "DHCID"
+    | "DLV"
+    | "DNSKEY"
+    | "DS"
+    | "HIP"
+    | "IXFR"
+    | "IPSECKEY"
+    | "KEY"
+    | "KX"
+    | "LOC"
+    | "MX"
+    | "NAPTR"
+    | "NS"
+    | "NSEC"
+    | "NSEC3"
+    | "NSEC3PARAM"
+    | "NULL"
+    | "OPT"
+    | "RRSIG"
+    | "RP"
+    | "SIG"
+    | "SOA"
+    | "SSHFP"
+    | "TA"
+    | "TKEY"
+    | "TLSA"
+    | "TSIG"
+    | "TXT"
+    | "URI";
 
 export type StringAnswer = BaseAnswer<StringRecordType, string>;
 export type SrvAnswer = BaseAnswer<"SRV", SrvData>;
@@ -136,29 +136,29 @@ export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
 export type Answer = StringAnswer | SrvAnswer | HInfoAnswer | BufferAnswer;
 
 export interface Packet {
-  /**
-   * Whether the packet is a query or a response. This field may be
-   * omitted if it is clear from the context of usage what type of packet
-   * it is.
-   */
-  type?: "query" | "response";
+    /**
+     * Whether the packet is a query or a response. This field may be
+     * omitted if it is clear from the context of usage what type of packet
+     * it is.
+     */
+    type?: "query" | "response";
 
-  id?: number;
+    id?: number;
 
-  /**
-   * A bit-mask combination of zero or more of:
-   * {@link AUTHORITATIVE_ANSWER},
-   * {@link TRUNCATED_RESPONSE},
-   * {@link RECURSION_DESIRED},
-   * {@link RECURSION_AVAILABLE},
-   * {@link AUTHENTIC_DATA},
-   * {@link CHECKING_DISABLED}.
-   */
-  flags?: number;
-  questions?: Question[];
-  answers?: Answer[];
-  additionals?: Answer[];
-  authorities?: Answer[];
+    /**
+     * A bit-mask combination of zero or more of:
+     * {@link AUTHORITATIVE_ANSWER},
+     * {@link TRUNCATED_RESPONSE},
+     * {@link RECURSION_DESIRED},
+     * {@link RECURSION_AVAILABLE},
+     * {@link AUTHENTIC_DATA},
+     * {@link CHECKING_DISABLED}.
+     */
+    flags?: number;
+    questions?: Question[];
+    answers?: Answer[];
+    additionals?: Answer[];
+    authorities?: Answer[];
 }
 
 export const AUTHORITATIVE_ANSWER: number;
