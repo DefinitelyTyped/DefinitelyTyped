@@ -1,6 +1,7 @@
 // Type definitions for react-native-share-menu 5.0
 // Project: https://github.com/meedan/react-native-share-menu#readme
-// Definitions by: Philippe Beaudoin <https://github.com/PhilBeaudoin>
+// Definitions by: Haseeb Majid <https://github.com/hmajid2301>
+//                 Philippe Beaudoin <https://github.com/PhilBeaudoin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
