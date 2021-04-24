@@ -23,6 +23,7 @@ export interface CalendarProps {
     defaultActiveStartDate?: Date;
     defaultValue?: Date | Date[];
     defaultView?: Detail;
+    formatDay?: FormatterCallback;
     formatLongDate?: FormatterCallback;
     formatMonth?: FormatterCallback;
     formatMonthYear?: FormatterCallback;
