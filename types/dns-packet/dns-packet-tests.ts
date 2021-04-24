@@ -10,7 +10,7 @@ const answer: Answer = {
 const question: Question = {
   type: "A",
   name: "localhost",
-}
+};
 
 const inPacket: Packet = {
   additionals: [answer],
@@ -20,7 +20,7 @@ const inPacket: Packet = {
   id: 0,
   questions: [question],
   type: "query"
-}
+};
 
 const inputBuf = Buffer.alloc(0);
 const length: number = encodingLength(inPacket);

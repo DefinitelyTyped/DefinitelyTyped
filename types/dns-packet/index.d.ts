@@ -12,7 +12,7 @@
 /**
  * The currently defined set of DNS record types.
  */
-type RecordType =
+export type RecordType =
   | "A"
   | "AAAA"
   | "AFSDB"
@@ -57,24 +57,24 @@ type RecordType =
   | "TXT"
   | "URI";
 
-declare interface Question {
+export interface Question {
   type: RecordType;
   name: string;
 }
 
-declare interface SrvData {
+export interface SrvData {
   port: number;
   target: string;
   priority?: number;
   weight?: number;
 }
 
-declare interface HInfoData {
+export interface HInfoData {
   cpu: string;
   os: string;
 }
 
-declare interface BaseAnswer<T, D> {
+export interface BaseAnswer<T, D> {
   type: T;
   name: string;
   ttl?: number;
@@ -84,13 +84,13 @@ declare interface BaseAnswer<T, D> {
 /**
  * Record types for which the library will provide a string in the data field.
  */
-type StringRecordType = "A" | "AAAA" | "CNAME" | "DNAME" | "PTR";
+export type StringRecordType = "A" | "AAAA" | "CNAME" | "DNAME" | "PTR";
 
 /**
  * Record types for which the library does not attempt to process the data
  * field.
  */
-type OtherRecordType =
+export type OtherRecordType =
   | "AFSDB"
   | "APL"
   | "AXFR"
@@ -128,14 +128,14 @@ type OtherRecordType =
   | "TXT"
   | "URI";
 
-type StringAnswer = BaseAnswer<StringRecordType, string>;
-type SrvAnswer = BaseAnswer<"SRV", SrvData>;
-type HInfoAnswer = BaseAnswer<"HINFO", HInfoData>;
-type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
+export type StringAnswer = BaseAnswer<StringRecordType, string>;
+export type SrvAnswer = BaseAnswer<"SRV", SrvData>;
+export type HInfoAnswer = BaseAnswer<"HINFO", HInfoData>;
+export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
 
-type Answer = StringAnswer | SrvAnswer | HInfoAnswer | BufferAnswer;
+export type Answer = StringAnswer | SrvAnswer | HInfoAnswer | BufferAnswer;
 
-declare interface Packet {
+export interface Packet {
   /**
    * Whether the packet is a query or a response. This field may be
    * omitted if it is clear from the context of usage what type of packet
@@ -161,12 +161,12 @@ declare interface Packet {
   authorities?: Answer[];
 }
 
-declare const AUTHORITATIVE_ANSWER: number;
-declare const TRUNCATED_RESPONSE: number;
-declare const RECURSION_DESIRED: number;
-declare const RECURSION_AVAILABLE: number;
-declare const AUTHENTIC_DATA: number;
-declare const CHECKING_DISABLED: number;
+export const AUTHORITATIVE_ANSWER: number;
+export const TRUNCATED_RESPONSE: number;
+export const RECURSION_DESIRED: number;
+export const RECURSION_AVAILABLE: number;
+export const AUTHENTIC_DATA: number;
+export const CHECKING_DISABLED: number;
 
 export function encode(package: Packet, buf?: Buffer, offset?: number): Buffer;
 export function decode(buf: Buffer, offset?: number): Packet;
