@@ -1,6 +1,6 @@
 // Type definitions for dns-packet 5.2
 // Project: https://github.com/mafintosh/dns-packet
-// Definitions by: John Hurliman <https://github.com/me>
+// Definitions by: John Hurliman <https://github.com/jhurliman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This Source Code Form is subject to the terms of the Mozilla Public
