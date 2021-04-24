@@ -251,6 +251,8 @@ declare namespace chayns {
             let language: string;
 
             let groups: UserGroup[];
+
+            let adminMode: boolean;
         }
 
         /**
