@@ -2952,7 +2952,13 @@ export type BulkWriteReplaceOneOperation<TSchema> = {
     };
 };
 
-/** @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#deleteone-and-deletemany */
+/**
+ * Options for the deleteOne and deleteMany operations
+ *
+ * @param collation Optional. Specifies the collation to use for the operation.
+ * @param filter Specifies deletion criteria using {@link https://docs.mongodb.com/v3.6/reference/operator/ query operators}.
+ * @see https://docs.mongodb.com/v3.6/reference/method/db.collection.bulkWrite/#deleteone-and-deletemany
+ */
 export type BulkWriteDeleteOperation<TSchema> = {
     collation?: object;
     filter: FilterQuery<TSchema>;
@@ -2964,7 +2970,11 @@ export type BulkWriteDeleteManyOperation<TSchema> = {
     deleteMany: BulkWriteDeleteOperation<TSchema>;
 };
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
+/**
+ * Possible operations with the Collection.bulkWrite method
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#bulkWrite
+ */
 export type BulkWriteOperation<TSchema> =
     | BulkWriteInsertOneOperation<TSchema>
     | BulkWriteUpdateOneOperation<TSchema>
@@ -2973,7 +2983,11 @@ export type BulkWriteOperation<TSchema> =
     | BulkWriteDeleteOneOperation<TSchema>
     | BulkWriteDeleteManyOperation<TSchema>;
 
-/** @see https://docs.mongodb.org/manual/reference/command/collStats/ */
+/**
+ * Returned object for the CollStats command in db.runCommand
+ *
+ * @see https://docs.mongodb.org/manual/reference/command/collStats/
+ */
 export interface CollStats {
     /**
      * Namespace.
@@ -3179,8 +3193,15 @@ export interface WiredTigerData {
     };
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#aggregate */
+/**
+ * Options for Collection.aggregate
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#aggregate
+ */
 export interface CollectionAggregationOptions {
+    /**
+     * The preferred read preference (ReadPreference.PRIMARY, ReadPreference.PRIMARY_PREFERRED, ReadPreference.SECONDARY, ReadPreference.SECONDARY_PREFERRED, ReadPreference.NEAREST).
+     */
     readPreference?: ReadPreferenceOrMode;
     /**
      * Return the query as cursor, on 2.6 > it returns as a real cursor
@@ -3215,7 +3236,11 @@ export interface CollectionAggregationOptions {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertMany */
+/**
+ * Options for Collection.insertMany
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertMany
+ */
 export interface CollectionInsertManyOptions extends CommonOptions {
     /**
      * Serialize functions on any object.
@@ -3235,7 +3260,11 @@ export interface CollectionInsertManyOptions extends CommonOptions {
     ordered?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#bulkWrite */
+/**
+ * Options for Collection.bulkWrite
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#bulkWrite
+ */
 export interface CollectionBulkWriteOptions extends CommonOptions {
     /**
      * Serialize functions on any object.
@@ -3253,7 +3282,11 @@ export interface CollectionBulkWriteOptions extends CommonOptions {
     forceServerObjectId?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~BulkWriteOpResult */
+/**
+ * Returning object for Collection.bulkWrite operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~BulkWriteOpResult
+ */
 export interface BulkWriteOpResultObject {
     insertedCount?: number;
     matchedCount?: number;
@@ -3265,7 +3298,11 @@ export interface BulkWriteOpResultObject {
     result?: any;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#count */
+/**
+ * Options for Collection.count
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#count
+ */
 export interface MongoCountPreferences {
     /**
      * The limit of documents to count.
@@ -3293,7 +3330,11 @@ export interface MongoCountPreferences {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#distinct */
+/**
+ * Options for Collection.distinct
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#distinct
+ */
 export interface MongoDistinctPreferences {
     /**
      * The preferred read preference
@@ -3309,7 +3350,11 @@ export interface MongoDistinctPreferences {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~deleteWriteOpResult */
+/**
+ * Returning object from delete write operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~deleteWriteOpResult
+ */
 export interface DeleteWriteOpResultObject {
     //The raw result returned from MongoDB, field will vary depending on server version.
     result: {
@@ -3324,7 +3369,11 @@ export interface DeleteWriteOpResultObject {
     deletedCount?: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~findAndModifyWriteOpResult */
+/**
+ * Returning object from findAndModify operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~findAndModifyWriteOpResult
+ */
 export interface FindAndModifyWriteOpResultObject<TSchema> {
     //Document returned from findAndModify command.
     value?: TSchema;
@@ -3334,7 +3383,11 @@ export interface FindAndModifyWriteOpResultObject<TSchema> {
     ok?: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace */
+/**
+ * Returning object from findAndReplace operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndReplace
+ */
 export interface FindOneAndReplaceOption<T> extends CommonOptions {
     projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
     sort?: SortOptionObject<T>;
@@ -3344,7 +3397,11 @@ export interface FindOneAndReplaceOption<T> extends CommonOptions {
     collation?: CollationDocument;
 }
 
-/** @see https://docs.mongodb.com/v3.6/reference/operator/projection/ */
+/**
+ * Possible projection operators
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/operator/projection/
+ */
 export interface ProjectionOperators {
     /** @see https://docs.mongodb.com/v3.6/reference/operator/projection/elemMatch/#proj._S_elemMatch */
     $elemMatch?: object;
@@ -3353,12 +3410,20 @@ export interface ProjectionOperators {
     $meta?: MetaProjectionOperators;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate */
+/**
+ * Returning object from findOneAndUpdate operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndUpdate
+ */
 export interface FindOneAndUpdateOption<T> extends FindOneAndReplaceOption<T> {
     arrayFilters?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete */
+/**
+ * Returning object from findOneAndDelete operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOneAndDelete
+ */
 export interface FindOneAndDeleteOption<T> {
     projection?: SchemaMember<T, ProjectionOperators | number | boolean | any>;
     sort?: SortOptionObject<T>;
@@ -3367,7 +3432,11 @@ export interface FindOneAndDeleteOption<T> {
     collation?: CollationDocument;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#geoHaystackSearch */
+/**
+ * Options for Collection.geoHaystackSearch
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#geoHaystackSearch
+ */
 export interface GeoHaystackSearchOptions {
     readPreference?: ReadPreferenceOrMode;
     maxDistance?: number;
@@ -3376,33 +3445,72 @@ export interface GeoHaystackSearchOptions {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Code.html */
+/**
+ * A class representation of the BSON Code type.
+ *
+ * @param name a string or function.
+ * @param scope an optional scope for the function.
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Code.html
+ */
 export class Code {
     constructor(code: string | Function, scope?: object);
     code: string | Function;
     scope: any;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html */
+/**
+ * Create a new OrderedBulkOperation instance (INTERNAL TYPE, do not instantiate directly)
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html
+ */
 export interface OrderedBulkOperation {
     length: number;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#execute */
+    /**
+     * Execute the bulk operation
+     *
+     * @param _writeConcern Optional write concern. Can also be specified through options
+     * @param options Optional settings
+     * @param callback A callback that will be invoked when bulkWrite finishes/errors
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#execute
+     */
     execute(callback: MongoCallback<BulkWriteResult>): void;
     execute(options?: FSyncOptions): Promise<BulkWriteResult>;
     execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#find */
-    find(selector: object): FindOperatorsOrdered;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#insert */
-    insert(doc: object): OrderedBulkOperation;
+    /**
+     * Builds a find operation for an update/updateOne/delete/deleteOne/replaceOne.
+     * Returns a builder object used to complete the definition of the operation.
+     *
+     * @param selector The selector for the bulk operation. See {@link https://docs.mongodb.com/manual/reference/command/update/#update-command-q q documentation}
+     * @returns helper object with which the write operation can be defined.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#find
+     */
+    find(selector: object): FindOperators;
+    /**
+     * Add a single insert document to the bulk operation
+     *
+     * @param document the document to insert
+     * @returns reference to self
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/OrderedBulkOperation.html#insert
+     */
+    insert(document: object): OrderedBulkOperation;
 }
 
-/** @see https://docs.mongodb.com/v3.6/reference/method/BulkWriteResult/index.html#BulkWriteResult.upserted */
+/**
+ * Returning upserted object from bulkWrite operations
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/method/BulkWriteResult/index.html#BulkWriteResult.upserted
+ */
 export interface BulkWriteResultUpsertedIdObject {
     index: number;
     _id: ObjectId;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/BulkWriteResult.html */
+/**
+ * Returning object from bulkWrite operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/BulkWriteResult.html
+ */
 export interface BulkWriteResult {
     /**
      * Evaluates to `true` if the bulk operation correctly executes
@@ -3411,8 +3519,6 @@ export interface BulkWriteResult {
 
     /**
      * The number of documents inserted, excluding upserted documents.
-     *
-     * @see {@link nUpserted} for the number of documents inserted through an upsert.
      */
     nInserted: number;
 
@@ -3421,7 +3527,7 @@ export interface BulkWriteResult {
      *
      * If the update operation results in no change to the document,
      * e.g. `$set` expression updates the value to the current value,
-     * {@link nMatched} can be greater than {@link nModified}.
+     * nMatched can be greater than nModified.
      */
     nMatched: number;
 
@@ -3430,13 +3536,12 @@ export interface BulkWriteResult {
      *
      * If the update/replacement operation results in no change to the document,
      * such as setting the value of the field to its current value,
-     * {@link nModified} can be less than {@link nMatched}
+     * nModified can be less than nMatched
      */
     nModified: number;
 
     /**
-     * The number of documents inserted by an
-     * [upsert]{@link https://docs.mongodb.com/v3.6/reference/method/db.collection.update/#upsert-parameter}.
+     * The number of documents inserted by an {@link https://docs.mongodb.com/v3.6/reference/method/db.collection.update/#upsert-parameter upsert}.
      */
     nUpserted: number;
 
@@ -3445,89 +3550,198 @@ export interface BulkWriteResult {
      */
     nRemoved: number;
 
-    // Returns an array of all inserted ids
+    /**
+     * Returns an array of all inserted ids
+     */
     getInsertedIds(): object[];
-    // Retrieve lastOp if available
+    /**
+     * Retrieve lastOp if available
+     */
     getLastOp(): object;
-    // Returns raw internal result
+    /**
+     * Returns raw internal result
+     */
     getRawResponse(): object;
 
     /**
      * Returns the upserted id at the given index
+     *
      * @param index the number of the upserted id to return, returns `undefined` if no result for passed in index
      */
     getUpsertedIdAt(index: number): BulkWriteResultUpsertedIdObject;
 
-    // Returns an array of all upserted ids
+    /**
+     * Returns an array of all upserted ids
+     */
     getUpsertedIds(): BulkWriteResultUpsertedIdObject[];
-    // Retrieve the write concern error if any
+    /**
+     * Retrieve the write concern error if any
+     */
     getWriteConcernError(): WriteConcernError;
 
     /**
      * Returns a specific write error object
+     *
      * @param index of the write error to return, returns `null` if there is no result for passed in index
      */
     getWriteErrorAt(index: number): WriteError;
 
-    // Returns the number of write errors off the bulk operation
+    /**
+     * Returns the number of write errors off the bulk operation
+     */
     getWriteErrorCount(): number;
-    // Retrieve all write errors
+    /**
+     * Retrieve all write errors
+     */
     getWriteErrors(): object[];
-    // Returns `true` if the bulk operation contains a write error
+    /**
+     * Returns `true` if the bulk operation contains a write error
+     */
     hasWriteErrors(): boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/WriteError.html */
+/**
+ * An error that occurred during a BulkWrite on the server.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/WriteError.html
+ */
 export interface WriteError {
-    //Write concern error code.
+    /**
+     * Write concern error code.
+     */
     code: number;
-    //Write concern error original bulk operation index.
+    /**
+     * Write concern error original bulk operation index.
+     */
     index: number;
-    //Write concern error message.
+    /**
+     * Write concern error message.
+     */
     errmsg: string;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/WriteConcernError.html */
+/**
+ * An error representing a failure by the server to apply the requested write concern to the bulk operation.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/WriteConcernError.html
+ */
 export interface WriteConcernError {
-    //Write concern error code.
+    /**
+     * Write concern error code.
+     */
     code: number;
-    //Write concern error message.
+    /**
+     * Write concern error message.
+     */
     errmsg: string;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperatorsOrdered.html */
-export interface FindOperatorsOrdered {
+/**
+ * A builder object that is returned from {@link https://mongodb.github.io/node-mongodb-native/3.6/api/BulkOperationBase.html#find BulkOperationBase#find}.
+ * Is used to build a write operation that involves a query filter.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html
+ */
+export interface FindOperators {
+    /**
+     * Add a delete many operation to the bulk operation
+     *
+     * @returns reference to the parent BulkOperation
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#delete
+     */
     delete(): OrderedBulkOperation;
+    /**
+     * Add a delete one operation to the bulk operation
+     *
+     * @returns reference to the parent BulkOperation
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#deleteOne
+     */
     deleteOne(): OrderedBulkOperation;
-    replaceOne(doc: object): OrderedBulkOperation;
-    update(doc: object): OrderedBulkOperation;
-    updateOne(doc: object): OrderedBulkOperation;
-    upsert(): FindOperatorsOrdered;
+    /**
+     * Backwards compatibility for {@link https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#delete delete()}
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#remove
+     */
+    remove(): OrderedBulkOperation;
+    /**
+     * Backwards compatibility for {@link https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#deleteOne deleteOne()}
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#removeOne
+     */
+    removeOne(): OrderedBulkOperation;
+    /**
+     * Add a replace one operation to the bulk operation
+     *
+     * @param replacement the new document to replace the existing one with
+     * @returns reference to the parent BulkOperation
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#replaceOne
+     */
+    replaceOne(replacement: object): OrderedBulkOperation;
+    /**
+     * Add a multiple update operation to the bulk operation
+     *
+     * @param updateDocument An update field for an update operation. See {@link https://docs.mongodb.com/manual/reference/command/update/#update-command-u u documentation}
+     * @param options Optional settings
+     * @returns reference to the parent BulkOperation
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#update
+     */
+    update(updateDocument: object, options?: { hint: object }): OrderedBulkOperation;
+    /**
+     * Add a single update operation to the bulk operation
+     *
+     * @param updateDocument An update field for an update operation. See {@link https://docs.mongodb.com/manual/reference/command/update/#update-command-u u documentation}
+     * @param options Optional settings
+     * @returns reference to the parent BulkOperation
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#updateOne
+     */
+    updateOne(updateDocument: object, options?: { hint: object }): OrderedBulkOperation;
+    /**
+     * Upsert modifier for update bulk operation, noting that this operation is an upsert.
+     *
+     * @returns reference to self
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#upsert
+     */
+    upsert(): FindOperators;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html */
+/**
+ * Create a new UnorderedBulkOperation instance (INTERNAL TYPE, do not instantiate directly)
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html
+ */
 export interface UnorderedBulkOperation {
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/lib_bulk_unordered.js.html line 339 */
+    /**
+     * Get the number of operations in the bulk.
+     */
     length: number;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#execute */
+    /**
+     * Execute the bulk operation
+     *
+     * @param _writeConcern Optional write concern. Can also be specified through options.
+     * @param options Optional settings
+     * @param callback A callback that will be invoked when bulkWrite finishes/errors
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#execute
+     */
     execute(callback: MongoCallback<BulkWriteResult>): void;
     execute(options?: FSyncOptions): Promise<BulkWriteResult>;
     execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#find */
-    find(selector: object): FindOperatorsUnordered;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#insert */
-    insert(doc: object): UnorderedBulkOperation;
-}
-
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperatorsUnordered.html */
-export interface FindOperatorsUnordered {
-    length: number;
-    remove(): UnorderedBulkOperation;
-    removeOne(): UnorderedBulkOperation;
-    replaceOne(doc: object): UnorderedBulkOperation;
-    update(doc: object): UnorderedBulkOperation;
-    updateOne(doc: object): UnorderedBulkOperation;
-    upsert(): FindOperatorsUnordered;
+    /**
+     * Builds a find operation for an update/updateOne/delete/deleteOne/replaceOne.
+     * Returns a builder object used to complete the definition of the operation.
+     *
+     * @param selector The selector for the bulk operation. See {@link https://docs.mongodb.com/manual/reference/command/update/#update-command-q q documentation}
+     * @returns helper object with which the write operation can be defined.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#find
+     */
+    find(selector: object): FindOperators;
+    /**
+     * Add a single insert document to the bulk operation
+     *
+     * @param document the document to insert
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/UnorderedBulkOperation.html#insert
+     */
+    insert(document: object): UnorderedBulkOperation;
 }
 
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
