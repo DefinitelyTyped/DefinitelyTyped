@@ -1,6 +1,8 @@
 import cacheManager = require("cache-manager");
 import redisStore = require("cache-manager-ioredis");
 
+import { RedisSingleNodeStore } from "cache-manager-ioredis";
+
 const redisCache = cacheManager.caching({
     store: redisStore,
     host: 'localhost', // default value
@@ -36,3 +38,7 @@ clusterCache.store.getClient();
 const memoryCache = cacheManager.caching({ store: 'memory', max: 100, ttl: 60 });
 
 cacheManager.multiCaching([redisCache, memoryCache]);
+
+function getStore(): RedisSingleNodeStore {
+  return redisCache.store;
+}
