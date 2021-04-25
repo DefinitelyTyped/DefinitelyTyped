@@ -21,6 +21,7 @@
 //                 Oleg Shilov <https://github.com/olegshilov>
 //                 Pablo Gracia <https://github.com/PabloGracia>
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
+//                 Adam Pluciński <https://github.com/adaskothebeast>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from 'd3';
@@ -471,7 +472,14 @@ export interface Layout {
     transition: Transition;
     template: Template;
     clickmode: 'event' | 'select' | 'event+select' | 'none';
-    uirevision: any;
+    uirevision: string | number;
+    uniformtext: Partial<{
+        mode: false | 'hide' | 'show';
+        minsize: number;
+    }>;
+    datarevision: string | number;
+    editrevision: string | number;
+    selectionrevision: string | number;
 }
 
 export interface Legend extends Label {
@@ -1551,7 +1559,7 @@ export interface Config {
     modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
     /** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
-    modeBarButtonsToAdd: ModeBarDefaultButtons[] | ModeBarButton[];
+    modeBarButtonsToAdd: Array<ModeBarDefaultButtons | ModeBarButton>;
 
     /**
      * fully custom mode bar buttons as nested array, where the outer
