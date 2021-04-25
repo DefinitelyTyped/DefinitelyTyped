@@ -1,7 +1,7 @@
 import { Coordinate, Geometry, VectorLayer } from "maptalks";
 import maptalks = require("maptalks");
 
-var map = new maptalks.Map("map", {
+const map5 = new maptalks.Map("map", {
     center: [-0.113049, 51.498568],
     zoom: 14,
     pitch: 45,
@@ -51,13 +51,13 @@ var map = new maptalks.Map("map", {
     ],
 });
 
-map.setPitch(30);
-map.setBearing(20);
+map5.setPitch(30);
+map5.setBearing(20);
 
 function reset() {
-    requestAnimationFrame(function () {
-        map.setPitch(0);
-        map.setBearing(0);
+    requestAnimationFrame(() => {
+        map5.setPitch(0);
+        map5.setBearing(0);
     });
 }
 
@@ -65,48 +65,48 @@ new maptalks.control.Toolbar({
     items: [
         {
             item: "pause",
-            click: function () {},
+            click() {},
         },
         {
             item: "start",
-            click: function () {},
+            click() {},
         },
         {
             item: "reset",
-            click: function () {
+            click() {
                 reset();
             },
         },
     ],
-}).addTo(map);
+}).addTo(map5);
 
 function up() {
-    map.panBy([0, -200]);
+    map5.panBy([0, -200]);
 }
 
 function down() {
-    map.panBy([0, 200]);
+    map5.panBy([0, 200]);
 }
 
 function left() {
-    map.panBy([-200, 0]);
+    map5.panBy([-200, 0]);
 }
 
 function right() {
-    map.panBy([200, 0]);
+    map5.panBy([200, 0]);
 }
 
 function toCoordinate() {
-    var symbol = {
+    const symbol = {
         markerType: "x",
         markerLineColor: "#f00",
         markerLineWidth: 4,
         markerWidth: 20,
         markerHeight: 20,
     };
-    var coordinate = map.getCenter().add(0.008, 0.008);
-    (<VectorLayer>map.getLayer("v")).clear().addGeometry(new maptalks.Marker(coordinate, { symbol: symbol }));
-    map.panTo(coordinate);
+    const coordinate = map5.getCenter().add(0.008, 0.008);
+    (<VectorLayer> map5.getLayer("v")).clear().addGeometry(new maptalks.Marker(coordinate, { symbol }));
+    map5.panTo(coordinate);
 }
 
 new maptalks.control.Toolbar({
@@ -132,15 +132,15 @@ new maptalks.control.Toolbar({
             click: toCoordinate,
         },
     ],
-}).addTo(map);
+}).addTo(map5);
 
-map.on("zoomend moving moveend", getStatus);
+map5.on("zoomend moving moveend", getStatus);
 
 getStatus();
 
 function getStatus(): void {}
-center = map.getCenter();
-var polygon = new maptalks.Polygon(
+const center = map5.getCenter();
+const polygon2222 = new maptalks.Polygon(
     [center.add(-0.005, 0.005), center.add(0.005, 0.005), center.add(0.005, -0.005), center.add(-0.005, -0.005)],
     {
         symbol: {
@@ -149,36 +149,36 @@ var polygon = new maptalks.Polygon(
         },
     },
 );
-(<VectorLayer>map.getLayer("v")).addGeometry(polygon);
+(<VectorLayer> map5.getLayer("v")).addGeometry(polygon2222);
 
 function fitExtent() {
     //  fit map's extent to polygon's
     //  0 is the zoom offset
-    map.fitExtent(polygon.getExtent(), 0);
+    map5.fitExtent(polygon.getExtent(), 0);
 }
-var extent = map.getExtent();
+const extent = map5.getExtent();
 //  set map's max extent to map's extent at zoom 14
-map.setMaxExtent(extent);
+map5.setMaxExtent(extent);
 
-map.setZoom(map.getZoom() - 2, { animation: false });
+map5.setZoom(map5.getZoom() - 2, { animation: false });
 
-(<VectorLayer>map.getLayer("v")).addGeometry(
+(<VectorLayer> map5.getLayer("v")).addGeometry(
     new maptalks.Polygon(extent.toArray(), {
         symbol: { polygonOpacity: 0, lineWidth: 5 },
     }),
 );
 //  or you can set zoom limit by
-map.setMinZoom(14).setMaxZoom(14);
-map.on("click", function (param: any) {
-    var infoDom = document.getElementById("info");
+map5.setMinZoom(14).setMaxZoom(14);
+map5.on("click", (param: any) => {
+    const infoDom = document.getElementById("info");
     if (infoDom) {
         infoDom.innerHTML = "info";
     }
 });
 
-var map1 = new maptalks.Map("map1", {
-    center: map.getCenter(),
-    zoom: map.getZoom(),
+new maptalks.Map("map1", {
+    center: map5.getCenter(),
+    zoom: map5.getZoom(),
     draggable: false, //  disable draggble
     scrollWheelZoom: false, //  disable scroll wheel zoom
     dblClickZoom: false, //  disable doubleclick
@@ -190,19 +190,19 @@ var map1 = new maptalks.Map("map1", {
     }),
 });
 
-map1.on("moving moveend", function (e: any) {
+map5.on("moving moveend", (e: any) => {
     map1.setCenter(e.target.getCenter());
 });
 
-map1.on("zooming zoomend", function (e: any) {
+map5.on("zooming zoomend", (e: any) => {
     map1.setCenterAndZoom(e.target.getCenter(), e.target.getZoom());
 });
 
-map1.on("pitch", function (e: any) {
+map5.on("pitch", (e: any) => {
     map1.setPitch(e.target.getPitch());
 });
 
-map1.on("rotate", function (e: any) {
+map5.on("rotate", (e: any) => {
     map1.setBearing(e.target.getBearing());
 });
 
@@ -211,25 +211,25 @@ new maptalks.control.Toolbar({
     items: [
         {
             item: "move me",
-            click: function () {},
+            click() {},
         },
     ],
-}).addTo(map);
-map.on("moving moveend zoomend", update);
+}).addTo(map5);
+map5.on("moving moveend zoomend", update);
 
 update();
 
 function update() {
-    let coorEle = document.getElementById("coordinate");
+    const coorEle = document.getElementById("coordinate");
     if (coorEle) {
         coorEle.innerHTML = "coordiante info";
     }
 }
-new maptalks.VectorLayer("v", new maptalks.Marker(map.getCenter())).addTo(map);
+new maptalks.VectorLayer("v", new maptalks.Marker(map5.getCenter())).addTo(map5);
 //  Export map to an image
 //  External image(tiles, marker images) hosts need to support CORS
 function save() {
-    var data = map.toDataURL({
+    const data = map5.toDataURL({
         mimeType: "image/jpeg", //  or 'image/png'
         save: true, //  to pop a save dialog
         fileName: "map", //  file name
@@ -237,17 +237,17 @@ function save() {
 }
 let mousePosition: any;
 
-map.on("mousemove", function (e: any) {
+map5.on("mousemove", (e: any) => {
     mousePosition = e.containerPoint;
-    map.getRenderer().setToRedraw();
+    map5.getRenderer().setToRedraw();
 });
 
-map.on("mouseout", function () {
+map5.on("mouseout", () => {
     mousePosition = null;
-    map.getRenderer().setToRedraw();
+    map5.getRenderer().setToRedraw();
 });
 
-map.on("renderend", function (e: any) {
+map5.on("renderend", (e: any) => {
     if (!mousePosition) {
         return;
     }
@@ -255,16 +255,16 @@ map.on("renderend", function (e: any) {
 
 // draw image data into a canvas, and clip it by a circle with diameter of size
 function createMagCircle(imageData: ImageData, size: number) {
-    var magImg = document.createElement("canvas");
-    var magCircle = document.createElement("canvas");
+    const magImg = document.createElement("canvas");
+    const magCircle = document.createElement("canvas");
 
     magImg.width = magImg.height = magCircle.width = magCircle.height = size;
-    let canvasRenderContext = magImg.getContext("2d");
+    const canvasRenderContext = magImg.getContext("2d");
     if (canvasRenderContext) {
         canvasRenderContext.putImageData(imageData, 0, 0);
     }
 
-    var ctx = magCircle.getContext("2d");
+    const ctx = magCircle.getContext("2d");
     if (ctx) {
         ctx.beginPath();
         ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
@@ -275,13 +275,13 @@ function createMagCircle(imageData: ImageData, size: number) {
 
     return magCircle;
 }
-var arcUrl = "https:// services.arcgisonline.com/arcgis/rest/services/ESRI_Imagery_World_2D/MapServer";
+const arcUrl = "https:// services.arcgisonline.com/arcgis/rest/services/ESRI_Imagery_World_2D/MapServer";
 
-maptalks.SpatialReference.loadArcgis(arcUrl + "?f=pjson", function (err: any, conf: any) {
+maptalks.SpatialReference.loadArcgis(arcUrl + "?f=pjson", (err: any, conf: any) => {
     if (err) {
         throw new Error(err);
     }
-    var ref = conf.spatialReference;
+    const ref = conf.spatialReference;
     ref.projection = "EPSG:4326";
 
     new maptalks.Map("map", {
@@ -298,41 +298,40 @@ maptalks.SpatialReference.loadArcgis(arcUrl + "?f=pjson", function (err: any, co
         }),
     });
 });
-var url =
+const url =
     "https:// t0.tianditu.gov.cn/vec_c/wmts?request=GetCapabilities&service=wmts&tk=de0dc270a51aaca3dd4e64d4f8c81ff6";
 
-maptalks.SpatialReference.loadWMTS(url, function (err: any, conf: any) {
+maptalks.SpatialReference.loadWMTS(url, (err: any, conf: any) => {
     if (err) {
         throw new Error(err);
     }
-    var params = conf[0];
+    const params = conf[0];
     params.urlTemplate += "&tk=de0dc270a51aaca3dd4e64d4f8c81ff6";
-    var spatialReference = params.spatialReference;
-    var tileLayer = new maptalks.TileLayer("tilelayer", params);
-    var spatialReference = params.spatialReference;
+    const spatialReference = params.spatialReference;
+    const tileLayer = new maptalks.TileLayer("tilelayer", params);
 
-    var map = new maptalks.Map("map", {
+    new maptalks.Map("map", {
         center: [114.3404041441181, 30.548730054693106],
         zoom: 10,
-        spatialReference: spatialReference,
+        spatialReference,
         baseLayer: tileLayer,
     });
 });
 //  A complete customized TileLayer
-var resolutions = [];
-var dd = 2 * 6378137 * Math.PI;
-for (var i = 0; i < 21; i++) {
+const resolutions = [];
+const dd = 2 * 6378137 * Math.PI;
+for (let i = 0; i < 21; i++) {
     resolutions[i] = dd / (256 * Math.pow(2, i));
 }
 
-var map28 = new maptalks.Map("map", {
+const map28 = new maptalks.Map("map", {
     center: [-0.113049, 51.498568],
     zoom: 13,
     //  a custom version of default web-mercator spatial reference
     //  map's spatial reference definition
     spatialReference: {
         projection: "EPSG:3857", //  geo projection, can be a string or a function
-        resolutions: resolutions,
+        resolutions,
         fullExtent: {
             //  map's full extent
             top: 6378137 * Math.PI,
@@ -351,7 +350,7 @@ var map28 = new maptalks.Map("map", {
         maxZoom: 20,
     }),
 });
-var baseLayer = new maptalks.TileLayer("base", {
+const baseLayer = new maptalks.TileLayer("base", {
     urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     subdomains: ["a", "b", "c", "d"],
     attribution:
@@ -359,23 +358,21 @@ var baseLayer = new maptalks.TileLayer("base", {
 });
 
 // generate tile url
-baseLayer.getTileUrl = function (x, y, z) {
-    // replace with your own
-    // e.g. return a url pointing to your sqlite database
-    return maptalks.TileLayer.prototype.getTileUrl.call(this, x, y, z);
+baseLayer.getTileUrl = (x, y, z) => {
+    return `${x}/${y}/${z}`;
 };
 
-baseLayer.on("renderercreate", function (e: any) {
+baseLayer.on("renderercreate", (e: any) => {
     // load tile image
     //    img(Image): an Image object
     //    url(String): the url of the tile
-    e.renderer.loadTileImage = function (img: any, url: any) {
+    e.renderer.loadTileImage = (img: any, url: any) => {
         // mocking getting image's base64
         // replace it by your own, e.g. load from sqlite database
-        var remoteImage = new Image();
+        const remoteImage = new Image();
         remoteImage.crossOrigin = "anonymous";
-        remoteImage.onload = function () {
-            var base64 = getBase64Image(remoteImage);
+        remoteImage.onload = () => {
+            const base64 = getBase64Image(remoteImage);
             img.src = base64;
         };
         remoteImage.src = url;
@@ -383,25 +380,25 @@ baseLayer.on("renderercreate", function (e: any) {
 });
 
 function getBase64Image(img: any) {
-    var canvas = document.createElement("canvas");
+    const canvas = document.createElement("canvas");
     canvas.width = img.width;
     canvas.height = img.height;
 
-    var ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
     if (ctx) {
         ctx.drawImage(img, 0, 0);
     }
 
-    var dataURL = canvas.toDataURL("image/png");
+    const dataURL = canvas.toDataURL("image/png");
     return dataURL;
 }
 
-var map29 = new maptalks.Map("map", {
+const map29 = new maptalks.Map("map", {
     center: [-0.113049, 51.498568],
     zoom: 11,
-    baseLayer: baseLayer,
+    baseLayer,
 });
-var map30 = new maptalks.Map("map", {
+const map30 = new maptalks.Map("map", {
     center: [-0.113049, 51.498568],
     zoom: 11,
     attribution: {
@@ -424,8 +421,8 @@ map30.addLayer(
     }),
 );
 
-var tileLayer = new maptalks.TileLayer("carto", {
-    urlTemplate: "https:// {s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+const tileLayer = new maptalks.TileLayer("carto", {
+    urlTemplate: "https:// {s}.tile.openstreetmap5.org/{z}/{x}/{y}.png",
     subdomains: ["a", "b", "c"],
     //  fragment shader from webglfundamentals.org
     //  https:// webglfundamentals.org/webgl/lessons/webgl-image-processing.html
@@ -454,21 +451,21 @@ var tileLayer = new maptalks.TileLayer("carto", {
     ].join("\n"),
 });
 
-tileLayer.on("canvascreate", function (e: any) {
+tileLayer.on("canvascreate", (e: any) => {
     //  set uniform values in shader
-    var gl = e.gl;
-    var program = gl.program;
-    var textureSizeLocation = gl.getUniformLocation(program, "u_textureSize");
-    var kernelLocation = gl.getUniformLocation(program, "u_kernel[0]");
-    var kernelWeightLocation = gl.getUniformLocation(program, "u_kernelWeight");
+    const gl = e.gl;
+    const program = gl.program;
+    const textureSizeLocation = gl.getUniformLocation(program, "u_textureSize");
+    const kernelLocation = gl.getUniformLocation(program, "u_kernel[0]");
+    const kernelWeightLocation = gl.getUniformLocation(program, "u_kernelWeight");
     // kernels of sobelVertical in the original example
-    var kernels = [1, 0, -1, 2, 0, -2, 1, 0, -1];
+    const kernels = [1, 0, -1, 2, 0, -2, 1, 0, -1];
     gl.uniform2f(textureSizeLocation, 256, 256);
     gl.uniform1fv(kernelLocation, new Float32Array(kernels));
     gl.uniform1f(kernelWeightLocation, computeKernelWeight(kernels));
 });
 
-var map211 = new maptalks.Map("map1", {
+const map211 = new maptalks.Map("map1", {
     center: [-0.113049, 51.498568],
     zoom: 4,
     attribution: {
@@ -478,32 +475,32 @@ var map211 = new maptalks.Map("map1", {
 });
 
 function computeKernelWeight(kernel: any) {
-    var weight = kernel.reduce(function (prev: any, curr: any) {
+    const weight = kernel.reduce((prev: any, curr: any) => {
         return prev + curr;
     });
     return weight <= 0 ? 1 : weight;
 }
 
 //  original
-var map2111 = new maptalks.Map("map0", {
+const map2111 = new maptalks.Map("map0", {
     center: [-0.113049, 51.498568],
     zoom: 4,
     attribution: {
         content: "&copy OpenStreetMap",
     },
     baseLayer: new maptalks.TileLayer("base", {
-        urlTemplate: "https:// {s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        urlTemplate: "https:// {s}.tile.openstreetmap5.org/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c"],
     }),
 });
 // Jianghan district's boundary, from boundary.js
-var boundary = [
+const boundary = [
     [
         [114.28039004422378, 30.597258563674494],
         [114.280751671522, 30.597182229947677],
     ],
 ];
-var mask = new maptalks.Polygon(boundary, {
+const mask = new maptalks.Polygon(boundary, {
     symbol: [
         {
             lineColor: "#ccc",
@@ -519,17 +516,19 @@ var mask = new maptalks.Polygon(boundary, {
 });
 
 // Copy the mask to add as mask's outline
-var outline = mask.copy();
+const outline = mask.copy();
 
-var maskedLayer = new maptalks.TileLayer("masked", {
-    urlTemplate: "https:// {s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+const maskedLayer = new maptalks.TileLayer("masked", {
+    urlTemplate: (x, y, z, domain) => {
+        return "https:// {s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png";
+    },
     subdomains: ["a", "b", "c", "d"],
 })
     .setMask(mask) //  set boundary as the mask to the tilelayer
-    .addTo(map);
+    .addTo(map5);
 
 // District's name
-var title = new maptalks.Marker(mask.getCenter(), {
+const title = new maptalks.Marker(mask.getCenter(), {
     symbol: {
         textName: "JiangHan District",
         textFaceName: "sans-serif",
@@ -540,9 +539,9 @@ var title = new maptalks.Marker(mask.getCenter(), {
         textDx: -30,
     },
 });
-new maptalks.VectorLayer("v", [outline, title]).addTo(map);
+new maptalks.VectorLayer("v", [outline, title]).addTo(map5);
 
-var map213 = new maptalks.Map("map", {
+const map213 = new maptalks.Map("map", {
     center: [105.08052356963802, 36.04231948670001],
     zoom: 4,
     minZoom: 1,
@@ -566,7 +565,7 @@ var map213 = new maptalks.Map("map", {
         }),
     ],
 });
-var map214 = new maptalks.Map("map", {
+const map214 = new maptalks.Map("map", {
     center: [0, 0],
     zoom: 4,
     spatialReference: {
@@ -581,7 +580,7 @@ var map214 = new maptalks.Map("map", {
     },
 });
 
-var soccerField = [
+const soccerField = [
     //  field
     new maptalks.Rectangle([-400, 260], 800, 520, {
         symbol: {
@@ -686,8 +685,8 @@ var soccerField = [
     }),
 ];
 
-new maptalks.VectorLayer("field", soccerField).addTo(map);
-var map215 = new maptalks.Map("map", {
+new maptalks.VectorLayer("field", soccerField).addTo(map5);
+const map215 = new maptalks.Map("map", {
     center: [105.08052356963802, 36.04231948670001],
     zoom: 5,
     minZoom: 1,
@@ -696,42 +695,42 @@ var map215 = new maptalks.Map("map", {
         projection: "baidu",
     },
     baseLayer: new maptalks.TileLayer("base", {
-        urlTemplate: "http:// online{s}.map.bdimg.com/onlinelabel/?qt=tile&x={x}&y={y}&z={z}&styles=pl&scaler=1&p=1",
+        urlTemplate: "http:// online{s}.map5.bdimg.com/onlinelabel/?qt=tile&x={x}&y={y}&z={z}&styles=pl&scaler=1&p=1",
         subdomains: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        attribution: '&copy; <a target="_blank" href="http:// map.baidu.com">Baidu</a>',
+        attribution: '&copy; <a target="_blank" href="http:// map5.baidu.com">Baidu</a>',
     }),
 });
 
 //  EPSG:3857's proj definition
-var proj3857 =
+const proj3857 =
     "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs";
 // <script type="text/javascript" src="proj4.js"></script>
-var proj4Fun = function (name: string, proj: string): any {};
-var proj4 = proj4Fun("WGS84", proj3857);
+const proj4Fun = (name: string, proj: string): any => {};
+const proj4 = proj4Fun("WGS84", proj3857);
 
 //  define a custom projection object
-var projection = {
+const projection = {
     code: "proj4-merc", //  code of the projection
 
-    project: function (c: any) {
+    project(c: any) {
         //  from wgs84 to EPSG3857
-        var pc = proj4.forward(c.toArray());
+        const pc = proj4.forward(c.toArray());
         return new maptalks.Coordinate(pc);
     },
 
-    unproject: function (pc: any) {
+    unproject(pc: any) {
         //  from EPSG3857 to wgs84
-        var c = proj4.inverse(pc.toArray());
+        const c = proj4.inverse(pc.toArray());
         return new maptalks.Coordinate(c);
     },
 };
 
-var map216 = new maptalks.Map("map", {
+new maptalks.Map("map", {
     center: [-0.113049, 51.498568],
     zoom: 13,
     //  spatial reference definition
     spatialReference: {
-        projection: projection, //  geo projection, defined by proj4js
+        projection, //  geo projection, defined by proj4js
         resolutions: [
             //  map's zoom levels and resolutions
             156543.03392804097,
@@ -770,19 +769,19 @@ var map216 = new maptalks.Map("map", {
             '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
     }),
 });
-var geometries33333 = maptalks.GeoJSON.toGeometry("");
-var symbol = {
+const geometries33333 = maptalks.GeoJSON.toGeometry("");
+const symbol = {
     lineColor: "#fff",
     lineWidth: 0.5,
     polygonOpacity: 1,
     polygonFill: "#747474",
 };
 new maptalks.VectorLayer("v", geometries33333, { geometryEvents: false, enableSimplify: false })
-    .forEach(function (geo: Geometry) {
+    .forEach((geo: Geometry) => {
         geo.setSymbol(symbol);
     })
-    .addTo(map);
-var map218 = new maptalks.Map("map", {
+    .addTo(map5);
+new maptalks.Map("map", {
     center: [-0.113049, 51.498568],
     zoom: 9,
     minZoom: 4,
@@ -801,7 +800,7 @@ var map218 = new maptalks.Map("map", {
             '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
     }),
 });
-var map219 = new maptalks.Map("map", {
+new maptalks.Map("map", {
     center: [105.08052356963802, 36.04231948670001],
     zoom: 5,
     minZoom: 1,
@@ -816,7 +815,7 @@ var map219 = new maptalks.Map("map", {
         cssFilter: "sepia(100%) invert(90%)",
     }),
 });
-var point = new maptalks.Marker([-0.113049, 51.498568], {
+const point2 = new maptalks.Marker([-0.113049, 51.498568], {
     visible: true,
     editable: true,
     cursor: "pointer",
@@ -834,8 +833,8 @@ var point = new maptalks.Marker([-0.113049, 51.498568], {
     },
 });
 
-new maptalks.VectorLayer("vector", point).addTo(map);
-var line1 = new maptalks.LineString(
+new maptalks.VectorLayer("vector", point2).addTo(map5);
+const line1 = new maptalks.LineString(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -858,8 +857,8 @@ var line1 = new maptalks.LineString(
     },
 );
 
-new maptalks.VectorLayer("vector", line1).addTo(map);
-var polygon2 = new maptalks.Polygon(
+new maptalks.VectorLayer("vector", line1).addTo(map5);
+const polygon2 = new maptalks.Polygon(
     [
         [
             [-0.131049, 51.498568],
@@ -886,9 +885,9 @@ var polygon2 = new maptalks.Polygon(
         },
     },
 );
-var c = new maptalks.Coordinate(-0.113049, 51.498568);
-new maptalks.VectorLayer("vector", polygon2).addTo(map);
-var marker22 = new maptalks.Marker(c.add(-0.018, 0.007), {
+const c = new maptalks.Coordinate(-0.113049, 51.498568);
+new maptalks.VectorLayer("vector", polygon2).addTo(map5);
+const marker22 = new maptalks.Marker(c.add(-0.018, 0.007), {
     symbol: {
         textFaceName: "sans-serif",
         textName: "MapTalks",
@@ -898,13 +897,13 @@ var marker22 = new maptalks.Marker(c.add(-0.018, 0.007), {
     },
 });
 
-var line2 = new maptalks.LineString([c.add(-0.018, 0.005), c.add(0.006, 0.005)], {
+const line2 = new maptalks.LineString([c.add(-0.018, 0.005), c.add(0.006, 0.005)], {
     symbol: {
         lineColor: "#1bbc9b",
         lineWidth: 3,
     },
 });
-var polygon3 = new maptalks.Polygon(
+const polygon3 = new maptalks.Polygon(
     [c.add(-0.018, 0.004), c.add(0.006, 0.004), c.add(0.006, -0.001), c.add(-0.018, -0.001), c.add(-0.018, 0.004)],
     {
         symbol: {
@@ -916,12 +915,12 @@ var polygon3 = new maptalks.Polygon(
     },
 );
 
-var collection2 = new maptalks.GeometryCollection([marker22, line2, polygon3]);
+const collection2 = new maptalks.GeometryCollection([marker22, line2, polygon3]);
 
-new maptalks.VectorLayer("vector", collection2).addTo(map);
-var center = new maptalks.Coordinate(-0.113049, 51.498568);
-var map35 = new maptalks.Map("map", {
-    center: center,
+new maptalks.VectorLayer("vector", collection2).addTo(map5);
+const center2 = new maptalks.Coordinate(-0.113049, 51.498568);
+const map35 = new maptalks.Map("map", {
+    center: center2,
     zoom: 14,
     baseLayer: new maptalks.TileLayer("base", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
@@ -931,7 +930,7 @@ var map35 = new maptalks.Map("map", {
     }),
 });
 
-var multipoint = new maptalks.MultiPoint(
+const multipoint = new maptalks.MultiPoint(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -959,7 +958,7 @@ var multipoint = new maptalks.MultiPoint(
 );
 
 new maptalks.VectorLayer("vector", multipoint).addTo(map35);
-var multiline = new maptalks.MultiLineString(
+const multiline = new maptalks.MultiLineString(
     [
         [
             [-0.131049, 51.503568],
@@ -992,8 +991,8 @@ var multiline = new maptalks.MultiLineString(
     },
 );
 
-new maptalks.VectorLayer("vector", multiline).addTo(map);
-var multiPolygon = new maptalks.MultiPolygon(
+new maptalks.VectorLayer("vector", multiline).addTo(map5);
+const multiPolygon = new maptalks.MultiPolygon(
     [
         [
             [
@@ -1038,8 +1037,8 @@ var multiPolygon = new maptalks.MultiPolygon(
     },
 );
 
-new maptalks.VectorLayer("vector", multiPolygon).addTo(map);
-var rectangle = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
+new maptalks.VectorLayer("vector", multiPolygon).addTo(map5);
+const rectangle = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -1047,7 +1046,7 @@ var rectangle = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
         polygonOpacity: 0.4,
     },
 });
-var circle = new maptalks.Circle(center.add(0.002, 0.008), 500, {
+const circle = new maptalks.Circle(center.add(0.002, 0.008), 500, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -1055,7 +1054,7 @@ var circle = new maptalks.Circle(center.add(0.002, 0.008), 500, {
         polygonOpacity: 0.4,
     },
 });
-var sector = new maptalks.Sector(center.add(-0.013, -0.001), 900, 240, 300, {
+const sector = new maptalks.Sector(center.add(-0.013, -0.001), 900, 240, 300, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -1064,7 +1063,7 @@ var sector = new maptalks.Sector(center.add(-0.013, -0.001), 900, 240, 300, {
     },
 });
 
-var ellipse = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
+const ellipse = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -1073,8 +1072,8 @@ var ellipse = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
     },
 });
 
-new maptalks.VectorLayer("vector").addGeometry([rectangle, circle, sector, ellipse]).addTo(map);
-var arc = new maptalks.ArcCurve(
+new maptalks.VectorLayer("vector").addGeometry([rectangle, circle, sector, ellipse]).addTo(map5);
+const arc = new maptalks.ArcCurve(
     [
         c.add(-0.0202, 0.0081),
         c.add(-0.0269, 0.0069),
@@ -1088,7 +1087,7 @@ var arc = new maptalks.ArcCurve(
     },
 );
 
-var quad = new maptalks.QuadBezierCurve(
+const quad = new maptalks.QuadBezierCurve(
     [
         c.add(-0.0102, 0.0081),
         c.add(-0.0169, 0.0069),
@@ -1102,7 +1101,7 @@ var quad = new maptalks.QuadBezierCurve(
     },
 );
 
-var cubic = new maptalks.CubicBezierCurve(
+const cubic = new maptalks.CubicBezierCurve(
     [
         c.add(-0.0002, 0.0081),
         c.add(-0.0069, 0.0069),
@@ -1116,7 +1115,7 @@ var cubic = new maptalks.CubicBezierCurve(
     },
 );
 
-new maptalks.VectorLayer("vector", [arc, quad, cubic]).addTo(map);
+new maptalks.VectorLayer("vector", [arc, quad, cubic]).addTo(map5);
 
 function getSymbol(title: string) {
     return [
@@ -1142,7 +1141,7 @@ function getSymbol(title: string) {
         },
     ];
 }
-var label = new maptalks.Label("label without box", [-0.126049, 51.496568], {
+const label2 = new maptalks.Label("label without box", [-0.126049, 51.496568], {
     draggable: true,
     textSymbol: {
         textFaceName: "monospace",
@@ -1155,7 +1154,7 @@ var label = new maptalks.Label("label without box", [-0.126049, 51.496568], {
     },
 });
 
-var labelBox = new maptalks.Label("label with box", [-0.109049, 51.496568], {
+const labelBox = new maptalks.Label("label with box", [-0.109049, 51.496568], {
     draggable: true,
     boxStyle: {
         padding: [12, 8],
@@ -1182,8 +1181,8 @@ var labelBox = new maptalks.Label("label with box", [-0.109049, 51.496568], {
     },
 });
 
-new maptalks.VectorLayer("vector", [labelBox, label]).addTo(map);
-var textbox2 = new maptalks.TextBox(
+new maptalks.VectorLayer("vector", [labelBox, label2]).addTo(map5);
+const textbox2 = new maptalks.TextBox(
     "This is a textbox, with very long content", //  content
     [-0.113049, 51.498568], //  coordinate
     200, //  width
@@ -1215,11 +1214,11 @@ var textbox2 = new maptalks.TextBox(
     },
 );
 
-new maptalks.VectorLayer("vector", textbox2).addTo(map);
-var layer3 = new maptalks.VectorLayer("vector").addTo(map);
+new maptalks.VectorLayer("vector", textbox2).addTo(map5);
+const layer3 = new maptalks.VectorLayer("vector").addTo(map5);
 
 //  blue circle
-var src = new maptalks.Marker([-0.128449, 51.503568], {
+const src = new maptalks.Marker([-0.128449, 51.503568], {
     symbol: {
         markerType: "ellipse",
         markerFill: "rgb(135,196,240)",
@@ -1232,7 +1231,7 @@ var src = new maptalks.Marker([-0.128449, 51.503568], {
 });
 
 //  red circle
-var dst = new maptalks.Marker([-0.102149, 51.503568], {
+const dst = new maptalks.Marker([-0.102149, 51.503568], {
     draggable: true,
     symbol: [
         {
@@ -1254,7 +1253,7 @@ var dst = new maptalks.Marker([-0.102149, 51.503568], {
 });
 
 //  connector line
-var line3 = new maptalks.ConnectorLine(src, dst, {
+const line3 = new maptalks.ConnectorLine(src, dst, {
     showOn: "always", // 'moving', 'click', 'mouseover', 'always'
     arrowStyle: "classic",
     arrowPlacement: "vertex-last", //  'vertex-last', // vertex-first, vertex-last, vertex-firstlast, point
@@ -1266,10 +1265,10 @@ var line3 = new maptalks.ConnectorLine(src, dst, {
 
 layer3.addGeometry([src, dst, line3]);
 
-var src2 = src.copy().translate(0, -0.01);
-var dst2 = dst.copy().translate(0, -0.01);
+const src2 = src.copy().translate(0, -0.01);
+const dst2 = dst.copy().translate(0, -0.01);
 //  Arc Connector Line
-var line4 = new maptalks.ArcConnectorLine(src2, dst2, {
+const line4 = new maptalks.ArcConnectorLine(src2, dst2, {
     arcDegree: 90,
     showOn: "always",
     symbol: {
@@ -1279,9 +1278,9 @@ var line4 = new maptalks.ArcConnectorLine(src2, dst2, {
 });
 
 layer3.addGeometry([src2, dst2, line4]);
-var copyLayer = new maptalks.VectorLayer("copy").addTo(map);
+const copyLayer = new maptalks.VectorLayer("copy").addTo(map5);
 
-var rect = new maptalks.Rectangle([-0.121049, 51.50656], 800, 600, {
+const rect = new maptalks.Rectangle([-0.121049, 51.50656], 800, 600, {
     symbol: {
         lineColor: "#fff",
         lineWidth: 2,
@@ -1290,7 +1289,7 @@ var rect = new maptalks.Rectangle([-0.121049, 51.50656], 800, 600, {
     },
 }).addTo(layer3);
 
-var counter = 1;
+let counter = 1;
 function copy() {
     //  copy with translation of [0.003, -0.003]
     rect.copy()
@@ -1303,7 +1302,7 @@ function clear() {
     counter = 1;
     copyLayer.clear();
 }
-var marker314 = new maptalks.Marker(map.getCenter(), {
+const marker314 = new maptalks.Marker(map5.getCenter(), {
     symbol: [
         {
             markerType: "square",
@@ -1329,24 +1328,24 @@ function removeListen() {
     marker.off("mousedown mouseup click dblclick contextmenu touchstart touchend", onEvent);
 }
 
-var events: any[];
+const events: any[] = [];
 
 function onEvent(param: any) {
     events.push(param);
-    var content = "";
-    for (var i = events.length - 1; i >= 0; i--) {
+    let content = "";
+    for (let i = events.length - 1; i >= 0; i--) {
         content +=
             events[i].type +
             `on
             ${events[i].coordinate
                 .toArray()
-                .map(function (c: Coordinate) {
+                .map((c: Coordinate) => {
                     return c.toFixed(5);
                 })
                 .join()}
             <br>`;
     }
-    var ele = document.getElementById("events");
+    const ele = document.getElementById("events");
     if (ele) {
         ele.innerHTML = `<div>${content}</div>`;
     }
@@ -1354,7 +1353,7 @@ function onEvent(param: any) {
     // return false to stop event propagation
     return false;
 }
-var marker315 = new maptalks.Marker(map.getCenter(), {
+const marker315 = new maptalks.Marker(map5.getCenter(), {
     symbol: {
         textFaceName: "sans-serif",
         textName: "FLASH\nME",
@@ -1365,19 +1364,19 @@ var marker315 = new maptalks.Marker(map.getCenter(), {
     },
 });
 
-new maptalks.VectorLayer("vector", marker315).addTo(map);
+new maptalks.VectorLayer("vector", marker315).addTo(map5);
 
 function flash() {
     marker.flash(
         200, // flash interval in ms
         5, //  count
-        function () {
+        () => {
             //  callback when flash end
             alert("flash ended");
         },
     );
 }
-var point4 = new maptalks.Marker([-0.113049 - 0.018, 51.498568 + 0.003], {
+const point4 = new maptalks.Marker([-0.113049 - 0.018, 51.498568 + 0.003], {
     symbol: {
         textFaceName: "sans-serif",
         textName: "MapTalks",
@@ -1389,7 +1388,7 @@ var point4 = new maptalks.Marker([-0.113049 - 0.018, 51.498568 + 0.003], {
         foo: "marker",
     },
 });
-var line16 = new maptalks.LineString(
+const line16 = new maptalks.LineString(
     [
         [-0.131049, 51.499568],
         [-0.107049, 51.499568],
@@ -1404,7 +1403,7 @@ var line16 = new maptalks.LineString(
         },
     },
 );
-var polygon4 = new maptalks.Polygon(
+const polygon4 = new maptalks.Polygon(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -1425,7 +1424,7 @@ var polygon4 = new maptalks.Polygon(
     },
 );
 
-var collection = new maptalks.GeometryCollection([line16, polygon4, point4], {
+const collection = new maptalks.GeometryCollection([line16, polygon4, point4], {
     visible: true,
     editable: true,
     cursor: null,
@@ -1436,27 +1435,27 @@ var collection = new maptalks.GeometryCollection([line16, polygon4, point4], {
     drawOnAxis: null,
 });
 
-new maptalks.VectorLayer("vector", collection).addTo(map);
+new maptalks.VectorLayer("vector", collection).addTo(map5);
 
 //  filter
 function filter() {
     //  condition can be a mapbox filter or a function
-    var filtered = collection.filter(["==", "foo", "polygon"]);
-    filtered.forEach(function (polygon: Geometry) {
+    const filtered = collection.filter(["==", "foo", "polygon"]);
+    filtered.forEach((polygon: Geometry) => {
         polygon.updateSymbol({
             polygonFill: "#f00",
         });
     });
 }
 //  point with altitude
-var point41 = new maptalks.Marker([-0.113049, 51.498568], {
+const point41 = new maptalks.Marker([-0.113049, 51.498568], {
     properties: {
         altitude: 400,
     },
 });
 
 //  same point without altitude
-var point0 = new maptalks.Marker([-0.113049, 51.498568]).updateSymbol({
+const point0 = new maptalks.Marker([-0.113049, 51.498568]).updateSymbol({
     markerOpacity: 0.5,
     markerFill: "#bbb",
 });
@@ -1464,7 +1463,7 @@ var point0 = new maptalks.Marker([-0.113049, 51.498568]).updateSymbol({
 new maptalks.VectorLayer("vector", [point0, point41], {
     enableAltitude: true, //  enable altitude
     altitudeProperty: "altitude", //  altitude property in properties, default by 'altitude'
-}).addTo(map);
+}).addTo(map5);
 
 new maptalks.VectorLayer("vector", null, {
     enableAltitude: true,
@@ -1473,12 +1472,12 @@ new maptalks.VectorLayer("vector", null, {
         lineWidth: 1,
         lineColor: "#000",
     },
-}).addTo(map);
+}).addTo(map5);
 
-map.setPitch(60);
+map5.setPitch(60);
 
 // line with one altitude
-var line431 = new maptalks.LineString(
+const line431 = new maptalks.LineString(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -1498,7 +1497,7 @@ var line431 = new maptalks.LineString(
 );
 
 //  line with seperate alitutdes
-var line432 = new maptalks.LineString(
+const line432 = new maptalks.LineString(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -1518,7 +1517,7 @@ var line432 = new maptalks.LineString(
 );
 
 //  line without alitutde
-var line433 = new maptalks.LineString(
+const line433 = new maptalks.LineString(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -1535,9 +1534,9 @@ var line433 = new maptalks.LineString(
     },
 );
 
-new maptalks.VectorLayer("vector", [line433, line431, line432], { enableAltitude: true }).addTo(map);
+new maptalks.VectorLayer("vector", [line433, line431, line432], { enableAltitude: true }).addTo(map5);
 
-var line44 = new maptalks.LineString(
+const line44 = new maptalks.LineString(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -1555,7 +1554,7 @@ var line44 = new maptalks.LineString(
 );
 
 //  same line without alitutde
-var line440 = new maptalks.LineString(
+const line440 = new maptalks.LineString(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -1576,9 +1575,9 @@ new maptalks.VectorLayer("vector", [line44], {
         polygonOpacity: 0.3,
         lineWidth: 0,
     },
-}).addTo(map);
+}).addTo(map5);
 
-var rectangle2 = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
+const rectangle2 = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -1590,7 +1589,7 @@ var rectangle2 = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
     },
 });
 
-var circle2 = new maptalks.Circle(center.add(0.002, 0.008), 500, {
+const circle2 = new maptalks.Circle(center.add(0.002, 0.008), 500, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -1601,7 +1600,7 @@ var circle2 = new maptalks.Circle(center.add(0.002, 0.008), 500, {
         altitude: 800,
     },
 });
-var sector2 = new maptalks.Sector(center.add(-0.013, -0.001), 900, 240, 300, {
+const sector2 = new maptalks.Sector(center.add(-0.013, -0.001), 900, 240, 300, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -1613,7 +1612,7 @@ var sector2 = new maptalks.Sector(center.add(-0.013, -0.001), 900, 240, 300, {
     },
 });
 
-var ellipse2 = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
+const ellipse2 = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -1625,25 +1624,25 @@ var ellipse2 = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
     },
 });
 
-var layer = new maptalks.VectorLayer("vector", null, { enableAltitude: true })
+const layer = new maptalks.VectorLayer("vector", null, { enableAltitude: true })
     .addGeometry([rectangle, circle, sector, ellipse])
-    .addTo(map);
+    .addTo(map5);
 
 //  draw shadows
-var shadowSymbol = {
+const shadowSymbol = {
     lineColor: "#bbb",
     lineDasharray: [10, 5, 5],
     lineWidth: 2,
     polygonFill: "#bbb",
     polygonOpacity: 0.4,
 };
-var shadows: any;
-layer.forEach(function (geo: Geometry) {
+const shadows: any = [];
+layer.forEach((geo: Geometry) => {
     shadows.push(geo.copy().setSymbol(shadowSymbol));
 });
-new maptalks.VectorLayer("shadows", shadows).addTo(map).bringToBack();
+new maptalks.VectorLayer("shadows", shadows).addTo(map5).bringToBack();
 
-var marker1 = new maptalks.Marker(center.sub(0.009, 0), {
+new maptalks.Marker(center.sub(0.009, 0), {
     symbol: {
         markerFile: "1.png",
         markerWidth: 28,
@@ -1654,7 +1653,7 @@ var marker1 = new maptalks.Marker(center.sub(0.009, 0), {
     },
 }).addTo(layer);
 
-var marker2 = new maptalks.Marker(center.sub(0.006, 0), {
+const marker2 = new maptalks.Marker(center.sub(0.006, 0), {
     symbol: {
         markerFile: "2.png",
         markerWidth: 28,
@@ -1665,7 +1664,7 @@ var marker2 = new maptalks.Marker(center.sub(0.006, 0), {
     },
 }).addTo(layer);
 
-var marker3 = new maptalks.Marker(center.sub(0.003, 0), {
+const marker3 = new maptalks.Marker(center.sub(0.003, 0), {
     symbol: {
         markerFile: "3.png",
         markerWidth: 28,
@@ -1676,7 +1675,7 @@ var marker3 = new maptalks.Marker(center.sub(0.003, 0), {
     },
 }).addTo(layer);
 
-var marker4 = new maptalks.Marker(center, {
+const marker4 = new maptalks.Marker(center, {
     symbol: {
         markerFile: "4.png",
         markerWidth: 28,
@@ -1687,7 +1686,7 @@ var marker4 = new maptalks.Marker(center, {
     },
 }).addTo(layer);
 
-var marker5 = new maptalks.Marker(center.add(0.003, 0), {
+const marker5 = new maptalks.Marker(center.add(0.003, 0), {
     symbol: {
         markerFile: "5.png",
         markerWidth: 28,
@@ -1698,7 +1697,7 @@ var marker5 = new maptalks.Marker(center.add(0.003, 0), {
     },
 }).addTo(layer);
 
-var marker6 = new maptalks.Marker(center.add(0.006, 0), {
+const marker6 = new maptalks.Marker(center.add(0.006, 0), {
     symbol: {
         markerFile: "6.png",
         markerWidth: 28,
@@ -1824,13 +1823,13 @@ new maptalks.Marker([-0.113049, 51.49856], {
         textAlign: "center", // left | right | center | auto
     },
 }).addTo(layer);
-new maptalks.LineString([map.getCenter().sub(0.1, 0), map.getCenter().add(0.1, 0)], {
+new maptalks.LineString([map5.getCenter().sub(0.1, 0), map5.getCenter().add(0.1, 0)], {
     symbol: {
         linePatternFile: "line-pattern.png",
         lineWidth: 20,
     },
 }).addTo(layer);
-new maptalks.LineString([map.getCenter().sub(0.1, 0), map.getCenter().add(0.1, 0), map.getCenter().add(0.1, -0.1)], {
+new maptalks.LineString([map5.getCenter().sub(0.1, 0), map5.getCenter().add(0.1, 0), map5.getCenter().add(0.1, -0.1)], {
     arrowStyle: "classic", //  we only have one arrow style now
     arrowPlacement: "vertex-firstlast", // vertex-first, vertex-last, vertex-firstlast, point
     symbol: {
@@ -1858,7 +1857,7 @@ new maptalks.LineString(
 )
     .translate(0.04, 0)
     .addTo(layer);
-new maptalks.Marker(map.getCenter(), {
+new maptalks.Marker(map5.getCenter(), {
     symbol: [
         {
             markerType: "ellipse",
@@ -1907,8 +1906,8 @@ new maptalks.ui.UIMarker([-0.113049, 51.49856], {
     single: false,
     content: '<div class="text_marker">HTML Marker</div>',
 });
-marker2.addTo(map).show();
-new maptalks.Marker(map.getCenter(), {
+marker2.addTo(map5).show();
+new maptalks.Marker(map5.getCenter(), {
     symbol: {
         textName: "Layer is added.",
         textWeight: "bold",
@@ -1918,13 +1917,13 @@ new maptalks.Marker(map.getCenter(), {
         textHaloRadius: 5,
     },
 });
-new maptalks.VectorLayer("vector", [marker2]).addTo(map);
+new maptalks.VectorLayer("vector", [marker2]).addTo(map5);
 
-map.addLayer(layer);
-map.removeLayer(layer);
+map5.addLayer(layer);
+map5.removeLayer(layer);
 layer.show();
 layer.hide();
-var rect11 = new maptalks.Rectangle(map.getCenter().add(-0.025, 0.005), 1600, 1000, {
+const rect11 = new maptalks.Rectangle(map5.getCenter().add(-0.025, 0.005), 1600, 1000, {
     symbol: [
         {
             lineColor: "#34495e",
@@ -1940,22 +1939,22 @@ var rect11 = new maptalks.Rectangle(map.getCenter().add(-0.025, 0.005), 1600, 10
     ],
 });
 
-var rect2 = rect11
+const rect2 = rect11
     .copy()
     .translate([0.03, 0])
     .updateSymbol([{}, { textName: "40%" }]);
 
-var layer1 = new maptalks.VectorLayer("vector1", [rect11], {
+const layer1 = new maptalks.VectorLayer("vector1", [rect11], {
     opacity: 0.7,
-}).addTo(map);
+}).addTo(map5);
 
-var layer2 = new maptalks.VectorLayer("vector2", [rect2], {
+const layer2 = new maptalks.VectorLayer("vector2", [rect2], {
     opacity: 0.4,
-}).addTo(map);
+}).addTo(map5);
 layer1.bringToBack();
 layer2.bringToFront();
 
-map.on("mousemove", function (e: any) {
+map5.on("mousemove", (e: any) => {
     if (!layer.getMask()) {
         layer.setMask(
             new maptalks.Marker(e.coordinate, {
@@ -1967,11 +1966,11 @@ map.on("mousemove", function (e: any) {
             }),
         );
     } else {
-        (<maptalks.Marker>layer.getMask()).setCoordinates(e.coordinate);
+        (<maptalks.Marker> layer.getMask()).setCoordinates(e.coordinate);
     }
 });
 
-var marker = new maptalks.Marker(
+const marker55 = new maptalks.Marker(
     center, // .add(-0.018,0.007).toArray(),
     {
         symbol: {
@@ -1983,7 +1982,7 @@ var marker = new maptalks.Marker(
         },
     },
 );
-var polyline = new maptalks.LineString(
+const polyline55 = new maptalks.LineString(
     [
         center, // .add(-0.018,0.005).toArray(),
         center.add(0.006, 0.005).toArray(),
@@ -1995,7 +1994,7 @@ var polyline = new maptalks.LineString(
         },
     },
 );
-var polygon = new maptalks.Polygon(
+const polygon55 = new maptalks.Polygon(
     [
         center.add(-0.018, 0.004).toArray(),
         center.add(0.006, 0.004).toArray(),
@@ -2014,14 +2013,14 @@ var polygon = new maptalks.Polygon(
     },
 );
 
-var layer68 = new maptalks.VectorLayer("vector").addGeometry([marker, polyline, polygon]).addTo(map);
+new maptalks.VectorLayer("vector").addGeometry([marker55, polyline55, polygon55]).addTo(map5);
 new maptalks.VectorLayer("vector")
     .setStyle({
         filter: ["count", ">=", 0],
         symbol: getSymbol("#747474"),
     })
-    .addTo(map);
-var rect3 = new maptalks.Rectangle(map.getCenter().sub(0.025, 0.0035), 1200, 1000, {
+    .addTo(map5);
+const rect3 = new maptalks.Rectangle(map5.getCenter().sub(0.025, 0.0035), 1200, 1000, {
     symbol: [
         {
             lineColor: "#34495e",
@@ -2038,12 +2037,12 @@ var rect3 = new maptalks.Rectangle(map.getCenter().sub(0.025, 0.0035), 1200, 100
     ],
 });
 
-var rect22 = rect3
+const rect22 = rect3
     .copy()
     .translate([0.006, 0.006])
     .updateSymbol([{ polygonFill: "rgb(216,115,149)" }, { textName: "2" }]);
 
-var rect1 = rect22
+const rect1 = rect22
     .copy()
     .translate([0.006, 0.006])
     .updateSymbol([{ polygonFill: "rgb(135,196,240)" }, { textName: "1" }]);
@@ -2061,46 +2060,46 @@ function sort2() {
     rect3.setZIndex(1);
 }
 
-(<VectorLayer>map.getLayer("v")).addGeometry([rect3, rect2, rect1]);
+(<VectorLayer> map5.getLayer("v")).addGeometry([rect3, rect2, rect1]);
 
-var canvasLayer = new maptalks.CanvasLayer("c", {
+const canvasLayer = new maptalks.CanvasLayer("c", {
     forceRenderOnMoving: true,
     forceRenderOnZooming: true,
 });
 
-canvasLayer.prepareToDraw = function (/* context */) {
+canvasLayer.prepareToDraw = (/* context */) => {
     return ["foo", "bar"];
 };
 
 //  param1 and param2 are prepareToDraw's return values.
-canvasLayer.draw = function (context, view, param1, param2) {
-    var size = map.getSize();
-    var str222 = `${param1},${param2}`;
+canvasLayer.draw = function(context, view, param1, param2) {
+    const size = map5.getSize();
+    const str222 = `${param1},${param2}`;
     context.fillStyle = "#f00";
     context.font = "bolder 50px sans-serif";
-    var len = context.measureText(str222);
+    const len = context.measureText(str222);
     context.fillText(str222, size.width / 2 - len.width / 2, size.height / 2);
     this.completeRender();
 };
 
 // draw when map is interacting
-canvasLayer.drawOnInteracting = function (context, view, param1, param2) {
+canvasLayer.drawOnInteracting = function(context, view, param1, param2) {
     this.draw(context, view, param1, param2);
 };
 
-map.addLayer(canvasLayer);
+map5.addLayer(canvasLayer);
 //  An animated particle circle
-var particles = new maptalks.ParticleLayer("c", {
+const particles = new maptalks.ParticleLayer("c", {
     forceRenderOnMoving: true,
 });
 //  circle's radius in meters
-var radius = 1000;
+const radius = 1000;
 
-particles.getParticles = function (t: number) {
-    map.coordinateToContainerPoint(center);
+particles.getParticles = (t: number) => {
+    map5.coordinateToContainerPoint(center);
 };
 
-map.addLayer(particles);
+map5.addLayer(particles);
 
 new maptalks.Marker(center, {
     symbol: {
@@ -2109,7 +2108,7 @@ new maptalks.Marker(center, {
         markerHeight: 10,
         markerLineWidth: 2,
     },
-}).addTo(map.getLayer("v"));
+}).addTo(map5.getLayer("v"));
 
 new maptalks.Circle(center, 1000, {
     symbol: {
@@ -2118,37 +2117,37 @@ new maptalks.Circle(center, 1000, {
         lineOpacity: 0.2,
         polygonOpacity: 0,
     },
-}).addTo(map.getLayer("v"));
-var layerOrder = ["earth", "landuse", "water", "roads", "building"];
+}).addTo(map5.getLayer("v"));
+const layerOrder = ["earth", "landuse", "water", "roads", "building"];
 //  draw mapzen's geojson vector tile with CanvasTileLayer
-var canvasTile = new maptalks.CanvasTileLayer("tile", {
+const canvasTile = new maptalks.CanvasTileLayer("tile", {
     urlTemplate: "https:// tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.json?api_key=mapzen-cGRKZj",
     attribution: '&copy; <a href="https:// mapzen.com/" target="_blank">mapzen</a>',
 });
-canvasTile.drawTile = function (canvas, tileContext, onComplete) {
-    maptalks.Ajax.getJSON(tileContext.url, function (err: any, data: any) {
+canvasTile.drawTile = (canvas, tileContext, onComplete) => {
+    maptalks.Ajax.getJSON(tileContext.url, (err: any, data: any) => {
         if (err) {
             throw err;
         }
-        var layers = [];
-        var loaded = 0;
+        const layers = [];
+        let loaded = 0;
         function onLayerLoaded() {
             loaded++;
             if (loaded === layers.length) {
                 onComplete(null);
             }
         }
-        var mapzenStyle = getMapZenStyle();
+        const mapzenStyle = getMapZenStyle();
         // prepare a VectorLayer per mapzen's layer
-        for (var i = 0, l = layerOrder.length; i < l; i++) {
-            var name = layerOrder[i];
+        for (let i = 0, l = layerOrder.length; i < l; i++) {
+            const name = layerOrder[i];
             if (!data[name]) {
                 continue;
             }
-            var style = mapzenStyle[name];
+            const style = mapzenStyle[name];
             layers.push(
                 new maptalks.VectorLayer(name, maptalks.GeoJSON.toGeometry(data[name]), {
-                    style: style,
+                    style,
                     enableSimplify: false,
                     geometryEvents: false,
                 }).on("layerload", onLayerLoaded),
@@ -2158,11 +2157,11 @@ canvasTile.drawTile = function (canvas, tileContext, onComplete) {
         new maptalks.Map(canvas, {
             center: tileContext.center,
             zoom: tileContext.z,
-            layers: layers,
+            layers,
         });
     });
 };
-var map = new maptalks.Map("map", {
+new maptalks.Map("map", {
     center: [-122.12258202067433, 38.080679835385574],
     zoom: 9,
     centerCross: true,
@@ -2274,7 +2273,7 @@ function getMapZenStyle(): any {
     };
 }
 
-var layer616 = new maptalks.TileLayer("light", {
+const layer616 = new maptalks.TileLayer("light", {
     urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     subdomains: ["a", "b", "c", "d"],
     attribution:
@@ -2284,7 +2283,7 @@ var layer616 = new maptalks.TileLayer("light", {
     forceRenderOnZooming: true,
 });
 
-var map = new maptalks.Map("map", {
+new maptalks.Map("map", {
     center: [121.4, 37.5],
     zoom: 13,
     baseLayer: new maptalks.TileLayer("base", {
@@ -2294,29 +2293,29 @@ var map = new maptalks.Map("map", {
     layers: [layer616],
 });
 
-var swipe = document.getElementById("swipe");
+const swipe = document.getElementById("swipe");
 
-var renderer = layer616.getRenderer();
-var canvasGetter = renderer.getCanvasImage;
+const renderer = layer616.getRenderer();
+const canvasGetter = renderer.getCanvasImage;
 // override renderer's default method to get layer canvas image
-renderer.getCanvasImage = function () {
-    var dpr = map.getDevicePixelRatio();
+renderer.getCanvasImage = () => {
+    const dpr = map5.getDevicePixelRatio();
     // original layer canvas image
-    var layerImage = canvasGetter.call(renderer);
+    const layerImage = canvasGetter.call(renderer);
     if (!layerImage || !layerImage.image) {
         return layerImage;
     }
     // drawn width after layer is erased by swipper
-    var ctx = renderer.context;
-    //  var width = renderer.canvas.width * (swipe.value / 100);
-    var width = renderer.canvas.width;
-    var height = ctx.canvas.height;
+    const ctx = renderer.context;
+    //  const width = renderer.canvas.width * (swipe.value / 100);
+    const width = renderer.canvas.width;
+    const height = ctx.canvas.height;
 
     // copy drawn rect of original layer canvas
-    var drawnRect = document.createElement("canvas");
+    const drawnRect = document.createElement("canvas");
     drawnRect.width = width;
     drawnRect.height = ctx.canvas.height;
-    var drawnRect2dContext = drawnRect.getContext("2d");
+    const drawnRect2dContext = drawnRect.getContext("2d");
     if (drawnRect2dContext) {
         drawnRect2dContext.drawImage(layerImage.image, 0, 0);
     }
@@ -2336,10 +2335,10 @@ renderer.getCanvasImage = function () {
 };
 
 //  swipe.addEventListener('input', function () {
-//    // let layer redraw self in the next frame
+//    // const layer redraw self in the next frame
 //    layer.getRenderer().setToRedraw();
 //  });
-var imageLayer = new maptalks.ImageLayer("images", [
+const imageLayer = new maptalks.ImageLayer("images", [
     {
         url: "1.png",
         extent: [-0.11854216406254636, 51.50043810048564, -0.09081885168461667, 51.50994770979011],
@@ -2352,8 +2351,8 @@ var imageLayer = new maptalks.ImageLayer("images", [
     },
 ]);
 
-map.addLayer(imageLayer);
-var map71 = new maptalks.Map("map", {
+map5.addLayer(imageLayer);
+const map71 = new maptalks.Map("map", {
     center: [-0.113049, 51.498568],
     zoom: 14,
     draggable: false, // disable drag
@@ -2371,43 +2370,43 @@ var map71 = new maptalks.Map("map", {
     }),
 });
 function dragOn() {
-    map.config("draggable", true);
+    map5.config("draggable", true);
 }
 function dragOff() {
-    map.config("draggable", false);
+    map5.config("draggable", false);
 }
 function zoomOn() {
-    map.config("zoomable", true);
+    map5.config("zoomable", true);
 }
 function zoomOff() {
-    map.config("zoomable", false);
+    map5.config("zoomable", false);
 }
 function scrollOn() {
-    map.config("scrollWheelZoom", true);
+    map5.config("scrollWheelZoom", true);
 }
 function scrollOff() {
-    map.config("scrollWheelZoom", false);
+    map5.config("scrollWheelZoom", false);
 }
 function touchZoomOn() {
-    map.config("touchZoom", true);
+    map5.config("touchZoom", true);
 }
 function touchZoomOff() {
-    map.config("touchZoom", false);
+    map5.config("touchZoom", false);
 }
 function dblClickOn() {
-    map.config("doubleClickZoom", true);
+    map5.config("doubleClickZoom", true);
 }
 function dblClickOff() {
-    map.config("doubleClickZoom", false);
+    map5.config("doubleClickZoom", false);
 }
 
-var items = [
+const items = [
     ["Drag", dragOn, dragOff],
     ["Zoom", zoomOn, zoomOff],
     ["ScrollWheel", scrollOn, scrollOff],
     ["TouchZoom", touchZoomOn, touchZoomOff],
     ["DblClick", dblClickOn, dblClickOff],
-].map(function (value) {
+].map(value => {
     return {
         item: value[0],
         children: [
@@ -2424,9 +2423,9 @@ var items = [
 });
 
 new maptalks.control.Toolbar({
-    items: items,
-}).addTo(map);
-var distanceTool = new maptalks.DistanceTool({
+    items,
+}).addTo(map5);
+const distanceTool = new maptalks.DistanceTool({
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -2479,9 +2478,9 @@ var distanceTool = new maptalks.DistanceTool({
         },
     ],
     language: "en-US",
-}).addTo(map);
+}).addTo(map5);
 
-var areaTool = new maptalks.AreaTool({
+const areaTool = new maptalks.AreaTool({
     symbol: {
         lineColor: "#1bbc9b",
         lineWidth: 2,
@@ -2533,20 +2532,20 @@ var areaTool = new maptalks.AreaTool({
         },
     ],
     language: "",
-}).addTo(map);
+}).addTo(map5);
 
-var drawTool = new maptalks.DrawTool({
+const drawTool = new maptalks.DrawTool({
     mode: "Point",
 })
-    .addTo(map)
+    .addTo(map5)
     .disable();
 
-drawTool.on("drawend", function (param: any) {
+drawTool.on("drawend", (param: any) => {
     console.log(param.geometry);
     layer.addGeometry(param.geometry);
 });
 
-var itemsc = [
+const itemsc = [
     "Point",
     "LineString",
     "Polygon",
@@ -2555,16 +2554,16 @@ var itemsc = [
     "Rectangle",
     "FreeHandLineString",
     "FreeHandPolygon",
-].map(function (value) {
+].map(value => {
     return {
         item: value,
-        click: function () {
+        click() {
             drawTool.setMode(value).enable();
         },
     };
 });
 
-var toolbar = new maptalks.control.Toolbar({
+const toolbar = new maptalks.control.Toolbar({
     items: [
         {
             item: "Shape",
@@ -2572,20 +2571,20 @@ var toolbar = new maptalks.control.Toolbar({
         },
         {
             item: "Disable",
-            click: function () {
+            click() {
                 drawTool.disable();
             },
         },
         {
             item: "Clear",
-            click: function () {
+            click() {
                 layer.clear();
             },
         },
     ],
-}).addTo(map);
+}).addTo(map5);
 
-var marker = new maptalks.Marker(center.add(-0.018, 0.007).toArray(), {
+const marker56 = new maptalks.Marker(center.add(-0.018, 0.007).toArray(), {
     draggable: true,
     symbol: {
         textFaceName: '"microsoft yahei",arial,sans-serif',
@@ -2595,14 +2594,14 @@ var marker = new maptalks.Marker(center.add(-0.018, 0.007).toArray(), {
         textSize: 40,
     },
 });
-var polyline = new maptalks.LineString([center.add(-0.018, 0.005).toArray(), center.add(0.006, 0.005).toArray()], {
+const polyline = new maptalks.LineString([center.add(-0.018, 0.005).toArray(), center.add(0.006, 0.005).toArray()], {
     draggable: true,
     symbol: {
         lineColor: "#1bbc9b",
         lineWidth: 5,
     },
 });
-var polygon = new maptalks.Polygon(
+const polygon56 = new maptalks.Polygon(
     [
         center.add(-0.018, 0.004).toArray(),
         center.add(0.006, 0.004).toArray(),
@@ -2621,9 +2620,9 @@ var polygon = new maptalks.Polygon(
     },
 );
 
-var geometriesc = [marker, polyline, polygon];
-new maptalks.VectorLayer("vector").addGeometry(geometriesc).addTo(map);
-var point = new maptalks.Marker([-0.113049, 51.498568], {
+const geometriesc = [marker56, polyline, polygon56];
+new maptalks.VectorLayer("vector").addGeometry(geometriesc).addTo(map5);
+const point = new maptalks.Marker([-0.113049, 51.498568], {
     visible: true,
     editable: true,
     cursor: "pointer",
@@ -2641,7 +2640,7 @@ var point = new maptalks.Marker([-0.113049, 51.498568], {
     },
 });
 
-new maptalks.VectorLayer("vector", point).addTo(map);
+new maptalks.VectorLayer("vector", point).addTo(map5);
 
 startEdit();
 
@@ -2652,7 +2651,7 @@ function startEdit() {
 function endEdit() {
     point.endEdit();
 }
-var line = new maptalks.LineString(
+const line = new maptalks.LineString(
     [
         [-0.131049, 51.498568],
         [-0.107049, 51.498568],
@@ -2675,7 +2674,7 @@ var line = new maptalks.LineString(
     },
 );
 
-new maptalks.VectorLayer("vector", line).addTo(map);
+new maptalks.VectorLayer("vector", line).addTo(map5);
 
 startEditLine();
 
@@ -2686,7 +2685,7 @@ function startEditLine() {
 function endEditLine() {
     line.endEdit();
 }
-var polygon = new maptalks.Polygon(
+const polygon57 = new maptalks.Polygon(
     [
         [
             [-0.131049, 51.498568],
@@ -2714,7 +2713,7 @@ var polygon = new maptalks.Polygon(
     },
 );
 
-new maptalks.VectorLayer("vector", polygon).addTo(map);
+new maptalks.VectorLayer("vector", polygon57).addTo(map5);
 
 startEditPolygon();
 
@@ -2726,7 +2725,7 @@ function endEditPolygon() {
     polygon.endEdit();
 }
 
-var rectangle3 = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
+const rectangle3 = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -2734,7 +2733,7 @@ var rectangle3 = new maptalks.Rectangle(center.add(-0.018, 0.012), 800, 700, {
         polygonOpacity: 0.4,
     },
 });
-var circle3 = new maptalks.Circle(center.add(0.002, 0.008), 500, {
+const circle3 = new maptalks.Circle(center.add(0.002, 0.008), 500, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -2743,7 +2742,7 @@ var circle3 = new maptalks.Circle(center.add(0.002, 0.008), 500, {
     },
 });
 
-var ellipse3 = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
+const ellipse3 = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
     symbol: {
         lineColor: "#34495e",
         lineWidth: 2,
@@ -2752,7 +2751,7 @@ var ellipse3 = new maptalks.Ellipse(center.add(0.003, -0.005), 1000, 600, {
     },
 });
 
-new maptalks.VectorLayer("vector").addGeometry([rectangle, circle, ellipse]).addTo(map);
+new maptalks.VectorLayer("vector").addGeometry([rectangle, circle, ellipse]).addTo(map5);
 
 startEditcc();
 
@@ -2767,7 +2766,7 @@ function endEditcc() {
     circle.endEdit();
     ellipse.endEdit();
 }
-var textbox = new maptalks.TextBox(
+const textbox = new maptalks.TextBox(
     "This is a textbox, with very long content", //  content
     [-0.113049, 51.498568], //  coordinate
     200, //  width
@@ -2799,7 +2798,7 @@ var textbox = new maptalks.TextBox(
     },
 );
 
-new maptalks.VectorLayer("vector", textbox).addTo(map);
+new maptalks.VectorLayer("vector", textbox).addTo(map5);
 
 startEditTextBox();
 
@@ -2810,7 +2809,7 @@ function startEditTextBox() {
 function endEditTextBox() {
     textbox.endEdit();
 }
-var label = new maptalks.Label("label with box", [-0.117, 51.496], {
+const label = new maptalks.Label("label with box", [-0.117, 51.496], {
     textSymbol: {
         textFaceName: "sans-serif",
         textFill: "#fff",
@@ -2830,24 +2829,24 @@ var label = new maptalks.Label("label with box", [-0.117, 51.496], {
 
 label.startEditText();
 label.endEditText();
-map.on("click", function (e: any) {
+map5.on("click", (e: any) => {
     // reset colors
-    layer.forEach(function (g: Geometry) {
+    layer.forEach((g: Geometry) => {
         g.updateSymbol({
             markerFill: "#0e595e",
         });
     });
     // identify
-    map.identify(
+    map5.identify(
         {
             coordinate: e.coordinate,
             layers: [layer],
         },
-        function (geos: Geometry[]) {
+        (geos: Geometry[]) => {
             if (geos.length === 0) {
                 return;
             }
-            geos.forEach(function (g) {
+            geos.forEach(g => {
                 g.updateSymbol({
                     markerFill: "#f00",
                 });
@@ -2857,7 +2856,7 @@ map.on("click", function (e: any) {
 });
 
 // prepare data
-map.animateTo(
+map5.animateTo(
     {
         center: [-74.10704772446428, 40.66032606133018],
         zoom: 18,
@@ -2869,7 +2868,7 @@ map.animateTo(
     },
 );
 
-var polygon = new maptalks.Polygon(
+const polygon = new maptalks.Polygon(
     [
         [
             [-0.131049, 51.498568],
@@ -2890,7 +2889,7 @@ var polygon = new maptalks.Polygon(
     },
 );
 
-new maptalks.VectorLayer("vector", polygon).addTo(map);
+new maptalks.VectorLayer("vector", polygon).addTo(map5);
 
 replay();
 
@@ -2902,7 +2901,7 @@ function replay() {
             duration: 1500,
             easing: "out",
         },
-        function (frame: maptalks.animation.Frame) {
+        (frame: maptalks.animation.Frame) => {
             if (frame.state.playState === "finished") {
                 console.log("finished");
             }
@@ -2910,7 +2909,7 @@ function replay() {
     );
 }
 
-var targetStyles = {
+const targetStyles = {
     symbol: {
         markerWidth: 200,
         markerHeight: 200,
@@ -2918,25 +2917,25 @@ var targetStyles = {
 };
 
 //  animate by maptalks.animation.Animation
-var player = maptalks.animation.Animation.animate(
+const player = maptalks.animation.Animation.animate(
     targetStyles,
     {
         duration: 1000,
         easing: "out",
     },
     //  callback of each frame
-    function step(frame: maptalks.animation.Frame) {
+    (frame: maptalks.animation.Frame) => {
         if (frame.state.playState === "running") {
             marker.updateSymbol(frame.styles.symbol);
         }
     },
 );
 
-setTimeout(function () {
+setTimeout(() => {
     player.play();
 }, 600);
 
-var json = {
+const json = {
     type: "Feature",
     geometry: {
         type: "Point",
@@ -2948,17 +2947,17 @@ var json = {
 };
 maptalks.SpatialReference.getProjectionInstance("");
 new maptalks.CRS("", {});
-maptalks.GeoJSON.toGeometry(json).addTo(map.getLayer("v"));
-var marker = new maptalks.Marker([-0.113049, 51.498568], {
+maptalks.GeoJSON.toGeometry(json).addTo(map5.getLayer("v"));
+const marker = new maptalks.Marker([-0.113049, 51.498568], {
     properties: {
         name: "point marker",
     },
-}).addTo(map.getLayer("v"));
+}).addTo(map5.getLayer("v"));
 
 JSON.stringify(marker.toGeoJSON());
-map.toJSON();
-var cc = [-0.113049, 51.498568];
-var map = new maptalks.Map("map", {
+map5.toJSON();
+const cc = [-0.113049, 51.498568];
+new maptalks.Map("map", {
     center: c,
     zoom: 13,
     baseLayer: new maptalks.TileLayer("base", {
@@ -2975,9 +2974,9 @@ var map = new maptalks.Map("map", {
 
 new maptalks.Marker(c);
 new maptalks.Rectangle(c, 1000, 800);
-(<VectorLayer>map.getLayer("v")).addGeometry(marker, rect);
+(<VectorLayer> map5.getLayer("v")).addGeometry(marker, rect);
 
-var map1 = new maptalks.Map("map1", {
+const map1 = new maptalks.Map("map1", {
     center: c,
     zoom: 13,
     baseLayer: new maptalks.TileLayer("base", {
@@ -2987,7 +2986,7 @@ var map1 = new maptalks.Map("map1", {
             '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
     }),
 });
-var newLayer = new maptalks.VectorLayer("v").addTo(map1);
+const newLayer = new maptalks.VectorLayer("v").addTo(map1);
 //  copy geometry by JSON
 maptalks.Geometry.fromJSON(rect.toJSON()).addTo(newLayer);
 
@@ -3004,14 +3003,14 @@ class MyUI extends maptalks.ui.UIComponent {
     }
 
     buildOn(map: maptalks.Map) {
-        var dom = document.createElement("div");
+        const dom = document.createElement("div");
         dom.className = "my-ui";
         dom.innerText = this.options["content"];
         return dom;
     }
 
     getOffset() {
-        var size = this.getSize();
+        const size = this.getSize();
         // move anchor to center of UI
         return new maptalks.Point(-size.width / 2, -size.height / 2);
     }
@@ -3039,7 +3038,7 @@ class MyUI extends maptalks.ui.UIComponent {
 
 MyUI.mergeOptions(optionscc);
 
-var map = new maptalks.Map("map", {
+const map = new maptalks.Map("map", {
     center: [-0.113049, 51.49856],
     zoom: 14,
     baseLayer: new maptalks.TileLayer("base", {
@@ -3050,25 +3049,25 @@ var map = new maptalks.Map("map", {
     }),
 });
 
-var ui = new MyUI(map.getCenter(), {
+const ui = new MyUI(map5.getCenter(), {
     content: "Hello, MyUI",
 });
-ui.addTo(map).show();
+ui.addTo(map5).show();
 
 function toolbarc(text: string) {
-    var toolbar = new maptalks.control.Toolbar({
+    const toolbar = new maptalks.control.Toolbar({
         position: "top-right",
         items: [
             {
                 item: text,
-                click: function () {},
+                click() {},
             },
         ],
     });
     return toolbar;
 }
 
-toolbarc('<div class="attr">Click to add Marker, right click to clear</div>').addTo(map);
+toolbarc('<div class="attr">Click to add Marker, right click to clear</div>').addTo(map5);
 
 class CustomTool extends maptalks.MapTool {
     onEnable() {
@@ -3089,15 +3088,15 @@ class CustomTool extends maptalks.MapTool {
     }
 
     _onClick(param: any) {
-        (<VectorLayer>this._markerLayer).addGeometry(new maptalks.Marker(param.coordinate));
+        (<VectorLayer> this._markerLayer).addGeometry(new maptalks.Marker(param.coordinate));
     }
 
     _onRightClick(param: any) {
-        (<VectorLayer>this._markerLayer).clear();
+        (<VectorLayer> this._markerLayer).clear();
     }
 }
 
-var customTool = new CustomTool().addTo(map);
+const customTool = new CustomTool().addTo(map5);
 
 const options = {
     //  默认颜色
@@ -3180,12 +3179,12 @@ class HelloLayerRenderer extends maptalks.renderer.CanvasRenderer {
         ctx.fillStyle = color;
         ctx.font = this.layer.options["font"];
 
-        const containerExtent = map.getContainerExtent();
+        const containerExtent = map5.getContainerExtent();
         const drawn: any = [];
         data.forEach(d => {
             // 将中心点经纬度坐标转化为containerPoint
             // containerPoint是指相对地图容器左上角的像素坐标.
-            const point = map.coordinateToContainerPoint(new maptalks.Coordinate(d.coord));
+            const point = map5.coordinateToContainerPoint(new maptalks.Coordinate(d.coord));
             // 如果绘制的点不在屏幕范围内, 则不做绘制以提高性能
             if (!containerExtent.contains(point)) {
                 return;
@@ -3205,12 +3204,14 @@ HelloLayer.registerRenderer("canvas", HelloLayerRenderer);
 const layerccc = new HelloLayer("hello");
 layerccc.setData([
     {
-        coord: map.getCenter().toArray(),
+        coord: map5.getCenter().toArray(),
         text: "Hello World",
     },
     {
-        coord: map.getCenter().add(0.01, 0.01).toArray(),
+        coord: map5.getCenter().add(0.01, 0.01).toArray(),
         text: "Hello World 2",
     },
 ]);
-layerccc.addTo(map);
+layerccc.addTo(map5);
+
+maptalks.INTERNAL_LAYER_PREFIX;
