@@ -200,4 +200,7 @@ function test8() {
 
     const ctx = new zeromq.Context();
     ctx.close();
+
+    // Socket.closed getter
+    sock.closed;
 }

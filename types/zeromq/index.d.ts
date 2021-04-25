@@ -246,6 +246,11 @@ export class Socket extends EventEmitter {
     pause(): void;
     resume(): void;
 
+    /**
+     * Return true if socket state is closed
+     */
+    get closed(): boolean;
+
     // Socket Options
     _fd: number;
     _ioevents: number;
