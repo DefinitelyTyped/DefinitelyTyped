@@ -22,6 +22,10 @@ storage.get('baz', {dataPath: NEW_DATA_PATH}, (err: any, data: object) => {
     console.log(JSON.stringify(data));
 });
 
+console.log(storage.getSync('foo'));
+
+console.log(storage.getSync('baz', {dataPath: NEW_DATA_PATH}));
+
 storage.getMany(['foo', 'bar'], (err: any, data: object) => {
     console.log(JSON.stringify(data));
 });
