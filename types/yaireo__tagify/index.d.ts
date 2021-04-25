@@ -109,7 +109,7 @@ declare namespace Tagify {
         closeOnSelect?: boolean;
 
         /**
-         * if `false`, keep typed text after selecting a suggestion.
+         * If `false`, keep typed text after selecting a suggestion.
          * @default true
          */
         clearOnSelect?: boolean;
@@ -164,6 +164,17 @@ declare namespace Tagify {
          * @default '\u00A0'
          */
         insertAfterTag?: string | HTMLElement;
+    }
+
+    /**
+     * Options related to accessibility.
+     */
+    interface A11ySettings {
+        /**
+         * If `true`, allows to focus tags via tab navigation.
+         * @default false
+         */
+        focusableTags?: boolean;
     }
 
     /**
@@ -693,6 +704,11 @@ declare namespace Tagify {
          * `mode` setting.
          */
         mixMode?: MixModeSettings;
+
+        /**
+         * Options related to accessibility.
+         */
+        a11y?: A11ySettings;
 
         /**
          * Optional class names that are added to the corresponding elements.

@@ -252,6 +252,9 @@ const settings: TagifyConstructorSettings = {
     mixMode: {
         insertAfterTag: '\u00A0'
     },
+    a11y: {
+        focusableTags: true
+    },
     classNames: {
         namespace: 'tagify',
         mixMode: 'tagify--mix',
