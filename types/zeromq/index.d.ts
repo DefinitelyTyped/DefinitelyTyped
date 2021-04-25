@@ -249,7 +249,7 @@ export class Socket extends EventEmitter {
     /**
      * Return true if socket state is closed
      */
-    get closed(): boolean;
+    readonly closed: boolean;
 
     // Socket Options
     _fd: number;
