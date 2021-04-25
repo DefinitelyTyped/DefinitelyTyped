@@ -21,7 +21,6 @@ const linuxParserFactory = nodeNetstat.parserFactories.linux; // $ExpectType Par
 const linuxParser = linuxParserFactory({ parseName: true }); // $ExpectType Parser
 linuxParser(mockLine, mockLineHandlerCallback); // $ExpectType boolean | void
 
-nodeNetstat.filters; // $ExpectType Filters
 nodeNetstat.filters.conditional(mockLineHandlerCallback, { protocol: "tcp" }); // $ExpectType boolean | void
 nodeNetstat.filters.limit(mockLineHandlerCallback, 5); // $ExpectType boolean | void
 
@@ -36,3 +35,4 @@ const normalizedValues = nodeNetstat.utils.normalizeValues({
 });
 normalizedValues; // $ExpectType ParsedItem
 nodeNetstat.utils.emitLines(new Stream.Readable()); // $ExpectType void
+nodeNetstat.utils.parseLines(mockLine); // $ExpectType string[]
