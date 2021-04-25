@@ -357,8 +357,8 @@ declare namespace Aws {
     }
 
     interface S3Rule {
-        prefix: string;
-        suffix: string;
+        prefix?: string;
+        suffix?: string;
     }
 
     interface S3 {
