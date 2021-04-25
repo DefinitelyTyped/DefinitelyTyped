@@ -1,4 +1,3 @@
-import electron = require('electron');
 import storage = require('electron-json-storage');
 
 const DATA_PATH = '~/Downloads';
