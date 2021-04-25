@@ -887,8 +887,7 @@ declare module 'fs' {
          * Use `fs.rm(path, { recursive: true, force: true })` instead.
          *
          * If `true`, perform a recursive directory removal. In
-         * recursive mode, errors are not reported if `path` does not exist, and
-         * operations are retried on failure.
+         * recursive mode, operations are retried on failure.
          * @default false
          */
         recursive?: boolean;
