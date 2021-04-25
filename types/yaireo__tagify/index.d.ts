@@ -1266,6 +1266,13 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     update(opts?: Tagify.UpdateOptions): void;
 
     /**
+     * Get `value` (array of tag data) as string. If in mixed mode, get the current value entered in the tagify
+     * input field {@link getMixedTagsAsString}.
+     * @return Stringified tag data.
+     */
+    getInputValue(): string;
+
+    /**
      * Should only be used when in mixed mode.
      *
      * Creates a string representing the current value entered in the tagify

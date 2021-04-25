@@ -827,6 +827,8 @@ tagify.getTagElms();
 tagify.getTagElms('blue', 'green');
 
 // $ExpectType string
+tagify.getInputValue();
+// $ExpectType string
 tagify.getMixedTagsAsString();
 
 // $ExpectType HTMLElement | undefined
