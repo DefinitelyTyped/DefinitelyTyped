@@ -1,0 +1,3 @@
+import EventBus = require("vertx__eventbus-bridge-client.js");
+
+const eb = new EventBus("http://localhost:8080");
