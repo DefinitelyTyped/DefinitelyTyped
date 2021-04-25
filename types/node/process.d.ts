@@ -259,6 +259,11 @@ declare module 'process' {
                 hasUncaughtExceptionCaptureCallback(): boolean;
                 version: string;
                 versions: ProcessVersions;
+                /**
+                 * Modifying the `process.config` property, or any child-property of the
+                 * `process.config` object has been deprecated. The `process.config` will be made
+                 * read-only in a future release.
+                 */
                 config: {
                     target_defaults: {
                         cflags: any[];
