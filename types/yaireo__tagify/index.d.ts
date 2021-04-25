@@ -410,6 +410,25 @@ declare namespace Tagify {
     }
 
     /**
+     * Data passed with beforePaste hook {@link Hooks.beforePaste}.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface BeforePasteData<T extends BaseTagData = TagData> {
+        /**
+         * Tagify instance.
+         */
+        tagify: Tagify<T>;
+        /**
+         * Text content that have been pasted into Tagify.
+         */
+        pastedText: string;
+        /**
+         * The raw clipboard data transfer object as provided by the paste event.
+         */
+        clipboardData: DataTransfer;
+    }
+
+    /**
      * Promise-based hooks for async program flow scenarios. Allows to "hook"
      * (intervene) at certain points of the program, which were selected as a
      * suitable place to pause the program flow and wait for further
@@ -450,6 +469,16 @@ declare namespace Tagify {
          * was fulfilled, and declined when the promise was rejected.
          */
         (event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>;
+
+        /**
+         * Hook invoked when the user pastes a string into Tagify. It can be used to changed
+         * the pasted string before it gets added to Tagify.
+         * @param event Clipboard event
+         * @param data Data object with pasted text and clipboard data.
+         * @return Promise with optional string value. If the promise resolves with a string value,
+         * this value gets added to Tagify. Without any value, the original paste value gets added.
+         */
+        beforePaste?: (event: ClipboardEvent, data: BeforePasteData<T>) => Promise<string|undefined>;
     }
 
     /**

@@ -324,6 +324,9 @@ const settings: TagifyConstructorSettings = {
                 return Promise.resolve();
             }
         },
+        beforePaste: (e, data) => {
+            return Promise.resolve(data.pastedText.replace('foo', 'bar'));
+        }
     },
 };
 
