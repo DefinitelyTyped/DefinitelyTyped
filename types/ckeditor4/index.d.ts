@@ -89,15 +89,15 @@ declare namespace CKEDITOR {
     const VERBOSITY_ERROR: number;
     const VERBOSITY_WARN: number;
 
-    let basePath: string;
-    let currentInstance: editor;
+    const basePath: string;
+    const currentInstance: editor;
     let document: dom.document;
     const instances: { [id: string]: editor };
     let loadFullCoreTimeout: number;
-    let revision: string;
-    let rnd: number;
-    let status: string;
-    let timestamp: string;
+    const revision: string;
+    const rnd: number;
+    let status: 'unloaded' | 'basic_loaded' | 'basic_ready' | 'loaded';
+    const timestamp: string;
     let verbosity: number;
     const version: string;
     const config: config;
@@ -1377,19 +1377,19 @@ declare namespace CKEDITOR {
         }
 
         interface uploadWidgetDefinition extends plugins.widget.definition {
-            additionalRequestParameters: any;
-            fileToElement: (pastedFile: any) => HTMLElement;
-            loadMethod: string;
-            loaderType: any;
-            onAbort: () => boolean;
-            onError: () => boolean;
-            onLoaded: () => boolean;
-            onUploaded: () => boolean;
-            onUploading: () => boolean;
-            replaceWith: () => any;
-            skipNotifications: boolean;
-            supportedTypes: string;
-            uploadUrl: string;
+            additionalRequestParameters?: any;
+            fileToElement?: (pastedFile: any) => HTMLElement;
+            loadMethod?: 'load' | 'loadAndUpload' | 'upload';
+            loaderType?: any;
+            onAbort?: () => boolean;
+            onError?: () => boolean;
+            onLoaded?: () => boolean;
+            onUploaded?: () => boolean;
+            onUploading?: () => boolean;
+            replaceWith?: () => any;
+            skipNotifications?: boolean;
+            supportedTypes?: RegExp;
+            uploadUrl?: string;
         }
     }
 
@@ -1521,7 +1521,7 @@ declare namespace CKEDITOR {
             name: string;
             type: number;
 
-            constructor(name: string, attributes?: { [name: string]: string });
+            constructor(name: string, attributes?: { [name: string]: string } | null);
             add(node: node, index?: number): void;
             addClass(className: string): void;
             clone(): element;
@@ -2732,8 +2732,8 @@ declare namespace CKEDITOR {
     }
 
     interface sharedSpace {
-        top?: string | HTMLElement;
-        bottom?: string | HTMLElement;
+        top?: string | HTMLElement | null;
+        bottom?: string | HTMLElement | null;
     }
 
     interface MenuItemDefinition {

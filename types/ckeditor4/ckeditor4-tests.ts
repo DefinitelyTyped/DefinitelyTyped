@@ -1,5 +1,5 @@
 function test_CKEDITOR() {
-    CKEDITOR.basePath = 'test';
+    window.CKEDITOR_BASEPATH = 'test';
     CKEDITOR.replaceClass = 'rich_editor';
     CKEDITOR.skinName = 'moono';
     CKEDITOR.skinName = 'myskin,/customstuff/myskin/';
@@ -214,7 +214,7 @@ function test_dom_element() {
     element.unselectable();
     alert(element.getName());
     alert(element === CKEDITOR.dom.element.get(element));
-    const htmlElement = document.getElementById('myElement');
+    const htmlElement = document.getElementById('myElement')!;
     alert(CKEDITOR.dom.element.get(htmlElement).getName());
 
     const dtd: CKEDITOR.dtdDefinition = element.getDtd();
@@ -554,13 +554,11 @@ function test_editable() {
 
 function test_fileTools() {
     const editor: CKEDITOR.editor = new CKEDITOR.editor();
-    // tslint:disable-next-line:prefer-const
-    let def: CKEDITOR.fileTools.uploadWidgetDefinition;
     const blob: Blob = new Blob();
     const loader: CKEDITOR.fileTools.fileLoader = new CKEDITOR.fileTools.fileLoader(editor, blob);
     const element: CKEDITOR.dom.element = new CKEDITOR.dom.element('div');
 
-    CKEDITOR.fileTools.addUploadWidget(editor, 'editor', def);
+    CKEDITOR.fileTools.addUploadWidget(editor, 'editor', {});
     CKEDITOR.fileTools.bindNotification(editor, loader);
     let url: string = CKEDITOR.fileTools.getUploadUrl({ some: 'object' });
     url = CKEDITOR.fileTools.getUploadUrl({ some: 'object' }, 'type');
@@ -571,8 +569,6 @@ function test_fileTools() {
 
 function test_fileTools_fileLoader() {
     const editor: CKEDITOR.editor = new CKEDITOR.editor();
-    // tslint:disable-next-line:prefer-const
-    let def: CKEDITOR.fileTools.uploadWidgetDefinition;
     const blob: Blob = new Blob();
     const element: CKEDITOR.dom.element = new CKEDITOR.dom.element('div');
 
@@ -756,10 +752,10 @@ function test_htmlParser_filterRulesGroup() {
 
     rules.addMany([ (value: CKEDITOR.htmlParser.node | CKEDITOR.htmlParser.fragment | string) => false, [ 'some', 'rule' ] ], 1, { applyToAll: false });
 
-    let nodeFragOrString: CKEDITOR.htmlParser.node | CKEDITOR.htmlParser.fragment | string;
+    let nodeFragOrString: CKEDITOR.htmlParser.node | CKEDITOR.htmlParser.fragment | string = 'test';
     nodeFragOrString = rules.exec(nodeFragOrString);
 
-    let str: string;
+    let str = 'test';
     str = rules.execOnName(str);
 
     const idx: number = rules.findIndex(1);
@@ -1165,7 +1161,7 @@ function test_tools() {
     let str = CKEDITOR.tools.cssStyleToDomStyle('style');
     let prefixes: { [cssClass: string]: string | number } = CKEDITOR.tools.cssVendorPrefix('prop', 'val');
     prefixes = CKEDITOR.tools.cssVendorPrefix('prop', 'val', true);
-    let fn: (param: any) => boolean;
+    let fn: (param: any) => boolean = (param) => false;
     fn = CKEDITOR.tools.defer<(param: any) => boolean>(fn, 2);
     CKEDITOR.tools.enableHtml5Elements(document);
     CKEDITOR.tools.enableHtml5Elements(document.createDocumentFragment(), true);
@@ -1177,7 +1173,7 @@ function test_tools() {
     str = CKEDITOR.tools.getCookie(str);
     str = CKEDITOR.tools.getCsrfToken();
     let numb: number = CKEDITOR.tools.getIndex<string>(['string', 'array'], (element: string) => false);
-    bool = CKEDITOR.tools.getMouseButton(new CKEDITOR.dom.event(document.createEvent(null)));
+    bool = CKEDITOR.tools.getMouseButton(new CKEDITOR.dom.event(document.createEvent('MouseEvent')));
     str = CKEDITOR.tools.getNextId();
     numb = CKEDITOR.tools.getNextNumber();
     str = CKEDITOR.tools.getUniqueId();
