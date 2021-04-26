@@ -662,7 +662,23 @@ export class MatrixClient extends EventEmitter {
         status_msg: string;  // The status message to attach.
     }, callback?: (...args: any[]) => any): Promise<void>;
     setProfileInfo(info: string, data: object, callback?: MatrixCallback): Promise<void>;
-    setPusher(pusher: object, callback?: MatrixCallback): Promise<void>;
+    setPusher(pusher: {
+      pushkey: string;
+      kind: string;
+      app_id: string;
+      app_display_name: string;
+      device_display_name: string;
+      lang: string;
+      // A dictionary of information for the pusher implementation itself. If `kind` is `http`,
+      // this should contain `url` which is the URL to use to send notifications to.
+      data: Record<string, unknown>;
+      // If true, the homeserver should add another pusher with the given pushkey and App ID in addition to any others
+      // with different user IDs. Otherwise, the homeserver must remove any other pushers with the same App ID and
+      // pushkey for different users. The default is false.
+      append?: boolean;
+      // This string determines which set of device specific rules this pusher executes.
+      profile_tag?: string;
+    }, callback?: MatrixCallback): Promise<void>;
     setPushRuleActions(
         scope: string, kind: string, ruleId: string, actions: string[], callback?: MatrixCallback,
     ): Promise<object>;
