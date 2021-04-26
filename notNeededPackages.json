@@ -1317,6 +1317,10 @@
             "libraryName": "@hapi/lab",
             "asOfVersion": "22.0.0"
         },
+        "hapi__podium": {
+            "libraryName": "@hapi/podium",
+            "asOfVersion": "4.1.3"
+        },
         "hapi__topo": {
             "libraryName": "@hapi/topo",
             "asOfVersion": "5.0.0"
