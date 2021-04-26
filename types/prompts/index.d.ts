@@ -92,7 +92,7 @@ declare namespace prompts {
         separator?: string;
         active?: string;
         inactive?: string;
-        choices?: Choice[];
+        choices?: Choice[] | PrevCaller<T, Choice[] | Falsy>;
         hint?: string;
         warn?: string;
         suggest?: ((input: any, choices: Choice[]) => Promise<any>);
