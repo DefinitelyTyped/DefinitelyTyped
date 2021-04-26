@@ -20,7 +20,7 @@ const strategyOptions: steam.StrategyOptions = {
 
 const strategy = new steam.Strategy(
     strategyOptions,
-    (identifier: string, profile: steam.Profile, done: (error: any, user?: any) => void) => {
+    (identifier: string, profile: steam.Profile, done: steam.VerifyCallback) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {
             if (err) {
                 done(err);
@@ -40,7 +40,7 @@ const strategyOptionsWithRequest: steam.StrategyOptionsWithRequest = {
 
 const strategyWithRequest = new steam.Strategy(
     strategyOptionsWithRequest,
-    (req: express.Request, identifier: string, profile: steam.Profile, done: (error: any, user?: any) => void) => {
+    (req: express.Request, identifier: string, profile: steam.Profile, done: steam.VerifyCallback) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {
             if (err) {
                 done(err);

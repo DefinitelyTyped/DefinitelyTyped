@@ -41,17 +41,15 @@ declare namespace passport_steam {
         passReqToCallback: true;
     }
 
-    type ValidateFunction = (
-        identifier: string,
-        profile: Profile,
-        done: (error?: Error | null, user?: object) => void,
-    ) => void;
+    type VerifyCallback = (error?: Error | null, user?: object, info?: object) => void;
+
+    type ValidateFunction = (identifier: string, profile: Profile, done: VerifyCallback) => void;
 
     type ValidateFunctionWithRequest = (
         req: express.Request,
         identifier: string,
         profile: Profile,
-        done: (error?: Error | null, user?: object) => void,
+        done: VerifyCallback,
     ) => void;
 
     class Strategy extends passport.Strategy {
