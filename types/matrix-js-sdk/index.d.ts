@@ -343,6 +343,23 @@ export interface SearchBody {
         }
     };
 }
+
+export type SyncState = "PREPARED" | "SYNCING" | "ERROR" | "STOPPED" | "CATCHUP";
+export interface SyncData {
+  /**
+   * The 'next_batch' result from /sync, which will become the 'since' token for the next call to /sync. Only present if state=PREPARED or state=SYNCING.
+   */
+  nextSyncToken?: string;
+  /**
+   * The 'since' token passed to /sync. null for the first successful sync since this client was started. Only present if state=PREPARED or state=SYNCING.
+   */
+  oldSyncToken?: string | null;
+  catchingUp?: boolean;
+  fromCache?: boolean;
+  error?: Error;
+}
+export type SyncCallback = (state: SyncState, prevState: SyncState, data: SyncData) => void;
+
 /**
  * Only part of the MatrixClient methods was put here
  * because they are too many.
@@ -457,8 +474,8 @@ export class MatrixClient extends EventEmitter {
     ): Promise<object>;
     getStoredDevice(userId: string, deviceId: string): Promise<CryptoDeviceInfo>;
     getStoredDevicesForUser(userId: string): Promise<CryptoDeviceInfo[]>;
-    getSyncState(): null | string;
-    getSyncStateData(): null | object;
+    getSyncState(): null | SyncState;
+    getSyncStateData(): null | SyncData;
     getThirdpartyLocation(protocol: string, params: object): Promise<object>;
     getThirdpartyProtocols(): Promise<object>;
     getThirdpartyUser(protocol: string, params: object): Promise<object>;
