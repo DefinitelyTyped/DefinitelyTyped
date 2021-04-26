@@ -31,6 +31,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'node',
     css: {
+      display: 'element',
       content: 'data(id)',
       'text-valign': 'center',
       'text-halign': 'center',

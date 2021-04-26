@@ -30,7 +30,7 @@ async function basicLoading() {
   registry.registerLiteralLoader(integer, integerLoader);
   registry.registerNodeLoader(nebula, nebulaLoader);
 
-  const result: Nebula | null = await registry.load<Nebula>(node);
+  const result: Nebula | undefined = await registry.load<Nebula>(node);
 }
 
 async function loadWithSpecificLoaderInferOptionType() {

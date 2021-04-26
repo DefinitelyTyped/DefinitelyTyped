@@ -4055,7 +4055,7 @@ declare namespace cytoscape {
              * Whether to display the element; may be element for displayed or none for not displayed.
              * Note that a "display: none" bezier edge does not take up space in its bundle.
              */
-            "display": PropertyValue<SingularType, "none" | "displayed">;
+            "display": PropertyValue<SingularType, "none" | "element">;
             /**
              * Whether the element is visible; may be visible or hidden.
              * Note that a "visibility : hidden" bezier edge still takes up space in its bundle.

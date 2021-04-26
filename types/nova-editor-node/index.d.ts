@@ -107,6 +107,7 @@ interface CommandsRegistry {
     register(name: string, callable: (...params: any[]) => void): Disposable;
     register<T>(name: string, callable: (this: T, ...params: any[]) => void, thisValue: T): Disposable;
     invoke(name: string, ...arguments: Transferrable[]): Promise<unknown>;
+    invoke(name: string, textEditor: TextEditor, ...arguments: Transferrable[]): Promise<unknown>;
 }
 
 /// https://docs.nova.app/api-reference/completion-context/

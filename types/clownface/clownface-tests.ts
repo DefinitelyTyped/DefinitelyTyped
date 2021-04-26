@@ -1,4 +1,4 @@
-import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph } from 'rdf-js';
+import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph, Variable } from 'rdf-js';
 import Clownface = require('clownface/lib/Clownface');
 import clownface = require('clownface');
 import Context = require('clownface/lib/Context');
@@ -221,6 +221,19 @@ function testFilter() {
         const copy: never = quad;
         return true;
     });
+
+    const anyPointer: clownface.AnyPointer<clownface.AnyContext, Dataset> = <any> {};
+    function onlyVariables(ptr: clownface.GraphPointer): ptr is clownface.GraphPointer<Variable> {
+        return true;
+    }
+
+    const typeGuarded: clownface.AnyPointer<Variable, Dataset> = anyPointer.filter(onlyVariables);
+
+    function onlyNamedOrBlank(ptr: clownface.GraphPointer): ptr is clownface.GraphPointer<NamedNode> | clownface.GraphPointer<BlankNode> {
+        return true;
+    }
+
+    const multipleTypeGuarded: clownface.AnyPointer<NamedNode | BlankNode, Dataset> = anyPointer.filter<NamedNode | BlankNode>(onlyNamedOrBlank);
 }
 
 function testForEach() {
