@@ -1,9 +1,5 @@
-declare module 'node:v8' {
-    export * from 'v8';
-}
-
 declare module 'v8' {
-    import { Readable } from 'node:stream';
+    import { Readable } from 'stream';
 
     interface HeapSpaceInfo {
         space_name: string;

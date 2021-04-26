@@ -1,7 +1,3 @@
-declare module "node:dns/promises" {
-    export * from "dns/promises";
-}
-
 declare module "dns/promises" {
     import {
         LookupAddress,
@@ -18,7 +14,7 @@ declare module "dns/promises" {
         RecordWithTtl,
         ResolveOptions,
         ResolverOptions,
-    } from "node:dns";
+    } from "dns";
 
     function getServers(): string[];
 

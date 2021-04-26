@@ -1,11 +1,7 @@
-declare module 'node:net' {
-    export * from 'net';
-}
-
 declare module 'net' {
-    import * as stream from 'node:stream';
-    import EventEmitter = require('node:events');
-    import * as dns from 'node:dns';
+    import * as stream from 'stream';
+    import EventEmitter = require('events');
+    import * as dns from 'dns';
 
     type LookupFunction = (
         hostname: string,

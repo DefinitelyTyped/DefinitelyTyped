@@ -1,12 +1,8 @@
-declare module 'node:fs' {
-    export * from 'fs';
-}
-
 declare module 'fs' {
-    import * as stream from 'node:stream';
-    import EventEmitter = require('node:events');
-    import { URL } from 'node:url';
-    import * as promises from 'node:fs/promises';
+    import * as stream from 'stream';
+    import EventEmitter = require('events');
+    import { URL } from 'url';
+    import * as promises from 'fs/promises';
 
     export { promises };
     /**

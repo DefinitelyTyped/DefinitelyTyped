@@ -1,9 +1,5 @@
-declare module 'node:readline' {
-    export * from 'readline';
-}
-
 declare module 'readline' {
-    import EventEmitter = require('node:events');
+    import EventEmitter = require('events');
 
     interface Key {
         sequence?: string;

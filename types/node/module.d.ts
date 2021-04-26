@@ -1,10 +1,5 @@
-declare module 'node:module' {
-    import Module = require('module');
-    export = Module;
-}
-
 declare module 'module' {
-    import { URL } from 'node:url';
+    import { URL } from 'url';
     namespace Module {
         /**
          * Updates all the live bindings for builtin ES Modules to match the properties of the CommonJS exports.

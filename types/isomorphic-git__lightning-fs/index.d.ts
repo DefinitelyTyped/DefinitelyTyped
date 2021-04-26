@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Stats } from 'node:fs';
+import { Stats } from 'fs';
 
 declare class LightningFS {
     /** Collection of FS Operations that returns Promises */

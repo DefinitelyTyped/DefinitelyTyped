@@ -1,7 +1,3 @@
-declare module 'node:timers' {
-    export * from 'timers';
-}
-
 declare module 'timers' {
     function setTimeout(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
     namespace setTimeout {

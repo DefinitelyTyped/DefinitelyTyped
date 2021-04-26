@@ -1,13 +1,9 @@
-declare module 'node:worker_threads' {
-    export * from 'worker_threads';
-}
-
 declare module 'worker_threads' {
-    import { Context } from 'node:vm';
-    import EventEmitter = require('node:events');
-    import { Readable, Writable } from 'node:stream';
-    import { URL } from 'node:url';
-    import { FileHandle } from 'node:fs/promises';
+    import { Context } from 'vm';
+    import EventEmitter = require('events');
+    import { Readable, Writable } from 'stream';
+    import { URL } from 'url';
+    import { FileHandle } from 'fs/promises';
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;

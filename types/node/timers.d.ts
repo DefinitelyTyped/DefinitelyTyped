@@ -1,7 +1,3 @@
-declare module 'node:timers' {
-    export * from 'timers';
-}
-
 declare module 'timers' {
     interface TimerOptions {
         /**
