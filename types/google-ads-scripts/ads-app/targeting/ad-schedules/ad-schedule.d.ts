@@ -35,16 +35,16 @@ declare namespace GoogleAdsScripts {
         }
 
         const AdScheduleDayOfWeek: {
-            Monday: "MONDAY",
-            Tuesday: "TUESDAY",
-            Wednesday: "WEDNESDAY",
-            Thursday: "THURSDAY",
-            Friday: "FRIDAY",
-            Saturday: "SATURDAY",
-            Sunday: "SUNDAY",
-        }
+            Monday: "MONDAY";
+            Tuesday: "TUESDAY";
+            Wednesday: "WEDNESDAY";
+            Thursday: "THURSDAY";
+            Friday: "FRIDAY";
+            Saturday: "SATURDAY";
+            Sunday: "SUNDAY";
+        };
 
-        type AdScheduleDayOfWeekType = (typeof AdScheduleDayOfWeek)[keyof typeof AdScheduleDayOfWeek];
+        type AdScheduleDayOfWeekType = typeof AdScheduleDayOfWeek[keyof typeof AdScheduleDayOfWeek];
 
         /**
          * An iterator of ad schedules.

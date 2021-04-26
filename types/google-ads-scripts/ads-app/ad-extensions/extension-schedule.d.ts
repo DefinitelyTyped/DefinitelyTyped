@@ -50,15 +50,15 @@ declare namespace GoogleAdsScripts {
 
         /** Enum of supported extension sechedule days of the week */
         const ExtensionScheduleDayOfWeek: {
-            Monday: "MONDAY",
-            Tuesday: "TUESDAY",
-            Wednesday: "WEDNESDAY",
-            Thursday: "THURSDAY",
-            Friday: "FRIDAY",
-            Saturday: "SATURDAY",
-            Sunday: "SUNDAY",
-        }
+            Monday: "MONDAY";
+            Tuesday: "TUESDAY";
+            Wednesday: "WEDNESDAY";
+            Thursday: "THURSDAY";
+            Friday: "FRIDAY";
+            Saturday: "SATURDAY";
+            Sunday: "SUNDAY";
+        };
 
-        type ExtensionScheduleDayOfWeekType = (typeof ExtensionScheduleDayOfWeek)[keyof typeof ExtensionScheduleDayOfWeek];
+        type ExtensionScheduleDayOfWeekType = typeof ExtensionScheduleDayOfWeek[keyof typeof ExtensionScheduleDayOfWeek];
     }
 }

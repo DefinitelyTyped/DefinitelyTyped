@@ -20,14 +20,14 @@ declare namespace GoogleAdsScripts {
 
         const ExecutionResultStatus: {
             /** Execution has finished successfully. */
-            Ok: "OK",
+            Ok: "OK";
             /** Execution has failed to finish due to an error. */
-            Error: "ERROR",
+            Error: "ERROR";
             /** Execution has failed to finish because it ran out of time. */
-            TimeOut: "TIMEOUT",
-        }
+            TimeOut: "TIMEOUT";
+        };
 
-        type ExecutionResultStatusType = (typeof ExecutionResultStatus)[keyof typeof ExecutionResultStatus];
+        type ExecutionResultStatusType = typeof ExecutionResultStatus[keyof typeof ExecutionResultStatus];
 
         interface ExecutionResult {
             /** Returns the customer ID of the account. */

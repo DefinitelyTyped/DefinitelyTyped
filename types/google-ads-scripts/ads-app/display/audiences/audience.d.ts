@@ -94,10 +94,10 @@ declare namespace GoogleAdsScripts {
                 Base.SelectorWithLimit {}
 
         const AudienceType: {
-            UserInterest: "USER_INTEREST",
-            UserList: "USER_LIST",
-        }
+            UserInterest: "USER_INTEREST";
+            UserList: "USER_LIST";
+        };
 
-        type AudienceTypeType = (typeof AudienceType)[keyof typeof AudienceType];
+        type AudienceTypeType = typeof AudienceType[keyof typeof AudienceType];
     }
 }
