@@ -93,11 +93,11 @@ declare namespace GoogleAdsScripts {
                 Base.SelectorWithIds,
                 Base.SelectorWithLimit {}
 
-        type AudienceTypeType = `${AudienceType}`;
-
-        enum AudienceType {
-            UserInterest = "USER_INTEREST",
-            UserList = "USER_LIST",
+        const AudienceType: {
+            UserInterest: "USER_INTEREST",
+            UserList: "USER_LIST",
         }
+
+        type AudienceTypeType = (typeof AudienceType)[keyof typeof AudienceType];
     }
 }

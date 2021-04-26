@@ -34,17 +34,17 @@ declare namespace GoogleAdsScripts {
             setBidModifier(modifier: number): void;
         }
 
-        enum AdScheduleDayOfWeek {
-            Monday = "MONDAY",
-            Tuesday = "TUESDAY",
-            Wednesday = "WEDNESDAY",
-            Thursday = "THURSDAY",
-            Friday = "FRIDAY",
-            Saturday = "SATURDAY",
-            Sunday = "SUNDAY",
+        const AdScheduleDayOfWeek: {
+            Monday: "MONDAY",
+            Tuesday: "TUESDAY",
+            Wednesday: "WEDNESDAY",
+            Thursday: "THURSDAY",
+            Friday: "FRIDAY",
+            Saturday: "SATURDAY",
+            Sunday: "SUNDAY",
         }
 
-        type AdScheduleDayOfWeekType = `${AdScheduleDayOfWeek}`;
+        type AdScheduleDayOfWeekType = (typeof AdScheduleDayOfWeek)[keyof typeof AdScheduleDayOfWeek];
 
         /**
          * An iterator of ad schedules.
