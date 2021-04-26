@@ -442,10 +442,10 @@ declare namespace jasmine {
         beforeAll(beforeAllFunction: ImplementationCallback, timeout?: number): void;
         afterEach(afterEachFunction: ImplementationCallback, timeout?: number): void;
         afterAll(afterAllFunction: ImplementationCallback, timeout?: number): void;
-        xdescribe(desc: string, specDefinitions: () => void): XSuite;
+        xdescribe(desc: string, specDefinitions: () => void): Suite;
         it(description: string, func: () => void): Spec;
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
-        xit(desc: string, func: () => void): XSpec;
+        xit(desc: string, func: () => void): Spec;
         addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
         addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
@@ -854,10 +854,6 @@ declare namespace jasmine {
         throwOnExpectationFailure: boolean;
     }
 
-    interface XSpec {
-        id: number;
-    }
-
     interface Suite extends SuiteOrSpec {
         new (env: Env, description: string, specDefinitions: () => void, parentSuite: Suite): any;
 
@@ -870,10 +866,6 @@ declare namespace jasmine {
         afterAll(afterAllFunction: SpecFunction): void;
         specs(): Spec[];
         suites(): Suite[];
-    }
-
-    interface XSuite {
-        execute(): void;
     }
 
     interface Spy<Fn extends Func = Func> {
