@@ -5,6 +5,7 @@ import '../test/cluster';
 import '../test/constants';
 import '../test/crypto';
 import '../test/dgram';
+import '../test/diagnostic_channel';
 import '../test/dns';
 import '../test/events';
 import '../test/fs';

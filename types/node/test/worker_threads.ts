@@ -3,6 +3,7 @@ import assert = require('assert');
 import { createContext } from 'vm';
 import { Readable } from 'stream';
 import * as fs from 'fs';
+import { EventLoopUtilization } from 'perf_hooks';
 
 {
     if (workerThreads.isMainThread) {
@@ -103,4 +104,9 @@ import * as fs from 'fs';
         const worker = new workerThreads.Worker(__filename);
         worker.postMessage("some message", [ fileHandle ] as ReadonlyArray<workerThreads.TransferListItem>);
     })();
+}
+
+{
+    const worker = new workerThreads.Worker(__filename);
+    const utilization: EventLoopUtilization = worker.performance.eventLoopUtilitzation();
 }
