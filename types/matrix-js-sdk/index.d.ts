@@ -957,7 +957,7 @@ export class MatrixEvent<IEventContentType = EventContentTypeMessage, EventTypeN
     getType(): EventTypeName;
     getWireType(): string;
     getRoomId(): string;
-    getTs(): Date;
+    getTs(): number;
     getDate(): Date;
     getContent(): IEventContentType;
     getOriginalContent(): IEventContentType;
