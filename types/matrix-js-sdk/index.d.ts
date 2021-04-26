@@ -1149,3 +1149,50 @@ export interface RawEvent<IEventContentType = EventContentTypeMessage, EventType
     event_id: string;
     room_id: string;
 }
+
+export interface SyncResponse {
+  next_batch: string | null;
+  rooms: Record<string, unknown>;
+  groups: Record<string, unknown>;
+  account_data: Record<string, unknown>;
+}
+
+export interface SyncData {
+  nextBatch: string | null;
+  roomData: Record<string, unknown>;
+  groupsData: Record<string, unknown>;
+  accountData: Record<string, unknown>;
+}
+
+export class SyncAccumulator {
+  constructor(options?: {
+    /**
+     * Default is 50.
+     */
+    maxTimelineEntries?: number;
+  })
+
+  /**
+   * @param fromDatabase default is false
+   */
+  accumulate: (syncResponse: SyncResponse, fromDatabase?: boolean) => void;
+
+  /**
+   * Return everything under the 'rooms' key from a /sync response which
+   * represents all room data that should be stored. This should be paired
+   * with the sync token which represents the most recent /sync response
+   * provided to accumulate().
+   * @param forDatabase True to generate a sync to be saved to storage
+   * @return An object with a "nextBatch", "roomsData", "groupsData"
+   * and "accountData" keys.
+   * The "nextBatch" key is a string which represents at what point in the
+   * /sync stream the accumulator reached. This token should be used when
+   * restarting a /sync stream at startup. Failure to do so can lead to missing
+   * events. The "roomsData" key is an Object which represents the entire
+   * /sync response from the 'rooms' key onwards. The "accountData" key is
+   * a list of raw events which represent global account data.
+   */
+  getJSON: (forDatabase?: boolean) => SyncData;
+
+  getNextBatchToken: () => string | null;
+}
