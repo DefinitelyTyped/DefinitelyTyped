@@ -20,7 +20,7 @@ declare namespace GoogleAdsScripts {
             setEndDate(date: string | GoogleAdsDate): void;
             setLanguage(language: PriceLanguageType): void;
             setMobilePreferred(isMobilePreferred: boolean): void;
-            setPriceQualifier(priceQualifier: string): void; // TODO: Add price qualifier type literal && enum
+            setPriceQualifier(priceQualifier: PriceQualifierType): void;
             setPriceType(priceType: string): void; // TODO: Add price type type literal && enum
             setSchedules(schedules: ExtensionScheduleLiteral[]): void;
             setStartDate(date: string | GoogleAdsDate): void;
@@ -45,12 +45,21 @@ declare namespace GoogleAdsScripts {
 
         type PriceLanguageType = typeof PriceLanguage[keyof typeof PriceLanguage];
 
+        const PriceQualifier: {
+            From: "FROM";
+            UpTo: "UP_TO";
+            Average: "AVERAGE";
+            None: "NONE";
+        };
+
+        type PriceQualifierType = typeof PriceQualifier[keyof typeof PriceQualifier];
+
         interface PriceBuilder extends Base.Builder<PriceOperation> {
             addPriceItem(priceItem: PriceItem): this;
             withEndDate(date: string | GoogleAdsDate): this;
             withLanguage(language: PriceLanguageType): this;
             withMobilePreferred(isMobilePreferred: boolean): this;
-            withPriceQualifier(priceQualifier: string): this; // TODO: Add price qualifier type literal && enum
+            withPriceQualifier(priceQualifier: PriceQualifierType): this;
             withPriceType(priceType: string): this; // TODO: Add price type type literal && enum
             withSchedules(schedules: ExtensionScheduleLiteral[]): this;
             withStartDate(date: string | GoogleAdsDate): this;
