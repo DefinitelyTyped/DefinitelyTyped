@@ -3,7 +3,7 @@ function test_CKEDITOR() {
     CKEDITOR.replaceClass = 'rich_editor';
     CKEDITOR.skinName = 'moono';
     CKEDITOR.skinName = 'myskin,/customstuff/myskin/';
-    var editor: CKEDITOR.editor = new CKEDITOR.editor();
+    let editor: CKEDITOR.editor = new CKEDITOR.editor();
     if (editor.getSelection(true).getType() === CKEDITOR.SELECTION_ELEMENT)
         if (editor.getSelection(false).getType() === CKEDITOR.SELECTION_NONE)
             if (editor.getSelection(true).getType() === CKEDITOR.SELECTION_TEXT)
@@ -28,7 +28,7 @@ function test_CKEDITOR() {
     if (CKEDITOR.loadFullCore)
         CKEDITOR.loadFullCore();
 
-    var textarea = document.createElement('textarea');
+    const textarea = document.createElement('textarea');
     CKEDITOR.replace('myfield');
     CKEDITOR.replace(textarea);
     CKEDITOR.replaceAll();
@@ -51,10 +51,10 @@ function test_CKEDITOR_events() {
 }
 
 function test_config() {
-    var config1: CKEDITOR.config = {
+    const config1: CKEDITOR.config = {
         toolbar: 'basic',
     };
-    var config2: CKEDITOR.config = {
+    const config2: CKEDITOR.config = {
         toolbar: [
             [ 'mode', 'document', 'doctools' ],
             [ 'clipboard', 'undo' ],
@@ -65,7 +65,7 @@ function test_config() {
             [ 'list', 'indent', 'blocks', 'align', 'bidi' ],
         ],
     };
-    var config3: CKEDITOR.config = {
+    const config3: CKEDITOR.config = {
         toolbarGroups: [
             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
             { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
@@ -85,25 +85,25 @@ function test_config() {
 }
 
 function test_dom_comment() {
-    var type = CKEDITOR.NODE_COMMENT;
-    var nativeNode = document.createComment('Example');
-    var comment = new CKEDITOR.dom.comment(nativeNode);
-    var comment2 = new CKEDITOR.dom.comment('Example');
-    var comment3 = new CKEDITOR.dom.comment('Example', new CKEDITOR.dom.document(document));
-    var html: string = comment.getOuterHtml();
+    const type = CKEDITOR.NODE_COMMENT;
+    const nativeNode = document.createComment('Example');
+    const comment = new CKEDITOR.dom.comment(nativeNode);
+    const comment2 = new CKEDITOR.dom.comment('Example');
+    const comment3 = new CKEDITOR.dom.comment('Example', new CKEDITOR.dom.document(document));
+    const html: string = comment.getOuterHtml();
 }
 
 function test_dom_document() {
-    var document = new CKEDITOR.dom.document(window.document);
-    var type: number = CKEDITOR.NODE_DOCUMENT;
+    const document = new CKEDITOR.dom.document(window.document);
+    const type: number = CKEDITOR.NODE_DOCUMENT;
     CKEDITOR.document.appendStyleSheet('/mystyles.css');
-    var element: CKEDITOR.dom.element = CKEDITOR.document.getBody();
+    let element: CKEDITOR.dom.element = CKEDITOR.document.getBody();
     alert(element.getName());
     element = CKEDITOR.document.getById('myElement');
     alert(element.getId());
     element = CKEDITOR.document.getHead();
     alert(element.getName());
-    var selection = CKEDITOR.instances[0].document.getSelection();
+    const selection = CKEDITOR.instances[0].document.getSelection();
     alert(selection.getType());
     document.write(
         '<html>' +
@@ -111,7 +111,7 @@ function test_dom_document() {
         '<body>Document contents created by code</body>' +
         '</html>'
         );
-    var styles: CSSStyleSheet = document.appendStyleText('some styles');
+        const styles: CSSStyleSheet = document.appendStyleText('some styles');
     element = document.createElement('div');
     element = document.createElement('div', { styles: { height: '1234' } });
     element = document.createElement('div', { attributes: { id: '1234' } });
@@ -119,39 +119,39 @@ function test_dom_document() {
 }
 
 function test_dom_documentFragment() {
-    var type = CKEDITOR.NODE_DOCUMENT_FRAGMENT;
+    const type = CKEDITOR.NODE_DOCUMENT_FRAGMENT;
     alert(new CKEDITOR.dom.documentFragment(document.body).type === type);
 }
 
 function test_dom_domObject() {
-    var element = new CKEDITOR.dom.element('span');
+    const element = new CKEDITOR.dom.element('span');
     alert(element.$.nodeType);
-    var nativeElement = element.$;
-    var doc = new CKEDITOR.dom.document(document);
+    const nativeElement = element.$;
+    const doc = new CKEDITOR.dom.document(document);
     alert(doc.equals(CKEDITOR.document));
     alert(doc === CKEDITOR.document);
-    var element2 = new CKEDITOR.dom.element('span');
+    const element2 = new CKEDITOR.dom.element('span');
     alert(element.getCustomData('hasCustomData'));
     alert(element.getCustomData('nonExistingKey'));
-    var elementA = new CKEDITOR.dom.element(nativeElement);
+    const elementA = new CKEDITOR.dom.element(nativeElement);
     elementA.getPrivate().value = 1;
-    var elementB = new CKEDITOR.dom.element(nativeElement).getPrivate().value;
-    var element3 = new CKEDITOR.dom.element('span');
+    const elementB = new CKEDITOR.dom.element(nativeElement).getPrivate().value;
+    const element3 = new CKEDITOR.dom.element('span');
     element.setCustomData('hasCustomData', true);
 
-    var domObject = new CKEDITOR.dom.domObject(document.createElement('div'));
+    const domObject = new CKEDITOR.dom.domObject(document.createElement('div'));
 }
 
 function test_dom_element() {
-    var element = new CKEDITOR.dom.element('span');
+    const element = new CKEDITOR.dom.element('span');
     alert(element.$.nodeType);
     element.addClass('classA');
     element.addClass('classB');
     element.addClass('classA');
-    var p = new CKEDITOR.dom.element('p');
-    var strong = new CKEDITOR.dom.element('strong');
+    let p = new CKEDITOR.dom.element('p');
+    const strong = new CKEDITOR.dom.element('strong');
     p.append(strong);
-    var em = p.append('em');
+    const em = p.append('em');
     p = new CKEDITOR.dom.element('p');
     p.appendText('This is');
     p.appendText(' some text');
@@ -159,20 +159,20 @@ function test_dom_element() {
     element.data('extra-info', 'test');
     alert(element.data('extra-info'));
     element.data('extra-info', false);
-    var element5 = CKEDITOR.document.getById('myTextarea');
+    const element5 = CKEDITOR.document.getById('myTextarea');
     element.focus();
     element.focusNext();
     element.focusPrevious();
     element.forEach(node => {
         console.log(node);
     });
-    var element2 = CKEDITOR.dom.element.createFromHtml('<input type="text" />');
+    const element2 = CKEDITOR.dom.element.createFromHtml('<input type="text" />');
     alert(element.getAttribute('type'));
     alert(element.getComputedStyle('display'));
     element.appendTo(CKEDITOR.document.getBody());
     alert(element.getEditor().name);
-    var first = element.getFirst();
-    var first2 = element.getFirst((node: CKEDITOR.dom.node) => node.equals(document.body));
+    const first = element.getFirst();
+    const first2 = element.getFirst((node: CKEDITOR.dom.node) => node.equals(document.body));
     alert(element.getHtml());
     alert(element.getId());
     alert(element.getName());
@@ -214,87 +214,87 @@ function test_dom_element() {
     element.unselectable();
     alert(element.getName());
     alert(element === CKEDITOR.dom.element.get(element));
-    var htmlElement = document.getElementById('myElement');
+    const htmlElement = document.getElementById('myElement');
     alert(CKEDITOR.dom.element.get(htmlElement).getName());
 
-    var dtd: CKEDITOR.dtdDefinition = element.getDtd();
-    var last: CKEDITOR.dom.node = element.getLast();
-    var last2: CKEDITOR.dom.node = element.getLast((node: CKEDITOR.dom.node) => node.equals(document.body));
+    const dtd: CKEDITOR.dtdDefinition = element.getDtd();
+    const last: CKEDITOR.dom.node = element.getLast();
+    const last2: CKEDITOR.dom.node = element.getLast((node: CKEDITOR.dom.node) => node.equals(document.body));
     if (element.isBlockBoundary({ div: 1, span: 1 })) {
         element.setState(1, 'hex', false);
     }
 
     CKEDITOR.dom.element.clearMarkers({}, element, true);
-    var element1: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
-    var element6: CKEDITOR.dom.element = CKEDITOR.dom.element.get(document.createElement('div'));
-    var element3: CKEDITOR.dom.element = CKEDITOR.dom.element.get(element2);
-    var markedElement: CKEDITOR.dom.element = CKEDITOR.dom.element.setMarker({}, element, 'key', 0);
+    const element1: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
+    const element6: CKEDITOR.dom.element = CKEDITOR.dom.element.get(document.createElement('div'));
+    const element3: CKEDITOR.dom.element = CKEDITOR.dom.element.get(element2);
+    const markedElement: CKEDITOR.dom.element = CKEDITOR.dom.element.setMarker({}, element, 'key', 0);
 }
 
 function test_dom_elementPath() {
-    var path: CKEDITOR.dom.elementPath = new CKEDITOR.dom.elementPath(CKEDITOR.dom.element.get('div'));
-    var path2: CKEDITOR.dom.elementPath = new CKEDITOR.dom.elementPath(CKEDITOR.dom.element.get('div'), CKEDITOR.dom.element.get(document.body));
+    const path: CKEDITOR.dom.elementPath = new CKEDITOR.dom.elementPath(CKEDITOR.dom.element.get('div'));
+    const path2: CKEDITOR.dom.elementPath = new CKEDITOR.dom.elementPath(CKEDITOR.dom.element.get('div'), CKEDITOR.dom.element.get(document.body));
 
-    var dir: 'ltr' | 'rtl' = path.direction();
+    const dir: 'ltr' | 'rtl' = path.direction();
 }
 
 function test_dom_event() {
-    var event = new CKEDITOR.dom.event(new Event(""));
+    const event = new CKEDITOR.dom.event(new Event(""));
     alert(event.getKey());
     alert(event.getKeystroke() === 65);
     alert(event.getKeystroke() === CKEDITOR.CTRL + 65);
     alert(event.getKeystroke() === CKEDITOR.CTRL + CKEDITOR.SHIFT + 65);
-    var element = new CKEDITOR.dom.element('div');
+    const element = new CKEDITOR.dom.element('div');
     element.on('mousemouse', ev => {
-        var pageOffset = ev.data.getPageOffset();
+        const pageOffset = ev.data.getPageOffset();
         alert(pageOffset.x);
         alert(pageOffset.y);
     });
     element.on('click', ev => {
-        var domEvent = ev.data;
+        const domEvent = ev.data;
         domEvent.getTarget().addClass('clicked');
     });
     element.on('click', ev => {
-        var domEvent = ev.data as CKEDITOR.dom.event;
+        const domEvent = ev.data as CKEDITOR.dom.event;
         domEvent.preventDefault();
     });
 }
 
 function test_dom_iterator() {
-    var range = new CKEDITOR.dom.range(new CKEDITOR.dom.element('div'));
-    var iterator = range.createIterator();
-    var paragrah1: CKEDITOR.dom.element = iterator.getNextParagraph();
-    var paragrah2: CKEDITOR.dom.element = iterator.getNextParagraph('div');
+    const range = new CKEDITOR.dom.range(new CKEDITOR.dom.element('div'));
+    const iterator = range.createIterator();
+    const paragrah1: CKEDITOR.dom.element = iterator.getNextParagraph();
+    const paragrah2: CKEDITOR.dom.element = iterator.getNextParagraph('div');
     alert(!iterator.forceBrBreak);
-    var itRange: CKEDITOR.dom.range = iterator.range;
+    const itRange: CKEDITOR.dom.range = iterator.range;
 }
 
 function test_dom_node() {
-    var p = new CKEDITOR.dom.element('p');
-    var strong = new CKEDITOR.dom.element('strong');
+    const p = new CKEDITOR.dom.element('p');
+    const strong = new CKEDITOR.dom.element('strong');
     strong.appendTo(p);
-    var node = new CKEDITOR.dom.node(new Node());
+    let node = new CKEDITOR.dom.node(new Node());
     node = node.getAscendant('b');
     node = node.getAscendant('b', true);
-    var element = CKEDITOR.document.getById('example');
+    const element = CKEDITOR.document.getById('example');
     alert(element.getDocument().equals(CKEDITOR.document));
     element.getIndex();
     element.getIndex(true);
-    var last = element.getFirst().getNext();
-    var parent = node.getParent();
+    const last = element.getFirst().getNext();
+    const parent = node.getParent();
     alert(parent.getName());
-    var parents = node.getParents();
-    var em = new CKEDITOR.dom.element('em');
+    const parents = node.getParents();
+    const em = new CKEDITOR.dom.element('em');
     strong.insertAfter(em);
     strong.insertBefore(em);
     strong.insertBeforeMe(em);
     element.isReadOnly();
-    var prev = node.getPreviousSourceNode();
+    let prev = node.getPreviousSourceNode();
     prev = node.getPreviousSourceNode(true);
     prev = node.getPreviousSourceNode(true, CKEDITOR.NODE_TEXT);
     prev = node.getPreviousSourceNode(true, CKEDITOR.NODE_COMMENT, node);
     prev = node.getPreviousSourceNode(true, CKEDITOR.NODE_COMMENT, (current: CKEDITOR.dom.node) => false);
-    var next = node.getNextSourceNode();
+    let next = node.getNextSourceNode();
     next = node.getNextSourceNode(true);
     next = node.getNextSourceNode(true, CKEDITOR.NODE_ELEMENT);
     next = node.getNextSourceNode(true, CKEDITOR.NODE_DOCUMENT, node);
@@ -303,14 +303,14 @@ function test_dom_node() {
 }
 
 function test_dom_nodeList() {
-    var nodeList = CKEDITOR.document.getBody().getChildren();
+    const nodeList = CKEDITOR.document.getBody().getChildren();
     alert(nodeList.count());
-    var nodes: CKEDITOR.dom.node[] = nodeList.toArray();
+    const nodes: CKEDITOR.dom.node[] = nodeList.toArray();
 }
 
 function test_dom_range() {
-    var editor = new CKEDITOR.editor();
-    var range = new CKEDITOR.dom.range(editor.document);
+    const editor = new CKEDITOR.editor();
+    const range = new CKEDITOR.dom.range(editor.document);
     range.selectNodeContents(editor.document.getBody());
     range.deleteContents();
     range.selectNodeContents(editor.document.getBody());
@@ -329,26 +329,26 @@ function test_dom_range() {
 }
 
 function test_dom_selection() {
-    var element: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
-    var selection: CKEDITOR.dom.selection = new CKEDITOR.dom.selection(new CKEDITOR.dom.document(document));
+    let element: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
+    let selection: CKEDITOR.dom.selection = new CKEDITOR.dom.selection(new CKEDITOR.dom.document(document));
     selection = new CKEDITOR.dom.selection(element);
     selection = new CKEDITOR.dom.selection(selection);
 
-    var marks: CKEDITOR.dom.bookmark[] = selection.createBookmarks('serialized');
-    var marks2: CKEDITOR.dom.bookmark2[] = selection.createBookmarks2({ normalized: true });
+    const marks: CKEDITOR.dom.bookmark[] = selection.createBookmarks('serialized');
+    const marks2: CKEDITOR.dom.bookmark2[] = selection.createBookmarks2({ normalized: true });
     selection.fake(element);
     selection.fake(element, true);
     element = selection.getCommonAncestor();
-    var domSel: Selection = selection.getNative();
-    var ranges: CKEDITOR.dom.range[] = selection.getRanges();
+    const domSel: Selection = selection.getNative();
+    let ranges: CKEDITOR.dom.range[] = selection.getRanges();
     ranges = selection.getRanges(true);
     element = selection.getSelectedElement();
-    var text: string = selection.getSelectedText();
+    const text: string = selection.getSelectedText();
     element = selection.getStartElement();
 
-    var type: number = selection.getType();
+    const type: number = selection.getType();
 
-    var isSomething: boolean = selection.isCollapsed();
+    let isSomething: boolean = selection.isCollapsed();
     isSomething = selection.isHidden();
     isSomething = selection.isInTable();
     isSomething = selection.isInTable(false);
@@ -367,16 +367,16 @@ function test_dom_selection() {
 }
 
 function test_dom_walker() {
-    var element: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
-    var range: CKEDITOR.dom.range = new CKEDITOR.dom.range(element);
+    const element: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
+    const range: CKEDITOR.dom.range = new CKEDITOR.dom.range(element);
 
-    var walker: CKEDITOR.dom.walker = new CKEDITOR.dom.walker(range);
+    const walker: CKEDITOR.dom.walker = new CKEDITOR.dom.walker(range);
 
-    var isSomething: boolean = walker.checkBackward();
+    let isSomething: boolean = walker.checkBackward();
     isSomething = walker.checkForward();
     walker.end();
 
-    var node: CKEDITOR.dom.node = walker.lastBackward();
+    let node: CKEDITOR.dom.node = walker.lastBackward();
     node = walker.lastForward();
     node = walker.next();
     node = walker.previous();
@@ -405,32 +405,32 @@ function test_dom_walker() {
 }
 
 function test_dom_text() {
-    var nativeNode = document.createTextNode('Example');
-    var text = new CKEDITOR.dom.text(nativeNode);
-    var text2 = new CKEDITOR.dom.text('Example');
+    const nativeNode = document.createTextNode('Example');
+    const text = new CKEDITOR.dom.text(nativeNode);
+    const text2 = new CKEDITOR.dom.text('Example');
     text.substring(1, 2);
     text.substring(1);
 }
 
 function test_dom_window() {
-    var document = new CKEDITOR.dom.window(window);
-    var win = new CKEDITOR.dom.window(window);
-    var pos = win.getScrollPosition();
+    const document = new CKEDITOR.dom.window(window);
+    const win = new CKEDITOR.dom.window(window);
+    const pos = win.getScrollPosition();
     alert(pos.x);
     alert(pos.y);
-    var size = win.getViewPaneSize();
+    const size = win.getViewPaneSize();
     alert(size.width);
     alert(size.height);
 
-    var frame: CKEDITOR.dom.element = win.getFrame();
+    const frame: CKEDITOR.dom.element = win.getFrame();
     win.focus();
 }
 
 function test_ajax() {
-    var req: string = CKEDITOR.ajax.load('https://ckeditor.com/ckeditor-4/');
+    let req: string = CKEDITOR.ajax.load('https://ckeditor.com/ckeditor-4/');
     req = CKEDITOR.ajax.load('https://ckeditor.com/ckeditor-4/', (data: any) => console.log(data));
 
-    var xml: CKEDITOR.xml = CKEDITOR.ajax.loadXml('https://ckeditor.com/ckeditor-4/');
+    let xml: CKEDITOR.xml = CKEDITOR.ajax.loadXml('https://ckeditor.com/ckeditor-4/');
     xml = CKEDITOR.ajax.loadXml('https://ckeditor.com/ckeditor-4/', (data: any) => console.log(data));
 
     CKEDITOR.ajax.post('https://ckeditor.com/ckeditor-4/', {});
@@ -439,32 +439,32 @@ function test_ajax() {
 }
 
 function test_dataProcessor() {
-    var processor: CKEDITOR.dataProcessor;
+    const processor: CKEDITOR.dataProcessor = new CKEDITOR.htmlDataProcessor(new CKEDITOR.editor());
     processor.toDataFormat('html', 'fix');
     processor.toHtml('data');
     processor.toHtml('data', 'fix');
 }
 
 function test_dialog() {
-    var dialog: CKEDITOR.dialog = new CKEDITOR.dialog(CKEDITOR.instances[0], 'dialog');
+    let dialog: CKEDITOR.dialog = new CKEDITOR.dialog(CKEDITOR.instances[0], 'dialog');
 
-    var element: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
+    let element: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
     dialog.addFocusable(element);
     dialog.addFocusable(element, 13);
     dialog.addPage({ some: true, object: false });
-    var ret = dialog.click('1234');
+    const ret = dialog.click('1234');
     dialog.commitContent();
     dialog.disableButton('some button');
     dialog.enableButton('4321');
     dialog = dialog.foreach(() => console.log('hey'));
 
-    var button: CKEDITOR.ui.dialog.button = dialog.getButton('button1');
-    var uiEl: CKEDITOR.ui.dialog.uiElement = dialog.getContentElement('page1', 'element1');
+    const button: CKEDITOR.ui.dialog.button = dialog.getButton('button1');
+    const uiEl: CKEDITOR.ui.dialog.uiElement = dialog.getContentElement('page1', 'element1');
     element = dialog.getElement();
-    var str: string = dialog.getName();
-    var numb: number = dialog.getPageCount();
-    var editor: CKEDITOR.editor = dialog.getParentEditor();
-    var obj: { [key: string]: any } = dialog.getPosition();
+    const str: string = dialog.getName();
+    const numb: number = dialog.getPageCount();
+    const editor: CKEDITOR.editor = dialog.getParentEditor();
+    let obj: { [key: string]: any } = dialog.getPosition();
     element = dialog.getSelectedElement();
     obj = dialog.getSize();
     obj = dialog.getValueOf('page1', 'ele1');
@@ -518,16 +518,16 @@ function test_dialog() {
     CKEDITOR.dialog.exists(1234);
     dialog = CKEDITOR.dialog.getCurrent();
 
-    var isEnabled: boolean = CKEDITOR.dialog.isTabEnabled(editor, 'dialog', 'table');
+    const isEnabled: boolean = CKEDITOR.dialog.isTabEnabled(editor, 'dialog', 'table');
 
     CKEDITOR.dialog.okButton();
 }
 
 function test_editable() {
-    var element: CKEDITOR.dom.element;
-    var editor: CKEDITOR.editor;
+    const element: CKEDITOR.dom.element = new CKEDITOR.dom.element('div');
+    const editor: CKEDITOR.editor = new CKEDITOR.editor();
 
-    var editable: CKEDITOR.editable = new CKEDITOR.editable(editor, element);
+    let editable: CKEDITOR.editable = new CKEDITOR.editable(editor, element);
     editable = new CKEDITOR.editable(editor, document.createElement('div'));
 
     editable.attachClass('class');
@@ -540,7 +540,7 @@ function test_editable() {
     editable.changeAttr('attr', 'val');
     editable.detach();
 
-    var range: CKEDITOR.dom.range;
+    const range: CKEDITOR.dom.range = new CKEDITOR.dom.range(editor.document);
     editable.insertElement(element);
     editable.insertElement(element, range);
     editable.insertHtml('data');
@@ -548,38 +548,40 @@ function test_editable() {
     editable.insertHtml('data', 'mode', range);
     editable.insertText(new CKEDITOR.dom.text('text'));
 
-    var inline: boolean = editable.isInline();
+    const inline: boolean = editable.isInline();
     editable.setReadOnly(inline);
 }
 
 function test_fileTools() {
-    var editor: CKEDITOR.editor;
-    var def: CKEDITOR.fileTools.uploadWidgetDefinition;
-    var loader: CKEDITOR.fileTools.fileLoader;
-    var blob: Blob;
-    var element: CKEDITOR.dom.element;
+    const editor: CKEDITOR.editor = new CKEDITOR.editor();
+    // tslint:disable-next-line:prefer-const
+    let def: CKEDITOR.fileTools.uploadWidgetDefinition;
+    const blob: Blob = new Blob();
+    const loader: CKEDITOR.fileTools.fileLoader = new CKEDITOR.fileTools.fileLoader(editor, blob);
+    const element: CKEDITOR.dom.element = new CKEDITOR.dom.element('div');
 
     CKEDITOR.fileTools.addUploadWidget(editor, 'editor', def);
     CKEDITOR.fileTools.bindNotification(editor, loader);
-    var url: string = CKEDITOR.fileTools.getUploadUrl({ some: 'object' });
+    let url: string = CKEDITOR.fileTools.getUploadUrl({ some: 'object' });
     url = CKEDITOR.fileTools.getUploadUrl({ some: 'object' }, 'type');
 
-    var supported = CKEDITOR.fileTools.isTypeSupported(blob, /regex/);
+    const supported = CKEDITOR.fileTools.isTypeSupported(blob, /regex/);
     CKEDITOR.fileTools.markElement(element, 'name', 45);
 }
 
 function test_fileTools_fileLoader() {
-    var editor: CKEDITOR.editor;
-    var def: CKEDITOR.fileTools.uploadWidgetDefinition;
-    var blob: Blob;
-    var element: CKEDITOR.dom.element;
+    const editor: CKEDITOR.editor = new CKEDITOR.editor();
+    // tslint:disable-next-line:prefer-const
+    let def: CKEDITOR.fileTools.uploadWidgetDefinition;
+    const blob: Blob = new Blob();
+    const element: CKEDITOR.dom.element = new CKEDITOR.dom.element('div');
 
-    var loader: CKEDITOR.fileTools.fileLoader = new CKEDITOR.fileTools.fileLoader(editor, 'data');
+    let loader: CKEDITOR.fileTools.fileLoader = new CKEDITOR.fileTools.fileLoader(editor, 'data');
     loader = new CKEDITOR.fileTools.fileLoader(editor, blob);
     loader = new CKEDITOR.fileTools.fileLoader(editor, blob, 'name');
 
     loader.abort();
-    var finished: boolean = loader.isFinished();
+    const finished: boolean = loader.isFinished();
     loader.load();
     loader.loadAndUpload('url');
     loader.loadAndUpload('url', { someHeader: '1234' });
@@ -590,21 +592,21 @@ function test_fileTools_fileLoader() {
 }
 
 function test_fileTools_uploadRepository() {
-    var editor: CKEDITOR.editor;
-    var blob: Blob;
-    var repo: CKEDITOR.fileTools.uploadRepository = new CKEDITOR.fileTools.uploadRepository(editor);
+    const editor: CKEDITOR.editor = new CKEDITOR.editor();
+    const blob: Blob = new Blob();
+    const repo: CKEDITOR.fileTools.uploadRepository = new CKEDITOR.fileTools.uploadRepository(editor);
 
-    var loader: CKEDITOR.fileTools.fileLoader = repo.create('data', 'name');
+    let loader: CKEDITOR.fileTools.fileLoader = repo.create('data', 'name');
     loader = repo.create(blob, 'name', 'type');
 
-    var fin: boolean = loader.isFinished();
+    const fin: boolean = loader.isFinished();
 }
 
 function test_filter() {
-    var editor: CKEDITOR.editor;
-    var style: CKEDITOR.style;
+    const editor: CKEDITOR.editor = new CKEDITOR.editor();
+    const style: CKEDITOR.style = new CKEDITOR.style({});
 
-    var filter: CKEDITOR.filter = new CKEDITOR.filter(editor);
+    let filter: CKEDITOR.filter = new CKEDITOR.filter(editor);
     filter = new CKEDITOR.filter('rule');
     filter = new CKEDITOR.filter(style);
     filter = new CKEDITOR.filter([ style, 'rule', [ style, 'rule' ] ]);
@@ -615,15 +617,15 @@ function test_filter() {
     filter.addFeature({ allowedContent: style });
     filter.addTransformations([ [ 'transform1', { right: (element: CKEDITOR.htmlParser.element, tools: string | CKEDITOR.filter.transformationTools) => true } ] ]);
 
-    var allowed: boolean = filter.allow(style);
+    let allowed: boolean = filter.allow(style);
     allowed = filter.allow([style], 'name');
     allowed = filter.allow('rule', 'name', false);
 
-    var apply: boolean = filter.applyTo(CKEDITOR.htmlParser.fragment.fromHtml('string'), true, false, 1);
+    let apply: boolean = filter.applyTo(CKEDITOR.htmlParser.fragment.fromHtml('string'), true, false, 1);
     apply = filter.applyTo(new CKEDITOR.htmlParser.element('name', null));
     apply = filter.applyTo(new CKEDITOR.htmlParser.element('name', null), true, false, 1);
 
-    var checked: boolean = filter.check(style);
+    let checked: boolean = filter.check(style);
     checked = filter.check('rule', true);
     checked = filter.check(style, false, true);
 
@@ -634,14 +636,14 @@ function test_filter() {
     filter.disable();
 
     filter.disallow(filter.disallowedContent);
-    var mode: number = filter.getAllowedEnterMode(1);
+    let mode: number = filter.getAllowedEnterMode(1);
     mode = filter.getAllowedEnterMode(1, false);
 }
 
 function test_focusManager() {
-    var textarea = document.createElement('textarea');
-    var instance = CKEDITOR.replace(textarea);
-    var element = CKEDITOR.document.getById('myElement');
+    const textarea = document.createElement('textarea');
+    const instance = CKEDITOR.replace(textarea);
+    const element = CKEDITOR.document.getById('myElement');
 
     instance.focusManager.focus();
     instance.focusManager.focus(element);
@@ -652,13 +654,13 @@ function test_focusManager() {
     instance.focusManager.add(element, true);
     instance.focusManager.remove(element);
 
-    var focusManager = new CKEDITOR.focusManager(CKEDITOR.instances[0]);
-    var object: CKEDITOR.dom.domObject = focusManager.currentActive;
-    var bool: boolean = focusManager.hasFocus;
+    const focusManager = new CKEDITOR.focusManager(CKEDITOR.instances[0]);
+    const object: CKEDITOR.dom.domObject = focusManager.currentActive;
+    const bool: boolean = focusManager.hasFocus;
 }
 
 function test_htmlParser_basicWriter() {
-    var writer = new CKEDITOR.htmlParser.basicWriter();
+    const writer = new CKEDITOR.htmlParser.basicWriter();
     writer.attribute('class', 'MyClass');
     writer.closeTag('p');
     writer.comment('hello');
@@ -671,22 +673,22 @@ function test_htmlParser_basicWriter() {
 }
 
 function test_htmlParser_cdata() {
-    var cdata: CKEDITOR.htmlParser.cdata = new CKEDITOR.htmlParser.cdata('hey');
+    const cdata: CKEDITOR.htmlParser.cdata = new CKEDITOR.htmlParser.cdata('hey');
     cdata.writeHtml(new CKEDITOR.htmlParser.basicWriter());
 }
 
 function test_htmlParser_comment() {
-    var filter: CKEDITOR.htmlParser.filter;
-    var comment: CKEDITOR.htmlParser.comment = new CKEDITOR.htmlParser.comment('hey');
-    var filtered: boolean = comment.filter(filter);
+    const filter: CKEDITOR.htmlParser.filter = new CKEDITOR.htmlParser.filter();
+    const comment: CKEDITOR.htmlParser.comment = new CKEDITOR.htmlParser.comment('hey');
+    const filtered: boolean = comment.filter(filter);
     comment.writeHtml(new CKEDITOR.htmlParser.basicWriter());
     comment.writeHtml(new CKEDITOR.htmlParser.basicWriter(), filter);
 }
 
 function test_htmlParser_cssStyle() {
-    var element: CKEDITOR.htmlParser.element;
+    const element: CKEDITOR.htmlParser.element = new CKEDITOR.htmlParser.element('el');
 
-    var style: CKEDITOR.htmlParser.cssStyle = new CKEDITOR.htmlParser.cssStyle(element);
+    let style: CKEDITOR.htmlParser.cssStyle = new CKEDITOR.htmlParser.cssStyle(element);
     style = new CKEDITOR.htmlParser.cssStyle('styles');
 
     style.populate(element);
@@ -695,19 +697,19 @@ function test_htmlParser_cssStyle() {
 }
 
 function test_htmlParser_element() {
-    var element: CKEDITOR.htmlParser.element = new CKEDITOR.htmlParser.element('el', { id: '1'});
+    let element: CKEDITOR.htmlParser.element = new CKEDITOR.htmlParser.element('el', { id: '1'});
 
-    var node: CKEDITOR.htmlParser.node;
+    let node: CKEDITOR.htmlParser.node = new CKEDITOR.htmlParser.node();
     element.add(node);
     element.add(node, 5);
     element.addClass('class');
     element = element.clone();
 
-    var filter: CKEDITOR.htmlParser.filter;
-    var filtered: boolean = element.filter(filter);
+    const filter: CKEDITOR.htmlParser.filter = new CKEDITOR.htmlParser.filter();
+    const filtered: boolean = element.filter(filter);
     element.filterChildren(filter);
 
-    var nodes: CKEDITOR.htmlParser.node[] = element.find('*');
+    let nodes: CKEDITOR.htmlParser.node[] = element.find('*');
     nodes = element.find((el: CKEDITOR.htmlParser.node) => false, true);
 
     element.forEach((el: CKEDITOR.htmlParser.node) => console.log('node'));
@@ -718,14 +720,14 @@ function test_htmlParser_element() {
     node = element.getFirst({ id: '1' });
     node = element.getFirst((el: CKEDITOR.htmlParser.node) => true);
 
-    var html: string = element.getHtml();
+    let html: string = element.getHtml();
     html = element.getOuterHtml();
 
-    var hasClass: boolean = element.hasClass('class');
+    const hasClass: boolean = element.hasClass('class');
     element.removeClass('class');
     element.replaceWithChildren();
     element.setHtml('html');
-    var el2: CKEDITOR.htmlParser.element = element.split(1);
+    const el2: CKEDITOR.htmlParser.element = element.split(1);
 
     element.writeChildrenHtml(new CKEDITOR.htmlParser.basicWriter());
     element.writeChildrenHtml(new CKEDITOR.htmlParser.basicWriter(), filter);
@@ -735,7 +737,7 @@ function test_htmlParser_element() {
 }
 
 function test_htmlParser_filter() {
-    var filter: CKEDITOR.htmlParser.filter = new CKEDITOR.htmlParser.filter({ elementNames: [ 'div' ] });
+    let filter: CKEDITOR.htmlParser.filter = new CKEDITOR.htmlParser.filter({ elementNames: [ 'div' ] });
     filter = new CKEDITOR.htmlParser.filter();
 
     filter.addRules({ text: 'text' });
@@ -743,34 +745,34 @@ function test_htmlParser_filter() {
     filter.addRules({ comment: 'hey', text: 'text' }, { priority: 1 });
     filter.addRules({ root: document.body }, { applyToAll: false });
 
-    var node: CKEDITOR.htmlParser.node;
+    const node: CKEDITOR.htmlParser.node = new CKEDITOR.htmlParser.node();
     filter.applyTo(node);
 }
 
 function test_htmlParser_filterRulesGroup() {
-    var rules: CKEDITOR.htmlParser.filterRulesGroup = new CKEDITOR.htmlParser.filterRulesGroup();
+    const rules: CKEDITOR.htmlParser.filterRulesGroup = new CKEDITOR.htmlParser.filterRulesGroup();
 
     rules.add([ 'some', 'rule' ], 1, { applyToAll: false, excludeNestedEditable: true });
 
     rules.addMany([ (value: CKEDITOR.htmlParser.node | CKEDITOR.htmlParser.fragment | string) => false, [ 'some', 'rule' ] ], 1, { applyToAll: false });
 
-    var nodeFragOrString: CKEDITOR.htmlParser.node | CKEDITOR.htmlParser.fragment | string;
+    let nodeFragOrString: CKEDITOR.htmlParser.node | CKEDITOR.htmlParser.fragment | string;
     nodeFragOrString = rules.exec(nodeFragOrString);
 
-    var str: string;
+    let str: string;
     str = rules.execOnName(str);
 
-    var idx: number = rules.findIndex(1);
+    const idx: number = rules.findIndex(1);
 }
 
 function test_htmlParser_fragment() {
-    var frag: CKEDITOR.htmlParser.fragment = new CKEDITOR.htmlParser.fragment();
+    let frag: CKEDITOR.htmlParser.fragment = new CKEDITOR.htmlParser.fragment();
 
-    var node: CKEDITOR.htmlParser.node;
+    const node: CKEDITOR.htmlParser.node = new CKEDITOR.htmlParser.node();
     frag.add(node);
     frag.add(node, 1);
 
-    var filter: CKEDITOR.htmlParser.filter;
+    const filter: CKEDITOR.htmlParser.filter = new CKEDITOR.htmlParser.filter();
     frag.filter(filter);
     frag.filterChildren(filter);
     frag.filterChildren(filter, true);
@@ -786,20 +788,20 @@ function test_htmlParser_fragment() {
 
     frag = CKEDITOR.htmlParser.fragment.fromBBCode('code');
 
-    var fragOrEl: CKEDITOR.htmlParser.fragment | CKEDITOR.htmlParser.element = CKEDITOR.htmlParser.fragment.fromHtml('html');
+    let fragOrEl: CKEDITOR.htmlParser.fragment | CKEDITOR.htmlParser.element = CKEDITOR.htmlParser.fragment.fromHtml('html');
     fragOrEl = CKEDITOR.htmlParser.fragment.fromHtml('html', 'parent');
     fragOrEl = CKEDITOR.htmlParser.fragment.fromHtml('html', 'parent', 'fix');
     fragOrEl = CKEDITOR.htmlParser.fragment.fromHtml('html', new CKEDITOR.htmlParser.element('name', null), true);
 }
 
 function test_htmlParser_node() {
-    var node: CKEDITOR.htmlParser.node = new CKEDITOR.htmlParser.node();
+    const node: CKEDITOR.htmlParser.node = new CKEDITOR.htmlParser.node();
 
-    var el: CKEDITOR.htmlParser.element = node.getAscendant('condition');
+    let el: CKEDITOR.htmlParser.element = node.getAscendant('condition');
     el = node.getAscendant({ id: '1234' });
     el = node.getAscendant((node: CKEDITOR.htmlParser.element) => false);
 
-    var idx: number = node.getIndex();
+    const idx: number = node.getIndex();
     node.insertAfter(node);
     node.insertBefore(node);
     node.remove();
@@ -808,14 +810,14 @@ function test_htmlParser_node() {
 }
 
 function test_htmlParser_text() {
-    var text: CKEDITOR.htmlParser.text = new CKEDITOR.htmlParser.text('text');
-    var filtered: boolean = text.filter(new CKEDITOR.htmlParser.filter());
+    const text: CKEDITOR.htmlParser.text = new CKEDITOR.htmlParser.text('text');
+    const filtered: boolean = text.filter(new CKEDITOR.htmlParser.filter());
     text.writeHtml(new CKEDITOR.htmlParser.basicWriter());
     text.writeHtml(new CKEDITOR.htmlParser.basicWriter(), new CKEDITOR.htmlParser.filter());
 }
 
 function test_htmlWriter() {
-    var writer = new CKEDITOR.htmlWriter();
+    const writer = new CKEDITOR.htmlWriter();
     writer.openTag('p', {});
     writer.attribute('class', 'MyClass');
     writer.openTagClose('p', false);
@@ -832,8 +834,8 @@ function test_htmlWriter() {
 }
 
 function test_htmlParser() {
-    var html = '<div><span>text</span></div>';
-    var fragment = CKEDITOR.htmlParser.fragment.fromHtml(html);
+    const html = '<div><span>text</span></div>';
+    const fragment = CKEDITOR.htmlParser.fragment.fromHtml(html);
     fragment.forEach((node) => {
         if (node instanceof CKEDITOR.htmlParser.element) {
             node.forEach((node) => {
@@ -844,12 +846,12 @@ function test_htmlParser() {
 }
 
 function test_keystrokeHandler() {
-    var handler: CKEDITOR.keystrokeHandler = new CKEDITOR.keystrokeHandler(CKEDITOR.instances[0]);
+    const handler: CKEDITOR.keystrokeHandler = new CKEDITOR.keystrokeHandler(CKEDITOR.instances[0]);
     handler.attach(new CKEDITOR.dom.domObject(document.body));
 }
 
 function test_lang() {
-    var lang: string = CKEDITOR.lang.detect('en');
+    let lang: string = CKEDITOR.lang.detect('en');
     lang = CKEDITOR.lang.detect('zh', 'sw');
 
     CKEDITOR.lang.load('tk', 'pr', (code: string, entries: any) => console.log('loaded'));
@@ -863,11 +865,11 @@ function test_loader() {
 }
 
 function test_menu() {
-    var menu: CKEDITOR.menu = new CKEDITOR.menu();
+    const menu: CKEDITOR.menu = new CKEDITOR.menu();
 
     menu.add({ anything: true });
     menu.addListener((startElement: CKEDITOR.dom.element, selection: CKEDITOR.dom.selection, path: CKEDITOR.dom.elementPath) => 'return');
-    var { item, element } = menu.findItemByCommandName('command');
+    const { item, element } = menu.findItemByCommandName('command');
     menu.hide();
     menu.hide(false);
     menu.removeAll();
@@ -888,15 +890,15 @@ function test_plugins() {
 }
 
 function test_resourceManager() {
-    var manager: CKEDITOR.resourceManager = new CKEDITOR.resourceManager('path', 'name');
+    const manager: CKEDITOR.resourceManager = new CKEDITOR.resourceManager('path', 'name');
 
     manager.add('name');
     manager.add('name', { hidpi: true });
     manager.addExternal('names', 'path');
     manager.addExternal('names', 'path', 'name');
 
-    var def: CKEDITOR.pluginDefinition = manager.get('name');
-    var path: string = manager.getFilePath('path');
+    const def: CKEDITOR.pluginDefinition = manager.get('name');
+    let path: string = manager.getFilePath('path');
     path = manager.getPath('path');
 
     manager.load('name', (loaded: string[]) => console.log('hey'));
@@ -917,55 +919,55 @@ function test_skin() {
 
     CKEDITOR.skin.chameleon('editor', 'part');
 
-    var style: any = CKEDITOR.skin.getIconStyle('name');
+    let style: any = CKEDITOR.skin.getIconStyle('name');
     style = CKEDITOR.skin.getIconStyle('name', true);
     style = CKEDITOR.skin.getIconStyle('name', true, 1);
     style = CKEDITOR.skin.getIconStyle('name', true, 1, 'large');
 
-    var path: any = CKEDITOR.skin.getPath('part');
+    const path: any = CKEDITOR.skin.getPath('part');
 
     CKEDITOR.skin.loadPart('part', () => console.log('load'));
 
-    var path2: string = CKEDITOR.skin.path();
+    const path2: string = CKEDITOR.skin.path();
 
     CKEDITOR.skin.ua_dialog = 'ie,iequirks,ie8,gecko';
     CKEDITOR.skin.ua_editor = 'ie,gecko';
 }
 
 function test_style() {
-    var style: CKEDITOR.style = new CKEDITOR.style({ element: 'div' }, { key: 'value '});
+    const style: CKEDITOR.style = new CKEDITOR.style({ element: 'div' }, { key: 'value '});
     style.apply(CKEDITOR.instances[0]);
 
-    var el: CKEDITOR.dom.element;
+    const el: CKEDITOR.dom.element = new CKEDITOR.dom.element('div');
     style.applyToObject(el, CKEDITOR.instances[0]);
 
-    var range: CKEDITOR.dom.range;
+    const range: CKEDITOR.dom.range = new CKEDITOR.dom.range(el);
     style.applyToRange(range, CKEDITOR.instances[0]);
 
-    var str: string = style.buildPreview();
+    let str: string = style.buildPreview();
     str = style.buildPreview('label');
 
-    var path: CKEDITOR.dom.elementPath;
-    var bool: boolean = style.checkActive(path, CKEDITOR.instances[0]);
+    const path: CKEDITOR.dom.elementPath = new CKEDITOR.dom.elementPath(el);
+    let bool: boolean = style.checkActive(path, CKEDITOR.instances[0]);
 
-    var filter: CKEDITOR.filter;
+    const filter: CKEDITOR.filter = new CKEDITOR.filter(CKEDITOR.instances[0]);
     bool = style.checkApplicable(path, CKEDITOR.instances[0], filter);
 
     bool = style.checkElementMatch(el, true, CKEDITOR.instances[0]);
     bool = style.checkElementRemovable(el, false, CKEDITOR.instances[0]);
 
-    var def: CKEDITOR.style.definition = style.getDefintion();
+    const def: CKEDITOR.style.definition = style.getDefinition();
     style.remove(CKEDITOR.instances[0]);
     style.removeFromRange(range, CKEDITOR.instances[0]);
 
-    var rules: CKEDITOR.filter.allowedContentRules;
+    let rules: CKEDITOR.filter.allowedContentRules;
     rules = style.toAllowedContentRules();
     rules = style.toAllowedContentRules(CKEDITOR.instances[0]);
 }
 
 function test_adding_command_and_buttons() {
-    var textarea = document.createElement('textarea');
-    var instance = CKEDITOR.replace(textarea);
+    const textarea = document.createElement('textarea');
+    const instance = CKEDITOR.replace(textarea);
 
     instance.addCommand('aCommand', {
         exec: (editor: CKEDITOR.editor) => {
@@ -1021,8 +1023,8 @@ function test_specifying_editor_path() {
 }
 
 function test_editor_instance_event() {
-    var textarea = document.createElement('textarea');
-    var instance = CKEDITOR.replace(textarea, {
+    const textarea = document.createElement('textarea');
+    const instance = CKEDITOR.replace(textarea, {
         on: {
             activeEnterModeChange: () => {},
             activeFilterChange: () => {},
@@ -1103,47 +1105,47 @@ function test_editor_instance_event() {
 }
 
 function test_dtd() {
-    var brConsideredEmptyTag = CKEDITOR.dtd.$empty['br'];
-    var spanCanContainText = CKEDITOR.dtd['span']['#'];
-    var divCanContainSpan = CKEDITOR.dtd['div']['span'];
+    const brConsideredEmptyTag = CKEDITOR.dtd.$empty['br'];
+    const spanCanContainText = CKEDITOR.dtd['span']['#'];
+    const divCanContainSpan = CKEDITOR.dtd['div']['span'];
 }
 
 function test_getSelectedHtml() {
-    var textarea = document.createElement('textarea');
-    var editor = CKEDITOR.replace(textarea);
+    const textarea = document.createElement('textarea');
+    const editor = CKEDITOR.replace(textarea);
 
     // $ExpectType documentFragment
-    var sel1 = editor.getSelectedHtml();
+    const sel1 = editor.getSelectedHtml();
     console.log(sel1);
 
     // $ExpectType documentFragment
-    var sel2 = editor.getSelectedHtml(false);
+    const sel2 = editor.getSelectedHtml(false);
     console.log(sel2);
 
     // $ExpectType string
-    var sel3 = editor.getSelectedHtml(true);
+    const sel3 = editor.getSelectedHtml(true);
     console.log(sel3);
 
     // $ExpectType string | documentFragment
-    var sel4 = editor.getSelectedHtml(Math.random() > 0.5);
+    const sel4 = editor.getSelectedHtml(Math.random() > 0.5);
     console.log(sel4);
 }
 
 function test_element() {
-    var el = CKEDITOR.document.getById('myElement');
+    const el = CKEDITOR.document.getById('myElement');
     el.addClass('class');
     console.log(el.hasClass('class'));
     el.removeClass('class');
 }
 
 function test_selection() {
-    var editor = new CKEDITOR.editor();
-    var testNode = CKEDITOR.document.getById('myElement');
+    const editor = new CKEDITOR.editor();
+    const testNode = CKEDITOR.document.getById('myElement');
 
-    var selection = editor.getSelection(true);
-    var ranges = selection.getRanges();
-    for (var i = 0, c = ranges.length; i < c; i++) {
-        var range = ranges[i];
+    const selection = editor.getSelection(true);
+    const ranges = selection.getRanges();
+    for (let i = 0, c = ranges.length; i < c; i++) {
+        const range = ranges[i];
         range.setStartBefore(testNode);
         range.setStartAfter(testNode);
         range.setEndBefore(testNode);
@@ -1152,29 +1154,29 @@ function test_selection() {
 }
 
 function test_tools() {
-    var obj: { [key: string]: any } = { key: 'value' };
+    let obj: { [key: string]: any } = { key: 'value' };
 
     CKEDITOR.tools.addFunction(console.log);
     CKEDITOR.tools.addFunction(console.log, obj);
-    var bool = CKEDITOR.tools.arrayCompare([ 1 ], [ 2, 3 ]);
+    let bool = CKEDITOR.tools.arrayCompare([ 1 ], [ 2, 3 ]);
     CKEDITOR.tools.clone(obj);
     CKEDITOR.tools.copy(obj);
     obj = CKEDITOR.tools.createClass(obj);
-    var str = CKEDITOR.tools.cssStyleToDomStyle('style');
-    var prefixes: { [cssClass: string]: string | number } = CKEDITOR.tools.cssVendorPrefix('prop', 'val');
+    let str = CKEDITOR.tools.cssStyleToDomStyle('style');
+    let prefixes: { [cssClass: string]: string | number } = CKEDITOR.tools.cssVendorPrefix('prop', 'val');
     prefixes = CKEDITOR.tools.cssVendorPrefix('prop', 'val', true);
-    var fn: (param: any) => boolean;
-    fn = CKEDITOR.tools.defer<(param: any) => boolean>(fn);
+    let fn: (param: any) => boolean;
+    fn = CKEDITOR.tools.defer<(param: any) => boolean>(fn, 2);
     CKEDITOR.tools.enableHtml5Elements(document);
     CKEDITOR.tools.enableHtml5Elements(document.createDocumentFragment(), true);
     str = CKEDITOR.tools.escapeCss('css');
-    var { input, reset } = CKEDITOR.tools.eventsBuffer(1, console.log, obj);
+    const { input, reset } = CKEDITOR.tools.eventsBuffer(1, console.log, obj);
     obj = CKEDITOR.tools.extend(obj, obj, true, obj);
     bool = CKEDITOR.tools.fixDomain();
     str = CKEDITOR.tools.genKey(str);
     str = CKEDITOR.tools.getCookie(str);
     str = CKEDITOR.tools.getCsrfToken();
-    var numb: number = CKEDITOR.tools.getIndex<string>(['string', 'array'], (element: string) => false);
+    let numb: number = CKEDITOR.tools.getIndex<string>(['string', 'array'], (element: string) => false);
     bool = CKEDITOR.tools.getMouseButton(new CKEDITOR.dom.event(document.createEvent(null)));
     str = CKEDITOR.tools.getNextId();
     numb = CKEDITOR.tools.getNextNumber();
@@ -1190,14 +1192,14 @@ function test_tools() {
     console.log(CKEDITOR.tools.isArray(null)); // false
     console.log(CKEDITOR.tools.isArray(undefined)); // false
     bool = CKEDITOR.tools.isEmpty(obj);
-    var ret1: { display: string[], aria: string[] } = CKEDITOR.tools.keystrokeToArray(obj, 1);
-    var ret2: { display: string, aria: string }  = CKEDITOR.tools.keystrokeToString(obj, 1);
+    const ret1: { display: string[], aria: string[] } = CKEDITOR.tools.keystrokeToArray(obj, 1);
+    const ret2: { display: string, aria: string }  = CKEDITOR.tools.keystrokeToString(obj, 1);
     str = CKEDITOR.tools.ltrim(str);
     str = CKEDITOR.tools.normalizeCssText(str, bool);
     str = CKEDITOR.tools.normalizeHex(str);
     bool = CKEDITOR.tools.objectCompare(obj, obj);
     bool = CKEDITOR.tools.objectCompare(obj, obj, true);
-    var strArr: string[] = CKEDITOR.tools.objectKeys(obj);
+    const strArr: string[] = CKEDITOR.tools.objectKeys(obj);
     CKEDITOR.tools.override(parseInt, (_parseInt) => {
         return (value: any, radix?: number) => {
             return _parseInt(value, radix);
@@ -1220,7 +1222,7 @@ function test_tools() {
     numb = CKEDITOR.tools.setTimeout(console.log, 1000, obj, 'timeout', window);
     str = CKEDITOR.tools.transformPlainTextToHtml(str, 1);
     str = CKEDITOR.tools.trim(str);
-    CKEDITOR.tools.tryThese([ console.log, console.warn ]);
+    CKEDITOR.tools.tryThese(console.log, console.warn);
     str = CKEDITOR.tools.writeCssText(obj);
     str = CKEDITOR.tools.writeCssText(obj, true);
 }
