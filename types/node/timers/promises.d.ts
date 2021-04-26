@@ -18,5 +18,5 @@ declare module 'timers/promises' {
     /**
      * Returns an async iterator that generates values in an interval of delay ms.
      */
-    function setInterval<T>(delay: number, value?: T, options?: TimerOptions): Promise<T>;
+    function setInterval<T>(delay: number, value?: T, options?: TimerOptions): AsyncIterableIterator<T>;
 }

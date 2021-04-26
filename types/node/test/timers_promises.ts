@@ -12,6 +12,6 @@ const res2: Promise<void> = setTimeout(123);
 const res3: Promise<string> = setTimeout(123, 'asd');
 const res4: Promise<string> = setTimeout(123, 'asd', opts);
 
-const res5: Promise<void> = setInterval(123);
-const res6: Promise<string> = setInterval(123, 'asd');
-const res7: Promise<string> = setInterval(123, 'asd', opts);
+const res5: AsyncIterableIterator<void> = setInterval(123);
+const res6: AsyncIterableIterator<string> = setInterval(123, 'asd');
+const res7: AsyncIterableIterator<string> = setInterval(123, 'asd', opts);
