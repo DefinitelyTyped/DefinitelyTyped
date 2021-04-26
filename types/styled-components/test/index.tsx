@@ -337,6 +337,16 @@ const SomeButton: React.FC = () => <Button type="submit">I am a button</Button>;
  */
 
 /**
+ * displayName
+ */
+
+styled('div').withConfig({
+    displayName: "TestDisplayName",
+})`
+ color: red;
+`;
+
+/**
  * shouldForwardProp
  */
 
