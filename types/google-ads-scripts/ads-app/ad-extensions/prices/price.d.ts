@@ -21,7 +21,7 @@ declare namespace GoogleAdsScripts {
             setLanguage(language: PriceLanguageType): void;
             setMobilePreferred(isMobilePreferred: boolean): void;
             setPriceQualifier(priceQualifier: PriceQualifierType): void;
-            setPriceType(priceType: string): void; // TODO: Add price type type literal && enum
+            setPriceType(priceType: PriceTypeType): void;
             setSchedules(schedules: ExtensionScheduleLiteral[]): void;
             setStartDate(date: string | GoogleAdsDate): void;
             setTrackingTemplate(trackingTemplate: string): void;
@@ -54,13 +54,27 @@ declare namespace GoogleAdsScripts {
 
         type PriceQualifierType = typeof PriceQualifier[keyof typeof PriceQualifier];
 
+        const PriceType: {
+            Brands: "BRANDS";
+            Events: "EVENTS";
+            Locations: "LOCATIONS";
+            Neighborhoods: "NEIGHBORHOODS";
+            ProductCategories: "PRODUCT_CATEGORIES";
+            ProductTiers: "PRODUCT_TIERS";
+            Services: "SERVICES";
+            ServiceCategories: "SERVICE_CATEGORIES";
+            ServiceTiers: "SERVICE_TIERS";
+        };
+
+        type PriceTypeType = typeof PriceType[keyof typeof PriceType];
+
         interface PriceBuilder extends Base.Builder<PriceOperation> {
             addPriceItem(priceItem: PriceItem): this;
             withEndDate(date: string | GoogleAdsDate): this;
             withLanguage(language: PriceLanguageType): this;
             withMobilePreferred(isMobilePreferred: boolean): this;
             withPriceQualifier(priceQualifier: PriceQualifierType): this;
-            withPriceType(priceType: string): this; // TODO: Add price type type literal && enum
+            withPriceType(priceType: PriceTypeType): this;
             withSchedules(schedules: ExtensionScheduleLiteral[]): this;
             withStartDate(date: string | GoogleAdsDate): this;
             withTrackingTemplate(trackingTemplate: string): this;
