@@ -1,4 +1,5 @@
-import { Client, createClient, ZendeskID } from 'node-zendesk';
+import { Attachments, Client, createClient, ZendeskID } from 'node-zendesk';
+import * as path from 'path'
 
 const client: Client = createClient({
     username: 'foo',
@@ -6,7 +7,7 @@ const client: Client = createClient({
     remoteUri: '/example',
 });
 
-const zendeskCallback = () => {};
+const zendeskCallback = <P, T>() => {};
 
 /** Job Statuses Methods */
 client.jobstatuses.show(123, zendeskCallback);
@@ -190,3 +191,25 @@ client.userfields.create({
         value: 5,
     }]
 }, zendeskCallback);
+
+
+client.attachments.upload(path.resolve(
+    './examples/busey.gif'),
+    {
+      filename: 'busey.gif'
+    },
+    function (err, req, result) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log(JSON.stringify(result, null, 2));
+    });
+
+;(async () => {
+    const r1: Attachments.ShowResponseModel = await client.attachments.show(1);
+    const r2: Attachments.UploadResponseModel = await client.attachments.upload('/path/to/file', { filename: 'filename' })
+    const r3: Attachments.UploadResponseModel = await client.attachments.upload(Buffer.alloc(8),  { filename: 'filename' })
+
+    return [r1, r2, r3]
+})()

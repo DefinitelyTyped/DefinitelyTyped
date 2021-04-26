@@ -81,13 +81,16 @@ export namespace Attachments {
         request(httpMethod: string, fields: unknown, config: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
         request(httpMethod: string, fields: unknown, config: unknown): Promise<unknown>;
 
+        show(attachmentId: number, cb: ZendeskCallback<unknown, ShowResponseModel>): unknown;
+        show(attachmentId: number): Promise<ShowResponseModel>;
+
         upload(
             file: PathLike,
             fileOptions: {
                 filename: string;
                 token?: string;
             },
-            cb: ZendeskCallback<unknown, unknown>
+            cb: ZendeskCallback<unknown, UploadResponseModel>
         ): void;
         upload(
             file: PathLike,
@@ -95,22 +98,37 @@ export namespace Attachments {
                 filename: string;
                 token?: string;
             }
-        ): Promise<void>;
+        ): Promise<UploadResponseModel>;
     }
 
-    interface Photo extends PersistableModel {
-        url: string;
-        file_name: string;
-        content_url: string;
-        content_type: string;
-        size: number;
-        width: number;
-        height: number;
-        inline: boolean;
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/attachments#json-format}
+     */
+    interface Attachment extends PersistableModel {
+        readonly content_type?: string;
+        readonly content_url?: string;
+        readonly deleted?: boolean;
+        readonly file_name?: string;
+        readonly inline?: boolean;
+        readonly mapped_content_url?: string;
+        readonly size?: number;
+        readonly url?: string;
     }
 
-    interface Model extends Photo {
-        thumbnails: ReadonlyArray<Photo>;
+    interface Model extends Attachment {
+        thumbnails?: ReadonlyArray<Attachment>;
+    }
+
+    interface ShowResponseModel {
+        attachment: Attachment
+    }
+
+    interface UploadResponseModel {
+        upload: {
+            attachment?: Attachment
+            attachments?: Attachment,
+            token: String,
+        }
     }
 }
 
