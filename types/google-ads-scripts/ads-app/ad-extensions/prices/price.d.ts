@@ -18,7 +18,7 @@ declare namespace GoogleAdsScripts {
             getTrackingTemplate(): string;
             isMobilePreferred(): boolean;
             setEndDate(date: string | GoogleAdsDate): void;
-            setLanguage(language: string): void; // TODO: Add language type literal && enum
+            setLanguage(language: PriceLanguageType): void;
             setMobilePreferred(isMobilePreferred: boolean): void;
             setPriceQualifier(priceQualifier: string): void; // TODO: Add price qualifier type literal && enum
             setPriceType(priceType: string): void; // TODO: Add price type type literal && enum
@@ -27,10 +27,28 @@ declare namespace GoogleAdsScripts {
             setTrackingTemplate(trackingTemplate: string): void;
         }
 
+        const PriceLanguage: {
+            German: "de";
+            English: "en";
+            Spanish: "es";
+            LatinAmericanSpanish: "es-419";
+            French: "fr";
+            Italian: "it";
+            Japanese: "ja";
+            Dutch: "nl";
+            Polish: "pl";
+            BrazilianPortuguese: "pt-BR";
+            Portuguese: "pt-PT";
+            Russian: "ru";
+            Swedish: "sv";
+        };
+
+        type PriceLanguageType = typeof PriceLanguage[keyof typeof PriceLanguage];
+
         interface PriceBuilder extends Base.Builder<PriceOperation> {
             addPriceItem(priceItem: PriceItem): this;
             withEndDate(date: string | GoogleAdsDate): this;
-            withLanguage(language: string): this; // TODO: Add language type literal && enum
+            withLanguage(language: PriceLanguageType): this;
             withMobilePreferred(isMobilePreferred: boolean): this;
             withPriceQualifier(priceQualifier: string): this; // TODO: Add price qualifier type literal && enum
             withPriceType(priceType: string): this; // TODO: Add price type type literal && enum
