@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "ckeditor-tests.ts"
+        "ckeditor4-tests.ts"
     ]
 }

@@ -404,6 +404,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "ckeditor": {
+            "libraryName": "@types/ckeditor4",
+            "asOfVersion": "4.16.0"
+        },
         "classnames": {
             "libraryName": "classnames",
             "asOfVersion": "2.3.0"
