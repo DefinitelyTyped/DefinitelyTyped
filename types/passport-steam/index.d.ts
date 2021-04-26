@@ -1,4 +1,4 @@
-// Type definitions for passport-steam 1.0
+// Type definitions for passport-steam 1.0.15
 // Project: https://github.com/liamcurry/passport-steam
 // Definitions by: Gonthier Renaud <https://github.com/kzay>, Djobbo Maïga <https://github.com/AlfieGoldson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

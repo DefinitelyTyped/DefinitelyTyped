@@ -1,6 +1,6 @@
 /**
  * Created by kzaY on 07/09/2017.
- * Updated by AlfieGoldson on 26/04/2021
+ * Updated by AlfieGoldson on 26/04/2021.
  */
 import express = require("express");
 import steam = require("passport-steam");
