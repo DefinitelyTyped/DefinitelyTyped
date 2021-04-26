@@ -5,14 +5,14 @@
 
 /// <reference types="node" />
 
-export = node_netstat;
+export = nodeNetstat;
 
-declare function node_netstat(
-    options: node_netstat.Options,
-    callback: node_netstat.LineHandler,
-): node_netstat.ActivatorResult;
+declare function nodeNetstat(
+    options: nodeNetstat.Options,
+    callback: nodeNetstat.LineHandler,
+): nodeNetstat.ActivatorResult;
 
-declare namespace node_netstat {
+declare namespace nodeNetstat {
     type Platforms = "darwin" | "linux" | "win32";
 
     interface Command {
