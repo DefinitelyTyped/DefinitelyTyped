@@ -26,7 +26,7 @@ class GameScore extends Parse.Object {
     }
 }
 
-class Game extends Parse.Object {
+class Game extends Parse.Object<{ gameScore: GameScore; score: string }> {
     constructor(options?: any) {
         super("Game", options);
     }
@@ -170,11 +170,6 @@ function test_query() {
             objectId: "$name",
         },
     });
-    query.aggregate({
-        sample: {
-            size: 1,
-        },
-    });
 
     // Find objects with distinct key
     query.distinct("name");
@@ -213,8 +208,8 @@ async function test_query_promise() {
     }
 
     await getQuery.map((score, index) => score.increment("score", index));
-    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0);
-    await getQuery.reduce((accum, score, index) => accum + score.get("score"), 0, { batchSize: 200 });
+    await getQuery.reduce((accum, score, index) => (accum += score.get("score")), 0);
+    await getQuery.reduce((accum, score, index) => (accum += score.get("score")), 0, { batchSize: 200 });
     await getQuery.filter(scores => scores.get("score") > 0);
     await getQuery.filter(scores => scores.get("score") > 0, { batchSize: 10 });
 }
@@ -251,6 +246,10 @@ async function test_live_query() {
     });
 }
 
+function return_a_generic_query(): Parse.Query<Game> {
+    return new Parse.Query(Game);
+}
+
 function test_anonymous_utils() {
     // $ExpectType boolean
     Parse.AnonymousUtils.isLinked(new Parse.User());
@@ -258,10 +257,6 @@ function test_anonymous_utils() {
     Parse.AnonymousUtils.link(new Parse.User(), { useMasterKey: true, sessionToken: "" });
     // $ExpectType Promise<User<Attributes>>
     Parse.AnonymousUtils.logIn({ useMasterKey: true, sessionToken: "" });
-}
-
-function return_a_generic_query(): Parse.Query<Game> {
-    return new Parse.Query(Game);
 }
 
 function return_a_query(): Parse.Query {
@@ -301,6 +296,7 @@ function test_file() {
     Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
+
     // TODO: Check
 
     file.cancel();
@@ -650,6 +646,39 @@ async function test_cloud_functions() {
         return "Some result";
     });
 
+    Parse.Cloud.define(
+        "AFunc",
+        (request: Parse.Cloud.FunctionRequest) => {
+            return "Some result";
+        },
+        {
+            requireUser: true,
+            requireMaster: true,
+            validateMasterKey: true,
+            skipWithMasterKey: true,
+            requireAnyUserRoles: ["a"],
+            requireAllUserRoles: ["a"],
+            fields: {
+                name: {
+                    type: String,
+                    constant: true,
+                    default: true,
+                    options: [],
+                    error: "invalid field.",
+                },
+            },
+            requireUserKeys: {
+                name: {
+                    type: String,
+                    constant: true,
+                    default: true,
+                    options: [],
+                    error: "invalid field.",
+                },
+            },
+        },
+    );
+
     Parse.Cloud.define("AFunc", request => {
         // $ExpectType Params
         request.params;
@@ -872,18 +901,30 @@ async function test_cancel_query() {
     query.cancel();
 }
 
+type FieldType =
+    | string
+    | number
+    | boolean
+    | Date
+    | Parse.File
+    | Parse.GeoPoint
+    | any[]
+    | object
+    | Parse.Pointer
+    | Parse.Polygon
+    | Parse.Relation;
 async function test_schema(
-    anyField: Parse.Schema.FieldType,
-    notString: Exclude<Parse.Schema.FieldType, string>,
-    notNumber: Exclude<Parse.Schema.FieldType, number>,
-    notboolean: Exclude<Parse.Schema.FieldType, boolean>,
-    notDate: Exclude<Parse.Schema.FieldType, Date>,
-    notFile: Exclude<Parse.Schema.FieldType, Parse.File>,
-    notGeopoint: Exclude<Parse.Schema.FieldType, Parse.GeoPoint[]>,
-    notArray: Exclude<Parse.Schema.FieldType, any[]>,
-    notObject: Exclude<Parse.Schema.FieldType, object>,
-    notPointer: Exclude<Parse.Schema.FieldType, Parse.Pointer>,
-    notPolygon: Exclude<Parse.Schema.FieldType, Parse.Polygon>,
+    anyField: FieldType,
+    notString: Exclude<FieldType, string>,
+    notNumber: Exclude<FieldType, number>,
+    notboolean: Exclude<FieldType, boolean>,
+    notDate: Exclude<FieldType, Date>,
+    notFile: Exclude<FieldType, Parse.File>,
+    notGeopoint: Exclude<FieldType, Parse.GeoPoint[]>,
+    notArray: Exclude<FieldType, any[]>,
+    notObject: Exclude<FieldType, object>,
+    notPointer: Exclude<FieldType, Parse.Pointer>,
+    notPolygon: Exclude<FieldType, Parse.Polygon>,
 ) {
     Parse.Schema.all();
 
@@ -1578,6 +1619,7 @@ function testQuery() {
             attribute1: string;
             attribute2: number;
             attribute3: AnotherSubClass;
+            attribute4: string[];
         }> {}
         const query = new Parse.Query(MySubClass);
 
@@ -1676,6 +1718,26 @@ function testQuery() {
         query.equalTo("attribute2", "a string value");
         // $ExpectError
         query.equalTo("nonexistentProp", "any value");
+
+        // $ExpectType Query<MySubClass>
+        query.equalTo("attribute4", "a_string_value"); // Can query contents of array
+        // Can query array itself if equal too (mongodb $eq matches the array exactly or the <field> contains an element that matches the array exactly)
+        // $ExpectType Query<MySubClass>
+        query.equalTo("attribute4", ["a_string_value"]);
+
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo("attribute4", "a_string_value");
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo("attribute4", ["a_string_value"]);
+
+        // $ExpectError
+        query.equalTo("attribute4", 5);
+        // $ExpectError
+        query.notEqualTo("attribute4", 5);
+        // $ExpectError
+        query.equalTo("attribute4", [5]);
+        // $ExpectError
+        query.notEqualTo("attribute4", [5]);
 
         // $ExpectType Query<MySubClass>
         query.exists("attribute1");

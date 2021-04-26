@@ -72,6 +72,7 @@ declare global {
         let serverAuthType: string | undefined;
         let serverURL: string;
         let secret: string;
+        let idempotency: boolean;
         let encryptedUser: boolean;
 
         interface BatchSizeOption {
@@ -181,6 +182,9 @@ declare global {
             createdAt: Date;
             objectId: string;
             updatedAt: Date;
+        }
+
+        interface CommonAttributes {
             ACL: ACL;
         }
 
@@ -425,7 +429,7 @@ declare global {
             ): Relation<this, R>;
             remove: this["add"];
             removeAll: this["addAll"];
-            revert(...keys: Array<Extract<keyof T, string>>): void;
+            revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
             save<K extends Extract<keyof T, string>>(
                 attrs?:
                     | (((x: T) => void) extends (x: Attributes) => void
@@ -689,6 +693,7 @@ declare global {
             exclude<K extends keyof T["attributes"] | keyof BaseAttributes>(...keys: K[]): this;
             exists<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K): this;
             find(options?: Query.FindOptions): Promise<T[]>;
+            findAll(options?: Query.BatchOptions): Promise<T[]>;
             first(options?: Query.FirstOptions): Promise<T | undefined>;
             fromNetwork(): this;
             fromLocalDatastore(): this;
@@ -971,11 +976,6 @@ declare global {
                 options: { authData?: AuthData },
                 saveOpts?: FullOptions,
             ) => Promise<this>;
-            _linkWith: (
-                provider: string | AuthProvider,
-                options: { authData?: AuthData },
-                saveOpts?: FullOptions,
-            ) => Promise<this>;
             _isLinked: (provider: string | AuthProvider) => boolean;
             _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
         }
@@ -1159,7 +1159,20 @@ declare global {
                 string
             >;
 
-            interface FieldOptions<T extends FieldType = any> {
+            interface FieldOptions<
+                T extends
+                    | string
+                    | number
+                    | boolean
+                    | Date
+                    | File
+                    | GeoPoint
+                    | Polygon
+                    | any[]
+                    | object
+                    | Pointer
+                    | Relation = any
+            > {
                 required?: boolean;
                 defaultValue?: T;
             }

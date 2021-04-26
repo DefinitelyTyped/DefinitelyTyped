@@ -549,7 +549,8 @@ declare global {
                 : T extends RegExp
                 ? string
                 : T extends Array<infer R>
-                ? Array<Encode<R>>
+                ? // This recursion is unsupported in <=3.6
+                  Array<Encode<R>>
                 : T extends object
                 ? ToJSON<T>
                 : T;
