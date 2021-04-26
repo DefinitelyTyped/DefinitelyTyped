@@ -1365,18 +1365,12 @@ describe("jasmine.mapContaining", () => {
     it("matches arrays with some of the values", () => {
         expect(foo).toEqual(jasmine.mapContaining(new Map([[3, "three"], [1, "one"]])));
         expect(foo).not.toEqual(jasmine.mapContaining(new Map([[6, "six"]])));
-
-        expect(foo).toBe(jasmine.mapContaining(new Map([[3, "three"], [1, "one"]])));
-        expect(foo).not.toBe(jasmine.mapContaining(new Map([[6, "six"]])));
     });
 
     it("matches read-only map", () => {
         const bar: ReadonlyMap<number, string> = new Map([[1, "one"], [2, "two"], [3, "three"], [4, "four"]]);
         expect(bar).toEqual(jasmine.mapContaining(new Map([[3, "three"], [1, "one"]])));
         expect(bar).not.toEqual(jasmine.mapContaining(new Map([[6, "six"]])));
-
-        expect(bar).toBe(jasmine.mapContaining(new Map([[3, "three"], [1, "one"]])));
-        expect(bar).not.toBe(jasmine.mapContaining(new Map([[6, "six"]])));
     });
 
     describe("when used with a spy", () => {
@@ -1402,18 +1396,12 @@ describe("jasmine.setContaining", () => {
     it("matches arrays with some of the values", () => {
         expect(foo).toEqual(jasmine.setContaining(new Set([3, 1])));
         expect(foo).not.toEqual(jasmine.setContaining(new Set([6])));
-
-        expect(foo).toBe(jasmine.setContaining(new Set([3, 1])));
-        expect(foo).not.toBe(jasmine.setContaining(new Set([6])));
     });
 
     it("matches read-only set", () => {
         const bar: ReadonlySet<number> = new Set([1, 2, 3, 4]);
         expect(bar).toEqual(jasmine.setContaining(new Set([3, 1])));
         expect(bar).not.toEqual(jasmine.setContaining(new Set([6])));
-
-        expect(bar).toBe(jasmine.setContaining(new Set([3, 1])));
-        expect(bar).not.toBe(jasmine.setContaining(new Set([6])));
     });
 
     describe("when used with a spy", () => {
