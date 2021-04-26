@@ -1,7 +1,6 @@
 // Type definitions for braintree 2.22
 // Project: https://github.com/braintree/braintree_node
-// Definitions by: Sam Rubin <https://github.com/smrubin>,
-//                 Mohamed Elsharnouby <https://github.com/sharno>,
+// Definitions by: Sam Rubin <https://github.com/smrubin>
 //                 Aaron Rose <https://github.com/acdr>
 //                 Sanders DeNardi <https://github.com/sedenardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
