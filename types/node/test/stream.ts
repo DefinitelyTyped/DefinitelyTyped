@@ -3,6 +3,7 @@ import { promisify } from 'node:util';
 import { createReadStream, createWriteStream } from 'node:fs';
 import { createGzip, constants } from 'node:zlib';
 import assert = require('node:assert');
+import { Http2ServerResponse } from 'node:http2';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -171,6 +172,9 @@ function streamPipelineFinished() {
     cancel();
 
     pipeline(process.stdin, process.stdout, (err?: Error | null) => {});
+
+    const http2ServerResponse: Http2ServerResponse = {} as any;
+    pipeline(process.stdin, http2ServerResponse, (err?: Error | null) => {});
 }
 
 async function asyncStreamPipelineFinished() {
@@ -180,6 +184,95 @@ async function asyncStreamPipelineFinished() {
 
     const pipe = promisify(pipeline);
     await pipe(process.stdin, process.stdout);
+}
+
+// https://nodejs.org/api/stream.html#stream_stream_pipeline_source_transforms_destination_callback
+function streamPipelineAsyncTransform() {
+    // Transform through a stream, preserving the type of the source
+    pipeline(process.stdin,
+        async function *(source) {
+            // $ExpectType ReadStream & { fd: 0; }
+            source;
+            source.setEncoding('utf8');
+            for await(const chunk of source as AsyncIterable<string>) {
+                yield chunk.toUpperCase();
+            }
+        },
+        process.stdout,
+        err => console.error(err));
+
+    // Read from an iterable and write to a function accepting an AsyncIterable
+    pipeline('tasty',
+        async function *(source) {
+            // $ExpectType string
+            source;
+            for (const chunk of source) {
+                yield chunk.toUpperCase();
+            }
+        },
+        async function *(source: AsyncIterable<string>) {
+            // $ExpectType AsyncIterable<string>
+            source;
+            for await(const chunk of source) {
+                console.log(chunk);
+            }
+            yield null;
+        },
+        err => console.error(err));
+
+    // Finish with a promise
+    pipeline('tasty',
+        async function *(source) {
+            for (const chunk of source) {
+                yield chunk.toUpperCase();
+            }
+        },
+        async (source: AsyncIterable<string>) => {
+            return new Date();
+        },
+        (err, val) => {
+            // $ExpectType Date
+            val;
+        });
+
+    // Read from an iterable and go through two transforms
+    pipeline(
+        function *() {
+            for (let i = 0; i < 5; i++)
+                yield i;
+        },
+        async function *(source) {
+            for await(const chunk of source) {
+                yield chunk + 3;
+            }
+        },
+        async function *(source) {
+            for await(const chunk of source) {
+                yield chunk.toFixed(3);
+            }
+        },
+        process.stdout,
+        err => console.error(err));
+
+    // Accepts ordinary iterable as source
+    pipeline(
+        [1, 2, 3].values(),
+        async function *(source) {
+            for (const chunk of source) {
+                yield chunk + 3;
+            }
+        },
+        async function *(source) {
+            for await(const chunk of source) {
+                yield chunk.toFixed(3);
+            }
+        },
+        async function *(source: AsyncIterable<string>) {
+            for await(const chunk of source)
+                console.log(chunk);
+            yield null;
+        },
+        err => console.error(err));
 }
 
 // http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options

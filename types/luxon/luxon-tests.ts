@@ -6,6 +6,7 @@ import {
     IANAZone,
     Info,
     Interval,
+    LocalZone,
     Settings,
     Zone,
     ZoneOffsetFormat,
@@ -57,6 +58,8 @@ FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier('UTC+6');
+
+LocalZone.instance; // $ExpectType LocalZone
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO('2017-05-15T08:30:00'); // => May 15, 2017 at midnight
@@ -176,6 +179,8 @@ dur.mapUnits((x, u) => u === 'hours' ? x * 2 : x); // $ExpectType Duration
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration
 }
+Duration.invalid(); // $ExpectError
+Duration.invalid('code', 'because I said so'); // $ExpectType Duration
 
 /* Interval */
 const later = DateTime.local();
@@ -193,10 +198,14 @@ i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration
+i.divideEqually(); // $ExpectError
+i.divideEqually(5);
 
 if (Interval.isInterval(anything)) {
     anything; // $ExpectType Interval
 }
+Interval.invalid(); // $ExpectError
+Interval.invalid('code', 'because I said so'); // $ExpectType Interval
 
 /* Info */
 Info.months();

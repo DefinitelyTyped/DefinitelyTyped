@@ -2,7 +2,8 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md), [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Chinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md), [Portuguese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -72,11 +73,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of TypeScript (3.3 and earlier)
+#### Older versions of TypeScript (3.4 and earlier)
 
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
-Currently versions 3.4 and above are tested.
-If you're using TypeScript 2.0 to 3.3, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+Currently versions 3.5 and above are tested.
+If you're using TypeScript 2.0 to 3.4, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 

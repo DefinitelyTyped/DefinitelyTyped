@@ -471,6 +471,7 @@ export interface Layout {
     transition: Transition;
     template: Template;
     clickmode: 'event' | 'select' | 'event+select' | 'none';
+    uirevision: any;
 }
 
 export interface Legend extends Label {

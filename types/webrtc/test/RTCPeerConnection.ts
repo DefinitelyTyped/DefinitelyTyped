@@ -20,7 +20,7 @@ window.RTCPeerConnection.generateCertificate("sha-256").then((cert: RTCCertifica
         iceServers: [ice1],
         iceTransportPolicy: 'relay',
         bundlePolicy: 'max-compat',
-        rtcpMuxPolicy: 'negotiate',
+        rtcpMuxPolicy: 'require',
         peerIdentity: 'dude',
         certificates: [cert],
         iceCandidatePoolSize: 5,

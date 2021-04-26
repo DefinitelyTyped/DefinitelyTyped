@@ -10,17 +10,18 @@
 
 export as namespace Bootstrap;
 
-import Alert from './js/dist/alert';
-import Button from './js/dist/button';
-import Carousel from './js/dist/carousel';
-import Collapse from './js/dist/collapse';
-import Dropdown from './js/dist/dropdown';
-import Tab from './js/dist/tab';
-import Modal from './js/dist/modal';
-import Popover from './js/dist/popover';
-import ScrollSpy from './js/dist/scrollspy';
-import Toast from './js/dist/toast';
-import Tooltip from './js/dist/tooltip';
+import Alert from "./js/dist/alert";
+import Button from "./js/dist/button";
+import Carousel from "./js/dist/carousel";
+import Collapse from "./js/dist/collapse";
+import Dropdown from "./js/dist/dropdown";
+import Tab from "./js/dist/tab";
+import Modal from "./js/dist/modal";
+import Offcanvas from "./js/dist/offcanvas";
+import Popover from "./js/dist/popover";
+import ScrollSpy from "./js/dist/scrollspy";
+import Toast from "./js/dist/toast";
+import Tooltip from "./js/dist/tooltip";
 
 declare global {
     interface JQuery {
@@ -31,11 +32,20 @@ declare global {
         dropdown: Dropdown.jQueryInterface;
         tab: Tab.jQueryInterface;
         modal: Modal.jQueryInterface;
+        offcanvas: Offcanvas.jQueryInterface;
         [Popover.NAME]: Popover.jQueryInterface;
         scrollspy: ScrollSpy.jQueryInterface;
         toast: Toast.jQueryInterface;
         [Tooltip.NAME]: Tooltip.jQueryInterface;
     }
+
+    interface Element {
+        addEventListener(
+            type: Carousel.Events,
+            listener: (this: Element, ev: Carousel.Event) => any,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+    }
 }
 
-export { Alert, Button, Carousel, Collapse, Dropdown, Tab, Modal, Popover, ScrollSpy, Toast, Tooltip };
+export { Alert, Button, Carousel, Collapse, Dropdown, Tab, Modal, Offcanvas, Popover, ScrollSpy, Toast, Tooltip };

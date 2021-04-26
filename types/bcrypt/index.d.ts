@@ -14,7 +14,7 @@ export declare function genSaltSync(rounds?: number, minor?: string): string;
 
 /**
  * @param rounds    The cost of processing the data. Default 10.
- * @param callback  A callback to be fire once the sald has been generated. Uses eio making it asynchronous.
+ * @param callback  A callback to be fire once the salt has been generated. Uses eio making it asynchronous.
  * @return A promise to be either resolved with the generated salt or rejected with an Error
  */
 export declare function genSalt(rounds?: number, callback?: (err: Error, salt: string) => void): Promise<string>;

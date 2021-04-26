@@ -3,6 +3,7 @@
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
 //                 pierluigi-montagna <https://github.com/pierluigi-montagna>
+//                 mtgto <https://github.com/mtgto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

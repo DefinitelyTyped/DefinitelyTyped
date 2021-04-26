@@ -1,10 +1,14 @@
 import { callback, BraintreeError } from './core';
 import { Client } from './client';
 
+export interface VenmoAccountDetails {
+    username: string;
+}
+
 export interface VenmoTokenizePayload {
     nonce: string;
     type: string;
-    details: { username: string };
+    details: VenmoAccountDetails;
 }
 
 export interface Venmo {

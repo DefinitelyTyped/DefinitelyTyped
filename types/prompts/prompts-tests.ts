@@ -50,6 +50,7 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
                     description: 'a description',
                 },
             ],
+            warn: 'Warning, option is disabled'
         },
         {
             type: 'multiselect',
@@ -65,6 +66,7 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
                     title: 'B',
                 },
             ],
+            warn: 'Warning, option is disabled'
         },
     ]);
 })();

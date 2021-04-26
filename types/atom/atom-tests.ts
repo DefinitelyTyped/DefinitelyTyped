@@ -400,6 +400,82 @@ function testConfig() {
     atom.config.transact(() => {});
 }
 
+declare function isNotAny<T>(x: T): T extends never ? null : true;
+declare function isTrue(x: true): void;
+// emulate some ambient declarations
+// NOTE: this is copy-pasted from autocomplete-plus/config.d.ts
+declare module 'atom' {
+    interface ConfigValues {
+        /**
+         *  Suggestions will show as you type if this preference is enabled. If it is
+         *  disabled, you can still see suggestions by using the keymapping for
+         *  'autocomplete-plus:activate' (shown below).
+         */
+        'autocomplete-plus.enableAutoActivation': boolean;
+    }
+}
+
+function testConfigValues() {
+    // test main ambient ConfigValues declarations
+    isTrue(isNotAny(atom.config.get('core.ignoredNames')));
+    isTrue(isNotAny(atom.config.get('core.ignoredNames')));
+    isTrue(isNotAny(atom.config.get('core.excludeVcsIgnoredPaths')));
+    isTrue(isNotAny(atom.config.get('core.followSymlinks')));
+    isTrue(isNotAny(atom.config.get('core.disabledPackages')));
+    isTrue(isNotAny(atom.config.get('core.versionPinnedPackages')));
+    isTrue(isNotAny(atom.config.get('core.customFileTypes')));
+    isTrue(isNotAny(atom.config.get('core.themes')));
+    isTrue(isNotAny(atom.config.get('core.audioBeep')));
+    isTrue(isNotAny(atom.config.get('core.closeDeletedFileTabs')));
+    isTrue(isNotAny(atom.config.get('core.destroyEmptyPanes')));
+    isTrue(isNotAny(atom.config.get('core.closeEmptyWindows')));
+    isTrue(isNotAny(atom.config.get('core.fileEncoding')));
+    isTrue(isNotAny(atom.config.get('core.openEmptyEditorOnStart')));
+    isTrue(isNotAny(atom.config.get('core.restorePreviousWindowsOnStart')));
+    isTrue(isNotAny(atom.config.get('core.reopenProjectMenuCount')));
+    isTrue(isNotAny(atom.config.get('core.automaticallyUpdate')));
+    isTrue(isNotAny(atom.config.get('core.useProxySettingsWhenCallingApm')));
+    isTrue(isNotAny(atom.config.get('core.allowPendingPaneItems')));
+    isTrue(isNotAny(atom.config.get('core.telemetryConsent')));
+    isTrue(isNotAny(atom.config.get('core.warnOnLargeFileLimit')));
+    isTrue(isNotAny(atom.config.get('core.fileSystemWatcher')));
+    isTrue(isNotAny(atom.config.get('core.useTreeSitterParsers')));
+    isTrue(isNotAny(atom.config.get('core.colorProfile')));
+    isTrue(isNotAny(atom.config.get('editor.commentStart')));
+    isTrue(isNotAny(atom.config.get('editor.commentEnd')));
+    isTrue(isNotAny(atom.config.get('editor.increaseIndentPattern')));
+    isTrue(isNotAny(atom.config.get('editor.decreaseIndentPattern')));
+    isTrue(isNotAny(atom.config.get('editor.foldEndPattern')));
+    isTrue(isNotAny(atom.config.get('editor.fontFamily')));
+    isTrue(isNotAny(atom.config.get('editor.fontSize')));
+    isTrue(isNotAny(atom.config.get('editor.lineHeight')));
+    isTrue(isNotAny(atom.config.get('editor.showCursorOnSelection')));
+    isTrue(isNotAny(atom.config.get('editor.showInvisibles')));
+    isTrue(isNotAny(atom.config.get('editor.showIndentGuide')));
+    isTrue(isNotAny(atom.config.get('editor.showLineNumbers')));
+    isTrue(isNotAny(atom.config.get('editor.atomicSoftTabs')));
+    isTrue(isNotAny(atom.config.get('editor.autoIndent')));
+    isTrue(isNotAny(atom.config.get('editor.autoIndentOnPaste')));
+    isTrue(isNotAny(atom.config.get('editor.nonWordCharacters')));
+    isTrue(isNotAny(atom.config.get('editor.preferredLineLength')));
+    isTrue(isNotAny(atom.config.get('editor.maxScreenLineLength')));
+    isTrue(isNotAny(atom.config.get('editor.tabLength')));
+    isTrue(isNotAny(atom.config.get('editor.softWrap')));
+    isTrue(isNotAny(atom.config.get('editor.softTabs')));
+    isTrue(isNotAny(atom.config.get('editor.tabType')));
+    isTrue(isNotAny(atom.config.get('editor.softWrapAtPreferredLineLength')));
+    isTrue(isNotAny(atom.config.get('editor.softWrapHangingIndent')));
+    isTrue(isNotAny(atom.config.get('editor.scrollSensitivity')));
+    isTrue(isNotAny(atom.config.get('editor.scrollPastEnd')));
+    isTrue(isNotAny(atom.config.get('editor.undoGroupingInterval')));
+    isTrue(isNotAny(atom.config.get('editor.confirmCheckoutHeadRevision')));
+    isTrue(isNotAny(atom.config.get('editor.invisibles')));
+    isTrue(isNotAny(atom.config.get('editor.zoomFontWhenCtrlScrolling')));
+
+    // test extended ambient ConfigValue declarations
+    isTrue(isNotAny(atom.config.get('autocomplete-plus.enableAutoActivation')));
+}
+
 // Cursor =====================================================================
 function testCursor() {
     // Event Subscription

@@ -17,3 +17,7 @@ b64encode('curry', 5); // $ExpectError
 b64encode('curry', 'badvariant'); // $ExpectError
 b64encode('curry', 'url'); // $ExpectType string
 b64encode('curry', 'url', 5); // $ExpectError
+
+const arrayBuffer = new Uint8Array([10, 12]).buffer;
+b64decode(arrayBuffer);
+b64encode(arrayBuffer);

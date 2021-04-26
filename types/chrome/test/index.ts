@@ -389,6 +389,23 @@ async function testTabInterface() {
     tab.sessionId; // $ExpectType string | undefined
 }
 
+// tabGroups: https://developer.chrome.com/extensions/tabGroups#
+async function testTabGroupInterface() {
+    const options = { collapsed: false, title: 'Test' };
+
+    chrome.tabGroups.query(options, tabGroups => {
+        // $ExpectType TabGroup[]
+        tabGroups;
+
+        const [tabGroup] = tabGroups;
+        tabGroup.collapsed; // $ExpectType boolean
+        tabGroup.color; // $ExpectType ColorEnum
+        tabGroup.id; // $ExpectType number
+        tabGroup.title; // $ExpectType string | undefined
+        tabGroup.windowId; // $ExpectType number
+    });
+  }
+
 // https://developer.chrome.com/extensions/runtime#method-openOptionsPage
 function testOptionsPage() {
     chrome.runtime.openOptionsPage();
@@ -634,4 +651,28 @@ function testSearch() {
             getCallback,
         );
     });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/
+async function testDeclarativeNetRequest() {
+    chrome.declarativeNetRequest.getDynamicRules(rules => {
+        // $ExpectType Rule[]
+        rules;
+
+        const rule = rules[0]
+        rule.action; // $ExpectType RuleAction
+        rule.condition; // $ExpectType RuleCondition
+        rule.id; // $ExpectType number
+        rule.priority; // $ExpectType number
+    })
+
+    chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
+        // $ExpectType number
+        count;
+    })
+
+    chrome.declarativeNetRequest.getEnabledRulesets(sets => {
+        // ExpectType string[]
+        sets;
+    })
 }

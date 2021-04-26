@@ -83,6 +83,24 @@ declare namespace anime {
         // Just need this to merge both Params interfaces.
     }
 
+    interface Animatable {
+        id: number;
+        target: HTMLElement;
+        total: number;
+        transforms: object;
+    }
+
+    interface Animation {
+        animatable: Animatable;
+        currentValue: string;
+        delay: number;
+        duration: number;
+        endDelay: number;
+        property: string;
+        tweens: ReadonlyArray<object>;
+        type: string;
+    }
+
     interface AnimeInstance extends AnimeCallBack {
         play(): void;
         pause(): void;
@@ -107,8 +125,8 @@ declare namespace anime {
         remaining: number;
         reversed: boolean;
 
-        animatables: ReadonlyArray<object>;
-        animations: ReadonlyArray<object>;
+        animatables: ReadonlyArray<Animatable>;
+        animations: ReadonlyArray<Animation>;
     }
 
     interface AnimeTimelineAnimParams extends AnimeAnimParams {

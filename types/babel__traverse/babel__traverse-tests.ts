@@ -345,3 +345,15 @@ const visitorWithInvalidDenylist: Visitor = {
     // $ExpectError
     denylist: ['SomeRandomType'],
 };
+
+// Test that NodePath can be narrowed from union to single type
+const path: NodePath<
+  t.ExportDefaultDeclaration | t.ExportNamedDeclaration
+> = new NodePath<t.ExportNamedDeclaration>(
+  null as any,
+  {} as any,
+);
+
+if (path.isExportNamedDeclaration()) {
+  path.type; // $ExpectType "ExportNamedDeclaration"
+}

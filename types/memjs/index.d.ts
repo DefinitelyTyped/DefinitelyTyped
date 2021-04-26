@@ -37,6 +37,37 @@ export interface ClientOptions {
         log(...args: any[]): void;
     };
 }
+export interface ServerOptions {
+    /**
+     * Server username for fallback SASL authentication credentials.
+     */
+    username?: string;
+    /**
+     * Server password for fallback SASL authentication credentials.
+     */
+    password?: string;
+    /**
+     * `timeout` in seconds to determine failure for operations.
+     * @default 0.5
+     */
+    timeout?: number;
+    /**
+     * `conntimeout` in seconds to connection failure.
+     * @default 2 * timeout
+     */
+    conntimeout?: number;
+    /**
+     * Whether to enable keep-alive functionality.
+     * @default false
+     */
+    keepAlive?: boolean;
+    /**
+     * `keepAliveDelay` in seconds to the initial delay before the first keep-
+     * alive probe is sent on an idle socket.
+     * @default 30
+     */
+    keepAliveDelay?: number;
+}
 export class Client {
     /**
      * Creates a new client given an optional config string and optional hash of
@@ -75,7 +106,7 @@ export class Client {
      * * `keepAliveDelay` in seconds to the initial delay before the first keepalive
      *                    probe is sent on an idle socket. Defaults is 30 seconds.
      */
-    static create(serversStr?: string, options?: ClientOptions): Client;
+    static create(serversStr?: string, options?: ClientOptions | ServerOptions): Client;
 
     servers: string[];
 

@@ -14,7 +14,6 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-    ART,
     AccessibilityInfo,
     AsyncStorage,
     Alert,
@@ -23,7 +22,6 @@ import {
     Appearance,
     BackHandler,
     Button,
-    CheckBox,
     ColorPropType,
     ColorValue,
     DataSourceAssetCallback,
@@ -120,6 +118,7 @@ import {
     SectionListData,
     ToastAndroid,
     Touchable,
+    LayoutAnimation,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -889,20 +888,6 @@ class MaskedViewTest extends React.Component {
     }
 }
 
-const CheckboxTest = () => (
-    <CheckBox
-        testID="testId"
-        disabled={false}
-        onChange={value => {
-            console.log(value);
-        }}
-        onValueChange={value => {
-            console.log(value);
-        }}
-        value={true}
-    />
-);
-
 class InputAccessoryViewTest extends React.Component {
     render() {
         const uniqueID = 'foobar';
@@ -1137,7 +1122,7 @@ export class ImageTest extends React.Component {
         testNativeSyntheticEvent(e);
         console.log('height:', e.nativeEvent.source.height);
         console.log('width:', e.nativeEvent.source.width);
-        console.log('url:', e.nativeEvent.source.url);
+        console.log('uri:', e.nativeEvent.source.uri);
     };
 
     handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
@@ -1318,6 +1303,9 @@ class BridgedComponentTest extends React.Component {
 }
 
 const SwitchColorTest = () => <Switch trackColor={{ true: 'pink', false: 'red' }} />;
+const SwitchColorOptionalTrueTest = () => <Switch trackColor={{ false: 'red' }} />;
+const SwitchColorOptionalFalseTest = () => <Switch trackColor={{ true: 'pink' }} />;
+const SwitchColorNullTest = () => <Switch trackColor={{ true: 'pink', false: null }} />;
 
 const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 
@@ -1325,6 +1313,10 @@ const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
         <View nativeID={'nativeID'} />
         <Text nativeID={'nativeID'}>Text</Text>
+        <Image
+            source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+            nativeID={'nativeID'}
+        />
     </ScrollView>
 );
 
@@ -1730,3 +1722,12 @@ const I18nManagerTest = () => {
 
     console.log(isRTL, isRtlFlag, doLeftAndRightSwapInRTL, doLeftAndRightSwapInRtlFlag);
 };
+
+// LayoutAnimations
+LayoutAnimation.configureNext(LayoutAnimation.create(
+    123,
+    LayoutAnimation.Types.easeIn,
+    LayoutAnimation.Properties.opacity,
+));
+
+LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));

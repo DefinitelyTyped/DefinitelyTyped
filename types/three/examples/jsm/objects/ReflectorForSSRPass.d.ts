@@ -11,8 +11,8 @@ import {
 
 export interface ReflectorShader {
     defines: {
-        isDistanceAttenuation: boolean;
-        isFresnel: boolean;
+        DISTANCE_ATTENUATION: boolean;
+        FRESNEL: boolean;
     };
     uniforms: {
         [key: string]: IUniform;
@@ -31,7 +31,7 @@ export interface ReflectorOptions {
 }
 
 export class Reflector<TGeometry extends BufferGeometry = BufferGeometry> extends Mesh<TGeometry> {
-    type: 'Reflector';
+    type: 'ReflectorForSSRPass';
     options: ReflectorOptions;
 
     static ReflectorShader: ReflectorShader;
@@ -40,10 +40,10 @@ export class Reflector<TGeometry extends BufferGeometry = BufferGeometry> extend
     maxDistance: number;
     opacity: number;
 
-    get isDistanceAttenuation(): boolean;
-    set isDistanceAttenuation(val: boolean);
-    get isFresnel(): boolean;
-    set isFresnel(val: boolean);
+    get distanceAttenuation(): boolean;
+    set distanceAttenuation(val: boolean);
+    get fresnel(): boolean;
+    set fresnel(val: boolean);
 
     material: ShaderMaterial;
 

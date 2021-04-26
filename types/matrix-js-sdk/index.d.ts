@@ -24,6 +24,18 @@ export class MatrixError {
     constructor(errorJson: object)
 }
 
+export interface StateEvent {
+    type: string;
+    /**
+     * A unique key which defines the overwriting semantics for this piece of room state.
+     * This value is often a zero-length string (""). The presence of this key makes this event a State Event.
+     * State keys starting with an @ are reserved for referencing user IDs, such as room members.
+     * With the exception of a few events, state events set with a given user's ID as the state key MUST only be set by that user.
+     */
+    state_key: string;
+    content: Record<string, unknown> | string;
+}
+
 export class Room {
     roomId: string;              // The ID of this room.
     name: string;              // The human-readable display name for this room.
@@ -126,7 +138,11 @@ export class User {
     setRawDisplayName(name: string): void;
 }
 
-export type EventType = never
+// this type allows us to define string literals, but also
+// accept just any string. But it will still give autocomplete.
+export type LiteralUnion<T extends U, U = string> = T | (U & {});
+
+export type EventType = LiteralUnion<
     | 'm.room.canonical_alias'
     | 'm.room.encryption'
     | 'm.room.guest_access'
@@ -140,7 +156,9 @@ export type EventType = never
     | 'm.room.tombstone'
     | 'm.room.topic'
     | 'm.sticker'
-    | 'm.presence';
+    | 'm.direct'
+    | 'm.reaction'
+    | 'm.presence'>;
 
 export type MsgType = never
     | 'm.audio'
@@ -325,6 +343,23 @@ export interface SearchBody {
         }
     };
 }
+
+export type SyncState = "PREPARED" | "SYNCING" | "ERROR" | "STOPPED" | "CATCHUP";
+export interface SyncData {
+  /**
+   * The 'next_batch' result from /sync, which will become the 'since' token for the next call to /sync. Only present if state=PREPARED or state=SYNCING.
+   */
+  nextSyncToken?: string;
+  /**
+   * The 'since' token passed to /sync. null for the first successful sync since this client was started. Only present if state=PREPARED or state=SYNCING.
+   */
+  oldSyncToken?: string | null;
+  catchingUp?: boolean;
+  fromCache?: boolean;
+  error?: Error;
+}
+export type SyncCallback = (state: SyncState, prevState: SyncState, data: SyncData) => void;
+
 /**
  * Only part of the MatrixClient methods was put here
  * because they are too many.
@@ -439,8 +474,8 @@ export class MatrixClient extends EventEmitter {
     ): Promise<object>;
     getStoredDevice(userId: string, deviceId: string): Promise<CryptoDeviceInfo>;
     getStoredDevicesForUser(userId: string): Promise<CryptoDeviceInfo[]>;
-    getSyncState(): null | string;
-    getSyncStateData(): null | object;
+    getSyncState(): null | SyncState;
+    getSyncStateData(): null | SyncData;
     getThirdpartyLocation(protocol: string, params: object): Promise<object>;
     getThirdpartyProtocols(): Promise<object>;
     getThirdpartyUser(protocol: string, params: object): Promise<object>;
@@ -453,7 +488,7 @@ export class MatrixClient extends EventEmitter {
     getUsers(): User[];
     getVisibleRooms(): Room[];
     importRoomKeys(keys: object[]): Promise<void>;
-    initCrypto(): void;
+    initCrypto(): Promise<void>;
     invite(roomId: string, userId: string, callback?: MatrixCallback): Promise<void>;
     inviteByEmail(roomId: string, email: string, callback?: MatrixCallback): Promise<void>;
     inviteByThreePid(roomId: string, medium: string, address: string, callback?: MatrixCallback): Promise<void>;
@@ -488,7 +523,7 @@ export class MatrixClient extends EventEmitter {
     members(
         roomId: string, includeMembership: string, excludeMembership: string, atEventId: string, callback?: MatrixCallback,
     ): Promise<object>;
-    mxcUrlToHttp(mxcUrl: string, width: number | null, height: number | null, resizeMethod: string | null, allowDirectLinks: boolean | null): null | string;
+    mxcUrlToHttp(mxcUrl: string, width?: number | null, height?: number | null, resizeMethod?: string | null, allowDirectLinks?: boolean | null): null | string;
     paginateEventTimeline(eventTimeline: EventTimeline, opts?: object): Promise<boolean>;
     peekInRoom(roomId: string): Promise<object>;
     prepareKeyBackupVersion(password: string): Promise<object>;
@@ -569,10 +604,10 @@ export class MatrixClient extends EventEmitter {
         results: Array<{ user_id: string; display_name?: string | null; avatar_url?: string | null; }>;
     }>;
     sendEmoteMessage(
-        roomId: string, body: string, txnId: string, callback?: MatrixCallback,
+        roomId: string, body: string, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendEvent(
-        roomId: string, eventType: EventType, content: object, txnId: string, callback?: MatrixCallback,
+        roomId: string, eventType: EventType, content: object, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendHtmlEmote(
         roomId: string, body: string, htmlBody: string, callback?: MatrixCallback,
@@ -593,7 +628,7 @@ export class MatrixClient extends EventEmitter {
         roomId: string, content: object, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendNotice(
-        roomId: string, body: string, txnId: string, callback?: MatrixCallback,
+        roomId: string, body: string, txnId?: string, callback?: MatrixCallback,
     ): Promise<void>;
     sendReadReceipt(event: MatrixEvent, callback?: MatrixCallback): Promise<void>;
     sendReceipt(event: MatrixEvent, receiptType: string, callback?: MatrixCallback): Promise<void>;
@@ -603,7 +638,7 @@ export class MatrixClient extends EventEmitter {
     sendStickerMessage(
         roomId: string, url: string, info: object, text: string, callback?: MatrixCallback,
     ): Promise<void>;
-    sendTextMessage(roomId: string, body: string, txnId: string, callback?: MatrixCallback): Promise<void>;
+    sendTextMessage(roomId: string, body: string, txnId?: string, callback?: MatrixCallback): Promise<void>;
     sendToDevice(eventType: EventType, contentMap: {
         [key: string]: {
             [key2: string]: object
@@ -619,6 +654,7 @@ export class MatrixClient extends EventEmitter {
     setDisplayName(name: string, callback?: MatrixCallback): Promise<void>;
     setForceTURN(forceTURN: boolean): void;
     setGlobalBlacklistUnverifiedDevices(value: boolean): void;
+    setGlobalErrorOnUnknownDevices(value: boolean): void;
     setGroupJoinPolicy(groupId: string, policy: object): Promise<void>;
     setGroupProfile(groupId: string, profile: {
         name: string;  // <optional> Name of the group
@@ -643,7 +679,23 @@ export class MatrixClient extends EventEmitter {
         status_msg: string;  // The status message to attach.
     }, callback?: (...args: any[]) => any): Promise<void>;
     setProfileInfo(info: string, data: object, callback?: MatrixCallback): Promise<void>;
-    setPusher(pusher: object, callback?: MatrixCallback): Promise<void>;
+    setPusher(pusher: {
+      pushkey: string;
+      kind: string;
+      app_id: string;
+      app_display_name: string;
+      device_display_name: string;
+      lang: string;
+      // A dictionary of information for the pusher implementation itself. If `kind` is `http`,
+      // this should contain `url` which is the URL to use to send notifications to.
+      data: Record<string, unknown>;
+      // If true, the homeserver should add another pusher with the given pushkey and App ID in addition to any others
+      // with different user IDs. Otherwise, the homeserver must remove any other pushers with the same App ID and
+      // pushkey for different users. The default is false.
+      append?: boolean;
+      // This string determines which set of device specific rules this pusher executes.
+      profile_tag?: string;
+    }, callback?: MatrixCallback): Promise<void>;
     setPushRuleActions(
         scope: string, kind: string, ruleId: string, actions: string[], callback?: MatrixCallback,
     ): Promise<object>;
@@ -687,12 +739,13 @@ export class MatrixClient extends EventEmitter {
     updateGroupRoomVisibility(groupId: string, roomId: string, isPublic: boolean): Promise<void>;
     upgradeRoom(roomId: string, newVersion: string): Promise<{ replacement_room: object }>;
     uploadContent(file: any, opts: {
-        includeFilename: boolean;  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
-        type: string;  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
-        rawResponse: boolean;  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
-        onlyContentUri: boolean; // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
+        name?: string;
+        includeFilename?: boolean;  // <optional> if false will not send the filename, e.g for encrypted file uploads where filename leaks are undesirable. Defaults to true.
+        type?: string;  // <optional> Content-type for the upload. Defaults to file.type, or applicaton/octet-stream.
+        rawResponse?: boolean;  // <optional> Return the raw body, rather than parsing the JSON. Defaults to false (except on node.js, where it defaults to true for backwards compatibility).
+        onlyContentUri?: boolean; // <optional> Just return the content URI, rather than the whole body. Defaults to false (except on browsers, where it defaults to true for backwards compatibility).
         callback?: (...args: any[]) => any;  // <optional> Deprecated. Optional. The callback to invoke on success/failure. See the promise return values for more information.
-        progressHandler: (...args: any[]) => any; // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
+        progressHandler?: (...args: any[]) => any; // <optional> Optional. Called when a chunk of data has been uploaded, with an object containing the fields `loaded` (number of bytes transferred)
     }): Promise<string>;
     uploadKeys(): object;
     uploadKeysRequest(content: object, opts?: object, callback?: MatrixCallback): Promise<object>;
@@ -870,11 +923,37 @@ export class TimelineWindow {
 }
 
 export interface CreateRoomOptions {
-    invite?: string[];  //  <string> A list of user IDs to invite to this room.
-    name?: string;         //  The name to give this room.
-    room_alias_name?: string;         //  The alias localpart to assign to this room.
-    topic?: string;         //  The topic to give this room.
-    visibility?: 'public' | 'private';         //  Either 'public' or 'private'.
+    /**
+     * <string> A list of user IDs to invite to this room.
+     */
+    invite?: string[];
+    /**
+     * The name to give this room.
+     */
+    name?: string;
+    /**
+     * The alias localpart to assign to this room.
+     */
+    room_alias_name?: string;
+    /**
+     * The topic to give this room.
+     */
+    topic?: string;
+    visibility?: "public" | "private";
+    /**
+     * Convenience parameter for setting various default state events based on a preset.
+     * If unspecified, the server should use the visibility to determine which preset to use.
+     * A visbility of public equates to a preset of public_chat and private visibility equates to a preset of private_chat.
+     * One of: ["private_chat", "public_chat", "trusted_private_chat"]
+     */
+    preset?: "private_chat" | "public_chat" | "trusted_private_chat";
+    is_direct?: boolean;
+    /**
+     * A list of state events to set in the new room. This allows the user to override the default state events set in the new room.
+     * The expected format of the state events are an object with type, state_key and content keys set.
+     * Takes precedence over events set by preset, but gets overriden by name and topic keys.
+     */
+    initial_state?: StateEvent[];
 }
 
 export type FilterComponent = any;
@@ -896,25 +975,26 @@ export class Filter {
     setTimelineLimit(limit: number): void;
 }
 // TODO: inherits EventEmitter?
-export class MatrixEvent {
-    event: RawEvent;         //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
+export class MatrixEvent<IEventContentType = EventContentTypeMessage, EventTypeName = EventType> {
+    //  The raw (possibly encrypted) event. Do not access this property directly unless you absolutely have to. Prefer the getter methods defined
+    event: RawEvent<IEventContentType, EventTypeName>;
     sender: RoomMember;      //  The room member who sent this event, or null e.g. this is a presence event. This is only guaranteed to be set for events that appear in
     target: RoomMember;      //  The room member who is the target of this event, e.g. the invitee, the person being banned, etc.
     status: EventStatus;     //  The sending status of the event.
     error: Error;            //  most recent error associated with sending the event, if any
     forwardLooking: boolean; //  True if this event is 'forward looking', meaning that getDirectionalContent() will return event.content and not event.prev_content.
 
-    constructor(event: object)
+    constructor(event: RawEvent<IEventContentType, EventTypeName>)
     getId(): string;
     getSender(): string;
-    getType(): EventType;
+    getType(): EventTypeName;
     getWireType(): string;
     getRoomId(): string;
-    getTs(): Date;
+    getTs(): number;
     getDate(): Date;
-    getContent(): EventContentType;
-    getOriginalContent(): EventContentType;
-    getWireContent(): EventContentType;
+    getContent(): IEventContentType;
+    getOriginalContent(): IEventContentType;
+    getWireContent(): IEventContentType;
     getPrevContent(): object;
     getDirectionalContent(): object;
     getAge(): number;
@@ -927,7 +1007,7 @@ export class MatrixEvent {
     attemptDecryption(crypto: CryptoModule, isRetry: boolean): Promise<void>;
     cancelAndResendKeyRequest(crypto: CryptoModule, userId: string): Promise<void>;
     getKeyRequestRecipients(userId: string): Array<{ userId: string; deviceId: string; }>;
-    getClearContent(): EventContentType;
+    getClearContent(): IEventContentType;
     isEncrypted(): boolean;
     getSenderKey(): string;
     getKeysClaimed(): { ed25519: string };
@@ -947,7 +1027,7 @@ export class MatrixEvent {
     setStatus(status: EventStatus): void;
     replaceLocalEventId(eventId: string): void;
     isRelation(relType?: string): boolean;
-    getRelation(): EventContentType | null;
+    getRelation(): IEventContentType | null;
     makeReplaced(newEvent?: MatrixEvent): void;
     getAssociatedStatus(): EventStatus;
     getServerAggregatedRelation(relType: string): any[];
@@ -1052,22 +1132,86 @@ export interface CreateClientOption {
 
 export function createClient(ops: string | CreateClientOption): MatrixClient;
 
-export interface EventContentType {
+// Spec: https://matrix.org/docs/spec/client_server/latest#m-room-message
+export interface EventContentTypeMessage {
     body: string;
     msgtype: MsgType;
 }
+// re-export for legacy reasons.
+export type EventContentType = EventContentTypeMessage;
 
-export interface UnsignedType {
-    age: number;
-    redacted_because: RawEvent;
+// Spec: https://matrix.org/docs/spec/client_server/latest#m-audio
+export interface EventContentTypeAudioMessage extends EventContentTypeMessage {
+    msgtype: 'm.audio';
+    url: string;
+    info: {
+        duration: number;
+        mimetype: string;
+        size: number;
+    };
 }
 
-export interface RawEvent {
-    content: EventContentType;
-    origin_server_ts: Date;
+export interface UnsignedType {
+    age?: number;
+    transaction_id?: string;
+    redacted_because?: RawEvent;
+}
+
+export interface RawEvent<IEventContentType = EventContentTypeMessage, EventTypeName = EventType> {
+    content: IEventContentType;
+    origin_server_ts: number;
     sender: string;
-    type: EventType;
-    unsigned: UnsignedType;
+    type: EventTypeName;
+    unsigned?: UnsignedType;
     event_id: string;
     room_id: string;
+    // only set when the event is of type "m.room.redaction"
+    redacts?: string;
+}
+
+export interface SyncResponse {
+  next_batch: string | null;
+  rooms: Record<string, unknown>;
+  groups: Record<string, unknown>;
+  account_data: Record<string, unknown>;
+}
+
+export interface SyncData {
+  nextBatch: string | null;
+  roomData: Record<string, unknown>;
+  groupsData: Record<string, unknown>;
+  accountData: Record<string, unknown>;
+}
+
+export class SyncAccumulator {
+  constructor(options?: {
+    /**
+     * Default is 50.
+     */
+    maxTimelineEntries?: number;
+  })
+
+  /**
+   * @param fromDatabase default is false
+   */
+  accumulate: (syncResponse: SyncResponse, fromDatabase?: boolean) => void;
+
+  /**
+   * Return everything under the 'rooms' key from a /sync response which
+   * represents all room data that should be stored. This should be paired
+   * with the sync token which represents the most recent /sync response
+   * provided to accumulate().
+   * @param forDatabase True to generate a sync to be saved to storage
+   * @return An object with a "nextBatch", "roomsData", "groupsData"
+   * and "accountData" keys.
+   * The "nextBatch" key is a string which represents at what point in the
+   * /sync stream the accumulator reached. This token should be used when
+   * restarting a /sync stream at startup. Failure to do so can lead to missing
+   * events. The "roomsData" key is an Object which represents the entire
+   * /sync response from the 'rooms' key onwards. The "accountData" key is
+   * a list of raw events which represent global account data.
+   */
+  getJSON: (forDatabase?: boolean) => SyncData;
+
+  getNextBatchToken: () => string | null;
 }

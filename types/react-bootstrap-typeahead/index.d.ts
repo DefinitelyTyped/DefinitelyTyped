@@ -149,6 +149,9 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     /* Displays a button to clear the input when there are selections. */
     clearButton?: boolean;
 
+    /* ClassName to Apply */
+    className?: string;
+
     /* The initial value displayed in the text input. */
     defaultInputValue?: string;
 

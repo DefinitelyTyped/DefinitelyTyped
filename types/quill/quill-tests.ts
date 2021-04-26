@@ -127,6 +127,13 @@ function test_formatLine3() {
     });
 }
 
+function test_sources() {
+    const quillEditor = new Quill('#editor');
+    quillEditor.formatLine(1, 3, Quill.sources.API);
+    quillEditor.formatLine(1, 3, Quill.sources.SILENT);
+    quillEditor.formatLine(1, 3, Quill.sources.USER);
+}
+
 function test_insertEmbed() {
     const quillEditor = new Quill('#editor');
     quillEditor.insertEmbed(10, 'image', 'http://com/images/cloud.png');

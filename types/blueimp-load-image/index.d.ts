@@ -66,6 +66,8 @@ declare namespace loadImage {
         downsamplingRatio?: number;
         orientation?: Orientation;
         crop?: boolean;
+        imageSmoothingEnabled?: boolean;
+        imageSmoothingQuality?: 'low' | 'medium' | 'high';
     }
     interface CanvasFalseOptions {
         canvas?: false;

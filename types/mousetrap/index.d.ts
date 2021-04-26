@@ -25,13 +25,6 @@ declare namespace Mousetrap {
         unbind(keys: string | string[], action?: string): MousetrapInstance;
         trigger(keys: string, action?: string): MousetrapInstance;
         reset(): MousetrapInstance;
-
-        /** https://craig.is/killing/mice#extensions.global */
-        bindGlobal(
-            keyArray: string | string[],
-            callback: (e: ExtendedKeyboardEvent, combo: string) => any,
-            action?: string,
-        ): void;
     }
 
     interface MousetrapInstance {
@@ -48,7 +41,7 @@ declare namespace Mousetrap {
     }
 }
 
-declare var Mousetrap: Mousetrap.MousetrapStatic;
+declare const Mousetrap: Mousetrap.MousetrapStatic;
 
 export = Mousetrap;
 
