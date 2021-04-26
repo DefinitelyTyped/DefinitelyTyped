@@ -1,67 +1,64 @@
 // Type definitions for passport-steam 1.0
 // Project: https://github.com/liamcurry/passport-steam
-// Definitions by: Gonthier Renaud <https://github.com/kzay>
+// Definitions by: Gonthier Renaud <https://github.com/kzay>, Djobbo Maïga <https://github.com/AlfieGoldson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import passport = require("passport");
+import express = require("express");
+
 export = passport_steam;
 
-declare function passport_steam(options: any, validate: any): any;
+declare function passport_steam(
+    options: passport_steam.StrategyOptions,
+    validate: passport_steam.ValidateFunction,
+): passport_steam.Strategy;
+
+declare function passport_steam(
+    options: passport_steam.StrategyOptionsWithRequest,
+    validate: passport_steam.ValidateFunctionWithRequest,
+): passport_steam.Strategy;
 
 declare namespace passport_steam {
-    // Circular reference from passport_steam
-    const Strategy: any;
+    interface Profile extends passport.Profile {
+        _json: any;
+    }
 
-    const version: string;
+    interface StrategyOptionsBase {
+        returnURL: string;
+        realm: string;
+        apiKey: string;
+        providerURL?: string;
+        profile?: boolean;
+        stateless?: boolean;
+    }
 
-    namespace prototype {
-        function authenticate(req: any): any;
+    interface StrategyOptions extends StrategyOptionsBase {
+        passReqToCallback?: false;
+    }
 
-        function loadAssociation(fn: any): any;
+    interface StrategyOptionsWithRequest extends StrategyOptionsBase {
+        passReqToCallback: true;
+    }
 
-        function loadDiscoveredInfo(fn: any): any;
+    type ValidateFunction = (
+        identifier: string,
+        profile: Profile,
+        done: (error?: Error | null, user?: object) => void,
+    ) => void;
 
-        function loadDiscoveredInformation(fn: any): any;
+    type ValidateFunctionWithRequest = (
+        req: express.Request,
+        identifier: string,
+        profile: Profile,
+        done: (error?: Error | null, user?: object) => void,
+    ) => void;
 
-        function saveAssociation(fn: any): any;
+    class Strategy extends passport.Strategy {
+        constructor(options: StrategyOptions, validate: ValidateFunction);
+        constructor(options: StrategyOptionsWithRequest, validate: ValidateFunctionWithRequest);
 
-        function saveDiscoveredInfo(fn: any): any;
-
-        function saveDiscoveredInformation(fn: any): any;
-
-        namespace authenticate {
-            const prototype: {
-            };
-        }
-
-        namespace loadAssociation {
-            const prototype: {
-            };
-        }
-
-        namespace loadDiscoveredInfo {
-            const prototype: {
-            };
-        }
-
-        namespace loadDiscoveredInformation {
-            const prototype: {
-            };
-        }
-
-        namespace saveAssociation {
-            const prototype: {
-            };
-        }
-
-        namespace saveDiscoveredInfo {
-            const prototype: {
-            };
-        }
-
-        namespace saveDiscoveredInformation {
-            const prototype: {
-            };
-        }
+        name: string;
+        authenticate(req: express.Request, options?: object): void;
     }
 }
