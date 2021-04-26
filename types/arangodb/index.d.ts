@@ -659,7 +659,7 @@ declare namespace ArangoDB {
         document(
             selectors: ReadonlyArray<string | DocumentLike>
         ): Array<Document<T>>;
-        exists(name: string): boolean;
+        exists(name: string): DocumentMetadata | false;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
         getResponsibleShard(document: DocumentLike): string;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
