@@ -186,8 +186,8 @@ declare namespace Chai {
         own: Own;
         any: KeyFilter;
         all: KeyFilter;
-        a: TypeComparison;
-        an: TypeComparison;
+        a: Assertion;
+        an: Assertion;
         include: Include;
         includes: Include;
         contain: Include;
@@ -240,7 +240,7 @@ declare namespace Chai {
         extensible: Assertion;
         sealed: Assertion;
         frozen: Assertion;
-        oneOf(list: ReadonlyArray<any>, message?: string): Assertion;
+        oneOf: OneOf;
     }
 
     interface LanguageChains {
@@ -362,6 +362,11 @@ declare namespace Chai {
         members: Members;
         any: KeyFilter;
         all: KeyFilter;
+        oneOf: OneOf;
+    }
+
+    interface OneOf {
+        (list: ReadonlyArray<unknown>, message?: string): Assertion;
     }
 
     interface Match {
@@ -391,7 +396,11 @@ declare namespace Chai {
     }
 
     interface PropertyChange {
-        (object: Object, property?: string, message?: string): Assertion;
+        (object: Object, property?: string, message?: string): DeltaAssertion;
+    }
+
+    interface DeltaAssertion extends Assertion {
+        by(delta: number, msg?: string): Assertion;
     }
 
     export interface Assert {
