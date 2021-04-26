@@ -1,13 +1,23 @@
 // Parse is a global type, but it can also be imported
 async function test_imports() {
+    /**
+     * Note: import("parse") would make the test suite import types/parse,
+     * so we wouldn't be testing this folder.
+     * See https://github.com/DefinitelyTyped/DefinitelyTyped/blob/394b6f5ceedd3acaea0d183f8d2c9b7117c8b3f3/types/styled-components/ts3.6/test/index.tsx#L23
+     */
+
+    /* tslint:disable:no-relative-import-in-test */
+
     // $ExpectType typeof Parse
-    const ParseDirect = await import("parse");
+    const ParseDirect = await import("./");
     // $ExpectType typeof Parse
-    const ParseNode = await import("parse/node");
+    const ParseNode = await import("./node");
     // $ExpectType typeof Parse
-    const ParseRN = await import("parse/react-native");
+    const ParseRN = await import("./react-native");
 
     // const ParseBad = await import('parse/bad'); // Error - but $ExpectError doesn't work for imports
+
+    /* tslint:enable:no-relative-import-in-test */
 }
 
 class GameScore extends Parse.Object {
