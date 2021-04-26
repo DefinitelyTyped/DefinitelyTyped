@@ -156,3 +156,4 @@
 /// <reference path="./ads-manager-app/ads-manager-app.d.ts" />
 /// <reference path="./ads-manager-app/managed-account/managed-account.d.ts" />
 /// <reference path="./base.d.ts" />
+/// <reference path="./date-range.d.ts" />
