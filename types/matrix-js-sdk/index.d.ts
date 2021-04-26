@@ -1148,6 +1148,8 @@ export interface RawEvent<IEventContentType = EventContentTypeMessage, EventType
     unsigned?: UnsignedType;
     event_id: string;
     room_id: string;
+    // only set when the event is of type "m.room.redaction"
+    redacts?: string;
 }
 
 export interface SyncResponse {
