@@ -61,3 +61,11 @@ function testSettingReconnectionAttempts() {
 function testAuthConnectOpt() {
     var socket = io({ auth: { token: "qwerty" } });
 }
+
+function testWithCredentialsConnectOpt() {
+    var socket = io({ withCredentials: true });
+}
+
+function testExtraHeadersConnectOpt() {
+    var socket = io({ extraHeaders: { "my-custom-header": "my-custom-value" } });
+}
