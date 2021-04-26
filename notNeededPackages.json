@@ -3762,6 +3762,10 @@
             "libraryName": "systeminformation",
             "asOfVersion": "3.54.0"
         },
+        "table": {
+            "libraryName": "table",
+            "asOfVersion": "6.3.2"
+        },
         "tabris": {
             "libraryName": "tabris",
             "asOfVersion": "1.8.0"
