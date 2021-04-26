@@ -889,6 +889,10 @@
             "libraryName": "env-paths",
             "asOfVersion": "2.1.0"
         },
+        "err-code": {
+            "libraryName": "err-code",
+            "asOfVersion": "3.0.0"
+        },
         "error-stack-parser": {
             "libraryName": "error-stack-parser",
             "asOfVersion": "2.0.0"
