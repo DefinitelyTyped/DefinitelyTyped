@@ -239,7 +239,7 @@ import { URL } from 'url';
         server.setTimeout().setTimeout(5).setTimeout(5, () => {});
         server.updateSettings({
             enableConnectProtocol: true,
-        })
+        });
     });
 
     http2SecureServer.on('unknownProtocol', (socket: TLSSocket) => {});

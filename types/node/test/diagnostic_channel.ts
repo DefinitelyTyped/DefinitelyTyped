@@ -1,17 +1,14 @@
 import { Channel, channel, hasSubscribers } from 'diagnostic_channel';
 
-const ch1: Channel<string> = channel<string>('test');
-const ch2: Channel<number> = channel<number>('test2');
-
-function listener(name: string, data: string | number) {
-
+const ch1: Channel = channel('test');
+function listener(name: string, data: unknown) {
 }
 
+const active: boolean = ch1.hashSubscribers;
+const name: string = ch1.name;
+
 ch1.subscribe(listener);
-ch2.subscribe(listener);
 
 ch1.unsubscribe(listener);
-ch2.unsubscribe(listener);
 
 const hasSubs = hasSubscribers('test');
-

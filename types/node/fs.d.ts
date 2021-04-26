@@ -142,6 +142,11 @@ declare module 'fs' {
         prependOnceListener(event: "close", listener: () => void): this;
     }
 
+    // TODO: Move this to a more central location
+    export interface Abortable {
+        signal?: AbortSignal;
+    }
+
     export class ReadStream extends stream.Readable {
         close(): void;
         bytesRead: number;
@@ -1557,17 +1562,11 @@ declare module 'fs' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFile(path: PathLike | number, options: { encoding?: null; flag?: string; } | undefined | null, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
-
-    /**
-     * Asynchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
-     * If a flag is not provided, it defaults to `'r'`.
-     */
-    export function readFile(path: PathLike | number, options: { encoding: BufferEncoding; flag?: string; } | string, callback: (err: NodeJS.ErrnoException | null, data: string) => void): void;
+    export function readFile(
+        path: PathLike | number,
+        options: { encoding?: null; flag?: string; } & Abortable | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+    ): void;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1579,7 +1578,22 @@ declare module 'fs' {
      */
     export function readFile(
         path: PathLike | number,
-        options: BaseEncodingOptions & { flag?: string; } | string | undefined | null,
+        options: { encoding: BufferEncoding; flag?: string; } & Abortable | string,
+        callback: (err: NodeJS.ErrnoException | null, data: string) => void,
+    ): void;
+
+    /**
+     * Asynchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
+     * If a flag is not provided, it defaults to `'r'`.
+     */
+    export function readFile(
+        path: PathLike | number,
+        // TODO: unify the options across all readfile functions
+        options: BaseEncodingOptions & { flag?: string; } & Abortable | string | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
     ): void;
 
@@ -1651,7 +1665,7 @@ declare module 'fs' {
      */
     export function readFileSync(path: PathLike | number, options?: BaseEncodingOptions & { flag?: string; } | BufferEncoding | null): string | Buffer;
 
-    export type WriteFileOptions = BaseEncodingOptions & { mode?: Mode; flag?: string; } | string | null;
+    export type WriteFileOptions = (BaseEncodingOptions & Abortable & { mode?: Mode; flag?: string; }) | string | null;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.

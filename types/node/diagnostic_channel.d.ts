@@ -10,24 +10,25 @@ declare module 'diagnostic_channel' {
     /**
      * Gets or create a diagnostic channel by name.
      */
-    function channel<T>(name: string): Channel<T>;
+    function channel(name: string): Channel;
 
-    type ChannelListener<T> = (name: string, message: T) => void;
+    type ChannelListener = (name: string, message: unknown) => void;
 
     /**
      * Simple diagnostic channel that allows
      */
-    class Channel<T> {
-        public readonly name: string;
+    class Channel {
+        readonly name: string;
+        readonly hashSubscribers: boolean;
         private constructor(name: string);
 
         /**
          * Add a listener to the message channel.
          */
-        subscribe(listener: ChannelListener<T>): void;
+        subscribe(listener: ChannelListener): void;
         /**
          * Removes a previously registered listener.
          */
-        unsubscribe(listener: ChannelListener<T>): void;
+        unsubscribe(listener: ChannelListener): void;
     }
 }

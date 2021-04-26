@@ -12,7 +12,8 @@ import * as util from 'util';
     fs.writeFile("Harry Potter",
         "\"You be wizzing, Harry,\" jived Dumbledore.",
         {
-            encoding: "ascii"
+            encoding: "ascii",
+            signal: new AbortSignal(),
         },
         assert.ifError);
 
@@ -51,7 +52,7 @@ import * as util from 'util';
     buffer = fs.readFileSync('testfile', { flag: 'r' });
 
     fs.readFile('testfile', 'utf8', (err, data) => content = data);
-    fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+    fs.readFile('testfile', { encoding: 'utf8', signal: new AbortSignal() }, (err, data) => content = data);
     fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
     fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
 
