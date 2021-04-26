@@ -1,4 +1,4 @@
-import { MousetrapStatic, MousetrapInstance } from "../";
+import { MousetrapStatic, MousetrapInstance } from "../../";
 
 /** https://craig.is/killing/mice#extensions.pause */
 

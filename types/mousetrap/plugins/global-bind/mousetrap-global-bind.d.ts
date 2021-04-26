@@ -1,4 +1,4 @@
-import { ExtendedKeyboardEvent, MousetrapStatic } from "../";
+import { ExtendedKeyboardEvent, MousetrapStatic } from "../../";
 
 /** https://craig.is/killing/mice#extensions.global */
 
