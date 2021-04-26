@@ -430,25 +430,9 @@ declare global {
             remove: this["add"];
             removeAll: this["addAll"];
             revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
-            save<K extends Extract<keyof T, string>>(
-                attrs?:
-                    | (((x: T) => void) extends (x: Attributes) => void
-                          ? Partial<T>
-                          : {
-                                [key in K]: T[key];
-                            })
-                    | null,
-                options?: Object.SaveOptions,
-            ): Promise<this>;
+            save(attrs?: Partial<T> | null, options?: Object.SaveOptions): Promise<this>;
             save<K extends Extract<keyof T, string>>(key: K, value: T[K], options?: Object.SaveOptions): Promise<this>;
-            set<K extends Extract<keyof T, string>>(
-                attrs: ((x: T) => void) extends (x: Attributes) => void
-                    ? Partial<T>
-                    : {
-                          [key in K]: T[key];
-                      },
-                options?: Object.SetOptions,
-            ): this | false;
+            set(attrs: Partial<T>, options?: Object.SetOptions): this | false;
             set<K extends Extract<keyof T, string>>(key: K, value: T[K], options?: Object.SetOptions): this | false;
             setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
             toJSON(): Object.ToJSON<T> & JSONBaseAttributes;

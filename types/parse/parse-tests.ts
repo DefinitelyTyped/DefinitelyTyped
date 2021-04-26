@@ -1468,6 +1468,11 @@ function testObject() {
 
         // $ExpectError
         objTyped.set("other", 100);
+
+        const attributes: Partial<{ example: boolean; another: number }> = { example: true };
+
+        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        objTyped.set(attributes);
     }
 
     interface AttributesAllTypes {
