@@ -315,6 +315,9 @@ function testNamedNode() {
     const fromOther: clownface.AnyPointer<NamedNode, Dataset> = cf.namedNode(cfSingleNamed);
     const fromMultipleOther: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(cfNamedMany);
     const fromSet: clownface.MultiPointer<NamedNode, Dataset> = cf.namedNode(set);
+
+    const foo: NamedNode<'foo'> = <any> {};
+    const preservedTypeArg: clownface.GraphPointer<NamedNode<'foo'>, Dataset> = cf.namedNode(foo);
 }
 
 function testNode() {

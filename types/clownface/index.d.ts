@@ -81,7 +81,7 @@ declare namespace clownface {
     literal(value: SingleOrOneElementArray<boolean | string | number | Term | null> | AnyPointer<Literal, D>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal, D>;
     literal(values: Array<boolean | string | number | Term | null> | MultiPointer<Literal, D> | Iterable<Literal>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal[], D>;
 
-    namedNode(value: SingleOrOneElementArray<string | NamedNode> | AnyPointer<NamedNode, D>): AnyPointer<NamedNode, D>;
+    namedNode<Iri extends string = string>(value: SingleOrOneElementArray<string | NamedNode<Iri> | AnyPointer<NamedNode<Iri>, D>>): AnyPointer<NamedNode<Iri>, D>;
     namedNode(values: Array<string | NamedNode> | MultiPointer<NamedNode, D> | Iterable<NamedNode>): AnyPointer<NamedNode[], D>;
 
     in(predicates?: SingleOrArrayOfTerms<Term>): MultiPointer<T extends undefined ? never : NamedNode | BlankNode, D>;
