@@ -1,4 +1,4 @@
-// Type definitions for express-actuator 1.3
+// Type definitions for express-actuator 1.6
 // Project: https://www.npmjs.org/package/express-actuator
 // Definitions by:  Eduardo Silva <https://github.com/etruta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,6 +24,37 @@ declare namespace actuator {
          * @summary infoGitMode.
          */
         infoGitMode?: InfoGitMode;
+
+        /**
+         * @summary DateFormat for info git.time output.
+         */
+        infoDateFormat?: string;
+
+        /**
+         * @summary Extra Options to pass to info build output.
+         */
+        infoBuildOptions?: Record<string, any>;
+
+        /**
+         * @summary Custom endpoints
+         */
+        customEndpoints?: CustomEndpoint[];
+    }
+
+    interface CustomEndpoint {
+        /**
+         * @summary Used as endpoint `/id` or `${basePath}/id`
+         */
+        id: string;
+
+        /**
+         * @summary Controller to be called when accessing this endpoint
+         */
+        controller: CustomControllerMethod;
+    }
+
+    interface CustomControllerMethod {
+        (req?: any, res?: any): void;
     }
 }
 

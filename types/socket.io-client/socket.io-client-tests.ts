@@ -57,3 +57,7 @@ function testUsingItJustAsACrossBrowserWebSocket() {
 function testSettingReconnectionAttempts() {
     var manager = io.Manager({ reconnection: true, timeout: 0, reconnectionAttempts: 2, reconnectionDelay: 10 });
 }
+
+function testAuthConnectOpt() {
+    var socket = io({ auth: { token: "qwerty" } });
+}

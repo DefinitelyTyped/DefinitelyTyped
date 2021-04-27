@@ -1,12 +1,33 @@
-// Type definitions for d3-delaunay 4.1
+// Type definitions for d3-delaunay 5.3
 // Project: https://github.com/d3/d3-delaunay
 // Definitions by: Bradley Odell <https://github.com/BTOdell>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Delaunay triangulation
  */
 export class Delaunay<P> {
+    /**
+     * Returns the Delaunay triangulation for the given flat array [x0, y0, x1, y1, …] of points.
+     */
+    constructor(points: ArrayLike<number>);
+
+    /**
+     * Returns the Delaunay triangulation for the given array or iterable of points where each point is an array in the form: [x, y].
+     */
+    static from(points: ArrayLike<Delaunay.Point>|Iterable<Delaunay.Point>): Delaunay<Delaunay.Point>;
+    /**
+     * Returns the Delaunay triangulation for the given array or iterable of points.
+     * Otherwise, the getX and getY functions are invoked for each point in order, and must return the respective x- and y-coordinate for each point.
+     * If that is specified, the functions getX and getY are invoked with that as this.
+     * (See Array.from for reference.)
+     */
+    static from<P>(points: ArrayLike<P>|Iterable<P>,
+                   getX: Delaunay.GetCoordinate<P, ArrayLike<P>|Iterable<P>>,
+                   getY: Delaunay.GetCoordinate<P, ArrayLike<P>|Iterable<P>>,
+                   that?: any): Delaunay<P>;
+
     /**
      * The coordinates of the points as an array [x0, y0, x1, y1, ...].
      * Typically, this is a Float64Array, however you can use any array-like type in the constructor.
@@ -20,10 +41,10 @@ export class Delaunay<P> {
     halfedges: Int32Array;
 
     /**
-     * An arbitrary node on the convex hull.
-     * The convex hull is represented as a circular doubly-linked list of nodes.
+     * An Int32Array of point indexes that form the convex hull in counterclockwise order.
+     * If the points are collinear, returns them ordered.
      */
-    hull: Delaunay.Node;
+    hull: Uint32Array;
 
     /**
      * The triangle vertex indices as an Uint32Array [i0, j0, k0, i1, j1, k1, ...].
@@ -40,33 +61,6 @@ export class Delaunay<P> {
     inedges: Int32Array;
 
     /**
-     * The outgoing halfedge indexes as a Int32Array [e0, e1, e2, ...].
-     * For each point i on the convex hull, outedges[i] is the halfedge index e of the corresponding outgoing halfedge; for other points, the halfedge index is -1.
-     */
-    outedges: Int32Array;
-
-    /**
-     * Returns the Delaunay triangulation for the given flat array [x0, y0, x1, y1, …] of points.
-     */
-    constructor(points: ArrayLike<number>);
-
-    /**
-     * Returns the Delaunay triangulation for the given array or iterable of points where each point is an array in the form: [x, y].
-     */
-    static from(points: ArrayLike<Delaunay.Point>|Iterable<Delaunay.Point>): Delaunay<Delaunay.Point>;
-
-    /**
-     * Returns the Delaunay triangulation for the given array or iterable of points.
-     * Otherwise, the getX and getY functions are invoked for each point in order, and must return the respective x- and y-coordinate for each point.
-     * If that is specified, the functions getX and getY are invoked with that as this.
-     * (See Array.from for reference.)
-     */
-    static from<P>(points: ArrayLike<P>|Iterable<P>,
-        getX: Delaunay.GetCoordinate<P, ArrayLike<P>|Iterable<P>>,
-        getY: Delaunay.GetCoordinate<P, ArrayLike<P>|Iterable<P>>,
-        that?: any): Delaunay<P>;
-
-    /**
      * Returns the index of the input point that is closest to the specified point ⟨x, y⟩.
      * The search is started at the specified point i. If i is not specified, it defaults to zero.
      */
@@ -79,25 +73,9 @@ export class Delaunay<P> {
     neighbors(i: number): IterableIterator<number>;
 
     /**
-     * Returns the closed polygon [[x0, y0], [x1, y1], ..., [x0, y0]] representing the convex hull.
-     */
-    hullPolygon(): Delaunay.Polygon;
-
-    /**
-     * Returns the closed polygon [[x0, y0], [x1, y1], [x2, y2], [x0, y0]] representing the triangle i.
-     */
-    trianglePolygon(i: number): Delaunay.Triangle;
-
-    /**
-     * Returns an iterable over the polygons for each triangle, in order.
-     */
-    trianglePolygons(): IterableIterator<Delaunay.Triangle>;
-
-    /**
      * Renders the edges of the Delaunay triangulation to an SVG path string.
      */
     render(): string;
-
     /**
      * Renders the edges of the Delaunay triangulation to the specified context.
      * The specified context must implement the context.moveTo and context.lineTo methods from the CanvasPathMethods API.
@@ -108,7 +86,6 @@ export class Delaunay<P> {
      * Renders the convex hull of the Delaunay triangulation to an SVG path string.
      */
     renderHull(): string;
-
     /**
      * Renders the convex hull of the Delaunay triangulation to the specified context.
      * The specified context must implement the context.moveTo and context.lineTo methods from the CanvasPathMethods API.
@@ -119,7 +96,6 @@ export class Delaunay<P> {
      * Renders triangle i of the Delaunay triangulation to an SVG path string.
      */
     renderTriangle(i: number): string;
-
     /**
      * Renders triangle i of the Delaunay triangulation to the specified context.
      * The specified context must implement the context.moveTo, context.lineTo and context.closePath methods from the CanvasPathMethods API.
@@ -130,18 +106,35 @@ export class Delaunay<P> {
      * Renders the input points of the Delaunay triangulation to an SVG path string as circles with radius 2.
      */
     renderPoints(): string;
-
     /**
      * Renders the input points of the Delaunay triangulation to an SVG path string as circles with the specified radius.
      */
     renderPoints(context: undefined, radius: number): string;
-
     /**
      * Renders the input points of the Delaunay triangulation to the specified context as circles with the specified radius.
      * If radius is not specified, it defaults to 2.
      * The specified context must implement the context.moveTo and context.arc methods from the CanvasPathMethods API.
      */
     renderPoints(context: Delaunay.MoveContext & Delaunay.ArcContext, radius?: number): void;
+
+    /**
+     * Returns the closed polygon [[x0, y0], [x1, y1], ..., [x0, y0]] representing the convex hull.
+     */
+    hullPolygon(): Delaunay.Polygon;
+
+    /**
+     * Returns the closed polygon [[x0, y0], [x1, y1], [x2, y2], [x0, y0]] representing the triangle i.
+     */
+    trianglePolygon(i: number): Delaunay.Triangle;
+    /**
+     * Returns an iterable over the polygons for each triangle, in order.
+     */
+    trianglePolygons(): IterableIterator<Delaunay.Triangle>;
+
+    /**
+     * Updates the triangulation after the points have been modified in-place.
+     */
+    update(): this;
 
     /**
      * Returns the Voronoi diagram for the associated points.
@@ -177,46 +170,6 @@ export namespace Delaunay {
      * A function to extract a x- or y-coordinate from the specified point.
      */
     type GetCoordinate<P, PS> = (point: P, i: number, points: PS) => number;
-
-    /**
-     * A point node on a convex hull (represented as a circular linked list).
-     */
-    interface Node {
-        /**
-         * The index of the associated point.
-         */
-        i: number;
-
-        /**
-         * The x-coordinate of the associated point.
-         */
-        x: number;
-
-        /**
-         * The y-coordinate of the associated point.
-         */
-        y: number;
-
-        /**
-         * The index of the (incoming or outgoing?) associated halfedge.
-         */
-        t: number;
-
-        /**
-         * The previous node on the hull.
-         */
-        prev: Node;
-
-        /**
-         * The next node on the hull.
-         */
-        next: Node;
-
-        /**
-         * Whether the node has been removed from the linked list.
-         */
-        removed: boolean;
-    }
 
     /**
      * An interface for the rect() method of the CanvasPathMethods API.
@@ -303,31 +256,21 @@ export class Voronoi<P> {
     ymax: number;
 
     /**
-     * Internally used to implement Delaunay#voronoi.
-     */
-    constructor(delaunay: Delaunay<P>, bounds: Delaunay.Bounds);
-
-    /**
      * Returns true if the cell with the specified index i contains the specified point ⟨x, y⟩.
      * (This method is not affected by the associated Voronoi diagram’s viewport bounds.)
      */
     contains(i: number, x: number, y: number): boolean;
 
     /**
-     * Returns the convex, closed polygon [[x0, y0], [x1, y1], ..., [x0, y0]] representing the cell for the specified point i.
+     * Returns an iterable over the indexes of the cells that share a common edge with the specified cell i.
+     * Voronoi neighbors are always neighbors on the Delaunay graph, but the converse is false when the common edge has been clipped out by the Voronoi diagram’s viewport.
      */
-    cellPolygon(i: number): Delaunay.Polygon;
-
-    /**
-     * Returns an iterable over the polygons for each cell, in order.
-     */
-    cellPolygons(): IterableIterator<Delaunay.Polygon>;
+    neighbors(i: number): Iterable<number>;
 
     /**
      * Renders the mesh of Voronoi cells to an SVG path string.
      */
     render(): string;
-
     /**
      * Renders the mesh of Voronoi cells to the specified context.
      * The specified context must implement the context.moveTo and context.lineTo methods from the CanvasPathMethods API.
@@ -338,7 +281,6 @@ export class Voronoi<P> {
      * Renders the viewport extent to an SVG path string.
      */
     renderBounds(): string;
-
     /**
      * Renders the viewport extent to the specified context.
      * The specified context must implement the context.rect method from the CanvasPathMethods API.
@@ -350,10 +292,24 @@ export class Voronoi<P> {
      * Renders the cell with the specified index i to an SVG path string.
      */
     renderCell(i: number): string;
-
     /**
      * Renders the cell with the specified index i to the specified context.
      * The specified context must implement the context.moveTo, context.lineTo, and context.closePath methods from the CanvasPathMethods API.
      */
     renderCell(i: number, context: Delaunay.MoveContext & Delaunay.LineContext & Delaunay.ClosableContext): void;
+
+    /**
+     * Returns an iterable over the non-empty polygons for each cell, with the cell index as property.
+     */
+    cellPolygons(): IterableIterator<Delaunay.Polygon & { index: number }>;
+
+    /**
+     * Returns the convex, closed polygon [[x0, y0], [x1, y1], ..., [x0, y0]] representing the cell for the specified point i.
+     */
+    cellPolygon(i: number): Delaunay.Polygon;
+
+    /**
+     * Updates the Voronoi diagram and underlying triangulation after the points have been modified in-place — useful for Lloyd’s relaxation.
+     */
+    update(): this;
 }

@@ -321,35 +321,27 @@ export interface Router {
 
 export interface Server extends http.Server {
     use(handler: RequestHandler | RequestHandler[], ...handlers: RequestHandler[]): Server;
-    // tslint:disable-next-line unified-signatures
     use(handler: RequestHandler | RequestHandler[], ...handlers: RequestHandler[][]): Server;
 
     post(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     post(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     patch(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     patch(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     put(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     put(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     del(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     del(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     get(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     get(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     head(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     head(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     opts(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    // tslint:disable-next-line unified-signatures
     opts(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     name: string;
@@ -521,7 +513,6 @@ export function throttle(options?: ThrottleOptions): RequestHandler;
 export function conditionalRequest(): RequestHandler[];
 export function auditLogger(options: { log: any }): (req: Request, res: Response, route: Route, err: any) => void;
 export function fullResponse(): RequestHandler;
-// tslint:disable-next-line no-var
 export var defaultResponseHeaders: any;
 
 export function CORS(options?: CORSOptions): RequestHandler;

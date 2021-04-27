@@ -11,7 +11,7 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "paths": {
-            "@fnando/sparkline": ["fnando__sparkline"]
+            "@fnando/*": ["fnando__*"]
         },
         "typeRoots": [
             "../"

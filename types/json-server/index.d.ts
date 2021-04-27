@@ -6,6 +6,11 @@
 
 import { NextHandleFunction } from 'connect';
 import { Application, RequestHandler, Router } from 'express';
+import { LowdbSync } from 'lowdb';
+
+export interface JsonServerRouter<T> extends Router {
+    db: LowdbSync<T>;
+}
 
 /**
  * Returns an Express server.
@@ -19,10 +24,12 @@ export function defaults(options?: MiddlewaresOptions): RequestHandler[];
 
 /**
  * Returns JSON Server router.
- * @param source Either a path to a json file (e.g. `'db.json'`) or an object in memory
+ * @param source Either a path to a json file (e.g. `'db.json'`) or an object in memory.
+ * This object will then be wrapped by lowdb, but you can also just pass in your own lowdb
+ * instance that will then not be wrapped.
  * @param options Set foreign key suffix (default: `'Id'`)
  */
-export function router(source: string | object, options?: { foreignKeySuffix: string }): Router;
+export function router<T extends object>(source: LowdbSync<T> | T | string, options?: { foreignKeySuffix: string }): JsonServerRouter<T>;
 
 /**
  * Add custom rewrite rules.

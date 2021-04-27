@@ -13,11 +13,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ],
+            "@sentry/*": ["sentry__*"]
+        },
         "types": [],
         "esModuleInterop": true,
-        "paths": {
-            "@sentry/webpack-plugin": ["sentry__webpack-plugin"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -1,35 +1,6 @@
 declare namespace echarts {
     namespace EChartOption {
         /**
-         * Color type for itemStyle / areaStyle etc.
-         * [Color](https://echarts.apache.org/zh/option.html#series-line.areaStyle)
-         * + Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.
-         * + Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.
-         * + Fill with texture
-         */
-        type Color = string | {
-            type: 'linear';
-            x: number;
-            y: number;
-            x2: number;
-            y2: number;
-            colorStops: Array<{offset: number; color: string}>;
-            global?: boolean
-        } | {
-            type: 'radial';
-            x: number;
-            y: number;
-            r: number;
-            colorStops: Array<{offset: number, color: string}>;
-            global?: boolean;
-        } | {
-            /**
-             * HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported
-             */
-            image: HTMLImageElement | HTMLCanvasElement,
-            repeat?: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat' // 是否平铺, 可以是 'repeat-x', 'repeat-y', 'no-repeat'
-        }
-        /**
          * **broken line chart**
          *
          * Broken line chart relates all the data points
@@ -56,7 +27,6 @@ declare namespace echarts {
          * @see https://echarts.apache.org/en/option.html#series-line
          */
         interface SeriesLine {
-
             /**
              * @default
              * "line"
@@ -379,7 +349,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-line.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -553,7 +522,7 @@ declare namespace echarts {
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-line.label.fontWeight
                  */
-                fontWeight?: string;
+                fontWeight?: string | number;
 
                 /**
                  * font family
@@ -838,12 +807,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-line.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -889,7 +856,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-line.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -1209,7 +1176,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-line.itemStyle.color
                  */
-                color?: string | Function;
+                color?: EChartOption.Color | Function;
 
                 /**
                  * border color, whose format is similar to that of `color`.
@@ -1219,7 +1186,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-line.itemStyle.borderColor
                  */
-                borderColor?: string;
+                borderColor?: EChartOption.Color;
 
                 /**
                  * border width. No border when it is set to be 0.
@@ -1260,7 +1227,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-line.itemStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1296,7 +1263,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-line.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * Line color.
                  *
@@ -1315,7 +1281,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-line.lineStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * line width.
@@ -1363,7 +1329,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-line.lineStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1399,7 +1365,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-line.areaStyle
              */
             areaStyle?: {
-
                 /**
                  * Fill color.
                  *
@@ -1418,7 +1383,7 @@ declare namespace echarts {
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-line.areaStyle.color
                  */
-                color?: string;
+                color?: EChartOption.Color;
 
                 /**
                  * Origin position of area.
@@ -1463,7 +1428,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-line.areaStyle.shadowColor
                  */
-                shadowColor?: string;
+                shadowColor?: EChartOption.Color;
 
                 /**
                  * Offset distance on the horizontal direction of shadow.
@@ -1499,12 +1464,10 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-line.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://echarts.apache.org/en/option.html#series-line.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1677,7 +1640,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-line.emphasis.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -1963,12 +1926,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-line.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2014,7 +1975,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-line.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -2299,7 +2260,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2316,7 +2276,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-line.emphasis.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -2326,7 +2286,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-line.emphasis.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -2367,7 +2327,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-line.emphasis.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -2730,10 +2690,9 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-line.data
              */
-            data?: (
-                (void | string | number | SeriesLine.DataObject)[]
-                | (void | string | number | SeriesLine.DataObject)[][]
-            );
+            data?:
+                | (void | string | number | SeriesLine.DataObject)[]
+                | (void | string | number | SeriesLine.DataObject)[][];
 
             /**
              * Mark point in a chart.
@@ -2742,7 +2701,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-line.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2872,7 +2830,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -3047,7 +3004,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -3333,12 +3290,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3384,7 +3339,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -3668,7 +3623,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3843,7 +3797,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -4133,12 +4087,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4184,7 +4136,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -4485,7 +4437,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -4502,7 +4453,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -4512,7 +4463,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -4553,7 +4504,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -4585,7 +4536,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -4603,7 +4553,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4614,7 +4564,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -4655,7 +4605,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -4720,7 +4670,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -4943,7 +4892,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4961,7 +4909,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.itemStyle.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -4972,7 +4920,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.itemStyle.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -5013,7 +4961,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.itemStyle.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -5045,7 +4993,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -5063,7 +5010,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.itemStyle.emphasis.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -5074,7 +5021,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.itemStyle.emphasis.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -5116,7 +5063,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.itemStyle.emphasis.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -5152,7 +5099,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -5281,7 +5227,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -5571,12 +5517,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5622,7 +5566,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -5918,7 +5862,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -6047,7 +5990,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.emphasis.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -6339,12 +6282,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -6390,7 +6331,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-line.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -6802,7 +6743,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-line.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6855,7 +6795,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -6929,7 +6868,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -7010,7 +6948,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -7029,7 +6966,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-line.markLine.lineStyle.color
                      */
-                    color?: Color;
+                    color?: EChartOption.Color;
 
                     /**
                      * line width.
@@ -7075,7 +7012,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-line.markLine.lineStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -7116,7 +7053,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -7136,7 +7072,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-line.markLine.lineStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * line width.
@@ -7182,7 +7118,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-line.markLine.lineStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -7260,7 +7196,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -7268,7 +7203,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -7497,7 +7431,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7517,7 +7450,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0.lineStyle.color
                              */
-                            color?: Color;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -7563,7 +7496,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -7607,7 +7540,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7627,7 +7559,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -7675,7 +7607,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -7725,7 +7657,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7801,7 +7732,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7883,7 +7813,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -8112,7 +8041,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -8132,7 +8060,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1.lineStyle.color
                              */
-                            color?: Color;
+                            color?: EChartOption.Color;
 
                             /**
                              * line width.
@@ -8178,7 +8106,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1.lineStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -8222,7 +8150,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -8242,7 +8169,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1.lineStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * line width.
@@ -8290,7 +8217,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -8340,7 +8267,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -8416,7 +8342,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -8607,7 +8532,6 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-line.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -8625,7 +8549,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -8754,7 +8677,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -9040,12 +8963,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -9091,7 +9012,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -9375,7 +9296,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -9504,7 +9424,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.emphasis.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -9794,12 +9714,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9845,7 +9763,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -10146,7 +10064,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -10163,7 +10080,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.itemStyle.color
                      */
-                    color?: string;
+                    color?: EChartOption.Color;
 
                     /**
                      * border color, whose format is similar to that of `color`.
@@ -10173,7 +10090,7 @@ declare namespace echarts {
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.itemStyle.borderColor
                      */
-                    borderColor?: string;
+                    borderColor?: EChartOption.Color;
 
                     /**
                      * border width. No border when it is set to be 0.
@@ -10214,7 +10131,7 @@ declare namespace echarts {
                      *
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.itemStyle.shadowColor
                      */
-                    shadowColor?: string;
+                    shadowColor?: EChartOption.Color;
 
                     /**
                      * Offset distance on the horizontal direction of shadow.
@@ -10246,7 +10163,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -10264,7 +10180,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.itemStyle.emphasis.color
                          */
-                        color?: string;
+                        color?: EChartOption.Color;
 
                         /**
                          * border color, whose format is similar to that of
@@ -10275,7 +10191,7 @@ declare namespace echarts {
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.itemStyle.emphasis.borderColor
                          */
-                        borderColor?: string;
+                        borderColor?: EChartOption.Color;
 
                         /**
                          * border width. No border when it is set to be 0.
@@ -10316,7 +10232,7 @@ declare namespace echarts {
                          *
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.itemStyle.emphasis.shadowColor
                          */
-                        shadowColor?: string;
+                        shadowColor?: EChartOption.Color;
 
                         /**
                          * Offset distance on the horizontal direction of shadow.
@@ -10393,7 +10309,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -10401,7 +10316,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -10500,7 +10414,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -10518,7 +10431,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -10529,7 +10442,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -10571,7 +10484,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -10605,7 +10518,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -10623,7 +10535,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -10634,7 +10546,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -10678,7 +10590,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -10719,7 +10631,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10848,7 +10759,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -11140,12 +11051,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -11191,7 +11100,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -11488,7 +11397,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -11619,7 +11527,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -11923,12 +11831,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11975,7 +11881,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -12285,7 +12191,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -12384,7 +12289,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -12402,7 +12306,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.itemStyle.color
                              */
-                            color?: string;
+                            color?: EChartOption.Color;
 
                             /**
                              * border color, whose format is similar to that
@@ -12413,7 +12317,7 @@ declare namespace echarts {
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.itemStyle.borderColor
                              */
-                            borderColor?: string;
+                            borderColor?: EChartOption.Color;
 
                             /**
                              * border width.
@@ -12455,7 +12359,7 @@ declare namespace echarts {
                              *
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.itemStyle.shadowColor
                              */
-                            shadowColor?: string;
+                            shadowColor?: EChartOption.Color;
 
                             /**
                              * Offset distance on the horizontal direction of
@@ -12489,7 +12393,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -12507,7 +12410,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.itemStyle.emphasis.color
                                  */
-                                color?: string;
+                                color?: EChartOption.Color;
 
                                 /**
                                  * border color, whose format is similar to
@@ -12518,7 +12421,7 @@ declare namespace echarts {
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.itemStyle.emphasis.borderColor
                                  */
-                                borderColor?: string;
+                                borderColor?: EChartOption.Color;
 
                                 /**
                                  * border width.
@@ -12562,7 +12465,7 @@ declare namespace echarts {
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
-                                shadowColor?: string;
+                                shadowColor?: EChartOption.Color;
 
                                 /**
                                  * Offset distance on the horizontal direction
@@ -12603,7 +12506,6 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -12732,7 +12634,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -13024,12 +12926,10 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -13075,7 +12975,7 @@ declare namespace echarts {
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                      */
-                                    fontWeight?: string;
+                                    fontWeight?: string | number;
 
                                     /**
                                      * font family
@@ -13372,7 +13272,6 @@ declare namespace echarts {
                              * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -13503,7 +13402,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.emphasis.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family
@@ -13807,12 +13706,10 @@ declare namespace echarts {
                                  * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -13859,7 +13756,7 @@ declare namespace echarts {
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-line.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                          */
-                                        fontWeight?: string;
+                                        fontWeight?: string | number;
 
                                         /**
                                          * font family
@@ -14431,7 +14328,6 @@ declare namespace echarts {
 
         namespace SeriesLine {
             interface DataObject {
-
                 /**
                  * The name of data item.
                  *
@@ -14554,7 +14450,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -14685,7 +14580,7 @@ declare namespace echarts {
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-line.data.label.fontWeight
                      */
-                    fontWeight?: string;
+                    fontWeight?: string | number;
 
                     /**
                      * font family
@@ -14971,12 +14866,10 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://echarts.apache.org/en/option.html#series-line.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -15022,7 +14915,7 @@ declare namespace echarts {
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-line.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
-                            fontWeight?: string;
+                            fontWeight?: string | number;
 
                             /**
                              * font family
@@ -15310,7 +15203,6 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Bar color..
                      *
@@ -15392,12 +15284,10 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#series-line.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://echarts.apache.org/en/option.html#series-line.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * Bar color..
                          *
@@ -15480,7 +15370,6 @@ declare namespace echarts {
                      * @see https://echarts.apache.org/en/option.html#series-line.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -15609,7 +15498,7 @@ declare namespace echarts {
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-line.data.emphasis.label.fontWeight
                          */
-                        fontWeight?: string;
+                        fontWeight?: string | number;
 
                         /**
                          * font family
@@ -15899,12 +15788,10 @@ declare namespace echarts {
                          * @see https://echarts.apache.org/en/option.html#series-line.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://echarts.apache.org/en/option.html#series-line.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -15950,7 +15837,7 @@ declare namespace echarts {
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-line.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
-                                fontWeight?: string;
+                                fontWeight?: string | number;
 
                                 /**
                                  * font family

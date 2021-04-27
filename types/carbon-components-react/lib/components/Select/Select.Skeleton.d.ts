@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr { }
-
-export interface SelectSkeletonProps extends InheritedProps {
+export interface SelectSkeletonProps extends ReactDivAttr {
     hideLabel?: boolean,
 }
 

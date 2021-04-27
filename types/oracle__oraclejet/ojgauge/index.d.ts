@@ -29,8 +29,6 @@ export interface dvtBaseGauge<SP extends dvtBaseGaugeSettableProperties = dvtBas
     setProperty<T extends string>(property: T, value: JetSetPropertyType<T, dvtBaseGaugeSettableProperties>): void;
     setProperties(properties: dvtBaseGaugeSettablePropertiesLenient): void;
 }
-// These interfaces are empty but required to keep the event chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
 export interface dvtBaseGaugeEventMap<SP extends dvtBaseGaugeSettableProperties = dvtBaseGaugeSettableProperties> extends dvtBaseComponentEventMap<SP> {
 }
 export interface dvtBaseGaugeSettableProperties extends dvtBaseComponentSettableProperties {

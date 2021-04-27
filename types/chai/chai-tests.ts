@@ -4,6 +4,7 @@ import * as chai from 'chai';
 const expect = chai.expect;
 const assert = chai.assert;
 const should = chai.should();
+const util = chai.util;
 
 function chaiVersion(): string {
     return chai.version;
@@ -160,6 +161,10 @@ function _typeof() {
     (5).should.not.be.a('number', 'blah');
 }
 
+function finite() {
+    expect(1).to.be.finite;
+}
+
 class Foo {
 }
 
@@ -213,6 +218,8 @@ function within() {
 function above() {
     expect(5).to.be.above(2);
     (5).should.be.above(2);
+    expect(5).to.be.gt(2);
+    (5).should.be.gt(2);
     expect(5).to.be.greaterThan(2);
     (5).should.be.greaterThan(2);
     expect(5).to.not.be.above(5);
@@ -252,6 +259,10 @@ function above() {
 function least() {
     expect(5).to.be.at.least(2);
     (5).should.be.at.least(2);
+    expect(5).to.be.gte(2);
+    (5).should.be.gte(2);
+    expect(5).to.be.greaterThanOrEqual(2);
+    (5).should.be.greaterThanOrEqual(2);
     expect(5).to.be.at.least(5);
     (5).should.be.at.least(5);
     expect(5).to.not.be.at.least(6);
@@ -292,6 +303,8 @@ function least() {
 function below() {
     expect(2).to.be.below(5);
     (2).should.be.below(5);
+    expect(2).to.be.lt(5);
+    (2).should.be.lt(5);
     expect(2).to.be.lessThan(5);
     (2).should.be.lessThan(5);
     expect(2).to.not.be.below(2);
@@ -331,6 +344,10 @@ function below() {
 function most() {
     expect(2).to.be.at.most(5);
     (2).should.be.at.most(5);
+    expect(2).to.be.lte(5);
+    (2).should.be.lte(5);
+    expect(2).to.be.lessThanOrEqual(5);
+    (2).should.be.lessThanOrEqual(5);
     expect(2).to.be.at.most(2);
     (2).should.be.at.most(2);
     expect(2).to.not.be.at.most(1);
@@ -635,6 +652,30 @@ function ownProperty() {
 
     expect({length: 12}).to.not.have.ownProperty('length', 'blah');
     ({length: 12}).should.not.have.ownProperty('length', 'blah');
+
+    expect('test').to.have.own.property('length');
+    'test'.should.have.own.property('length');
+    expect({length: 12}).to.have.own.property('length');
+    ({length: 12}).should.have.own.property('length');
+    expect({length: 12}).to.have.own.property('length', 12);
+    ({length: 12}).should.have.own.property('length', 12);
+    expect({length: 12}).to.have.own.property('length', 12, 'blah');
+    ({length: 12}).should.have.own.property('length', 12, 'blah');
+
+    expect({length: 12}).to.not.have.own.property('length', 'blah');
+    ({length: 12}).should.not.have.own.property('length', 'blah');
+
+    expect('test').to.have.an.own.property('length');
+    'test'.should.have.an.own.property('length');
+    expect({length: 12}).to.have.an.own.property('length');
+    ({length: 12}).should.have.an.own.property('length');
+    expect({length: 12}).to.have.an.own.property('length', 12);
+    ({length: 12}).should.have.an.own.property('length', 12);
+    expect({length: 12}).to.have.an.own.property('length', 12, 'blah');
+    ({length: 12}).should.have.an.own.property('length', 12, 'blah');
+
+    expect({length: 12}).to.not.have.an.own.property('length', 'blah');
+    ({length: 12}).should.not.have.an.own.property('length', 'blah');
 }
 
 function ownPropertyDescriptor() {
@@ -669,6 +710,7 @@ function ownPropertyDescriptor() {
     });
     'test'.should.haveOwnPropertyDescriptor('length').to.have.property('enumerable', false);
     'test'.should.haveOwnPropertyDescriptor('length').to.contain.keys('value');
+    'test'.should.have.an.ownPropertyDescriptor('length');
 }
 
 function string() {
@@ -794,6 +836,14 @@ function keys() {
     ({foo: 1}).should.contain.keys('foo', 'bar');
 }
 
+function deepKeys() {
+    expect(new Set([{a: 1}])).to.have.deep.keys([{a: 1}]);
+    (new Set([{a: 1}])).should.have.deep.keys([{a: 1}]);
+
+    expect(new Set([{a: 1}])).not.to.have.deep.keys([{b: 1}]);
+    (new Set([{a: 1}])).should.not.have.deep.keys([{b: 1}]);
+}
+
 function chaining() {
     const tea = {name: 'chai', extras: ['milk', 'sugar', 'smile']};
     expect(tea).to.have.property('extras').with.lengthOf(3);
@@ -804,6 +854,9 @@ function chaining() {
 
     expect(tea).to.be.a('object').and.have.property('name', 'chai');
     tea.should.be.a('object').and.have.property('name', 'chai');
+
+    expect({b: 2}).to.have.a.property('b');
+    expect([1, 2, 3]).to.have.a.lengthOf(3);
 }
 
 function exxtensible() {
@@ -1293,6 +1346,10 @@ function increaseDecreaseChange() {
     inc.should.not.decrease(obj, 'val');
     dec.should.not.increase(obj, 'val');
     same.should.not.change(obj, 'val');
+
+    const myObj = {val: 1};
+    const addTwo = () => { myObj.val += 2; };
+    expect(addTwo).to.increase(myObj, 'val').by(2);
 }
 
 function oneOf() {
@@ -1307,6 +1364,13 @@ function oneOf() {
     expect('z').to.not.be.oneOf(['w', 'x', 'y']);
     expect('z').to.not.be.oneOf(['x', 'y', ['z']]);
     expect(obj).to.not.be.oneOf([{z: 3}]);
+
+    expect('Today is sunny').to.contain.oneOf(['sunny', 'cloudy']);
+}
+
+function testInspectType() {
+    const x: string = util.inspect([1, 2, 3], false, 4, false);
+    expect(x).to.be.equal('[ 1, 2, 3 ]');
 }
 
 // tdd
@@ -1367,6 +1431,10 @@ suite('assert', () => {
         assert.isFalse(false);
         assert.isFalse(true);
         assert.isFalse(0);
+    });
+
+    test('finite', () => {
+        assert.isFinite(1);
     });
 
     test('equal', () => {

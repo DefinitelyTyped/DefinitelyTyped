@@ -1,39 +1,51 @@
-/// <reference types="node" />
+import gitBranchIs = require("git-branch-is");
 
-import gitBranchIs = require('git-branch-is');
-
-gitBranchIs('master', (err, result) => {
-    if (err) console.error(err);
-    else console.log(result ? 'On master' : 'Not on master');
+gitBranchIs("master").then(
+    result => {
+        result; // $ExpectType string
+    },
+    err => {
+        err; // $ExpectType any
+    },
+);
+gitBranchIs("master", (err, result) => {
+    if (err) {
+        err; // $ExpectType Error
+    } else {
+        result; // $ExpectType string
+    }
 });
 
-gitBranchIs('master').then(
+gitBranchIs(branchName => /^master$/.test(branchName)).then(
     result => {
-        console.log(result ? 'On master' : 'Not on master');
+        result; // $ExpectType string
     },
     err => {
-        console.error(err);
+        err; // $ExpectType any
     },
 );
 
-gitBranchIs(branchName => {
-    return /^master$/.test(branchName);
-}).then(
-    result => {
-        console.log(result ? 'On master' : 'Not on master');
+gitBranchIs.getBranch(
+    {
+        gitArgs: [],
+        cwd: "./",
+        gitDir: "",
+        gitPath: "git",
     },
-    err => {
-        console.error(err);
+    (err, result) => {
+        if (err) {
+            err; // $ExpectType Error
+        } else {
+            result; // $ExpectType string
+        }
     },
 );
 
-gitBranchIs(branchName => {
-    return Promise.resolve(branchName === 'master');
-}).then(
+gitBranchIs.getBranch({}).then(
     result => {
-        console.log(result ? 'On master' : 'Not on master');
+        result; // $ExpectType string
     },
     err => {
-        console.error(err);
+        err; // $ExpectType any
     },
 );

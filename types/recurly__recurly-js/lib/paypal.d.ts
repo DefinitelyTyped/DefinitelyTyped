@@ -1,5 +1,4 @@
 import { Emitter } from './emitter';
-import { TokenHandler } from './token';
 
 export type BraintreeConfig = {
   braintree: {
@@ -15,7 +14,7 @@ export type DirectConfig = {
 
 export type PayPalConfig = BraintreeConfig | DirectConfig;
 
-export type PayPalEvent = 'error' | 'token';
+export type PayPalEvent = 'error' | 'token' | 'cancel' | 'ready';
 
 export type PayPalStartOptions = {
   options: {
@@ -24,8 +23,11 @@ export type PayPalStartOptions = {
 };
 
 export interface PayPalInstance extends Emitter<PayPalEvent> {
+  /**
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#fn-paypalstart|PayPal.start}
+   */
   start: (payPalStartOptions?: PayPalStartOptions) => void;
-  token: TokenHandler;
+
   destroy: VoidFunction;
 }
 

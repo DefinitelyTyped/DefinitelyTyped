@@ -201,6 +201,12 @@ declare namespace SocketIOClient {
         disconnected: boolean;
 
         /**
+         * The type of binary data being transmitted by the connection.
+         * https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/binaryType
+         */
+        binaryType: "blob" | "arraybuffer";
+
+        /**
          * Opens our socket so that it connects. If the 'autoConnect' option for io is
          * true (default), then this is called automatically when the Socket is created
          */
@@ -598,7 +604,7 @@ declare namespace SocketIOClient {
          * The port the policy server listens on
          * @default 843
          */
-        policyPost?: number;
+        policyPort?: number;
 
         /**
          * If true and if the previous websocket connection to the server succeeded,
@@ -672,5 +678,9 @@ declare namespace SocketIOClient {
          */
         rejectUnauthorized?: boolean;
 
+        /**
+         * Credentials that are sent when accessing a namespace
+         */
+        auth?: Object;
     }
 }

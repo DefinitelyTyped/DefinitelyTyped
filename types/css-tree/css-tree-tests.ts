@@ -1,4 +1,4 @@
-import * as csstree from "css-tree";
+import * as csstree from 'css-tree';
 
 const ast = csstree.parse('.a { color: red; }');
 ast; // $ExpectType CssNode
@@ -347,7 +347,7 @@ switch (ast.type) {
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'HexColor':
+    case 'Hash':
         ast.value; // $ExpectType string
         break;
 
@@ -526,7 +526,7 @@ switch (toPlain.type) {
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'HexColor':
+    case 'Hash':
         toPlain.value; // $ExpectType string
         break;
 
@@ -635,3 +635,71 @@ switch (toPlain.type) {
     default:
         toPlain; // $ExpectType never
 }
+
+csstree.definitionSyntax.syntaxError; // $ExpectType SyntaxError
+const syntax = csstree.definitionSyntax.parse('foo | bar'); // $ExpectType DSNodeGroup
+const node = syntax.terms[0]; // $ExpectType DSNode
+switch (node.type) {
+    case 'AtKeyword':
+        node; // $ExpectType DSNodeAtWord
+        node.name; // $ExpectType string
+        break;
+    case 'Comma':
+        node; // $ExpectType DSNodeComma
+        break;
+    case 'Function':
+        node; // $ExpectType DSNodeFunction
+        node.name; // $ExpectType string
+        break;
+    case 'Group':
+        node; // $ExpectType DSNodeGroup
+        node.terms; // $ExpectType DSNode[]
+        node.combinator; // $ExpectType DSNodeCombinator
+        node.disallowEmpty; // $ExpectType boolean
+        node.explicit; // $ExpectType boolean
+        break;
+    case 'Keyword':
+        node; // $ExpectType DSNodeKeyword
+        node.name; // $ExpectType string
+        break;
+    case 'Multiplier':
+        node; // $ExpectType DSNodeMultiplier
+        node.comma; // $ExpectType boolean
+        node.min; // $ExpectType number
+        node.max; // $ExpectType number
+        node.term; // $ExpectType DSNodeMultiplied
+        break;
+    case 'Property':
+        node; // $ExpectType DSNodeProperty
+        node.name; // $ExpectType string
+        break;
+    case 'String':
+        node; // $ExpectType DSNodeString
+        node.value; // $ExpectType string
+        break;
+    case 'Token':
+        node; // $ExpectType DSNodeToken
+        node.value; // $ExpectType string
+        break;
+    case 'Type':
+        node; // $ExpectType DSNodeType
+        node.name; // $ExpectType string
+        node.opts; // $ExpectType DSNodeTypeOpts | null
+        break;
+}
+
+csstree.definitionSyntax.generate(syntax); // $ExpectType string
+csstree.definitionSyntax.generate(syntax, { forceBraces: true }); // $ExpectType string
+csstree.definitionSyntax.generate(syntax, { compact: true }); // $ExpectType string
+csstree.definitionSyntax.generate(syntax, { decorate: (result: string, node) => {
+    result; // $ExpectType string
+    node; // $ExpectType DSNode
+    return result;
+}});
+
+csstree.definitionSyntax.walk(syntax, (node) => {
+    node; // $ExpectType DSNode
+});
+csstree.definitionSyntax.walk(syntax, (node) => {
+    node; // $ExpectType DSNode
+}, undefined);

@@ -21,10 +21,13 @@ const SimpleCallback = (err: any, html: string) => {
     return html;
 };
 
+ejs.VERSION; // $ExpectType string
+ejs.name; // $ExpectType "ejs"
+
 result = ejs.render(template);
 result = ejs.render(template, data);
 result = ejs.render(template, data, options);
-ejs.render('<% echo(\'foo\'); %>', {}, { outputFunctionName: 'echo' });
+ejs.render("<% echo('foo'); %>", {}, { outputFunctionName: 'echo' });
 
 result = ejs.renderFile(fileName, SimpleCallback);
 result = ejs.renderFile(fileName, data, SimpleCallback);
@@ -73,8 +76,9 @@ ejs.cache = LRU(100);
 ejs.delimiter; // $ExpectType string | undefined
 ejs.delimiter = '%';
 
-// https://github.com/mde/ejs#options
+/** @see https://github.com/mde/ejs#options */
 const renderOptions: ejs.Options = {
     beautify: true,
     filename: fileName,
+    views: ['dir1', 'dir2'],
 };

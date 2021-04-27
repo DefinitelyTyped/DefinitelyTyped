@@ -1129,7 +1129,7 @@ declare namespace Joi {
         tailor(targets: string | string[]): Schema;
 
         /**
-         * Annotates the key with an unit name.
+         * Annotates the key with a unit name.
          */
         unit(name: string): this;
 

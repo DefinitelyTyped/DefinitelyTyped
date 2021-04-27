@@ -26,9 +26,19 @@ chai.spy.on(array, 'push');
 // or you can track multiple object's methods
 chai.spy.on(array, ['push', 'pop']);
 
-// or you can track multiple object's methods
+// or you can have a custom function implementation
 chai.spy.on(array, 'push', function(item) {
     array.push(item);
+});
+
+// or you can have custom function with multiple parameters
+chai.spy.on(array, 'push', function(first, second, third) {
+    array.push(first, second, third);
+});
+
+// or you can have custom function with variable length parameters
+chai.spy.on(array, 'push', function(...elements) {
+    array.push(...elements);
 });
 
 array.push(5);
@@ -37,7 +47,7 @@ array.push(5);
 // array.push.reset();
 
 // or you can create spy object
-let object = chai.spy.object([ 'push', 'pop' ]);
+let object = chai.spy.interface([ 'push', 'pop' ]);
 object.push(5);
 
 // or you create spy which returns static value

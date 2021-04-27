@@ -7,9 +7,9 @@ const trans = newrelic.getTransaction();
 trans.ignore(); // $ExpectType void
 trans.end(); // $ExpectType void
 trans.end(() => {}); // $ExpectType void
-const payload = trans.createDistributedTracePayload(); // $ExpectType DistributedTracePayload
-trans.acceptDistributedTracePayload(payload); // $ExpectType void
 trans.insertDistributedTraceHeaders({ test: "test" }); // $ExpectType void
+trans.acceptDistributedTraceHeaders("Test", { test: "test" }); // $ExpectType void
+trans.isSampled(); // $ExpectType boolean
 
 newrelic.setDispatcher('foo'); // $ExpectType void
 newrelic.setDispatcher('foo', '42'); // $ExpectType void
@@ -21,7 +21,10 @@ newrelic.addCustomAttribute('foo', 42); // $ExpectType void
 newrelic.addCustomAttributes({ foo: 'bar', baz: 'bang' }); // $ExpectType void
 newrelic.addCustomAttributes({ foo: 'bar', baz: 42 }); // $ExpectType void
 
-newrelic.setIgnoreTransaction(true); // $ExpectType void
+newrelic.addCustomSpanAttribute('foo', 'bar'); // $ExpectType void
+newrelic.addCustomSpanAttribute('foo', 42); // $ExpectType void
+newrelic.addCustomSpanAttributes({ foo: 'bar', baz: 'bang' }); // $ExpectType void
+newrelic.addCustomSpanAttributes({ foo: 'bar', baz: 42 }); // $ExpectType void
 
 newrelic.noticeError(Error('Oh no!')); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: 'bar' }); // $ExpectType void
@@ -38,9 +41,7 @@ newrelic.getBrowserTimingHeader(); // $ExpectType string
 
 newrelic.startSegment('foo', false, () => 'bar'); // $ExpectType string
 newrelic.startSegment('foo', false, () => 'bar', () => 'baz'); // $ExpectType string
-newrelic.startSegment('foo', false, Promise.all([5, 7])).then(([a, b]: [number, number]) => {
-    console.log(a, b);
-});
+newrelic.startSegment('foo', true, async () => 'bar'); // $ExpectType Promise<string>
 
 const wrappedFn = newrelic.createTracer('foo', (x: number) => {
     return x * x;
@@ -122,4 +123,6 @@ newrelic.getLinkingMetadata();
 newrelic.getLinkingMetadata(true);
 newrelic.getTraceMetadata();
 
-newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined
+newrelic.setLambdaHandler(() => void 0); // $ExpectType () => undefined
+newrelic.setLambdaHandler((event: unknown, context: unknown) => ({ statusCode: 200, body: "Hello!" })); // $ExpectType (event: unknown, context: unknown) => { statusCode: number; body: string; }
+newrelic.setLambdaHandler({some: "object"}); // $ExpectError

@@ -14,8 +14,8 @@
         ],
         "types": [],
         "paths": {
-            "@google-cloud/kms": [
-                "google-cloud__kms"
+            "@google-cloud/*": [
+                "google-cloud__*"
             ]
         },
         "noEmit": true,

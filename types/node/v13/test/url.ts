@@ -124,7 +124,7 @@ import * as url from 'url';
 {
     const searchParams = new url.URLSearchParams({
         user: 'abc',
-        query: ['first', 'second']
+        query: ['first', 'second'] as ReadonlyArray<string>
     });
 
     assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
@@ -137,7 +137,7 @@ import * as url from 'url';
         ['user', 'abc'],
         ['query', 'first'],
         ['query', 'second'],
-    ] as Array<[string, string]>);
+    ] as ReadonlyArray<[string, string]>);
     assert.equal(params.toString(), 'user=abc&query=first&query=second');
 }
 

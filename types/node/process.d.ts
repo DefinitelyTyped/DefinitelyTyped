@@ -1,5 +1,9 @@
-declare module "process" {
-    import * as tty from "tty";
+declare module 'node:process' {
+    export = process;
+}
+
+declare module 'process' {
+    import * as tty from 'node:tty';
 
     global {
         var process: NodeJS.Process;
@@ -32,7 +36,7 @@ declare module "process" {
                 lts?: string;
             }
 
-            interface ProcessVersions {
+            interface ProcessVersions extends Dict<string> {
                 http_parser: string;
                 node: string;
                 v8: string;
@@ -84,6 +88,7 @@ declare module "process" {
 
             interface HRTime {
                 (time?: [number, number]): [number, number];
+                bigint(): bigint;
             }
 
             interface ProcessReport {
@@ -170,6 +175,32 @@ declare module "process" {
                 voluntaryContextSwitches: number;
             }
 
+            interface EmitWarningOptions {
+                /**
+                 * When `warning` is a `string`, `type` is the name to use for the _type_ of warning being emitted.
+                 *
+                 * @default 'Warning'
+                 */
+                type?: string;
+
+                /**
+                 * A unique identifier for the warning instance being emitted.
+                 */
+                code?: string;
+
+                /**
+                 * When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace.
+                 *
+                 * @default process.emitWarning
+                 */
+                ctor?: Function;
+
+                /**
+                 * Additional text to include with the error.
+                 */
+                detail?: string;
+            }
+
             interface Process extends EventEmitter {
                 /**
                  * Can also be a tty.WriteStream, not typed due to limitations.
@@ -191,11 +222,26 @@ declare module "process" {
                 argv0: string;
                 execArgv: string[];
                 execPath: string;
-                abort(): void;
+                abort(): never;
                 chdir(directory: string): void;
                 cwd(): string;
                 debugPort: number;
-                emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+
+                /**
+                 * The `process.emitWarning()` method can be used to emit custom or application specific process warnings.
+                 *
+                 * These can be listened for by adding a handler to the `'warning'` event.
+                 *
+                 * @param warning The warning to emit.
+                 * @param type When `warning` is a `string`, `type` is the name to use for the _type_ of warning being emitted. Default: `'Warning'`.
+                 * @param code A unique identifier for the warning instance being emitted.
+                 * @param ctor When `warning` is a `string`, `ctor` is an optional function used to limit the generated stack trace. Default: `process.emitWarning`.
+                 */
+                emitWarning(warning: string | Error, ctor?: Function): void;
+                emitWarning(warning: string | Error, type?: string, ctor?: Function): void;
+                emitWarning(warning: string | Error, type?: string, code?: string, ctor?: Function): void;
+                emitWarning(warning: string | Error, options?: EmitWarningOptions): void;
+
                 env: ProcessEnv;
                 exit(code?: number): never;
                 exitCode?: number;
@@ -208,7 +254,7 @@ declare module "process" {
                 getegid(): number;
                 setegid(id: number | string): void;
                 getgroups(): number[];
-                setgroups(groups: Array<string | number>): void;
+                setgroups(groups: ReadonlyArray<string | number>): void;
                 setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
                 hasUncaughtExceptionCaptureCallback(): boolean;
                 version: string;
@@ -245,6 +291,8 @@ declare module "process" {
                 title: string;
                 arch: string;
                 platform: Platform;
+                /** @deprecated since v14.0.0 - use `require.main` instead. */
+                mainModule?: Module;
                 memoryUsage(): MemoryUsage;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 nextTick(callback: Function, ...args: any[]): void;
@@ -260,9 +308,15 @@ declare module "process" {
                     tls: boolean;
                 };
                 /**
+                 * @deprecated since v14.0.0 - Calling process.umask() with no argument causes
+                 * the process-wide umask to be written twice. This introduces a race condition between threads,
+                 * and is a potential security vulnerability. There is no safe, cross-platform alternative API.
+                 */
+                umask(): number;
+                /**
                  * Can only be set if not in worker thread.
                  */
-                umask(mask: number): number;
+                umask(mask: string | number): number;
                 uptime(): number;
                 hrtime: HRTime;
                 domain: Domain;
@@ -285,6 +339,8 @@ declare module "process" {
                 report?: ProcessReport;
 
                 resourceUsage(): ResourceUsage;
+
+                traceDeprecation: boolean;
 
                 /* EventEmitter */
                 addListener(event: "beforeExit", listener: BeforeExitListener): this;

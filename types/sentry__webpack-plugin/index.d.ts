@@ -2,8 +2,8 @@
 // Project: https://github.com/getsentry/sentry-webpack-plugin
 // Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/seneca
-// TypeScript Version: 3.0
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 

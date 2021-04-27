@@ -1,8 +1,7 @@
-// Type definitions for google-protobuf 3.7
+// Type definitions for google-protobuf 3.15
 // Project: https://github.com/google/google-protobuf
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
 //                 Chaitanya Kamatham <https://github.com/kamthamc>
-//                 Austin Bonander <https://github.com/abonander>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
@@ -10,7 +9,7 @@ type ScalarFieldType = boolean | number | string;
 type RepeatedFieldType = ScalarFieldType[] | Uint8Array[];
 type AnyFieldType = ScalarFieldType | RepeatedFieldType | Uint8Array;
 type FieldValue = string | number | boolean | Uint8Array | FieldValueArray | undefined;
-interface FieldValueArray extends Array<FieldValue> {} // tslint:disable-line no-empty-interface
+interface FieldValueArray extends Array<FieldValue> {}
 
 export abstract class Message {
   getJsPbMessageId(): (string | undefined);

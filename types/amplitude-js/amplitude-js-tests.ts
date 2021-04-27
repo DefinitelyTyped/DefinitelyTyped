@@ -84,6 +84,9 @@ import amplitude = require('amplitude-js');
     client.regenerateDeviceId();
     client.clearUserProperties();
     client.identify(identify);
+    client.groupIdentify('type', 'name', identify);
+    client.groupIdentify('type', ['name', 'name2'], identify);
+    client.groupIdentify('type', 'name', identify, (httpCode, response, details) => {});
     client.logRevenue(3.99, 1, 'product_1234');
     client.logRevenueV2(revenue);
     identify = new amplitude.Identify()
@@ -169,8 +172,11 @@ const defaults: amplitude.Config = {
     apiEndpoint: 'api.amplitude.com',
     batchEvents: false,
     cookieExpiration: 365 * 10,
+    cookieForceUpgrade: false,
     cookieName: 'amplitude_id',
+    deferInitialization: false,
     deviceIdFromUrlParam: false,
+    disableCookies: false,
     domain: '',
     eventUploadPeriodMillis: 30 * 1000, // 30s
     eventUploadThreshold: 30,
@@ -180,9 +186,10 @@ const defaults: amplitude.Config = {
     includeUtm: false,
     language: 'en',
     logLevel: 'WARN',
-    optOut: false,
     onError: () => {},
+    optOut: false,
     platform: 'iOS',
+    sameSiteCookie: 'Lax', // cookie privacy policy
     savedMaxCount: 1000,
     saveEvents: true,
     saveParamsReferrerOncePerSession: true,

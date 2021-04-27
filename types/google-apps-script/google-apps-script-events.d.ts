@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 oshliaer <https://github.com/oshliaer>
+//                 RCRJ <https://github.com/RCRJ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.script.d.ts" />
@@ -41,7 +42,16 @@ declare namespace GoogleAppsScript {
       source: Spreadsheet.Spreadsheet;
     }
 
-    enum SheetsOnChangeChangeType { EDIT, INSERT_ROW, INSERT_COLUMN, REMOVE_ROW, REMOVE_COLUMN, INSERT_GRID, REMOVE_GRID, FORMAT, OTHER }
+    type SheetsOnChangeChangeType =
+      | 'EDIT'
+      | 'INSERT_ROW'
+      | 'INSERT_COLUMN'
+      | 'REMOVE_ROW'
+      | 'REMOVE_COLUMN'
+      | 'INSERT_GRID'
+      | 'REMOVE_GRID'
+      | 'FORMAT'
+      | 'OTHER';
     interface SheetsOnChange extends AppsScriptEvent {
       changeType: SheetsOnChangeChangeType;
     }
@@ -91,6 +101,20 @@ declare namespace GoogleAppsScript {
 
     interface DoPost extends AppsScriptHttpRequestEvent {
       postData: AppsScriptHttpRequestEventPostData;
+    }
+
+    interface TimeDriven {
+      authMode: Script.AuthMode;
+      year: number;
+      month: number;
+      'week-of-year': number;
+      'day-of-month': number;
+      'day-of-week': number;
+      hour: number;
+      minute: number;
+      second: number;
+      timezone: string;
+      triggerUid: string;
     }
   }
 }

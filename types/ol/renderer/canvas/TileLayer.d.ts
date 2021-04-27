@@ -1,5 +1,5 @@
 import { Coordinate } from '../../coordinate';
-import { EventsKey, ListenerFunction } from '../../events';
+import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
 import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
@@ -22,8 +22,21 @@ export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
     protected renderedRevision: number;
     protected renderedTiles: Tile[];
     protected tmpExtent: Extent;
+    /**
+     * Get the image from a tile.
+     */
     protected getTileImage(tile: ImageTile): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
     protected isDrawableTile(tile: Tile): boolean;
+    /**
+     * Manage tile pyramid.
+     * This function performs a number of functions related to the tiles at the
+     * current zoom and lower zoom levels:
+     *
+     * registers idle tiles in frameState.wantedTiles so that they are not
+     * discarded by the tile queue
+     * enqueues missing tiles
+     *
+     */
     protected manageTilePyramid(
         frameState: FrameState,
         tileSource: TileSource,
@@ -58,13 +71,24 @@ export default class CanvasTileLayerRenderer extends CanvasLayerRenderer {
         hitTolerance: number,
         callback: (p0: FeatureLike, p1: Layer<Source>) => T,
         declutteredFeatures: FeatureLike[],
-    ): T | void;
+    ): T;
+    getImage(): HTMLCanvasElement;
     getLayer(): TileLayer | VectorTileLayer;
     getTile(z: number, x: number, y: number, frameState: FrameState): Tile;
+    /**
+     * Perform action necessary to get the layer rendered after new fonts have loaded
+     */
     handleFontsChanged(): void;
+    loadedTileCallback(tiles: { [key: number]: { [key: string]: Tile } }, zoom: number, tile: Tile): boolean;
+    /**
+     * Determine whether render should be called.
+     */
     prepareFrame(frameState: FrameState): boolean;
+    /**
+     * Render the layer.
+     */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

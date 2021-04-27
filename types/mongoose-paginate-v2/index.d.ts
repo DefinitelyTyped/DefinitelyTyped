@@ -28,14 +28,11 @@ declare module 'mongoose' {
     }
 
     interface PaginateOptions {
-        /* tslint:disable-next-line: ban-types */
-        select?: Object | string;
-        /* tslint:disable-next-line: ban-types */
-        sort?: Object | string;
+        select?: object | string;
+        sort?: object | string;
         customLabels?: CustomLabels;
         collation?: CollationOptions;
-        /* tslint:disable-next-line: ban-types */
-        populate?: Object[] | string[] | Object | string | QueryPopulateOptions;
+        populate?: object[] | string[] | object | string | QueryPopulateOptions;
         lean?: boolean;
         leanWithId?: boolean;
         offset?: number;
@@ -44,6 +41,8 @@ declare module 'mongoose' {
         read?: ReadOptions;
         /* If pagination is set to `false`, it will return all docs without adding limit condition. (Default: `true`) */
         pagination?: boolean;
+        projection?: any;
+        options?: QueryFindOptions;
     }
 
     interface QueryPopulateOptions {

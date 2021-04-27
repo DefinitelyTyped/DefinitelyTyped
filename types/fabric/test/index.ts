@@ -10,6 +10,7 @@ function sample1() {
   });
   canvas.on('object:modified', (e: fabric.IEvent) => {
     e.target.opacity = 1;
+    const obj = e.target.getCoords();
   });
 
   for (let i = 0; i < 15; i++) {
@@ -107,22 +108,21 @@ function sample3() {
   const canvas = new fabric.Canvas('c', { backgroundImage: '../lib/bg.png' });
   const f = fabric.Image.filters;
 
-  canvas.on({
-    'object:selected': () => {
-      fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = false; });
+  canvas.on('object:selected', () => {
+    fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = false; });
 
-      const filters = ['grayscale', 'invert', 'remove-white', 'sepia', 'sepia2', 'brightness',
-        'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen'];
+    const filters = ['grayscale', 'invert', 'remove-white', 'sepia', 'sepia2', 'brightness',
+      'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen'];
 
-      for (let i = 0; i < filters.length; i++) {
-        const checkBox = <HTMLInputElement> $(filters[i]);
-        const image = <fabric.Image> canvas.getActiveObject();
-        checkBox.checked = !!image.filters[i];
-      }
-    },
-    'selection:cleared': () => {
-      fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = true; });
+    for (let i = 0; i < filters.length; i++) {
+      const checkBox = <HTMLInputElement> $(filters[i]);
+      const image = <fabric.Image> canvas.getActiveObject();
+      checkBox.checked = !!image.filters[i];
     }
+  });
+
+  canvas.on('selection:cleared', () => {
+    fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = true; });
   });
 
   const image = fabric.Image.fromURL('../assets/printio.png', (img: fabric.Image) => {
@@ -255,11 +255,10 @@ function sample4() {
     leftControl.value = rect.left.toString();
     topControl.value = rect.top.toString();
   }
-  canvas.on({
-    'object:moving': updateControls,
-    'object:scaling': updateControls,
-    'object:resizing': updateControls
-  });
+
+  canvas.on('object:moving', updateControls);
+  canvas.on('object:scaling', updateControls);
+  canvas.on('object:resizing', updateControls);
 }
 
 interface CircleWithLineInfos extends fabric.Circle {
@@ -802,26 +801,6 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     canvas.calcOffset();
   }, 100);
 
-  if (document.location.search.indexOf('guidelines') > -1) {
-    // initCenteringGuidelines(canvas);
-    // initAligningGuidelines(canvas);
-  }
-
-  gradientifyBtn.onclick = () => {
-    const obj = canvas.getActiveObject();
-    if (obj) {
-      obj.setGradient("fill", {
-        y2: (getRandomInt(0, 1) ? 0 : obj.height),
-        x2: (getRandomInt(0, 1) ? 0 : obj.width),
-        colorStops: {
-          0: '#' + getRandomColor(),
-          1: '#' + getRandomColor()
-        }
-      });
-      canvas.renderAll();
-    }
-  };
-
   const textEl = <HTMLInputElement> document.getElementById('text');
   if (textEl) {
     textEl.onfocus = function() {
@@ -1052,4 +1031,9 @@ function sample12() {
   const position = fabric.util.getScrollLeftTop(canvas.getElement());
   const x = position.left;
   const y = position.top;
+}
+
+function sample13() {
+  const rectangle = new fabric.Rect({top: 0, left: 0, width: 10, height: 10});
+  const rectangleAsHtmlCanvas: HTMLCanvasElement = rectangle.toCanvasElement();
 }

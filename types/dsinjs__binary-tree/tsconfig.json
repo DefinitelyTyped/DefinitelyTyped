@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [
+      "es2017",
+      "es6",
+      "dom"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
+    "paths": {
+      "@dsinjs/*": [
+        "dsinjs__*"
+      ]
+    },
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "files": [
+    "index.d.ts"
+  ]
+}

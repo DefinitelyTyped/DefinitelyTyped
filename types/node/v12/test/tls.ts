@@ -12,8 +12,8 @@ import {
     createServer,
     TLSSocket,
     rootCertificates,
-} from "tls";
-import * as fs from "fs";
+} from 'node:tls';
+import * as fs from 'node:fs';
 
 {
     const ctx: SecureContext = createSecureContext({

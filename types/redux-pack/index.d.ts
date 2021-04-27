@@ -23,7 +23,7 @@ export const LIFECYCLE: {
     readonly FAILURE: 'failure';
 };
 
-export type LIFECYCLEValues = 'start' | 'succes' | 'failure';
+export type LIFECYCLEValues = 'start' | 'success' | 'failure';
 
 export const middleware: Middleware;
 

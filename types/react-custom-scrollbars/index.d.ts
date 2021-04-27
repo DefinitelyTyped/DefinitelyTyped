@@ -47,6 +47,8 @@ export interface ScrollbarProps extends React.HTMLProps<Scrollbars> {
     autoHeight?: boolean;
     autoHeightMin?: number | string;
     autoHeightMax?: number | string;
+
+    style?: React.CSSProperties;
 }
 
 export class Scrollbars extends React.Component<ScrollbarProps> {

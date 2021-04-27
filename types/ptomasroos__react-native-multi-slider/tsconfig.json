@@ -17,7 +17,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths":{
-            "@ptomasroos/react-native-multi-slider": ["ptomasroos__react-native-multi-slider"]
+            "@ptomasroos/*": ["ptomasroos__*"]
         }
     },
     "files": [

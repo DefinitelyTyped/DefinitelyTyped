@@ -2,9 +2,9 @@
 // Project: https://github.com/epoberezkin/ajv-errors
 // Definitions by: Afshawn Lotfi <https://github.com/afshawnlotfi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.8
 
-import { Ajv } from "ajv";
+import Ajv from "ajv";
 
 /**
  *

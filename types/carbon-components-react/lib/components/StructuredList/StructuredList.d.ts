@@ -3,11 +3,8 @@ import { ReactAttr, ReactDivAttr, ReactInputAttr, ReactLabelAttr } from "../../.
 
 // StructuredListWrapper
 
-interface StructureListWrapperInheritedProps extends Omit<ReactAttr, "aria-label"> {
-    ariaLabel?: React.AriaAttributes["aria-label"],
-}
-
-export interface StructuredListProps extends StructureListWrapperInheritedProps {
+export interface StructuredListWrapperProps extends ReactDivAttr {
+    ariaLabel?: string,
     /**
      * @deprecated
      */
@@ -15,61 +12,49 @@ export interface StructuredListProps extends StructureListWrapperInheritedProps 
     selection?: boolean,
 }
 
-export declare class StructuredListWrapper extends React.Component<StructuredListProps> { }
+export declare const StructuredListWrapper: React.FC<StructuredListWrapperProps>;
 
 // StructuredListHead
 
-interface StructuredListHeadInheritedProps extends ReactDivAttr { }
+export interface StructuredListHeadProps extends ReactDivAttr { }
 
-export interface StructuredListHeadProps extends StructuredListHeadInheritedProps { }
-
-export declare class StructuredListHead extends React.Component<StructuredListHeadProps> { }
+export declare const StructuredListHead: React.FC<StructuredListHeadProps>;
 
 // StructuredListInput
 
-interface StructuredListInputInheritedProps extends Omit<ReactInputAttr, "value"> {
+type ExcludedListInputPropKeys = "tabIndex" | "type" | "value";
+export interface StructuredListInputProps extends Omit<ReactInputAttr, ExcludedListInputPropKeys> {
+    defaultChecked?: boolean,
     value: string | number,
 }
 
-export interface StructuredListInputProps extends StructuredListInputInheritedProps {
-    defaultChecked?: boolean,
-}
-
-export declare class StructuredListInput extends React.Component<StructuredListInputProps> { }
+export declare const StructuredListInput: React.FC<StructuredListInputProps>;
 
 // StructuredListRow
 
-interface StructuredListRowSharedProps {
+export interface StructuredListDivRowProps extends Omit<ReactDivAttr, "onKeyDown" | "tabIndex"> {
     head?: boolean,
+    label?: false,
 }
-interface StructuredListLabelRowInheritedProps extends Omit<ReactLabelAttr, "presentation">, StructuredListRowSharedProps { }
-interface StructuredListDivRowInheritedProps extends ReactDivAttr, StructuredListRowSharedProps { }
-
-export interface StructuredListDivRowProps extends StructuredListDivRowInheritedProps {
-    label?: Exclude<boolean, true>,
-}
-export interface StructuredListLabelRowProps extends StructuredListLabelRowInheritedProps {
+export interface StructuredListLabelRowProps extends ReactLabelAttr {
+    head?: boolean,
     label: true,
 }
 
 export type AllStructuredListRowProps = StructuredListLabelRowProps | StructuredListDivRowProps;
-export declare class StructuredListRow extends React.Component<AllStructuredListRowProps> { }
+export declare const StructuredListRow: React.FC<AllStructuredListRowProps>;
 
 // StructuredListBody
 
-interface StructuredListBodyInheritedProps extends ReactDivAttr { }
+export interface StructuredListBodyProps extends ReactDivAttr { }
 
-export interface StructuredListBodyProps extends StructuredListBodyInheritedProps { }
-
-export declare class StructuredListBody extends React.Component<StructuredListBodyProps> { }
+export declare const StructuredListBody: React.FC<StructuredListBodyProps>;
 
 // StructuredListCell
 
-interface StructuredListCellInheritedProps extends ReactDivAttr { }
-
-export interface StructuredListCellProps extends StructuredListCellInheritedProps {
+export interface StructuredListCellProps extends ReactDivAttr {
     head?: boolean,
     noWrap?: boolean,
 }
 
-export declare class StructuredListCell extends React.Component<StructuredListCellProps> { }
+export declare const StructuredListCell: React.FC<StructuredListCellProps>;

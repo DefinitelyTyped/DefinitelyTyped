@@ -111,6 +111,7 @@ declare namespace request {
         get(header: string): string;
         get(header: 'Set-Cookie'): string[];
         header: any;
+        headers: any;
         info: boolean;
         links: object;
         noContent: boolean;
@@ -143,6 +144,7 @@ declare namespace request {
         field(name: string, val: MultipartValue): this;
         field(fields: { [fieldName: string]: MultipartValue }): this;
         get(field: string): string;
+        http2(enable?: boolean): this;
         key(cert: string | string[] | Buffer | Buffer[]): this;
         ok(callback: (res: Response) => boolean): this;
         on(name: 'error', handler: (err: any) => void): this;

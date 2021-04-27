@@ -8,7 +8,7 @@ type CentroidValues = 'kmrand' | 'kmpp' | null;
 interface Data {
     it: number;
     k: number;
-    centroids: number;
+    centroids: number[] | number[][];
     idxs: number[];
     test: (x: number, point?: (x1: number, x2: number) => number) => void;
 }

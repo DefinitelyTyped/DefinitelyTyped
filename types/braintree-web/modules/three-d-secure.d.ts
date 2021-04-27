@@ -14,6 +14,98 @@ export interface ThreeDSecureVerifyPayload {
     liabilityShifted: boolean;
 }
 
+export interface ThreeDSecureBillingAddress {
+    givenName?: string;
+    surname?: string;
+    phoneNumber?: string;
+    streetAddress?: string;
+    extendedAddress?: string;
+    line3?: string;
+    locality?: string;
+    region?: string;
+    postalCode?: string;
+    countryCodeAlpha2?: string;
+}
+
+export interface ThreeDSecureShippingAddress {
+    streetAddress: string;
+    extendedAddress: string;
+    line3: string;
+    locality: string;
+    region: string;
+    postalCode: string;
+    countryCodeAlpha2: string;
+}
+
+export interface ThreeDSecureAdditionalInformation {
+    workPhoneNumber?: string;
+    shippingGivenName?: string;
+    shippingSurname?: string;
+    shippingAddress?: ThreeDSecureShippingAddress;
+    streetAddress?: string;
+    extendedAddress?: string;
+    line3?: string;
+    locality?: string;
+    region?: string;
+    postalCode?: string;
+    countryCodeAlpha2?: string;
+    shippingPhone?: string;
+    shippingMethod?: string;
+    shippingMethodIndicator?: string;
+    productCode?: string;
+    deliveryTimeframe?: string;
+    deliveryEmail?: string;
+    reorderindicator?: string;
+    preorderIndicator?: string;
+    preorderDate?: string;
+    giftCardAmount?: string;
+    giftCardCurrencyCode?: string;
+    giftCardCount?: string;
+    accountAgeIndicator?: string;
+    accountCreateDate?: string;
+    accountChangeIndicator?: string;
+    accountChangeDate?: string;
+    accountPwdChangeIndicator?: string;
+    accountPwdChangeDate?: string;
+    shippingAddressUsageIndicator?: string;
+    shippingAddressUsageDate?: string;
+    transactionCountDay?: string;
+    transactionCountYear?: string;
+    addCardAttempts?: string;
+    accountPurchases?: string;
+    fraudActivity?: string;
+    shippingNameIndicator?: string;
+    paymentAccountIndicator?: string;
+    paymentAccountAge?: string;
+    acsWindowSize?: string;
+    sdkMaxTimeout?: string;
+    addressMatch?: string;
+    accountId?: string;
+    ipAddress?: string;
+    orderDescription?: string;
+    taxAmount?: string;
+    userAgent?: string;
+    authenticationIndicator?: string;
+    installment?: string;
+    purchaseDate?: string;
+    recurringEnd?: string;
+    recurringFrequency?: string;
+}
+
+export interface ThreeDSecureVerifyOptions {
+    nonce: string;
+    amount: number;
+    bin: string;
+    challengeRequested?: boolean;
+    exemptionRequested?: boolean;
+    email?: string;
+    mobilePhoneNumber?: string;
+    billingAddress?: ThreeDSecureBillingAddress;
+    additionalInformation?: ThreeDSecureAdditionalInformation;
+    addFrame?: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
+    removeFrame?: () => void;
+}
+
 export interface ThreeDSecure {
     /**
      * braintree.threeDSecure.create({
@@ -83,21 +175,8 @@ export interface ThreeDSecure {
      *   }
      * });
      */
-    verifyCard(options: {
-        nonce: string;
-        amount: number;
-        addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
-        removeFrame?: () => void;
-    }): Promise<ThreeDSecureVerifyPayload>;
-    verifyCard(
-        options: {
-            nonce: string;
-            amount: number;
-            addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void;
-            removeFrame: () => void;
-        },
-        callback: callback,
-    ): void;
+    verifyCard(options: ThreeDSecureVerifyOptions): Promise<ThreeDSecureVerifyPayload>;
+    verifyCard(options: ThreeDSecureVerifyOptions, callback: callback): void;
 
     /**
      * Cancel the 3DS flow and return the verification payload if available.     * @example

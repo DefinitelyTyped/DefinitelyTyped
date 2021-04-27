@@ -1,4 +1,5 @@
 import Chartist = require("chartist");
+import { ChartDrawData, IChartDrawBarData, IChartDrawGridData } from "chartist";
 
 Chartist.escapingMap = {
     '&': '&amp;',
@@ -564,3 +565,34 @@ new Chartist.Line('.ct-chart', {
         }
       ]
 }, {})
+
+// Draw
+
+const chartistDrawTest = new Chartist.Line('.ct-chart', {
+    series: [],
+});
+chartistDrawTest.on("draw", (data: ChartDrawData) => {
+    if (isBar(data)) {
+        const t = new Chartist.Svg("text", {
+            x: data.x1 + 10,
+            y: data.y2 + 5,
+            fill: "white",
+        });
+        const meta = data.meta as {
+            count: string;
+        };
+        t.text(meta.count);
+        data.group.append(t);
+    }
+    if (isGrid(data)) {
+        if (data.index !== 0) {
+            data.element.remove();
+        }
+    }
+});
+
+const isBar = (data: ChartDrawData): data is IChartDrawBarData =>
+  data.type === "bar";
+
+const isGrid = (data: ChartDrawData): data is IChartDrawGridData =>
+  data.type === "grid";

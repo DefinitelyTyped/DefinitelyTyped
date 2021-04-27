@@ -544,7 +544,6 @@ declare namespace BPMNModdle {
     interface ChoreographyTask extends ChoreographyActivity {
         messageFlowRef: MessageFlow[];
     }
-    // tslint:disable-next-line:no-empty-interface
     interface Choreography extends FlowElementsContainer, Collaboration {}
     interface GlobalChoreographyTask extends Choreography {
         initiatingParticipantRef: Participant;
@@ -618,7 +617,6 @@ declare namespace BPMNModdle {
     interface CallActivity extends Activity {
         calledElement: string;
     }
-    // tslint:disable-next-line:no-empty-interface
     interface Task extends Activity, InteractionNode {}
     interface SendTask extends Task {
         implementation: string;

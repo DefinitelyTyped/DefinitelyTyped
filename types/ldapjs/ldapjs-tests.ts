@@ -151,3 +151,14 @@ let approximateFilter = new ldap.ApproximateFilter({
     value: 'foo'
 });
 approximateFilter.matches({ cn: 'foo' });
+
+
+let server = ldap.createServer();
+server.listen(1389, '127.0.0.1', () => {
+    // Do stuff
+
+    // Close the server gracefully
+    server.close(() => {
+        // Server closed
+    });
+});

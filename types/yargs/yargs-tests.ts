@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import yargs = require('yargs');
+import yargsHelpers = require('yargs/helpers');
 import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
@@ -131,19 +132,19 @@ function Argv$parsing() {
     const argv4 = yargs();
     console.log(argv1.x, argv2.x, argv3.x, argv4.x);
 
-    // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; }
     yargs.parse();
 
-    // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; }
     yargs([]).argv;
 
-    // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; }
     yargs.argv;
 
-    // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; }
     yargs();
 
-    // $ExpectType { [x: string]: unknown; update: boolean | undefined; extern: boolean | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; update: boolean | undefined; extern: boolean | undefined; _: (string | number)[]; $0: string; }
     yargs(['--update'])
         .boolean('update')
         .boolean('extern')
@@ -269,6 +270,7 @@ function Argv$command() {
                     demand: false
                 }
             },
+            deprecated: false,
             handler: (args: any) => {
                 /* handle me mateys! */
             }
@@ -303,7 +305,11 @@ function Argv$command() {
             },
             (argv) => {
                 console.dir(argv.url);
-            }
+            },
+            // middlewares
+            [],
+            // deprecated
+            'use --newGet'
         )
         .help()
         .argv;
@@ -320,6 +326,33 @@ function Argv$command() {
         })
         .help()
         .argv;
+}
+
+function Argv$example() {
+    yargs
+        .command({
+            command: 'get',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'post',
+            handler: () => {
+                // command
+            },
+        })
+        .command({
+            command: 'delete',
+            handler: () => {
+                // command
+            },
+        })
+        .example([
+            ['$0 get', 'get https://example.com/'],
+            ['$0 post', 'post https://example.com/'],
+        ])
+        .example('$0 delete', 'delete https://example.com').argv;
 }
 
 function Argv$positional() {
@@ -343,6 +376,7 @@ function Argv$commandModule() {
         handler(args: yargs.Arguments): void {
             console.log("one");
         }
+        deprecated: true;
     }
 
     const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {
@@ -407,7 +441,7 @@ function Argv$commandModule() {
 
     const commandArgs = builder(yargs).argv;
 
-    // $ExpectType: { [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: string[]; $0: string; }
+    // $ExpectType: { [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: (string | number)[]; $0: string; }
     commandArgs;
 
     // Backwards compatibility with older types
@@ -805,6 +839,8 @@ function Argv$commandObject() {
         defaultDescription: "description",
         demand: true,
         demandOption: true,
+        deprecate: true,
+        deprecated: "deprecated",
         desc: "desc",
         describe: "describe",
         description: "description",
@@ -839,6 +875,14 @@ function Argv$demandOption() {
         .demandOption(['a', 'b'])
         .demandOption(['a', 'b'], 'a and b are required')
         .demandOption(['a', 'b'], true)
+        .argv;
+}
+
+function Argv$deprecateOption() {
+    const ya = yargs
+        .option('old', {})
+        .deprecateOption('old', 'use --new')
+        .option('new', {})
         .argv;
 }
 
@@ -888,7 +932,7 @@ type Stage = 1 | 2 | 3 | 4;
 const stages: ReadonlyArray<Stage> = [1, 2, 3, 4];
 
 function Argv$inferOptionTypes() {
-    // $ExpectType { [x: string]: unknown; a: (string | number)[] | undefined; b: boolean | undefined; c: number; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: (string | number)[] | undefined; b: boolean | undefined; c: number; n: number | undefined; s: string | undefined; _: (string | number)[]; $0: string; }
     yargs
         .option("a", { type: "array" })
         .option("b", { type: "boolean" })
@@ -897,14 +941,14 @@ function Argv$inferOptionTypes() {
         .option("s", { type: "string" })
         .argv;
 
-    // $ExpectType { [x: string]: unknown; a: number; b: boolean; c: string; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: number; b: boolean; c: string; _: (string | number)[]; $0: string; }
     yargs
         .option("a", { default: 42 })
         .option("b", { default: false })
         .option("c", { default: "tmp" })
         .argv;
 
-    // $ExpectType { [x: string]: unknown; a: (string | number)[] | undefined; b: boolean | undefined; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: (string | number)[] | undefined; b: boolean | undefined; n: number | undefined; s: string | undefined; _: (string | number)[]; $0: string; }
     yargs
         .option("a", { array: true })
         .option("b", { boolean: true })
@@ -912,7 +956,7 @@ function Argv$inferOptionTypes() {
         .option("s", { string: true })
         .argv;
 
-    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date | undefined; count: number; normalize: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date | undefined; count: number; normalize: string | undefined; _: (string | number)[]; $0: string; }
     yargs
         .option("choices", { choices: colors, required: true })
         .option("numberChoices", { choices: stages, demandOption: true })
@@ -927,7 +971,7 @@ function Argv$inferOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.boolean("x").argv.x;
 
-    // $ExpectType "red" | "blue" | "green" | undefined
+    // $ExpectType "red" | "blue" | "green" | undefined || Color | undefined
     yargs.choices("x", colors).argv.x;
 
     // $ExpectType number | undefined
@@ -965,22 +1009,22 @@ function Argv$inferRequiredOptionTypes() {
     // $ExpectType string | undefined
     yargs.string("x").demandOption("x", false).argv.x;
 
-    // $ExpectType { [x: string]: unknown; x: string; y: number; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; x: string; y: number; _: (string | number)[]; $0: string; }
     yargs.string("x").number("y").demandOption(["x", "y"]).argv;
 
-    // $ExpectType { [x: string]: unknown; x: string; y: number; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; x: string; y: number; _: (string | number)[]; $0: string; }
     yargs.string("x").number("y").demandOption(["x", "y"], true).argv;
 
-    // $ExpectType { [x: string]: unknown; x: string | undefined; y: number | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; x: string | undefined; y: number | undefined; _: (string | number)[]; $0: string; }
     yargs.string("x").number("y").demandOption(["x", "y"], false).argv;
 
-    // $ExpectType { [x: string]: unknown; x: string; y: number; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; x: string; y: number; _: (string | number)[]; $0: string; }
     yargs.demandOption(["x", "y"]).string("x").number("y").argv;
 
-    // $ExpectType { [x: string]: unknown; x: string; y: number; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; x: string; y: number; _: (string | number)[]; $0: string; }
     yargs.demandOption(["x", "y"], true).string("x").number("y").argv;
 
-    // $ExpectType { [x: string]: unknown; x: string | undefined; y: number | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; x: string | undefined; y: number | undefined; _: (string | number)[]; $0: string; }
     yargs.demandOption(["x", "y"], false).string("x").number("y").argv;
 
     // $ExpectType string
@@ -1009,32 +1053,46 @@ function Argv$inferRequiredOptionTypes() {
 }
 
 function Argv$inferMultipleOptionTypes() {
-    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
     yargs
         .option({ a: { default: "a" }, b: { default: false } })
         .number(["c", "d", "e"])
         .demandOption(["c", "d", "e"])
         .argv;
 
-    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
     yargs
         .options({ a: { default: "a" }, b: { default: false } })
         .number(["c", "d", "e"])
         .demandOption(["c", "d", "e"])
         .argv;
 
-    // $ExpectType { [x: string]: unknown; a: number; b: string; c: boolean; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: number; b: string; c: boolean; _: (string | number)[]; $0: string; }
     yargs
         .default({ a: 42, b: "b", c: false })
         .argv;
 
-    // $ExpectType { [x: string]: unknown; a: number; b: string; c: Date; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: number; b: string; c: Date; _: (string | number)[]; $0: string; }
     yargs
         .coerce({ a: Date.parse, b: String.prototype.toLowerCase, c: (s: string) => new Date(s) })
         .demandOption(["a", "b", "c"])
         .argv;
 
-    // $ExpectType { [x: string]: unknown; a: number | undefined; b: string | undefined; c: Color; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: number; b: string[]; _: (string | number)[]; $0: string; }
+    yargs
+        .options({
+            a: {
+                type: 'number',
+                default: 4
+            },
+            b: {
+                coerce: (arg: string) => arg.split(','),
+                default: 'one,two,three'
+            }
+        })
+        .argv;
+
+    // $ExpectType { [x: string]: unknown; a: number | undefined; b: string | undefined; c: Color; _: (string | number)[]; $0: string; }
     yargs
         .choices({ a: [1, 2, 3], b: ["black", "white"], c: colors })
         .demandOption("c")
@@ -1042,20 +1100,20 @@ function Argv$inferMultipleOptionTypes() {
 }
 
 function Argv$inferOptionTypesForAliases() {
-    // $ExpectType { [x: string]: unknown; u: string | undefined; url: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; u: string | undefined; url: string | undefined; _: (string | number)[]; $0: string; }
     yargs
         .option("u", { type: "string" })
         .alias("u", "url")
         .argv;
 
-    // $ExpectType { [x: string]: unknown; v: boolean; loud: boolean; noisy: boolean; verbose: boolean; n: boolean; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; v: boolean; loud: boolean; noisy: boolean; verbose: boolean; n: boolean; _: (string | number)[]; $0: string; }
     yargs
         .option("v", { default: false })
         .alias("v", ["loud", "noisy", "verbose"])
         .alias("n", "noisy")
         .argv;
 
-    // $ExpectType { [x: string]: unknown; n: number; count: number; num: number; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; n: number; count: number; num: number; _: (string | number)[]; $0: string; }
     yargs
         .option("n", { number: true, demandOption: true })
         .alias("n", "count")
@@ -1135,10 +1193,10 @@ function Argv$inferRepeatedOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.string("a").boolean("a").argv.a;
 
-    // $ExpectType string | undefined
+    // $ExpectType string | undefined || ToString<number | undefined>
     yargs.number("a").string("a").argv.a;
 
-    // $ExpectType number | undefined
+    // $ExpectType number | undefined || ToNumber<string | undefined>
     yargs.string("a").number("a").argv.a;
 
     // $ExpectType boolean | undefined
@@ -1233,4 +1291,39 @@ function Argv$commandsWithAsynchronousBuilders() {
 
 function makeSingleton() {
     yargsSingleton(process.argv.slice(2));
+}
+
+function Argv$strictOptions() {
+    // test taken from https://github.com/yargs/yargs/blob/master/test/validation.cjs#L1036
+    const argv1 = yargs
+    .command('foo', 'foo command')
+    .option('a', {
+        describe: 'a is for option'
+    })
+    .strictOptions()
+    .argv;
+}
+
+function Argv$strictCommands() {
+    const argv1 = yargs.strictCommands().command('foo', 'foo command').argv;
+    const argv2 = yargs.strictCommands(true).command('foo', 'foo command').argv;
+}
+
+function Argv$applyExtendsHelper() {
+    // $ExpectType Record<string, any>
+    const arvg = yargsHelpers.applyExtends(
+        { extends: './package.json', apple: 'red' },
+        process.cwd(),
+        true
+    );
+}
+
+function Argv$hideBinHelper() {
+    // $ExpectType string[]
+    const arvg = yargsHelpers.hideBin(process.argv);
+}
+
+function Argv$ParserHelper() {
+    // $ExpectType Arguments
+    const argv = yargsHelpers.Parser('--foo --bar=99');
 }

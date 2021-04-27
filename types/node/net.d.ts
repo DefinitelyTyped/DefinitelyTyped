@@ -1,9 +1,17 @@
-declare module "net" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import * as dns from "dns";
+declare module 'node:net' {
+    export * from 'net';
+}
 
-    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+declare module 'net' {
+    import * as stream from 'node:stream';
+    import EventEmitter = require('node:events');
+    import * as dns from 'node:dns';
+
+    type LookupFunction = (
+        hostname: string,
+        options: dns.LookupOneOptions,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+    ) => void;
 
     interface AddressInfo {
         address: string;
@@ -71,10 +79,11 @@ declare module "net" {
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
-        address(): AddressInfo | string;
+        address(): AddressInfo | {};
         unref(): this;
         ref(): this;
 
+        /** @deprecated since v14.6.0 - Use `writableLength` instead. */
         readonly bufferSize: number;
         readonly bytesRead: number;
         readonly bytesWritten: number;
@@ -177,10 +186,22 @@ declare module "net" {
         ipv6Only?: boolean;
     }
 
+    interface ServerOpts {
+        /**
+         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
+         */
+        allowHalfOpen?: boolean;
+
+        /**
+         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
+         */
+        pauseOnConnect?: boolean;
+    }
+
     // https://github.com/nodejs/node/blob/master/lib/net.js
-    class Server extends events.EventEmitter {
+    class Server extends EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
-        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+        constructor(options?: ServerOpts, connectionListener?: (socket: Socket) => void);
 
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
         listen(port?: number, hostname?: string, listeningListener?: () => void): this;
@@ -244,6 +265,45 @@ declare module "net" {
         prependOnceListener(event: "listening", listener: () => void): this;
     }
 
+    type IPVersion = 'ipv4' | 'ipv6';
+
+    class BlockList {
+        /**
+         * Adds a rule to block the given IP address.
+         *
+         * @param address An IPv4 or IPv6 address.
+         * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
+         */
+        addAddress(address: string, type?: IPVersion): void;
+
+        /**
+         * Adds a rule to block a range of IP addresses from start (inclusive) to end (inclusive).
+         *
+         * @param start The starting IPv4 or IPv6 address in the range.
+         * @param end The ending IPv4 or IPv6 address in the range.
+         * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
+         */
+        addRange(start: string, end: string, type?: IPVersion): void;
+
+        /**
+         * Adds a rule to block a range of IP addresses specified as a subnet mask.
+         *
+         * @param net The network IPv4 or IPv6 address.
+         * @param prefix The number of CIDR prefix bits.
+         * For IPv4, this must be a value between 0 and 32. For IPv6, this must be between 0 and 128.
+         * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
+         */
+        addSubnet(net: string, prefix: number, type?: IPVersion): void;
+
+        /**
+         * Returns `true` if the given IP address matches any of the rules added to the `BlockList`.
+         *
+         * @param address The IP address to check
+         * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
+         */
+        check(address: string, type?: IPVersion): boolean;
+    }
+
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number;
     }
@@ -255,7 +315,7 @@ declare module "net" {
     type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
 
     function createServer(connectionListener?: (socket: Socket) => void): Server;
-    function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
+    function createServer(options?: ServerOpts, connectionListener?: (socket: Socket) => void): Server;
     function connect(options: NetConnectOpts, connectionListener?: () => void): Socket;
     function connect(port: number, host?: string, connectionListener?: () => void): Socket;
     function connect(path: string, connectionListener?: () => void): Socket;

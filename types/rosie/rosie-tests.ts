@@ -44,6 +44,8 @@ interface Person {
 }
 
 const personFactory = Factory.define<Person>('Person').attr('firstName', 'John').sequence('id');
+// building a list with a type definition returns that type
+Factory.buildList<Person>('Person', 420, { age: 69 })
 
 // Building does not require the first (attributes) and second (options) arguments
 personFactory.build();
@@ -75,6 +77,20 @@ personFactory.attrs({
 const person = Factory.build<Person>('Person');
 let aString = '';
 aString = person.firstName;
+
+// It supports options not defined in the type definition
+const personWithNicknameFactory = new Factory<Person>()
+  .attr('firstName', 'Frances')
+  .attr('lastName', 'Parker')
+  .option('nickname', null)
+  .attr('fullName', ['firstName', 'lastName', 'nickname'], (firstName, lastName, nickname) => {
+    if (nickname) {
+      return `${firstName} "${nickname}" ${lastName}`;
+    }
+    return `${firstName} ${lastName}`;
+  });
+// $ExpectType Person
+const personWithNickname = personWithNicknameFactory.build({}, { nickname: 'Franny' });
 
 // Unregistered factories
 const unregisteredPersonFactory = new Factory<Person>();

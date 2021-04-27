@@ -718,7 +718,7 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
          * @since 1.7
          */
-        // tslint:disable-next-line:ban-types callable-types no-unnecessary-generics
+        // tslint:disable-next-line:ban-types no-unnecessary-generics
         <T extends Function>(flags?: string): Callbacks<T>;
     }
 
@@ -4164,7 +4164,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -5650,6 +5649,7 @@ $( document ).on( "mousemove", function( event ) {
         char: string | undefined;
         /** @deprecated */
         charCode: number;
+        code: string;
         key: string;
         /** @deprecated */
         keyCode: number;

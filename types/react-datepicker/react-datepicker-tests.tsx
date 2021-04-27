@@ -1,5 +1,5 @@
 import * as React from 'react';
-import DatePicker, { registerLocale, setDefaultLocale, getDefaultLocale } from 'react-datepicker';
+import DatePicker, { CalendarContainer, registerLocale, setDefaultLocale, getDefaultLocale } from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
@@ -17,6 +17,8 @@ const defaultLocale = getDefaultLocale();
     calendarContainer={props => <div />}
     className=""
     clearButtonTitle=""
+    // closeOnScroll={false} // Or as function:
+    closeOnScroll={e => e.target === document}
     customInput={<input />}
     customInputRef=""
     chooseDayAriaLabelPrefix=""
@@ -35,6 +37,7 @@ const defaultLocale = getDefaultLocale();
     excludeDates={[new Date()]}
     excludeTimes={[new Date()]}
     filterDate={date => true}
+    filterTime={date => true}
     fixedHeight
     forceShowMonthNavigation
     formatWeekDay={formattedDate => formattedDate[0]}
@@ -59,7 +62,7 @@ const defaultLocale = getDefaultLocale();
     onBlur={event => null}
     onCalendarClose={() => null}
     onCalendarOpen={() => null}
-    onChange={(date: Date | null) => {}}
+    onChange={(date: Date | [Date, Date] | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
     onDayMouseEnter={(date: Date) => {}}
@@ -83,7 +86,7 @@ const defaultLocale = getDefaultLocale();
             enabled: false,
         },
     }}
-    popperPlacement=""
+    popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
     previousMonthButtonLabel=""
@@ -94,6 +97,7 @@ const defaultLocale = getDefaultLocale();
         date,
         changeYear,
         changeMonth,
+        customHeaderCount,
         decreaseMonth,
         increaseMonth,
         decreaseYear,
@@ -152,6 +156,8 @@ const defaultLocale = getDefaultLocale();
 
 <DatePicker minDate={null} maxDate={null} startDate={null} endDate={null} locale={enUS} onChange={() => null} />;
 
+<DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
+
 function handleRef(ref: DatePicker | null) {
     if (ref) {
         ref.setBlur();
@@ -161,3 +167,10 @@ function handleRef(ref: DatePicker | null) {
         }
     }
 }
+
+<CalendarContainer arrowProps={{ someProp: 'someValue' }} className="" showPopperArrow>
+    <div />
+    <span />
+</CalendarContainer>;
+
+<CalendarContainer />;

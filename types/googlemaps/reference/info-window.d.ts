@@ -1,11 +1,11 @@
 declare namespace google.maps {
-    interface InfoWindowHandlerMap {
+    interface InfoWindowHandlerMap<T extends InfoWindow> {
         /**
          * This event is fired when the close button was clicked.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.closeclick Maps JavaScript API}
          * @see {@link InfoWindow#close}
          */
-        closeclick: [];
+        closeclick: (this: T) => void;
 
         /**
          * This event is fired when the content property changes.
@@ -14,14 +14,14 @@ declare namespace google.maps {
          * @see {@link InfoWindow#getContent}
          * @see {@link InfoWindow#setContent}
          */
-        content_changed: [];
+        content_changed: (this: T) => void;
 
         /**
          * This event is fired when the `<div>` containing the {@link InfoWindow}'s content is attached to the DOM. You
          * may wish to monitor this event if you are building out your info window content dynamically.
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/info-window#InfoWindow.domready Maps JavaScript API}
          */
-        domready: [];
+        domready: (this: T) => void;
 
         /**
          * This event is fired when the position property changes.
@@ -30,7 +30,7 @@ declare namespace google.maps {
          * @see {@link InfoWindow#getPosition}
          * @see {@link InfoWindow#setPosition}
          */
-        position_changed: [];
+        position_changed: (this: T) => void;
 
         /**
          * This event is fired when the InfoWindow's zIndex changes.
@@ -39,7 +39,7 @@ declare namespace google.maps {
          * @see {@link InfoWindow#getZIndex}
          * @see {@link InfoWindow#setZIndex}
          */
-        zindex_changed: [];
+        zindex_changed: (this: T) => void;
     }
 
     /**
@@ -65,12 +65,12 @@ declare namespace google.maps {
          * @see {@link InfoWindowHandlerMap#position_changed position_changed} event
          * @see {@link InfoWindowHandlerMap#zindex_changed zindex_changed} event
          */
-        addListener<N extends keyof InfoWindowHandlerMap>(
+        addListener<N extends keyof InfoWindowHandlerMap<this>>(
             eventName: N,
-            handler: MVCEventHandler<this, InfoWindowHandlerMap[N]>,
+            handler: InfoWindowHandlerMap<this>[N],
         ): MapsEventListener;
 
-        addListener(eventName: string, handler: MVCEventHandler<this, unknown[]>): MapsEventListener;
+        addListener(eventName: string, handler: (this: this, ...args: unknown[]) => void): MapsEventListener;
 
         /**
          * Closes this {@link InfoWindow} by removing it from the DOM structure.

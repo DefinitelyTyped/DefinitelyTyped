@@ -51,7 +51,7 @@ declare global {
             flash(type: string, msg: string | any[]): void;
 
             locals: {
-                flash: Flash
+                flash?: Flash
             };
         }
     }

@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@pollyjs/utils": [
-                "pollyjs__utils"
+            "@pollyjs/*": [
+                "pollyjs__*"
             ]
         }
     },

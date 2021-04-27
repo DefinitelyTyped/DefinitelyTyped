@@ -103,6 +103,7 @@ declare namespace Spotify {
         & ((event: ErrorTypes, cb: ErrorListener) => void);
 
     class SpotifyPlayer {
+        readonly _options: PlayerInit & {id: string};
         constructor(options: PlayerInit);
 
         connect(): Promise<boolean>;

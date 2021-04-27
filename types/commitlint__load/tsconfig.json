@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@commitlint/load": ["commitlint__load"]
+            "@commitlint/*": ["commitlint__*"]
         }
     },
     "files": [

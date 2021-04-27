@@ -33,6 +33,7 @@ declare module "http" {
         'content-type'?: string;
         'cookie'?: string;
         'date'?: string;
+        'etag'?: string;
         'expect'?: string;
         'expires'?: string;
         'forwarded'?: string;
@@ -161,13 +162,13 @@ declare module "http" {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -198,11 +199,14 @@ declare module "http" {
         rawHeaders: string[];
     }
 
-    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    // https://github.com/nodejs/node/blob/v13.14.0/lib/_http_client.js#L86
     class ClientRequest extends OutgoingMessage {
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
         socket: Socket;
-        aborted: number;
+        aborted: boolean;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 

@@ -563,3 +563,14 @@ wx.requestMidasPayment({
     offerId: "",
     currencyType: "CNY"
 });
+// 广告
+const bannerAd = wx.createBannerAd({ adUnitId: "test", style: { width: 100, height: 64, left: 800, top: 300 } });
+console.log("bannerAd: " + bannerAd.adUnitId);
+const videoAd = wx.createRewardedVideoAd({ adUnitId: "test" });
+console.log("videoAd: " + videoAd.adUnitId);
+const intrAd = wx.createInterstitialAd({ adUnitId: "test" });
+console.log("interstitialAd: " + intrAd.adUnitId);
+const gridAd = wx.createGridAd({ adUnitId: "test", style: { left: 100, top: 100, width: 100, height: 100 }, adTheme: 'black' });
+console.log("gridAd: " + gridAd.adUnitId);
+const csmAd = wx.createCustomAd({ adUnitId: "test", style: { left: 100, top: 100 } });
+console.log("customAd: " + csmAd.style.fixed);

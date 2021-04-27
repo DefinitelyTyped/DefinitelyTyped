@@ -1,5 +1,5 @@
-import { CanvasKitInitResult } from "../index";
+import { CanvasKitInitOptions, CanvasKit } from "../index";
 
-declare function CanvasKitInit(): CanvasKitInitResult;
+declare function CanvasKitInit(opts: CanvasKitInitOptions): Promise<CanvasKit>;
 
 export = CanvasKitInit;

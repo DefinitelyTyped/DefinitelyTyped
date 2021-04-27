@@ -71,8 +71,8 @@ const shortEnglishHumanizer = humanizeDuration.humanizer({
   languages: {
     shortEn: {
       d: () => "d",
-      h: () => "h",
-      m: () => "m",
+      h: (count) => count === 1 ? "hour" : "hours",
+      m: (count) => count === 1 ? "minute" : "minutes",
       mo: () => "mo",
       ms: () => "ms",
       s: () => "s",
@@ -81,6 +81,8 @@ const shortEnglishHumanizer = humanizeDuration.humanizer({
     },
   },
 });
+
+shortEnglishHumanizer(5400000);  // '1 hour, 30 minutes'
 
 shortEnglishHumanizer(15600000);  // '4 h, 20 m'
 

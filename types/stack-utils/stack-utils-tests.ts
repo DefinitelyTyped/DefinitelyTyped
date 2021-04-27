@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import StackUtils = require('stack-utils');
 
-const stack = new StackUtils({cwd: process.cwd(), internals: StackUtils.nodeInternals()});
+const stack = new StackUtils({cwd: process.cwd(), internals: StackUtils.nodeInternals(), ignoredPackages: ["foobar"]});
 const stackStr = new Error().stack;
 
 if (stackStr) {

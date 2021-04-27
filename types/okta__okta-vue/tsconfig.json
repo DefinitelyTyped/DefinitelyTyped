@@ -15,7 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@okta/*": [
+                "okta__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

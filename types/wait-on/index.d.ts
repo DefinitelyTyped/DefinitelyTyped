@@ -1,16 +1,14 @@
-// Type definitions for wait-on 4.0
+// Type definitions for wait-on 5.2
 // Project: https://github.com/jeffbski/wait-on#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
+//                 Andrew Leedham <https://github.com/AndrewLeedham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 export = waitOn;
 
 declare function waitOn(options: waitOn.WaitOnOptions): Promise<void>;
-declare function waitOn(
-    options: waitOn.WaitOnOptions,
-    cb: (err: any) => void,
-): void;
+declare function waitOn(options: waitOn.WaitOnOptions, cb: (err: any) => void): void;
 
 declare namespace waitOn {
     interface WaitOnOptions {
@@ -70,12 +68,19 @@ declare namespace waitOn {
         simultaneous?: number;
         /**
          * Https specific option.
-         * see https:// github.com/request/request#readme for specific details
+         * see https://github.com/request/request#readme for specific details
          */
         auth?: WaitOnAuth;
-        httpSignature?: HttpSignature;
+        /**
+         * Validates whether a status is valid.
+         */
+        validateStatus?: ValidateStatus;
+        /**
+         * Proxy options.
+         * see https://github.com/axios/axios#config-defaults
+         */
+        proxy?: AxiosProxyConfig;
         strictSSL?: boolean;
-        followAllRedirects?: boolean;
         followRedirect?: boolean;
         headers?: Record<string, any>;
     }
@@ -85,19 +90,20 @@ declare namespace waitOn {
         key: string;
     }
 
-    type WaitOnAuth =
-        | {
-              username: string;
-              password: string;
-          }
-        | {
-              /**
-               * Alias of username
-               */
-              user: string;
-              /**
-               * Alias of password
-               */
-              pass: string;
-          };
+    interface WaitOnAuth {
+        username: string;
+        password: string;
+    }
+
+    type ValidateStatus = (status: number) => boolean;
+
+    interface AxiosProxyConfig {
+        host: string;
+        port: number;
+        auth?: {
+            username: string;
+            password: string;
+        };
+        protocol?: string;
+    }
 }

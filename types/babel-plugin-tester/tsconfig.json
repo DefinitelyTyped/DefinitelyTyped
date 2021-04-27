@@ -10,10 +10,7 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "paths": {
-            "@babel/core": ["babel__core"],
-            "@babel/generator": ["babel__generator"],
-            "@babel/template": ["babel__template"],
-            "@babel/traverse": ["babel__traverse"]
+            "@babel/*": ["babel__*"]
         },
         "typeRoots": [
             "../"

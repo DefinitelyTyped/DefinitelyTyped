@@ -8,8 +8,8 @@ import { Component, ClosureComponent, FactoryComponent } from 'mithril';
 function comp0() {
     return {
         view() {
-            return m('span', "Test");
-        }
+            return m('span', 'Test');
+        },
     };
 }
 
@@ -25,12 +25,12 @@ m.mount(document.getElementById('comp0')!, null);
 //
 function comp1(): Component {
     return {
-        oncreate({dom}) {
+        oncreate({ dom }) {
             // vnode.dom type inferred
         },
         view(vnode) {
-            return m('span', "Test");
-        }
+            return m('span', 'Test');
+        },
     };
 }
 
@@ -44,17 +44,21 @@ interface Comp2Attrs {
     description: string;
 }
 
-const comp2: FactoryComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
-    view({attrs: {title, description}}) { // Comp2Attrs type is inferred
+const comp2: FactoryComponent<Comp2Attrs> = vnode => ({
+    // vnode is inferred
+    view({ attrs: { title, description } }) {
+        // Comp2Attrs type is inferred
         return [m('h2', title), m('p', description)];
-    }
+    },
 });
 
 // 2a. Test ClosureComponent type alias
-const comp2a: ClosureComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
-    view({attrs: {title, description}}) { // Comp2Attrs type is inferred
+const comp2a: ClosureComponent<Comp2Attrs> = vnode => ({
+    // vnode is inferred
+    view({ attrs: { title, description } }) {
+        // Comp2Attrs type is inferred
         return [m('h2', title), m('p', description)];
-    }
+    },
 });
 
 ///////////////////////////////////////////////////////////
@@ -63,53 +67,51 @@ const comp2a: ClosureComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
 // Uses comp2 with typed attrs and makes use of `onremove`
 // lifecycle method.
 //
-const comp3: FactoryComponent<{pageHead: string}> = () => ({
-    oncreate({dom}) {
+const comp3: FactoryComponent<{ pageHead: string }> = () => ({
+    oncreate({ dom }) {
         // Can do stuff with dom
     },
-    view({attrs}) {
-        return m('.page',
+    view({ attrs }) {
+        return m(
+            '.page',
             m('h1', attrs.pageHead),
-            m(comp2,
-                {
-                    // attrs is type checked - nice!
-                    title: "A Title",
-                    description: "Some descriptive text.",
-                    onremove(vnode) {
-                        console.log("comp2 was removed");
-                    },
-                }
-            ),
+            m(comp2, {
+                // attrs is type checked - nice!
+                title: 'A Title',
+                description: 'Some descriptive text.',
+                onremove(vnode) {
+                    console.log('comp2 was removed');
+                },
+            }),
             // Test other hyperscript parameter variations
             m(comp1, m(comp1)),
-            m('br')
+            m('br'),
         );
-    }
+    },
 });
 
 // 3.a Test ClosureComponent type alias
-const comp3a: ClosureComponent<{pageHead: string}> = () => ({
-    oncreate({dom}) {
+const comp3a: ClosureComponent<{ pageHead: string }> = () => ({
+    oncreate({ dom }) {
         // Can do stuff with dom
     },
-    view({attrs}) {
-        return m('.page',
+    view({ attrs }) {
+        return m(
+            '.page',
             m('h1', attrs.pageHead),
-            m(comp2,
-                {
-                    // attrs is type checked - nice!
-                    title: "A Title",
-                    description: "Some descriptive text.",
-                    onremove(vnode) {
-                        console.log("comp2 was removed");
-                    },
-                }
-            ),
+            m(comp2, {
+                // attrs is type checked - nice!
+                title: 'A Title',
+                description: 'Some descriptive text.',
+                onremove(vnode) {
+                    console.log('comp2 was removed');
+                },
+            }),
             // Test other hyperscript parameter variations
             m(comp1, m(comp1)),
-            m('br')
+            m('br'),
         );
-    }
+    },
 });
 
 ///////////////////////////////////////////////////////////
@@ -132,17 +134,18 @@ function comp4(): Component<Comp4Attrs> {
         oninit() {
             count = 0;
         },
-        view({attrs}) {
+        view({ attrs }) {
             return [
                 m('h1', `This ${attrs.name} has been clicked ${count} times`),
-                m('button',
+                m(
+                    'button',
                     {
-                        onclick: () => add(1)
+                        onclick: () => add(1),
                     },
-                    "Click me"
-                )
+                    'Click me',
+                ),
             ];
-        }
+        },
     };
 }
 
@@ -158,21 +161,26 @@ interface Comp5State {
 
 function comp5(): Component<Comp4Attrs, Comp5State> {
     return {
-        oninit({state}) {
+        oninit({ state }) {
             state.count = 0;
-            state.add = num => { state.count += num; };
+            state.add = num => {
+                state.count += num;
+            };
         },
-        view({attrs, state}) {
+        view({ attrs, state }) {
             return [
                 m('h1', `This ${attrs.name} has been clicked ${state.count} times`),
-                m('button',
+                m(
+                    'button',
                     {
-                        onclick() { state.add(1); }
+                        onclick() {
+                            state.add(1);
+                        },
                     },
-                    "Click me"
-                )
+                    'Click me',
+                ),
             ];
-        }
+        },
     };
 }
 
@@ -188,7 +196,7 @@ m.route(document.body, '/', {
     '/comp3': comp3,
     '/comp3a': comp3a,
     '/comp4': comp4,
-    '/comp5': comp5
+    '/comp5': comp5,
 });
 
 ///////////////////////////////////////////////////////////
@@ -202,8 +210,8 @@ interface Attrs {
 export default (): Component<Attrs> => {
     const count = 0;
     return {
-        view({attrs}) {
+        view({ attrs }) {
             return m('span', `name: ${attrs.name}, count: ${count}`);
-        }
+        },
     };
 };

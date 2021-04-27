@@ -1,9 +1,7 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr<HTMLParagraphElement> { }
-
-export interface SkeletonTextProps extends InheritedProps {
+export interface SkeletonTextProps extends ReactAttr<HTMLParagraphElement> {
     heading?: boolean,
     lineCount?: number,
     paragraph?: boolean,

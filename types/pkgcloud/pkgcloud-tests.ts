@@ -34,7 +34,9 @@ pkgcloud.storage.createClient({
     provider: 'openstack',
     authUrl: 'http://example.com',
     username: 'username',
-    password: 'password'
+    password: 'password',
+    domainId: 'default',
+    domainName: 'default'
 });
 
 // Rackspace

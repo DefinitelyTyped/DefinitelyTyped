@@ -1,15 +1,12 @@
 import * as React from "react";
-import { ReactDivAttr, SizingProps } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = "aria-label" | "aria-live";
-interface InheritedProps extends
-    Omit<ReactDivAttr, ExcludedAttributes>,
-    SizingProps
-{ }
+type ExcludedAttributes = "aria-atomic" | "aria-labelledby" | "aria-live";
 
-export interface LoadingProps extends InheritedProps {
+export interface LoadingProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     active?: boolean,
     description?: string,
+    small?: boolean,
     withOverlay?: boolean,
 }
 

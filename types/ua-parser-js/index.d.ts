@@ -1,11 +1,15 @@
-// Type definitions for ua-parser-js v0.7.10
+// Type definitions for ua-parser-js 0.7
 // Project: https://github.com/faisalman/ua-parser-js
-// Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>, Pablo Rodríguez <https://github.com/MeLlamoPablo>
+// Definitions by: Viktor Miroshnikov <https://github.com/superduper>
+//                 Lucas Woo <https://github.com/legendecas>
+//                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace IUAParser {
+declare namespace UAParser {
+    // tslint:disable:interface-name backward compatible exlusion
 
-    export interface IBrowser {
+    interface IBrowser {
         /**
          * Possible values :
          * Amaya, Android Browser, Arora, Avant, Baidu, Blazer, Bolt, Camino, Chimera, Chrome,
@@ -32,7 +36,7 @@ declare namespace IUAParser {
         major: string | undefined;
     }
 
-    export interface IDevice {
+    interface IDevice {
         /**
          * Determined dynamically
          */
@@ -54,7 +58,7 @@ declare namespace IUAParser {
         vendor: string | undefined;
     }
 
-    export interface IEngine {
+    interface IEngine {
         /**
          * Possible name:
          * Amaya, EdgeHTML, Gecko, iCab, KHTML, Links, Lynx, NetFront, NetSurf, Presto,
@@ -67,7 +71,7 @@ declare namespace IUAParser {
         version: string | undefined;
     }
 
-    export interface IOS {
+    interface IOS {
         /**
          * Possible 'os.name'
          * AIX, Amiga OS, Android, Arch, Bada, BeOS, BlackBerry, CentOS, Chromium OS, Contiki,
@@ -84,7 +88,7 @@ declare namespace IUAParser {
         version: string | undefined;
     }
 
-    export interface ICPU {
+    interface ICPU {
         /**
          * Possible architecture:
          *  68k, amd64, arm, arm64, avr, ia32, ia64, irix, irix64, mips, mips64, pa-risc,
@@ -93,7 +97,7 @@ declare namespace IUAParser {
         architecture: string | undefined;
     }
 
-    export interface IResult {
+    interface IResult {
         ua: string;
         browser: IBrowser;
         device: IDevice;
@@ -102,7 +106,7 @@ declare namespace IUAParser {
         cpu: ICPU;
     }
 
-    export interface BROWSER {
+    interface BROWSER {
         NAME: string;
         /**
          * @deprecated
@@ -111,11 +115,11 @@ declare namespace IUAParser {
         VERSION: string;
     }
 
-    export interface CPU {
+    interface CPU {
         ARCHITECTURE: string;
     }
 
-    export interface DEVICE {
+    interface DEVICE {
         MODEL: string;
         VENDOR: string;
         TYPE: string;
@@ -127,69 +131,76 @@ declare namespace IUAParser {
         EMBEDDED: string;
     }
 
-    export interface ENGINE {
+    interface ENGINE {
         NAME: string;
         VERSION: string;
     }
 
-    export interface OS {
+    interface OS {
         NAME: string;
         VERSION: string;
     }
+
+    // alias for older syntax
+    const UAParser: typeof UAParserAlias;
 }
 
-declare module "ua-parser-js" {
-    export class UAParser {
-        static VERSION: string;
-        static BROWSER: IUAParser.BROWSER;
-        static CPU: IUAParser.CPU;
-        static DEVICE: IUAParser.DEVICE;
-        static ENGINE: IUAParser.ENGINE;
-        static OS: IUAParser.OS;
+// support re-export
+declare const UAParserAlias: typeof UAParser;
 
-        /**
-         * Create a new parser with UA prepopulated and extensions extended
-         */
-        constructor(uastring?: string, extensions?: any);
+declare class UAParser {
+    static VERSION: string;
+    static BROWSER: UAParser.BROWSER;
+    static CPU: UAParser.CPU;
+    static DEVICE: UAParser.DEVICE;
+    static ENGINE: UAParser.ENGINE;
+    static OS: UAParser.OS;
 
-        /**
-         *  Returns browser information
-         */
-        getBrowser(): IUAParser.IBrowser;
+    /**
+     * Create a new parser with UA prepopulated and extensions extended
+     */
+    constructor(uastring?: string, extensions?: any);
 
-        /**
-         *  Returns OS information
-         */
-        getOS(): IUAParser.IOS;
+    /**
+     *  Returns browser information
+     */
+    getBrowser(): UAParser.IBrowser;
 
-        /**
-         *  Returns browsers engine information
-         */
-        getEngine(): IUAParser.IEngine;
+    /**
+     *  Returns OS information
+     */
+    getOS(): UAParser.IOS;
 
-        /**
-         *  Returns device information
-         */
-        getDevice(): IUAParser.IDevice;
+    /**
+     *  Returns browsers engine information
+     */
+    getEngine(): UAParser.IEngine;
 
-        /**
-         *  Returns parsed CPU information
-         */
-        getCPU(): IUAParser.ICPU;
+    /**
+     *  Returns device information
+     */
+    getDevice(): UAParser.IDevice;
 
-        /**
-         *  Returns UA string of current instance
-         */
-        getUA(): string;
+    /**
+     *  Returns parsed CPU information
+     */
+    getCPU(): UAParser.ICPU;
 
-        /**
-         *  Set & parse UA string
-         */
-        setUA(uastring: string): UAParser;
+    /**
+     *  Returns UA string of current instance
+     */
+    getUA(): string;
 
-        /**
-         *  Returns parse result
-         */
-        getResult(): IUAParser.IResult;
-    }
+    /**
+     *  Set & parse UA string
+     */
+    setUA(uastring: string): UAParser;
+
+    /**
+     *  Returns parse result
+     */
+    getResult(): UAParser.IResult;
 }
+
+export as namespace UAParser;
+export = UAParser;

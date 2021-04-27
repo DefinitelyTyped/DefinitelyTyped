@@ -9,8 +9,12 @@ const streams: pinoms.Streams = [
     { level: 'fatal', stream: fs.createWriteStream('/tmp/fatal.stream.out') },
     { stream: pino.destination() },
     { stream: pinoms.prettyStream() },
-    { stream: pinoms.prettyStream({ prettyPrint: { colorize: true } }) }
+    { stream: pinoms.prettyStream({ prettyPrint: { colorize: true } }) },
+    { level: 'silent', stream: pino.destination()} // "silent" stream
 ];
+const opts: pinoms.MultiStreamOptions = {
+    dedupe: true
+};
 const logger = pinoms({
     level: 'warn',
     streams
@@ -20,5 +24,5 @@ const log = pino(
     {
         level: 'debug',
     },
-    pinoms.multistream(streams)
+    pinoms.multistream(streams, opts)
 );

@@ -44,7 +44,7 @@ export interface ITokenPayload {
     /** Denoting the user is in at least one group. */
     hasgroups?: true;
     /** Only present in v2.0 tokens. The primary username that represents the user. It could be an email address, phone number, or a generic username without a specified format */
-    preferred_name?: string;
+    preferred_username?: string;
     /** Provides a human-readable value that identifies the subject of the token.
      * The value is not guaranteed to be unique, it is mutable, and it's designed to be used only for display purposes. The profile scope is required in order to receive this claim. */
     name?: string;

@@ -1,4 +1,4 @@
-import { Readable, Writable } from 'stream';
+import { Readable, Writable } from 'node:stream';
 
 {
     const x: NodeModule = {} as any;
@@ -7,6 +7,7 @@ import { Readable, Writable } from 'stream';
     x.parent = require.main!;
     require.main = y;
     x.path; // $ExpectType string
+    y.parent; // $ExpectType NodeModule | null | undefined
 }
 
 {

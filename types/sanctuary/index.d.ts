@@ -222,6 +222,8 @@ declare namespace Sanctuary {
     // Either
     isLeft(p: Either<any, any>): boolean;
     isRight(p: Either<any, any>): boolean;
+    fromLeft<A>(p: A): (q: Either<A, any>) => A;
+    fromRight<B>(p: B): (q: Either<any, B>) => B;
     fromEither<B>(p: B): (q: Either<any, B>) => B;
     either<A, C>(p: Fn<A, C>): <B>(q: Fn<B, C>) => (r: Either<A, B>) => C;
     lefts<A>(p: ReadonlyArray<Either<A, any>>): A[];

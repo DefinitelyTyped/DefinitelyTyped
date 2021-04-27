@@ -1,12 +1,11 @@
-// Type definitions for react-mentions 3.3
+// Type definitions for react-mentions 4.1
 // Project: https://github.com/signavio/react-mentions
 // Definitions by: Scott Willeke <https://github.com/activescott>
 //                 Eugene Fedorenko <https://github.com/efedorenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 import * as React from "react";
 
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 export {};
 
 /**
@@ -45,7 +44,12 @@ export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HT
     classNames?: any;
     style?: any;
     suggestionsPortalHost?: Element;
-    inputRef?: React.RefObject<HTMLTextAreaElement> | React.RefObject<HTMLInputElement>;
+    inputRef?: React.Ref<HTMLTextAreaElement> | React.Ref<HTMLInputElement>;
+    /**
+     * This label would be exposed to screen readers when suggestion popup appears
+     * @default ''
+     */
+    a11ySuggestionsListLabel?: string;
 }
 
 /**

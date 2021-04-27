@@ -1,5 +1,5 @@
 import { Coordinate } from '../../coordinate';
-import { EventsKey, ListenerFunction } from '../../events';
+import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
 import { FeatureLike } from '../../Feature';
 import ImageBase from '../../ImageBase';
@@ -18,11 +18,21 @@ export default class CanvasImageLayerRenderer extends CanvasLayerRenderer {
         hitTolerance: number,
         callback: (p0: FeatureLike, p1: Layer<Source>) => T,
         declutteredFeatures: FeatureLike[],
-    ): T | void;
+    ): T;
+    getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
+    /**
+     * Perform action necessary to get the layer rendered after new fonts have loaded
+     */
     handleFontsChanged(): void;
+    /**
+     * Determine whether render should be called.
+     */
     prepareFrame(frameState: FrameState): boolean;
+    /**
+     * Render the layer.
+     */
     renderFrame(frameState: FrameState, target: HTMLElement): HTMLElement;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

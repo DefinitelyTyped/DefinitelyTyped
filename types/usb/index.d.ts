@@ -29,7 +29,7 @@ export class Device {
   /** Object with properties for the fields of the device descriptor. */
   deviceDescriptor: DeviceDescriptor;
 
-  /** Object with properties for the fields of the configuration descriptor. */
+  /** Object with properties for the fields of the active configuration descriptor. */
   configDescriptor: ConfigDescriptor;
 
   /** Contains all config descriptors of the device (same structure as .configDescriptor above) */
@@ -42,7 +42,11 @@ export class Device {
   interfaces: Interface[];
 
   __open(): void;
+  __getConfigDescriptor(): ConfigDescriptor;
   __claimInterface(addr: number): void;
+  __detachKernelDriver(addr: number): void;
+  __attachKernelDriver(addr: number): void;
+  __isKernelDriverActive(addr: number): boolean;
 
   /**
    * Open the device.
@@ -68,7 +72,7 @@ export class Device {
   /**
    * Perform a control transfer with `libusb_control_transfer`.
    *
-   * Parameter `data_or_length` can be a integer length for an IN transfer, or a Buffer for an out transfer. The type must match the direction specified in the MSB of bmRequestType.
+   * Parameter `data_or_length` can be an integer length for an IN transfer, or a `Buffer` for an OUT transfer. The type must match the direction specified in the MSB of bmRequestType.
    *
    * The `data` parameter of the callback is always undefined for OUT transfers, or will be passed a Buffer for IN transfers.
    *
@@ -80,7 +84,8 @@ export class Device {
    * @param data_or_length
    * @param callback
    */
-  controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: any, callback: (error?: LibUSBException, buf?: Buffer) => void): Device;
+  controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: number | Buffer,
+                  callback: (error: undefined | LibUSBException, buffer?: Buffer) => void): Device;
 
   /**
    * Perform a control transfer to retrieve a string descriptor
@@ -89,7 +94,7 @@ export class Device {
    * @param desc_index
    * @param callback
    */
-  getStringDescriptor(desc_index: number, callback: (error?: string, buf?: Buffer) => void): void;
+  getStringDescriptor(desc_index: number, callback: (error: undefined | LibUSBException, data?: string) => void): void;
 
   /**
    * Perform a control transfer to retrieve an object with properties for the fields of the Binary Object Store descriptor.
@@ -97,7 +102,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  getBosDescriptor(callback: (error?: string, descriptor?: BosDescriptor) => void): void;
+  getBosDescriptor(callback: (error: undefined | LibUSBException, descriptor?: BosDescriptor) => void): void;
 
   /**
    * Retrieve a list of Capability objects for the Binary Object Store capabilities of the device.
@@ -105,7 +110,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  getCapabilities(callback: (error?: string, capabilities?: Capability[]) => void): void;
+  getCapabilities(callback: (error: undefined | LibUSBException, capabilities?: Capability[]) => void): void;
 
   /**
    * Set the device configuration to something other than the default (0). To use this, first call `.open(false)` (which tells it not to auto configure),
@@ -113,9 +118,9 @@ export class Device {
    *
    * The device must be open to use this method.
    * @param desired
-   * @param cb
+   * @param callback
    */
-  setConfiguration(desired: number, cb: (err?: string) => void): void;
+  setConfiguration(desired: number, callback: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Performs a reset of the device. Callback is called when complete.
@@ -123,7 +128,7 @@ export class Device {
    * The device must be open to use this method.
    * @param callback
    */
-  reset(callback: (err?: string) => void): void;
+  reset(callback: (error: undefined | LibUSBException) => void): void;
 }
 
 /** A structure representing the standard USB device descriptor */
@@ -276,9 +281,9 @@ export class Interface {
    * It is an error to release an interface with pending transfers.
    *
    * The device must be open to use this method.
-   * @param cb
+   * @param callback
    */
-  release(cb?: (err?: string) => void): void;
+  release(callback?: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Releases the interface and resets the alternate setting. Calls callback when complete.
@@ -290,9 +295,9 @@ export class Interface {
    *
    * The device must be open to use this method.
    * @param closeEndpoints
-   * @param cb
+   * @param callback
    */
-  release(closeEndpoints?: boolean, cb?: (err?: string) => void): void;
+  release(closeEndpoints?: boolean, callback?: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Returns `false` if a kernel driver is not active; `true` if active.
@@ -306,23 +311,23 @@ export class Interface {
    *
    * The device must be open to use this method.
    */
-  detachKernelDriver(): number;
+  detachKernelDriver(): void;
 
   /**
    * Re-attaches the kernel driver for the interface.
    *
    * The device must be open to use this method.
    */
-  attachKernelDriver(): number;
+  attachKernelDriver(): void;
 
   /**
    * Sets the alternate setting. It updates the `interface.endpoints` array to reflect the endpoints found in the alternate setting.
    *
    * The device must be open to use this method.
    * @param altSetting
-   * @param cb
+   * @param callback
    */
-  setAltSetting(altSetting: number, cb: (err?: string) => void): void;
+  setAltSetting(altSetting: number, callback: (error: undefined | LibUSBException) => void): void;
 
   /**
    * Return the InEndpoint or OutEndpoint with the specified address.
@@ -382,6 +387,20 @@ export interface Endpoint extends EventEmitter {
 
   /** Object with fields from the endpoint descriptor -- see libusb documentation or USB spec. */
   descriptor: EndpointDescriptor;
+
+  /** Clear the halt/stall condition for this endpoint. */
+  clearHalt(callback: (error: undefined | LibUSBException) => void): void;
+
+  /**
+   * Create a new `Transfer` object for this endpoint.
+   *
+   * The passed callback will be called when the transfer is submitted and finishes. Its arguments are the error (if any), the submitted buffer, and the amount of data actually written (for
+   * OUT transfers) or read (for IN transfers).
+   *
+   * @param timeout Timeout for the transfer (0 means unlimited).
+   * @param callback Transfer completion callback.
+   */
+  makeTransfer(timeout: number, callback: (error: undefined | LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 }
 
 /** Endpoints in the IN direction (device->PC) have this type. */
@@ -390,6 +409,8 @@ export class InEndpoint extends EventEmitter implements Endpoint {
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
+  clearHalt(callback: (error: undefined | LibUSBException) => void): void;
+  makeTransfer(timeout: number, callback: (error: undefined | LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
 
@@ -404,7 +425,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
    * @param length
    * @param callback
    */
-  transfer(length: number, callback: (error: LibUSBException, data: Buffer) => void): InEndpoint;
+  transfer(length: number, callback: (error: undefined | LibUSBException, data?: Buffer) => void): InEndpoint;
 
   /**
    * Start polling the endpoint.
@@ -424,9 +445,9 @@ export class InEndpoint extends EventEmitter implements Endpoint {
    * Further data may still be received. The `end` event is emitted and the callback is called once all transfers have completed or canceled.
    *
    * The device must be open to use this method.
-   * @param cb
+   * @param callback
    */
-  stopPoll(cb?: () => void): void;
+  stopPoll(callback?: () => void): void;
 }
 
 /** Endpoints in the OUT direction (PC->device) have this type. */
@@ -435,6 +456,8 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
   transferType: number;
   timeout: number;
   descriptor: EndpointDescriptor;
+  clearHalt(callback: (error: undefined | LibUSBException) => void): void;
+  makeTransfer(timeout: number, callback: (error: undefined | LibUSBException, buffer?: Buffer, actualLength?: number) => void): Transfer;
 
   constructor(device: Device, descriptor: EndpointDescriptor);
 
@@ -447,10 +470,10 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
    *
    * The device must be open to use this method.
    * @param buffer
-   * @param cb
+   * @param callback
    */
-  transfer(buffer: Buffer, cb: (err?: LibUSBException) => void): OutEndpoint;
-  transferWithZLP(buf: Buffer, cb: (err?: LibUSBException) => void): void;
+  transfer(buffer: Buffer, callback: (error: undefined | LibUSBException) => void): OutEndpoint;
+  transferWithZLP(buffer: Buffer, callback: (error: undefined | LibUSBException) => void): void;
 }
 
 /** A structure representing the standard USB endpoint descriptor */
@@ -485,6 +508,23 @@ export class EndpointDescriptor {
    * If libusb encounters unknown endpoint descriptors, it will store them here, should you wish to parse them.
    */
   extra: Buffer;
+}
+
+/** Represents a USB transfer */
+export class Transfer {
+  /**
+   * (Re-)submit the transfer.
+   *
+   * @param buffer Buffer where data will be written (for IN transfers) or read from (for OUT transfers).
+   */
+  submit(buffer: Buffer): Transfer;
+
+  /**
+   * Cancel the transfer.
+   *
+   * Returns `true` if the transfer was canceled, `false` if it wasn't in pending state.
+   */
+  cancel(): boolean;
 }
 
 /**

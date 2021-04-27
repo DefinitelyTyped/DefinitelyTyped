@@ -1,6 +1,5 @@
 // tslint:disable:no-arg
 // tslint:disable:no-var-keyword
-// tslint:disable:object-literal-key-quotes
 // tslint:disable:object-literal-shorthand
 // tslint:disable:one-variable-per-declaration
 // tslint:disable:only-arrow-functions

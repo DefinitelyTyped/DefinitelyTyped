@@ -1,14 +1,11 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "dt-header": false,
         "interface-over-type-literal": false,
         "no-declare-current-package": false,
         "no-internal-module": false,
-        "no-redundant-jsdoc": false,
         "no-single-declare-module": false,
-        "prefer-method-signature": false,
         "semicolon": false
     }
 }

@@ -9,7 +9,7 @@
         "baseUrl": "../",
         "typeRoots": ["../"],
         "paths": {
-            "@styled-system/core": ["styled-system__core"]
+            "@styled-system/*": ["styled-system__*"]
         },
         "types": [],
         "noEmit": true,

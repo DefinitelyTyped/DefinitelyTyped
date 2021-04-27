@@ -38,13 +38,13 @@ declare module "bull" {
 
             /**
              * Removes a Job from the queue from all the lists where it may be included.
-             * @returns {Promise} A promise that resolves when the job is removed.
+             * @returns A promise that resolves when the job is removed.
              */
             remove(): Promise<void>;
 
             /**
              * Rerun a Job that has failed.
-             * @returns {Promise} A promise that resolves when the job is scheduled for retry.
+             * @returns A promise that resolves when the job is scheduled for retry.
              */
             retry(): Promise<void>;
 

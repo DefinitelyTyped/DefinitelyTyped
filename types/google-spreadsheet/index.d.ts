@@ -1,4 +1,4 @@
-// Type definitions for google-spreasheet 3.0
+// Type definitions for google-spreadsheet 3.1
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -8,7 +8,7 @@
 
 export type WorksheetType = 'GRID' | 'OBJECT';
 
-export type WorksheetDimension = 'ROW' | 'COLUMN';
+export type WorksheetDimension = 'ROWS' | 'COLUMNS';
 
 export type HyperlinkDisplayType = 'LINKED' | 'PLAIN_TEXT';
 
@@ -73,13 +73,13 @@ export interface WorksheetGridRange {
 }
 
 export interface WorksheetGridProperties {
-    rowCount: number;
-    columnCount: number;
-    frozenRowCount: number;
-    frozenColumnCount: number;
-    hideGridlines: boolean;
-    rowGroupControlAfter: boolean;
-    columnGroupControlAfter: boolean;
+    rowCount?: number;
+    columnCount?: number;
+    frozenRowCount?: number;
+    frozenColumnCount?: number;
+    hideGridlines?: boolean;
+    rowGroupControlAfter?: boolean;
+    columnGroupControlAfter?: boolean;
 }
 
 export interface DimensionRange {
@@ -284,6 +284,10 @@ export interface ServiceAccountCredentials {
      * service account private key
      */
     private_key: string;
+}
+
+export interface OAuth2Client {
+    getAccessToken: () => { token: string };
 }
 
 // #endregion
@@ -591,7 +595,7 @@ export interface WorksheetBasicProperties {
 }
 
 export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
-    constructor(parentSpreadsheet: GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any})
+    constructor(parentSpreadsheet: GoogleSpreadsheetWorksheet, { properties, data }: { properties: WorksheetBasicProperties, data?: any })
 
     // #region BASIC PROPERTIES
     // These properties should reflect the ones in the WorksheetBasicProperties interface
@@ -732,8 +736,9 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * @param filters single or array of filters
      * - strings are treated as an A1 range
      * - objects are treated as a WorksheetGridRange
+     * - if skipped, all cells are loaded
      */
-    loadCells(filters: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
+    loadCells(filters?: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
 
     /**
      * @description
@@ -778,8 +783,8 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
     addRow(
         values:
             | {
-                  [header: string]: string | number | boolean;
-              }
+                [header: string]: string | number | boolean;
+            }
             | Array<string | number | boolean>,
         options?: { raw: boolean; insert: boolean },
     ): Promise<GoogleSpreadsheetRow>;
@@ -800,8 +805,8 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
     addRows(
         rowValues: Array<(
             | {
-                  [header: string]: string | number | boolean;
-              }
+                [header: string]: string | number | boolean;
+            }
             | Array<string | number | boolean>
         )>,
         options?: { raw: boolean; insert: boolean },
@@ -1015,6 +1020,13 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
 
     /**
      * @description
+     * object of child worksheets
+     * - keyed by the worksheet title
+     */
+    readonly sheetsByTitle: { [title: string]: GoogleSpreadsheetWorksheet };
+
+    /**
+     * @description
      * count of child worksheets
      * - shorthand for spreadsheetDoc.sheetsByIndex.length
      */
@@ -1033,6 +1045,14 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param key API key for your Google project
      */
     useApiKey(key: string): void;
+
+    /**
+     * @description
+     * Use Google's OAuth2Client to authenticate on behalf of a user
+     *
+     * @param oAuth2Client Configured OAuth2Client
+     */
+    useOAuth2Client(oAuth2Client: OAuth2Client): void;
 
     /**
      * @description

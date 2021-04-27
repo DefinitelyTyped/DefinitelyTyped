@@ -1,4 +1,4 @@
-// Type definitions for Draft.js v0.10.5
+// Type definitions for Draft.js v0.11.1
 // Project: https://facebook.github.io/draft-js/
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
 //                 Eelco Lempsink <https://github.com/eelco>
@@ -13,6 +13,7 @@
 //                 Kevin Hawkinson <https://github.com/khawkinson>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Ben Salili-James <https://github.com/benhjames>
+//                 Peter Dekkers <https://github.com/PeterDekkers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -137,11 +138,22 @@ declare namespace Draft {
                 spellCheck?: boolean;
 
                 /**
+                 * When the Editor loses focus (blurs) text selections are cleared
+                 * by default to mimic <textarea> behaviour, however in some situations
+                 * users may wish to preserve native behaviour.
+                 */
+                preserveSelectionOnBlur?: boolean;
+
+                /**
                  * Set whether to remove all style information from pasted content. If your
                  * use case should not have any block or inline styles, it is recommended
                  * that you set this to `true`.
                  */
                 stripPastedStyles?: boolean;
+                formatPastedText?: (
+                    text: string,
+                    html?: string,
+                ) => { text: string, html: string | undefined },
 
                 tabIndex?: number;
 
@@ -550,7 +562,7 @@ declare namespace Draft {
              * a `ComposedText` object, not for use with `DraftEntity.get()`.
              */
             interface RawDraftEntityRange {
-                key: string;
+                key: number;
                 offset: number;
                 length: number;
             }
@@ -842,8 +854,8 @@ declare namespace Draft {
 
                 getKeyBefore(key: string): string;
                 getKeyAfter(key: string): string;
-                getBlockAfter(key: string): ContentBlock;
-                getBlockBefore(key: string): ContentBlock;
+                getBlockAfter(key: string): ContentBlock | undefined;
+                getBlockBefore(key: string): ContentBlock | undefined;
 
                 getBlocksAsArray(): Array<ContentBlock>;
                 getFirstBlock(): ContentBlock;
@@ -1100,6 +1112,7 @@ import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 
+import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
 import Entity = Draft.Model.Entity.DraftEntity;
@@ -1153,6 +1166,7 @@ export {
     EditorBlock,
     EditorState,
     EditorChangeType,
+    DraftDecoratorType,
     DraftDecorator,
     CompositeDecorator,
     Entity,

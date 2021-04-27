@@ -28,4 +28,5 @@ $(() => {
     var switchId = "switch";
     var switchElement = $(`<div id="${switchId}-1"></div>`).kendoSwitch().appendTo($(document.body));
     var switchElement = $(`<div id="${switchId}-2"></div>`).kendoSwitch({ name: `${switchId}-2`, messages: { checked: "Yes", unchecked: "No" } }).appendTo($(document.body));
+    $(`<div id="${switchId}-2"></div>`).data("kendoSwitch").readonly(true);
 })

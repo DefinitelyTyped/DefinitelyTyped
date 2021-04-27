@@ -13,11 +13,15 @@ if (prevState) {
 
 notebookApi.setState({ cool: true });
 
-const listener = notebookApi.onDidCreateOutput(({ element, outputId }) => {
+const listener = notebookApi.onDidCreateOutput(({ element, outputId, value, mime }) => {
     // $ExpectType string
     outputId;
     // $ExpectType HTMLElement
     element;
+    // $ExpectType string
+    mime;
+
+    console.log('my render data is', value);
 });
 
 listener.dispose();

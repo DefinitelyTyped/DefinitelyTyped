@@ -150,7 +150,7 @@ export interface Config {
  * @param putExtra
  * @param config
  */
-export function upload(file: Blob, key: string | null | undefined, token: string, putExtra: Partial<Extra>, config: Partial<Config>): Observable;
+export function upload(file: Blob, key: string | null | undefined, token: string, putExtra?: Partial<Extra>, config?: Partial<Config>): Observable;
 
 /**
  * 返回创建文件的 url；当分片上传时，我们需要把分片返回的 ctx 信息拼接后通过该 url 上传给七牛以创建文件。

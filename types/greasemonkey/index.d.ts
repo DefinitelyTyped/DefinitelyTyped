@@ -276,6 +276,16 @@ declare var GM: {
     openInTab(url: string, openInBackground?: boolean): void
 
     /**
+     * Adds an item to the User Script Commands menu.
+     * @param caption The caption to display on the menu item.
+     * @param commandFunc The function to call when the menu item is selected.
+     * @param accessKey A single character that can be used to select the
+     * item when the menu is open. It should be a letter in the caption.
+     * @see {@link https://wiki.greasespot.net/GM.registerMenuCommand}
+     */
+    registerMenuCommand(caption: string, commandFunc: () => void, accessKey?: string): void;
+
+    /**
      * Sets the current contents of the operating system's clipboard
      * @see {@link https://wiki.greasespot.net/GM.setClipboard}
      */

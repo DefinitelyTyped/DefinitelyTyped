@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@commercetools/enzyme-extensions": ["commercetools__enzyme-extensions"]
+            "@commercetools/*": ["commercetools__*"]
         }
     },
     "files": [

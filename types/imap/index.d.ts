@@ -1,10 +1,11 @@
 // Type definitions for imap v0.8.14
 // Project: https://www.npmjs.com/package/imap
 // Definitions by: Peter Snider <https://github.com/psnider>
-// Definitions: https://github.com/psnider/DefinitelyTyped/imap
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 import { EventEmitter } from 'events';
+import { ConnectionOptions } from 'tls';
 
 declare namespace Connection {
 
@@ -26,7 +27,7 @@ declare namespace Connection {
         /** Perform implicit TLS connection? Default: false */
         tls?: boolean;
         /** Options object to pass to tls.connect() Default: (none) */
-        tlsOptions?: Object;
+        tlsOptions?: ConnectionOptions;
         /** Set to 'always' to always attempt connection upgrades via STARTTLS, 'required' only if upgrading is required, or 'never' to never attempt upgrading. Default: 'never' */
         autotls?: string;
         /** Number of milliseconds to wait for a connection to be established. Default: 10000 */

@@ -10,8 +10,15 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Location as HLocation, LocationState } from 'history';
-export type WindowLocation<S = LocationState> = Window['location'] & HLocation<S>;
+
+export interface HLocation<S = unknown> {
+    pathname: string;
+    search: string;
+    state: S;
+    hash: string;
+    key?: string;
+}
+export type WindowLocation<S = unknown> = Window['location'] & HLocation<S>;
 
 export type HistoryActionType = 'PUSH' | 'POP';
 export type HistoryLocation = WindowLocation & { state?: any };

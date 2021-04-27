@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@atlaskit/calendar": ["atlaskit__calendar"]
+            "@atlaskit/*": ["atlaskit__*"]
         }
     },
     "files": ["index.d.ts", "atlaskit__calendar-tests.tsx"]

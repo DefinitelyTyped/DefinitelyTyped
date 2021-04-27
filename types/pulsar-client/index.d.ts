@@ -1,4 +1,4 @@
-// Type definitions for pulsar-client 1.0
+// Type definitions for pulsar-client 1.2
 // Project: https://github.com/apache/pulsar-client-node
 // Definitions by: Brian Walendzinski <https://github.com/bwalendz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,9 @@
 
 /// <reference types="node" />
 
-export type MessageProperties = unknown[];
+export interface MessageProperties {
+    [key: string ]: string;
+}
 
 export type MessageRoutingModes =
     'RoundRobinPartition' |
@@ -25,7 +27,8 @@ export type CompressionType =
 export type SubscriptionType =
     'Exclusive' |
     'Shared' |
-    'Failover';
+    'Failover' |
+    'KeyShared';
 
 export class AuthenticationTls {
     constructor(authTlsOpts: { certificatePath: string; privateKeyPath: string });
@@ -99,6 +102,12 @@ export interface ClientOpts {
      * Default: 600
      */
     statsIntervalInSeconds?: number;
+
+    /**
+     * Function to control log messages. To silence logs, you can provide an empty function (not recommended).
+     * Default: undefined
+     */
+    log?: (level: number, file: string, line: number, message: string) => void;
 }
 
 export class Client {
@@ -368,6 +377,11 @@ export interface SubscribeOpts {
      * The metadata of consumer.
      */
     properties?: MessageProperties;
+
+    /**
+     * The message listener of consumer.
+     */
+    listener?: (message: Message, consumer: Consumer) => void;
 }
 
 export class Consumer {

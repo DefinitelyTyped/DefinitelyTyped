@@ -1,6 +1,6 @@
-import * as workerThreads from "worker_threads";
-import assert = require("assert");
-import { createContext } from "vm";
+import * as workerThreads from 'node:worker_threads';
+import assert = require('node:assert');
+import { createContext } from 'node:vm';
 
 {
     if (workerThreads.isMainThread) {
@@ -33,7 +33,7 @@ import { createContext } from "vm";
     if (workerThreads.isMainThread) {
         const worker = new workerThreads.Worker(__filename);
         const subChannel = new workerThreads.MessageChannel();
-        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1]);
+        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1] as ReadonlyArray<workerThreads.TransferListItem>);
         subChannel.port2.on('message', (value) => {
             console.log('received:', value);
         });

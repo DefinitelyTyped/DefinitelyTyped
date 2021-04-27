@@ -1,7 +1,7 @@
 import { Node } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 
-import invisibles, { hardBreak, paragraph, space, Builder, character, node } from 'guardian__prosemirror-invisibles';
+import invisibles, { hardBreak, paragraph, space, Builder, character, node } from '@guardian/prosemirror-invisibles';
 
 const plugin1: Plugin = invisibles([hardBreak((node: Node) => true), paragraph(), space((char: string) => false)]);
 

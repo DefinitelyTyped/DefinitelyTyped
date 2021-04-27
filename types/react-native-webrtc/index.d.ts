@@ -35,6 +35,14 @@ export type RTCIceConnectionState =
     | "disconnected"
     | "closed";
 
+export type RTCPeerConnectionState =
+    | "new"
+    | "connecting"
+    | "connected"
+    | "disconnected"
+    | "failed"
+    | "closed";
+
 export class MediaStreamTrack {
     private _enabled: boolean;
 
@@ -123,12 +131,13 @@ export interface EventOnAddStream {
 export class RTCPeerConnection {
     localDescription: RTCSessionDescriptionType;
     remoteDescription: RTCSessionDescriptionType;
+    connectionState: RTCPeerConnectionState;
 
     signalingState: RTCSignalingState;
     private privateiceGatheringState: RTCIceGatheringState;
     private privateiceConnectionState: RTCIceConnectionState;
 
-    onconnectionstatechange: () => void | undefined;
+    onconnectionstatechange: (event: Event) => void | undefined;
     onicecandidate: (event: EventOnCandidate) => void | undefined;
     onicecandidateerror: (error: Error) => void | undefined;
     oniceconnectionstatechange: (
@@ -154,9 +163,9 @@ export class RTCPeerConnection {
 
     removeStream(stream: MediaStream): void;
 
-    createOffer(): Promise<RTCSessionDescriptionType>;
+    createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionType>;
 
-    createAnswer(): Promise<RTCSessionDescriptionType>;
+    createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionType>;
 
     setConfiguration(configuration: RTCPeerConnectionConfiguration): void;
 
@@ -252,3 +261,14 @@ export interface RTCViewProps {
 }
 
 export class RTCView extends Component<RTCViewProps, any> {}
+
+export interface RTCOfferOptions {
+    iceRestart?: boolean;
+    offerToReceiveAudio?: boolean;
+    offerToReceiveVideo?: boolean;
+    voiceActivityDetection?: boolean;
+}
+
+export interface RTCAnswerOptions {
+    voiceActivityDetection?: boolean;
+}

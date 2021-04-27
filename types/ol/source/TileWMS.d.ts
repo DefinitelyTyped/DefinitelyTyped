@@ -1,12 +1,10 @@
 import { Coordinate } from '../coordinate';
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import ImageTile from '../ImageTile';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
-import Projection from '../proj/Projection';
 import { LoadFunction } from '../Tile';
-import { TileCoord } from '../tilecoord';
 import TileGrid from '../tilegrid/TileGrid';
 import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
@@ -17,6 +15,7 @@ export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
     crossOrigin?: string;
+    imageSmoothing?: boolean;
     params: { [key: string]: any };
     gutter?: number;
     hidpi?: boolean;
@@ -33,11 +32,38 @@ export interface Options {
 }
 export default class TileWMS extends TileImage {
     constructor(opt_options?: Options);
-    getFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string;
-    getLegendUrl(resolution?: number, params?: any): string;
+    /**
+     * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
+     * projection. Return undefined if the GetFeatureInfo URL cannot be
+     * constructed.
+     */
+    getFeatureInfoUrl(
+        coordinate: Coordinate,
+        resolution: number,
+        projection: ProjectionLike,
+        params: any,
+    ): string | undefined;
+    getGutter(): number;
+    /**
+     * Return the GetLegendGraphic URL, optionally optimized for the passed
+     * resolution and possibly including any passed specific parameters. Returns
+     * undefined if the GetLegendGraphic URL cannot be constructed.
+     */
+    getLegendUrl(resolution?: number, params?: any): string | undefined;
+    /**
+     * Get the user-provided params, i.e. those passed to the constructor through
+     * the "params" option, and possibly updated using the updateParams method.
+     */
     getParams(): any;
+    /**
+     * Get the tile pixel ratio for this source.
+     */
+    getTilePixelRatio(pixelRatio: number): number;
+    /**
+     * Update the user-provided params.
+     */
     updateParams(params: any): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

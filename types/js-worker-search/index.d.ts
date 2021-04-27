@@ -18,4 +18,5 @@ export default class SearchApi {
     });
     indexDocument(uid: string, text: string): void;
     search(query: string): Promise<string[]>;
+    terminate(): void;
 }

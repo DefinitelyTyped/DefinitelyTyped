@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Auth from 'okta__okta-vue';
+import Auth from '@okta/okta-vue';
 
 // === Testing typing of options
 

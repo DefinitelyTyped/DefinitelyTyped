@@ -1,7 +1,5 @@
 import _ = require("../index");
 declare module "../index" {
-    // assign
-
     interface LoDashStatic {
         /**
          * Assigns own enumerable properties of source objects to the destination
@@ -31,149 +29,80 @@ declare module "../index" {
          * _.assign({ 'a': 1 }, new Foo, new Bar);
          * // => { 'a': 1, 'c': 3, 'e': 5 }
          */
-        assign<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
-
+        assign<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         /**
-         * @see assign
+         * @see _.assign
          */
-        assign<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2
-        ): TObject & TSource1 & TSource2;
-
+        assign<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
         /**
-         * @see assign
+         * @see _.assign
          */
-        assign<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): TObject & TSource1 & TSource2 & TSource3;
-
+        assign<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
         /**
-         * @see assign
+         * @see _.assign
          */
-        assign<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
+        assign<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.assign
          */
         assign<TObject>(object: TObject): TObject;
-
         /**
          * @see _.assign
          */
-        assign(
-            object: any,
-            ...otherArgs: any[]
-        ): any;
+        assign(object: any, ...otherArgs: any[]): any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.assign
          */
-        assign<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        assign<TSource>(source: TSource): Object<T & TSource>;
         /**
          * @see _.assign
          */
-        assign(): LoDashImplicitWrapper<TValue>;
-
+        assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<T & TSource1 & TSource2>;
         /**
          * @see _.assign
          */
-        assign(...otherArgs: any[]): LoDashImplicitWrapper<any>;
+        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        /**
+         * @see _.assign
+         */
+        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        /**
+         * @see _.assign
+         */
+        assign(): Object<T>;
+        /**
+         * @see _.assign
+         */
+        assign(...otherArgs: any[]): Object<any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.assign
          */
-        assign<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assign
-         */
-        assign<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        assign<TSource>(source: TSource): ObjectChain<T & TSource>;
         /**
          * @see _.assign
          */
-        assign(): LoDashExplicitWrapper<TValue>;
-
+        assign<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.assign
          */
-        assign(...otherArgs: any[]): LoDashExplicitWrapper<any>;
+        assign<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        /**
+         * @see _.assign
+         */
+        assign<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        /**
+         * @see _.assign
+         */
+        assign(): ObjectChain<T>;
+        /**
+         * @see _.assign
+         */
+        assign(...otherArgs: any[]): ObjectChain<any>;
     }
-
-    // assignIn
-
     interface LoDashStatic {
         /**
          * This method is like `_.assign` except that it iterates over own and
@@ -202,151 +131,81 @@ declare module "../index" {
          * _.assignIn({ 'a': 1 }, new Foo, new Bar);
          * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
          */
-        assignIn<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
-
+        assignIn<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         /**
-         * @see assignIn
+         * @see _.assignIn
          */
-        assignIn<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2
-        ): TObject & TSource1 & TSource2;
-
+        assignIn<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
         /**
-         * @see assignIn
+         * @see _.assignIn
          */
-        assignIn<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): TObject & TSource1 & TSource2 & TSource3;
-
+        assignIn<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
         /**
-         * @see assignIn
+         * @see _.assignIn
          */
-        assignIn<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
+        assignIn<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.assignIn
          */
         assignIn<TObject>(object: TObject): TObject;
-
         /**
          * @see _.assignIn
          */
-        assignIn<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        assignIn<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.assignIn
          */
-        assignIn<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assignIn
-         */
-        assignIn<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assignIn
-         */
-        assignIn<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assignIn
-         */
-        assignIn<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        assignIn<TSource>(source: TSource): Object<T & TSource>;
         /**
          * @see _.assignIn
          */
-        assignIn(): LoDashImplicitWrapper<TValue>;
-
+        assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<T & TSource1 & TSource2>;
         /**
          * @see _.assignIn
          */
-        assignIn<TResult>(...otherArgs: any[]): LoDashImplicitWrapper<TResult>;
+        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
+        /**
+         * @see _.assignIn
+         */
+        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        /**
+         * @see _.assignIn
+         */
+        assignIn(): Object<T>;
+        /**
+         * @see _.assignIn
+         */
+        assignIn<TResult>(...otherArgs: any[]): Object<TResult>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.assignIn
          */
-        assignIn<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assignIn
-         */
-        assignIn<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assignIn
-         */
-        assignIn<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assignIn
-         */
-        assignIn<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        assignIn<TSource>(source: TSource): ObjectChain<T & TSource>;
         /**
          * @see _.assignIn
          */
-        assignIn(): LoDashExplicitWrapper<TValue>;
-
+        assignIn<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.assignIn
          */
-        assignIn(...otherArgs: any[]): LoDashExplicitWrapper<any>;
+        assignIn<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        /**
+         * @see _.assignIn
+         */
+        assignIn<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        /**
+         * @see _.assignIn
+         */
+        assignIn(): ObjectChain<T>;
+        /**
+         * @see _.assignIn
+         */
+        assignIn(...otherArgs: any[]): ObjectChain<any>;
     }
-
-    // assignInWith
-
     type AssignCustomizer = (objectValue: any, sourceValue: any, key?: string, object?: {}, source?: {}) => any;
-
     interface LoDashStatic {
         /**
          * This method is like `_.assignIn` except that it accepts `customizer` which
@@ -373,161 +232,80 @@ declare module "../index" {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        assignInWith<TObject, TSource>(
-            object: TObject,
-            source: TSource,
-            customizer: AssignCustomizer
-        ): TObject & TSource;
-
+        assignInWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         /**
-         * @see assignInWith
+         * @see _.assignInWith
          */
-        assignInWith<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2;
-
+        assignInWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
         /**
-         * @see assignInWith
+         * @see _.assignInWith
          */
-        assignInWith<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2 & TSource3;
-
+        assignInWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
         /**
-         * @see assignInWith
+         * @see _.assignInWith
          */
-        assignInWith<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
+        assignInWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.assignInWith
          */
         assignInWith<TObject>(object: TObject): TObject;
-
         /**
          * @see _.assignInWith
          */
-        assignInWith<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        assignInWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assignInWith
-         */
-        assignInWith<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assignInWith
-         */
-        assignInWith<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assignInWith
-         */
-        assignInWith<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): Object<T & TSource>;
         /**
          * @see _.assignInWith
          */
-        assignInWith(): LoDashImplicitWrapper<TValue>;
-
+        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
         /**
          * @see _.assignInWith
          */
-        assignInWith<TResult>(...otherArgs: any[]): LoDashImplicitWrapper<TResult>;
+        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        /**
+         * @see _.assignInWith
+         */
+        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        /**
+         * @see _.assignInWith
+         */
+        assignInWith(): Object<T>;
+        /**
+         * @see _.assignInWith
+         */
+        assignInWith<TResult>(...otherArgs: any[]): Object<TResult>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assignInWith
-         */
-        assignInWith<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assignInWith
-         */
-        assignInWith<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assignInWith
-         */
-        assignInWith<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): ObjectChain<T & TSource>;
         /**
          * @see _.assignInWith
          */
-        assignInWith(): LoDashExplicitWrapper<TValue>;
-
+        assignInWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.assignInWith
          */
-        assignInWith(...otherArgs: any[]): LoDashExplicitWrapper<any>;
+        assignInWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        /**
+         * @see _.assignInWith
+         */
+        assignInWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        /**
+         * @see _.assignInWith
+         */
+        assignInWith(): ObjectChain<T>;
+        /**
+         * @see _.assignInWith
+         */
+        assignInWith(...otherArgs: any[]): ObjectChain<any>;
     }
-
-    // assignWith
-
     interface LoDashStatic {
         /**
          * This method is like `_.assign` except that it accepts `customizer` which
@@ -553,161 +331,80 @@ declare module "../index" {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        assignWith<TObject, TSource>(
-            object: TObject,
-            source: TSource,
-            customizer: AssignCustomizer
-        ): TObject & TSource;
-
+        assignWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         /**
-         * @see assignWith
+         * @see _.assignWith
          */
-        assignWith<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2;
-
+        assignWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
         /**
-         * @see assignWith
+         * @see _.assignWith
          */
-        assignWith<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2 & TSource3;
-
+        assignWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
         /**
-         * @see assignWith
+         * @see _.assignWith
          */
-        assignWith<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
+        assignWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.assignWith
          */
         assignWith<TObject>(object: TObject): TObject;
-
         /**
          * @see _.assignWith
          */
-        assignWith<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        assignWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.assignWith
          */
-        assignWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assignWith
-         */
-        assignWith<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assignWith
-         */
-        assignWith<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assignWith
-         */
-        assignWith<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): Object<T & TSource>;
         /**
          * @see _.assignWith
          */
-        assignWith(): LoDashImplicitWrapper<TValue>;
-
+        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
         /**
          * @see _.assignWith
          */
-        assignWith<TResult>(...otherArgs: any[]): LoDashImplicitWrapper<TResult>;
+        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        /**
+         * @see _.assignWith
+         */
+        assignWith(): Object<T>;
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TResult>(...otherArgs: any[]): Object<TResult>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.assignWith
          */
-        assignWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource>;
-
-        /**
-         * @see assignWith
-         */
-        assignWith<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
-
-        /**
-         * @see assignWith
-         */
-        assignWith<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
-        /**
-         * @see assignWith
-         */
-        assignWith<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): ObjectChain<T & TSource>;
         /**
          * @see _.assignWith
          */
-        assignWith(): LoDashExplicitWrapper<TValue>;
-
+        assignWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.assignWith
          */
-        assignWith(...otherArgs: any[]): LoDashExplicitWrapper<any>;
+        assignWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
+        /**
+         * @see _.assignWith
+         */
+        assignWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        /**
+         * @see _.assignWith
+         */
+        assignWith(): ObjectChain<T>;
+        /**
+         * @see _.assignWith
+         */
+        assignWith(...otherArgs: any[]): ObjectChain<any>;
     }
-
-    // at
-
     interface LoDashStatic {
         /**
          * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
@@ -717,58 +414,36 @@ declare module "../index" {
          * @param props The property names or indexes of elements to pick, specified individually or in arrays.
          * @return Returns the new array of picked elements.
          */
-        at<T>(
-            object: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            ...props: PropertyPath[]
-        ): T[];
-
+        at<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
         /**
          * @see _.at
          */
-        at<T extends object>(
-            object: T | null | undefined,
-            ...props: Array<Many<keyof T>>
-        ): Array<T[keyof T]>;
+        at<T extends object>(object: T | null | undefined, ...props: Array<Many<keyof T>>): Array<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.at
          */
-        at<T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            ...props: PropertyPath[]
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.at
-         */
-        at<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            ...props: Array<Many<keyof T>>
-        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        at(...props: Array<Many<keyof T>>): Collection<T[keyof T]>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.at
          */
-        at<T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            ...props: PropertyPath[]
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.at
-         */
-        at<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            ...props: Array<Many<keyof T>>
-        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        at(...props: PropertyPath[]): Collection<T>;
     }
-
-    // create
-
+    interface ObjectChain<T> {
+        /**
+         * @see _.at
+         */
+        at(...props: Array<Many<keyof T>>): CollectionChain<T[keyof T]>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.at
+         */
+        at(...props: PropertyPath[]): CollectionChain<T>;
+    }
     interface LoDashStatic {
         /**
          * Creates an object that inherits from the given prototype object. If a properties object is provided its own
@@ -778,28 +453,20 @@ declare module "../index" {
          * @param properties The properties to assign to the object.
          * @return Returns the new object.
          */
-        create<T extends object, U extends object>(
-            prototype: T,
-            properties?: U
-        ): T & U;
+        create<T extends object, U extends object>(prototype: T, properties?: U): T & U;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.create
          */
-        create<U extends object>(properties?: U): LoDashImplicitWrapper<TValue & U>;
+        create<U extends object>(properties?: U): Object<T & U>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.create
          */
-        create<U extends object>(properties?: U): LoDashExplicitWrapper<TValue & U>;
+        create<U extends object>(properties?: U): ObjectChain<T & U>;
     }
-
-    // defaults
-
     interface LoDashStatic {
         /**
          * Assigns own enumerable properties of source object(s) to the destination object for all destination
@@ -812,559 +479,325 @@ declare module "../index" {
          * @param sources The source objects.
          * @return The destination object.
          */
-        defaults<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): NonNullable<TSource & TObject>;
-
+        defaults<TObject, TSource>(object: TObject, source: TSource): NonNullable<TSource & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2
-        ): NonNullable<TSource2 & TSource1 & TObject>;
-
+        defaults<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): NonNullable<TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
-
+        defaults<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
-        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
-
+        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
         /**
          * @see _.defaults
          */
         defaults<TObject>(object: TObject): NonNullable<TObject>;
-
         /**
          * @see _.defaults
          */
-        defaults(
-            object: any,
-            ...sources: any[]
-        ): any;
+        defaults(object: any, ...sources: any[]): any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.defaults
          */
-        defaults<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<NonNullable<TSource & TValue>>;
-
+        defaults<TSource>(source: TSource): Object<NonNullable<TSource & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashImplicitWrapper<NonNullable<TSource2 & TSource1 & TValue>>;
-
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<NonNullable<TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashImplicitWrapper<NonNullable<TSource3 & TSource2 & TSource1 & TValue>>;
-
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashImplicitWrapper<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TValue>>;
-
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults(): LoDashImplicitWrapper<NonNullable<TValue>>;
-
+        defaults(): Object<NonNullable<T>>;
         /**
          * @see _.defaults
          */
-        defaults(...sources: any[]): LoDashImplicitWrapper<any>;
+        defaults(...sources: any[]): Object<any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.defaults
          */
-        defaults<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<NonNullable<TSource & TValue>>;
-
+        defaults<TSource>(source: TSource): ObjectChain<NonNullable<TSource & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashExplicitWrapper<NonNullable<TSource2 & TSource1 & TValue>>;
-
+        defaults<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<NonNullable<TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashExplicitWrapper<NonNullable<TSource3 & TSource2 & TSource1 & TValue>>;
-
+        defaults<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<NonNullable<TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashExplicitWrapper<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TValue>>;
-
+        defaults<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & T>>;
         /**
          * @see _.defaults
          */
-        defaults(): LoDashExplicitWrapper<NonNullable<TValue>>;
-
+        defaults(): ObjectChain<NonNullable<T>>;
         /**
          * @see _.defaults
          */
-        defaults(...sources: any[]): LoDashExplicitWrapper<any>;
+        defaults(...sources: any[]): ObjectChain<any>;
     }
-
-    // defaultsDeep
-
     interface LoDashStatic {
         /**
          * This method is like _.defaults except that it recursively assigns default properties.
          * @param object The destination object.
          * @param sources The source objects.
          * @return Returns object.
-         **/
-        defaultsDeep(
-            object: any,
-            ...sources: any[]): any;
+         */
+        defaultsDeep(object: any, ...sources: any[]): any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.defaultsDeep
-         **/
-        defaultsDeep(...sources: any[]): LoDashImplicitWrapper<any>;
+         */
+        defaultsDeep(...sources: any[]): Object<any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.defaultsDeep
-         **/
-        defaultsDeep(...sources: any[]): LoDashExplicitWrapper<any>;
+         */
+        defaultsDeep(...sources: any[]): ObjectChain<any>;
     }
-
-    // entries
-
     interface LoDashStatic {
         /**
          * @see _.toPairs
          */
         entries<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
-
         /**
-         * @see _.toPairs
+         * @see _.entries
          */
         entries(object?: object): Array<[string, any]>;
     }
-
+    interface Object<T> {
+        /**
+         * @see _.entries
+         */
+        entries(): Collection<[string, T[keyof T]]>;
+    }
     interface LoDashImplicitWrapper<TValue> {
         /**
-         * @see _.toPairs
+         * @see _.entries
          */
-        entries<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashImplicitWrapper<Array<[string, T]>>;
-
-        /**
-         * @see _.toPairs
-         */
-        entries(): LoDashImplicitWrapper<Array<[string, any]>>;
+        entries(): Collection<[string, any]>;
     }
-
+    interface ObjectChain<T> {
+        /**
+         * @see _.entries
+         */
+        entries(): CollectionChain<[string, T[keyof T]]>;
+    }
     interface LoDashExplicitWrapper<TValue> {
         /**
-         * @see _.toPairs
+         * @see _.entries
          */
-        entries<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashExplicitWrapper<Array<[string, T]>>;
-
-        /**
-         * @see _.toPairs
-         */
-        entries(): LoDashExplicitWrapper<Array<[string, any]>>;
+        entries(): CollectionChain<[string, any]>;
     }
-
-    // entriesIn
-
     interface LoDashStatic {
         /**
          * @see _.entriesIn
          */
         entriesIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
-
         /**
          * @see _.entriesIn
          */
         entriesIn(object?: object): Array<[string, any]>;
     }
-
+    interface Object<T> {
+        /**
+         * @see _.entriesIn
+         */
+        entriesIn(): Collection<[string, T[keyof T]]>;
+    }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.entriesIn
          */
-        entriesIn<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashImplicitWrapper<Array<[string, T]>>;
-
+        entriesIn(): Collection<[string, any]>;
+    }
+    interface ObjectChain<T> {
         /**
          * @see _.entriesIn
          */
-        entriesIn(): LoDashImplicitWrapper<Array<[string, any]>>;
+        entriesIn(): CollectionChain<[string, T[keyof T]]>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.entriesIn
          */
-        entriesIn<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashExplicitWrapper<Array<[string, T]>>;
-
-        /**
-         * @see _.entriesIn
-         */
-        entriesIn(): LoDashExplicitWrapper<Array<[string, any]>>;
+        entriesIn(): CollectionChain<[string, any]>;
     }
-
-    // extend
-
     interface LoDashStatic {
         /**
          * @see _.extend
          */
-        extend<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
-
+        extend<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         /**
          * @see _.extend
          */
-        extend<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2
-        ): TObject & TSource1 & TSource2;
-
+        extend<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
         /**
          * @see _.extend
          */
-        extend<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): TObject & TSource1 & TSource2 & TSource3;
-
+        extend<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.extend
          */
-        extend<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
+        extend<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.extend
          */
         extend<TObject>(object: TObject): TObject;
-
         /**
          * @see _.extend
          */
-        extend<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        extend<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.extend
          */
-        extend<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
+        extend<TSource>(source: TSource): Object<T & TSource>;
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
+        extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<T & TSource1 & TSource2>;
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
+        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.extend
          */
-        extend(): LoDashImplicitWrapper<TValue>;
-
+        extend(): Object<T>;
         /**
          * @see _.extend
          */
-        extend(...otherArgs: any[]): LoDashImplicitWrapper<any>;
+        extend(...otherArgs: any[]): Object<any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.extend
          */
-        extend<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TValue & TSource>;
-
+        extend<TSource>(source: TSource): ObjectChain<T & TSource>;
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
-
+        extend<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
+        extend<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.extend
          */
-        extend<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        extend<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.extend
          */
-        extend(): LoDashExplicitWrapper<TValue>;
-
+        extend(): ObjectChain<T>;
         /**
          * @see _.extend
          */
-        extend(...otherArgs: any[]): LoDashExplicitWrapper<any>;
+        extend(...otherArgs: any[]): ObjectChain<any>;
     }
-
-    // extendWith
-
     interface LoDashStatic {
         /**
          * @see _.extendWith
          */
-        extendWith<TObject, TSource>(
-            object: TObject,
-            source: TSource,
-            customizer: AssignCustomizer
-        ): TObject & TSource;
-
+        extendWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
         /**
          * @see _.extendWith
          */
-        extendWith<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2;
-
+        extendWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: AssignCustomizer): TObject & TSource1 & TSource2;
         /**
          * @see _.extendWith
          */
-        extendWith<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2 & TSource3;
-
+        extendWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.extendWith
          */
-        extendWith<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
+        extendWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.extendWith
          */
         extendWith<TObject>(object: TObject): TObject;
-
         /**
          * @see _.extendWith
          */
-        extendWith<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        extendWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.extendWith
          */
-        extendWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
+        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): Object<T & TSource>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
+        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): Object<T & TSource1 & TSource2>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
+        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.extendWith
          */
-        extendWith(): LoDashImplicitWrapper<TValue>;
-
+        extendWith(): Object<T>;
         /**
          * @see _.extendWith
          */
-        extendWith(...otherArgs: any[]): LoDashImplicitWrapper<any>;
+        extendWith(...otherArgs: any[]): Object<any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.extendWith
          */
-        extendWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource>;
-
+        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): ObjectChain<T & TSource>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
-
+        extendWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
+        extendWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.extendWith
          */
-        extendWith<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        extendWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: AssignCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.extendWith
          */
-        extendWith(): LoDashExplicitWrapper<TValue>;
-
+        extendWith(): ObjectChain<T>;
         /**
          * @see _.extendWith
          */
-        extendWith(...otherArgs: any[]): LoDashExplicitWrapper<any>;
+        extendWith(...otherArgs: any[]): ObjectChain<any>;
     }
-
-    // findKey
-
     interface LoDashStatic {
         /**
          * This method is like _.find except that it returns the key of the first element predicate returns truthy for
@@ -1374,34 +807,20 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the key of the matched element, else undefined.
          */
-        findKey<T>(
-            object: T | null | undefined,
-            predicate?: ObjectIteratee<T>
-        ): string | undefined;
+        findKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.findKey
          */
-        findKey<T>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
-        ): string | undefined;
+        findKey(predicate?: ObjectIteratee<TValue>): string | undefined;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.findKey
          */
-        findKey<T>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
-        ): LoDashExplicitWrapper<string | undefined>;
+        findKey(predicate?: ObjectIteratee<TValue>): StringNullableChain;
     }
-
-    // findLastKey
-
     interface LoDashStatic {
         /**
          * This method is like _.findKey except that it iterates over elements of a collection in the opposite order.
@@ -1410,34 +829,20 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the key of the matched element, else undefined.
          */
-        findLastKey<T>(
-            object: T | null | undefined,
-            predicate?: ObjectIteratee<T>
-        ): string | undefined;
+        findLastKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.findLastKey
          */
-        findLastKey<T>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
-        ): string | undefined;
+        findLastKey(predicate?: ObjectIteratee<TValue>): string | undefined;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.findLastKey
          */
-        findLastKey<T>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ObjectIteratee<T>
-        ): LoDashExplicitWrapper<string | undefined>;
+        findLastKey(predicate?: ObjectIteratee<TValue>): StringNullableChain;
     }
-
-    // forIn
-
     interface LoDashStatic {
         /**
          * Iterates over own and inherited enumerable properties of an object invoking iteratee for each property. The
@@ -1448,32 +853,24 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns object.
          */
-        forIn<T>(
-            object: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
-
+        forIn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         /**
          * @see _.forIn
          */
-        forIn<T>(
-            object: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forIn<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-
-    interface LoDashWrapper<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.forIn
          */
-        forIn<T>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forIn(iteratee?: ObjectIterator<TValue, any>): this;
     }
-
-    // forInRight
-
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.forIn
+         */
+        forIn(iteratee?: ObjectIterator<TValue, any>): this;
+    }
     interface LoDashStatic {
         /**
          * This method is like _.forIn except that it iterates over properties of object in the opposite order.
@@ -1482,32 +879,24 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns object.
          */
-        forInRight<T>(
-            object: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
-
+        forInRight<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         /**
          * @see _.forInRight
          */
-        forInRight<T>(
-            object: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forInRight<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-
-    interface LoDashWrapper<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.forInRight
          */
-        forInRight<T>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forInRight(iteratee?: ObjectIterator<TValue, any>): this;
     }
-
-    // forOwn
-
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.forInRight
+         */
+        forInRight(iteratee?: ObjectIterator<TValue, any>): this;
+    }
     interface LoDashStatic {
         /**
          * Iterates over own enumerable properties of an object invoking iteratee for each property. The iteratee is
@@ -1518,32 +907,24 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns object.
          */
-        forOwn<T>(
-            object: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
-
+        forOwn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         /**
          * @see _.forOwn
          */
-        forOwn<T>(
-            object: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forOwn<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-
-    interface LoDashWrapper<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.forOwn
          */
-        forOwn<T>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forOwn(iteratee?: ObjectIterator<TValue, any>): this;
     }
-
-    // forOwnRight
-
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.forOwn
+         */
+        forOwn(iteratee?: ObjectIterator<TValue, any>): this;
+    }
     interface LoDashStatic {
         /**
          * This method is like _.forOwn except that it iterates over properties of object in the opposite order.
@@ -1552,32 +933,24 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns object.
          */
-        forOwnRight<T>(
-            object: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
-
+        forOwnRight<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
         /**
          * @see _.forOwnRight
          */
-        forOwnRight<T>(
-            object: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forOwnRight<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
-
-    interface LoDashWrapper<TValue> {
+    interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.forOwnRight
          */
-        forOwnRight<T>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forOwnRight(iteratee?: ObjectIterator<TValue, any>): this;
     }
-
-    // functions
-
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.forOwnRight
+         */
+        forOwnRight(iteratee?: ObjectIterator<TValue, any>): this;
+    }
     interface LoDashStatic {
         /**
          * Creates an array of function property names from own enumerable properties
@@ -1600,23 +973,18 @@ declare module "../index" {
          */
         functions(object: any): string[];
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.functions
          */
-        functions(): LoDashImplicitWrapper<string[]>;
+        functions(): Collection<string>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.functions
          */
-        functions(): LoDashExplicitWrapper<string[]>;
+        functions(): CollectionChain<string>;
     }
-
-    // functionsIn
-
     interface LoDashStatic {
         /**
          * Creates an array of function property names from own and inherited
@@ -1639,23 +1007,18 @@ declare module "../index" {
          */
         functionsIn<T extends {}>(object: any): string[];
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.functionsIn
          */
-        functionsIn(): LoDashImplicitWrapper<string[]>;
+        functionsIn(): Collection<string>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.functionsIn
          */
-        functionsIn(): LoDashExplicitWrapper<string[]>;
+        functionsIn(): CollectionChain<string>;
     }
-
-    // get
-
     interface LoDashStatic {
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
@@ -1666,438 +1029,218 @@ declare module "../index" {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        get<TObject extends object, TKey extends keyof TObject>(
-            object: TObject,
-            path: TKey | [TKey]
-        ): TObject[TKey];
-
+        get<TObject extends object, TKey extends keyof TObject>(object: TObject, path: TKey | [TKey]): TObject[TKey];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject>(
-            object: TObject | null | undefined,
-            path: TKey | [TKey]
-        ): TObject[TKey] | undefined;
-
+        get<TObject extends object, TKey extends keyof TObject>(object: TObject | null | undefined, path: TKey | [TKey]): TObject[TKey] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(
-            object: TObject | null | undefined,
-            path: TKey | [TKey],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey], undefined> | TDefault;
-
-          /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(
-            object: TObject | null | undefined,
-            path: [TKey1, TKey2]
-        ): TObject[TKey1][TKey2] | undefined;
-
+        get<TObject extends object, TKey extends keyof TObject, TDefault>(object: TObject | null | undefined, path: TKey | [TKey], defaultValue: TDefault): Exclude<TObject[TKey], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(
-            object: TObject | null | undefined,
-            path: [TKey1, TKey2],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject, path: [TKey1, TKey2]): TObject[TKey1][TKey2];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(
-            object: TObject | null | undefined,
-            path: [TKey1, TKey2, TKey3]
-        ): TObject[TKey1][TKey2][TKey3] | undefined;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject | null | undefined, path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(
-            object: TObject | null | undefined,
-            path: [TKey1, TKey2, TKey3],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(
-            object: TObject | null | undefined,
-            path: [TKey1, TKey2, TKey3, TKey4]
-        ): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
-            object: TObject | null | undefined,
-            path: [TKey1, TKey2, TKey3, TKey4],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
         /**
          * @see _.get
          */
-        get<T>(
-            object: NumericDictionary<T>,
-            path: number
-        ): T;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<T>(
-            object: NumericDictionary<T> | null | undefined,
-            path: number
-        ): T | undefined;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4];
         /**
          * @see _.get
          */
-        get<T, TDefault>(
-            object: NumericDictionary<T> | null | undefined,
-            path: number,
-            defaultValue: TDefault
-        ): T | TDefault;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
         /**
          * @see _.get
          */
-        get<TDefault>(
-            object: null | undefined,
-            path: PropertyPath,
-            defaultValue: TDefault
-        ): TDefault;
-
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get(
-            object: null | undefined,
-            path: PropertyPath
-        ): undefined;
-
+        get<T>(object: NumericDictionary<T>, path: number): T;
         /**
          * @see _.get
          */
-        get(
-            object: any,
-            path: PropertyPath,
-            defaultValue?: any
-        ): any;
+        get<T>(object: NumericDictionary<T> | null | undefined, path: number): T | undefined;
+        /**
+         * @see _.get
+         */
+        get<T, TDefault>(object: NumericDictionary<T> | null | undefined, path: number, defaultValue: TDefault): T | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TDefault>(object: null | undefined, path: PropertyPath, defaultValue: TDefault): TDefault;
+        /**
+         * @see _.get
+         */
+        get(object: null | undefined, path: PropertyPath): undefined;
+        /**
+         * @see _.get
+         */
+        get(object: any, path: PropertyPath, defaultValue?: any): any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.get
          */
-        get<TKey extends keyof TValue>(
-            path: TKey | [TKey]
-        ): TValue[TKey];
-
+        get(path: number | number[]): string;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
-        ): TObject[TKey] | undefined;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey], undefined> | TDefault;
-
-        /**
-         * @see _.get
-         */
-        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1]>(
-            path: [TKey1, TKey2]
-        ): TValue[TKey1][TKey2];
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2],
-        ): TObject[TKey1][TKey2] | undefined;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
-
-        /**
-         * @see _.get
-         */
-        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1], TKey3 extends keyof TValue[TKey1][TKey2], TKey4 extends keyof TValue[TKey1][TKey2][TKey3]>(
-            path: [TKey1, TKey2, TKey3, TKey4]
-        ): TValue[TKey1][TKey2][TKey3][TKey4];
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3, TKey4],
-        ): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3, TKey4],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3, TKey4],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
-
-        /**
-         * @see _.get
-         */
-        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1], TKey3 extends keyof TValue[TKey1][TKey2], TKey4 extends keyof TValue[TKey1][TKey2][TKey3]>(
-            path: [TKey1, TKey2, TKey3, TKey4]
-        ): TValue[TKey1][TKey2][TKey3][TKey4];
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3, TKey4],
-        ): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3, TKey4],
-            defaultValue: TDefault
-        ): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
-
-        /**
-         * @see _.get
-         */
-        get<T>(
-            this: LoDashImplicitWrapper<NumericDictionary<T>>,
-            path: number
-        ): T;
-
-        /**
-         * @see _.get
-         */
-        get<T>(
-            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            path: number
-        ): T | undefined;
-
-        /**
-         * @see _.get
-         */
-        get<T, TDefault>(
-            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            path: number,
-            defaultValue: TDefault
-        ): T | TDefault;
-
-        /**
-         * @see _.get
-         */
-        get<TDefault>(
-            this: LoDashImplicitWrapper<null | undefined>,
-            path: PropertyPath,
-            defaultValue: TDefault
-        ): TDefault;
-
-        /**
-         * @see _.get
-         */
-        get(
-            this: LoDashImplicitWrapper<null | undefined>,
-            path: PropertyPath
-        ): undefined;
-
-        /**
-         * @see _.get
-         */
-        get<TResult>(
-            path: PropertyPath,
-            defaultValue?: any
-        ): any;
+        get(path: number | number[], defaultValue: string): string;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.get
          */
-        get<TKey extends keyof TValue>(
-            path: TKey | [TKey]
-        ): LoDashExplicitWrapper<TValue[TKey]>;
-
+        get<TKey extends keyof T>(path: TKey | [TKey]): T[TKey];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
-        ): LoDashExplicitWrapper<TObject[TKey] | undefined>;
-
+        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): Exclude<T[TKey], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
-            defaultValue: TDefault
-        ): LoDashExplicitWrapper<Exclude<TObject[TKey], undefined> | TDefault>;
-
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2]): T[TKey1][TKey2];
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1]>(
-            path: [TKey1, TKey2]
-        ): LoDashExplicitWrapper<TValue[TKey1][TKey2]>;
-
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(path: [TKey1, TKey2], defaultValue: TDefault): Exclude<T[TKey1][TKey2], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2],
-        ): LoDashExplicitWrapper<TObject[TKey1][TKey2] | undefined>;
-
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): T[TKey1][TKey2][TKey3];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2],
-            defaultValue: TDefault
-        ): LoDashExplicitWrapper<Exclude<TObject[TKey1][TKey2], undefined> | TDefault>;
-
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1], TKey3 extends keyof TValue[TKey1][TKey2]>(
-            path: [TKey1, TKey2, TKey3]
-        ): LoDashExplicitWrapper<TValue[TKey1][TKey2][TKey3]>;
-
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): T[TKey1][TKey2][TKey3][TKey4];
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3],
-        ): LoDashExplicitWrapper<TObject[TKey1][TKey2][TKey3] | undefined>;
-
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3],
-            defaultValue: TDefault
-        ): LoDashExplicitWrapper<Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault>;
-
-         /**
-         * @see _.get
-         */
-        get<TKey1 extends keyof TValue, TKey2 extends keyof TValue[TKey1], TKey3 extends keyof TValue[TKey1][TKey2], TKey4 extends keyof TValue[TKey1][TKey2][TKey3]>(
-            path: [TKey1, TKey2, TKey3, TKey4]
-        ): LoDashExplicitWrapper<TValue[TKey1][TKey2][TKey3][TKey4]>;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3, TKey4],
-        ): LoDashExplicitWrapper<TObject[TKey1][TKey2][TKey3][TKey4] | undefined>;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: [TKey1, TKey2, TKey3, TKey4],
-            defaultValue: TDefault
-        ): LoDashExplicitWrapper<Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault>;
-
-        /**
-         * @see _.get
-         */
-        get<T>(
-            this: LoDashExplicitWrapper<NumericDictionary<T>>,
-            path: number
-        ): LoDashExplicitWrapper<T>;
-
-        /**
-         * @see _.get
-         */
-        get<T>(
-            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            path: number
-        ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-         * @see _.get
-         */
-        get<T, TDefault>(
-            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            path: number,
-            defaultValue: TDefault
-        ): LoDashExplicitWrapper<T | undefined>;
-
-        /**
-         * @see _.get
-         */
-        get<TDefault>(
-            this: LoDashExplicitWrapper<null | undefined>,
-            path: PropertyPath,
-            defaultValue: TDefault
-        ): LoDashExplicitWrapper<TDefault>;
-
-        /**
-         * @see _.get
-         */
-        get(
-            this: LoDashExplicitWrapper<null | undefined>,
-            path: PropertyPath
-        ): LoDashExplicitWrapper<undefined>;
-
-        /**
-         * @see _.get
-         */
-        get(
-            path: PropertyPath,
-            defaultValue?: any
-        ): LoDashExplicitWrapper<any>;
+        get(path: PropertyPath, defaultValue?: any): any;
     }
-
-    // has
-
+    interface Collection<T> {
+        /**
+         * @see _.get
+         */
+        get(path: number): T;
+        /**
+         * @see _.get
+         */
+        get<TDefault>(path: number, defaultValue: TDefault): T | TDefault;
+    }
+    interface StringChain {
+        /**
+         * @see _.get
+         */
+        get(path: number | number[]): StringChain;
+        /**
+         * @see _.get
+         */
+        get(path: number | number[], defaultValue: string): StringChain;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.get
+         */
+        get(path: number | number[]): StringNullableChain;
+        /**
+         * @see _.get
+         */
+        get(path: number | number[], defaultValue: string): StringChain;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.get
+         */
+        get<TKey extends keyof T>(path: TKey | [TKey]): ExpChain<T[TKey]>;
+        /**
+         * @see _.get
+         */
+        get<TKey extends keyof T>(path: TKey | [TKey], defaultValue: never[]): T[TKey] extends any[] ? ExpChain<Exclude<T[TKey], undefined>> : ExpChain<Exclude<T[TKey], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2]): ExpChain<T[TKey1][TKey2]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1]>(path: [TKey1, TKey2], defaultValue: never[]): T[TKey1][TKey2] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2], undefined>> : ExpChain<Exclude<T[TKey1][TKey2], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TDefault>(path: [TKey1, TKey2], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3]): ExpChain<T[TKey1][TKey2][TKey3]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2]>(path: [TKey1, TKey2, TKey3], defaultValue: never[]): T[TKey1][TKey2][TKey3] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined>> : ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TDefault>(path: [TKey1, TKey2, TKey3], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4]): ExpChain<T[TKey1][TKey2][TKey3][TKey4]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3]>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: never[]): T[TKey1][TKey2][TKey3][TKey4] extends any[] ? ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined>> : ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
+        get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get(path: PropertyPath, defaultValue?: any): LoDashExplicitWrapper<any>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.get
+         */
+        get(path: number): ExpChain<T>;
+        /**
+         * @see _.get
+         */
+        get<TDefault>(path: number, defaultValue: TDefault): ExpChain<T | TDefault>;
+    }
     interface LoDashStatic {
         /**
          * Checks if `path` is a direct property of `object`.
@@ -2123,28 +1266,20 @@ declare module "../index" {
          * _.has(other, 'a');
          * // => false
          */
-        has<T>(
-            object: T,
-            path: PropertyPath
-        ): boolean;
+        has<T>(object: T, path: PropertyPath): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.has
          */
         has(path: PropertyPath): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.has
          */
-        has(path: PropertyPath): LoDashExplicitWrapper<boolean>;
+        has(path: PropertyPath): PrimitiveChain<boolean>;
     }
-
-    // hasIn
-
     interface LoDashStatic {
         /**
          * Checks if `path` is a direct or inherited property of `object`.
@@ -2169,28 +1304,20 @@ declare module "../index" {
          * _.hasIn(object, 'b');
          * // => false
          */
-        hasIn<T>(
-            object: T,
-            path: PropertyPath
-        ): boolean;
+        hasIn<T>(object: T, path: PropertyPath): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.hasIn
          */
         hasIn(path: PropertyPath): boolean;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.hasIn
          */
-        hasIn(path: PropertyPath): LoDashExplicitWrapper<boolean>;
+        hasIn(path: PropertyPath): PrimitiveChain<boolean>;
     }
-
-    // invert
-
     interface LoDashStatic {
         /**
          * Creates an object composed of the inverted keys and values of object. If object contains duplicate values,
@@ -2200,27 +1327,20 @@ declare module "../index" {
          * @param multiValue Allow multiple values per key.
          * @return Returns the new inverted object.
          */
-        invert(
-            object: object
-        ): Dictionary<string>;
+        invert(object: object): Dictionary<string>;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.invert
          */
-        invert(): LoDashImplicitWrapper<Dictionary<string>>;
+        invert(): Object<Dictionary<string>>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.invert
          */
-        invert(): LoDashExplicitWrapper<Dictionary<string>>;
+        invert(): ObjectChain<Dictionary<string>>;
     }
-
-    // invertBy
-
     interface LoDashStatic {
         /**
          * This method is like _.invert except that the inverted object is generated from the results of running each
@@ -2231,91 +1351,75 @@ declare module "../index" {
          * @param interatee The iteratee invoked per element.
          * @return Returns the new inverted object.
          */
-        invertBy<T>(
-            object: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            interatee?: ValueIteratee<T>
-        ): Dictionary<string[]>;
-
+        invertBy<T>(object:  Dictionary<T> | NumericDictionary<T> | null | undefined, interatee?: ValueIteratee<T>): Dictionary<string[]>;
         /**
          * @see _.invertBy
          */
-        invertBy<T extends object>(
-            object: T | null | undefined,
-            interatee?: ValueIteratee<T[keyof T]>
-        ): Dictionary<string[]>;
+        invertBy<T extends object>(object: T | null | undefined, interatee?: ValueIteratee<T[keyof T]>): Dictionary<string[]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.invertBy
          */
-        invertBy<T>(
-            this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            interatee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<Dictionary<string[]>>;
-
-        /**
-         * @see _.invertBy
-         */
-        invertBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            interatee?: ValueIteratee<T[keyof T]>
-        ): LoDashImplicitWrapper<Dictionary<string[]>>;
+        invertBy(iteratee?: ValueIteratee<string>): Object<Dictionary<string[]>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.invertBy
          */
-        invertBy<T>(
-            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            interatee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<Dictionary<string[]>>;
-
-        /**
-         * @see _.invertBy
-         */
-        invertBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            interatee?: ValueIteratee<T[keyof T]>
-        ): LoDashExplicitWrapper<Dictionary<string[]>>;
+        invertBy(iteratee?: ValueIteratee<T>): Object<Dictionary<string[]>>;
     }
-
-    // invoke
-
+    interface Object<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(iteratee?: ValueIteratee<T[keyof T]>): Object<Dictionary<string[]>>;
+    }
+    interface StringChain {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<string[]>>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(iteratee?: ValueIteratee<T[keyof T]>): ObjectChain<Dictionary<string[]>>;
+    }
     interface LoDashStatic {
         /**
         * Invokes the method at path of object.
         * @param object The object to query.
         * @param path The path of the method to invoke.
         * @param args The arguments to invoke the method with.
-        **/
-        invoke(
-            object: any,
-            path: PropertyPath,
-            ...args: any[]): any;
+         */
+        invoke(object: any, path: PropertyPath, ...args: any[]): any;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
-        * @see _.invoke
-        **/
-        invoke(
-            path: PropertyPath,
-            ...args: any[]): any;
+         * @see _.invoke
+         */
+        invoke(path: PropertyPath, ...args: any[]): any;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
-        * @see _.invoke
-        **/
-        invoke(
-            path: PropertyPath,
-            ...args: any[]): LoDashExplicitWrapper<any>;
+         * @see _.invoke
+         */
+        invoke(path: PropertyPath, ...args: any[]): LoDashExplicitWrapper<any>;
     }
-
-    // keys
-
     interface LoDashStatic {
         /**
          * Creates an array of the own enumerable property names of object.
@@ -2327,23 +1431,18 @@ declare module "../index" {
          */
         keys(object?: any): string[];
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.keys
          */
-        keys(): LoDashImplicitWrapper<string[]>;
+        keys(): Collection<string>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.keys
          */
-        keys(): LoDashExplicitWrapper<string[]>;
+        keys(): CollectionChain<string>;
     }
-
-    // keysIn
-
     interface LoDashStatic {
         /**
          * Creates an array of the own and inherited enumerable property names of object.
@@ -2355,23 +1454,18 @@ declare module "../index" {
          */
         keysIn(object?: any): string[];
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.keysIn
          */
-        keysIn(): LoDashImplicitWrapper<string[]>;
+        keysIn(): Collection<string>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.keysIn
          */
-        keysIn(): LoDashExplicitWrapper<string[]>;
+        keysIn(): CollectionChain<string>;
     }
-
-    // mapKeys
-
     interface LoDashStatic {
         /**
          * The opposite of _.mapValues; this method creates an object with the same values as object and keys generated
@@ -2381,58 +1475,36 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the new mapped object.
          */
-        mapKeys<T>(
-            object: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
-        ): Dictionary<T>;
-
+        mapKeys<T>(object: List<T> | null | undefined, iteratee?: ListIteratee<T>): Dictionary<T>;
         /**
          * @see _.mapKeys
          */
-        mapKeys<T extends object>(
-            object: T | null | undefined,
-            iteratee?: ObjectIteratee<T>
-        ): Dictionary<T[keyof T]>;
+        mapKeys<T extends object>(object: T | null | undefined, iteratee?: ObjectIteratee<T>): Dictionary<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.mapKeys
          */
-        mapKeys<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
-        ): LoDashImplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.mapKeys
-         */
-        mapKeys<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
-        ): LoDashImplicitWrapper<Dictionary<T[keyof T]>>;
+        mapKeys(iteratee?: ListIteratee<T>): Object<Dictionary<T>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.mapKeys
          */
-        mapKeys<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
-        ): LoDashExplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.mapKeys
-         */
-        mapKeys<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
-        ): LoDashExplicitWrapper<Dictionary<T[keyof T]>>;
+        mapKeys(iteratee?: ObjectIteratee<T>): Object<Dictionary<T[keyof T]>>;
     }
-
-    // mapValues
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys(iteratee?: ListIteratee<T>): ObjectChain<Dictionary<T>>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.mapKeys
+         */
+        mapKeys(iteratee?: ObjectIteratee<T>): ObjectChain<Dictionary<T[keyof T]>>;
+    }
     interface LoDashStatic {
         /**
         * Creates an object with the same keys as object and values generated by running each own
@@ -2442,269 +1514,175 @@ declare module "../index" {
         * @param object The object to iterate over.
         * @param iteratee  The function invoked per iteration.
         * @return Returns the new mapped object.
-        */
-        mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: DictionaryIterator<T, TResult>): Dictionary<TResult>;
-
+        mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
         /**
          * @see _.mapValues
          */
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
-
         /**
          * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
         mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: object): Dictionary<boolean>;
-
         /**
          * @see _.mapValues
          */
         mapValues<T extends object>(obj: T | null | undefined, iteratee: object): { [P in keyof T]: boolean };
-
         /**
          * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
         mapValues<T, TKey extends keyof T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: TKey): Dictionary<T[TKey]>;
-
         /**
          * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
         mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: string): Dictionary<any>;
-
         /**
          * @see _.mapValues
          */
         mapValues<T extends object>(obj: T | null | undefined, iteratee: string): { [P in keyof T]: any };
-
         /**
          * @see _.mapValues
          */
         mapValues(obj: string | null | undefined): NumericDictionary<string>;
-
         /**
          * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
         mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined): Dictionary<T>;
-
         /**
          * @see _.mapValues
          */
         mapValues<T extends object>(obj: T): T;
-
         /**
          * @see _.mapValues
          */
         mapValues<T extends object>(obj: T | null | undefined): PartialObject<T>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            callback: StringIterator<TResult>
-        ): LoDashImplicitWrapper<NumericDictionary<TResult>>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T, TResult>(
-            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            callback: DictionaryIterator<T, TResult>
-        ): LoDashImplicitWrapper<Dictionary<TResult>>;
-
+        mapValues<TResult>(callback: StringIterator<TResult>): Object<NumericDictionary<TResult>>;
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object, TResult>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: ObjectIterator<T, TResult>
-        ): LoDashImplicitWrapper<{ [P in keyof T]: TResult }>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T>(
-            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee: object
-        ): LoDashImplicitWrapper<Dictionary<boolean>>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee: object
-        ): LoDashImplicitWrapper<{ [P in keyof T]: boolean }>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T, TKey extends keyof T>(
-            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee: TKey
-        ): LoDashImplicitWrapper<Dictionary<T[TKey]>>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T>(
-            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee: string
-        ): LoDashImplicitWrapper<Dictionary<any>>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee: string
-        ): LoDashImplicitWrapper<{ [P in keyof T]: any }>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues(this: LoDashImplicitWrapper<string | null | undefined>): LoDashImplicitWrapper<NumericDictionary<string>>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>): LoDashImplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T extends object>(this: LoDashImplicitWrapper<T>): LoDashImplicitWrapper<T>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<PartialObject<T>>;
+        mapValues(): Object<NumericDictionary<string>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            callback: StringIterator<TResult>
-        ): LoDashExplicitWrapper<NumericDictionary<TResult>>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T, TResult>(
-            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            callback: DictionaryIterator<T, TResult>
-        ): LoDashExplicitWrapper<Dictionary<TResult>>;
-
+        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Object<Dictionary<TResult>>;
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object, TResult>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: ObjectIterator<T, TResult>
-        ): LoDashExplicitWrapper<{ [P in keyof T]: TResult }>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T>(
-            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee: object
-        ): LoDashExplicitWrapper<Dictionary<boolean>>;
-
+        mapValues<TKey extends keyof T>(iteratee: TKey): Object<Dictionary<T[TKey]>>;
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee: object
-        ): LoDashExplicitWrapper<{ [P in keyof T]: boolean }>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T, TKey extends keyof T>(
-            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee: TKey
-        ): LoDashExplicitWrapper<Dictionary<T[TKey]>>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T>(
-            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>,
-            iteratee: string
-        ): LoDashExplicitWrapper<Dictionary<any>>;
-
+        mapValues(iteratee: object): Object<Dictionary<boolean>>;
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee: string
-        ): LoDashExplicitWrapper<{ [P in keyof T]: any }>;
-
+        mapValues(iteratee: string): Object<Dictionary<any>>;
         /**
          * @see _.mapValues
          */
-        mapValues(this: LoDashExplicitWrapper<string | null | undefined>): LoDashExplicitWrapper<NumericDictionary<string>>;
-
-        /**
-         * @see _.mapValues
-         * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
-         *       but TypeScript cannot select overload signatures based on number vs string index key type.
-         */
-        mapValues<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>): LoDashExplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T extends object>(this: LoDashExplicitWrapper<T>): LoDashExplicitWrapper<T>;
-
-        /**
-         * @see _.mapValues
-         */
-        mapValues<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<PartialObject<T>>;
+        mapValues(): Object<Dictionary<T>>;
     }
-
-    // merge
-
+    interface Object<T> {
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TResult>(callback: ObjectIterator<T, TResult>): Object<{ [P in keyof T]: TResult }>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TResult>(callback: DictionaryIterator<T[keyof T], TResult>): Object<Dictionary<TResult>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(iteratee: object): Object<{ [P in keyof T]: boolean }>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TKey extends keyof T[keyof T]>(iteratee: TKey): Object<Dictionary<T[keyof T][TKey]>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(iteratee: string): Object<{ [P in keyof T]: any }>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(): Object<T>;
+    }
+    interface StringChain {
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TResult>(callback: StringIterator<TResult>): ObjectChain<NumericDictionary<TResult>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(): ObjectChain<NumericDictionary<string>>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TResult>(callback: StringIterator<TResult>): ObjectChain<NumericDictionary<TResult>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(): ObjectChain<NumericDictionary<string>>;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ObjectChain<Dictionary<TResult>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TKey extends keyof T>(iteratee: TKey): ObjectChain<Dictionary<T[TKey]>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(iteratee: object): ObjectChain<Dictionary<boolean>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(iteratee: string): ObjectChain<Dictionary<any>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(): ObjectChain<Dictionary<T>>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TResult>(callback: ObjectIterator<T, TResult>): ObjectChain<{ [P in keyof T]: TResult }>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TResult>(callback: DictionaryIterator<T[keyof T], TResult>): ObjectChain<Dictionary<TResult>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(iteratee: object): ObjectChain<{ [P in keyof T]: boolean }>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues<TKey extends keyof T[keyof T]>(iteratee: TKey): ObjectChain<Dictionary<T[keyof T][TKey]>>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(iteratee: string): ObjectChain<{ [P in keyof T]: any }>;
+        /**
+         * @see _.mapValues
+         */
+        mapValues(): ObjectChain<T>;
+    }
     interface LoDashStatic {
         /**
          * Recursively merges own and inherited enumerable properties of source
@@ -2733,140 +1711,71 @@ declare module "../index" {
          * _.merge(users, ages);
          * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
          */
-        merge<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
-
+        merge<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2
-        ): TObject & TSource1 & TSource2;
-
+        merge<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2): TObject & TSource1 & TSource2;
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): TObject & TSource1 & TSource2 & TSource3;
-
+        merge<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.merge
          */
-        merge<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
+        merge<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.merge
          */
-        merge(
-            object: any,
-            ...otherArgs: any[]
-        ): any;
+        merge(object: any, ...otherArgs: any[]): any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.merge
          */
-        merge<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
+        merge<TSource>(source: TSource): Object<T & TSource>;
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
+        merge<TSource1, TSource2>(source1: TSource1, source2: TSource2): Object<T & TSource1 & TSource2>;
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
+        merge<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        merge<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.merge
          */
-        merge(
-            ...otherArgs: any[]
-        ): LoDashImplicitWrapper<any>;
+        merge(...otherArgs: any[]): Object<any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.merge
          */
-        merge<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TValue & TSource>;
-
+        merge<TSource>(source: TSource): ObjectChain<T & TSource>;
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
-
+        merge<TSource1, TSource2>(source1: TSource1, source2: TSource2): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
+        merge<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.merge
          */
-        merge<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        merge<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.merge
          */
-        merge(
-            ...otherArgs: any[]
-        ): LoDashExplicitWrapper<any>;
+        merge(...otherArgs: any[]): ObjectChain<any>;
     }
-
-    // mergeWith
-
     type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"];
-
+    // TODO: Probably should just put all these methods on Object and forget about it.
+    // oh, except for Collection<any> I GUESS
     interface LoDashStatic {
         /**
          * This method is like `_.merge` except that it accepts `customizer` which
@@ -2901,150 +1810,68 @@ declare module "../index" {
          * _.merge(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
-        mergeWith<TObject, TSource>(
-            object: TObject,
-            source: TSource,
-            customizer: MergeWithCustomizer
-        ): TObject & TSource;
-
+        mergeWith<TObject, TSource>(object: TObject, source: TSource, customizer: MergeWithCustomizer): TObject & TSource;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TObject, TSource1, TSource2>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            customizer: MergeWithCustomizer
-        ): TObject & TSource1 & TSource2;
-
+        mergeWith<TObject, TSource1, TSource2>(object: TObject, source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TObject, TSource1, TSource2, TSource3>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: MergeWithCustomizer
-        ): TObject & TSource1 & TSource2 & TSource3;
-
+        mergeWith<TObject, TSource1, TSource2, TSource3>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2 & TSource3;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TObject, TSource1, TSource2, TSource3, TSource4>(
-            object: TObject,
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: MergeWithCustomizer
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
-
+        mergeWith<TObject, TSource1, TSource2, TSource3, TSource4>(object: TObject, source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): TObject & TSource1 & TSource2 & TSource3 & TSource4;
         /**
          * @see _.mergeWith
          */
-        mergeWith(
-            object: any,
-            ...otherArgs: any[]
-        ): any;
+        mergeWith(object: any, ...otherArgs: any[]): any;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource>(
-            source: TSource,
-            customizer: MergeWithCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource>;
-
+        mergeWith<TSource>(source: TSource, customizer: MergeWithCustomizer): Object<T & TSource>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer: MergeWithCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2>;
-
+        mergeWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: MergeWithCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
+        mergeWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: MergeWithCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): Object<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.mergeWith
          */
-        mergeWith(
-            ...otherArgs: any[]
-        ): LoDashImplicitWrapper<any>;
+        mergeWith(...otherArgs: any[]): Object<any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource>(
-            source: TSource,
-            customizer: MergeWithCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource>;
-
+        mergeWith<TSource>(source: TSource, customizer: MergeWithCustomizer): ObjectChain<T & TSource>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2>(
-            source1: TSource1,
-            source2: TSource2,
-            customizer: MergeWithCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2>;
-
+        mergeWith<TSource1, TSource2>(source1: TSource1, source2: TSource2, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2, TSource3>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer: MergeWithCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3>;
-
+        mergeWith<TSource1, TSource2, TSource3>(source1: TSource1, source2: TSource2, source3: TSource3, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3>;
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource1, TSource2, TSource3, TSource4>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            source4: TSource4,
-            customizer: MergeWithCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource1 & TSource2 & TSource3 & TSource4>;
-
+        mergeWith<TSource1, TSource2, TSource3, TSource4>(source1: TSource1, source2: TSource2, source3: TSource3, source4: TSource4, customizer: MergeWithCustomizer): ObjectChain<T & TSource1 & TSource2 & TSource3 & TSource4>;
         /**
          * @see _.mergeWith
          */
-        mergeWith(
-            ...otherArgs: any[]
-        ): LoDashExplicitWrapper<any>;
+        mergeWith(...otherArgs: any[]): ObjectChain<any>;
     }
-
-    // omit
-
     interface LoDashStatic {
         /**
          * The opposite of `_.pick`; this method creates an object composed of the
@@ -3062,82 +1889,51 @@ declare module "../index" {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
-        omit<T extends AnyKindOfDictionary>(
+        omit<T extends object, K extends PropertyName[]>(
             object: T | null | undefined,
-            ...paths: Array<Many<PropertyName>>
-        ): T;
-
+            ...paths: K
+        ): Pick<T, Exclude<keyof T, K[number]>>;
         /**
          * @see _.omit
          */
-        omit<T extends object, K extends keyof T>(
-            object: T | null | undefined,
-            ...paths: Array<Many<K>>
-        ): Omit<T, K>;
-
+        omit<T extends object, K extends keyof T>(object: T | null | undefined, ...paths: Array<Many<K>>): Omit<T, K>;
         /**
          * @see _.omit
          */
-        omit<T extends object>(
-            object: T | null | undefined,
-            ...paths: Array<Many<PropertyName>>
-        ): PartialObject<T>;
+        omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): PartialObject<T>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.omit
          */
-        omit<T extends AnyKindOfDictionary>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            ...paths: Array<Many<PropertyName>>
-        ): LoDashImplicitWrapper<T>;
-
-        /**
-         * @see _.omit
-         */
-        omit<T extends object, K extends keyof T>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            ...paths: Array<Many<K>>
-        ): LoDashImplicitWrapper<Omit<T, K>>;
-
-        /**
-         * @see _.omit
-         */
-        omit<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            ...paths: Array<Many<PropertyName>>
-        ): LoDashImplicitWrapper<PartialObject<T>>;
+        omit(...paths: Array<Many<PropertyName>>): Collection<T>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.omit
          */
-        omit<T extends AnyKindOfDictionary>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            ...paths: Array<Many<PropertyName>>
-        ): LoDashExplicitWrapper<T>;
-
+        omit<K extends keyof T>(...paths: Array<Many<K>>): Object<Omit<T, K>>;
         /**
          * @see _.omit
          */
-        omit<T extends object, K extends keyof T>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            ...paths: Array<Many<K>>
-        ): LoDashExplicitWrapper<Omit<T, K>>;
-
-        /**
-         * @see _.omit
-         */
-        omit<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            ...paths: Array<Many<PropertyName>>
-        ): LoDashExplicitWrapper<PartialObject<T>>;
+        omit(...paths: Array<Many<PropertyName | IterateeShorthand<T>>>): Object<PartialObject<T>>;
     }
-
-    // omitBy
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.omit
+         */
+        omit(...paths: Array<Many<PropertyName>>): CollectionChain<T>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.omit
+         */
+        omit<K extends keyof T>(...paths: Array<Many<K>>): ObjectChain<Omit<T, K>>;
+        /**
+         * @see _.omit
+         */
+        omit(...paths: Array<Many<PropertyName>>): ObjectChain<PartialObject<T>>;
+    }
     interface LoDashStatic {
         /**
          * The opposite of `_.pickBy`; this method creates an object composed of the
@@ -3155,82 +1951,40 @@ declare module "../index" {
          * _.omitBy(object, _.isNumber);
          * // => { 'b': '2' }
          */
-        omitBy<T>(
-            object: Dictionary<T> | null | undefined,
-            predicate?: ValueKeyIteratee<T>
-        ): Dictionary<T>;
-
+        omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
         /**
          * @see _.omitBy
          */
-        omitBy<T>(
-            object: NumericDictionary<T> | null | undefined,
-            predicate?: ValueKeyIteratee<T>
-        ): NumericDictionary<T>;
-
+        omitBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
         /**
          * @see _.omitBy
          */
-        omitBy<T extends object>(
-            object: T | null | undefined,
-            predicate: ValueKeyIteratee<T[keyof T]>
-        ): PartialObject<T>;
+        omitBy<T extends object>(object: T | null | undefined, predicate: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.omitBy
          */
-        omitBy<T>(
-            this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
-            predicate?: ValueKeyIteratee<T>
-        ): LoDashImplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.omitBy
-         */
-        omitBy<T>(
-            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: ValueKeyIteratee<T>
-        ): LoDashImplicitWrapper<NumericDictionary<T>>;
-
-        /**
-         * @see _.omitBy
-         */
-        omitBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate: ValueKeyIteratee<T[keyof T]>
-        ): LoDashImplicitWrapper<PartialObject<T>>;
+        omitBy(predicate?: ValueKeyIteratee<T>): Object<Dictionary<T>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.omitBy
          */
-        omitBy<T>(
-            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
-            predicate?: ValueKeyIteratee<T>
-        ): LoDashExplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.omitBy
-         */
-        omitBy<T>(
-            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: ValueKeyIteratee<T>
-        ): LoDashExplicitWrapper<NumericDictionary<T>>;
-
-        /**
-         * @see _.omitBy
-         */
-        omitBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate: ValueKeyIteratee<T[keyof T]>
-        ): LoDashExplicitWrapper<PartialObject<T>>;
+        omitBy(predicate: ValueKeyIteratee<T[keyof T]>): Object<PartialObject<T>>;
     }
-
-    // pick
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.omitBy
+         */
+        omitBy(predicate?: ValueKeyIteratee<T>): ObjectChain<Dictionary<T>>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.omitBy
+         */
+        omitBy(predicate: ValueKeyIteratee<T[keyof T]>): ObjectChain<PartialObject<T>>;
+    }
     interface LoDashStatic {
         /**
          * Creates an object composed of the picked `object` properties.
@@ -3247,58 +2001,32 @@ declare module "../index" {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        pick<T extends object, U extends keyof T>(
-            object: T,
-             ...props: Array<Many<U>>
-        ): Pick<T, U>;
-
+        pick<T extends object, U extends keyof T>(object: T, ...props: Array<Many<U>>): Pick<T, U>;
         /**
          * @see _.pick
          */
-        pick<T>(
-            object: T | null | undefined,
-            ...props: PropertyPath[]
-        ): PartialDeep<T>;
+        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialObject<T>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.pick
          */
-        pick<T extends object, U extends keyof T>(
-            this: LoDashImplicitWrapper<T>,
-            ...props: Array<Many<U>>
-        ): LoDashImplicitWrapper<Pick<T, U>>;
-
+        pick<U extends keyof T>(...props: Array<Many<U>>): Object<Pick<T, U>>;
         /**
          * @see _.pick
          */
-        pick<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            ...props: PropertyPath[]
-        ): LoDashImplicitWrapper<PartialObject<T>>;
+        pick(...props: PropertyPath[]): Object<PartialObject<T>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.pick
          */
-        pick<T extends object, U extends keyof T>(
-            this: LoDashExplicitWrapper<T>,
-            ...props: Array<Many<U>>
-        ): LoDashExplicitWrapper<Pick<T, U>>;
-
+        pick<U extends keyof T>(...props: Array<Many<U>>): ObjectChain<Pick<T, U>>;
         /**
          * @see _.pick
          */
-        pick<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            ...props: PropertyPath[]
-        ): LoDashExplicitWrapper<PartialObject<T>>;
+        pick(...props: PropertyPath[]): ObjectChain<PartialObject<T>>;
     }
-
-    // pickBy
-
     interface LoDashStatic {
         /**
          * Creates an object composed of the `object` properties `predicate` returns
@@ -3315,130 +2043,64 @@ declare module "../index" {
          * _.pickBy(object, _.isNumber);
          * // => { 'a': 1, 'c': 3 }
          */
-        pickBy<T, S extends T>(
-            object: Dictionary<T> | null | undefined,
-            predicate: ValueKeyIterateeTypeGuard<T, S>
-        ): Dictionary<S>;
-
+        pickBy<T, S extends T>(object: Dictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): Dictionary<S>;
         /**
          * @see _.pickBy
          */
-        pickBy<T, S extends T>(
-            object: NumericDictionary<T> | null | undefined,
-            predicate: ValueKeyIterateeTypeGuard<T, S>
-        ): NumericDictionary<S>;
-
+        pickBy<T, S extends T>(object: NumericDictionary<T> | null | undefined, predicate: ValueKeyIterateeTypeGuard<T, S>): NumericDictionary<S>;
         /**
          * @see _.pickBy
          */
-        pickBy<T>(
-            object: Dictionary<T> | null | undefined,
-            predicate?: ValueKeyIteratee<T>
-        ): Dictionary<T>;
-
+        pickBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
         /**
          * @see _.pickBy
          */
-        pickBy<T>(
-            object: NumericDictionary<T> | null | undefined,
-            predicate?: ValueKeyIteratee<T>
-        ): NumericDictionary<T>;
-
+        pickBy<T>(object: NumericDictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): NumericDictionary<T>;
         /**
          * @see _.pickBy
          */
-        pickBy<T extends object>(
-            object: T | null | undefined,
-            predicate?: ValueKeyIteratee<T[keyof T]>
-        ): PartialObject<T>;
+        pickBy<T extends object>(object: T | null | undefined, predicate?: ValueKeyIteratee<T[keyof T]>): PartialObject<T>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.pickBy
          */
-        pickBy<T, S extends T>(
-            this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
-            predicate: ValueKeyIterateeTypeGuard<T, S>
-        ): LoDashImplicitWrapper<Dictionary<S>>;
-
+        pickBy<S extends T>(predicate: ValueKeyIterateeTypeGuard<T, S>): Object<Dictionary<S>>;
         /**
          * @see _.pickBy
          */
-        pickBy<T, S extends T>(
-            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate: ValueKeyIterateeTypeGuard<T, S>
-        ): LoDashImplicitWrapper<NumericDictionary<S>>;
-
-        /**
-         * @see _.pickBy
-         */
-        pickBy<T>(
-            this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
-            predicate?: ValueKeyIteratee<T>
-        ): LoDashImplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.pickBy
-         */
-        pickBy<T>(
-            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: ValueKeyIteratee<T>
-        ): LoDashImplicitWrapper<NumericDictionary<T>>;
-
-        /**
-         * @see _.pickBy
-         */
-        pickBy<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate?: ValueKeyIteratee<T[keyof T]>
-        ): LoDashImplicitWrapper<PartialObject<T>>;
+        pickBy(predicate?: ValueKeyIteratee<T>): Object<Dictionary<T>>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.pickBy
          */
-        pickBy<T, S extends T>(
-            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
-            predicate: ValueKeyIterateeTypeGuard<T, S>
-        ): LoDashExplicitWrapper<Dictionary<S>>;
-
+        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): Object<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
         /**
          * @see _.pickBy
          */
-        pickBy<T, S extends T>(
-            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate: ValueKeyIterateeTypeGuard<T, S>
-        ): LoDashExplicitWrapper<NumericDictionary<S>>;
-
-        /**
-         * @see _.pickBy
-         */
-        pickBy<T>(
-            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
-            predicate?: ValueKeyIteratee<T>
-        ): LoDashExplicitWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.pickBy
-         */
-        pickBy<T>(
-            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate?: ValueKeyIteratee<T>
-        ): LoDashExplicitWrapper<NumericDictionary<T>>;
-
-        /**
-         * @see _.pickBy
-         */
-        pickBy<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate?: ValueKeyIteratee<T[keyof T]>
-        ): LoDashExplicitWrapper<PartialObject<T>>;
+        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): Object<PartialObject<T>>;
     }
-
-    // result
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.pickBy
+         */
+        pickBy<S extends T>(predicate: ValueKeyIterateeTypeGuard<T, S>): ObjectChain<Dictionary<S>>;
+        /**
+         * @see _.pickBy
+         */
+        pickBy(predicate?: ValueKeyIteratee<T>): ObjectChain<Dictionary<T>>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.pickBy
+         */
+        pickBy<S extends T[keyof T]>(predicate: ValueKeyIterateeTypeGuard<T[keyof T], S>): ObjectChain<NumericDictionary<unknown> extends T ? NumericDictionary<S> : Dictionary<S>>;
+        /**
+         * @see _.pickBy
+         */
+        pickBy(predicate?: ValueKeyIteratee<T[keyof T]>): ObjectChain<PartialObject<T>>;
+    }
     interface LoDashStatic {
         /**
          * This method is like _.get except that if the resolved value is a function it’s invoked with the this binding
@@ -3449,35 +2111,20 @@ declare module "../index" {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        result<TResult>(
-            object: any,
-            path: PropertyPath,
-            defaultValue?: TResult|((...args: any[]) => TResult)
-        ): TResult;
+        result<TResult>(object: any, path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.result
          */
-        result<TResult>(
-            path: PropertyPath,
-            defaultValue?: TResult|((...args: any[]) => TResult)
-        ): TResult;
+        result<TResult>(path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.result
          */
-        result<TResult>(
-            path: PropertyPath,
-            defaultValue?: TResult|((...args: any[]) => TResult)
-        ): LoDashExplicitWrapper<TResult>;
+        result<TResult>(path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): ExpChain<TResult>;
     }
-
-    // set
-
     interface LoDashStatic {
         /**
          * Sets the value at path of object. If a portion of path doesn’t exist it’s created. Arrays are created for
@@ -3489,62 +2136,33 @@ declare module "../index" {
          * @param value The value to set.
          * @return Returns object.
          */
-        set<T extends object>(
-            object: T,
-            path: PropertyPath,
-            value: any
-        ): T;
-
+        set<T extends object>(object: T, path: PropertyPath, value: any): T;
         /**
          * @see _.set
          */
-        set<TResult>(
-            object: object,
-            path: PropertyPath,
-            value: any
-        ): TResult;
+        set<TResult>(object: object, path: PropertyPath, value: any): TResult;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.set
          */
-        set(
-            path: PropertyPath,
-            value: any
-        ): this;
-
+        set(path: PropertyPath, value: any): this;
         /**
          * @see _.set
          */
-        set<TResult>(
-            path: PropertyPath,
-            value: any
-        ): LoDashImplicitWrapper<TResult>;
+        set<TResult>(path: PropertyPath, value: any): ImpChain<TResult>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.set
          */
-        set(
-            path: PropertyPath,
-            value: any
-        ): this;
-
+        set(path: PropertyPath, value: any): this;
         /**
          * @see _.set
          */
-        set<TResult>(
-            path: PropertyPath,
-            value: any
-        ): LoDashExplicitWrapper<TResult>;
+        set<TResult>(path: PropertyPath, value: any): ExpChain<TResult>;
     }
-
-    // setWith
-
     type SetWithCustomizer<T> = (nsValue: any, key: string, nsObject: T) => any;
-
     interface LoDashStatic {
         /**
          * This method is like _.set except that it accepts customizer which is invoked to produce the objects of
@@ -3557,63 +2175,32 @@ declare module "../index" {
          * @param customizer The function to customize assigned values.
          * @return Returns object.
          */
-        setWith<T extends object>(
-            object: T,
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<T>
-        ): T;
-
-        setWith<T extends object, TResult>(
-            object: T,
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<T>
-        ): TResult;
+        setWith<T extends object>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): T;
+        /**
+         * @see _.setWith
+         */
+        setWith<T extends object, TResult>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): TResult;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.setWith
          */
-        setWith(
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<TValue>
-        ): this;
-
+        setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
         /**
          * @see _.setWith
          */
-        setWith<TResult>(
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<TValue>
-        ): LoDashImplicitWrapper<TResult>;
+        setWith<TResult>(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): ImpChain<TResult>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.setWith
          */
-        setWith(
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<TValue>
-        ): this;
-
+        setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
         /**
          * @see _.setWith
          */
-        setWith<TResult>(
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<TValue>
-        ): LoDashExplicitWrapper<TResult>;
+        setWith<TResult>(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): ExpChain<TResult>;
     }
-
-    // toPairs
-
     interface LoDashStatic {
         /**
          * Creates an array of own enumerable key-value pairs for object.
@@ -3622,39 +2209,23 @@ declare module "../index" {
          * @return Returns the new array of key-value pairs.
          */
         toPairs<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
-
         /**
          * @see _.toPairs
          */
         toPairs(object?: object): Array<[string, any]>;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toPairs
          */
-        toPairs<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashImplicitWrapper<Array<[string, T]>>;
-
-        /**
-         * @see _.toPairs
-         */
-        toPairs(): LoDashImplicitWrapper<Array<[string, any]>>;
+        toPairs(): Collection<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toPairs
          */
-        toPairs<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashExplicitWrapper<Array<[string, T]>>;
-
-        /**
-         * @see _.toPairs
-         */
-        toPairs(): LoDashExplicitWrapper<Array<[string, any]>>;
+        toPairs(): CollectionChain<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
-
-    // toPairsIn
-
     interface LoDashStatic {
         /**
          * Creates an array of own and inherited enumerable key-value pairs for object.
@@ -3663,39 +2234,23 @@ declare module "../index" {
          * @return Returns the new array of key-value pairs.
          */
         toPairsIn<T>(object?: Dictionary<T> | NumericDictionary<T>): Array<[string, T]>;
-
         /**
          * @see _.toPairsIn
          */
         toPairsIn(object?: object): Array<[string, any]>;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashImplicitWrapper<Array<[string, T]>>;
-
-        /**
-         * @see _.toPairsIn
-         */
-        toPairsIn(): LoDashImplicitWrapper<Array<[string, any]>>;
+        toPairsIn(): Collection<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashExplicitWrapper<Array<[string, T]>>;
-
-        /**
-         * @see _.toPairsIn
-         */
-        toPairsIn(): LoDashExplicitWrapper<Array<[string, any]>>;
+        toPairsIn(): CollectionChain<[string, TValue extends Dictionary<infer U> ? U : TValue extends NumericDictionary<infer V> ? V : any]>;
     }
-
-    // transform
-
     interface LoDashStatic {
         /**
          * An alternative to _.reduce; this method transforms object to a new accumulator object which is the result of
@@ -3708,156 +2263,72 @@ declare module "../index" {
          * @param accumulator The custom accumulator value.
          * @return Returns the accumulated value.
          */
-        transform<T, TResult>(
-            object: T[],
-            iteratee: MemoVoidArrayIterator<T, TResult[]>,
-            accumulator?: TResult[]
-        ): TResult[];
-
+        transform<T, TResult>(object: ReadonlyArray<T>, iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         /**
          * @see _.transform
          */
-        transform<T, TResult>(
-            object: T[],
-            iteratee: MemoVoidArrayIterator<T, Dictionary<TResult>>,
-            accumulator: Dictionary<TResult>
-        ): Dictionary<TResult>;
-
+        transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, string, TResult>, accumulator?: TResult): TResult;
         /**
          * @see _.transform
          */
-        transform<T, TResult>(
-            object: Dictionary<T>,
-            iteratee: MemoVoidDictionaryIterator<T, Dictionary<TResult>>,
-            accumulator?: Dictionary<TResult>
-        ): Dictionary<TResult>;
-
+        transform<T extends object, TResult>(object: T, iteratee: MemoVoidDictionaryIterator<T[keyof T], keyof T, TResult>, accumulator?: TResult): TResult;
         /**
          * @see _.transform
          */
-        transform<T, TResult>(
-            object: Dictionary<T>,
-            iteratee: MemoVoidDictionaryIterator<T, TResult[]>,
-            accumulator: TResult[]
-        ): TResult[];
-
+        transform(object: any[]): any[];
         /**
          * @see _.transform
          */
-        transform(
-            object: any[],
-        ): any[];
-
-        /**
-         * @see _.transform
-         */
-        transform(
-            object: object,
-        ): Dictionary<any>;
+        transform(object: object): Dictionary<any>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Collection<T> {
         /**
          * @see _.transform
          */
-        transform<T, TResult>(
-            this: LoDashImplicitWrapper<T[]>,
-            iteratee: MemoVoidArrayIterator<T, TResult[]>,
-            accumulator?: TResult[]
-        ): LoDashImplicitWrapper<TResult[]>;
-
+        transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): ImpChain<TResult>;
         /**
          * @see _.transform
          */
-        transform<T, TResult>(
-            this: LoDashImplicitWrapper<T[]>,
-            iteratee: MemoVoidArrayIterator<T, Dictionary<TResult>>,
-            accumulator: Dictionary<TResult>
-        ): LoDashImplicitWrapper<Dictionary<TResult>>;
-
-        /**
-         * @see _.transform
-         */
-        transform<T, TResult>(
-            this: LoDashImplicitWrapper<Dictionary<T>>,
-            iteratee: MemoVoidDictionaryIterator<T, Dictionary<TResult>>,
-            accumulator?: Dictionary<TResult>
-        ): LoDashImplicitWrapper<Dictionary<TResult>>;
-
-        /**
-         * @see _.transform
-         */
-        transform<T, TResult>(
-            this: LoDashImplicitWrapper<Dictionary<T>>,
-            iteratee: MemoVoidDictionaryIterator<T, TResult[]>,
-            accumulator: TResult[]
-        ): LoDashImplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.transform
-         */
-        transform(
-            this: LoDashImplicitWrapper<any[]>,
-        ): LoDashImplicitWrapper<any[]>;
-
-        /**
-         * @see _.transform
-         */
-        transform(): LoDashImplicitWrapper<Dictionary<any>>;
+        transform(): Collection<any>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.transform
          */
-        transform<T, TResult>(
-            this: LoDashExplicitWrapper<T[]>,
-            iteratee: MemoVoidArrayIterator<T, TResult[]>,
-            accumulator?: TResult[]
-        ): LoDashExplicitWrapper<TResult[]>;
-
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], string, TResult>, accumulator?: TResult): ImpChain<TResult>;
         /**
          * @see _.transform
          */
-        transform<T, TResult>(
-            this: LoDashExplicitWrapper<T[]>,
-            iteratee: MemoVoidArrayIterator<T, Dictionary<TResult>>,
-            accumulator?: Dictionary<TResult>
-        ): LoDashExplicitWrapper<Dictionary<TResult>>;
-
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], keyof T, TResult>, accumulator?: TResult): ImpChain<TResult>;
         /**
          * @see _.transform
          */
-        transform<T, TResult>(
-            this: LoDashExplicitWrapper<Dictionary<T>>,
-            iteratee: MemoVoidDictionaryIterator<T, Dictionary<TResult>>,
-            accumulator?: Dictionary<TResult>
-        ): LoDashExplicitWrapper<Dictionary<TResult>>;
-
-        /**
-         * @see _.transform
-         */
-        transform<T, TResult>(
-            this: LoDashExplicitWrapper<Dictionary<T>>,
-            iteratee: MemoVoidDictionaryIterator<T, TResult[]>,
-            accumulator?: TResult[]
-        ): LoDashExplicitWrapper<TResult[]>;
-
-        /**
-         * @see _.transform
-         */
-        transform(
-            this: LoDashExplicitWrapper<any[]>,
-        ): LoDashExplicitWrapper<any[]>;
-
-        /**
-         * @see _.transform
-         */
-        transform(): LoDashExplicitWrapper<Dictionary<any>>;
+        transform(): ImpChain<T extends Dictionary<unknown> ? Dictionary<any> : T>;
     }
-
-    // unset
-
+    interface CollectionChain<T> {
+        /**
+         * @see _.transform
+         */
+        transform<TResult>(iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): ExpChain<TResult>;
+        /**
+         * @see _.transform
+         */
+        transform(): CollectionChain<any>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.transform
+         */
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], string, TResult>, accumulator?: TResult): ExpChain<TResult>;
+        /**
+         * @see _.transform
+         */
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], keyof T, TResult>, accumulator?: TResult): ExpChain<TResult>;
+        /**
+         * @see _.transform
+         */
+        transform(): ExpChain<T extends Dictionary<unknown> ? Dictionary<any> : T>;
+    }
     interface LoDashStatic {
         /**
          * Removes the property at path of object.
@@ -3868,28 +2339,20 @@ declare module "../index" {
          * @param path The path of the property to unset.
          * @return Returns true if the property is deleted, else false.
          */
-        unset(
-            object: any,
-            path: PropertyPath
-        ): boolean;
+        unset(object: any, path: PropertyPath): boolean;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.unset
          */
-        unset(path: PropertyPath): LoDashImplicitWrapper<boolean>;
+        unset(path: PropertyPath): Primitive<boolean>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.unset
          */
-        unset(path: PropertyPath): LoDashExplicitWrapper<boolean>;
+        unset(path: PropertyPath): PrimitiveChain<boolean>;
     }
-
-    // update
-
     interface LoDashStatic {
         /**
          * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
@@ -3900,35 +2363,20 @@ declare module "../index" {
          * @param updater The function to produce the updated value.
          * @return Returns object.
          */
-        update(
-            object: object,
-            path: PropertyPath,
-            updater: (value: any) => any
-        ): any;
+        update(object: object, path: PropertyPath, updater: (value: any) => any): any;
     }
-
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.update
          */
-        update(
-            path: PropertyPath,
-            updater: (value: any) => any
-        ): LoDashImplicitWrapper<any>;
+        update(path: PropertyPath, updater: (value: any) => any): Object<any>;
     }
-
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.update
          */
-        update(
-            path: PropertyPath,
-            updater: (value: any) => any
-        ): LoDashExplicitWrapper<any>;
+        update(path: PropertyPath, updater: (value: any) => any): ObjectChain<any>;
     }
-
-    // updateWith
-
     interface LoDashStatic {
         /**
          * This method is like `_.update` except that it accepts `customizer` which is
@@ -3952,66 +2400,32 @@ declare module "../index" {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        updateWith<T extends object>(
-            object: T,
-            path: PropertyPath,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<T>
-        ): T;
-
+        updateWith<T extends object>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): T;
         /**
          * @see _.updateWith
          */
-        updateWith<T extends object, TResult>(
-            object: T,
-            path: PropertyPath,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<T>
-        ): TResult;
+        updateWith<T extends object, TResult>(object: T, path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): TResult;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.updateWith
          */
-        updateWith(
-            path: PropertyPath,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<TValue>
-        ): this;
-
+        updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): this;
         /**
          * @see _.updateWith
          */
-        updateWith<TResult>(
-            path: PropertyPath,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<TValue>
-        ): LoDashImplicitWrapper<TResult>;
+        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): Object<TResult>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface ObjectChain<T> {
         /**
          * @see _.updateWith
          */
-        updateWith(
-            path: PropertyPath,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<TValue>
-        ): this;
-
+        updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): this;
         /**
          * @see _.updateWith
          */
-        updateWith<TResult>(
-            path: PropertyPath,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<TValue>
-        ): LoDashExplicitWrapper<TResult>;
+        updateWith<TResult>(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<T>): ObjectChain<TResult>;
     }
-
-    // values
-
     interface LoDashStatic {
         /**
          * Creates an array of the own enumerable property values of object.
@@ -4020,54 +2434,45 @@ declare module "../index" {
          * @return Returns an array of property values.
          */
         values<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
-
         /**
          * @see _.values
          */
         values<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
-
         /**
          * @see _.values
          */
         values(object: any): any[];
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.values
          */
-        values<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.values
-         */
-        values<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<Array<T[keyof T]>>;
-
-        /**
-         * @see _.values
-         */
-        values(): LoDashImplicitWrapper<any[]>;
+        values(): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.values
          */
-        values<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.values
-         */
-        values<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<Array<T[keyof T]>>;
-
-        /**
-         * @see _.values
-         */
-        values(): LoDashExplicitWrapper<any[]>;
+        values(): Collection<T[keyof T]>;
     }
-
-    // valuesIn
-
+    interface ObjectChain<T> {
+        /**
+         * @see _.values
+         */
+        values(): CollectionChain<T[keyof T]>;
+    }
+    interface StringChain {
+        /**
+         * @see _.values
+         */
+        values(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.values
+         */
+        values(): CollectionChain<string>;
+    }
     interface LoDashStatic {
         /**
          * Creates an array of the own and inherited enumerable property values of object.
@@ -4075,35 +2480,40 @@ declare module "../index" {
          * @param object The object to query.
          * @return Returns the array of property values.
          */
-        valuesIn<T>(object: Dictionary<T>|NumericDictionary<T>|List<T> | null | undefined): T[];
-
+        valuesIn<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
         /**
          * @see _.valuesIn
          */
         valuesIn<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
     }
-
-    interface LoDashImplicitWrapper<TValue> {
+    interface String {
         /**
          * @see _.valuesIn
          */
-        valuesIn<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.valuesIn
-         */
-        valuesIn<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        valuesIn(): Collection<string>;
     }
-
-    interface LoDashExplicitWrapper<TValue> {
+    interface Object<T> {
         /**
          * @see _.valuesIn
          */
-        valuesIn<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
-
+        valuesIn(): Collection<T[keyof T]>;
+    }
+    interface StringChain {
         /**
          * @see _.valuesIn
          */
-        valuesIn<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        valuesIn(): CollectionChain<string>;
+    }
+    interface StringNullableChain {
+        /**
+         * @see _.valuesIn
+         */
+        valuesIn(): CollectionChain<string>;
+    }
+    interface ObjectChain<T> {
+        /**
+         * @see _.valuesIn
+         */
+        valuesIn(): CollectionChain<T[keyof T]>;
     }
 }

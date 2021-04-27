@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@atlaskit/feedback-collector": ["atlaskit__feedback-collector"]
+            "@atlaskit/*": ["atlaskit__*"]
         }
     },
     "files": [

@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
@@ -24,11 +24,23 @@ export interface Options {
 }
 export default class BaseTileLayer extends Layer<TileSource> {
     constructor(opt_options?: Options);
+    /**
+     * Return the level as number to which we will preload tiles up to.
+     */
     getPreload(): number;
+    /**
+     * Whether we use interim tiles on error.
+     */
     getUseInterimTilesOnError(): boolean;
+    /**
+     * Set the level as number to which we will preload tiles up to.
+     */
     setPreload(preload: number): void;
+    /**
+     * Set whether we use interim tiles on error.
+     */
     setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

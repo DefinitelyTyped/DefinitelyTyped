@@ -1105,8 +1105,6 @@ export interface A11yOptions {
     notificationClass?: string;
 }
 
-// "Multiple imports from './dist/js/swiper.esm' can be combined into one" + "Line breaks are not allowed in import declaration" = ...
-// tslint:disable-next-line:max-line-length
 import {
     Virtual,
     Keyboard,

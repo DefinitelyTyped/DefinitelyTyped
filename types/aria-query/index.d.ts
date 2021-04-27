@@ -301,7 +301,7 @@ export interface ARIAPropertyMap {
 
 export interface ARIAPropertyDefinition {
     type: 'string' | 'id' | 'idlist' | 'integer' | 'number' | 'boolean' | 'token' | 'tokenlist' | 'tristate';
-    value?: Array<string | boolean>;
+    values?: Array<string | boolean>;
     allowundefined?: boolean;
 }
 

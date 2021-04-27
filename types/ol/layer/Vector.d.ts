@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import RenderEvent from '../render/Event';
@@ -10,8 +10,11 @@ import Layer from './Layer';
 
 export default class VectorLayer extends BaseVectorLayer<VectorSource> {
     constructor(opt_options?: Options);
-    protected createRenderer(): LayerRenderer<Layer<Source>>;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    /**
+     * Create a renderer for this layer.
+     */
+    createRenderer(): LayerRenderer<Layer<Source>>;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

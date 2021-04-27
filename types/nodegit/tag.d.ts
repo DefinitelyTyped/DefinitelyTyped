@@ -10,7 +10,7 @@ export class Tag {
     static createLightweight(repo: Repository, tagName: string, target: Object, force: number): Promise<Oid>;
     static delete(repo: Repository, tagName: string): Promise<number>;
     static list(repo: Repository): Promise<any[]>;
-    static listMatch(tagNames: Strarray | string | string[], pattern: string, repo: Repository): number;
+    static listMatch(pattern: string, repo: Repository): Promise<any[]>;
     /**
      * Retrieves the tag pointed to by the oid
      *
@@ -28,7 +28,7 @@ export class Tag {
     owner(): Repository;
     peel(tagTargetOut: Object): number;
     tagger(): Signature;
-    target(): Object;
+    target(): Promise<Object>;
     targetId(): Oid;
     targetType(): number;
 }

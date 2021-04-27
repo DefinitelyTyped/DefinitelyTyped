@@ -3,38 +3,71 @@ import { jsx } from 'theme-ui';
 
 import {
     Box,
+    BoxProps,
     Flex,
+    FlexProps,
     Grid,
+    GridProps,
     Button,
+    ButtonProps,
     Link,
+    LinkProps,
     Text,
+    TextProps,
     Heading,
+    HeadingProps,
     Image,
+    ImageProps,
     Card,
+    CardProps,
     Label,
+    LabelProps,
     Input,
+    InputProps,
     Select,
+    SelectProps,
     Textarea,
+    TextareaProps,
     Radio,
+    RadioProps,
     Checkbox,
+    CheckboxProps,
     Slider,
+    SliderProps,
     Field,
+    FieldProps,
     Progress,
+    ProgressProps,
     Donut,
+    DonutProps,
     Spinner,
+    SpinnerProps,
     Avatar,
+    AvatarProps,
     Badge,
+    BadgeProps,
     Close,
+    CloseProps,
     Alert,
+    AlertProps,
     Divider,
+    DividerProps,
     Embed,
+    EmbedProps,
     AspectRatio,
+    AspectRatioProps,
     AspectImage,
+    AspectImageProps,
     Container,
+    ContainerProps,
     NavLink,
+    NavLinkProps,
     Message,
+    MessageProps,
     IconButton,
+    IconButtonProps,
     MenuButton,
+    MenuButtonProps,
 } from '@theme-ui/components';
 
 const SectionBox = Box.withComponent('section');
@@ -208,3 +241,109 @@ const _ = (
         <MenuButton aria-label="Toggle Menu" />
     </SectionBox>
 );
+
+{
+    // test: all components accept their own props
+
+    // Alert
+    ((props: AlertProps) => <Alert {...props} />)({});
+
+    // AspectImage
+    ((props: AspectImageProps) => <AspectImage {...props} />)({});
+
+    // AspectRatio
+    ((props: AspectRatioProps) => <AspectRatio {...props} />)({});
+
+    // Avatar
+    ((props: AvatarProps) => <Avatar {...props} />)({});
+
+    // Badge
+    ((props: BadgeProps) => <Badge {...props} />)({});
+
+    // Box
+    ((props: BoxProps) => <Box {...props} />)({});
+
+    // Button
+    ((props: ButtonProps) => <Button {...props} />)({});
+
+    // Card
+    ((props: CardProps) => <Card {...props} />)({});
+
+    // Checkbox
+    ((props: CheckboxProps) => <Checkbox {...props} />)({});
+
+    // Close
+    ((props: CloseProps) => <Close {...props} />)({});
+
+    // Container
+    ((props: ContainerProps) => <Container {...props} />)({});
+
+    // Divider
+    ((props: DividerProps) => <Divider {...props} />)({});
+
+    // Donut
+    ((props: DonutProps) => <Donut {...props} />)({ value: 50 });
+
+    // Embed
+    ((props: EmbedProps) => <Embed {...props} />)({});
+
+    // Field
+    ((props: FieldProps<'input'>) => <Field {...props} />)({
+        label: 'Email',
+        name: 'email',
+    });
+
+    // Flex
+    ((props: FlexProps) => <Flex {...props} />)({});
+
+    // Grid
+    ((props: GridProps) => <Grid {...props} />)({});
+
+    // Heading
+    ((props: HeadingProps) => <Heading {...props} />)({});
+
+    // IconButton
+    ((props: IconButtonProps) => <IconButton {...props} />)({});
+
+    // Image
+    ((props: ImageProps) => <Image {...props} />)({});
+
+    // Input
+    ((props: InputProps) => <Input {...props} />)({});
+
+    // Label
+    ((props: LabelProps) => <Label {...props} />)({});
+
+    // Link
+    ((props: LinkProps) => <Link {...props} />)({});
+
+    // MenuButton
+    ((props: MenuButtonProps) => <MenuButton {...props} />)({});
+
+    // Message
+    ((props: MessageProps) => <Message {...props} />)({});
+
+    // NavLink
+    ((props: NavLinkProps) => <NavLink {...props} />)({});
+
+    // Progress
+    ((props: ProgressProps) => <Progress {...props} />)({});
+
+    // Radio
+    ((props: RadioProps) => <Radio {...props} />)({});
+
+    // Select
+    ((props: SelectProps) => <Select {...props} />)({});
+
+    // Slider
+    ((props: SliderProps) => <Slider {...props} />)({});
+
+    // Spinner
+    ((props: SpinnerProps) => <Spinner {...props} />)({});
+
+    // Text
+    ((props: TextProps) => <Text {...props} />)({});
+
+    // Textarea
+    ((props: TextareaProps) => <Textarea {...props} />)({});
+}

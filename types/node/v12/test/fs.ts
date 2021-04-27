@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as assert from 'assert';
-import * as util from 'util';
+import * as fs from 'node:fs';
+import assert = require('node:assert');
+import * as util from 'node:util';
 
 {
     fs.writeFile("thebible.txt",
@@ -297,9 +297,9 @@ async function testPromisify() {
 }
 
 {
-    fs.writev(1, [Buffer.from('123')], (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+    fs.writev(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>, (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
     });
-    const bytesWritten = fs.writevSync(1, [Buffer.from('123')]);
+    const bytesWritten = fs.writevSync(1, [Buffer.from('123')] as ReadonlyArray<NodeJS.ArrayBufferView>);
 }
 
 (async () => {

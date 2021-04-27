@@ -67,7 +67,7 @@ declare namespace Chai {
         getOwnEnumerableProperties(obj: object): Array<string | symbol>;
         getMessage(errorLike: Error | string): string;
         getMessage(obj: any, args: AssertionArgs): string;
-        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): void;
+        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): string;
         isProxyEnabled(): boolean;
         objDisplay(obj: object): void;
         proxify(obj: object, nonChainableMethodName: string): object;
@@ -186,8 +186,8 @@ declare namespace Chai {
         own: Own;
         any: KeyFilter;
         all: KeyFilter;
-        a: TypeComparison;
-        an: TypeComparison;
+        a: Assertion;
+        an: Assertion;
         include: Include;
         includes: Include;
         contain: Include;
@@ -202,6 +202,7 @@ declare namespace Chai {
         empty: Assertion;
         arguments: Assertion;
         Arguments: Assertion;
+        finite: Assertion;
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -239,7 +240,7 @@ declare namespace Chai {
         extensible: Assertion;
         sealed: Assertion;
         frozen: Assertion;
-        oneOf(list: ReadonlyArray<any>, message?: string): Assertion;
+        oneOf: OneOf;
     }
 
     interface LanguageChains {
@@ -266,11 +267,13 @@ declare namespace Chai {
         greaterThan: NumberComparer;
         least: NumberComparer;
         gte: NumberComparer;
+        greaterThanOrEqual: NumberComparer;
         below: NumberComparer;
         lt: NumberComparer;
         lessThan: NumberComparer;
         most: NumberComparer;
         lte: NumberComparer;
+        lessThanOrEqual: NumberComparer;
         within(start: number, finish: number, message?: string): Assertion;
         within(start: Date, finish: Date, message?: string): Assertion;
     }
@@ -310,7 +313,7 @@ declare namespace Chai {
         property: Property;
     }
 
-    interface Deep {
+    interface Deep extends KeyFilter {
         equal: Equal;
         equals: Equal;
         eq: Equal;
@@ -319,7 +322,6 @@ declare namespace Chai {
         contain: Include;
         contains: Include;
         property: Property;
-        members: Members;
         ordered: Ordered;
         nested: Nested;
         own: Own;
@@ -360,6 +362,11 @@ declare namespace Chai {
         members: Members;
         any: KeyFilter;
         all: KeyFilter;
+        oneOf: OneOf;
+    }
+
+    interface OneOf {
+        (list: ReadonlyArray<unknown>, message?: string): Assertion;
     }
 
     interface Match {
@@ -389,7 +396,11 @@ declare namespace Chai {
     }
 
     interface PropertyChange {
-        (object: Object, property?: string, message?: string): Assertion;
+        (object: Object, property?: string, message?: string): DeltaAssertion;
+    }
+
+    interface DeltaAssertion extends Assertion {
+        by(delta: number, msg?: string): Assertion;
     }
 
     export interface Assert {
@@ -466,7 +477,7 @@ declare namespace Chai {
         equal<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts non-strict inequality (==) of actual and expected.
+         * Asserts non-strict inequality (!=) of actual and expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -486,7 +497,7 @@ declare namespace Chai {
         strictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts strict inequality (==) of actual and expected.
+         * Asserts strict inequality (!==) of actual and expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -761,6 +772,16 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isNotNumber<T>(value: T, message?: string): void;
+
+        /**
+         * Asserts that value is a finite number.
+         * Unlike `.isNumber`, this will fail for `NaN` and `Infinity`.
+         *
+         * @type T   Type of value
+         * @param value    Actual value
+         * @param message   Message to display on error.
+         */
+        isFinite<T>(value: T, message?: string): void;
 
         /**
          * Asserts that value is a boolean.

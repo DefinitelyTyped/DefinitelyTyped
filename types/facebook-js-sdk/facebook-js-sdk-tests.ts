@@ -1,4 +1,8 @@
 FB.init({
+    version: 'v8.0',
+});
+
+FB.init({
     appId: '***********',
     version: 'v2.5',
     status: true,
@@ -193,3 +197,11 @@ FB.Event.unsubscribe('auth.authResponseChange', () => {});
 
 FB.api('/me', response => {});
 FB.api('/me', 'get', { fields: ['last_name'] }, response => {});
+FB.api('/me',  { fields: ['last_name', 'age_range'] }, response => {
+    console.log(response.last_name)
+    console.log(response.age_range.min === 18 && response.age_range.max === 20)
+});
+FB.api('/me',  { fields: ['last_name'] }, response => {
+    console.log(response.last_name)
+    console.log(response.age_range === undefined)
+});

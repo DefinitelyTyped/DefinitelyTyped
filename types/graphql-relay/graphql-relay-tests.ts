@@ -79,7 +79,7 @@ conn.pageInfo.hasPreviousPage = true;
 conn.pageInfo.startCursor = "s";
 // connectionFromPromisedArray is similar to connectionFromArray, but it takes a promise that resolves to an array, and returns a promise that resolves to the expected shape by connectionType.
 const conn2 = connectionFromPromisedArray(new Promise<number[]>((resolve) => {
-    resolve();
+    resolve([]);
 }), {
         after: "a",
         before: "b",

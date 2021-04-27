@@ -99,7 +99,7 @@ export abstract class Selection {
      * @param selector - A function used as a test for each element in the set.
      * @returns Selected elements.
      */
-    filter(selector: Tester): Selection; // tslint:disable:unified-signatures
+    filter(selector: Tester): Selection;
 
     /**
      * Reduce the set of matched elements to those that match the selector
@@ -108,7 +108,7 @@ export abstract class Selection {
      * @param selector - A selection to match elements against.
      * @returns Selected elements.
      */
-    filter(selector: Selection): Selection; // tslint:disable:unified-signatures
+    filter(selector: Selection): Selection;
 
     /**
      * Find the selection descendants, filtered by a selector.
@@ -157,7 +157,7 @@ export abstract class Selection {
      * @param selector - Selector expression.
      * @returns Whether selector matched at least one element.
      */
-    is(selector: string): boolean; // tslint:disable:unified-signatures
+    is(selector: string): boolean;
 
     /**
      * Check the current matched set of elements against a selector or element
@@ -167,7 +167,7 @@ export abstract class Selection {
      * @param selector - A function used as a test for each element in the set.
      * @returns Whether selector matched at least one element.
      */
-    is(selector: Tester): boolean; // tslint:disable:unified-signatures
+    is(selector: Tester): boolean;
 
     /**
      * Check the current matched set of elements against a selector or element
@@ -177,7 +177,7 @@ export abstract class Selection {
      * @param selector - A selection to match against.
      * @returns Whether selector matched at least one element.
      */
-    is(selector: Selection): boolean; // tslint:disable:unified-signatures
+    is(selector: Selection): boolean;
 
     /**
      * Reduce the set of matched elements to the final one.
@@ -227,7 +227,7 @@ export abstract class Selection {
      * @param selector - Selector expression.
      * @returns Selection with matched elements removed.
      */
-    not(selector: string): Selection; // tslint:disable:unified-signatures
+    not(selector: string): Selection;
 
     /**
      * Remove elements.
@@ -235,7 +235,7 @@ export abstract class Selection {
      * @param selector - A function used as a test for each element in the set.
      * @returns Selection with matched elements removed.
      */
-    not(selector: Tester): Selection; // tslint:disable:unified-signatures
+    not(selector: Tester): Selection;
 
     /**
      * Get the parent of each element, optionally filtered by a selector.

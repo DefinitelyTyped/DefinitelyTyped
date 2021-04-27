@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "@reach/tooltip": ["reach__tooltip"]
+            "@reach/*": ["reach__*"]
         },
         "types": [],
         "noEmit": true,

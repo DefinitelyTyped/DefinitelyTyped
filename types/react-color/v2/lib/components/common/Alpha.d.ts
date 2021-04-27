@@ -1,5 +1,5 @@
 import { Component, ComponentType, CSSProperties } from "react";
-import { CustomPickerInjectedProps, RenderersProps } from "../../..";
+import { CustomPickerInjectedProps, HSLColor, RenderersProps } from "../../..";
 
 export interface AlphaStyle {
     alpha?: CSSProperties;
@@ -10,7 +10,12 @@ export interface AlphaStyle {
     slider?: CSSProperties;
 }
 
-export interface AlphaProps extends RenderersProps, CustomPickerInjectedProps {
+export interface AlphaColorResult extends HSLColor {
+    a: number;
+    source: "rgb";
+}
+
+export interface AlphaProps extends RenderersProps, CustomPickerInjectedProps<AlphaColorResult> {
     pointer?: ComponentType;
     radius?: string;
     shadow?: string;

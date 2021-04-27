@@ -1,5 +1,5 @@
-import * as net from 'net';
-import { LookupOneOptions } from 'dns';
+import * as net from 'node:net';
+import { LookupOneOptions } from 'node:dns';
 
 {
     const connectOpts: net.NetConnectOpts = {
@@ -85,6 +85,9 @@ import { LookupOneOptions } from 'dns';
     _socket = _socket.connect(80, "localhost", (): void => {});
     _socket = _socket.connect(80);
     _socket = _socket.connect(80, (): void => {});
+
+    // test the types of the address object fields
+    const address: net.AddressInfo | {} = _socket.address();
 
     /// addListener
 
@@ -292,4 +295,12 @@ import { LookupOneOptions } from 'dns';
         error = err;
     });
     _server = _server.prependOnceListener("listening", () => { });
+}
+
+{
+    const bl = new net.BlockList();
+    bl.addAddress('127.0.0.1', 'ipv4');
+    bl.addRange('127.0.0.1', '127.0.0.255', 'ipv4');
+    bl.addSubnet('127.0.0.1', 26, 'ipv4');
+    const res: boolean = bl.check('127.0.0.1', 'ipv4');
 }

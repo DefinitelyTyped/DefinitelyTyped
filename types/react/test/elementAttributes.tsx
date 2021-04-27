@@ -30,5 +30,9 @@ const testCases = [
     <details open={true} onToggle={() => {}} />,
     <input value={['one', 'two'] as ReadonlyArray<string>} />,
     <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />
+    <input value={['one', 'two']} />,
+    <input enterKeyHint="done" />,
+    // $ExpectError
+    <input enterKeyHint="don" />,
+    <video disableRemotePlayback />
 ];

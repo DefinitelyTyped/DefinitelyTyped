@@ -151,7 +151,7 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
  *   console.log(f.content_type);
  * }
  */
-export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+export function file(data: string | bytes | ArrayBuffer, filename?: string, contentType?: string): FileData;
 
 /**
  * Get active cookie jar.
@@ -161,6 +161,19 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
  * let jar = http.cookieJar();
  */
 export function cookieJar(): CookieJar;
+
+/**
+ * Returns a callback to be used with setResponseCallback to mark responses
+ * as expected based only on their status codes.
+ * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses
+ */
+export function expectedStatuses(...param: Array<number | ExpectedStatusesObject>): ExpectedStatusesCallback;
+
+/**
+ * Set the response callback to be called to determine if a response was expected/successful or not.
+ * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback
+ */
+export function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
 
 // === SSL/TLS versions ===
 // ------------------------
@@ -242,7 +255,10 @@ export interface Params {
     tags?: { [name: string]: string };
 
     /** Request timeout. */
-    timeout?: number;
+    timeout?: string | number;
+
+    /** Sets a ResponseCallback only for this request. */
+    responseCallback?: ExpectedStatusesCallback;
 }
 
 /**
@@ -275,7 +291,7 @@ export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 /**
  * Request body.
  */
-export type RequestBody = string | StructuredRequestBody;
+export type RequestBody = string | StructuredRequestBody | ArrayBuffer;
 
 /**
  * Structured request body. May include file uploads.
@@ -435,6 +451,9 @@ export interface Response {
 
     /** HTTP status code. */
     status: number;
+
+    /** HTTP status text returned by the server. */
+    status_text: string;
 
     /** Performance timing information. */
     timings: {
@@ -638,7 +657,7 @@ export abstract class FileData {
     protected __brand: never;
 
     /** File data. */
-    data: string | bytes;
+    data: string | bytes | ArrayBuffer;
 
     /** Filename to include in MIME message. */
     filename?: string;
@@ -654,7 +673,7 @@ export abstract class FileData {
  * Object for storing cookies.
  * https://docs.k6.io/docs/cookiejar-k6http
  */
-export abstract class CookieJar {
+export class CookieJar {
     protected __brand: never;
 
     /**
@@ -668,11 +687,12 @@ export abstract class CookieJar {
     /**
      * Set cookie.
      * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options
+     * @param url - Cookie URL.
      * @param name - Cookie name.
      * @param value - Cookie value.
      * @param options - Optional settings.
      */
-    set(name: string, value: string, options?: CookieOptions | null): void;
+    set(url: string, name: string, value: string, options?: CookieOptions | null): void;
 }
 
 /**
@@ -703,6 +723,15 @@ export interface CookieOptions {
 
     /** HTTP only. */
     http_only?: boolean;
+}
+
+interface ExpectedStatusesCallback {
+    [n: string]: never;
+}
+
+export interface ExpectedStatusesObject {
+    min: number;
+    max: number;
 }
 
 /**
@@ -860,7 +889,7 @@ declare namespace http {
      *   console.log(f.content_type);
      * }
      */
-    function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+    function file(data: string | bytes | ArrayBuffer, filename?: string, contentType?: string): FileData;
 
     /**
      * Get active cookie jar.
@@ -870,6 +899,18 @@ declare namespace http {
      * let jar = http.cookieJar();
      */
     function cookieJar(): CookieJar;
+    /**
+     * Returns a callback to be used with setResponseCallback to mark responses
+     * as expected based only on their status codes.
+     * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses
+     */
+    function expectedStatuses(...param: Array<number | ExpectedStatusesObject>): ExpectedStatusesCallback;
+
+    /**
+     * Set the response callback to be called to determine if a response was expected/successful or not.
+     * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback
+     */
+    function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
 }
 
 export default http;

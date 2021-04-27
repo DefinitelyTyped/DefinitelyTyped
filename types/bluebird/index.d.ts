@@ -693,7 +693,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Create a promise with undecided fate and return a `PromiseResolver` to control it. See resolution?: Promise(#promise-resolution).
    * @see http://bluebirdjs.com/docs/deprecated-apis.html#promise-resolution
    */
-  static defer<R>(): Bluebird.Resolver<R>; // tslint:disable-line no-unnecessary-generics
+  static defer<R>(): Bluebird.Resolver<R>;
 
   /**
    * Cast the given `value` to a trusted promise.
@@ -883,7 +883,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   // map
   static props<K, V>(map: Resolvable<Map<K, Resolvable<V>>>): Bluebird<Map<K, V>>;
   // trusted promise for object
-  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>; // tslint:disable-line:unified-signatures
+  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
   // object
   static props<T>(object: Bluebird.ResolvableProps<T>): Bluebird<T>; // tslint:disable-line:unified-signatures
 

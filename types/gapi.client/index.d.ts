@@ -68,7 +68,7 @@ declare namespace gapi {
             body: string;
 
             // The map of HTTP response headers.
-            headers?: any[];
+            headers?: { [headerName: string]: string };
 
             // HTTP status
             status?: number;

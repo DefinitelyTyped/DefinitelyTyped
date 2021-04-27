@@ -1,10 +1,13 @@
-// Type definitions for D3JS d3-chord module 1.0
+// Type definitions for D3JS d3-chord module 2.0
 // Project: https://github.com/d3/d3-chord/, https://d3js.org/d3-chord
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.0.3
+// Last module patch version validated against: 2.0.0
 
 // ---------------------------------------------------------------------
 // Chord
@@ -33,11 +36,6 @@ export interface ChordSubgroup {
      * The node index i
      */
     index: number;
-
-    /**
-     * The node index j
-     */
-    subindex: number;
 }
 
 /**
@@ -192,6 +190,16 @@ export interface ChordLayout {
  */
 export function chord(): ChordLayout;
 
+/**
+ * See https://observablehq.com/@d3/directed-chord-diagram.
+ */
+export function chordDirected(): ChordLayout;
+
+/**
+ * ...
+ */
+export function chordTranspose(): ChordLayout;
+
 // ---------------------------------------------------------------------
 // Ribbon
 // ---------------------------------------------------------------------
@@ -314,6 +322,48 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
     radius(radius: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
 
     /**
+     * Returns the current source radius accessor, which defaults to a function returning the "radius" property (assumed to be a number) of the source or
+     * target object returned by the source or target accessor, respectively.
+     */
+    sourceRadius(): (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number;
+    /**
+     * Sets the source radius to a fixed number and returns this ribbon generator.
+     *
+     * @param radius A fixed numeric value for the source radius.
+     */
+    sourceRadius(radius: number): this;
+    /**
+     * Sets the source radius accessor to the specified function and returns this ribbon generator.
+     *
+     * @param radius An accessor function which is invoked for the source and target of the chord. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator.
+     * It is also passed any additional arguments that were passed into the generator, with the exception of the first element representing the chord datum itself.
+     * The function returns the source radius value.
+     */
+    sourceRadius(radius: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
+
+    /**
+     * Returns the current target radius accessor, which defaults to a function returning the "radius" property (assumed to be a number) of the source or
+     * target object returned by the source or target accessor, respectively.
+     */
+    targetRadius(): (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number;
+    /**
+     * Sets the target radius to a fixed number and returns this ribbon generator.
+     *
+     * @param radius A fixed numeric value for the target radius.
+     */
+    targetRadius(radius: number): this;
+    /**
+     * Sets the target radius accessor to the specified function and returns this ribbon generator.
+     *
+     * @param radius An accessor function which is invoked for the source and target of the chord. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator.
+     * It is also passed any additional arguments that were passed into the generator, with the exception of the first element representing the chord datum itself.
+     * The function returns the target radius value.
+     */
+    targetRadius(radius: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
+
+    /**
      * Returns the current start angle accessor, which defaults to a function returning the "startAngle" property (assumed to be a number in radians) of the source or
      * target object returned by the source or target accessor, respectively.
      */
@@ -356,6 +406,26 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
     endAngle(angle: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
 
     /**
+     * Returns the current pad angle accessor, which defaults to a function returning 0.
+     */
+    padAngle(): (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number;
+    /**
+     * Sets the pad angle to a fixed number in radians and returns this ribbon generator.
+     *
+     * @param angle A fixed numeric value for the pad angle in radians.
+     */
+    padAngle(angle: number): this;
+    /**
+     * Sets the pad angle accessor to the specified function and returns this ribbon generator.
+     *
+     * @param angle An accessor function which is invoked for the source and target of the chord. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator.
+     * It is also passed any additional arguments that were passed into the generator, with the exception of the first element representing the chord datum itself.
+     * The function returns the pad angle in radians.
+     */
+    padAngle(angle: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
+
+    /**
      * Returns the current rendering context, which defaults to null.
      */
     context(): CanvasRenderingContext2D | null;
@@ -375,6 +445,14 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
      * @param context null, to remove rendering context.
      */
     context(context: null): this;
+}
+
+export interface RibbonArrowGenerator<This, RibbonDatum, RibbonSubgroupDatum> extends RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
+    headRadius(): (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number;
+
+    headRadius(radius: number): this;
+
+    headRadius(radius: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
 }
 
 /**
@@ -403,3 +481,30 @@ export function ribbon<Datum, SubgroupDatum>(): RibbonGenerator<any, Datum, Subg
  * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
  */
 export function ribbon<This, Datum, SubgroupDatum>(): RibbonGenerator<This, Datum, SubgroupDatum>;
+
+/**
+ * Creates a new arrow ribbon generator with the default settings.
+ */
+export function ribbonArrow(): RibbonArrowGenerator<any, Ribbon, RibbonSubgroup>;
+/**
+ * Creates a new arrow ribbon generator with the default settings.
+ *
+ * Accessor functions must be configured for the ribbon generator, should the datum types differ from the defaults.
+ *
+ * The first generic corresponds to the datum type representing a chord for which the ribbon is to be generated. The default type is Chord.
+ *
+ * The second generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
+ */
+export function ribbonArrow<Datum, SubgroupDatum>(): RibbonArrowGenerator<any, Datum, SubgroupDatum>;
+/**
+ * Creates a new arrow ribbon generator with the default settings.
+ *
+ * Accessor functions must be configured for the ribbon generator, should the datum types differ from the defaults.
+ *
+ * The first generic corresponds to the type of the "this" context within which the ribbon generator and its accessor functions will be invoked.
+ *
+ * The second generic corresponds to the datum type representing a chord for which the ribbon is to be generated. The default type is Chord.
+ *
+ * The third generic corresponds to the datum type of the chord subgroup, i.e. source or target of the cord. The default type is ChordSubgroup.
+ */
+export function ribbonArrow<This, Datum, SubgroupDatum>(): RibbonArrowGenerator<This, Datum, SubgroupDatum>;

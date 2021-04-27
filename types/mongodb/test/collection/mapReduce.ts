@@ -6,23 +6,23 @@ import { connectionString } from '../index';
 declare function emit(key: any, value: any): void;
 
 interface ITestMapReduceSchema {
-  cust_id: string;
-  amount: number;
-  status: string;
+    cust_id: string;
+    amount: number;
+    status: string;
 }
 
 function testCollectionMapFunction(this: ITestMapReduceSchema) {
-  emit(this.cust_id, this.amount);
+    emit(this.cust_id, this.amount);
 }
 
 function testCollectionReduceFunction(_key: string, values: number[]): number {
-  return values.reduce((a, v) => a + v, 0);
+    return values.reduce((a, v) => a + v, 0);
 }
 
 async function run() {
-  const client = await connect(connectionString);
-  client
-    .db('test')
-    .collection<ITestMapReduceSchema>('test-mapReduce-collection')
-    .mapReduce(testCollectionMapFunction, testCollectionReduceFunction);
+    const client = await connect(connectionString);
+    client
+        .db('test')
+        .collection<ITestMapReduceSchema>('test-mapReduce-collection')
+        .mapReduce(testCollectionMapFunction, testCollectionReduceFunction);
 }

@@ -1,29 +1,19 @@
-// Type definitions for koa-helmet 5.2
+// Type definitions for koa-helmet 6.0
 // Project: https://github.com/venables/koa-helmet#readme
-// Definitions by: Nick Simmons <https://github.com/me>
+// Definitions by: Nick Simmons <https://github.com/nsimmons>
+//                 Jan Dolezel <https://github.com/dolezel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import {
-    IHelmetConfiguration,
-    IHelmetFrameguardConfiguration,
-    IHelmetHstsConfiguration,
-    IHelmetXssFilterConfiguration,
-    IHelmetDnsPrefetchControlConfiguration,
-    IHelmetHpkpConfiguration,
-    IHelmetReferrerPolicyConfiguration,
-    IHelmetHidePoweredByConfiguration,
-    IHelmetPermittedCrossDomainPoliciesConfiguration,
-    IHelmetExpectCtConfiguration,
-} from 'helmet';
+import helmet = require('helmet');
 import { Middleware, Context } from 'koa';
+
+type HelmetOptions = Required<Parameters<typeof helmet>>[0];
 
 declare namespace koaHelmet {
     type KoaHelmetContentSecurityPolicyDirectiveFunction = (ctx: Context) => string;
 
     type KoaHelmetCspDirectiveValue = string | KoaHelmetContentSecurityPolicyDirectiveFunction;
-
-    type KoaHelmetFeaturePolicyDirectiveValue = string;
 
     interface KoaHelmetContentSecurityPolicyDirectives {
         baseUri?: KoaHelmetCspDirectiveValue[];
@@ -44,71 +34,24 @@ declare namespace koaHelmet {
         styleSrc?: KoaHelmetCspDirectiveValue[];
     }
 
-    interface KoaHelmetFeaturePolicyDirectives {
-        accelerometer?: KoaHelmetFeaturePolicyDirectiveValue[];
-        ambientLightSensor?: KoaHelmetFeaturePolicyDirectiveValue[];
-        autoplay?: KoaHelmetFeaturePolicyDirectiveValue[];
-        camera?: KoaHelmetFeaturePolicyDirectiveValue[];
-        documentDomain?: KoaHelmetFeaturePolicyDirectiveValue[];
-        documentWrite?: KoaHelmetFeaturePolicyDirectiveValue[];
-        encryptedMedia?: KoaHelmetFeaturePolicyDirectiveValue[];
-        fontDisplayLateSwap?: KoaHelmetFeaturePolicyDirectiveValue[];
-        fullscreen?: KoaHelmetFeaturePolicyDirectiveValue[];
-        geolocation?: KoaHelmetFeaturePolicyDirectiveValue[];
-        gyroscope?: KoaHelmetFeaturePolicyDirectiveValue[];
-        layoutAnimations?: KoaHelmetFeaturePolicyDirectiveValue[];
-        legacyImageFormats?: KoaHelmetFeaturePolicyDirectiveValue[];
-        loadingFrameDefaultEager?: KoaHelmetFeaturePolicyDirectiveValue[];
-        magnetometer?: KoaHelmetFeaturePolicyDirectiveValue[];
-        microphone?: KoaHelmetFeaturePolicyDirectiveValue[];
-        midi?: KoaHelmetFeaturePolicyDirectiveValue[];
-        oversizedImages?: KoaHelmetFeaturePolicyDirectiveValue[];
-        payment?: KoaHelmetFeaturePolicyDirectiveValue[];
-        pictureInPicture?: KoaHelmetFeaturePolicyDirectiveValue[];
-        serial?: KoaHelmetFeaturePolicyDirectiveValue[];
-        speaker?: KoaHelmetFeaturePolicyDirectiveValue[];
-        syncScript?: KoaHelmetFeaturePolicyDirectiveValue[];
-        syncXhr?: KoaHelmetFeaturePolicyDirectiveValue[];
-        unoptimizedImages?: KoaHelmetFeaturePolicyDirectiveValue[];
-        unoptimizedLosslessImages?: KoaHelmetFeaturePolicyDirectiveValue[];
-        unoptimizedLossyImages?: KoaHelmetFeaturePolicyDirectiveValue[];
-        unsizedMedia?: KoaHelmetFeaturePolicyDirectiveValue[];
-        usb?: KoaHelmetFeaturePolicyDirectiveValue[];
-        verticalScroll?: KoaHelmetFeaturePolicyDirectiveValue[];
-        vibrate?: KoaHelmetFeaturePolicyDirectiveValue[];
-        vr?: KoaHelmetFeaturePolicyDirectiveValue[];
-        wakeLock?: KoaHelmetFeaturePolicyDirectiveValue[];
-        xr?: KoaHelmetFeaturePolicyDirectiveValue[];
-    }
-
-    interface KoaHelmetFeaturePolicyConfiguration {
-        features: KoaHelmetFeaturePolicyDirectives;
-    }
-
     interface KoaHelmetContentSecurityPolicyConfiguration {
         reportOnly?: boolean;
-        setAllHeaders?: boolean;
-        disableAndroid?: boolean;
-        browserSniff?: boolean;
         directives?: KoaHelmetContentSecurityPolicyDirectives;
     }
 
     interface KoaHelmet {
-        (options?: IHelmetConfiguration): Middleware;
+        (options?: HelmetOptions): Middleware;
         contentSecurityPolicy(options?: KoaHelmetContentSecurityPolicyConfiguration): Middleware;
-        dnsPrefetchControl(options?: IHelmetDnsPrefetchControlConfiguration): Middleware;
-        frameguard(options?: IHelmetFrameguardConfiguration): Middleware;
-        hpkp(options?: IHelmetHpkpConfiguration): Middleware;
-        hsts(options?: IHelmetHstsConfiguration): Middleware;
-        ieNoOpen(): Middleware;
-        noCache(options?: any): Middleware;
-        noSniff(): Middleware;
-        referrerPolicy(options?: IHelmetReferrerPolicyConfiguration): Middleware;
-        xssFilter(options?: IHelmetXssFilterConfiguration): Middleware;
-        hidePoweredBy(options?: IHelmetHidePoweredByConfiguration): Middleware;
-        permittedCrossDomainPolicies(options?: IHelmetPermittedCrossDomainPoliciesConfiguration): Middleware;
-        featurePolicy(options: KoaHelmetFeaturePolicyConfiguration): Middleware;
-        expectCt(options?: IHelmetExpectCtConfiguration): Middleware;
+        dnsPrefetchControl(options?: HelmetOptions['dnsPrefetchControl']): Middleware;
+        expectCt(options?: HelmetOptions['expectCt']): Middleware;
+        frameguard(options?: HelmetOptions['frameguard']): Middleware;
+        hidePoweredBy(options?: HelmetOptions['hidePoweredBy']): Middleware;
+        hsts(options?: HelmetOptions['hsts']): Middleware;
+        ieNoOpen(options?: HelmetOptions['ieNoOpen']): Middleware;
+        noSniff(options?: HelmetOptions['noSniff']): Middleware;
+        permittedCrossDomainPolicies(options?: HelmetOptions['permittedCrossDomainPolicies']): Middleware;
+        referrerPolicy(options?: HelmetOptions['referrerPolicy']): Middleware;
+        xssFilter(options?: HelmetOptions['xssFilter']): Middleware;
     }
 }
 

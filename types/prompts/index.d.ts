@@ -87,12 +87,14 @@ declare namespace prompts {
         max?: number;
         float?: boolean;
         round?: number;
+        instructions?: string | boolean;
         increment?: number;
         separator?: string;
         active?: string;
         inactive?: string;
         choices?: Choice[];
         hint?: string;
+        warn?: string;
         suggest?: ((input: any, choices: Choice[]) => Promise<any>);
         limit?: number;
         mask?: string;

@@ -69,6 +69,11 @@ function test_datafactory() {
     const dataFactory: DataFactory = <any> {};
 
     const namedNode: NamedNode = dataFactory.namedNode('http://example.org');
+    const constantValue: 'http://example.org' = dataFactory.namedNode('http://example.org').value;
+    // $ExpectError
+    const otherConstantValue: 'http://not-example.org' = dataFactory.namedNode('http://example.org').value;
+    // $ExpectError
+    const otherConstantNamedNode: NamedNode<'http://not-example.org'> = dataFactory.namedNode('http://example.org');
 
     const blankNode1: BlankNode = dataFactory.blankNode('b1');
     const blankNode2: BlankNode = dataFactory.blankNode();
@@ -90,6 +95,54 @@ function test_datafactory() {
     const quadBnodeFactory: DataFactory<QuadBnode> = <any> {};
     const quad = quadBnodeFactory.quad(literal1, blankNode1, term, term);
     const hasBnode = quad.predicate.termType === "BlankNode";
+}
+
+function test_datafactory_star() {
+    const dataFactory: DataFactory = <any> {};
+
+    // Compose the triple "<<ex:bob ex:age 23>> ex:certainty 0.9."
+    const quadBobAge: Quad = dataFactory.quad(
+        dataFactory.namedNode('ex:bob'),
+        dataFactory.namedNode('ex:age'),
+        dataFactory.literal('23'),
+    );
+    const quadBobAgeCertainty: Quad = dataFactory.quad(
+        quadBobAge,
+        dataFactory.namedNode('ex:certainty'),
+        dataFactory.literal('0.9'),
+    );
+
+    // Decompose the triple
+    if (quadBobAgeCertainty.subject.termType === 'Quad') {
+        const quadBobAge2: Quad = quadBobAgeCertainty.subject;
+
+        const equalToSelf: boolean = quadBobAge2.equals(quadBobAge);
+        const notEqualToOtherType: boolean = quadBobAge2.equals(dataFactory.namedNode('ex:something:else'));
+    }
+}
+
+function test_datafactory_star_basequad() {
+    const dataFactory: DataFactory<BaseQuad> = <any> {};
+
+    // Compose the triple "<<ex:bob ex:age 23>> ex:certainty 0.9."
+    const quadBobAge: BaseQuad = dataFactory.quad(
+        dataFactory.namedNode('ex:bob'),
+        dataFactory.namedNode('ex:age'),
+        dataFactory.literal('23'),
+    );
+    const quadBobAgeCertainty: BaseQuad = dataFactory.quad(
+        quadBobAge,
+        dataFactory.namedNode('ex:certainty'),
+        dataFactory.literal('0.9'),
+    );
+
+    // Decompose the triple
+    if (quadBobAgeCertainty.subject.termType === 'Quad') {
+        const quadBobAge2: BaseQuad = quadBobAgeCertainty.subject;
+
+        const equalToSelf: boolean = quadBobAge2.equals(quadBobAge);
+        const notEqualToOtherType: boolean = quadBobAge2.equals(dataFactory.namedNode('ex:something:else'));
+    }
 }
 
 function test_stream() {

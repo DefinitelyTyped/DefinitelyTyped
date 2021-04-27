@@ -3,7 +3,7 @@
 // Definitions by: Igor Korolev <https://github.com/deadNightTiger>
 //                 Matt Scheurich <https://github.com/lvl99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 import * as ajv from 'ajv';

@@ -1,24 +1,14 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "jsdoc-format": false,
         "no-declare-current-package": false,
-        "no-inferrable-types": false,
-        "no-object-literal-type-assertion": false,
-        "no-redundant-jsdoc": false,
         "no-single-declare-module": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
-        "no-var-requires": false,
-        "prefer-method-signature": false,
         "prefer-object-spread": false,
-        "radix": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

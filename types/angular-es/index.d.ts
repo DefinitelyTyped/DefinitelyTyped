@@ -41,9 +41,9 @@ declare module 'angular-es' {
     /**
      * Register component
      *
-     * @param {Object<iComponent>} component - component config
+     * @param component - component config
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Component(component: iComponent): ngESDecorator;
 
@@ -55,115 +55,115 @@ declare module 'angular-es' {
     /**
      * Register constant
      *
-     * @param {string} name - constant name
+     * @param name - constant name
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Constant(name: string): ngESDecorator;
 
     /**
      * Register controller
      *
-     * @param {string} name - controller name
+     * @param name - controller name
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Controller(name: string): ngESDecorator;
 
     /**
      * Register decorator
      *
-     * @param {string} name - provider name to decorate
+     * @param name - provider name to decorate
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Decorator(name: string): ngESDecorator;
 
     /**
      * Register directive
      *
-     * @param {string} name - directive selector, can be in hyphen-case
+     * @param name - directive selector, can be in hyphen-case
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Directive(name: string): ngESDecorator;
 
     /**
      * Register factory
      *
-     * @param {string} name - factory name
+     * @param name - factory name
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Factory(name: string): ngESDecorator;
 
     /**
      * Register filter
      *
-     * @param {string} name - filter name
+     * @param name - filter name
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Filter(name: string): ngESDecorator;
 
     /**
      * Add $inject property to target
      *
-     * @param {Array<string>} dependencies - dependencies to inject
+     * @param dependencies - dependencies to inject
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Inject(...dependencies: Array<string>): ngESDecorator;
 
     /**
      * Inject dependencies as properties to target
      *
-     * @param {Array<string>} dependencies - dependencies to inject
+     * @param dependencies - dependencies to inject
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function InjectAsProperty(...dependencies: Array<string>): ngESDecorator;
 
     /**
      * Attach target to the specified module
      *
-     * @param {string} name - module name
+     * @param name - module name
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Module(name: string): ngESDecorator;
 
     /**
      * Register provider
      *
-     * @param {string} name - provider name
+     * @param name - provider name
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Provider(name: string): ngESDecorator;
 
     /**
      * Register run block
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Run(): ngESDecorator;
 
     /**
      * Register service
      *
-     * @param {string} name - service name
+     * @param name - service name
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Service(name: string): ngESDecorator;
 
     /**
      * Register value
      *
-     * @param {string} name - value name
+     * @param name - value name
      *
-     * @returns {ngESDecorator} - decorated class
+     * @returns decorated class
      */
     function Value(name: string): ngESDecorator;
 

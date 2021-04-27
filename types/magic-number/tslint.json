@@ -1,10 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "dt-header": false,
         "no-consecutive-blank-lines": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "npm-naming": [
             true,
@@ -20,7 +18,6 @@
         ],
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false
     }
 }

@@ -277,8 +277,10 @@ declare namespace BootstrapFileInput {
          * The ajax delete action will send the following data to server via POST:
          *     key: the key setting as setup in initialPreviewConfig['key']
          *     any other extra data passed as key: value pairs either via initialPreviewConfig['extra'] OR deleteExtraData if former is not set.
+         * You can also set deleteUrl as a function callback which will return a string. In that case, the function will get executed every time at runtime.
+         * This will enable you to set a dynamically changing url based on runtime conditions.
          */
-        deleteUrl?: string;
+        deleteUrl?: string | (() => string);
         /**
          * the initial preview caption text to be displayed.
          * If you do not set a value here and initialPreview is set to true this will default to "{preview-file-count} files selected",
@@ -439,8 +441,19 @@ declare namespace BootstrapFileInput {
          *     This is MANDATORY if you want to use advanced features like drag & drop, append/remove files, selectively upload files via ajax etc.
          *     The plugin automatically send $_FILES data to the server with the input `name` attribute as the key if provided.
          *     If input name is not set, the key defaults to file-data.
+         * You can also set uploadUrl as a function callback which will return a string. In that case, the function will get executed at runtime
+         * just before every ajax call. This will enable you to set a dynamic upload url based on runtime / dynamic conditions.
          */
-        uploadUrl?: string;
+        uploadUrl?: string | (() => string);
+        /**
+         * the URL for the ajax upload processing action applicable when each individual file thumbnail is separately uploaded. Defaults to null.
+         * If this is not set, this will default to the uploadUrl setting. This property is useful for synchronous uploads when uploadAsync is
+         * set to false, and you want to set a different server action for batch upload via uploadUrl, but a different server action for single
+         * file thumbnail upload via uploadUrlThumb.
+         * You can also set uploadThumbUrl as a function callback which will return a string. In that case, the function will get executed at
+         * runtime just before every ajax call. This will enable you to set a dynamic upload thumbnail url based on runtime / dynamic conditions.
+         */
+        uploadUrlThumb?: string | (() => string);
         /**
          * whether the batch upload of multiple files will be asynchronous/in parallel.
          * @default true

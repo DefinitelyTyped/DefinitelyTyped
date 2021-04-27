@@ -22,6 +22,7 @@
 /// <reference path="./series/treemap.d.ts" />
 /// <reference path="./axis-pointer.d.ts" />
 /// <reference path="./calendar.d.ts" />
+/// <reference path="./color.d.ts" />
 /// <reference path="./dataset.d.ts" />
 /// <reference path="./data-zoom.d.ts" />
 /// <reference path="./grid.d.ts" />

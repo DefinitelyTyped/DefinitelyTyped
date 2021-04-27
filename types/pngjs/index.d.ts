@@ -1,7 +1,7 @@
-// Type definitions for pngjs 3.4
+// Type definitions for pngjs 6.0
 // Project: https://github.com/lukeapage/pngjs
 // Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Imdahl <https://github.com/ffflorian>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -67,6 +67,7 @@ export interface BaseOptions {
 
 export interface ParserOptions {
     checkCRC?: boolean;
+    skipRescale?: boolean;
 }
 
 export interface PackerOptions {

@@ -2,7 +2,7 @@
 // Project: https://github.com/nuxt/webpackbar
 // Definitions by: Ryan Clark <https://github.com/rynclark>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 /// <reference types="node" />
 
@@ -49,7 +49,7 @@ declare namespace WebpackBar {
     color?: string;
     /** Enable the profiler for files and loaders */
     profile?: boolean;
-    /** Stream to rwite to */
+    /** Stream to write to */
     stream?: NodeJS.WriteStream;
     /** Minimal output */
     minimal?: boolean;

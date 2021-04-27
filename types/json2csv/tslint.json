@@ -2,8 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "ban-types": false,
-        "callable-types": false,
         "jsdoc-format": false,
         "member-access": false,
         "no-duplicate-imports": false,

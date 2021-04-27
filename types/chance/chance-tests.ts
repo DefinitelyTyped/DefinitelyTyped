@@ -52,6 +52,7 @@ chance.mixin({
 const chanceConstructedWithSeed100 = new Chance(100);
 const chanceCalledWithSeed100 = Chance();
 const chanceConstructedWithStringSeed = new Chance("test");
+const chanceConstructedWithMultipleParameters = new Chance("test", 1, 1.5);
 
 // Test new added typed functions
 

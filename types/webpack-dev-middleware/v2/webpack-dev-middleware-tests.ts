@@ -16,7 +16,7 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     publicPath: '/assets/',
     index: 'index.html',
     headers: {
-        'X-Custom-Header': 'yes'
+        'X-Custom-Header': 'yes',
     },
     stats: {
         colors: true,
@@ -33,11 +33,11 @@ webpackDevMiddlewareInstance.close(() => {
     console.log('closed');
 });
 
-webpackDevMiddlewareInstance.invalidate((stats) => {
+webpackDevMiddlewareInstance.invalidate(stats => {
     console.log(stats.toJson());
 });
 
-webpackDevMiddlewareInstance.waitUntilValid((stats) => {
+webpackDevMiddlewareInstance.waitUntilValid(stats => {
     console.log('Package is in a valid state:' + stats.toJson());
 });
 

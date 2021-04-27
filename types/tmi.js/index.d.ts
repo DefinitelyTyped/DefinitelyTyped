@@ -1,11 +1,13 @@
-// Type definitions for tmi.js 1.4
+// Type definitions for tmi.js 1.7
 // Project: https://github.com/tmijs/tmi.js
 // Definitions by: William Papsco <https://github.com/wpapsco>
+//                 Corbin Crutchley <https://github.com/crutchcorn>
+//                 Daniel Fischer <https://github.com/d-fischer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
 // Twitch IRC docs: https://dev.twitch.tv/docs/irc/
-// Last updated: 2019/3/06
+// Last updated: 2020/8/12
 
 import { StrictEventEmitter } from "./strict-event-emitter-types";
 
@@ -49,6 +51,7 @@ export interface Actions {
 export interface Events {
     action(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     anongiftpaidupgrade(channel: string, username: string, userstate: AnonSubGiftUpgradeUserstate): void;
+    automod(channel: string, msgID: 'msg_rejected' | 'msg_rejected_mandatory', message: string): void;
     ban(channel: string, username: string, reason: string): void;
     chat(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     cheer(channel: string, userstate: ChatUserstate, message: string): void;
@@ -72,10 +75,13 @@ export interface Events {
     part(channel: string, username: string, self: boolean): void;
     ping(): void;
     pong(latency: number): void;
+    primepaidupgrade(channel: string, username: string, methods: SubMethods, userstate: PrimeUpgradeUserstate): void;
     r9kbeta(channel: string, enabled: boolean): void;
     raided(channel: string, username: string, viewers: number): void;
     "raw_message": (messageCloned: { [property: string]: any }, message: { [property: string]: any }) => void;
     reconnect(): void;
+    // additional string literals for autocomplete
+    redeem(channel: string, username: string, rewardType: 'highlighted-message' | 'skip-subs-mode-message' | string, tags: ChatUserstate): void;
     resub(channel: string, username: string, months: number, message: string, userstate: SubUserstate, methods: SubMethods): void;
     roomstate(channel: string, state: RoomState): void;
     serverchange(channel: string): void;
@@ -112,12 +118,23 @@ export interface Badges {
     admin?: string;
     bits?: string;
     broadcaster?: string;
+    partner?: string;
     global_mod?: string;
     moderator?: string;
+    vip?: string;
     subscriber?: string;
     staff?: string;
     turbo?: string;
     premium?: string;
+    founder?: string;
+    ['bits-leader']?: string;
+    ['sub-gifter']?: string;
+    [other: string]: string | undefined;
+}
+
+export interface BadgeInfo {
+    subscriber?: string;
+    [other: string]: string | undefined;
 }
 
 export interface SubMethods {
@@ -134,6 +151,7 @@ export interface DeleteUserstate {
 
 export interface CommonUserstate {
     badges?: Badges;
+    'badge-info'?: BadgeInfo;
     color?: string;
     "display-name"?: string;
     emotes?: { [emoteid: string]: string[] };
@@ -142,6 +160,7 @@ export interface CommonUserstate {
     turbo?: boolean;
     'emotes-raw'?: string;
     'badges-raw'?: string;
+    'badge-info-raw'?: string;
     "room-id"?: string;
     subscriber?: boolean;
     'user-type'?: "" | "mod" | "global_mod" | "admin" | "staff";
@@ -204,6 +223,10 @@ export interface SubGiftUpgradeUserstate extends CommonSubUserstate {
 
 export interface AnonSubGiftUpgradeUserstate extends CommonSubUserstate {
     "message-type"?: "anongiftpaidupgrade";
+}
+
+export interface PrimeUpgradeUserstate extends CommonSubUserstate {
+    "message-type"?: "primepaidupgrade";
 }
 
 export interface RaidUserstate extends UserNoticeState {
@@ -328,6 +351,9 @@ export interface Options {
     options?: {
         clientId?: string;
         debug?: boolean;
+        joinInterval?: number;
+        globalDefaultChannel?: string;
+        messagesLogLevel?: string;
     };
     connection?: {
         server?: string;
@@ -342,15 +368,20 @@ export interface Options {
     };
     identity?: {
         username?: string;
-        password?: string;
+        password?: string | (() => string | Promise<string>);
     };
     channels?: string[];
     logger?: {
-        info?: (message: string) => any;
-        warn?: (message: string) => any;
-        error?: (message: string) => any;
+        info: (message: string) => any;
+        warn: (message: string) => any;
+        error: (message: string) => any;
     };
 }
 
-export function client(opts: Options): Client;
-export function Client(opts: Options): Client;
+export interface ClientConstructor {
+    (opts: Options): Client;
+    new (opts: Options): Client;
+}
+
+export const client: ClientConstructor;
+export const Client: ClientConstructor;

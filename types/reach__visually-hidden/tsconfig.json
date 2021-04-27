@@ -14,7 +14,7 @@
             "../"
         ],
         "paths": {
-            "@reach/visually-hidden": ["reach__visually-hidden"]
+            "@reach/*": ["reach__*"]
         },
         "types": [],
         "noEmit": true,

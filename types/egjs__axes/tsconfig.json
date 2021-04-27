@@ -17,11 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@egjs/component": [
-                "egjs__component"
-            ],
-            "@egjs/axes": [
-                "egjs__axes"
+            "@egjs/*": [
+                "egjs__*"
             ]
         }
     },

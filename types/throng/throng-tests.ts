@@ -10,6 +10,7 @@ throng(3, startFunction);
 
 throng({
     workers: 4,
+    signals: ["EXAMPLE"],
     master: masterFunction,
     start: startFunction
 });
@@ -27,4 +28,11 @@ throng({
     grace: 4000,
     master: masterFunction,
     start: startFunction
+});
+
+throng({
+    lifetime: 10000,
+    grace: 4000,
+    count: 2,
+    worker: startFunction,
 });

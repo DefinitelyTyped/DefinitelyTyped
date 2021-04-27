@@ -1,11 +1,8 @@
 import * as oracledb from 'oracledb';
 
-
 import defaultOracledb from 'oracledb';
 // import dotenv from 'dotenv';
 import assert from 'assert';
-
-
 
 // dotenv.config();
 
@@ -35,33 +32,31 @@ const initSession = (connection: oracledb.Connection, requestedTag: string, call
 };
 
 const testBreak = (connection: oracledb.Connection): Promise<void> =>
-    new Promise(
-        (resolve): void => {
-            console.log('Testing connection.execute()...');
+    new Promise((resolve): void => {
+        console.log('Testing connection.execute()...');
 
-            connection.execute(
-                `   BEGIN
+        connection.execute(
+            `   BEGIN
                         dbms_lock.sleep(:seconds);
                     END;
                 `,
-                [2],
-                (error: oracledb.DBError): void => {
-                    // ORA-01013: user requested cancel of current operation
-                    assert(error.message.includes('ORA-01013'), 'message not defined for DB error');
-                    assert(error.errorNum !== undefined, 'errorNum not defined for DB error');
-                    assert(error.offset !== undefined, 'offset not defined for DB error');
+            [2],
+            (error: oracledb.DBError): void => {
+                // ORA-01013: user requested cancel of current operation
+                assert(error.message.includes('ORA-01013'), 'message not defined for DB error');
+                assert(error.errorNum !== undefined, 'errorNum not defined for DB error');
+                assert(error.offset !== undefined, 'offset not defined for DB error');
 
-                    return resolve();
-                },
-            );
+                return resolve();
+            },
+        );
 
-            setTimeout((): void => {
-                console.log('Testing connection.execute()...');
+        setTimeout((): void => {
+            console.log('Testing connection.execute()...');
 
-                connection.break().then((): void => { });
-            }, 1000);
-        },
-    );
+            connection.break().then((): void => {});
+        }, 1000);
+    });
 
 const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<void> => {
     console.log('Testing connection.getStatementInfo()...');
@@ -104,7 +99,7 @@ const testQueryStream = async (connection: oracledb.Connection): Promise<void> =
             anotherValue: {
                 dir: oracledb.BIND_INOUT,
                 type: oracledb.DB_TYPE_NCLOB,
-            }
+            },
         });
 
         let data = '';
@@ -322,13 +317,13 @@ const dbObjectTests = async () => {
         COLUMN2: string;
     }
 
-    const TestClass = await conn.getDbObjectClass<Test>('test')
+    const TestClass = await conn.getDbObjectClass<Test>('test');
 
     const test1 = new TestClass({
         COLUMN1: '1234',
-        COLUMN2: '1234'
-    })
-    test1.COLUMN1 = '1234'
+        COLUMN2: '1234',
+    });
+    test1.COLUMN1 = '1234';
 
     TestClass.prototype;
 
@@ -340,7 +335,7 @@ const dbObjectTests = async () => {
         SDO_ORDINATES: number[];
     }
 
-    const GeomType = await conn.getDbObjectClass<Geom>("MDSYS.SDO_GEOMETRY");
+    const GeomType = await conn.getDbObjectClass<Geom>('MDSYS.SDO_GEOMETRY');
     console.log(GeomType.prototype);
 
     const geom = new GeomType();
@@ -353,29 +348,23 @@ const dbObjectTests = async () => {
     geom.SDO_ELEM_INFO = [1, 1003, 3];
     geom.SDO_ORDINATES = [1, 1, 5, 7];
 
-    geom.getKeys().find((e) => e === 'SDO_ELEM_INFO')
+    geom.getKeys().find(e => e === 'SDO_ELEM_INFO');
 
-    await conn.execute(
-        `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
-        { id: 1, g: geom }
-    );
+    await conn.execute(`INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`, { id: 1, g: geom });
 
-    await conn.execute(
-        `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
-        {
-            id: 1,
-            g: {
-                type: "MDSYS.SDO_GEOMETRY",
-                val: {
-                    SDO_GTYPE: 2003,
-                    SDO_SRID: null,
-                    SDO_POINT: null,
-                    SDO_ELEM_INFO: [1, 1003, 3],
-                    SDO_ORDINATES: [1, 1, 5, 7]
-                }
-            }
-        }
-    );
+    await conn.execute(`INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`, {
+        id: 1,
+        g: {
+            type: 'MDSYS.SDO_GEOMETRY',
+            val: {
+                SDO_GTYPE: 2003,
+                SDO_SRID: null,
+                SDO_POINT: null,
+                SDO_ELEM_INFO: [1, 1003, 3],
+                SDO_ORDINATES: [1, 1, 5, 7],
+            },
+        },
+    });
 
     interface OutGeom {
         SDO_GTYPE: number;
@@ -385,15 +374,17 @@ const dbObjectTests = async () => {
         SDO_ORDINATES: oracledb.DBObject_OUT<number>;
     }
 
-    const result = await conn.execute<oracledb.DBObject_OUT<OutGeom>[]>(`SELECT geometry FROM testgeometry WHERE id = 1`);
+    const result = await conn.execute<oracledb.DBObject_OUT<OutGeom>[]>(
+        `SELECT geometry FROM testgeometry WHERE id = 1`,
+    );
     const o = result.rows[0][0];
     console.log(o.isCollection);
-    o.getKeys()
-    o.SDO_ELEM_INFO.getKeys()
+    o.getKeys();
+    o.SDO_ELEM_INFO.getKeys();
     console.log(o.SDO_ELEM_INFO.isCollection);
     console.log(o.SDO_ELEM_INFO.getKeys().find(e => typeof e === 'number'));
     console.log(o.getValues()[0].SDO_ELEM_INFO);
-}
+};
 
 const version4Tests = async () => {
     console.log(oracledb.OUT_FORMAT_ARRAY, oracledb.OUT_FORMAT_OBJECT);
@@ -402,33 +393,28 @@ const version4Tests = async () => {
 
     const connection = await pool.getConnection();
 
-    const implicitResults = (await connection.execute<One>(
-        'SELECT 1 FROM DUAL',
-    )).implicitResults as oracledb.ResultSet<One>[];
+    const implicitResults = (await connection.execute<One>('SELECT 1 FROM DUAL'))
+        .implicitResults as oracledb.ResultSet<One>[];
 
     (await implicitResults[0].getRow()).one;
 
-    await implicitResults[0].close()
+    await implicitResults[0].close();
 
-    const implicitResults2 = (await connection.execute<One>(
-        'SELECT 1 FROM DUAL',
-    )).implicitResults as One[][];
+    const implicitResults2 = (await connection.execute<One>('SELECT 1 FROM DUAL')).implicitResults as One[][];
 
     const results = implicitResults2[0][0];
 
     console.log(results.one);
 
-    const GeomType = await connection.getDbObjectClass("MDSYS.SDO_GEOMETRY");
+    const GeomType = await connection.getDbObjectClass('MDSYS.SDO_GEOMETRY');
 
-    const geom = new GeomType(
-        {
-            SDO_GTYPE: 2003,
-            SDO_SRID: null,
-            SDO_POINT: null,
-            SDO_ELEM_INFO: [1, 1003, 3],
-            SDO_ORDINATES: [1, 1, 5, 7]
-        }
-    );
+    const geom = new GeomType({
+        SDO_GTYPE: 2003,
+        SDO_SRID: null,
+        SDO_POINT: null,
+        SDO_ELEM_INFO: [1, 1003, 3],
+        SDO_ORDINATES: [1, 1, 5, 7],
+    });
 
     geom.attributes = {
         STREET_NUMBER: { type: 2, typeName: 'NUMBER' },
@@ -436,37 +422,27 @@ const version4Tests = async () => {
             type: 2023,
             typeName: 'MDSYS.SDO_POINT_TYPE',
             typeClass: GeomType,
-        }
-    }
+        },
+    };
 
     new geom.attributes.test.typeClass({});
 
-    await connection.execute(
-        `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
-        { id: 1, g: geom }
-    );
+    await connection.execute(`INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`, { id: 1, g: geom });
 
     const sub = await connection.subscribe('test', {
         sql: 'test',
-        callback: (message) => {
+        callback: message => {
             console.log(message.queueName);
-        }
+        },
     });
 
     console.log(sub.regId);
 
     const queue = await connection.getQueue('test', {
-        payloadType: 'test'
-    })
+        payloadType: 'test',
+    });
 
-    const {
-        name,
-        deqOptions,
-        enqOptions,
-        payloadType,
-        payloadTypeClass,
-        payloadTypeName
-    } = queue;
+    const { name, deqOptions, enqOptions, payloadType, payloadTypeClass, payloadTypeName } = queue;
 
     const {
         condition,
@@ -518,30 +494,28 @@ const version4Tests = async () => {
         await rs.close();
     }
 
-    const queueName = "DEMO_RAW_QUEUE";
+    const queueName = 'DEMO_RAW_QUEUE';
     const queue2 = await connection.getQueue(queueName);
-    await queue2.enqOne("This is my message");
+    await queue2.enqOne('This is my message');
     await connection.commit();
 
-    const queueName3 = "DEMO_RAW_QUEUE";
+    const queueName3 = 'DEMO_RAW_QUEUE';
     const queue3 = await connection.getQueue(queueName3);
     const msg = await queue3.deqOne();
     await connection.commit();
     console.log(msg.payload.toString());
 
-    const message = new queue.payloadTypeClass(
-        {
-            NAME: "scott",
-            ADDRESS: "The Kennel"
-        }
-    );
+    const message = new queue.payloadTypeClass({
+        NAME: 'scott',
+        ADDRESS: 'The Kennel',
+    });
     await queue.enqOne(message);
     await connection.commit();
 
-    const queue5 = await connection.getQueue(queueName, { payloadType: "DEMOQUEUE.USER_ADDRESS_TYPE" });
+    const queue5 = await connection.getQueue(queueName, { payloadType: 'DEMOQUEUE.USER_ADDRESS_TYPE' });
     const msg5 = await queue.deqOne();
     await connection.commit();
-}
+};
 
 const aqTests = async () => {
     const c = await oracledb.getConnection();
@@ -560,8 +534,8 @@ const aqTests = async () => {
     q.enqOne(new MyClass());
 
     const msg = await q.deqOne();
-    msg.payload
-}
+    msg.payload;
+};
 
 interface MyTableRow {
     firstColumn: string;
@@ -570,7 +544,7 @@ interface MyTableRow {
 
 const testGenerics = async () => {
     const connection = await oracledb.getConnection({
-        user: 'test'
+        user: 'test',
     });
 
     const result = await connection.execute<MyTableRow>('SELECT 1 FROM DUAL');
@@ -581,9 +555,9 @@ const testGenerics = async () => {
     const result2 = await connection.execute<{ test: string }>(' BEGIN DO_SOMETHING END;', {
         test: {
             dir: oracledb.BIND_OUT,
-            val: 'something'
-        }
-    })
+            val: 'something',
+        },
+    });
 
     console.log(result2.outBinds.test);
 
@@ -592,9 +566,7 @@ const testGenerics = async () => {
     const result3 = await connection.executeMany<MyTableRow>(sql, 5);
 
     console.log(result3.outBinds[0].firstColumn);
-}
-
-
+};
 
 const test4point1 = async (): Promise<void> => {
     defaultOracledb.poolMaxPerShard = 45;
@@ -640,7 +612,7 @@ export const v5Tests = async (): Promise<void> => {
     await defaultOracledb.startup(creds, {
         force: true,
         restrict: true,
-        pfile: ''
+        pfile: '',
     });
 
     await defaultOracledb.shutdown(creds, defaultOracledb.SHUTDOWN_MODE_ABORT);
@@ -655,7 +627,16 @@ export const v5Tests = async (): Promise<void> => {
 
     await conn.shutdown(defaultOracledb.SHUTDOWN_MODE_ABORT);
 
-    await conn.execute('', {}, {
-        prefetchRows: 5,
-    });
-}
+    await conn.execute(
+        '',
+        {},
+        {
+            prefetchRows: 5,
+        },
+    );
+};
+
+export const v5point1Tests = (): void => {
+    console.log(defaultOracledb.DB_TYPE_JSON);
+    defaultOracledb.dbObjectAsPojo = true;
+};

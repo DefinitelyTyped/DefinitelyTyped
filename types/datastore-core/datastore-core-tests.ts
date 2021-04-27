@@ -1,14 +1,14 @@
-import { Key, MemoryDatastore, Datastore } from 'interface-datastore';
+import { Key, MemoryDatastore, Adapter } from 'interface-datastore';
 import {
     KeytransformDatastore,
     MountDatastore,
     NamespaceDatastore,
     ShardingDatastore,
     TieredDatastore,
-    shard
+    shard,
 } from 'datastore-core';
 
-const store: Datastore = new MemoryDatastore();
+const store = new MemoryDatastore();
 
 // KeytransformDatastore
 
@@ -23,7 +23,7 @@ const transform = {
             throw new Error('missing prefix, convert failed?');
         }
         return Key.withNamespaces(l.slice(1));
-    }
+    },
 };
 
 const kStore = new KeytransformDatastore(store, transform);
@@ -52,10 +52,12 @@ m1.put(new Key('/cool/hello'), hello).then(() => {
     m1.get(new Key('/hello')).then(console.log);
 });
 
-const m3 = new MountDatastore([{
-    datastore: store,
-    prefix: new Key('cool')
-}]);
+const m3 = new MountDatastore([
+    {
+        datastore: store,
+        prefix: new Key('cool'),
+    },
+]);
 
 m3.put(new Key('/hello'), hello).then(() => {
     m3.get(new Key('/cool/hello')).then(value => {
@@ -75,16 +77,20 @@ m3.put(new Key('/cool/hello'), hello).then(() => {
     });
 });
 
-const mount = new MountDatastore([{
-    prefix: new Key('/a'),
-    datastore: new MemoryDatastore()
-}, {
-    prefix: new Key('/z'),
-        datastore: new MemoryDatastore()
-}, {
-    prefix: new Key('/q'),
-        datastore: new MemoryDatastore()
-}]);
+const mount = new MountDatastore([
+    {
+        prefix: new Key('/a'),
+        datastore: new MemoryDatastore(),
+    },
+    {
+        prefix: new Key('/z'),
+        datastore: new MemoryDatastore(),
+    },
+    {
+        prefix: new Key('/q'),
+        datastore: new MemoryDatastore(),
+    },
+]);
 
 console.log(mount.mounts);
 
@@ -95,7 +101,7 @@ const n2 = new NamespaceDatastore(store, new Key(''));
 
 n1.put(key, Buffer.from(key.toString())).then(() => {
     n2.put(key, Buffer.from(key.toString())).then(() => {
-        n1.get(new Key('abc').child(key)).then(async (value) => {
+        n1.get(new Key('abc').child(key)).then(async value => {
             for await (const { key, value } of n2.query({})) {
                 console.log(key, value);
             }
@@ -117,7 +123,7 @@ ShardingDatastore.create(ms, sh).then(store => {
     ms.get(new Key(shard.README_FN)).then(console.log);
 });
 
-(async () => {
+async () => {
     await ShardingDatastore.create(ms, sh);
     await ShardingDatastore.open(ms);
     const ss = await ShardingDatastore.createOrOpen(ms, sh);
@@ -125,7 +131,7 @@ ShardingDatastore.create(ms, sh).then(store => {
     await ss.put(new Key('hello'), Buffer.from('test'));
     const res = await ms.get(new Key('ll').child(new Key('hello')));
     console.log(res);
-});
+};
 
 ShardingDatastore.createOrOpen(new MemoryDatastore(), new shard.NextToLast(2)).then(test => {
     console.log(test);
@@ -149,7 +155,7 @@ console.log(shard.parseShardFun('/repo/flatfs/shard/v1/prefix/10').name); // pre
 
 // TieredDatastore
 
-const stores: Datastore[] = [];
+const stores: Adapter[] = [];
 stores.push(new MemoryDatastore());
 stores.push(new MemoryDatastore());
 const td1 = new TieredDatastore(stores);
@@ -175,8 +181,5 @@ Promise.all([stores[0].has(key), stores[1].has(key)]).then(arr => {
     });
 });
 
-const td = new TieredDatastore([
-    new MemoryDatastore(),
-    new MemoryDatastore()
-]);
+const td = new TieredDatastore([new MemoryDatastore(), new MemoryDatastore()]);
 console.log(td.stores);

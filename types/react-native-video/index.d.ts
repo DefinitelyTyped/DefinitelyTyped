@@ -21,7 +21,7 @@ export interface OnLoadData {
     naturalSize: {
         height: number;
         width: number;
-        orientation: 'horizontal' | 'landscape';
+        orientation: 'portrait' | 'landscape';
     };
 }
 
@@ -114,7 +114,7 @@ export interface VideoProperties extends ViewProps {
 
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
-    source: { uri?: string } | number;
+    source: { uri?: string, headers?: {[key: string]: string } } | number;
     minLoadRetryCount?: number;
     maxBitRate?: number;
     resizeMode?: "stretch" | "contain" | "cover" | "none"; // via Image#resizeMode
@@ -146,6 +146,7 @@ export interface VideoProperties extends ViewProps {
     hideShutterView?: boolean;
     allowsExternalPlayback?: boolean;
     audioOnly?: boolean;
+    preventsDisplaySleepDuringVideoPlayback?: boolean;
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;

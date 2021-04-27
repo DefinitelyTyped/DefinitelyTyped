@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@fluent/dedent": [
-                "fluent__dedent"
+            "@fluent/*": [
+                "fluent__*"
             ]
         }
     },

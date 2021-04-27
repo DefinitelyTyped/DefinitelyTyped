@@ -100,7 +100,7 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
 }
 {
     const resolver = new Resolver();
-    resolver.setServers(["4.4.4.4"]);
+    resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
     resolver.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });

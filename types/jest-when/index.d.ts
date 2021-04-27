@@ -5,7 +5,7 @@
 //                 Gregor Stamać <https://github.com/gstamac>
 //                 Valentin Stern <https://github.com/sehsyha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 
