@@ -1,4 +1,5 @@
-import soapRequest, { Response } from "easy-soap-request";
+// import { Response } from "easy-soap-request";
+import soapRequest = require("easy-soap-request");
 
 // minimal required options
 // $ExpectType Promise<Response>
@@ -6,8 +7,6 @@ const promise = soapRequest({
     url: "http://example.com/soap",
     xml: "<xml></xml>",
 });
-// response
-promise.then((response: Response) => {});
 
 // all posible options
 // $ExpectType Promise<Response>

@@ -5,7 +5,7 @@
 
 import { AxiosProxyConfig, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
-export interface Options {
+interface Options {
     /**
      * HTTP request method
      * @default 'POST'
@@ -56,7 +56,7 @@ export interface Options {
     extraOpts?: AxiosRequestConfig;
 }
 
-export interface Response {
+interface Response {
     response: {
         headers: any;
         body: any;
@@ -68,6 +68,6 @@ export interface Response {
  * @returns parsed from a AxiosResponse
  * @throws {any|AxiosError} response from AxiosError.response.data
  */
-function soapRequest(options: Options): Promise<Response>;
+declare function soapRequest(options: Options): Promise<Response>;
 
-export = soapRequest
+export = soapRequest;
