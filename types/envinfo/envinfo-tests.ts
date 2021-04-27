@@ -12,6 +12,8 @@ run(
     },
 ).then((raw: string) => {});
 
+run({}).then((raw: string) => {});
+
 main().then((raw: string) => {});
 
 main(
@@ -41,6 +43,6 @@ main(
     },
 ).then((raw: string) => {});
 
-cli({ json: true }).then((raw: string) => {});
+cli({ all: true }).then((raw: string) => {});
 
 helpers.getNodeInfo();
