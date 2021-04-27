@@ -68,4 +68,6 @@ export interface Response {
  * @returns parsed from a AxiosResponse
  * @throws {any|AxiosError} response from AxiosError.response.data
  */
-export default function soapRequest(options: Options): Promise<Response>;
+function soapRequest(options: Options): Promise<Response>;
+
+export = soapRequest
