@@ -358,6 +358,11 @@ const ForwardRef3 = React.forwardRef(
 <ForwardRef3 ref={divFnRef}/>;
 <ForwardRef3 ref={divRef}/>;
 
+const ForwardRefWithChildren = React.forwardRef((props: React.PropsWithChildren<{}>, ref?: React.Ref<HTMLDivElement>) => <div ref={ref}>{props.children}</div>);
+const ForwardRefWithChildren1 = React.forwardRef<{}, HTMLDivElement>((props, ref) => <div ref={ref}>{props.children}</div>);
+<ForwardRefWithChildren>test</ForwardRefWithChildren>;
+<ForwardRefWithChildren1>test</ForwardRefWithChildren1>;
+
 const { Profiler } = React;
 
 // 'id' is missing
