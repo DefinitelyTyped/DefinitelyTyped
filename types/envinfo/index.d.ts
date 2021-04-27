@@ -50,4 +50,4 @@ export const helpers: Helpers;
 
 export function main(config?: Config, options?: Options): Promise<string>;
 
-export function run(config?: RunConfig, options?: Options): Promise<string>;
+export function run(config: RunConfig, options?: Options): Promise<string>;
