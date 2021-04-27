@@ -14,6 +14,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "react-window": [ "react-window/v2" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
