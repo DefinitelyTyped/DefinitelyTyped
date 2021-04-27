@@ -2,7 +2,7 @@
 // Project: https://github.com/blakmatrix/node-zendesk
 // Definitions by: jgeth <https://github.com/jgeth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.0
 
 /// <reference types="node"/>
 
@@ -126,7 +126,7 @@ export namespace Attachments {
     interface UploadResponseModel {
         upload: {
             attachment?: Attachment;
-            attachments?: Attachment;
+            attachments?: Attachment[];
             token: string;
         };
     }
@@ -352,7 +352,7 @@ export namespace Requests {
             html_body?: string;
             public?: boolean;
             author_id?: ZendeskID;
-            uploads?: ReadonlyArray<string>;
+            uploads?: ReadonlyArray<number>;
         }
 
         interface ResponseModel extends TemporalModel {

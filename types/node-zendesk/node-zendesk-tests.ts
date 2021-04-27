@@ -43,6 +43,33 @@ client.requests.listComments(123).then(zendeskCallback);
 client.requests.getComment(123, 123, zendeskCallback);
 client.requests.getComment(123, 123).then(zendeskCallback);
 
+/** Attachments Methods */
+client.attachments.upload(
+    path.resolve("./examples/busey.gif"),
+    {
+        filename: "busey.gif",
+    },
+    (err, req, result) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log(JSON.stringify(result, null, 2));
+    },
+);
+
+const { r1: { attachment } } = await (async () => {
+    const r1: Attachments.ShowResponseModel = await client.attachments.show(1);
+    const r2: Attachments.UploadResponseModel = await client.attachments.upload("/path/to/file", {
+        filename: "filename",
+    });
+    const r3: Attachments.UploadResponseModel = await client.attachments.upload(Buffer.alloc(8), {
+        filename: "filename",
+    });
+
+    return { r1, r2, r3 };
+})();
+
 /** Tickets Methods */
 client.tickets.list(zendeskCallback);
 client.tickets.list().then(zendeskCallback);
@@ -68,7 +95,9 @@ client.tickets.show(123, zendeskCallback);
 client.tickets.show(123).then(zendeskCallback);
 client.tickets.showMany([123, 234], zendeskCallback);
 client.tickets.showMany([123, 234]).then(zendeskCallback);
-client.tickets.create({ ticket: { comment: {} } }, zendeskCallback);
+client.tickets.create({ ticket: { comment: {
+  uploads: [attachment.id]
+} } }, zendeskCallback);
 client.tickets.create({ ticket: { comment: {} } }).then(zendeskCallback);
 client.tickets.createMany({ tickets: [{ comment: {} }] }, zendeskCallback);
 client.tickets.createMany({ tickets: [{ comment: {} }] }).then(zendeskCallback);
@@ -202,29 +231,3 @@ client.userfields.create(
     },
     zendeskCallback,
 );
-
-client.attachments.upload(
-    path.resolve("./examples/busey.gif"),
-    {
-        filename: "busey.gif",
-    },
-    (err, req, result) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log(JSON.stringify(result, null, 2));
-    },
-);
-
-(async () => {
-    const r1: Attachments.ShowResponseModel = await client.attachments.show(1);
-    const r2: Attachments.UploadResponseModel = await client.attachments.upload("/path/to/file", {
-        filename: "filename",
-    });
-    const r3: Attachments.UploadResponseModel = await client.attachments.upload(Buffer.alloc(8), {
-        filename: "filename",
-    });
-
-    return [r1, r2, r3];
-})();
