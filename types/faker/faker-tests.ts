@@ -221,6 +221,7 @@ resultStr = faker.internet.domainName();
 resultStr = faker.internet.domainSuffix();
 resultStr = faker.internet.domainWord();
 resultStr = faker.internet.ip();
+resultNum = faker.internet.port();
 resultStr = faker.internet.userAgent();
 resultStr = faker.internet.color();
 resultStr = faker.internet.color(0, 0, 0);
@@ -334,6 +335,8 @@ resultStr = faker.vehicle.type();
 resultStr = faker.vehicle.fuel();
 resultStr = faker.vehicle.vin();
 resultStr = faker.vehicle.color();
+resultStr = faker.vehicle.vrm();
+resultStr = faker.vehicle.bicycle();
 
 resultNum = faker.unique(faker.random.number);
 resultNum = faker.unique(faker.random.number, undefined, { maxTime: new Date('3000-01-01').getTime() });

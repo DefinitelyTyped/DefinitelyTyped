@@ -203,6 +203,10 @@ declare namespace mermaidAPI {
 
         theme?: Theme;
 
+        maxTextSize?: number;
+
+        fontFamily?: string;
+
         /**
          * logLevel , decides the amount of logging to be used.
          * default: LogLevel.Fatal
@@ -221,6 +225,12 @@ declare namespace mermaidAPI {
          * default: false
          */
         arrowMarkerAbsolute?: boolean;
+
+        secure?: Array<keyof Config>;
+
+        deterministicIds?: boolean;
+
+        deterministicIDSeed?: string;
 
         /**
          * ### flowchart

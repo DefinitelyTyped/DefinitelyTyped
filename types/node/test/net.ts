@@ -296,3 +296,11 @@ import { LookupOneOptions } from 'node:dns';
     });
     _server = _server.prependOnceListener("listening", () => { });
 }
+
+{
+    const bl = new net.BlockList();
+    bl.addAddress('127.0.0.1', 'ipv4');
+    bl.addRange('127.0.0.1', '127.0.0.255', 'ipv4');
+    bl.addSubnet('127.0.0.1', 26, 'ipv4');
+    const res: boolean = bl.check('127.0.0.1', 'ipv4');
+}

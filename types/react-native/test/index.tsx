@@ -1303,6 +1303,9 @@ class BridgedComponentTest extends React.Component {
 }
 
 const SwitchColorTest = () => <Switch trackColor={{ true: 'pink', false: 'red' }} />;
+const SwitchColorOptionalTrueTest = () => <Switch trackColor={{ false: 'red' }} />;
+const SwitchColorOptionalFalseTest = () => <Switch trackColor={{ true: 'pink' }} />;
+const SwitchColorNullTest = () => <Switch trackColor={{ true: 'pink', false: null }} />;
 
 const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
 

@@ -943,6 +943,12 @@ declare module 'http2' {
         const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
     }
 
+    /**
+     * This symbol can be set as a property on the HTTP/2 headers object with
+     * an array value in order to provide a list of headers considered sensitive.
+     */
+    export const sensitiveHeaders: symbol;
+
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Buffer;
     export function getUnpackedSettings(buf: Uint8Array): Settings;

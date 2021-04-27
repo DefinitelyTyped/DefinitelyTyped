@@ -52,6 +52,8 @@ nova.commands.register(
 );
 
 nova.commands.invoke('apexskier.bar', 'foo');
+// You're allowed to pass an editor in your own extension's commands
+nova.commands.invoke('apexskier.bar', editor, 'foo');
 
 // after 3.4: $ExpectType unknown
 nova.config.get('test');
