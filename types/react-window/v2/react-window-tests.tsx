@@ -9,6 +9,12 @@ import {
 } from "react-window";
 import * as React from "react";
 
+// TODO: when v2 of `react-window` cuts, remove <T as any> typing in index.d.ts and cutover to these tests
+// which use a typed `itemData`.
+interface ExampleItemData {
+    foo: "string";
+}
+
 const FixedSizeListTestRequiredProps: React.SFC = () => (
     <FixedSizeList itemSize={0} height={0} itemCount={0} width={0}>
         {({ style, index }) => <div style={style}>Test {index}</div>}
@@ -47,7 +53,7 @@ const VariableSizeGridTestRequiredProps: React.SFC = () => (
         height={0}
         width={0}
     >
-        {({ style, columnIndex, rowIndex }) => (
+        {({ style, columnIndex, rowIndex, data }) => (
             <div style={style}>
                 Test {rowIndex} {columnIndex}
             </div>
@@ -100,7 +106,7 @@ const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
                 : scrollOffset
         }
     >
-        {({ style, index }) => <div style={style}>Test {index}</div>}
+        {({ style, index, data }) => <div style={style}>Test {index} {data.foo}</div>}
     </FixedSizeList>
 );
 
@@ -148,7 +154,7 @@ const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         }
         estimatedItemSize={0}
     >
-        {({ style, index }) => <div style={style}>Test {index}</div>}
+        {({ style, index, data }) => <div style={style}>Test {index} {data.foo}</div>}
     </VariableSizeList>
 );
 
@@ -199,32 +205,32 @@ const VariableSizeGridTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         style={{ color: "red" }}
         useIsScrolling={true}
     >
-        {({ style, columnIndex, rowIndex }) => (
+        {({ style, columnIndex, rowIndex, data }) => (
             <div style={style}>
-                Test {rowIndex} {columnIndex}
+                Test {rowIndex} {columnIndex} {data.foo}
             </div>
         )}
     </VariableSizeGrid>
 );
 
-const RowWithAreEqual = React.memo((props: ListChildComponentProps) => {
-    const { index, style } = props;
-    return <div style={style}>Row {index}</div>;
+const RowWithAreEqual = React.memo((props: ListChildComponentProps<ExampleItemData>) => {
+    const { index, style, data } = props;
+    return <div style={style}>Row `${index}-${data.foo}`</div>;
 }, areEqual);
 
 class RowWithShouldComponentUpdate extends React.Component<
-    ListChildComponentProps
+    ListChildComponentProps<ExampleItemData>
 > {
     shouldComponentUpdate(...args: any[]) {
         return shouldComponentUpdate.call(this, ...args);
     }
     render() {
-        const { index, style } = this.props;
-        return <div style={style}>Row {index}</div>;
+        const { index, style, data } = this.props;
+        return <div style={style}>Row {index} {data.foo}</div>;
     }
 }
 
-const fixedRef = React.createRef<FixedSizeGrid>();
+const fixedRef = React.createRef<FixedSizeGrid<ExampleItemData>>();
 const FixedSizeGridTestRefs: React.SFC = () => (
     <FixedSizeGrid
         columnCount={0}
@@ -235,9 +241,9 @@ const FixedSizeGridTestRefs: React.SFC = () => (
         height={0}
         width={0}
     >
-        {({ style, columnIndex, rowIndex }) => (
+        {({ style, columnIndex, rowIndex, data }) => (
             <div style={style}>
-                Test {rowIndex} {columnIndex}
+                Test {rowIndex} {columnIndex} {data.foo}
             </div>
         )}
     </FixedSizeGrid>
@@ -253,7 +259,7 @@ if (fixedRef.current) {
     fixedRef.current.scrollToItem({ align: "start", rowIndex: 0, columnIndex: 0 });
 }
 
-const variableRef = React.createRef<VariableSizeGrid>();
+const variableRef = React.createRef<VariableSizeGrid<ExampleItemData>>();
 const VariableSizeGridTestRefs: React.SFC = () => (
     <VariableSizeGrid
         columnCount={0}
@@ -264,9 +270,9 @@ const VariableSizeGridTestRefs: React.SFC = () => (
         height={0}
         width={0}
     >
-        {({ style, columnIndex, rowIndex }) => (
+        {({ style, columnIndex, rowIndex, data }) => (
             <div style={style}>
-                Test {rowIndex} {columnIndex}
+                Test {rowIndex} {columnIndex} {data.foo}
             </div>
         )}
     </VariableSizeGrid>
