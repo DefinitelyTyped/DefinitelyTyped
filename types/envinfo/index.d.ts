@@ -44,7 +44,7 @@ export interface Helpers {
     [key: string]: () => Promise<string>;
 }
 
-export function cli(options?: CliOptions): Promise<string>;
+export function cli(options: CliOptions): Promise<string>;
 
 export const helpers: Helpers;
 
