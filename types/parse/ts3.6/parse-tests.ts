@@ -1412,10 +1412,19 @@ function testObject() {
         // $ExpectError
         objTyped.revert("other");
     }
+    interface ObjectAttributes {
+        example: boolean;
+        someString: string;
+    }
+    interface OptionalObjectAttributes {
+        example?: boolean;
+        another?: string;
+    }
 
     async function testSave(
         objUntyped: Parse.Object,
-        objTyped: Parse.Object<{ example: boolean; someString: string }>,
+        objTyped: Parse.Object<ObjectAttributes>,
+        objTypedOptional: Parse.Object<OptionalObjectAttributes>,
     ) {
         // $ExpectType Object<Attributes>
         await objUntyped.save({ whatever: 100 });
@@ -1423,16 +1432,16 @@ function testObject() {
         // $ExpectType Object<Attributes>
         await objUntyped.save("whatever", 100);
 
-        // $ExpectType Object<{ example: boolean; someString: string; }>
+        // $ExpectType Object<ObjectAttributes>
         await objTyped.save({ example: true });
 
-        // $ExpectType Object<{ example: boolean; someString: string; }>
+        // $ExpectType Object<ObjectAttributes>
         await objTyped.save({ example: true, someString: "hello" });
 
         // $ExpectError
         await objTyped.save({ example: "hello", someString: true });
 
-        // $ExpectType Object<{ example: boolean; someString: string; }>
+        // $ExpectType Object<ObjectAttributes>
         await objTyped.save("example", true);
 
         // $ExpectError
@@ -1446,25 +1455,46 @@ function testObject() {
 
         // $ExpectError
         await objTyped.save("wrongProp", true);
+
+        /**
+         * Parse doesn't throw when a value is `undefined`,
+         * but saves won't be taken into account.
+         */
+
+        // $ExpectError
+        await objTyped.save({ example: undefined });
+
+        // $ExpectError
+        await objTyped.save("example", undefined);
+
+        // $ExpectError
+        await objTypedOptional.save({ example: undefined });
+
+        // $ExpectError
+        await objTypedOptional.save("example", undefined);
     }
 
-    function testSet(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: boolean; another: number }>) {
+    function testSet(
+        objUntyped: Parse.Object,
+        objTyped: Parse.Object<ObjectAttributes>,
+        objTypedOptional: Parse.Object<OptionalObjectAttributes>,
+    ) {
         // $ExpectType false | Object<Attributes>
         objUntyped.set("propA", "some value");
 
         // $ExpectType false | Object<Attributes>
         objUntyped.set({ propA: undefined });
 
-        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        // $ExpectType false | Object<ObjectAttributes>
         objTyped.set({ example: false });
 
-        // $ExpectType false | Object<{ example: boolean; another: number; }>
-        objTyped.set({ example: true, another: 123 });
+        // $ExpectType false | Object<ObjectAttributes>
+        objTyped.set({ example: true, someString: "abc" });
 
         // $ExpectError
-        objTyped.set({ example: 123, another: true });
+        objTyped.set({ example: 123, someString: "abc" });
 
-        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        // $ExpectType false | Object<ObjectAttributes>
         objTyped.set("example", true);
 
         // $ExpectError
@@ -1479,10 +1509,22 @@ function testObject() {
         // $ExpectError
         objTyped.set("other", 100);
 
-        const attributes: Partial<{ example: boolean; another: number }> = { example: true };
+        /**
+         * Parse doesn't throw when value is `undefined`,
+         * but saves won't be taken into account.
+         */
 
-        // $ExpectType false | Object<{ example: boolean; another: number; }>
-        objTyped.set(attributes);
+        // $ExpectError
+        objTyped.set({ example: undefined });
+
+        // $ExpectError
+        objTyped.set("example", undefined);
+
+        // $ExpectError
+        objTypedOptional.set({ example: undefined });
+
+        // $ExpectError
+        objTypedOptional.set("example", undefined);
     }
 
     interface AttributesAllTypes {
