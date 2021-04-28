@@ -77,6 +77,8 @@ export class ApplePaySession {
 
     static canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
 
+    static supportsVersion(version: number): boolean;
+
     completeMerchantValidation(merchantSession: any): void;
 
     abort(): void;
@@ -95,8 +97,6 @@ export class ApplePaySession {
     ): void;
 
     completeShippingMethodSelection(status: ApplePayStatusCodes, newTotal: any, newLineItems: any): void;
-
-    static supportsVersion(version: number): boolean;
 
     oncancel: (event: any) => void;
 
