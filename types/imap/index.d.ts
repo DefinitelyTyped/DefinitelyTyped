@@ -165,7 +165,7 @@ declare namespace Connection {
         date?: Date;
     }
 
-    export type SortCriteria = 'ARRIVAL' | '-ARRIVAL' | 'CC' | '-CC' | 'DATE' | '-DATE' | 'FROM' | '-FROM' | 'SIZE' | '-SIZE' | 'SUBJECT' | '-SUBJECT' | 'TO' | '-TO'
+    export type SortCriteria = 'ARRIVAL' | '-ARRIVAL' | 'CC' | '-CC' | 'DATE' | '-DATE' | 'FROM' | '-FROM' | 'SIZE' | '-SIZE' | 'SUBJECT' | '-SUBJECT' | 'TO' | '-TO';
 
     export interface MessageFunctions {
         /** Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate.
@@ -219,7 +219,7 @@ declare namespace Connection {
         */
         search(criteria: any[], callback: (error: Error, uids: number[]) => void): void;
         /** Sorts the currently open mailbox for messages using given sortCriteria. This method first searches the mailbox for messages that match the given searching criteria and then sorts by given sort criteria. (This is a specification of RFC 5256. )  */
-        sort(sortCriteria: Connection.SortCriteria[], searchCriteria: any[], callback: (error: Error, uids: number[]) => void): void;
+        sort(sortCriteria: SortCriteria[], searchCriteria: any[], callback: (error: Error, uids: number[]) => void): void;
         /** Fetches message(s) in the currently open mailbox; source can be a single message identifier, a message identifier range (e.g. '2504:2507' or '*' or '2504:*'), an array of message identifiers, or an array of message identifier ranges. */
         fetch(source: any /* MessageSource */, options: FetchOptions): ImapFetch;
         /** Copies message(s) in the currently open mailbox to another mailbox. */

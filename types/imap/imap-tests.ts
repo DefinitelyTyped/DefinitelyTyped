@@ -147,7 +147,7 @@ openInbox(function(err : Error, box : IMAP.Box) {
 
 openInbox(function(err : Error, box : IMAP.Box) {
     if (err) throw err;
-    imap.sort([ '-DATE' ], [ 'UNSEEN', ['SINCE', 'May 20, 2020'] ], function(err, uids ) {
+    imap.sort([ '-DATE' ], [ 'UNSEEN', ['SINCE', 'May 20, 2020'] ], function(err, uids) {
         if (err) throw err;
         var f = imap.fetch(uids, { bodies: '' });
         f.on('message', function(msg : IMAP.ImapMessage, seqno : number) {
