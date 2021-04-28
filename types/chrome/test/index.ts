@@ -672,7 +672,7 @@ async function testDeclarativeNetRequest() {
     })
 
     chrome.declarativeNetRequest.getEnabledRulesets(sets => {
-        // ExpectType string[]
+        // $ExpectType string[]
         sets;
     })
 }
