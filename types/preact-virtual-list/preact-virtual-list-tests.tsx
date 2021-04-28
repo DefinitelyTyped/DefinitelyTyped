@@ -1,0 +1,29 @@
+import {FunctionalComponent, Component, h} from "preact";
+import VirtualList from "preact-virtual-list";
+
+class TestClass extends Component<any> {
+    render() {
+        return (
+            <div>
+                <VirtualList
+                    data={[1, 2, 3, 4]}
+                    renderRow={(row: any) => <>{row}</>}
+                    rowHeight={20}
+                    overscanCount={5}
+                />
+            </div>
+        )
+    }
+}
+
+const TestFunction = (props: any) => {
+    return (
+        <div>
+            <VirtualList 
+                data={[1, 2, 3]}
+                renderRow={(row) => <div>{row}</div>}
+                rowHeight={30}
+            />
+        </div>
+    )
+}
