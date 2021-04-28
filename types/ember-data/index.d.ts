@@ -26,15 +26,15 @@ type ModelKeys<Model extends DS.Model> = Exclude<keyof Model, keyof DS.Model>;
 
 type AttributesFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to attr properties only (TS 2.8)
 
-type MaybeModel<T> = T extends DS.Model ? T : undefined;
+type MaybeModel<T> = T extends DS.Model ? T
+    : null extends T ? null
+    : undefined;
 
 type UnboxBelongsTo<T> =
     T extends DS.AsyncBelongsTo<infer C> ? C
-        : T extends DS.Model ? T
-        : null extends T ? null
         : T extends Ember.ComputedProperty<DS.AsyncBelongsTo<infer C>, infer C | DS.PromiseObject<infer C>> ? MaybeModel<C>
         : T extends Ember.ComputedProperty<infer C, infer C | DS.PromiseObject<infer C>> ? MaybeModel<C>
-        : undefined;
+        : MaybeModel<T>;
 
 type UnboxHasMany<T> =
     T extends DS.AsyncHasMany<infer C> ? C
@@ -773,7 +773,7 @@ export namespace DS {
      * addon author to perform meta-operations on a belongs-to
      * relationship.
      */
-    class BelongsToReference<T extends Model|null = Model> {
+    class BelongsToReference<T extends Model|null = Model|null> {
         /**
          * This returns a string that represents how the reference will be
          * looked up when it is loaded. If the relationship has a link it will

@@ -133,10 +133,10 @@ blogPost.hasMany('relatedPosts') as DS.HasManyReference; // $ExpectError
 assertType<DS.ManyArray<DS.Model> | null>(
     blogPost.hasMany('relatedPosts').value()
 );
-assertType<DS.BelongsToReference<DS.Model> | null>(
+assertType<DS.BelongsToReference<Series | null>>(
     blogPost.belongsTo('series')
 );
 
-assertType<DS.BelongsToReference<DS.Model> | null>(
+assertType<DS.BelongsToReference<DS.Model | null>>(
     blogPost.belongsTo('seriesSync')
 );
