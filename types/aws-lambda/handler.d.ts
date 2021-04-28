@@ -81,9 +81,9 @@
  *      you will automatically return a promise that will resolve with a returned value,
  *      or reject with a thrown value.
  */
-export type Handler<TEvent = any, TResult = any> = (
+export type Handler<TEvent = any, TResult = any, TContext extends Context = Context> = (
     event: TEvent,
-    context: Context,
+    context: TContext,
     callback: Callback<TResult>,
 ) => void | Promise<TResult>;
 
