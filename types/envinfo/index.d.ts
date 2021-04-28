@@ -40,7 +40,7 @@ export interface CliOptions extends Options, Config {
     preset?: string;
 }
 
-type HelperNames =
+export type HelperNames =
     | "getNodeInfo"
     | "getnpmInfo"
     | "getWatchmanInfo"
