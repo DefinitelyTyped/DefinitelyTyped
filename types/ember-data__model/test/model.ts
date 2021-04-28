@@ -46,6 +46,7 @@ class Human extends Model {
     @belongsTo('human') motherNullable: AsyncBelongsTo<Human> | null;
     @belongsTo('human') father: AsyncBelongsTo<Human | null>;
     @belongsTo('human', { async: false }) fatherSync: Human | null;
+    @belongsTo('human', { async: false }) fatherSyncOptional?: Human;
     @hasMany('person') children: AsyncHasMany<Person>;
     @hasMany('person', { async: false }) childrenSync: SyncHasMany<Person>;
 
@@ -122,6 +123,8 @@ function testBelongsTo() {
     human.belongsTo('motherSync'); // $ExpectType BelongsToReference<Human>
 
     human.belongsTo('fatherSync'); // $ExpectType BelongsToReference<Human | null>
+
+    human.belongsTo('fatherSyncOptional'); // $ExpectType BelongsToReference<Human | null>
 
     // wrong relationship kind
     human.belongsTo('children'); // $ExpectType never
