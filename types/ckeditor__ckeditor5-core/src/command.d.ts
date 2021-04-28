@@ -2,8 +2,8 @@ import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/sr
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import Editor from "./editor/editor";
-import * as engine from "@ckeditor/ckeditor5-engine";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+import { DomEventData } from "@ckeditor/ckeditor5-engine";
 
 export default class Command implements Emitter, Observable {
     readonly value?: unknown;
@@ -25,26 +25,22 @@ export default class Command implements Emitter, Observable {
 
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
-    stopListening(
-        emitter?: Emitter,
-        event?: string,
-        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
-    ): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;

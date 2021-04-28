@@ -14,13 +14,13 @@ import { EditorConfig } from "./editorconfig.d";
 export default abstract class Editor implements Emitter, Observable {
     readonly commands: CommandCollection;
     readonly config: Config;
-    readonly conversion: engine.conversion.Conversion;
-    readonly data: engine.controller.DataController;
-    readonly editing: engine.controller.EditingController;
+    readonly conversion: engine.Conversion;
+    readonly data: engine.DataController;
+    readonly editing: engine.EditingController;
     isReadOnly: boolean;
     readonly keystrokes: EditingKeystrokeHandler;
     readonly locale: Locale;
-    readonly model: engine.model.Model;
+    readonly model: engine.Model;
     readonly plugins: PluginCollection;
     readonly state: "initializing" | "ready" | "destroyed";
 
@@ -36,25 +36,25 @@ export default abstract class Editor implements Emitter, Observable {
 
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo<Emitter>, data: engine.DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: engine.DomEventData) => void,
         options?: { priority: PriorityString | number },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo, data: engine.DomEventData) => void): void;
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: engine.DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
     stopListening(
         emitter?: Emitter,
         event?: string,
-        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback?: (info: EventInfo, data: engine.DomEventData) => void,
     ): void;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
     delegate(...events: string[]): EmitterMixinDelegateChain;
