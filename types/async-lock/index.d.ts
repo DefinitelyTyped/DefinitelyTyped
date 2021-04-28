@@ -11,6 +11,7 @@ type AsyncLockDoneCallback<T> = (err?: Error, ret?: T) => void;
 
 interface AsyncLockOptions {
     timeout?: number;
+    maxOccupationTime?: number;
     maxPending?: number;
     domainReentrant?: boolean;
     Promise?: any;
