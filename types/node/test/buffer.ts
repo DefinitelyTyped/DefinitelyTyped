@@ -260,3 +260,8 @@ b.fill('a').fill('b');
     const target: TranscodeEncoding = 'ascii';
     transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
 }
+
+// Buffer supports base64url
+{
+    Buffer.from('hello').toString('base64url');
+}
