@@ -964,7 +964,7 @@ interface Workspace {
     ): void;
     showInputPalette(
         message: string,
-        options?: { placeholder?: string },
+        options?: { placeholder?: string; value?: string },
         callback?: (value: string | null) => void,
     ): void;
     showChoicePalette(

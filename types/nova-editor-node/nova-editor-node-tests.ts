@@ -335,3 +335,17 @@ treeView.onDidExpandElement(element => {});
 treeView.onDidCollapseElement(element => {});
 
 treeView.onDidChangeVisibility(() => {});
+
+/// https://novadocs.panic.com/api-reference/text-editor/
+
+nova.workspace.showInputPalette('This is an input');
+
+nova.workspace.showInputPalette('This is an input', {
+    placeholder: "Help text"
+});
+
+nova.workspace.showInputPalette('This is an input', {
+    placeholder: "Help text",
+    // after 6.0
+    value: "Default value"
+});
