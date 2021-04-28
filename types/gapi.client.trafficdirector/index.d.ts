@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Traffic Director API v2 2.0
-// Project: https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview#management-server
+// Project: https://cloud.google.com/traffic-director
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>
