@@ -109,11 +109,15 @@ interface CustomEvent {
     eventString: string;
     eventBool: boolean;
 }
+interface CustomContext extends AWSLambda.Context {
+    contextString: string;
+    contextBool?: boolean;
+}
 interface CustomResult {
     resultString: string;
     resultBool?: boolean;
 }
-type CustomHandler = AWSLambda.Handler<CustomEvent, CustomResult>;
+type CustomHandler = AWSLambda.Handler<CustomEvent, CustomResult, CustomContext>;
 type CustomCallback = AWSLambda.Callback<CustomResult>;
 
 // Untyped handlers should work
@@ -162,7 +166,7 @@ const typedCallbackHandler: CustomHandler = (event, context, cb) => {
     // $ExpectType CustomEvent
     event;
     str = event.eventString;
-    // $ExpectType Context
+    // $ExpectType CustomContext
     context;
     str = context.functionName;
     // $ExpectType Callback<CustomResult>
@@ -181,8 +185,12 @@ const typedCallbackHandler: CustomHandler = (event, context, cb) => {
 const typedAsyncHandler: CustomHandler = async (event, context, cb) => {
     // $ExpectType CustomEvent
     event;
-    // $ExpectType Context
+    // $ExpectType CustomContext
     context;
+    // $ExpectType string
+    context.contextString;
+    // $ExpectType boolean | undefined
+    context.contextBool;
     // $ExpectType Callback<CustomResult>
     cb;
     // Can still use callback
