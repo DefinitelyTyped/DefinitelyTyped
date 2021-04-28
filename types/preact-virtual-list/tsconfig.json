@@ -17,10 +17,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "jsxFactory": "h",
-        "jsxFragmentFactory": "h",
-        "experimentalDecorators": true,
-        "moduleResolution": "node"
+        "jsxFactory": "h"
     },
     "files": [
         "index.d.ts",

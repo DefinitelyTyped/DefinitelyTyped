@@ -7,7 +7,7 @@ class TestClass extends Component<any> {
             <div>
                 <VirtualList
                     data={[1, 2, 3, 4]}
-                    renderRow={(row: any) => <>{row}</>}
+                    renderRow={(row: any) => <div>{row}</div>}
                     rowHeight={20}
                     overscanCount={5}
                 />
