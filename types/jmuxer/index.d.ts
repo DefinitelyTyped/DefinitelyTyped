@@ -1,4 +1,4 @@
-// Type definitions for jMuxer
+// Type definitions for jMuxer 2.0
 // Project: https://github.com/samirkumardas/jmuxer
 // Definitions by: Samir Das <https://github.com/samirkumardas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,8 +23,8 @@ declare namespace JMuxer {
 
 declare class JMuxer {
     constructor(options: JMuxer.Options);
-    feed(data: JMuxer.Feeder):void;
-    createStream(): Duplex;
+    feed(data: JMuxer.Feeder): void;
+    createStream(): any;
     destroy(): void;
 }
 export = JMuxer;
