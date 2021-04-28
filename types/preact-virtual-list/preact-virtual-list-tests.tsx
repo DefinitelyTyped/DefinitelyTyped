@@ -12,11 +12,11 @@ class TestClass extends Component<any> {
                     overscanCount={5}
                 />
             </div>
-        )
+        );
     }
 }
 
-const TestFunction = (props: any) => {
+const TestFunction: FunctionalComponent<any> = (props: any) => {
     return (
         <div>
             <VirtualList 
@@ -25,5 +25,5 @@ const TestFunction = (props: any) => {
                 rowHeight={30}
             />
         </div>
-    )
+    );
 }

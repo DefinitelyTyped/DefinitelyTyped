@@ -3,7 +3,7 @@
 // Definitions by: Reece Berens <https://github.com/reece-berens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Comopnent} from "preact";
+import {Component} from "preact";
 
 interface Props {
     className?: string;
@@ -15,8 +15,7 @@ interface Props {
     [otherProps: string]: any;
 }
 
-/*~ Write your module's methods and properties in this class */
-declare class VirtualList {
+declare class VirtualList extends Component<any> {
     constructor(someParam?: string);
 }
 
