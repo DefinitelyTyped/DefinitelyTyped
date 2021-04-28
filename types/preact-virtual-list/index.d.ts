@@ -3,7 +3,7 @@
 // Definitions by: Reece Berens <https://github.com/reece-berens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Component} from "preact";
+import {Component, h} from "preact";
 
 interface Props {
     className?: string;
@@ -17,6 +17,7 @@ interface Props {
 
 declare class VirtualList extends Component<Props> {
     constructor(props: Props);
+    render(): h.JSX.Element;
 }
 
-export default VirtualList;
+export = VirtualList;
