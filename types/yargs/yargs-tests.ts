@@ -1050,6 +1050,18 @@ function Argv$inferRequiredOptionTypes() {
 
     // $ExpectType (string | number)[]
     yargs.option("x", { array: true, demandOption: true }).argv.x;
+
+    // $ExpectType string
+    yargs.option("x", { default: "default" as string | undefined, demandOption: true }).argv.x;
+
+    // $ExpectType string
+    yargs.option("x", { default: "default" as string | undefined, demand: true }).argv.x;
+
+    // $ExpectType string
+    yargs.option("x", { default: "default" as string | undefined, require: true }).argv.x;
+
+    // $ExpectType string
+    yargs.option("x", { default: "default" as string | undefined, required: true }).argv.x;
 }
 
 function Argv$inferMultipleOptionTypes() {
