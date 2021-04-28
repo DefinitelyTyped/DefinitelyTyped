@@ -234,7 +234,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the wheel event that triggered the handler,
      * with this as the current DOM element. The function returns a numeric value.
      */
-     wheelDelta(delta: ((event: WheelEvent) => number) | number): this;
+    wheelDelta(delta: ((event: WheelEvent) => number) | number): this;
 
     /**
      * Return the current extent accessor, which defaults to [[0, 0], [width, height]] where width is the client width of the element and height is its client height;
