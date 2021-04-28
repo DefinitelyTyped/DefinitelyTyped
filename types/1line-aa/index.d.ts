@@ -3,4 +3,5 @@
 // Definitions by: RyotaK <https://github.com/Ry0taK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function generate(text: string, font?: string): string;
+declare function generate(text: string, font?: string): string;
+export = generate;
