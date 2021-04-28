@@ -3,6 +3,7 @@
 // Definitions by: Dave McKeown <https://github.com/davemckeown>
 //                 Erik Mavrinac <https://github.com/erikma>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
+//                 Nika Gogeshvili <https://github.com/overflowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Forked from the DefinitelyTyped 'zmq' project originally created by Dave McKeown,
