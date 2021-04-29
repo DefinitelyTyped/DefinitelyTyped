@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "google-polyline-test.ts"
+        "google-polyline-tests.ts"
     ]
 }
