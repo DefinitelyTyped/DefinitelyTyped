@@ -856,6 +856,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    const callback = (error: Error | null, signature: Buffer): void => {};
     const key = crypto.createPrivateKey('pkey');
     crypto.sign('sha256', Buffer.from('asd'), {
         key: Buffer.from('keylike'),
@@ -872,6 +873,14 @@ import { promisify } from 'node:util';
         key,
         dsaEncoding: 'der',
     });
+    crypto.sign('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der',
+    }, callback);
+    promisify(crypto.sign)('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der',
+    }).then((signature: Buffer) => {});
     crypto.createSign('sha256').update(Buffer.from('asd')).sign({
         key,
         dsaEncoding: 'der',
@@ -879,6 +888,7 @@ import { promisify } from 'node:util';
 }
 
 {
+    const callback = (error: Error | null, result: boolean): void => {};
     const key = crypto.createPublicKey('pkey');
     crypto.verify(
         'sha256',
@@ -908,6 +918,25 @@ import { promisify } from 'node:util';
         },
         Buffer.from('sig'),
     );
+    crypto.verify(
+        'sha256',
+        Buffer.from('asd'),
+        {
+            key,
+            dsaEncoding: 'der',
+        },
+        Buffer.from('sig'),
+        callback
+    );
+    promisify(crypto.verify)(
+        'sha256',
+        Buffer.from('asd'),
+        {
+            key,
+            dsaEncoding: 'der',
+        },
+        Buffer.from('sig'),
+    ).then((result: boolean) => {});
     crypto.createVerify('sha256').update(Buffer.from('asd')).verify(
         {
             key,

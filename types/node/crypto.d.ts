@@ -1174,6 +1174,12 @@ declare module 'crypto' {
         data: NodeJS.ArrayBufferView,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
     ): Buffer;
+    function sign(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+        callback: (err: Error | null, signature: Buffer) => void,
+    ): void;
 
     /**
      * Calculates and returns the signature for `data` using the given private key and
@@ -1189,6 +1195,13 @@ declare module 'crypto' {
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
         signature: NodeJS.ArrayBufferView,
     ): boolean;
+    function verify(
+        algorithm: string | null | undefined,
+        data: NodeJS.ArrayBufferView,
+        key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput,
+        signature: NodeJS.ArrayBufferView,
+        callback: (err: Error | null, result: boolean) => void,
+    ): void;
 
     /**
      * Computes the Diffie-Hellman secret based on a privateKey and a publicKey.
