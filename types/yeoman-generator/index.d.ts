@@ -57,6 +57,16 @@ declare namespace Generator {
          * Gets or sets a collection of custom priorities.
          */
         customPriorities?: Priority[];
+
+        /**
+         * The environment to use for creating the generator.
+         */
+        env?: Environment;
+
+        /**
+         * The destination-root to write the files to.
+         */
+        destinationRoot?: string;
     }
 
     /**
