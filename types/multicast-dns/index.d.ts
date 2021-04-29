@@ -8,9 +8,9 @@
 import { AddressInfo } from "node:net";
 import { Packet, Question, RecordType } from "dns-packet";
 
-export type Callback = (err: Error | undefined) => unknown;
+type Callback = (err: Error | undefined) => unknown;
 
-export interface MulticastDnsOptions {
+interface MulticastDnsOptions {
     /**
      * Use UDP multicasting?
      */
@@ -48,7 +48,7 @@ export interface MulticastDnsOptions {
     reuseAddr?: boolean;
 }
 
-export interface MulticastDns extends NodeJS.EventEmitter {
+interface MulticastDns extends NodeJS.EventEmitter {
     on(event: "response", cb: (response: Packet) => unknown): this;
     on(event: "query", cb: (query: Packet) => unknown): this;
 
@@ -69,4 +69,6 @@ export interface MulticastDns extends NodeJS.EventEmitter {
     destroy(cb?: Callback): void;
 }
 
-export default function MulticastDns(opts?: MulticastDnsOptions): MulticastDns;
+declare function MulticastDns(opts?: MulticastDnsOptions): MulticastDns;
+
+export = MulticastDns;

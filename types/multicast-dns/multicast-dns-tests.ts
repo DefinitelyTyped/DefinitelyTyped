@@ -1,10 +1,16 @@
 import { Packet, Question, RecordType } from "dns-packet";
-import MulticastDns, { MulticastDnsOptions } from "multicast-dns";
+import MulticastDns from "multicast-dns";
 import { AddressInfo } from "node:net";
 
-const opts: MulticastDnsOptions = {};
-
-const mdns = MulticastDns(opts);
+const mdns = MulticastDns({
+    interface: "eth0",
+    ip: "0.0.0.0",
+    loopback: false,
+    multicast: true,
+    port: 9000,
+    reuseAddr: true,
+    ttl: 3600,
+});
 
 mdns.on("response", (res: Packet) => {
     mdns.send(res, err => {});
