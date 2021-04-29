@@ -552,3 +552,19 @@ Factory Test
     console.log('c =', format(c)); // outputs "c = 16/21"
     console.log('d =', format(d)); // outputs "d = 7/9"
 }
+
+/**
+ * Custom parsing functions
+ * https://mathjs.org/docs/expressions/customization.html#customize-supported-characters
+ */
+{
+    const math = create(all, {});
+    const isAlphaOriginal = math.parse.isAlpha;
+    math.parse.isAlpha = function (c, cPrev, cNext) {
+        return isAlphaOriginal(c, cPrev, cNext) || c === "\u260E";
+    };
+
+    // now we can use the \u260E (phone) character in expressions
+    const result = math.evaluate("\u260Efoo", { "\u260Efoo": 42 }); // returns 42
+    console.log(result);
+}

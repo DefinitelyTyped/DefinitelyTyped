@@ -1,4 +1,4 @@
-// Type definitions for mathjs 6.0
+// Type definitions for mathjs 9.3
 // Project: https://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
@@ -6,6 +6,7 @@
 //                  Pawel Krol <https://github.com/pawkrol>,
 //                  Charlee Li <https://github.com/charlee>,
 //                  Mark Wiemer <https://github.com/mark-wiemer>
+//                  Opportunity Liu <https://github.com/OpportunityLiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -37,6 +38,139 @@ declare namespace math {
     // FactoryFunctionMap can be nested; all nested objects will be flattened
     interface FactoryFunctionMap {
         [key: string]: FactoryFunction<any> | FactoryFunctionMap;
+    }
+
+    /** Available options for parse */
+    interface ParseOptions {
+        /** a set of custom nodes */
+        nodes?: Record<string, MathNode>;
+    }
+    /**
+     * Parse an expression. Returns a node tree, which can be evaluated by
+     * invoking node.evaluate().
+     *
+     * Note the evaluating arbitrary expressions may involve security risks,
+     * see [https://mathjs.org/docs/expressions/security.html](https://mathjs.org/docs/expressions/security.html) for more information.
+     *
+     * Syntax:
+     *
+     *     math.parse(expr)
+     *     math.parse(expr, options)
+     *     math.parse([expr1, expr2, expr3, ...])
+     *     math.parse([expr1, expr2, expr3, ...], options)
+     *
+     * Example:
+     *
+     *     const node1 = math.parse('sqrt(3^2 + 4^2)')
+     *     node1.compile().evaluate() // 5
+     *
+     *     let scope = {a:3, b:4}
+     *     const node2 = math.parse('a * b') // 12
+     *     const code2 = node2.compile()
+     *     code2.evaluate(scope) // 12
+     *     scope.a = 5
+     *     code2.evaluate(scope) // 20
+     *
+     *     const nodes = math.parse(['a = 3', 'b = 4', 'a * b'])
+     *     nodes[2].compile().evaluate() // 12
+     *
+     * See also:
+     *
+     *     evaluate, compile
+     */
+    interface ParseFunction {
+        /**
+         * Parse an expression. Returns a node tree, which can be evaluated by
+         * invoking node.evaluate();
+         *
+         * @param expr Expression to be parsed
+         * @param options Available options
+         * @returns A node
+         */
+        (expr: MathExpression, options?: ParseOptions): MathNode;
+
+        /**
+         * Parse an expression. Returns a node tree, which can be evaluated by
+         * invoking node.evaluate();
+         *
+         * @param exprs Expressions to be parsed
+         * @param options Available options
+         * @returns An array of nodes
+         */
+        (exprs: MathExpression[], options?: ParseOptions): MathNode[];
+
+        /**
+         * Checks whether the current character `c` is a valid alpha character:
+         *
+         * - A latin letter (upper or lower case) Ascii: a-z, A-Z
+         * - An underscore                        Ascii: _
+         * - A dollar sign                        Ascii: $
+         * - A latin letter with accents          Unicode: \u00C0 - \u02AF
+         * - A greek letter                       Unicode: \u0370 - \u03FF
+         * - A mathematical alphanumeric symbol   Unicode: \u{1D400} - \u{1D7FF} excluding invalid code points
+         *
+         * The previous and next characters are needed to determine whether
+         * this character is part of a unicode surrogate pair.
+         *
+         * @param c      Current character in the expression
+         * @param cPrev  Previous character
+         * @param cNext  Next character
+         */
+        isAlpha(c: string, cPrev: string, cNext: string): boolean;
+        /**
+         * Test whether a character is a valid latin, greek, or letter-like character
+         *
+         * @param c
+         */
+        isValidLatinOrGreek(c: string): boolean;
+        /**
+         * Test whether two given 16 bit characters form a surrogate pair of a
+         * unicode math symbol.
+         *
+         * https://unicode-table.com/en/
+         * https://www.wikiwand.com/en/Mathematical_operators_and_symbols_in_Unicode
+         *
+         * Note: In ES6 will be unicode aware:
+         * https://stackoverflow.com/questions/280712/javascript-unicode-regexes
+         * https://mathiasbynens.be/notes/es6-unicode-regex
+         *
+         * @param high
+         * @param low
+         */
+        isValidMathSymbol(high: string, low: string): boolean;
+        /**
+         * Check whether given character c is a white space character: space, tab, or enter
+         *
+         * @param c
+         * @param nestingLevel
+         */
+        isWhitespace(c: string, nestingLevel: number): boolean;
+        /**
+         * Test whether the character c is a decimal mark (dot).
+         * This is the case when it's not the start of a delimiter '.*', './', or '.^'
+         *
+         * @param  c
+         * @param  cNext
+         */
+        isDecimalMark(c: string, cNext: string): boolean;
+        /**
+         * checks if the given char c is a digit or dot
+         *
+         * @param  c   a string with one character
+         */
+        isDigitDot(c: string): boolean;
+        /**
+         * checks if the given char c is a digit
+         *
+         * @param  c   a string with one character
+         */
+        isDigit(c: string): boolean;
+        /**
+         * checks if the given char c is a hex digit
+         *
+         * @param c   a string with one character
+         */
+        isHexDigit(c: string): boolean;
     }
 
     type MathJsFunctionName = keyof MathJsStatic;
@@ -351,17 +485,8 @@ declare namespace math {
         /**
          * Parse an expression. Returns a node tree, which can be evaluated by
          * invoking node.evaluate();
-         * @param expr Expression to be parsed
-         * @param options Available options: nodes - a set of custome nodes
-         * @returns A node
          */
-        parse(expr: MathExpression, options?: any): MathNode;
-        /**
-         * @param exprs Expressions to be parsed
-         * @param options Available options: nodes - a set of custome nodes
-         * @returns An arry of nodes
-         */
-        parse(exprs: MathExpression[], options?: any): MathNode[];
+        parse: ParseFunction;
 
         /**
          * Create a parser. The function creates a new math.expression.Parser
