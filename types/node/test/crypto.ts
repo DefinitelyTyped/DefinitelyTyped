@@ -968,3 +968,39 @@ import { promisify } from 'node:util';
 {
     const derivedKey = crypto.hkdfSync("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42);
 }
+
+{
+    const secretKeyObject = crypto.createSecretKey(Buffer.from('secret'));
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey, secretKeyObject]) {
+            const jwk = keyObject.export({ format: 'jwk' });
+            jwk.crv;
+            jwk.d;
+            jwk.dp;
+            jwk.dq;
+            jwk.e;
+            jwk.k;
+            jwk.kty;
+            jwk.n;
+            jwk.p;
+            jwk.q;
+            jwk.qi;
+            jwk.x;
+            jwk.y;
+            crypto.createPublicKey({ key: jwk, format: 'jwk' });
+            crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+        }
+    });
+}
+
+{
+    const jwk = {
+        alg: 'ES256',
+        crv: 'P-256',
+        kty: 'EC',
+        x: 'ySK38C1jBdLwDsNWKzzBHqKYEE5Cgv-qjWvorUXk9fw',
+        y: '_LeQBw07cf5t57Iavn4j-BqJsAD1dpoz8gokd3sBsOo',
+    };
+    crypto.createPublicKey({ key: jwk, format: 'jwk' });
+    crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+}
