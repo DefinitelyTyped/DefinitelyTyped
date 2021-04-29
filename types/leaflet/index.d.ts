@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.5
+// Type definitions for Leaflet.js 1.7
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
@@ -30,11 +30,21 @@ export class Transformation {
     untransform(point: Point, scale?: number): Point;
 }
 
+/**
+ * @see https://github.com/Leaflet/Leaflet/blob/bc918d4bdc2ba189807bc207c77080fb41ecc196/src/geometry/LineUtil.js#L118
+ */
 export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
     function isFlat(latlngs: LatLngExpression[]): boolean;
+    function clipSegment(
+        a: Point,
+        b: Point,
+        bounds: Bounds,
+        useLastCode?: boolean,
+        round?: boolean,
+    ): [Point, Point] | false;
 }
 
 export namespace PolyUtil {
@@ -210,6 +220,8 @@ export class Bounds {
     extend(point: PointExpression): this;
     getCenter(round?: boolean): Point;
     getBottomLeft(): Point;
+    getBottomRight(): Point;
+    getTopLeft(): Point;
     getTopRight(): Point;
     getSize(): Point;
     contains(pointOrBounds: BoundsExpression | PointExpression): boolean;
@@ -987,7 +999,7 @@ export interface PolylineOptions extends PathOptions {
 
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
     constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
-    toGeoJSON(): geojson.Feature<T, P>;
+    toGeoJSON(precision?: number): geojson.Feature<T, P>;
     getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
     setLatLngs(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][]): this;
     isEmpty(): boolean;
@@ -1021,7 +1033,7 @@ export interface CircleMarkerOptions extends PathOptions {
 
 export class CircleMarker<P = any> extends Path {
     constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
-    toGeoJSON(): geojson.Feature<geojson.Point, P>;
+    toGeoJSON(precision?: number): geojson.Feature<geojson.Point, P>;
     setLatLng(latLng: LatLngExpression): this;
     getLatLng(): LatLng;
     setRadius(radius: number): this;
@@ -1078,7 +1090,7 @@ export class LayerGroup<P = any> extends Layer {
     /**
      * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
      */
-    toGeoJSON(): geojson.FeatureCollection<geojson.GeometryObject, P> | geojson.Feature<geojson.MultiPoint, P> | geojson.GeometryCollection;
+    toGeoJSON(precision?: number): geojson.FeatureCollection<geojson.GeometryObject, P> | geojson.Feature<geojson.MultiPoint, P> | geojson.GeometryCollection;
 
     /**
      * Adds the given layer to the group.
@@ -1902,7 +1914,7 @@ export interface MarkerOptions extends InteractiveLayerOptions {
 
 export class Marker<P = any> extends Layer {
     constructor(latlng: LatLngExpression, options?: MarkerOptions);
-    toGeoJSON(): geojson.Feature<geojson.Point, P>;
+    toGeoJSON(precision?: number): geojson.Feature<geojson.Point, P>;
     getLatLng(): LatLng;
     setLatLng(latlng: LatLngExpression): this;
     setZIndexOffset(offset: number): this;

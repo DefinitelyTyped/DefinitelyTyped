@@ -45,4 +45,14 @@ export default class XMLY {
    * @param params 业务参数
    */
   post(url?: string, params?: object): Promise<RequestResponse>
+  /**
+   *  绑定第三方账户，需要当前已登陆喜马账号
+   *  @param uid 第三方账户id
+   */
+  bindThirdUid(uid: string): Promise<RequestResponse>
+  /**
+   *  解绑第三方账户，需要当前已登陆喜马账号
+   *  @param uid 第三方账户id
+   */
+  unbindThirdUid(uid: string): Promise<RequestResponse>
 }

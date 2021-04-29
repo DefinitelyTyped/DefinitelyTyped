@@ -527,15 +527,6 @@ namespace v1Changes {
         }
     }
 
-    namespace Router {
-        function test_navigate() {
-            const router = new Backbone.Router();
-
-            router.navigate('/employees', { trigger: true });
-            router.navigate('/employees', true);
-        }
-    }
-
     namespace Sync {
         // Test for Backbone.sync override.
         Backbone.sync('create', new Employee());
@@ -615,4 +606,25 @@ function testTypedModel() {
     model.omit(['stringAttr'])['stringAttr']; // $ExpectError
     model.omit('stringAttr', 'numberAttr');
     model.omit(['stringAttr', 'numberAttr']);
+}
+
+function testRouter() {
+    let router = new Backbone.Router();
+    router = new Backbone.Router({
+        routes: {
+            help: 'help', // #help
+            'search/:query': 'search', // #search/kiwis
+            'search/:query/p:page': 'search', // #search/kiwis/p7
+        },
+    });
+
+    router = new Backbone.Router({ routes: 'not object' }); // $ExpectError
+
+    router.route('search/:query/p:num', 'search', (query, num) => {});
+    router.route(/search/, (query, num) => {});
+
+    router.navigate('/employees', true);
+    router.navigate('help/troubleshooting', { trigger: true, replace: true });
+
+    router.execute((param1, param2) => {}, ['param1', 'param2'], 'routeName');
 }

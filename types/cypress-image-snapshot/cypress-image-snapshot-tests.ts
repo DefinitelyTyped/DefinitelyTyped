@@ -7,6 +7,12 @@ command.addMatchImageSnapshotCommand({
     scale: true,
 });
 
+command.addMatchImageSnapshotCommand({
+    comparisonMethod: 'ssim',
+    failureThreshold: 0.01,
+    failureThresholdType: 'percent',
+});
+
 type Task = (value: any) => any;
 
 interface Tasks {
@@ -14,7 +20,7 @@ interface Tasks {
 }
 
 interface PluginEvents {
-    (action: 'after:screenshot', fn: (details: {path: string}) => void): void;
+    (action: 'after:screenshot', fn: (details: { path: string }) => void): void;
     (action: 'task', tasks: Tasks): void;
 }
 

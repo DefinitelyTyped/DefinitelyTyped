@@ -105,8 +105,15 @@ let canvasRibbon: d3Chord.RibbonGenerator<any, d3Chord.Ribbon, d3Chord.RibbonSub
 canvasRibbon = d3Chord.ribbon();
 
 let svgRibbon: d3Chord.RibbonGenerator<SVGPathElement, d3Chord.Chord, d3Chord.ChordSubgroup>;
-
 svgRibbon = d3Chord.ribbon<SVGPathElement, d3Chord.Chord, d3Chord.ChordSubgroup>();
+
+// ribbonArrow() create RibbonGenerator =====================================
+
+let canvasRibbonArrow: d3Chord.RibbonArrowGenerator<any, d3Chord.Ribbon, d3Chord.RibbonSubgroup>;
+canvasRibbonArrow = d3Chord.ribbonArrow();
+
+let svgRibbonArrow: d3Chord.RibbonArrowGenerator<SVGPathElement, d3Chord.Chord, d3Chord.ChordSubgroup>;
+svgRibbonArrow = d3Chord.ribbonArrow<SVGPathElement, d3Chord.Chord, d3Chord.ChordSubgroup>();
 
 // Configure RibbonGenerator ===========================================
 
@@ -141,7 +148,7 @@ subgroupAccessor = svgRibbon.target();
 canvasRibbon = canvasRibbon.radius(30);
 
 svgRibbon = svgRibbon.radius(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     console.log('Subgroup startAngle', d.startAngle); // datum is of type Chord
     return 30;
 });
@@ -153,7 +160,7 @@ numAccessor = svgRibbon.radius();
 canvasRibbon = canvasRibbon.sourceRadius(30);
 
 svgRibbon = svgRibbon.sourceRadius(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     console.log('Subgroup startAngle', d.startAngle); // datum is of type Chord
     return 30;
 });
@@ -165,7 +172,7 @@ numAccessor = svgRibbon.sourceRadius();
 canvasRibbon = canvasRibbon.targetRadius(30);
 
 svgRibbon = svgRibbon.targetRadius(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     console.log('Subgroup startAngle', d.startAngle); // datum is of type Chord
     return 30;
 });
@@ -177,7 +184,7 @@ numAccessor = svgRibbon.targetRadius();
 canvasRibbon = canvasRibbon.startAngle(0);
 
 svgRibbon = svgRibbon.startAngle(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     return d.startAngle; // datum is of type ChordSubgroup
 });
 
@@ -188,7 +195,7 @@ numAccessor = svgRibbon.startAngle();
 canvasRibbon = canvasRibbon.endAngle(Math.PI);
 
 svgRibbon = svgRibbon.endAngle(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     return d.endAngle; // datum is of type ChordSubgroup
 });
 
@@ -199,11 +206,23 @@ numAccessor = svgRibbon.endAngle();
 canvasRibbon = canvasRibbon.padAngle(Math.PI);
 
 svgRibbon = svgRibbon.padAngle(function(d) {
-    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.createSVGPathSegCurvetoCubicAbs); // this type SVGPathElement
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
     return d.endAngle; // datum is of type ChordSubgroup
 });
 
 numAccessor = svgRibbon.padAngle();
+
+// headRadius() -----------------------------------------------------------
+
+canvasRibbonArrow = canvasRibbonArrow.headRadius(10);
+
+svgRibbonArrow = svgRibbonArrow.headRadius(function(d) {
+    console.log('SVGPathElement createSVGPathSegCurvetoCubicAbs method:', this.getTotalLength()); // this type SVGPathElement
+    console.log('Subgroup startAngle', d.startAngle); // datum is of type Chord
+    return 10;
+});
+
+numAccessor = svgRibbon.radius();
 
 // Use RibbonGenerator =================================================
 

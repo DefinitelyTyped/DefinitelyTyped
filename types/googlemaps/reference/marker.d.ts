@@ -459,6 +459,17 @@ declare namespace google.maps {
      */
     interface MarkerLabel {
         /**
+         * The className property of the label's element (equivalent to the element's class attribute).
+         * Multiple space-separated CSS classes can be added. Default is no CSS class (an empty string).
+         * The font color, size, weight, and family can only be set via the other properties of {@link MarkerLabel}.
+         * CSS classes should not be used to change the position nor
+         * orientation of the label (e.g. using translations and rotations) if also using
+         * {@link https://developers.google.com/maps/documentation/javascript/examples/marker-collision-management marker collision management}.
+         * @default ''
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerLabel.className Maps JavaScript API}
+         */
+        className?: string;
+        /**
          * The color of the label text.
          * @default 'black'
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerLabel.color Maps JavaScript API}
@@ -493,6 +504,8 @@ declare namespace google.maps {
 
     /** @see {@link MarkerLabel} */
     interface ReadonlyMarkerLabel {
+        /** @see {@link MarkerLabel#className} */
+        className?: string;
         /** @see {@link MarkerLabel#color} */
         color?: string;
         /** @see {@link MarkerLabel#fontFamily} */

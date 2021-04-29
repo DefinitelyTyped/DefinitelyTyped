@@ -71,6 +71,9 @@ if (store.hasRecordForId('post', 1)) {
     }
 }
 
+let posts = store.findAll('post'); // => GET /posts
+assertType<DS.PromiseArray<Post, Ember.ArrayProxy<Post>>>(posts);
+
 class Message extends DS.Model {
     hasBeenSeen = DS.attr('boolean');
 }
@@ -107,7 +110,7 @@ const SomeComponent = Ember.Object.extend({
     store: Ember.inject.service('store'),
 
     lookUpUsers() {
-        assertType<User>(this.get('store').findRecord('user', 123));
+        assertType<DS.PromiseObject<User>>(this.get('store').findRecord('user', 123));
         assertType<DS.PromiseArray<User>>(this.get('store').findAll('user'));
     },
 });
@@ -153,6 +156,8 @@ const tom = store
 
 // GET /users?isAdmin=true
 const admins = store.query('user', { isAdmin: true });
+assertType<DS.AdapterPopulatedRecordArray<User> & DS.PromiseArray<User, Ember.ArrayProxy<User>>>(admins);
+
 admins.then(function () {
     console.log(admins.get('length')); // 42
 });

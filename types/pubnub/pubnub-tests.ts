@@ -80,20 +80,16 @@ pubnub.addListener({
         publisher,
         subscription,
         timetoken,
-        message: {
-            event,
-            data: { type, value, uuid, actionTimetoken, messageTimetoken },
-        },
+        event,
+        data: { type, value, uuid, actionTimetoken, messageTimetoken },
     }) =>
         console.log({
             channel,
             publisher,
             subscription,
             timetoken,
-            message: {
-                event,
-                data: { type, value, uuid, actionTimetoken, messageTimetoken },
-            },
+            event,
+            data: { type, value, uuid, actionTimetoken, messageTimetoken },
         }),
     objects: ({
         channel,
@@ -148,6 +144,10 @@ pubnub.addListener({
 pubnub.unsubscribe({ channels: ['channel-1'] });
 
 pubnub.unsubscribeAll();
+
+pubnub.getSubscribedChannels();
+
+pubnub.getSubscribedChannelGroups();
 
 pubnub.setUUID(Pubnub.generateUUID());
 const uuid = pubnub.getUUID();
@@ -212,6 +212,8 @@ pubnub.fetchMessages(
         stringifiedTimeToken: true,
         start: '15343325214676133',
         end: '15343325004275466',
+        includeUUID: true,
+        includeMessageType: true,
         includeMeta: true,
         includeMessageActions: true,
     },

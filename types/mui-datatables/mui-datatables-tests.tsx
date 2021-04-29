@@ -1,5 +1,6 @@
-import MUIDataTable, { ExpandButton, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps } from 'mui-datatables';
+import MUIDataTable, { ExpandButton, MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProps, MUIDataTableState } from 'mui-datatables';
 import * as React from 'react';
+import { createMuiTheme } from '@material-ui/core';
 
 interface Props extends Omit<MUIDataTableProps, 'columns'> {
     columns?: MUIDataTableColumn[];
@@ -7,6 +8,7 @@ interface Props extends Omit<MUIDataTableProps, 'columns'> {
 
 const MuiCustomTable: React.FC<Props> = props => {
     const data: string[][] = props.data.map((asset: any) => Object.values(asset));
+    const tableRef = React.useRef<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>();
     const columns: MUIDataTableColumn[] = [
         {
             name: 'id',
@@ -50,8 +52,8 @@ const MuiCustomTable: React.FC<Props> = props => {
             name: 'amount',
             label: 'Amount',
             options: {
-                customHeadLabelRender: (dataIndex: number, rowIndex: number) => {
-                    return <p>Some customize Header</p>;
+                customHeadLabelRender: (options) => {
+                    return <p>Some customize Header - {options.name}</p>;
                 },
             },
         },
@@ -172,7 +174,7 @@ const MuiCustomTable: React.FC<Props> = props => {
         },
     };
 
-    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} />;
+    return <MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions} innerRef={tableRef} />;
 };
 
 const TableFruits = [
@@ -228,3 +230,16 @@ const disabledOptions: MUIDataTableOptions = {
 };
 
 <MuiCustomTable title="Disabled Buttons" data={Todos} options={disabledOptions} />;
+
+const MuiTheme = createMuiTheme({
+    overrides: {
+        MUIDataTable: {
+            root: {
+                fontWeight: 300
+            }
+        },
+        MUIDataTableBody: {
+            emptyTitle: {}
+        }
+    }
+});

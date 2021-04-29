@@ -24,7 +24,7 @@ const options: Partial<favicons.FaviconOptions> = {
     loadManifestWithCredentials: false,
     icons: {
         android: true,
-        appleIcon: true,
+        appleIcon: ['apple-touch-icon.png'],    // Test string array
         appleStartup: true,
         coast: true,
         favicons: true,

@@ -1,4 +1,8 @@
-declare module "util" {
+declare module 'node:util' {
+    export * from 'util';
+}
+
+declare module 'util' {
     interface InspectOptions extends NodeJS.InspectOptions { }
     function format(format?: any, ...param: any[]): string;
     function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;

@@ -262,6 +262,20 @@ braintree.client.create(
                 const formValid = Object.keys(state.fields).every(key => {
                     return state.fields[key].isValid;
                 });
+
+                hostedFieldsInstance.focus('cardholderName');
+                hostedFieldsInstance.focus('number', (focusErr: braintree.BraintreeError) => {
+                    if (focusErr) {
+                        console.error(focusErr);
+                    }
+                });
+
+                function onValidityChange(fieldState: braintree.HostedFieldsStateObject): void {
+                    console.log(fieldState);
+                }
+
+                hostedFieldsInstance.on('validityChange', onValidityChange);
+                hostedFieldsInstance.off('validityChange', onValidityChange);
             },
         );
 
@@ -504,6 +518,17 @@ braintree.client.create(
                     console.log('UnionPay has been torn down.');
                 }
             });
+        });
+
+        // Vault Manager
+        braintree.vaultManager.create({ client: clientInstance }, (createErr, vaultManagerInstance) => {
+            vaultManagerInstance.fetchPaymentMethods()
+                .then((payload: braintree.FetchPaymentMethodsPayload[]) => {
+                    payload.forEach(paymentMethod => console.log(paymentMethod.nonce));
+                })
+                .catch((error: braintree.BraintreeError) => {
+                    console.error('Error!', error);
+                });
         });
     },
 );

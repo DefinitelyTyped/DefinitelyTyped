@@ -8,8 +8,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 ksewo <https://github.com/ksewo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="nodemailer"/>
 
 import { HtmlToTextOptions } from 'html-to-text';
@@ -67,7 +65,7 @@ declare namespace Email {
 
      interface ViewOptions {
         /**
-         *  View extansion. defaults to 'pug', and is the default file extension for templates
+         *  View extension. defaults to 'pug', and is the default file extension for templates
          */
         extension?: string;
 
@@ -114,7 +112,7 @@ declare namespace Email {
          /**
           * The message <Nodemailer.com/message/>
           */
-         message: Mail.Options;
+         message?: Mail.Options;
          /**
           * The nodemailer Transport created via nodemailer.createTransport
           */
@@ -191,13 +189,13 @@ declare namespace Email {
         /**
          * The template name
          */
-        template: string;
+        template?: string;
         /**
          * Nodemailer Message <Nodemailer.com/message/>
          *
          * Overrides what is given for constructor
          */
-        message: Mail.Options;
+        message?: Mail.Options;
         /**
          * The Template Variables
          */
@@ -239,7 +237,7 @@ declare class Email<T = any> {
     /**
      * Send the Email
      */
-    send(options: Email.EmailOptions<T>): Promise<any>;
+    send(options?: Email.EmailOptions<T>): Promise<any>;
 }
 
 export = Email;

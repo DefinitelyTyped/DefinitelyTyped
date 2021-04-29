@@ -10,7 +10,7 @@ const Input = (props: any) => {
     return (
         <div style={{ border: `1px dotted ${colourOptions[2].color}` }}>
             <Tooltip content={'Custom Input'}>
-                <components.Input {...props} />
+                <components.Input {...props} autoComplete="chrome-off" />
             </Tooltip>
         </div>
     );

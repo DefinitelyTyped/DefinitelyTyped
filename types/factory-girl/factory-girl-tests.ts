@@ -9,6 +9,7 @@ interface User {
     roles?: Role[];
     creditCard?: any;
     boss?: User;
+    addresses?: any[];
 }
 
 interface Role {
@@ -60,8 +61,9 @@ factory.define<User>(
         score: scoreSequence,
         email: factory.seq<string>('User.email', num => `email-${1}@users.com`),
         roles: factory.assocMany('Role', 3, 'id'),
-        creditCard: factory.assocAttrs('CreditCard', 'creditCard', { number: '1234' }),
+        creditCard: factory.assocAttrs('CreditCard', 'creditCard', { number: '1234' }, { option: true }),
         boss: factory.assoc('User', 'boss'),
+        addresses: factory.assocAttrsMany('Address', 3, 'id', { type: 1})
     },
     {
         afterBuild: (model, attrs, options) => {},
@@ -155,6 +157,9 @@ factory
         [{ isAdmin: true }, { isAdmin: false }],
     )
     .then(users => users.map(user => user.username));
+
+// testing chance
+factory.chance('name', {middle: true});
 
 // Testing cleanUp
 factory.cleanUp();

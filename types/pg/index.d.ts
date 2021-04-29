@@ -9,6 +9,7 @@
 import events = require('events');
 import stream = require('stream');
 import pgTypes = require('pg-types');
+import { NoticeMessage } from 'pg-protocol/dist/messages';
 
 import { ConnectionOptions } from 'tls';
 
@@ -248,7 +249,8 @@ export class ClientBase extends events.EventEmitter {
     escapeLiteral(str: string): string;
 
     on(event: 'drain', listener: () => void): this;
-    on(event: 'error' | 'notice', listener: (err: Error) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'notice', listener: (notice: NoticeMessage) => void): this;
     on(event: 'notification', listener: (message: Notification) => void): this;
     // tslint:disable-next-line unified-signatures
     on(event: 'end', listener: () => void): this;

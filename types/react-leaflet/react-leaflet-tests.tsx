@@ -34,7 +34,8 @@ import {
     Viewport,
     useLeaflet,
     GeoJSON,
-    GeoJSONProps
+    GeoJSONProps,
+    MapEvents
 } from 'react-leaflet';
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -513,7 +514,7 @@ export default class SVGOverlayExample extends Component {
   render() {
     return (
       <Map center={[51.505, -0.09]} zoom={13}>
-        <SVGOverlay bounds={[[51.49, -0.08], [51.5, -0.06]]}>
+        <SVGOverlay bounds={[[51.49, -0.08], [51.5, -0.06]]} preserveAspectRatio={"xMidYMid meet"} viewBox={"0 0 1080 1080"}>
           <rect x="0" y="0" width="100%" height="100%" fill="blue" />
           <circle r="5" cx="10" cy="10" fill="red" />
           <text x="50%" y="50%" fill="white">
@@ -883,7 +884,168 @@ export class GeoJSONExample extends Component<undefined, undefined> {
                 url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
-            <GeoJSON data={this.polygons} />
+            <GeoJSON data={this.polygons} markersInheritOptions={false} />
         </Map>);
     }
 }
+
+const mapEvents: MapEvents = {
+    onclick: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    ondblclick: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmousedown: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmouseup: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmouseover: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmouseout: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onmousemove: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    oncontextmenu: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onfocus: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onblur: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onpreclick: (event: L.LeafletMouseEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.originalEvent);
+    },
+    onload: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onunload: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onviewreset: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onmove: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onmovestart: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onmoveend: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    ondragstart: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    ondrag: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    ondragend: (event: L.DragEndEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.distance);
+    },
+    onzoomstart: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onzoom: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onzoomend: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onzoomlevelschange: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onresize: (event: L.ResizeEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.newSize);
+    },
+    onautopanstart: (event: L.LeafletEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onlayeradd: (event: L.LayerEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onlayerremove: (event: L.LayerEvent) => {
+        console.log(event);
+        console.log(event.target);
+    },
+    onbaselayerchange: (event: L.LayersControlEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.name);
+    },
+    onoverlayadd: (event: L.LayersControlEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.name);
+    },
+    onoverlayremove: (event: L.LayersControlEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.name);
+    },
+    onlocationfound: (event: L.LocationEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.altitude);
+    },
+    onlocationerror: (event: L.ErrorEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.code);
+    },
+    onpopupopen: (event: L.PopupEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.popup);
+    },
+    onpopupclose: (event: L.PopupEvent) => {
+        console.log(event);
+        console.log(event.target);
+        console.log(event.popup);
+    },
+};

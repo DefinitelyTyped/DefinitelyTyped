@@ -1,16 +1,28 @@
-// Type definitions for find-package-json 1.1
+// Type definitions for find-package-json 1.2
 // Project: https://github.com/3rd-Eden/find-package-json#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.6
 
 /// <reference types="node"/>
 
-export = finder;
+export = find;
 
-declare function finder(root?: string | NodeModule): finder.FinderIterator;
+/**
+ * Find package.json files.
+ *
+ * @param root The root directory we should start searching in.
+ * @returns Iterator interface.
+ */
+declare function find(root?: string | NodeModule): finder.FinderIterator;
 
 declare namespace finder {
-    interface FinderIterator {
+    interface FinderIterator extends IterableIterator<PackageWithPath> {
+        /**
+         * Return the parsed package.json that we find in a parent folder.
+         *
+         * @returns Value, filename and indication if the iteration is done.
+         */
         next(): FindResult;
     }
 
@@ -18,7 +30,10 @@ declare namespace finder {
 
     interface FoundPackage {
         done: false;
-        value: Package;
+        value: PackageWithPath;
+        /**
+         * Path to the found `package.json` file.
+         */
         filename: string;
     }
 
@@ -28,10 +43,11 @@ declare namespace finder {
         filename: undefined;
     }
 
-    interface Person {
-        name?: string;
-        email?: string;
-        url?: string;
+    interface PackageWithPath extends Package {
+        /**
+         * Path to the found `package.json` file.
+         */
+        __path: string;
     }
 
     interface Package {
@@ -57,5 +73,11 @@ declare namespace finder {
         homepage?: string;
         scripts?: { [k: string]: string };
         readme?: string;
+    }
+
+    interface Person {
+        name?: string;
+        email?: string;
+        url?: string;
     }
 }

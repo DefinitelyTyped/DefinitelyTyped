@@ -2,6 +2,7 @@
 // Project: https://github.com/vsolovyov/webpack-error-notification#readme
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 import { Plugin, Stats } from 'webpack';
 

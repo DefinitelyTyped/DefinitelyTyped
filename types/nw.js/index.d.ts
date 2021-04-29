@@ -828,7 +828,7 @@ declare global {
             /**
              * Get the corresponding DOM window object of the native window.
              */
-            window: Object;
+            window: Window;
 
             /**
              * Get or set left offset from window to screen.
@@ -1566,7 +1566,7 @@ declare global {
             /**
              * Get or set whether the `MenuItem` is `enabled`
              */
-            enabled: string;
+            enabled: boolean;
 
             /**
              * Get or set the `submenu` of a `MenuItem`, the `submenu` must be a `Menu` object.

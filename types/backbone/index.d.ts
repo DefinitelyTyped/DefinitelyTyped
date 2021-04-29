@@ -49,7 +49,7 @@ declare namespace Backbone {
     }
 
     interface RouterOptions {
-        routes: any;
+        routes: _Result<RoutesHash>;
     }
 
     interface Silenceable {
@@ -469,6 +469,8 @@ declare namespace Backbone {
         without(...values: TModel[]): TModel[];
     }
 
+    type RouterCallback = (...args: string[]) => void;
+
     class Router extends EventsMixin implements Events {
         /**
          * Do not use, prefer TypeScript's extend functionality.
@@ -492,14 +494,15 @@ declare namespace Backbone {
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
-        route(route: string | RegExp, name: string, callback?: Function): Router;
-        navigate(fragment: string, options?: NavigateOptions | boolean): Router;
+        route(route: string | RegExp, name: string, callback?: RouterCallback): this;
+        route(route: string | RegExp, callback: RouterCallback): this;
+        navigate(fragment: string, options?: NavigateOptions | boolean): this;
 
-        execute(callback: Function, args: any[], name: string): void;
+        execute(callback: RouterCallback, args: string[], name: string): void;
 
-        private _bindRoutes(): void;
-        private _routeToRegExp(route: string): RegExp;
-        private _extractParameters(route: RegExp, fragment: string): string[];
+        protected _bindRoutes(): void;
+        protected _routeToRegExp(route: string): RegExp;
+        protected _extractParameters(route: RegExp, fragment: string): string[];
     }
 
     const history: History;
@@ -515,7 +518,7 @@ declare namespace Backbone {
         decodeFragment(fragment: string): string;
         getSearch(): string;
         stop(): void;
-        route(route: string | RegExp, callback: Function): number;
+        route(route: string | RegExp, callback: (fragment: string) => void): number;
         checkUrl(e?: any): void;
         getPath(): string;
         matchRoot(): boolean;
@@ -539,6 +542,8 @@ declare namespace Backbone {
         tagName?: string;
         events?: _Result<EventsHash>;
     }
+
+    type ViewEventListener = (event: JQuery.Event) => void;
 
     class View<TModel extends Model = Model> extends EventsMixin implements Events {
         /**
@@ -579,9 +584,9 @@ declare namespace Backbone {
         render(): this;
         remove(): this;
         delegateEvents(events?: _Result<EventsHash>): this;
-        delegate(eventName: string, selector: string, listener: Function): this;
+        delegate(eventName: string, selector: string, listener: ViewEventListener): this;
         undelegateEvents(): this;
-        undelegate(eventName: string, selector?: string, listener?: Function): this;
+        undelegate(eventName: string, selector?: string, listener?: ViewEventListener): this;
 
         protected _removeElement(): void;
         protected _setElement(el: HTMLElement | JQuery): void;

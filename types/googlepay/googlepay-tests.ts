@@ -101,6 +101,14 @@ function addGooglePayButton() {
     // $ExpectError
     buttonOptions.buttonRootNode = document.createElement('div');
 
+    buttonOptions.buttonLocale = '';
+    buttonOptions.buttonLocale = undefined;
+    // $ExpectError
+    buttonOptions.buttonLocale = {};
+    buttonOptions.buttonLocale = 'en';
+    buttonOptions.buttonLocale = 'qw';
+    buttonOptions.buttonLocale = 'zh';
+
     const client = getGooglePaymentsClient();
     const button = client.createButton(buttonOptions);
     document.appendChild(document.createElement('div').appendChild(button));

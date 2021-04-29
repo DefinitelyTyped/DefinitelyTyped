@@ -1,4 +1,4 @@
-import { connect, MongoError, Cursor } from 'mongodb';
+import { connect, FindOneOptions, MongoError, Cursor } from 'mongodb';
 import { connectionString } from '../index';
 
 // collection.findX tests
@@ -81,7 +81,7 @@ async function run() {
         b; // $ExpectType Bag | null
     });
     collectionBag
-        .findOne({ color: 'white' })
+        .findOne<{ cost: number }>({ color: 'white' })
         .then(b => {
             if (b) {
                 b.cost; // $ExpectType number
@@ -111,4 +111,19 @@ async function testFindReturnValue() {
 
     // $ExpectError
     printHouse(await car.findOne({}));
+}
+
+async function testFindWithGenericOptions() {
+    interface Car { make: string; }
+
+    function printCar(car: Car | null) {
+        console.log(car == null ? 'No car' : `A car of ${car.make} make`);
+    }
+
+    const client = await connect(connectionString);
+    const db = client.db('test');
+    const car = db.collection<Car>('car');
+    const options: FindOneOptions<Car> = {};
+
+    printCar(await car.findOne({}, options));
 }

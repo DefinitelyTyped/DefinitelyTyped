@@ -1,4 +1,4 @@
-// Type definitions for croppie 2.5
+// Type definitions for croppie 2.6
 // Project: https://github.com/Foliotek/Croppie
 // Definitions by: Connor Peet <https://github.com/connor4312>
 //                 dklmuc <https://github.com/dklmuc>
@@ -58,7 +58,12 @@ declare namespace Croppie {
         enableOrientation?: boolean;
         enableZoom?: boolean;
         enforceBoundary?: boolean;
-        mouseWheelZoom?: boolean;
+        enableResize?: boolean;
+        /** @default 1.5 */
+        maxZoom?: number;
+        /** @default 0 */
+        minZoom?: number;
+        mouseWheelZoom?: boolean | 'ctrl';
         showZoomer?: boolean;
         viewport?: { width: number, height: number, type?: CropType };
     }

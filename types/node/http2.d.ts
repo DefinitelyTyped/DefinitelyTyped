@@ -1,13 +1,22 @@
-declare module "http2" {
-    import * as events from "events";
-    import * as fs from "fs";
-    import * as net from "net";
-    import * as stream from "stream";
-    import * as tls from "tls";
-    import * as url from "url";
+declare module 'node:http2' {
+    export * from 'http2';
+}
 
-    import { IncomingHttpHeaders as Http1IncomingHttpHeaders, OutgoingHttpHeaders, IncomingMessage, ServerResponse } from "http";
-    export { OutgoingHttpHeaders } from "http";
+declare module 'http2' {
+    import EventEmitter = require('node:events');
+    import * as fs from 'node:fs';
+    import * as net from 'node:net';
+    import * as stream from 'node:stream';
+    import * as tls from 'node:tls';
+    import * as url from 'node:url';
+
+    import {
+        IncomingHttpHeaders as Http1IncomingHttpHeaders,
+        OutgoingHttpHeaders,
+        IncomingMessage,
+        ServerResponse,
+    } from 'node:http';
+    export { OutgoingHttpHeaders } from 'node:http';
 
     export interface IncomingHttpStatusHeader {
         ":status"?: number;
@@ -261,7 +270,7 @@ declare module "http2" {
         inflateDynamicTableSize?: number;
     }
 
-    export interface Http2Session extends events.EventEmitter {
+    export interface Http2Session extends EventEmitter {
         readonly alpnProtocol?: string;
         readonly closed: boolean;
         readonly connecting: boolean;
@@ -643,7 +652,7 @@ declare module "http2" {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class Http2ServerResponse extends stream.Stream {
+    export class Http2ServerResponse extends stream.Writable {
         constructor(stream: ServerHttp2Stream);
 
         readonly connection: net.Socket | tls.TLSSocket;
@@ -933,6 +942,12 @@ declare module "http2" {
         const HTTP_STATUS_NOT_EXTENDED: number;
         const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
     }
+
+    /**
+     * This symbol can be set as a property on the HTTP/2 headers object with
+     * an array value in order to provide a list of headers considered sensitive.
+     */
+    export const sensitiveHeaders: symbol;
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Buffer;

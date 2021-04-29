@@ -202,7 +202,10 @@ declare class HammerInput
   pointerType:string;
 
   /** Event type, matches the INPUT constants. */
-  eventType:number;
+  eventType: HammerStatic['INPUT_START'] |
+             HammerStatic['INPUT_MOVE'] |
+             HammerStatic['INPUT_END'] |
+             HammerStatic['INPUT_CANCEL'];
 
   /** true when the first input. */
   isFirst:boolean;

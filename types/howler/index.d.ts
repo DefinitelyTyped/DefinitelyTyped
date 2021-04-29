@@ -266,6 +266,7 @@ export class Howl {
 
 export interface Howler {
     mute(muted: boolean): this;
+    stop(): this;
     volume(): number;
     volume(volume: number): this;
     codecs(ext: string): boolean;

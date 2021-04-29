@@ -32,8 +32,14 @@ i18n.configure({
     // you may alter a site wide default locale
     defaultLocale: 'de',
 
+    // will return translation from defaultLocale in case current locale doesn't provide it
+    retryInDefaultLocale: false,
+
     // sets a custom cookie name to parse locale settings from - defaults to NULL
     cookie: 'yourcookiename',
+
+    // sets a custom header name to read the language preference from - accept-language header by default
+    header: 'accept-language',
 
     // query parameter to switch locale (ie. /home?lang=ch) - defaults to NULL
     queryParameter: 'lang',
@@ -41,16 +47,16 @@ i18n.configure({
     // where to store json files - defaults to './locales' relative to modules directory
     directory: './mylocales',
 
-    // controll mode on directory creation - defaults to NULL which defaults to umask of process user. Setting has no effect on win.
+    // control mode on directory creation - defaults to NULL which defaults to umask of process user. Setting has no effect on win.
     directoryPermissions: '755',
 
-    // watch for changes in json files to reload locale on updates - defaults to false
+    // watch for changes in JSON files to reload locale on updates - defaults to false
     autoReload: true,
 
     // whether to write new locale information to disk - defaults to true
     updateFiles: false,
 
-    // sync locale information accros all files - defaults to false
+    // sync locale information across all files - defaults to false
     syncFiles: false,
 
     // what to use as the indentation unit - defaults to "\t"
@@ -101,20 +107,24 @@ i18n.configure({
     preserveLegacyCase: true,
 
     // Static translation catalog. Setting this option overrides `locales`
-    // tslint:disable:object-literal-key-quotes
     staticCatalog: {
         'en-US': {
-            'no': 'No',
-            'ok': 'Ok',
-            'yes': 'Yes'
+            no: 'No',
+            ok: 'Ok',
+            yes: 'Yes',
         },
         'nl-NL': {
-            'no': 'Nee',
-            'ok': 'Oké',
-            'yes': 'Ja'
-        }
-    }
-    // tslint:enable:object-literal-key-quotes
+            no: 'Nee',
+            ok: 'Oké',
+            yes: 'Ja',
+        },
+    },
+
+    // use mustache with customTags (https://www.npmjs.com/package/mustache#custom-delimiters) or disable mustache entirely
+    mustacheConfig: {
+        tags: ['{{', '}}'],
+        disable: false,
+    },
 });
 
 /**

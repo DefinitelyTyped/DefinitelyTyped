@@ -1,4 +1,4 @@
-// Type definitions for unl-core 2.1
+// Type definitions for unl-core 3.0
 // Project: https://github.com/u-n-l/core-js
 // Definitions by: UNL Network B.V. <https://github.com/u-n-l>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,19 +25,16 @@ export interface Point {
 }
 
 export interface Bounds {
-    sw: Point;
-    ne: Point;
-}
-
-export interface BoundsWithElevation extends Bounds {
-    elevation: number;
-    elevationType: ElevationType;
+    n: number;
+    e: number;
+    s: number;
+    w: number;
 }
 
 export interface PointWithElevation extends Point {
     elevation: number;
     elevationType: ElevationType;
-    bounds: BoundsWithElevation;
+    bounds: Bounds;
 }
 
 export interface EncodeOptions {
@@ -55,7 +52,7 @@ export interface Address {
     geohash: string;
     words: string;
     coordinates: PointWithElevation;
-    bounds: BoundsWithElevation;
+    bounds: Bounds;
 }
 
 export interface Polyhash {
@@ -97,13 +94,13 @@ export function encode(lat: number, lon: number, precision?: number, options?: E
 export function decode(locationId: string): PointWithElevation;
 
 /**
- * Returns SW/NE latitude/longitude bounds of specified locationId cell.
+ * Returns N/S latitudes & E/W longitudes bounding the specified locationId cell.
  *
  * @param   locationId - Cell that bounds are required of.
  * @returns Bounds
  * @throws  Invalid locationId.
  */
-export function bounds(locationId: string): BoundsWithElevation;
+export function bounds(locationId: string): Bounds;
 
 /**
  * Determines adjacent cell in given direction.
@@ -152,10 +149,10 @@ export function appendElevation(
 
 /**
  * Returns the vertical and horizontal lines that can be used to draw a UNL grid in the specified
- * SW/NE latitude/longitude bounds and precision. Each line is represented by an array of two
+ * N,E,S,W bounds and precision. Each line is represented by an array of two
  * coordinates in the format: [[startLon, startLat], [endLon, endLat]].
  *
- * @param   bounds - The bound within to return the grid lines.
+ * @param   bounds - The bounds whose grid-lines are requested
  * @param   [precision] - Number of characters to consider for the locationId of a grid cell. Default value is 9.
  * @returns grid lines
  */

@@ -10,6 +10,7 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -25,6 +26,7 @@
     },
     "files": [
         "index.d.ts",
-        "yaireo__tagify-tests.ts"
+        "yaireo__tagify-tests.ts",
+        "test/yaireo__tagify-react-tests.tsx"
     ]
 }

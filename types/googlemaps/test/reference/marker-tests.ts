@@ -96,6 +96,7 @@ marker.setIcon(null);
 
 marker.setLabel({
     text: 'test',
+    className: 'test',
     color: 'test',
     fontFamily: 'test',
     fontSize: 'test',

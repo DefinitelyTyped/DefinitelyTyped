@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "algoliasearch": ">=4",
+        "algoliasearch-helper": ">=3"
+    }
+}

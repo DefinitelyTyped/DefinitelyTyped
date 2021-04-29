@@ -1,6 +1,6 @@
 // Type definitions for continuation-local-storage 3.2
 // Project: https://github.com/othiym23/node-continuation-local-storage
-// Definitions by: Jang-Ho Hwang <https://github.com/rath>, Kei Son <https://github.com/heycalmdown>, Brandon Slade <https://github.com/aboveyou00>
+// Definitions by: Jang-Ho Hwang <https://github.com/rath>, Kei Son <https://github.com/heycalmdown>, Brandon Slade <https://github.com/aboveyou00>, Dmitry Kudryavtsev <https://github.com/skwee357>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -10,7 +10,8 @@ export type Context = {
     [key: string]: any
 };
 
-export type Func<T> = (...args: any[]) => T;
+export type BindCallbackFn<T> = (...args: any[]) => T;
+export type RunCallbackFn<T> = (context: Context) => T;
 
 export interface Namespace {
     readonly name: string; // Note: this is readonly because changing it does not actually rename it
@@ -19,20 +20,20 @@ export interface Namespace {
     createContext(): Context;
 
     set<T>(key: string, value: T): T;
-    get(key: string): any;
+    get<T>(key: string): T | undefined;
 
-    run(callback: Func<void>): Context;
-    run<T>(callback: Func<T>): Context;
-    runAndReturn<T>(callback: Func<T>): T;
-    bind(callback: Func<void>, context?: Context): Func<void>;
-    bind<T>(callback: Func<T>, context?: Context): Func<T>;
+    run<T = void>(callback: RunCallbackFn<T>): Context;
+    runAndReturn<T>(callback: RunCallbackFn<T>): T;
+
+    bind<T = void>(callback: BindCallbackFn<T>, context?: Context): BindCallbackFn<T>;
     bindEmitter(emitter: NodeJS.EventEmitter): void;
+
     enter(context: Context): void;
     exit(context: Context): void;
 }
 
 export function createNamespace(name: string): Namespace;
-export function getNamespace(name: string): Namespace;
+export function getNamespace(name: string): Namespace | undefined;
 export function destroyNamespace(name: string): void;
 export function reset(): void;
 

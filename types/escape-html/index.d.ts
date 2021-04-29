@@ -20,6 +20,6 @@
  * *Note* when using the escaped value within a tag, it is only suitable as the value of an attribute,
  * where the value is quoted with either a double quote character (`"`) or a single quote character (`'`).
  */
-declare function escapeHTML(text: string): string;
+declare function escapeHTML(text?: string | null): string;
 
 export = escapeHTML;

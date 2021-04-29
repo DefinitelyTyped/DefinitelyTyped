@@ -1,8 +1,9 @@
-declare module "tls" {
-    import * as crypto from "crypto";
-    import * as dns from "dns";
-    import * as net from "net";
-    import * as stream from "stream";
+declare module 'node:tls' {
+    export * from 'tls';
+}
+
+declare module 'tls' {
+    import * as net from 'node:net';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;

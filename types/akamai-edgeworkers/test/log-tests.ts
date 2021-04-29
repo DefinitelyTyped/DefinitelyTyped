@@ -1,4 +1,4 @@
-import { logger } from 'log';
+import { logger } from "log";
 
 logger.log("");
 logger.log("%s", "hi");

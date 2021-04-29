@@ -1,7 +1,14 @@
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
-declare module "async_hooks" {
+declare module 'node:async_hooks' {
+    export * from 'async_hooks';
+}
+
+/**
+ * Async Hooks module: https://nodejs.org/api/async_hooks.html
+ */
+declare module 'async_hooks' {
     /**
      * Returns the asyncId of the current execution context.
      */
@@ -144,7 +151,7 @@ declare module "async_hooks" {
         /**
          * Call AsyncHooks destroy callbacks.
          */
-        emitDestroy(): void;
+        emitDestroy(): this;
 
         /**
          * @return the unique ID assigned to this AsyncResource instance.

@@ -145,6 +145,27 @@ jsonld.normalize(doc, {expansion: false})
 });
 
 /**
+ * canonize() test
+ */
+jsonld.canonize(doc, (err, res) => {
+    log(res);
+});
+
+jsonld.canonize(doc, {algorithm: 'URDNA2015', expansion: false}, (err, res) => {
+    log(res);
+});
+
+jsonld.canonize(doc)
+.then((res) => {
+    log(res);
+});
+
+jsonld.canonize(doc, {expansion: false})
+.then((res) => {
+    log(res);
+});
+
+/**
  * fromRDF() test
  */
 jsonld.fromRDF(docRDF)

@@ -1,4 +1,18 @@
-import { lookup, ADDRCONFIG, V4MAPPED, LookupAddress, lookupService, resolve, AnyRecord, MxRecord, resolve4, RecordWithTtl, resolve6, Resolver, promises } from 'dns';
+import {
+    lookup,
+    ADDRCONFIG,
+    V4MAPPED,
+    LookupAddress,
+    lookupService,
+    resolve,
+    AnyRecord,
+    MxRecord,
+    resolve4,
+    RecordWithTtl,
+    resolve6,
+    Resolver,
+    promises,
+} from 'node:dns';
 
 lookup("nodejs.org", (err, address, family) => {
     const _err: NodeJS.ErrnoException | null = err;

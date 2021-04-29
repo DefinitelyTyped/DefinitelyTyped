@@ -7,7 +7,7 @@
 import {
     LoggerOptions as PinoLoggerOptions,
     Logger as PinoLogger,
-    Level as PinoLevel,
+    LevelWithSilent as PinoLevel,
     DestinationStream as PinoDestinationStream,
     stdSerializers as pinoStdSerializers
 } from 'pino';

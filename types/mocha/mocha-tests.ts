@@ -1364,6 +1364,13 @@ function test_global_setup(m: Mocha, fn: LocalMocha.HookFunction): boolean {
     return x;
 }
 
+import createStatsCollector = require("mocha/lib/stats-collector");
+
+function test_stats_collector(runner: LocalMocha.Runner) {
+    // $ExpectType void
+    createStatsCollector(runner);
+}
+
 // mocha-typescript (https://www.npmjs.com/package/mocha-typescript/) augments
 // the mocha functions and enables them to work as test class decorators.
 declare module "mocha" {

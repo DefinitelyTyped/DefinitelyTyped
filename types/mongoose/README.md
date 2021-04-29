@@ -1,18 +1,22 @@
 ## MongooseJS Typescript Docs
+
 Below are some examples of how to use these Definitions.<br>
 Scenarios where the Typescript code is identical to plain Javascript code are omitted.
 
 ### Table of Contents
-* [Mongoose Methods, Properties, Constructors](#mongoose-methods-properties-constructors)
-* [Creating and Saving Documents](#creating-and-saving-documents)
-* [Promises](#promises)
-* [Instance Methods, Virtual Properties](#instance-methods-and-virtual-properties)
-* [Static Methods](#static-methods)
-* [Plugins](#plugins)
-* [FAQ and Common Mistakes](#faq-and-common-mistakes)
+
+-   [Mongoose Methods, Properties, Constructors](#mongoose-methods-properties-constructors)
+-   [Creating and Saving Documents](#creating-and-saving-documents)
+-   [Promises](#promises)
+-   [Instance Methods, Virtual Properties](#instance-methods-and-virtual-properties)
+-   [Static Methods](#static-methods)
+-   [Plugins](#plugins)
+-   [FAQ and Common Mistakes](#faq-and-common-mistakes)
 
 #### Mongoose Methods, Properties, Constructors
+
 You can call methods from the mongoose instance using:
+
 ```typescript
 import * as mongoose from 'mongoose';
 var MyModel = mongoose.model(...);
@@ -20,53 +24,59 @@ var MySchema: mongoose.Schema = new mongoose.Schema(...);
 ```
 
 Alternatively, you can import individual names and call them:
+
 ```typescript
 import { model, Schema } from 'mongoose';
 var MyModel = model(...);
 var MySchema: Schema = new Schema(...):
 ```
+
 [top](#mongoosejs-typescript-docs)
 
 #### Creating and Saving Documents
+
 ```typescript
-import {Document, model, Model, Schema} from 'mongoose';
+import { Document, model, Model, Schema } from "mongoose";
 
 var UserSchema: Schema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  age: Number,
-  friends: [String],
-  data: [Schema.Types.Mixed]
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    age: Number,
+    friends: [String],
+    data: [Schema.Types.Mixed],
 });
 
 interface IUser extends Document {
-  username: string;
-  age: number;
-  friends: string[];
-  data: any[];
+    username: string;
+    age: number;
+    friends: string[];
+    data: any[];
 }
 
-var UserModel: Model<IUser> = model<IUser>('User', UserSchema);
+var UserModel: Model<IUser> = model<IUser>("User", UserSchema);
 
-var user = new UserModel({name: 'Jane'});
-user.username;     // IUser properties are available
-user.save();       // mongoose Document methods are available
+var user = new UserModel({ name: "Jane" });
+user.username; // IUser properties are available
+user.save(); // mongoose Document methods are available
 
 UserModel.findOne({}, (err: any, user: IUser) => {
-  user.username;   // IUser properties are available
-  user.save();     // mongoose Document methods are available
+    user.username; // IUser properties are available
+    user.save(); // mongoose Document methods are available
 });
 ```
+
 [top](#mongoosejs-typescript-docs)
 
 #### Promises
+
 These definitions use `global.Promise` by default. If you would like to use mongoose's own mpromise
 definition (which is deprecated), you can install definitions for [mongoose-promise](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/mongoose-promise).
 
 If you'd like to use something other than `global.Promise`, you'll need to create a simple `.d.ts` file:
+
 ```typescript
 // promise-bluebird.d.ts
 import * as Bluebird from 'bluebird';

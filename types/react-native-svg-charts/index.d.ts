@@ -209,6 +209,7 @@ export interface ProgressCircleProps {
     progressColor?: string;
     backgroundColor?: string;
     strokeWidth?: number;
+    cornerRadius?: number | string;
     startAngle?: number;
     endAngle?: number;
     animate?: boolean;

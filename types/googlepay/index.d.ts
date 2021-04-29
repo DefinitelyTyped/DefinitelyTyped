@@ -1699,6 +1699,20 @@ declare namespace google.payments.api {
          * @default document
          */
         buttonRootNode?: HTMLDocument | ShadowRoot;
+
+        /**
+         * The [ISO
+         * 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code
+         * representing the desired button language.
+         *
+         * Supported locales include `en`, `ar`, `bg`, `ca`, `cs`, `da`, `de`,
+         * `el`, `es`, `et`, `fi`, `fr`, `hr`, `id`, `it`, `ja`, `ko`, `ms`,
+         * `nl`, `no`, `pl`, `pt`, `ru`, `sk`, `sl`, `sr`, `sv`, `th`, `tr`,
+         * `uk`, and `zh`.
+         *
+         * @default browser or operating system language
+         */
+        buttonLocale?: string;
     }
 
     /**

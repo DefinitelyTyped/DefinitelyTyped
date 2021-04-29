@@ -46,7 +46,8 @@ export class Router extends String {
     hydrateUrl(): string;
     matchUrl(): boolean;
     constructQuery(): string;
-    current(name?: string): Route;
+    current(): string;
+    current(name: string): boolean;
     check(name: string): boolean;
     extractParams(uri: string, template: string, delimiter: string): NormalizedParams;
     get params(): NormalizedParams;

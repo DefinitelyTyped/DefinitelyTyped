@@ -49,6 +49,12 @@
   // listen to events...
   mc.on( "panleft panright panup pandown tap press", function ( ev:HammerInput )
   {
+    type EventType =
+        | HammerStatic["INPUT_START"]
+        | HammerStatic["INPUT_MOVE"]
+        | HammerStatic["INPUT_END"]
+        | HammerStatic["INPUT_CANCEL"];
+    const eventType: EventType = ev.eventType;
     myElement.textContent = ev.type + " gesture detected.";
   } );
 })();

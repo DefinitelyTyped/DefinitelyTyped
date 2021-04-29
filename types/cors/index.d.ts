@@ -7,7 +7,9 @@
 
 import { IncomingHttpHeaders } from 'http';
 
-type CustomOrigin = (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => void;
+type StaticOrigin = boolean | string | RegExp | (string | RegExp)[];
+
+type CustomOrigin = (requestOrigin: string | undefined, callback: (err: Error | null, origin?: StaticOrigin) => void) => void;
 
 declare namespace e {
     interface CorsRequest {
@@ -18,7 +20,7 @@ declare namespace e {
         /**
          * @default '*''
          */
-        origin?: boolean | string | RegExp | (string | RegExp)[] | CustomOrigin;
+        origin?: StaticOrigin | CustomOrigin;
         /**
          * @default 'GET,HEAD,PUT,PATCH,POST,DELETE'
          */

@@ -1,4 +1,4 @@
-import * as tty from 'tty';
+import * as tty from 'node:tty';
 
 const rs: tty.ReadStream = new tty.ReadStream(0);
 const ws: tty.WriteStream = new tty.WriteStream(1);

@@ -26,6 +26,7 @@ declare namespace Share {
         EMAIL = 'email',
         PINTEREST = 'pinterest',
         LINKEDIN = 'linkedin',
+        SMS = 'SMS',
     }
     enum InstagramStories {
         SHARE_BACKGROUND_IMAGE = 'shareBackgroundImage',

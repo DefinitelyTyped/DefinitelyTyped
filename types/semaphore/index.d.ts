@@ -2,6 +2,7 @@
 // Project: https://github.com/abrkn/semaphore.js
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>
 //                 Arturas Molcanovas <https://github.com/Alorel>
+//                 Tanguy Antoine <https://github.com/tanguyantoine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function semaphore(capacity?: number): semaphore.Semaphore;
@@ -14,6 +15,7 @@ declare namespace semaphore {
 
     interface Semaphore {
         capacity: number;
+        current: number;
 
         available(n: number): boolean;
 

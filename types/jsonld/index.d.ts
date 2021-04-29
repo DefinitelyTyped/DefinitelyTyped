@@ -1,6 +1,6 @@
 // Type definitions for jsonld 1.5
 // Project: https://github.com/digitalbazaar/jsonld.js
-// Definitions by: Jonas Erbe <https://github.com/jason076>
+// Definitions by: Nathan Shively-Sanders <https://github.com/sandersn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -131,6 +131,8 @@ export function frame(input: JsonLdDocument, frame: Frame, options?: Options.Fra
 export function normalize(input: JsonLdDocument, options: Options.Normalize, callback: Callback<string>): void;
 export function normalize(input: JsonLdDocument, callback: Callback<string>): void;
 export function normalize(input: JsonLdDocument, options?: Options.Normalize): Promise<string>;
+
+export const canonize: typeof normalize;
 
 export function fromRDF(dataset: RdfDataSet, options: Options.FromRdf, callback: Callback<JsonLdArray>): void;
 export function fromRDF(dataset: RdfDataSet, callback: Callback<JsonLdArray>): void;
