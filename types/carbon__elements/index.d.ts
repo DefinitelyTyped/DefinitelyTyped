@@ -1,4 +1,4 @@
-// Type definitions for @carbon/elements 10.32
+// Type definitions for @carbon/elements 10.33
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/elements
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
