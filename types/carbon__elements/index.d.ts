@@ -1,4 +1,4 @@
-// Type definitions for @carbon/elements 10.32
+// Type definitions for @carbon/elements 10.33
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/elements
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1510,6 +1510,566 @@ export const g10: {
     brand03: "#0f62fe";
     active01: "#c6c6c6";
     hoverField: "#e5e5e5";
+    danger: "#da1e28";
+    caption01: {
+        fontSize: "0.75rem";
+        fontWeight: 400;
+        lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    label01: {
+        fontSize: "0.75rem";
+        fontWeight: 400;
+        lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText01: {
+        fontSize: "0.75rem";
+        lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    bodyShort01: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.16px";
+    };
+    bodyLong01: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.43;
+        letterSpacing: "0.16px";
+    };
+    bodyShort02: {
+        fontSize: "1rem";
+        fontWeight: 400;
+        lineHeight: 1.375;
+        letterSpacing: 0;
+    };
+    bodyLong02: {
+        fontSize: "1rem";
+        fontWeight: 400;
+        lineHeight: 1.5;
+        letterSpacing: 0;
+    };
+    code01: {
+        fontFamily: "'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace";
+        fontSize: "0.75rem";
+        fontWeight: 400;
+        lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    code02: {
+        fontFamily: "'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace";
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.43;
+        letterSpacing: "0.32px";
+    };
+    heading01: {
+        fontSize: "0.875rem";
+        fontWeight: 600;
+        lineHeight: 1.29;
+        letterSpacing: "0.16px";
+    };
+    productiveHeading01: {
+        fontSize: "0.875rem";
+        fontWeight: 600;
+        lineHeight: 1.29;
+        letterSpacing: "0.16px";
+    };
+    heading02: {
+        fontSize: "1rem";
+        fontWeight: 600;
+        lineHeight: 1.375;
+        letterSpacing: 0;
+    };
+    productiveHeading02: {
+        fontSize: "1rem";
+        fontWeight: 600;
+        lineHeight: 1.375;
+        letterSpacing: 0;
+    };
+    productiveHeading03: {
+        fontSize: "1.25rem";
+        fontWeight: 400;
+        lineHeight: 1.4;
+        letterSpacing: 0;
+    };
+    productiveHeading04: {
+        fontSize: "1.75rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: 0;
+    };
+    productiveHeading05: {
+        fontSize: "2rem";
+        fontWeight: 400;
+        lineHeight: 1.25;
+        letterSpacing: 0;
+    };
+    productiveHeading06: {
+        fontSize: "2.625rem";
+        fontWeight: 300;
+        lineHeight: 1.199;
+        letterSpacing: 0;
+    };
+    productiveHeading07: {
+        fontSize: "3.375rem";
+        fontWeight: 300;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+    };
+    expressiveHeading01: {
+        fontSize: "0.875rem";
+        fontWeight: 600;
+        lineHeight: 1.25;
+        letterSpacing: "0.16px";
+    };
+    expressiveHeading02: {
+        fontSize: "1rem";
+        fontWeight: 600;
+        lineHeight: 1.5;
+        letterSpacing: 0;
+    };
+    expressiveHeading03: {
+        fontSize: "1.25rem";
+        fontWeight: 400;
+        lineHeight: 1.4;
+        letterSpacing: 0;
+        breakpoints: {
+            xlg: {
+                fontSize: "1.25rem";
+                lineHeight: 1.25;
+            };
+            max: {
+                fontSize: "1.5rem";
+                lineHeight: 1.334;
+            };
+        };
+    };
+    expressiveHeading04: {
+        fontSize: "1.75rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: 0;
+        breakpoints: {
+            xlg: {
+                fontSize: "1.75rem";
+                lineHeight: 1.25;
+            };
+            max: {
+                fontSize: "2rem";
+            };
+        };
+    };
+    expressiveHeading05: {
+        fontSize: "2rem";
+        fontWeight: 400;
+        lineHeight: 1.25;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.25rem";
+                fontWeight: 300;
+                lineHeight: 1.22;
+                letterSpacing: 0;
+            };
+            lg: {
+                fontSize: "2.625rem";
+                fontWeight: 300;
+                lineHeight: 1.19;
+                letterSpacing: 0;
+            };
+            xlg: {
+                fontSize: "3rem";
+                fontWeight: 300;
+                lineHeight: 1.17;
+                letterSpacing: 0;
+            };
+            max: {
+                fontSize: "3.75rem";
+                fontWeight: 300;
+                letterSpacing: 0;
+            };
+        };
+    };
+    expressiveHeading06: {
+        fontSize: "2rem";
+        fontWeight: 600;
+        lineHeight: 1.25;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.25rem";
+                fontWeight: 600;
+                lineHeight: 1.22;
+                letterSpacing: 0;
+            };
+            lg: {
+                fontSize: "2.625rem";
+                fontWeight: 600;
+                lineHeight: 1.19;
+                letterSpacing: 0;
+            };
+            xlg: {
+                fontSize: "3rem";
+                fontWeight: 600;
+                lineHeight: 1.17;
+                letterSpacing: 0;
+            };
+            max: {
+                fontSize: "3.75rem";
+                fontWeight: 600;
+                letterSpacing: 0;
+            };
+        };
+    };
+    expressiveParagraph01: {
+        fontSize: "1.5rem";
+        fontWeight: 300;
+        lineHeight: 1.334;
+        letterSpacing: 0;
+        breakpoints: {
+            lg: {
+                fontSize: "1.75rem";
+                lineHeight: 1.29;
+            };
+            max: {
+                fontSize: "2rem";
+                lineHeight: 1.25;
+            };
+        };
+    };
+    quotation01: {
+        fontSize: "1.25rem";
+        fontWeight: 400;
+        lineHeight: 1.3;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "1.25rem";
+                fontWeight: 400;
+                letterSpacing: 0;
+            };
+            lg: {
+                fontSize: "1.5rem";
+                fontWeight: 400;
+                lineHeight: 1.334;
+                letterSpacing: 0;
+            };
+            xlg: {
+                fontSize: "1.75rem";
+                fontWeight: 400;
+                lineHeight: 1.29;
+                letterSpacing: 0;
+            };
+            max: {
+                fontSize: "2rem";
+                fontWeight: 400;
+                lineHeight: 1.25;
+                letterSpacing: 0;
+            };
+        };
+    };
+    quotation02: {
+        fontSize: "2rem";
+        fontWeight: 300;
+        lineHeight: 1.25;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.25rem";
+                lineHeight: 1.22;
+            };
+            lg: {
+                fontSize: "2.625rem";
+                lineHeight: 1.19;
+            };
+            xlg: {
+                fontSize: "3rem";
+                lineHeight: 1.17;
+            };
+            max: {
+                fontSize: "3.75rem";
+            };
+        };
+    };
+    display01: {
+        fontSize: "2.625rem";
+        fontWeight: 300;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.625rem";
+            };
+            lg: {
+                fontSize: "3.375rem";
+            };
+            xlg: {
+                fontSize: "3.75rem";
+                lineHeight: 1.17;
+            };
+            max: {
+                fontSize: "4.75rem";
+                lineHeight: 1.13;
+            };
+        };
+    };
+    display02: {
+        fontSize: "2.625rem";
+        fontWeight: 600;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.625rem";
+            };
+            lg: {
+                fontSize: "3.375rem";
+            };
+            xlg: {
+                fontSize: "3.75rem";
+                lineHeight: 1.16;
+            };
+            max: {
+                fontSize: "4.75rem";
+                lineHeight: 1.13;
+            };
+        };
+    };
+    display03: {
+        fontSize: "2.625rem";
+        fontWeight: 300;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "4.25rem";
+                lineHeight: 1.15;
+            };
+            lg: {
+                fontSize: "5.75rem";
+                lineHeight: 1.11;
+                letterSpacing: "-0.64px";
+            };
+            xlg: {
+                fontSize: "7.625rem";
+                lineHeight: 1.07;
+            };
+            max: {
+                fontSize: "9.75rem";
+                lineHeight: 1.05;
+                letterSpacing: "-0.96px";
+            };
+        };
+    };
+    display04: {
+        fontSize: "2.625rem";
+        fontWeight: 600;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "4.25rem";
+                lineHeight: 1.15;
+            };
+            lg: {
+                fontSize: "5.75rem";
+                lineHeight: 1.11;
+                letterSpacing: "-0.64px";
+            };
+            xlg: {
+                fontSize: "7.625rem";
+                lineHeight: 1.07;
+                letterSpacing: "-0.64px";
+            };
+            max: {
+                fontSize: "9.75rem";
+                lineHeight: 1.05;
+                letterSpacing: "-0.96px";
+            };
+        };
+    };
+    spacing01: "0.125rem";
+    spacing02: "0.25rem";
+    spacing03: "0.5rem";
+    spacing04: "0.75rem";
+    spacing05: "1rem";
+    spacing06: "1.5rem";
+    spacing07: "2rem";
+    spacing08: "2.5rem";
+    spacing09: "3rem";
+    spacing10: "4rem";
+    spacing11: "5rem";
+    spacing12: "6rem";
+    spacing13: "10rem";
+    fluidSpacing01: 0;
+    fluidSpacing02: "2vw";
+    fluidSpacing03: "5vw";
+    fluidSpacing04: "10vw";
+    layout01: "1rem";
+    layout02: "1.5rem";
+    layout03: "2rem";
+    layout04: "3rem";
+    layout05: "4rem";
+    layout06: "6rem";
+    layout07: "10rem";
+    container01: "1.5rem";
+    container02: "2rem";
+    container03: "2.5rem";
+    container04: "3rem";
+    container05: "4rem";
+    iconSize01: "1rem";
+    iconSize02: "1.25rem";
+};
+export const g80: {
+    background: "#393939";
+    layer: "#525252";
+    layerAccent: "#6f6f6f";
+    field: "#525252";
+    backgroundInverse: "#f4f4f4";
+    backgroundBrand: "#0f62fe";
+    interactive: "#78a9ff";
+    borderSubtle: "#6f6f6f";
+    borderStrong: "#a8a8a8";
+    borderInverse: "#f4f4f4";
+    borderInteractive: "#4589ff";
+    textPrimary: "#f4f4f4";
+    textSecondary: "#c6c6c6";
+    textPlaceholder: "#6f6f6f";
+    textHelper: "#a8a8a8";
+    textError: "#ffb3b8";
+    textOnColor: "#ffffff";
+    textInverse: "#161616";
+    linkPrimary: "#78a9ff";
+    linkSecondary: "#a6c8ff";
+    linkVisited: "#be95ff";
+    linkInverse: "#0f62fe";
+    iconPrimary: "#f4f4f4";
+    iconSecondary: "#c6c6c6";
+    iconOnColor: "#ffffff";
+    iconInverse: "#161616";
+    supportError: "#ff8389";
+    supportSuccess: "#42be65";
+    supportWarning: "#f1c21b";
+    supportInfo: "#4589ff";
+    supportErrorInverse: "#da1e28";
+    supportSuccessInverse: "#24a148";
+    supportWarningInverse: "#f1c21b";
+    supportInfoInverse: "#0f62fe";
+    overlay: "rgba(22, 22, 22, 0.7)";
+    toggleOff: "#8d8d8d";
+    buttonPrimary: "#0f62fe";
+    buttonSecondary: "#6f6f6f";
+    buttonTertiary: "#ffffff";
+    buttonDangerPrimary: "#da1e28";
+    buttonDangerSecondary: "#ff8389";
+    buttonSeparator: "#161616";
+    backgroundActive: "#525252";
+    layerActive: "#6f6f6f";
+    buttonDangerActive: "#750e13";
+    buttonPrimaryActive: "#002d9c";
+    buttonSecondaryActive: "#525252";
+    buttonTertiaryActive: "#c6c6c6";
+    focus: "#ffffff";
+    focusInset: "#161616";
+    focusInverse: "#0f62fe";
+    highlight: "#0043ce";
+    backgroundHover: "#474747";
+    layerHover: "#636363";
+    fieldHover: "#636363";
+    backgroundInverseHover: "#e8e8e8";
+    linkPrimaryHover: "#a6c8ff";
+    buttonDangerHover: "#b81921";
+    buttonPrimaryHover: "#0151e4";
+    buttonSecondaryHover: "#5e5e5e";
+    buttonTertiaryHover: "#ffffff";
+    backgroundSelected: "#525252";
+    backgroundSelectedHover: "#636363";
+    layerSelected: "#6f6f6f";
+    layerSelectedHover: "#616161";
+    layerSelectedInverse: "#f4f4f4";
+    borderSubtleSelected: "#8d8d8d";
+    layerDisabled: "#525252";
+    fieldDisabled: "#525252";
+    borderDisabled: "#525252";
+    textDisabled: "#8d8d8d";
+    buttonDisabled: "#8d8d8d";
+    iconDisabled: "#8d8d8d";
+    textOnColorDisabled: "#c6c6c6";
+    iconOnColorDisabled: "#c6c6c6";
+    layerSelectedDisabled: "#c6c6c6";
+    skeletonBackground: "#474747";
+    skeletonElement: "#6f6f6f";
+    interactive01: "#0f62fe";
+    interactive02: "#6f6f6f";
+    interactive03: "#ffffff";
+    interactive04: "#78a9ff";
+    uiBackground: "#393939";
+    ui01: "#525252";
+    ui02: "#525252";
+    ui03: "#6f6f6f";
+    ui04: "#a8a8a8";
+    ui05: "#f4f4f4";
+    text01: "#f4f4f4";
+    text02: "#c6c6c6";
+    text03: "#6f6f6f";
+    text04: "#ffffff";
+    text05: "#a8a8a8";
+    icon01: "#f4f4f4";
+    icon02: "#c6c6c6";
+    icon03: "#ffffff";
+    link01: "#78a9ff";
+    link02: "#a6c8ff";
+    inverseLink: "#0f62fe";
+    field01: "#525252";
+    field02: "#6f6f6f";
+    inverse01: "#161616";
+    inverse02: "#f4f4f4";
+    support01: "#ff8389";
+    support02: "#42be65";
+    support03: "#f1c21b";
+    support04: "#4589ff";
+    inverseSupport01: "#da1e28";
+    inverseSupport02: "#24a148";
+    inverseSupport03: "#f1c21b";
+    inverseSupport04: "#0f62fe";
+    overlay01: "rgba(22, 22, 22, 0.7)";
+    danger01: "#da1e28";
+    danger02: "#ff8389";
+    inverseFocusUi: "#0f62fe";
+    hoverPrimary: "#0151e4";
+    activePrimary: "#002d9c";
+    hoverPrimaryText: "#a6c8ff";
+    hoverSecondary: "#5e5e5e";
+    activeSecondary: "#525252";
+    hoverTertiary: "#ffffff";
+    activeTertiary: "#c6c6c6";
+    hoverUI: "#474747";
+    hoverLightUI: "#5E5E5E";
+    activeUI: "#525252";
+    activeLightUI: "#8d8d8d";
+    selectedUI: "#525252";
+    selectedLightUI: "#8d8d8d";
+    inverseHoverUI: "#e8e8e8";
+    hoverSelectedUI: "#616161";
+    hoverDanger: "#b81921";
+    activeDanger: "#750e13";
+    hoverRow: "#636363";
+    visitedLink: "#be95ff";
+    disabled01: "#525252";
+    disabled02: "#8d8d8d";
+    disabled03: "#c6c6c6";
+    decorative01: "#6f6f6f";
+    skeleton01: "#474747";
+    skeleton02: "#6f6f6f";
+    brand01: "#0f62fe";
+    brand02: "#6f6f6f";
+    brand03: "#ffffff";
+    active01: "#525252";
+    hoverField: "#474747";
     danger: "#da1e28";
     caption01: {
         fontSize: "0.75rem";
@@ -4613,6 +5173,566 @@ export const themes: {
             max: {
                 fontSize: "2rem";
                 lineHeight: 1.25;
+            };
+        };
+        quotation01: {
+            fontSize: "1.25rem";
+            fontWeight: 400;
+            lineHeight: 1.3;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "1.25rem";
+                    fontWeight: 400;
+                    letterSpacing: 0;
+                };
+                lg: {
+                    fontSize: "1.5rem";
+                    fontWeight: 400;
+                    lineHeight: 1.334;
+                    letterSpacing: 0;
+                };
+                xlg: {
+                    fontSize: "1.75rem";
+                    fontWeight: 400;
+                    lineHeight: 1.29;
+                    letterSpacing: 0;
+                };
+                max: {
+                    fontSize: "2rem";
+                    fontWeight: 400;
+                    lineHeight: 1.25;
+                    letterSpacing: 0;
+                };
+            };
+        };
+        quotation02: {
+            fontSize: "2rem";
+            fontWeight: 300;
+            lineHeight: 1.25;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.25rem";
+                    lineHeight: 1.22;
+                };
+                lg: {
+                    fontSize: "2.625rem";
+                    lineHeight: 1.19;
+                };
+                xlg: {
+                    fontSize: "3rem";
+                    lineHeight: 1.17;
+                };
+                max: {
+                    fontSize: "3.75rem";
+                };
+            };
+        };
+        display01: {
+            fontSize: "2.625rem";
+            fontWeight: 300;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.625rem";
+                };
+                lg: {
+                    fontSize: "3.375rem";
+                };
+                xlg: {
+                    fontSize: "3.75rem";
+                    lineHeight: 1.17;
+                };
+                max: {
+                    fontSize: "4.75rem";
+                    lineHeight: 1.13;
+                };
+            };
+        };
+        display02: {
+            fontSize: "2.625rem";
+            fontWeight: 600;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.625rem";
+                };
+                lg: {
+                    fontSize: "3.375rem";
+                };
+                xlg: {
+                    fontSize: "3.75rem";
+                    lineHeight: 1.16;
+                };
+                max: {
+                    fontSize: "4.75rem";
+                    lineHeight: 1.13;
+                };
+            };
+        };
+        display03: {
+            fontSize: "2.625rem";
+            fontWeight: 300;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "4.25rem";
+                    lineHeight: 1.15;
+                };
+                lg: {
+                    fontSize: "5.75rem";
+                    lineHeight: 1.11;
+                    letterSpacing: "-0.64px";
+                };
+                xlg: {
+                    fontSize: "7.625rem";
+                    lineHeight: 1.07;
+                };
+                max: {
+                    fontSize: "9.75rem";
+                    lineHeight: 1.05;
+                    letterSpacing: "-0.96px";
+                };
+            };
+        };
+        display04: {
+            fontSize: "2.625rem";
+            fontWeight: 600;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "4.25rem";
+                    lineHeight: 1.15;
+                };
+                lg: {
+                    fontSize: "5.75rem";
+                    lineHeight: 1.11;
+                    letterSpacing: "-0.64px";
+                };
+                xlg: {
+                    fontSize: "7.625rem";
+                    lineHeight: 1.07;
+                    letterSpacing: "-0.64px";
+                };
+                max: {
+                    fontSize: "9.75rem";
+                    lineHeight: 1.05;
+                    letterSpacing: "-0.96px";
+                };
+            };
+        };
+        spacing01: "0.125rem";
+        spacing02: "0.25rem";
+        spacing03: "0.5rem";
+        spacing04: "0.75rem";
+        spacing05: "1rem";
+        spacing06: "1.5rem";
+        spacing07: "2rem";
+        spacing08: "2.5rem";
+        spacing09: "3rem";
+        spacing10: "4rem";
+        spacing11: "5rem";
+        spacing12: "6rem";
+        spacing13: "10rem";
+        fluidSpacing01: 0;
+        fluidSpacing02: "2vw";
+        fluidSpacing03: "5vw";
+        fluidSpacing04: "10vw";
+        layout01: "1rem";
+        layout02: "1.5rem";
+        layout03: "2rem";
+        layout04: "3rem";
+        layout05: "4rem";
+        layout06: "6rem";
+        layout07: "10rem";
+        container01: "1.5rem";
+        container02: "2rem";
+        container03: "2.5rem";
+        container04: "3rem";
+        container05: "4rem";
+        iconSize01: "1rem";
+        iconSize02: "1.25rem";
+    };
+    g80: {
+        background: "#393939";
+        layer: "#525252";
+        layerAccent: "#6f6f6f";
+        field: "#525252";
+        backgroundInverse: "#f4f4f4";
+        backgroundBrand: "#0f62fe";
+        interactive: "#78a9ff";
+        borderSubtle: "#6f6f6f";
+        borderStrong: "#a8a8a8";
+        borderInverse: "#f4f4f4";
+        borderInteractive: "#4589ff";
+        textPrimary: "#f4f4f4";
+        textSecondary: "#c6c6c6";
+        textPlaceholder: "#6f6f6f";
+        textHelper: "#a8a8a8";
+        textError: "#ffb3b8";
+        textOnColor: "#ffffff";
+        textInverse: "#161616";
+        linkPrimary: "#78a9ff";
+        linkSecondary: "#a6c8ff";
+        linkVisited: "#be95ff";
+        linkInverse: "#0f62fe";
+        iconPrimary: "#f4f4f4";
+        iconSecondary: "#c6c6c6";
+        iconOnColor: "#ffffff";
+        iconInverse: "#161616";
+        supportError: "#ff8389";
+        supportSuccess: "#42be65";
+        supportWarning: "#f1c21b";
+        supportInfo: "#4589ff";
+        supportErrorInverse: "#da1e28";
+        supportSuccessInverse: "#24a148";
+        supportWarningInverse: "#f1c21b";
+        supportInfoInverse: "#0f62fe";
+        overlay: "rgba(22, 22, 22, 0.7)";
+        toggleOff: "#8d8d8d";
+        buttonPrimary: "#0f62fe";
+        buttonSecondary: "#6f6f6f";
+        buttonTertiary: "#ffffff";
+        buttonDangerPrimary: "#da1e28";
+        buttonDangerSecondary: "#ff8389";
+        buttonSeparator: "#161616";
+        backgroundActive: "#525252";
+        layerActive: "#6f6f6f";
+        buttonDangerActive: "#750e13";
+        buttonPrimaryActive: "#002d9c";
+        buttonSecondaryActive: "#525252";
+        buttonTertiaryActive: "#c6c6c6";
+        focus: "#ffffff";
+        focusInset: "#161616";
+        focusInverse: "#0f62fe";
+        highlight: "#0043ce";
+        backgroundHover: "#474747";
+        layerHover: "#636363";
+        fieldHover: "#636363";
+        backgroundInverseHover: "#e8e8e8";
+        linkPrimaryHover: "#a6c8ff";
+        buttonDangerHover: "#b81921";
+        buttonPrimaryHover: "#0151e4";
+        buttonSecondaryHover: "#5e5e5e";
+        buttonTertiaryHover: "#ffffff";
+        backgroundSelected: "#525252";
+        backgroundSelectedHover: "#636363";
+        layerSelected: "#6f6f6f";
+        layerSelectedHover: "#616161";
+        layerSelectedInverse: "#f4f4f4";
+        borderSubtleSelected: "#8d8d8d";
+        layerDisabled: "#525252";
+        fieldDisabled: "#525252";
+        borderDisabled: "#525252";
+        textDisabled: "#8d8d8d";
+        buttonDisabled: "#8d8d8d";
+        iconDisabled: "#8d8d8d";
+        textOnColorDisabled: "#c6c6c6";
+        iconOnColorDisabled: "#c6c6c6";
+        layerSelectedDisabled: "#c6c6c6";
+        skeletonBackground: "#474747";
+        skeletonElement: "#6f6f6f";
+        interactive01: "#0f62fe";
+        interactive02: "#6f6f6f";
+        interactive03: "#ffffff";
+        interactive04: "#78a9ff";
+        uiBackground: "#393939";
+        ui01: "#525252";
+        ui02: "#525252";
+        ui03: "#6f6f6f";
+        ui04: "#a8a8a8";
+        ui05: "#f4f4f4";
+        text01: "#f4f4f4";
+        text02: "#c6c6c6";
+        text03: "#6f6f6f";
+        text04: "#ffffff";
+        text05: "#a8a8a8";
+        icon01: "#f4f4f4";
+        icon02: "#c6c6c6";
+        icon03: "#ffffff";
+        link01: "#78a9ff";
+        link02: "#a6c8ff";
+        inverseLink: "#0f62fe";
+        field01: "#525252";
+        field02: "#6f6f6f";
+        inverse01: "#161616";
+        inverse02: "#f4f4f4";
+        support01: "#ff8389";
+        support02: "#42be65";
+        support03: "#f1c21b";
+        support04: "#4589ff";
+        inverseSupport01: "#da1e28";
+        inverseSupport02: "#24a148";
+        inverseSupport03: "#f1c21b";
+        inverseSupport04: "#0f62fe";
+        overlay01: "rgba(22, 22, 22, 0.7)";
+        danger01: "#da1e28";
+        danger02: "#ff8389";
+        inverseFocusUi: "#0f62fe";
+        hoverPrimary: "#0151e4";
+        activePrimary: "#002d9c";
+        hoverPrimaryText: "#a6c8ff";
+        hoverSecondary: "#5e5e5e";
+        activeSecondary: "#525252";
+        hoverTertiary: "#ffffff";
+        activeTertiary: "#c6c6c6";
+        hoverUI: "#474747";
+        hoverLightUI: "#5E5E5E";
+        activeUI: "#525252";
+        activeLightUI: "#8d8d8d";
+        selectedUI: "#525252";
+        selectedLightUI: "#8d8d8d";
+        inverseHoverUI: "#e8e8e8";
+        hoverSelectedUI: "#616161";
+        hoverDanger: "#b81921";
+        activeDanger: "#750e13";
+        hoverRow: "#636363";
+        visitedLink: "#be95ff";
+        disabled01: "#525252";
+        disabled02: "#8d8d8d";
+        disabled03: "#c6c6c6";
+        decorative01: "#6f6f6f";
+        skeleton01: "#474747";
+        skeleton02: "#6f6f6f";
+        brand01: "#0f62fe";
+        brand02: "#6f6f6f";
+        brand03: "#ffffff";
+        active01: "#525252";
+        hoverField: "#474747";
+        danger: "#da1e28";
+        caption01: {
+            fontSize: "0.75rem";
+            fontWeight: 400;
+            lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        label01: {
+            fontSize: "0.75rem";
+            fontWeight: 400;
+            lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText01: {
+            fontSize: "0.75rem";
+            lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        bodyShort01: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.16px";
+        };
+        bodyLong01: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.43;
+            letterSpacing: "0.16px";
+        };
+        bodyShort02: {
+            fontSize: "1rem";
+            fontWeight: 400;
+            lineHeight: 1.375;
+            letterSpacing: 0;
+        };
+        bodyLong02: {
+            fontSize: "1rem";
+            fontWeight: 400;
+            lineHeight: 1.5;
+            letterSpacing: 0;
+        };
+        code01: {
+            fontFamily: "'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace";
+            fontSize: "0.75rem";
+            fontWeight: 400;
+            lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        code02: {
+            fontFamily: "'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace";
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.43;
+            letterSpacing: "0.32px";
+        };
+        heading01: {
+            fontSize: "0.875rem";
+            fontWeight: 600;
+            lineHeight: 1.29;
+            letterSpacing: "0.16px";
+        };
+        productiveHeading01: {
+            fontSize: "0.875rem";
+            fontWeight: 600;
+            lineHeight: 1.29;
+            letterSpacing: "0.16px";
+        };
+        heading02: {
+            fontSize: "1rem";
+            fontWeight: 600;
+            lineHeight: 1.375;
+            letterSpacing: 0;
+        };
+        productiveHeading02: {
+            fontSize: "1rem";
+            fontWeight: 600;
+            lineHeight: 1.375;
+            letterSpacing: 0;
+        };
+        productiveHeading03: {
+            fontSize: "1.25rem";
+            fontWeight: 400;
+            lineHeight: 1.4;
+            letterSpacing: 0;
+        };
+        productiveHeading04: {
+            fontSize: "1.75rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: 0;
+        };
+        productiveHeading05: {
+            fontSize: "2rem";
+            fontWeight: 400;
+            lineHeight: 1.25;
+            letterSpacing: 0;
+        };
+        productiveHeading06: {
+            fontSize: "2.625rem";
+            fontWeight: 300;
+            lineHeight: 1.199;
+            letterSpacing: 0;
+        };
+        productiveHeading07: {
+            fontSize: "3.375rem";
+            fontWeight: 300;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+        };
+        expressiveHeading01: {
+            fontSize: "0.875rem";
+            fontWeight: 600;
+            lineHeight: 1.25;
+            letterSpacing: "0.16px";
+        };
+        expressiveHeading02: {
+            fontSize: "1rem";
+            fontWeight: 600;
+            lineHeight: 1.5;
+            letterSpacing: 0;
+        };
+        expressiveHeading03: {
+            fontSize: "1.25rem";
+            fontWeight: 400;
+            lineHeight: 1.4;
+            letterSpacing: 0;
+            breakpoints: {
+                xlg: {
+                    fontSize: "1.25rem";
+                    lineHeight: 1.25;
+                };
+                max: {
+                    fontSize: "1.5rem";
+                    lineHeight: 1.334;
+                };
+            };
+        };
+        expressiveHeading04: {
+            fontSize: "1.75rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: 0;
+            breakpoints: {
+                xlg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.25;
+                };
+                max: {
+                    fontSize: "2rem";
+                };
+            };
+        };
+        expressiveHeading05: {
+            fontSize: "2rem";
+            fontWeight: 400;
+            lineHeight: 1.25;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.25rem";
+                    fontWeight: 300;
+                    lineHeight: 1.22;
+                    letterSpacing: 0;
+                };
+                lg: {
+                    fontSize: "2.625rem";
+                    fontWeight: 300;
+                    lineHeight: 1.19;
+                    letterSpacing: 0;
+                };
+                xlg: {
+                    fontSize: "3rem";
+                    fontWeight: 300;
+                    lineHeight: 1.17;
+                    letterSpacing: 0;
+                };
+                max: {
+                    fontSize: "3.75rem";
+                    fontWeight: 300;
+                    letterSpacing: 0;
+                };
+            };
+        };
+        expressiveHeading06: {
+            fontSize: "2rem";
+            fontWeight: 600;
+            lineHeight: 1.25;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.25rem";
+                    fontWeight: 600;
+                    lineHeight: 1.22;
+                    letterSpacing: 0;
+                };
+                lg: {
+                    fontSize: "2.625rem";
+                    fontWeight: 600;
+                    lineHeight: 1.19;
+                    letterSpacing: 0;
+                };
+                xlg: {
+                    fontSize: "3rem";
+                    fontWeight: 600;
+                    lineHeight: 1.17;
+                    letterSpacing: 0;
+                };
+                max: {
+                    fontSize: "3.75rem";
+                    fontWeight: 600;
+                    letterSpacing: 0;
+                };
+            };
+        };
+        expressiveParagraph01: {
+            fontSize: "1.5rem";
+            fontWeight: 300;
+            lineHeight: 1.334;
+            letterSpacing: 0;
+            breakpoints: {
+                lg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.29;
+                };
+                max: {
+                    fontSize: "2rem";
+                    lineHeight: 1.25;
+                };
             };
         };
         quotation01: {
