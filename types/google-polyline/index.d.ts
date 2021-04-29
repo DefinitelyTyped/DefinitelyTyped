@@ -1,4 +1,4 @@
-// Type definitions for jMuxer
+// Type definitions for google-polyline
 // Definitions by: Babette Stam <https://github.com/Babettestam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
