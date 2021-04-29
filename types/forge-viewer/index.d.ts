@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.40
+// Type definitions for non-npm package Forge Viewer 7.41
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -605,10 +605,24 @@ declare namespace Autodesk {
             enumNodeFragments(node: any, callback: (fragId: number) => void, recursive?: boolean): void;
             getChildCount(dbId: number): number;
             getNodeBox(dbId: number, nodeBox: Float32Array): void;
+            getNodeIndex(dbId: number): number;
+            getNodeName(dbId: number): string;
             getNodeParentId(dbId: number): number;
+            getNodeType(dbId: number): number;
             getRootId(): number;
+            isNodeExplodeLocked(dbId: number): boolean;
+            isNodeHidden(dbId: number): boolean;
+            isNodeOff(dbId: number): boolean;
+            isNodeSelectable(dbId: number): boolean;
+            isNodeSelectionLocked(dbId: number): boolean;
+            isNodeVisibleLocked(dbId: number): boolean;
+            lockNodeExplode(dbId: number, value: boolean): boolean;
+            lockNodeSelection(dbId: number, value: boolean): boolean;
+            lockNodeVisible(dbId: number, value: boolean): boolean;
             setFlagGlobal(flag: any, value: any): void;
             setFlagNode(dbId: number, flag: any, value: any): boolean;
+            setNodeHidden(dbId: number, flag: any, value: boolean): boolean;
+            setNodeOff(dbId: number, flag: any, value: boolean): boolean;
         }
 
         class InstanceTreeAccess {
@@ -1983,6 +1997,7 @@ declare namespace Autodesk {
     namespace DataVisualization {
       namespace Core {
         const MOUSE_CLICK = 'DATAVIZ_OBJECT_CLICK';
+        const MOUSE_CLICK_OUT = 'DATAVIZ_CLICK_OUT';
         const MOUSE_HOVERING = 'DATAVIZ_OBJECT_HOVERING';
 
         enum ViewableType {
@@ -2020,13 +2035,23 @@ declare namespace Autodesk {
           constructor(id: number, name: string, bounds: THREE.Box3);
 
           get bounds(): THREE.Box3;
-          get devices(): object[];
+          get devices(): RoomDevice[];
           get id(): number;
           get info(): { properties: any[] };
           set info(value: { properties: any[] });
           get name(): string;
 
-          addDevice(device: object): void;
+          addDevice(device: RoomDevice): void;
+        }
+
+        class RoomDevice {
+          id: string;
+          position: {
+            x: number;
+            y: number;
+            z: number;
+          };
+          sensorTypes: string[];
         }
 
         class SpriteViewable extends CustomViewable {

@@ -6,7 +6,6 @@
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Benjamin Toueg <https://github.com/btoueg>
-//                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 David Junger <https://github.com/touffy>

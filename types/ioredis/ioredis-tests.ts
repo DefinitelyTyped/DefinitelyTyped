@@ -280,6 +280,11 @@ redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
     });
 });
 
+// Test redis disconnect
+redis.disconnect();
+redis.disconnect(true);
+redis.disconnect(false);
+
 // Test OverloadedSubCommand
 redis.cluster('INFO').then(console.log);
 redis.cluster('INFO', cb);
@@ -336,6 +341,10 @@ new Redis({
         servername: 'tlsservername',
     },
     enableAutoPipelining: true
+});
+// Test commandTimeout
+new Redis({
+    commandTimeout: 5000
 });
 
 const pub = new Redis();
@@ -715,6 +724,7 @@ cluster.hgetall('key', cb);
 cluster.incrby('key', 15).then(console.log);
 cluster.incrby('key', 15, cb);
 
+cluster.disconnect(true);
 cluster.disconnect();
 cluster.quit(result => {
     console.log(result);

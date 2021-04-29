@@ -31,7 +31,7 @@ export interface OverflowMenuProps extends Omit<ReactButtonAttr, ExcludedAttribu
     open?: boolean,
     renderIcon?: any,
     selectorPrimaryFocus?: string,
-    size?: "sm" | "xl",
+    size?: "sm" | "md" | "lg" | "xl",
 }
 
 declare class OverflowMenuComponent extends React.Component<OverflowMenuProps> { }

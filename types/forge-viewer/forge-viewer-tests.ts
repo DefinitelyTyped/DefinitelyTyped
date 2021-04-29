@@ -31,6 +31,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     cameraTests(viewer);
     formattingTests();
     fragListTests(model);
+    instanceTreeTests(model);
     modelTests(model);
     await propertyDbTests(model);
     await dataVizTests(viewer);
@@ -132,6 +133,24 @@ async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise
     };
 
     ext.renderSurfaceShading('level', 'temperature', getSensorValue);
+}
+
+function instanceTreeTests(model: Autodesk.Viewing.Model): void {
+    const instanceTree = model.getInstanceTree();
+    const rootId = instanceTree.getRootId();
+
+    // $ExpectType string
+    instanceTree.getNodeName(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeHidden(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeOff(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeSelectable(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeSelectionLocked(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeVisibleLocked(rootId);
 }
 
 function modelTests(model: Autodesk.Viewing.Model): void {

@@ -13,7 +13,7 @@ declare module ActionCable {
   }
 
   interface Subscriptions {
-    create(channel: string|ChannelNameWithParams, obj?: CreateMixin): Channel;
+    create<T extends CreateMixin>(channel: string|ChannelNameWithParams, obj?: T): Channel & T;
   }
 
   interface Cable {

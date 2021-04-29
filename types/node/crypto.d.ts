@@ -7,6 +7,35 @@ declare module 'crypto' {
 
     interface Certificate {
         /**
+         * @deprecated
+         * @param spkac
+         * @returns The challenge component of the `spkac` data structure,
+         * which includes a public key and a challenge.
+         */
+        exportChallenge(spkac: BinaryLike): Buffer;
+        /**
+         * @deprecated
+         * @param spkac
+         * @param encoding The encoding of the spkac string.
+         * @returns The public key component of the `spkac` data structure,
+         * which includes a public key and a challenge.
+         */
+        exportPublicKey(spkac: BinaryLike, encoding?: string): Buffer;
+        /**
+         * @deprecated
+         * @param spkac
+         * @returns `true` if the given `spkac` data structure is valid,
+         * `false` otherwise.
+         */
+        verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
+    }
+    const Certificate: Certificate & {
+        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
+        new(): Certificate;
+        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
+        (): Certificate;
+
+        /**
          * @param spkac
          * @returns The challenge component of the `spkac` data structure,
          * which includes a public key and a challenge.
@@ -25,12 +54,6 @@ declare module 'crypto' {
          * `false` otherwise.
          */
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
-    }
-    const Certificate: Certificate & {
-        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
-        new (): Certificate;
-        /** @deprecated since v14.9.0 - Use static methods of `crypto.Certificate` instead. */
-        (): Certificate;
     };
 
     namespace constants {
@@ -327,11 +350,11 @@ declare module 'crypto' {
         dsaEncoding?: DSAEncoding;
     }
 
-    interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {}
+    interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions { }
     interface SignKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {}
+    interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions { }
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
@@ -1173,4 +1196,79 @@ declare module 'crypto' {
      * 'dh' (for Diffie-Hellman), 'ec' (for ECDH), 'x448', or 'x25519' (for ECDH-ES).
      */
     function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): Buffer;
+
+    type CipherMode = 'cbc' | 'ccm' | 'cfb' | 'ctr' | 'ecb' | 'gcm' | 'ocb' | 'ofb' | 'stream' | 'wrap' | 'xts';
+
+    interface CipherInfoOptions {
+        /**
+         * A test key length.
+         */
+        keyLength?: number;
+        /**
+         * A test IV length.
+         */
+        ivLength?: number;
+    }
+
+    interface CipherInfo {
+        /**
+         * The name of the cipher.
+         */
+        name: string;
+        /**
+         * The nid of the cipher.
+         */
+        nid: number;
+        /**
+         * The block size of the cipher in bytes.
+         * This property is omitted when mode is 'stream'.
+         */
+        blockSize?: number;
+        /**
+         * The expected or default initialization vector length in bytes.
+         * This property is omitted if the cipher does not use an initialization vector.
+         */
+        ivLength?: number;
+        /**
+         * The expected or default key length in bytes.
+         */
+        keyLength: number;
+        /**
+         * The cipher mode.
+         */
+        mode: CipherMode;
+    }
+
+    /**
+     * Returns information about a given cipher.
+     *
+     * Some ciphers accept variable length keys and initialization vectors.
+     * By default, the `crypto.getCipherInfo()` method will return the default
+     * values for these ciphers. To test if a given key length or iv length
+     * is acceptable for given cipher, use the `keyLenth` and `ivLenth` options.
+     * If the given values are unacceptable, `undefined` will be returned.
+     * @param nameOrNid The name or nid of the cipher to query.
+     */
+    function getCipherInfo(nameOrNid: string | number, options?: CipherInfoOptions): CipherInfo | undefined;
+
+    /**
+     * HKDF is a simple key derivation function defined in RFC 5869.
+     * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
+     *
+     * The supplied `callback` function is called with two arguments: `err` and `derivedKey`.
+     * If an errors occurs while deriving the key, `err` will be set; otherwise `err` will be `null`.
+     * The successfully generated `derivedKey` will be passed to the callback as an [`ArrayBuffer`][].
+     * An error will be thrown if any of the input aguments specify invalid values or types.
+     */
+    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => any): void;
+
+    /**
+     * Provides a synchronous HKDF key derivation function as defined in RFC 5869.
+     * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
+     *
+     * The successfully generated `derivedKey` will be returned as an [`ArrayBuffer`][].
+     * An error will be thrown if any of the input aguments specify invalid values or types,
+     * or if the derived key cannot be generated.
+     */
+    function hkdfSync(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number): ArrayBuffer;
 }
