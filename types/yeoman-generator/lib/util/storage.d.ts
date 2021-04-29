@@ -91,7 +91,7 @@ declare class Storage {
     /**
      * Merges the specified `content` into the storage.
      *
-     * @param content 
+     * @param content
      * The content to merge into the storage.
      *
      * @returns
