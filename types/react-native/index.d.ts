@@ -8646,7 +8646,7 @@ export interface SwitchProps extends SwitchPropsIOS {
     /**
      * Invoked with the new value when the value changes.
      */
-    onValueChange?: (value: boolean) => void;
+    onValueChange?: ((value?: boolean) => Promise<void> | void) | null;
 
     /**
      * Used to locate this view in end-to-end tests.
