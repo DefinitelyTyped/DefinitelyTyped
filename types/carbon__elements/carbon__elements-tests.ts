@@ -4,6 +4,7 @@ import {
     v9,
     white,
     g10,
+    g80,
     g90,
     g100,
     rgba,
@@ -37,3 +38,4 @@ v9.linkPrimaryHover;
 white.toggleOff;
 g100.textOnColorDisabled;
 g100.highlight;
+g80.hoverDanger;
