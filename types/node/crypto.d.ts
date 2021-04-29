@@ -199,6 +199,24 @@ declare module 'crypto' {
         cipher?: string;
         passphrase?: string | Buffer;
     }
+    interface JwkKeyExportOptions {
+        format: 'jwk';
+    }
+    interface JsonWebKey {
+        crv?: string;
+        d?: string;
+        dp?: string;
+        dq?: string;
+        e?: string;
+        k?: string;
+        kty?: string;
+        n?: string;
+        p?: string;
+        q?: string;
+        qi?: string;
+        x?: string;
+        y?: string;
+      }
 
     class KeyObject {
         private constructor();
@@ -210,6 +228,7 @@ declare module 'crypto' {
         asymmetricKeySize?: number;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
+        export(options?: JwkKeyExportOptions): JsonWebKey;
         symmetricKeySize?: number;
         type: KeyObjectType;
     }
@@ -333,8 +352,13 @@ declare module 'crypto' {
         type?: 'pkcs1' | 'spki';
     }
 
-    function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
-    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject): KeyObject;
+    interface JsonWebKeyInput {
+        key: JsonWebKey;
+        format: 'jwk';
+    }
+
+    function createPrivateKey(key: PrivateKeyInput | string | Buffer | JsonWebKeyInput): KeyObject;
+    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject | JsonWebKeyInput): KeyObject;
     function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;
 
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
