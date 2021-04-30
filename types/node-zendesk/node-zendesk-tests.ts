@@ -58,7 +58,7 @@ client.attachments.upload(
     },
 );
 
-const { r1: { attachment } } = await (async () => {
+const { r2: { upload: { token }} } = await (async () => {
     const r1: Attachments.ShowResponseModel = await client.attachments.show(1);
     const r2: Attachments.UploadResponseModel = await client.attachments.upload("/path/to/file", {
         filename: "filename",
@@ -96,7 +96,7 @@ client.tickets.show(123).then(zendeskCallback);
 client.tickets.showMany([123, 234], zendeskCallback);
 client.tickets.showMany([123, 234]).then(zendeskCallback);
 client.tickets.create({ ticket: { comment: {
-  uploads: [attachment.id]
+  uploads: [token]
 } } }, zendeskCallback);
 client.tickets.create({ ticket: { comment: {} } }).then(zendeskCallback);
 client.tickets.createMany({ tickets: [{ comment: {} }] }, zendeskCallback);

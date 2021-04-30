@@ -352,7 +352,7 @@ export namespace Requests {
             html_body?: string;
             public?: boolean;
             author_id?: ZendeskID;
-            uploads?: ReadonlyArray<number>;
+            uploads?: ReadonlyArray<string>;
         }
 
         interface ResponseModel extends TemporalModel {
