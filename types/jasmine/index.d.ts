@@ -200,10 +200,6 @@ declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: "ge
  */
 declare function spyOnAllFunctions<T>(object: T): jasmine.SpyObj<T>;
 
-declare function runs(asyncMethod: Function): void;
-declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
-declare function waits(timeout?: number): void;
-
 declare namespace jasmine {
     type Func = (...args: any[]) => any;
 
@@ -248,7 +244,7 @@ declare namespace jasmine {
         oneFailurePerSpec?: boolean;
         hideDisabled?: boolean;
         specFilter?: Function;
-        promise?: Function;
+        Promise?: Function;
     }
 
     function clock(): Clock;
@@ -324,6 +320,9 @@ declare namespace jasmine {
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
+    /**
+     * @deprecated Private method that may be changed or removed in the future
+     */
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any extends AsymmetricMatcher<any> {
@@ -354,20 +353,6 @@ declare namespace jasmine {
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString?(): string;
-    }
-
-    interface Block {
-        new (env: Env, func: SpecFunction, spec: Spec): any;
-
-        execute(onComplete: () => void): void;
-    }
-
-    interface WaitsBlock extends Block {
-        new (env: Env, timeout: number, spec: Spec): any;
-    }
-
-    interface WaitsForBlock extends Block {
-        new (env: Env, timeout: number, latchFunction: SpecFunction, message: string, spec: Spec): any;
     }
 
     interface Clock {
@@ -448,30 +433,19 @@ declare namespace jasmine {
     }
 
     interface Env {
-        currentSpec: Spec;
+        addReporter(reporter: CustomReporter): void;
 
-        matchersClass: Matchers<any>;
-
-        version(): any;
-        versionString(): string;
-        nextSpecId(): number;
-        addReporter(reporter: Reporter | CustomReporter): void;
         execute(): void;
         describe(description: string, specDefinitions: () => void): Suite;
         // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
         beforeEach(beforeEachFunction: ImplementationCallback, timeout?: number): void;
         beforeAll(beforeAllFunction: ImplementationCallback, timeout?: number): void;
-        currentRunner(): Runner;
         afterEach(afterEachFunction: ImplementationCallback, timeout?: number): void;
         afterAll(afterAllFunction: ImplementationCallback, timeout?: number): void;
         xdescribe(desc: string, specDefinitions: () => void): XSuite;
         it(description: string, func: () => void): Spec;
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
         xit(desc: string, func: () => void): XSpec;
-        compareRegExps_(a: RegExp, b: RegExp, mismatchKeys: string[], mismatchValues: string[]): boolean;
-        compareObjects_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
-        equals_(a: any, b: any, mismatchKeys: string[], mismatchValues: string[]): boolean;
-        contains_(haystack: any, needle: any): boolean;
         addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
         addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
@@ -502,7 +476,7 @@ declare namespace jasmine {
          */
         setSuiteProperty(key: string, value: unknown): void;
 
-        provideFallbackReporter(reporter: Reporter): void;
+        provideFallbackReporter(reporter: CustomReporter): void;
         throwingExpectationFailures(): boolean;
         allowRespy(allow: boolean): void;
         randomTests(): boolean;
@@ -512,15 +486,6 @@ declare namespace jasmine {
         randomizeTests(b: boolean): void;
         clearReporters(): void;
         configure(configuration: EnvConfiguration): void;
-    }
-
-    interface FakeTimer {
-        new (): any;
-
-        reset(): void;
-        tick(millis: number): void;
-        runFunctionsWithinRange(oldMillis: number, nowMillis: number): void;
-        scheduleFunction(timeoutKey: any, funcToCall: () => void, millis: number, recurring: boolean): void;
     }
 
     interface HtmlReporter {
@@ -535,34 +500,18 @@ declare namespace jasmine {
         type: string;
     }
 
-    interface NestedResults extends Result {
-        description: string;
-
-        totalCount: number;
-        passedCount: number;
-        failedCount: number;
-
-        skipped: boolean;
-
-        rollupCounts(result: NestedResults): void;
-        log(values: any): void;
-        getItems(): Result[];
-        addResult(result: Result): void;
-        passed(): boolean;
-    }
-
-    interface MessageResult extends Result {
-        values: any;
-        trace: Trace;
-    }
-
     interface ExpectationResult extends Result {
         matcherName: string;
-        passed(): boolean;
+        passed: boolean;
         expected: any;
         actual: any;
         message: string;
-        trace: Trace;
+        stack: string;
+    }
+
+    interface DeprecationWarning extends Result {
+        message: string;
+        stack: string;
     }
 
     interface Order {
@@ -578,52 +527,6 @@ declare namespace jasmine {
 
             stack: any;
         }
-    }
-
-    interface TreeProcessor {
-        new (attrs: any): any;
-        execute: (done: Function) => void;
-        processTree(): any;
-    }
-
-    interface Trace {
-        name: string;
-        message: string;
-        stack: any;
-    }
-
-    interface PrettyPrinter {
-        new (): any;
-
-        format(value: any): void;
-        iterateObject(obj: any, fn: (property: string, isGetter: boolean) => void): void;
-        emitScalar(value: any): void;
-        emitString(value: string): void;
-        emitArray(array: any[]): void;
-        emitObject(obj: any): void;
-        append(value: any): void;
-    }
-
-    interface StringPrettyPrinter extends PrettyPrinter {}
-
-    interface Queue {
-        new (env: any): any;
-
-        env: Env;
-        ensured: boolean[];
-        blocks: Block[];
-        running: boolean;
-        index: number;
-        offset: number;
-        abort: boolean;
-
-        addBefore(block: Block, ensure?: boolean): void;
-        add(block: any, ensure?: boolean): void;
-        insertNext(block: any, ensure?: boolean): void;
-        start(onComplete?: () => void): void;
-        isRunning(): boolean;
-        next_(): void;
-        results(): NestedResults;
     }
 
     interface Matchers<T> {
@@ -847,19 +750,6 @@ declare namespace jasmine {
         not: AsyncMatchers<T, U>;
     }
 
-    interface Reporter {
-        reportRunnerStarting(runner: Runner): void;
-        reportRunnerResults(runner: Runner): void;
-        reportSuiteResults(suite: Suite): void;
-        reportSpecStarting(spec: Spec): void;
-        reportSpecResults(spec: Spec): void;
-        log(str: string): void;
-    }
-
-    interface MultiReporter extends Reporter {
-        addReporter(reporter: Reporter): void;
-    }
-
     interface SuiteInfo {
         totalSpecsDefined: number;
     }
@@ -948,73 +838,24 @@ declare namespace jasmine {
         jasmineDone?(runDetails: RunDetails): void;
     }
 
-    interface Runner {
-        new (env: Env): any;
-
-        execute(): void;
-        beforeEach(beforeEachFunction: SpecFunction): void;
-        afterEach(afterEachFunction: SpecFunction): void;
-        beforeAll(beforeAllFunction: SpecFunction): void;
-        afterAll(afterAllFunction: SpecFunction): void;
-        finishCallback(): void;
-        addSuite(suite: Suite): void;
-        add(block: Block): void;
-        specs(): Spec[];
-        suites(): Suite[];
-        topLevelSuites(): Suite[];
-        results(): NestedResults;
-    }
-
     type SpecFunction = (spec?: Spec) => void;
 
     interface SuiteOrSpec {
         id: number;
         env: Env;
         description: string;
-        queue: Queue;
     }
 
     interface Spec extends SuiteOrSpec {
-        new (env: Env, suite: Suite, description: string): any;
-
-        suite: Suite;
-
-        afterCallbacks: SpecFunction[];
-        spies_: Spy[];
-
-        results_: NestedResults;
-        matchersClass: Matchers<any>;
-
         getFullName(): string;
-        results(): NestedResults;
-        log(arguments: any): any;
-        runs(func: SpecFunction): Spec;
-        addToQueue(block: Block): void;
-        addMatcherResult(result: Result): void;
         getResult(): any;
         expect(actual: any): any;
-        waits(timeout: number): Spec;
-        waitsFor(latchFunction: SpecFunction, timeoutMessage?: string, timeout?: number): Spec;
-        fail(e?: any): void;
-        getMatchersClass_(): Matchers<any>;
-        addMatchers(matchersPrototype: CustomMatcherFactories): void;
-        finishCallback(): void;
-        finish(onComplete?: () => void): void;
-        after(doAfter: SpecFunction): void;
         execute(onComplete?: () => void, enabled?: boolean): any;
-        addBeforesAndAftersToQueue(): void;
-        explodes(): void;
-        spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
-        spyOnProperty(object: any, property: string, accessType?: "get" | "set"): Spy;
-        spyOnAllFunctions(object: any): Spy;
-
-        removeAllSpies(): void;
         throwOnExpectationFailure: boolean;
     }
 
     interface XSpec {
         id: number;
-        runs(): void;
     }
 
     interface Suite extends SuiteOrSpec {
@@ -1023,17 +864,12 @@ declare namespace jasmine {
         parentSuite: Suite;
 
         getFullName(): string;
-        finish(onComplete?: () => void): void;
         beforeEach(beforeEachFunction: SpecFunction): void;
         afterEach(afterEachFunction: SpecFunction): void;
         beforeAll(beforeAllFunction: SpecFunction): void;
         afterAll(afterAllFunction: SpecFunction): void;
-        results(): NestedResults;
-        add(suiteOrSpec: SuiteOrSpec): void;
         specs(): Spec[];
         suites(): Suite[];
-        children(): any[];
-        execute(onComplete?: () => void): void;
     }
 
     interface XSuite {
@@ -1138,22 +974,26 @@ declare namespace jasmine {
         extend(destination: any, source: any): any;
     }
 
-    interface JsApiReporter extends Reporter {
+    interface JsApiReporter extends CustomReporter {
         started: boolean;
         finished: boolean;
-        result: any;
-        messages: any;
         runDetails: RunDetails;
 
         new (): any;
 
-        suites(): Suite[];
-        summarize_(suiteOrSpec: SuiteOrSpec): any;
+        suites(): {[id: string]: SuiteResult};
         results(): any;
-        resultsForSpec(specId: any): any;
-        log(str: any): any;
-        resultsForSpecs(specIds: any): any;
-        summarizeResult_(result: any): any;
+    }
+
+    interface SuiteResult {
+        id: number;
+        description: string;
+        fullName: string;
+        failedExpectations: ExpectationResult[];
+        deprecationWarnings: DeprecationWarning[];
+        status?: string;
+        duration?: number;
+        properties?: any;
     }
 
     interface Jasmine {
@@ -1195,7 +1035,7 @@ declare module "jasmine" {
         constructor(options: any);
         jasmine: jasmine.Jasmine;
         addMatchers(matchers: jasmine.CustomMatcherFactories): void;
-        addReporter(reporter: jasmine.Reporter): void;
+        addReporter(reporter: jasmine.CustomReporter): void;
         addSpecFile(filePath: string): void;
         addSpecFiles(files: string[]): void;
         configureDefaultReporter(options: any, ...args: any[]): void;
@@ -1206,7 +1046,7 @@ declare module "jasmine" {
         loadHelpers(): void;
         loadSpecs(): void;
         onComplete(onCompleteCallback: (passed: boolean) => void): void;
-        provideFallbackReporter(reporter: jasmine.Reporter): void;
+        provideFallbackReporter(reporter: jasmine.CustomReporter): void;
         randomizeTests(value?: any): boolean;
         seed(value: any): void;
         showColors(value: any): void;

@@ -652,3 +652,39 @@ function testSearch() {
         );
     });
 }
+
+// https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/
+async function testDeclarativeNetRequest() {
+    chrome.declarativeNetRequest.getDynamicRules(rules => {
+        // $ExpectType Rule[]
+        rules;
+
+        const rule = rules[0]
+        rule.action; // $ExpectType RuleAction
+        rule.condition; // $ExpectType RuleCondition
+        rule.id; // $ExpectType number
+        rule.priority; // $ExpectType number
+    })
+
+    chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
+        // $ExpectType number
+        count;
+    })
+
+    chrome.declarativeNetRequest.getEnabledRulesets(sets => {
+        // $ExpectType string[]
+        sets;
+    })
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
+function testSetBrowserBadgeText() {
+    chrome.browserAction.setBadgeText({});
+    chrome.browserAction.setBadgeText({text: "test"});
+    chrome.browserAction.setBadgeText({tabId: 123});
+    chrome.browserAction.setBadgeText({text: "test", tabId: 123});
+    chrome.browserAction.setBadgeText({}, () => {});
+
+    chrome.browserAction.setBadgeText(); // $ExpectError
+    chrome.browserAction.setBadgeText(undefined); // $ExpectError
+}

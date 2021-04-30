@@ -970,7 +970,7 @@ declare namespace jest {
          *   }
          * };
          *
-         * expect(desiredHouse).toMatchObject<House>(...standardHouse, kitchen: {area: 20}) // wherein standardHouse is some base object of type House
+         * expect(desiredHouse).toMatchObject<House>({...standardHouse, kitchen: {area: 20}}) // wherein standardHouse is some base object of type House
          */
         // tslint:disable-next-line: no-unnecessary-generics
         toMatchObject<E extends {} | any[]>(expected: E): R;

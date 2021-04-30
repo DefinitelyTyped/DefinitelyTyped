@@ -19,13 +19,17 @@ declare module 'events' {
         addEventListener(event: string, listener: (...args: any[]) => void, opts?: { once: boolean }): any;
     }
 
+    interface StaticEventEmitterOptions {
+        signal?: AbortSignal;
+    }
+
     interface EventEmitter extends NodeJS.EventEmitter {}
     class EventEmitter {
         constructor(options?: EventEmitterOptions);
 
-        static once(emitter: NodeEventTarget, event: string | symbol): Promise<any[]>;
-        static once(emitter: DOMEventTarget, event: string): Promise<any[]>;
-        static on(emitter: NodeJS.EventEmitter, event: string): AsyncIterableIterator<any>;
+        static once(emitter: NodeEventTarget, event: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: DOMEventTarget, event: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static on(emitter: NodeJS.EventEmitter, event: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
 
         /** @deprecated since v4.0.0 */
         static listenerCount(emitter: NodeJS.EventEmitter, event: string | symbol): number;

@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.0
+// Type definitions for @yaireo/tagify 4.1
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -46,6 +46,7 @@ declare namespace Tagify {
     /**
      * Settings for the dropdown feature that can be configured via the
      * `dropdown` option of the settings that are passed to tagify.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownSettings<T extends BaseTagData = TagData> {
         /**
@@ -108,7 +109,7 @@ declare namespace Tagify {
         closeOnSelect?: boolean;
 
         /**
-         * if `false`, keep typed text after selecting a suggestion.
+         * If `false`, keep typed text after selecting a suggestion.
          * @default true
          */
         clearOnSelect?: boolean;
@@ -163,6 +164,17 @@ declare namespace Tagify {
          * @default '\u00A0'
          */
         insertAfterTag?: string | HTMLElement;
+    }
+
+    /**
+     * Options related to accessibility.
+     */
+    interface A11ySettings {
+        /**
+         * If `true`, allows to focus tags via tab navigation.
+         * @default false
+         */
+        focusableTags?: boolean;
     }
 
     /**
@@ -323,6 +335,7 @@ declare namespace Tagify {
     /**
      * Render functions for the template feature that can be configured via the
      * `templates` option of the settings that are passed to tagify.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface Templates<T extends BaseTagData = TagData> {
         /**
@@ -390,6 +403,7 @@ declare namespace Tagify {
 
     /**
      * Data passed with suggestionClick hook {@link Hooks.suggestionClick}.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface SuggestionClickData<T extends BaseTagData = TagData> {
         /**
@@ -407,12 +421,32 @@ declare namespace Tagify {
     }
 
     /**
+     * Data passed with beforePaste hook {@link Hooks.beforePaste}.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface BeforePasteData<T extends BaseTagData = TagData> {
+        /**
+         * Tagify instance.
+         */
+        tagify: Tagify<T>;
+        /**
+         * Text content that have been pasted into Tagify.
+         */
+        pastedText: string;
+        /**
+         * The raw clipboard data transfer object as provided by the paste event.
+         */
+        clipboardData: DataTransfer;
+    }
+
+    /**
      * Promise-based hooks for async program flow scenarios. Allows to "hook"
      * (intervene) at certain points of the program, which were selected as a
      * suitable place to pause the program flow and wait for further
      * instructions on how / if to proceed.
      *
      * See also the `hooks` option of the settings that are passed to tagify.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface Hooks<T extends BaseTagData = TagData> {
         /**
@@ -446,12 +480,23 @@ declare namespace Tagify {
          * was fulfilled, and declined when the promise was rejected.
          */
         (event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>;
+
+        /**
+         * Hook invoked when the user pastes a string into Tagify. It can be used to changed
+         * the pasted string before it gets added to Tagify.
+         * @param event Clipboard event
+         * @param data Data object with pasted text and clipboard data.
+         * @return Promise with optional string value. If the promise resolves with a string value,
+         * this value gets added to Tagify. Without any value, the original paste value gets added.
+         */
+        beforePaste?: (event: ClipboardEvent, data: BeforePasteData<T>) => Promise<string|undefined>;
     }
 
     /**
      * Settings that are available after the tagify instance was created.
      * Includes a few extra properties that are not available when creating a
      * new instance. These are also passed to several callback methods.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface TagifySettings<T extends BaseTagData = TagData> extends TagifyConstructorSettings<T> {
         /**
@@ -468,6 +513,7 @@ declare namespace Tagify {
     /**
      * Optional settings for creating a new tagify instance. These can be used
      * to modify how the tagify component behaves.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface TagifyConstructorSettings<T extends BaseTagData = TagData> {
         /**
@@ -475,7 +521,7 @@ declare namespace Tagify {
          * Remember to keep `value` property unique.
          * @default 'value'
          */
-        tagTextProp?: string;
+        tagTextProp?: keyof T;
 
         /**
          * Placeholder text. If this attribute is set on an input / textarea
@@ -660,6 +706,11 @@ declare namespace Tagify {
         mixMode?: MixModeSettings;
 
         /**
+         * Options related to accessibility.
+         */
+        a11y?: A11ySettings;
+
+        /**
          * Optional class names that are added to the corresponding elements.
          */
         classNames?: ClassNameSettings;
@@ -709,6 +760,7 @@ declare namespace Tagify {
 
     /**
      * Base event data common to all events.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface EventData<T extends BaseTagData = TagData> {
         /**
@@ -720,6 +772,8 @@ declare namespace Tagify {
     /**
      * Event data with a single parameter. When a non-object value is passed to
      * trigger, it is wrapped in this object.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     * @template S Type of the value provided by this event.
      */
     interface SingleEventData<T extends BaseTagData = TagData, S = unknown> extends EventData<T> {
         value: S;
@@ -727,6 +781,7 @@ declare namespace Tagify {
 
     /**
      * Event data relating to a single tag.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface TagEventData<T extends BaseTagData = TagData> extends EventData<T> {
         data?: T;
@@ -736,6 +791,8 @@ declare namespace Tagify {
 
     /**
      * Event data for events triggered by DOM events.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     * @template E Type of the original event wrapped by this event.
      */
     interface DomEventData<T extends BaseTagData = TagData, E extends Event = Event> extends EventData<T> {
         originalEvent: E;
@@ -743,11 +800,13 @@ declare namespace Tagify {
 
     /**
      * Event data for keyboard related events.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface KeyboardEventData<T extends BaseTagData = TagData> extends DomEventData<T, KeyboardEvent> { }
 
     /**
      * Event data for when the element receives or loses focus.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface FocusChangeEventData<T extends BaseTagData = TagData> extends EventData<T> {
         relatedTarget: Element;
@@ -755,6 +814,7 @@ declare namespace Tagify {
 
     /**
      * Event data for events related to the dropdown feature.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownEventData<T extends BaseTagData = TagData> extends EventData<T> {
         dropdown: HTMLElement;
@@ -762,21 +822,25 @@ declare namespace Tagify {
 
     /**
      * A tag has been added.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface AddEventData<T extends BaseTagData = TagData> extends TagEventData<T> { }
 
     /**
      * The component lost focus.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface BlurEventData<T extends BaseTagData = TagData> extends FocusChangeEventData<T> { }
 
     /**
      * Any change to the value has occurred.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface ChangeEventData<T extends BaseTagData = TagData> extends SingleEventData<T, string> { }
 
     /**
      * Clicking a tag.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface ClickEventData<T extends BaseTagData = TagData> extends DomEventData<T, MouseEvent>, TagEventData<T> {
         data: T;
@@ -785,40 +849,47 @@ declare namespace Tagify {
 
     /**
      * Double-clicking a tag.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DoubleClickEventData<T extends BaseTagData = TagData> extends TagEventData<T> { }
 
     /**
      * Suggestions dropdown has been removed from the DOM.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownHideEventData<T extends BaseTagData = TagData> extends DropDownEventData<T> { }
 
     /**
      * Suggestions dropdown is to be rendered. The dropdown DOM node is
      * passed in the callback.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownShowEventData<T extends BaseTagData = TagData> extends DropDownEventData<T> { }
 
     /**
      * When the dropdown menu is open and its items were recomputed via
      * `Tagify.refilter`.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownUpdatedEventData<T extends BaseTagData = TagData> extends DropDownEventData<T> { }
 
     /**
-     * No whitelist suggestion item matched for the the typed input. At this
-     * point it is possible to manually set `suggestedListItems` to any
-     * possible custom value, for example: `[{ value:"default" }]`.
+     * No whitelist suggestion item matched for the typed input. At this point
+     * it is possible to manually set `suggestedListItems` to any possible
+     * custom value, for example: `[{ value:"default" }]`.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownNoMatchEventData<T extends BaseTagData = TagData> extends SingleEventData<T, string> { }
 
     /**
      * Suggestions dropdown item selected (by mouse / keyboard/ touch).
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownSelectEventData<T extends BaseTagData = TagData> extends SingleEventData<T, string> { }
 
     /**
      * Tells the percentage scrolled. (`event.detail.percentage`).
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface DropDownScrollEventData<T extends BaseTagData = TagData> extends EventData<T> {
         percentage: number;
@@ -826,11 +897,13 @@ declare namespace Tagify {
 
     /**
      * Just before a tag has been updated, while still in "edit" mode.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface EditBeforeUpdateEventData<T extends BaseTagData = TagData> extends TagEventData<T> { }
 
     /**
      * Typing inside an edited tag.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface EditInputEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T & { newValue: string };
@@ -840,11 +913,13 @@ declare namespace Tagify {
 
     /**
      * Keydown event while an edited tag is in focus
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface EditKeydownEventData<T extends BaseTagData = TagData> extends KeyboardEventData<T> { }
 
     /**
      * A tag is now in "edit mode".
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface EditStartEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T;
@@ -855,16 +930,19 @@ declare namespace Tagify {
     /**
      * A tag as been updated (changed view editing or by directly calling
      * the `replaceTag` method).
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface EditUpdatedEventData<T extends BaseTagData = TagData> extends TagEventData<T> { }
 
     /**
      * The component has received focus.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface FocusEventData<T extends BaseTagData = TagData> extends FocusChangeEventData<T> { }
 
     /**
      * A tag has been added but did not pass validation.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface InvalidTagEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T;
@@ -873,6 +951,7 @@ declare namespace Tagify {
 
     /**
      * Input event, when a tag is being typed / edited.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface InputEventData<T extends BaseTagData = TagData> extends EventData<T> {
         inputElm: HTMLInputElement | HTMLTextAreaElement;
@@ -881,17 +960,20 @@ declare namespace Tagify {
 
     /**
      * When tagify input has focus and a key was pressed.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface KeydownEventData<T extends BaseTagData = TagData> extends KeyboardEventData<T> { }
 
     /**
      * A tag has been removed (use `removeTag` instead with jQuery).
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface RemoveEventData<T extends BaseTagData = TagData> extends TagEventData<T> { }
 
     /**
      * Map between the events that are triggered by tagify and the data provided
      * for each event.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
     interface EventDataMap<T extends BaseTagData = TagData> {
         /**
@@ -920,32 +1002,34 @@ declare namespace Tagify {
         'dblclick': DoubleClickEventData<T>;
 
         /**
-         * Suggestions dropdown item selected (by mouse / keyboard/ touch).
-         */
-        'dropdown:select': DropDownSelectEventData<T>;
-
-        /**
-         * Tells the percentage scrolled. (`event.detail.percentage`).
-         */
-        'dropdown:scroll': DropDownScrollEventData<T>;
-
-        /**
-         * Suggestions dropdown is to be rendered. The dropdown DOM node is
-         * passed in the callback.
-         */
-        'dropdown:show': DropDownShowEventData<T>;
-
-        /**
          * Suggestions dropdown has been removed from the DOM.
          */
         'dropdown:hide': DropDownHideEventData<T>;
 
         /**
-         * No whitelist suggestion item matched for the the typed input. At this
+         * No whitelist suggestion item matched for the typed input. At this
          * point it is possible to manually set `suggestedListItems` to any
          * possible custom value, for example: `[{ value:"default" }]`.
          */
         'dropdown:noMatch': DropDownNoMatchEventData<T>;
+
+        /**
+         * The dropdown was scrolled by the user. Use `event.detail.percentage`
+         * to get the percentage scrolled.
+         */
+        'dropdown:scroll': DropDownScrollEventData<T>;
+
+        /**
+         * A suggestions dropdown item got selected (by mouse / keyboard /
+         * touch).
+         */
+        'dropdown:select': DropDownSelectEventData<T>;
+
+        /**
+         * Suggestions dropdown is about to be rendered. The dropdown DOM node
+         * is passed to the callback.
+         */
+        'dropdown:show': DropDownShowEventData<T>;
 
         /**
          * When the dropdown menu is open and its items were recomputed via
@@ -974,7 +1058,7 @@ declare namespace Tagify {
         'edit:start': EditStartEventData<T>;
 
         /**
-         * A tag as been updated (changed view editing or by directly calling
+         * A tag has been updated (changed view editing or by directly calling
          * the `replaceTag` method).
          */
         'edit:updated': EditUpdatedEventData<T>;
@@ -995,7 +1079,8 @@ declare namespace Tagify {
         'invalid': InvalidTagEventData<T>;
 
         /**
-         * When tagify input has focus and a key was pressed.
+         * When the tagify input element (for adding new tags or editing
+         * existing tags) has focus and a key was pressed.
          */
         'keydown': KeydownEventData<T>;
 
@@ -1065,24 +1150,14 @@ declare namespace Tagify {
 }
 
 /**
- * Tagify class
+ * Tagify class. This is the main entry point for creating a new tagify editor.
+ * @template T Type of the tag data used by the tagify instance. Must contain at
+ * least a `value` property. Defaults to {@link Tagify.TagData}, which allows
+ * arbitrary properties. To enjoy more type safety, extend from
+ * {@link Tagify.BaseTagData}, specify the allowed properties and use that as
+ * the type parameter.
  */
 declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
-    /**
-     * The current settings of this tagify instance.
-     */
-    settings: Tagify.TagifySettings<T>;
-
-    /**
-     * Array with tag data of the currently selected tags.
-     */
-    value: T[];
-
-    /**
-     * References to DOM elements used by this tagify instance.
-     */
-    DOM: Tagify.DomReference;
-
     /**
      * Dropdown specific methods.
      */
@@ -1127,6 +1202,33 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
         selectAll(this: Tagify<T>): void;
     };
 
+    /**
+     * The current settings of this tagify instance.
+     */
+    settings: Tagify.TagifySettings<T>;
+
+    /**
+     * List with the currently available options for the dropdown.
+     */
+    suggestedListItems?: T[];
+
+    /**
+     * Array with tag data of the currently selected tags.
+     */
+    value: T[];
+
+    /**
+     * References to DOM elements used by this tagify instance.
+     */
+    DOM: Tagify.DomReference;
+
+    /**
+     * Creates a new tagify editor on the given input element.
+     * @param inputElement Input or textarea element to convert into a tagify
+     * editor.
+     * @param settings Optional settings to configure the customize the tagify
+     * editor.
+     */
     constructor(
         inputElement: HTMLInputElement | HTMLTextAreaElement,
         settings?: Tagify.TagifyConstructorSettings<T>
@@ -1162,6 +1264,13 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Can be used to suppress the change event.
      */
     update(opts?: Tagify.UpdateOptions): void;
+
+    /**
+     * Get `value` (array of tag data) as string. If in mixed mode, get the current value entered in the tagify
+     * input field {@link getMixedTagsAsString}.
+     * @return Stringified tag data.
+     */
+    getInputValue(): string;
 
     /**
      * Should only be used when in mixed mode.

@@ -1,4 +1,4 @@
-// Type definitions for electron-json-storage 4.0
+// Type definitions for electron-json-storage 4.5
 // Project: https://github.com/electron-userland/electron-json-storage
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>,
 //                 nrlquaker <https://github.com/nrlquaker>,
@@ -12,6 +12,7 @@ export function setDataPath(directory?: string): void;
 export function getDataPath(): string;
 export function get(key: string, callback: (error: any, data: object) => void): void;
 export function get(key: string, options: DataOptions, callback: (error: any, data: object) => void): void;
+export function getSync(key: string, options?: DataOptions): object;
 export function getMany(keys: ReadonlyArray<string>, callback: (error: any, data: object) => void): void;
 export function getMany(keys: ReadonlyArray<string>, options: DataOptions, callback: (error: any, data: object) => void): void;
 export function getAll(callback: (error: any, data: object) => void): void;
