@@ -468,10 +468,7 @@ declare global {
                 value: T[K] extends undefined ? never : T[K],
                 options?: Object.SaveOptions,
             ): Promise<this>;
-            set<K extends Extract<keyof T, string>>(
-                attrs: Pick<T, K> | T,
-                options?: Object.SetOptions,
-            ): this | false;
+            set<K extends Extract<keyof T, string>>(attrs: Pick<T, K> | T, options?: Object.SetOptions): this | false;
             set<K extends Extract<keyof T, string>>(
                 key: K,
                 value: T[K] extends undefined ? never : T[K],
