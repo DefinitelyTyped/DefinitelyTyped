@@ -5,7 +5,7 @@
 //                 Nico Hartto <https://github.com/nicohartto>
 //                 Tyler Romeo <https://github.com/Parent5446>
 //                 Ashley Workman <https://github.com/CymruKakashi>
-//                 Tagawa Hirotaka<https://github.com/wafuwafu13>
+//                 Tagawa Hirotaka <https://github.com/wafuwafu13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
