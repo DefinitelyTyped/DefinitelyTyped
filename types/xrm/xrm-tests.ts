@@ -335,3 +335,12 @@ const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
     // setVisible
     gridControl.setVisible(!visibility);
 };
+
+async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEntity: Xrm.EntityReference) {
+    if (commandProperties.SourceControlId === "AddExistingRecordFromSubGridAssociated") {
+        await Promise.resolve(Xrm.Navigation.openAlertDialog({
+            title: `${commandProperties.CommandValueId}`,
+            text: `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
+        }));
+    }
+}
