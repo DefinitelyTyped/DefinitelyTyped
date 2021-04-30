@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "typed.js-tests.ts", "htmlparser.d.ts", "config.d.ts"]
+    "files": ["index.d.ts", "typed.js-tests.ts"]
 }
