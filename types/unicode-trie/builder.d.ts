@@ -1,4 +1,4 @@
-import UnicodeTrie = require("unicode-trie");
+import UnicodeTrie from "./";
 
 declare class UnicodeTrieBuilder {
   constructor(initialValue: number, errorValue: number);
