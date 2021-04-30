@@ -1,4 +1,7 @@
 // Type definitions for unicode-trie 2.0.0
+// Project: https://github.com/foliojs/unicode-
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference types="node" />
 /// <reference path="./builder.d.ts" />
 /// <reference path="./swap.d.ts" />
