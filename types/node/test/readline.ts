@@ -48,6 +48,10 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 }
 
 {
+    rl.getPrompt(); // $ExpectType string
+}
+
+{
     rl.question("query", (answer: string) => {});
 }
 

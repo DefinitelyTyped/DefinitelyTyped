@@ -557,13 +557,21 @@ declare module 'fs' {
         function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
+    export interface StatSyncFn<TDescriptor = PathLike> extends Function {
+        (path: TDescriptor, options?: undefined): Stats;
+        (path: TDescriptor, options?: StatOptions & { bigint?: false; throwIfNoEntry: false }): Stats | undefined;
+        (path: TDescriptor, options: StatOptions & { bigint: true; throwIfNoEntry: false }): BigIntStats | undefined;
+        (path: TDescriptor, options?: StatOptions & { bigint?: false }): Stats;
+        (path: TDescriptor, options: StatOptions & { bigint: true }): BigIntStats;
+        (path: TDescriptor, options: StatOptions & { bigint: boolean; throwIfNoEntry?: false }): Stats | BigIntStats;
+        (path: TDescriptor, options?: StatOptions): Stats | BigIntStats | undefined;
+    }
+
     /**
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function statSync(path: PathLike, options?: StatOptions & { bigint?: false }): Stats;
-    export function statSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
-    export function statSync(path: PathLike, options?: StatOptions): Stats | BigIntStats;
+    export const statSync: StatSyncFn;
 
     /**
      * Asynchronous fstat(2) - Get file status.
@@ -589,9 +597,7 @@ declare module 'fs' {
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    export function fstatSync(fd: number, options?: StatOptions & { bigint?: false }): Stats;
-    export function fstatSync(fd: number, options: StatOptions & { bigint: true }): BigIntStats;
-    export function fstatSync(fd: number, options?: StatOptions): Stats | BigIntStats;
+    export const fstatSync: StatSyncFn<number>;
 
     /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
@@ -617,10 +623,7 @@ declare module 'fs' {
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function lstatSync(path: PathLike, options?: StatOptions & { bigint?: false }): Stats;
-    export function lstatSync(path: PathLike, options: StatOptions & { bigint: true }): BigIntStats;
-    export function lstatSync(path: PathLike, options?: StatOptions): Stats | BigIntStats;
-
+    export const lstatSync: StatSyncFn;
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
      * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2267,5 +2270,6 @@ declare module 'fs' {
 
     export interface StatOptions {
         bigint?: boolean;
+        throwIfNoEntry?: boolean;
     }
 }
