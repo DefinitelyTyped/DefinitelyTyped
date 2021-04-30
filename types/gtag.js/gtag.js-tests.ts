@@ -16,6 +16,7 @@ gtag('set', {
   country: 'US',
   currency: 'USD',
 });
+gtag('set', 'developer_id', true);
 
 gtag('get', 'GA-TRACKING_ID', 'client_id', _clientId => {});
 
