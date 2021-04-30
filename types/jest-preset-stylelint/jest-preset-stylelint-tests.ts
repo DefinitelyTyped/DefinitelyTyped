@@ -1,20 +1,18 @@
 testRule({
     plugins: ["."],
     ruleName: "test-rule",
-    config: [true, {type: "kebab"}],
+    config: [true, { type: "kebab" }],
     fix: true,
-
     accept: [
         {
             code: ".class {}",
-            description: "simple class selector"
+            description: "simple class selector",
         },
         {
             code: ".my-class {}",
-            description: "kebab class selector"
-        }
+            description: "kebab class selector",
+        },
     ],
-
     reject: [
         {
             code: ".myClass {}",
@@ -22,7 +20,7 @@ testRule({
             description: "camel case class selector",
             message: "expected class name to be kebab case",
             line: 1,
-            column: 1
+            column: 1,
         },
         {
             code: ".MyClass,\n.MyOtherClass {}",
@@ -32,15 +30,14 @@ testRule({
                 {
                     message: "expected 'MyClass' to be kebab case: 'my-class'",
                     line: 1,
-                    column: 1
+                    column: 1,
                 },
                 {
                     message: "expected 'MyOtherClass' to be kebab case: 'my-other-class'",
                     line: 2,
-                    column: 1
-                }
-            ]
-        }
-    ]
+                    column: 1,
+                },
+            ],
+        },
+    ],
 });
-
