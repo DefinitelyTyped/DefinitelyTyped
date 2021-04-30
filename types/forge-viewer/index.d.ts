@@ -2357,7 +2357,7 @@ declare namespace Autodesk {
         function isZero(f: number): boolean;
         function makePlaneBasis(plane: THREE.Plane): any;
         function normalizeAngle(angle: number): number;
-        function pointOnLine(x: number, y: number, checkInsideSegment: any, precisionDistance: number, outPt: any): boolean;
+        function pointOnLine(x: number, y: number, e: any, checkInsideSegment: boolean, precisionDistance: number, outPt?: any): boolean;
         function polygonArea(pts: Array<{ x: number; y: number; }>): number;
         function segmentsIntersect(e1: any, e2: any, precisionDistance: number): any;
         function SetTesselationParams(minSegLenFraction: number, numIterations: number): void;
