@@ -105,7 +105,7 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
                     value: prev + 'B',
                     title: prev + 'B',
                 },
-            ]},
+            ];},
         },
     ]);
 })();
