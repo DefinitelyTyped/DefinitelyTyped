@@ -108,6 +108,28 @@ export interface Settings {
 
     paste_data_images?: boolean;
 
+    paste_as_text?: boolean;
+
+    paste_enable_default_filters?: boolean;
+
+    paste_filter_drop?: boolean;
+
+    paste_preprocess?(plugin: any, args: any): void;
+
+    paste_postprocess?(plugin: any, args: any): void;
+
+    paste_word_valid_elements?: string;
+
+    paste_webkit_styles?: string;
+
+    paste_retain_style_properties?: string;
+
+    paste_merge_formats?: boolean;
+
+    paste_convert_word_fake_lists?: boolean;
+
+    paste_remove_styles_if_webkit?: boolean;
+
     advlist_number_styles?: string;
 
     init_instance_callback?(editor: Editor): void;
