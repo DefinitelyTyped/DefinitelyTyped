@@ -19,6 +19,7 @@
         "esModuleInterop": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "unicode-trie-tests.ts"
     ]
 }
