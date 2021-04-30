@@ -34,7 +34,7 @@ declare class Assembler extends EventEmitter {
 
 declare namespace Assembler {
     interface AssemblerOptions {
-        reviver: (key: string, value: any) => any;
+        reviver?: (key: string, value: any) => any;
     }
 
     function connectTo(stream: Readable): Assembler;
