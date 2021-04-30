@@ -1087,7 +1087,7 @@ export namespace dom {
 
         getNode(): Element;
 
-        getRng(w3c: boolean): Range;
+        getRng(): Range;
 
         getSel(): Selection;
 
