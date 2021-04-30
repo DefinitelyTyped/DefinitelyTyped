@@ -1,3 +1,4 @@
+// Type definitions for unicode-trie 2.0.0
 /// <reference types="node" />
 /// <reference path="./builder.d.ts" />
 /// <reference path="./swap.d.ts" />
