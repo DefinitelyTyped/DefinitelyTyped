@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "stream-chain": "^2.2.3",
-        "@types/stream-chain": "^2.0.0"
-    }
-}
