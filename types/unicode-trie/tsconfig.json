@@ -19,8 +19,6 @@
         "esModuleInterop": true
     },
     "files": [
-        "index.d.ts",
-        "builder.d.ts",
-        "swap.d.ts"
+        "index.d.ts"
     ]
 }
