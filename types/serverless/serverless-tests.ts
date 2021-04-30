@@ -641,6 +641,12 @@ const awsServerless: Aws.Serverless = {
                 },
                 Condition: 'testcondition',
             },
+            testFunctionLambdaFunctionQualifiedArn: {
+                Description: 'testDescription',
+                Export: {
+                    Name: 'testFunctionLambdaFunctionQualifiedArn',
+                },
+            },
         },
     },
 };

@@ -613,7 +613,7 @@ declare namespace Aws {
 
     interface Output {
         Description?: string;
-        Value: any;
+        Value?: any;
         Export?: {
             Name: any;
         };
