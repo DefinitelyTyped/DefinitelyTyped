@@ -130,6 +130,10 @@ export interface Settings {
 
     paste_remove_styles_if_webkit?: boolean;
 
+    pagebreak_separator?: string;
+
+    pagebreak_split_block?: boolean;
+
     advlist_number_styles?: string;
 
     init_instance_callback?(editor: Editor): void;
