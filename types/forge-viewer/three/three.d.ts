@@ -3,15 +3,148 @@
 // this package contains only types used by Forge viewer and may be incomplete
 
 declare namespace THREE {
+    const REVISION: string;
+
+    enum MOUSE {}
+    const LEFT: MOUSE;
+    const MIDDLE: MOUSE;
+    const RIGHT: MOUSE;
+
+    // GL STATE CONSTANTS
+    enum CullFace {}
+    const CullFaceNone: CullFace;
+    const CullFaceBack: CullFace;
+    const CullFaceFront: CullFace;
+    const CullFaceFrontBack: CullFace;
+
+    enum FrontFaceDirection {}
+    const FrontFaceDirectionCW: FrontFaceDirection;
+    const FrontFaceDirectionCCW: FrontFaceDirection;
+
+    // Shadowing Type
+    enum ShadowMapType {}
+    const BasicShadowMap: ShadowMapType;
+    const PCFShadowMap: ShadowMapType;
+    const PCFSoftShadowMap: ShadowMapType;
+
     // side
-    const FrontSide = 0;
-    const BackSide = 1;
-    const DoubleSide = 2;
+    enum Side {}
+    const FrontSide: Side;
+    const BackSide: Side;
+    const DoubleSide: Side;
 
     // colors
-    const NoColors = 0;
-    const FaceColors = 1;
-    const VertexColors = 2;
+    enum Colors {}
+    const NoColors: Colors;
+    const FaceColors: Colors;
+    const VertexColors: Colors;
+
+    // blending modes
+    enum Blending {}
+    const NoBlending: Blending;
+    const NormalBlending: Blending;
+    const AdditiveBlending: Blending;
+    const SubtractiveBlending: Blending;
+    const MultiplyBlending: Blending;
+    const CustomBlending: Blending;
+
+    // custom blending equations
+    // (numbers start from 100 not to clash with other
+    //  mappings to OpenGL constants defined in Texture.js)
+    enum BlendingEquation {}
+    const AddEquation: BlendingEquation;
+    const SubtractEquation: BlendingEquation;
+    const ReverseSubtractEquation: BlendingEquation;
+    const MinEquation: BlendingEquation;
+    const MaxEquation: BlendingEquation;
+
+    // custom blending destination factors
+    enum BlendingDstFactor {}
+    const ZeroFactor: BlendingDstFactor;
+    const OneFactor: BlendingDstFactor;
+    const SrcColorFactor: BlendingDstFactor;
+    const OneMinusSrcColorFactor: BlendingDstFactor;
+    const SrcAlphaFactor: BlendingDstFactor;
+    const OneMinusSrcAlphaFactor: BlendingDstFactor;
+    const DstAlphaFactor: BlendingDstFactor;
+    const OneMinusDstAlphaFactor: BlendingDstFactor;
+
+    // custom blending src factors
+    enum BlendingSrcFactor {}
+    const DstColorFactor: BlendingSrcFactor;
+    const OneMinusDstColorFactor: BlendingSrcFactor;
+    const SrcAlphaSaturateFactor: BlendingSrcFactor;
+
+    // TEXTURE CONSTANTS
+    // Operations
+    enum Combine {}
+    const MultiplyOperation: Combine;
+    const MixOperation: Combine;
+    const AddOperation: Combine;
+
+    // Mapping modes
+    enum Mapping {}
+    const UVMapping: Mapping;
+    const CubeReflectionMapping: Mapping;
+    const CubeRefractionMapping: Mapping;
+    const EquirectangularReflectionMapping: Mapping;
+    const EquirectangularRefractionMapping: Mapping;
+    const SphericalReflectionMapping: Mapping;
+
+    // Wrapping modes
+    enum Wrapping {}
+    const RepeatWrapping: Wrapping;
+    const ClampToEdgeWrapping: Wrapping;
+    const MirroredRepeatWrapping: Wrapping;
+
+    // Filters
+    enum TextureFilter {}
+    const NearestFilter: TextureFilter;
+    const NearestMipMapNearestFilter: TextureFilter;
+    const NearestMipMapLinearFilter: TextureFilter;
+    const LinearFilter: TextureFilter;
+    const LinearMipMapNearestFilter: TextureFilter;
+    const LinearMipMapLinearFilter: TextureFilter;
+
+    // Data types
+    enum TextureDataType {}
+    const UnsignedByteType: TextureDataType;
+    const ByteType: TextureDataType;
+    const ShortType: TextureDataType;
+    const UnsignedShortType: TextureDataType;
+    const IntType: TextureDataType;
+    const UnsignedIntType: TextureDataType;
+    const FloatType: TextureDataType;
+    const HalfFloatType: TextureDataType;
+
+    // Pixel types
+    enum PixelType {}
+    const UnsignedShort4444Type: PixelType;
+    const UnsignedShort5551Type: PixelType;
+    const UnsignedShort565Type: PixelType;
+
+    // Pixel formats
+    enum PixelFormat {}
+    const AlphaFormat: PixelFormat;
+    const RGBFormat: PixelFormat;
+    const RGBAFormat: PixelFormat;
+    const LuminanceFormat: PixelFormat;
+    const LuminanceAlphaFormat: PixelFormat;
+    const RGBEFormat: PixelFormat;
+
+    // Compressed texture formats
+    // DDS / ST3C Compressed texture formats
+    enum CompressedPixelFormat {}
+    const RGB_S3TC_DXT1_Format: CompressedPixelFormat;
+    const RGBA_S3TC_DXT1_Format: CompressedPixelFormat;
+    const RGBA_S3TC_DXT3_Format: CompressedPixelFormat;
+    const RGBA_S3TC_DXT5_Format: CompressedPixelFormat;
+
+    // PVRTC compressed texture formats
+    const RGB_PVRTC_4BPPV1_Format: CompressedPixelFormat;
+    const RGB_PVRTC_2BPPV1_Format: CompressedPixelFormat;
+    const RGBA_PVRTC_4BPPV1_Format: CompressedPixelFormat;
+    const RGBA_PVRTC_2BPPV1_Format: CompressedPixelFormat;
 
     class Box2 {
         min: Vector2;
@@ -101,6 +234,14 @@ declare namespace THREE {
     }
 
     class Camera {
+        matrixWorldInverse: Matrix4;
+        projectionMatrix: Matrix4;
+
+        constructor();
+
+        clone(camera?: Camera): Camera;
+        getWorldDirection(optionalTarget?: Vector3): Vector3;
+        lookAt(vector: Vector3): void;
     }
 
     class Color {
@@ -132,9 +273,31 @@ declare namespace THREE {
     }
 
     class ExtrudeGeometry {
+        constructor(shapes?: Shape | Shape[], options?: any);
+
+        WorldUVGenerator: {
+            generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+            generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
+        };
+
+        addShape(shape: Shape, options?: any): void;
+        addShapeList(shapes: Shape[], options?: any): void;
     }
 
     class Face3 {
+        a: number;
+        b: number;
+        c: number;
+        color: Color;
+        materialIndex: number;
+        normal: Vector3;
+        vertexColors: Color[];
+        vertexNormals: Vector3[];
+        vertexTangents: number[];
+
+        constructor(a: number, b: number, c: number, normal?: Vector3 | Vector3[], color?: Color | Color[], materialIndex?: number);
+
+        clone(): Face3;
     }
 
     class Geometry {
@@ -150,6 +313,42 @@ declare namespace THREE {
     }
 
     class Material {
+        id: number;
+        uuid: string;
+        name: string;
+        type: string;
+        side: Side;
+        opacity: number;
+        blending: Blending;
+        blendSrc: BlendingDstFactor;
+        blendDst: BlendingSrcFactor;
+        blendEquation: BlendingEquation;
+        blendSrcAlpha: number;
+        blendDstAlpha: number;
+        blendEquationAlpha: number;
+        depthTest: boolean;
+        depthWrite: boolean;
+        colorWrite: boolean;
+        polygonOffset: boolean;
+        polygonOffsetFactor: number;
+        polygonOffsetUnits: number;
+        alphaTest: number;
+        overdraw: number;
+        visible: boolean;
+        needsUpdate: boolean;
+
+        constructor();
+
+        clone(material?: Material): Material;
+        dispose(): void;
+        setValues(values: object): void;
+        toJSON(): any;
+        update(): void;
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any; }): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
     }
 
     class Matrix3 {
@@ -300,6 +499,36 @@ declare namespace THREE {
     }
 
     class Quaternion {
+        x: number;
+        y: number;
+        z: number;
+        w: number;
+
+        constructor(x?: number, y?: number, z?: number, w?: number);
+
+        static slerp(qa: Quaternion, qb: Quaternion, qm: Quaternion, t: number): Quaternion;
+
+        clone(): Quaternion;
+        conjugate(): Quaternion;
+        copy(q: Quaternion): Quaternion;
+        dot(v: Vector3): number;
+        equals(v: Quaternion): boolean;
+        fromArray(xyzw: number[], offset?: number): Quaternion;
+        inverse(): Quaternion;
+        length(): number;
+        lengthSq(): number;
+        multiply(q: Quaternion): Quaternion;
+        multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
+        multiplyVector3(vector: Vector3): Vector3;
+        normalize(): Quaternion;
+        onChange: () => void;
+        set(x: number, y: number, z: number, w: number): Quaternion;
+        setFromAxisAngle(axis: Vector3, angle: number): Quaternion;
+        setFromEuler(euler: Euler, update?: boolean): Quaternion;
+        setFromRotationMatrix(m: Matrix4): Quaternion;
+        setFromUnitVectors(vFrom: Vector3, vTo: Vector3): Quaternion;
+        slerp(qb: Quaternion, t: number): Quaternion;
+        toArray(xyzw?: number[], offset?: number): number[];
     }
 
     class Ray {
@@ -339,6 +568,42 @@ declare namespace THREE {
         set(origin: Vector3, direction: Vector3): Ray;
     }
 
+    interface Intersection {
+        distance: number;
+        point: Vector3;
+        face: Face3;
+        object: Object3D;
+    }
+
+    interface RaycasterParameters {
+        Sprite?: any;
+        Mesh?: any;
+        PointCloud?: any;
+        LOD?: any;
+        Line?: any;
+    }
+
+    class Raycaster {
+        ray: Ray;
+        near: number;
+        far: number;
+        params: RaycasterParameters;
+        precision: number;
+        linePrecision: number;
+
+        constructor(
+            origin?: Vector3,
+            direction?: Vector3,
+            near?: number,
+            far?: number
+        );
+
+        intersectObject(object: Object3D, recursive?: boolean): Intersection[];
+        intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[];
+        set(origin: Vector3, direction: Vector3): void;
+        setFromCamera(coords: { x: number; y: number }, camera: Camera): void;
+    }
+
     class Scene {
     }
 
@@ -367,6 +632,57 @@ declare namespace THREE {
         set(center: Vector3, radius: number): Sphere;
         setFromPoints(points: Vector3[], optionalCenter?: Vector3): Sphere;
         translate(offset: Vector3): Sphere;
+    }
+
+    class Texture {
+        id: number;
+        uuid: string;
+        name: string;
+        sourceFile: string;
+        image: any; // HTMLImageElement or ImageData ;
+        mipmaps: ImageData[];
+        mapping: Mapping;
+        wrapS: Wrapping;
+        wrapT: Wrapping;
+        magFilter: TextureFilter;
+        minFilter: TextureFilter;
+        anisotropy: number;
+        format: PixelFormat;
+        type: TextureDataType;
+        offset: Vector2;
+        repeat: Vector2;
+        generateMipmaps: boolean;
+        premultiplyAlpha: boolean;
+        flipY: boolean;
+        unpackAlignment: number;
+        needsUpdate: boolean;
+
+        onUpdate: () => void;
+
+        static DEFAULT_IMAGE: any;
+        static DEFAULT_MAPPING: any;
+
+        constructor(
+            image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+            mapping?: Mapping,
+            wrapS?: Wrapping,
+            wrapT?: Wrapping,
+            magFilter?: TextureFilter,
+            minFilter?: TextureFilter,
+            format?: PixelFormat,
+            type?: TextureDataType,
+            anisotropy?: number
+        );
+
+        clone(): Texture;
+        dispose(): void;
+        update(): void;
+
+        // EventDispatcher mixins
+        addEventListener(type: string, listener: (event: any) => void): void;
+        dispatchEvent(event: { type: string; target: any }): void;
+        hasEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: any) => void): void;
     }
 
     class TransformControls {

@@ -31,7 +31,10 @@ Autodesk.Viewing.Initializer(options, async () => {
     cameraTests(viewer);
     formattingTests();
     fragListTests(model);
+    instanceTreeTests(model);
     modelTests(model);
+    await propertyDbTests(model);
+    await compGeomTests(viewer);
     await dataVizTests(viewer);
     await dataVizPlanarTests(viewer);
     await edit2DTests(viewer);
@@ -45,6 +48,7 @@ function globalTests(): void {
     const urn = 'urn:adsk.wipdm:fs.file:vf.vSenZnaYQAOAZqzHB54kLQ?version=1';
     const urnBase64 = Autodesk.Viewing.toUrlSafeBase64(urn);
 
+    // $ExpectType string
     const urn2 = Autodesk.Viewing.fromUrlSafeBase64(urnBase64);
 }
 
@@ -77,6 +81,27 @@ function cameraTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     const up = new THREE.Vector3(0, 0, 1);
 
     viewer.navigation.setCameraUpVector(up);
+}
+
+async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    await viewer.loadExtension('Autodesk.DataVisualization');
+    const pln = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+
+    Autodesk.Extensions.CompGeom.makePlaneBasis(pln);
+    const dx = 4;
+    const dy = 4;
+    const length = Math.sqrt(dx * dx + dy * dy);
+
+    const e = {
+        v1: new THREE.Vector2(0, 0),
+        dx,
+        dy,
+        length,
+        length2: length * length
+    };
+
+    // $ExpectType boolean
+    Autodesk.Extensions.CompGeom.pointOnLine(2, 2, e, true, 1e-5);
 }
 
 async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
@@ -133,6 +158,24 @@ async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise
     ext.renderSurfaceShading('level', 'temperature', getSensorValue);
 }
 
+function instanceTreeTests(model: Autodesk.Viewing.Model): void {
+    const instanceTree = model.getInstanceTree();
+    const rootId = instanceTree.getRootId();
+
+    // $ExpectType string
+    instanceTree.getNodeName(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeHidden(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeOff(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeSelectable(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeSelectionLocked(rootId);
+    // $ExpectType boolean
+    instanceTree.isNodeVisibleLocked(rootId);
+}
+
 function modelTests(model: Autodesk.Viewing.Model): void {
     model.isConsolidated();
     model.isLeaflet();
@@ -151,6 +194,22 @@ async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
     const mainModel = viewer.model;
 
     ext.compareTwoModels(mainModel, secondaryModel);
+}
+
+function propertyDbTests(model: Autodesk.Viewing.Model): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        function userFunction(pdb: any) {
+            const names = [];
+
+            pdb.enumAttributes((i: number, attrDef: any) => {
+                names.push(attrDef.displayName);
+            });
+        }
+
+        model.getPropertyDb().executeUserFunction(userFunction).then((result) => {
+            resolve();
+        });
+    });
 }
 
 async function propertyTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {

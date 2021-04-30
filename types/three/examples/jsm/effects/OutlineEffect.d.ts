@@ -8,7 +8,7 @@ export interface OutlineEffectParameters {
 }
 
 export class OutlineEffect {
-    constructor(renderer: WebGLRenderer, parameters: OutlineEffectParameters);
+    constructor(renderer: WebGLRenderer, parameters?: OutlineEffectParameters);
     enabled: boolean;
     autoClear: boolean;
     domElement: HTMLElement;

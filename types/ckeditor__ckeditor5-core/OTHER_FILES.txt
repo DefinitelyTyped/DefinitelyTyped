@@ -1,0 +1,2 @@
+src/editor/editorwithui.d.ts
+src/pendingactions.d.ts

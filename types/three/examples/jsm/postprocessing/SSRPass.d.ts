@@ -45,11 +45,11 @@ export class SSRPass extends Pass {
 
     get selects(): Mesh[] | null;
     set selects(val: Mesh[] | null);
-    isSelective: boolean;
+    selective: boolean;
     get isBouncing(): boolean;
     set isBouncing(val: boolean);
 
-    isBlur: boolean;
+    blur: boolean;
 
     get isDistanceAttenuation(): boolean;
     set isDistanceAttenuation(val: boolean);

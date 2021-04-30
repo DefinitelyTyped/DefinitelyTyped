@@ -6,5 +6,5 @@ export class DecalGeometry extends BufferGeometry {
 
 export class DecalVertex {
     constructor(position: Vector3, normal: Vector3);
-    clone(): DecalVertex;
+    clone(): this;
 }

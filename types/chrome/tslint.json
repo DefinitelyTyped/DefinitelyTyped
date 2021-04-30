@@ -10,6 +10,7 @@
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-mergeable-namespace": false,
+        "no-outside-dependencies": false,
         "no-padding": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,

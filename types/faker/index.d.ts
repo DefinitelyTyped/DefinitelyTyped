@@ -8,6 +8,7 @@
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
 //                 Daniel Montesinos <https://github.com/damonpam>
 //                 Shinya Ohyanagi <https://github.com/heavenshell>
+//                 Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -191,6 +192,7 @@ declare namespace Faker {
             domainWord(): string;
             ip(): string;
             ipv6(): string;
+            port(): number;
             userAgent(): string;
             color(baseRed255?: number, baseGreen255?: number, baseBlue255?: number): string;
             mac(sep?: string): string;
@@ -266,13 +268,13 @@ declare namespace Faker {
         };
 
         system: {
-            fileName(ext?: string, type?: string): string;
-            commonFileName(ext: string, type?: string): string;
+            fileName(): string;
+            commonFileName(ext?: string): string;
             mimeType(): string;
             commonFileType(): string;
             commonFileExt(): string;
             fileType(): string;
-            fileExt(mimeType: string): string;
+            fileExt(mimeType?: string): string;
             directoryPath(): string;
             filePath(): string;
             semver(): string;
@@ -295,6 +297,8 @@ declare namespace Faker {
             fuel(): string;
             vin(): string;
             color(): string;
+            vrm(): string;
+            bicycle(): string;
         };
 
         unique<T extends (...args: any) => any>(

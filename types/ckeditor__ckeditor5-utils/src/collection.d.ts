@@ -1,6 +1,6 @@
-import Emitter, { EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+import EventInfo from "./eventinfo";
+import { PriorityString } from "./priorities";
+import { Emitter, EmitterMixinDelegateChain } from "./emittermixin";
 
 export interface CollectionBindTo<T, K> {
     as: (Class: { new (item: T): K }) => void;

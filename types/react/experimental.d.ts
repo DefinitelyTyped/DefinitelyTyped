@@ -106,17 +106,6 @@ declare module '.' {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    export interface SuspenseConfig {
-        busyDelayMs?: number;
-        busyMinDurationMs?: number;
-    }
-
-    // undocumented, considered for removal
-    export function unstable_withSuspenseConfig(
-        scope: () => VoidOrUndefinedOnly,
-        config: SuspenseConfig | null | undefined,
-    ): void;
-
     // must be synchronous
     export type TransitionFunction = () => VoidOrUndefinedOnly;
     // strange definition to allow vscode to show documentation on the invocation
@@ -162,7 +151,7 @@ declare module '.' {
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
-    export function unstable_useTransition(config?: SuspenseConfig | null): [TransitionStartFunction, boolean];
+    export function unstable_useTransition(): [TransitionStartFunction, boolean];
 
     const opaqueIdentifierBranding: unique symbol;
     /**

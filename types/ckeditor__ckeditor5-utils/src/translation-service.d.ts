@@ -72,4 +72,17 @@ export interface GetPluralForm {
  *
  * For each message ID the value should be either a translation or an array of translations if the message should support plural forms.
  */
-export function add(language: string, translations: Record<string, string>, getPluralForm?: GetPluralForm): void;
+export function add(
+    language: string,
+    translations: Record<string, string | string[]>,
+    getPluralForm?: GetPluralForm,
+): void;
+
+/**
+ * The internationalization message interface. A message that implements this interface can be passed to the t() function to be translated to the target UI language.
+ */
+export interface Message {
+    id: string;
+    plural: string;
+    string: string;
+}

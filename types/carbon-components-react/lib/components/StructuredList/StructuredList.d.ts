@@ -3,7 +3,7 @@ import { ReactAttr, ReactDivAttr, ReactInputAttr, ReactLabelAttr } from "../../.
 
 // StructuredListWrapper
 
-export interface StructuredListProps extends ReactAttr {
+export interface StructuredListWrapperProps extends ReactDivAttr {
     ariaLabel?: string,
     /**
      * @deprecated
@@ -12,22 +12,23 @@ export interface StructuredListProps extends ReactAttr {
     selection?: boolean,
 }
 
-export declare class StructuredListWrapper extends React.Component<StructuredListProps> { }
+export declare const StructuredListWrapper: React.FC<StructuredListWrapperProps>;
 
 // StructuredListHead
 
 export interface StructuredListHeadProps extends ReactDivAttr { }
 
-export declare class StructuredListHead extends React.Component<StructuredListHeadProps> { }
+export declare const StructuredListHead: React.FC<StructuredListHeadProps>;
 
 // StructuredListInput
-type ExcludedListInputProps = "tabIndex" | "type" | "value";
-export interface StructuredListInputProps extends Omit<ReactInputAttr, ExcludedListInputProps> {
+
+type ExcludedListInputPropKeys = "tabIndex" | "type" | "value";
+export interface StructuredListInputProps extends Omit<ReactInputAttr, ExcludedListInputPropKeys> {
     defaultChecked?: boolean,
     value: string | number,
 }
 
-export declare class StructuredListInput extends React.Component<StructuredListInputProps> { }
+export declare const StructuredListInput: React.FC<StructuredListInputProps>;
 
 // StructuredListRow
 
@@ -41,13 +42,13 @@ export interface StructuredListLabelRowProps extends ReactLabelAttr {
 }
 
 export type AllStructuredListRowProps = StructuredListLabelRowProps | StructuredListDivRowProps;
-export declare class StructuredListRow extends React.Component<AllStructuredListRowProps> { }
+export declare const StructuredListRow: React.FC<AllStructuredListRowProps>;
 
 // StructuredListBody
 
 export interface StructuredListBodyProps extends ReactDivAttr { }
 
-export declare class StructuredListBody extends React.Component<StructuredListBodyProps> { }
+export declare const StructuredListBody: React.FC<StructuredListBodyProps>;
 
 // StructuredListCell
 
@@ -56,4 +57,4 @@ export interface StructuredListCellProps extends ReactDivAttr {
     noWrap?: boolean,
 }
 
-export declare class StructuredListCell extends React.Component<StructuredListCellProps> { }
+export declare const StructuredListCell: React.FC<StructuredListCellProps>;

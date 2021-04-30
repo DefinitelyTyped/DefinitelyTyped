@@ -21,6 +21,8 @@ import '../test/process';
 import '../test/readline';
 import '../test/repl';
 import '../test/stream';
+import '../test/timers';
+import '../test/timers_promises';
 import '../test/string_decoder';
 import '../test/tls';
 import '../test/tty';
@@ -39,7 +41,6 @@ import * as http from 'node:http';
 import * as https from 'node:https';
 import * as net from 'node:net';
 import * as console2 from 'node:console';
-import * as timers from 'node:timers';
 import * as inspector from 'node:inspector';
 import * as trace_events from 'node:trace_events';
 
@@ -147,63 +148,6 @@ const importObject = { wasi_unstable: wasi.wasiImport };
         const maxHeadersCount: number | null = server.maxHeadersCount;
         const headersTimeout: number = server.headersTimeout;
         server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
-    }
-}
-
-/////////////////////////////////////////////////////
-/// Timers tests : https://nodejs.org/api/timers.html
-/////////////////////////////////////////////////////
-
-{
-    {
-        const immediate = timers
-            .setImmediate(() => {
-                console.log('immediate');
-            })
-            .unref()
-            .ref();
-        const b: boolean = immediate.hasRef();
-        timers.clearImmediate(immediate);
-    }
-    {
-        const timeout = timers
-            .setInterval(() => {
-                console.log('interval');
-            }, 20)
-            .unref()
-            .ref()
-            .refresh();
-        const b: boolean = timeout.hasRef();
-        timers.clearInterval(timeout);
-    }
-    {
-        const timeout = timers
-            .setTimeout(() => {
-                console.log('timeout');
-            }, 20)
-            .unref()
-            .ref()
-            .refresh();
-        const b: boolean = timeout.hasRef();
-        timers.clearTimeout(timeout);
-    }
-    async function testPromisify(doSomething: {
-        (foo: any, onSuccessCallback: (result: string) => void, onErrorCallback: (reason: any) => void): void;
-        [util.promisify.custom](foo: any): Promise<string>;
-    }) {
-        const setTimeout = util.promisify(timers.setTimeout);
-        let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
-        let s: string = await setTimeout(100, "");
-
-        const setImmediate = util.promisify(timers.setImmediate);
-        v = await setImmediate();
-        s = await setImmediate("");
-
-        // $ExpectType (foo: any) => Promise<string>
-        const doSomethingPromise = util.promisify(doSomething);
-
-        // $ExpectType string
-        s = await doSomethingPromise('foo');
     }
 }
 

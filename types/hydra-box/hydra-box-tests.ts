@@ -102,5 +102,5 @@ async function loader() {
         (): string;
     }
 
-    const loader: LoadedFunction | null = await api.loaderRegistry.load<LoadedFunction>(pointer);
+    const loader: LoadedFunction | undefined = await api.loaderRegistry.load<LoadedFunction>(pointer);
 }
