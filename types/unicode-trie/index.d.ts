@@ -1,3 +1,4 @@
+/// <reference types="node" />
 /// <reference path="./builder.d.ts" />
 /// <reference path="./swap.d.ts" />
 
