@@ -3744,7 +3744,11 @@ export interface UnorderedBulkOperation {
     insert(document: object): UnorderedBulkOperation;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne */
+/**
+ * Options for Collection.findOne operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#findOne
+ */
 export interface FindOneOptions<T> {
     limit?: number;
     sort?: Array<[string, number]> | SortOptionObject<T>;
@@ -3778,19 +3782,31 @@ export interface FindOneOptions<T> {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne */
+/**
+ * Options for Collection.insertOne operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#insertOne
+ */
 export interface CollectionInsertOneOptions extends CommonOptions {
     /**
      * Serialize functions on any object.
      */
     serializeFunctions?: boolean;
-    //Force server to assign _id values instead of driver.
+    /**
+     * Force server to assign _id values instead of driver.
+     */
     forceServerObjectId?: boolean;
-    //Allow driver to bypass schema validation in MongoDB 3.2 or higher.
+    /**
+     * Allow driver to bypass schema validation in MongoDB 3.2 or higher.
+     */
     bypassDocumentValidation?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~insertWriteOpResult */
+/**
+ * Returning object from insert write operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~insertWriteOpResult
+ */
 export interface InsertWriteOpResult<TSchema extends { _id: any }> {
     insertedCount: number;
     ops: TSchema[];
@@ -3799,7 +3815,11 @@ export interface InsertWriteOpResult<TSchema extends { _id: any }> {
     result: { ok: number; n: number };
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~insertOneWriteOpResult */
+/**
+ * Returning object from insertOne write operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~insertOneWriteOpResult
+ */
 export interface InsertOneWriteOpResult<TSchema extends { _id: any }> {
     insertedCount: number;
     ops: TSchema[];
@@ -3808,7 +3828,11 @@ export interface InsertOneWriteOpResult<TSchema extends { _id: any }> {
     result: { ok: number; n: number };
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#parallelCollectionScan */
+/**
+ *  Options for Collection.parallelCollectionScan operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#parallelCollectionScan
+ */
 export interface ParallelCollectionScanOptions {
     readPreference?: ReadPreferenceOrMode;
     batchSize?: number;
@@ -3817,24 +3841,40 @@ export interface ParallelCollectionScanOptions {
     session?: ClientSession;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#replaceOne */
+/**
+ * Options for Collection.replaceOne operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#replaceOne
+ */
 export interface ReplaceOneOptions extends CommonOptions {
     upsert?: boolean;
     bypassDocumentValidation?: boolean;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne */
+/**
+ * Options for Collection.updateOne operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateOne
+ */
 export interface UpdateOneOptions extends ReplaceOneOptions {
     arrayFilters?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateMany */
+/**
+ * Options for Collection.updateMany operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#updateMany
+ */
 export interface UpdateManyOptions extends CommonOptions {
     upsert?: boolean;
     arrayFilters?: object[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~updateWriteOpResult */
+/**
+ * Returning object from update write operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~updateWriteOpResult
+ */
 export interface UpdateWriteOpResult {
     result: { ok: number; n: number; nModified: number };
     connection: any;
@@ -3844,12 +3884,20 @@ export interface UpdateWriteOpResult {
     upsertedId: { _id: ObjectId };
 }
 
-/** @see https://github.com/mongodb/node-mongodb-native/blob/2.2/lib/collection.js#L957 */
+/**
+ * Returning object from replace write operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~updateWriteOpResult
+ */
 export interface ReplaceWriteOpResult extends UpdateWriteOpResult {
     ops: any[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#mapReduce */
+/**
+ * Options for Collection.mapReduce operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#mapReduce
+ */
 export interface MapReduceOptions {
     readPreference?: ReadPreferenceOrMode;
     out?: object;
@@ -3869,36 +3917,73 @@ export type CollectionMapFunction<TSchema> = (this: TSchema) => void;
 
 export type CollectionReduceFunction<TKey, TValue> = (key: TKey, values: TValue[]) => TValue;
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~WriteOpResult */
+/**
+ * Returning object from write operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#~WriteOpResult
+ */
 export interface WriteOpResult {
     ops: any[];
     connection: any;
     result: any;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~resultCallback */
+/**
+ * Callback for cursor operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~resultCallback
+ */
 export type CursorResult = object | null | boolean;
 
 type Default = any;
 type DefaultSchema = any;
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html */
+/**
+ * Creates a new Cursor instance (INTERNAL TYPE, do not instantiate directly)
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html
+ */
 export class Cursor<T = Default> extends Readable {
     [Symbol.asyncIterator](): AsyncIterableIterator<T>;
     sortValue: string;
     timeout: boolean;
     readPreference: ReadPreference;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addCursorFlag */
+    /**
+     * Add a cursor flag to the cursor
+     *
+     * @param flag The flag to set, must be one of following ['`tailable`', '`oplogReplay`', '`noCursorTimeout`', '`awaitData`', '`partial`'].
+     * @param value The flag boolean value.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addCursorFlag
+     */
     addCursorFlag(flag: string, value: boolean): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addQueryModifier */
-    addQueryModifier(name: string, value: boolean): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#batchSize */
+    /**
+     * Add a query modifier to the cursor query
+     *
+     * @param name The query modifier (must start with $, such as `$orderby` etc)
+     * @param value The modifier value.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addQueryModifier
+     */
+    addQueryModifier(name: string, value: boolean|string|number): Cursor<T>;
+    /**
+     * Set the batch size for the cursor.
+     * The number of documents to return per batch. See {@link https://docs.mongodb.com/manual/reference/command/find/ find command documentation}.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#batchSize
+     */
     batchSize(value: number): Cursor<T>;
-    bufferedCount(): number;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#clone */
+    /**
+     * Clone the cursor
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#clone
+     */
     clone(): Cursor<T>; // still returns the same type
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#close */
-    close(): Promise<CursorResult>;
+    /**
+     * Close the cursor, sending a KillCursor command and emitting close.
+     *
+     * @param options Optional settings
+     * @param callback The result callback
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#close
+     */
+    close(options: { skipKillCursors: boolean }, callback?: MongoCallback<number>): void;
     close(callback: MongoCallback<CursorResult>): void;
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#collation */
     collation(value: CollationDocument): Cursor<T>;
