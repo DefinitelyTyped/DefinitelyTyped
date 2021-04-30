@@ -1252,8 +1252,10 @@ declare namespace IORedis {
         lpush(key: KeyType, ...values: ValueType[]): Pipeline;
 
         rpushx(key: KeyType, value: ValueType, callback?: Callback<number>): Pipeline;
+        rpushx(key: KeyType, ...values: ValueType[]): Pipeline;
 
         lpushx(key: KeyType, value: ValueType, callback?: Callback<number>): Pipeline;
+        lpushx(key: KeyType, ...values: ValueType[]): Pipeline;
 
         linsert(
             key: KeyType,
