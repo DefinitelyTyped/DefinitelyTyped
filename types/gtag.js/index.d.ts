@@ -103,7 +103,7 @@ declare namespace Gtag {
 
   type ConsentArg = 'default' | 'update';
   interface ConsentParams {
-    ad_storage?: 'granted' | 'denied';
+    ad_storage?: 'allowed' | 'denied';
     analytics_storage?: 'allowed' | 'denied';
     wait_for_update?: number;
     region?: string[];
