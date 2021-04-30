@@ -769,6 +769,12 @@ redis.pipeline()
         // do something with res or err
     });
 
+// Test rpushx and lpushx for pushing several elements
+redis.pipeline()
+    .lpush('lpushxlist', 'foo')
+    .lpushx('lpushxlist', 'bar', 1)
+    .rpushx('rpushxlist', 'hoge', 2);
+
 redis.options.host;
 redis.status;
 cluster.options.maxRedirections;
