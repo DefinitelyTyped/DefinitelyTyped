@@ -4,13 +4,6 @@
 
 import { EventEmitter } from "events";
 
-/**
- * Definitions for save and set forbid undefined values while keeping Intellisense working
- * See https://github.com/DefinitelyTyped/DefinitelyTyped/blob/3bdadbf9583c2335197c7e999b9a30880e055f62/types/react/index.d.ts#L482
- */
-type SafeAttributes<T, K extends keyof T> = Pick<Required<T>, K> | Required<T>;
-type NotUndefined<T> = T extends undefined ? never : T;
-
 declare enum ErrorCode {
     OTHER_CAUSE = -1,
     INTERNAL_SERVER_ERROR = 1,
@@ -437,22 +430,24 @@ declare global {
             remove: this["add"];
             removeAll: this["addAll"];
             revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
+            // "Pick<T, K> | T" is a trick to keep IntelliSense working, see:
+            // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/3bdadbf9583c2335197c7e999b9a30880e055f62/types/react/index.d.ts#L482
             save<K extends Extract<keyof T, string>>(
-                attrs?: SafeAttributes<T, K> | null,
+                attrs?: Pick<T, K> | T | null,
                 options?: Object.SaveOptions,
             ): Promise<this>;
             save<K extends Extract<keyof T, string>>(
                 key: K,
-                value: NotUndefined<T[K]>,
+                value: T[K] extends undefined ? never : T[K],
                 options?: Object.SaveOptions,
             ): Promise<this>;
             set<K extends Extract<keyof T, string>>(
-                attrs: SafeAttributes<T, K>,
+                attrs: Pick<T, K> | T,
                 options?: Object.SetOptions,
             ): this | false;
             set<K extends Extract<keyof T, string>>(
                 key: K,
-                value: NotUndefined<T[K]>,
+                value: T[K] extends undefined ? never : T[K],
                 options?: Object.SetOptions,
             ): this | false;
             setACL(acl: ACL, options?: SuccessFailureOptions): this | false;

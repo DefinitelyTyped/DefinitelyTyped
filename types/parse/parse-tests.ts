@@ -1446,22 +1446,23 @@ function testObject() {
         // $ExpectError
         await objTyped.save("wrongProp", true);
 
-        /**
-         * Parse doesn't throw when a value is `undefined`,
-         * but saves won't be taken into account.
-         */
-
         // $ExpectError
         await objTyped.save({ example: undefined });
 
         // $ExpectError
         await objTyped.save("example", undefined);
 
-        // $ExpectError
+        // $ExpectType Object<ObjectAttributes>
+        await objTyped.save({});
+
+        // $ExpectType Object<OptionalObjectAttributes>
         await objTypedOptional.save({ example: undefined });
 
-        // $ExpectError
+        // $ExpectType Object<OptionalObjectAttributes>
         await objTypedOptional.save("example", undefined);
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.save({});
     }
 
     function testSet(
@@ -1499,22 +1500,23 @@ function testObject() {
         // $ExpectError
         objTyped.set("other", 100);
 
-        /**
-         * Parse doesn't throw when value is `undefined`,
-         * but saves won't be taken into account.
-         */
-
         // $ExpectError
         objTyped.set({ example: undefined });
+
+        // $ExpectType false | Object<ObjectAttributes>
+        objTyped.set({});
 
         // $ExpectError
         objTyped.set("example", undefined);
 
-        // $ExpectError
+        // $ExpectType false | Object<OptionalObjectAttributes>
         objTypedOptional.set({ example: undefined });
 
-        // $ExpectError
+        // $ExpectError false | Object<OptionalObjectAttributes>
         objTypedOptional.set("example", undefined);
+
+        // $ExpectType false | Object<OptionalObjectAttributes>
+        objTypedOptional.set({});
     }
 
     interface AttributesAllTypes {
