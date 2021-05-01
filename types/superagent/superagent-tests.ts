@@ -469,7 +469,7 @@ request
 // ok, from: https://github.com/visionmedia/superagent/commit/34533bbc29833889090847c45a82b0ea81b2f06d
 request
     .get('/404')
-    .ok(res => res.status < 500)
+    .ok(res => res.statusCode < 500)
     .then(response => {
         // reads 404 page as a successful response
     });
