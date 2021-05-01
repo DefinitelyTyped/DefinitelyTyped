@@ -10,6 +10,7 @@
 //                 Jesse Rogers <https://github.com/theQuazz>
 //                 Chris Arnesen <https://github.com/carnesen>
 //                 Anders Kindberg <https://github.com/ghostganz>
+//                 LuckyWind_sck <https://github.com/LuckyWindsck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -121,6 +122,7 @@ declare namespace request {
         redirect: boolean;
         serverError: boolean;
         status: number;
+        statusCode: number;
         statusType: number;
         text: string;
         type: string;
