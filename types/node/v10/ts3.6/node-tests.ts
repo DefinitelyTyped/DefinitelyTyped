@@ -1,4 +1,5 @@
 import '../test/events';
+import '../test/process';
 import '../test/util';
 import '../test/zlib';
 

@@ -240,7 +240,13 @@ export namespace realpath {
 export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
 
-export function rm(path: PathLike, options?: fs.RmOptions): Promise<void>;
+/**
+ * Asynchronously removes files and directories (modeled on the standard POSIX
+ * `rm` utility).
+ *
+ * Only available in node >= v14.14.0
+ */
+export function rm(path: PathLike, options?: { force?: boolean, maxRetries?: number, recursive?: boolean, retryDelay?: number }): Promise<void>;
 
 /**
  * Asynchronous rmdir - removes the directory specified in {path}

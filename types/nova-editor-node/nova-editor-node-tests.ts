@@ -52,6 +52,8 @@ nova.commands.register(
 );
 
 nova.commands.invoke('apexskier.bar', 'foo');
+// You're allowed to pass an editor in your own extension's commands
+nova.commands.invoke('apexskier.bar', editor, 'foo');
 
 // after 3.4: $ExpectType unknown
 nova.config.get('test');
@@ -333,3 +335,17 @@ treeView.onDidExpandElement(element => {});
 treeView.onDidCollapseElement(element => {});
 
 treeView.onDidChangeVisibility(() => {});
+
+/// https://novadocs.panic.com/api-reference/text-editor/
+
+nova.workspace.showInputPalette('This is an input');
+
+nova.workspace.showInputPalette('This is an input', {
+    placeholder: "Help text"
+});
+
+nova.workspace.showInputPalette('This is an input', {
+    placeholder: "Help text",
+    // after 6.0
+    value: "Default value"
+});

@@ -175,7 +175,8 @@ declare namespace Cloudflare {
                     | string[]
                     | { url: string; headers: { Origin: string; "CF-IPCountry": string; "CF-Device-Type": string } };
                 tags?: string[];
-                hosts: string[];
+                hosts?: string[];
+                prefixes?: string[];
             },
         ): ResponseObjectPromise;
         browse(): ResponseObjectPromise;

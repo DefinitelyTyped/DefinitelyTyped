@@ -40,9 +40,21 @@
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
         },
+        "airtable": {
+            "libraryName": "airtable",
+            "asOfVersion": "0.10.0"
+        },
         "ajv": {
             "libraryName": "ajv",
             "asOfVersion": "1.0.0"
+        },
+        "algoliasearch": {
+            "libraryName": "algoliasearch",
+            "asOfVersion": "4.0.0"
+        },
+        "algoliasearch-helper": {
+            "libraryName": "algoliasearch-helper",
+            "asOfVersion": "3.0.0"
         },
         "all-keys": {
             "libraryName": "all-keys",
@@ -392,6 +404,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classnames": {
+            "libraryName": "classnames",
+            "asOfVersion": "2.3.0"
+        },
         "clean-stack": {
             "libraryName": "clean-stack",
             "asOfVersion": "2.1.0"
@@ -725,6 +741,10 @@
             "libraryName": "diff2html",
             "asOfVersion": "3.0.0"
         },
+        "direction": {
+            "libraryName": "direction",
+            "asOfVersion": "2.0.0"
+        },
         "docker-file-parser": {
             "libraryName": "docker-file-parser",
             "asOfVersion": "1.0.3"
@@ -760,6 +780,10 @@
         "dotenv": {
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
+        },
+        "double-metaphone": {
+            "libraryName": "double-metaphone",
+            "asOfVersion": "2.0.0"
         },
         "dva": {
             "libraryName": "dva",
@@ -864,6 +888,10 @@
         "env-paths": {
             "libraryName": "env-paths",
             "asOfVersion": "2.1.0"
+        },
+        "err-code": {
+            "libraryName": "err-code",
+            "asOfVersion": "3.0.0"
         },
         "error-stack-parser": {
             "libraryName": "error-stack-parser",
@@ -1297,6 +1325,10 @@
             "libraryName": "@hapi/lab",
             "asOfVersion": "22.0.0"
         },
+        "hapi__podium": {
+            "libraryName": "@hapi/podium",
+            "asOfVersion": "4.1.3"
+        },
         "hapi__topo": {
             "libraryName": "@hapi/topo",
             "asOfVersion": "5.0.0"
@@ -1320,6 +1352,10 @@
         "has-yarn": {
             "libraryName": "has-yarn",
             "asOfVersion": "2.0.0"
+        },
+        "hash-it": {
+            "libraryName": "hash-it",
+            "asOfVersion": "5.0.0"
         },
         "hasha": {
             "libraryName": "hasha",
@@ -1348,6 +1384,10 @@
         "hirestime": {
             "libraryName": "hirestime",
             "asOfVersion": "6.0.0"
+        },
+        "hls.js": {
+            "libraryName": "hls.js",
+            "asOfVersion": "1.0.0"
         },
         "homeworks": {
             "libraryName": "homeworks",
@@ -2157,6 +2197,10 @@
             "libraryName": "menubar",
             "asOfVersion": "6.0.0"
         },
+        "meow": {
+            "libraryName": "meow",
+            "asOfVersion": "6.0.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
@@ -2320,6 +2364,10 @@
         "next": {
             "libraryName": "next",
             "asOfVersion": "9.0.0"
+        },
+        "next-auth": {
+            "libraryName": "next-auth",
+            "asOfVersion": "3.15.0"
         },
         "next-redux-wrapper": {
             "libraryName": "next-redux-wrapper",
@@ -3718,9 +3766,17 @@
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
         },
+        "syllable": {
+            "libraryName": "syllable",
+            "asOfVersion": "5.0.0"
+        },
         "systeminformation": {
             "libraryName": "systeminformation",
             "asOfVersion": "3.54.0"
+        },
+        "table": {
+            "libraryName": "table",
+            "asOfVersion": "6.3.2"
         },
         "tabris": {
             "libraryName": "tabris",
@@ -4137,6 +4193,10 @@
         "wordpress__escape-html": {
             "libraryName": "@wordpress/escape-html",
             "asOfVersion": "1.8.0"
+        },
+        "wordpress__hooks": {
+            "libraryName": "@wordpress/hooks",
+            "asOfVersion": "2.11.0"
         },
         "wordpress__html-entities": {
             "libraryName": "@wordpress/html-entities",

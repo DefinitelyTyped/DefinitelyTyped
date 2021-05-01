@@ -828,7 +828,7 @@ declare global {
             /**
              * Get the corresponding DOM window object of the native window.
              */
-            window: Object;
+            window: Window;
 
             /**
              * Get or set left offset from window to screen.

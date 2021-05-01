@@ -1,18 +1,24 @@
-import { EventEmitter } from 'events';
-import { BatchDescribeSObjectOptions, DescribeSObjectOptions, DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
-import { Query, QueryResult, ExecuteOptions } from './query';
-import { Record } from './record';
-import { RecordResult } from './record-result';
-import { SObject } from './salesforce-object';
-import { Analytics } from './api/analytics';
-import { Chatter } from './api/chatter';
-import { Metadata } from './api/metadata';
-import { Apex } from './api/apex';
-import { Bulk } from './bulk';
-import { Cache } from './cache'
-import { OAuth2, Streaming } from '.';
-import { HttpApiOptions } from './http-api'
-import { LimitsInfo } from './limits-info';
+import { EventEmitter } from "events";
+import {
+    BatchDescribeSObjectOptions,
+    DescribeSObjectOptions,
+    DescribeSObjectResult,
+    DescribeGlobalResult,
+} from "./describe-result";
+import { Query, QueryResult, ExecuteOptions } from "./query";
+import { Record } from "./record";
+import { RecordResult } from "./record-result";
+import { SObject } from "./salesforce-object";
+import { Analytics } from "./api/analytics";
+import { Chatter } from "./api/chatter";
+import { Metadata } from "./api/metadata";
+import { SoapApi } from "./api/soap";
+import { Apex } from "./api/apex";
+import { Bulk } from "./bulk";
+import { Cache } from "./cache";
+import { OAuth2, Streaming } from ".";
+import { HttpApiOptions } from "./http-api";
+import { LimitsInfo } from "./limits-info";
 
 export type Callback<T> = (err: Error | null, result: T) => void;
 // The type for these options was determined by looking at the usage
@@ -178,60 +184,129 @@ export interface SearchResult<T> {
  */
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
-    request<T = object>(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: T) => void): Promise<T>;
-    query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
-    queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
-    create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    create<T>(records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    retrieve<T>(type: string, ids: string | string[], options?: RestApiOptions,
-        callback?: (err: Error, result: Record<T> | Array<Record<T>>) => void): Promise<(Record<T> | Array<Record<T>>)>;
-    update<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
-    update<T>(records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
-    upsert<T>(type: string, records: Record<T> | Array<Record<T>>, extIdField: string, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    upsert<T>(records: Record<T> | Array<Record<T>>, extIdField: string, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    del<T>(type: string, ids: string | string[], options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    delete<T>(type: string, ids: string | string[], options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    destroy<T>(type: string, ids: string | string[], options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
+    request<T = object>(
+        info: RequestInfo | string,
+        options?: HttpApiOptions,
+        callback?: (err: Error, Object: T) => void,
+    ): Promise<T>;
+    query<T>(
+        soql: string,
+        options?: ExecuteOptions,
+        callback?: (err: Error, result: QueryResult<T>) => void,
+    ): Query<QueryResult<T>>;
+    queryMore<T>(
+        locator: string,
+        options?: ExecuteOptions,
+        callback?: (err: Error, result: QueryResult<T>) => void,
+    ): Promise<QueryResult<T>>;
+    create<T>(
+        type: string,
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    create<T>(
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    insert<T>(
+        type: string,
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    retrieve<T>(
+        type: string,
+        ids: string | string[],
+        options?: RestApiOptions,
+        callback?: (err: Error, result: Record<T> | Array<Record<T>>) => void,
+    ): Promise<Record<T> | Array<Record<T>>>;
+    update<T>(
+        type: string,
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    update<T>(
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    upsert<T>(
+        type: string,
+        records: Record<T> | Array<Record<T>>,
+        extIdField: string,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    upsert<T>(
+        records: Record<T> | Array<Record<T>>,
+        extIdField: string,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    del<T>(
+        type: string,
+        ids: string | string[],
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    delete<T>(
+        type: string,
+        ids: string | string[],
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    destroy<T>(
+        type: string,
+        ids: string | string[],
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
     describe$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
-        (type: string|DescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        (
+            type: string | DescribeSObjectOptions,
+            callback?: (err: Error, result: DescribeSObjectResult) => void,
+        ): DescribeSObjectResult;
         clear(): void;
-    }
-    describe(type: string|DescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
-    batchDescribe(options: BatchDescribeSObjectOptions, callback?: (err: Error, result: DescribeSObjectResult[]) => void): Promise<DescribeSObjectResult[]>;
+    };
+    describe(
+        type: string | DescribeSObjectOptions,
+        callback?: (err: Error, result: DescribeSObjectResult) => void,
+    ): Promise<DescribeSObjectResult>;
+    batchDescribe(
+        options: BatchDescribeSObjectOptions,
+        callback?: (err: Error, result: DescribeSObjectResult[]) => void,
+    ): Promise<DescribeSObjectResult[]>;
     describeGlobal$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
         (callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
         clear(): void;
-    }
+    };
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
     // we want any object to be accepted if the user doesn't decide to give an explicit type
     sobject<T = object>(resource: string): SObject<T>;
-    recent(callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
-    recent(param: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
-    recent(type: string, limit: number, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
-    search<T>(sosl: string, callback?: (err: Error, result: SearchResult<T>) => void): Promise<(SearchResult<T>)>;
+    recent(callback?: (err: Error, result: RecordResult[]) => void): Promise<RecordResult[]>;
+    recent(param: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<RecordResult[]>;
+    recent(
+        type: string,
+        limit: number,
+        callback?: (err: Error, result: RecordResult[]) => void,
+    ): Promise<RecordResult[]>;
+    search<T>(sosl: string, callback?: (err: Error, result: SearchResult<T>) => void): Promise<SearchResult<T>>;
 }
 
 export class Connection extends BaseConnection {
-    constructor(params: ConnectionOptions)
+    constructor(params: ConnectionOptions);
 
     tooling: Tooling;
     analytics: Analytics;
     apex: Apex;
     chatter: Chatter;
     metadata: Metadata;
+    soap: SoapApi;
     bulk: Bulk;
     oauth2: OAuth2;
     streaming: Streaming;

@@ -3,8 +3,7 @@
  */
 export default class Config {
     /**
-     * Creates an instance of the {@link ~Config} class.
-     *
+     * Creates an instance of the Config class.
      */
     constructor(configurations?: object, defaultConfigurations?: object);
     /**
