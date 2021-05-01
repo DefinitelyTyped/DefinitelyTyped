@@ -73,9 +73,11 @@ export interface ApplePayPayload {
 export class ApplePaySession {
     constructor(version: number, request: ApplePayPaymentRequest);
 
-    canMakePayments(): boolean;
+    static canMakePayments(): boolean;
 
-    canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
+    static canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
+
+    static supportsVersion(version: number): boolean;
 
     completeMerchantValidation(merchantSession: any): void;
 
@@ -95,8 +97,6 @@ export class ApplePaySession {
     ): void;
 
     completeShippingMethodSelection(status: ApplePayStatusCodes, newTotal: any, newLineItems: any): void;
-
-    supportsVersion(version: number): boolean;
 
     oncancel: (event: any) => void;
 

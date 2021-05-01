@@ -2,7 +2,6 @@
 // Project: https://github.com/google/google-protobuf
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
 //                 Chaitanya Kamatham <https://github.com/kamthamc>
-//                 Austin Bonander <https://github.com/abonander>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;

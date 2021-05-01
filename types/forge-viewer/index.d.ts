@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.40
+// Type definitions for non-npm package Forge Viewer 7.42
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -409,7 +409,7 @@ declare namespace Autodesk {
           initViewerInstance(parentDiv: HTMLDivElement, options?: AggregatedViewInitOptions): void;
           isBimWalkActive(): boolean;
           isEmpty(): boolean;
-          isLoadDone(): boolean;
+          isLoadDone(checkTextures?: boolean): boolean;
           isOtgManifestMissing(bubbleNode: BubbleNode): boolean;
           isVisible(node: BubbleNode): boolean;
           load(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
@@ -605,10 +605,24 @@ declare namespace Autodesk {
             enumNodeFragments(node: any, callback: (fragId: number) => void, recursive?: boolean): void;
             getChildCount(dbId: number): number;
             getNodeBox(dbId: number, nodeBox: Float32Array): void;
+            getNodeIndex(dbId: number): number;
+            getNodeName(dbId: number): string;
             getNodeParentId(dbId: number): number;
+            getNodeType(dbId: number): number;
             getRootId(): number;
+            isNodeExplodeLocked(dbId: number): boolean;
+            isNodeHidden(dbId: number): boolean;
+            isNodeOff(dbId: number): boolean;
+            isNodeSelectable(dbId: number): boolean;
+            isNodeSelectionLocked(dbId: number): boolean;
+            isNodeVisibleLocked(dbId: number): boolean;
+            lockNodeExplode(dbId: number, value: boolean): boolean;
+            lockNodeSelection(dbId: number, value: boolean): boolean;
+            lockNodeVisible(dbId: number, value: boolean): boolean;
             setFlagGlobal(flag: any, value: any): void;
             setFlagNode(dbId: number, flag: any, value: any): boolean;
+            setNodeHidden(dbId: number, flag: any, value: boolean): boolean;
+            setNodeOff(dbId: number, flag: any, value: boolean): boolean;
         }
 
         class InstanceTreeAccess {
@@ -849,8 +863,8 @@ declare namespace Autodesk {
             setIsLocked(state: boolean): boolean;
         }
 
-        interface ToolInterface {
-            getCursor?(): string;
+        class ToolInterface {
+            getCursor(): string;
             getName(): string;
             getNames(): string[];
             register(): void;
@@ -858,19 +872,19 @@ declare namespace Autodesk {
             activate(name: string, viewerApi?: GuiViewer3D): void;
             deactivate(name: string): void;
             update(highResTimestamp?: number): boolean;
-            handleSingleClick?(event: MouseEvent, button: number): boolean;
-            handleDoubleClick?(event: MouseEvent, button: number): boolean;
-            handleSingleTap?(event: Event): boolean;
-            handleDoubleTap?(event: Event): boolean;
-            handleKeyDown?(event: KeyboardEvent, keyCode: number): boolean;
-            handleKeyUp?(event: KeyboardEvent, keyCode: number): boolean;
-            handleWheelInput?(delta: number): boolean;
-            handleButtonDown?(event: MouseEvent, button: number): boolean;
-            handleButtonUp?(event: MouseEvent, button: number): boolean;
-            handleMouseMove?(event: MouseEvent): boolean;
-            handleGesture?(event: Event): boolean;
-            handleBlur?(event: Event): boolean;
-            handleResize?(): void;
+            handleSingleClick(event: MouseEvent, button: number): boolean;
+            handleDoubleClick(event: MouseEvent, button: number): boolean;
+            handleSingleTap(event: Event): boolean;
+            handleDoubleTap(event: Event): boolean;
+            handleKeyDown(event: KeyboardEvent, keyCode: number): boolean;
+            handleKeyUp(event: KeyboardEvent, keyCode: number): boolean;
+            handleWheelInput(delta: number): boolean;
+            handleButtonDown(event: MouseEvent, button: number): boolean;
+            handleButtonUp(event: MouseEvent, button: number): boolean;
+            handleMouseMove(event: MouseEvent): boolean;
+            handleGesture(event: Event): boolean;
+            handleBlur(event: Event): boolean;
+            handleResize(): void;
         }
 
         class UnifiedCamera extends THREE.Camera {
@@ -1238,7 +1252,7 @@ declare namespace Autodesk {
                 enableMSDFText?: boolean;
                 enableTextSearch?: boolean;
                 useTextLayer?: boolean;
-              })
+              });
             }
 
             class PDFLoader {
@@ -1983,6 +1997,7 @@ declare namespace Autodesk {
     namespace DataVisualization {
       namespace Core {
         const MOUSE_CLICK = 'DATAVIZ_OBJECT_CLICK';
+        const MOUSE_CLICK_OUT = 'DATAVIZ_CLICK_OUT';
         const MOUSE_HOVERING = 'DATAVIZ_OBJECT_HOVERING';
 
         enum ViewableType {
@@ -2020,13 +2035,24 @@ declare namespace Autodesk {
           constructor(id: number, name: string, bounds: THREE.Box3);
 
           get bounds(): THREE.Box3;
-          get devices(): object[];
+          get devices(): RoomDevice[];
           get id(): number;
           get info(): { properties: any[] };
           set info(value: { properties: any[] });
           get name(): string;
 
-          addDevice(device: object): void;
+          addDevice(device: RoomDevice): void;
+        }
+
+        class RoomDevice {
+          id: string;
+          position: {
+            x: number;
+            y: number;
+            z: number;
+          };
+          sensorTypes: string[];
+          type: string;
         }
 
         class SpriteViewable extends CustomViewable {
@@ -2306,6 +2332,148 @@ declare namespace Autodesk {
     }
 
     namespace Extensions {
+      namespace CompGeom {
+        const DefaultTessParams: {
+          minSegLenFraction: number;
+          numIterations: number;
+        };
+        const ONE_INTERSECTION: number;
+        const OVERLAP: number;
+        const TOL: number;
+        const VERSION: string;
+
+        function angleInsideArc(angle: number, start: number, end: number, ccw?: boolean): boolean;
+        function angleInsideArcCCW(angle: number, start: number, end: number): boolean;
+        function convertToPlaneCoords(planeBasis: any, edges3d: any[], bbox: THREE.Box3): void;
+        function getAngleDelta(startAngle: number, endAngle: number, ccw: boolean): number;
+        function getCubeBezierPoint(t: number, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          px4: number, py4: number,
+          optionalTarget?: THREE.Vector2): any;
+        function getEllipseArcPoint(t: number, cx: number, cy: number, rx: number, ry: number, startAngle: number, endAngle: number, rotation?: number, target?: THREE.Vector2): THREE.Vector2;
+        function getEllipsePoint(angle: number, cx: number, cy: number, rx: number, ry: number, rotation?: number, target?: THREE.Vector2): THREE.Vector2;
+        function isEqual(a: number, b: number): boolean;
+        function isZero(f: number): boolean;
+        function makePlaneBasis(plane: THREE.Plane): any;
+        function normalizeAngle(angle: number): number;
+        function pointOnLine(x: number, y: number, e: any, checkInsideSegment: boolean, precisionDistance: number, outPt?: any): boolean;
+        function polygonArea(pts: Array<{ x: number; y: number; }>): number;
+        function segmentsIntersect(e1: any, e2: any, precisionDistance: number): any;
+        function SetTesselationParams(minSegLenFraction: number, numIterations: number): void;
+        function TesselateCubic(ctx: any, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          px4: number, py4: number,
+          maxdim?: number, tessParams?: any, isFont?: boolean): void;
+        function TesselateQuad(ctx: any, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          maxdim?: number, tessParams?: any, isFont?: boolean): void;
+        function xBoxBox(minx1: number, miny1: number, maxx1: number, maxy1: number, minx2: number, miny2: number, maxx2: number, maxy2: number): boolean;
+        function xBoxPlane(plane: THREE.Plane, box: THREE.Box3): boolean;
+        function xLineBox(x0: number, y0: number, x1: number, y1: number, xmin: number, ymin: number, xmax: number, ymax: number): boolean;
+        function xMeshPlane(plane: THREE.Plane, mesh: THREE.Mesh, intersects: any[]): void;
+        function xPlaneSegment(plane: THREE.Plane, pt0: THREE.Vector3, pt1: THREE.Vector3, res1: THREE.Vector3, res2: THREE.Vector3): number;
+        function xTrianglePlane(plane: THREE.Plane, pt0: THREE.Vector3, pt1: THREE.Vector3, pt2: THREE.Vector3, i0: any, i1: any, i2: any, res: THREE.Vector3, meshId: any): void;
+
+        class ComplexPolygon {
+          constructor(uniquePoints: THREE.Vector3[], customInsideChecker?: any, bbox?: THREE.Box3);
+
+          addContour(indices: number[]): void;
+          pointInContour(x: number, y: number, cntr: number[]): boolean;
+          pointInPolygon(x: number, y: number): boolean;
+          triangulate(): void;
+        }
+
+        class ContourSet {
+          constructor();
+
+          addContour(verts: any[], skipZeroAreas: boolean): void;
+          addContourSet(cset: ContourSet): void;
+          area(): number;
+          areaNet(): number;
+          containsPointFrom(cs2: ContourSet): boolean;
+          getThemeColor(): { r: number; g: number; b: number; };
+          hash(): string;
+          perimeter(): number;
+          stitchContours(): void;
+          toExtrudedMesh(thickness: number): any;
+          toPolygonMesh(packNormals: boolean): any;
+          triangulate(customInsideChecker?: any): void;
+        }
+
+        class EdgeSet {
+          constructor(edges: any[], bbox: THREE.Box3, precisionTolerance: number);
+
+          snapEdges(): void;
+          sanitizeEdges(): void;
+          stitchContours(): void;
+          triangulate(): void;
+        }
+
+        class EllipseArc {
+          cx: number;
+          cy: number;
+          rx: number;
+          ry: number;
+          rotation: number;
+          startAngle: number;
+          endAngle: number;
+          ccw: boolean;
+
+          constructor(cx: number, cy: number, rx: number, ry: number, rotation: number, startAngle: number, endAngle: number, ccw: boolean);
+
+          computeBBox(targetBox: THREE.Box2): THREE.Box2;
+          getAngleDelta(): number;
+          getPoint(t: number, target: THREE.Vector2): THREE.Vector2;
+          isValid(): boolean;
+          set(cx: number, cy: number, rx: number, ry: number, rotation: number, startAngle: number, endAngle: number, ccw: boolean): EllipseArc;
+          setFromSvgArc(rx: number, ry: number,
+            xAxisRotation: number,
+            largeArcFlag: boolean,
+            sweepFlag: boolean,
+            start: { x: number; y: number; },
+            end: { x: number; y: number; }): EllipseArc;
+          tesselate(ctx: Path2D | LmvCanvasContext, maxSegments: number, minSegmentLength: number): void;
+        }
+
+        class IntervalTree {
+        }
+
+        class LmvCanvasContext {
+        }
+
+        class Path2D {
+        }
+
+        class Point {
+        }
+
+        class PointError {
+        }
+
+        class QuadTree {
+        }
+
+        class Triangle {
+        }
+
+        class UniquePointList {
+        }
+      }
+
+      namespace DocumentBrowser {
+        class DocumentBrowser extends Viewing.Extension {
+          currNode: Viewing.BubbleNode;
+          geometries: Viewing.BubbleNode[];
+          rootNode: Viewing.BubbleNode;
+
+          loadNextModel(viewerConfig?: any, loadOptions?: any): void;
+          loadPrevModel(viewerConfig?: any, loadOptions?: any): void;
+        }
+      }
+
       namespace Measure {
         class MeasureExtension extends Viewing.Extension {
           activeStatus: boolean;

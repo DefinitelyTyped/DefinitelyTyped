@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactInputAttr, CarbonInputSize, SizingProps } from "../../../typings/shared";
+import { ReactInputAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "defaultValue" | "ref" | "size" | "value";
 
@@ -11,11 +11,11 @@ export interface SearchProps extends Omit<ReactInputAttr, ExcludedAttributes> {
      * @deprecated
      */
     placeHolderText?: string,
-    size?: CarbonInputSize,
+    size?: "sm" | "lg" | "xl",
     /**
      * @deprecated
      */
-    small?: SizingProps["small"],
+    small?: boolean,
     value?: string | number,
     light?: boolean,
 }
