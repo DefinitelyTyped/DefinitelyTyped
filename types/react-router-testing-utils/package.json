@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "serialize-query-params": "^1.3.3"
+    }
+}
