@@ -1834,7 +1834,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      * @param query The query for the count
      * @param options Optional settings
      * @param callback The command result callback
-     * @returns Promise if no callback passed
+     * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#count
      * @deprecated Use `countDocuments` or `estimatedDocumentCount`
      */
@@ -1849,7 +1849,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
      * @param query The query for the count
      * @param options Optional settings
      * @param callback The command result callback
-     * @returns Promise if no callback passed
+     * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#countDocuments
      */
     countDocuments(callback: MongoCallback<number>): void;
@@ -2313,7 +2313,7 @@ export interface Collection<TSchema extends { [key: string]: any } = DefaultSche
     /**
      * Get the list of all indexes information for the collection.
      *
-     * @param options Optional settings.
+     * @param options Optional settings
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html#listIndexes
      */
     listIndexes(options?: {
@@ -3963,7 +3963,7 @@ export class Cursor<T = Default> extends Readable {
      * @param value The modifier value.
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#addQueryModifier
      */
-    addQueryModifier(name: string, value: boolean|string|number): Cursor<T>;
+    addQueryModifier(name: string, value: boolean | string | number): Cursor<T>;
     /**
      * Set the batch size for the cursor.
      * The number of documents to return per batch. See {@link https://docs.mongodb.com/manual/reference/command/find/ find command documentation}.
@@ -3981,82 +3981,265 @@ export class Cursor<T = Default> extends Readable {
      *
      * @param options Optional settings
      * @param callback The result callback
+     * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#close
      */
     close(options: { skipKillCursors: boolean }, callback?: MongoCallback<number>): void;
     close(callback: MongoCallback<CursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#collation */
+    /**
+     * Set the collation options for the cursor.
+     *
+     * @param value The cursor collation options (MongoDB 3.4 or higher) settings for update operation (see 3.4 documentation for available fields).
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#collation
+     */
     collation(value: CollationDocument): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#comment */
+    /**
+     * Add a comment to the cursor query allowing for tracking the comment in the log.
+     *
+     * @param value The comment attached to this query.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#comment
+     */
     comment(value: string): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#count */
+    /**
+     * Get the count of documents for this cursor
+     *
+     * @param applySkipLimit Should the count command apply limit and skip settings on the cursor or in the passed in options.
+     * @param options Optional settings
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#count
+     */
     count(callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, callback: MongoCallback<number>): void;
     count(options: CursorCommentOptions, callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, options: CursorCommentOptions, callback: MongoCallback<number>): void;
     count(applySkipLimit?: boolean, options?: CursorCommentOptions): Promise<number>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#explain */
-    explain(): Promise<CursorResult>;
-    explain(callback: MongoCallback<CursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#filter */
+    /**
+     * Execute the explain for the cursor
+     * For backwards compatibility, a verbosity of true is interpreted as `allPlansExecution`
+     * and false as `queryPlanner`. Prior to server version 3.6, `aggregate()`
+     * ignores the verbosity parameter and executes in `queryPlanner`.
+     *
+     * @param verbosity An optional mode in which to run the explain.
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#explain
+     */
+    explain(verbosity?: string | boolean, callback?: MongoCallback<CursorResult>): Promise<CursorResult>;
+    explain(callback?: MongoCallback<CursorResult>): void;
+    /**
+     * Set the cursor query
+     *
+     * @param filter The filter object used for the cursor
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#filter
+     */
     filter(filter: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#forEach */
+    /**
+     * Iterates over all the documents for this cursor using the iterator, callback pattern.
+     *
+     * @param iterator The iteration callback
+     * @param callback The end callback
+     * @returns no callback supplied
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#forEach
+     */
     forEach(iterator: IteratorCallback<T>, callback: EndCallback): void;
     forEach(iterator: IteratorCallback<T>): Promise<void>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#hasNext */
+    /**
+     * Check if there is any document still available in the cursor
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#hasNext
+     */
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#hint */
+    /**
+     * Set the cursor hint
+     *
+     * @param hint If specified, then the query system will only consider plans using the hinted index.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#hint
+     */
     hint(hint: string | object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#isClosed */
+    /**
+     * Is the cursor closed
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#isClosed
+     */
     isClosed(): boolean;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#limit */
+    /**
+     * Set the limit for the cursor
+     *
+     * @param value The limit for the cursor query
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#limit
+     */
     limit(value: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#map */
+    /**
+     * Map all documents using the provided function
+     *
+     * @param transform The mapping transformation method
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#map
+     */
     map<U>(transform: (document: T) => U): Cursor<U>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#max */
+    /**
+     * Set the cursor max
+     *
+     * @param max Specify a $max value to specify the exclusive upper bound for a specific index in order to constrain the results of find().
+     * The $max specifies the upper bound for all keys of a specific index in order.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#max
+     */
     max(max: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxAwaitTimeMS */
+    /**
+     * Set a maxAwaitTimeMS on a tailing cursor query to allow to customize the timeout value for the option awaitData (Only supported on MongoDB 3.2 or higher, ignored otherwise)
+     *
+     * @param value Number of milliseconds to wait before aborting the tailed query
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxAwaitTimeMS
+     */
     maxAwaitTimeMS(value: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxScan */
+    /**
+     * Set the cursor maxScan
+     *
+     * @param maxScan Constrains the query to only scan the specified number of documents when fulfilling the query
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxScan
+     */
     maxScan(maxScan: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxTimeMS */
+    /**
+     * Set a maxTimeMS on the cursor query, allowing for hard timeout limits on queries (Only supported on MongoDB 2.6 or higher)
+     *
+     * @param value Number of milliseconds to wait before aborting the query.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#maxTimeMS
+     */
     maxTimeMS(value: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#min */
+    /**
+     * Set the cursor min
+     *
+     * @param min Specify a $min value to specify the inclusive lower bound for a specific index in order to constrain the results of find().
+     * The $min specifies the lower bound for all keys of a specific index in order.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#min
+     */
     min(min: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#next */
+    /**
+     * Get the next available document from the cursor, returns null if no more documents are available.
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#next
+     */
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#project */
+    /**
+     * Sets a field projection for the query
+     *
+     * @param value The field projection object
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#project
+     */
     project<U = T>(value: SchemaMember<T, ProjectionOperators | number | boolean | any>): Cursor<U>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#read */
-    read(size: number): string | Buffer | void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#returnKey */
+    /**
+     * The read() method pulls some data out of the internal buffer and returns it. If there is no data available, then it will return null.
+     *
+     * @param size Optional argument to specify how much data to read.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#read
+     */
+    read(size?: number): string | Buffer | void;
+    /**
+     * Set the cursor returnKey. If set to true, modifies the cursor to only return the index field or fields for the results of the query, rather than documents.
+     * If set to true and the query does not use an index to perform the read operation, the returned documents will not contain any fields.
+     *
+     * @param returnKey the returnKey value.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#returnKey
+     */
     returnKey(returnKey: boolean): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#rewind */
+    /**
+     * Resets the cursor
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#rewind
+     */
     rewind(): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#setCursorOption */
+    /**
+     * Set a node.js specific cursor option
+     *
+     * @param field The cursor option to set ['numberOfRetries', 'tailableRetryInterval'].
+     * @param value The field value
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#setCursorOption
+     */
     setCursorOption(field: string, value: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#setReadPreference */
+    /**
+     * Set the ReadPreference for the cursor.
+     *
+     * @param readPreference The new read preference for the cursor
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#setReadPreference
+     */
     setReadPreference(readPreference: ReadPreferenceOrMode): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#showRecordId */
+    /**
+     * Set the cursor showRecordId
+     *
+     * @param showRecordId The $showDiskLoc option has now been deprecated and replaced with the showRecordId field. $showDiskLoc will still be accepted for OP_QUERY stye find.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#showRecordId
+     */
     showRecordId(showRecordId: boolean): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#skip */
+    /**
+     * Set the skip for the cursor
+     *
+     * @param value The skip for the cursor query.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#skip
+     */
     skip(value: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#snapshot */
+    /**
+     * Set the cursor snapshot
+     *
+     * @param snapshot The $snapshot operator prevents the cursor from returning a document more than once because an intervening write operation results in a move of the document.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#snapshot
+     */
     snapshot(snapshot: object): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#sort */
+    /**
+     * Sets the sort order of the cursor query
+     *
+     * @param keyOrList The key or keys set for the sort
+     * @param direction The direction of the sorting (1 or -1).
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#sort
+     */
     sort(keyOrList: string | Array<[string, number]> | SortOptionObject<T>, direction?: number): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#stream */
+    /**
+     * Return a modified Readable stream including a possible transform method
+     *
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#stream
+     */
     stream(options?: { transform?: (document: T) => any }): Cursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#toArray */
+    /**
+     * Returns an array of documents. The caller is responsible for making sure that there
+     * is enough memory to store the results. Note that the array only contains partial
+     * results when this cursor had been previously accessed. In that case,
+     * `cursor.rewind()` can be used to reset the cursor.
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#toArray
+     */
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#unshift */
-    unshift(stream: Buffer | string): void;
+    /**
+     * Return a modified Readable stream that applies a given transform function, if supplied. If none supplied,
+     * returns a stream of unmodified docs.
+     *
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#transformStream
+     */
+    transformStream(options?: { transform?: (document: T) => any }): Cursor<T>;
+    /**
+     * This is useful in certain cases where a stream is being consumed by a parser,
+     * which needs to "un-consume" some data that it has optimistically pulled out of the source, so that the stream can be passed on to some other party.
+     *
+     * @param chunk Chunk of data to unshift onto the read queue.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#unshift
+     */
+    unshift(chunk: Buffer | string): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#count */
+/**
+ * Options for Cursor.count() operations.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#count
+ */
 export interface CursorCommentOptions {
     skip?: number;
     limit?: number;
@@ -4065,116 +4248,360 @@ export interface CursorCommentOptions {
     readPreference?: ReadPreferenceOrMode;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~iteratorCallback */
+/**
+ * The callback format for the forEach iterator method
+ *
+ * @param doc An emitted document for the iterator
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~iteratorCallback
+ */
 export interface IteratorCallback<T> {
     (doc: T): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~endCallback */
+/**
+ * The callback error format for the forEach iterator method
+ *
+ * @param error An error instance representing the error during the execution.
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#~endCallback
+ */
 export interface EndCallback {
     (error: MongoError): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#~resultCallback */
+/**
+ * Returning object for the AggregationCursor result callback
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#~resultCallback
+ */
 export type AggregationCursorResult = object | null;
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html */
+/**
+ * Creates a new Aggregation Cursor instance (INTERNAL TYPE, do not instantiate directly)
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html
+ */
 export class AggregationCursor<T = Default> extends Cursor<T> {
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#batchSize */
+    /**
+     * Set the batch size for the cursor
+     *
+     * @param value The number of documents to return per batch. See {@link https://docs.mongodb.com/manual/reference/command/aggregate aggregation documentation}.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#batchSize
+     */
     batchSize(value: number): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#clone */
+    /**
+     * Clone the cursor
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#clone
+     */
     clone(): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#close */
+    /**
+     * Close the cursor, sending a AggregationCursor command and emitting close.
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#close
+     */
     close(): Promise<AggregationCursorResult>;
     close(callback: MongoCallback<AggregationCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#each */
+    /**
+     * Iterates over all the documents for this cursor. As with `cursor.toArray()`,
+     * not all of the elements will be iterated if this cursor had been previously accessed.
+     * In that case, `cursor.rewind()` can be used to reset the cursor. However, unlike
+     * `cursor.toArray()`, the cursor will only hold a maximum of batch size elements
+     * at any given time if batch size is specified. Otherwise, the caller is responsible
+     * for making sure that the entire result can fit the memory.
+     *
+     * @param callback The result callback
+     * @deprecated use AggregationCursor.forEach() instead
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#each
+     */
     each(callback: MongoCallback<AggregationCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#explain */
-    explain(): Promise<AggregationCursorResult>;
-    explain(callback: MongoCallback<AggregationCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#geoNear */
+    /**
+     * Execute the explain for the cursor.
+     * For backwards compatibility, a verbosity of true is interpreted as `allPlansExecution`
+     * and false as `queryPlanner`. Prior to server version 3.6, `aggregate()`
+     * ignores the verbosity parameter and executes in `queryPlanner`.
+     *
+     * @param verbosity An optional mode in which to run the explain
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#explain
+     */
+    explain(
+        verbosity?: string | boolean,
+        callback?: MongoCallback<AggregationCursorResult>,
+    ): Promise<AggregationCursorResult>;
+    explain(callback?: MongoCallback<AggregationCursorResult>): void;
+    /**
+     * Add a geoNear stage to the aggregation pipeline
+     *
+     * @param document The geoNear stage document
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#geoNear
+     */
     geoNear(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#group */
+    /**
+     * Add a group stage to the aggregation pipeline
+     *
+     * @param document The group stage document
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#group
+     */
     group<U = T>(document: object): AggregationCursor<U>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#hasNext */
+    /**
+     * Check if there is any document still available in the cursor
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#hasNext
+     */
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#isClosed */
+    /**
+     * Is the cursor closed
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#isClosed
+     */
     isClosed(): boolean;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#limit */
+    /**
+     * Add a limit stage to the aggregation pipeline
+     *
+     * @param limit The state limit value
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#limit
+     */
     limit(value: number): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#lookup */
+    /**
+     * Add a lookup stage to the aggregation pipeline
+     *
+     * @param document The lookup stage document
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#lookup
+     */
     lookup(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#match */
+    /**
+     * Add a match stage to the aggregation pipeline
+     *
+     * @param document The match stage document
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#match
+     */
     match(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#maxTimeMS */
+    /**
+     * Add a maxTimeMS stage to the aggregation pipeline
+     *
+     * @param value The state maxTimeMS value
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#maxTimeMS
+     */
     maxTimeMS(value: number): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#next */
+    /**
+     * Get the next available document from the cursor, returns null if no more documents are available
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#next
+     */
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#out */
+    /**
+     * Add a out stage to the aggregation pipeline
+     *
+     * @param destination The destination name
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#out
+     */
     out(destination: string): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#project */
+    /**
+     * Add a project stage to the aggregation pipeline
+     *
+     * @param document The project stage document
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#project
+     */
     project<U = T>(document: object): AggregationCursor<U>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#read */
+    /**
+     * The `read()` method pulls some data out of the internal buffer and returns it. If there is no data available, then it will return null.
+     *
+     * @param size Optional argument to specify how much data to read
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#read
+     */
     read(size: number): string | Buffer | void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#redact */
+    /**
+     * Add a redact stage to the aggregation pipeline
+     *
+     * @param document The redact stage document.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#redact
+     */
     redact(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#rewind */
+    /**
+     * Resets the cursor
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#rewind
+     */
     rewind(): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#setEncoding */
+    /**
+     * Add a skip stage to the aggregation pipeline
+     *
+     * @param value The state skip value
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#setEncoding
+     */
     skip(value: number): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#sort */
+    /**
+     * Add a sort stage to the aggregation pipeline
+     *
+     * @param document The sort stage document
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#sort
+     */
     sort(document: object): AggregationCursor<T>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#toArray */
+    /**
+     * Returns an array of documents. The caller is responsible for making sure that there
+     * is enough memory to store the results. Note that the array only contain partial
+     * results when this cursor had been previously accessed. In that case,
+     * `cursor.rewind()` can be used to reset the cursor.
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#toArray
+     */
     toArray(): Promise<T[]>;
     toArray(callback: MongoCallback<T[]>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#unshift */
-    unshift(stream: Buffer | string): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#unwind */
+    /**
+     * This is useful in certain cases where a stream is being consumed by a parser, which needs to "un-consume" some data that it has optimistically
+     * pulled out of the source, so that the stream can be passed on to some other party.
+     *
+     * @param chunk Chunk of data to unshift onto the read queue
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#unshift
+     */
+    unshift(chunk: Buffer | string): void;
+    /**
+     * Add a unwind stage to the aggregation pipeline
+     *
+     * @param field The unwind field name or stage document.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#unwind
+     */
     unwind<U = T>(
         field: string | { path: string; includeArrayIndex?: string; preserveNullAndEmptyArrays?: boolean },
     ): AggregationCursor<U>;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#~resultCallback */
+/**
+ * Result object from CommandCursor.resultCallback
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#~resultCallback
+ */
 export type CommandCursorResult = object | null;
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html */
+/**
+ * Creates a new Command Cursor instance (INTERNAL TYPE, do not instantiate directly)
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html
+ */
 export class CommandCursor extends Readable {
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#hasNext */
-    hasNext(): Promise<boolean>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#hasNext */
-    hasNext(callback: MongoCallback<boolean>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#batchSize */
+    /**
+     * Set the batch size for the cursor.
+     *
+     * @param value The number of documents to return per batch. See {@link https://docs.mongodb.com/manual/reference/command/find/ find command documentation}.
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#batchSize
+     */
     batchSize(value: number): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#clone */
+    /**
+     * Clone the cursor
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#clone
+     */
     clone(): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#close */
+    /**
+     * Close the cursor, sending a KillCursor command and emitting close.
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#close
+     */
     close(): Promise<CommandCursorResult>;
     close(callback: MongoCallback<CommandCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#each */
+    /**
+     * Iterates over all the documents for this cursor. As with `cursor.toArray()`,
+     * not all of the elements will be iterated if this cursor had been previously accessed.
+     * In that case, `cursor.rewind()` can be used to reset the cursor. However, unlike
+     * `cursor.toArray()`, the cursor will only hold a maximum of batch size elements
+     * at any given time if batch size is specified. Otherwise, the caller is responsible
+     * for making sure that the entire result can fit the memory.
+     *
+     * @param callback The result callback
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#each
+     */
     each(callback: MongoCallback<CommandCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#isClosed */
+    /**
+     * Check if there is any document still available in the cursor
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#hasNext
+     */
+    hasNext(): Promise<boolean>;
+    hasNext(callback: MongoCallback<boolean>): void;
+    /**
+     * Is the cursor closed
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#isClosed
+     */
     isClosed(): boolean;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#maxTimeMS */
+    /**
+     * Add a maxTimeMS stage to the aggregation pipeline
+     *
+     * @param value The state maxTimeMS value
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#maxTimeMS
+     */
     maxTimeMS(value: number): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#next */
+    /**
+     * Get the next available document from the cursor, returns null if no more documents are available.
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#next
+     */
     next(): Promise<CommandCursorResult>;
     next(callback: MongoCallback<CommandCursorResult>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#read */
+    /**
+     * The `read()` method pulls some data out of the internal buffer and returns it. If there is no data available, then it will return null.
+     *
+     * @param size Optional argument to specify how much data to read
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#read
+     */
     read(size: number): string | Buffer | void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#rewind */
+    /**
+     * Resets the cursor
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#rewind
+     */
     rewind(): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#setReadPreference */
+    /**
+     * Set the ReadPreference for the cursor
+     *
+     * @param readPreference The new read preference for the cursor
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#setReadPreference
+     */
     setReadPreference(readPreference: ReadPreferenceOrMode): CommandCursor;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#toArray */
+    /**
+     * Returns an array of documents. The caller is responsible for making sure that there
+     * is enough memory to store the results. Note that the array only contain partial
+     * results when this cursor had been previously accessed.
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#toArray
+     */
     toArray(): Promise<any[]>;
     toArray(callback: MongoCallback<any[]>): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#unshift */
-    unshift(stream: Buffer | string): void;
+    /**
+     * This is useful in certain cases where a stream is being consumed by a parser, which needs to "un-consume" some data that it has
+     * optimistically pulled out of the source, so that the stream can be passed on to some other party.
+     *
+     * @param chunk Chunk of data to unshift onto the read queue
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/CommandCursor.html#unshift
+     */
+    unshift(chunk: Buffer | string): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html */
-export class GridFSBucket {
+/**
+ * Constructor for a streaming GridFS interface
+ *
+ * @param db A db handle
+ * @param options Optional settings
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html
+ */
+export class GridFSBucket extends EventEmitter {
     constructor(db: Db, options?: GridFSBucketOptions);
     /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#delete */
     delete(id: ObjectId, callback?: GridFSBucketErrorCallback): void;
