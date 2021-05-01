@@ -96,7 +96,7 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
             type: 'select',
             name: 'subchoices',
             message: 'optionception!',
-            choices: (prev) => { 
+            choices: (prev) => {
                 return [
                     {
                         value: prev + 'A',
