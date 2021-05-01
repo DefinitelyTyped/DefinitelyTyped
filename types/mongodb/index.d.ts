@@ -4603,32 +4603,93 @@ export class CommandCursor extends Readable {
  */
 export class GridFSBucket extends EventEmitter {
     constructor(db: Db, options?: GridFSBucketOptions);
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#delete */
+    /**
+     * Deletes a file with the given id
+     *
+     * @param id The id of the file doc
+     * @param callback The result callback
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#delete
+     */
     delete(id: ObjectId, callback?: GridFSBucketErrorCallback): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#drop */
+    /**
+     * Removes this bucket's files collection, followed by its chunks collection
+     *
+     * @param callback The result callback
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#drop
+     */
     drop(callback?: GridFSBucketErrorCallback): void;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#find */
-    find(filter?: object, options?: GridFSBucketFindOptions): Cursor<any>;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openDownloadStream */
+    /**
+     * Convenience wrapper around find on the files collection
+     *
+     * @param filter The filter object used to find items inside the bucket
+     * @param options Optional settings for cursor
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#find
+     */
+    find(filter: object, options?: GridFSBucketFindOptions): Cursor<any>;
+    /**
+     * Returns a readable stream (GridFSBucketReadStream) for streaming file data from GridFS.
+     *
+     * @param id The id of the file doc
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openDownloadStream
+     */
     openDownloadStream(id: ObjectId, options?: { start: number; end: number }): GridFSBucketReadStream;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openDownloadStreamByName */
+    /**
+     * Returns a readable stream ({@link https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketReadStream.html GridFSBucketReadStream}) for streaming the
+     * file with the given name from GridFS. If there are multiple files with
+     * the same name, this will stream the most recent file with the given name
+     * (as determined by the `uploadDate` field). You can set the `revision`
+     * option to change this behavior.
+     *
+     * @param filename The name of the file to stream
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openDownloadStreamByName
+     */
     openDownloadStreamByName(
         filename: string,
         options?: { revision: number; start: number; end: number },
     ): GridFSBucketReadStream;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStream */
+    /**
+     * Returns a writable stream (GridFSBucketWriteStream) for writing
+     * buffers to GridFS. The stream's `id` property contains the resulting
+     * file's id.
+     *
+     * @param filename The value of the `filename` key in the files doc
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStream
+     */
     openUploadStream(filename: string, options?: GridFSBucketOpenUploadStreamOptions): GridFSBucketWriteStream;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStreamWithId */
+    /**
+     * Returns a writable stream ({@link https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html GridFSBucketWriteStream}) for writing
+     * buffers to GridFS for a custom file id. The stream's `id` property contains the resulting
+     * file's id.
+     *
+     * @param id A custom id used to identify the file
+     * @param filename The value of the `filename` key in the files doc
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStreamWithId
+     */
     openUploadStreamWithId(
         id: GridFSBucketWriteStreamId,
         filename: string,
         options?: GridFSBucketOpenUploadStreamOptions,
     ): GridFSBucketWriteStream;
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#rename */
+    /**
+     * Renames the file with the given _id to the given string
+     *
+     * @param id The id of the file to rename
+     * @param filename New name for the file
+     * @param callback The result callback
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#rename
+     */
     rename(id: ObjectId, filename: string, callback?: GridFSBucketErrorCallback): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html */
+/**
+ * Options for creating a new GridFSBucket
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html
+ */
 export interface GridFSBucketOptions {
     bucketName?: string;
     chunkSizeBytes?: number;
@@ -4636,10 +4697,18 @@ export interface GridFSBucketOptions {
     readPreference?: ReadPreferenceOrMode;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#~errorCallback */
+/**
+ * Callback format for all GridFSBucket methods that can accept a callback.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#~errorCallback
+ */
 export interface GridFSBucketErrorCallback extends MongoCallback<void> {}
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#find */
+/**
+ * Options for GridFSBucket.find() operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#find
+ */
 export interface GridFSBucketFindOptions {
     batchSize?: number;
     limit?: number;
@@ -4649,7 +4718,11 @@ export interface GridFSBucketFindOptions {
     sort?: object;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStream */
+/**
+ * Options for GridFSBucket.openUploadStream() operations
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStream
+ */
 export interface GridFSBucketOpenUploadStreamOptions {
     chunkSizeBytes?: number;
     metadata?: object;
@@ -4657,7 +4730,17 @@ export interface GridFSBucketOpenUploadStreamOptions {
     aliases?: string[];
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketReadStream.html */
+/**
+ * A readable stream that enables you to read buffers from GridFS.
+ * Do not instantiate this class directly. Use {@link https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openDownloadStream openDownloadStream()} instead.
+ *
+ * @param chunks Handle for chunks collection
+ * @param files Handle for files collection
+ * @param readPreference The read preference to use
+ * @param filter The query to use to find the file document
+ * @param options Optional settings
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketReadStream.html
+ */
 export class GridFSBucketReadStream extends Readable {
     id: ObjectId;
     constructor(
@@ -4669,7 +4752,11 @@ export class GridFSBucketReadStream extends Readable {
     );
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketReadStream.html */
+/**
+ * Options for creating a new GridFSBucketReadStream
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketReadStream.html
+ */
 export interface GridFSBucketReadStreamOptions {
     sort?: number;
     skip?: number;
@@ -4677,7 +4764,15 @@ export interface GridFSBucketReadStreamOptions {
     end?: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html */
+/**
+ * A writable stream that enables you to write buffers to GridFS.
+ * Do not instantiate this class directly. Use {@link https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucket.html#openUploadStream openUploadStream()} instead.
+ *
+ * @param bucket Handle for this stream's corresponding bucket
+ * @param filename The value of the `filename` key in the files doc
+ * @param options Optional settings
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html
+ */
 export class GridFSBucketWriteStream extends Writable {
     id: GridFSBucketWriteStreamId;
     constructor(bucket: GridFSBucket, filename: string, options?: GridFSBucketWriteStreamOptions);
@@ -4685,13 +4780,18 @@ export class GridFSBucketWriteStream extends Writable {
     /**
      * Places this write stream into an aborted state (all future writes fail)
      * and deletes all chunks that have already been written.
-     * @param [callback] called when chunks are successfully removed or error occurred
+     *
+     * @param callback called when chunks are successfully removed or error occurred
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html#abort
      */
     abort(callback?: GridFSBucketErrorCallback): void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html */
+/**
+ * Options for creating a new GridFSBucketWriteStream
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/GridFSBucketWriteStream.html
+ */
 export interface GridFSBucketWriteStreamOptions extends WriteConcern {
     /**
      * Custom file id for the GridFS file.
@@ -4754,15 +4854,55 @@ declare class TypedEventEmitter<Events> {
     setMaxListeners(maxListeners: number): this;
 }
 
+/**
+ * Events emitted by ChangeStream instances
+ */
 interface ChangeStreamEvents<TSchema extends { [key: string]: any } = DefaultSchema> {
+    /**
+     * Fired for each new matching change in the specified namespace. Attaching a `change`
+     * event listener to a Change Stream will switch the stream into flowing mode. Data will
+     * then be passed as soon as it is available.
+     *
+     * @param doc The changed document
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#event:change
+     */
     change: (doc: ChangeEvent<TSchema>) => void;
+    /**
+     * Change stream close event
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#event:close
+     */
     close: () => void;
+    /**
+     * Change stream end event
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#event:end
+     */
     end: () => void;
+    /**
+     * Fired when the stream encounters an error
+     *
+     * @param error The error encountered
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#event:error
+     */
     error: (err: MongoError) => void;
+    /**
+     * Emitted each time the change stream stores a new resume token.
+     *
+     * @param newToken The new resume token
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#event:resumeTokenChanged
+     */
     resumeTokenChanged: (newToken: ResumeToken) => void;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html */
+/**
+ * Creates a new Change Stream instance. Normally created using `Collection.watch()`.
+ *
+ * @param parent The parent object that created this change stream
+ * @param pipeline An array of {@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/ aggregation pipeline stages} through which to pass change stream documents
+ * @param options Optional settings
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html
+ */
 export class ChangeStream<TSchema extends { [key: string]: any } = DefaultSchema> extends TypedEventEmitter<
     ChangeStreamEvents<TSchema>
 > {
@@ -4770,22 +4910,49 @@ export class ChangeStream<TSchema extends { [key: string]: any } = DefaultSchema
 
     constructor(parent: MongoClient | Db | Collection, pipeline: object[], options?: ChangeStreamOptions);
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#close */
+    /**
+     * Close the Change Stream
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#close
+     */
     close(): Promise<any>;
     close(callback: MongoCallback<any>): void;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#hasNext */
+    /**
+     * Check if there is any document still available in the Change Stream
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#hasNext
+     */
     hasNext(): Promise<any>;
     hasNext(callback: MongoCallback<any>): void;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#isClosed */
+    /**
+     * Is the change stream closed
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#isClosed
+     */
     isClosed(): boolean;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#next */
+    /**
+     * Get the next available document from the Change Stream, returns null if no more documents are available.
+     *
+     * @param callback The result callback
+     * @returns Promise if no callback is passed
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#next
+     */
     next(): Promise<any>;
     next(callback: MongoCallback<any>): void;
 
-    /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#stream */
+    /**
+     * Return a modified Readable stream including a possible transform method
+     *
+     * @param options Optional settings
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/ChangeStream.html#stream
+     */
     stream(options?: { transform?: Function }): Cursor;
 }
 
@@ -4878,7 +5045,12 @@ export type ChangeEvent<TSchema extends object = { _id: ObjectId }> =
     | ChangeEventOther<TSchema>
     | ChangeEventInvalidate<TSchema>;
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#ChangeStreamOptions */
+/**
+ * Options that can be passed to a `ChangeStream`.
+ * Note that `startAfter`, `resumeAfter`, and `startAtOperationTime` are all mutually exclusive, and the server will error if more than one is specified.
+ *
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/global.html#ChangeStreamOptions
+ */
 export interface ChangeStreamOptions {
     fullDocument?: "default" | "updateLookup";
     maxAwaitTimeMS?: number;
@@ -4913,62 +5085,100 @@ export interface LoggerState {
     date: number;
 }
 
-/** @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html */
+/**
+ * Creates a new Logger instance
+ *
+ * @param className The Class name associated with the logging instance
+ * @param options Optional settings
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html
+ */
 export class Logger {
     constructor(className: string, options?: LoggerOptions);
     /**
      * Log a message at the debug level
+     *
+     * @param message The message to log
+     * @param object Additional meta data to log
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#debug
      */
-    debug(message: string, state: LoggerState): void;
-    /**
-     * Log a message at the warn level
-     */
-    warn(message: string, state: LoggerState): void;
-    /**
-     * Log a message at the info level
-     */
-    info(message: string, state: LoggerState): void;
+    debug(message: string, object: LoggerState): void;
     /**
      * Log a message at the error level
+     *
+     * @param message The message to log
+     * @param object Additional meta data to log
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#error
      */
-    error(message: string, state: LoggerState): void;
+    error(message: string, object: LoggerState): void;
+    /**
+     * Log a message at the info level
+     *
+     * @param message The message to log
+     * @param object Additional meta data to log
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#info
+     */
+    info(message: string, object: LoggerState): void;
+    /**
+     * Is the logger set at debug level
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#isDebug
+     */
+    isDebug(): boolean;
+    /**
+     * Is the logger set at error level
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#isError
+     */
+    isError(): boolean;
     /**
      * Is the logger set at info level
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#isInfo
      */
     isInfo(): boolean;
     /**
      * Is the logger set at error level
-     */
-    isError(): boolean;
-    /**
-     * Is the logger set at error level
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#isWarn
      */
     isWarn(): boolean;
     /**
-     * Is the logger set at debug level
-     */
-    isDebug(): boolean;
-    /**
      * Resets the logger to default settings, error and no filtered classes
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#.reset
      */
     static reset(): void;
     /**
      * Get the current logger function
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#.currentLogger
      */
     static currentLogger(): log;
-    //Set the current logger function
+    /**
+     * Set the current logger function
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#.setCurrentLogger
+     */
     static setCurrentLogger(log: log): void;
     /**
      * Set what classes to log.
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#.filter
      */
     static filter(type: string, values: string[]): void;
     /**
      * Set the current log level
+     *
+     * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Logger.html#.setLevel
      */
     static setLevel(level: string): void;
 }
 
-/** @see https://docs.mongodb.com/v3.6/reference/collation/#collation-document-fields */
+/**
+ * Possible fields for a collation document
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/collation/#collation-document-fields
+ */
 export interface CollationDocument {
     locale: string;
     strength?: number;
@@ -4981,7 +5191,11 @@ export interface CollationDocument {
     normalization?: boolean;
 }
 
-/** @see https://docs.mongodb.com/v3.6/reference/command/createIndexes/ */
+/**
+ * Possible indexes to create inside a collection
+ *
+ * @see https://docs.mongodb.com/v3.6/reference/command/createIndexes/
+ */
 export interface IndexSpecification {
     key: object;
     name?: string;
