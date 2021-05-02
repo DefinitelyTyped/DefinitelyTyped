@@ -1,6 +1,6 @@
 // Type definitions for swagger-ui 3.47
 // Project: https://github.com/swagger-api/swagger-ui
-// Definitions by: Julian Pfeil <https://github.com/juarrow/>
+// Definitions by: Julian Pfeil <https://github.com/juarrow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = SwaggerUI;
