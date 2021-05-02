@@ -1,4 +1,5 @@
 import * as L from 'leaflet';
+import { Popup } from 'leaflet';
 
 const latLngLiteral: L.LatLngLiteral = { lat: 12, lng: 13 };
 const latLngTuple: L.LatLngTuple = [12, 13];
@@ -376,7 +377,7 @@ videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
     autoplay: true
 });
 
-const eventHandler = () => { };
+const eventHandler = () => {};
 const leafletMouseEvent: L.LeafletMouseEvent = {} as L.LeafletMouseEvent;
 const leafletKeyboardEvent: L.LeafletKeyboardEvent = {} as L.LeafletKeyboardEvent;
 const leafletEvent: L.LeafletEvent = {} as L.LeafletEvent;
@@ -817,3 +818,20 @@ export class ExtendedTileLayer extends L.TileLayer {
         }
     }
 }
+
+export class ExtendedPopup extends Popup {
+    _initLayout() {
+        const prefix = 'leaflet-popup';
+        const container = this._container = L.DomUtil.create('div',
+            prefix + ' ' + (this.options.className || '') +
+            ' leaflet-zoom-animated');
+
+        const wrapper = L.DomUtil.create('div', prefix + '-content-wrapper', container);
+        this._contentNode = L.DomUtil.create('div', prefix + '-content', wrapper);
+
+        L.DomEvent.disableClickPropagation(container);
+        L.DomEvent.disableScrollPropagation(this._contentNode);
+        L.DomEvent.on(container, 'contextmenu', L.DomEvent.stopPropagation);
+    }
+}
+
