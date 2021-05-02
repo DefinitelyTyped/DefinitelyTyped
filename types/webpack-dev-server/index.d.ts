@@ -355,6 +355,7 @@ declare module 'webpack' {
 }
 
 declare class WebpackDevServer {
+    listeningApp: WebpackDevServer.ListeningApp;
     sockets: NodeJS.EventEmitter[];
 
     constructor(webpack: webpack.Compiler | webpack.MultiCompiler, config?: WebpackDevServer.Configuration);
