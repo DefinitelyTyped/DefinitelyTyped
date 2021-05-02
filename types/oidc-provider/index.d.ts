@@ -184,6 +184,7 @@ declare class Interaction extends BaseModel {
     trusted?: string[];
     uid: string;
     lastSubmission?: InteractionResults;
+    grantId?: string;
 
     save(ttl: number): Promise<string>;
     persist(): Promise<string>;
