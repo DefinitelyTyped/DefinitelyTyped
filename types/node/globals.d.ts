@@ -473,6 +473,14 @@ declare namespace NodeJS {
         stack?: string;
     }
 
+    interface HttpClientException extends Error {
+        address?: string;
+        errno?: number;
+        code?: string;
+        port?: number;
+        syscall?: string;
+    }
+
     interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
