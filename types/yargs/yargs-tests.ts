@@ -660,6 +660,12 @@ function Argv$fail() {
             process.exit(1);
         })
         .argv;
+
+    // Providing false as a value for fn can be used to prevent yargs from
+    // exiting and printing a failure message
+    const ya2 = yargs
+        .fail(false)
+        .argv;
 }
 
 function Argv$implies() {

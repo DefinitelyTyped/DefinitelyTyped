@@ -333,7 +333,7 @@ declare namespace yargs {
          * Method to execute when a failure occurs, rather than printing the failure message.
          * @param func Is called with the failure message that would have been printed, the Error instance originally thrown and yargs state when the failure occurred.
          */
-        fail(func: (msg: string, err: Error, yargs: Argv<T>) => any): Argv<T>;
+        fail(func: ((msg: string, err: Error, yargs: Argv<T>) => any) | boolean): Argv<T>;
 
         /**
          * Allows to programmatically get completion choices for any line.
