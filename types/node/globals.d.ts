@@ -466,19 +466,13 @@ declare namespace NodeJS {
     }
 
     interface ErrnoException extends Error {
-        errno?: number;
-        code?: string;
-        path?: string;
-        syscall?: string;
-        stack?: string;
-    }
-
-    interface HttpClientException extends Error {
         address?: string;
         errno?: number;
         code?: string;
+        path?: string;
         port?: number;
         syscall?: string;
+        stack?: string;
     }
 
     interface ReadableStream extends EventEmitter {
