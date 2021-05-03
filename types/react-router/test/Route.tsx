@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+const CONST_ROUTE_ARRAY = ['/const-route-1', '/const-route-2'] as const;
+
 const exhausted = (_: never): never => {
     throw new Error('unreachable');
 };
@@ -54,6 +56,11 @@ const RouteExample = () => (
                 return exhausted(params);
             }}
         />
+        <Route
+            path={CONST_ROUTE_ARRAY}
+        >
+            Matches const array
+        </Route>
         <Route
             path="/single/:id"
             children={route => {

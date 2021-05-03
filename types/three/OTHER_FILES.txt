@@ -1,13 +1,9 @@
 examples/jsm/animation/AnimationClipCreator.d.ts
-examples/jsm/animation/CCDIKSolver.d.ts
-examples/jsm/animation/MMDAnimationHelper.d.ts
-examples/jsm/animation/MMDPhysics.d.ts
 examples/jsm/controls/DeviceOrientationControls.d.ts
 examples/jsm/controls/DragControls.d.ts
 examples/jsm/controls/FirstPersonControls.d.ts
 examples/jsm/controls/FlyControls.d.ts
 examples/jsm/controls/PointerLockControls.d.ts
-examples/jsm/controls/TransformControls.d.ts
 examples/jsm/csm/CSM.d.ts
 examples/jsm/csm/CSMHelper.d.ts
 examples/jsm/csm/Frustum.d.ts
@@ -19,7 +15,6 @@ examples/jsm/curves/NURBSUtils.d.ts
 examples/jsm/deprecated/Geometry.d.ts
 examples/jsm/effects/AnaglyphEffect.d.ts
 examples/jsm/effects/AsciiEffect.d.ts
-examples/jsm/effects/OutlineEffect.d.ts
 examples/jsm/effects/ParallaxBarrierEffect.d.ts
 examples/jsm/effects/PeppersGhostEffect.d.ts
 examples/jsm/effects/StereoEffect.d.ts
@@ -47,17 +42,11 @@ examples/jsm/interactive/SelectionBox.d.ts
 examples/jsm/interactive/SelectionHelper.d.ts
 examples/jsm/libs/stats.module.d.ts
 examples/jsm/lights/LightProbeGenerator.d.ts
-examples/jsm/lines/Line2.d.ts
-examples/jsm/lines/LineGeometry.d.ts
-examples/jsm/lines/LineMaterial.d.ts
-examples/jsm/lines/LineSegments2.d.ts
-examples/jsm/lines/LineSegmentsGeometry.d.ts
 examples/jsm/lines/Wireframe.d.ts
 examples/jsm/lines/WireframeGeometry2.d.ts
 examples/jsm/loaders/3DMLoader.d.ts
 examples/jsm/loaders/3MFLoader.d.ts
 examples/jsm/loaders/AMFLoader.d.ts
-examples/jsm/loaders/AssimpLoader.d.ts
 examples/jsm/loaders/BasisTextureLoader.d.ts
 examples/jsm/loaders/BVHLoader.d.ts
 examples/jsm/loaders/ColladaLoader.d.ts
@@ -73,7 +62,6 @@ examples/jsm/loaders/LUTCubeLoader.d.ts
 examples/jsm/loaders/LWOLoader.d.ts
 examples/jsm/loaders/MD2Loader.d.ts
 examples/jsm/loaders/MDDLoader.d.ts
-examples/jsm/loaders/MMDLoader.d.ts
 examples/jsm/loaders/NRRDLoader.d.ts
 examples/jsm/loaders/PCDLoader.d.ts
 examples/jsm/loaders/PDBLoader.d.ts
@@ -81,9 +69,7 @@ examples/jsm/loaders/PLYLoader.d.ts
 examples/jsm/loaders/PRWMLoader.d.ts
 examples/jsm/loaders/PVRLoader.d.ts
 examples/jsm/loaders/STLLoader.d.ts
-examples/jsm/loaders/SVGLoader.d.ts
 examples/jsm/loaders/TDSLoader.d.ts
-examples/jsm/loaders/TGALoader.d.ts
 examples/jsm/loaders/TiltLoader.d.ts
 examples/jsm/loaders/TTFLoader.d.ts
 examples/jsm/loaders/VRMLLoader.d.ts
@@ -239,7 +225,6 @@ examples/jsm/shaders/BrightnessContrastShader.d.ts
 examples/jsm/shaders/ColorCorrectionShader.d.ts
 examples/jsm/shaders/ColorifyShader.d.ts
 examples/jsm/shaders/ConvolutionShader.d.ts
-examples/jsm/shaders/CopyShader.d.ts
 examples/jsm/shaders/DepthLimitedBlurShader.d.ts
 examples/jsm/shaders/DigitalGlitch.d.ts
 examples/jsm/shaders/DOFMipMapShader.d.ts
@@ -282,7 +267,6 @@ examples/jsm/shaders/VolumeShader.d.ts
 examples/jsm/shaders/WaterRefractionShader.d.ts
 examples/jsm/utils/BufferGeometryUtils.d.ts
 examples/jsm/utils/GeometryCompressionUtils.d.ts
-examples/jsm/utils/GeometryUtils.d.ts
 examples/jsm/utils/RoughnessMipmapper.d.ts
 examples/jsm/utils/SceneUtils.d.ts
 examples/jsm/utils/ShadowMapViewer.d.ts

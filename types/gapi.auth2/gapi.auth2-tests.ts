@@ -54,7 +54,7 @@ function test_reloadAuthResponse() {
 }
 
 function test_grantOfflineAccess() {
-  gapi.auth2.getAuthInstance().currentUser.get().grantOfflineAccess("profile")
+  gapi.auth2.getAuthInstance().currentUser.get().grantOfflineAccess({ scope: "profile" })
   .then(response => console.log(response.code));
 }
 

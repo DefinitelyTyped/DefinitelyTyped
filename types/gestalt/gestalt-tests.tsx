@@ -17,7 +17,6 @@ import {
     Dropdown,
     FixedZIndex,
     Flex,
-    Flyout,
     GroupAvatar,
     Heading,
     Icon,
@@ -31,11 +30,14 @@ import {
     Masonry,
     Modal,
     Module,
+    PageHeader,
     Pog,
+    Popover,
     Provider,
     Pulsar,
     RadioButton,
     Row,
+    ScrollBoundaryContainer,
     SearchField,
     SegmentedControl,
     SelectList,
@@ -80,6 +82,14 @@ const CheckUseReducedMotion = () => {
     statusMessage="Not started"
     title="Claim your website"
     message="Grow distribution and track Pins linked to your website"
+    link={{
+        href: "foo",
+        label: "foo",
+        accessibilityLabel: "foo",
+        onClick: (({ event }) => { event.stopPropagation(); }),
+        rel: "nofollow",
+        target: "blank"
+    }}
 />;
 <Avatar name="Nicolas" />;
 <AvatarPair
@@ -98,6 +108,7 @@ const CheckUseReducedMotion = () => {
 <Badge text="Nicolas" />;
 <Box ref={React.createRef<HTMLDivElement>()} />;
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
+<Button text="" />;
 <ButtonGroup>
     <Button text={'Click me'} />
     <Button text={'Click me'} />
@@ -119,6 +130,8 @@ const CheckUseReducedMotion = () => {
 <Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
 <Column span={1} />;
 <Container />;
+<ScrollBoundaryContainer />;
+<ScrollBoundaryContainer height={1} overflow="scroll" />;
 <Divider />;
 <Dropdown id="dropdown-example" onDismiss={() => {}}>
     <Dropdown.Section label="View options">
@@ -132,7 +145,6 @@ const CheckUseReducedMotion = () => {
     </Dropdown.Section>
 </Dropdown>;
 <Flex />;
-<Flyout onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
 <IconButton accessibilityLabel="icon" />;
@@ -146,6 +158,13 @@ const CheckUseReducedMotion = () => {
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
+<Module
+    id="foo"
+    icon="add"
+    iconAccessibilityLabel="hello"
+    title="world"
+    type='info'
+/>;
 <Module.Expandable
     id="ModuleExample1"
     accessibilityExpandLabel="Expand the module"
@@ -157,8 +176,12 @@ const CheckUseReducedMotion = () => {
             children: <Text size="md">Children1</Text>,
         },
     ]}
+    expandedIndex={1}
+    onExpandedChange={(index) => {}}
 ></Module.Expandable>;
+<PageHeader title='Home'/>;
 <Pog />;
+<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
 <Provider colorScheme={'light'} id="docsExample" />;
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
@@ -186,6 +209,8 @@ const CheckUseReducedMotion = () => {
     <div>Hello World</div>
 </Sticky>;
 <Switch id="id" onChange={() => {}} />;
+<Table maxHeight={1}/>;
+<Table maxHeight="75vh"/>;
 <Table>
     <Table.Header>
         <Table.Row>
@@ -288,6 +313,23 @@ const CheckUseReducedMotion = () => {
         component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
     }}
 />;
+<Upsell
+    title="Give $30, get $60 in ads credit"
+    message="Earn $60 of ads credit, and give $30 of ads credit to a friend"
+    dismissButton={{
+      accessibilityLabel: 'Dismiss banner',
+      onDismiss: () => {},
+    }}
+    imageData={{
+      component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32}/>
+    }}
+  >
+    <Upsell.Form
+        onSubmit={({ event }) => { event.preventDefault(); }}
+        submitButtonText="Submit"
+        submitButtonAccessibilityLabel="Submit name for ads credit"
+    />
+</Upsell>;
 <Video
     aspectRatio={853 / 480}
     captions=""

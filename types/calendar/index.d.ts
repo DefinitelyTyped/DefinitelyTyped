@@ -1,10 +1,10 @@
 // Type definitions for calendar 0.1
 // Project: https://github.com/ramalho/calendar.js#readme
-// Definitions by: Florian Keller <https://github.com/ffflorian>
+// Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type DayFormatter = (day: Date) => Date | string;
-export type WeekFormatter = (week: Date[]) => Date[] | string;
+export type DayFormatter<T> = (day: Date) => T;
+export type WeekFormatter<T, U> = (week: T[]) => U;
 
 export const version: string;
 
@@ -14,7 +14,13 @@ export class Calendar {
      */
     constructor(firstWeekDay?: number);
 
-    monthDates(year: number, month: number, dayFormatter?: DayFormatter, weekFormatter?: WeekFormatter): Date[][];
+    monthDates<T = Date>(year: number, month: number, dayFormatter?: DayFormatter<T>): T[][];
+    monthDates<T, U>(
+        year: number,
+        month: number,
+        dayFormatter: DayFormatter<T>,
+        weekFormatter: WeekFormatter<T, U>,
+    ): U[];
     monthDays(year: number, month: number): number[][];
     monthText(): string;
     monthText(year: number, month: number): string;

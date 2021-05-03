@@ -678,5 +678,9 @@ declare namespace SocketIOClient {
          */
         rejectUnauthorized?: boolean;
 
+        /**
+         * Credentials that are sent when accessing a namespace
+         */
+        auth?: Object;
     }
 }

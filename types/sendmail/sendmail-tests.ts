@@ -1,7 +1,7 @@
 import sendmail = require("sendmail");
 
 const emailSender = sendmail({
-    silent: false
+    silent: false,
 });
 
 const sendEmail = (options: sendmail.MailInput): Promise<boolean> =>
@@ -20,5 +20,12 @@ sendEmail({
     from: "Test Mail <noreply@mydomain.com>",
     to: "test@mydomain.com",
     subject: "First Test",
-    html: "This is a Test message!"
+    html: "This is a <b>HTML</b> Test message!",
+});
+
+sendEmail({
+    from: "Test Mail <noreply@mydomain.com>",
+    to: "test@mydomain.com",
+    subject: "Second Test",
+    text: "This is a Plain-Text Test message!",
 });

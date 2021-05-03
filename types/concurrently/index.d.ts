@@ -9,7 +9,7 @@
 declare function concurrently(
     commands: Array<concurrently.CommandObj | string>,
     options?: concurrently.Options,
-): Promise<null>;
+): Promise<concurrently.ExitInfos[]>;
 
 declare namespace concurrently {
     interface CommandObj {
@@ -18,6 +18,13 @@ declare namespace concurrently {
         env?: NodeJS.ProcessEnv;
         name?: string;
         prefixColor?: string;
+    }
+    interface ExitInfos {
+        command: CommandObj;
+        /** process completion index */
+        index: number;
+        /** process exit code */
+        exitCode: number;
     }
     interface Options {
         /**

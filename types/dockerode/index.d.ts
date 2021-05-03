@@ -138,9 +138,9 @@ declare namespace Dockerode {
         get(callback: Callback<NodeJS.ReadableStream>): void;
         get(): Promise<NodeJS.ReadableStream>;
 
-        push(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+        push(options: ImagePushOptions, callback: Callback<NodeJS.ReadableStream>): void;
         push(callback: Callback<NodeJS.ReadableStream>): void;
-        push(options?: {}): Promise<NodeJS.ReadableStream>;
+        push(options?: ImagePushOptions): Promise<NodeJS.ReadableStream>;
 
         tag(options: {}, callback: Callback<any>): void;
         tag(callback: Callback<any>): void;
@@ -801,6 +801,38 @@ declare namespace Dockerode {
             Layers?: string[];
             BaseLayer?: string;
         };
+    }
+
+    interface ImageBuildOptions {
+        authconfig?: AuthConfig;
+        dockerfile?: string;
+        t?: string;
+        extrahosts?: string;
+        remote?: string;
+        q?: boolean;
+        cachefrom?: string;
+        pull?: string;
+        rm?: boolean;
+        forcerm?: boolean;
+        memory?: number;
+        memswap?: number;
+        cpushares?: number;
+        cpusetcpus?: number;
+        cpuperiod?: number;
+        cpuquota?: number;
+        buildargs?: {[key: string]: string};
+        shmsize?: number;
+        squash?: boolean;
+        labels?: {[key: string]: string};
+        networkmode?: string;
+        platform?: string;
+        target?: string;
+        outputs?: string;
+    }
+
+    interface ImagePushOptions {
+        tag?: string;
+        authconfig?: AuthConfig;
     }
 
     interface AuthConfig {
@@ -1627,7 +1659,7 @@ declare class Dockerode {
 
     buildImage(
         file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext,
-        options: {},
+        options: Dockerode.ImageBuildOptions,
         callback: Callback<NodeJS.ReadableStream>,
     ): void;
     buildImage(
@@ -1636,7 +1668,7 @@ declare class Dockerode {
     ): void;
     buildImage(
         file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext,
-        options?: {},
+        options?: Dockerode.ImageBuildOptions,
     ): Promise<NodeJS.ReadableStream>;
 
     getContainer(id: string): Dockerode.Container;

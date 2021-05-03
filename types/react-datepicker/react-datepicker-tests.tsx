@@ -37,6 +37,7 @@ const defaultLocale = getDefaultLocale();
     excludeDates={[new Date()]}
     excludeTimes={[new Date()]}
     filterDate={date => true}
+    filterTime={date => true}
     fixedHeight
     forceShowMonthNavigation
     formatWeekDay={formattedDate => formattedDate[0]}
@@ -96,6 +97,7 @@ const defaultLocale = getDefaultLocale();
         date,
         changeYear,
         changeMonth,
+        customHeaderCount,
         decreaseMonth,
         increaseMonth,
         decreaseYear,

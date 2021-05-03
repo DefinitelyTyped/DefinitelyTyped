@@ -74,6 +74,12 @@ export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promis
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
 export function signRequest(wh: WalletHandle, submitterDid: Did, request: LedgerRequest): Promise<SignedLedgerRequest>;
+export function signAndSubmitRequest(
+    poolHandle: PoolHandle,
+    walletHandle: WalletHandle,
+    submitterDid: Did,
+    request: LedgerRequest,
+): Promise<LedgerResponse>;
 export function submitRequest(poolHandle: PoolHandle, request: LedgerRequest): Promise<LedgerResponse>;
 
 export function buildGetTxnAuthorAgreementRequest(submitterDid: Did | null): Promise<LedgerRequest>;
@@ -199,7 +205,7 @@ export type ByteArray = number[];
 export type SchemaId = string;
 export type CredDefId = string;
 export type CredentialId = string;
-export type KeyDerivationMethod = 'ARGON2I_MOD' | 'ARGON2I_INT' | 'RAW';
+export type KeyDerivationMethod = "ARGON2I_MOD" | "ARGON2I_INT" | "RAW";
 
 // TODO: Maybe we can make this a bit more specific?
 export type WalletQuery = Record<string, unknown>;
@@ -241,7 +247,7 @@ export interface OpenWalletCredentials extends WalletCredentials {
 export interface DidConfig {
     did?: string;
     seed?: string;
-    crypto_type?: 'ed25519';
+    crypto_type?: "ed25519";
     cid?: boolean;
     method_name?: string;
 }
@@ -257,12 +263,55 @@ export interface SignedLedgerRequest extends LedgerRequest {
     signature: string;
 }
 
-export interface LedgerResponse {
-    op: string;
+export interface LedgerRejectResponse {
+    op: "REJECT";
+    reqId: number;
+    reason: string;
+    identifier: string;
+}
+
+export interface LedgerReplyResponse {
+    op: "REPLY";
+    result: Record<string, unknown>;
+}
+
+export interface LedgerReadReplyResponse extends LedgerReplyResponse {
     result: {
+        type: string;
+        identifier: string;
+        dest: string;
+        reqId: number;
+        seqNo: number;
+        txnTime: number;
+        state_proof: Record<string, unknown>;
+        // contains request specific data
         data: unknown;
     };
 }
+
+export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
+    result: {
+        ver: string;
+        txnMetadata: {
+            txnTime: number;
+            seqNo: number;
+            txnId: string;
+        };
+        auditPath: string[];
+        reqSignature: {
+            type: string;
+            values: Array<{ from: string; value: string }>;
+        };
+        rootHash: string;
+        txn: {
+            type: string;
+            // ... TODO: add other txn fields ...
+            [key: string]: unknown;
+        };
+    };
+}
+
+export type LedgerResponse = LedgerRejectResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
@@ -270,6 +319,7 @@ export interface Schema {
     name: string;
     version: string;
     ver: string;
+    seqNo: number;
 }
 
 export interface CredDef {
@@ -407,14 +457,14 @@ export interface IndyProofRequest {
     requested_predicates: {
         [key: string]: {
             name: string;
-            p_type: '>=' | '>' | '<=' | '<';
+            p_type: ">=" | ">" | "<=" | "<";
             p_value: number;
             restrictions?: WalletQuery[];
             non_revoked?: NonRevokedInterval;
         };
     };
     non_revoked?: NonRevokedInterval;
-    ver?: '1.0' | '2.0';
+    ver?: "1.0" | "2.0";
 }
 
 export interface CredReq {

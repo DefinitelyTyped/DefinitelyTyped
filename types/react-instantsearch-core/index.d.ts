@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch-core 6.8
+// Type definitions for react-instantsearch-core 6.10
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -6,7 +6,6 @@
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 import * as React from 'react';
 import { SearchParameters } from 'algoliasearch-helper';
@@ -524,6 +523,7 @@ export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, SearchBoxProvided, SearchBoxExposed>;
 
+export function connectRelevantSort(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface StateResultsProvided<TDoc = BasicDoc> {
@@ -559,7 +559,9 @@ export function connectStateResults<TProps extends Partial<StateResultsProvided<
 
 export interface StatsProvided {
   nbHits: number;
+  nbSortedHits: number;
   processingTimeMS: number;
+  areHitsSorted: boolean;
 }
 
 export function connectStats(stateless: React.FunctionComponent<StatsProvided>): React.ComponentClass;
@@ -602,6 +604,7 @@ export interface SearchState {
     aroundLatLng: boolean;
     [key: string]: any;
   };
+  relevancyStrictness?: number;
   refinementList?: {
     [key: string]: string[];
   };
@@ -650,6 +653,8 @@ export interface SearchResults<TDoc = BasicDoc> {
   index: string;
   hitsPerPage: number;
   nbHits: number;
+  nbSortedHits?: number;
+  appliedRelevancyStrictness?: number;
   nbPages: number;
   page: number;
   processingTimeMS: number;

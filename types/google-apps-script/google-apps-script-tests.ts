@@ -182,6 +182,12 @@ const createFileAndGetDescription = () => {
   Logger.log(file.getDescription().toUpperCase());
 };
 
+function timeDriven(e: GoogleAppsScript.Events.TimeDriven) {
+  if (typeof e.hour === 'number') {
+      console.log('Time driven event detected');
+  }
+}
+
 CardService.newDecoratedText(); // $ExpectType DecoratedText
 CardService.newDecoratedText().setAuthorizationAction(CardService.newAuthorizationAction()); // $ExpectType DecoratedText
 CardService.newDecoratedText().setBottomLabel(''); // $ExpectType DecoratedText

@@ -652,7 +652,7 @@ declare module 'http2' {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export class Http2ServerResponse extends stream.Stream {
+    export class Http2ServerResponse extends stream.Writable {
         constructor(stream: ServerHttp2Stream);
 
         readonly connection: net.Socket | tls.TLSSocket;
@@ -942,6 +942,12 @@ declare module 'http2' {
         const HTTP_STATUS_NOT_EXTENDED: number;
         const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
     }
+
+    /**
+     * This symbol can be set as a property on the HTTP/2 headers object with
+     * an array value in order to provide a list of headers considered sensitive.
+     */
+    export const sensitiveHeaders: symbol;
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Buffer;

@@ -10,6 +10,11 @@ ge.getItem(449).then(
     }
 );
 
+ge.getItem(20997).then(
+    (res: ge.Item): void => {
+    }
+);
+
 ge.getGraph(449).then(
     (res: ge.Graph): void => {
     }

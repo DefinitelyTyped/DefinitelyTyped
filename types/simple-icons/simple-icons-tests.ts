@@ -9,6 +9,8 @@ icon.hex; // $ExpectType string
 icon.source; // $ExpectType string
 icon.svg; // $ExpectType string
 icon.path; // $ExpectType string
+icon.guidelines; // $ExpectType string | undefined
+icon.license; // $ExpectType { type: string; url: string; } | undefined
 
 // iterate
 for (const title in simpleIcons) {

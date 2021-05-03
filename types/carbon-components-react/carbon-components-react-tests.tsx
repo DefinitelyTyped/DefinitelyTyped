@@ -38,13 +38,36 @@ import {
     SideNav,
     SideNavItem,
     SideNavItems,
+    StructuredListWrapper,
+    StructuredListHead,
+    StructuredListBody,
+    StructuredListRow,
+    StructuredListInput,
+    StructuredListCell,
     ButtonRenderIconRenderProps,
     Modal,
     InlineLoading,
     DataTableSkeleton,
     TableCell,
+    unstable_Heading as UnstableHeading,
+    unstable_Section as UnstableSection
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
+import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
+
+// test components for "as" props
+interface TestCompProps {
+    children?: React.ReactNode;
+    someProp: number;
+}
+
+class TestComp1 extends React.Component<TestCompProps> {
+    render() {
+        return <div />;
+    }
+}
+
+const TestComp2 = (props: TestCompProps) => <div />;
 
 // AccordionItem
 const titleNode = (
@@ -160,9 +183,21 @@ const secondaryButtonT3 = (
 // CodeSnippet
 
 let codeSnippetType: CodeSnippetType = "inline";
-const inlineCodeSnippet = (<CodeSnippet type="inline" onClick={(e) => e.preventDefault()}>code</CodeSnippet>);
-const multiCodeSnippet = (<CodeSnippet type="multi" onBlur={(e) => e.preventDefault()}>code</CodeSnippet>)
-const codeSnippetTypeIsVariable = (<CodeSnippet type={codeSnippetType} onClick={(e) => e.preventDefault()}>code</CodeSnippet>);
+const inlineCodeSnippet = (
+    <CodeSnippet type="inline" onClick={e => e.preventDefault()}>
+        code
+    </CodeSnippet>
+);
+const multiCodeSnippet = (
+    <CodeSnippet type="multi" maxCollapsedNumberOfRows={10} minExpandedNumberOfRows={3} onBlur={e => e.preventDefault()}>
+        code
+    </CodeSnippet>
+);
+const codeSnippetTypeIsVariable = (
+    <CodeSnippet type={codeSnippetType} onClick={e => e.preventDefault()}>
+        code
+    </CodeSnippet>
+);
 
 interface Row1 extends DataTableRow {
     rowProp: string;
@@ -433,20 +468,39 @@ const t5 = (
     />
 );
 
-// Dropdown
+// unstable_Heading
+{
+    const headingT1 = <UnstableHeading onClick={(e) => e.preventDefault()}>Heading Text</UnstableHeading>;
+}
+
+// unstable_Section
+{
+    const sectionT1 = (
+        <UnstableSection onClick={(e: React.MouseEvent<HTMLElement>) => e.preventDefault()}>Text</UnstableSection>
+    );
+    const sectionIntrinsicT1 = (
+        <UnstableSection
+            as="div"
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
+        >
+            Text
+        </UnstableSection>
+    );
+    const sectionIntrinsicT2 = (
+        <UnstableSection
+            as="fieldset"
+            disabled
+            form="test"
+        >
+            Text
+        </UnstableSection>
+    );
+    const sectionComponentT1 = (
+        <UnstableSection as={TestComp2} someProp={5}>Text</UnstableSection>
+    );
+}
 
 // UIShell - Link
-interface TestCompProps {
-    someProp: number;
-}
-
-class TestComp1 extends React.Component<TestCompProps> {
-    render() {
-        return <div />;
-    }
-}
-
-const TestComp2 = (props: TestCompProps) => <div />;
 
 const uisLinkT1 = <Link href="#test">Test</Link>;
 const uisLinkT2 = <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
@@ -555,6 +609,25 @@ const dropdownItemCanBeElement = (
     />
 );
 
+// Popover
+{
+    const popoverT1 = (
+        <Popover open align="bottom" caret>
+            <PopoverContent>Content</PopoverContent>
+        </Popover>
+    );
+    const popoverIntrinsicT1 = (
+        <Popover open={false}>
+            <PopoverContent as="fieldset" disabled form="test">Content</PopoverContent>
+        </Popover>
+    );
+    const popoverCustomComponentT1 = (
+        <Popover open>
+            <PopoverContent as={TestComp2} someProp={2}>Content</PopoverContent>
+        </Popover>
+    );
+}
+
 // TileGroup
 // Value nor name can be undefined
 let value: string | number = 5;
@@ -610,6 +683,30 @@ const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" t
 
 // Slider
 const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue => newValue.value} />;
+
+// Structured List
+{
+    const structuredListT1 = (
+        <StructuredListWrapper>
+            <StructuredListHead>
+                <StructuredListRow head>
+                    <StructuredListCell head>Heading 1</StructuredListCell>
+                    <StructuredListCell head>Heading 2</StructuredListCell>
+                </StructuredListRow>
+            </StructuredListHead>
+            <StructuredListBody>
+                <StructuredListRow>
+                    <StructuredListCell>Cell 1</StructuredListCell>
+                    <StructuredListInput value="val"></StructuredListInput>
+                </StructuredListRow>
+                <StructuredListRow label htmlFor="id">
+                    <StructuredListCell>Cell 1</StructuredListCell>
+                    <StructuredListInput value="val"></StructuredListInput>
+                </StructuredListRow>
+            </StructuredListBody>
+        </StructuredListWrapper>
+    );
+}
 
 // Tag
 {

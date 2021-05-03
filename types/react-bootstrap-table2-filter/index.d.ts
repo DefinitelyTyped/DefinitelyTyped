@@ -121,7 +121,7 @@ export interface DateFilter<T extends object = any> extends TableColumnFilterPro
         date: Date;
         comparator: Comparator;
     };
-    comparator?: Comparator[];
+    comparators?: Comparator[];
     comparatorClassName?: string;
     dateClassName?: string;
     comparatorStyle?: CSSProperties;

@@ -5,52 +5,60 @@
 
 declare namespace Whois {
     /**
-     * The result of a WHOIS lookup.
+     * The result of a WHOIS lookup. This can be either a single object of registration data,
+     * or an array of multiple registration data paired with their originating server.
      */
-    interface Result {
-        domainName: string;
-        registryDomainId: string;
-        registrarWhoisServer: string;
-        registrarUrl: string;
-        updatedDate: string;
-        creationDate: string;
-        registrarRegistrationExpirationDate: string;
-        registrar: string;
-        registrarIanaId: string;
-        registrarAbuseContactEmail: string;
-        registrarAbuseContactPhone: string;
-        domainStatus: string;
-        registrantName: string;
-        registrantOrganization: string;
-        registrantStreet: string;
-        registrantCity: string;
-        registrantStateProvince: string;
-        registrantPostalCode: string;
-        registrantCountry: string;
-        registrantPhone: string;
-        registrantEmail: string;
-        adminName: string;
-        adminOrganization: string;
-        adminStreet: string;
-        adminCity: string;
-        adminStateProvince: string;
-        adminPostalCode: string;
-        adminCountry: string;
-        adminPhone: string;
-        adminEmail: string;
-        techName: string;
-        techOrganization: string;
-        techStreet: string;
-        techCity: string;
-        techStateProvince: string;
-        techPostalCode: string;
-        techCountry: string;
-        techPhone: string;
-        techEmail: string;
-        nameServer: string;
-        dnssec: string;
-        urlOfTheIcannWhoisDataProblemReportingSystem: string;
-        lastUpdateOfWhoisDatabase: string;
+    type Result = ResultArrayElement[] | RegistrationData;
+
+    interface ResultArrayElement {
+        server: string;
+        data: RegistrationData;
+    }
+
+    interface RegistrationData {
+        domainName?: string;
+        registryDomainId?: string;
+        registrarWhoisServer?: string;
+        registrarUrl?: string;
+        updatedDate?: string;
+        creationDate?: string;
+        registrarRegistrationExpirationDate?: string;
+        registrar?: string;
+        registrarIanaId?: string;
+        registrarAbuseContactEmail?: string;
+        registrarAbuseContactPhone?: string;
+        domainStatus?: string;
+        registrantName?: string;
+        registrantOrganization?: string;
+        registrantStreet?: string;
+        registrantCity?: string;
+        registrantStateProvince?: string;
+        registrantPostalCode?: string;
+        registrantCountry?: string;
+        registrantPhone?: string;
+        registrantEmail?: string;
+        adminName?: string;
+        adminOrganization?: string;
+        adminStreet?: string;
+        adminCity?: string;
+        adminStateProvince?: string;
+        adminPostalCode?: string;
+        adminCountry?: string;
+        adminPhone?: string;
+        adminEmail?: string;
+        techName?: string;
+        techOrganization?: string;
+        techStreet?: string;
+        techCity?: string;
+        techStateProvince?: string;
+        techPostalCode?: string;
+        techCountry?: string;
+        techPhone?: string;
+        techEmail?: string;
+        nameServer?: string;
+        dnssec?: string;
+        urlOfTheIcannWhoisDataProblemReportingSystem?: string;
+        lastUpdateOfWhoisDatabase?: string;
     }
 
     /**

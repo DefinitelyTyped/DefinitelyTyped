@@ -11,6 +11,12 @@ declare namespace mermaidAPI {
 
     interface FlowChartConfig {
         /**
+         * **diagramPadding** - amount of padding around the diagram as a whole
+         * default: 8
+         */
+        diagramPadding?: number;
+
+        /**
          * **htmlLabels** - Flag for setting whether or not a html tag should be used for rendering labels
          * on the edges
          * default: true
@@ -18,9 +24,32 @@ declare namespace mermaidAPI {
         htmlLabels?: boolean;
 
         /**
-         * default: 'linear'
+         * **nodeSpacing** - Defines the spacing between nodes on the same level
+         * default: 50
+         */
+        nodeSpacing?: number;
+
+        /**
+         * **rankSpacing** - Defines the spacing between nodes on different levels
+         * default: 50
+         */
+        rankSpacing?: number;
+
+        /**
+         * default: 'monotoneX'
          */
         curve?: string;
+
+        /**
+         * **rankSpacing** - Only used in new experimental rendering, represents the padding between the labels and the shape
+         * default: 15
+         */
+        padding?: number;
+
+        /**
+         * default: true
+         */
+        useMaxWidth?: boolean;
     }
 
     interface SequenceDiagramConfig {
@@ -174,6 +203,10 @@ declare namespace mermaidAPI {
 
         theme?: Theme;
 
+        maxTextSize?: number;
+
+        fontFamily?: string;
+
         /**
          * logLevel , decides the amount of logging to be used.
          * default: LogLevel.Fatal
@@ -192,6 +225,12 @@ declare namespace mermaidAPI {
          * default: false
          */
         arrowMarkerAbsolute?: boolean;
+
+        secure?: Array<keyof Config>;
+
+        deterministicIds?: boolean;
+
+        deterministicIDSeed?: string;
 
         /**
          * ### flowchart
@@ -245,7 +284,7 @@ declare namespace mermaidAPI {
             svgCode: string,
             bindFunctions: (element: Element) => void
         ) => void,
-        container?: string
+        container?: Element
     ): string;
 
     function parse(text: string): any;

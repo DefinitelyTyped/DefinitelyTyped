@@ -13,7 +13,7 @@ import * as RDF from 'rdf-js';
 import DatasetExt = require('rdf-ext/lib/Dataset');
 import { GraphPointer } from 'clownface';
 import middleware = require('./middleware');
-import Api = require('./Api');
+import { Api } from './Api';
 
 declare namespace HydraBox {
     interface PotentialOperation {
@@ -56,7 +56,7 @@ declare module 'express-serve-static-core' {
 
 declare const HydraBox: {
     middleware: typeof middleware;
-    Api: typeof Api;
+    Api: Api;
 };
 
 export = HydraBox;

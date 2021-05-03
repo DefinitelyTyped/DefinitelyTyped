@@ -5,6 +5,7 @@ declare module 'node:stream' {
 
 declare module 'stream' {
     import EventEmitter = require('node:events');
+    import * as streamPromises from "node:stream/promises";
 
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
@@ -20,6 +21,7 @@ declare module 'stream' {
             encoding?: BufferEncoding;
             objectMode?: boolean;
             read?(this: Readable, size: number): void;
+            construct?(this: Readable, callback: (error?: Error | null) => void): void;
             destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
             autoDestroy?: boolean;
         }
@@ -39,6 +41,7 @@ declare module 'stream' {
             readonly readableObjectMode: boolean;
             destroyed: boolean;
             constructor(opts?: ReadableOptions);
+            _construct?(callback: (error?: Error | null) => void): void;
             _read(size: number): void;
             read(size?: number): any;
             setEncoding(encoding: BufferEncoding): this;
@@ -135,6 +138,7 @@ declare module 'stream' {
             defaultEncoding?: BufferEncoding;
             objectMode?: boolean;
             emitClose?: boolean;
+            construct?(this: Writable, callback: (error?: Error | null) => void): void;
             write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Writable, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
@@ -154,6 +158,7 @@ declare module 'stream' {
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
+            _construct?(callback: (error?: Error | null) => void): void;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
@@ -240,6 +245,7 @@ declare module 'stream' {
             readableHighWaterMark?: number;
             writableHighWaterMark?: number;
             writableCorked?: number;
+            construct?(this: Duplex, callback: (error?: Error | null) => void): void;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
@@ -274,6 +280,7 @@ declare module 'stream' {
         type TransformCallback = (error?: Error | null, data?: any) => void;
 
         interface TransformOptions extends DuplexOptions {
+            construct?(this: Transform, callback: (error?: Error | null) => void): void;
             read?(this: Transform, size: number): void;
             write?(this: Transform, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Transform, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
@@ -302,23 +309,79 @@ declare module 'stream' {
             function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options?: FinishedOptions): Promise<void>;
         }
 
-        function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException | null) => void): T;
-        function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: T, callback?: (err: NodeJS.ErrnoException | null) => void): T;
-        function pipeline<T extends NodeJS.WritableStream>(
-            stream1: NodeJS.ReadableStream,
-            stream2: NodeJS.ReadWriteStream,
-            stream3: NodeJS.ReadWriteStream,
-            stream4: T,
-            callback?: (err: NodeJS.ErrnoException | null) => void,
-        ): T;
-        function pipeline<T extends NodeJS.WritableStream>(
-            stream1: NodeJS.ReadableStream,
-            stream2: NodeJS.ReadWriteStream,
-            stream3: NodeJS.ReadWriteStream,
-            stream4: NodeJS.ReadWriteStream,
-            stream5: T,
-            callback?: (err: NodeJS.ErrnoException | null) => void,
-        ): T;
+        type PipelineSourceFunction<T> = () => Iterable<T> | AsyncIterable<T>;
+        type PipelineSource<T> = Iterable<T> | AsyncIterable<T> | NodeJS.ReadableStream | PipelineSourceFunction<T>;
+        type PipelineTransform<S extends PipelineTransformSource<any>, U> =
+            NodeJS.ReadWriteStream |
+            ((source: S extends (...args: any[]) => Iterable<infer ST> | AsyncIterable<infer ST> ?
+                AsyncIterable<ST> : S) => AsyncIterable<U>);
+        type PipelineTransformSource<T> = PipelineSource<T> | PipelineTransform<any, T>;
+
+        type PipelineDestinationIterableFunction<T> = (source: AsyncIterable<T>) => AsyncIterable<any>;
+        type PipelineDestinationPromiseFunction<T, P> = (source: AsyncIterable<T>) => Promise<P>;
+
+        type PipelineDestination<S extends PipelineTransformSource<any>, P> =
+            S extends PipelineTransformSource<infer ST> ?
+                (NodeJS.WritableStream | PipelineDestinationIterableFunction<ST> | PipelineDestinationPromiseFunction<ST, P>) : never;
+        type PipelineCallback<S extends PipelineDestination<any, any>> =
+            S extends PipelineDestinationPromiseFunction<any, infer P> ? (err: NodeJS.ErrnoException | null, value: P) => void :
+                (err: NodeJS.ErrnoException | null) => void;
+        type PipelinePromise<S extends PipelineDestination<any, any>> =
+            S extends PipelineDestinationPromiseFunction<any, infer P> ? Promise<P> : Promise<void>;
+        interface PipelineOptions {
+            signal: AbortSignal;
+        }
+
+        function pipeline<A extends PipelineSource<any>,
+            B extends PipelineDestination<A, any>>(
+            source: A,
+            destination: B,
+            callback?: PipelineCallback<B>
+        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+        function pipeline<A extends PipelineSource<any>,
+            T1 extends PipelineTransform<A, any>,
+            B extends PipelineDestination<T1, any>>(
+            source: A,
+            transform1: T1,
+            destination: B,
+            callback?: PipelineCallback<B>
+        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+        function pipeline<A extends PipelineSource<any>,
+            T1 extends PipelineTransform<A, any>,
+            T2 extends PipelineTransform<T1, any>,
+            B extends PipelineDestination<T2, any>>(
+            source: A,
+            transform1: T1,
+            transform2: T2,
+            destination: B,
+            callback?: PipelineCallback<B>
+        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+        function pipeline<A extends PipelineSource<any>,
+            T1 extends PipelineTransform<A, any>,
+            T2 extends PipelineTransform<T1, any>,
+            T3 extends PipelineTransform<T2, any>,
+            B extends PipelineDestination<T3, any>>(
+            source: A,
+            transform1: T1,
+            transform2: T2,
+            transform3: T3,
+            destination: B,
+            callback?: PipelineCallback<B>
+        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
+        function pipeline<A extends PipelineSource<any>,
+            T1 extends PipelineTransform<A, any>,
+            T2 extends PipelineTransform<T1, any>,
+            T3 extends PipelineTransform<T2, any>,
+            T4 extends PipelineTransform<T3, any>,
+            B extends PipelineDestination<T4, any>>(
+            source: A,
+            transform1: T1,
+            transform2: T2,
+            transform3: T3,
+            transform4: T4,
+            destination: B,
+            callback?: PipelineCallback<B>
+        ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline(
             streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
             callback?: (err: NodeJS.ErrnoException | null) => void,
@@ -329,21 +392,65 @@ declare module 'stream' {
             ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | ((err: NodeJS.ErrnoException | null) => void)>,
         ): NodeJS.WritableStream;
         namespace pipeline {
-            function __promisify__(stream1: NodeJS.ReadableStream, stream2: NodeJS.WritableStream): Promise<void>;
-            function __promisify__(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.WritableStream): Promise<void>;
-            function __promisify__(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: NodeJS.WritableStream): Promise<void>;
+            function __promisify__<A extends PipelineSource<any>,
+                B extends PipelineDestination<A, any>>(
+                source: A,
+                destination: B,
+                options?: PipelineOptions
+            ): PipelinePromise<B>;
+            function __promisify__<A extends PipelineSource<any>,
+                T1 extends PipelineTransform<A, any>,
+                B extends PipelineDestination<T1, any>>(
+                source: A,
+                transform1: T1,
+                destination: B,
+                options?: PipelineOptions,
+            ): PipelinePromise<B>;
+            function __promisify__<A extends PipelineSource<any>,
+                T1 extends PipelineTransform<A, any>,
+                T2 extends PipelineTransform<T1, any>,
+                B extends PipelineDestination<T2, any>>(
+                source: A,
+                transform1: T1,
+                transform2: T2,
+                destination: B,
+                options?: PipelineOptions
+            ): PipelinePromise<B>;
+            function __promisify__<A extends PipelineSource<any>,
+                T1 extends PipelineTransform<A, any>,
+                T2 extends PipelineTransform<T1, any>,
+                T3 extends PipelineTransform<T2, any>,
+                B extends PipelineDestination<T3, any>>(
+                source: A,
+                transform1: T1,
+                transform2: T2,
+                transform3: T3,
+                destination: B,
+                options?: PipelineOptions
+            ): PipelinePromise<B>;
+            function __promisify__<A extends PipelineSource<any>,
+                T1 extends PipelineTransform<A, any>,
+                T2 extends PipelineTransform<T1, any>,
+                T3 extends PipelineTransform<T2, any>,
+                T4 extends PipelineTransform<T3, any>,
+                B extends PipelineDestination<T4, any>>(
+                source: A,
+                transform1: T1,
+                transform2: T2,
+                transform3: T3,
+                transform4: T4,
+                destination: B,
+                options?: PipelineOptions
+            ): PipelinePromise<B>;
+
             function __promisify__(
-                stream1: NodeJS.ReadableStream,
-                stream2: NodeJS.ReadWriteStream,
-                stream3: NodeJS.ReadWriteStream,
-                stream4: NodeJS.ReadWriteStream,
-                stream5: NodeJS.WritableStream,
+                streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
+                options?: PipelineOptions
             ): Promise<void>;
-            function __promisify__(streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
             function __promisify__(
                 stream1: NodeJS.ReadableStream,
                 stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
-                ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>,
+                ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | PipelineOptions>,
             ): Promise<void>;
         }
 
@@ -353,6 +460,8 @@ declare module 'stream' {
             ref(): void;
             unref(): void;
         }
+
+        const promises: typeof streamPromises;
     }
 
     export = internal;

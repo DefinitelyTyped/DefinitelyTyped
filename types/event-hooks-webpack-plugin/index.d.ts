@@ -3,6 +3,7 @@
 // Definitions by: Pine Mizune <https://github.com/pine>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 import { Compiler, WebpackPluginInstance } from 'webpack';
 
 export = EventHooksPlugin;

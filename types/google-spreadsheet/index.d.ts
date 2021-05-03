@@ -1,4 +1,4 @@
-// Type definitions for google-spreadsheet 3.0
+// Type definitions for google-spreadsheet 3.1
 // Project: https://github.com/theoephraim/node-google-spreadsheet
 // Definitions by: the-vampiire <https://github.com/the-vampiire>
 //                 Federico Grandi <https://github.com/EndBug>
@@ -8,7 +8,7 @@
 
 export type WorksheetType = 'GRID' | 'OBJECT';
 
-export type WorksheetDimension = 'ROW' | 'COLUMN';
+export type WorksheetDimension = 'ROWS' | 'COLUMNS';
 
 export type HyperlinkDisplayType = 'LINKED' | 'PLAIN_TEXT';
 
@@ -284,6 +284,10 @@ export interface ServiceAccountCredentials {
      * service account private key
      */
     private_key: string;
+}
+
+export interface OAuth2Client {
+    getAccessToken: () => { token: string };
 }
 
 // #endregion
@@ -732,8 +736,9 @@ export class GoogleSpreadsheetWorksheet implements WorksheetBasicProperties {
      * @param filters single or array of filters
      * - strings are treated as an A1 range
      * - objects are treated as a WorksheetGridRange
+     * - if skipped, all cells are loaded
      */
-    loadCells(filters: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
+    loadCells(filters?: string | WorksheetGridRange | string[] | WorksheetGridRange[]): Promise<void>;
 
     /**
      * @description
@@ -1040,6 +1045,14 @@ export class GoogleSpreadsheet implements SpreadsheetBasicProperties {
      * @param key API key for your Google project
      */
     useApiKey(key: string): void;
+
+    /**
+     * @description
+     * Use Google's OAuth2Client to authenticate on behalf of a user
+     *
+     * @param oAuth2Client Configured OAuth2Client
+     */
+    useOAuth2Client(oAuth2Client: OAuth2Client): void;
 
     /**
      * @description

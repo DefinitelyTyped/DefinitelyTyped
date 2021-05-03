@@ -231,6 +231,8 @@ declare var $: (arg?: any) => JQuery;
     };
     test(URI.buildQuery(buildQueryData), 'foo=bar&hello=world&hello=mars&bam=&yup');
     test(URI.buildQuery(buildQueryData, true), 'foo=bar&hello=world&hello=mars&hello=mars&bam=&yup');
+    test(URI.buildQuery({ space: 'hello space' }, false), 'space=hello+space');
+    test(URI.buildQuery({ space: 'hello space' }, false, false), 'space=hello%20space');
 
     /*
     Tests for URI.parseQuery()

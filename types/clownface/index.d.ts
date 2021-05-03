@@ -36,6 +36,13 @@ declare namespace clownface {
       ? AnyPointer<T[0], D>
       : AnyPointer<T, D>;
 
+  type Predicate<T extends AnyContext = undefined, D extends DatasetCore = DatasetCore> =
+    T extends undefined
+      ? never
+      : T extends any[]
+      ? Iteratee<T[0], D>
+      : Iteratee<T, D>;
+
   interface OutOptions {
     language?: string | string[];
   }
@@ -51,7 +58,8 @@ declare namespace clownface {
     any(): AnyPointer<AnyContext, D>;
     list(): Iterable<Iteratee<T, D>> | null;
     toArray(): Array<AnyPointer<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
-    filter(cb: (quad: Iteratee<T, D>) => boolean): AnyPointer<T, D>;
+    filter<S extends T>(cb: (ptr: Iteratee<T, D>) => ptr is Predicate<S, any>): AnyPointer<S, D>;
+    filter(cb: (ptr: Iteratee<T, D>) => boolean): AnyPointer<T, D>;
     forEach(cb: (quad: Iteratee<T, D>) => void): this;
     map<X>(cb: (quad: Iteratee<T, D>, index: number) => X): X[];
 
@@ -73,7 +81,7 @@ declare namespace clownface {
     literal(value: SingleOrOneElementArray<boolean | string | number | Term | null> | AnyPointer<Literal, D>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal, D>;
     literal(values: Array<boolean | string | number | Term | null> | MultiPointer<Literal, D> | Iterable<Literal>, languageOrDatatype?: string | NamedNode): AnyPointer<Literal[], D>;
 
-    namedNode(value: SingleOrOneElementArray<string | NamedNode> | AnyPointer<NamedNode, D>): AnyPointer<NamedNode, D>;
+    namedNode<Iri extends string = string>(value: SingleOrOneElementArray<string | NamedNode<Iri> | AnyPointer<NamedNode<Iri>, D>>): AnyPointer<NamedNode<Iri>, D>;
     namedNode(values: Array<string | NamedNode> | MultiPointer<NamedNode, D> | Iterable<NamedNode>): AnyPointer<NamedNode[], D>;
 
     in(predicates?: SingleOrArrayOfTerms<Term>): MultiPointer<T extends undefined ? never : NamedNode | BlankNode, D>;

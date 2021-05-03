@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "postcss": "7.0.32"
+        "postcss": "^7.0.32",
+        "tapable": "^2.2.0",
+        "webpack": "^5.25.0"
     }
 }

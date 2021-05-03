@@ -189,6 +189,12 @@ auth.tokens
         // Handle the error.
     });
 
+// Get management client access token
+management
+    .getAccessToken()
+    .then(token => console.log(token))
+    .catch(err => console.log('Error: ' + err));
+
 // Update a user
 management.updateUser({ id: 'user_id' }, { email: 'hi@me.co' });
 
@@ -907,7 +913,7 @@ async () => {
 };
 
 // Token manager
-const tokenManager = new auth0.TokenManager({
+const tokenManager = new auth0.TokensManager({
     baseUrl: 'baseUrl',
     clientId: '{OPTIONAL_CLIENT_ID}',
     clientSecret: '{OPTIONAL_CLIENT_SECRET}',

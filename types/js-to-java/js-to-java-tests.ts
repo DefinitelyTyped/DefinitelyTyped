@@ -9,3 +9,4 @@ const cur4 = java.Currency({ currencyCode: "cn", other: 1});
 // const cur4 = java.Currency({ currencyCode: 100 });
 
 const arrStr = java.array.String(["a", "b"]);
+const enumObj = java.Enum('hessian.demo.Color', 'RED');
