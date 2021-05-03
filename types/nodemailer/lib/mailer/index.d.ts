@@ -153,7 +153,7 @@ declare namespace Mail {
         priority?: "high"|"normal"|"low";
     }
 
-    type PluginFunction<T> = (mail: MailMessage<T>, callback: (err?: Error | null) => void) => void;
+    type PluginFunction<T = any> = (mail: MailMessage<T>, callback: (err?: Error | null) => void) => void;
 }
 
 /** Creates an object for exposing the Mail API */
