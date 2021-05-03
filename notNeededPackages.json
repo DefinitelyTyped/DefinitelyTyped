@@ -1821,6 +1821,10 @@
             "libraryName": "junk",
             "asOfVersion": "3.0.0"
         },
+        "just-clone": {
+            "libraryName": "just-clone",
+            "asOfVersion": "3.2.1"
+        },
         "jwt-decode": {
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
