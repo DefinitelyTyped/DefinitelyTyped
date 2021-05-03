@@ -5,7 +5,7 @@ import { Readable } from 'stream';
 import Mail = require('.');
 import MimeNode = require('../mime-node');
 
-declare class MailMessage<T> {
+declare class MailMessage<T = any> {
     mailer: Mail<T>;
     data: Mail.Options;
     message: MimeNode;

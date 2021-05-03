@@ -1176,6 +1176,18 @@ function plugin_transport_example_test() {
             });
         }
     }
+    class AnyTransport implements nodemailer.Transport {
+        name = 'minimal';
+        version = '0.1.0';
+        constructor(options: Options) {}
+        send(mail: MailMessage<TestTransportInfo>, callback: (err: Error | null, info: TestTransportInfo) => void): void {
+            const input = mail.message.createReadStream();
+            input.pipe(process.stdout);
+            input.on('end', () => {
+                callback(null, { messageId: 'baz'});
+            });
+        }
+    }
 
     const transporter = nodemailer.createTransport(
         new Transport({

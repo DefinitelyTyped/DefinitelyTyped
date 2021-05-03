@@ -21,7 +21,7 @@ export type SendMailOptions = Mail.Options;
 
 export type Transporter<T> = Mail<T>;
 
-export interface Transport<T> {
+export interface Transport<T = any> {
     mailer?: Transporter<T>;
 
     name: string;

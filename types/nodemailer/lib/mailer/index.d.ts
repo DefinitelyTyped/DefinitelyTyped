@@ -157,7 +157,7 @@ declare namespace Mail {
 }
 
 /** Creates an object for exposing the Mail API */
-declare class Mail<T> extends EventEmitter {
+declare class Mail<T = any> extends EventEmitter {
     options: Mail.Options;
     meta: Map<string, any>;
     dkim: DKIM;
