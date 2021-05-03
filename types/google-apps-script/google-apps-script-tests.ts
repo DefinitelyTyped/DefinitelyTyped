@@ -360,3 +360,64 @@ const handleSlidesAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) =
     const isTitleOk = (slidesInfo.title = title);
     console.log({ isTitleOk });
 };
+
+const handleCommonAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => {
+    const {
+        commonEventObject: { formInputs, hostApp, parameters, platform, timeZone, userLocale },
+    } = e;
+
+    const plaformMap: { [P in GoogleAppsScript.AddonEventObjects.Platform]: string } = {
+        ANDROID: "Android",
+        IOS: "iOS",
+        WEB: "Web",
+    };
+
+    const hostMap: {
+        [P in GoogleAppsScript.AddonEventObjects.HostApplication]: (
+            e: GoogleAppsScript.AddonEventObjects.EventObject,
+        ) => void;
+    } = {
+        CALENDAR: handleCalendarAction,
+        DOCS: handleDocsAction,
+        DRIVE: handleDriveAction,
+        GMAIL: handleGmailAction,
+        SHEETS: handleSheetsAction,
+        SLIDES: handleSlidesAction,
+    };
+
+    try {
+        hostMap[hostApp](e);
+
+        const now = new Date();
+        const formattedDate = Utilities.formatDate(now, timeZone.id, "MM/dd/yyyy");
+        const formattedTime = Utilities.formatDate(now, timeZone.id, "hh:mm a");
+
+        Object.keys(formInputs).forEach(id => {
+            const { dateInput, dateTimeInput, stringInputs, timeInput } = formInputs[id][""];
+
+            if (dateInput || dateTimeInput) {
+                parameters.modifiedAt = dateInput.msSinceEpoch;
+            }
+
+            if (stringInputs) {
+                parameters.emails = JSON.stringify(stringInputs.value);
+            }
+
+            if (timeInput) {
+                const { hours, minutes } = timeInput;
+                parameters.startsAt = `${hours}:${minutes}`;
+            }
+        });
+
+        const props = PropertiesService.getUserProperties();
+        props.setProperties(parameters);
+
+        console.log(`Processed on ${formattedDate} at ${formattedTime} | ${userLocale}`);
+    } catch ({ name, message }) {
+        const type = plaformMap[platform];
+        console.warn(`Platform: ${type}
+        Type: ${name}
+        Details: ${message}
+        `);
+    }
+};
