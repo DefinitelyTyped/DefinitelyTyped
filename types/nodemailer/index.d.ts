@@ -19,7 +19,7 @@ import StreamTransport = require('./lib/stream-transport');
 
 export type SendMailOptions = Mail.Options;
 
-export type Transporter<T> = Mail<T>;
+export type Transporter<T = any> = Mail<T>;
 
 export interface Transport<T = any> {
     mailer?: Transporter<T>;

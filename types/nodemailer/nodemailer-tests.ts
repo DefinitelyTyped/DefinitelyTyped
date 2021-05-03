@@ -1180,7 +1180,7 @@ function plugin_transport_example_test() {
         name = 'minimal';
         version = '0.1.0';
         constructor(options: Options) {}
-        send(mail: MailMessage<TestTransportInfo>, callback: (err: Error | null, info: TestTransportInfo) => void): void {
+        send(mail: MailMessage, callback: (err: Error | null, info: any) => void): void {
             const input = mail.message.createReadStream();
             input.pipe(process.stdout);
             input.on('end', () => {
