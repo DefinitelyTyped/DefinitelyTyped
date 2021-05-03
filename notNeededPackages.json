@@ -1837,6 +1837,10 @@
             "libraryName": "just-map-values",
             "asOfVersion": "1.2.1"
         },
+        "just-pick": {
+            "libraryName": "just-pick",
+            "asOfVersion": "2.2.1"
+        },
         "jwt-decode": {
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
