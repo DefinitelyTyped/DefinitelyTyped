@@ -1833,6 +1833,10 @@
             "libraryName": "just-extend",
             "asOfVersion": "4.2.1"
         },
+        "just-map-values": {
+            "libraryName": "just-map-values",
+            "asOfVersion": "1.2.1"
+        },
         "jwt-decode": {
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
