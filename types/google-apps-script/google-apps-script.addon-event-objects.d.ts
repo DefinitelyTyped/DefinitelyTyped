@@ -187,10 +187,10 @@ declare namespace GoogleAppsScript {
             formInputs: {
                 [ID: string]: {
                     '': {
-                        stringInputs: StringInputObject;
-                        dateInput: DateInputObject;
-                        timeInput: TimeInputObject;
-                        dateTimeInput: DateTimeInputObject;
+                        stringInputs?: StringInputObject;
+                        dateInput?: DateInputObject;
+                        timeInput?: TimeInputObject;
+                        dateTimeInput?: DateTimeInputObject;
                     }; // always one key only <"">
                 };
             };
