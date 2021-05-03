@@ -2,16 +2,16 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "esModuleInterop": true,
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
         "noEmit": true,
@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "parse-tests.ts"
+        "cypress-dotenv-tests.ts"
     ]
 }

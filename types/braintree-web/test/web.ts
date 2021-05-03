@@ -315,6 +315,10 @@ braintree.client.create(
             },
         );
 
+        braintree.ApplePaySession.canMakePayments(); // boolean
+        braintree.ApplePaySession.canMakePaymentsWithActiveCard('merchantIdentifier'); // boolean
+        braintree.ApplePaySession.supportsVersion(3); // boolean
+
         braintree.applePay.create(
             { client: clientInstance },
             (createErr?: braintree.BraintreeError, applePayInstance?: braintree.ApplePay) => {

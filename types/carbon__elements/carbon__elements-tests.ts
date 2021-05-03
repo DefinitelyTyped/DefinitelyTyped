@@ -1,8 +1,12 @@
 import {
     expressiveParagraph01,
     tokens,
+    v9,
+    white,
     g10,
+    g80,
     g90,
+    g100,
     rgba,
     caption01,
     breakpointUp,
@@ -30,3 +34,8 @@ slow01;
 g90.link02;
 g10.spacing13;
 spacing13;
+v9.linkPrimaryHover;
+white.toggleOff;
+g100.textOnColorDisabled;
+g100.highlight;
+g80.hoverDanger;
