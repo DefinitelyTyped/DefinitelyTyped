@@ -114,6 +114,7 @@ declare namespace WaveSurfer {
         channelIdx?: number;
         handleStyle?: HandleStyle;
         preventContextMenu?: boolean;
+        showTooltip?: boolean;
     }
 
     interface HandleStyle {
