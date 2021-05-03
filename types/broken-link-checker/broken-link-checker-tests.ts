@@ -1,4 +1,4 @@
-import * as blc from 'broken-link-checker';
+import * as blc from "broken-link-checker";
 
 () => {
     const siteChecker = new blc.SiteChecker({}, {});
@@ -7,11 +7,11 @@ import * as blc from 'broken-link-checker';
 () => {
     const siteChecker = new blc.SiteChecker(
         {
-            acceptedSchemes: ['http', 'https'],
+            acceptedSchemes: ["http", "https"],
             cacheExpiryTime: 3600000,
             cacheResponses: true,
             excludedKeywords: [],
-            excludedSchemes: ['data', 'geo', 'javascript', 'mailto', 'sms', 'tel'],
+            excludedSchemes: ["data", "geo", "javascript", "mailto", "sms", "tel"],
             excludeExternalLinks: false,
             excludeInternalLinks: false,
             excludeLinksToSamePage: true,
@@ -20,9 +20,9 @@ import * as blc from 'broken-link-checker';
             maxSockets: Infinity,
             maxSocketsPerHost: 1,
             rateLimit: 0,
-            requestMethod: 'head',
+            requestMethod: "head",
             retry405Head: true,
-            userAgent: 'broken-link-checker/0.7.0 Node.js/5.5.0 (OS X El Capitan; x64)',
+            userAgent: "broken-link-checker/0.7.0 Node.js/5.5.0 (OS X El Capitan; x64)",
         },
         {},
     );
