@@ -125,13 +125,17 @@ waveSurferWithRegionsPlugin.regions.destroy();
 // - plugin: spectogram
 const waveSurferWithSpectogramPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [SpectogramPlugin.create({})],
+    plugins: [SpectogramPlugin.create({
+        container: '#spectogram'
+    })],
 });
 waveSurferWithSpectogramPlugin.spectogram.destroy();
 
 // - plugin: timeline
 const waveSurferWithTimelinePlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [TimelinePlugin.create({})],
+    plugins: [TimelinePlugin.create({
+        container: '#timeline'
+    })],
 });
 waveSurferWithTimelinePlugin.timeline.destroy();

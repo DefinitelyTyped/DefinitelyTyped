@@ -9,18 +9,31 @@ declare namespace WaveSurfer {
         destroy(): void;
         init(): void;
 
+        /** Connect the media sources that feed the visualization. */
         connect(): void;
+        /** Browser detector. */
         detectBrowser(): Browser;
+        /** Device error callback. */
         deviceError(code: string): void;
+        /** Disconnect the media sources that feed the visualization. */
         disconnect(): void;
+        /** Extract browser version out of the provided user agent string. */
         extractVersion(uastring: string, expr: string, pos: number): number;
+        /** Audio input device is ready. */
         gotStream(stream: MediaStream): void;
+        /** Pause visualization. */
         pause(): void;
+        /** Play visualization. */
         play(): void;
+        /** Redraw the waveform. */
         reloadBuffer(event: AudioProcessingEvent): void;
+        /** Allow user to select audio input device. */
         start(): void;
+        /** Stop the device stream and remove any remaining waveform drawing from the wavesurfer canvas. */
         stop(): void;
+        /** Stop the device and the visualization. */
         stopDevice(): void;
+        /** Pause/resume visualization. */
         togglePlay(): void;
 
         readonly active: boolean;
@@ -46,9 +59,15 @@ declare namespace WaveSurfer {
     }
 
     interface MicrophonePluginParams extends PluginParams {
+        /** Constraints describing the media types requested. */
         constraints?: MediaStreamConstraints;
-        bufferSize?: number;
+        /** The buffer size in units of sample-frames (default: 4096). */
+        bufferSize?: BufferSize;
+        /** Integer specifying the number of channels for this node's input (default: 1). Values of up to 32 are supported. */
         numberOfInputChannels?: number;
+        /** Integer specifying the number of channels for this node's output. */
         numberOfOutputChannels?: number;
     }
+
+    type BufferSize = 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384;
 }

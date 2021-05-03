@@ -41,12 +41,21 @@ declare namespace WaveSurfer {
     }
 
     interface RegionsPluginParams extends PluginParams {
+        /** Enable creating regions by dragging with the mouse. */
         dragSelection?: boolean;
+        /** Regions that should be added upon initialisation. */
         regions?: RegionParams[];
+        /** The sensitivity of the mouse dragging (default: 2). */
         slop?: number;
+        /** Snap the regions to a grid of the specified multiples in seconds? */
         snapToGridInterval?: number;
+        /** Shift the snap-to-grid by the specified seconds. May also be negative. */
+        snapToGridOffset?: number;
+        /** Maximum number of regions that may be created by the user at one time. */
         maxRegions?: number[];
+        /** Allows custom formating for region tooltip. */
         formatTimeCallback?: () => string;
+        /** from container edges' Optional width for edgeScroll to start (default: 5% of viewport width). */
         edgeScrollWidth?: number;
     }
 

@@ -11,8 +11,11 @@ declare namespace WaveSurfer {
     }
 
     interface ElanPluginParams extends PluginParams {
+        /** CSS selector or HTML element where the ELAN information should be rendered. */
         container?: string | HTMLElement;
+        /** The location of ELAN XML data. */
         url?: string;
+        /** If set only shows the data tiers with the TIER_ID in this map. */
         tiers?: unknown;
     }
 }

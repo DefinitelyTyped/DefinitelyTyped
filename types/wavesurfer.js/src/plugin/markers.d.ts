@@ -13,8 +13,11 @@ declare namespace WaveSurfer {
         destroy(): void;
         init(): void;
 
+        /** Add a marker. */
         add(param: MarkerParams): Marker;
+        /** Remove all markers. */
         clear(): void;
+        /** Remove a marker. */
         remove(index: number): void;
 
         readonly markerHeight: number;
@@ -35,12 +38,16 @@ declare namespace WaveSurfer {
     }
 
     interface MarkersPluginParams {
+        /** Initial set of markers. */
         markers?: MarkerParams[];
     }
 
     interface MarkerParams {
+        /** The time to set the marker at. */
         time: number;
+        /** An optional marker label. */
         label?: string;
+        /** Background color for marker. */
         color?: string;
         position?: "top" | "bottom";
     }

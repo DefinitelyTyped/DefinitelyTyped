@@ -35,13 +35,7 @@ declare namespace WaveSurfer {
     }
 
     interface MinimapPluginParams extends PluginParams {
+        /** CSS selector or HTML element where the map should be rendered. By default it is simply appended after the waveform. */
         container?: string | HTMLElement | false;
-
-        showRegions?: boolean;
-        regionsPluginName?: string;
-        showOverview?: boolean;
-        overviewBorderColor?: string;
-        overviewBorderSize?: number;
-        height?: number;
     }
 }

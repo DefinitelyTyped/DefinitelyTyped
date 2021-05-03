@@ -17,6 +17,7 @@ declare namespace WaveSurfer {
     }
 
     interface MediaSessionPluginParams extends PluginParams {
+        /** Representation of the metadata associated with a MediaSession that can be used by user agents to provide a customized user interface. */
         metadata: MediaMetadata;
     }
 
