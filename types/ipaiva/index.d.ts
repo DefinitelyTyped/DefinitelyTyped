@@ -44,10 +44,10 @@ declare module 'ipaiva' {
         }
 
         interface NodeData {
-            [key: string]: string | number | boolean | any;
+            [key: string]: string | number | boolean | object;
         }
 
-        type Props = Record<string, any>
+        type Props = Record<string, any>;
 
         interface Design {
             main?: string;
@@ -66,7 +66,7 @@ declare module 'ipaiva' {
              *
              * @param options DesignOptions
              */
-            extractOptions?(options: DesignOptions): DesignOptions
+            extractOptions?(options: DesignOptions): DesignOptions;
         }
 
         interface Render {}
