@@ -38,7 +38,6 @@ declare namespace internal {
         iterator(...plus: any[]): any;
         forEach(...plus: any[]): any;
         map(...plus: any[]): any;
-
         filter(...plus: any[]): any;
         group(...plus: any[]): any;
         some(...plus: any[]): any;
@@ -86,8 +85,8 @@ declare namespace internal {
 
     class Node<T> {
         readonly value: T;
-        readonly left: Node<T>;
-        readonly right: Node<T>;
+        readonly left: Node<T> | null;
+        readonly right: Node<T> | null;
         readonly length: number;
 
         constructor(value: T);
