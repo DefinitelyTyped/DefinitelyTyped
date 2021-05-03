@@ -11,13 +11,11 @@
 import JSONTransport = require('./lib/json-transport');
 import Mail = require('./lib/mailer');
 import MailMessage = require('./lib/mailer/mail-message');
-import MimeNode = require('./lib/mime-node');
 import SendmailTransport = require('./lib/sendmail-transport');
 import SESTransport = require('./lib/ses-transport');
 import SMTPPool = require('./lib/smtp-pool');
 import SMTPTransport = require('./lib/smtp-transport');
 import StreamTransport = require('./lib/stream-transport');
-import stream = require('stream');
 
 export type SendMailOptions = Mail.Options;
 
