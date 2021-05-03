@@ -1,4 +1,4 @@
-// Type definitions for wavesurfer.js 4.6
+// Type definitions for wavesurfer.js 5.0
 // Project: https://github.com/katspaugh/wavesurfer.js
 // Definitions by: Yusuke Higuchi <https://github.com/higuri>
 //                 Egor Gorbachev <https://github.com/kubk>
@@ -12,6 +12,7 @@ import MarkersPlugin = require("./src/plugin/markers");
 import MediaSessionPlugin = require("./src/plugin/mediasession");
 import MicrophonePlugin = require("./src/plugin/microphone");
 import MinimapPlugin = require("./src/plugin/minimap");
+import PlayheadPlugin = require("./src/plugin/playhead");
 import RegionsPlugin = require("./src/plugin/regions");
 import SpectogramPlugin = require("./src/plugin/spectogram");
 import TimelinePlugin = require("./src/plugin/timeline");
@@ -60,6 +61,8 @@ declare class WaveSurfer extends Observer {
     microphone: MicrophonePlugin;
     /** Only available in WaveSurfer instances with MinimapPlugin. */
     minimap: MinimapPlugin;
+    /** Only available in WaveSurfer instances with PlayheadPlugin. */
+    playhead: PlayheadPlugin;
     /** Only available in WaveSurfer instances with RegionsPlugin. */
     regions: RegionsPlugin;
     /** Only available in WaveSurfer instances with SpectogramPlugin. */
@@ -75,7 +78,7 @@ declare class WaveSurfer extends Observer {
     destroyPlugin(name: string): WaveSurfer;
     empty(): void;
     exportImage(format?: string, quality?: number, type?: "dataURL" | "blob"): string | string[] | Promise<Blob[]>;
-    exportPCM(length?: number, accuracy?: number, noWindow?: boolean, start?: number, end?: number): Promise<string>;
+    exportPCM(length?: number, accuracy?: number, noWindow?: boolean, start?: number, end?: number): Promise<Peaks>;
     getActivePlugins(): { [pluginName: string]: boolean };
     getBackgroundColor(): string;
     getCurrentTime(): number;
@@ -186,6 +189,7 @@ declare namespace WaveSurfer {
         skipLength?: number;
         splitChannels?: boolean;
         splitChannelsOptions?: SplitChannelsOptions;
+        vertical?: boolean;
         waveColor?: string | CanvasGradient;
         xhr?: XHROptions;
     }

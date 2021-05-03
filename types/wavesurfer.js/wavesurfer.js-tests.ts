@@ -13,8 +13,9 @@ import TimelinePlugin = require("wavesurfer.js/src/plugin/timeline");
 // - create an instance
 const wavesurfer = WaveSurfer.create({
     container: "#waveform",
-    waveColor: "violet",
     progressColor: "purple",
+    vertical: false,
+    waveColor: "violet",
 });
 // -- subscribe to some events
 wavesurfer.on("ready", () => {
