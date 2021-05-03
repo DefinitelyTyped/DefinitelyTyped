@@ -1829,6 +1829,10 @@
             "libraryName": "just-debounce-it",
             "asOfVersion": "1.5.0"
         },
+        "just-extend": {
+            "libraryName": "just-extend",
+            "asOfVersion": "4.2.1"
+        },
         "jwt-decode": {
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
