@@ -34,6 +34,7 @@ type UnboxBelongsTo<T> =
     T extends DS.AsyncBelongsTo<infer C> ? C
         : T extends Ember.ComputedProperty<DS.AsyncBelongsTo<infer C>, infer C | DS.PromiseObject<infer C>> ? MaybeModel<C>
         : T extends Ember.ComputedProperty<infer C, infer C | DS.PromiseObject<infer C>> ? MaybeModel<C>
+        : undefined extends T ? null
         : MaybeModel<T>;
 
 type UnboxHasMany<T> =
@@ -44,7 +45,7 @@ type UnboxHasMany<T> =
       : undefined;
 
 type BelongsToModels<Model extends DS.Model> = {
-    [K in keyof Model]: UnboxBelongsTo<Model[K]>
+    [K in keyof Model]-?: UnboxBelongsTo<Model[K]>
 };
 
 type HasManyModels<Model extends DS.Model> = {
