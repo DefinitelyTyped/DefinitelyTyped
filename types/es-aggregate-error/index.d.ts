@@ -6,11 +6,11 @@
 /// <reference types="node" />
 
 declare class AggregateError extends Error implements NodeJS.ErrnoException {
-    readonly errors: unknown[];
+    readonly errors: ReadonlyArray<unknown>;
     readonly name: "AggregateError";
     readonly message: string;
 
-    constructor(errors: unknown[], message?: string);
+    constructor(errors: ReadonlyArray<unknown>, message?: string);
 
     static shim(): void;
 }
