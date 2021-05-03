@@ -1825,6 +1825,10 @@
             "libraryName": "just-clone",
             "asOfVersion": "3.2.1"
         },
+        "just-debounce-it": {
+            "libraryName": "just-debounce-it",
+            "asOfVersion": "1.5.0"
+        },
         "jwt-decode": {
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
