@@ -2968,7 +2968,7 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @return {vector} The average point
          */
-        static mean(vertices: Array<Vector>): Array<Vector>;
+        static mean(vertices: Array<Vector>): Vector;
 
         /**
          * Sorts the input vertices into clockwise order in place.
