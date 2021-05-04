@@ -289,6 +289,8 @@ declare namespace jasmine {
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: { [K in keyof T]?: ExpectedRecursive<T[K]> }): ObjectContaining<T>;
+    function mapContaining<K, V>(sample: Map<K, V>): AsymmetricMatcher<Map<K, V>>;
+    function setContaining<T>(sample: Set<T>): AsymmetricMatcher<Set<T>>;
 
     function setDefaultSpyStrategy<Fn extends Func = Func>(fn?: (and: SpyAnd<Fn>) => void): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
@@ -752,6 +754,7 @@ declare namespace jasmine {
 
     interface SuiteInfo {
         totalSpecsDefined: number;
+        order: Order;
     }
 
     interface CustomReportExpectation {
@@ -825,8 +828,12 @@ declare namespace jasmine {
     }
 
     interface RunDetails {
-        failedExpectations: ExpectationResult[];
+        overallStatus: string;
+        totalTime: number;
+        incompleteReason: string;
         order: Order;
+        failedExpectations: ExpectationResult[];
+        deprecationWarnings: ExpectationResult[];
     }
 
     interface CustomReporter {
@@ -1028,6 +1035,8 @@ declare namespace jasmine {
      * Set this to a lower value to speed up pretty printing if you have large objects.
      */
     var MAX_PRETTY_PRINT_DEPTH: number;
+
+    var version: string;
 }
 
 declare module "jasmine" {

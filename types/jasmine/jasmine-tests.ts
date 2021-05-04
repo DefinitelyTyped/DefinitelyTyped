@@ -1355,6 +1355,68 @@ describe("jasmine.arrayWithExactContents", () => {
     });
 });
 
+describe("jasmine.mapContaining", () => {
+    var foo: Map<number, string>;
+
+    beforeEach(() => {
+        foo = new Map([[1, "one"], [2, "two"], [3, "three"], [4, "four"]]);
+    });
+
+    it("matches arrays with some of the values", () => {
+        expect(foo).toEqual(jasmine.mapContaining(new Map([[3, "three"], [1, "one"]])));
+        expect(foo).not.toEqual(jasmine.mapContaining(new Map([[6, "six"]])));
+    });
+
+    it("matches read-only map", () => {
+        const bar: ReadonlyMap<number, string> = new Map([[1, "one"], [2, "two"], [3, "three"], [4, "four"]]);
+        expect(bar).toEqual(jasmine.mapContaining(new Map([[3, "three"], [1, "one"]])));
+        expect(bar).not.toEqual(jasmine.mapContaining(new Map([[6, "six"]])));
+    });
+
+    describe("when used with a spy", () => {
+        it("is useful when comparing arguments", () => {
+            const callback = jasmine.createSpy<(numbers: Map<number, string>) => number>("callback");
+            callback.withArgs(jasmine.mapContaining(new Map([[1, "one"], [2, "two"]]))).and.returnValue(42);
+
+            callback(new Map([[1, "one"], [2, "two"], [3, "three"], [4, "four"]]));
+
+            expect(callback).toHaveBeenCalledWith(jasmine.mapContaining(new Map([[4, "four"], [2, "two"], [3, "three"]])));
+            expect(callback).not.toHaveBeenCalledWith(jasmine.mapContaining(new Map([[5, "five"], [2, "two"]])));
+        });
+    });
+});
+
+describe("jasmine.setContaining", () => {
+    var foo: Set<number>;
+
+    beforeEach(() => {
+        foo = new Set([1, 2, 3, 4]);
+    });
+
+    it("matches arrays with some of the values", () => {
+        expect(foo).toEqual(jasmine.setContaining(new Set([3, 1])));
+        expect(foo).not.toEqual(jasmine.setContaining(new Set([6])));
+    });
+
+    it("matches read-only set", () => {
+        const bar: ReadonlySet<number> = new Set([1, 2, 3, 4]);
+        expect(bar).toEqual(jasmine.setContaining(new Set([3, 1])));
+        expect(bar).not.toEqual(jasmine.setContaining(new Set([6])));
+    });
+
+    describe("when used with a spy", () => {
+        it("is useful when comparing arguments", () => {
+            const callback = jasmine.createSpy<(numbers: Set<number>) => number>("callback");
+            callback.withArgs(jasmine.setContaining(new Set([1, 2]))).and.returnValue(42);
+
+            callback(new Set([1, 2, 3, 4]));
+
+            expect(callback).toHaveBeenCalledWith(jasmine.setContaining(new Set([4, 2, 3])));
+            expect(callback).not.toHaveBeenCalledWith(jasmine.setContaining(new Set([5, 2])));
+        });
+    });
+});
+
 describe("jasmine.isSpy", () => {
     it("detect a Spy", () => {
         const callback = jasmine.createSpy<(arg: number[]) => number>("callback");
@@ -1733,6 +1795,8 @@ describe("better typed spys", () => {
 // test based on http://jasmine.github.io/2.5/custom_reporter.html
 var myReporter: jasmine.CustomReporter = {
     jasmineStarted: (suiteInfo: jasmine.SuiteInfo) => {
+        console.log("Random:", suiteInfo.order.random);
+        console.log("Seed:", suiteInfo.order.seed);
         console.log("Running suite with " + suiteInfo.totalSpecsDefined);
     },
 
@@ -1770,6 +1834,10 @@ var myReporter: jasmine.CustomReporter = {
     jasmineDone: (runDetails: jasmine.RunDetails) => {
         console.log("Finished suite");
         console.log("Random:", runDetails.order.random);
+        console.log("Seed:", runDetails.order.seed);
+        console.log("Status:", runDetails.overallStatus);
+        console.log("Total Time:", runDetails.totalTime);
+        console.log("Incomplete Reason:", runDetails.incompleteReason);
     },
 };
 
@@ -1989,6 +2057,12 @@ describe("setDefaultSpyStrategy", () => {
         expect(() => {
             program.start();
         }).toThrowError("Do Not Call Me");
+    });
+});
+
+describe("version", () => {
+    it("get version", () => {
+        console.log(jasmine.version);
     });
 });
 
