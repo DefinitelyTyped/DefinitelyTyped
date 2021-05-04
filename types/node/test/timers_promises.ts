@@ -1,5 +1,5 @@
-import { setImmediate, setTimeout } from 'node:timers/promises';
-import { TimerOptions } from 'node:timers';
+import { setImmediate, setTimeout } from 'timers/promises';
+import { TimerOptions } from 'timers';
 const opts: TimerOptions = {
     ref: false,
     signal: new AbortController().signal,

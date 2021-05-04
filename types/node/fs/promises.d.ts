@@ -1,8 +1,4 @@
 declare module 'fs/promises' {
-    export * from 'node:fs/promises';
-}
-
-declare module 'node:fs/promises' {
     import {
         Stats,
         BigIntStats,
@@ -20,7 +16,7 @@ declare module 'node:fs/promises' {
         BufferEncodingOption,
         OpenMode,
         Mode,
-    } from 'node:fs';
+    } from 'fs';
 
     interface FileHandle {
         /**

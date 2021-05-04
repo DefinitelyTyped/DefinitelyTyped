@@ -1,5 +1,5 @@
-import * as v8 from 'node:v8';
-import { Readable } from 'node:stream';
+import * as v8 from 'v8';
+import { Readable } from 'stream';
 
 const heapStats = v8.getHeapStatistics();
 const numOfDetached = heapStats.number_of_detached_contexts;

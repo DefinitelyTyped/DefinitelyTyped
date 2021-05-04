@@ -33,22 +33,22 @@ import '../test/wasi';
 import '../test/worker_threads';
 import '../test/zlib';
 
-import assert = require('node:assert');
-import * as fs from 'node:fs';
-import * as url from 'node:url';
-import * as util from 'node:util';
-import * as http from 'node:http';
-import * as https from 'node:https';
-import * as net from 'node:net';
-import * as console2 from 'node:console';
-import * as inspector from 'node:inspector';
-import * as trace_events from 'node:trace_events';
+import assert = require('assert');
+import * as fs from 'fs';
+import * as url from 'url';
+import * as util from 'util';
+import * as http from 'http';
+import * as https from 'https';
+import * as net from 'net';
+import * as console2 from 'console';
+import * as inspector from 'inspector';
+import * as trace_events from 'trace_events';
 
 /////////////////////////////////////////////////////
 /// WASI tests : https://nodejs.org/api/wasi.html ///
 /////////////////////////////////////////////////////
 
-import { WASI } from 'node:wasi';
+import { WASI } from 'wasi';
 
 const wasi = new WASI({
   args: process.argv,

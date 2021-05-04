@@ -1,12 +1,8 @@
-declare module 'node:child_process' {
-    export * from 'child_process';
-}
-
 declare module 'child_process' {
-    import { BaseEncodingOptions } from 'node:fs';
-    import * as events from 'node:events';
-    import * as net from 'node:net';
-    import { Writable, Readable, Stream, Pipe } from 'node:stream';
+    import { BaseEncodingOptions } from 'fs';
+    import * as events from 'events';
+    import * as net from 'net';
+    import { Writable, Readable, Stream, Pipe } from 'stream';
 
     type Serializable = string | object | number | boolean;
     type SendHandle = net.Socket | net.Server;

@@ -1,7 +1,3 @@
-declare module 'node:os' {
-    export * from 'os';
-}
-
 declare module 'os' {
     interface CpuInfo {
         model: string;
