@@ -293,6 +293,16 @@ declare module 'stream' {
 
         class PassThrough extends Transform { }
 
+        /**
+         * Attaches an AbortSignal to a readable or writeable stream. This lets code
+         * control stream destruction using an `AbortController`.
+         *
+         * Calling `abort` on the `AbortController` corresponding to the passed
+         * `AbortSignal` will behave the same way as calling `.destroy(new AbortError())`
+         * on the stream.
+         */
+        function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
+
         interface FinishedOptions {
             error?: boolean;
             readable?: boolean;

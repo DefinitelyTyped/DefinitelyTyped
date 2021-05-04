@@ -622,6 +622,10 @@ declare namespace NodeJS {
         '.node': (m: Module, filename: string) => any;
     }
     interface Module {
+        /**
+         * `true` if the module is running during the Node.js preload
+         */
+        isPreloading: boolean;
         exports: any;
         require: Require;
         id: string;

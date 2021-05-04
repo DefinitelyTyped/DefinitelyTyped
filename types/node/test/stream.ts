@@ -1,4 +1,4 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'stream';
+import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'stream';
 import { promisify } from 'util';
 import { createReadStream, createWriteStream } from 'fs';
 import { createGzip, constants } from 'zlib';
@@ -467,3 +467,5 @@ function stream_readable_pipe_test() {
     z.close();
     rs.close();
 }
+
+addAbortSignal(new AbortSignal(), new Readable());

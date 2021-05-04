@@ -209,6 +209,22 @@ declare module 'worker_threads' {
         off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
+    interface BroadcastChannel extends NodeJS.RefCounted {}
+
+    /**
+     * See https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel
+     */
+    class BroadcastChannel {
+        readonly name: string;
+        onmessage: (message: unknown) => void;
+        onmessageerror: (message: unknown) => void;
+
+        constructor(name: string);
+
+        close(): void;
+        postMessage(message: unknown): void;
+    }
+
     /**
      * Mark an object as not transferable.
      * If `object` occurs in the transfer list of a `port.postMessage()` call, it will be ignored.

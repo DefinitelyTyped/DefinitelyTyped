@@ -29,7 +29,7 @@ import { Writable, Readable, Pipe } from 'stream';
 
 {
     childProcess.execFile("npm", () => {});
-    childProcess.execFile("npm", { windowsHide: true }, () => {});
+    childProcess.execFile("npm", { windowsHide: true, signal: new AbortSignal(), }, () => {});
     childProcess.execFile("npm", { shell: true }, () => {});
     childProcess.execFile("npm", { shell: '/bin/sh' }, () => {});
     childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, () => {});

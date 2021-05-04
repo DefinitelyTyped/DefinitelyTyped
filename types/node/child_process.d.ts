@@ -1,5 +1,5 @@
 declare module 'child_process' {
-    import { BaseEncodingOptions } from 'fs';
+    import { BaseEncodingOptions, Abortable } from 'fs';
     import * as events from 'events';
     import * as net from 'net';
     import { Writable, Readable, Stream, Pipe } from 'stream';
@@ -335,6 +335,7 @@ declare module 'child_process' {
         killSignal?: NodeJS.Signals | number;
         windowsVerbatimArguments?: boolean;
         shell?: boolean | string;
+        signal?: AbortSignal;
     }
     interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
