@@ -1,4 +1,5 @@
 import WaveSurfer from "wavesurfer.js";
+import Init from "wavesurfer.js/src/html-init";
 import PeakCache from "wavesurfer.js/src/peakcache";
 import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
 import ElanPlugin from "wavesurfer.js/src/plugin/elan";
@@ -147,6 +148,11 @@ const waveSurferWithTimelinePlugin = WaveSurfer.create({
     ],
 });
 waveSurferWithTimelinePlugin.timeline.destroy();
+
+// - Init
+const waveSurferForInit = new WaveSurfer({ container: "#waveform" });
+const init = new Init(waveSurferForInit);
+init.initAllEls();
 
 // - PeakCache
 const peakCache = new PeakCache();
