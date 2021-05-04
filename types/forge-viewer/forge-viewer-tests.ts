@@ -27,6 +27,7 @@ Autodesk.Viewing.Initializer(options, async () => {
 
     globalTests();
     bubbleNodeTests(model);
+    bufferReaderTest(model);
     callbackTests(viewer);
     cameraTests(viewer);
     formattingTests();
@@ -61,6 +62,30 @@ function bubbleNodeTests(model: Autodesk.Viewing.Model): void {
     node.getModelName();
     // $ExpectType string
     node.getInputFileType();
+}
+
+function bufferReaderTest(model: Autodesk.Viewing.Model): void {
+    const instanceTree = model.getInstanceTree();
+    const dbIds: number[] = [];
+
+    instanceTree.enumNodeChildren(instanceTree.getRootId(), (dbId) => {
+        if (instanceTree.getChildCount(dbId) === 0) {
+            dbIds.push(dbId);
+        }
+    });
+    const frags = model.getFragmentList();
+    const objFrags = frags.fragments.dbId2fragId;
+
+    for (let i = 0; i < dbIds.length; i++) {
+        const dbId = dbIds[i];
+
+        for (let j = 0; j < objFrags.length; j++) {
+            const vbr = new Autodesk.Viewing.Private.VertexBufferReader(objFrags[j]);
+            const bc = new Autodesk.Viewing.Private.BoundsCallback(new THREE.Box3());
+
+            vbr.enumGeomsForObject(dbId, bc);
+        }
+    }
 }
 
 function callbackTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
