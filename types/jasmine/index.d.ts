@@ -1041,36 +1041,45 @@ declare namespace jasmine {
 
 declare module "jasmine" {
     class jasmine {
-        constructor(options: any);
         jasmine: jasmine.Jasmine;
-        addMatchers(matchers: jasmine.CustomMatcherFactories): void;
-        addReporter(reporter: jasmine.CustomReporter): void;
-        addSpecFile(filePath: string): void;
-        addSpecFiles(files: string[]): void;
-        configureDefaultReporter(options: any, ...args: any[]): void;
-        execute(files?: string[], filterString?: string): any;
-        exitCodeCompletion(passed: any): void;
-        loadConfig(config: any): void;
-        loadConfigFile(configFilePath: any): void;
-        loadHelpers(): void;
-        loadSpecs(): void;
-        onComplete(onCompleteCallback: (passed: boolean) => void): void;
-        provideFallbackReporter(reporter: jasmine.CustomReporter): void;
-        randomizeTests(value?: any): boolean;
-        seed(value: any): void;
-        showColors(value: any): void;
-        stopSpecOnExpectationFailure(value: any): void;
-        static ConsoleReporter(): any;
         env: jasmine.Env;
         reportersCount: number;
         completionReporter: jasmine.CustomReporter;
         reporter: jasmine.CustomReporter;
-        coreVersion(): string;
         showingColors: boolean;
         projectBaseDir: string;
-        printDeprecation(): void;
+        specDir: string;
         specFiles: string[];
         helperFiles: string[];
+        requires: string[];
+        onCompleteCallbackAdded: boolean;
+        defaultReporterConfigured: boolean;
+
+        constructor(options: any);
+        addMatchers(matchers: jasmine.CustomMatcherFactories): void;
+        addReporter(reporter: jasmine.CustomReporter): void;
+        addSpecFile(filePath: string): void;
+        addSpecFiles(files: string[]): void;
+        addHelperFiles(files: string[]): void;
+        addRequires(files: string[]): void;
+        configureDefaultReporter(options: any, ...args: any[]): void;
+        execute(files?: string[], filterString?: string): Promise<void>;
+        exitCodeCompletion(passed: boolean): void;
+        loadConfig(config: any): void;
+        loadConfigFile(configFilePath?: string): void;
+        loadHelpers(): Promise<void>;
+        loadSpecs(): Promise<void>;
+        loadRequires(): void;
+        onComplete(onCompleteCallback: (passed: boolean) => void): void;
+        provideFallbackReporter(reporter: jasmine.CustomReporter): void;
+        clearReporters(): void;
+        randomizeTests(value?: boolean): void;
+        seed(value: number): void;
+        showColors(value: boolean): void;
+        stopSpecOnExpectationFailure(value: boolean): void;
+        stopOnSpecFailure(value: boolean): void;
+        static ConsoleReporter(): any;
+        coreVersion(): string;
     }
     export = jasmine;
 }

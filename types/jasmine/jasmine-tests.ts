@@ -1,5 +1,35 @@
 // tests based on http://jasmine.github.io/2.2/introduction.html
 
+import JasmineClass from "jasmine";
+
+(async () => {
+    const jasmineClass = new JasmineClass({
+        random: true,
+        seed: 1234,
+    });
+
+    jasmineClass.addSpecFiles(["file"]);
+    jasmineClass.addSpecFile("file");
+
+    jasmineClass.env.configure({
+        random: true
+    });
+
+    jasmineClass.onComplete(function(passed: boolean) {
+        console.log(passed ? "passed" : "failed");
+    });
+
+    jasmineClass.clearReporters();
+    jasmineClass.addReporter(jasmineClass.completionReporter);
+
+    jasmineClass.configureDefaultReporter({
+        print: true,
+        showColors: true,
+    });
+
+    await jasmineClass.execute();
+})();
+
 describe("A suite", () => {
     it("contains spec with an expectation", () => {
         expect(true).toBe(true);
@@ -1578,7 +1608,7 @@ describe("custom object formatter", () => {
 });
 
 // test based on http://jasmine.github.io/2.2/custom_matcher.html
-var customMatchers: jasmine.CustomMatcherFactories = {
+const customMatchers: jasmine.CustomMatcherFactories = {
     toBeGoofy: (util: jasmine.MatchersUtil, customEqualityTesters: jasmine.CustomEqualityTester[]) => {
         return {
             compare: (actual: any, expected: any): jasmine.CustomMatcherResult => {
@@ -1614,22 +1644,23 @@ var customMatchers: jasmine.CustomMatcherFactories = {
     },
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
-// if your test files import or export anything, you'll want to use:
-// declare global {
-//     namespace jasmine {
-//         interface Matchers {
-//             ...
-//         }
+// if your test file doesn't import or export anything, you'll want to use:
+// declare namespace jasmine {
+//     interface Matchers<T> {
+//         ...
 //     }
 // }
-declare namespace jasmine {
-    interface Matchers<T> {
-        toBeGoofy(expected?: Expected<T>): boolean;
-        toBeWithinRange(expected?: Expected<T>, floor?: number, ceiling?: number): boolean;
-    }
 
-    interface AsyncMatchers<T, U> {
-        toBeEight(): Promise<void>;
+declare global {
+    namespace jasmine {
+        interface Matchers<T> {
+            toBeGoofy(expected?: Expected<T>): boolean;
+            toBeWithinRange(expected?: Expected<T>, floor?: number, ceiling?: number): boolean;
+        }
+
+        interface AsyncMatchers<T, U> {
+            toBeEight(): Promise<void>;
+        }
     }
 }
 
@@ -1793,7 +1824,7 @@ describe("better typed spys", () => {
 });
 
 // test based on http://jasmine.github.io/2.5/custom_reporter.html
-var myReporter: jasmine.CustomReporter = {
+const myReporter: jasmine.CustomReporter = {
     jasmineStarted: (suiteInfo: jasmine.SuiteInfo) => {
         console.log("Random:", suiteInfo.order.random);
         console.log("Seed:", suiteInfo.order.seed);
