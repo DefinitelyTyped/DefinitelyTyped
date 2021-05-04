@@ -2277,6 +2277,10 @@
             "libraryName": "mobx-task",
             "asOfVersion": "2.0.0"
         },
+        "mockdate": {
+            "libraryName": "mockdate",
+            "asOfVersion": "3.0.0"
+        },
         "mockingoose": {
             "libraryName": "mockingoose",
             "asOfVersion": "2.13.0"
