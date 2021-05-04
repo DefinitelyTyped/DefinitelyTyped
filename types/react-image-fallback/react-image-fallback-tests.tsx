@@ -9,7 +9,7 @@ class ReactImageFallbackSimple extends React.Component<ReactImageFallbackProps> 
     }
 }
 
-class ReactImageFallbackSimple extends React.Component<ReactImageFallbackProps> {
+class ReactImageFallbackWithUndefineds extends React.Component<ReactImageFallbackProps> {
     render() {
         return <ReactImageFallback
             src={undefined}
