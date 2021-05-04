@@ -3894,9 +3894,17 @@
             "libraryName": "text-clipper",
             "asOfVersion": "1.3.0"
         },
+        "theme-ui": {
+            "libraryName": "theme-ui",
+            "asOfVersion": "0.6.0"
+        },
         "theme-ui__color": {
             "libraryName": "theme-ui",
             "asOfVersion": "0.3.1"
+        },
+        "theme-ui__components": {
+            "libraryName": "@theme-ui/components",
+            "asOfVersion": "0.6.0"
         },
         "theming": {
             "libraryName": "theming",
