@@ -399,7 +399,7 @@ declare namespace React {
     const version: string;
 
     /**
-     * {@link https://reactjs.org/docs/profiler.html Profiler API}
+     * {@link https://reactjs.org/docs/profiler.html#onrender-callback Profiler API}
      */
     type ProfilerOnRenderCallback = (
         id: string,
