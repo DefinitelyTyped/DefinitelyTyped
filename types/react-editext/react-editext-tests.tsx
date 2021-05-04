@@ -8,8 +8,14 @@ declare const container: Element;
 render(
     <EdiText
         type='text'
-        value={''}
+        value={'hello'}
         onSave={value => console.log(value)}
+        renderValue={v => `${v} world`}
+        hint="prefix the world"
+        hideIcons={true}
+        startEditingOnEnter
+        onValidationFail={alert}
+        submitOnUnfocus
     />,
     container,
 );
