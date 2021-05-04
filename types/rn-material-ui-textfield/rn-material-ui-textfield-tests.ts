@@ -17,7 +17,7 @@ export class Example extends Component {
         }
     }
 
-    render(): ReactElement {
+    render() {
         return (
             <View>
                 <TextField

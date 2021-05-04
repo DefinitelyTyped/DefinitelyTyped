@@ -1,10 +1,10 @@
-// Type definitions for rn-material-ui-textfield 1.0.4
+// Type definitions for rn-material-ui-textfield 1.0
 // Project: https://github.com/gabrieldonadel/rn-material-ui-textfield#readme
 // Definitions by: Craig Duckett <https://github.com/craigwduckett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
-import { 
+import {
   StyleProp,
   TextInputProps,
   TextStyle,
@@ -13,7 +13,6 @@ import {
   TextInputFocusEventData,
   TextInputChangeEventData
 } from 'react-native';
-import { RefObject } from "react";
 
 export interface ContentInset {
     top?: number;
@@ -58,7 +57,7 @@ export interface TextFieldProps extends TextInputProps {
     onChangeText?(text: string): void;
     onFocus?(event: NativeSyntheticEvent<TextInputFocusEventData>): void;
     onBlur?(event: NativeSyntheticEvent<TextInputChangeEventData>): void;
-    inputRef?: RefObject<any>;
+    inputRef?: React.RefObject<any>;
 }
 
 export interface LabelOffset {
@@ -84,7 +83,7 @@ export interface LabelOffset {
  * Material Style Text Field
  * @see https://github.com/gabrieldonadel/rn-material-ui-textfield/blob/master/src/components/field/index.js
  */
-export class TextField extends React.Component<TextFieldProps, any> {
+export class TextField extends React.Component<TextFieldProps> {
     /*
      * Acquire focus
      */
