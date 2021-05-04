@@ -76,11 +76,9 @@ function bufferReaderTest(model: Autodesk.Viewing.Model): void {
     const frags = model.getFragmentList();
     const objFrags = frags.fragments.dbId2fragId;
 
-    for (let i = 0; i < dbIds.length; i++) {
-        const dbId = dbIds[i];
-
-        for (let j = 0; j < objFrags.length; j++) {
-            const vbr = new Autodesk.Viewing.Private.VertexBufferReader(objFrags[j]);
+    for (const dbId of dbIds) {
+        for (const fragId of objFrags) {
+            const vbr = new Autodesk.Viewing.Private.VertexBufferReader(fragId);
             const bc = new Autodesk.Viewing.Private.BoundsCallback(new THREE.Box3());
 
             vbr.enumGeomsForObject(dbId, bc);
