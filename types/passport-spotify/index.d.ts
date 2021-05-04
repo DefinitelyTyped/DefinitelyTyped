@@ -46,18 +46,18 @@ export type VerifyCallback = (error?: Error | null, user?: object, info?: object
 export type VerifyFunction = (
     accessToken: string,
     refreshToken: string,
+    expires_in: number,
     profile: Profile,
     done: VerifyCallback,
-    expires_in?: number,
 ) => void;
 
 export type VerifyFunctionWithRequest = (
     req: Request,
     accessToken: string,
     refreshToken: string,
+    expires_in: number,
     profile: Profile,
     done: VerifyCallback,
-    expires_in?: number,
 ) => void;
 
 export class Strategy {
