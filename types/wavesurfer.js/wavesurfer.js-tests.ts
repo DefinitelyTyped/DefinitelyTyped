@@ -1,4 +1,5 @@
 import WaveSurfer = require("wavesurfer.js");
+import PeakCache = require("wavesurfer.js/src/peakcache");
 import CursorPlugin = require("wavesurfer.js/src/plugin/cursor");
 import ElanPlugin = require("wavesurfer.js/src/plugin/elan");
 import MarkersPlugin = require("wavesurfer.js/src/plugin/markers");
@@ -140,3 +141,9 @@ const waveSurferWithTimelinePlugin = WaveSurfer.create({
     })],
 });
 waveSurferWithTimelinePlugin.timeline.destroy();
+
+// - PeakCache
+const peakCache = new PeakCache();
+peakCache.addRangeToPeakCache(1, 2, 3);
+peakCache.getCacheRanges();
+peakCache.clearPeakCache();
