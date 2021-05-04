@@ -1821,6 +1821,46 @@
             "libraryName": "junk",
             "asOfVersion": "3.0.0"
         },
+        "just-clone": {
+            "libraryName": "just-clone",
+            "asOfVersion": "3.2.1"
+        },
+        "just-debounce-it": {
+            "libraryName": "just-debounce-it",
+            "asOfVersion": "1.5.0"
+        },
+        "just-extend": {
+            "libraryName": "just-extend",
+            "asOfVersion": "4.2.1"
+        },
+        "just-map-values": {
+            "libraryName": "just-map-values",
+            "asOfVersion": "1.2.1"
+        },
+        "just-merge": {
+            "libraryName": "just-merge",
+            "asOfVersion": "1.2.0"
+        },
+        "just-pick": {
+            "libraryName": "just-pick",
+            "asOfVersion": "2.2.1"
+        },
+        "just-safe-get": {
+            "libraryName": "just-safe-get",
+            "asOfVersion": "2.1.1"
+        },
+        "just-safe-set": {
+            "libraryName": "just-safe-set",
+            "asOfVersion": "2.2.1"
+        },
+        "just-snake-case": {
+            "libraryName": "just-snake-case",
+            "asOfVersion": "1.2.1"
+        },
+        "just-throttle": {
+            "libraryName": "just-throttle",
+            "asOfVersion": "2.3.0"
+        },
         "jwt-decode": {
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
