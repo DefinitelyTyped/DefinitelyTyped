@@ -1,12 +1,10 @@
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Drawer = require('../drawer');
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
-import RegionsPlugin = require('./regions');
+import Drawer from '../drawer';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
+import RegionsPlugin from './regions';
 
-export = MinimapPlugin;
-
-declare class MinimapPlugin extends Observer implements WaveSurferPlugin {
+export default class MinimapPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: MinimapPluginParams, ws: WaveSurfer);
     static create(params: MinimapPluginParams): PluginDefinition;
     destroy(): void;
@@ -36,7 +34,7 @@ declare class MinimapPlugin extends Observer implements WaveSurferPlugin {
     readonly wavesurfer: WaveSurfer;
 }
 
-interface MinimapPluginParams extends PluginParams {
+export interface MinimapPluginParams extends PluginParams {
     /** CSS selector or HTML element where the map should be rendered. By default it is simply appended after the waveform. */
     container?: string | HTMLElement | false;
 }

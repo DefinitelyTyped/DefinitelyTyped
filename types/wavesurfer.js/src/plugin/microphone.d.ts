@@ -1,10 +1,8 @@
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
-export = MicrophonePlugin;
-
-declare class MicrophonePlugin extends Observer implements WaveSurferPlugin {
+export default class MicrophonePlugin extends Observer implements WaveSurferPlugin {
     constructor(params: MicrophonePluginParams, ws: WaveSurfer);
     static create(params: MicrophonePluginParams): PluginDefinition;
     destroy(): void;
@@ -53,13 +51,13 @@ declare class MicrophonePlugin extends Observer implements WaveSurferPlugin {
     readonly wavesurfer: WaveSurfer;
 }
 
-interface Browser {
+export interface Browser {
     browser: "firefox" | "chrome" | "edge" | "safari" | "Not a supported browser.";
     minVersion: number | null;
     version: number | null;
 }
 
-interface MicrophonePluginParams extends PluginParams {
+export interface MicrophonePluginParams extends PluginParams {
     /** Constraints describing the media types requested. */
     constraints?: MediaStreamConstraints;
     /** The buffer size in units of sample-frames (default: 4096). */
@@ -70,4 +68,4 @@ interface MicrophonePluginParams extends PluginParams {
     numberOfOutputChannels?: number;
 }
 
-type BufferSize = 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384;
+export type BufferSize = 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384;

@@ -1,8 +1,6 @@
 import { DrawingContextAttributes } from "../types/util";
 
-export = CanvasEntry;
-
-declare class CanvasEntry {
+export default class CanvasEntry {
     constructor();
 
     /** Set the canvas transforms for wave and progress. */

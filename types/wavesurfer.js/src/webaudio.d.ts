@@ -1,8 +1,6 @@
 import { WebAudioBackend } from "../types/backend";
 
-export = WebAudio;
-
-declare class WebAudio extends WebAudioBackend {
+export default class WebAudio extends WebAudioBackend {
     load(buffer: AudioBuffer): void;
     seekTo(start: number, end: number): { start: number; end: number };
 

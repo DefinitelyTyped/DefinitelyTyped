@@ -1,19 +1,8 @@
-import Observer = require('../src/util/observer');
+import Observer from '../src/util/observer';
 import { XHROptions } from './xhr';
+import * as util from '../src/util';
 
-export interface WaveSurferUtil {
-    absMax(values: ReadonlyArray<number>): number;
-    clamp(val: number, min: number, max: number): number;
-    fetchFile(options: XHROptions): Observer;
-    frame<T>(fn: (arg: T) => void): (arg: T) => void;
-    getId(prefix: string): string;
-    max(values: ReadonlyArray<number>): number;
-    min(values: ReadonlyArray<number>): number;
-    Observer: Observer;
-    preventClick(): void;
-    requestAnimationFrame(): (fn: (t: number) => void) => number;
-    style<T extends HTMLElement>(el: T, styles: Styles): T;
-}
+export type WaveSurferUtil = typeof util;
 
 export interface Styles {
     [styleName: string]: string;
@@ -21,4 +10,15 @@ export interface Styles {
 
 export interface DrawingContextAttributes {
     desynchronized: boolean;
+}
+
+export type EventHandler = (...args: any[]) => void;
+
+export interface ListenerDescriptor {
+    /** The name of the event. */
+    name: string;
+    /** The callback. */
+    callback: (...args: any[]) => void;
+    /** The function to call to remove the listener. */
+    un: () => void;
 }

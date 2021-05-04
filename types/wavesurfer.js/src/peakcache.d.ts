@@ -1,6 +1,4 @@
-export = PeakCache;
-
-declare class PeakCache {
+export default class PeakCache {
     constructor();
 
     addRangeToPeakCache(length: number, start: number, end: number): number[][];

@@ -1,7 +1,7 @@
-import MediaElement = require('../src/mediaelement');
-import MediaElementWebAudio = require('../src/mediaelement-webaudio');
-import Observer = require('../src/util/observer');
-import WebAudio = require('../src/webaudio');
+import MediaElement from '../src/mediaelement';
+import MediaElementWebAudio from '../src/mediaelement-webaudio';
+import Observer from '../src/util/observer';
+import WebAudio from '../src/webaudio';
 import { WaveSurferParams } from './params';
 
 export type WaveSurferBackend = WebAudio | MediaElement | MediaElementWebAudio;

@@ -1,6 +1,6 @@
-export = Observer;
+import { EventHandler, ListenerDescriptor } from "../../types/util";
 
-declare class Observer {
+export default class Observer {
     constructor();
     /** Manually fire an event. */
     fireEvent(eventName: string, ...args: any[]): void;
@@ -16,15 +16,4 @@ declare class Observer {
     unAll(): void;
 
     readonly handlers: { [eventName: string]: EventHandler[] };
-}
-
-type EventHandler = (...args: any[]) => void;
-
-interface ListenerDescriptor {
-    /** The name of the event. */
-    name: string;
-    /** The callback. */
-    callback: (...args: any[]) => void;
-    /** The function to call to remove the listener. */
-    un: () => void;
 }

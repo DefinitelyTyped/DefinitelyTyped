@@ -1,10 +1,8 @@
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
-export = MediaSessionPlugin;
-
-declare class MediaSessionPlugin extends Observer implements WaveSurferPlugin {
+export default class MediaSessionPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: MediaSessionPluginParams, ws: WaveSurfer);
     static create(params: MediaSessionPluginParams): PluginDefinition;
     destroy(): void;
@@ -17,19 +15,19 @@ declare class MediaSessionPlugin extends Observer implements WaveSurferPlugin {
     readonly wavesurfer: WaveSurfer;
 }
 
-interface MediaSessionPluginParams extends PluginParams {
+export interface MediaSessionPluginParams extends PluginParams {
     /** Representation of the metadata associated with a MediaSession that can be used by user agents to provide a customized user interface. */
     metadata: MediaMetadata;
 }
 
-interface MediaMetadata {
+export interface MediaMetadata {
     title: string;
     artist: string;
     album: string;
     artwork: MediaImage[];
 }
 
-interface MediaImage {
+export interface MediaImage {
     src: string;
     sizes?: string;
     type?: string;

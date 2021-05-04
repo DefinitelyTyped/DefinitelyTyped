@@ -1,4 +1,4 @@
-import WaveSurfer = require("../src/wavesurfer");
+import WaveSurfer from "../src/wavesurfer";
 
 export abstract class WaveSurferPlugin {
     constructor(params: Record<string, unknown>, ws: WaveSurfer);

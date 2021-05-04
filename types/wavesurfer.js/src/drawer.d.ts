@@ -1,9 +1,7 @@
 import { WaveSurferParams } from '../types/params';
-import Observer = require('./util/observer');
+import Observer from './util/observer';
 
-export = Drawer;
-
-declare class Drawer extends Observer {
+export default class Drawer extends Observer {
     constructor(container: HTMLElement, params: WaveSurferParams);
 
     readonly container: HTMLElement;

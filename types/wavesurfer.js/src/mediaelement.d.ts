@@ -1,9 +1,7 @@
 import { Peaks, WebAudioBackend } from "../types/backend";
 import { WaveSurferParams } from "../types/params";
 
-export = MediaElement;
-
-declare class MediaElement extends WebAudioBackend {
+export default class MediaElement extends WebAudioBackend {
     constructor(params: WaveSurferParams);
 
     /** Create a timer to provide a more precise audioprocess event. */

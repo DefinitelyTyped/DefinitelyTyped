@@ -1,10 +1,8 @@
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
-export = PlayheadPlugin;
-
-declare class PlayheadPlugin extends Observer implements WaveSurferPlugin {
+export default class PlayheadPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: PlayheadPluginParams, ws: WaveSurfer);
     static create(params: PlayheadPluginParams): PluginDefinition;
     destroy(): void;
@@ -26,7 +24,7 @@ declare class PlayheadPlugin extends Observer implements WaveSurferPlugin {
     readonly wrapper: HTMLElement;
 }
 
-interface PlayheadPluginParams extends PluginParams {
+export interface PlayheadPluginParams extends PluginParams {
     /** Draw the playhead as a triangle/line. */
     draw?: boolean;
     /** Seeking (via clicking) while playing moves the playhead. */

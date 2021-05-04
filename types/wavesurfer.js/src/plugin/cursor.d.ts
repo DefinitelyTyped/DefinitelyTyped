@@ -1,11 +1,8 @@
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
 import { Styles } from '../../types/util';
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
-
-export = CursorPlugin;
-
-declare class CursorPlugin extends Observer implements WaveSurferPlugin {
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
+export default class CursorPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: CursorPluginParams, ws: WaveSurfer);
     static create(params: CursorPluginParams): PluginDefinition;
     destroy(): void;
@@ -30,7 +27,7 @@ declare class CursorPlugin extends Observer implements WaveSurferPlugin {
     readonly wrapper: HTMLElement;
 }
 
-interface CursorPluginParams extends PluginParams {
+export interface CursorPluginParams extends PluginParams {
     /** Hide the cursor when the mouse leaves the waveform (default: true). */
     hideOnBlur?: boolean;
     /** The width of the cursor (default: '1px'). */

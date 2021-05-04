@@ -1,4 +1,4 @@
-import MultiCanvas = require('../src/drawer.multicanvas');
+import MultiCanvas from '../src/drawer.multicanvas';
 import { PluginDefinition } from './plugin';
 import { DrawingContextAttributes } from './util';
 import { XHROptions } from './xhr';

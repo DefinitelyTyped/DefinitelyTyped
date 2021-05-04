@@ -1,9 +1,7 @@
 import { WaveSurferParams } from "../types/params";
-import MediaElement = require("./mediaelement");
+import MediaElement from "./mediaelement";
 
-export = MediaElementWebAudio;
-
-declare class MediaElementWebAudio extends MediaElement {
+export default class MediaElementWebAudio extends MediaElement {
     constructor(params: WaveSurferParams);
 
     createMediaElementSource(mediaElement: HTMLMediaElement): void;

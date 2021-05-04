@@ -1,9 +1,7 @@
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Drawer = require('../drawer');
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
-
-export = SpectogramPlugin;
+import Drawer from '../drawer';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
 declare module '../../wavesurfer' {
     interface WaveSurfer {
@@ -11,7 +9,7 @@ declare module '../../wavesurfer' {
     }
 }
 
-declare class SpectogramPlugin extends Observer implements WaveSurferPlugin {
+export default class SpectogramPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: SpectogramPluginParams, ws: WaveSurfer);
     static create(params: SpectogramPluginParams): PluginDefinition;
     destroy(): void;
@@ -35,7 +33,7 @@ declare class SpectogramPlugin extends Observer implements WaveSurferPlugin {
     readonly wrapper: HTMLElement;
 }
 
-interface SpectogramPluginParams extends PluginParams {
+export interface SpectogramPluginParams extends PluginParams {
     /** Selector of element or element in which to render. */
     container: string | HTMLElement;
     /** Number of samples to fetch to FFT. Must be a power of 2. */
@@ -54,9 +52,9 @@ interface SpectogramPluginParams extends PluginParams {
     colorMap?: RGBA[] & { length: 256 };
 }
 
-type RGBA = [number, number, number, number];
+export type RGBA = [number, number, number, number];
 
-type WindowFunction =
+export type WindowFunction =
     | "bartlett"
     | "bartlettHann"
     | "blackman"

@@ -2,21 +2,19 @@ import { Peaks, WaveSurferBackend } from "../types/backend";
 import { WaveSurferParams } from "../types/params";
 import { PluginDefinition } from "../types/plugin";
 import { WaveSurferUtil } from "../types/util";
-import CursorPlugin = require("./plugin/cursor");
-import ElanPlugin = require("./plugin/elan");
-import MarkersPlugin = require("./plugin/markers");
-import MediaSessionPlugin = require("./plugin/mediasession");
-import MicrophonePlugin = require("./plugin/microphone");
-import MinimapPlugin = require("./plugin/minimap");
-import PlayheadPlugin = require("./plugin/playhead");
-import RegionsPlugin = require("./plugin/regions");
-import SpectogramPlugin = require("./plugin/spectogram");
-import TimelinePlugin = require("./plugin/timeline");
-import Observer = require('./util/observer');
+import CursorPlugin from "./plugin/cursor";
+import ElanPlugin from "./plugin/elan";
+import MarkersPlugin from "./plugin/markers";
+import MediaSessionPlugin from "./plugin/mediasession";
+import MicrophonePlugin from "./plugin/microphone";
+import MinimapPlugin from "./plugin/minimap";
+import PlayheadPlugin from "./plugin/playhead";
+import RegionsPlugin from "./plugin/regions";
+import SpectogramPlugin from "./plugin/spectogram";
+import TimelinePlugin from "./plugin/timeline";
+import Observer from './util/observer';
 
-export = WaveSurfer;
-
-declare class WaveSurfer extends Observer {
+export default class WaveSurfer extends Observer {
     constructor(params: WaveSurferParams);
 
     static VERSION: string;

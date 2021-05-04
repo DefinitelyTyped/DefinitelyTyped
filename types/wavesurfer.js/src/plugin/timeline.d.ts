@@ -1,10 +1,8 @@
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
-export = TimelinePlugin;
-
-declare class TimelinePlugin extends Observer implements WaveSurferPlugin {
+export default class TimelinePlugin extends Observer implements WaveSurferPlugin {
     constructor(params: TimelinePluginParams, ws: WaveSurfer);
     static create(params: TimelinePluginParams): PluginDefinition;
     destroy(): void;
@@ -49,7 +47,7 @@ declare class TimelinePlugin extends Observer implements WaveSurferPlugin {
     readonly wrapper: HTMLElement;
 }
 
-interface TimelinePluginParams extends PluginParams {
+export interface TimelinePluginParams extends PluginParams {
     /** CSS selector or HTML element where the timeline should be drawn. This is the only required parameter. */
     container: string | HTMLElement;
     /** Height of notches in percent (default: 90). */

@@ -1,14 +1,14 @@
-import WaveSurfer = require("wavesurfer.js");
-import PeakCache = require("wavesurfer.js/src/peakcache");
-import CursorPlugin = require("wavesurfer.js/src/plugin/cursor");
-import ElanPlugin = require("wavesurfer.js/src/plugin/elan");
-import MarkersPlugin = require("wavesurfer.js/src/plugin/markers");
-import MediaSessionPlugin = require("wavesurfer.js/src/plugin/mediasession");
-import MicrophonePlugin = require("wavesurfer.js/src/plugin/microphone");
-import MinimapPlugin = require("wavesurfer.js/src/plugin/minimap");
-import RegionsPlugin = require("wavesurfer.js/src/plugin/regions");
-import SpectogramPlugin = require("wavesurfer.js/src/plugin/spectogram");
-import TimelinePlugin = require("wavesurfer.js/src/plugin/timeline");
+import WaveSurfer from "wavesurfer.js";
+import PeakCache from "wavesurfer.js/src/peakcache";
+import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
+import ElanPlugin from "wavesurfer.js/src/plugin/elan";
+import MarkersPlugin from "wavesurfer.js/src/plugin/markers";
+import MediaSessionPlugin from "wavesurfer.js/src/plugin/mediasession";
+import MicrophonePlugin from "wavesurfer.js/src/plugin/microphone";
+import MinimapPlugin from "wavesurfer.js/src/plugin/minimap";
+import RegionsPlugin from "wavesurfer.js/src/plugin/regions";
+import SpectogramPlugin from "wavesurfer.js/src/plugin/spectogram";
+import TimelinePlugin from "wavesurfer.js/src/plugin/timeline";
 import { PluginDefinition, PluginParams } from 'wavesurfer.js/types/plugin';
 
 // https://www.npmjs.com/package/wavesurfer.js#api-in-examples

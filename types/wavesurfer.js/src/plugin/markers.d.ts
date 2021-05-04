@@ -1,8 +1,6 @@
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
-
-export = MarkersPlugin;
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
 declare module '../../wavesurfer' {
     interface WaveSurfer {
@@ -11,7 +9,7 @@ declare module '../../wavesurfer' {
     }
 }
 
-declare class MarkersPlugin extends Observer implements WaveSurferPlugin {
+export default class MarkersPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: MarkersPluginParams, ws: WaveSurfer);
     static create(params: MarkersPluginParams): PluginDefinition;
     destroy(): void;
@@ -34,19 +32,19 @@ declare class MarkersPlugin extends Observer implements WaveSurferPlugin {
     readonly wrapper: HTMLElement;
 }
 
-interface Marker {
+export interface Marker {
     time: number;
     label?: string;
     color: string;
     position: "top" | "bottom";
 }
 
-interface MarkersPluginParams {
+export interface MarkersPluginParams {
     /** Initial set of markers. */
     markers?: MarkerParams[];
 }
 
-interface MarkerParams {
+export interface MarkerParams {
     /** The time to set the marker at. */
     time: number;
     /** An optional marker label. */

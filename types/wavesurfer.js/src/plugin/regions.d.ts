@@ -1,9 +1,7 @@
 import { Styles } from '../../types/util';
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Observer = require('../util/observer');
-import WaveSurfer = require('../wavesurfer');
-
-export = RegionsPlugin;
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
 declare module '../../wavesurfer' {
     interface WaveSurfer {
@@ -13,7 +11,7 @@ declare module '../../wavesurfer' {
     }
 }
 
-declare class RegionsPlugin extends Observer implements WaveSurferPlugin {
+export default class RegionsPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: RegionsPluginParams, ws: WaveSurfer);
     static create(params: RegionsPluginParams): PluginDefinition;
     destroy(): void;
@@ -35,7 +33,7 @@ declare class RegionsPlugin extends Observer implements WaveSurferPlugin {
     readonly wrapper: HTMLElement;
 }
 
-interface RegionsPluginParams extends PluginParams {
+export interface RegionsPluginParams extends PluginParams {
     /** Enable creating regions by dragging with the mouse. */
     dragSelection?: boolean;
     /** Regions that should be added upon initialisation. */
@@ -54,7 +52,7 @@ interface RegionsPluginParams extends PluginParams {
     edgeScrollWidth?: number;
 }
 
-declare class Region extends Observer {
+export class Region extends Observer {
     constructor(params: RegionParams, regionsUtil: WaveSurfer['util'], ws: WaveSurfer);
 
     bindRagEvents(): void;
@@ -107,7 +105,7 @@ declare class Region extends Observer {
     readonly wrapper: HTMLElement;
 }
 
-interface RegionParams {
+export interface RegionParams {
     id: string;
     start?: number;
     end?: number;
@@ -121,15 +119,15 @@ interface RegionParams {
     showTooltip?: boolean;
 }
 
-interface HandleStyle {
+export interface HandleStyle {
     left: Styles;
     right: Styles;
 }
 
-interface Attributes {
+export interface Attributes {
     [attributeName: string]: string;
 }
 
-interface Datas {
+export interface Datas {
     [dataName: string]: string;
 }

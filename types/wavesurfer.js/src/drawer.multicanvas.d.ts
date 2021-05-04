@@ -1,12 +1,10 @@
 import { Peaks } from "../types/backend";
 import { WaveSurferParams } from "../types/params";
 import { DrawingContextAttributes } from "../types/util";
-import Drawer = require("./drawer");
-import CanvasEntry = require('./drawer.canvasentry');
+import Drawer from "./drawer";
+import CanvasEntry from './drawer.canvasentry';
 
-export = MultiCanvas;
-
-declare class MultiCanvas extends Drawer {
+export default class MultiCanvas extends Drawer {
     constructor(container: HTMLElement, params: WaveSurferParams);
 
     /** Add a canvas to the canvas list. */
@@ -88,7 +86,7 @@ declare class MultiCanvas extends Drawer {
     readonly vertical: boolean;
 }
 
-interface DrawParams {
+export interface DrawParams {
     absmax: number;
     hasMinVals: boolean;
     height: number;
