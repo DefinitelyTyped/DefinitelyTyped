@@ -374,7 +374,8 @@ declare module 'http' {
          */
         timeout?: number;
         /**
-         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         * Scheduling strategy to apply when picking the next free socket to use.
+         * @default `lifo`
          */
         scheduling?: 'fifo' | 'lifo';
     }

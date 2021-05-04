@@ -129,7 +129,9 @@ declare module 'child_process' {
         keepOpen?: boolean;
     }
 
-    type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | Stream | number | null | undefined)>;
+    type IOType = "overlapped" | "pipe" | "ignore" | "inherit";
+
+    type StdioOptions = IOType | Array<(IOType | "ipc" | Stream | number | null | undefined)>;
 
     type SerializationType = 'json' | 'advanced';
 
@@ -171,11 +173,12 @@ declare module 'child_process' {
     }
 
     interface SpawnOptionsWithoutStdio extends SpawnOptions {
-        stdio?: 'pipe' | Array<null | undefined | 'pipe'>;
+        stdio?: StdioPipeNamed | StdioPipe[];
     }
 
     type StdioNull = 'inherit' | 'ignore' | Stream;
-    type StdioPipe = undefined | null | 'pipe';
+    type StdioPipeNamed = 'pipe' | 'overlapped';
+    type StdioPipe = undefined | null | StdioPipeNamed;
 
     interface SpawnOptionsWithStdioTuple<
         Stdin extends StdioNull | StdioPipe,
@@ -435,7 +438,7 @@ declare module 'child_process' {
         ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ForkOptions extends ProcessEnvOptions, MessagingOptions {
+    interface ForkOptions extends ProcessEnvOptions, MessagingOptions, Abortable {
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;

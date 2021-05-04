@@ -53,7 +53,8 @@ import { Writable, Readable, Pipe } from 'stream';
         silent: false,
         stdio: "inherit",
         execPath: '',
-        execArgv: ['asda']
+        execArgv: ['asda'],
+        signal: new AbortSignal(),
     });
     const ipc: Pipe = forked.channel!;
     const hasRef: boolean = ipc.hasRef();
@@ -345,6 +346,9 @@ async function testPromisify() {
     expectNonNull(childProcess.spawn('command', { stdio: 'pipe' }));
     expectNonNull(childProcess.spawn('command', { stdio: [undefined, undefined, undefined] }));
     expectNonNull(childProcess.spawn('command', { stdio: [null, null, null] }));
+    expectNonNull(childProcess.spawn('command', { stdio: 'overlapped' }));
+    expectNonNull(childProcess.spawn('command', { stdio: ['overlapped', 'overlapped', 'overlapped'] }));
+    expectNonNull(childProcess.spawn('command', { stdio: ['pipe', 'pipe', 'pipe'] }));
     expectNonNull(childProcess.spawn('command', { stdio: ['pipe', 'pipe', 'pipe'] }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c']));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], {}));
