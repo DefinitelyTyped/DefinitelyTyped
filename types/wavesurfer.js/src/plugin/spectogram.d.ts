@@ -1,9 +1,9 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Drawer from '../drawer';
-import Observer from '../util/observer';
-import WaveSurfer from '../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
+import Drawer from "../drawer";
+import Observer from "../util/observer";
+import WaveSurfer from "../wavesurfer";
 
-declare module '../../wavesurfer' {
+declare module "../../wavesurfer" {
     interface WaveSurfer {
         FFT(bufferSize: number, sampleRate: number, windowFunc: WindowFunction, alpha: number): void;
     }
@@ -26,7 +26,7 @@ export default class SpectogramPlugin extends Observer implements WaveSurferPlug
     readonly params: SpectogramPluginParams;
     readonly pixelRatio: number;
     readonly spectrCc: CanvasRenderingContext2D;
-    readonly util: WaveSurfer['util'];
+    readonly util: WaveSurfer["util"];
     readonly wavesurfer: WaveSurfer;
     readonly width: number;
     readonly windowFunc: WindowFunction;

@@ -1,7 +1,7 @@
-import MultiCanvas from '../src/drawer.multicanvas';
-import { PluginDefinition } from './plugin';
-import { DrawingContextAttributes } from './util';
-import { XHROptions } from './xhr';
+import MultiCanvas from "../src/drawer.multicanvas";
+import { PluginDefinition } from "./plugin";
+import { DrawingContextAttributes } from "./util";
+import { XHROptions } from "./xhr";
 
 export interface WaveSurferParams {
     /** Use your own previously initialized AudioContext or leave blank (default: null). */

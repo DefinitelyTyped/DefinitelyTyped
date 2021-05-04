@@ -12,13 +12,13 @@ import PlayheadPlugin from "./plugin/playhead";
 import RegionsPlugin from "./plugin/regions";
 import SpectogramPlugin from "./plugin/spectogram";
 import TimelinePlugin from "./plugin/timeline";
-import Observer from './util/observer';
+import Observer from "./util/observer";
 
 export default class WaveSurfer extends Observer {
     constructor(params: WaveSurferParams);
 
     static VERSION: string;
-    static util: WaveSurfer['util'];
+    static util: WaveSurfer["util"];
     static create(params: WaveSurferParams): WaveSurfer;
 
     backend: WaveSurferBackend;

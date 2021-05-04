@@ -9,7 +9,7 @@ import MinimapPlugin from "wavesurfer.js/src/plugin/minimap";
 import RegionsPlugin from "wavesurfer.js/src/plugin/regions";
 import SpectogramPlugin from "wavesurfer.js/src/plugin/spectogram";
 import TimelinePlugin from "wavesurfer.js/src/plugin/timeline";
-import { PluginDefinition, PluginParams } from 'wavesurfer.js/types/plugin';
+import { PluginDefinition, PluginParams } from "wavesurfer.js/types/plugin";
 
 // https://www.npmjs.com/package/wavesurfer.js#api-in-examples
 // - create an instance
@@ -92,14 +92,16 @@ waveSurferWithMarkersPlugin.markers.destroy();
 // - plugin: mediasession
 const waveSurferWithMediaSessionPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [MediaSessionPlugin.create({
-        metadata: {
-            album: 'Acme',
-            artist: 'Acme',
-            artwork: [],
-            title: 'Foobar'
-        }
-    })],
+    plugins: [
+        MediaSessionPlugin.create({
+            metadata: {
+                album: "Acme",
+                artist: "Acme",
+                artwork: [],
+                title: "Foobar",
+            },
+        }),
+    ],
 });
 waveSurferWithMediaSessionPlugin.mediasession.destroy();
 
@@ -127,18 +129,22 @@ waveSurferWithRegionsPlugin.regions.destroy();
 // - plugin: spectogram
 const waveSurferWithSpectogramPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [SpectogramPlugin.create({
-        container: '#spectogram'
-    })],
+    plugins: [
+        SpectogramPlugin.create({
+            container: "#spectogram",
+        }),
+    ],
 });
 waveSurferWithSpectogramPlugin.spectogram.destroy();
 
 // - plugin: timeline
 const waveSurferWithTimelinePlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [TimelinePlugin.create({
-        container: '#timeline'
-    })],
+    plugins: [
+        TimelinePlugin.create({
+            container: "#timeline",
+        }),
+    ],
 });
 waveSurferWithTimelinePlugin.timeline.destroy();
 

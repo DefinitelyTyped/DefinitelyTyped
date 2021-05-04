@@ -1,8 +1,8 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Observer from '../util/observer';
-import WaveSurfer from '../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
+import Observer from "../util/observer";
+import WaveSurfer from "../wavesurfer";
 
-declare module '../../wavesurfer' {
+declare module "../../wavesurfer" {
     interface WaveSurfer {
         addMarker(param: MarkerParams): Marker;
         clearMarkers(): void;
@@ -26,8 +26,8 @@ export default class MarkersPlugin extends Observer implements WaveSurferPlugin 
     readonly markerWidth: number;
     readonly markers: Marker[];
     readonly params: MarkersPluginParams;
-    readonly style: WaveSurfer['util']["style"];
-    readonly util: WaveSurfer['util'];
+    readonly style: WaveSurfer["util"]["style"];
+    readonly util: WaveSurfer["util"];
     readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }

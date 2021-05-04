@@ -1,15 +1,15 @@
-import absMax from './absMax';
-import clamp from './clamp';
-import fetchFile from './fetch';
-import frame from './frame';
-import getId from './get-id';
-import max from './max';
-import min from './min';
-import Observer from './observer';
-import withOrientation from './orientation';
-import preventClick from './prevent-click';
-import requestAnimationFrame from './request-animation-frame';
-import style from './style';
+import absMax from "./absMax";
+import clamp from "./clamp";
+import fetchFile from "./fetch";
+import frame from "./frame";
+import getId from "./get-id";
+import max from "./max";
+import min from "./min";
+import Observer from "./observer";
+import withOrientation from "./orientation";
+import preventClick from "./prevent-click";
+import requestAnimationFrame from "./request-animation-frame";
+import style from "./style";
 
 export {
     absMax,
@@ -23,5 +23,5 @@ export {
     withOrientation,
     preventClick,
     requestAnimationFrame,
-    style
+    style,
 };

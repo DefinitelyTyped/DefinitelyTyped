@@ -2,7 +2,7 @@ import { Peaks } from "../types/backend";
 import { WaveSurferParams } from "../types/params";
 import { DrawingContextAttributes } from "../types/util";
 import Drawer from "./drawer";
-import CanvasEntry from './drawer.canvasentry';
+import CanvasEntry from "./drawer.canvasentry";
 
 export default class MultiCanvas extends Drawer {
     constructor(container: HTMLElement, params: WaveSurferParams);
@@ -30,14 +30,7 @@ export default class MultiCanvas extends Drawer {
     /** Draw a waveform. */
     drawWave(peaks: Peaks, channelIndex: number, start: number, end: number): void;
     /** Draw a rectangle on the multi-canvas. */
-    fillRect(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        radius: number,
-        channelIndex: number,
-    ): void;
+    fillRect(x: number, y: number, width: number, height: number, radius: number, channelIndex: number): void;
     /** Return image data of the multi-canvas. */
     getImage(format: string, quality: number, type: string): string | string[] | Promise<string | string[]>;
     /** Returns whether to hide the channel from being drawn based on params. */
