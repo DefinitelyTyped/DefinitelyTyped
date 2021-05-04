@@ -3622,6 +3622,10 @@
             "libraryName": "socket.io",
             "asOfVersion": "3.0.0"
         },
+        "socket.io-client": {
+            "libraryName": "socket.io-client",
+            "asOfVersion": "3.0.0"
+        },
         "solidity-parser-antlr": {
             "libraryName": "solidity-parser-antlr",
             "asOfVersion": "0.4.2"
