@@ -9554,7 +9554,7 @@ declare namespace chrome.webstore {
  */
 declare namespace chrome.windows {
     export interface Window {
-        /** Array of tabs.Tab objects representing the current tabs in the window. */
+        /** Optional. Array of tabs.Tab objects representing the current tabs in the window. */
         tabs?: chrome.tabs.Tab[];
         /** Optional. The offset of the window from the top edge of the screen in pixels. Under some circumstances a Window may not be assigned top property, for example when querying closed windows from the sessions API. */
         top?: number;
@@ -9564,10 +9564,9 @@ declare namespace chrome.windows {
         width?: number;
         /**
          * The state of this browser window.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 17.
          */
-        state: string;
+        state?: windowStateEnum;
         /** Whether the window is currently the focused window. */
         focused: boolean;
         /**
@@ -9579,32 +9578,30 @@ declare namespace chrome.windows {
         incognito: boolean;
         /**
          * The type of browser window this is.
-         * One of: "normal", "popup", "panel", "app", or "devtools"
          */
-        type: string;
+        type?: windowTypeEnum;
         /** Optional. The ID of the window. Window IDs are unique within a browser session. Under some circumstances a Window may not be assigned an ID, for example when querying windows using the sessions API, in which case a session ID may be present. */
-        id: number;
+        id?: number;
         /** Optional. The offset of the window from the left edge of the screen in pixels. Under some circumstances a Window may not be assigned left property, for example when querying closed windows from the sessions API. */
         left?: number;
         /**
-         * The session ID used to uniquely identify a Window obtained from the sessions API.
+         * Optional. The session ID used to uniquely identify a Window obtained from the sessions API.
          * @since Chrome 31.
          */
         sessionId?: string;
     }
 
-    export interface GetInfo {
+    export interface QueryOptions {
         /**
          * Optional.
-         * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects. The Tab objects only contain the url, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission.
+         * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects.
+         * The Tab objects only contain the url, pendingUrl, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission.
          */
         populate?: boolean;
         /**
-         * If set, the windows.Window returned will be filtered based on its type. If unset the default filter is set to ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows.
-         * Each one of: "normal", "popup", "panel", "app", or "devtools"
-         * @since Chrome 46. Warning: this is the current Beta channel.
+         * If set, the Window returned is filtered based on its type. If unset, the default filter is set to ['normal', 'popup'].
          */
-        windowTypes?: string[];
+        windowTypes?: windowTypeEnum[];
     }
 
     export interface CreateData {
@@ -9640,11 +9637,8 @@ declare namespace chrome.windows {
         focused?: boolean;
         /** Optional. Whether the new window should be an incognito window. */
         incognito?: boolean;
-        /**
-         * Optional. Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.
-         * One of: "normal", "popup", "panel", or "detached_panel"
-         */
-        type?: string;
+        /** Optional. Specifies what type of browser window to create. */
+        type?: createTypeEnum;
         /**
          * Optional.
          * The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
@@ -9652,10 +9646,14 @@ declare namespace chrome.windows {
         left?: number;
         /**
          * Optional. The initial state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 44.
          */
-        state?: string;
+        state?: windowStateEnum;
+        /**
+         * If true, the newly-created window's 'window.opener' is set to the caller and is in the same [unit of related browsing contexts](https://www.w3.org/TR/html51/browsers.html#unit-of-related-browsing-contexts) as the caller.
+         * @since Chrome 64.
+         */
+        setSelfAsOpener?: boolean;
     }
 
     export interface UpdateInfo {
@@ -9672,10 +9670,9 @@ declare namespace chrome.windows {
         width?: number;
         /**
          * Optional. The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 17.
          */
-        state?: string;
+        state?: windowStateEnum;
         /**
          * Optional. If true, brings the window to the front. If false, brings the next window in the z-order to the front.
          * @since Chrome 8.
@@ -9688,9 +9685,8 @@ declare namespace chrome.windows {
     export interface WindowEventFilter {
         /**
          * Conditions that the window's type being created must satisfy. By default it will satisfy ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows.
-         * Each one of: "normal", "popup", "panel", "app", or "devtools"
          */
-        windowTypes: string[];
+        windowTypes: windowTypeEnum[];
     }
 
     export interface WindowIdEvent
@@ -9700,15 +9696,36 @@ declare namespace chrome.windows {
         extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
 
     /**
+     * Specifies what type of browser window to create.
+     * 'panel' is deprecated and is available only to existing whitelisted extensions on Chrome OS.
+     * @since Chrome 44.
+     */
+    export type createTypeEnum = 'normal' | 'popup' | 'panel';
+
+    /**
+     * The state of this browser window.
+     * In some circumstances a window may not be assigned a state property; for example, when querying closed windows from the sessions API.
+     * @since Chrome 44.
+     */
+    export type windowStateEnum = 'normal' | 'minimized' | 'maximized' | 'fullscreen' | 'locked-fullscreen';
+
+    /**
+     * The type of browser window this is.
+     * In some circumstances a window may not be assigned a type property; for example, when querying closed windows from the sessions API.
+     * @since Chrome 44.
+     */
+    export type windowTypeEnum = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
+
+    /**
      * The windowId value that represents the current window.
      * @since Chrome 18.
      */
-    export var WINDOW_ID_CURRENT: number;
+    export var WINDOW_ID_CURRENT: -2;
     /**
      * The windowId value that represents the absence of a chrome browser window.
      * @since Chrome 6.
      */
-    export var WINDOW_ID_NONE: number;
+    export var WINDOW_ID_NONE: -1;
 
     /** Gets details about a window. */
     export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
@@ -9716,16 +9733,15 @@ declare namespace chrome.windows {
      * Gets details about a window.
      * @since Chrome 18.
      */
-    export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
-    /**
-     * Gets the current window.
-     */
+    export function get(windowId: number, queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
+    /** Gets the current window. */
     export function getCurrent(callback: (window: chrome.windows.Window) => void): void;
     /**
      * Gets the current window.
+     * @param QueryOptions
      * @since Chrome 18.
      */
-    export function getCurrent(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getCurrent(queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
     /**
      * Creates (opens) a new browser with any optional sizing, position or default URL provided.
      * @param callback
@@ -9734,6 +9750,7 @@ declare namespace chrome.windows {
     export function create(callback?: (window?: chrome.windows.Window) => void): void;
     /**
      * Creates (opens) a new browser with any optional sizing, position or default URL provided.
+     * @param CreateData
      * @param callback
      * Optional parameter window: Contains details about the created window.
      */
@@ -9746,7 +9763,7 @@ declare namespace chrome.windows {
      * Gets all windows.
      * @since Chrome 18.
      */
-    export function getAll(getInfo: GetInfo, callback: (windows: chrome.windows.Window[]) => void): void;
+    export function getAll(queryOptions: QueryOptions, callback: (windows: chrome.windows.Window[]) => void): void;
     /** Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged. */
     export function update(
         windowId: number,
@@ -9763,7 +9780,7 @@ declare namespace chrome.windows {
      * Gets the window that was most recently focused — typically the window 'on top'.
      * @since Chrome 18.
      */
-    export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getLastFocused(queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
 
     /** Fired when a window is removed (closed). */
     export var onRemoved: WindowIdEvent;
@@ -9774,6 +9791,12 @@ declare namespace chrome.windows {
      * Note: On some Linux window managers, WINDOW_ID_NONE will always be sent immediately preceding a switch from one chrome window to another.
      */
     export var onFocusChanged: WindowIdEvent;
+
+    /**
+     * Fired when a window has been resized; this event is only dispatched when the new bounds are committed, and not for in-progress changes.
+     * @since Chrome 86.
+     */
+    export var onBoundsChanged: WindowReferenceEvent;
 }
 
 declare namespace chrome.declarativeNetRequest {
