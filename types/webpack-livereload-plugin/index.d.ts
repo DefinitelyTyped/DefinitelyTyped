@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 import { Plugin, Stats } from 'webpack';
-import { ServerOptions } from 'https'
+import { ServerOptions } from 'https';
 import webpack = require('webpack');
 
 declare class LiveReloadPlugin extends Plugin {
