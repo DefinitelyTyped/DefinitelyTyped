@@ -1,6 +1,6 @@
 import { NotebookRendererApi } from 'vscode-notebook-renderer';
 
-const notebookApi: NotebookRendererApi<{ cool: boolean }> = acquireNotebookRendererApi('myRendererId');
+const notebookApi: NotebookRendererApi<{ cool: boolean }> = acquireNotebookRendererApi();
 
 const prevState = notebookApi.getState();
 
