@@ -3634,6 +3634,10 @@
             "libraryName": "socket.io-parser",
             "asOfVersion": "3.0.0"
         },
+        "socket.io-redis": {
+            "libraryName": "socket.io-redis",
+            "asOfVersion": "3.0.0"
+        },
         "solidity-parser-antlr": {
             "libraryName": "solidity-parser-antlr",
             "asOfVersion": "0.4.2"
