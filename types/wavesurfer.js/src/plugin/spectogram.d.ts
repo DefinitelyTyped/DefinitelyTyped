@@ -1,4 +1,7 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Drawer = require('../drawer');
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 
 export = SpectogramPlugin;
 
@@ -8,16 +11,16 @@ declare module '../../wavesurfer' {
     }
 }
 
-declare class SpectogramPlugin extends  WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: SpectogramPluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: SpectogramPluginParams): WaveSurfer.PluginDefinition;
+declare class SpectogramPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: SpectogramPluginParams, ws: WaveSurfer);
+    static create(params: SpectogramPluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
     readonly alpha: number;
     readonly colorMap: number[][];
     readonly container: HTMLElement;
-    readonly drawer: WaveSurfer.Drawer;
+    readonly drawer: Drawer;
     readonly fftSamples: number;
     readonly frequenciesDataUrl: string;
     readonly height: number;
@@ -25,14 +28,14 @@ declare class SpectogramPlugin extends  WaveSurfer.Observer implements WaveSurfe
     readonly params: SpectogramPluginParams;
     readonly pixelRatio: number;
     readonly spectrCc: CanvasRenderingContext2D;
-    readonly util: WaveSurfer.WaveSurfer['util'];
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly util: WaveSurfer['util'];
+    readonly wavesurfer: WaveSurfer;
     readonly width: number;
     readonly windowFunc: WindowFunction;
     readonly wrapper: HTMLElement;
 }
 
-interface SpectogramPluginParams extends WaveSurfer.PluginParams {
+interface SpectogramPluginParams extends PluginParams {
     /** Selector of element or element in which to render. */
     container: string | HTMLElement;
     /** Number of samples to fetch to FFT. Must be a power of 2. */

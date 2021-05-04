@@ -1,10 +1,12 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 
 export = PlayheadPlugin;
 
-declare class PlayheadPlugin extends WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: PlayheadPluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: PlayheadPluginParams): WaveSurfer.PluginDefinition;
+declare class PlayheadPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: PlayheadPluginParams, ws: WaveSurfer);
+    static create(params: PlayheadPluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
@@ -17,14 +19,14 @@ declare class PlayheadPlugin extends WaveSurfer.Observer implements WaveSurfer.W
     readonly options: Record<string, unknown>;
     readonly params: PlayheadPluginParams;
     readonly playheadTime: number;
-    readonly style: WaveSurfer.WaveSurfer['util']["style"];
-    readonly unFuns: Array<(this: WaveSurfer.WaveSurfer) => void>;
-    readonly util: WaveSurfer.WaveSurfer['util'];
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly style: WaveSurfer['util']["style"];
+    readonly unFuns: Array<(this: WaveSurfer) => void>;
+    readonly util: WaveSurfer['util'];
+    readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
 
-interface PlayheadPluginParams extends WaveSurfer.PluginParams {
+interface PlayheadPluginParams extends PluginParams {
     /** Draw the playhead as a triangle/line. */
     draw?: boolean;
     /** Seeking (via clicking) while playing moves the playhead. */

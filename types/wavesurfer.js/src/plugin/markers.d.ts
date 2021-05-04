@@ -1,4 +1,6 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 
 export = MarkersPlugin;
 
@@ -9,9 +11,9 @@ declare module '../../wavesurfer' {
     }
 }
 
-declare class MarkersPlugin extends WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: MarkersPluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: MarkersPluginParams): WaveSurfer.PluginDefinition;
+declare class MarkersPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: MarkersPluginParams, ws: WaveSurfer);
+    static create(params: MarkersPluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
@@ -26,9 +28,9 @@ declare class MarkersPlugin extends WaveSurfer.Observer implements WaveSurfer.Wa
     readonly markerWidth: number;
     readonly markers: Marker[];
     readonly params: MarkersPluginParams;
-    readonly style: WaveSurfer.WaveSurfer['util']["style"];
-    readonly util: WaveSurfer.WaveSurfer['util'];
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly style: WaveSurfer['util']["style"];
+    readonly util: WaveSurfer['util'];
+    readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
 

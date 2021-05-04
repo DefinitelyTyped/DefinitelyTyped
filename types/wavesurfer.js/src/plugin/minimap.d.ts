@@ -1,11 +1,14 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Drawer = require('../drawer');
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 import RegionsPlugin = require('./regions');
 
 export = MinimapPlugin;
 
-declare class MinimapPlugin extends WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: MinimapPluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: MinimapPluginParams): WaveSurfer.PluginDefinition;
+declare class MinimapPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: MinimapPluginParams, ws: WaveSurfer);
+    static create(params: MinimapPluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
@@ -19,7 +22,7 @@ declare class MinimapPlugin extends WaveSurfer.Observer implements WaveSurfer.Wa
     renderRegions(): void;
 
     readonly draggingOverview: boolean;
-    readonly drawer: WaveSurfer.Drawer;
+    readonly drawer: Drawer;
     readonly overviewPosition: number;
     readonly overviewRegion: HTMLElement | null;
     readonly overviewWidth: number | null;
@@ -27,13 +30,13 @@ declare class MinimapPlugin extends WaveSurfer.Observer implements WaveSurfer.Wa
     readonly ratio: number;
     readonly regionsPlugin: RegionsPlugin | null;
     readonly renderEvent: string;
-    readonly util: WaveSurfer.WaveSurfer['util'];
+    readonly util: WaveSurfer['util'];
     readonly waveShowedWidth: number;
     readonly waveWidth: number;
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly wavesurfer: WaveSurfer;
 }
 
-interface MinimapPluginParams extends WaveSurfer.PluginParams {
+interface MinimapPluginParams extends PluginParams {
     /** CSS selector or HTML element where the map should be rendered. By default it is simply appended after the waveform. */
     container?: string | HTMLElement | false;
 }

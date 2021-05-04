@@ -1,10 +1,12 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 
 export = TimelinePlugin;
 
-declare class TimelinePlugin extends WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: TimelinePluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: TimelinePluginParams): WaveSurfer.PluginDefinition;
+declare class TimelinePlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: TimelinePluginParams, ws: WaveSurfer);
+    static create(params: TimelinePluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
@@ -42,12 +44,12 @@ declare class TimelinePlugin extends WaveSurfer.Observer implements WaveSurfer.W
     readonly canvases: HTMLCanvasElement[];
     readonly container: string | HTMLElement;
     readonly params: TimelinePluginParams;
-    readonly util: WaveSurfer.WaveSurfer['util'];
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly util: WaveSurfer['util'];
+    readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
 
-interface TimelinePluginParams extends WaveSurfer.PluginParams {
+interface TimelinePluginParams extends PluginParams {
     /** CSS selector or HTML element where the timeline should be drawn. This is the only required parameter. */
     container: string | HTMLElement;
     /** Height of notches in percent (default: 90). */

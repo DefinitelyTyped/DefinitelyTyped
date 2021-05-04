@@ -1,10 +1,12 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 
 export = MicrophonePlugin;
 
-declare class MicrophonePlugin extends WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: MicrophonePluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: MicrophonePluginParams): WaveSurfer.PluginDefinition;
+declare class MicrophonePlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: MicrophonePluginParams, ws: WaveSurfer);
+    static create(params: MicrophonePluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
@@ -48,7 +50,7 @@ declare class MicrophonePlugin extends WaveSurfer.Observer implements WaveSurfer
     readonly params: MicrophonePluginParams;
     readonly reloadBufferFunction: (event: AudioProcessingEvent) => void;
     readonly stream: MediaStream;
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly wavesurfer: WaveSurfer;
 }
 
 interface Browser {
@@ -57,7 +59,7 @@ interface Browser {
     version: number | null;
 }
 
-interface MicrophonePluginParams extends WaveSurfer.PluginParams {
+interface MicrophonePluginParams extends PluginParams {
     /** Constraints describing the media types requested. */
     constraints?: MediaStreamConstraints;
     /** The buffer size in units of sample-frames (default: 4096). */

@@ -1,10 +1,13 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import { Styles } from '../../types/util';
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 
 export = CursorPlugin;
 
-declare class CursorPlugin extends WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: CursorPluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: CursorPluginParams): WaveSurfer.PluginDefinition;
+declare class CursorPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: CursorPluginParams, ws: WaveSurfer);
+    static create(params: CursorPluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
@@ -22,12 +25,12 @@ declare class CursorPlugin extends WaveSurfer.Observer implements WaveSurfer.Wav
     readonly params: CursorPluginParams;
     /** Displays the time next to the cursor. */
     readonly showTime: HTMLElement;
-    readonly style: WaveSurfer.WaveSurfer['util']["style"];
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly style: WaveSurfer['util']["style"];
+    readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
 
-interface CursorPluginParams extends WaveSurfer.PluginParams {
+interface CursorPluginParams extends PluginParams {
     /** Hide the cursor when the mouse leaves the waveform (default: true). */
     hideOnBlur?: boolean;
     /** The width of the cursor (default: '1px'). */
@@ -41,11 +44,11 @@ interface CursorPluginParams extends WaveSurfer.PluginParams {
     /** The z-index of the cursor element (default: 3). */
     zIndex?: number;
     /** An object with custom styles which are applied to the cursor element. */
-    customStyle?: WaveSurfer.Styles;
+    customStyle?: Styles;
     /** Show the time on the cursor (default: false). */
     showTime?: boolean;
     /** An object with custom styles which are applied to the cursor time element. */
-    customShowTimeStyle?: WaveSurfer.Styles;
+    customShowTimeStyle?: Styles;
     /**
      * Whether to follow both the x- and the y-position of the mouse (default: false).
      *

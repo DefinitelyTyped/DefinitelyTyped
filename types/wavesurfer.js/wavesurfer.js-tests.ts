@@ -1,4 +1,4 @@
-import * as WaveSurfer from "wavesurfer.js";
+import WaveSurfer = require("wavesurfer.js");
 import CursorPlugin = require("wavesurfer.js/src/plugin/cursor");
 import ElanPlugin = require("wavesurfer.js/src/plugin/elan");
 import MarkersPlugin = require("wavesurfer.js/src/plugin/markers");
@@ -8,6 +8,7 @@ import MinimapPlugin = require("wavesurfer.js/src/plugin/minimap");
 import RegionsPlugin = require("wavesurfer.js/src/plugin/regions");
 import SpectogramPlugin = require("wavesurfer.js/src/plugin/spectogram");
 import TimelinePlugin = require("wavesurfer.js/src/plugin/timeline");
+import { PluginDefinition, PluginParams } from 'wavesurfer.js/types/plugin';
 
 // https://www.npmjs.com/package/wavesurfer.js#api-in-examples
 // - create an instance
@@ -40,8 +41,8 @@ wsNewed.empty();
 
 // - create an instance with plugins
 class SamplePlugin {
-    constructor(params: WaveSurfer.PluginParams, ws: WaveSurfer) {}
-    static create(params: WaveSurfer.PluginParams): WaveSurfer.PluginDefinition {
+    constructor(params: PluginParams, ws: WaveSurfer) {}
+    static create(params: PluginParams): PluginDefinition {
         return {
             name: "samplePlugin",
             instance: SamplePlugin,

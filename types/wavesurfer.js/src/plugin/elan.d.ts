@@ -1,15 +1,17 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 
 export = ElanPlugin;
 
-declare class ElanPlugin extends WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: ElanPluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: ElanPluginParams): WaveSurfer.PluginDefinition;
+declare class ElanPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: ElanPluginParams, ws: WaveSurfer);
+    static create(params: ElanPluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 }
 
-interface ElanPluginParams extends WaveSurfer.PluginParams {
+interface ElanPluginParams extends PluginParams {
     /** CSS selector or HTML element where the ELAN information should be rendered. */
     container?: string | HTMLElement;
     /** The location of ELAN XML data. */

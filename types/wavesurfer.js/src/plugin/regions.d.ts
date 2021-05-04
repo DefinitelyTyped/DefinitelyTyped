@@ -1,4 +1,7 @@
-import * as WaveSurfer from '../../wavesurfer';
+import { Styles } from '../../types/util';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer = require('../util/observer');
+import WaveSurfer = require('../wavesurfer');
 
 export = RegionsPlugin;
 
@@ -10,9 +13,9 @@ declare module '../../wavesurfer' {
     }
 }
 
-declare class RegionsPlugin extends WaveSurfer.Observer implements WaveSurfer.WaveSurferPlugin {
-    constructor(params: RegionsPluginParams, ws: WaveSurfer.WaveSurfer);
-    static create(params: RegionsPluginParams): WaveSurfer.PluginDefinition;
+declare class RegionsPlugin extends Observer implements WaveSurferPlugin {
+    constructor(params: RegionsPluginParams, ws: WaveSurfer);
+    static create(params: RegionsPluginParams): PluginDefinition;
     destroy(): void;
     init(): void;
 
@@ -27,12 +30,12 @@ declare class RegionsPlugin extends WaveSurfer.Observer implements WaveSurfer.Wa
     readonly maxRegions: number[];
     readonly params: RegionsPluginParams;
     readonly regionsMinLength: number;
-    readonly util: WaveSurfer.WaveSurfer['util'];
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly util: WaveSurfer['util'];
+    readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
 
-interface RegionsPluginParams extends  WaveSurfer.PluginParams {
+interface RegionsPluginParams extends PluginParams {
     /** Enable creating regions by dragging with the mouse. */
     dragSelection?: boolean;
     /** Regions that should be added upon initialisation. */
@@ -51,8 +54,8 @@ interface RegionsPluginParams extends  WaveSurfer.PluginParams {
     edgeScrollWidth?: number;
 }
 
-declare class Region extends WaveSurfer.Observer {
-    constructor(params: RegionParams, regionsUtil: WaveSurfer.WaveSurfer['util'], ws: WaveSurfer.WaveSurfer);
+declare class Region extends Observer {
+    constructor(params: RegionParams, regionsUtil: WaveSurfer['util'], ws: WaveSurfer);
 
     bindRagEvents(): void;
     bindEvents(): void;
@@ -92,15 +95,15 @@ declare class Region extends WaveSurfer.Observer {
     readonly minLength: number;
     readonly preventContextMenu: boolean;
     readonly regionHeight: string;
-    readonly regionsUtil: WaveSurfer.WaveSurfer['util'];
+    readonly regionsUtil: WaveSurfer['util'];
     readonly resize: boolean;
     readonly scroll: boolean;
     readonly scrollSpeed: number;
     readonly scrollThreshold: number;
     readonly start: number;
-    readonly style: WaveSurfer.WaveSurfer['util']["style"];
-    readonly util: WaveSurfer.WaveSurfer['util'];
-    readonly wavesurfer: WaveSurfer.WaveSurfer;
+    readonly style: WaveSurfer['util']["style"];
+    readonly util: WaveSurfer['util'];
+    readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
 
@@ -119,8 +122,8 @@ interface RegionParams {
 }
 
 interface HandleStyle {
-    left: WaveSurfer.Styles;
-    right: WaveSurfer.Styles;
+    left: Styles;
+    right: Styles;
 }
 
 interface Attributes {
