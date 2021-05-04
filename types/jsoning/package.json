@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "write-file-atomic": ">=3.0.3"
+    }
+}
