@@ -28,12 +28,16 @@ export interface EdiTextProps {
      * Props to be passed to input element.
      * Any kind of valid DOM attributes are welcome
      */
-    inputProps?: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+    inputProps?: InputProps;
     /**
      * Props to be passed to div element that shows the text.
      * You can specify your own `styles` or `className`
      */
     viewProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+    /**
+     * Class name for the root container of the EdiText.
+     */
+    className?: string;
     /**
      * Props to be passed to div element that is container for all elements.
      * You can use this if you want to style or select the whole container.
