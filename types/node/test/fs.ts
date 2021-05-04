@@ -68,14 +68,19 @@ import assert = require('assert');
 
 {
     fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {});
+    fs.read(1, Buffer.from('test'), 1, 2, 123n, () => {});
 }
 
 {
     fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 123n);
     fs.readSync(1, Buffer.from(''), {
         length: 123,
         offset: 456,
         position: null,
+    });
+    fs.readSync(1, Buffer.from(''), {
+        position: 123n,
     });
 }
 

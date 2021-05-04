@@ -92,6 +92,8 @@ import * as net from 'net';
 
     // flush
     res.flushHeaders();
+
+    res.req; // $ExpectType IncomingMessage
 }
 
 // http ClientRequest
@@ -228,4 +230,8 @@ import * as net from 'net';
 // statics
 {
     const maxHeaderSize = http.maxHeaderSize;
+}
+
+{
+    const opts: http.RequestOptions = http.urlToHttpOptions(new url.URL('test.com'));
 }

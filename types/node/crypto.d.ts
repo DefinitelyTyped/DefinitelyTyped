@@ -1163,8 +1163,8 @@ declare module 'crypto' {
      * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
      * dependent upon the key type (especially Ed25519 and Ed448).
      *
-     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
-     * passed to [`crypto.createPrivateKey()`][].
+     * If `key` is not a `KeyObject`, this function behaves as if `key` had been
+     * passed to `crypto.createPrivateKey().
      */
     function sign(
         algorithm: string | null | undefined,
@@ -1177,8 +1177,8 @@ declare module 'crypto' {
      * algorithm. If `algorithm` is `null` or `undefined`, then the algorithm is
      * dependent upon the key type (especially Ed25519 and Ed448).
      *
-     * If `key` is not a [`KeyObject`][], this function behaves as if `key` had been
-     * passed to [`crypto.createPublicKey()`][].
+     * If `key` is not a `KeyObject`, this function behaves as if `key` had been
+     * passed to `crypto.createPublicKey()`.
      */
     function verify(
         algorithm: string | null | undefined,
@@ -1254,7 +1254,7 @@ declare module 'crypto' {
      *
      * The supplied `callback` function is called with two arguments: `err` and `derivedKey`.
      * If an errors occurs while deriving the key, `err` will be set; otherwise `err` will be `null`.
-     * The successfully generated `derivedKey` will be passed to the callback as an [`ArrayBuffer`][].
+     * The successfully generated `derivedKey` will be passed to the callback as an `ArrayBuffer`.
      * An error will be thrown if any of the input aguments specify invalid values or types.
      */
     function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => any): void;
@@ -1263,7 +1263,7 @@ declare module 'crypto' {
      * Provides a synchronous HKDF key derivation function as defined in RFC 5869.
      * The given `key`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
      *
-     * The successfully generated `derivedKey` will be returned as an [`ArrayBuffer`][].
+     * The successfully generated `derivedKey` will be returned as an `ArrayBuffer`.
      * An error will be thrown if any of the input aguments specify invalid values or types,
      * or if the derived key cannot be generated.
      */
@@ -1438,7 +1438,7 @@ declare module 'crypto' {
         toJSON(): string;
 
         /**
-         * Returns information about this certificate using the legacy [certificate object][] encoding.
+         * Returns information about this certificate using the legacy certificate object encoding.
          */
         toLegacyObject(): PeerCertificate;
 

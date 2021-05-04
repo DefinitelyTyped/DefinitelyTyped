@@ -1487,6 +1487,8 @@ declare module 'fs' {
      */
     export function writeSync(fd: number, string: string, position?: number | null, encoding?: BufferEncoding | null): number;
 
+    export type ReadPosition = number | bigint;
+
     /**
      * Asynchronously reads data from the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
@@ -1500,7 +1502,7 @@ declare module 'fs' {
         buffer: TBuffer,
         offset: number,
         length: number,
-        position: number | null,
+        position: ReadPosition | null,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
     ): void;
 
@@ -1534,7 +1536,7 @@ declare module 'fs' {
         /**
          * @default null
          */
-        position?: number | null;
+        position?: ReadPosition | null;
     }
 
     /**
@@ -1545,7 +1547,7 @@ declare module 'fs' {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    export function readSync(fd: number, buffer: NodeJS.ArrayBufferView, offset: number, length: number, position: number | null): number;
+    export function readSync(fd: number, buffer: NodeJS.ArrayBufferView, offset: number, length: number, position: ReadPosition | null): number;
 
     /**
      * Similar to the above `fs.readSync` function, this version takes an optional `options` object.
