@@ -2990,6 +2990,10 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
+        "rc-slider": {
+            "libraryName": "rc-slider",
+            "asOfVersion": "9.3.0"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
