@@ -147,7 +147,8 @@ declare namespace Autosuggest {
         params: RenderSuggestionParams,
     ) => React.ReactNode;
     type ShouldRenderSuggestions = (value: string, reason: ShouldRenderReasons) => boolean;
-
+    type ShouldKeepSuggestionsOnSelect<TSuggestion> = (suggestion: TSuggestion) => boolean;
+    
     interface AutosuggestPropsBase<TSuggestion> {
         /**
          * Set it to true if you'd like to render suggestions even when the input is not focused.
@@ -210,6 +211,10 @@ declare namespace Autosuggest {
          * Use it, for example, if you want to display suggestions when input value is at least 2 characters long.
          */
         shouldRenderSuggestions?: ShouldRenderSuggestions;
+        /**
+         * When a suggestion is selected, Autosuggest will consult this function to know if suggestions should keep on being rendered.
+         */
+        shouldKeepSuggestionsOnSelect?: ShouldKeepSuggestionsOnSelect;
         /**
          * Use your imagination to style the Autosuggest.
          */
