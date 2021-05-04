@@ -1,13 +1,13 @@
 declare module 'child_process' {
-    import { BaseEncodingOptions, Abortable } from 'fs';
-    import * as events from 'events';
+    import { BaseEncodingOptions } from 'fs';
+    import { EventEmitter, Abortable } from 'events';
     import * as net from 'net';
     import { Writable, Readable, Stream, Pipe } from 'stream';
 
     type Serializable = string | object | number | boolean;
     type SendHandle = net.Socket | net.Server;
 
-    interface ChildProcess extends events.EventEmitter {
+    interface ChildProcess extends EventEmitter {
         stdin: Writable | null;
         stdout: Readable | null;
         stderr: Readable | null;
@@ -159,7 +159,7 @@ declare module 'child_process' {
         timeout?: number;
     }
 
-    interface CommonSpawnOptions extends CommonOptions, MessagingOptions {
+    interface CommonSpawnOptions extends CommonOptions, MessagingOptions, Abortable {
         argv0?: string;
         stdio?: StdioOptions;
         shell?: boolean | string;
@@ -330,7 +330,7 @@ declare module 'child_process' {
         function __promisify__(command: string, options?: (BaseEncodingOptions & ExecOptions) | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ExecFileOptions extends CommonOptions {
+    interface ExecFileOptions extends CommonOptions, Abortable {
         maxBuffer?: number;
         killSignal?: NodeJS.Signals | number;
         windowsVerbatimArguments?: boolean;

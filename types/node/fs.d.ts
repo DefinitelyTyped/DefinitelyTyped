@@ -1,6 +1,6 @@
 declare module 'fs' {
     import * as stream from 'stream';
-    import EventEmitter = require('events');
+    import { Abortable, EventEmitter } from 'events';
     import { URL } from 'url';
     import * as promises from 'fs/promises';
 
@@ -140,11 +140,6 @@ declare module 'fs' {
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
-    }
-
-    // TODO: Move this to a more central location
-    export interface Abortable {
-        signal?: AbortSignal;
     }
 
     export class ReadStream extends stream.Readable {

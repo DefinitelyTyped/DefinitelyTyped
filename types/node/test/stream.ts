@@ -25,7 +25,8 @@ function simplified_stream_ctor_test() {
             error;
             // $ExpectType (error: Error | null) => void
             cb;
-        }
+        },
+        signal: new AbortSignal(),
     });
 
     new Writable({
@@ -67,6 +68,7 @@ function simplified_stream_ctor_test() {
             cb;
         },
         defaultEncoding: 'utf8',
+        signal: new AbortSignal(),
     });
 
     new Duplex({

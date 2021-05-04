@@ -57,6 +57,10 @@ declare module 'events' {
     namespace EventEmitter {
         // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
         export { internal as EventEmitter };
+
+        export interface Abortable {
+            signal?: AbortSignal;
+        }
     }
 
     global {
