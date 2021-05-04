@@ -1,26 +1,26 @@
 import { Component, ReactElement, createRef } from 'react';
 import { View } from 'react-native';
-import { OutlinedTextField } from 'rn-material-ui-textfield';
+import { TextField } from 'rn-material-ui-textfield';
 
 export class Example extends Component {
-    outlinedTextFieldRef = createRef<OutlinedTextField>();
+    textFieldRef = createRef<TextField>();
 
     componentDidMount() {
-        if (this.outlinedTextFieldRef.current) {
-            this.outlinedTextFieldRef.current.focus();
-            this.outlinedTextFieldRef.current.blur();
-            this.outlinedTextFieldRef.current.clear();
-            this.outlinedTextFieldRef.current.value();
-            this.outlinedTextFieldRef.current.isFocused();
-            this.outlinedTextFieldRef.current.isRestricted();
-            this.outlinedTextFieldRef.current.setValue('Initial value');
+        if (this.textFieldRef.current) {
+            this.textFieldRef.current.focus();
+            this.textFieldRef.current.blur();
+            this.textFieldRef.current.clear();
+            this.textFieldRef.current.value();
+            this.textFieldRef.current.isFocused();
+            this.textFieldRef.current.isRestricted();
+            this.textFieldRef.current.setValue('Initial value');
         }
     }
 
     render(): ReactElement {
         return (
             <View>
-                <OutlinedTextField
+                <TextField
                     inputRef= {this.outlinedInputRef}
                     label="Example"
                     multiline
