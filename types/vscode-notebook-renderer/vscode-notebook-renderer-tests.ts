@@ -26,14 +26,16 @@ const listener = notebookApi.onDidCreateOutput(({ element, outputId, value, mime
 
 listener.dispose();
 
-notebookApi.onDidReceiveMessage(msg => {
-    // $ExpectType any
-    msg;
-
-    notebookApi.postMessage(msg);
-});
-
 notebookApi.onWillDestroyOutput(evt => {
     // $ExpectType { outputId: string; } | undefined
     evt;
+});
+
+import 'vscode-notebook-renderer/preload';
+
+onDidReceiveKernelMessage(msg => {
+    // $ExpectType any
+    msg;
+
+    postKernelMessage(msg);
 });
