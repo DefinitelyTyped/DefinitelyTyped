@@ -317,6 +317,25 @@ interface GanttTemplates {
 }
 
 interface GanttConfigOptions {
+    /**
+     * enabled touch tooltip
+    */
+    touch_tooltip: boolean
+
+    /**
+     * shows/hides markers on the page
+    */
+    show_marker: boolean
+
+    /**
+     * enables showing tasks that are outside the specified date range in the Gantt chart
+    */
+    show_tasks_outside_timescale: boolean
+
+    /**
+     * enables the possibility to reorder grid columns by drag and drop
+    */
+    reorder_grid_columns: boolean
 
     /**
      * enables auto scheduling
@@ -1022,6 +1041,11 @@ interface GanttStatic {
      * redefines the default click behavior for buttons of the Gantt chart
     */
     $click: any;
+
+    /**
+     * dhtmlx ui module
+    */
+    $ui: any;
 
     /**
      * dhtmlx ajax module
@@ -2231,6 +2255,18 @@ interface GanttStatic {
      * @param id the task id
     */
     updateTask(id: string): void;
+
+    /**
+     * hiding time units in the scale
+     * @param date the date object
+    */
+     ignore_time(date: Date): boolean | undefined;
+
+     /**
+      * activates specified extensions
+      * @param ext extensions that need to be activated
+      */
+     plugins(ext: any): void
 }
 
 declare var gantt: GanttStatic;
