@@ -56,7 +56,7 @@ export abstract class WebAudioBackend extends Observer {
     /** Set the rendered length (different from the length of the audio). */
     setLength(length: number): void;
     /** Set pre-decoded peaks. */
-    setPeaks(peaks: Peaks, duration: number): void;
+    setPeaks(peaks: Peaks, duration?: number): void;
     /** Set a point in seconds for playback to stop at. */
     setPlayEnd(end: number): void;
     /** Set the audio source playback rate. */
