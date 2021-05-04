@@ -1,6 +1,6 @@
 // Type definitions for svg-outline-stroke 1.3
 // Project: https://github.com/elrumordelaluz/outline-stroke#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/me>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
