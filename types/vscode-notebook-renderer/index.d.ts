@@ -38,5 +38,5 @@ export interface NotebookRendererApi<T> {
 }
 
 declare global {
-    function acquireNotebookRendererApi(rendererId: string): NotebookRendererApi<any>;
+    function acquireNotebookRendererApi(): NotebookRendererApi<any>;
 }
