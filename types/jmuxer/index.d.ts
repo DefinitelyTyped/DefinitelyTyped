@@ -27,8 +27,8 @@ declare namespace JMuxer {
 declare class JMuxer {
     constructor(options: JMuxer.Options);
     feed(data: JMuxer.Feeder): void;
-    createStream(): any;
-    destroy(): Duplex;
+    createStream(): Duplex;
+    destroy(): void;
 }
 export = JMuxer;
 export as namespace JMuxer;
