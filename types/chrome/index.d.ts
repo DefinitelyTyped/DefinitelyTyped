@@ -15,7 +15,6 @@
 //                 Jason Xian <https://github.com/JasonXian>
 //                 userTim <https://github.com/usertim>
 //                 Idan Zeierman <https://github.com/idan315>
-//                 Axiverse <https://github.com/axiverse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
