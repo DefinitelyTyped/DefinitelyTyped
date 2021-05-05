@@ -78,3 +78,7 @@ declare module 'buffer' {
         text(): Promise<string>;
     }
 }
+
+declare module 'node:buffer' {
+    export * from 'buffer';
+}

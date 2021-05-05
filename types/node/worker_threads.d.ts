@@ -1,5 +1,5 @@
 declare module 'worker_threads' {
-    import { Blob } from 'buffer';
+    import { Blob } from 'node:buffer';
     import { Context } from 'vm';
     import { EventEmitter } from 'events';
     import { EventLoopUtilityFunction } from 'perf_hooks';

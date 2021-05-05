@@ -1373,6 +1373,16 @@ declare module 'crypto' {
         readonly keyUsage: string[];
 
         /**
+         * The issuer identification included in this certificate.
+         */
+        readonly issuer: string;
+
+        /**
+         * The issuer certificate or `undefined` if the issuer certificate is not available.
+         */
+        readonly issuerCertificate?: X509Certificate;
+
+        /**
          * The public key for this certificate.
          */
         readonly publicKey: KeyObject;
@@ -1453,4 +1463,57 @@ declare module 'crypto' {
          */
         verify(publicKey: KeyObject): boolean;
     }
+
+    type LargeNumberLike = NodeJS.ArrayBufferView | SharedArrayBuffer | ArrayBuffer | bigint;
+
+    interface GeneratePrimeOptions {
+        add?: LargeNumberLike;
+        rem?: LargeNumberLike;
+        /**
+         * @default false
+         */
+        safe?: boolean;
+        bigint?: boolean;
+    }
+
+    interface GeneratePrimeOptionsBigInt extends GeneratePrimeOptions {
+        bigint: true;
+    }
+
+    interface GeneratePrimeOptionsArrayBuffer extends GeneratePrimeOptions {
+        bigint?: false;
+    }
+
+    function generatePrime(size: number, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptionsBigInt, callback: (err: Error | null, prime: bigint) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptionsArrayBuffer, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
+    function generatePrime(size: number, options: GeneratePrimeOptions, callback: (err: Error | null, prime: ArrayBuffer | bigint) => void): void;
+
+    function generatePrimeSync(size: number): ArrayBuffer;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptionsBigInt): bigint;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptionsArrayBuffer): ArrayBuffer;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptions): ArrayBuffer | bigint;
+
+    interface CheckPrimeOptions {
+        /**
+         * The number of Miller-Rabin probabilistic primality iterations to perform.
+         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most 2-64 for random input.
+         * Care must be used when selecting a number of checks.
+         * Refer to the OpenSSL documentation for the BN_is_prime_ex function nchecks options for more details.
+         *
+         * @default 0
+         */
+        checks?: number;
+    }
+
+    /**
+     * Checks the primality of the candidate.
+     */
+    function checkPrime(value: LargeNumberLike, callback: (err: Error | null, result: boolean) => void): void;
+    function checkPrime(value: LargeNumberLike, options: CheckPrimeOptions, callback: (err: Error | null, result: boolean) => void): void;
+
+    /**
+     * Checks the primality of the candidate.
+     */
+    function checkPrimeSync(value: LargeNumberLike, options?: CheckPrimeOptions): boolean;
 }
