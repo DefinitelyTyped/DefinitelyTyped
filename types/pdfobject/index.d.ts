@@ -12,7 +12,7 @@ export interface Options {
     id?: string;
     page?: boolean;
     pdfOpenParams?: Record<string, string | number | boolean>;
-    fallbackLink?: boolean;
+    fallbackLink?: string | boolean;
     width?: string;
     height?: string;
     assumptionMode?: boolean;
