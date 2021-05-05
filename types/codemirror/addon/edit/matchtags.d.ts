@@ -1,18 +1,11 @@
-// Type definitions for codemirror
-// Project: https://github.com/codemirror/CodeMirror
-// Definitions by: ficristo <https://github.com/ficristo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import '../../';
 
-// See docs https://codemirror.net/doc/manual.html#addon_matchtags
-
-import * as CodeMirror from 'codemirror';
-
-declare module 'codemirror' {
+declare module '../../' {
     interface CommandActions {
         /**
          * You can bind a key to in order to jump to the tag matching the one under the cursor.
          */
-        toMatchingTag(cm: CodeMirror.Editor): void;
+        toMatchingTag(cm: Editor): void;
     }
 
     interface MatchTags {
