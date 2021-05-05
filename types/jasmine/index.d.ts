@@ -482,30 +482,12 @@ declare namespace jasmine {
     }
 
     interface Env {
-        addAsyncMatchers: typeof addAsyncMatchers;
-        addCustomEqualityTester: typeof addCustomEqualityTester;
-        addCustomObjectFormatter: typeof addCustomObjectFormatter;
-        addMatchers: typeof addMatchers;
         addReporter(reporter: CustomReporter): void;
-        addSpyStrategy: typeof addSpyStrategy;
-        afterAll: typeof afterAll;
-        afterEach: typeof afterEach;
         allowRespy(allow: boolean): void;
-        beforeAll: typeof beforeAll;
-        beforeEach: typeof beforeEach;
         clearReporters(): void;
         configuration(): EnvConfiguration;
         configure(configuration: EnvConfiguration): void;
-        createSpy: typeof createSpy;
-        createSpyObj: typeof createSpyObj;
-        // ddescribe(description: string, specDefinitions: () => void): Suite; Not a part of jasmine. Angular team adds these
-        describe: typeof describe;
         execute(runnablesToRun?: Suite[], onComplete?: Func): void;
-        expect: typeof expect;
-        expectAsync: typeof expectAsync;
-        fail: typeof fail;
-        fdescribe: typeof fdescribe;
-        fit: typeof fit;
         /**
          * @deprecated Use hideDisabled option in {@link jasmine.Env.configure} instead.
          */
@@ -515,8 +497,6 @@ declare namespace jasmine {
          */
         hidingDisabled(): boolean;
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
-        it: typeof it;
-        pending: typeof pending;
         provideFallbackReporter(reporter: CustomReporter): void;
         /**
          * @deprecated Use random option in {@link jasmine.Env.configure} instead.
@@ -530,7 +510,6 @@ declare namespace jasmine {
          * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
          */
         seed(value?: number | string): boolean;
-        setDefaultSpyStrategy: typeof setDefaultSpyStrategy;
         /**
          * Sets a user-defined property that will be provided to reporters as
          * part of the properties field of SpecResult.
@@ -547,9 +526,6 @@ declare namespace jasmine {
          * @deprecated Use specFilter option in {@link jasmine.Env.configure} instead.
          */
         specFilter(spec: Spec): boolean;
-        spyOn: typeof spyOn;
-        spyOnAllFunctions: typeof spyOnAllFunctions;
-        spyOnProperty: typeof spyOnProperty;
         /**
          * @deprecated Use failFast option in {@link jasmine.Env.configure} instead.
          */
@@ -567,8 +543,6 @@ declare namespace jasmine {
          */
         throwingExpectationFailures(): boolean;
         topSuite(): Suite;
-        xdescribe: typeof xdescribe;
-        xit: typeof xit;
     }
 
     interface HtmlReporter {
