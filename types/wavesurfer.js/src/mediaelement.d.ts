@@ -31,7 +31,7 @@ export default class MediaElement extends WebAudioBackend {
     /** Pauses the loaded audio. */
     pause(): Promise<void>;
     /** Plays the loaded audio region. */
-    play(start: number, end: number): Promise<void>;
+    play(start?: number, end?: number): Promise<void>;
     /** Used by wavesurfer.seekTo(). */
     seekTo(start: number): void;
     /** Enable or disable muted audio. */

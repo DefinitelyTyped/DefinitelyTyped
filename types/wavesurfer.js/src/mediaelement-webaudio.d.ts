@@ -7,5 +7,5 @@ export default class MediaElementWebAudio extends MediaElement {
     createMediaElementSource(mediaElement: HTMLMediaElement): void;
     destroy(): void;
     init(): void;
-    play(start: number, end: number): Promise<void>;
+    play(start?: number, end?: number): Promise<void>;
 }

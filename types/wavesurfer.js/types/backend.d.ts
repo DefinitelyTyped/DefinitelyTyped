@@ -48,7 +48,7 @@ export abstract class WebAudioBackend extends Observer {
     /** Pauses the loaded audio. */
     pause(): void;
     /** Plays the loaded audio region. */
-    play(start: number, end: number): void;
+    play(start?: number, end?: number): void;
     /** Unpacked setFilters(). */
     setFilter(...filters: AudioNode[]): void;
     /** Insert custom Web Audio nodes into the graph. */
