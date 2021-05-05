@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "jsx": "react",
         "module": "commonjs",
         "lib": [
             "es6"
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "rn-material-ui-textfield-tests.ts"
+        "rn-material-ui-textfield-tests.tsx"
     ]
 }

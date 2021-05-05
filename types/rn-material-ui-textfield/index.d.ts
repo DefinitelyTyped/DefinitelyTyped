@@ -11,7 +11,8 @@ import {
   ViewStyle,
   NativeSyntheticEvent,
   TextInputFocusEventData,
-  TextInputChangeEventData
+  TextInputChangeEventData,
+  ColorValue
 } from 'react-native';
 
 export interface ContentInset {
@@ -20,6 +21,25 @@ export interface ContentInset {
     right?: number;
     label?: number;
     input?: number;
+}
+
+export interface LabelOffset {
+    /**
+     * Horizontal offset for inactive state
+     */
+    x0?: number;
+    /**
+     * Vertical offset for inactive state
+     */
+    y0?: number;
+    /**
+     * Horizontal offset for active state
+     */
+    x1?: number;
+    /**
+     * Vertical offset for active state
+     */
+    y1?: number;
 }
 
 export interface TextFieldProps extends TextInputProps {
@@ -58,25 +78,6 @@ export interface TextFieldProps extends TextInputProps {
     onFocus?(event: NativeSyntheticEvent<TextInputFocusEventData>): void;
     onBlur?(event: NativeSyntheticEvent<TextInputChangeEventData>): void;
     inputRef?: React.RefObject<any>;
-}
-
-export interface LabelOffset {
-    /**
-     * Horizontal offset for inactive state
-     */
-    x0?: number;
-    /**
-     * Vertical offset for inactive state
-     */
-    y0?: number;
-    /**
-     * Horizontal offset for active state
-     */
-    x1?: number;
-    /**
-     * Vertical offset for active state
-     */
-    y1?: number;
 }
 
 /**

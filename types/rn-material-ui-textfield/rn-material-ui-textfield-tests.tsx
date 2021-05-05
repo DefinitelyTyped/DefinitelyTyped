@@ -1,9 +1,9 @@
-import { Component, createRef } from 'react';
+import React = require('react');
 import { View } from 'react-native';
 import { TextField } from 'rn-material-ui-textfield';
 
-export class Example extends Component {
-    textFieldRef = createRef<TextField>();
+export class Example extends React.Component {
+    textFieldRef = React.createRef<TextField>();
 
     componentDidMount() {
         if (this.textFieldRef.current) {
@@ -21,7 +21,7 @@ export class Example extends Component {
         return (
             <View>
                 <TextField
-                    inputRef= {this.outlinedInputRef}
+                    inputRef={this.textFieldRef}
                     label="Example"
                     multiline
                     placeholder="Text when field is empty"
