@@ -474,6 +474,7 @@ declare namespace WaveSurfer {
     }
 
     interface WaveSurferBackend {
+        setPeaks(peaks: Peaks, duration?: number): void;
         getPeaks(length: number, first?: number, last?: number): Peaks;
     }
 }
