@@ -56,7 +56,7 @@ export interface TextFieldProps extends TextInputProps {
     prefix?: string;
     suffix?: string;
     error?: string;
-    errorColor?: string;
+    errorColor?: ColorValue;
     lineType?: 'solid' | 'dotted' | 'dashed' | 'none';
     disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none';
     animationDuration?: number;
