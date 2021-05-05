@@ -49,8 +49,8 @@ export interface TextFieldProps extends TextInputProps {
     lineWidth?: number;
     activeLineWidth?: number;
     disabledLineWidth?: number;
-    tintColor?: string;
-    baseColor?: string;
+    tintColor?: ColorValue;
+    baseColor?: ColorValue;
     label?: string;
     title?: string;
     prefix?: string;
