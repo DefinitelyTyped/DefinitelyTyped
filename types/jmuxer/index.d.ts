@@ -3,6 +3,9 @@
 // Definitions by: Samir Das <https://github.com/samirkumardas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+import { Duplex } from "stream";
+
 declare namespace JMuxer {
     interface Options {
         node: string | HTMLVideoElement;
@@ -25,7 +28,7 @@ declare class JMuxer {
     constructor(options: JMuxer.Options);
     feed(data: JMuxer.Feeder): void;
     createStream(): any;
-    destroy(): void;
+    destroy(): Duplex;
 }
 export = JMuxer;
 export as namespace JMuxer;
