@@ -12,7 +12,7 @@ export interface Profile {
     username: string;
     displayName: string;
     profileUrl: string | null;
-    photos: [string] | null;
+    photos: string[] | null;
     country: string;
     followers: number | null;
     product: string | null;
