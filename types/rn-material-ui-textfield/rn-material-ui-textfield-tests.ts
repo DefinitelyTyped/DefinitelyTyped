@@ -1,4 +1,4 @@
-import { Component, ReactElement, createRef } from 'react';
+import { Component, createRef } from 'react';
 import { View } from 'react-native';
 import { TextField } from 'rn-material-ui-textfield';
 
