@@ -23,7 +23,7 @@ export interface ContentInset {
 }
 
 export interface TextFieldProps extends TextInputProps {
-    textColor?:	string;
+    textColor?:	ColorValue;
     fontSize?: number;
     labelFontSize?: number;
     lineWidth?: number;
