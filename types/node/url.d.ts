@@ -1,5 +1,6 @@
-declare module 'url' {
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
+declare module "url" {
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from "querystring";
+    import { RequestOptions } from "http";
 
     // Input to `url.format`
     interface UrlObject {
@@ -43,7 +44,11 @@ declare module 'url' {
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string): UrlWithStringQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlStr: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
@@ -72,6 +77,12 @@ declare module 'url' {
      */
     function pathToFileURL(url: string): URL;
 
+    /**
+     * This utility function converts a URL object into an ordinary options object
+     * as expected by the `http.request()` and `https.request()` APIs.
+     */
+    function urlToHttpOptions(url: URL): RequestOptions;
+
     interface URLFormatOptions {
         auth?: boolean;
         fragment?: boolean;
@@ -98,7 +109,14 @@ declare module 'url' {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | NodeJS.Dict<string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | NodeJS.Dict<string | ReadonlyArray<string>>
+                | Iterable<[string, string]>
+                | ReadonlyArray<[string, string]>,
+        );
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
