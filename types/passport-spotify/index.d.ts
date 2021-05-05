@@ -1,4 +1,4 @@
-// Type definitions for passport-spotify 1.1
+// Type definitions for passport-spotify 2.0
 // Project: https://github.com/jmperez/passport-spotify#readme
 // Definitions by: Rishi Kodali <https://github.com/rishikodali>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
