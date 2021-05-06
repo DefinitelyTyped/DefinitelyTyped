@@ -9,17 +9,18 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "esModuleInterop": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "webpack": [
-                "./node_modules/webpack"
+                "webpack/v4"
             ],
             "tapable": [
-                "./node_modules/tapable"
-            ]
+                "tapable/v1"
+            ],
+            "webpack-assets-manifest": [ "webpack-assets-manifest/v4" ]
         },
         "types": [],
         "noEmit": true,
