@@ -157,6 +157,8 @@ interface WidgetTagProps extends React.HTMLAttributes<any> {
 
 export class WidgetTag extends React.Component<WidgetTagProps, any> {}
 
+type Priority = "foreground" | "background";
+
 /**
  * Config definitions
  */
@@ -170,7 +172,7 @@ interface ConfigOptions {
     // Hard to type
     constraintsValidation?: (constraints: any) => any;
     endpoint?: string;
-    priority?: "foreground" | "background";
+    priority?: Priority;
     adoptUi?: boolean;
     baseUrlForSite?: (siteId: string) => string | undefined;
     siteForUrl?: (url: string) => { siteId: string; baseUrl: string } | undefined;
