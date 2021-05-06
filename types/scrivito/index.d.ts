@@ -125,7 +125,7 @@ export class ContentTag extends React.Component<ContentTagProps, any> { }
 export class CurrentPage extends React.Component<{}, any> { }
 
 interface ImageTagProps extends React.HTMLAttributes<HTMLImageElement> {
-    attribute: string;
+    attribute?: string;
     content: Binary | Obj | Widget;
     alt?: string;
 }
@@ -536,12 +536,19 @@ export function currentWorkspaceId(): string;
 export function currentEditor(): Editor | null;
 export function configureObjClassForContentType(mapping?: { [key: string]: string }): void;
 
-// Fix automatic exports
+
+
+// utility types
+
+type AttributeKeys<T extends WidgetClassOptions | ObjClassOptions> = {
+    [Property in keyof T["attributes"]]: any;
+}
 
 export type {
     AttributeOptions,
     AttributeProps,
     AttributeValue,
+    AttributeKeys,
     BackgroundImageBackgroundProp,
     BackgroundImageTagProps,
     ChildListTagProps,
@@ -567,4 +574,5 @@ export type {
     SiteContext
 };
 
+// Disables automatic exports
 export { };
