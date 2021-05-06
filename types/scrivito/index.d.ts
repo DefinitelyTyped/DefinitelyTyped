@@ -47,10 +47,14 @@ interface OptimizeDefinition {
  * Binary definitions
  */
 
+interface UploadOptions {
+    filename: string; 
+    contentType?: string 
+}
+
 export class Binary {
     private constructor();
-    static upload(source: Blob | File, options: { filename: string; contentType?: string }): FutureBinary;
-    static uplload(source: File, options?: { filename?: string; contentType?: string }): FutureBinary;
+    static upload(source: Blob | File, options: UploadOptions): FutureBinary;
     contentLength(): number;
     contentType(): string;
     copy(options?: { filename?: string; contentType?: string }): FutureBinary;
