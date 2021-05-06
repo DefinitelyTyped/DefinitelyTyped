@@ -3088,7 +3088,7 @@ declare namespace math {
         dimensions?: MathNode[];
         op?: string;
         object?: MathNode;
-        fn?: string;
+        fn?: string | MathNode;
         args?: MathNode[];
         type: string;
         name?: string;
