@@ -37,6 +37,7 @@ declare class Yallist<T> implements Iterable<T> {
     shift(): T | undefined;
     slice(from?: number, to?: number): Yallist<T>;
     sliceReverse(from?: number, to?: number): Yallist<T>;
+    splice(start: number, deleteCount: number, ...nodes: T[]): T[];
     toArray(): T[];
     toArrayReverse(): T[];
     unshift(...items: T[]): number;
