@@ -575,7 +575,6 @@ export function preload(preloadDump: any): Promise<{ dumpLoaded: boolean }>;
 export function provideComponent(className: string, component: WidgetComponent | ObjComponent): void;
 export function provideEditingConfig(name: string, editingConfig: EditingConfig): void;
 export function provideAuthGroups(options: AuthGroupsOptions): void;
-
 export function createObjClass(options: ObjClassOptions): Obj;
 export function createWidgetClass(options: WidgetClassOptions): AbstractWidgetClass;
 export function provideObjClass(name: string, contentClassOrOptions: ObjClassOptions | AbstractObjClass): ObjClass;
@@ -583,7 +582,6 @@ export function provideWidgetClass(
     name: string,
     contentClassOrOptions: WidgetClassOptions | AbstractWidgetClass,
 ): WidgetClass;
-
 export function registerComponent(name: string, component: WidgetComponent | ObjComponent): void;
 export function renderPage(page: any, renderFunction: () => void): Promise<{ result: Obj; preloadDump: any }>;
 export function setVisitorIdToken(idToken: string): void;
