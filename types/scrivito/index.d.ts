@@ -323,7 +323,7 @@ export interface ObjSearch {
 }
 
 export class Obj {
-    constructor(arg: object);
+    private constructor(arg: object);
 
     private readonly _createdAt: Date;
     private readonly _firstPublishedAt: Date;
