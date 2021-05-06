@@ -1,4 +1,4 @@
-// Type definitions for parameter 3.6
+// Type definitions for parameter 3.7
 // Project: https://github.com/node-modules/parameter#readme
 // Definitions by: Innpaul Zhang <https://github.com/zhyupe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
