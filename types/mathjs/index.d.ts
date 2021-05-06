@@ -3082,7 +3082,9 @@ declare namespace math {
         isUpdateNode?: boolean;
         comment?: string;
         content?: MathNode;
+        condition: MathNode;
         op?: string;
+        object: MathNode;
         fn?: string;
         args?: MathNode[];
         type: string;
