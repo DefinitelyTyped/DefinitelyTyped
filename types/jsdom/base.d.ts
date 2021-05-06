@@ -12,6 +12,10 @@ declare module "jsdom" {
     const toughCookie: typeof tough;
     class CookieJar extends tough.CookieJar {}
 
+    interface AbortablePromise<T> extends Promise<T> {
+        abort(): void;
+    }
+
     class JSDOM {
         constructor(html?: string | Buffer | BinaryData, options?: ConstructorOptions);
 
@@ -54,7 +58,7 @@ declare module "jsdom" {
     }
 
     class ResourceLoader {
-        fetch(url: string, options: FetchOptions): Promise<Buffer> | null;
+        fetch(url: string, options: FetchOptions): AbortablePromise<Buffer> | null;
 
         constructor(obj?: ResourceLoaderConstructorOptions);
     }

@@ -349,9 +349,12 @@ declare global {
              */
             oStates?: Record<string, ioBroker.State | undefined>;
 
-            /*    ===============================
-                Functions defined in adapter.js
-                =============================== */
+            /** Can be used to test for forbidden chars in object IDs */
+            readonly FORBIDDEN_CHARS: RegExp;
+
+            /* ===============================
+               Functions defined in adapter.js
+               =============================== */
 
             /**
              * Helper function that looks for first free TCP port starting with the given one.
@@ -1720,7 +1723,7 @@ declare global {
             /** Date of creation */
             createdAt: number;
         }
-        type ChownFileCallback = (err?: NodeJS.ErrnoException | null, entries?: ChownFileResult[], id?: string) => void;
+        type ChownFileCallback = (err?: NodeJS.ErrnoException | null, processed?: ChownFileResult[]) => void;
 
         /** Contains the return values of rm */
         interface RmResult {

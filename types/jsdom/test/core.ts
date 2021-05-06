@@ -201,3 +201,7 @@ function test_custom_resource_loader() {
     }
     new JSDOM("", { resources: new CustomResourceLoader() });
 }
+
+function test_resource_loader_return_type(resourceLoader: ResourceLoader) {
+    resourceLoader.fetch("https://example.com", {}); // $ExpectType AbortablePromise<Buffer> | null
+}

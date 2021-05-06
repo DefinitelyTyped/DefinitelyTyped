@@ -1,4 +1,4 @@
-// Type definitions for nodegit 0.26
+// Type definitions for nodegit 0.27
 // Project: https://github.com/nodegit/nodegit, http://nodegit.org
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>,
 //                 Tobias Nießen <https://github.com/tniessen>,

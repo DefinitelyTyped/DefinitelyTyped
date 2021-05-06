@@ -25,6 +25,7 @@ import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
 import { Random } from "meteor/random"
 import { EJSON } from "meteor/ejson";
+import { setMinimumBrowserVersions } from "meteor/modern-browsers";
 
 declare module 'meteor/meteor' {
     namespace Meteor {
@@ -556,6 +557,18 @@ Meteor.loginWithGithub({
 
 Meteor.loggingOut(); // $ExpectType boolean
 
+Meteor.user();
+Meteor.user({});
+Meteor.user({ fields: {} });
+Meteor.user({ fields: { _id: 1 } });
+Meteor.user({ fields: { profile: 0 } });
+
+Accounts.user();
+Accounts.user({});
+Accounts.user({ fields: {} });
+Accounts.user({ fields: { _id: 1 } });
+Accounts.user({ fields: { profile: 0 } });
+
 /**
  * From Accounts, Accounts.ui.config section
  */
@@ -1054,3 +1067,6 @@ if (Meteor.isServer) {
 
     const hashedToken = Accounts._hashLoginToken(stampedToken.token); // $ExpectType string
 }
+
+// Covers modern-browsers
+setMinimumBrowserVersions({ samsungInternet: [6, 2] }, "custom-app");

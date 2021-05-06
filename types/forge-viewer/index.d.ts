@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.39
+// Type definitions for non-npm package Forge Viewer 7.42
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -228,6 +228,13 @@ declare namespace Autodesk {
           [key: string]: any;
         }
 
+        interface InstanceTreeNode {
+          children: InstanceTreeNode[];
+          dbId: number;
+          fragments: number[];
+          name: string;
+        }
+
         interface ItemSelectedObserver {
           onItemSelected(viewer: Viewer3D): void;
         }
@@ -362,6 +369,8 @@ declare namespace Autodesk {
         const VIEWER_UNINITIALIZED = 'viewerUninitialized';
         const WEBGL_CONTEXT_LOST_EVENT = 'webGlContextLost';
 
+        let HTTP_REQUEST_HEADERS: any;
+
         interface ViewerEventArgs {
           target?: Viewer3D;
           model?: ViewerItem;
@@ -383,7 +392,7 @@ declare namespace Autodesk {
           getCustomLoadOptions?: any;
           ignoreGlobalOffset?: boolean;
           multiViewerFactory?: any;
-          propagateInputEvents?: boolean;
+          propagateInputEventTypes?: string[];
           unloadUnfinishedModels?: boolean;
           useDynamicGlobalOffset?: boolean;
           viewerConfig?: any;
@@ -409,7 +418,7 @@ declare namespace Autodesk {
           initViewerInstance(parentDiv: HTMLDivElement, options?: AggregatedViewInitOptions): void;
           isBimWalkActive(): boolean;
           isEmpty(): boolean;
-          isLoadDone(): boolean;
+          isLoadDone(checkTextures?: boolean): boolean;
           isOtgManifestMissing(bubbleNode: BubbleNode): boolean;
           isVisible(node: BubbleNode): boolean;
           load(node: BubbleNode, customLoadOptions?: any): Promise<Model>;
@@ -499,6 +508,7 @@ declare namespace Autodesk {
 
         let endpoint: Endpoint;
         let theExtensionManager: ExtensionManager;
+        let i18n: any;
 
         interface InitializerOptions {
             api?: string;
@@ -519,33 +529,37 @@ declare namespace Autodesk {
         function toUrlSafeBase64(urn: string): string;
 
         class Document {
-            constructor(dataJSON: object, path: string, acmsession: string);
-            static load(documentId: string, successCallback: (doc: Document) => void,
-            errorCallback: (errorCode: ErrorCodes, errorMsg: string, messages: any[]) => void, accessControlProperties?: any): void;
-            static getSubItemsWithProperties(item: object, properties: Properties, recursive: boolean): object[];
+          acmSessionId: string;
+          docRoot: any;
+          myData: any;
 
-            acmSessionId: string;
-            myData: any;
+          constructor(dataJSON: object, path: string, acmsession: string);
 
-            downloadAecModelData(onFinished?: (data: any) => void): Promise<any>;
-            static getAecModelData(node: BubbleNode): any;
-            getFullPath(urn: string): string;
-            getItemById(id: string): object;
-            getMessages(itemId: string, excludeGlobal: boolean): object;
-            getNumViews(item: object): number;
-            getParentId(item: string): string;
-            getPath(): string;
-            getPropertyDbPath(): string;
-            getRoot(): BubbleNode;
-            getRootItem(): object;
-            getSubItemsWithProperties(item: object, properties: object, recursive: boolean): object;
-            getThumbnailOptions(item: object, width: number, height: number): ThumbnailOptions;
-            getThumbnailPath(item: string, width: number, height: number): string;
-            getViewableItems(document: Document): void;
-            getViewablePath(item: object, outLoadOptions?: object): string;
-            getViewGeometry(item: object): object;
-            load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object, options?: object): void;
-            requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
+          static getAecModelData(node: BubbleNode): any;
+          static getSubItemsWithProperties(item: object, properties: Properties, recursive: boolean): object[];
+          static load(documentId: string,
+            successCallback: (doc: Document) => void,
+            errorCallback: (errorCode: ErrorCodes, errorMsg: string, messages: any[]) => void,
+            accessControlProperties?: any): void;
+
+          downloadAecModelData(onFinished?: (data: any) => void): Promise<any>;
+          getFullPath(urn: string): string;
+          getItemById(id: string): object;
+          getMessages(itemId: string, excludeGlobal: boolean): object;
+          getNumViews(item: object): number;
+          getParentId(item: string): string;
+          getPath(): string;
+          getPropertyDbPath(): string;
+          getRoot(): BubbleNode;
+          getRootItem(): object;
+          getSubItemsWithProperties(item: object, properties: object, recursive: boolean): object;
+          getThumbnailOptions(item: object, width: number, height: number): ThumbnailOptions;
+          getThumbnailPath(item: string, width: number, height: number): string;
+          getViewableItems(document: Document): void;
+          getViewablePath(item: object, outLoadOptions?: object): string;
+          getViewGeometry(item: object): object;
+          load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object, options?: object): void;
+          requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
         }
 
         function shutdown(): void;
@@ -600,15 +614,30 @@ declare namespace Autodesk {
             numHidden: number;
             numOff: number;
             objectCount: number;
+            root: InstanceTreeNode;
 
             enumNodeChildren(node: any, callback: (dbId: number) => void, recursive?: boolean): void;
             enumNodeFragments(node: any, callback: (fragId: number) => void, recursive?: boolean): void;
             getChildCount(dbId: number): number;
             getNodeBox(dbId: number, nodeBox: Float32Array): void;
+            getNodeIndex(dbId: number): number;
+            getNodeName(dbId: number): string;
             getNodeParentId(dbId: number): number;
+            getNodeType(dbId: number): number;
             getRootId(): number;
+            isNodeExplodeLocked(dbId: number): boolean;
+            isNodeHidden(dbId: number): boolean;
+            isNodeOff(dbId: number): boolean;
+            isNodeSelectable(dbId: number): boolean;
+            isNodeSelectionLocked(dbId: number): boolean;
+            isNodeVisibleLocked(dbId: number): boolean;
+            lockNodeExplode(dbId: number, value: boolean): boolean;
+            lockNodeSelection(dbId: number, value: boolean): boolean;
+            lockNodeVisible(dbId: number, value: boolean): boolean;
             setFlagGlobal(flag: any, value: any): void;
             setFlagNode(dbId: number, flag: any, value: any): boolean;
+            setNodeHidden(dbId: number, flag: any, value: boolean): boolean;
+            setNodeOff(dbId: number, flag: any, value: boolean): boolean;
         }
 
         class InstanceTreeAccess {
@@ -639,11 +668,14 @@ declare namespace Autodesk {
             fetchTopology(maxSizeMB: number): Promise<object>;
             getBoundingBox(): THREE.Box3;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: PropertyResult[]) => void, errorCallback?: (err: any) => void): void;
+            getBulkProperties2(dbIds: number[], options?: object, successCallback?: (r: PropertyResult[]) => void, errorCallback?: (s: any, m: any, d: any) => void): void;
             getData(): any;
             getFragmentList(): Private.FragmentList;
             getFuzzyBox(options: { allowList?: number[], center?: number, ignoreTransform?: boolean, quantil?: number }): THREE.Box3;
             getGeometryList(): any;
             getGlobalOffset(): THREE.Vector3;
+            getInverseModelToViewerTransform(): THREE.Matrix4;
+            getInversePlacementWithOffset(): THREE.Matrix4;
             getModelKey(): string;
             getModelToViewerTransform(): THREE.Matrix4;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
@@ -651,6 +683,7 @@ declare namespace Autodesk {
             getPlacementTransform(): THREE.Matrix4;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getProperties2(dbIds: number[], successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void, options?: { needExternalId: boolean }): void;
+            getPropertyDb(): PropDbLoader;
             getPropertySet(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): void;
             getPropertySetAsync(dbIds: number[], options: { propFilter?: string[]; ignoreHidden?: boolean; needsExternalId?: boolean; }): Promise<PropertySet>;
             geomPolyCount(): number;
@@ -757,6 +790,10 @@ declare namespace Autodesk {
           }
         }
 
+        interface PropDbLoader {
+          executeUserFunction(userFunc: (pdb: any, ...args: any[]) => any, args?: any): Promise<any>;
+        }
+
         interface PropertyResult {
             dbId: number;
             externalId?: string;
@@ -814,6 +851,7 @@ declare namespace Autodesk {
             getScreenViewport(): ClientRect;
             setScreenViewport(viewport: ClientRect): void;
             setView(position: THREE.Vector3, target: THREE.Vector3): void;
+            getVerticalFov(): number;
             setVerticalFov(fov: number, adjustPosition: boolean): void;
             setUseLeftHandedInput(value: boolean): any;
             setZoomTowardsPivot(value: boolean): any;
@@ -821,6 +859,9 @@ declare namespace Autodesk {
             screenToViewport(x: number, y: number): THREE.Vector3;
             toOrthographic(): void;
             toPerspective(): void;
+            setRequestTransitionWithUp(state: boolean, pos: THREE.Vector3, coi: THREE.Vector3, fov: number, up: THREE.Vector3, worldUp?: THREE.Vector3): void;
+            setRequestHomeView(val?: boolean): void;
+            computeOverviewDistance(bound: THREE.Box3): number;
         }
 
         interface Properties {
@@ -842,8 +883,8 @@ declare namespace Autodesk {
             setIsLocked(state: boolean): boolean;
         }
 
-        interface ToolInterface {
-            getCursor?(): string;
+        class ToolInterface {
+            getCursor(): string;
             getName(): string;
             getNames(): string[];
             register(): void;
@@ -851,19 +892,19 @@ declare namespace Autodesk {
             activate(name: string, viewerApi?: GuiViewer3D): void;
             deactivate(name: string): void;
             update(highResTimestamp?: number): boolean;
-            handleSingleClick?(event: MouseEvent, button: number): boolean;
-            handleDoubleClick?(event: MouseEvent, button: number): boolean;
-            handleSingleTap?(event: Event): boolean;
-            handleDoubleTap?(event: Event): boolean;
-            handleKeyDown?(event: KeyboardEvent, keyCode: number): boolean;
-            handleKeyUp?(event: KeyboardEvent, keyCode: number): boolean;
-            handleWheelInput?(delta: number): boolean;
-            handleButtonDown?(event: MouseEvent, button: number): boolean;
-            handleButtonUp?(event: MouseEvent, button: number): boolean;
-            handleMouseMove?(event: MouseEvent): boolean;
-            handleGesture?(event: Event): boolean;
-            handleBlur?(event: Event): boolean;
-            handleResize?(): void;
+            handleSingleClick(event: MouseEvent, button: number): boolean;
+            handleDoubleClick(event: MouseEvent, button: number): boolean;
+            handleSingleTap(event: Event): boolean;
+            handleDoubleTap(event: Event): boolean;
+            handleKeyDown(event: KeyboardEvent, keyCode: number): boolean;
+            handleKeyUp(event: KeyboardEvent, keyCode: number): boolean;
+            handleWheelInput(delta: number): boolean;
+            handleButtonDown(event: MouseEvent, button: number): boolean;
+            handleButtonUp(event: MouseEvent, button: number): boolean;
+            handleMouseMove(event: MouseEvent): boolean;
+            handleGesture(event: Event): boolean;
+            handleBlur(event: Event): boolean;
+            handleResize(): void;
         }
 
         class UnifiedCamera extends THREE.Camera {
@@ -966,7 +1007,7 @@ declare namespace Autodesk {
 
             canvas: HTMLCanvasElement;
             config: Viewer3DConfig;
-            container: Element;
+            container: HTMLElement;
             navigation: Navigation;
             id: number;
             impl: Private.Viewer3DImpl;
@@ -1122,6 +1163,12 @@ declare namespace Autodesk {
             isHighlightDisabled(): boolean;
             isHighlightPaused(): boolean;
             isHighlightActive(): boolean;
+            isLoadDone(include?: {
+              geometry?: boolean,
+              onlyModels?: boolean,
+              propDb?: boolean,
+              textures?: boolean
+            }): boolean;
             isSelectionDisabled(): boolean;
             loadExtension(extensionId: string, options?: object): Promise<Extension>;
             getExtension(extensionId: string, callback?: (ext: Extension) => void): Extension;
@@ -1142,6 +1189,12 @@ declare namespace Autodesk {
             hasEventListener(type: string, callback: (event: any) => void): any;
             removeEventListener(type: string, callback: (event: any) => void): any;
             dispatchEvent(event: object): void;
+            waitForLoadDone(include?: {
+              geometry?: boolean,
+              onlyModels?: boolean,
+              propDb?: boolean,
+              textures?: boolean
+            }): Promise<void>;
         }
 
         class GuiViewer3D extends Viewer3D {
@@ -1219,7 +1272,7 @@ declare namespace Autodesk {
                 enableMSDFText?: boolean;
                 enableTextSearch?: boolean;
                 useTextLayer?: boolean;
-              })
+              });
             }
 
             class PDFLoader {
@@ -1320,6 +1373,8 @@ declare namespace Autodesk {
             const env: string;
             const LightPresets: any[];
             const LocalStorage: LocalStorageClass;
+            const logger: any;
+
             enum Prefs {
               PROGRESSIVE_RENDERING = 'progressiveRendering',
               OPEN_PROPERTIES_ON_SELECT = 'openPropertiesOnSelect',
@@ -1439,6 +1494,7 @@ declare namespace Autodesk {
 
               getAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): boolean;
               getVizmesh(fragId: number): any;
+              getWorldBounds(fragId: number, box: THREE.Box3): void;
               updateAnimTransform(fragId: number, scale?: THREE.Vector3, rotation?: THREE.Quaternion, translation?: THREE.Vector3): void;
             }
 
@@ -1481,7 +1537,7 @@ declare namespace Autodesk {
               addHDRMaterial(name: string, mat: THREE.ShaderMaterial): void;
               addInstancingSupport(material: THREE.Material): THREE.Material;
               addLineMaterial(name: string, mat: THREE.ShaderMaterial, modelId: number): void;
-              addMaterial(name: string, mat: THREE.ShaderMaterial, skipSimplePhongHeuristics: boolean): void;
+              addMaterial(name: string, mat: THREE.Material, skipSimplePhongHeuristics: boolean): void;
               addMaterialNonHDR(name: string, mat: THREE.ShaderMaterial): void;
               addNonHDRMaterial(name: string, mat: THREE.ShaderMaterial): void;
               addOverrideMaterial(name: string, mat: THREE.Material): void;
@@ -1536,8 +1592,19 @@ declare namespace Autodesk {
               function enumMeshEdges(geometry: THREE.Geometry, callback: (p: THREE.Vector3, q: THREE.Vector3, a: number, b: number) => void): void;
               function enumMeshIndices(geometry: THREE.Geometry, callback: (a: number, b: number, c: number) => void): void;
               function enumMeshLines(geometry: THREE.Geometry, callback: (start: THREE.Vector3, end: THREE.Vector3, a: number, b: number, idx: number) => void): void;
-              function enumMeshTriangles(geometry: THREE.Geometry, callback: (vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, a: number, b: number, c: number) => void): void;
-              function enumMeshVertices(geometry: THREE.Geometry, callback: (p: THREE.Vector3, n?: THREE.Vector3, uv?: { u: number, v: number }, idx?: number) => void, matrix?: THREE.Matrix4): void;
+              function enumMeshTriangles(geometry: THREE.Geometry,
+                callback: (vA: THREE.Vector3,
+                  vB: THREE.Vector3,
+                  vC: THREE.Vector3,
+                  a: number,
+                  b: number,
+                  c: number,
+                  nA: THREE.Vector3,
+                  nB: THREE.Vector3,
+                  nC: THREE.Vector) => void): void;
+              function enumMeshVertices(geometry: THREE.Geometry,
+                callback: any,
+                matrix?: THREE.Matrix4): void;
               function getVertexCount(geom: THREE.Geometry): number;
             }
 
@@ -1622,7 +1689,7 @@ declare namespace Autodesk {
                 removeOverlayScene(name: string): any;
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
-                rayIntersect(ray: THREE.Ray, ignoreTransparent: boolean, dbIds?: number[], modelId?: number[], intersections?: any[], options?: any): HitTestResult;
+                rayIntersect(ray: THREE.Ray, ignoreTransparent?: boolean, dbIds?: number[], modelId?: number[], intersections?: any[], options?: any): HitTestResult;
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setDoNotCut(model: Model, doNotCut: boolean): void;
@@ -1663,9 +1730,9 @@ declare namespace Autodesk {
           }
 
           interface ScrollContainerOptions {
-            left: boolean;
-            heightAdjustment: number;
-            marginTop: number;
+            left?: boolean;
+            heightAdjustment?: number;
+            marginTop?: number;
             [key: string]: any;
           }
 
@@ -1716,14 +1783,14 @@ declare namespace Autodesk {
             constructor(parentContainer: HTMLElement, id: string, title: string, options?: DockingPanelOptions);
 
             closer: HTMLElement;
-            container: HTMLElement;
-            content: Node;
+            container: any;
+            content: any;
             footer: HTMLElement;
             scrollContainer: HTMLElement;
             title: HTMLElement;
             titleLabel: string;
 
-            addEventListener(target: object, eventId: string, callback: () => void): void;
+            addEventListener(target: object, eventId: string, callback: (event?: any) => void): void;
             addVisibilityListener(callback: (state: boolean) => void): void;
             createCloseButton(): HTMLElement;
             createFooter(): HTMLElement;
@@ -1741,7 +1808,7 @@ declare namespace Autodesk {
             onTitleClick(event: Event): void;
             onTitleDoubleClick(event: Event): void;
             removeEventListener(target: object, eventId: string, callback: () => void): boolean;
-            resizeToContent(options: ResizeOptions): void;
+            resizeToContent(options?: ResizeOptions): void;
             setTitle(text: string, options: DockingPanelOptions): void;
             setVisible(show: boolean): void;
             uninitialize(): void;
@@ -1786,6 +1853,7 @@ declare namespace Autodesk {
             onPropertyRightClick(property: object, event: Event): void;
             removeAllProperties(): void;
             removeProperty(name: string, value: string, category: string, options?: object): boolean;
+            setAggregatedProperties(propSet: PropertySet): void;
             setCategoryCollapsed(category: object, collapsed: boolean): void;
             setProperties(properties: Array<{displayName: string, displayValue: any}>, options?: object): void;
             showDefaultProperties(): void;
@@ -1848,11 +1916,12 @@ declare namespace Autodesk {
           }
 
           class Control {
+            Event: ControlEventArgs;
+
             constructor(id?: string, options?: ControlOptions);
 
-            Event: ControlEventArgs;
             addClass(cssClass: string): void;
-            getDimensions(): object;
+            getDimensions(): any;
             getId(): string;
             getPosition(): object;
             getToolTip(): string;
@@ -1903,9 +1972,10 @@ declare namespace Autodesk {
           }
 
           class Button extends Control {
-            constructor(id: string, options?: object);
-
             Event: ControlEventArgs;
+            icon: HTMLElement;
+
+            constructor(id: string, options?: object);
 
             getState(): Button.State;
             onClick: (event: Event) => void;
@@ -1921,12 +1991,54 @@ declare namespace Autodesk {
           }
 
           class ComboButton extends Button {
+            subMenu: ControlGroup;
+
             constructor(id: string, options?: object);
 
             addControl(button: Button): void;
             removeControl(button: Button): void;
             restoreDefault(): void;
             saveAsDefault(): void;
+            setState(state: Button.State): boolean;
+          }
+
+          class Tree {
+            constructor(delegate: TreeDelegate, root: object, parentContainer: HTMLElement|string, options?: object);
+
+            addClass(node: object|number, className: string): boolean;
+            addToSelection(nodes: object[]): void;
+            clear(): void;
+            clearSelection(): void;
+            delegate(): TreeDelegate;
+            getElementForNode(node: any): HTMLElement;
+            getRootContainer(): string;
+            hasClass(node: object|number, className: string): boolean;
+            isCollapsed(group: object): boolean;
+            isSelected(node: object): boolean;
+            iterate(node: object, callback: (node: object, elem: HTMLElement) => void): void;
+            removeClass(node: object|number, className: string): boolean;
+            removeFromSelection(nodes: object[]): void;
+            scrollTo(node: any): void;
+            setAllCollapsed(collapsed: boolean): void;
+            setCollapsed(group: object, collapsed: boolean, recursive?: boolean): void;
+            setSelection(nodes: object): void;
+            show(show: boolean): void;
+          }
+
+          class TreeDelegate  {
+            constructor();
+
+            createTreeNode(node: object, parent: HTMLElement, options: object): void;
+            forEachChild(node: object, callback: (child: object) => void): void;
+            getTreeNodeClass(node: object): void;
+            getTreeNodeId(node: object): string;
+            getTreeNodeLabel(node: object): string;
+            isTreeNodeGroup(node: object): boolean;
+            onTreeNodeClick(tree: Tree, node: object, event: Event): void;
+            onTreeNodeIconClick(tree: Tree, node: object, event: Event): void;
+            onTreeNodeDoubleClick(tree: Tree, node: object, event: Event): void;
+            onTreeNodeRightClick(tree: Tree, node: object, event: Event): void;
+            shouldCreateTreeNode(node: object): boolean;
           }
         }
     }
@@ -1963,6 +2075,7 @@ declare namespace Autodesk {
     namespace DataVisualization {
       namespace Core {
         const MOUSE_CLICK = 'DATAVIZ_OBJECT_CLICK';
+        const MOUSE_CLICK_OUT = 'DATAVIZ_CLICK_OUT';
         const MOUSE_HOVERING = 'DATAVIZ_OBJECT_HOVERING';
 
         enum ViewableType {
@@ -2000,13 +2113,24 @@ declare namespace Autodesk {
           constructor(id: number, name: string, bounds: THREE.Box3);
 
           get bounds(): THREE.Box3;
-          get devices(): object[];
+          get devices(): RoomDevice[];
           get id(): number;
           get info(): { properties: any[] };
           set info(value: { properties: any[] });
           get name(): string;
 
-          addDevice(device: object): void;
+          addDevice(device: RoomDevice): void;
+        }
+
+        class RoomDevice {
+          id: string;
+          position: {
+            x: number;
+            y: number;
+            z: number;
+          };
+          sensorTypes: string[];
+          type: string;
         }
 
         class SpriteViewable extends CustomViewable {
@@ -2045,7 +2169,7 @@ declare namespace Autodesk {
           addChild(child: SurfaceShadingGroup|SurfaceShadingNode): void;
           getChildLeafs(results: SurfaceShadingNode[]): void;
           getLeafsById(id: string, results: SurfaceShadingNode[]): SurfaceShadingNode[];
-          getNodeById(id: string): SurfaceShadingGroup;
+          getNodeById(id: string): SurfaceShadingGroup|SurfaceShadingNode;
           update(model: Viewing.Model): void;
         }
 
@@ -2286,6 +2410,148 @@ declare namespace Autodesk {
     }
 
     namespace Extensions {
+      namespace CompGeom {
+        const DefaultTessParams: {
+          minSegLenFraction: number;
+          numIterations: number;
+        };
+        const ONE_INTERSECTION: number;
+        const OVERLAP: number;
+        const TOL: number;
+        const VERSION: string;
+
+        function angleInsideArc(angle: number, start: number, end: number, ccw?: boolean): boolean;
+        function angleInsideArcCCW(angle: number, start: number, end: number): boolean;
+        function convertToPlaneCoords(planeBasis: any, edges3d: any[], bbox: THREE.Box3): void;
+        function getAngleDelta(startAngle: number, endAngle: number, ccw: boolean): number;
+        function getCubeBezierPoint(t: number, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          px4: number, py4: number,
+          optionalTarget?: THREE.Vector2): any;
+        function getEllipseArcPoint(t: number, cx: number, cy: number, rx: number, ry: number, startAngle: number, endAngle: number, rotation?: number, target?: THREE.Vector2): THREE.Vector2;
+        function getEllipsePoint(angle: number, cx: number, cy: number, rx: number, ry: number, rotation?: number, target?: THREE.Vector2): THREE.Vector2;
+        function isEqual(a: number, b: number): boolean;
+        function isZero(f: number): boolean;
+        function makePlaneBasis(plane: THREE.Plane): any;
+        function normalizeAngle(angle: number): number;
+        function pointOnLine(x: number, y: number, e: any, checkInsideSegment: boolean, precisionDistance: number, outPt?: any): boolean;
+        function polygonArea(pts: Array<{ x: number; y: number; }>): number;
+        function segmentsIntersect(e1: any, e2: any, precisionDistance: number): any;
+        function SetTesselationParams(minSegLenFraction: number, numIterations: number): void;
+        function TesselateCubic(ctx: any, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          px4: number, py4: number,
+          maxdim?: number, tessParams?: any, isFont?: boolean): void;
+        function TesselateQuad(ctx: any, px1: number, py1: number,
+          px2: number, py2: number,
+          px3: number, py3: number,
+          maxdim?: number, tessParams?: any, isFont?: boolean): void;
+        function xBoxBox(minx1: number, miny1: number, maxx1: number, maxy1: number, minx2: number, miny2: number, maxx2: number, maxy2: number): boolean;
+        function xBoxPlane(plane: THREE.Plane, box: THREE.Box3): boolean;
+        function xLineBox(x0: number, y0: number, x1: number, y1: number, xmin: number, ymin: number, xmax: number, ymax: number): boolean;
+        function xMeshPlane(plane: THREE.Plane, mesh: THREE.Mesh, intersects: any[]): void;
+        function xPlaneSegment(plane: THREE.Plane, pt0: THREE.Vector3, pt1: THREE.Vector3, res1: THREE.Vector3, res2: THREE.Vector3): number;
+        function xTrianglePlane(plane: THREE.Plane, pt0: THREE.Vector3, pt1: THREE.Vector3, pt2: THREE.Vector3, i0: any, i1: any, i2: any, res: THREE.Vector3, meshId: any): void;
+
+        class ComplexPolygon {
+          constructor(uniquePoints: THREE.Vector3[], customInsideChecker?: any, bbox?: THREE.Box3);
+
+          addContour(indices: number[]): void;
+          pointInContour(x: number, y: number, cntr: number[]): boolean;
+          pointInPolygon(x: number, y: number): boolean;
+          triangulate(): void;
+        }
+
+        class ContourSet {
+          constructor();
+
+          addContour(verts: any[], skipZeroAreas: boolean): void;
+          addContourSet(cset: ContourSet): void;
+          area(): number;
+          areaNet(): number;
+          containsPointFrom(cs2: ContourSet): boolean;
+          getThemeColor(): { r: number; g: number; b: number; };
+          hash(): string;
+          perimeter(): number;
+          stitchContours(): void;
+          toExtrudedMesh(thickness: number): any;
+          toPolygonMesh(packNormals: boolean): any;
+          triangulate(customInsideChecker?: any): void;
+        }
+
+        class EdgeSet {
+          constructor(edges: any[], bbox: THREE.Box3, precisionTolerance: number);
+
+          snapEdges(): void;
+          sanitizeEdges(): void;
+          stitchContours(): void;
+          triangulate(): void;
+        }
+
+        class EllipseArc {
+          cx: number;
+          cy: number;
+          rx: number;
+          ry: number;
+          rotation: number;
+          startAngle: number;
+          endAngle: number;
+          ccw: boolean;
+
+          constructor(cx: number, cy: number, rx: number, ry: number, rotation: number, startAngle: number, endAngle: number, ccw: boolean);
+
+          computeBBox(targetBox: THREE.Box2): THREE.Box2;
+          getAngleDelta(): number;
+          getPoint(t: number, target: THREE.Vector2): THREE.Vector2;
+          isValid(): boolean;
+          set(cx: number, cy: number, rx: number, ry: number, rotation: number, startAngle: number, endAngle: number, ccw: boolean): EllipseArc;
+          setFromSvgArc(rx: number, ry: number,
+            xAxisRotation: number,
+            largeArcFlag: boolean,
+            sweepFlag: boolean,
+            start: { x: number; y: number; },
+            end: { x: number; y: number; }): EllipseArc;
+          tesselate(ctx: Path2D | LmvCanvasContext, maxSegments: number, minSegmentLength: number): void;
+        }
+
+        class IntervalTree {
+        }
+
+        class LmvCanvasContext {
+        }
+
+        class Path2D {
+        }
+
+        class Point {
+        }
+
+        class PointError {
+        }
+
+        class QuadTree {
+        }
+
+        class Triangle {
+        }
+
+        class UniquePointList {
+        }
+      }
+
+      namespace DocumentBrowser {
+        class DocumentBrowser extends Viewing.Extension {
+          currNode: Viewing.BubbleNode;
+          geometries: Viewing.BubbleNode[];
+          rootNode: Viewing.BubbleNode;
+
+          loadNextModel(viewerConfig?: any, loadOptions?: any): void;
+          loadPrevModel(viewerConfig?: any, loadOptions?: any): void;
+        }
+      }
+
       namespace Measure {
         class MeasureExtension extends Viewing.Extension {
           activeStatus: boolean;
@@ -2378,6 +2644,7 @@ declare namespace Autodesk {
             color?: THREE.Color,
             highlighted?: boolean,
             position?: THREE.Vector3,
+            scale?: number,
             url?: string
           }): void;
         registerSurfaceShadingColors(sensorType: string, colors: number[], alpha?: number): void;

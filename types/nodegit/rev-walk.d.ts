@@ -40,7 +40,8 @@ export class Revwalk {
      * Set the sort order for the revwalk. This function takes variable arguments like revwalk.sorting(NodeGit.RevWalk.Topological, NodeGit.RevWalk.Reverse).
      */
     sorting(...sort: number[]): void;
-    fastWalk(maxCount: number): Promise<any>;
+    commitWalk(maxCount: number): Promise<Commit[]>;
+    fastWalk(maxCount: number): Promise<Oid[]>;
     fileHistoryWalk(filePath: string, maxCount: number): Promise<Revwalk.HistoryEntry[]>;
     /**
      * Walk the history from the given oid. The callback is invoked for each commit; When the walk is over, the callback is invoked with (null, null).

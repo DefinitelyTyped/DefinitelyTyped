@@ -1,4 +1,4 @@
-import { Moscow, SaintPetersburg } from 'metrostations';
+import { Beijing, Moscow, SaintPetersburg, Tokyo } from "metrostations";
 
 // Московско-Петроградская
 
@@ -26,3 +26,6 @@ MoscowLines[0].id; // $ExpectType number
 MoscowLines[0].intl_name; // $ExpectType string
 MoscowLines[0].lineTransfers; // $ExpectType number[]
 MoscowLines[0].local_name; // $ExpectType string
+
+Beijing; // $ExpectType MetroStations
+Tokyo; // $ExpectType MetroStations

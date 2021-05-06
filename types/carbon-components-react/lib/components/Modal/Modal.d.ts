@@ -34,7 +34,7 @@ export interface ModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     secondaryButtonText?: React.ReactNode,
     selectorPrimaryFocus?: string,
     selectorsFloatingMenus?: readonly string[],
-    size?: CarbonSize,
+    size?: "xs" | "sm" | "md" | "lg";
     shouldSubmitOnEnter?: boolean,
 }
 

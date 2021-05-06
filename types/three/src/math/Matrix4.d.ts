@@ -1,7 +1,7 @@
 import { Vector3 } from './Vector3';
 import { Euler } from './Euler';
 import { Quaternion } from './Quaternion';
-import { Matrix } from './Matrix3';
+import { Matrix, Matrix3 } from './Matrix3';
 
 export type Matrix4Tuple = [
     number,
@@ -185,6 +185,11 @@ export class Matrix4 implements Matrix {
     makeScale(x: number, y: number, z: number): Matrix4;
 
     /**
+     * Sets this matrix as shear transform.
+     */
+    makeShear(x: number, y: number, z: number): Matrix4;
+
+    /**
      * Sets this matrix to the transformation composed of translation, rotation and scale.
      */
     compose(translation: Vector3, rotation: Quaternion, scale: Vector3): Matrix4;
@@ -233,6 +238,11 @@ export class Matrix4 implements Matrix {
      * @return The provided array-like.
      */
     toArray(array?: ArrayLike<number>, offset?: number): ArrayLike<number>;
+
+    /**
+     * Set the upper 3x3 elements of this matrix to the values of the Matrix3 m.
+     */
+    setFromMatrix3(m: Matrix3): Matrix4;
 
     /**
      * @deprecated Use {@link Matrix4#copyPosition .copyPosition()} instead.

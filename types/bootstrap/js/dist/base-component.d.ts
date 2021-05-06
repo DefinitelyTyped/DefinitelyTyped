@@ -4,7 +4,7 @@
  * @link https://github.com/twbs/bootstrap/blob/main/js/src/base-component.js
  */
 export default class BaseComponent {
-    constructor(element: Element);
+    constructor(element: string | Element);
 
     /**
      * Destroys an element's.
