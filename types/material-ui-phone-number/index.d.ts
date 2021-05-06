@@ -7,9 +7,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import * as React from 'react';
-import { TextFieldProps } from "@material-ui/core/TextField";
+import * as React from "react";
+import { TextFieldProps } from "@material-ui/core";
+
 export interface MaterialUiPhoneNumberProps extends Omit<TextFieldProps, "onChange"> {
+    ref?: any;
     autoFormat?: boolean;
     classes?: Record<string, any>;
     countryCodeEditable?: boolean;
@@ -29,6 +31,6 @@ export interface MaterialUiPhoneNumberProps extends Omit<TextFieldProps, "onChan
     preferredCountries?: string[];
 }
 
-declare class MaterialUiPhoneNumber extends React.Component<MaterialUiPhoneNumberProps> { }
+declare class MaterialUiPhoneNumber extends React.Component<MaterialUiPhoneNumberProps> {}
 
 export default MaterialUiPhoneNumber;
