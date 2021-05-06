@@ -25,6 +25,7 @@ export interface Config {
     eventUploadPeriodMillis?: number;
     eventUploadThreshold?: number;
     forceHttps?: boolean;
+    includeFbclid?: boolean;
     includeGclid?: boolean;
     includeReferrer?: boolean;
     includeUtm?: boolean;
