@@ -88,7 +88,7 @@ const tokenPayloadV2: ITokenPayload = {
     uti: 'test-uti',
     rh: 'test-rh',
     ver: "2.0",
-}
+};
 
 const tokenPayloadV1: ITokenPayload = {
     ipaddr: '127.0.0.1',
@@ -101,4 +101,4 @@ const tokenPayloadV1: ITokenPayload = {
     given_name: 'test-given-name',
     upn: 'test-upn',
     ver: "1.0",
-}
+};
