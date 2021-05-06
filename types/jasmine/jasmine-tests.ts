@@ -15,6 +15,10 @@ import JasmineClass from "jasmine";
         random: true
     });
 
+    jasmineClass.env.topSuite(); // $ExpectType Suite
+
+    jasmineClass.env.allowRespy(true);
+
     jasmineClass.onComplete(function(passed: boolean) {
         console.log(passed ? "passed" : "failed");
     });
