@@ -3,14 +3,14 @@
 // Definitions by: Oleg Valter <https://github.com/Oaphi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="google-apps-script.script.d.ts" />
+/// <reference path="../google-apps-script.script.d.ts" />
 
 declare namespace GoogleAppsScript {
     /**
      * @summary Apps Script Addon Event Objects
      * @see https://developers.google.com/workspace/add-ons/concepts/event-objects
      */
-    namespace AddonEventObjects {
+    namespace Addons {
         /**
          * @summary Addon Event Object
          * @see https://developers.google.com/workspace/add-ons/concepts/event-objects#event_object_structure
@@ -25,7 +25,7 @@ declare namespace GoogleAppsScript {
             slides?: SlidesEventObject;
         }
 
-        type InvitationResponseStatus = 'accepted' | 'declined' | 'needsAction' | 'tentative';
+        type InvitationResponseStatus = "accepted" | "declined" | "needsAction" | "tentative";
 
         /**
          * @summary Object with information on individual attendees to Calendar events
@@ -43,8 +43,8 @@ declare namespace GoogleAppsScript {
             self: boolean;
         }
 
-        type EntryPointFeature = 'toll' | 'toll_free';
-        type EntryPointType = 'more' | 'phone' | 'sip' | 'video';
+        type EntryPointFeature = "toll" | "toll_free";
+        type EntryPointType = "more" | "phone" | "sip" | "video";
 
         /**
          * @summary Object with information on means of accessing a conference
@@ -72,7 +72,7 @@ declare namespace GoogleAppsScript {
             conferenceSolution: {
                 iconUri: string;
                 key: {
-                    type: 'eventHangout' | 'eventNamedHangout' | 'hangoutsMeet';
+                    type: "eventHangout" | "eventNamedHangout" | "hangoutsMeet";
                 };
                 name: string;
             };
@@ -168,8 +168,8 @@ declare namespace GoogleAppsScript {
             addonHasFileScopePermission: boolean;
         }
 
-        type Platform = 'WEB' | 'IOS' | 'ANDROID';
-        type HostApplication = 'GMAIL' | 'CALENDAR' | 'DRIVE' | 'DOCS' | 'SHEETS' | 'SLIDES';
+        type Platform = "WEB" | "IOS" | "ANDROID";
+        type HostApplication = "GMAIL" | "CALENDAR" | "DRIVE" | "DOCS" | "SHEETS" | "SLIDES";
 
         /**
          * @summary Event object with host-independent information
@@ -186,7 +186,7 @@ declare namespace GoogleAppsScript {
             hostApp: HostApplication;
             formInputs: {
                 [ID: string]: {
-                    '': {
+                    "": {
                         stringInputs?: StringInputObject;
                         dateInput?: DateInputObject;
                         timeInput?: TimeInputObject;
