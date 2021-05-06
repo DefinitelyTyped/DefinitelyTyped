@@ -233,7 +233,8 @@ declare namespace Parameter {
         | ParameterRuleObject
         | ParameterRuleArray;
 
-    type ParameterRules = Record<string, ParameterRuleItem | ParameterRuleAbbr | undefined>;
+    type LegalRuleValue = ParameterRuleItem | ParameterRuleAbbr | undefined;
+    type ParameterRules<T extends keyof any = string> = Record<T, LegalRuleValue>;
 
     interface ValidateError {
         code: string;
