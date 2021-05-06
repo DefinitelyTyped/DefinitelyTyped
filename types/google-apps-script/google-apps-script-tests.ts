@@ -206,7 +206,7 @@ DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));
 
 // Addon event objects tests:
 
-const handleCalendarAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => {
+const handleCalendarAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const {
         calendar: { attendees, calendarId, recurringEventId },
     } = e;
@@ -222,7 +222,7 @@ const handleCalendarAction = (e: GoogleAppsScript.AddonEventObjects.EventObject)
 
     console.log({ attends });
 
-    const eventInfo: Partial<GoogleAppsScript.AddonEventObjects.CalendarEventObject> = {
+    const eventInfo: Partial<GoogleAppsScript.Addons.CalendarEventObject> = {
         calendarId: cal.getId(),
         recurringEventId: ev.getId(),
         capabilities: {
@@ -272,7 +272,7 @@ const handleCalendarAction = (e: GoogleAppsScript.AddonEventObjects.EventObject)
 
     const [firstGuest] = ev.getGuestList();
 
-    const guestInfo: Partial<GoogleAppsScript.AddonEventObjects.AttendeeObject> = {
+    const guestInfo: Partial<GoogleAppsScript.Addons.AttendeeObject> = {
         email: firstGuest.getEmail(),
         additionalGuests: firstGuest.getAdditionalGuests(),
         displayName: firstGuest.getName(),
@@ -281,7 +281,7 @@ const handleCalendarAction = (e: GoogleAppsScript.AddonEventObjects.EventObject)
     console.log(guestInfo);
 };
 
-const handleDocsAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => {
+const handleDocsAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const {
         docs: { addonHasFileScopePermission, id, title },
     } = e;
@@ -291,7 +291,7 @@ const handleDocsAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => 
     }
 };
 
-const handleDriveAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => {
+const handleDriveAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const {
         drive: { activeCursorItem, selectedItems },
     } = e;
@@ -311,7 +311,7 @@ const handleDriveAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) =>
     });
 };
 
-const handleGmailAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => {
+const handleGmailAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const {
         gmail: { messageId, threadId, bccRecipients = [], ccRecipients = [], toRecipients = [] },
     } = e;
@@ -326,7 +326,7 @@ const handleGmailAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) =>
     ccRecipients.map((cc, idx) => `cc${idx}: ${cc}`);
 };
 
-const handleSheetsAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => {
+const handleSheetsAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const {
         sheets: { addonHasFileScopePermission, id, title },
     } = e;
@@ -334,7 +334,7 @@ const handleSheetsAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) =
     // $ExpectType Spreadsheet
     const spreadsheet = SpreadsheetApp.openById(id);
 
-    const sheetsInfo: Partial<GoogleAppsScript.AddonEventObjects.SheetsEventObject> = {
+    const sheetsInfo: Partial<GoogleAppsScript.Addons.SheetsEventObject> = {
         addonHasFileScopePermission,
         id: spreadsheet.getId(),
         title: spreadsheet.getName(),
@@ -344,14 +344,14 @@ const handleSheetsAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) =
     console.log({ isTitleCorrect });
 };
 
-const handleSlidesAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => {
+const handleSlidesAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const {
         slides: { addonHasFileScopePermission, id, title },
     } = e;
 
     const presentation = SlidesApp.openById(id);
 
-    const slidesInfo: Partial<GoogleAppsScript.AddonEventObjects.SlidesEventObject> = {
+    const slidesInfo: Partial<GoogleAppsScript.Addons.SlidesEventObject> = {
         addonHasFileScopePermission,
         id: presentation.getId(),
         title: presentation.getName(),
@@ -361,21 +361,19 @@ const handleSlidesAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) =
     console.log({ isTitleOk });
 };
 
-const handleCommonAction = (e: GoogleAppsScript.AddonEventObjects.EventObject) => {
+const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const {
         commonEventObject: { formInputs, hostApp, parameters, platform, timeZone, userLocale },
     } = e;
 
-    const plaformMap: { [P in GoogleAppsScript.AddonEventObjects.Platform]: string } = {
+    const plaformMap: { [P in GoogleAppsScript.Addons.Platform]: string } = {
         ANDROID: "Android",
         IOS: "iOS",
         WEB: "Web",
     };
 
     const hostMap: {
-        [P in GoogleAppsScript.AddonEventObjects.HostApplication]: (
-            e: GoogleAppsScript.AddonEventObjects.EventObject,
-        ) => void;
+        [P in GoogleAppsScript.Addons.HostApplication]: (e: GoogleAppsScript.Addons.EventObject) => void;
     } = {
         CALENDAR: handleCalendarAction,
         DOCS: handleDocsAction,
