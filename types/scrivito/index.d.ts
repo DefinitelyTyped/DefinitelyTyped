@@ -336,7 +336,7 @@ export class Obj {
 
     // Static methods
     static all(): any;
-    static create(attributes: CreateAttributes): Obj | Widget;
+    static create(attributes: CreateAttributes): Obj;
     static createFromFile(file: File, attributes: CreateAttributes): void;
     static get(id: string): Obj | null;
     static getByPath(path: string): Obj | null;
