@@ -48,8 +48,8 @@ interface OptimizeDefinition {
  */
 
 interface UploadOptions {
-    filename: string; 
-    contentType?: string 
+    filename: string;
+    contentType?: string;
 }
 
 export class Binary {
