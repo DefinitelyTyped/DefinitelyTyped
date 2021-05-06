@@ -262,4 +262,21 @@ declare module 'worker_threads' {
      * `MessagePort`’s queue.
      */
     function receiveMessageOnPort(port: MessagePort): { message: any } | undefined;
+
+    type Serializable = string | object | number | boolean | bigint;
+
+    /**
+     * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
+     * @experimental
+     */
+    function getEnvironmentData(key: Serializable): Serializable;
+
+    /**
+     * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
+     * @param value Any arbitrary, cloneable JavaScript value that will be cloned
+     * and passed automatically to all new `Worker` instances. If `value` is passed
+     * as `undefined`, any previously set value for the `key` will be deleted.
+     * @experimental
+     */
+    function setEnvironmentData(key: Serializable, value: Serializable): void;
 }
