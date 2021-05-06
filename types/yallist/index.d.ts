@@ -1,4 +1,4 @@
-// Type definitions for yallist 4.0.0
+// Type definitions for yallist 4.0
 // Project: https://github.com/isaacs/yallist#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
