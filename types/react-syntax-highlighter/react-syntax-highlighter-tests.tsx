@@ -1,5 +1,9 @@
 import * as React from "react";
-import SyntaxHighlighter, { Light as LightHighlighter, SyntaxHighlighterProps } from "react-syntax-highlighter";
+import SyntaxHighlighter, {
+    createElement,
+    Light as LightHighlighter,
+    SyntaxHighlighterProps
+} from "react-syntax-highlighter";
 import PrismSyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
 import PrismLightHighlighter from "react-syntax-highlighter/dist/cjs/prism-light";
 import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
@@ -150,4 +154,69 @@ function lineTagPropsFunction() {
     });
 
     return <PrismLightHighlighter lineProps={lineProps} />;
+}
+
+function syntaxHighlighterProps(): JSX.Element {
+    const codeString: string = `class CPP {
+    private year: number;
+    public constructor(private version: string) {
+        this.year = Number(version.match(/.+\d+$/));
+    }
+    public version(): string {
+        return this.version;
+    }
+}
+`;
+    const lineProps: lineTagPropsFunction = (lineNumber: number) => ({
+        className: "some-classname",
+        style: {
+            opacity: 0
+        },
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5
+    });
+
+    // implement a custom renderer that renders lines as tr elements with the
+    // line numbers and the code snippet in their own td tags
+    const renderer = (props: any): JSX.Element[] => {
+        const  { rows, stylesheet, useInlineStyles } = props;
+        return rows.map((row: any, i: number) => {
+            const { children } = row;
+            return (
+                <tr key={`line-${i}`}>
+                    <td>{i}</td>
+                    <td>{children.map((child: any, j: number) => {
+                        return createElement({
+                            node: child,
+                            stylesheet,
+                            useInlineStyles,
+                            key: `code-segment-${i}-${j}`,
+                        });
+                    })}</td>
+                </tr>
+            );
+        });
+    };
+
+    return (
+        <SyntaxHighlighter
+            language="javascript"
+            style={docco}
+            customStyle={{className: "custom-class"}}
+            lineProps={{className: "line-class"}}
+            codeTagProps={{className: "code-tag-class"}}
+            useInlineStyles={true}
+            showLineNumbers={false}
+            startingLineNumber={1}
+            lineNumberStyle={{className: "line-number-class"}}
+            showInlineLineNumbers={true}
+            lineNumberContainerStyle={{className: "line-number-container-class"}}
+            wrapLines={true}
+            wrapLongLines={true}
+            renderer={renderer}
+            PreTag="table"
+            CodeTag="tbody"
+        >
+            {codeString}
+        </SyntaxHighlighter>
+    );
 }
