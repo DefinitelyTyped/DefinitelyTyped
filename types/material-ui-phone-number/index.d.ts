@@ -6,6 +6,9 @@
 //                 Nifanic <https://github.com/nifanic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
+
+import * as React from 'react';
+import { TextFieldProps } from "@material-ui/core/TextField";
 export interface MaterialUiPhoneNumberProps extends Omit<TextFieldProps, "onChange"> {
     autoFormat?: boolean;
     classes?: Record<string, any>;
@@ -26,6 +29,6 @@ export interface MaterialUiPhoneNumberProps extends Omit<TextFieldProps, "onChan
     preferredCountries?: string[];
 }
 
-declare class MaterialUiPhoneNumber extends React.Component<MaterialUiPhoneNumberProps> {}
+declare class MaterialUiPhoneNumber extends React.Component<MaterialUiPhoneNumberProps> { }
 
 export default MaterialUiPhoneNumber;
