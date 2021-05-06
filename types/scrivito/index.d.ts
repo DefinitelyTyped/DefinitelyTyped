@@ -380,7 +380,7 @@ export class Obj {
     private readonly _language: string;
 
     // Static methods
-    static all(): any;
+    static all(): ObjSearch;
     static create(attributes?: CreateAttributes): Obj;
     static createFromFile(file: File, attributes: CreateAttributes): Promise<Obj>;
     static get(id: string): Obj | null;
@@ -412,7 +412,7 @@ export class Obj {
     isBinary(): boolean;
     isRestricted(): boolean;
     lastChanged(): Date | null;
-    metadata(): any;
+    metadata(): MetadataCollection;
     modification(): null | "new" | "edited" | "deleted";
     objClass(): string;
     parent(): Obj | null;
