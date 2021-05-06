@@ -29,7 +29,7 @@ type Attribute =
     | "widgetlist";
 
 interface AttributeOptions {
-    values?: any[];
+    values?: string[];
     only?: string | string[];
 }
 
