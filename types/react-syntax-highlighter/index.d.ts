@@ -1,4 +1,4 @@
-// Type definitions for react-syntax-highlighter 13.5
+// Type definitions for react-syntax-highlighter 15.4
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 //                 Guo Yunhe <https://github.com/guoyunhe>
@@ -20,6 +20,13 @@ declare module 'react-syntax-highlighter' {
         showLineNumbers?: boolean;
         startingLineNumber?: number;
         lineNumberStyle?: any;
+        showInlineLineNumbers?: boolean;
+        lineNumberContainerStyle?: any;
+        wrapLines?: boolean;
+        wrapLongLines?: boolean;
+        renderer?: any;
+        PreTag?: any;
+        CodeTag?: any;
         [spread: string]: any;
     }
 
@@ -31,6 +38,8 @@ declare module 'react-syntax-highlighter' {
     export { default as PrismAsync } from 'react-syntax-highlighter/dist/esm/prism-async';
     export { default as PrismLight } from 'react-syntax-highlighter/dist/esm/prism-light';
     export { default as Prism } from 'react-syntax-highlighter/dist/esm/prism';
+
+    export { default as createElement } from 'react-syntax-highlighter/dist/esm/create-element';
 }
 
 // esm start
@@ -82,6 +91,11 @@ declare module 'react-syntax-highlighter/dist/esm/prism' {
     import * as React from 'react';
     import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
+}
+
+declare module 'react-syntax-highlighter/dist/esm/create-element' {
+    function createElement(props: any): JSX.Element;
+    export default createElement;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs' {
