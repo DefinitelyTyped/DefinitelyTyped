@@ -5,10 +5,7 @@
 //                 Láďa Durchánek <https://github.com/durchanek>
 //                 Nifanic <https://github.com/nifanic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from "react";
-import { TextFieldProps } from "@material-ui/core/TextField";
-
+// Minimum TypeScript Version: 4.1
 export interface MaterialUiPhoneNumberProps extends Omit<TextFieldProps, "onChange"> {
     autoFormat?: boolean;
     classes?: Record<string, any>;
