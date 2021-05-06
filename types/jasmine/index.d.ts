@@ -496,7 +496,6 @@ declare namespace jasmine {
          * @deprecated Check hideDisabled option in {@link jasmine.Env.configuration} instead.
          */
         hidingDisabled(): boolean;
-        // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
         provideFallbackReporter(reporter: CustomReporter): void;
         /**
          * @deprecated Check random option in {@link jasmine.Env.configuration} instead.
