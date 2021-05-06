@@ -587,7 +587,7 @@ export function provideWidgetClass(
     contentClassOrOptions: WidgetClassOptions | AbstractWidgetClass,
 ): WidgetClass;
 export function registerComponent(name: string, component: WidgetComponent | ObjComponent): void;
-export function renderPage(page: any, renderFunction: () => void): Promise<{ result: Obj; preloadDump: any }>;
+export function renderPage(page: Obj, renderFunction: () => void): Promise<{ result: Obj; preloadDump: any }>;
 export function setVisitorIdToken(idToken: string): void;
 export function updateContent(): void;
 export function updateMenuExtensions(): void;
