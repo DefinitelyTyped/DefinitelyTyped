@@ -112,7 +112,7 @@ interface ChildListTagProps {
 
 export class ChildListTag extends React.Component<ChildListTagProps, any> { }
 
-interface ContentTagProps extends React.HTMLAttributes<any> {
+interface ContentTagProps extends Omit<React.AllHTMLAttributes<any>, 'content'> {
     attribute: string;
     content?: Obj | Widget;
     tag?: string;
