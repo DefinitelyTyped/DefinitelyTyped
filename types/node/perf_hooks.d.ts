@@ -94,7 +94,7 @@ declare module 'perf_hooks' {
         util2?: EventLoopUtilization,
     ) => EventLoopUtilization;
 
-    interface Performance {
+    interface Performance extends EventTarget {
         /**
          * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
          * If name is provided, removes only the named mark.

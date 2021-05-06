@@ -77,6 +77,34 @@ declare module 'buffer' {
          */
         text(): Promise<string>;
     }
+
+    /**
+     * Decodes a string of Base64-encoded data into bytes, and encodes those bytes into a string using Latin-1 (ISO-8859-1).
+     *
+     * This function is only provided for compatibility with legacy web platform APIs
+     * and should never be used in new code, because they use strings to represent
+     * binary data and predate the introduction of typed arrays in JavaScript.
+     * For code running using Node.js APIs, converting between base64-encoded strings
+     * and binary data should be performed using `Buffer.from(str, 'base64')` and
+     * `buf.toString('base64')`.
+     *
+     * @deprecated dom compatibility
+     */
+     export function atob(input: string): string;
+
+    /**
+     * Decodes a string into bytes using Latin-1 (ISO-8859), and encodes those bytes into a string using Base64.
+     *
+     * This function is only provided for compatibility with legacy web platform APIs
+     * and should never be used in new code, because they use strings to represent
+     * binary data and predate the introduction of typed arrays in JavaScript.
+     * For code running using Node.js APIs, converting between base64-encoded strings
+     * and binary data should be performed using `Buffer.from(str, 'base64')` and
+     * `buf.toString('base64')`.
+     *
+     * @deprecated dom compatibility
+     */
+     export function btoa(input: string): string;
 }
 
 declare module 'node:buffer' {
