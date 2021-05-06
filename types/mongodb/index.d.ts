@@ -3659,12 +3659,14 @@ export interface FindOperators {
     deleteOne(): OrderedBulkOperation;
     /**
      * Backwards compatibility for {@link https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#delete delete()}
+     * @deprecated As of version 3.6.7
      *
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#remove
      */
     remove(): OrderedBulkOperation;
     /**
      * Backwards compatibility for {@link https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#deleteOne deleteOne()}
+     * @deprecated As of version 3.6.7
      *
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/FindOperators.html#removeOne
      */
