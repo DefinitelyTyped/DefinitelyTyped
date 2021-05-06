@@ -454,8 +454,8 @@ interface ObjComponentProps {
     [key: string]: any;
 }
 
-type WidgetComponent = React.FC<WidgetComponentProps>;
-type ObjComponent = React.FC<ObjComponentProps>;
+type WidgetComponent = React.ComponentType<WidgetComponentProps>;
+type ObjComponent = React.ComponentType<ObjComponentProps>;
 
 export interface AuthGroupsOptions {
     [groupName: string]: string;
