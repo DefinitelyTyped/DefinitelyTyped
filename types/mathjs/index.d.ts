@@ -3090,6 +3090,7 @@ declare namespace math {
         object?: MathNode;
         fn?: string | MathNode;
         args?: MathNode[];
+        index?: MathNode;
         type: string;
         name?: string;
         value?: any;
