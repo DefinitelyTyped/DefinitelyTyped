@@ -108,6 +108,7 @@ interface ChildListTagProps {
     parent?: Obj;
     tag?: string;
     renderChild?: (child: Obj) => React.ReactElement;
+    className?: string;
 }
 
 export class ChildListTag extends React.Component<ChildListTagProps, any> { }
