@@ -1,4 +1,4 @@
-// Type definitions for scrivito 1.21
+// Type definitions for scrivito 1.22
 // Project: https://www.scrivito.com/
 // Definitions by:  Julian Krieger <https://github.com/juliankrieger>
 //                  Eric Eifler <https://github.com/eric-the-viking>
@@ -222,6 +222,7 @@ interface EditingConfig {
     propertiesGroups?: PropertiesGroup[];
     hideInSelectionDialogs?: boolean;
     initialContent?: Record<string, any>;
+    initialize?: (instance: Obj) => void;
     initializeCopy?: (originalInstance: Obj) => void;
     validations?: Validation[];
 }
@@ -329,11 +330,12 @@ export class Obj {
     private readonly _createdAt: Date;
     private readonly _firstPublishedAt: Date;
     private readonly _lastChanged: Date;
-    private _objClass: string;
-    private _path: string;
-    private _permalink: string;
+    private readonly _objClass: string;
+    private readonly _path: string;
+    private readonly _permalink: string;
     private readonly _publishedAt: Date;
     private readonly _siteId: string | null;
+    private readonly _language: string;
 
     // Static methods
     static all(): any;
@@ -346,6 +348,7 @@ export class Obj {
     static where(attribute: ObjSearchSingleAttribute, operator: ObjSearchOperator, value: ObjSearchValue, boost?: any): ObjSearch;
     static onSite(siteId: string): SiteContext;
     static onAllSites(): SiteContext;
+
 
     // Instance methods
     id(): string;
@@ -381,6 +384,7 @@ export class Obj {
     onAllSites(): SiteContext;
     onSite(siteId: string): SiteContext;
     siteId(): string | null;
+    language(): string | null;
 }
 
 type ExtractableTextAttributes = 'string' | 'html' | 'widgetlist' | 'blob:text';
@@ -400,6 +404,8 @@ interface ObjClassOptions {
     attributes: Record<string, Attribute | AttributeWithOptions>;
     extractTextAttributes?: string[];
     extend?: ObjClass;
+    onlyChildren: string | string[];
+    onlyInside: string | string[];
 }
 
 export type ObjClass = typeof Obj;
@@ -506,6 +512,11 @@ export interface ValidationResult {
   severity: ValidationResultSeverity;
 }
 
+declare class Workspace {
+    private constructor();
+    id(): string;
+    title(): string;
+}
 
 export function canWrite(): boolean;
 export function configure(options: ConfigOptions): void;
@@ -542,6 +553,7 @@ export function useHistory(history: History): void;
 export function validationResultsFor(model: Obj | Widget, attribute: string): ValidationResult[];
 export function isComparisonActive(): boolean;
 export function currentWorkspaceId(): string;
+export function currentWorkspace(): Workspace;
 export function currentEditor(): Editor | null;
 export function configureObjClassForContentType(mapping?: { [key: string]: string }): void;
 
