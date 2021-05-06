@@ -35,13 +35,21 @@ interface AttributeOptions {
 
 type AttributeWithOptions = [Attribute, AttributeOptions];
 
-interface OptimizeDefinition {
-    width: number | string;
-    height: number | string;
-    fit: "resize" | "crop";
-    // Fix this being able to be filled when using fit = resize
+interface OptimizeFor {
+    width?: number | string;
+    height?: number | string;
+}
+
+interface OptimizeForFit extends OptimizeFor {
+    fit: "crop";
     crop: "center" | "top" | "left" | "right" | "bottom";
 }
+
+interface OptimizeForResize extends OptimizeFor {
+    fit: "resize";
+}
+
+type OptimizeDefiniton = OptimizeForFit | OptimizeForResize;
 
 /**
  * Binary definitions
