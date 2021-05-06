@@ -499,6 +499,14 @@ interface Menu {
     modify: (params: MenuModifyParameters) => void;
 }
 
+export type ValidationResultSeverity = 'error' | 'warning' | 'info';
+
+export interface ValidationResult {
+  message: string;
+  severity: ValidationResultSeverity;
+}
+
+
 export function canWrite(): boolean;
 export function configure(options: ConfigOptions): void;
 export function configureContentBrowser(options: any): void;
@@ -531,7 +539,7 @@ export function updateContent(): void;
 export function updateMenuExtensions(): void;
 export function urlFor(target: Obj | Binary | Link, options?: { query?: string; hash?: string }): string;
 export function useHistory(history: History): void;
-export function validationResults(model: Obj | Widget, attribute: string): object[];
+export function validationResultsFor(model: Obj | Widget, attribute: string): ValidationResult[];
 export function isComparisonActive(): boolean;
 export function currentWorkspaceId(): string;
 export function currentEditor(): Editor | null;
