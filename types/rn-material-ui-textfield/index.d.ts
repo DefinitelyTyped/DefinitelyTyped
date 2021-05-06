@@ -1,4 +1,4 @@
-// Type definitions for rn-material-ui-textfield 1.0.1
+// Type definitions for rn-material-ui-textfield 1.0
 // Project: https://github.com/gabrieldonadel/rn-material-ui-textfield#readme
 // Definitions by: Craig Duckett <https://github.com/craigwduckett>
 //                 Gabriel Donadel Dall'Agnol <https://github.com/gabrieldonadel>
