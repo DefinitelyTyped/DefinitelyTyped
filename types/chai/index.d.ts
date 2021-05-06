@@ -341,13 +341,13 @@ declare namespace Chai {
     }
 
     interface Property {
-        (name: string, value: any, message?: string): Assertion;
-        (name: string, message?: string): Assertion;
+        (name: string | Symbol, value: any, message?: string): Assertion;
+        (name: string | Symbol, message?: string): Assertion;
     }
 
     interface OwnPropertyDescriptor {
-        (name: string, descriptor: PropertyDescriptor, message?: string): Assertion;
-        (name: string, message?: string): Assertion;
+        (name: string | Symbol, descriptor: PropertyDescriptor, message?: string): Assertion;
+        (name: string | Symbol, message?: string): Assertion;
     }
 
     interface Length extends LanguageChains, NumericComparison {
