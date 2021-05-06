@@ -499,11 +499,11 @@ declare namespace jasmine {
         // iit(description: string, func: () => void): Spec; Not a part of jasmine. Angular team adds these
         provideFallbackReporter(reporter: CustomReporter): void;
         /**
-         * @deprecated Use random option in {@link jasmine.Env.configure} instead.
+         * @deprecated Check random option in {@link jasmine.Env.configuration} instead.
          */
         randomTests(): boolean;
         /**
-         * @deprecated Check random option in {@link jasmine.Env.configuration} instead.
+         * @deprecated Use random option in {@link jasmine.Env.configure} instead.
          */
         randomizeTests(value: boolean): void;
         /**
