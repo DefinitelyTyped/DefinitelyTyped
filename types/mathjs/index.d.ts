@@ -3083,6 +3083,8 @@ declare namespace math {
         comment?: string;
         content?: MathNode;
         condition?: MathNode;
+        trueExpr?: MathNode;
+        falseExpr?: MathNode;
         dimensions?: MathNode[];
         op?: string;
         object?: MathNode;
