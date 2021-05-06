@@ -68,7 +68,7 @@ export interface TextFieldProps extends TextInputProps {
     labelOffset?: LabelOffset;
     containerStyle?: StyleProp<ViewStyle>;
     inputContainerStyle?: StyleProp<ViewStyle>;
-    abelTextStyle?: StyleProp<TextStyle>;
+    labelTextStyle?: StyleProp<TextStyle>;
     titleTextStyle?: StyleProp<TextStyle>;
     affixTextStyle?: StyleProp<TextStyle>;
     formatText?(text: string): string;
