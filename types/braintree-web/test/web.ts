@@ -397,7 +397,7 @@ braintree.client.create(
                         }
 
                         // Send the tokenizedPayload to your server.
-                        console.log(tokenizedPayload.nonce)
+                        console.log(tokenizedPayload.nonce);
 
                         session.completePayment(braintree.ApplePayStatusCodes.STATUS_SUCCESS);
                     },
