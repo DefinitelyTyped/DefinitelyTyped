@@ -891,12 +891,12 @@ declare namespace jasmine {
     }
 
     interface CustomReporter {
-        jasmineStarted?(suiteInfo: SuiteInfo): void;
-        suiteStarted?(result: CustomReporterResult): void;
-        specStarted?(result: CustomReporterResult): void;
-        specDone?(result: CustomReporterResult): void;
-        suiteDone?(result: CustomReporterResult): void;
-        jasmineDone?(runDetails: RunDetails): void;
+        jasmineStarted?(suiteInfo: SuiteInfo, done?: () => void): void | Promise<void>;
+        suiteStarted?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
+        specStarted?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
+        specDone?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
+        suiteDone?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
+        jasmineDone?(runDetails: RunDetails, done?: () => void): void | Promise<void>;
     }
 
     type SpecFunction = (spec?: Spec) => void;
@@ -1036,25 +1036,18 @@ declare namespace jasmine {
     }
 
     interface JsApiReporter extends CustomReporter {
+        new (): any;
+
         started: boolean;
         finished: boolean;
         runDetails: RunDetails;
 
-        new (): any;
-
-        suites(): {[id: string]: SuiteResult};
-        results(): any;
-    }
-
-    interface SuiteResult {
-        id: number;
-        description: string;
-        fullName: string;
-        failedExpectations: ExpectationResult[];
-        deprecationWarnings: DeprecationWarning[];
-        status?: string;
-        duration?: number;
-        properties?: any;
+        status(): string;
+        suiteResults(index: number, length: number): CustomReporterResult[];
+        specResults(index: number, length: number): CustomReporterResult[];
+        suites(): { [id: string]: CustomReporterResult };
+        specs(): CustomReporterResult[];
+        executionTime(): number;
     }
 
     interface Jasmine {

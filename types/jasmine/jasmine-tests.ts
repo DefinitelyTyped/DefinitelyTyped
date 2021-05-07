@@ -1878,6 +1878,68 @@ const myReporter: jasmine.CustomReporter = {
 
 jasmine.getEnv().addReporter(myReporter);
 
+const myDoneReporter: jasmine.CustomReporter = {
+    jasmineStarted: (suiteInfo: jasmine.SuiteInfo, done: () => void) => {
+        console.log(suiteInfo);
+        done();
+    },
+
+    suiteStarted: (result: jasmine.CustomReporterResult, done: () => void) => {
+        console.log(result);
+        done();
+    },
+
+    specStarted: (result: jasmine.CustomReporterResult, done: () => void) => {
+        console.log(result);
+        done();
+    },
+
+    specDone: (result: jasmine.CustomReporterResult, done: () => void) => {
+        console.log(result);
+        done();
+    },
+
+    suiteDone: (result: jasmine.CustomReporterResult, done: () => void) => {
+        console.log(result);
+        done();
+    },
+
+    jasmineDone: (runDetails: jasmine.RunDetails, done: () => void) => {
+        console.log(runDetails);
+        done();
+    },
+};
+
+jasmine.getEnv().addReporter(myDoneReporter);
+
+const myAsyncReporter: jasmine.CustomReporter = {
+    jasmineStarted: async (suiteInfo: jasmine.SuiteInfo) => {
+        console.log(suiteInfo);
+    },
+
+    suiteStarted: async (result: jasmine.CustomReporterResult) => {
+        console.log(result);
+    },
+
+    specStarted: async (result: jasmine.CustomReporterResult) => {
+        console.log(result);
+    },
+
+    specDone: async (result: jasmine.CustomReporterResult) => {
+        console.log(result);
+    },
+
+    suiteDone: async (result: jasmine.CustomReporterResult) => {
+        console.log(result);
+    },
+
+    jasmineDone: async (runDetails: jasmine.RunDetails) => {
+        console.log(runDetails);
+    },
+};
+
+jasmine.getEnv().addReporter(myAsyncReporter);
+
 describe("Randomize Tests", () => {
     it("should allow randomization of the order of tests", () => {
         expect(() => {
@@ -2128,29 +2190,35 @@ describe("version", () => {
     afterAll(function() {
         const jsApiReporter: jasmine.JsApiReporter = (window as any).jsApiReporter;
         const suites = jsApiReporter.suites();
+        const time = jsApiReporter.executionTime();
+
+        console.log("time", time);
 
         for (const k in suites) {
-            const suite: jasmine.SuiteResult = suites[k];
+            const suite: jasmine.CustomReporterResult = suites[k];
             console.log(suite);
             console.log("id", suite.id);
             console.log("description", suite.description);
             console.log("fullName", suite.fullName);
             console.log("fe", suite.failedExpectations);
 
-            for (const fe of suite.failedExpectations) {
-                console.log(">> matcherName:", fe.matcherName);
-                console.log(">> passed:", fe.passed);
-                console.log(">> expected:", fe.expected);
-                console.log(">> actual:", fe.actual);
-                console.log(">> message:", fe.message);
-                console.log(">> stack:", fe.stack);
+            if (suite.failedExpectations) {
+              for (const fe of suite.failedExpectations) {
+                  console.log(">> matcherName:", fe.matcherName);
+                  console.log(">> passed:", fe.passed);
+                  console.log(">> expected:", fe.expected);
+                  console.log(">> actual:", fe.actual);
+                  console.log(">> message:", fe.message);
+                  console.log(">> stack:", fe.stack);
+              }
             }
 
             console.log("dw", suite.deprecationWarnings);
 
-            for (const fe of suite.deprecationWarnings) {
-                console.log(">> message:", fe.message);
-                console.log(">> stack:", fe.stack);
+            if (suite.deprecationWarnings) {
+              for (const fe of suite.deprecationWarnings) {
+                  console.log(">> message:", fe.message);
+              }
             }
 
             console.log("status", suite.status);
