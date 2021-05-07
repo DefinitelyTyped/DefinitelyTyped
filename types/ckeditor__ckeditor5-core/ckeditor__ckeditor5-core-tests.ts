@@ -75,6 +75,9 @@ class SomeCommand extends Command {
 }
 const command = new Command(new MyEmptyEditor());
 command.execute();
+command.execute("foo", "bar", true, false, 50033);
+command.execute(4545454, "refresh", [], []);
+command.execute({}, {foo: 5});
 
 const ed: Editor = command.editor;
 
