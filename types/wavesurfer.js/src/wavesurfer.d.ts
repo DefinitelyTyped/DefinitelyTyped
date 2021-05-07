@@ -76,7 +76,7 @@ export default class WaveSurfer extends Observer {
     isReady: boolean;
     load(url: string | HTMLMediaElement, peaks?: Peaks, preload?: string, duration?: number): void;
     loadBlob(url: Blob | File): void;
-    pause(): Promise<void> | undefined;
+    pause(): void;
     play(start?: number, end?: number): Promise<void> | undefined;
     playPause(): Promise<void> | undefined;
     registerPlugins(plugins: PluginDefinition[]): WaveSurfer;

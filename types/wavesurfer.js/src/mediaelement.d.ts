@@ -28,8 +28,6 @@ export default class MediaElement extends WebAudioBackend {
     load(url: string, container: HTMLElement, peaks: Peaks, preload: string): void;
     /** Load existing media element. */
     loadElt(elt: HTMLMediaElement, peaks: Peaks): void;
-    /** Pauses the loaded audio. */
-    pause(): Promise<void>;
     /** Plays the loaded audio region. */
     play(start?: number, end?: number): Promise<void>;
     /** Used by wavesurfer.seekTo(). */
