@@ -37,6 +37,20 @@ export type PreviewSize =
     | `x${number}`
     | `${number}x${number}`;
 
+export type ResourceType = 'dir' | 'file';
+
+export type Sort =
+    | 'name'
+    | 'path'
+    | 'created'
+    | 'modified'
+    | 'size'
+    | '-name'
+    | '-path'
+    | '-created'
+    | '-modified'
+    | '-size';
+
 export interface Link {
     href: string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -67,7 +81,7 @@ export interface Resource {
     path: string;
     origin_path?: string;
     md5: string;
-    type: 'dir' | 'file';
+    type: ResourceType;
     mime_type: string;
     size: number;
     file?: string;
@@ -95,7 +109,7 @@ interface ApiResponse<T> {
 
 interface GetProps {
     fields?: string;
-    sort?: 'name' | 'path' | 'created' | 'modified' | 'size';
+    sort?: Sort;
     limit?: number;
     offset?: number;
     preview_size?: PreviewSize;
@@ -104,7 +118,7 @@ interface GetProps {
 
 interface ListProps {
     limit?: number;
-    media_type?: string;
+    media_type?: MediaType;
     offset?: number;
     preview_size?: PreviewSize;
     preview_crop?: boolean;
@@ -112,7 +126,7 @@ interface ListProps {
 
 interface RecentProps {
     limit?: number;
-    media_type?: string;
+    media_type?: MediaType;
     preview_size?: PreviewSize;
     preview_crop?: boolean;
 }
