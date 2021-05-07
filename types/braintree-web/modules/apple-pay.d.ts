@@ -70,7 +70,6 @@ export interface ApplePayDetails {
     cardType: string;
     cardholderName: string;
     dpanLastTwo: string;
-    paymentInstrumentName: boolean;
 }
 
 export interface ApplePayPayload {
@@ -80,7 +79,7 @@ export interface ApplePayPayload {
     consumed: boolean;
     details: ApplePayDetails;
     binData: {
-    commercial: ApplePayTokenizeValues;
+        commercial: ApplePayTokenizeValues;
         countryOfIssuance: string;
         debit: ApplePayTokenizeValues;
         durbinRegulated: ApplePayTokenizeValues;
