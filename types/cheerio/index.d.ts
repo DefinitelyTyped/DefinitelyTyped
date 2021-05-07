@@ -25,6 +25,8 @@ declare namespace cheerio {
         prev: Element | null;
         parent: Element;
         data?: string;
+        startIndex?: number;
+        endIndex?: number;
     }
 
     interface TagElement {
@@ -56,6 +58,8 @@ declare namespace cheerio {
         prev: Element | null;
         parent: Element;
         data?: string;
+        startIndex?: number;
+        endIndex?: number;
     }
 
     type AttrFunction = (el: Element, i: number, currentValue: string) => any;
