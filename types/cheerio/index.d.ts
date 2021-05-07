@@ -47,6 +47,7 @@ declare namespace cheerio {
         nodeValue: string;
         data?: string;
         startIndex?: number;
+        endIndex?: number;
     }
 
     interface CommentElement {
