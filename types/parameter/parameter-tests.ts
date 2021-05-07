@@ -1,5 +1,28 @@
 import Parameter = require('parameter');
 
+// Type
+interface Query {
+  projectId: string;
+  keyword?: string;
+}
+// valid type
+const queryValidatorFormat: Parameter.ParameterRules<keyof Query> = {
+  projectId: 'string',
+  keyword: { type: 'string?', default: '' },
+};
+const queryValidatorEmpty: Parameter.ParameterRules = {
+  projectId: 'string',
+  keyword: { type: 'string?', default: '' },
+  size: { type: 'number?', default: 0 }
+};
+
+// invalid type
+const queryValidatorNoMatch: Parameter.ParameterRules<keyof Query> = {
+  projectId: 'string',
+  keyword: { type: 'string?', default: '' },
+  noMatchKey: 'string', // $ExpectError
+};
+
 // Constructor
 new Parameter();
 new Parameter({});
