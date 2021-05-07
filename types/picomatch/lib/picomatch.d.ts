@@ -22,12 +22,14 @@ import scanImport = require('./scan');
  * @api public
  */
 declare function picomatch<T extends true | false>(
-    glob: string | string[],
+    glob: picomatch.Glob,
     options?: picomatch.PicomatchOptions,
     returnState?: T,
 ): T extends true ? picomatch.MatcherWithState : picomatch.Matcher;
 
 declare namespace picomatch {
+    type Glob = string | string[];
+
     interface Matcher {
         (test: string): boolean;
     }
@@ -102,7 +104,7 @@ declare namespace picomatch {
         /**
          * One or more glob patterns for excluding strings that should not be matched from the result.
          */
-        ignore?: string | string[];
+        ignore?: Glob;
         /**
          * Retain quotes in the generated regex, since quotes may also be used as an alternative to backslashes.
          */
@@ -216,12 +218,12 @@ declare namespace picomatch {
 
     function matchBase(input: string, glob: RegExp | string, options?: {}, posix?: any): boolean;
 
-    function isMatch(str: string | string[], patterns: string | string[], options?: {}): boolean;
+    function isMatch(str: string | string[], patterns: Glob, options?: {}): boolean;
 
     function parse(pattern: string[], options?: { maxLength?: number }): parseImport.ParseState[];
     function parse(pattern: string, options?: { maxLength?: number }): parseImport.ParseState;
     function parse(
-        pattern: string | string[],
+        pattern: Glob,
         options?: { maxLength?: number },
     ): parseImport.ParseState | parseImport.ParseState[];
 
