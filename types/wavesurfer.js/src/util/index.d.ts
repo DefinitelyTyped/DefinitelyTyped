@@ -1,3 +1,4 @@
+import debounce = require("debounce");
 import absMax from "./absMax";
 import clamp from "./clamp";
 import fetchFile from "./fetch";
@@ -14,14 +15,15 @@ import style from "./style";
 export {
     absMax,
     clamp,
+    debounce,
     fetchFile,
     frame,
     getId,
     max,
     min,
     Observer,
-    withOrientation,
     preventClick,
     requestAnimationFrame,
     style,
+    withOrientation,
 };

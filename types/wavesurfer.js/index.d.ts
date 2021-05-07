@@ -10,21 +10,9 @@ import WaveSurfer from "./src/wavesurfer";
 
 export default WaveSurfer;
 
-import absMax from "./src/util/absMax";
-import clamp from "./src/util/clamp";
-import fetchFile from "./src/util/fetch";
-import frame from "./src/util/frame";
-import getId from "./src/util/get-id";
-import max from "./src/util/max";
-import min from "./src/util/min";
-import Observer from "./src/util/observer";
-import withOrientation from "./src/util/orientation";
-import preventClick from "./src/util/prevent-click";
-import requestAnimationFrame from "./src/util/request-animation-frame";
-import style from "./src/util/style";
-
-export {
+import {
     absMax,
+    debounce,
     clamp,
     fetchFile,
     frame,
@@ -32,8 +20,25 @@ export {
     max,
     min,
     Observer,
-    withOrientation,
     preventClick,
     requestAnimationFrame,
     style,
+    withOrientation,
+} from "./src/util";
+
+export {
+    absMax,
+    clamp,
+    debounce,
+    fetchFile,
+    frame,
+    getId,
+    max,
+    min,
+    Observer,
+    preventClick,
+    requestAnimationFrame,
+    style,
+    WaveSurfer,
+    withOrientation,
 };
