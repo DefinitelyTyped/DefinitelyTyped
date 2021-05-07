@@ -74,7 +74,6 @@ export interface DRMSettings {
   getLicense?(): Promise<string>;
 }
 
-
 export const TextTrackType: {
     SRT: 'application/x-subrip';
     TTML: 'application/ttml+xml';
