@@ -29,6 +29,7 @@
 //                 Jituan Lin <https://github.com/jituanlin>
 //                 Philippe Mills <https://github.com/Philippe-mills>
 //                 Saul Mirone <https://github.com/Saul-Mirone>
+//                 Alberto Silva <https://github.com/albertossilva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -691,19 +692,19 @@ export function gte(a: number): (b: number) => boolean;
 export function has<T>(__: Placeholder, obj: T): (s: string) => boolean;
 export function has<T>(__: Placeholder): (obj: T, s: string) => boolean;
 export function has<T>(s: string, obj: T): boolean;
-export function has(s: string): <T>(obj: T) => boolean;
+export function has<T>(s: string): (obj: T) => boolean;
 
 /**
  * Returns whether or not an object or its prototype chain has a property with the specified name
  */
 export function hasIn<T>(s: string, obj: T): boolean;
-export function hasIn(s: string): <T>(obj: T) => boolean;
+export function hasIn<T>(s: string): (obj: T) => boolean;
 
 /**
  * Returns whether or not a path exists in an object. Only the object's own properties are checked.
  */
 export function hasPath<T>(list: readonly string[], obj: T): boolean;
-export function hasPath(list: readonly string[]): <T>(obj: T) => boolean;
+export function hasPath<T>(list: readonly string[]): (obj: T) => boolean;
 
 /**
  * Returns the first element in a list.
