@@ -12,7 +12,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 William Artero <https://github.com/wwmoraes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.8
 
 import * as webpack from 'webpack';
 import * as httpProxyMiddleware from 'http-proxy-middleware';
