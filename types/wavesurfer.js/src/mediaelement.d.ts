@@ -9,7 +9,7 @@ export default class MediaElement extends WebAudioBackend {
     /** This is called when wavesurfer is destroyed. */
     destroy(): void;
     /** Returns the current time in seconds relative to the audio-clip's duration. */
-    getCurrentTime(): number;
+    getCurrentTime(): number | undefined;
     /** Used by wavesurfer.getDuration(). */
     getDuration(): number;
     /** Compute the max and min value of the waveform when broken into <length> subranges. */

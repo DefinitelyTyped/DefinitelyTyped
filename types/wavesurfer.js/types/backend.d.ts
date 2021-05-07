@@ -25,8 +25,6 @@ export abstract class WebAudioBackend extends Observer {
     destroyWebAudio(): void;
     /** Get the audio context used by this backend or create one. */
     getAudioContext(): AudioContext;
-    /** Returns the current time in seconds relative to the audio-clip's duration. */
-    getCurrentTime(): number;
     /** Used by wavesurfer.getDuration(). */
     getDuration(): number;
     /** Get the offline audio context used by this backend or create one. */
