@@ -1,7 +1,3 @@
-interface HelloChannel extends ActionCable.Channel {
-  hello(world: string, name?: string): void;
-}
-
 App = {};
 App.cable = ActionCable.createConsumer();
 const helloChannel = App.cable.subscriptions.create('NetworkChannel', {
@@ -17,7 +13,7 @@ const helloChannel = App.cable.subscriptions.create('NetworkChannel', {
   hello(world: string, name: string = 'John Doe'): void {
     console.log(`Hello, ${world}! name[${name}]`);
   }
-}) as HelloChannel;
+});
 
 helloChannel.hello('World');
 

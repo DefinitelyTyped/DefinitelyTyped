@@ -1,22 +1,18 @@
-declare module 'node:http2' {
-    export * from 'http2';
-}
-
 declare module 'http2' {
-    import EventEmitter = require('node:events');
-    import * as fs from 'node:fs';
-    import * as net from 'node:net';
-    import * as stream from 'node:stream';
-    import * as tls from 'node:tls';
-    import * as url from 'node:url';
+    import EventEmitter = require('events');
+    import * as fs from 'fs';
+    import * as net from 'net';
+    import * as stream from 'stream';
+    import * as tls from 'tls';
+    import * as url from 'url';
 
     import {
         IncomingHttpHeaders as Http1IncomingHttpHeaders,
         OutgoingHttpHeaders,
         IncomingMessage,
         ServerResponse,
-    } from 'node:http';
-    export { OutgoingHttpHeaders } from 'node:http';
+    } from 'http';
+    export { OutgoingHttpHeaders } from 'http';
 
     export interface IncomingHttpStatusHeader {
         ":status"?: number;
@@ -942,6 +938,12 @@ declare module 'http2' {
         const HTTP_STATUS_NOT_EXTENDED: number;
         const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
     }
+
+    /**
+     * This symbol can be set as a property on the HTTP/2 headers object with
+     * an array value in order to provide a list of headers considered sensitive.
+     */
+    export const sensitiveHeaders: symbol;
 
     export function getDefaultSettings(): Settings;
     export function getPackedSettings(settings: Settings): Buffer;

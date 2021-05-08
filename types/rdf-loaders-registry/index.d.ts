@@ -1,4 +1,4 @@
-// Type definitions for rdf-loaders-registry 0.2
+// Type definitions for rdf-loaders-registry 0.3
 // Project: https://github.com/zazuko/rdf-loaders-registry
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,7 +25,7 @@ declare namespace LoaderRegistry {
             TLoader extends Loader<T, TOptions> = Loader<T>,
             TOptions = TLoader extends Loader<T, infer U> ? U : {}>(
                 node: GraphPointer,
-                options?: TOptions): Promise<T> | T | null;
+                options?: TOptions): Promise<T> | T | undefined;
         loader(node: GraphPointer): Loader<any, any> | null;
     }
 }

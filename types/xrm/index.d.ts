@@ -539,6 +539,79 @@ declare namespace Xrm {
         viewType?: "savedquery" | "userquery";
     }
 
+    /**
+     * <CrmParameter> used in RibbonDiffXml actions
+     * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)}
+     */
+    interface CommandProperties {
+        /**
+         * The Id value of the Ribbon control that initiated the event.
+         */
+        SourceControlId: string;
+
+        /**
+         * A string that is sent with the command event when a button is clicked.
+         */
+        CommandValueId: string;
+
+        /**
+         * A reference from a control to the Id of a menu item.
+         *
+         * Most entities will not return a MenuItemId value. Only the following entities will return this value:
+         * BusinessUnit
+         * Connection
+         * CustomerAddress
+         * Equipment
+         * Goal
+         * InvoiceDetail
+         * Mailbox
+         * MailMergeTemplate
+         * PartnerApplication
+         * QueueItem
+         * QuoteDetail
+         * RoutingRuleItem
+         * SalesOrderDetail
+         * ServiceAppointment
+         * SharePointDocumentLocation
+         * SharePointSite
+         * Territory
+         */
+        MenuItemId: string;
+    }
+
+    /**
+     * Some <CrmParameter> values pass an EntityReference object:
+     * SelectedControlSelectedItemReferences
+     * SelectedControlAllItemReferences
+     * SelectedControlUnselectedItemReferences
+     *
+     * Not to be confused with the more commonly used LookupValue.
+     *
+     * @see LookupValue
+     * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)#remarks}
+     */
+    interface EntityReference {
+        /**
+         * A string of the GUID Id value for the record.
+         */
+        Id: string;
+
+        /**
+         * A string of the value of the Primary field for the record.
+         */
+        Name: string;
+
+        /**
+         * A string representing the unique name of the entity for the record.
+         */
+        TypeName: string;
+
+        /**
+         * @deprecated Use {@link TypeName} instead. The number value for custom entities will typically be different from organization to organization and the number value cannot be used reliably for custom entities.
+         */
+        TypeCode: number;
+    }
+
     namespace Events {
         /**
          * Interface for save event arguments.

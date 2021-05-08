@@ -2,7 +2,7 @@ import * as Popper from "@popperjs/core";
 import BaseComponent from "./base-component";
 
 declare class Tooltip extends BaseComponent {
-    constructor(element: Element, options?: Partial<Tooltip.Options>);
+    constructor(element: string | Element, options?: Partial<Tooltip.Options>);
 
     /**
      * Reveals an element’s tooltip. Returns to the caller before the

@@ -11,7 +11,7 @@ export function randomBytes(size: number): bytes;
 
 /**
  * Produce HMAC.
- * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding/
  * @param algorithm - Hash algorithm.
  * @param secret - Shared secret.
  * @param input - Input data.
@@ -29,7 +29,7 @@ export function hmac<OE extends OutputEncoding>(
 
 /**
  * Hash with MD4.
- * https://k6.io/docs/javascript-api/k6-crypto/md4-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/md4-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns MD4 digest.
@@ -43,7 +43,7 @@ export function md4<OE extends OutputEncoding>(
 
 /**
  * Hash with MD5.
- * https://k6.io/docs/javascript-api/k6-crypto/md5-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/md5-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns MD5 digest.
@@ -57,7 +57,7 @@ export function md5<OE extends OutputEncoding>(
 
 /**
  * Hash with SHA-1.
- * https://k6.io/docs/javascript-api/k6-crypto/sha1-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/sha1-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-1 digest.
@@ -71,7 +71,7 @@ export function sha1<OE extends OutputEncoding>(
 
 /**
  * Hash with SHA-256.
- * https://k6.io/docs/javascript-api/k6-crypto/sha256-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/sha256-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-256 digest.
@@ -85,7 +85,7 @@ export function sha256<OE extends OutputEncoding>(
 
 /**
  * Hash with SHA-384.
- * https://k6.io/docs/javascript-api/k6-crypto/sha384-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/sha384-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-384 digest.
@@ -99,7 +99,7 @@ export function sha384<OE extends OutputEncoding>(
 
 /**
  * Hash with SHA-512.
- * https://k6.io/docs/javascript-api/k6-crypto/sha512-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/sha512-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512 digest.
@@ -113,7 +113,7 @@ export function sha512<OE extends OutputEncoding>(
 
 /**
  * Hash with SHA-512/224.
- * https://k6.io/docs/javascript-api/k6-crypto/sha512_224-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/sha512_224-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512/224 digest.
@@ -127,7 +127,7 @@ export function sha512_224<OE extends OutputEncoding>(
 
 /**
  * Hash with SHA-512/256.
- * https://k6.io/docs/javascript-api/k6-crypto/sha512_256-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/sha512_256-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512/256 digest.
@@ -141,7 +141,7 @@ export function sha512_256<OE extends OutputEncoding>(
 
 /**
  * Hash with RIPEMD-160.
- * https://k6.io/docs/javascript-api/k6-crypto/ripemd160-input-outputencoding
+ * https://k6.io/docs/javascript-api/k6-crypto/ripemd160-input-outputencoding/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns RIPEMD-160 digest.
@@ -155,7 +155,7 @@ export function ripemd160<OE extends OutputEncoding>(
 
 /**
  * Create a hashing object.
- * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm
+ * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm/
  * @param algorithm - Hash algorithm.
  * @returns Hashing object.
  * @example
@@ -164,7 +164,7 @@ export function createHash(algorithm: Algorithm): Hasher;
 
 /**
  * Create an HMAC hashing object.
- * https://k6.io/docs/javascript-api/k6-crypto/createhmac-algorithm-secret
+ * https://k6.io/docs/javascript-api/k6-crypto/createhmac-algorithm-secret/
  * @param algorithm - Hash algorithm.
  * @param secret - Shared secret.
  * @returns HMAC hashing object.
@@ -213,14 +213,14 @@ export type Output<OE extends OutputEncoding> = OE extends StringEncoding
 
 /**
  * Hashing object.
- * https://docs.k6.io/docs/hasher-k6crypto
+ * https://k6.io/docs/javascript-api/k6-crypto/hasher/
  */
 export abstract class Hasher {
     protected __brand: never;
 
     /**
      * Add more data to the string we want to create a hash of.
-     * https://k6.io/docs/javascript-api/k6-crypto/hasher
+     * https://k6.io/docs/javascript-api/k6-crypto/hasher/
      * @param input - Data to add.
      * @example
      * let hasher = crypto.createHMAC('sha256', 'a secret');
@@ -232,7 +232,7 @@ export abstract class Hasher {
 
     /**
      * Return a digest from the data added so far.
-     * https://k6.io/docs/javascript-api/k6-crypto/hasher
+     * https://k6.io/docs/javascript-api/k6-crypto/hasher/
      * @param outputEncoding - Output encoding.
      * @returns Digest of data added so far.
      * @example
@@ -246,7 +246,7 @@ export abstract class Hasher {
 
 /**
  * This module provides common hashing functionality available in the GoLang crypto package.
- * https://k6.io/docs/javascript-api/k6-crypto
+ * https://k6.io/docs/javascript-api/k6-crypto/
  */
 declare namespace crypto {
     /**
@@ -260,7 +260,7 @@ declare namespace crypto {
 
     /**
      * Produce HMAC.
-     * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding/
      * @param algorithm - Hash algorithm.
      * @param secret - Shared secret.
      * @param input - Input data.
@@ -278,7 +278,7 @@ declare namespace crypto {
 
     /**
      * Hash with MD4.
-     * https://k6.io/docs/javascript-api/k6-crypto/md4-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/md4-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns MD4 digest.
@@ -292,7 +292,7 @@ declare namespace crypto {
 
     /**
      * Hash with MD5.
-     * https://k6.io/docs/javascript-api/k6-crypto/md5-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/md5-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns MD5 digest.
@@ -306,7 +306,7 @@ declare namespace crypto {
 
     /**
      * Hash with SHA-1.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha1-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/sha1-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-1 digest.
@@ -320,7 +320,7 @@ declare namespace crypto {
 
     /**
      * Hash with SHA-256.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha256-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/sha256-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-256 digest.
@@ -334,7 +334,7 @@ declare namespace crypto {
 
     /**
      * Hash with SHA-384.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha384-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/sha384-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-384 digest.
@@ -348,7 +348,7 @@ declare namespace crypto {
 
     /**
      * Hash with SHA-512.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha512-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/sha512-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512 digest.
@@ -362,7 +362,7 @@ declare namespace crypto {
 
     /**
      * Hash with SHA-512/224.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha512_224-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/sha512_224-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512/224 digest.
@@ -376,7 +376,7 @@ declare namespace crypto {
 
     /**
      * Hash with SHA-512/256.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha512_256-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/sha512_256-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512/256 digest.
@@ -390,7 +390,7 @@ declare namespace crypto {
 
     /**
      * Hash with RIPEMD-160.
-     * https://k6.io/docs/javascript-api/k6-crypto/ripemd160-input-outputencoding
+     * https://k6.io/docs/javascript-api/k6-crypto/ripemd160-input-outputencoding/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns RIPEMD-160 digest.
@@ -404,7 +404,7 @@ declare namespace crypto {
 
     /**
      * Create a hashing object.
-     * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm
+     * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm/
      * @param algorithm - Hash algorithm.
      * @returns Hashing object.
      * @example
@@ -417,7 +417,7 @@ declare namespace crypto {
 
     /**
      * Create an HMAC hashing object.
-     * https://k6.io/docs/javascript-api/k6-crypto/createhmac-algorithm-secret
+     * https://k6.io/docs/javascript-api/k6-crypto/createhmac-algorithm-secret/
      * @param algorithm - Hash algorithm.
      * @param secret - Shared secret.
      * @returns HMAC hashing object.

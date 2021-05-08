@@ -32,12 +32,12 @@ export interface Params {
 
 /**
  * This module provides a gRPC client for Remote Procedure Calls over HTTP/2.
- * https://k6.io/docs/javascript-api/k6-net-grpc
+ * https://k6.io/docs/javascript-api/k6-net-grpc/
  */
 declare namespace grpc {
     /**
      * gRPC client to interact with a gRPC server.
-     * https://k6.io/docs/javascript-api/k6-net-grpc/client
+     * https://k6.io/docs/javascript-api/k6-net-grpc/client/
      */
     class Client {
         protected __brand: never;

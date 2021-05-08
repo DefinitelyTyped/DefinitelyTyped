@@ -21,6 +21,7 @@ function handle_with_next(req: http.IncomingMessage, res: http.ServerResponse, n
 }
 
 pinoHttp({ logger });
+pinoHttp({ logger }).logger = logger;
 pinoHttp({ genReqId: req => req.statusCode || 200 });
 pinoHttp({ genReqId: req => 'foo' });
 pinoHttp({ genReqId: req => Buffer.allocUnsafe(16) });

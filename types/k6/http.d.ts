@@ -502,7 +502,7 @@ export interface Response {
 
     /**
      * Parse body as HTML. Optionally filter by selector.
-     * https://docs.k6.io/docs/response-k6http
+     * https://k6.io/docs/javascript-api/k6-http/response/response-html
      * @param selector - Selector expression.
      * @returns Document node or selected elements.
      * @example
@@ -513,7 +513,7 @@ export interface Response {
 
     /**
      * Parse body as JSON. Optionally filter by selector.
-     * https://docs.k6.io/docs/response-k6http
+     * https://k6.io/docs/javascript-api/k6-http/response/response-json-selector
      * @param selector - GJSON expression.
      * @returns Parse result if successful, `undefined` if unsuccessful.
      * @example
@@ -671,14 +671,14 @@ export abstract class FileData {
 
 /**
  * Object for storing cookies.
- * https://docs.k6.io/docs/cookiejar-k6http
+ * https://k6.io/docs/javascript-api/k6-http/cookiejar/
  */
 export class CookieJar {
     protected __brand: never;
 
     /**
      * Get cookies set for a particular URL.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-cookiesforurl-url
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-cookiesforurl-url/
      * @param url - URL for which to get cookies.
      * @returns Cookies for URL.
      */
@@ -686,7 +686,7 @@ export class CookieJar {
 
     /**
      * Set cookie.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options/
      * @param url - Cookie URL.
      * @param name - Cookie name.
      * @param value - Cookie value.
@@ -736,12 +736,12 @@ export interface ExpectedStatusesObject {
 
 /**
  * The http module contains functionality for performing HTTP transactions.
- * https://k6.io/docs/javascript-api/k6-http
+ * https://k6.io/docs/javascript-api/k6-http/
  */
 declare namespace http {
     /**
      * Make DELETE  request.
-     * https://k6.io/docs/javascript-api/k6-http/del-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/del-url-body-params/
      * @param url - Request URL.
      * @param body - Discouraged. Request body. Object form encoded.
      * @param params - Request parameters.
@@ -755,7 +755,7 @@ declare namespace http {
 
     /**
      * Make GET request.
-     * https://k6.io/docs/javascript-api/k6-http/get-url-params
+     * https://k6.io/docs/javascript-api/k6-http/get-url-params/
      * @param url - Request URL.
      * @param params - Request parameters.
      * @returns Resulting response.
@@ -769,7 +769,7 @@ declare namespace http {
 
     /**
      * Make OPTIONS request.
-     * https://k6.io/docs/javascript-api/k6-http/options-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/options-url-body-params/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -783,7 +783,7 @@ declare namespace http {
 
     /**
      * Make PATCH request.
-     * https://k6.io/docs/javascript-api/k6-http/patch-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/patch-url-body-params/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -797,7 +797,7 @@ declare namespace http {
 
     /**
      * Make POST request.
-     * https://k6.io/docs/javascript-api/k6-http/post-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/post-url-body-params/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -815,7 +815,7 @@ declare namespace http {
 
     /**
      * Make PUT request.
-     * https://k6.io/docs/javascript-api/k6-http/put-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/put-url-body-params/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -829,7 +829,7 @@ declare namespace http {
 
     /**
      * Make request.
-     * https://k6.io/docs/javascript-api/k6-http/request-method-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/request-method-url-body-params/
      * @param method - HTTP method.
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
@@ -850,7 +850,7 @@ declare namespace http {
     /**
      * Batch multiple HTTP requests together,
      * to issue them in parallel over multiple TCP connections.
-     * https://k6.io/docs/javascript-api/k6-http/batch-requests
+     * https://k6.io/docs/javascript-api/k6-http/batch-requests/
      * @param requests - Request specifications.
      * @returns Resulting responses.
      * @example
@@ -893,7 +893,7 @@ declare namespace http {
 
     /**
      * Get active cookie jar.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar/
      * @returns Active cookie jar.
      * @example
      * let jar = http.cookieJar();
@@ -902,13 +902,13 @@ declare namespace http {
     /**
      * Returns a callback to be used with setResponseCallback to mark responses
      * as expected based only on their status codes.
-     * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses
+     * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses/
      */
     function expectedStatuses(...param: Array<number | ExpectedStatusesObject>): ExpectedStatusesCallback;
 
     /**
      * Set the response callback to be called to determine if a response was expected/successful or not.
-     * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback
+     * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback/
      */
     function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
 }

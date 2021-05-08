@@ -16,6 +16,7 @@ type ExcludedPropKeys =
 export interface ContextMenuOptionProps extends Omit<ReactLIAttr, ExcludedPropKeys> {
     disabled?: boolean;
     indented?: boolean; // set by context menu parent component
+    kind?: "danger" | "default";
     label: string;
     level?: number; // set by context menu parent component
     onClick?(evt: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>): void;

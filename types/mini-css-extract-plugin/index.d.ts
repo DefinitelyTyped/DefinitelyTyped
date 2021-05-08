@@ -42,7 +42,7 @@ declare namespace MiniCssExtractPlugin {
         /**
          * Works like [`output.chunkFilename`](https://webpack.js.org/configuration/output/#outputchunkfilename).
          */
-        chunkFilename?: string;
+        chunkFilename?: Required<Configuration>['output']['chunkFilename'];
         /**
          * For projects where CSS ordering has been mitigated through consistent
          * use of scoping or naming conventions, the CSS order warnings can be
@@ -78,6 +78,12 @@ declare namespace MiniCssExtractPlugin {
          * @default 'text/css'
          */
         linkType?: string | false | 'text/css';
+
+        /**
+         * Use an experimental webpack API to execute modules instead of child compilers
+         * @default false
+         */
+        experimentalUseImportModule?: boolean;
     }
     interface LoaderOptions {
         /**
@@ -97,6 +103,12 @@ declare namespace MiniCssExtractPlugin {
          * @default true
          */
         esModule?: boolean;
+
+        /**
+         * Layer of the css execution
+         */
+        layer?: string;
+
         modules?: {
             /**
              * Enables/disables ES modules named export for locals.

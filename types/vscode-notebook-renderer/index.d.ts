@@ -1,18 +1,12 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.55
+// Type definitions for non-npm package vscode-notebook-renderer 1.57
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
-// todo: update "Project" link above to docs site, once it becomes available
+import { VSCodeEvent } from './events';
 
-export interface Disposable {
-    dispose(): void;
-}
-
-export interface VSCodeEvent<T> {
-    (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
-}
+export * from './events';
 
 /**
  * Notebook output event -- a supertype of the `NotebookCellOutputItem` in the VS Code types.
@@ -29,13 +23,6 @@ export interface NotebookOutputEventParams  {
 export interface NotebookRendererApi<T> {
     setState(value: T): void;
     getState(): T | undefined;
-
-    /**
-     * Sends a message to the renderer extension code. Can be received in
-     * the `onDidReceiveMessage` event in `NotebookCommunication`.
-     */
-    postMessage(msg: unknown): void;
-
     /**
      * Fired before an output is destroyed, with its output ID, or undefined if
      * all cells are about to unmount.
@@ -48,14 +35,8 @@ export interface NotebookRendererApi<T> {
      * API, and `onWillDestroyOutput`.
      */
     onDidCreateOutput: VSCodeEvent<NotebookOutputEventParams>;
-
-    /**
-     * Called when the renderer uses `postMessage` on the NotebookCommunication
-     * instance for this renderer.
-     */
-    onDidReceiveMessage: VSCodeEvent<any>;
 }
 
 declare global {
-    function acquireNotebookRendererApi(rendererId: string): NotebookRendererApi<any>;
+    function acquireNotebookRendererApi(): NotebookRendererApi<any>;
 }
