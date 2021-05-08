@@ -1087,6 +1087,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     cancellation?: boolean;
     /** Enable monitoring */
     monitoring?: boolean;
+    /** Enable async hooks */
+    asyncHooks?: boolean;
   }): void;
 
   /**

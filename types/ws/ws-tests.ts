@@ -173,6 +173,16 @@ import * as url from 'url';
     }, { once: true });
 }
 
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+    const eventHandler: Parameters<typeof ws.once>[1] = () => {};
+    const event = '';
+    const errorHandler = (err: Error) => {
+        ws.off(event, eventHandler);
+    };
+    ws.once('error', errorHandler);
+}
+
 function f() {
     const ws = new WebSocket('ws://www.host.com/path');
 

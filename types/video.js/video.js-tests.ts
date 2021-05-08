@@ -1,5 +1,7 @@
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
+const audioElement = document.createElement('audio');
+
 const playerOptions: VideoJsPlayerOptions = {
     autoplay: 'muted',
     bigPlayButton: false,
@@ -8,6 +10,7 @@ const playerOptions: VideoJsPlayerOptions = {
         playToggle: false,
         captionsButton: false,
         chaptersButton: false,
+        pictureInPictureToggle: audioElement.tagName !== "AUDIO"
     },
     height: 10,
     loop: true,

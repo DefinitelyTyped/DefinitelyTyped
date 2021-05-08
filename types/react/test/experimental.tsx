@@ -5,10 +5,7 @@ import React = require('react');
 function useExperimentalHooks() {
     const [toggle, setToggle] = React.useState(false);
 
-    const [startTransition, done] = React.unstable_useTransition({
-        busyMinDurationMs: 100,
-        busyDelayMs: 200,
-    });
+    const [startTransition, done] = React.unstable_useTransition();
     // $ExpectType boolean
     done;
 

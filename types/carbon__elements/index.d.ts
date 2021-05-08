@@ -1,4 +1,4 @@
-// Type definitions for @carbon/elements 10.31
+// Type definitions for @carbon/elements 10.33
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/elements
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -73,6 +73,80 @@ export const white: {
     buttonSeparator: "#e0e0e0";
     skeleton01: "#e5e5e5";
     skeleton02: "#c6c6c6";
+    background: "#ffffff";
+    layer: "#f4f4f4";
+    layerAccent: "#e0e0e0";
+    field: "#f4f4f4";
+    backgroundInverse: "#393939";
+    backgroundBrand: "#0f62fe";
+    interactive: "#0f62fe";
+    borderSubtle: "#e0e0e0";
+    borderStrong: "#8d8d8d";
+    borderInverse: "#161616";
+    borderInteractive: "#0f62fe";
+    textPrimary: "#161616";
+    textSecondary: "#525252";
+    textPlaceholder: "#a8a8a8";
+    textHelper: "#6f6f6f";
+    textOnColor: "#ffffff";
+    textInverse: "#ffffff";
+    linkPrimary: "#0f62fe";
+    linkSecondary: "#0043ce";
+    linkVisited: "#8a3ffc";
+    linkInverse: "#78a9ff";
+    iconPrimary: "#161616";
+    iconSecondary: "#525252";
+    iconOnColor: "#ffffff";
+    iconInverse: "#ffffff";
+    supportError: "#da1e28";
+    supportSuccess: "#24a148";
+    supportWarning: "#f1c21b";
+    supportInfo: "#0043ce";
+    supportErrorInverse: "#fa4d56";
+    supportSuccessInverse: "#42be65";
+    supportWarningInverse: "#f1c21b";
+    supportInfoInverse: "#4589ff";
+    overlay: "rgba(22, 22, 22, 0.5)";
+    toggleOff: "#8d8d8d";
+    buttonPrimary: "#0f62fe";
+    buttonSecondary: "#393939";
+    buttonTertiary: "#0f62fe";
+    buttonDangerPrimary: "#da1e28";
+    buttonDangerSecondary: "#da1e28";
+    backgroundActive: "#c6c6c6";
+    layerActive: "#c6c6c6";
+    buttonDangerActive: "#750e13";
+    buttonPrimaryActive: "#002d9c";
+    buttonSecondaryActive: "#6f6f6f";
+    buttonTertiaryActive: "#002d9c";
+    focusInset: "#ffffff";
+    focusInverse: "#ffffff";
+    backgroundHover: "#e5e5e5";
+    layerHover: "#e5e5e5";
+    fieldHover: "#e5e5e5";
+    backgroundInverseHover: "#4c4c4c";
+    linkPrimaryHover: "#0043ce";
+    buttonDangerHover: "#b81921";
+    buttonPrimaryHover: "#0353e9";
+    buttonSecondaryHover: "#4c4c4c";
+    buttonTertiaryHover: "#0353e9";
+    backgroundSelected: "#e0e0e0";
+    backgroundSelectedHover: "#cacaca";
+    layerSelected: "#e0e0e0";
+    layerSelectedHover: "#cacaca";
+    layerSelectedInverse: "#161616";
+    borderSubtleSelected: "#c6c6c6";
+    layerDisabled: "#f4f4f4";
+    fieldDisabled: "#f4f4f4";
+    borderDisabled: "#f4f4f4";
+    textDisabled: "#c6c6c6";
+    buttonDisabled: "#c6c6c6";
+    iconDisabled: "#c6c6c6";
+    textOnColorDisabled: "#8d8d8d";
+    iconOnColorDisabled: "#8d8d8d";
+    layerSelectedDisabled: "#8d8d8d";
+    skeletonBackground: "#e5e5e5";
+    skeletonElement: "#c6c6c6";
     brand01: "#0f62fe";
     brand02: "#393939";
     brand03: "#0f62fe";
@@ -1352,16 +1426,650 @@ export const g10: {
     disabled01: "#ffffff";
     disabled02: "#c6c6c6";
     disabled03: "#8d8d8d";
-    highlight: "#edf5ff";
+    highlight: "#d0e2ff";
     decorative01: "#e0e0e0";
     buttonSeparator: "#e0e0e0";
     skeleton01: "#e5e5e5";
     skeleton02: "#c6c6c6";
+    background: "#f4f4f4";
+    layer: "#ffffff";
+    layerAccent: "#e0e0e0";
+    field: "#ffffff";
+    backgroundInverse: "#393939";
+    backgroundBrand: "#0f62fe";
+    interactive: "#0f62fe";
+    borderSubtle: "#e0e0e0";
+    borderStrong: "#8d8d8d";
+    borderInverse: "#161616";
+    borderInteractive: "#0f62fe";
+    textPrimary: "#161616";
+    textSecondary: "#525252";
+    textPlaceholder: "#a8a8a8";
+    textHelper: "#6f6f6f";
+    textOnColor: "#ffffff";
+    textInverse: "#ffffff";
+    linkPrimary: "#0f62fe";
+    linkSecondary: "#0043ce";
+    linkVisited: "#8a3ffc";
+    linkInverse: "#78a9ff";
+    iconPrimary: "#161616";
+    iconSecondary: "#525252";
+    iconOnColor: "#ffffff";
+    iconInverse: "#ffffff";
+    supportError: "#da1e28";
+    supportSuccess: "#24a148";
+    supportWarning: "#f1c21b";
+    supportInfo: "#0043ce";
+    supportErrorInverse: "#fa4d56";
+    supportSuccessInverse: "#42be65";
+    supportWarningInverse: "#f1c21b";
+    supportInfoInverse: "#4589ff";
+    overlay: "rgba(22, 22, 22, 0.5)";
+    toggleOff: "#8d8d8d";
+    buttonPrimary: "#0f62fe";
+    buttonSecondary: "#393939";
+    buttonTertiary: "#0f62fe";
+    buttonDangerPrimary: "#da1e28";
+    buttonDangerSecondary: "#da1e28";
+    backgroundActive: "#c6c6c6";
+    layerActive: "#c6c6c6";
+    buttonDangerActive: "#750e13";
+    buttonPrimaryActive: "#002d9c";
+    buttonSecondaryActive: "#6f6f6f";
+    buttonTertiaryActive: "#002d9c";
+    focusInset: "#ffffff";
+    focusInverse: "#ffffff";
+    backgroundHover: "#e5e5e5";
+    layerHover: "#e5e5e5";
+    fieldHover: "#e5e5e5";
+    backgroundInverseHover: "#4c4c4c";
+    linkPrimaryHover: "#0043ce";
+    buttonDangerHover: "#b81921";
+    buttonPrimaryHover: "#0353e9";
+    buttonSecondaryHover: "#4c4c4c";
+    buttonTertiaryHover: "#0353e9";
+    backgroundSelected: "#e0e0e0";
+    backgroundSelectedHover: "#cacaca";
+    layerSelected: "#e0e0e0";
+    layerSelectedHover: "#cacaca";
+    layerSelectedInverse: "#161616";
+    borderSubtleSelected: "#c6c6c6";
+    layerDisabled: "#ffffff";
+    fieldDisabled: "#ffffff";
+    borderDisabled: "#ffffff";
+    textDisabled: "#c6c6c6";
+    buttonDisabled: "#c6c6c6";
+    iconDisabled: "#c6c6c6";
+    textOnColorDisabled: "#8d8d8d";
+    iconOnColorDisabled: "#8d8d8d";
+    layerSelectedDisabled: "#8d8d8d";
+    skeletonBackground: "#e5e5e5";
+    skeletonElement: "#c6c6c6";
     brand01: "#0f62fe";
     brand02: "#393939";
     brand03: "#0f62fe";
     active01: "#c6c6c6";
     hoverField: "#e5e5e5";
+    danger: "#da1e28";
+    caption01: {
+        fontSize: "0.75rem";
+        fontWeight: 400;
+        lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    label01: {
+        fontSize: "0.75rem";
+        fontWeight: 400;
+        lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText01: {
+        fontSize: "0.75rem";
+        lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    bodyShort01: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.16px";
+    };
+    bodyLong01: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.43;
+        letterSpacing: "0.16px";
+    };
+    bodyShort02: {
+        fontSize: "1rem";
+        fontWeight: 400;
+        lineHeight: 1.375;
+        letterSpacing: 0;
+    };
+    bodyLong02: {
+        fontSize: "1rem";
+        fontWeight: 400;
+        lineHeight: 1.5;
+        letterSpacing: 0;
+    };
+    code01: {
+        fontFamily: "'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace";
+        fontSize: "0.75rem";
+        fontWeight: 400;
+        lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    code02: {
+        fontFamily: "'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace";
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.43;
+        letterSpacing: "0.32px";
+    };
+    heading01: {
+        fontSize: "0.875rem";
+        fontWeight: 600;
+        lineHeight: 1.29;
+        letterSpacing: "0.16px";
+    };
+    productiveHeading01: {
+        fontSize: "0.875rem";
+        fontWeight: 600;
+        lineHeight: 1.29;
+        letterSpacing: "0.16px";
+    };
+    heading02: {
+        fontSize: "1rem";
+        fontWeight: 600;
+        lineHeight: 1.375;
+        letterSpacing: 0;
+    };
+    productiveHeading02: {
+        fontSize: "1rem";
+        fontWeight: 600;
+        lineHeight: 1.375;
+        letterSpacing: 0;
+    };
+    productiveHeading03: {
+        fontSize: "1.25rem";
+        fontWeight: 400;
+        lineHeight: 1.4;
+        letterSpacing: 0;
+    };
+    productiveHeading04: {
+        fontSize: "1.75rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: 0;
+    };
+    productiveHeading05: {
+        fontSize: "2rem";
+        fontWeight: 400;
+        lineHeight: 1.25;
+        letterSpacing: 0;
+    };
+    productiveHeading06: {
+        fontSize: "2.625rem";
+        fontWeight: 300;
+        lineHeight: 1.199;
+        letterSpacing: 0;
+    };
+    productiveHeading07: {
+        fontSize: "3.375rem";
+        fontWeight: 300;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+    };
+    expressiveHeading01: {
+        fontSize: "0.875rem";
+        fontWeight: 600;
+        lineHeight: 1.25;
+        letterSpacing: "0.16px";
+    };
+    expressiveHeading02: {
+        fontSize: "1rem";
+        fontWeight: 600;
+        lineHeight: 1.5;
+        letterSpacing: 0;
+    };
+    expressiveHeading03: {
+        fontSize: "1.25rem";
+        fontWeight: 400;
+        lineHeight: 1.4;
+        letterSpacing: 0;
+        breakpoints: {
+            xlg: {
+                fontSize: "1.25rem";
+                lineHeight: 1.25;
+            };
+            max: {
+                fontSize: "1.5rem";
+                lineHeight: 1.334;
+            };
+        };
+    };
+    expressiveHeading04: {
+        fontSize: "1.75rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: 0;
+        breakpoints: {
+            xlg: {
+                fontSize: "1.75rem";
+                lineHeight: 1.25;
+            };
+            max: {
+                fontSize: "2rem";
+            };
+        };
+    };
+    expressiveHeading05: {
+        fontSize: "2rem";
+        fontWeight: 400;
+        lineHeight: 1.25;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.25rem";
+                fontWeight: 300;
+                lineHeight: 1.22;
+                letterSpacing: 0;
+            };
+            lg: {
+                fontSize: "2.625rem";
+                fontWeight: 300;
+                lineHeight: 1.19;
+                letterSpacing: 0;
+            };
+            xlg: {
+                fontSize: "3rem";
+                fontWeight: 300;
+                lineHeight: 1.17;
+                letterSpacing: 0;
+            };
+            max: {
+                fontSize: "3.75rem";
+                fontWeight: 300;
+                letterSpacing: 0;
+            };
+        };
+    };
+    expressiveHeading06: {
+        fontSize: "2rem";
+        fontWeight: 600;
+        lineHeight: 1.25;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.25rem";
+                fontWeight: 600;
+                lineHeight: 1.22;
+                letterSpacing: 0;
+            };
+            lg: {
+                fontSize: "2.625rem";
+                fontWeight: 600;
+                lineHeight: 1.19;
+                letterSpacing: 0;
+            };
+            xlg: {
+                fontSize: "3rem";
+                fontWeight: 600;
+                lineHeight: 1.17;
+                letterSpacing: 0;
+            };
+            max: {
+                fontSize: "3.75rem";
+                fontWeight: 600;
+                letterSpacing: 0;
+            };
+        };
+    };
+    expressiveParagraph01: {
+        fontSize: "1.5rem";
+        fontWeight: 300;
+        lineHeight: 1.334;
+        letterSpacing: 0;
+        breakpoints: {
+            lg: {
+                fontSize: "1.75rem";
+                lineHeight: 1.29;
+            };
+            max: {
+                fontSize: "2rem";
+                lineHeight: 1.25;
+            };
+        };
+    };
+    quotation01: {
+        fontSize: "1.25rem";
+        fontWeight: 400;
+        lineHeight: 1.3;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "1.25rem";
+                fontWeight: 400;
+                letterSpacing: 0;
+            };
+            lg: {
+                fontSize: "1.5rem";
+                fontWeight: 400;
+                lineHeight: 1.334;
+                letterSpacing: 0;
+            };
+            xlg: {
+                fontSize: "1.75rem";
+                fontWeight: 400;
+                lineHeight: 1.29;
+                letterSpacing: 0;
+            };
+            max: {
+                fontSize: "2rem";
+                fontWeight: 400;
+                lineHeight: 1.25;
+                letterSpacing: 0;
+            };
+        };
+    };
+    quotation02: {
+        fontSize: "2rem";
+        fontWeight: 300;
+        lineHeight: 1.25;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.25rem";
+                lineHeight: 1.22;
+            };
+            lg: {
+                fontSize: "2.625rem";
+                lineHeight: 1.19;
+            };
+            xlg: {
+                fontSize: "3rem";
+                lineHeight: 1.17;
+            };
+            max: {
+                fontSize: "3.75rem";
+            };
+        };
+    };
+    display01: {
+        fontSize: "2.625rem";
+        fontWeight: 300;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.625rem";
+            };
+            lg: {
+                fontSize: "3.375rem";
+            };
+            xlg: {
+                fontSize: "3.75rem";
+                lineHeight: 1.17;
+            };
+            max: {
+                fontSize: "4.75rem";
+                lineHeight: 1.13;
+            };
+        };
+    };
+    display02: {
+        fontSize: "2.625rem";
+        fontWeight: 600;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "2.625rem";
+            };
+            lg: {
+                fontSize: "3.375rem";
+            };
+            xlg: {
+                fontSize: "3.75rem";
+                lineHeight: 1.16;
+            };
+            max: {
+                fontSize: "4.75rem";
+                lineHeight: 1.13;
+            };
+        };
+    };
+    display03: {
+        fontSize: "2.625rem";
+        fontWeight: 300;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "4.25rem";
+                lineHeight: 1.15;
+            };
+            lg: {
+                fontSize: "5.75rem";
+                lineHeight: 1.11;
+                letterSpacing: "-0.64px";
+            };
+            xlg: {
+                fontSize: "7.625rem";
+                lineHeight: 1.07;
+            };
+            max: {
+                fontSize: "9.75rem";
+                lineHeight: 1.05;
+                letterSpacing: "-0.96px";
+            };
+        };
+    };
+    display04: {
+        fontSize: "2.625rem";
+        fontWeight: 600;
+        lineHeight: 1.19;
+        letterSpacing: 0;
+        breakpoints: {
+            md: {
+                fontSize: "4.25rem";
+                lineHeight: 1.15;
+            };
+            lg: {
+                fontSize: "5.75rem";
+                lineHeight: 1.11;
+                letterSpacing: "-0.64px";
+            };
+            xlg: {
+                fontSize: "7.625rem";
+                lineHeight: 1.07;
+                letterSpacing: "-0.64px";
+            };
+            max: {
+                fontSize: "9.75rem";
+                lineHeight: 1.05;
+                letterSpacing: "-0.96px";
+            };
+        };
+    };
+    spacing01: "0.125rem";
+    spacing02: "0.25rem";
+    spacing03: "0.5rem";
+    spacing04: "0.75rem";
+    spacing05: "1rem";
+    spacing06: "1.5rem";
+    spacing07: "2rem";
+    spacing08: "2.5rem";
+    spacing09: "3rem";
+    spacing10: "4rem";
+    spacing11: "5rem";
+    spacing12: "6rem";
+    spacing13: "10rem";
+    fluidSpacing01: 0;
+    fluidSpacing02: "2vw";
+    fluidSpacing03: "5vw";
+    fluidSpacing04: "10vw";
+    layout01: "1rem";
+    layout02: "1.5rem";
+    layout03: "2rem";
+    layout04: "3rem";
+    layout05: "4rem";
+    layout06: "6rem";
+    layout07: "10rem";
+    container01: "1.5rem";
+    container02: "2rem";
+    container03: "2.5rem";
+    container04: "3rem";
+    container05: "4rem";
+    iconSize01: "1rem";
+    iconSize02: "1.25rem";
+};
+export const g80: {
+    background: "#393939";
+    layer: "#525252";
+    layerAccent: "#6f6f6f";
+    field: "#525252";
+    backgroundInverse: "#f4f4f4";
+    backgroundBrand: "#0f62fe";
+    interactive: "#78a9ff";
+    borderSubtle: "#6f6f6f";
+    borderStrong: "#a8a8a8";
+    borderInverse: "#f4f4f4";
+    borderInteractive: "#4589ff";
+    textPrimary: "#f4f4f4";
+    textSecondary: "#c6c6c6";
+    textPlaceholder: "#6f6f6f";
+    textHelper: "#a8a8a8";
+    textError: "#ffb3b8";
+    textOnColor: "#ffffff";
+    textInverse: "#161616";
+    linkPrimary: "#78a9ff";
+    linkSecondary: "#a6c8ff";
+    linkVisited: "#be95ff";
+    linkInverse: "#0f62fe";
+    iconPrimary: "#f4f4f4";
+    iconSecondary: "#c6c6c6";
+    iconOnColor: "#ffffff";
+    iconInverse: "#161616";
+    supportError: "#ff8389";
+    supportSuccess: "#42be65";
+    supportWarning: "#f1c21b";
+    supportInfo: "#4589ff";
+    supportErrorInverse: "#da1e28";
+    supportSuccessInverse: "#24a148";
+    supportWarningInverse: "#f1c21b";
+    supportInfoInverse: "#0f62fe";
+    overlay: "rgba(22, 22, 22, 0.7)";
+    toggleOff: "#8d8d8d";
+    buttonPrimary: "#0f62fe";
+    buttonSecondary: "#6f6f6f";
+    buttonTertiary: "#ffffff";
+    buttonDangerPrimary: "#da1e28";
+    buttonDangerSecondary: "#ff8389";
+    buttonSeparator: "#161616";
+    backgroundActive: "#525252";
+    layerActive: "#6f6f6f";
+    buttonDangerActive: "#750e13";
+    buttonPrimaryActive: "#002d9c";
+    buttonSecondaryActive: "#525252";
+    buttonTertiaryActive: "#c6c6c6";
+    focus: "#ffffff";
+    focusInset: "#161616";
+    focusInverse: "#0f62fe";
+    highlight: "#0043ce";
+    backgroundHover: "#474747";
+    layerHover: "#636363";
+    fieldHover: "#636363";
+    backgroundInverseHover: "#e8e8e8";
+    linkPrimaryHover: "#a6c8ff";
+    buttonDangerHover: "#b81921";
+    buttonPrimaryHover: "#0151e4";
+    buttonSecondaryHover: "#5e5e5e";
+    buttonTertiaryHover: "#ffffff";
+    backgroundSelected: "#525252";
+    backgroundSelectedHover: "#636363";
+    layerSelected: "#6f6f6f";
+    layerSelectedHover: "#616161";
+    layerSelectedInverse: "#f4f4f4";
+    borderSubtleSelected: "#8d8d8d";
+    layerDisabled: "#525252";
+    fieldDisabled: "#525252";
+    borderDisabled: "#525252";
+    textDisabled: "#8d8d8d";
+    buttonDisabled: "#8d8d8d";
+    iconDisabled: "#8d8d8d";
+    textOnColorDisabled: "#c6c6c6";
+    iconOnColorDisabled: "#c6c6c6";
+    layerSelectedDisabled: "#c6c6c6";
+    skeletonBackground: "#474747";
+    skeletonElement: "#6f6f6f";
+    interactive01: "#0f62fe";
+    interactive02: "#6f6f6f";
+    interactive03: "#ffffff";
+    interactive04: "#78a9ff";
+    uiBackground: "#393939";
+    ui01: "#525252";
+    ui02: "#525252";
+    ui03: "#6f6f6f";
+    ui04: "#a8a8a8";
+    ui05: "#f4f4f4";
+    text01: "#f4f4f4";
+    text02: "#c6c6c6";
+    text03: "#6f6f6f";
+    text04: "#ffffff";
+    text05: "#a8a8a8";
+    icon01: "#f4f4f4";
+    icon02: "#c6c6c6";
+    icon03: "#ffffff";
+    link01: "#78a9ff";
+    link02: "#a6c8ff";
+    inverseLink: "#0f62fe";
+    field01: "#525252";
+    field02: "#6f6f6f";
+    inverse01: "#161616";
+    inverse02: "#f4f4f4";
+    support01: "#ff8389";
+    support02: "#42be65";
+    support03: "#f1c21b";
+    support04: "#4589ff";
+    inverseSupport01: "#da1e28";
+    inverseSupport02: "#24a148";
+    inverseSupport03: "#f1c21b";
+    inverseSupport04: "#0f62fe";
+    overlay01: "rgba(22, 22, 22, 0.7)";
+    danger01: "#da1e28";
+    danger02: "#ff8389";
+    inverseFocusUi: "#0f62fe";
+    hoverPrimary: "#0151e4";
+    activePrimary: "#002d9c";
+    hoverPrimaryText: "#a6c8ff";
+    hoverSecondary: "#5e5e5e";
+    activeSecondary: "#525252";
+    hoverTertiary: "#ffffff";
+    activeTertiary: "#c6c6c6";
+    hoverUI: "#474747";
+    hoverLightUI: "#5E5E5E";
+    activeUI: "#525252";
+    activeLightUI: "#8d8d8d";
+    selectedUI: "#525252";
+    selectedLightUI: "#8d8d8d";
+    inverseHoverUI: "#e8e8e8";
+    hoverSelectedUI: "#616161";
+    hoverDanger: "#b81921";
+    activeDanger: "#750e13";
+    hoverRow: "#636363";
+    visitedLink: "#be95ff";
+    disabled01: "#525252";
+    disabled02: "#8d8d8d";
+    disabled03: "#c6c6c6";
+    decorative01: "#6f6f6f";
+    skeleton01: "#474747";
+    skeleton02: "#6f6f6f";
+    brand01: "#0f62fe";
+    brand02: "#6f6f6f";
+    brand03: "#ffffff";
+    active01: "#525252";
+    hoverField: "#474747";
     danger: "#da1e28";
     caption01: {
         fontSize: "0.75rem";
@@ -1843,6 +2551,80 @@ export const g90: {
     buttonSeparator: "#161616";
     skeleton01: "#353535";
     skeleton02: "#525252";
+    background: "#262626";
+    layer: "#393939";
+    layerAccent: "#525252";
+    field: "#393939";
+    backgroundInverse: "#f4f4f4";
+    backgroundBrand: "#0f62fe";
+    interactive: "#4589ff";
+    borderSubtle: "#525252";
+    borderStrong: "#8d8d8d";
+    borderInverse: "#f4f4f4";
+    borderInteractive: "#4589ff";
+    textPrimary: "#f4f4f4";
+    textSecondary: "#c6c6c6";
+    textPlaceholder: "#6f6f6f";
+    textHelper: "#8d8d8d";
+    textOnColor: "#ffffff";
+    textInverse: "#161616";
+    linkPrimary: "#78a9ff";
+    linkSecondary: "#a6c8ff";
+    linkVisited: "#be95ff";
+    linkInverse: "#0f62fe";
+    iconPrimary: "#f4f4f4";
+    iconSecondary: "#c6c6c6";
+    iconOnColor: "#ffffff";
+    iconInverse: "#161616";
+    supportError: "#ff8389";
+    supportSuccess: "#42be65";
+    supportWarning: "#f1c21b";
+    supportInfo: "#4589ff";
+    supportErrorInverse: "#da1e28";
+    supportSuccessInverse: "#24a148";
+    supportWarningInverse: "#f1c21b";
+    supportInfoInverse: "#0f62fe";
+    overlay: "rgba(22, 22, 22, 0.7)";
+    toggleOff: "#8d8d8d";
+    buttonPrimary: "#0f62fe";
+    buttonSecondary: "#6f6f6f";
+    buttonTertiary: "#ffffff";
+    buttonDangerPrimary: "#da1e28";
+    buttonDangerSecondary: "#ff8389";
+    backgroundActive: "#6f6f6f";
+    layerActive: "#6f6f6f";
+    buttonDangerActive: "#750e13";
+    buttonPrimaryActive: "#002d9c";
+    buttonSecondaryActive: "#393939";
+    buttonTertiaryActive: "#c6c6c6";
+    focusInset: "#161616";
+    focusInverse: "#0f62fe";
+    backgroundHover: "#4c4c4c";
+    layerHover: "#4c4c4c";
+    fieldHover: "#4c4c4c";
+    backgroundInverseHover: "#e5e5e5";
+    linkPrimaryHover: "#a6c8ff";
+    buttonDangerHover: "#b81921";
+    buttonPrimaryHover: "#0353e9";
+    buttonSecondaryHover: "#606060";
+    buttonTertiaryHover: "#f4f4f4";
+    backgroundSelected: "#525252";
+    backgroundSelectedHover: "#656565";
+    layerSelected: "#525252";
+    layerSelectedHover: "#656565";
+    layerSelectedInverse: "#f4f4f4";
+    borderSubtleSelected: "#6f6f6f";
+    layerDisabled: "#393939";
+    fieldDisabled: "#393939";
+    borderDisabled: "#393939";
+    textDisabled: "#6f6f6f";
+    buttonDisabled: "#6f6f6f";
+    iconDisabled: "#6f6f6f";
+    textOnColorDisabled: "#a8a8a8";
+    iconOnColorDisabled: "#a8a8a8";
+    layerSelectedDisabled: "#a8a8a8";
+    skeletonBackground: "#353535";
+    skeletonElement: "#525252";
     brand01: "#0f62fe";
     brand02: "#6f6f6f";
     brand03: "#ffffff";
@@ -2329,6 +3111,80 @@ export const g100: {
     buttonSeparator: "#161616";
     skeleton01: "#353535";
     skeleton02: "#525252";
+    background: "#161616";
+    layer: "#262626";
+    layerAccent: "#393939";
+    field: "#262626";
+    backgroundInverse: "#f4f4f4";
+    backgroundBrand: "#0f62fe";
+    interactive: "#4589ff";
+    borderSubtle: "#393939";
+    borderStrong: "#6f6f6f";
+    borderInverse: "#f4f4f4";
+    borderInteractive: "#4589ff";
+    textPrimary: "#f4f4f4";
+    textSecondary: "#c6c6c6";
+    textPlaceholder: "#6f6f6f";
+    textHelper: "#8d8d8d";
+    textOnColor: "#ffffff";
+    textInverse: "#161616";
+    linkPrimary: "#78a9ff";
+    linkSecondary: "#a6c8ff";
+    linkVisited: "#be95ff";
+    linkInverse: "#0f62fe";
+    iconPrimary: "#f4f4f4";
+    iconSecondary: "#c6c6c6";
+    iconOnColor: "#ffffff";
+    iconInverse: "#161616";
+    supportError: "#fa4d56";
+    supportSuccess: "#42be65";
+    supportWarning: "#f1c21b";
+    supportInfo: "#4589ff";
+    supportErrorInverse: "#da1e28";
+    supportSuccessInverse: "#24a148";
+    supportWarningInverse: "#f1c21b";
+    supportInfoInverse: "#0f62fe";
+    overlay: "rgba(22, 22, 22, 0.7)";
+    toggleOff: "#6f6f6f";
+    buttonPrimary: "#0f62fe";
+    buttonSecondary: "#6f6f6f";
+    buttonTertiary: "#ffffff";
+    buttonDangerPrimary: "#da1e28";
+    buttonDangerSecondary: "#fa4d56";
+    backgroundActive: "#525252";
+    layerActive: "#525252";
+    buttonDangerActive: "#750e13";
+    buttonPrimaryActive: "#002d9c";
+    buttonSecondaryActive: "#393939";
+    buttonTertiaryActive: "#c6c6c6";
+    focusInset: "#161616";
+    focusInverse: "#0f62fe";
+    backgroundHover: "#353535";
+    layerHover: "#353535";
+    fieldHover: "#353535";
+    backgroundInverseHover: "#e5e5e5";
+    linkPrimaryHover: "#a6c8ff";
+    buttonDangerHover: "#b81921";
+    buttonPrimaryHover: "#0353e9";
+    buttonSecondaryHover: "#606060";
+    buttonTertiaryHover: "#f4f4f4";
+    backgroundSelected: "#393939";
+    backgroundSelectedHover: "#4c4c4c";
+    layerSelected: "#393939";
+    layerSelectedHover: "#4c4c4c";
+    layerSelectedInverse: "#f4f4f4";
+    borderSubtleSelected: "#525252";
+    layerDisabled: "#262626";
+    fieldDisabled: "#262626";
+    borderDisabled: "#262626";
+    textDisabled: "#525252";
+    buttonDisabled: "#525252";
+    iconDisabled: "#525252";
+    textOnColorDisabled: "#8d8d8d";
+    iconOnColorDisabled: "#8d8d8d";
+    layerSelectedDisabled: "#8d8d8d";
+    skeletonBackground: "#353535";
+    skeletonElement: "#525252";
     brand01: "#0f62fe";
     brand02: "#6f6f6f";
     brand03: "#ffffff";
@@ -2769,6 +3625,7 @@ export const v9: {
     icon02: "#5a6872";
     icon03: "#ffffff";
     link01: "#3d70b2";
+    link02: "#3d70b2";
     inverseLink: "#5596e6";
     field01: "#ffffff";
     field02: "#f4f7fb";
@@ -2814,6 +3671,80 @@ export const v9: {
     buttonSeparator: "#e0e0e0";
     skeleton01: "rgba(61, 112, 178, .1)";
     skeleton02: "rgba(61, 112, 178, .1)";
+    background: "#f4f7fb";
+    layer: "#ffffff";
+    layerAccent: "#dfe3e6";
+    field: "#ffffff";
+    backgroundInverse: "#272d33";
+    backgroundBrand: "#3d70b2";
+    interactive: "#3d70b2";
+    borderSubtle: "#dfe3e6";
+    borderStrong: "#8897a2";
+    borderInverse: "#5a6872";
+    borderInteractive: "#3d70b2";
+    textPrimary: "#152935";
+    textSecondary: "#5a6872";
+    textPlaceholder: "#cdd1d4";
+    textHelper: "#5a6872";
+    textOnColor: "#ffffff";
+    textInverse: "#ffffff";
+    linkPrimary: "#3d70b2";
+    linkSecondary: "#3d70b2";
+    linkVisited: "#294c86";
+    linkInverse: "#5596e6";
+    iconPrimary: "#3d70b2";
+    iconSecondary: "#5a6872";
+    iconOnColor: "#ffffff";
+    iconInverse: "#ffffff";
+    supportError: "#e0182d";
+    supportSuccess: "#5aa700";
+    supportWarning: "#efc100";
+    supportInfo: "#5aaafa";
+    supportErrorInverse: "#ff5050";
+    supportSuccessInverse: "#8cd211";
+    supportWarningInverse: "#FDD600";
+    supportInfoInverse: "#5aaafa";
+    overlay: "rgba(223, 227, 230, 0.5)";
+    toggleOff: "#8897a2";
+    buttonPrimary: "#3d70b2";
+    buttonSecondary: "#4d5358";
+    buttonTertiary: "#3d70b2";
+    buttonDangerPrimary: "#da1e28";
+    buttonDangerSecondary: "#da1e28";
+    backgroundActive: "#DFEAFA";
+    layerActive: "#DFEAFA";
+    buttonDangerActive: "#AD1625";
+    buttonPrimaryActive: "#30588c";
+    buttonSecondaryActive: "#414f59";
+    buttonTertiaryActive: "#414f59";
+    focusInset: "#ffffff";
+    focusInverse: "#3d70b2";
+    backgroundHover: "#EEF4FC";
+    layerHover: "#EEF4FC";
+    fieldHover: "#EEF4FC";
+    backgroundInverseHover: "#4c4c4c";
+    linkPrimaryHover: "#294c86";
+    buttonDangerHover: "#c70014";
+    buttonPrimaryHover: "#30588c";
+    buttonSecondaryHover: "#4d5b65";
+    buttonTertiaryHover: "#5a6872";
+    backgroundSelected: "#EEF4FC";
+    backgroundSelectedHover: "#DFEAFA";
+    layerSelected: "#EEF4FC";
+    layerSelectedHover: "#DFEAFA";
+    layerSelectedInverse: "#5a6872";
+    borderSubtleSelected: "#DFEAFA";
+    layerDisabled: "#fafbfd";
+    fieldDisabled: "#fafbfd";
+    borderDisabled: "#fafbfd";
+    textDisabled: "#dfe3e6";
+    buttonDisabled: "#dfe3e6";
+    iconDisabled: "#dfe3e6";
+    textOnColorDisabled: "#cdd1d4";
+    iconOnColorDisabled: "#cdd1d4";
+    layerSelectedDisabled: "#cdd1d4";
+    skeletonBackground: "rgba(61, 112, 178, .1)";
+    skeletonElement: "rgba(61, 112, 178, .1)";
     brand01: "#3d70b2";
     brand02: "#4d5358";
     brand03: "#3d70b2";
@@ -3039,13 +3970,15 @@ export const v9: {
         fontWeight: 300;
         lineHeight: 1.334;
         letterSpacing: 0;
-        lg: {
-            fontSize: "1.75rem";
-            lineHeight: 1.29;
-        };
-        max: {
-            fontSize: "2rem";
-            lineHeight: 1.25;
+        breakpoints: {
+            lg: {
+                fontSize: "1.75rem";
+                lineHeight: 1.29;
+            };
+            max: {
+                fontSize: "2rem";
+                lineHeight: 1.25;
+            };
         };
     };
     quotation01: {
@@ -4240,6 +5173,566 @@ export const themes: {
             max: {
                 fontSize: "2rem";
                 lineHeight: 1.25;
+            };
+        };
+        quotation01: {
+            fontSize: "1.25rem";
+            fontWeight: 400;
+            lineHeight: 1.3;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "1.25rem";
+                    fontWeight: 400;
+                    letterSpacing: 0;
+                };
+                lg: {
+                    fontSize: "1.5rem";
+                    fontWeight: 400;
+                    lineHeight: 1.334;
+                    letterSpacing: 0;
+                };
+                xlg: {
+                    fontSize: "1.75rem";
+                    fontWeight: 400;
+                    lineHeight: 1.29;
+                    letterSpacing: 0;
+                };
+                max: {
+                    fontSize: "2rem";
+                    fontWeight: 400;
+                    lineHeight: 1.25;
+                    letterSpacing: 0;
+                };
+            };
+        };
+        quotation02: {
+            fontSize: "2rem";
+            fontWeight: 300;
+            lineHeight: 1.25;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.25rem";
+                    lineHeight: 1.22;
+                };
+                lg: {
+                    fontSize: "2.625rem";
+                    lineHeight: 1.19;
+                };
+                xlg: {
+                    fontSize: "3rem";
+                    lineHeight: 1.17;
+                };
+                max: {
+                    fontSize: "3.75rem";
+                };
+            };
+        };
+        display01: {
+            fontSize: "2.625rem";
+            fontWeight: 300;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.625rem";
+                };
+                lg: {
+                    fontSize: "3.375rem";
+                };
+                xlg: {
+                    fontSize: "3.75rem";
+                    lineHeight: 1.17;
+                };
+                max: {
+                    fontSize: "4.75rem";
+                    lineHeight: 1.13;
+                };
+            };
+        };
+        display02: {
+            fontSize: "2.625rem";
+            fontWeight: 600;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.625rem";
+                };
+                lg: {
+                    fontSize: "3.375rem";
+                };
+                xlg: {
+                    fontSize: "3.75rem";
+                    lineHeight: 1.16;
+                };
+                max: {
+                    fontSize: "4.75rem";
+                    lineHeight: 1.13;
+                };
+            };
+        };
+        display03: {
+            fontSize: "2.625rem";
+            fontWeight: 300;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "4.25rem";
+                    lineHeight: 1.15;
+                };
+                lg: {
+                    fontSize: "5.75rem";
+                    lineHeight: 1.11;
+                    letterSpacing: "-0.64px";
+                };
+                xlg: {
+                    fontSize: "7.625rem";
+                    lineHeight: 1.07;
+                };
+                max: {
+                    fontSize: "9.75rem";
+                    lineHeight: 1.05;
+                    letterSpacing: "-0.96px";
+                };
+            };
+        };
+        display04: {
+            fontSize: "2.625rem";
+            fontWeight: 600;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "4.25rem";
+                    lineHeight: 1.15;
+                };
+                lg: {
+                    fontSize: "5.75rem";
+                    lineHeight: 1.11;
+                    letterSpacing: "-0.64px";
+                };
+                xlg: {
+                    fontSize: "7.625rem";
+                    lineHeight: 1.07;
+                    letterSpacing: "-0.64px";
+                };
+                max: {
+                    fontSize: "9.75rem";
+                    lineHeight: 1.05;
+                    letterSpacing: "-0.96px";
+                };
+            };
+        };
+        spacing01: "0.125rem";
+        spacing02: "0.25rem";
+        spacing03: "0.5rem";
+        spacing04: "0.75rem";
+        spacing05: "1rem";
+        spacing06: "1.5rem";
+        spacing07: "2rem";
+        spacing08: "2.5rem";
+        spacing09: "3rem";
+        spacing10: "4rem";
+        spacing11: "5rem";
+        spacing12: "6rem";
+        spacing13: "10rem";
+        fluidSpacing01: 0;
+        fluidSpacing02: "2vw";
+        fluidSpacing03: "5vw";
+        fluidSpacing04: "10vw";
+        layout01: "1rem";
+        layout02: "1.5rem";
+        layout03: "2rem";
+        layout04: "3rem";
+        layout05: "4rem";
+        layout06: "6rem";
+        layout07: "10rem";
+        container01: "1.5rem";
+        container02: "2rem";
+        container03: "2.5rem";
+        container04: "3rem";
+        container05: "4rem";
+        iconSize01: "1rem";
+        iconSize02: "1.25rem";
+    };
+    g80: {
+        background: "#393939";
+        layer: "#525252";
+        layerAccent: "#6f6f6f";
+        field: "#525252";
+        backgroundInverse: "#f4f4f4";
+        backgroundBrand: "#0f62fe";
+        interactive: "#78a9ff";
+        borderSubtle: "#6f6f6f";
+        borderStrong: "#a8a8a8";
+        borderInverse: "#f4f4f4";
+        borderInteractive: "#4589ff";
+        textPrimary: "#f4f4f4";
+        textSecondary: "#c6c6c6";
+        textPlaceholder: "#6f6f6f";
+        textHelper: "#a8a8a8";
+        textError: "#ffb3b8";
+        textOnColor: "#ffffff";
+        textInverse: "#161616";
+        linkPrimary: "#78a9ff";
+        linkSecondary: "#a6c8ff";
+        linkVisited: "#be95ff";
+        linkInverse: "#0f62fe";
+        iconPrimary: "#f4f4f4";
+        iconSecondary: "#c6c6c6";
+        iconOnColor: "#ffffff";
+        iconInverse: "#161616";
+        supportError: "#ff8389";
+        supportSuccess: "#42be65";
+        supportWarning: "#f1c21b";
+        supportInfo: "#4589ff";
+        supportErrorInverse: "#da1e28";
+        supportSuccessInverse: "#24a148";
+        supportWarningInverse: "#f1c21b";
+        supportInfoInverse: "#0f62fe";
+        overlay: "rgba(22, 22, 22, 0.7)";
+        toggleOff: "#8d8d8d";
+        buttonPrimary: "#0f62fe";
+        buttonSecondary: "#6f6f6f";
+        buttonTertiary: "#ffffff";
+        buttonDangerPrimary: "#da1e28";
+        buttonDangerSecondary: "#ff8389";
+        buttonSeparator: "#161616";
+        backgroundActive: "#525252";
+        layerActive: "#6f6f6f";
+        buttonDangerActive: "#750e13";
+        buttonPrimaryActive: "#002d9c";
+        buttonSecondaryActive: "#525252";
+        buttonTertiaryActive: "#c6c6c6";
+        focus: "#ffffff";
+        focusInset: "#161616";
+        focusInverse: "#0f62fe";
+        highlight: "#0043ce";
+        backgroundHover: "#474747";
+        layerHover: "#636363";
+        fieldHover: "#636363";
+        backgroundInverseHover: "#e8e8e8";
+        linkPrimaryHover: "#a6c8ff";
+        buttonDangerHover: "#b81921";
+        buttonPrimaryHover: "#0151e4";
+        buttonSecondaryHover: "#5e5e5e";
+        buttonTertiaryHover: "#ffffff";
+        backgroundSelected: "#525252";
+        backgroundSelectedHover: "#636363";
+        layerSelected: "#6f6f6f";
+        layerSelectedHover: "#616161";
+        layerSelectedInverse: "#f4f4f4";
+        borderSubtleSelected: "#8d8d8d";
+        layerDisabled: "#525252";
+        fieldDisabled: "#525252";
+        borderDisabled: "#525252";
+        textDisabled: "#8d8d8d";
+        buttonDisabled: "#8d8d8d";
+        iconDisabled: "#8d8d8d";
+        textOnColorDisabled: "#c6c6c6";
+        iconOnColorDisabled: "#c6c6c6";
+        layerSelectedDisabled: "#c6c6c6";
+        skeletonBackground: "#474747";
+        skeletonElement: "#6f6f6f";
+        interactive01: "#0f62fe";
+        interactive02: "#6f6f6f";
+        interactive03: "#ffffff";
+        interactive04: "#78a9ff";
+        uiBackground: "#393939";
+        ui01: "#525252";
+        ui02: "#525252";
+        ui03: "#6f6f6f";
+        ui04: "#a8a8a8";
+        ui05: "#f4f4f4";
+        text01: "#f4f4f4";
+        text02: "#c6c6c6";
+        text03: "#6f6f6f";
+        text04: "#ffffff";
+        text05: "#a8a8a8";
+        icon01: "#f4f4f4";
+        icon02: "#c6c6c6";
+        icon03: "#ffffff";
+        link01: "#78a9ff";
+        link02: "#a6c8ff";
+        inverseLink: "#0f62fe";
+        field01: "#525252";
+        field02: "#6f6f6f";
+        inverse01: "#161616";
+        inverse02: "#f4f4f4";
+        support01: "#ff8389";
+        support02: "#42be65";
+        support03: "#f1c21b";
+        support04: "#4589ff";
+        inverseSupport01: "#da1e28";
+        inverseSupport02: "#24a148";
+        inverseSupport03: "#f1c21b";
+        inverseSupport04: "#0f62fe";
+        overlay01: "rgba(22, 22, 22, 0.7)";
+        danger01: "#da1e28";
+        danger02: "#ff8389";
+        inverseFocusUi: "#0f62fe";
+        hoverPrimary: "#0151e4";
+        activePrimary: "#002d9c";
+        hoverPrimaryText: "#a6c8ff";
+        hoverSecondary: "#5e5e5e";
+        activeSecondary: "#525252";
+        hoverTertiary: "#ffffff";
+        activeTertiary: "#c6c6c6";
+        hoverUI: "#474747";
+        hoverLightUI: "#5E5E5E";
+        activeUI: "#525252";
+        activeLightUI: "#8d8d8d";
+        selectedUI: "#525252";
+        selectedLightUI: "#8d8d8d";
+        inverseHoverUI: "#e8e8e8";
+        hoverSelectedUI: "#616161";
+        hoverDanger: "#b81921";
+        activeDanger: "#750e13";
+        hoverRow: "#636363";
+        visitedLink: "#be95ff";
+        disabled01: "#525252";
+        disabled02: "#8d8d8d";
+        disabled03: "#c6c6c6";
+        decorative01: "#6f6f6f";
+        skeleton01: "#474747";
+        skeleton02: "#6f6f6f";
+        brand01: "#0f62fe";
+        brand02: "#6f6f6f";
+        brand03: "#ffffff";
+        active01: "#525252";
+        hoverField: "#474747";
+        danger: "#da1e28";
+        caption01: {
+            fontSize: "0.75rem";
+            fontWeight: 400;
+            lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        label01: {
+            fontSize: "0.75rem";
+            fontWeight: 400;
+            lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText01: {
+            fontSize: "0.75rem";
+            lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        bodyShort01: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: "0.16px";
+        };
+        bodyLong01: {
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.43;
+            letterSpacing: "0.16px";
+        };
+        bodyShort02: {
+            fontSize: "1rem";
+            fontWeight: 400;
+            lineHeight: 1.375;
+            letterSpacing: 0;
+        };
+        bodyLong02: {
+            fontSize: "1rem";
+            fontWeight: 400;
+            lineHeight: 1.5;
+            letterSpacing: 0;
+        };
+        code01: {
+            fontFamily: "'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace";
+            fontSize: "0.75rem";
+            fontWeight: 400;
+            lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        code02: {
+            fontFamily: "'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace";
+            fontSize: "0.875rem";
+            fontWeight: 400;
+            lineHeight: 1.43;
+            letterSpacing: "0.32px";
+        };
+        heading01: {
+            fontSize: "0.875rem";
+            fontWeight: 600;
+            lineHeight: 1.29;
+            letterSpacing: "0.16px";
+        };
+        productiveHeading01: {
+            fontSize: "0.875rem";
+            fontWeight: 600;
+            lineHeight: 1.29;
+            letterSpacing: "0.16px";
+        };
+        heading02: {
+            fontSize: "1rem";
+            fontWeight: 600;
+            lineHeight: 1.375;
+            letterSpacing: 0;
+        };
+        productiveHeading02: {
+            fontSize: "1rem";
+            fontWeight: 600;
+            lineHeight: 1.375;
+            letterSpacing: 0;
+        };
+        productiveHeading03: {
+            fontSize: "1.25rem";
+            fontWeight: 400;
+            lineHeight: 1.4;
+            letterSpacing: 0;
+        };
+        productiveHeading04: {
+            fontSize: "1.75rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: 0;
+        };
+        productiveHeading05: {
+            fontSize: "2rem";
+            fontWeight: 400;
+            lineHeight: 1.25;
+            letterSpacing: 0;
+        };
+        productiveHeading06: {
+            fontSize: "2.625rem";
+            fontWeight: 300;
+            lineHeight: 1.199;
+            letterSpacing: 0;
+        };
+        productiveHeading07: {
+            fontSize: "3.375rem";
+            fontWeight: 300;
+            lineHeight: 1.19;
+            letterSpacing: 0;
+        };
+        expressiveHeading01: {
+            fontSize: "0.875rem";
+            fontWeight: 600;
+            lineHeight: 1.25;
+            letterSpacing: "0.16px";
+        };
+        expressiveHeading02: {
+            fontSize: "1rem";
+            fontWeight: 600;
+            lineHeight: 1.5;
+            letterSpacing: 0;
+        };
+        expressiveHeading03: {
+            fontSize: "1.25rem";
+            fontWeight: 400;
+            lineHeight: 1.4;
+            letterSpacing: 0;
+            breakpoints: {
+                xlg: {
+                    fontSize: "1.25rem";
+                    lineHeight: 1.25;
+                };
+                max: {
+                    fontSize: "1.5rem";
+                    lineHeight: 1.334;
+                };
+            };
+        };
+        expressiveHeading04: {
+            fontSize: "1.75rem";
+            fontWeight: 400;
+            lineHeight: 1.29;
+            letterSpacing: 0;
+            breakpoints: {
+                xlg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.25;
+                };
+                max: {
+                    fontSize: "2rem";
+                };
+            };
+        };
+        expressiveHeading05: {
+            fontSize: "2rem";
+            fontWeight: 400;
+            lineHeight: 1.25;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.25rem";
+                    fontWeight: 300;
+                    lineHeight: 1.22;
+                    letterSpacing: 0;
+                };
+                lg: {
+                    fontSize: "2.625rem";
+                    fontWeight: 300;
+                    lineHeight: 1.19;
+                    letterSpacing: 0;
+                };
+                xlg: {
+                    fontSize: "3rem";
+                    fontWeight: 300;
+                    lineHeight: 1.17;
+                    letterSpacing: 0;
+                };
+                max: {
+                    fontSize: "3.75rem";
+                    fontWeight: 300;
+                    letterSpacing: 0;
+                };
+            };
+        };
+        expressiveHeading06: {
+            fontSize: "2rem";
+            fontWeight: 600;
+            lineHeight: 1.25;
+            letterSpacing: 0;
+            breakpoints: {
+                md: {
+                    fontSize: "2.25rem";
+                    fontWeight: 600;
+                    lineHeight: 1.22;
+                    letterSpacing: 0;
+                };
+                lg: {
+                    fontSize: "2.625rem";
+                    fontWeight: 600;
+                    lineHeight: 1.19;
+                    letterSpacing: 0;
+                };
+                xlg: {
+                    fontSize: "3rem";
+                    fontWeight: 600;
+                    lineHeight: 1.17;
+                    letterSpacing: 0;
+                };
+                max: {
+                    fontSize: "3.75rem";
+                    fontWeight: 600;
+                    letterSpacing: 0;
+                };
+            };
+        };
+        expressiveParagraph01: {
+            fontSize: "1.5rem";
+            fontWeight: 300;
+            lineHeight: 1.334;
+            letterSpacing: 0;
+            breakpoints: {
+                lg: {
+                    fontSize: "1.75rem";
+                    lineHeight: 1.29;
+                };
+                max: {
+                    fontSize: "2rem";
+                    lineHeight: 1.25;
+                };
             };
         };
         quotation01: {

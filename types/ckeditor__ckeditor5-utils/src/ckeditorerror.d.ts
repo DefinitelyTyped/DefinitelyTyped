@@ -66,7 +66,11 @@ export const DOCUMENTATION_URL: "https://ckeditor.com/docs/ckeditor5/latest/fram
  *  } );
  *
  */
-export default class CKEditorError extends Error {
+export default class CKEditorError<
+    N extends string = "",
+    C extends Record<string, unknown> | null = null,
+    D extends Record<string, unknown> | null = null
+> extends Error {
     /**
      * A utility that ensures that the thrown error is a {@link module:utils/ckeditorerror~CKEditorError} one.
      * It is useful when combined with the {@link module:watchdog/watchdog~Watchdog} feature, which can restart the editor in case
@@ -74,7 +78,7 @@ export default class CKEditorError extends Error {
      *
      * by the watchdog to verify which editor should be restarted.
      */
-    static rethrowUnexpectedError(err: Error, context: object): void;
+    static rethrowUnexpectedError(err: Error, context?: object | null): void;
     /**
      * Creates an instance of the CKEditorError class.
      *
@@ -86,19 +90,20 @@ export default class CKEditorError extends Error {
      * will be appended to the error message, so the data are quickly visible in the console. The original
      * data object will also be later available under the {@link #data} property.
      */
-    constructor(errorName: string, context?: object | null, data?: object);
+    constructor(errorName: N, context?: C, data?: D);
     /**
      * A context of the error by which the Watchdog is able to determine which editor crashed.
      *
      */
-    context: object | null;
+    context: C;
     /**
      * The additional error data passed to the constructor. Undefined if none was passed.
      *
      */
-    data: object | undefined;
+    data?: D;
     /**
      * Checks if the error is of the `CKEditorError` type.
      */
     is(type: any): boolean;
+    name: N;
 }

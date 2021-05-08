@@ -1,4 +1,4 @@
-import events = require('node:events');
+import events = require('events');
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
@@ -87,6 +87,7 @@ async function test() {
     for await (const e of events.on(new events.EventEmitter(), 'test')) {
         console.log(e);
     }
+    events.on(new events.EventEmitter(), 'test', { signal: new AbortController().signal });
 }
 
 {
@@ -109,4 +110,33 @@ async function test() {
     let captureRejectionSymbol2: typeof events.EventEmitter.captureRejectionSymbol =
         events.EventEmitter.captureRejectionSymbol;
     captureRejectionSymbol2 = events.captureRejectionSymbol;
+}
+
+{
+    function handler1(event: Event) {
+        console.log(event.type);
+    }
+
+    async function handler2(event: Event) {
+        console.log(event.type);
+    }
+
+    const handler3 = {
+        handleEvent(event: Event) {
+            console.log(event.type);
+        }
+    };
+
+    const handler4 = {
+        async handleEvent(event: Event) {
+            console.log(event.type);
+        }
+    };
+
+    const target = new EventTarget();
+
+    target.addEventListener('foo', handler1);
+    target.addEventListener('foo', handler2);
+    target.addEventListener('foo', handler3);
+    target.addEventListener('foo', handler4, { once: true });
 }

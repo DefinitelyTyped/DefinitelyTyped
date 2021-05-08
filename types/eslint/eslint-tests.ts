@@ -56,7 +56,7 @@ sourceCode.getAllComments();
 sourceCode.getComments(AST).leading;
 sourceCode.getComments(AST).trailing;
 
-sourceCode.getJSDocComment(AST);
+sourceCode.getJSDocComment(AST); // $ExpectType Comment | null
 
 sourceCode.getNodeByRangeIndex(0);
 
@@ -70,7 +70,7 @@ loc.column; // $ExpectType number
 
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 
-sourceCode.getTokenByRangeStart(0);
+sourceCode.getTokenByRangeStart(0); // $ExpectType Comment | Token | null
 sourceCode.getTokenByRangeStart(0, { includeComments: true });
 
 sourceCode.getFirstToken(AST);
@@ -214,6 +214,7 @@ sourceCode.getTokens(AST, { includeComments: true, filter: t => t.type === "Iden
 
 sourceCode.commentsExistBetween(AST, AST);
 sourceCode.commentsExistBetween(TOKEN, TOKEN);
+sourceCode.commentsExistBetween(COMMENT, COMMENT);
 
 sourceCode.getCommentsBefore(AST);
 sourceCode.getCommentsBefore(TOKEN);

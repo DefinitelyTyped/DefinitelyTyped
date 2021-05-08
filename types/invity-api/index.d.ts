@@ -8,7 +8,7 @@ export interface StringMap {
     [key: string]: string;
 }
 
-// buyTypes
+// buy types
 
 export type BuyTradeFinalStatus =
     | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
@@ -20,6 +20,7 @@ export type BuyTradeStatus =
     | 'REQUESTING' // sending request to the partner
     | 'SUBMITTED' // request was submitted to the partner
     | 'APPROVAL_PENDING' // pending approval
+    | 'WAITING_FOR_USER' // requiring user's action
     | BuyTradeFinalStatus;
 
 export type BuyCryptoPaymentMethod =
@@ -29,14 +30,20 @@ export type BuyCryptoPaymentMethod =
     | 'creditCard'
     | 'giropay'
     | 'iDeal'
-    | 'sofort';
+    | 'sofort'
+    | 'bpay'
+    | 'auspost'
+    | 'poli'
+    | 'dcinterac'
+    | 'applePay';
 
 export type BuyTradeTag =
     | 'renewed'
     | 'alternativeCurrency'
     | 'bestRate'
     | 'favorite'
-    | 'wantCrypto';
+    | 'wantCrypto'
+    | 'widget';
 
 export interface BuyProviderInfo {
     name: string; // simplex
@@ -59,7 +66,9 @@ export interface BuyListResponse {
 
 export interface BuyTradeQuoteRequest {
     wantCrypto: boolean; // true for cryptoAmount, false for fiatAmount
+    fiatAmount?: number; // 1000 - will pay fiat amount - DEPRECATED, used only for TREZOR
     fiatStringAmount?: string; // 1000 - will pay fiat amount
+    cryptoAmount?: number; // 0.3 - requested amount in crypto currency - DEPRECATED, used only for TREZOR
     cryptoStringAmount?: string; // 0.3 - requested amount in crypto currency
     fiatCurrency: string; // USD
     receiveCurrency: string; // BTC
@@ -70,16 +79,18 @@ export interface BuyTradeQuoteRequest {
 export type BuyTradeQuoteResponse = BuyTrade[];
 
 export interface BuyTrade {
-    fiatStringAmount?: string; // 1000
+    fiatAmount?: number; // 1000 - DEPRECATED, used only for TREZOR
+    fiatStringAmount?: string; // 1000 - will pay fiat amount
     fiatCurrency?: string; // EUR
     receiveCurrency?: string; // BTC
+    receiveAmount?: number; // 0.12345 - DEPRECATED, used only for TREZOR
     receiveStringAmount?: string; // 0.12345
     receiveAddress?: string; // users address for receive tx
     rate?: number; // 100
     quoteId?: string; // ID of the quote assigned by exchange
     orderId?: string; // ID of the order assigned by us
-    originalPaymentId?: string; // ID of the payment assigned by us and later changed by the partner
     paymentId?: string; // ID of the payment assigned by us or by partner
+    originalPaymentId?: string; // ID of the payment assigned by us and later changed by the partner
     status?: BuyTradeStatus; // state of trade after confirmTrade
     error?: string; // something went wrong after confirmTrade
     receiveTxHash?: string; // hash of tx from exchange to user
@@ -92,14 +103,23 @@ export interface BuyTrade {
     maxCrypto?: number;
     paymentMethod?: BuyCryptoPaymentMethod;
     infoNote?: string;
-    partnerData?: string; // arbitrary data specific for the partner
+    country?: string; // CZ
+    wantCrypto?: boolean;
     tags?: BuyTradeTag[];
+    partnerData?: string; // arbitrary data specific for the partner
+    id?: string; // internal DB id
     // locally used data types
     tradeForm?: BuyTradeFormResponse;
 }
 
 export interface BuyTradeRequest {
+    /**
+     * The trade object
+     */
     trade: BuyTrade;
+    /**
+     * URL where to return after the trade is done
+     */
     returnUrl: string;
 }
 
@@ -124,7 +144,7 @@ export interface WatchBuyTradeResponse {
     error?: string; // something went wrong after confirmTrade
 }
 
-// exchangeTypes
+// exchange types
 
 export type ExchangeTradeFinalStatus =
     | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
@@ -147,6 +167,8 @@ export type ExchangeFee =
 export type ExchangeMaximum =
     | number // actual maximum amount in 'send' currency
     | 'NONE'; // exchange does not have a maximum trade size
+
+export type ExchangeTradeTag = 'renewed' | 'bestRate' | 'favorite' | 'kyc' | 'widget';
 
 export interface ExchangeProviderInfo {
     name: string; // changenow
@@ -178,16 +200,16 @@ export type ExchangeCoinListResponse = ExchangeCoinInfo[];
 
 export interface ExchangeTrade {
     send?: string; // BTC
-    sendStringAmount?: string; // 0.01
+    sendStringAmount?: string; // "0.01"
     sendAddress?: string; // exchange address for send tx
     receive?: string; // LTC
-    receiveStringAmount?: string; // 1
+    receiveStringAmount?: string; // "0.01"
     receiveAddress?: string; // users address for receive tx
     rate?: number; // 100
     min?: number; // 0.001
     max?: ExchangeMaximum;
     fee?: ExchangeFee;
-    partnerPaymentExtraId?: string; // Extra ID for payments to exchange for networks that require it
+    partnerPaymentExtraId?: string; // Extra ID for payments to exchange for networks that require it (destinationTag)
     signature?: string; // Evercoin only, passed from createTrade response to confirmTrade request
     orderId?: string; // internal ID assigned to the trade by the exchange
     statusUrl?: string; // internal URL + ID assigned to the trade by the exchange to check status
@@ -201,8 +223,15 @@ export interface ExchangeTrade {
     quoteToken?: string; // fox.exchange only
     extraField?: string; // payments to user wallet extra field (payout)
     extraFieldDescription?: CoinExtraField;
+    tags?: ExchangeTradeTag[];
+    id?: string; // internal DB id
     // locally used fields
     offerType?: 'bestRate' | 'favorite';
+}
+
+export interface ExtendedExchangeTrade extends ExchangeTrade {
+    requestTradeErrorType?: 'QUOTE_TIMEOUT' | 'UNKNOWN';
+    newQuote?: ExchangeTrade; // A renewed quote, in case of a timeout
 }
 
 export interface CoinExtraField {
@@ -215,13 +244,13 @@ export interface CoinExtraField {
 export interface ExchangeTradeQuoteRequest {
     send: string; // BTC
     receive: string; // LTC
-    sendStringAmount: string; // 0.01
+    sendStringAmount?: string; // "0.01"
 }
 
 export type ExchangeTradeQuoteResponse = ExchangeTrade[];
 
 export interface ConfirmExchangeTradeRequest {
-    trade: ExchangeTrade;
+    trade: ExtendedExchangeTrade;
     receiveAddress: string; // address hash
     refundAddress: string; // address hash (optional because Changelly doesn't support it)
     extraField?: string; // XRP destination tag, XMR label id, ...
@@ -231,7 +260,7 @@ export interface WatchExchangeTradeResponse {
     status?: ExchangeTradeStatus; // state of trade after confirmTrade
     receiveTxHash?: string;
     rate?: number;
-    receiveStringAmount?: string;
+    receiveStringAmount?: string; // "0.01"
     error?: string; // something went wrong after confirmTrade
 }
 
@@ -260,15 +289,21 @@ export interface SupportTicketResponse {
 
 // sell/voucher types
 
-export type SellTradeStatus =
-    | 'REQUESTING' // sending request to the partner
-    | 'SEND_CRYPTO' // request to send crypto
-    | 'IN_TX' // waiting for completion of transaction on Trezor
-    | 'PENDING' // pending exchange to fiat
+export type SellTradeFinalStatus =
     | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
-    | 'ERROR' // something went wrong during or after confirmTrade
+    | 'ERROR' // the transaction was blocked, the customer will be contacted by email
+    | 'BLOCKED' // something went wrong during or after confirmTrade
     | 'CANCELLED' // user cancelled the transaction
     | 'REFUNDED'; // transaction has been refunded
+
+export type SellTradeStatus =
+    | 'REQUESTING' // sending request to the partner
+    | 'LOGIN_REQUEST' // request to login to the partner's site
+    | 'SITE_ACTION_REQUEST' // request to transfer to the partner's site
+    | 'SUBMITTED' // request was submitted to the partner
+    | 'SEND_CRYPTO' // request to send crypto
+    | 'PENDING' // pending exchange to fiat
+    | SellTradeFinalStatus;
 
 export type SellProviderType = 'Fiat' | 'Voucher';
 
@@ -285,11 +320,74 @@ export interface SellProviderInfo {
     supportUrl?: string; // https://www.simplex.com/support/
     quoteInfo?: string; // some info text shown on quote
     voucherSiteOrigin?: string;
+    paymentMethods?: SellCryptoPaymentMethod[];
 }
 
 export interface SellListResponse {
     country: string;
     providers: SellProviderInfo[];
+}
+
+export type SellCryptoPaymentMethod = 'bankTransfer' | 'creditCard';
+
+export type SellTradeTag =
+    | 'renewed'
+    | 'alternativeCurrency'
+    | 'bestRate'
+    | 'favorite'
+    | 'wantFiat'
+    | 'widget';
+
+export interface BankAccount {
+    bankAccount: string;
+    holder: string;
+    verified: boolean;
+}
+
+export interface SellFiatTradeQuoteRequest {
+    amountInCrypto: boolean; // true for cryptoAmount, false for fiatAmount
+    fiatStringAmount?: string; // 1000 - will pay fiat amount
+    fiatCurrency: string; // USD
+    cryptoStringAmount?: string; // 0.3 - requested amount in crypto currency
+    cryptoCurrency: string; // BTC
+    country?: string;
+    paymentMethod?: SellCryptoPaymentMethod;
+}
+
+export type SellFiatTradeQuoteResponse = SellFiatTrade[];
+
+export interface SellFiatTrade {
+    amountInCrypto?: boolean; // true for cryptoAmount, false for fiatAmount
+    fiatStringAmount?: string; // 1000
+    fiatCurrency?: string; // EUR
+    cryptoCurrency?: string; // BTC
+    cryptoStringAmount?: string; // 0.12345
+    rate?: number; // 100
+    quoteId?: string; // ID of the quote assigned by exchange
+    orderId?: string; // ID of the order assigned by us
+    paymentId?: string; // ID of the payment assigned by the partner
+    originalPaymentId?: string; // ID of the payment assigned by us and later changed by the partner
+    eventId?: string; // ID of the last event which modified the trade
+    siteUrl?: string; // sell site url
+    status?: SellTradeStatus; // state of trade after confirmTrade
+    refundAddress?: string; // crypto address to which sent crypto currency will be returned in case of a refund
+    destinationAddress?: string; // crypto address to which sent crypto currency to sell
+    destinationPaymentExtraId?: string; // Extra ID for payments to exchange for networks that require it (destinationTag)
+    error?: string; // something went wrong
+    exchange?: string; // which exchange this trade belongs to, used for discrimination in ExchangeService
+    validUntil?: string; // timestamp in ISO format of offer validity
+    txid?: string; // txid of crypto transaction
+    tags?: SellTradeTag[];
+    cid?: string; // google clientID
+    minFiat?: number;
+    maxFiat?: number;
+    minCrypto?: number;
+    maxCrypto?: number;
+    paymentMethod?: SellCryptoPaymentMethod;
+    infoNote?: string;
+    country?: string; // CZ
+    bankAccount?: BankAccount; // selected bank account
+    bankAccounts?: BankAccount[]; // list of available bank accounts
 }
 
 export interface SellVoucherTradeQuoteRequest {
@@ -317,3 +415,37 @@ export interface SellVoucherTradeRequest {
 }
 
 export type SellVoucherTradeQuoteResponse = SellVoucherTrade[];
+
+export interface SellFiatTradeFormResponse {
+    form?: {
+        formMethod: 'GET' | 'POST' | 'IFRAME';
+        formAction: string;
+        fields: StringMap;
+    };
+    error?: string;
+}
+
+export interface SellFiatTradeRequest {
+    /**
+     * The trade object
+     */
+    trade: SellFiatTrade;
+    /**
+     * URL where to return after the trade is done
+     */
+    returnUrl?: string;
+}
+
+export interface SellFiatTradeResponse {
+    trade: SellFiatTrade;
+    tradeForm?: SellFiatTradeFormResponse;
+    requestTradeErrorType?: 'QUOTE_TIMEOUT' | 'UNKNOWN';
+    newQuote?: SellFiatTrade;
+}
+
+export interface WatchSellTradeResponse {
+    status?: SellTradeStatus; // new state of trade
+    error?: string; // something went wrong
+}
+
+export type SpendTrade = SellVoucherTrade;

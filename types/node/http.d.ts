@@ -1,11 +1,7 @@
-declare module 'node:http' {
-    export * from 'http';
-}
-
 declare module 'http' {
-    import * as stream from 'node:stream';
-    import { URL } from 'node:url';
-    import { Socket, Server as NetServer } from 'node:net';
+    import * as stream from 'stream';
+    import { URL } from 'url';
+    import { Socket, Server as NetServer } from 'net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
@@ -36,6 +32,7 @@ declare module 'http' {
         'content-type'?: string;
         'cookie'?: string;
         'date'?: string;
+        'etag'?: string;
         'expect'?: string;
         'expires'?: string;
         'forwarded'?: string;
