@@ -12,7 +12,7 @@
 
 /// <reference types="node" />
 
-import * as events from 'events';
+import { EventEmitter } from 'events';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
@@ -22,7 +22,7 @@ import * as stream from 'stream';
 import { SecureContextOptions } from 'tls';
 
 // WebSocket socket.
-declare class WebSocket extends events.EventEmitter {
+declare class WebSocket extends EventEmitter {
     /** The connection is not yet open. */
     static readonly CONNECTING: 0;
     /** The connection is open and ready to communicate. */
@@ -257,7 +257,7 @@ declare namespace WebSocket {
     }
 
     // WebSocket Server
-    class Server extends events.EventEmitter {
+    class Server extends EventEmitter {
         options: ServerOptions;
         path: string;
         clients: Set<WebSocket>;
