@@ -843,7 +843,7 @@ declare namespace Draft {
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
                 getEntity(key: string): EntityInstance;
                 getEntityMap(): any;
-                getAllEntities(): OrderedMap<string, DraftEntityInstance>;
+                getAllEntities(): Immutable.OrderedMap<string, DraftEntityInstance>;
                 getLastCreatedEntityKey(): string;
                 mergeEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
                 replaceEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
