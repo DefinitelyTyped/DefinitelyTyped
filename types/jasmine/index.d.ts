@@ -905,36 +905,28 @@ declare namespace jasmine {
         id: number;
         env: Env;
         description: string;
+        getFullName(): string;
     }
 
     interface Spec extends SuiteOrSpec {
-        getFullName(): string;
-        getResult(): any;
-        expect(actual: any): any;
-        execute(onComplete?: () => void, enabled?: boolean): any;
-        throwOnExpectationFailure: boolean;
-    }
+        new (attrs: any): any;
 
-    interface XSpec {
-        id: number;
+        setSpecProperty: typeof setSpecProperty;
+        getResult(): SpecResult;
+        execute(onComplete: (error?: Error) => void, excluded?: boolean, failSpecWithNoExpectations?: boolean): void;
+        pend(message?: string): void;
+        status(excluded?: boolean, failSpecWithNoExpectations?: boolean): string;
     }
 
     interface Suite extends SuiteOrSpec {
-        new (env: Env, description: string, specDefinitions: () => void, parentSuite: Suite): any;
+        new (attrs: any): any;
 
         parentSuite: Suite;
-
-        getFullName(): string;
-        beforeEach(beforeEachFunction: SpecFunction): void;
-        afterEach(afterEachFunction: SpecFunction): void;
-        beforeAll(beforeAllFunction: SpecFunction): void;
-        afterAll(afterAllFunction: SpecFunction): void;
-        specs(): Spec[];
-        suites(): Suite[];
-    }
-
-    interface XSuite {
-        execute(): void;
+        children: Array<Spec | Suite>;
+        setSuiteProperty: typeof setSuiteProperty;
+        getResult(): SuiteResult;
+        pend(): void;
+        statue(): void;
     }
 
     interface Spy<Fn extends Func = Func> {
