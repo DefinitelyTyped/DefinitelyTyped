@@ -15,7 +15,7 @@
 import { EventEmitter } from 'events';
 import { Agent, ClientRequest, ClientRequestArgs, IncomingMessage, OutgoingHttpHeaders, Server as HTTPServer } from 'http';
 import { Server as HTTPSServer } from 'https';
-import * as net from 'net';
+import { Socket } from 'net';
 import * as url from 'url';
 import * as zlib from 'zlib';
 import * as stream from 'stream';
@@ -266,7 +266,7 @@ declare namespace WebSocket {
 
         address(): AddressInfo | string;
         close(cb?: (err?: Error) => void): void;
-        handleUpgrade(request: IncomingMessage, socket: net.Socket,
+        handleUpgrade(request: IncomingMessage, socket: Socket,
             upgradeHead: Buffer, callback: (client: WebSocket, request: IncomingMessage) => void): void;
         shouldHandle(request: IncomingMessage): boolean | Promise<boolean>;
 
