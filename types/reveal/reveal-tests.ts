@@ -1,49 +1,47 @@
-
-
 Reveal.initialize({
     controls: true,
     progress: true,
     history: true,
     center: true,
-    transition: 'linear',
-    slideNumber: 'c/t',
-    width: '100%',
-    height: '80%',
-	fragments: true,
+    transition: "linear",
+    slideNumber: "c/t",
+    width: "100%",
+    height: "80%",
+    fragments: true,
 
     postMessage: true,
     postMessageEvents: true,
 
     multiplex: {
         // Example values. To generate your own, see the socket.io server instructions.
-        secret: '13652805320794272084', // Obtained from the socket.io server. Gives this (the master) control of the presentation
-        id: '1ea875674b17ca76', // Obtained from socket.io server
-        url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
+        secret: "13652805320794272084", // Obtained from the socket.io server. Gives this (the master) control of the presentation
+        id: "1ea875674b17ca76", // Obtained from socket.io server
+        url: "https://reveal-js-multiplex-ccjbegmaii.now.sh", // Location of socket.io server
     },
 
     math: {
-        mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
-        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+        mathjax: "https://cdn.mathjax.org/mathjax/latest/MathJax.js",
+        config: "TeX-AMS_HTML-full", // See http://docs.mathjax.org/en/latest/config-files.html
     },
 
     dependencies: [
-        { src: 'plugin/multiplex/master.js', async: true },
-        { src: 'plugin/math/math.js', async: true }
-    ]
-}).then(() => { });
+        { src: "plugin/multiplex/master.js", async: true },
+        { src: "plugin/math/math.js", async: true },
+    ],
+}).then(() => {});
 
 // Alternate representations
 Reveal.initialize({
     slideNumber: true,
     width: 20,
     height: 20,
-	plugins: [RevealHighlight, RevealMarkdown, RevealSearch, RevealNotes, RevealMath, RevealZoom]
-}).then(() => { });
+    plugins: [RevealHighlight, RevealMarkdown, RevealSearch, RevealNotes, RevealMath, RevealZoom],
+}).then(() => {});
 
 // Taken from https://github.com/hakimel/reveal.js/#api
 
 // Navigation
-Reveal.slide( 0, 1, 2 );
+Reveal.slide(0, 1, 2);
 Reveal.left();
 Reveal.right();
 Reveal.up();
@@ -83,9 +81,9 @@ Reveal.getTotalSlides();
 Reveal.getSlideNotes();
 
 // Plugins
-Reveal.getPlugin('test'); // { id: 4, init() }
+Reveal.getPlugin("test"); // { id: 4, init() }
 Reveal.getPlugins(); // { markdown: Plugin, highlight: Plugin }
-Reveal.hasPlugin('test'); // true/false
+Reveal.hasPlugin("test"); // true/false
 
 // State checks
 Reveal.isFirstSlide();
@@ -94,24 +92,24 @@ Reveal.isOverview();
 Reveal.isPaused();
 Reveal.isAutoSliding();
 
-Reveal.addEventListener( 'slidechanged', ( event: SlideEvent ) => {
+Reveal.addEventListener("slidechanged", (event: SlideEvent) => {
     // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-} );
+});
 
-Reveal.addEventListener( 'fragmentshown', ( event: FragmentEvent ) => {
+Reveal.addEventListener("fragmentshown", (event: FragmentEvent) => {
     // event.fragment = the fragment DOM element
-} );
-Reveal.addEventListener( 'fragmenthidden', ( event: FragmentEvent ) => {
+});
+Reveal.addEventListener("fragmenthidden", (event: FragmentEvent) => {
     // event.fragment = the fragment DOM element
-} );
+});
 
-Reveal.slide( 1 );
+Reveal.slide(1);
 // we're on slide 1
 
 const state = Reveal.getState();
 
-Reveal.slide( 3 );
+Reveal.slide(3);
 // we're on slide 3
 
-Reveal.setState( state );
+Reveal.setState(state);
 // we're back on slide 1
