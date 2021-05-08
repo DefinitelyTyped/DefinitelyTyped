@@ -18,7 +18,7 @@ import { Server as HTTPSServer } from 'https';
 import { Socket } from 'net';
 import { URL } from 'url';
 import { ZlibOptions } from 'zlib';
-import * as stream from 'stream';
+import { Duplex, DuplexOptions } from 'stream';
 import { SecureContextOptions } from 'tls';
 
 // WebSocket socket.
@@ -303,7 +303,7 @@ declare namespace WebSocket {
     }
 
     // WebSocket stream
-    function createWebSocketStream(websocket: WebSocket, options?: stream.DuplexOptions): stream.Duplex;
+    function createWebSocketStream(websocket: WebSocket, options?: DuplexOptions): Duplex;
 }
 
 export = WebSocket;
