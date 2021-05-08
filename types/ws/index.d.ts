@@ -32,7 +32,7 @@ declare class WebSocket extends events.EventEmitter {
     /** The connection is closed. */
     static readonly CLOSED: 3;
 
-    binaryType: string;
+    binaryType: "nodebuffer" | "arraybuffer" | "fragments";
     readonly bufferedAmount: number;
     readonly extensions: string;
     readonly protocol: string;
