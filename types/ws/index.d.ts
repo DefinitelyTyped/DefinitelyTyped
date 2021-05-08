@@ -17,7 +17,7 @@ import { Agent, ClientRequest, ClientRequestArgs, IncomingMessage, OutgoingHttpH
 import { Server as HTTPSServer } from 'https';
 import { Socket } from 'net';
 import { URL } from 'url';
-import * as zlib from 'zlib';
+import { ZlibOptions } from 'zlib';
 import * as stream from 'stream';
 import { SecureContextOptions } from 'tls';
 
@@ -203,7 +203,7 @@ declare namespace WebSocket {
             dictionary?: Buffer | Buffer[] | DataView;
             info?: boolean;
         };
-        zlibInflateOptions?: zlib.ZlibOptions;
+        zlibInflateOptions?: ZlibOptions;
         threshold?: number;
         concurrencyLimit?: number;
     }
