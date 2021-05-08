@@ -919,6 +919,7 @@ const androidEventEmitter = new NativeEventEmitter();
 const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
 const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
 androidEventEmitter.listenerCount('event');
+sub2.remove();
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub1);
 
@@ -931,6 +932,7 @@ const iosEventEmitter = new NativeEventEmitter(nativeModule);
 const sub3 = iosEventEmitter.addListener('event', (event: object) => event);
 const sub4 = iosEventEmitter.addListener('event', (event: object) => event, {});
 iosEventEmitter.listenerCount('event');
+sub4.remove();
 iosEventEmitter.removeAllListeners('event');
 iosEventEmitter.removeSubscription(sub3);
 
