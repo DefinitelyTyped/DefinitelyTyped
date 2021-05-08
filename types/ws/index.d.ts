@@ -16,7 +16,7 @@ import { EventEmitter } from 'events';
 import { Agent, ClientRequest, ClientRequestArgs, IncomingMessage, OutgoingHttpHeaders, Server as HTTPServer } from 'http';
 import { Server as HTTPSServer } from 'https';
 import { Socket } from 'net';
-import * as url from 'url';
+import { URL } from 'url';
 import * as zlib from 'zlib';
 import * as stream from 'stream';
 import { SecureContextOptions } from 'tls';
@@ -58,8 +58,8 @@ declare class WebSocket extends EventEmitter {
     onclose: (event: WebSocket.CloseEvent) => void;
     onmessage: (event: WebSocket.MessageEvent) => void;
 
-    constructor(address: string | url.URL, options?: WebSocket.ClientOptions | ClientRequestArgs);
-    constructor(address: string | url.URL, protocols?: string | string[], options?: WebSocket.ClientOptions | ClientRequestArgs);
+    constructor(address: string | URL, options?: WebSocket.ClientOptions | ClientRequestArgs);
+    constructor(address: string | URL, protocols?: string | string[], options?: WebSocket.ClientOptions | ClientRequestArgs);
 
     close(code?: number, data?: string): void;
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
