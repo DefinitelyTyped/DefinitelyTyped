@@ -24,34 +24,34 @@ import { SecureContextOptions } from 'tls';
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
     /** The connection is not yet open. */
-    static CONNECTING: 0;
+    static readonly CONNECTING: 0;
     /** The connection is open and ready to communicate. */
-    static OPEN: 1;
+    static readonly OPEN: 1;
     /** The connection is in the process of closing. */
-    static CLOSING: 2;
+    static readonly CLOSING: 2;
     /** The connection is closed. */
-    static CLOSED: 3;
+    static readonly CLOSED: 3;
 
     binaryType: string;
-    bufferedAmount: number;
-    extensions: string;
-    protocol: string;
+    readonly bufferedAmount: number;
+    readonly extensions: string;
+    readonly protocol: string;
     /** The current state of the connection */
-    readyState:
+    readonly readyState:
         | typeof WebSocket.CONNECTING
         | typeof WebSocket.OPEN
         | typeof WebSocket.CLOSING
         | typeof WebSocket.CLOSED;
-    url: string;
+    readonly url: string;
 
     /** The connection is not yet open. */
-    CONNECTING: 0;
+    readonly CONNECTING: 0;
     /** The connection is open and ready to communicate. */
-    OPEN: 1;
+    readonly OPEN: 1;
     /** The connection is in the process of closing. */
-    CLOSING: 2;
+    readonly CLOSING: 2;
     /** The connection is closed. */
-    CLOSED: 3;
+    readonly CLOSED: 3;
 
     onopen: (event: WebSocket.OpenEvent) => void;
     onerror: (event: WebSocket.ErrorEvent) => void;
