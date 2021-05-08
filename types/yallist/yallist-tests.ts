@@ -93,6 +93,7 @@ myList.sliceReverse(0); // $ExpectType Yallist<string>
 myList.sliceReverse(1, -2); // $ExpectType Yallist<string>
 
 myList.splice(0, 0); // $ExpectType string[]
+myList.splice(0, 0, 'foo', 'bar'); // $ExpectType string[]
 
 myList.toArray(); // $ExpectType string[]
 myList.toArrayReverse(); // $ExpectType string[]
