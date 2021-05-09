@@ -3062,6 +3062,10 @@
             "libraryName": "react-easy-crop",
             "asOfVersion": "2.0.0"
         },
+        "react-editext": {
+            "libraryName": "react-editext",
+            "asOfVersion": "4.0.0"
+        },
         "react-filepond": {
             "libraryName": "react-filepond",
             "asOfVersion": "7.1.0"
