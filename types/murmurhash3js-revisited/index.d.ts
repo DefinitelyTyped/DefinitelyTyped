@@ -1,6 +1,6 @@
 // Type definitions for murmurhash3js-revisited 3.0
 // Project: https://github.com/cimi/murmurhash3js-revisited#readme
-// Definitions by: Carlo Francisco <https://github.com/me>
+// Definitions by: Carlo Francisco <https://github.com/jcfrancisco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface X86 {
