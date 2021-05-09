@@ -6,6 +6,7 @@
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
 //                 Mohammad Hossein Amri <https://github.com/mhamri>
 //                 Marco Mantovani <https://github.com/TheLand>
+//                 Ameer Hamoodi <https://github.com/AmeerHamoodi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -29,7 +30,11 @@ export type Sources = 'api' | 'user' | 'silent';
 
 export interface Key {
     key: string | number;
-    shortKey?: boolean;
+    shortKey?: boolean | null;
+    shiftKey?: boolean | null;
+    altKey?: boolean | null;
+    metaKey?: boolean | null;
+    ctrlKey?: boolean | null;
 }
 
 export interface StringMap {
