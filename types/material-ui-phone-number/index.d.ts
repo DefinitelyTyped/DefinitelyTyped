@@ -1,11 +1,8 @@
 // Type definitions for material-ui-phone-number 2.2
 // Project: https://github.com/alexplumb/material-ui-phone-number
 // Definitions by: Bassem (NextGLabs) <https://github.com/nextglabs>
-//                 Gelsoh <https://github.com/gelzoh>
-//                 Láďa Durchánek <https://github.com/durchanek>
-//                 Nifanic <https://github.com/nifanic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+// Minimum TypeScript Version: 3.8
 
 import * as React from "react";
 import { TextFieldProps } from "@material-ui/core";
