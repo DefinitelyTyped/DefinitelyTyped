@@ -3518,6 +3518,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simplebar": {
+            "libraryName": "simplebar",
+            "asOfVersion": "5.3.3"
+        },
         "sindresorhus__class-names": {
             "libraryName": "@sindresorhus/class-names",
             "asOfVersion": "1.1.0"
