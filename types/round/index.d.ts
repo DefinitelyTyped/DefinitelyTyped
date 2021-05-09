@@ -3,8 +3,6 @@
 // Definitions by: Rajas Paranjpe <https://github.com/ChocolateLoverRaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace round;
-
 /**
  * Round numbers to the nearest multiple with an optional direction.
  * @param value The value to round.
