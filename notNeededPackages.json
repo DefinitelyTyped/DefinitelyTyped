@@ -148,6 +148,10 @@
             "libraryName": "assertion-error",
             "asOfVersion": "1.1.0"
         },
+        "astring": {
+            "libraryName": "astring",
+            "asOfVersion": "1.7.0"
+        },
         "asyncblock": {
             "libraryName": "asyncblock",
             "asOfVersion": "2.2.11"
