@@ -6,7 +6,7 @@
 import * as IORedis from "ioredis";
 import { Store, CachingConfig, CacheOptions, Cache } from 'cache-manager';
 
-declare var CacheManagerIORedis: CacheManagerIORedis.RedisStoreConstructor;
+declare const CacheManagerIORedis: CacheManagerIORedis.RedisStoreConstructor;
 export = CacheManagerIORedis;
 
 declare module 'cache-manager' {
