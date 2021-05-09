@@ -1114,7 +1114,9 @@ function sample13() {
 function sample14() {
     const canvas = new fabric.Canvas("c");
 
+    // $ExpectType object
     const json: object = canvas.toJSON();
 
-    const jsonString = JSON.stringify(json);
+    // $ExpectType string
+    const jsonString: string = JSON.stringify(json);
 }
