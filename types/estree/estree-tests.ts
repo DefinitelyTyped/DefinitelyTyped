@@ -32,6 +32,7 @@ declare var thisExpression: ESTree.ThisExpression;
 declare var arrayExpression: ESTree.ArrayExpression;
 declare var objectExpression: ESTree.ObjectExpression;
 declare var property: ESTree.Property | ESTree.SpreadElement;
+declare var propertyDefinition: ESTree.PropertyDefinition;
 declare var functionExpression: ESTree.FunctionExpression;
 declare var sequenceExpression: ESTree.SequenceExpression;
 declare var unaryExpression: ESTree.UnaryExpression;
@@ -49,6 +50,7 @@ declare var pattern: ESTree.Pattern;
 declare var switchCase: ESTree.SwitchCase;
 declare var catchClause: ESTree.CatchClause;
 declare var identifier: ESTree.Identifier;
+declare var privateIdentifier: ESTree.PrivateIdentifier;
 declare var literal: ESTree.Literal;
 declare var simpleLiteral: ESTree.SimpleLiteral;
 declare var regExpLiteral: ESTree.RegExpLiteral;
@@ -96,7 +98,7 @@ declare var variableDeclaratorOrExpression: ESTree.VariableDeclaration | ESTree.
 declare var variableDeclaratorOrPattern: ESTree.VariableDeclaration | ESTree.Pattern;
 declare var literalOrIdentifier: ESTree.Literal | ESTree.Identifier;
 declare var blockStatementOrExpression: ESTree.BlockStatement | ESTree.Expression;
-declare var identifierOrExpression: ESTree.Identifier | ESTree.Expression;
+declare var identifierOrExpression: ESTree.Identifier | ESTree.PrivateIdentifier | ESTree.Expression;
 declare var any: any;
 declare var string: string;
 declare var boolean: boolean;
@@ -187,9 +189,9 @@ var propertyOrSpread: ESTree.Property | ESTree.SpreadElement
 
 string = property.type;
 if (property.type === 'Property') {
-  expression = property.key;
-  expressionOrPattern = property.value;
-  string = property.kind;
+    identifierOrExpression = property.key;
+    expressionOrPattern = property.value;
+    string = property.kind;
 }
 
 // FunctionExpression
@@ -301,6 +303,9 @@ expression = awaitExpression.argument;
 switch (node.type) {
   case 'Identifier':
     identifier = node;
+    break;
+  case 'PrivateIdentifier':
+    privateIdentifier = node;
     break;
   case 'Literal':
     literal = node;
@@ -491,6 +496,9 @@ switch (node.type) {
     break;
   case 'MethodDefinition':
     methodDefinition = node
+    break;
+  case 'PropertyDefinition':
+    propertyDefinition = node
     break;
 
   // narrowing of ModuleDeclaration
