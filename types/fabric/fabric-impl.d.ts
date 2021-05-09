@@ -1487,7 +1487,7 @@ export class StaticCanvas {
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} JSON string
      */
-    toJSON(propertiesToInclude?: string[]): string;
+    toJSON(propertiesToInclude?: string[]): object;
 
     /**
      * Returns object representation of canvas
