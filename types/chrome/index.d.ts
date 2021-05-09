@@ -3994,6 +3994,20 @@ declare namespace chrome.identity {
         id: string;
     }
 
+    /** @since Chrome 84. */
+    export enum AccountStatus {
+        SYNC = 'SYNC',
+        ANY = 'ANY',
+    }
+
+    export interface ProfileDetails {
+        /**
+         * Optional.
+         * A status of the primary account signed into a profile whose ProfileUserInfo should be returned. Defaults to SYNC account status.
+         */
+        accountStatus?: AccountStatus;
+    }
+
     export interface TokenDetails {
         /**
          * Optional.
@@ -4048,6 +4062,7 @@ declare namespace chrome.identity {
      * Dev channel only.
      */
     export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
+
     /**
      * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
      * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
@@ -4058,12 +4073,17 @@ declare namespace chrome.identity {
      * function(string token) {...};
      */
     export function getAuthToken(details: TokenDetails, callback?: (token: string) => void): void;
+
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
      * This API is different from identity.getAccounts in two ways. The information returned is available offline, and it only applies to the primary account for the profile.
      * @since Chrome 37.
      */
     export function getProfileUserInfo(callback: (userInfo: UserInfo) => void): void;
+
+    /** @since Chrome 84. */
+    export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
+
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
      * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
@@ -4073,6 +4093,7 @@ declare namespace chrome.identity {
      * function() {...};
      */
     export function removeCachedAuthToken(details: TokenInformation, callback?: () => void): void;
+
     /**
      * Starts an auth flow at the specified URL.
      * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
@@ -4083,6 +4104,7 @@ declare namespace chrome.identity {
      * function(string responseUrl) {...};
      */
     export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+
     /**
      * Generates a redirect URL to be used in launchWebAuthFlow.
      * The generated URLs match the pattern https://<app-id>.chromiumapp.org/*.
