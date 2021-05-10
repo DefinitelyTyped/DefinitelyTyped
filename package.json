@@ -40,8 +40,5 @@
             "pre-commit": "npm uninstall husky"
         }
     },
-    "dependencies": {
-        "parchment": "^2.0.0-dev.2",
-        "quill-delta": "^4.2.2"
-    }
+    "dependencies": {}
 }
