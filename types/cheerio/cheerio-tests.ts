@@ -47,6 +47,28 @@ $ = cheerio.load(html, {
 
 const [$ele1] = Array.from($('.class'));
 
+
+/**
+ * Start and end indicies for all tags
+ */
+
+const indicesHTML = `<div id="fruits"><!-- This is a pear -->Pear</div>`;
+
+const indicesHTMLRoot = cheerio.load(indicesHTML, {
+  withStartIndices: true,
+  withEndIndices: true,
+});
+
+const tagEl = indicesHTMLRoot('*')['0'];
+const commentEl = indicesHTMLRoot.firstChild;
+const textEl = commentEl.nextSibling;
+
+tagEl.endIndex - tagEl.startIndex;
+commentEl.endIndex - commentEl.startIndex;
+textEl.endIndex - textEl.startIndex;
+
+$.
+
 /**
  * Selectors
  */
