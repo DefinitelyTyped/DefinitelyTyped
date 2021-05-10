@@ -47,7 +47,6 @@ $ = cheerio.load(html, {
 
 const [$ele1] = Array.from($('.class'));
 
-
 /**
  * Start and end indicies for all tags
  */
@@ -60,7 +59,7 @@ const indicesHTMLRoot = cheerio.load(indicesHTML, {
 });
 
 const tagEl = indicesHTMLRoot('*')['0'];
-const commentEl = indicesHTMLRoot.firstChild;
+const commentEl = tagEl.firstChild;
 const textEl = commentEl.nextSibling;
 
 tagEl.endIndex - tagEl.startIndex;
