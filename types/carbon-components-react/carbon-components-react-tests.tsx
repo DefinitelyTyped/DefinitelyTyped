@@ -16,6 +16,7 @@ import {
     HeaderMenu,
     HeaderMenuItem,
     FileUploader,
+    Link,
     NumberInput,
     Row,
     SecondaryButton,
@@ -52,7 +53,7 @@ import {
     unstable_Heading as UnstableHeading,
     unstable_Section as UnstableSection
 } from 'carbon-components-react';
-import Link from 'carbon-components-react/lib/components/UIShell/Link';
+import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 
 // test components for "as" props
@@ -501,19 +502,33 @@ const t5 = (
 }
 
 // UIShell - Link
+{
+    const uisLinkT1 = <UIShellLink href="#test">Test</UIShellLink>;
+    const uisLinkT2 = <UIShellLink<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>;
+    const uisLinkT3 = (
+        <UIShellLink<TestCompProps> element={TestComp1} someProp={2}>
+            ASDF
+        </UIShellLink>
+    );
+    const uisLinkT4 = (
+        <UIShellLink<TestCompProps> element={TestComp2} someProp={2}>
+            ASDF
+        </UIShellLink>
+    );
 
-const uisLinkT1 = <Link href="#test">Test</Link>;
-const uisLinkT2 = <Link<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
-const uisLinkT3 = (
-    <Link<TestCompProps> element={TestComp1} someProp={2}>
-        ASDF
-    </Link>
-);
-const uisLinkT4 = (
-    <Link<TestCompProps> element={TestComp2} someProp={2}>
-        ASDF
-    </Link>
-);
+    interface TestCompPropsOverwrite {
+        element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+        someProp: string;
+    }
+
+    const TestComp3 = (props: TestCompPropsOverwrite) => <div/>;
+
+    const uisLinkT5 = (
+        <UIShellLink<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
+            Testing Overwrite
+        </UIShellLink>
+    );
+}
 
 // UI Shell - HeaderContainer
 const uisHeaderContainerAnonRender = (
@@ -563,23 +578,6 @@ const uisHeaderMenuCompRenderNotMatchingOptionalProps = (
 
 const uisHeaderMenuItemRequiredChild = <HeaderMenuItem>Required Child</HeaderMenuItem>;
 
-//
-// UIShell Link
-//
-
-interface TestCompPropsOverwrite {
-    element?: 'overwriteTest'; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
-    someProp: string;
-}
-
-const TestComp3 = (props: TestCompPropsOverwrite) => <div />;
-
-const uisLinkT5 = (
-    <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
-        Testing Overwrite
-    </Link>
-);
-
 // DatePickerInput
 const datePickerInputWithHideLabel = (
     <DatePickerInput hideLabel={true} id="my-date-picker-input" labelText="my-label-text" />
@@ -608,6 +606,21 @@ const dropdownItemCanBeElement = (
         itemToString={item => 'Selected: ' + item}
     />
 );
+
+//
+// Link
+//
+{
+    const LinkIcon1: React.FC = (props) => <div/>;
+    const LinkIcon2: React.FC<{ someProp?: number }> = (props) => <div/>;
+
+    const linkT1 = (
+        <Link href="href" inline renderIcon={LinkIcon1}>Text</Link>
+    );
+    const linkT2 = (
+        <Link href="href" renderIcon={LinkIcon2}>Text</Link>
+    );
+}
 
 // Popover
 {
