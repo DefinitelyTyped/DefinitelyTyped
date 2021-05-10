@@ -707,6 +707,10 @@ export interface JitsiMeetExternalAPI extends TypedEventEmitter<ExternalAPIEvent
     dispose(): void;
 }
 
+export interface JitsiMeetExternalAPIConstructor {
+    new(domain: string, options?: ExternalAPIOptions): JitsiMeetExternalAPI;
+}
+
 // this helps with `import type Jitsi` declarations as sometimes babel can get upset that the implementation is loaded
 // at runtime
 export as namespace Jitsi
