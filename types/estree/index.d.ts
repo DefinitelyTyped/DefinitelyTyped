@@ -251,7 +251,7 @@ export interface ObjectExpression extends BaseExpression {
   properties: Array<Property | SpreadElement>;
 }
 
-interface PrivateIdentifier extends BaseNode {
+export interface PrivateIdentifier extends BaseNode {
     type: "PrivateIdentifier";
     name: string;
 }
