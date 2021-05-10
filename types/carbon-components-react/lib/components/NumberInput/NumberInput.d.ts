@@ -6,8 +6,12 @@ import {
 } from "../../../typings/shared";
 
 export type NumberInputTranslationKey = "decrement.number" | "increment.number";
-type ExcludedAttributes = "aria-label" | "id" | "ref" | "size";
-export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedAttributes>, InternationalProps<NumberInputTranslationKey> {
+
+type ExcludedInputPropKeys = "aria-label" | "id" | "onChange" | "ref" | "size";
+
+type OnChangeDirection = "up" | "down";
+
+export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedInputPropKeys>, InternationalProps<NumberInputTranslationKey> {
     allowEmpty?: boolean,
     ariaLabel?: string,
     helperText?: React.ReactNode,
@@ -22,6 +26,9 @@ export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedAttribute
     isMobile?: boolean,
     label?: React.ReactNode,
     light?: boolean,
+    onChange?:
+        | ((evt: React.ChangeEvent<HTMLInputElement>, data: { direction: OnChangeDirection, value: number | string }) => void)
+        | ((evt: React.ChangeEvent<HTMLInputElement>, direction: OnChangeDirection, value: number | string) => void);
     size?: "sm" | "md" | "lg" | "xl",
     value: number | '',
     warn?: boolean,
