@@ -45,6 +45,7 @@ import {
     StructuredListRow,
     StructuredListInput,
     StructuredListCell,
+    StructuredListSkeleton,
     ButtonRenderIconRenderProps,
     Modal,
     InlineLoading,
@@ -718,6 +719,10 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
                 </StructuredListRow>
             </StructuredListBody>
         </StructuredListWrapper>
+    );
+
+    const structuredListSkeletonT1 = (
+        <StructuredListSkeleton/>
     );
 }
 

@@ -271,7 +271,6 @@ export { default as RadioButtonSkeleton } from "./lib/components/RadioButton/Rad
 export { default as SearchSkeleton } from "./lib/components/Search/Search.Skeleton";
 export { default as SelectSkeleton } from "./lib/components/Select/Select.Skeleton";
 export { default as SliderSkeleton } from "./lib/components/Slider/Slider.Skeleton";
-export { default as StructuredListSkeleton } from "./lib/components/StructuredList/StructuredList.Skeleton";
 export { default as TabsSkeleton } from "./lib/components/Tabs/Tabs.Skeleton";
 export { default as TagSkeleton } from "./lib/components/Tag/Tag.Skeleton";
 export { default as TextAreaSkeleton } from "./lib/components/TextArea/TextArea.Skeleton";
