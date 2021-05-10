@@ -2,9 +2,7 @@
 
 > 这是一个 *高质量* 的 TypeScript 类型定义的仓库。
 
-也可以去看 [definitelytyped.org](http://definitelytyped.org) 这个网站，尽管这个 README 里的信息更新。
-
-*你可以去看其他语言的 README，[英语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)，[西班牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)，[韩语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)，[俄罗斯语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)，[葡萄牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)，[意大利语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)，[日语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)*
+*你可以去看其他语言的 README，[英语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)，[西班牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)，[韩语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)，[俄罗斯语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)，[葡萄牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)，[意大利语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)，[日语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *[管理员手册](./docs/admin.md)*
 
