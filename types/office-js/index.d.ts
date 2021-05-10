@@ -608,7 +608,7 @@ declare namespace Office {
      *
      * **Requirement set**: Ribbon 1.1
      */
-     interface Tab {
+    interface Tab {
         /**
          * Identifier of the tab as specified in the manifest.
          */
