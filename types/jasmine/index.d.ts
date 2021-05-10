@@ -903,32 +903,18 @@ declare namespace jasmine {
 
     type SpecFunction = (spec?: Spec) => void;
 
-    interface SuiteOrSpec {
+    interface Spec {
+        new (attrs: any): any;
+
         id: number;
         env: Env;
         description: string;
         getFullName(): string;
     }
 
-    interface Spec extends SuiteOrSpec {
-        new (attrs: any): any;
-
-        setSpecProperty: typeof setSpecProperty;
-        getResult(): SpecResult;
-        execute(onComplete: (error?: Error) => void, excluded?: boolean, failSpecWithNoExpectations?: boolean): void;
-        pend(message?: string): void;
-        status(excluded?: boolean, failSpecWithNoExpectations?: boolean): string;
-    }
-
-    interface Suite extends SuiteOrSpec {
-        new (attrs: any): any;
-
+    interface Suite extends Spec {
         parentSuite: Suite;
         children: Array<Spec | Suite>;
-        setSuiteProperty: typeof setSuiteProperty;
-        getResult(): SuiteResult;
-        pend(): void;
-        statue(): void;
     }
 
     interface Spy<Fn extends Func = Func> {
