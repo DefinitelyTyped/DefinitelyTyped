@@ -1,4 +1,7 @@
-import {FunctionalComponent, Component, h} from "preact";
+import {
+    FunctionalComponent,
+    Component,
+    h } from "preact";
 import VirtualList from "preact-virtual-list";
 
 class TestClass extends Component<any> {
@@ -19,11 +22,11 @@ class TestClass extends Component<any> {
 const TestFunction: FunctionalComponent<any> = (props: any) => {
     return (
         <div>
-            <VirtualList 
+            <VirtualList
                 data={[1, 2, 3]}
-                renderRow={(row) => <div>{row}</div>}
+                renderRow={(row: any) => <div>{row}</div>}
                 rowHeight={30}
             />
         </div>
     );
-}
+};

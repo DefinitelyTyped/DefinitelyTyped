@@ -3,7 +3,10 @@
 // Definitions by: Reece Berens <https://github.com/reece-berens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Component, h} from "preact";
+import {
+    Component,
+    h
+} from "preact";
 
 interface Props {
     className?: string;
