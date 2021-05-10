@@ -156,6 +156,11 @@ export { default as Dropdown } from "./lib/components/Dropdown";
 export { ErrorBoundary, ErrorBoundaryContext } from "./lib/components/ErrorBoundary";
 export { default as ExpandableSearch } from "./lib/components/ExpandableSearch";
 export {
+    FeatureFlags as unstable_FeatureFlags,
+    useFeatureFlag as unstable_useFeatureFlag,
+    useFeatureFlags as unstable_useFeatureFlags
+} from "./lib/components/FeatureFlags";
+export {
     default as FileUploader,
     Filename,
     FileUploaderButton,
