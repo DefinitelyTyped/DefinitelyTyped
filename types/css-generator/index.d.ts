@@ -2,15 +2,12 @@
 // Project: https://github.com/luizbills/css-generator.js
 // Definitions by: Septs <https://github.com/septs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
 
 export interface Options {
     indentation?: string;
 }
 
-export class Generator {
-    private constructor(options?: Options);
-
+export abstract class Generator {
     addRaw(input: string): void;
 
     addRule(selectors: string | string[], declarationList: Record<string, string>): void;

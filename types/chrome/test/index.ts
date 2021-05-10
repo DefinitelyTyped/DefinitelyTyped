@@ -672,7 +672,19 @@ async function testDeclarativeNetRequest() {
     })
 
     chrome.declarativeNetRequest.getEnabledRulesets(sets => {
-        // ExpectType string[]
+        // $ExpectType string[]
         sets;
     })
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
+function testSetBrowserBadgeText() {
+    chrome.browserAction.setBadgeText({});
+    chrome.browserAction.setBadgeText({text: "test"});
+    chrome.browserAction.setBadgeText({tabId: 123});
+    chrome.browserAction.setBadgeText({text: "test", tabId: 123});
+    chrome.browserAction.setBadgeText({}, () => {});
+
+    chrome.browserAction.setBadgeText(); // $ExpectError
+    chrome.browserAction.setBadgeText(undefined); // $ExpectError
 }

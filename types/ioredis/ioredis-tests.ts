@@ -27,6 +27,10 @@ redis.del('foo', 'bar').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
+redis.rpop('list', cb);
+redis.rpop('list', 2, cb);
+redis.rpop('list').then(console.log);
+redis.rpop('list', 2).then(console.log);
 redis.lpop('list', cb);
 redis.lpop('list', 2, cb);
 redis.lpop('list').then(console.log);
@@ -280,6 +284,11 @@ redis.lrangeBuffer('bufferlist', 0, listData.length - 2, (err, results) => {
     });
 });
 
+// Test redis disconnect
+redis.disconnect();
+redis.disconnect(true);
+redis.disconnect(false);
+
 // Test OverloadedSubCommand
 redis.cluster('INFO').then(console.log);
 redis.cluster('INFO', cb);
@@ -336,6 +345,10 @@ new Redis({
         servername: 'tlsservername',
     },
     enableAutoPipelining: true
+});
+// Test commandTimeout
+new Redis({
+    commandTimeout: 5000
 });
 
 const pub = new Redis();
@@ -715,6 +728,7 @@ cluster.hgetall('key', cb);
 cluster.incrby('key', 15).then(console.log);
 cluster.incrby('key', 15, cb);
 
+cluster.disconnect(true);
 cluster.disconnect();
 cluster.quit(result => {
     console.log(result);
@@ -758,6 +772,12 @@ redis.pipeline()
     .zremrangebylex('foo', '-', '+', (err: Error | null, res: number) => {
         // do something with res or err
     });
+
+// Test rpushx and lpushx for pushing several elements
+redis.pipeline()
+    .lpush('lpushxlist', 'foo')
+    .lpushx('lpushxlist', 'bar', 1)
+    .rpushx('rpushxlist', 'hoge', 2);
 
 redis.options.host;
 redis.status;

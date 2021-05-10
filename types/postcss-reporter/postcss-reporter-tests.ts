@@ -2,7 +2,6 @@
 
 import reporter = require('postcss-reporter');
 import formatter = require('postcss-reporter/lib/formatter');
-import { ResultMessage } from 'postcss';
 reporter({
     formatter: input => {
         return `${input.source} produced ${input.messages.length} messages`;
@@ -35,9 +34,10 @@ const basicMessages = [
 const myFormatter = formatter({
     noIcon: true,
     noPlugin: true,
+    positionless: 'last'
 });
 // Defaults
-myFormatter();
+myFormatter({ messages: [], source: 'test' });
 
 const warningLog = myFormatter({
     messages: basicMessages,
