@@ -58,7 +58,7 @@ const indicesHTMLRoot = cheerio.load(indicesHTML, {
   withEndIndices: true,
 });
 
-const tagEl = indicesHTMLRoot('*')['0'] as cheerio.TagElement;
+const tagEl = indicesHTMLRoot('*')[0] as cheerio.TagElement;
 const commentEl = tagEl.firstChild as cheerio.CommentElement;
 const textEl = tagEl.lastChild as cheerio.TextElement;
 
