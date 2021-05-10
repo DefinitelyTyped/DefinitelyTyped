@@ -67,8 +67,6 @@ tagEl.endIndex - tagEl.startIndex;
 commentEl.endIndex - commentEl.startIndex;
 textEl.endIndex - textEl.startIndex;
 
-$.
-
 /**
  * Selectors
  */
