@@ -15,7 +15,12 @@ import JasmineClass from "jasmine";
         random: true,
     });
 
-    jasmineClass.env.topSuite(); // $ExpectType Suite
+    const suite: jasmine.Suite = jasmineClass.env.topSuite();
+    for (const suiteSpec of suite.children) {
+        console.log("id:", suiteSpec.id);
+        console.log("description:", suiteSpec.description);
+        console.log("name:", suiteSpec.getFullName());
+    }
 
     jasmineClass.env.allowRespy(true);
 
