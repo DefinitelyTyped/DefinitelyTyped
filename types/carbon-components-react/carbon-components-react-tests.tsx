@@ -18,6 +18,11 @@ import {
     FileUploader,
     Link,
     NumberInput,
+    NumberInputOnChangeDataVariant,
+    NumberInputOnChangeDefaultVariant,
+    NumberInputOnClickDataVariant,
+    NumberInputOnClickDefaultVariant,
+    NumberInputOnClickInputVariant,
     Row,
     SecondaryButton,
     Slider,
@@ -52,8 +57,8 @@ import {
     DataTableSkeleton,
     TableCell,
     unstable_Heading as UnstableHeading,
-    unstable_Section as UnstableSection
-} from 'carbon-components-react';
+    unstable_Section as UnstableSection,
+} from "carbon-components-react";
 import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 
@@ -765,8 +770,58 @@ const passwordInputWithRef = <TextInput.PasswordInput id="my-id" ref={inputRef} 
 const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my-id" ref={inputRef} labelText="" />;
 
 // NumberInput
-const numberInput = <NumberInput id="my-id" value={12} />;
-const emptyNumberInput = <NumberInput id="empty-id" value="" />;
+{
+    const numberInput = <NumberInput id="my-id" value={12} />;
+    const emptyNumberInput = <NumberInput id="empty-id" value="" />;
+
+    const numberInputOnChangeT1 = (
+        <NumberInput
+            id="id"
+            onChange={((evt, { direction, value }) => evt.preventDefault()) as NumberInputOnChangeDataVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnChangeT2 = (
+        <NumberInput id="id" onChange={(evt, direction, value) => {
+            if (direction === "down") {
+                evt.preventDefault();
+            }
+        }} value="" />
+    );
+
+    const numberInputOnChangeT3 = (
+        <NumberInput
+            id="id"
+            onChange={((evt, direction, value) => evt.preventDefault()) as NumberInputOnChangeDefaultVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT1 = (
+        <NumberInput
+            id="id"
+            onClick={((evt, direction, value) => evt.preventDefault()) as NumberInputOnClickDefaultVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT2 = (
+        <NumberInput
+            id="id"
+            onClick={((evt, { direction, value }) => evt.preventDefault()) as NumberInputOnClickDataVariant}
+            value=""
+        />
+    );
+
+    const numberInputOnClickT3 = (
+        <NumberInput
+            id="id"
+            onClick={((evt) => evt.currentTarget.checked) as NumberInputOnClickInputVariant}
+            value=""
+        />
+    );
+}
 
 // FileUploader
 const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;
