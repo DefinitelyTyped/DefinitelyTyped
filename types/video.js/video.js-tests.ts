@@ -38,6 +38,7 @@ const playerOptions: VideoJsPlayerOptions = {
             myOption: true,
         },
     },
+    responsive: false,
     sources: [
         {
             src: 'https://example.com/video.mp4',
@@ -150,6 +151,10 @@ videojs('example_video_1', playerOptions).ready(function() {
     this.requestFullscreen();
 
     const networkState: videojs.NetworkState = this.networkState();
+
+    const responsive: boolean = this.responsive();
+
+    this.responsive(false);
 
     testEvents(this);
 
