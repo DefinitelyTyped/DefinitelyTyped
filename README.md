@@ -314,26 +314,28 @@ You may edit the `tsconfig.json` to add new test files, to add `"target": "es6"`
 
 ##### `esModuleInterop`/`allowSyntheticDefaultImports`
 
-`esModuleInterop` and `allowSyntheticDefaultImports` allow you to write a default import for a CJS export, modeling the built-in interoperability between CJS and ES modules in Node and in some JS bundlers:
+TL;DR: `esModuleInterop` and `allowSyntheticDefaultImports` are *not allowed* in your `tsconfig.json`.
 
-```tsx
-// component.d.ts
-declare class Component {​​​​​}​​​​​
-// CJS export, modeling `module.exports = Component` in JS
-export = Component;
-
-// index.d.ts
-// ESM default import, only allowed under 'esModuleInterop' or 'allowSyntheticDefaultExports'
-import Component from "./component";
-```
-
-Since the compile-time validity of the import in `index.d.ts` is dependent upon specific compilation settings, which users of your types do not inherit, using this pattern in DefinitelyTyped would force users to change their own compilation settings, which might be incorrect for their runtime. Instead, you must write a CJS import for a CJS export to ensure widespread, config-independent compatibility:
-
-```ts
-// index.d.ts
-// CJS import, modeling `const Component = require("./component")` in JS
-import Component = require("./component");
-```
+> These options make it possible to write a default import for a CJS export, modeling the built-in interoperability between CJS and ES modules in Node and in some JS bundlers:
+>
+> ```tsx
+> // component.d.ts
+> declare class Component {​​​​​}​​​​​
+> // CJS export, modeling `module.exports = Component` in JS
+> export = Component;
+>
+> // index.d.ts
+> // ESM default import, only allowed under 'esModuleInterop' or 'allowSyntheticDefaultExports'
+> import Component from "./component";
+> ```
+>
+> Since the compile-time validity of the import in `index.d.ts` is dependent upon specific compilation settings, which users of your types do not inherit, using this pattern in DefinitelyTyped would force users to change their own compilation settings, which might be incorrect for their runtime. Instead, you must write a CJS import for a CJS export to ensure widespread, config-independent compatibility:
+>
+> ```ts
+> // index.d.ts
+> // CJS import, modeling `const Component = require("./component")` in JS
+> import Component = require("./component");
+> ```
 
 #### `package.json`
 
