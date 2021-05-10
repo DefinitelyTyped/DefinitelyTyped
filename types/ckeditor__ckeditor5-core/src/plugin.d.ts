@@ -11,7 +11,7 @@ export default class Plugin implements Emitter, Observable {
     static readonly requires?: Array<typeof Plugin>;
 
     readonly editor: Editor;
-    readonly isEnabled: boolean;
+    isEnabled: boolean;
 
     constructor(editor: Editor);
     afterInit?(): Promise<any> | void;

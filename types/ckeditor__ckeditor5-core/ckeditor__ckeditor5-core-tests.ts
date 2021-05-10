@@ -34,7 +34,7 @@ PluginArray.forEach(plugin => plugin.pluginName);
 const editor = new MyEditor(document.createElement("div"));
 const editorState: "initializing" | "ready" | "destroyed" = editor.state;
 // $ExpectError
-editor.state = null;
+editor.state = editorState;
 editor.focus();
 editor.destroy().then(() => {});
 editor.initPlugins().then(plugins => plugins.map(plugin => plugin.pluginName));
@@ -62,6 +62,7 @@ const myPlugin = new MyPlugin(editor);
 const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
+myPlugin.isEnabled = true;
 
 class MyEmptyEditor extends Editor {
     static builtinPlugins = [MyPlugin];
@@ -87,6 +88,14 @@ command.destroy();
 command.execute();
 
 command.refresh();
+
+command.value = "foo";
+delete command.value;
+
+command.isEnabled = false;
+command.isEnabled = true;
+// $ExpectError
+delete command.isEnabled;
 
 /**
  * Context
