@@ -20,6 +20,7 @@ export interface Options {
     stroke?: Stroke;
     rotation?: number;
     rotateWithView?: boolean;
+    scale?: number | Size;
 }
 export interface RenderOptions {
     strokeStyle?: ColorLike;
