@@ -661,6 +661,14 @@
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
         },
+        "datastore-core": {
+            "libraryName": "datastore-core",
+            "asOfVersion": "3.0.0"
+        },
+        "datastore-level": {
+            "libraryName": "datastore-level",
+            "asOfVersion": "3.0.0"
+        },
         "date-fns": {
             "libraryName": "date-fns",
             "asOfVersion": "2.6.0"

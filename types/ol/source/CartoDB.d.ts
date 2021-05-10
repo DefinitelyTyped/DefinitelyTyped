@@ -21,6 +21,7 @@ export interface Options {
     config?: any;
     map?: string;
     account: string;
+    transition?: number;
 }
 export default class CartoDB extends XYZ {
     constructor(options: Options);

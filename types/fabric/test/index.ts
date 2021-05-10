@@ -303,10 +303,10 @@ function sample4() {
 }
 
 interface CircleWithLineInfos extends fabric.Circle {
-    line1?: fabric.Line;
-    line2?: fabric.Line;
-    line3?: fabric.Line;
-    line4?: fabric.Line;
+  line1?: fabric.Line;
+  line2?: fabric.Line;
+  line3?: fabric.Line;
+  line4?: fabric.Line;
 }
 
 function sample5() {
@@ -327,42 +327,42 @@ function sample5() {
             stroke: "#666",
         });
 
-        c.line1 = line1;
-        c.line2 = line2;
-        c.line3 = line3;
-        c.line4 = line4;
-        c.hasControls = c.hasBorders = false;
-        return c;
-    };
+    c.line1 = line1;
+    c.line2 = line2;
+    c.line3 = line3;
+    c.line4 = line4;
+    c.hasControls = c.hasBorders = false;
+    return c;
+  };
 
-    function makeLine(coords: number[]) {
-        return new fabric.Line(coords, {
-            fill: "red",
-            strokeWidth: 5,
-            selectable: false,
-        });
-    }
+  function makeLine(coords: number[]) {
+    return new fabric.Line(coords, {
+      fill: 'red',
+      strokeWidth: 5,
+      selectable: false
+    });
+  }
 
-    const canvas = new fabric.Canvas("c", { selection: false });
+  const canvas = new fabric.Canvas('c', { selection: false });
 
-    const line = makeLine([250, 125, 250, 175]);
-    const line2 = makeLine([250, 175, 250, 250]);
-    const line3 = makeLine([250, 250, 300, 350]);
-    const line4 = makeLine([250, 250, 200, 350]);
-    const line5 = makeLine([250, 175, 175, 225]);
-    const line6 = makeLine([250, 175, 325, 225]);
+  const line = makeLine([250, 125, 250, 175]);
+  const line2 = makeLine([250, 175, 250, 250]);
+  const line3 = makeLine([250, 250, 300, 350]);
+  const line4 = makeLine([250, 250, 200, 350]);
+  const line5 = makeLine([250, 175, 175, 225]);
+  const line6 = makeLine([250, 175, 325, 225]);
 
-    canvas.add(line, line2, line3, line4, line5, line6);
+  canvas.add(line, line2, line3, line4, line5, line6);
 
-    canvas.add(
-        makeCircle(line.x1, line.y1, null, line),
-        makeCircle(line.x2, line.y2, line, line2, line5, line6),
-        makeCircle(line2.x2, line2.y2, line2, line3, line4),
-        makeCircle(line3.x2, line3.y2, line3),
-        makeCircle(line4.x2, line4.y2, line4),
-        makeCircle(line5.x2, line5.y2, line5),
-        makeCircle(line6.x2, line6.y2, line6),
-    );
+  canvas.add(
+      makeCircle(line.x1, line.y1, null, line),
+      makeCircle(line.x2, line.y2, line, line2, line5, line6),
+      makeCircle(line2.x2, line2.y2, line2, line3, line4),
+      makeCircle(line3.x2, line3.y2, line3),
+      makeCircle(line4.x2, line4.y2, line4),
+      makeCircle(line5.x2, line5.y2, line5),
+      makeCircle(line6.x2, line6.y2, line6)
+  );
 
     canvas.on("object:moving", e => {
         const p = <CircleWithLineInfos>e.target;
@@ -375,39 +375,34 @@ function sample5() {
 }
 
 function sample6() {
-    const canvas = new fabric.Canvas("c");
-    fabric.loadSVGFromURL(
-        "../assets/135.svg",
-        objects => {
-            const obj = objects[0].scale(0.25);
-            canvas.centerObject(obj);
-            canvas.add(obj);
+  const canvas = new fabric.Canvas('c');
+  fabric.loadSVGFromURL('../assets/135.svg', objects => {
+    const obj = objects[0].scale(0.25);
+    canvas.centerObject(obj);
+    canvas.add(obj);
 
-            obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
-            obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
-            obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
-            obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
 
-            canvas.on("mouse:move", options => {
-                const p = canvas.getPointer(options.e);
+    canvas.on('mouse:move', options => {
+      const p = canvas.getPointer(options.e);
 
-                canvas.forEachObject(obj => {
-                    const distX = Math.abs(p.x - obj.left);
-                    const distY = Math.abs(p.y - obj.top);
-                    const dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
-                    obj.set("opacity", 1 / (dist / 20));
-                });
-            });
-        },
-        null,
-        {
-            crossOrigin: "anonymous",
-        },
-    );
+      canvas.forEachObject(obj => {
+        const distX = Math.abs(p.x - obj.left);
+        const distY = Math.abs(p.y - obj.top);
+        const dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
+        obj.set('opacity', (1 / (dist / 20)));
+      });
+    });
+  }, null, {
+    crossOrigin:'anonymous'
+  });
 }
 
 interface ImageWithInfo extends fabric.Image {
-    movingLeft: boolean;
+  movingLeft: boolean;
 }
 
 function sample7() {
@@ -447,6 +442,22 @@ function sample8() {
         }
         return str;
     }
+    return str;
+  }
+
+  const getRandomInt = fabric.util.getRandomInt;
+
+  function getRandomColor() {
+    return (
+        pad(getRandomInt(0, 255).toString(16), 2) +
+        pad(getRandomInt(0, 255).toString(16), 2) +
+        pad(getRandomInt(0, 255).toString(16), 2)
+    );
+  }
+
+  function getRandomNum(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+  }
 
     const getRandomInt = fabric.util.getRandomInt;
 
@@ -700,67 +711,62 @@ function sample8() {
                 ? "Unlock horizontal movement"
                 : "Lock horizontal movement";
         }
-    };
+      };
+    })();
+  }
 
-    const lockVerticallyEl = document.getElementById("lock-vertically");
-    lockVerticallyEl.onclick = () => {
-        const activeObject: any = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.lockMovementY = !activeObject.lockMovementY;
-            lockVerticallyEl.innerHTML = activeObject.lockMovementY
-                ? "Unlock vertical movement"
-                : "Lock vertical movement";
-        }
-    };
-
-    const lockScalingXEl = document.getElementById("lock-scaling-x");
-    lockScalingXEl.onclick = () => {
-        const activeObject: any = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.lockScalingX = !activeObject.lockScalingX;
-            lockScalingXEl.innerHTML = activeObject.lockScalingX
-                ? "Unlock horizontal scaling"
-                : "Lock horizontal scaling";
-        }
-    };
-
-    const lockScalingYEl = document.getElementById("lock-scaling-y");
-    lockScalingYEl.onclick = () => {
-        const activeObject: any = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.lockScalingY = !activeObject.lockScalingY;
-            lockScalingYEl.innerHTML = activeObject.lockScalingY ? "Unlock vertical scaling" : "Lock vertical scaling";
-        }
-    };
-
-    const lockRotationEl = document.getElementById("lock-rotation");
-    lockRotationEl.onclick = () => {
-        const activeObject: any = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.lockRotation = !activeObject.lockRotation;
-            lockRotationEl.innerHTML = activeObject.lockRotation ? "Unlock rotation" : "Lock rotation";
-        }
-    };
-
-    const gradientifyBtn = document.getElementById("gradientify");
-
-    const activeObjectButtons = [
-        lockHorizontallyEl,
-        lockVerticallyEl,
-        lockScalingXEl,
-        lockScalingYEl,
-        lockRotationEl,
-        removeSelectedEl,
-        gradientifyBtn,
-    ];
-
-    const opacityEl = document.getElementById("opacity");
-    if (opacityEl) {
-        activeObjectButtons.push(opacityEl);
+  const lockHorizontallyEl = document.getElementById('lock-horizontally');
+  lockHorizontallyEl.onclick = () => {
+    const activeObject: any = canvas.getActiveObject();
+    if (activeObject) {
+      activeObject.lockMovementX = !activeObject.lockMovementX;
+      lockHorizontallyEl.innerHTML = activeObject.lockMovementX
+          ? 'Unlock horizontal movement'
+          : 'Lock horizontal movement';
     }
-    const colorEl = document.getElementById("color");
-    if (colorEl) {
-        activeObjectButtons.push(colorEl);
+  };
+
+  const lockVerticallyEl = document.getElementById('lock-vertically');
+  lockVerticallyEl.onclick = () => {
+    const activeObject: any = canvas.getActiveObject();
+    if (activeObject) {
+      activeObject.lockMovementY = !activeObject.lockMovementY;
+      lockVerticallyEl.innerHTML = activeObject.lockMovementY
+          ? 'Unlock vertical movement'
+          : 'Lock vertical movement';
+    }
+  };
+
+  const lockScalingXEl = document.getElementById('lock-scaling-x');
+  lockScalingXEl.onclick = () => {
+    const activeObject: any = canvas.getActiveObject();
+    if (activeObject) {
+      activeObject.lockScalingX = !activeObject.lockScalingX;
+      lockScalingXEl.innerHTML = activeObject.lockScalingX
+          ? 'Unlock horizontal scaling'
+          : 'Lock horizontal scaling';
+    }
+  };
+
+  const lockScalingYEl = document.getElementById('lock-scaling-y');
+  lockScalingYEl.onclick = () => {
+    const activeObject: any = canvas.getActiveObject();
+    if (activeObject) {
+      activeObject.lockScalingY = !activeObject.lockScalingY;
+      lockScalingYEl.innerHTML = activeObject.lockScalingY
+          ? 'Unlock vertical scaling'
+          : 'Lock vertical scaling';
+    }
+  };
+
+  const lockRotationEl = document.getElementById('lock-rotation');
+  lockRotationEl.onclick = () => {
+    const activeObject: any = canvas.getActiveObject();
+    if (activeObject) {
+      activeObject.lockRotation = !activeObject.lockRotation;
+      lockRotationEl.innerHTML = activeObject.lockRotation
+          ? 'Unlock rotation'
+          : 'Lock rotation';
     }
 
     for (let i = activeObjectButtons.length; i--;) {
@@ -1094,9 +1100,9 @@ function sample10() {
 }
 
 function sample11() {
-    const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
-    const webglFilterBackend = new fabric.WebglFilterBackend();
-    fabric.filterBackend = new fabric.Canvas2dFilterBackend();
+  const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
+  const webglFilterBackend = new fabric.WebglFilterBackend();
+  fabric.filterBackend = new fabric.Canvas2dFilterBackend();
 }
 
 function sample12() {
@@ -1112,6 +1118,14 @@ function sample13() {
 }
 
 function sample14() {
+  fabric.Object.prototype.controls.testControl = new fabric.Control({
+    mouseUpHandler(eventData: MouseEvent, transformData: fabric.Transform, x: number, y: number): boolean {
+      return false;
+    }
+  });
+}
+
+function sample15() {
     const canvas = new fabric.Canvas("c");
 
     // $ExpectType object

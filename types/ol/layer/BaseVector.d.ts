@@ -5,7 +5,7 @@ import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import { ObjectEvent } from '../Object';
 import { Pixel } from '../pixel';
-import PluggableMap from '../PluggableMap';
+import PluggableMap, { FrameState } from '../PluggableMap';
 import { OrderFunction } from '../render';
 import RenderEvent from '../render/Event';
 import VectorSource from '../source/Vector';
@@ -60,6 +60,10 @@ export default class BaseVectorLayer<
     getStyleFunction(): StyleFunction | undefined;
     getUpdateWhileAnimating(): boolean;
     getUpdateWhileInteracting(): boolean;
+    /**
+     * Render declutter items for this layer
+     */
+    renderDeclutter(frameState: FrameState): void;
     setRenderOrder(renderOrder: OrderFunction | null | undefined): void;
     /**
      * Set the style for features.  This can be a single style object, an array

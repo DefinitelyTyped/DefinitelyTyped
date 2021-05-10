@@ -13,6 +13,7 @@
 //                 Mike Moore <https://github.com/mike667>
 //                 Natalie Marleny <https://github.com/nataliemarleny>
 //                 Dave Lage <https://github.com/rockerBOO>
+//                 Cody Brooks <https://github.com/buzzyboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 export import fabric = require('./fabric-impl');

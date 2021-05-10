@@ -568,6 +568,12 @@ chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
     console.log('harLog: ', harLog);
 });
 
+function testDevtools() {
+    chrome.devtools.inspectedWindow.eval('1+1', undefined, result => {
+        console.log(result);
+    });
+}
+
 function testAssistiveWindow() {
     chrome.input.ime.setAssistiveWindowProperties({
         contextID: 0,

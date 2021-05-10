@@ -3,8 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "esnext",
-            "esnext.asynciterable"
+	    "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -20,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "datastore-core-tests.ts"
+        "wicg-entries-api-tests.ts"
     ]
 }

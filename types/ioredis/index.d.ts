@@ -5,7 +5,6 @@
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 //                 Whemoon Jang <https://github.com/palindrom615>
-//                 Francis Gulotta <https://github.com/reconbot>
 //                 Dmitry Motovilov <https://github.com/funthing>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 Ting-Wai To <https://github.com/tingwai-to>
@@ -318,6 +317,8 @@ declare namespace IORedis {
 
         rpop(key: KeyType, callback: Callback<string>): void;
         rpop(key: KeyType): Promise<string>;
+        rpop(key: KeyType, count: number, callback: Callback<string[]>): void;
+        rpop(key: KeyType, count: number): Promise<string[]>;
 
         lpop(key: KeyType, callback: Callback<string>): void;
         lpop(key: KeyType): Promise<string>;
