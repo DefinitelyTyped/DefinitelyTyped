@@ -58,13 +58,13 @@ const indicesHTMLRoot = cheerio.load(indicesHTML, {
   withEndIndices: true,
 });
 
-const tagEl = indicesHTMLRoot('*')['0'];
-const commentEl = tagEl.firstChild;
-const textEl = commentEl.nextSibling;
+const tagEl = indicesHTMLRoot('*')['0'] as cheerio.TagElement;
+const commentEl = tagEl.firstChild as cheerio.CommentElement;
+const textEl = tagEl.lastChild as cheerio.TextElement;
 
-tagEl.endIndex - tagEl.startIndex;
-commentEl.endIndex - commentEl.startIndex;
-textEl.endIndex - textEl.startIndex;
+tagEl.endIndex! - tagEl.startIndex!;
+commentEl.endIndex! - commentEl.startIndex!;
+textEl.endIndex! - textEl.startIndex!;
 
 /**
  * Selectors
