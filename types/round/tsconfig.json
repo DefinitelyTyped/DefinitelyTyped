@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "ES5"
+            "ES6"
         ],
         "baseUrl": "../",
         "typeRoots": [
