@@ -1,6 +1,7 @@
 // Type definitions for non-npm package jitsi-meet 2.0
 // Project: https://github.com/jitsi/jitsi-meet
 // Definitions by: Tom Price <https://github.com/tomtom5152>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
@@ -604,6 +605,7 @@ export interface ExternalAPIEventCallbacks {
     participantRoleChanged: (e: ParticipantRoleChangedEvent) => void;
     passwordRequired: () => void;
     videoConferenceJoined: (e: VideoConferenceJoinedEvent) => void;
+    videoConferenceLeft: (e: VideoConferenceLeftEvent) => void;
     videoAvailabilityChanged: (e: VideoAvailabilityChangedEvent) => void;
     videoMuteStatusChanged: (e: VideoMuteStatusChangedEvent) => void;
     videoQualityChanged: (e: VideoQualityChangedEvent) => void;
