@@ -330,9 +330,8 @@ declare namespace Assertions {
     type NotEqual = (found: any, notWanted: any, message?: string, extra?: Options.Assert) => boolean;
     type Match = (
         found: any,
-
         // -- docs from https://www.npmjs.com/package/tcompare
-        // 
+        //
         // If the object and pattern are loosely equal, then pass
         // If the object and the pattern are both Regular Expressions, Date objects or Buffers, then pass if they're "equivalent".
         // If the pattern is a RegExp, cast object to a string, and test against the RegExp.
@@ -341,7 +340,7 @@ declare namespace Assertions {
         // If pattern and object are collections (object, map, set, array or iterable), then compare their contents.
         // Each type of collection can only match its same type,
         // with the exception of non-Set iterables (including arguments objects), which are cast to Arrays.
-        // 
+        //
         // So, technically, this should be "any". In practice, people will mainly use strings, regexps or object k: any.
         pattern: any,
         message?: string,
