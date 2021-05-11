@@ -1,7 +1,12 @@
 {
     "private": true,
-    "dependencies": {
-        "tapable": "^2.0.0",
+    "peerDependencies": {
+        "webpack": ">=4.0.0 <6.0.0"
+    },
+    "devDependencies": {
         "webpack": "^5.1.0"
+    },
+    "dependencies": {
+        "tapable": "^2.0.0"
     }
 }
