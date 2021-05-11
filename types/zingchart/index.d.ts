@@ -4,5 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 // Minimum TypeScript Version: 3.7
-import zingchart from './es6';
+import { zingchart, ZC } from './es6';
+
+export { zingchart, ZC };
 export default zingchart;

@@ -18114,4 +18114,12 @@ declare namespace zingchart {
   }
 }
 
+declare namespace ZC {
+  let BUILDCODE: string[];
+  let LICENSE: string[];
+  let LICENSEKEY: string[];
+  let VERSION: string;
+}
+
 export default zingchart;
+export { zingchart, ZC };
