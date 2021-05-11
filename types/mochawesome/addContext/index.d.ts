@@ -33,10 +33,4 @@ type TestContext = string | TestContextObject;
 declare function addContext(testCtx: Mocha.Context, context: TestContext): void;
 declare namespace addContext { }
 
-/**
- * Test Description
- *
- */
-// declare const addContext: AddContext;
-
 export = addContext;
