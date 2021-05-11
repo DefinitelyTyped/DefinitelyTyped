@@ -12,3 +12,11 @@ gcd(1);
 gcd([1]);
 // $ExpectType null
 gcd([{ foo: 1 }], ({ foo }) => foo);
+// $ExpectType number | null
+gcd([1, 2, 3] as number[]);
+// $ExpectType number | null
+gcd(...([1, 2, 3] as number[]));
+// $ExpectType number | null
+gcd(...([1, 2, 3] as number[]));
+// $ExpectType number | null
+gcd([{ foo: 1 }, { foo: 2 }, { foo: 3 }] as Array<{ foo: number }>, ({ foo }) => foo);
