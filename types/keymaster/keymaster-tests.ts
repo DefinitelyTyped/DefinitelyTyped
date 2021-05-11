@@ -7,6 +7,6 @@ key("shift+b", "aScope", (keyboardEvent, keymasterEvent) => {});
 // This re-sets the default filter method: https://www.npmjs.com/package/keymaster#filter-key-presses
 const element = new HTMLElement();
 key.filter = event => {
-    var tagName = (event.target || event.srcElement)!.tagName;
-    return !(tagName == "INPUT" || tagName == "SELECT" || tagName == "TEXTAREA");
+    const tagName = (event.target || event.srcElement)!.tagName;
+    return !(tagName === "INPUT" || tagName === "SELECT" || tagName === "TEXTAREA");
 };
