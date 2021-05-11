@@ -14,7 +14,7 @@ tap.test("all-assertions", t => {
     const fn: (stuff: any) => void = () => { };
     const expectedError: Error = new Error();
     const eventEmitter: EventEmitter = new EventEmitter();
-    const pattern: RegExp | string | { [key: string]: RegExp } = "pattern";
+    const pattern: any = "pattern";
 
     const message = "message";
     const extra = {
