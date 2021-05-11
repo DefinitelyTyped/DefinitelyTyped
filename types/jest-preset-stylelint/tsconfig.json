@@ -10,7 +10,6 @@
         "typeRoots": [
             "../"
         ],
-        "target": "es5",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
