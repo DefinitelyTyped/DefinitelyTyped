@@ -1,21 +1,21 @@
 declare namespace zingchart {
-  export function render(config: object): null;
-  export function bind(id: string, eventName: string, cb?: any): void;
-  export function exec(id: string, call: string, params: any): any;
-  export function unbind(id: string, event: string, fn?: any): void;
+  function render(config: object): null;
+  function bind(id: string, eventName: string, cb?: any): void;
+  function exec(id: string, call: string, params: any): any;
+  function unbind(id: string, event: string, fn?: any): void;
 
-  export let BUILDCODE: string[];
-  export let LICENSE: string[];
-  export let LICENSEKEY: string[];
-  export let ASYNC: boolean;
-  export let FONTFAMILY: string[];
-  export let FONTSIZE: string[];
-  export let MODULESDIR: string[];
-  export let ZCOUTPUT: boolean;
-  export let SYNTAX: string;
-  export let EXPORTURL: string;
-  export let AJAXEXPORT: boolean;
-  export let DEV: {
+  let BUILDCODE: string[];
+  let LICENSE: string[];
+  let LICENSEKEY: string[];
+  let ASYNC: boolean;
+  let FONTFAMILY: string[];
+  let FONTSIZE: string[];
+  let MODULESDIR: string[];
+  let ZCOUTPUT: boolean;
+  let SYNTAX: string;
+  let EXPORTURL: string;
+  let AJAXEXPORT: boolean;
+  let DEV: {
     CANVASVERSION?: number;
     CACHECANVASTEXT?: boolean;
     CACHESELECTION?: boolean;
@@ -30,14 +30,14 @@ declare namespace zingchart {
     RESOURCES?: boolean;
   };
 
-  export interface data {
+  interface data {
     globals?: globals;
     graphset?: [graphset];
     gui?: gui;
     history?: history;
     refresh?: refresh;
   }
-  export interface globals {
+  interface globals {
     /**
      * Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 be
      * ing completely opaque. Note that values require a leading zero before the decimal. 0.3 | 0.9 | ...
@@ -84,7 +84,7 @@ declare namespace zingchart {
      */
     'line-width'?: number;
   }
-  export interface graphset {
+  interface graphset {
     /**
      * Sets the transparency level of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 be
      * ing completely opaque. Note that values require the leading 0 before the decimal point. 0.3 | 0.4 | 0.9 | ...
@@ -372,7 +372,7 @@ declare namespace zingchart {
            */
           y?: number;
         };
-      },
+      }
     ];
     crosshair?: {
       /**
@@ -1724,7 +1724,7 @@ declare namespace zingchart {
          * Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values. 5 | 10 | ...
          */
         'z-index'?: number;
-      },
+      }
     ];
     labels?: [
       {
@@ -2116,7 +2116,7 @@ declare namespace zingchart {
            */
           type?: string;
         };
-      },
+      }
     ];
     legend?: {
       /**
@@ -4352,7 +4352,7 @@ declare namespace zingchart {
          * breakpoints. true | false
          */
         visible?: boolean;
-      },
+      }
     ];
     'no-data'?: {
       /**
@@ -4739,7 +4739,7 @@ declare namespace zingchart {
              * Use the object to display or remove individual Share Image context menu items: email, facebook, twitter, and linkedin. {...}
              */
             share?: any;
-          },
+          }
         ];
       };
       indicator?: {
@@ -5027,7 +5027,7 @@ declare namespace zingchart {
            * To set the word. "Flowers" | "Freesia" | "Peony" | ...
            */
           text?: string;
-        },
+        }
       ];
     };
     plot?: {
@@ -6965,7 +6965,7 @@ declare namespace zingchart {
            * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
            */
           rule?: string;
-        },
+        }
       ];
       'selected-marker'?: {
         /**
@@ -8614,7 +8614,7 @@ declare namespace zingchart {
              * Sets the border width of the object. 1 | 3 | '6px' | ...
              */
             'border-width'?: number;
-          },
+          }
         ];
       };
       item?: {
@@ -8626,7 +8626,7 @@ declare namespace zingchart {
         /**
          * Sets the angle of the object. -45 | 30 | 120 | ...
          */
-        angle?: number;
+        angle?: number
         /**
          * Sets the background color of the object. Colors can be entered by name (e.g., 'purple', 'blue'), hexadecimal notation (e.g., '#666
          * 699', '#33ccff'), or RGB notation (e.g., 'rgb(255,0,0)', 'rgb(0,0,255)'). 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100
@@ -9090,7 +9090,7 @@ declare namespace zingchart {
              */
             width?: number;
           };
-        },
+        }
       ];
       'minor-guide'?: {
         /**
@@ -9207,7 +9207,7 @@ declare namespace zingchart {
              * Sets the size of the object. 30 | '40px' | ...
              */
             size?: number;
-          },
+          }
         ];
       };
       tick?: {
@@ -9303,7 +9303,7 @@ declare namespace zingchart {
              * Sets the background color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
              */
             'background-color'?: string;
-          },
+          }
         ];
       };
       item?: {
@@ -9727,7 +9727,7 @@ declare namespace zingchart {
              * Sets the border width of the object. 1 | 3 | '6px' | ...
              */
             'border-width'?: number;
-          },
+          }
         ];
       };
       item?: {
@@ -10545,7 +10545,7 @@ declare namespace zingchart {
              */
             width?: number;
           };
-        },
+        }
       ];
       'minor-guide'?: {
         /**
@@ -10658,7 +10658,7 @@ declare namespace zingchart {
            * Allows you to specify what portions of a chart to apply selected attributes to. '%v > 0' | '%v >= 5' | ...
            */
           rule?: string;
-        },
+        }
       ];
       tick?: {
         /**
@@ -11489,7 +11489,7 @@ declare namespace zingchart {
              * Sets the border width of the object. 1 | 3 | '6px' | ...
              */
             'border-width'?: number;
-          },
+          }
         ];
       };
       item?: {
@@ -12306,7 +12306,7 @@ declare namespace zingchart {
              */
             width?: number;
           };
-        },
+        }
       ];
       'minor-guide'?: {
         /**
@@ -12419,7 +12419,7 @@ declare namespace zingchart {
            * Allows you to specify what portions of a chart to apply selected attributes to. '%v > 0' | '%v >= 5' | ...
            */
           rule?: string;
-        },
+        }
       ];
       tick?: {
         /**
@@ -12890,7 +12890,7 @@ declare namespace zingchart {
          * Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values. 5 | 10 | ...
          */
         'z-index'?: number;
-      },
+      }
     ];
     source?: {
       /**
@@ -14339,7 +14339,7 @@ declare namespace zingchart {
     };
   }
 
-  export interface behavior {
+  interface behavior {
     /**
      * To enable or disable individual context menu item behaviors. "all" | "none"
      */
@@ -14349,7 +14349,7 @@ declare namespace zingchart {
      */
     id?: string;
   }
-  export interface gui {
+  interface gui {
     /**
      * To create custom context menu items
      */
@@ -14506,7 +14506,7 @@ declare namespace zingchart {
            * Sets the text for the menu item. "New Menu Item" | ...
            */
           text?: string;
-        },
+        }
       ];
       gear?: {
         /**
@@ -14627,7 +14627,7 @@ declare namespace zingchart {
       };
     };
   }
-  export interface history {
+  interface history {
     /**
      * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
      * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
@@ -15048,7 +15048,7 @@ declare namespace zingchart {
       'shadow-distance'?: any;
     };
   }
-  export interface refresh {
+  interface refresh {
     /**
      * Sets the type of data refresh, full being the only option at loader's level. "full"
      */
@@ -15377,7 +15377,7 @@ declare namespace zingchart {
       'wrap-text'?: boolean;
     };
   }
-  export interface series {
+  interface series {
     /**
      * Sets the transparency level of backgrounds, borders, and lines. Values must range between 0.0 and 1.0, with 0.0 being completely t
      * ransparent and 1.0 being completely opaque. Note that values require the leading zero before the decimal point. 0.3 | 0.9 | ...
@@ -17306,7 +17306,7 @@ declare namespace zingchart {
          * tes within each rule will be applied to the scale-y guide. "%c == 2" | "%v <= 0" | "%v > 0" | ...
          */
         rule?: string;
-      },
+      }
     ];
     'selected-marker'?: {
       /**
