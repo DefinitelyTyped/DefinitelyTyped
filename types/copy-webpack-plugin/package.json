@@ -1,8 +1,5 @@
 {
     "private": true,
-    "peerDependencies": {
-        "webpack": ">=4.0.0 <6.0.0"
-    },
     "devDependencies": {
         "webpack": "^5.1.0"
     },
