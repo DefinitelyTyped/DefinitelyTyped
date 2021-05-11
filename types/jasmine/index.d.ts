@@ -594,7 +594,7 @@ declare namespace jasmine {
          * @example
          * expect(thing).toBe(realThing);
          */
-        toBe(expected: Expected<T>): void;
+        toBe(expected: Expected<T>, expectationFailOutput?: any): void;
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
@@ -602,7 +602,7 @@ declare namespace jasmine {
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
-        toEqual(expected: Expected<T>): void;
+        toEqual(expected: Expected<T>, expectationFailOutput?: any): void;
 
         /**
          * Expect the actual value to match a regular expression.
@@ -611,14 +611,14 @@ declare namespace jasmine {
          * expect("my string").toMatch(/string$/);
          * expect("other string").toMatch("her");
          */
-        toMatch(expected: string | RegExp): void;
+        toMatch(expected: string | RegExp, expectationFailOutput?: any): void;
 
-        toBeDefined(): void;
-        toBeUndefined(): void;
-        toBeNull(): void;
+        toBeDefined(expectationFailOutput?: any): void;
+        toBeUndefined(expectationFailOutput?: any): void;
+        toBeNull(expectationFailOutput?: any): void;
         toBeNaN(): void;
-        toBeTruthy(): void;
-        toBeFalsy(): void;
+        toBeTruthy(expectationFailOutput?: any): void;
+        toBeFalsy(expectationFailOutput?: any): void;
         toBeTrue(): void;
         toBeFalse(): void;
         toHaveBeenCalled(): void;
@@ -626,18 +626,18 @@ declare namespace jasmine {
         toHaveBeenCalledWith(...params: any[]): void;
         toHaveBeenCalledOnceWith(...params: any[]): void;
         toHaveBeenCalledTimes(expected: number): void;
-        toContain(expected: any): void;
-        toBeLessThan(expected: number): void;
-        toBeLessThanOrEqual(expected: number): void;
-        toBeGreaterThan(expected: number): void;
-        toBeGreaterThanOrEqual(expected: number): void;
-        toBeCloseTo(expected: number, precision?: any): void;
+        toContain(expected: any, expectationFailOutput?: any): void;
+        toBeLessThan(expected: number, expectationFailOutput?: any): void;
+        toBeLessThanOrEqual(expected: number, expectationFailOutput?: any): void;
+        toBeGreaterThan(expected: number, expectationFailOutput?: any): void;
+        toBeGreaterThanOrEqual(expected: number, expectationFailOutput?: any): void;
+        toBeCloseTo(expected: number, precision?: any, expectationFailOutput?: any): void;
         toThrow(expected?: any): void;
         toThrowError(message?: string | RegExp): void;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): void;
         toThrowMatching(predicate: (thrown: any) => boolean): void;
-        toBeNegativeInfinity(): void;
-        toBePositiveInfinity(): void;
+        toBeNegativeInfinity(expectationFailOutput?: any): void;
+        toBePositiveInfinity(expectationFailOutput?: any): void;
         toBeInstanceOf(expected: Constructor): void;
 
         /**
@@ -649,7 +649,7 @@ declare namespace jasmine {
          * el.className = 'foo bar baz';
          * expect(el).toHaveClass('bar');
          */
-        toHaveClass(expected: string): void;
+        toHaveClass(expected: string, expectationFailOutput?: any): void;
 
         /**
          * Expect the actual size to be equal to the expected, using array-like
@@ -682,7 +682,7 @@ declare namespace jasmine {
          * @example
          * expect(thing).toBe(realThing);
          */
-        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>): void;
+        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): void;
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
@@ -690,9 +690,9 @@ declare namespace jasmine {
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
-        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>): void;
+        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): void;
 
-        toContain(expected: Expected<T>): void;
+        toContain(expected: Expected<T>, expectationFailOutput?: any): void;
 
         /**
          * Add some context for an expect.
@@ -743,17 +743,17 @@ declare namespace jasmine {
         /**
          * Expect a promise to be pending, i.e. the promise is neither resolved nor rejected.
          */
-        toBePending(): PromiseLike<void>;
+        toBePending(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved.
          */
-        toBeResolved(): PromiseLike<void>;
+        toBeResolved(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected.
          */
-        toBeRejected(): PromiseLike<void>;
+        toBeRejected(expectationFailOutput?: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
