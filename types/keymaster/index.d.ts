@@ -18,12 +18,8 @@ interface KeyHandler {
 }
 
 interface FilterEvent {
-    target?: {
-        tagName?: string;
-    }
-    srcElement?: {
-        tagName?: string;
-    }
+    target?: HTMLElement;
+    srcElement?: HTMLElement;
 }
 
 interface Keymaster {
