@@ -1180,9 +1180,9 @@ describe("DiffBuilder", () => {
 
 describe("custom asymmetry", () => {
     const tester: jasmine.AsymmetricMatcher<string> = {
-        asymmetricMatch: (actual: string) => {
+        asymmetricMatch: (actual: string, matchersUtil: jasmine.MatchersUtil) => {
             const secondValue = actual.split(",")[1];
-            return jasmine.matchersUtil.equals(secondValue, "bar");
+            return matchersUtil.equals(secondValue, "bar");
         },
     };
 
