@@ -50,7 +50,7 @@ interface Keymaster {
     isPressed(keyCode: number): boolean;
     getPressedKeyCodes(): number[];
 
-    filter(event: FilterEvent): void;
+    filter(event: FilterEvent): boolean;
 }
 
 declare var key: Keymaster;
