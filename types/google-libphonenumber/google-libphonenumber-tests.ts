@@ -41,3 +41,9 @@ import { PhoneNumberFormat, PhoneNumberUtil, AsYouTypeFormatter } from 'google-l
 
     formatter.clear();
 }
+
+// Get instance of `PhoneNumberUtil`
+var phoneNumberUtil = PhoneNumberUtil.getInstance();
+
+// phone code should be a number
+phoneNumberUtil.getCountryCodeForRegion('IT'); // $ExpectType number

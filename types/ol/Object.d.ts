@@ -5,6 +5,10 @@ import Observable from './Observable';
 export default class BaseObject extends Observable {
     constructor(opt_values?: { [key: string]: any });
     /**
+     * Apply any properties from another object without triggering events.
+     */
+    protected applyProperties(source: BaseObject): void;
+    /**
      * Gets a value.
      */
     get(key: string): any;

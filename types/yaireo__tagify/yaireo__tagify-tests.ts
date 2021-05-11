@@ -252,6 +252,9 @@ const settings: TagifyConstructorSettings = {
     mixMode: {
         insertAfterTag: '\u00A0'
     },
+    a11y: {
+        focusableTags: true
+    },
     classNames: {
         namespace: 'tagify',
         mixMode: 'tagify--mix',
@@ -324,6 +327,9 @@ const settings: TagifyConstructorSettings = {
                 return Promise.resolve();
             }
         },
+        beforePaste: (e, data) => {
+            return Promise.resolve(data.pastedText.replace('foo', 'bar'));
+        }
     },
 };
 
@@ -820,6 +826,8 @@ tagify.getTagElms();
 // $ExpectType HTMLElement[]
 tagify.getTagElms('blue', 'green');
 
+// $ExpectType string
+tagify.getInputValue();
 // $ExpectType string
 tagify.getMixedTagsAsString();
 

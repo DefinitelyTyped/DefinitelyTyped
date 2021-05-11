@@ -40,6 +40,10 @@
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
         },
+        "airtable": {
+            "libraryName": "airtable",
+            "asOfVersion": "0.10.0"
+        },
         "ajv": {
             "libraryName": "ajv",
             "asOfVersion": "1.0.0"
@@ -143,6 +147,10 @@
         "assertion-error": {
             "libraryName": "assertion-error",
             "asOfVersion": "1.1.0"
+        },
+        "astring": {
+            "libraryName": "astring",
+            "asOfVersion": "1.7.0"
         },
         "asyncblock": {
             "libraryName": "asyncblock",
@@ -400,6 +408,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classnames": {
+            "libraryName": "classnames",
+            "asOfVersion": "2.3.0"
+        },
         "clean-stack": {
             "libraryName": "clean-stack",
             "asOfVersion": "2.1.0"
@@ -649,6 +661,14 @@
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
         },
+        "datastore-core": {
+            "libraryName": "datastore-core",
+            "asOfVersion": "3.0.0"
+        },
+        "datastore-level": {
+            "libraryName": "datastore-level",
+            "asOfVersion": "3.0.0"
+        },
         "date-fns": {
             "libraryName": "date-fns",
             "asOfVersion": "2.6.0"
@@ -733,6 +753,10 @@
             "libraryName": "diff2html",
             "asOfVersion": "3.0.0"
         },
+        "direction": {
+            "libraryName": "direction",
+            "asOfVersion": "2.0.0"
+        },
         "docker-file-parser": {
             "libraryName": "docker-file-parser",
             "asOfVersion": "1.0.3"
@@ -768,6 +792,10 @@
         "dotenv": {
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
+        },
+        "double-metaphone": {
+            "libraryName": "double-metaphone",
+            "asOfVersion": "2.0.0"
         },
         "dva": {
             "libraryName": "dva",
@@ -872,6 +900,10 @@
         "env-paths": {
             "libraryName": "env-paths",
             "asOfVersion": "2.1.0"
+        },
+        "err-code": {
+            "libraryName": "err-code",
+            "asOfVersion": "3.0.0"
         },
         "error-stack-parser": {
             "libraryName": "error-stack-parser",
@@ -1304,6 +1336,10 @@
         "hapi__lab": {
             "libraryName": "@hapi/lab",
             "asOfVersion": "22.0.0"
+        },
+        "hapi__podium": {
+            "libraryName": "@hapi/podium",
+            "asOfVersion": "4.1.3"
         },
         "hapi__topo": {
             "libraryName": "@hapi/topo",
@@ -1797,6 +1833,46 @@
             "libraryName": "junk",
             "asOfVersion": "3.0.0"
         },
+        "just-clone": {
+            "libraryName": "just-clone",
+            "asOfVersion": "3.2.1"
+        },
+        "just-debounce-it": {
+            "libraryName": "just-debounce-it",
+            "asOfVersion": "1.5.0"
+        },
+        "just-extend": {
+            "libraryName": "just-extend",
+            "asOfVersion": "4.2.1"
+        },
+        "just-map-values": {
+            "libraryName": "just-map-values",
+            "asOfVersion": "1.2.1"
+        },
+        "just-merge": {
+            "libraryName": "just-merge",
+            "asOfVersion": "1.2.0"
+        },
+        "just-pick": {
+            "libraryName": "just-pick",
+            "asOfVersion": "2.2.1"
+        },
+        "just-safe-get": {
+            "libraryName": "just-safe-get",
+            "asOfVersion": "2.1.1"
+        },
+        "just-safe-set": {
+            "libraryName": "just-safe-set",
+            "asOfVersion": "2.2.1"
+        },
+        "just-snake-case": {
+            "libraryName": "just-snake-case",
+            "asOfVersion": "1.2.1"
+        },
+        "just-throttle": {
+            "libraryName": "just-throttle",
+            "asOfVersion": "2.3.0"
+        },
         "jwt-decode": {
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
@@ -2173,6 +2249,10 @@
             "libraryName": "menubar",
             "asOfVersion": "6.0.0"
         },
+        "meow": {
+            "libraryName": "meow",
+            "asOfVersion": "6.0.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
@@ -2208,6 +2288,10 @@
         "mobx-task": {
             "libraryName": "mobx-task",
             "asOfVersion": "2.0.0"
+        },
+        "mockdate": {
+            "libraryName": "mockdate",
+            "asOfVersion": "3.0.0"
         },
         "mockingoose": {
             "libraryName": "mockingoose",
@@ -2336,6 +2420,10 @@
         "next": {
             "libraryName": "next",
             "asOfVersion": "9.0.0"
+        },
+        "next-auth": {
+            "libraryName": "next-auth",
+            "asOfVersion": "3.15.0"
         },
         "next-redux-wrapper": {
             "libraryName": "next-redux-wrapper",
@@ -2918,6 +3006,10 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
+        "rc-slider": {
+            "libraryName": "rc-slider",
+            "asOfVersion": "9.3.0"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
@@ -2981,6 +3073,10 @@
         "react-easy-crop": {
             "libraryName": "react-easy-crop",
             "asOfVersion": "2.0.0"
+        },
+        "react-editext": {
+            "libraryName": "react-editext",
+            "asOfVersion": "4.0.0"
         },
         "react-filepond": {
             "libraryName": "react-filepond",
@@ -3438,6 +3534,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simplebar": {
+            "libraryName": "simplebar",
+            "asOfVersion": "5.3.3"
+        },
         "sindresorhus__class-names": {
             "libraryName": "@sindresorhus/class-names",
             "asOfVersion": "1.1.0"
@@ -3734,9 +3834,17 @@
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
         },
+        "syllable": {
+            "libraryName": "syllable",
+            "asOfVersion": "5.0.0"
+        },
         "systeminformation": {
             "libraryName": "systeminformation",
             "asOfVersion": "3.54.0"
+        },
+        "table": {
+            "libraryName": "table",
+            "asOfVersion": "6.3.2"
         },
         "tabris": {
             "libraryName": "tabris",
@@ -3806,9 +3914,17 @@
             "libraryName": "text-clipper",
             "asOfVersion": "1.3.0"
         },
+        "theme-ui": {
+            "libraryName": "theme-ui",
+            "asOfVersion": "0.6.0"
+        },
         "theme-ui__color": {
             "libraryName": "theme-ui",
             "asOfVersion": "0.3.1"
+        },
+        "theme-ui__components": {
+            "libraryName": "@theme-ui/components",
+            "asOfVersion": "0.6.0"
         },
         "theming": {
             "libraryName": "theming",

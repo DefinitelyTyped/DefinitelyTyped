@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.0
+// Type definitions for @yaireo/tagify 4.1
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -109,7 +109,7 @@ declare namespace Tagify {
         closeOnSelect?: boolean;
 
         /**
-         * if `false`, keep typed text after selecting a suggestion.
+         * If `false`, keep typed text after selecting a suggestion.
          * @default true
          */
         clearOnSelect?: boolean;
@@ -164,6 +164,17 @@ declare namespace Tagify {
          * @default '\u00A0'
          */
         insertAfterTag?: string | HTMLElement;
+    }
+
+    /**
+     * Options related to accessibility.
+     */
+    interface A11ySettings {
+        /**
+         * If `true`, allows to focus tags via tab navigation.
+         * @default false
+         */
+        focusableTags?: boolean;
     }
 
     /**
@@ -410,6 +421,25 @@ declare namespace Tagify {
     }
 
     /**
+     * Data passed with beforePaste hook {@link Hooks.beforePaste}.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface BeforePasteData<T extends BaseTagData = TagData> {
+        /**
+         * Tagify instance.
+         */
+        tagify: Tagify<T>;
+        /**
+         * Text content that have been pasted into Tagify.
+         */
+        pastedText: string;
+        /**
+         * The raw clipboard data transfer object as provided by the paste event.
+         */
+        clipboardData: DataTransfer;
+    }
+
+    /**
      * Promise-based hooks for async program flow scenarios. Allows to "hook"
      * (intervene) at certain points of the program, which were selected as a
      * suitable place to pause the program flow and wait for further
@@ -450,6 +480,16 @@ declare namespace Tagify {
          * was fulfilled, and declined when the promise was rejected.
          */
         (event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>;
+
+        /**
+         * Hook invoked when the user pastes a string into Tagify. It can be used to changed
+         * the pasted string before it gets added to Tagify.
+         * @param event Clipboard event
+         * @param data Data object with pasted text and clipboard data.
+         * @return Promise with optional string value. If the promise resolves with a string value,
+         * this value gets added to Tagify. Without any value, the original paste value gets added.
+         */
+        beforePaste?: (event: ClipboardEvent, data: BeforePasteData<T>) => Promise<string|undefined>;
     }
 
     /**
@@ -664,6 +704,11 @@ declare namespace Tagify {
          * `mode` setting.
          */
         mixMode?: MixModeSettings;
+
+        /**
+         * Options related to accessibility.
+         */
+        a11y?: A11ySettings;
 
         /**
          * Optional class names that are added to the corresponding elements.
@@ -1219,6 +1264,13 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Can be used to suppress the change event.
      */
     update(opts?: Tagify.UpdateOptions): void;
+
+    /**
+     * Get `value` (array of tag data) as string. If in mixed mode, get the current value entered in the tagify
+     * input field {@link getMixedTagsAsString}.
+     * @return Stringified tag data.
+     */
+    getInputValue(): string;
 
     /**
      * Should only be used when in mixed mode.

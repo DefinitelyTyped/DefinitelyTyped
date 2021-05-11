@@ -2,7 +2,7 @@ import * as React from "react";
 import {
     InternationalProps,
     ReactInputAttr,
-    CarbonInputSize, ForwardRefReturn
+    ForwardRefReturn
 } from "../../../typings/shared";
 
 export type NumberInputTranslationKey = "decrement.number" | "increment.number";
@@ -22,7 +22,7 @@ export interface NumberInputProps extends Omit<ReactInputAttr, ExcludedAttribute
     isMobile?: boolean,
     label?: React.ReactNode,
     light?: boolean,
-    size?: Extract<CarbonInputSize, "sm" | "xl">,
+    size?: "sm" | "md" | "lg" | "xl",
     value: number | '',
     warn?: boolean,
     warnText?: React.ReactNode,

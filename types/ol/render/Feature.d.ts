@@ -51,7 +51,6 @@ export default class RenderFeature {
     simplifyTransformed(squaredTolerance: number, opt_transform?: TransformFunction): RenderFeature;
     /**
      * Transform geometry coordinates from tile pixel space to projected.
-     * The SRS of the source and destination are expected to be the same.
      */
-    transform(source: ProjectionLike, destination: ProjectionLike): void;
+    transform(projection: ProjectionLike): void;
 }

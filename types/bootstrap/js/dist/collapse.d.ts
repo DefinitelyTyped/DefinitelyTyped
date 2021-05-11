@@ -3,7 +3,7 @@
 import BaseComponent from './base-component';
 
 declare class Collapse extends BaseComponent {
-    constructor(element: Element, options?: Partial<Collapse.Options>);
+    constructor(element: string | Element, options?: Partial<Collapse.Options>);
 
     /**
      * Toggles a collapsible element to shown or hidden. Returns to the caller

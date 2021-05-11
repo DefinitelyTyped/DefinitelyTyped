@@ -78,6 +78,11 @@ const config: WebpackDevServer.Configuration = {
     publicPath: '/assets/',
     headers: { 'X-Custom-Header': 'yes' },
     open: true,
+
+    // https://webpack.js.org/configuration/dev-server/#devserveronlistening
+    onListening(server) {
+        const { port } = server.listeningApp.address();
+    },
 };
 
 const c2: WebpackDevServer.Configuration = {

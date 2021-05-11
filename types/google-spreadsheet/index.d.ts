@@ -8,7 +8,7 @@
 
 export type WorksheetType = 'GRID' | 'OBJECT';
 
-export type WorksheetDimension = 'ROW' | 'COLUMN';
+export type WorksheetDimension = 'ROWS' | 'COLUMNS';
 
 export type HyperlinkDisplayType = 'LINKED' | 'PLAIN_TEXT';
 

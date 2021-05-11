@@ -25,6 +25,7 @@ export interface ButtonKindProps {
 
 // these props are not passed to the general createElement call
 interface ButtonBaseIsolatedProps {
+    dangerDescription?: string;
     hasIconOnly?: boolean;
     iconDescription?: string;
     isSelected?: boolean;

@@ -1,12 +1,8 @@
-declare module 'node:fs' {
-    export * from 'fs';
-}
-
 declare module 'fs' {
-    import * as stream from 'node:stream';
-    import EventEmitter = require('node:events');
-    import { URL } from 'node:url';
-    import * as promises from 'node:fs/promises';
+    import * as stream from 'stream';
+    import EventEmitter = require('events');
+    import { URL } from 'url';
+    import * as promises from 'fs/promises';
 
     export { promises };
     /**
@@ -883,8 +879,7 @@ declare module 'fs' {
         maxRetries?: number;
         /**
          * @deprecated since v14.14.0 In future versions of Node.js,
-         * `fs.rmdir(path, { recursive: true })` will throw on nonexistent
-         * paths, or when given a file as a target.
+         * `fs.rmdir(path, { recursive: true })` will throw if `path` does not exist or is a file.
          * Use `fs.rm(path, { recursive: true, force: true })` instead.
          *
          * If `true`, perform a recursive directory removal. In

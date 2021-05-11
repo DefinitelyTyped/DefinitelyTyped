@@ -152,3 +152,7 @@ const featureRolloutPolicy: MicrosoftGraph.FeatureRolloutPolicy = {
 const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFilterByCurrentUserOptions = "reviewer";
 
 const initiatorType: MicrosoftGraph.InitiatorType = "user";
+
+const identityUserFlowAttributeDataType: MicrosoftGraph.IdentityUserFlowAttributeDataType = "string";
+
+const enrollmentState: MicrosoftGraph.EnrollmentState = "enrolled";

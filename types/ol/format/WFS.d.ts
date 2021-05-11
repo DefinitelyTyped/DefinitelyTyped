@@ -4,7 +4,6 @@ import Geometry from '../geom/Geometry';
 import Projection from '../proj/Projection';
 import { ReadOptions } from './Feature';
 import Filter from './filter/Filter';
-
 import GMLBase, { Options as Options_1 } from './GMLBase';
 import XMLFeature from './XMLFeature';
 
@@ -15,11 +14,17 @@ export interface FeatureCollectionMetadata {
     numberOfFeatures: number;
     bounds: Extent;
 }
+export interface FeatureType {
+    name: string;
+    bbox: Extent;
+    geometryName: string;
+}
 export interface Options {
     featureNS?: { [key: string]: string } | string;
     featureType?: string[] | string;
     gmlFormat?: GMLBase;
     schemaLocation?: string;
+    version?: string;
 }
 /**
  * Total deleted; total inserted; total updated; array of insert ids.
@@ -33,7 +38,7 @@ export interface TransactionResponse {
 export interface WriteGetFeatureOptions {
     featureNS: string;
     featurePrefix: string;
-    featureTypes: string[];
+    featureTypes: (string | FeatureType)[];
     srsName?: string;
     handle?: string;
     outputFormat?: string;
@@ -61,6 +66,10 @@ export interface WriteTransactionOptions {
 export default class WFS extends XMLFeature {
     constructor(opt_options?: Options);
     protected readFeaturesFromNode(node: Element, opt_options?: ReadOptions): Feature<Geometry>[];
+    /**
+     * Create a bbox filter and combine it with another optional filter.
+     */
+    combineBboxAndFilter(geometryName: string, extent: Extent, opt_srsName?: string, opt_filter?: Filter): Filter;
     getFeatureType(): string[] | string | undefined;
     /**
      * Read feature collection metadata of the source.
@@ -94,4 +103,4 @@ export default class WFS extends XMLFeature {
 /**
  * Encode filter as WFS Filter and return the Node.
  */
-export function writeFilter(filter: Filter): Node;
+export function writeFilter(filter: Filter, version: string): Node;

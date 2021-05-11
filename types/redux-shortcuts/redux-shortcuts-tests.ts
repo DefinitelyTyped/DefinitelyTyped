@@ -4,6 +4,7 @@ import {
     mousetrap,
     Mousetrap
 } from "redux-shortcuts";
+import "mousetrap/plugins/global-bind/mousetrap-global-bind";
 
 import { Dispatch, ActionCreator, Action, AnyAction } from "redux";
 

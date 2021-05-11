@@ -6,7 +6,7 @@ export interface TooltipIconProps extends Omit<ReactButtonAttr, ExcludedAttribut
     align?: TooltipAlignment,
     children: NonNullable<React.ReactNode>,
     direction?: Direction, // required but has default value, should be bottom/top but the prop type has left/right
-    tooltipText: string,
+    tooltipText: NonNullable<React.ReactNode>;
 }
 
 declare const TooltipIcon: React.FC<TooltipIconProps>;

@@ -1,13 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "export-just-namespace": false,
-        "jsdoc-format": false,
-        "no-declare-current-package": false,
-        "no-internal-module": false,
-        "no-namespace": false,
-        "no-padding": false,
-        "no-single-declare-module": false
-    }
+    "extends": "dtslint/dt.json"
 }

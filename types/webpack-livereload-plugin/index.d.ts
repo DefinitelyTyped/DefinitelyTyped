@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 import { Plugin, Stats } from 'webpack';
+import { ServerOptions } from 'https';
 import webpack = require('webpack');
+
 declare class LiveReloadPlugin extends Plugin {
     readonly isRunning: boolean;
     constructor(options?: LiveReloadPlugin.Options);
@@ -20,7 +22,7 @@ declare class LiveReloadPlugin extends Plugin {
 }
 
 declare namespace LiveReloadPlugin {
-    interface Options {
+    interface Options extends Pick<ServerOptions, 'cert' | 'key' | 'pfx'> {
         /**
          * protocol for livereload `<script>` src attribute value
          * @default protocol of the page, either `http` or `https`
