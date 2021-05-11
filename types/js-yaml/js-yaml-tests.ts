@@ -119,7 +119,7 @@ new yaml.Type(str, typeConstructorOptions);
 type.kind;
 // $ExpectType (data: any) => boolean
 type.resolve;
-// $ExpectType (data: any) => any
+// $ExpectType (data: any, type?: string | undefined) => any
 type.construct;
 // $ExpectType object | null
 type.instanceOf;

@@ -101,6 +101,7 @@ export class GLTFParser {
     getMaterialType: () => typeof MeshStandardMaterial;
     loadMaterial: (materialIndex: number) => Promise<Material>;
     createUniqueName: (originalName: string) => string;
+    createNodeMesh: (nodeIndex: number) => Promise<Group | Mesh | SkinnedMesh>;
     loadGeometries: (
         /**
          * GLTF.Primitive[]

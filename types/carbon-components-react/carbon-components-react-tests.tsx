@@ -183,9 +183,21 @@ const secondaryButtonT3 = (
 // CodeSnippet
 
 let codeSnippetType: CodeSnippetType = "inline";
-const inlineCodeSnippet = (<CodeSnippet type="inline" onClick={(e) => e.preventDefault()}>code</CodeSnippet>);
-const multiCodeSnippet = (<CodeSnippet type="multi" onBlur={(e) => e.preventDefault()}>code</CodeSnippet>)
-const codeSnippetTypeIsVariable = (<CodeSnippet type={codeSnippetType} onClick={(e) => e.preventDefault()}>code</CodeSnippet>);
+const inlineCodeSnippet = (
+    <CodeSnippet type="inline" onClick={e => e.preventDefault()}>
+        code
+    </CodeSnippet>
+);
+const multiCodeSnippet = (
+    <CodeSnippet type="multi" maxCollapsedNumberOfRows={10} minExpandedNumberOfRows={3} onBlur={e => e.preventDefault()}>
+        code
+    </CodeSnippet>
+);
+const codeSnippetTypeIsVariable = (
+    <CodeSnippet type={codeSnippetType} onClick={e => e.preventDefault()}>
+        code
+    </CodeSnippet>
+);
 
 interface Row1 extends DataTableRow {
     rowProp: string;

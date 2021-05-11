@@ -334,6 +334,16 @@ nw.Window.open('popup.html', {}, function (win) {
         win = null;
     });
 
+    // Listen for window click event
+    win.window.addEventListener('on', function () {
+        // Create div element notifying of click
+        var el = win.window.document.createElement('div');
+        el.innerText = 'Window clicked!';
+
+        // Append it to the body
+        win.window.document.body.append(el);
+    });
+
     // Listen to main window's close event
     nw.Window.get().on('close', function () {
         // Hide the window to give user the feeling of closing immediately

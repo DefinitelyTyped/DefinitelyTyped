@@ -6,11 +6,13 @@ import { Extent } from '../extent';
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import SimpleGeometry from '../geom/SimpleGeometry';
+import BaseVectorLayer from '../layer/BaseVector';
 import VectorLayer from '../layer/Vector';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
 import VectorSource from '../source/Vector';
+import VectorTile from '../source/VectorTile';
 import { StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
@@ -21,6 +23,7 @@ export interface Options {
     pixelTolerance?: number;
     style?: StyleLike;
     source?: VectorSource<Geometry>;
+    hitDetection?: boolean | BaseVectorLayer<VectorSource<Geometry> | VectorTile>;
     features?: Collection<Feature<Geometry>>;
     wrapX?: boolean;
 }
@@ -39,7 +42,7 @@ declare enum ModifyEventType {
 export default class Modify extends PointerInteraction {
     constructor(options: Options);
     /**
-     * Get the overlay layer that this interaction renders sketch features to.
+     * Get the overlay layer that this interaction renders the modification point or vertex to.
      */
     getOverlay(): VectorLayer;
     /**

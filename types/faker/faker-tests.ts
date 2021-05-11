@@ -16,7 +16,8 @@ resultStr = faker.address.zipCodeByState('foo');
 resultStr = faker.address.zipCode();
 resultStr = faker.address.zipCode('###');
 resultStr = faker.address.city();
-resultStr = faker.address.city(0);
+resultStr = faker.address.city("{{name.lastName}}{{address.citySuffix}}");
+resultStr = faker.address.cityName();
 resultStr = faker.address.cityPrefix();
 resultStr = faker.address.citySuffix();
 resultStr = faker.address.streetName();
@@ -44,6 +45,7 @@ resultStr = faker.address.ordinalDirection();
 resultStr = faker.address.ordinalDirection(true);
 resultStrArr = faker.address.nearbyGPSCoordinate();
 resultStrArr = faker.address.nearbyGPSCoordinate(['0', '0'], 0, true);
+resultStrArr = faker.address.nearbyGPSCoordinate([0, 0], 0, true);
 resultStr = faker.address.timeZone();
 
 resultStr = faker.commerce.color();

@@ -85,6 +85,22 @@ import * as url from 'url';
 }
 
 {
+    const wss = new WebSocket.Server();
+
+    wss.addListener('connection', (client, request) => {
+        request.socket.remoteAddress;
+
+        // $ExpectError
+        request.aborted === 10;
+
+        client.terminate();
+        request.destroy();
+    });
+
+    wss.close();
+}
+
+{
     new WebSocket.Server({ noServer: true, perMessageDeflate: false });
     new WebSocket.Server({ noServer: true, perMessageDeflate: { } });
     new WebSocket.Server({
@@ -171,6 +187,16 @@ import * as url from 'url';
     ws.addEventListener('message', (event: WebSocket.MessageEvent) => {
             console.log(event.data, event.target, event.type);
     }, { once: true });
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+    const eventHandler: Parameters<typeof ws.once>[1] = () => {};
+    const event = '';
+    const errorHandler = (err: Error) => {
+        ws.off(event, eventHandler);
+    };
+    ws.once('error', errorHandler);
 }
 
 function f() {

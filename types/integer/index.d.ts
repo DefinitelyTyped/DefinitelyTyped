@@ -1,6 +1,7 @@
-// Type definitions for integer 1.0
+// Type definitions for integer 4.0
 // Project: https://github.com/JoshuaWise/integer#readme
 // Definitions by: Ben Davies <https://github.com/Morfent>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This can't just be written as a simple class since Integer instances can't
@@ -11,7 +12,7 @@ declare function Integer(val: Integer.IntLike): Integer.IntClass;
 declare namespace Integer {
     type IntLike = number | string | IntClass;
 
-    function fromBits(low: number, high?: number): IntClass;
+    function fromBits(lowBits: number, highBits?: number): IntClass;
     function fromNumber(val: number, defaultVal?: number | IntClass): IntClass;
     function fromString(val: string, radix?: number, defaultVal?: string | IntClass): IntClass;
     function isInstance(val: any): boolean;
@@ -23,8 +24,8 @@ declare namespace Integer {
     const NEG_ONE: IntClass;
 
     class IntClass {
-        low: number;
-        high: number;
+        readonly low: number;
+        readonly high: number;
         constructor(val: IntLike);
 
         add(augend: IntLike): IntClass;

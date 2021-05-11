@@ -191,6 +191,8 @@ export class ODBCResult {
     fetchAllSync(): any[];
     moreResultsSync(): any[];
     closeSync(): void;
+    getColumnMetadataSync(): any[];
+    fetchAll(option: object, cb: (err: Error, data: any[], noOfColumns?: number) => void): void;
 } // Class ODBCResult
 
 export function getElapsedTime(): string;

@@ -13,56 +13,106 @@
 //                 Benoît Sepe <https://github.com/ogdentrod>
 //                 Andre Nguyen <https://github.com/andrenguyener>
 //                 Qingqi Shi <https://github.com/qingqishi>
+//                 Jonathan Southern <https://github.com/JonathanSouthern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
 declare module 'react-jsonschema-form' {
     import * as React from 'react';
-    import { JSONSchema6, JSONSchema6Type } from 'json-schema';
+    import { JSONSchema6 } from 'json-schema';
 
     type ErrorSchema = {
         [k: string]: ErrorSchema;
     };
 
     export interface FormProps<T> {
+        /** Form schema */
         schema: JSONSchema6;
+        /** If true, disabled prop is passed down to each field on the form */
         disabled?: boolean;
+        /** Form uiSchema */
         uiSchema?: UiSchema;
+        /** Data to pass into form mathcing the schema */
         formData?: T;
+        /** Data that is passed down to all fields and widgets. Used for implementing context aware fields and widgets */
         formContext?: any;
+        /** Directory of registered widgets */
         widgets?: { [name: string]: Widget };
+        /** Dictionary of registered fields */
         fields?: { [name: string]: Field };
+        /**
+         * If set to true, turns off all validation
+         * @default false
+         */
         noValidate?: boolean;
+        /**
+         * If set to true, turns off HTML5 validation
+         * @default false
+         */
         noHtml5Validate?: boolean;
+        /** When true, a list of errors will show. When false, only inline input validation errors will show */
         showErrorList?: boolean;
-        ErrorList?: React.StatelessComponent<ErrorListProps>;
+        /** A React component used to customize how form errors are displayed */
+        ErrorList?: React.FunctionComponent<ErrorListProps>;
+        /** Function that specifices custom validation rules for the form */
         validate?: (formData: T, errors: FormValidation) => FormValidation;
         onBlur?: (id: string, value: boolean | number | string | null) => void;
         onChange?: (e: IChangeEvent<T>, es?: ErrorSchema) => any;
         onError?: (e: any) => any;
         onFocus?: (id: string, value: boolean | number | string | null) => void;
         onSubmit?: (e: ISubmitEvent<T>) => any;
+        /**
+         * If set to true, will perform validation as data is changed rather than just on submit
+         * @default false
+         */
         liveValidate?: boolean;
-        FieldTemplate?: React.StatelessComponent<FieldTemplateProps>;
-        ArrayFieldTemplate?: React.StatelessComponent<ArrayFieldTemplateProps>;
-        ObjectFieldTemplate?: React.StatelessComponent<ObjectFieldTemplateProps>;
+        FieldTemplate?: React.FunctionComponent<FieldTemplateProps>;
+        ArrayFieldTemplate?: React.FunctionComponent<ArrayFieldTemplateProps>;
+        ObjectFieldTemplate?: React.FunctionComponent<ObjectFieldTemplateProps>;
         safeRenderCompletion?: boolean;
+        /** Function that modifies default errors from JSCON Schema Validation */
         transformErrors?: (errors: AjvError[]) => AjvError[];
+        /**
+         * Used to change prefix of ids to avoid collision with existing ids in DOM
+         * @default 'root'
+         */
         idPrefix?: string;
+        /** Allows you to validate formdata against another JSON Schema meta schema */
         additionalMetaSchemas?: ReadonlyArray<object>;
+        /** Allows you to define custom formats for validation */
         customFormats?: { [k: string]: string | RegExp | ((data: string) => boolean) };
         // HTML Attributes
+        /** The value that will be passed to `id` HTML attribute of form  */
         id?: string;
+        /** The value that will be passed to `class` HTML attribute of form  */
         className?: string;
+        /** The value that will be passed to `name` HTML attribute of form  */
         name?: string;
+        /** The value that will be passed to `method` HTML attribute of form  */
         method?: string;
+        /** The value that will be passed to `target` HTML attribute of form  */
         target?: string;
+        /** The value that will be passed to `action` HTML attribute of form  */
         action?: string;
+        /** @deprecated Same functionality as autoComplete */
         autocomplete?: string;
+        /** The value that will be passed to `autocomplete ` HTML attribute of form */
+        autoComplete?: string;
+        /** The value that will be passed to `enctype` HTML attribute of form  */
         enctype?: string;
+        /** The value that will be passed to `accept-charset` HTML attribute of form  */
         acceptcharset?: string;
+        /**
+         * If set to true, extra form data values not in form field will be removed when `onSubmit` is called
+         * @default false
+         */
         omitExtraData?: boolean;
+        /**
+         * If `omitExtraData` and `liveOmit` are both set to true, then extra form data values that are not in any form field will be removed whenever `onChange` is called.
+         * @default false
+         */
         liveOmit?: boolean;
+        /** Used to change the default `form` tag into a different HTML tag */
         tagName?: keyof JSX.IntrinsicElements | React.ComponentType;
     }
 
@@ -83,9 +133,9 @@ declare module 'react-jsonschema-form' {
         'ui:widget'?: Widget | string;
         'ui:options'?: { [key: string]: boolean | number | string | object | any[] | null };
         'ui:order'?: string[];
-        'ui:FieldTemplate'?: React.StatelessComponent<FieldTemplateProps>;
-        'ui:ArrayFieldTemplate'?: React.StatelessComponent<ArrayFieldTemplateProps>;
-        'ui:ObjectFieldTemplate'?: React.StatelessComponent<ObjectFieldTemplateProps>;
+        'ui:FieldTemplate'?: React.FunctionComponent<FieldTemplateProps>;
+        'ui:ArrayFieldTemplate'?: React.FunctionComponent<ArrayFieldTemplateProps>;
+        'ui:ObjectFieldTemplate'?: React.FunctionComponent<ObjectFieldTemplateProps>;
         [name: string]: any;
     };
 
@@ -109,26 +159,34 @@ declare module 'react-jsonschema-form' {
 
     export interface WidgetProps
         extends Pick<
-            React.HTMLAttributes<HTMLElement>,
-            Exclude<keyof React.HTMLAttributes<HTMLElement>, 'onBlur' | 'onFocus'>
+        React.HTMLAttributes<HTMLElement>,
+        Exclude<keyof React.HTMLAttributes<HTMLElement>, 'onBlur' | 'onFocus'>
         > {
+        /** The generated id for this field */
         id: string;
+        /** The JSONSchema subschema object for this field */
         schema: JSONSchema6;
+        /** The current value for this field; */
         value: any;
         required: boolean;
         disabled: boolean;
         readonly: boolean;
         autofocus: boolean;
+        /** The value change event handler; call it with the new value every time it changes */
         onChange: (value: any) => void;
         options: { [key: string]: boolean | number | string | object | null };
+        /** The formContext object that you passed to Form. */
         formContext: any;
+        /** The input blur event handler; call it with the the widget id and value */
         onBlur: (id: string, value: boolean | number | string | null) => void;
+        /** The input blur event handler; call it with the the widget id and value */
         onFocus: (id: string, value: boolean | number | string | null) => void;
         label: string;
+        /** An array of strings listing all generated error messages from encountered errors for this widget. */
         rawErrors: string[];
     }
 
-    export type Widget = React.StatelessComponent<WidgetProps> | React.ComponentClass<WidgetProps>;
+    export type Widget = React.FunctionComponent<WidgetProps> | React.ComponentClass<WidgetProps>;
 
     export interface FieldProps<T = any>
         extends Pick<React.HTMLAttributes<HTMLElement>, Exclude<keyof React.HTMLAttributes<HTMLElement>, 'onBlur'>> {
@@ -154,7 +212,7 @@ declare module 'react-jsonschema-form' {
         [prop: string]: any;
     }
 
-    export type Field = React.StatelessComponent<FieldProps> | React.ComponentClass<FieldProps>;
+    export type Field = React.FunctionComponent<FieldProps> | React.ComponentClass<FieldProps>;
 
     export type FieldTemplateProps = {
         id: string;
@@ -179,8 +237,8 @@ declare module 'react-jsonschema-form' {
     };
 
     export type ArrayFieldTemplateProps<T = any> = {
-        DescriptionField: React.StatelessComponent<{ id: string; description: string | React.ReactElement }>;
-        TitleField: React.StatelessComponent<{ id: string; title: string; required: boolean }>;
+        DescriptionField: React.FunctionComponent<{ id: string; description: string | React.ReactElement }>;
+        TitleField: React.FunctionComponent<{ id: string; title: string; required: boolean }>;
         canAdd: boolean;
         className: string;
         disabled: boolean;
@@ -211,8 +269,8 @@ declare module 'react-jsonschema-form' {
     };
 
     export type ObjectFieldTemplateProps<T = any> = {
-        DescriptionField: React.StatelessComponent<{ id: string; description: string | React.ReactElement }>;
-        TitleField: React.StatelessComponent<{ id: string; title: string; required: boolean }>;
+        DescriptionField: React.FunctionComponent<{ id: string; description: string | React.ReactElement }>;
+        TitleField: React.FunctionComponent<{ id: string; title: string; required: boolean }>;
         title: string;
         description: string;
         properties: {
@@ -277,7 +335,7 @@ declare module 'react-jsonschema-form' {
 
     export function withTheme<T = any>(
         themeProps: ThemeProps<T>,
-    ): React.ComponentClass<FormProps<T>> | React.StatelessComponent<FormProps<T>>;
+    ): React.ComponentClass<FormProps<T>> | React.FunctionComponent<FormProps<T>>;
 
     export type AddButtonProps = {
         className: string;
@@ -295,7 +353,7 @@ declare module 'react-jsonschema-form/lib/components/fields/SchemaField' {
         'schema' | 'uiSchema' | 'idSchema' | 'formData' | 'errorSchema' | 'registry' | 'formContext'
     >;
 
-    export default class SchemaField extends React.Component<SchemaFieldProps> {}
+    export default class SchemaField extends React.Component<SchemaFieldProps> { }
 }
 
 declare module 'react-jsonschema-form/lib/utils' {

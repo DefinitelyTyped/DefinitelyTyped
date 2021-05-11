@@ -10,10 +10,10 @@
         "typeRoots": ["../"],
         "paths": {
             "webpack": [
-                "webpack/v4"
+                "./node_modules/webpack"
             ],
             "tapable": [
-                "tapable/v1"
+                "./node_modules/tapable"
             ]
         },
         "types": [],

@@ -1,4 +1,4 @@
-// Type definitions for ol 6.4
+// Type definitions for ol 6.5
 // Project: https://github.com/openlayers/openlayers, https://openlayers.org
 // Definitions by: Rifa'i M. Hanif <https://github.com/hanreev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

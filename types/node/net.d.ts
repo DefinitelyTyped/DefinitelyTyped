@@ -1,11 +1,7 @@
-declare module 'node:net' {
-    export * from 'net';
-}
-
 declare module 'net' {
-    import * as stream from 'node:stream';
-    import EventEmitter = require('node:events');
-    import * as dns from 'node:dns';
+    import * as stream from 'stream';
+    import EventEmitter = require('events');
+    import * as dns from 'dns';
 
     type LookupFunction = (
         hostname: string,
@@ -263,6 +259,45 @@ declare module 'net' {
         prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
+    }
+
+    type IPVersion = 'ipv4' | 'ipv6';
+
+    class BlockList {
+        /**
+         * Adds a rule to block the given IP address.
+         *
+         * @param address An IPv4 or IPv6 address.
+         * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
+         */
+        addAddress(address: string, type?: IPVersion): void;
+
+        /**
+         * Adds a rule to block a range of IP addresses from start (inclusive) to end (inclusive).
+         *
+         * @param start The starting IPv4 or IPv6 address in the range.
+         * @param end The ending IPv4 or IPv6 address in the range.
+         * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
+         */
+        addRange(start: string, end: string, type?: IPVersion): void;
+
+        /**
+         * Adds a rule to block a range of IP addresses specified as a subnet mask.
+         *
+         * @param net The network IPv4 or IPv6 address.
+         * @param prefix The number of CIDR prefix bits.
+         * For IPv4, this must be a value between 0 and 32. For IPv6, this must be between 0 and 128.
+         * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
+         */
+        addSubnet(net: string, prefix: number, type?: IPVersion): void;
+
+        /**
+         * Returns `true` if the given IP address matches any of the rules added to the `BlockList`.
+         *
+         * @param address The IP address to check
+         * @param type Either 'ipv4' or 'ipv6'. Default: 'ipv4'.
+         */
+        check(address: string, type?: IPVersion): boolean;
     }
 
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {

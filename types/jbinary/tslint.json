@@ -4,10 +4,10 @@
         "array-type": false,
         "ban-types": false,
         "dt-header": false,
+        "interface-over-type-literal": false,
         "no-padding": false,
         "no-var-keyword": false,
         "one-line": false,
-        "prefer-const": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
         "whitespace": false

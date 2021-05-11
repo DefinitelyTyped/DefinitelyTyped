@@ -1,9 +1,10 @@
-// Type definitions for postcss-reporter 6.0
+// Type definitions for postcss-reporter 7.0
 // Project: https://github.com/postcss/postcss-reporter#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
-import { Plugin, ResultMessage } from 'postcss';
+import { PluginCreator, Message } from 'postcss';
 
 declare namespace postcssReporter {
     /**
@@ -22,7 +23,7 @@ declare namespace postcssReporter {
          * - accepts an object containing a messages array and a source string
          * - returns the string to report
          */
-        formatter?: (input: { messages: ResultMessage[]; source: string }) => string;
+        formatter?: (input: { messages: Message[]; source: string }) => string;
         /**
          * If plugins is empty (as it is by default),
          * the reporter will log messages from every PostCSS plugin.
@@ -33,7 +34,7 @@ declare namespace postcssReporter {
          * Provide a filter function. It receives the message object and returns a truthy or falsy value,
          * indicating whether that particular message should be reported or not.
          */
-        filter?: (message: ResultMessage) => boolean;
+        filter?: (message: Message) => boolean;
         /**
          * If true, not pass any messages into other plugins, or the whatever runner you use, for logging.
          * @default false
@@ -44,12 +45,6 @@ declare namespace postcssReporter {
          * @default false
          */
         throwError?: boolean;
-        /**
-         * By default, messages without line/column positions will be grouped at the beginning of the output.
-         * To put them at the end, instead, use "last". To not bother sorting these, use "any".
-         * @default 'first'
-         */
-        positionless?: 'first' | 'last' | 'any';
     }
 
     /**
@@ -71,9 +66,15 @@ declare namespace postcssReporter {
          * @default false
          */
         noPlugin?: boolean;
+        /**
+         * By default, messages without line/column positions will be grouped at the beginning of the output.
+         * To put them at the end, instead, use "last". To not bother sorting these, use "any".
+         * @default 'first'
+         */
+        positionless?: 'first' | 'last' | 'any';
     }
 
-    type PostCSSReporter = Plugin<Options>;
+    type PostCSSReporter = PluginCreator<Options>;
 }
 
 declare const postcssReporter: postcssReporter.PostCSSReporter;

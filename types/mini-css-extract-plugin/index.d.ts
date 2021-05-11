@@ -42,7 +42,7 @@ declare namespace MiniCssExtractPlugin {
         /**
          * Works like [`output.chunkFilename`](https://webpack.js.org/configuration/output/#outputchunkfilename).
          */
-        chunkFilename?: string;
+        chunkFilename?: Required<Configuration>['output']['chunkFilename'];
         /**
          * For projects where CSS ordering has been mitigated through consistent
          * use of scoping or naming conventions, the CSS order warnings can be

@@ -33,6 +33,17 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     index: 'index.html',
 });
 
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    writeToDisk: () => false,
+    stats: true,
+});
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    stats: {
+        all: true,
+    },
+});
+
 // return value
 const app = express();
 app.use([webpackDevMiddlewareInstance]);

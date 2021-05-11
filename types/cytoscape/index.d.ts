@@ -4055,7 +4055,7 @@ declare namespace cytoscape {
              * Whether to display the element; may be element for displayed or none for not displayed.
              * Note that a "display: none" bezier edge does not take up space in its bundle.
              */
-            "display": PropertyValue<SingularType, "none" | "displayed">;
+            "display": PropertyValue<SingularType, "none" | "element">;
             /**
              * Whether the element is visible; may be visible or hidden.
              * Note that a "visibility : hidden" bezier edge still takes up space in its bundle.
@@ -4218,7 +4218,7 @@ declare namespace cytoscape {
              *  * The special value none can be used to denote 0deg.
              *  * Rotations works best with left- to - right text.
              */
-            "text-rotation": PropertyValue<SingularType, number>;
+            "text-rotation": PropertyValue<SingularType, number | 'autorotate'>;
 
             /**
              * (For the source label of an edge.)
