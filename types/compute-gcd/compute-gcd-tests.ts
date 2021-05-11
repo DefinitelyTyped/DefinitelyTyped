@@ -1,4 +1,4 @@
-import gcd = require('compute-gcd');
+import gcd = require("compute-gcd");
 
 // $ExpectType number
 gcd(1, 2, 3);
