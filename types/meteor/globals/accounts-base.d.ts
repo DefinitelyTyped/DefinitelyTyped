@@ -14,7 +14,7 @@ declare interface EmailFields {
 declare module Accounts {
     var urls: URLS;
 
-    function user(): Meteor.User | null;
+    function user(options?: { fields?: Mongo.FieldSpecifier }): Meteor.User | null;
 
     function userId(): string | null;
 

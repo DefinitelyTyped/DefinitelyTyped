@@ -74,6 +74,16 @@ configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
+            filename: "style.css",
+            chunkFilename: ({ chunk }) => (chunk?.name ? `${chunk.name.replace("/js/", "/css/")}.css` : "unknown"),
+        }),
+    ],
+};
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
             filename: "styles.css",
             chunkFilename: "style.css",
             ignoreOrder: true,

@@ -1,6 +1,6 @@
-import * as p from "node:process";
-import assert = require('node:assert');
-import { EventEmitter } from "node:events";
+import * as p from "process";
+import assert = require('assert');
+import { EventEmitter } from "events";
 
 {
     let eventEmitter: EventEmitter;

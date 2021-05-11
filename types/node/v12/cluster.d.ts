@@ -1,11 +1,7 @@
-declare module 'node:cluster' {
-    export * from 'cluster';
-}
-
 declare module 'cluster' {
-    import * as child from 'node:child_process';
-    import EventEmitter = require('node:events');
-    import * as net from 'node:net';
+    import * as child from 'child_process';
+    import EventEmitter = require('events');
+    import * as net from 'net';
 
     // interfaces
     interface ClusterSettings {

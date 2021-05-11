@@ -1,5 +1,5 @@
-import { createContext, isContext, Script, runInNewContext, runInThisContext, compileFunction } from 'node:vm';
-import { inspect } from 'node:util';
+import { createContext, isContext, Script, runInNewContext, runInThisContext, compileFunction } from 'vm';
+import { inspect } from 'util';
 
 {
     const sandbox = {

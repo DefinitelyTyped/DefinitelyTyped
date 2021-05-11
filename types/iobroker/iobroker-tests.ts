@@ -553,6 +553,10 @@ adapter.delFile(null, "foo", (err) => {
     }
 });
 
+adapter.FORBIDDEN_CHARS.test("foo");
+// $ExpectError
+adapter.FORBIDDEN_CHARS = /_/;
+
 // Repro from ioBroker.i2c
 {
     interface PCF8574Config {

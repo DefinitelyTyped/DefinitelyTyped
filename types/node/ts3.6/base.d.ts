@@ -13,6 +13,7 @@
 /// <reference lib="esnext.bigint" />
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
+/// <reference path="../assert/strict.d.ts" />
 /// <reference path="../globals.d.ts" />
 /// <reference path="../async_hooks.d.ts" />
 /// <reference path="../buffer.d.ts" />
@@ -23,6 +24,8 @@
 /// <reference path="../crypto.d.ts" />
 /// <reference path="../dgram.d.ts" />
 /// <reference path="../dns.d.ts" />
+/// <reference path="../dns/promises.d.ts" />
+/// <reference path="../dns/promises.d.ts" />
 /// <reference path="../domain.d.ts" />
 /// <reference path="../events.d.ts" />
 /// <reference path="../fs.d.ts" />
@@ -42,8 +45,10 @@
 /// <reference path="../readline.d.ts" />
 /// <reference path="../repl.d.ts" />
 /// <reference path="../stream.d.ts" />
+/// <reference path="../stream/promises.d.ts" />
 /// <reference path="../string_decoder.d.ts" />
 /// <reference path="../timers.d.ts" />
+/// <reference path="../timers/promises.d.ts" />
 /// <reference path="../tls.d.ts" />
 /// <reference path="../trace_events.d.ts" />
 /// <reference path="../tty.d.ts" />

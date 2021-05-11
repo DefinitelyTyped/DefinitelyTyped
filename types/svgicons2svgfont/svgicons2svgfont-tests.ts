@@ -8,6 +8,7 @@ svgIcons2SvgFont = new SVGIcons2SVGFont({ fontStyle: 'italic' });
 svgIcons2SvgFont = new SVGIcons2SVGFont({ fontWeight: 'normal' });
 svgIcons2SvgFont = new SVGIcons2SVGFont({ fixedWidth: true });
 svgIcons2SvgFont = new SVGIcons2SVGFont({ centerHorizontally: true });
+svgIcons2SvgFont = new SVGIcons2SVGFont({ centerVertically: true });
 svgIcons2SvgFont = new SVGIcons2SVGFont({ normalize: true });
 svgIcons2SvgFont = new SVGIcons2SVGFont({ fontHeight: 100 });
 svgIcons2SvgFont = new SVGIcons2SVGFont({ round: 10e13 });

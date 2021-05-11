@@ -1,4 +1,4 @@
-// Type definitions for react-table 7.0
+// Type definitions for react-table 7.7
 // Project: https://github.com/tannerlinsley/react-table
 // Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
 //                 Michael Stramel <https://github.com/stramel>
@@ -6,7 +6,7 @@
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-// reflects react-table@7.0.4
+// reflects react-table@7.7.0
 
 // tslint:disable:no-empty-interface
 // no-empty-interface is disabled to allow easy extension with declaration merging
@@ -834,7 +834,7 @@ export interface UseSortByColumnProps<D extends object> {
 
 export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>, desc?: boolean) => number;
 
-export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic';
+export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic' | 'string' | 'number';
 
 export interface SortingRule<D> {
     id: IdType<D>;

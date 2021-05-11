@@ -1,5 +1,7 @@
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js';
 
+const audioElement = document.createElement('audio');
+
 const playerOptions: VideoJsPlayerOptions = {
     autoplay: 'muted',
     bigPlayButton: false,
@@ -8,6 +10,7 @@ const playerOptions: VideoJsPlayerOptions = {
         playToggle: false,
         captionsButton: false,
         chaptersButton: false,
+        pictureInPictureToggle: audioElement.tagName !== "AUDIO"
     },
     height: 10,
     loop: true,
@@ -35,6 +38,7 @@ const playerOptions: VideoJsPlayerOptions = {
             myOption: true,
         },
     },
+    responsive: false,
     sources: [
         {
             src: 'https://example.com/video.mp4',
@@ -147,6 +151,10 @@ videojs('example_video_1', playerOptions).ready(function() {
     this.requestFullscreen();
 
     const networkState: videojs.NetworkState = this.networkState();
+
+    const responsive: boolean = this.responsive();
+
+    this.responsive(false);
 
     testEvents(this);
 

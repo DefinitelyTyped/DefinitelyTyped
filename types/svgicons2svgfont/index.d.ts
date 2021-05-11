@@ -1,4 +1,4 @@
-// Type definitions for svgicons2svgfont 9.1
+// Type definitions for svgicons2svgfont 9.2
 // Project: https://github.com/nfroidure/svgicons2svgfont
 // Definitions by: Kaspar Vollenweider <https://github.com/casaper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,6 +41,11 @@ declare namespace SVGIcons2SVGFont {
          * Calculate the bounds of a glyph and center it horizontally.
          */
         centerHorizontally?: boolean;
+        /**
+         * Centers the glyphs vertically in the generated font.
+         * @default false
+         */
+        centerVertically?: boolean;
         /**
          * Normalize icons by scaling them to the height of the highest icon.
          */

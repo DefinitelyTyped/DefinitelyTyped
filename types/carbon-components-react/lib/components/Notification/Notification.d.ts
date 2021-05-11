@@ -44,7 +44,8 @@ export interface ToastNotificationProps extends Omit<ReactDivAttr, "title"> {
     kind?: NotificationKind; // required but has default value
     lowContrast?: boolean,
     notificationType?: NotificationType,
-    onCloseButtonClick?(e: React.MouseEvent<HTMLButtonElement>): void,
+    onClose?(evt: React.MouseEvent<HTMLButtonElement>): boolean;
+    onCloseButtonClick?(evt: React.MouseEvent<HTMLButtonElement>): void,
     statusIconDescription?: string,
     subtitle?: React.ReactNode,
     timeout?: number;
@@ -62,6 +63,7 @@ export interface InlineNotificationProps extends Omit<ReactDivAttr, "title"> {
     kind: NotificationKind;
     lowContrast?: boolean,
     notificationType?: NotificationType,
+    onClose?(evt: React.MouseEvent<HTMLButtonElement>): boolean;
     onCloseButtonClick?(e: React.MouseEvent<HTMLButtonElement>): void,
     statusIconDescription?: string,
     subtitle?: React.ReactNode,

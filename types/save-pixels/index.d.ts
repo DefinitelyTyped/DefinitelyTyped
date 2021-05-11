@@ -5,13 +5,13 @@
 
 /// <reference types="node" />
 
-import ndarray = require("ndarray");
+import { NdArray } from "ndarray";
 import * as Stream from "stream";
 
 // Function overloads. Most types return a Stream, except 'canvas'. Quality option only available for
 // JPEG format. See https://www.npmjs.com/package/save-pixels#requiresave-pixelsarray-type-options.
-declare function savePixels(array: ndarray, type: "png" | "gif"): Stream;
-declare function savePixels(array: ndarray, type: "canvas"): HTMLCanvasElement;
-declare function savePixels(array: ndarray, type: "jpeg" | "jpg", options?: { quality?: number }): Stream;
+declare function savePixels(array: NdArray, type: "png" | "gif"): Stream;
+declare function savePixels(array: NdArray, type: "canvas"): HTMLCanvasElement;
+declare function savePixels(array: NdArray, type: "jpeg" | "jpg", options?: { quality?: number }): Stream;
 
 export = savePixels;

@@ -27,6 +27,10 @@ redis.del('foo', 'bar').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
+redis.rpop('list', cb);
+redis.rpop('list', 2, cb);
+redis.rpop('list').then(console.log);
+redis.rpop('list', 2).then(console.log);
 redis.lpop('list', cb);
 redis.lpop('list', 2, cb);
 redis.lpop('list').then(console.log);
@@ -768,6 +772,12 @@ redis.pipeline()
     .zremrangebylex('foo', '-', '+', (err: Error | null, res: number) => {
         // do something with res or err
     });
+
+// Test rpushx and lpushx for pushing several elements
+redis.pipeline()
+    .lpush('lpushxlist', 'foo')
+    .lpushx('lpushxlist', 'bar', 1)
+    .rpushx('rpushxlist', 'hoge', 2);
 
 redis.options.host;
 redis.status;

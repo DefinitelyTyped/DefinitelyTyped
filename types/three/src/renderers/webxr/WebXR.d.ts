@@ -78,13 +78,23 @@ export interface XRRenderStateInit {
     baseLayer?: XRWebGLLayer;
 }
 
+export interface XRGamepad {
+    readonly id: string;
+    readonly index: number; // long
+    readonly connected: boolean;
+    readonly timestamp: DOMHighResTimeStamp;
+    readonly mapping: GamepadMappingType;
+    readonly axes: Float32Array; // FrozenArray<double>;
+    readonly buttons: GamepadButton[]; // FrozenArray<GamepadButton>;
+}
+
 export interface XRInputSource {
     readonly handedness: XRHandedness;
     readonly targetRayMode: XRTargetRayMode;
     readonly targetRaySpace: EventTarget;
     readonly gripSpace?: EventTarget;
     readonly profiles: string[];
-    readonly gamepad: Gamepad;
+    readonly gamepad: XRGamepad;
     readonly hand?: XRHand;
 }
 
