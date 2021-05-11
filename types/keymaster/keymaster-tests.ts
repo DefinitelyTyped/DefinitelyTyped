@@ -1,14 +1,12 @@
-
-
 // simple key binding without scope
-key('shift+a', function (keyboardEvent: KeyboardEvent, keymasterEvent: KeymasterEvent) {
-});
+key("shift+a", function (keyboardEvent: KeyboardEvent, keymasterEvent: KeymasterEvent) {});
 
 // simple key binding with scope
-key('shift+b', 'aScope', (keyboardEvent, keymasterEvent) => {
-});
+key("shift+b", "aScope", (keyboardEvent, keymasterEvent) => {});
 
-// possible combinations of filtering
-key.filter({target: { tagName: 'propertytest'}});
-key.filter({srcElement: { tagName: 'propertytest'}});
-
+// This re-sets the default filter method: https://www.npmjs.com/package/keymaster#filter-key-presses
+const element = new HTMLElement();
+key.filter = event => {
+    var tagName = (event.target || event.srcElement)!.tagName;
+    return !(tagName == "INPUT" || tagName == "SELECT" || tagName == "TEXTAREA");
+};
