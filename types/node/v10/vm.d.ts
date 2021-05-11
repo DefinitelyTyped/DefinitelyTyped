@@ -15,7 +15,7 @@ declare module "vm" {
         lineOffset?: number;
         /**
          * Specifies the column number offset that is displayed in stack traces produced by this script.
-         * Default: `0`
+         * @default 0
          */
         columnOffset?: number;
     }
