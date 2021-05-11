@@ -1,5 +1,5 @@
 // Type definitions for non-npm package OS Config API v1 1.0
-// Project: https://cloud.google.com/compute/docs/manage-os
+// Project: https://cloud.google.com/compute/docs/osconfig/rest
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

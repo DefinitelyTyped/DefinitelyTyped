@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import ndarray = require("ndarray");
+import { NdArray } from "ndarray";
 
-type Callback = (err: Error | null, pixels: ndarray) => void;
+type Callback = (err: Error | null, pixels: NdArray) => void;
 
 declare function getPixels(path: string, callback: Callback): void;
 declare function getPixels(path: string | Uint8Array, type: string, callback: Callback): void;

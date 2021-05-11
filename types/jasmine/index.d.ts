@@ -558,11 +558,11 @@ declare namespace jasmine {
 
     interface ExpectationResult extends Result {
         matcherName: string;
+        message: string;
+        stack: string;
         passed: boolean;
         expected: any;
         actual: any;
-        message: string;
-        stack: string;
     }
 
     interface DeprecationWarning extends Result {
@@ -571,7 +571,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean, seed: number | string }): any;
+        new (options: { random: boolean; seed: number | string }): any;
         random: boolean;
         seed: number | string;
         sort<T>(items: T[]): T[];
@@ -806,7 +806,7 @@ declare namespace jasmine {
         not: AsyncMatchers<T, U>;
     }
 
-    interface SuiteInfo {
+    interface JasmineStartedInfo {
         totalSpecsDefined: number;
         order: Order;
     }
@@ -829,7 +829,7 @@ declare namespace jasmine {
         message: string;
     }
 
-    interface CustomReporterResult {
+    interface SuiteResult {
         /**
          * The unique id of this spec.
          */
@@ -848,27 +848,17 @@ declare namespace jasmine {
         /**
          * The list of expectations that failed during execution of this spec.
          */
-        failedExpectations?: FailedExpectation[];
-
-        /**
-         * The list of expectations that passed during execution of this spec.
-         */
-        passedExpectations?: PassedExpectation[];
+        failedExpectations: FailedExpectation[];
 
         /**
          * The list of deprecation warnings that occurred during execution this spec.
          */
-        deprecationWarnings?: DeprecatedExpectation[];
-
-        /**
-         * If the spec is pending, this will be the reason.
-         */
-        pendingReason?: string;
+        deprecationWarnings: DeprecatedExpectation[];
 
         /**
          * Once the spec has completed, this string represents the pass/fail status of this spec.
          */
-        status?: string;
+        status: string;
 
         /**
          * The time in ms used by the spec execution, including any before/afterEach.
@@ -881,7 +871,19 @@ declare namespace jasmine {
         properties: { [key: string]: unknown } | null;
     }
 
-    interface RunDetails {
+    interface SpecResult extends SuiteResult {
+        /**
+         * The list of expectations that passed during execution of this spec.
+         */
+        passedExpectations: PassedExpectation[];
+
+        /**
+         * If the spec is pending, this will be the reason.
+         */
+        pendingReason: string;
+    }
+
+    interface JasmineDoneInfo {
         overallStatus: string;
         totalTime: number;
         incompleteReason: string;
@@ -891,50 +893,28 @@ declare namespace jasmine {
     }
 
     interface CustomReporter {
-        jasmineStarted?(suiteInfo: SuiteInfo, done?: () => void): void | Promise<void>;
-        suiteStarted?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
-        specStarted?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
-        specDone?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
-        suiteDone?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
-        jasmineDone?(runDetails: RunDetails, done?: () => void): void | Promise<void>;
+        jasmineStarted?(suiteInfo: JasmineStartedInfo, done?: () => void): void | Promise<void>;
+        suiteStarted?(result: SuiteResult, done?: () => void): void | Promise<void>;
+        specStarted?(result: SpecResult, done?: () => void): void | Promise<void>;
+        specDone?(result: SpecResult, done?: () => void): void | Promise<void>;
+        suiteDone?(result: SuiteResult, done?: () => void): void | Promise<void>;
+        jasmineDone?(runDetails: JasmineDoneInfo, done?: () => void): void | Promise<void>;
     }
 
     type SpecFunction = (spec?: Spec) => void;
 
-    interface SuiteOrSpec {
+    interface Spec {
+        new (attrs: any): any;
+
         id: number;
         env: Env;
         description: string;
-    }
-
-    interface Spec extends SuiteOrSpec {
         getFullName(): string;
-        getResult(): any;
-        expect(actual: any): any;
-        execute(onComplete?: () => void, enabled?: boolean): any;
-        throwOnExpectationFailure: boolean;
     }
 
-    interface XSpec {
-        id: number;
-    }
-
-    interface Suite extends SuiteOrSpec {
-        new (env: Env, description: string, specDefinitions: () => void, parentSuite: Suite): any;
-
+    interface Suite extends Spec {
         parentSuite: Suite;
-
-        getFullName(): string;
-        beforeEach(beforeEachFunction: SpecFunction): void;
-        afterEach(afterEachFunction: SpecFunction): void;
-        beforeAll(beforeAllFunction: SpecFunction): void;
-        afterAll(afterAllFunction: SpecFunction): void;
-        specs(): Spec[];
-        suites(): Suite[];
-    }
-
-    interface XSuite {
-        execute(): void;
+        children: Array<Spec | Suite>;
     }
 
     interface Spy<Fn extends Func = Func> {
@@ -1040,13 +1020,13 @@ declare namespace jasmine {
 
         started: boolean;
         finished: boolean;
-        runDetails: RunDetails;
+        runDetails: JasmineDoneInfo;
 
         status(): string;
-        suiteResults(index: number, length: number): CustomReporterResult[];
-        specResults(index: number, length: number): CustomReporterResult[];
-        suites(): { [id: string]: CustomReporterResult };
-        specs(): CustomReporterResult[];
+        suiteResults(index: number, length: number): SuiteResult[];
+        specResults(index: number, length: number): SpecResult[];
+        suites(): { [id: string]: SuiteResult };
+        specs(): SpecResult[];
         executionTime(): number;
     }
 

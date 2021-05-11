@@ -148,6 +148,10 @@
             "libraryName": "assertion-error",
             "asOfVersion": "1.1.0"
         },
+        "astring": {
+            "libraryName": "astring",
+            "asOfVersion": "1.7.0"
+        },
         "asyncblock": {
             "libraryName": "asyncblock",
             "asOfVersion": "2.2.11"
@@ -656,6 +660,14 @@
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
+        },
+        "datastore-core": {
+            "libraryName": "datastore-core",
+            "asOfVersion": "3.0.0"
+        },
+        "datastore-level": {
+            "libraryName": "datastore-level",
+            "asOfVersion": "3.0.0"
         },
         "date-fns": {
             "libraryName": "date-fns",
@@ -3062,6 +3074,10 @@
             "libraryName": "react-easy-crop",
             "asOfVersion": "2.0.0"
         },
+        "react-editext": {
+            "libraryName": "react-editext",
+            "asOfVersion": "4.0.0"
+        },
         "react-filepond": {
             "libraryName": "react-filepond",
             "asOfVersion": "7.1.0"
@@ -3517,6 +3533,10 @@
         "simonwep__selection-js": {
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
+        },
+        "simplebar": {
+            "libraryName": "simplebar",
+            "asOfVersion": "5.3.3"
         },
         "sindresorhus__class-names": {
             "libraryName": "@sindresorhus/class-names",

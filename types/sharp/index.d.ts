@@ -1021,6 +1021,12 @@ declare namespace sharp {
         raw?: Raw;
         /** Set to true to avoid premultipling the image below. Equivalent to the --premultiplied vips option. */
         premultiplied?: boolean;
+        /**
+         * Do not process input images where the number of pixels (width x height) exceeds this limit.
+         * Assumes image dimensions contained in the input metadata can be trusted.
+         * An integral Number of pixels, zero or false to remove limit, true to use default limit of 268402689 (0x3FFF x 0x3FFF). (optional, default 268402689)
+         */
+        limitInputPixels?: number | boolean;
     }
 
     interface TileOptions {
