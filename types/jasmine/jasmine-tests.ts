@@ -928,37 +928,101 @@ describe("A spy, when created manually", () => {
 });
 
 describe("a spy on a typed method", () => {
-    class Test {
-        method(arg: number): string {
-            return "42";
+    describe("method parameter is primitive", () => {
+        class Test {
+            method(arg: number): string {
+                return "42";
+            }
         }
-    }
 
-    let t: Test;
+        let t: Test;
 
-    beforeEach(() => {
-        t = new Test();
+        beforeEach(() => {
+            t = new Test();
+        });
+
+        it("should match only call arguments with the correct type", () => {
+            const spy = spyOn(t, "method");
+            t.method(1);
+
+            expect(t.method).toHaveBeenCalledWith(1);
+            expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
+            expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+            expect(spy).toHaveBeenCalledWith(1);
+            expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
+            expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+            expect(t.method).toHaveBeenCalledOnceWith(1);
+            expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
+            expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+
+            expect(spy).toHaveBeenCalledOnceWith(1);
+            expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
+            expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+        });
     });
 
-    it("should match only call arguments with the correct type", () => {
-        const spy = spyOn(t, "method");
-        t.method(1);
+    describe("method parameter is an object", () => {
+        interface ObjectProperty {
+            prop1: string;
+            prop2: number;
+        }
 
-        expect(t.method).toHaveBeenCalledWith(1);
-        expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
-        expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+        interface ObjectParam {
+            prop1: string;
+            prop2: ObjectProperty;
+        }
 
-        expect(spy).toHaveBeenCalledWith(1);
-        expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
-        expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+        class Test {
+            method(arg: ObjectParam): string {
+                return "42";
+            }
+        }
 
-        expect(t.method).toHaveBeenCalledOnceWith(1);
-        expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
-        expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+        let t: Test;
 
-        expect(spy).toHaveBeenCalledOnceWith(1);
-        expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
-        expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+        beforeEach(() => {
+            t = new Test();
+        });
+
+        it("should match only call arguments with the correct type", () => {
+            const spy = spyOn(t, "method");
+            t.method({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+
+            expect(t.method).toHaveBeenCalledWith({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            expect(t.method).toHaveBeenCalledWith("1"); // $ExpectError
+            expect(t.method).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+            expect(spy).toHaveBeenCalledWith({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            expect(spy).toHaveBeenCalledWith("1"); // $ExpectError
+            expect(spy).not.toHaveBeenCalledWith("1"); // $ExpectError
+
+            expect(t.method).toHaveBeenCalledOnceWith({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            expect(t.method).toHaveBeenCalledOnceWith("1"); // $ExpectError
+            expect(t.method).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+
+            expect(spy).toHaveBeenCalledOnceWith({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+            expect(spy).toHaveBeenCalledOnceWith("1"); // $ExpectError
+            expect(spy).not.toHaveBeenCalledOnceWith("1"); // $ExpectError
+        });
+
+        it("should match arguments using jasmine matchers", () => {
+            const spy = spyOn(t, "method");
+            t.method({ prop1: 'prop1', prop2: { prop1: 'deep-prop1', prop2: 10 }});
+
+            expect(t.method).toHaveBeenCalledWith({ prop1: jasmine.any(String), prop2: { prop1: 'deep-prop1', prop2: jasmine.any(Number) }});
+            expect(t.method).toHaveBeenCalledWith(jasmine.any(Object));
+
+            expect(spy).toHaveBeenCalledWith({ prop1: jasmine.any(String), prop2: { prop1: 'deep-prop1', prop2: jasmine.any(Number) }});
+            expect(spy).toHaveBeenCalledWith(jasmine.any(Object));
+
+            expect(t.method).toHaveBeenCalledOnceWith({ prop1: jasmine.any(String), prop2: { prop1: 'deep-prop1', prop2: jasmine.any(Number) }});
+            expect(t.method).toHaveBeenCalledOnceWith(jasmine.any(Object));
+
+            expect(spy).toHaveBeenCalledOnceWith({ prop1: jasmine.any(String), prop2: { prop1: 'deep-prop1', prop2: jasmine.any(Number) }});
+            expect(spy).toHaveBeenCalledOnceWith(jasmine.any(Object));
+        });
     });
 });
 
