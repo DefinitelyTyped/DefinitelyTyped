@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 
-/// <reference types="node" />
-
-import { EventEmitter } from "events";
+import type { EventEmitter } from "events";
 
 /** Represents the content of a message */
 export interface Argument {
@@ -67,10 +65,9 @@ export class Client {
     close(cb?: ClientCloseCallback): void;
 
     /** Send a message to the server */
-    send(message: Message | MessageLike): void;
-    send(address: string): void;
-    send(address: string, ...args: [...(Message | MessageLike)[], ClientSendCallback]): void;
-    send(...args: [...(Message | MessageLike)[], ClientSendCallback]): void;
+    send(addressOrMessage: string | Message | MessageLike): void;
+    send(address: string, ...args: [...Array<Message | MessageLike>, ClientSendCallback]): void;
+    send(...args: [...Array<Message | MessageLike>, ClientSendCallback]): void;
 
     /** Send a Bundle message to the server */
     send(bundle: Bundle, callback?: ClientSendCallback): void;
@@ -107,9 +104,6 @@ export class Server extends EventEmitter {
     /** Listen for errors occurred during message decoding */
     on(event: "error", listener: ServerErrorListner): this;
 
-    /** Listen for all the messages received by the server */
-    on(event: "message", listener: ServerMessageListener): this;
-
-    /** Listen for the messages sent to a specific address */
-    on(address: string, listener: ServerMessageListener): this;
+    /** Listen for all the messages received by the server or for a specific address */
+    on(event: "message" | string, listener: ServerMessageListener): this;
 }

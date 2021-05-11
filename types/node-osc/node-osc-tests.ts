@@ -31,7 +31,7 @@ const client = new Client("127.0.0.1", 3333);
 
 const clientSendCallback: ClientSendCallback = err => {
     if (err) {
-        console.error(err);
+        // console.log("Error", err);
     }
 
     client.close();
@@ -70,32 +70,32 @@ client.send(bundle);
 const oscServerBase = new Server(3333, "0.0.0.0");
 
 oscServerBase.on("listening", () => {
-    console.log("Server started");
+    // console.log("Server started");
 });
 
 oscServerBase.close(() => {
-    console.log("Server stopped");
+    // console.log("Server stopped");
 });
 
 const oscServer = new Server(3333, "0.0.0.0", () => {
-    console.log("Server started");
+    // console.log("Server started");
 });
 
 oscServer.on("bundle", bundle => {
     bundle.elements.forEach(element => {
-        console.log(`Timestamp: ${bundle.timetag}`);
-        console.log(`Message: ${element}`);
+        // console.log(`Timestamp: ${bundle.timetag}`);
+        // console.log(`Message: ${element}`);
     });
 });
 
 oscServer.on("error", err => {
-    console.error("Error on OSC server", err);
+    // console.error("Error on OSC server", err);
 });
 
 oscServer.on("message", msg => {
-    console.log(`Message: ${msg}`);
+    // console.log(`Message: ${msg}`);
 });
 
 oscServer.on("/test", msg => {
-    console.log(`Message: ${msg}`);
+    // console.log(`Message: ${msg}`);
 });
