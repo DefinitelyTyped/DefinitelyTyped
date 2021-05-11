@@ -2040,6 +2040,7 @@ declare namespace React {
         allow?: string;
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
+        csp?: string;
         /** @deprecated */
         frameBorder?: number | string;
         height?: number | string;

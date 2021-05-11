@@ -32,6 +32,7 @@ const testCases = [
     <input value={['one', 'two'] as string[]} />,
     <input value={['one', 'two']} />,
     <input enterKeyHint="done" />,
+    <iframe csp="default-src 'none';"></iframe>,
     // $ExpectError
     <input enterKeyHint="don" />,
     <video disableRemotePlayback />
