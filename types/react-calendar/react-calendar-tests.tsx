@@ -29,6 +29,8 @@ export default class Sample extends React.Component<{}, State> {
               showWeekNumbers
               closeCalendar={true}
               value={value}
+              locale="ko-KR"
+              formatDay={(locale, date) => date.getDate().toString()}
             />
           </main>
         </div>
