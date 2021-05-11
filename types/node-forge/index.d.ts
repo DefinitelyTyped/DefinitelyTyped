@@ -756,7 +756,7 @@ declare module "node-forge" {
 
     namespace hmac {
 
-      type Algorithm = "sha1" | "md5" | "sha256";
+      type Algorithm = "sha1" | "md5" | "sha256" | "sha512";
 
       interface HMAC {
           digest(): util.ByteBuffer;
