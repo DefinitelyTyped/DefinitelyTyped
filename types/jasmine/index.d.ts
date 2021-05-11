@@ -587,14 +587,6 @@ declare namespace jasmine {
     }
 
     interface Matchers<T> {
-        new (env: Env, actual: T, spec: Spec, isNot?: boolean): any;
-
-        env: Env;
-        actual: T;
-        spec: Spec;
-        isNot?: boolean;
-        message(): any;
-
         /**
          * Expect the actual value to be `===` to the expected value.
          *
