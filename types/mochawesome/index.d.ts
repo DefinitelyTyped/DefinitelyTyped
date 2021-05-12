@@ -147,9 +147,9 @@ declare class Mochawesome {
      * Mochawesome instance.
      */
     config: Mochawesome.Config;
-    
+
     /**
-     * Information related to the results of the test 
+     * Information related to the results of the test
      * suite ran by the supplied `Mocha.Runner` instance.
      * Will be populated after the suite is run.
      */
