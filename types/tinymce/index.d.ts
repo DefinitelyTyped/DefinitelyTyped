@@ -5,6 +5,7 @@
 //                 Nico Hartto <https://github.com/nicohartto>
 //                 Tyler Romeo <https://github.com/Parent5446>
 //                 Ashley Workman <https://github.com/CymruKakashi>
+//                 Tagawa Hirotaka <https://github.com/wafuwafu13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -106,6 +107,32 @@ export interface Settings {
     hidden_input?: boolean;
 
     paste_data_images?: boolean;
+
+    paste_as_text?: boolean;
+
+    paste_enable_default_filters?: boolean;
+
+    paste_filter_drop?: boolean;
+
+    paste_preprocess?(plugin: any, args: any): void;
+
+    paste_postprocess?(plugin: any, args: any): void;
+
+    paste_word_valid_elements?: string;
+
+    paste_webkit_styles?: string;
+
+    paste_retain_style_properties?: string;
+
+    paste_merge_formats?: boolean;
+
+    paste_convert_word_fake_lists?: boolean;
+
+    paste_remove_styles_if_webkit?: boolean;
+
+    pagebreak_separator?: string;
+
+    pagebreak_split_block?: boolean;
 
     advlist_number_styles?: string;
 
@@ -1086,7 +1113,7 @@ export namespace dom {
 
         getNode(): Element;
 
-        getRng(w3c: boolean): Range;
+        getRng(): Range;
 
         getSel(): Selection;
 
