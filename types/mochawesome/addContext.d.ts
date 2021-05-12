@@ -1,11 +1,13 @@
 import * as Mocha from 'mocha';
 
-interface TestContextObject {
-    title: string;
-    value: any;
-}
+declare namespace addContext {
+    interface TestContextObject {
+        title: string;
+        value: any;
+    }
 
-type TestContext = string | TestContextObject;
+    type TestContext = string | TestContextObject;
+}
 
 /**
  * Add context to the test object so it can
@@ -30,6 +32,6 @@ type TestContext = string | TestContextObject;
  * });
  *
  */
-declare function addContext(testCtx: Mocha.Context, context: TestContext): void;
+declare function addContext(testCtx: Mocha.Context, context: addContext.TestContext): void;
 
 export = addContext;

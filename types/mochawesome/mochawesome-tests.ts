@@ -3,15 +3,17 @@
 // $ExpectType (testCtx: Context, context: TestContext) => void
 import addContext = require('mochawesome/addContext');
 
+// $ExpectType any
+import { TestContext } from 'mochawesome/addContext';
+
+// $ExpectType any
+import * as addContext2 from 'mochawesome/addContext';
+
 // $ExpectError
 import * as addContext4 from 'mochawesome';
 
 // $ExpectError
-import * as addContext2 from 'mochawesome/addContext';
-
-// $ExpectError
 import { addContext as addContext3 } from 'mochawesome/addContext';
-
 // $ExpectError
 import { addContext as addContext5 } from 'mochawesome';
 
