@@ -1,4 +1,4 @@
-// Type definitions for keymaster v1.6.2
+// Type definitions for keymaster v1.6.3
 // Project: https://github.com/madrobby/keymaster
 // Definitions by: Martin W. Kirst <https://github.com/nitram509>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,12 +18,8 @@ interface KeyHandler {
 }
 
 interface FilterEvent {
-    target?: {
-        tagName?: string;
-    }
-    srcElement?: {
-        tagName?: string;
-    }
+    target?: HTMLElement;
+    srcElement?: HTMLElement;
 }
 
 interface Keymaster {
@@ -50,7 +46,7 @@ interface Keymaster {
     isPressed(keyCode: number): boolean;
     getPressedKeyCodes(): number[];
 
-    filter(event: FilterEvent): void;
+    filter(event: FilterEvent): boolean;
 }
 
 declare var key: Keymaster;
