@@ -742,16 +742,16 @@ const objArray: ObjDefinition[] = [
     { name: "stacy", amount: "34.05", date: "01/04/2016" }
 ];
 
-const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.name);
-const grouped2: Map<string, Map<string, ObjDefinition[]>> = d3Array.group(objArray, d => d.name, d => d.date);
-const grouped3: Map<string, Map<string, Map<string, ObjDefinition[]>>> = d3Array.group(objArray, d => d.name, d => d.date, d => d.amount);
-const indexed: Map<string, ObjDefinition> = d3Array.index(objArray, d => d.name);
-const indexed2: Map<string, Map<string, ObjDefinition>> = d3Array.index(objArray, d => d.name, d => d.date);
-const indexed3: Map<string, Map<string, Map<string, ObjDefinition>>> = d3Array.index(objArray, d => d.name, d => d.date, d => d.amount);
-const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
-const rolledup2: Map<string, Map<string, number>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date);
-const rolledup3: Map<string, Map<string, Map<string, number>>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
-const rolledupAlternate: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
+const grouped: d3Array.InternMap<string, ObjDefinition[]> = d3Array.group(objArray, d => d.name);
+const grouped2: d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition[]>> = d3Array.group(objArray, d => d.name, d => d.date);
+const grouped3: d3Array.InternMap<string, d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition[]>>> = d3Array.group(objArray, d => d.name, d => d.date, d => d.amount);
+const indexed: d3Array.InternMap<string, ObjDefinition> = d3Array.index(objArray, d => d.name);
+const indexed2: d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition>> = d3Array.index(objArray, d => d.name, d => d.date);
+const indexed3: d3Array.InternMap<string, d3Array.InternMap<string, d3Array.InternMap<string, ObjDefinition>>> = d3Array.index(objArray, d => d.name, d => d.date, d => d.amount);
+const rolledup: d3Array.InternMap<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
+const rolledup2: d3Array.InternMap<string, d3Array.InternMap<string, number>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date);
+const rolledup3: d3Array.InternMap<string, d3Array.InternMap<string, d3Array.InternMap<string, number>>> = d3Array.rollup(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
+const rolledupAlternate: d3Array.InternMap<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
 const groups: Array<[string, ObjDefinition[]]> = d3Array.groups(objArray, d => d.name);
 const groups2: Array<[string, Array<[string, ObjDefinition[]]>]> = d3Array.groups(objArray, d => d.name, d => d.date);
@@ -1247,3 +1247,13 @@ num = d3Array.thresholdScott(readonlyNumbersArray, -1, 234);
 num = d3Array.thresholdSturges(numbersArray);
 num = d3Array.thresholdSturges(typedArray);
 num = d3Array.thresholdSturges(readonlyNumbersArray);
+
+// Interning ====================================================================
+
+const internMap = new d3Array.InternMap<string, number>();
+internMap.set('5', 3);
+const map: Map<string, number> = internMap;
+
+const internSet = new d3Array.InternSet<string>();
+internSet.add('5');
+const set: Set<string> = internSet;
