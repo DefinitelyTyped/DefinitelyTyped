@@ -883,7 +883,31 @@ voidProm = Bluebird.delay(num);
 asyncfunc = Bluebird.promisify(f);
 asyncfunc = Bluebird.promisify(f, obj);
 
-obj = Bluebird.promisifyAll(obj);
+const promiseModule = Bluebird.promisifyAll({
+    movedMethod: (someArg: string, callback: (error: Error, data: number) => void) => {},
+    ignoredMethod: (someArg: string) => {}
+});
+const normalMethod = promiseModule.movedMethod
+normalMethod('foo', (err, data) => {
+    const stack = err.stack
+    const value = data * 25
+})
+// $ExpectError
+normalMethod('foo', () => {}).then()
+
+const asyncMethod = promiseModule.movedMethodAsync
+asyncMethod('foo').then(data => {
+    const value = data * 25
+})
+
+const ignoredMethod = promiseModule.ignoredMethod
+ignoredMethod('foo')
+// $ExpectError
+normalMethod('foo', () => {}).then()
+
+// $ExpectError
+const ignoredMethodAsync = promiseModule.ignoredMethodAsync
+
 anyProm = Bluebird.fromNode(nodeCallbackFunc);
 anyProm = Bluebird.fromNode(nodeCallbackFuncErrorOnly);
 anyProm = Bluebird.fromNode(nodeCallbackFunc, {multiArgs : true});
