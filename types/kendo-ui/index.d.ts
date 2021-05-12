@@ -9497,6 +9497,7 @@ declare namespace kendo.ui {
         destroy(): void;
         enable(enable: boolean): void;
         toggle(): void;
+        readonly(readonly: boolean): void;
         setOptions(options: any): void;
     }
 
