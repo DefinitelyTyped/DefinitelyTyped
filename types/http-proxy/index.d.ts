@@ -115,138 +115,70 @@ declare class Server extends events.EventEmitter {
   on(event: "error", listener: ErrorCallback): this;
   on(
     event: "start",
-    listener: (
-      req: http.IncomingMessage,
-      res: http.ServerResponse,
-      target: ProxyTargetUrl
-    ) => void
+    listener: Server.StartCallback
   ): this;
   on(
     event: "proxyReq",
-    listener: (
-      proxyReq: http.ClientRequest,
-      req: http.IncomingMessage,
-      res: http.ServerResponse,
-      options: Server.ServerOptions
-    ) => void
+    listener: Server.ProxyReqCallback
   ): this;
   on(
     event: "proxyRes",
-    listener: (
-      proxyRes: http.IncomingMessage,
-      req: http.IncomingMessage,
-      res: http.ServerResponse
-    ) => void
+    listener: Server.ProxyResCallback
   ): this;
   on(
     event: "proxyReqWs",
-    listener: (
-      proxyReq: http.ClientRequest,
-      req: http.IncomingMessage,
-      socket: net.Socket,
-      options: Server.ServerOptions,
-      head: any
-    ) => void
+    listener: Server.ProxyReqWsCallback
   ): this;
   on(
     event: "econnreset",
-    listener: (
-      err: Error,
-      req: http.IncomingMessage,
-      res: http.ServerResponse,
-      target: ProxyTargetUrl
-    ) => void
+    listener: Server.EconnresetCallback
   ): this;
   on(
     event: "end",
-    listener: (
-      req: http.IncomingMessage,
-      res: http.ServerResponse,
-      proxyRes: http.IncomingMessage
-    ) => void
+    listener: Server.EndCallback
   ): this;
   on(
     event: "open",
-    listener: (
-      proxySocket: net.Socket,
-    ) => void
+    listener: Server.OpenCallback
   ): this;
   on(
     event: "close",
-    listener: (
-      proxyRes: http.IncomingMessage,
-      proxySocket: net.Socket,
-      proxyHead: any
-    ) => void
+    listener: Server.CloseCallback
   ): this;
 
   once(event: string, listener: () => void): this;
   once(event: "error", listener: ErrorCallback): this;
   once(
       event: "start",
-      listener: (
-          req: http.IncomingMessage,
-          res: http.ServerResponse,
-          target: ProxyTargetUrl
-      ) => void
+      listener: Server.StartCallback
   ): this;
   once(
       event: "proxyReq",
-      listener: (
-          proxyReq: http.ClientRequest,
-          req: http.IncomingMessage,
-          res: http.ServerResponse,
-          options: Server.ServerOptions
-      ) => void
+      listener: Server.ProxyReqCallback
   ): this;
   once(
       event: "proxyRes",
-      listener: (
-          proxyRes: http.IncomingMessage,
-          req: http.IncomingMessage,
-          res: http.ServerResponse
-      ) => void
+      listener: Server.ProxyResCallback
   ): this;
   once(
       event: "proxyReqWs",
-      listener: (
-          proxyReq: http.ClientRequest,
-          req: http.IncomingMessage,
-          socket: net.Socket,
-          options: Server.ServerOptions,
-          head: any
-      ) => void
+      listener: Server.ProxyReqWsCallback
   ): this;
   once(
       event: "econnreset",
-      listener: (
-          err: Error,
-          req: http.IncomingMessage,
-          res: http.ServerResponse,
-          target: ProxyTargetUrl
-      ) => void
+      listener: Server.EconnresetCallback
   ): this;
   once(
       event: "end",
-      listener: (
-          req: http.IncomingMessage,
-          res: http.ServerResponse,
-          proxyRes: http.IncomingMessage
-      ) => void
+      listener: Server.EndCallback
   ): this;
   once(
       event: "open",
-      listener: (
-          proxySocket: net.Socket
-      ) => void
+      listener: Server.OpenCallback
   ): this;
   once(
       event: "close",
-      listener: (
-          proxyRes: http.IncomingMessage,
-          proxySocket: net.Socket,
-          proxyHead: any
-      ) => void
+      listener: Server.CloseCallback
   ): this;
   removeListener(event: string, listener: () => void): this;
   removeAllListeners(event?: string): this;
@@ -310,6 +242,26 @@ declare namespace Server {
     /** Buffer */
     buffer?: stream.Stream;
   }
+
+  type StartCallback = (req: http.IncomingMessage, res: http.ServerResponse, target: ProxyTargetUrl) => void;
+  type ProxyReqCallback = (
+      proxyReq: http.ClientRequest,
+      req: http.IncomingMessage,
+      res: http.ServerResponse,
+      options: ServerOptions,
+  ) => void;
+  type ProxyResCallback = (proxyRes: http.IncomingMessage, req: http.IncomingMessage, res: http.ServerResponse) => void;
+  type ProxyReqWsCallback = (
+      proxyReq: http.ClientRequest,
+      req: http.IncomingMessage,
+      socket: net.Socket,
+      options: ServerOptions,
+      head: any,
+  ) => void;
+  type EconnresetCallback = (err: Error, req: http.IncomingMessage, res: http.ServerResponse, target: ProxyTargetUrl) => void;
+  type EndCallback = (req: http.IncomingMessage, res: http.ServerResponse, proxyRes: http.IncomingMessage) => void;
+  type OpenCallback = (proxySocket: net.Socket) => void;
+  type CloseCallback = (proxyRes: http.IncomingMessage, proxySocket: net.Socket, proxyHead: any) => void;
 }
 
 export = Server;
