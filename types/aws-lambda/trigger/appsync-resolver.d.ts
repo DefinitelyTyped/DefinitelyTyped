@@ -1,6 +1,7 @@
 import { Handler } from '../handler';
 
 export type AppSyncResolverHandler<T, V> = Handler<AppSyncResolverEvent<T>, V | V[]>;
+export type AppSyncBatchResolverHandler<T, V> = Handler<T[], V[]>;
 
 export interface AppSyncResolverEventHeaders {
     [name: string]: string | undefined;

@@ -1,4 +1,9 @@
-import { AppSyncIdentityCognito, AppSyncIdentityIAM, AppSyncResolverHandler } from 'aws-lambda';
+import {
+    AppSyncIdentityCognito,
+    AppSyncIdentityIAM,
+    AppSyncResolverHandler,
+    AppSyncBatchResolverHandler
+} from 'aws-lambda';
 
 declare let objectOrNull: {} | null;
 declare let prevResultOrNull: { result: { [key: string]: any } } | null;
@@ -13,6 +18,19 @@ interface TestEntity {
     name: string;
     check: boolean;
 }
+
+const batchHandler: AppSyncBatchResolverHandler<TestArguments, TestEntity> = async (event) => {
+    array = event;
+    str = event[0].id;
+    str = event[0].query;
+    return [
+        {
+            id: '',
+            name: '',
+            check: true,
+        }
+    ];
+};
 
 const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event, context) => {
     str = event.arguments.id;
