@@ -39,7 +39,7 @@ export class SSRPass extends Pass {
     opacity: number;
     output: number;
     maxDistance: number;
-    surfDist: number;
+    thickness: number;
     encoding: TextureEncoding;
     tempColor: Color;
 

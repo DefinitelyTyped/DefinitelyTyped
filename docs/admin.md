@@ -26,21 +26,6 @@ Some key concepts:
 - There are a handful of authors who have shipped a lot of high quality contributions who you can happily delegate to
 
 
-##### "Blessing" a PR
-
-If a PR looks kind of ok, but you don't want to submit an approving review (it can be mistaken as an expert approval),
-then move the PR *away* from the `Needs Maintainer Review` and the bot will interpret that as an implicit blessing. (Do
-this using the dropdown column in the "Projects" box on the right.)  Like reviews, updates to the PR will void such a
-blessing.
-
-The column you move it to doesn't make any difference to the bot, it will move it to the right one if needed, but it
-works best to move it to `Waiting for Code Reviews`.
-
-> **Disclaimer:** It is currently impossible to get from/to information about column moves, so the bot ignores the
-> column it was moved from.  This means that it is impossible to cancel a blessing, but you can still submit a review if
-> changes are needed.
-
-
 ##### Project board columns
 
 - `Needs Maintainer Action`: PRs that cannot be dismissed with a blessing
@@ -48,6 +33,28 @@ works best to move it to `Waiting for Code Reviews`.
 - `Other`: Something went wrong, PRs can pop up there for a short time before the test results are in
 - `Waiting for Author to Merge`: All good, and the owner can self-merge their PR
 - `Needs Author Action`, `Recently Merged`, `Waiting for Code Reviews`: Self describing
+
+
+##### "Blessing" a PR
+
+You can control the life-cycle of PRs via "blessings", which are implicit operations done without providing a review that can be misinterpreted as an expert review.
+
+> TL;DR:
+> * To dismiss a PR in "Needs Maintainer Review", move it to "Waiting for Code Reviews".
+> * To dismiss a PR in "Needs Maintainer Action", move it to "Waiting for Author to Merge".
+> * To undo either of these, move them to any other column.
+
+* If a PR requires a *maintainer review*, you can fulfill this requirement by a "review-blessing": you do that by moving the PR to the `Waiting for Code Reviews` column (using the drop-down in the "Projects" section on the right).
+  This is especially relevant in cases where a maintainer review is needed because of a technical requirement like no tests, suspicious config edits etc: in such cases you can review-bless the PR in case the config edit is fine, the change is small or doesn't modify types etc.
+  Note that it only dismisses the maintainer review requirement, so the PR will continue the usual flow, and will wait for approvals as needed.
+
+* If a PR requires a *maintainer action*, you can move it to the `Waiting for Author to Merge` column to "merge-bless" it: make the bot offer the author to self-merge.
+  This is particularly useful in cases where a PR author is unsure about something, and is trying to solicit review from owners or library authors: it makes it possible to defer the decision when to merge to the author, instead of starting an "are you ready" discussion.
+
+You can use either of these blessings in other cases too, the above are just the common use cases.  A review-blessing is only good to satisfy a maintainer review requirment (so other reviews will be needed), and a merge-blessing will usually make a PR self-mergable, but it will still wait until a PR is unconflicted and the CI is green.
+
+Like a review, both kinds of blessings will be dismissed if the PR is updated.
+You can also undo a blessing by moving a PR to any other column.
 
 
 ##### Amending an existing Definitely Typed Package

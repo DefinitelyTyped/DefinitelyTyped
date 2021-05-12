@@ -154,3 +154,5 @@ const consentRequestFilterByCurrentUserOptions: MicrosoftGraph.ConsentRequestFil
 const initiatorType: MicrosoftGraph.InitiatorType = "user";
 
 const identityUserFlowAttributeDataType: MicrosoftGraph.IdentityUserFlowAttributeDataType = "string";
+
+const enrollmentState: MicrosoftGraph.EnrollmentState = "enrolled";

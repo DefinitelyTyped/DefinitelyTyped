@@ -2028,7 +2028,7 @@ declare namespace chrome.devtools.inspectedWindow {
      */
     export function eval<T>(
         expression: string,
-        options: EvalOptions,
+        options?: EvalOptions,
         callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
     ): void;
     /**
