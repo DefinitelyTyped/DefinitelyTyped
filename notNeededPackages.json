@@ -2073,6 +2073,10 @@
             "libraryName": "make-dir",
             "asOfVersion": "2.1.0"
         },
+        "maker.js": {
+            "libraryName": "makerjs",
+            "asOfVersion": "0.9.34"
+        },
         "mali": {
             "libraryName": "mali",
             "asOfVersion": "0.9.2"
