@@ -166,6 +166,12 @@ declare class Server extends events.EventEmitter {
     ) => void
   ): this;
   on(
+    event: "open",
+    listener: (
+      proxySocket: net.Socket,
+    ) => void
+  ): this;
+  on(
     event: "close",
     listener: (
       proxyRes: http.IncomingMessage,
@@ -226,6 +232,12 @@ declare class Server extends events.EventEmitter {
           req: http.IncomingMessage,
           res: http.ServerResponse,
           proxyRes: http.IncomingMessage
+      ) => void
+  ): this;
+  once(
+      event: "open",
+      listener: (
+          proxySocket: net.Socket
       ) => void
   ): this;
   once(
