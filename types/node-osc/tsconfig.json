@@ -1,27 +1,23 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
-        "paths": {
-            "webpack": [
-                "webpack/v4"
-            ],
-            "tapable": [
-                "tapable/v1"
-            ]
-        },
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "webpack-dev-middleware-tests.ts"
+        "node-osc-tests.ts"
     ]
 }
