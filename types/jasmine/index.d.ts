@@ -381,10 +381,9 @@ declare namespace jasmine {
 
     interface AsymmetricMatcher<TValue> {
         /**
-         * @deprecated customTesters are deprecated and will be replaced with matcherUtils in the future.
+         * customTesters are deprecated and will be replaced with matcherUtils in the future.
          */
-        asymmetricMatch(other: TValue, customTesters: ReadonlyArray<CustomEqualityTester>): boolean;
-        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil): boolean;
+        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | ReadonlyArray<CustomEqualityTester>): boolean;
         jasmineToString?(): string;
     }
 
