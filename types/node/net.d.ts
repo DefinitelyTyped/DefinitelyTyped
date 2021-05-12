@@ -184,12 +184,14 @@ declare module 'net' {
 
     interface ServerOpts {
         /**
-         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
+         * Indicates whether half-opened TCP connections are allowed.
+         * @default false
          */
         allowHalfOpen?: boolean;
 
         /**
-         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
+         * Indicates whether the socket should be paused on incoming connections.
+         * @default false
          */
         pauseOnConnect?: boolean;
     }
