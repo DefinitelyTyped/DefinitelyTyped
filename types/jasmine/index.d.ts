@@ -593,7 +593,11 @@ declare namespace jasmine {
          * @example
          * expect(thing).toBe(realThing);
          */
-        toBe(expected: Expected<T>, expectationFailOutput?: any): void;
+        toBe(expected: Expected<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBe(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
@@ -601,7 +605,11 @@ declare namespace jasmine {
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
-        toEqual(expected: Expected<T>, expectationFailOutput?: any): void;
+        toEqual(expected: Expected<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toEqual(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
          * Expect the actual value to match a regular expression.
@@ -610,14 +618,38 @@ declare namespace jasmine {
          * expect("my string").toMatch(/string$/);
          * expect("other string").toMatch("her");
          */
-        toMatch(expected: string | RegExp, expectationFailOutput?: any): void;
+        toMatch(expected: string | RegExp): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toMatch(expected: string | RegExp, expectationFailOutput: any): void;
 
-        toBeDefined(expectationFailOutput?: any): void;
-        toBeUndefined(expectationFailOutput?: any): void;
-        toBeNull(expectationFailOutput?: any): void;
+        toBeDefined(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeDefined(expectationFailOutput: any): void;
+        toBeUndefined(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeUndefined(expectationFailOutput: any): void;
+        toBeNull(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeNull(expectationFailOutput: any): void;
         toBeNaN(): void;
-        toBeTruthy(expectationFailOutput?: any): void;
-        toBeFalsy(expectationFailOutput?: any): void;
+        toBeTruthy(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeTruthy(expectationFailOutput: any): void;
+        toBeFalsy(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeFalsy(expectationFailOutput: any): void;
         toBeTrue(): void;
         toBeFalse(): void;
         toHaveBeenCalled(): void;
@@ -625,18 +657,50 @@ declare namespace jasmine {
         toHaveBeenCalledWith(...params: any[]): void;
         toHaveBeenCalledOnceWith(...params: any[]): void;
         toHaveBeenCalledTimes(expected: number): void;
-        toContain(expected: any, expectationFailOutput?: any): void;
-        toBeLessThan(expected: number, expectationFailOutput?: any): void;
-        toBeLessThanOrEqual(expected: number, expectationFailOutput?: any): void;
-        toBeGreaterThan(expected: number, expectationFailOutput?: any): void;
-        toBeGreaterThanOrEqual(expected: number, expectationFailOutput?: any): void;
-        toBeCloseTo(expected: number, precision?: any, expectationFailOutput?: any): void;
+        toContain(expected: any): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toContain(expected: any, expectationFailOutput: any): void;
+        toBeLessThan(expected: number): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeLessThan(expected: number, expectationFailOutput: any): void;
+        toBeLessThanOrEqual(expected: number): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeLessThanOrEqual(expected: number, expectationFailOutput: any): void;
+        toBeGreaterThan(expected: number): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeGreaterThan(expected: number, expectationFailOutput: any): void;
+        toBeGreaterThanOrEqual(expected: number): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeGreaterThanOrEqual(expected: number, expectationFailOutput: any): void;
+        toBeCloseTo(expected: number, precision?: any): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeCloseTo(expected: number, precision: any, expectationFailOutput: any): void;
         toThrow(expected?: any): void;
         toThrowError(message?: string | RegExp): void;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): void;
         toThrowMatching(predicate: (thrown: any) => boolean): void;
-        toBeNegativeInfinity(expectationFailOutput?: any): void;
-        toBePositiveInfinity(expectationFailOutput?: any): void;
+        toBeNegativeInfinity(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeNegativeInfinity(expectationFailOutput: any): void;
+        toBePositiveInfinity(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBePositiveInfinity(expectationFailOutput: any): void;
         toBeInstanceOf(expected: Constructor): void;
 
         /**
@@ -648,7 +712,11 @@ declare namespace jasmine {
          * el.className = 'foo bar baz';
          * expect(el).toHaveClass('bar');
          */
-        toHaveClass(expected: string, expectationFailOutput?: any): void;
+        toHaveClass(expected: string): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toHaveClass(expected: string, expectationFailOutput: any): void;
 
         /**
          * Expect the actual size to be equal to the expected, using array-like
@@ -681,7 +749,11 @@ declare namespace jasmine {
          * @example
          * expect(thing).toBe(realThing);
          */
-        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): void;
+        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput: any): void;
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
@@ -689,9 +761,17 @@ declare namespace jasmine {
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
-        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): void;
+        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput: any): void;
 
-        toContain(expected: Expected<T>, expectationFailOutput?: any): void;
+        toContain(expected: Expected<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toContain(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
          * Add some context for an expect.
@@ -742,17 +822,29 @@ declare namespace jasmine {
         /**
          * Expect a promise to be pending, i.e. the promise is neither resolved nor rejected.
          */
-        toBePending(expectationFailOutput?: any): PromiseLike<void>;
+        toBePending(): PromiseLike<void>;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBePending(expectationFailOutput: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved.
          */
-        toBeResolved(expectationFailOutput?: any): PromiseLike<void>;
+        toBeResolved(): PromiseLike<void>;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeResolved(expectationFailOutput: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected.
          */
-        toBeRejected(expectationFailOutput?: any): PromiseLike<void>;
+        toBeRejected(): PromiseLike<void>;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        toBeRejected(expectationFailOutput: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
