@@ -17,10 +17,6 @@ import * as events from "events";
 import * as url from "url";
 import * as stream from "stream";
 
-type ProxyTarget = ProxyTargetUrl | ProxyTargetDetailed;
-
-type ProxyTargetUrl = string | Partial<url.Url>;
-
 interface ProxyTargetDetailed {
   host: string;
   port: number;
@@ -35,13 +31,6 @@ interface ProxyTargetDetailed {
   ciphers?: string;
   secureProtocol?: string;
 }
-
-type ErrorCallback = (
-  err: Error,
-  req: http.IncomingMessage,
-  res: http.ServerResponse,
-  target?: ProxyTargetUrl
-) => void;
 
 declare class Server extends events.EventEmitter {
   /**
@@ -60,7 +49,7 @@ declare class Server extends events.EventEmitter {
     req: http.IncomingMessage,
     res: http.ServerResponse,
     options?: Server.ServerOptions,
-    callback?: ErrorCallback
+    callback?: Server.ErrorCallback
   ): void;
 
   /**
@@ -75,7 +64,7 @@ declare class Server extends events.EventEmitter {
     socket: any,
     head: any,
     options?: Server.ServerOptions,
-    callback?: ErrorCallback
+    callback?: Server.ErrorCallback
   ): void;
 
   /**
@@ -112,7 +101,7 @@ declare class Server extends events.EventEmitter {
 
   addListener(event: string, listener: () => void): this;
   on(event: string, listener: () => void): this;
-  on(event: "error", listener: ErrorCallback): this;
+  on(event: "error", listener: Server.ErrorCallback): this;
   on(
     event: "start",
     listener: Server.StartCallback
@@ -147,7 +136,7 @@ declare class Server extends events.EventEmitter {
   ): this;
 
   once(event: string, listener: () => void): this;
-  once(event: "error", listener: ErrorCallback): this;
+  once(event: "error", listener: Server.ErrorCallback): this;
   once(
       event: "start",
       listener: Server.StartCallback
@@ -190,6 +179,9 @@ declare class Server extends events.EventEmitter {
 }
 
 declare namespace Server {
+  type ProxyTarget = ProxyTargetUrl | ProxyTargetDetailed;
+  type ProxyTargetUrl = string | Partial<url.Url>;
+
   interface ServerOptions {
     /** URL string to be parsed with the url module. */
     target?: ProxyTarget;
@@ -262,6 +254,12 @@ declare namespace Server {
   type EndCallback = (req: http.IncomingMessage, res: http.ServerResponse, proxyRes: http.IncomingMessage) => void;
   type OpenCallback = (proxySocket: net.Socket) => void;
   type CloseCallback = (proxyRes: http.IncomingMessage, proxySocket: net.Socket, proxyHead: any) => void;
+  type ErrorCallback = (
+    err: Error,
+    req: http.IncomingMessage,
+    res: http.ServerResponse,
+    target?: ProxyTargetUrl
+  ) => void;
 }
 
 export = Server;
