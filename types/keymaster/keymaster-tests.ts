@@ -1,5 +1,5 @@
 // simple key binding without scope
-key("shift+a", (keyboardEvent: KeyboardEvent, keymasterEvent: KeymasterEvent) => {
+key("shift+a", (keyboardEvent, keymasterEvent) => {
     keyboardEvent; // $ExpectType KeyboardEvent
     keymasterEvent; // $ExpectType KeymasterEvent
 });
