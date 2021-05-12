@@ -1889,6 +1889,10 @@
             "libraryName": "karma-viewport",
             "asOfVersion": "1.0.0"
         },
+        "keycloak-connect": {
+            "libraryName": "keycloak-connect",
+            "asOfVersion": "7.0.0"
+        },
         "keycloak-js": {
             "libraryName": "keycloak-js",
             "asOfVersion": "3.4.1"
