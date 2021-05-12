@@ -9,11 +9,12 @@ import { TestContext } from 'mochawesome/addContext';
 // $ExpectType any
 import * as addContext2 from 'mochawesome/addContext';
 
-// $ExpectError
+// $ExpectType any
 import * as addContext4 from 'mochawesome';
 
 // $ExpectError
 import { addContext as addContext3 } from 'mochawesome/addContext';
+
 // $ExpectError
 import { addContext as addContext5 } from 'mochawesome';
 
@@ -49,19 +50,17 @@ addContext(new Mocha.Context(), { value: '' });
 
 import Mochawesome = require('mochawesome');
 
-// $ExpectType void
-Mochawesome(new Mocha.Runner(new Mocha.Suite(''), false));
+// $ExpectType Mochawesome
+new Mochawesome(new Mocha.Runner(new Mocha.Suite(''), false), {});
 
-// $ExpectType void
+// $ExpectError
+new Mochawesome();
+
+// $ExpectError
+new Mochawesome({}, {});
+
+// $ExpectError
 Mochawesome(new Mocha.Runner(new Mocha.Suite(''), false), {
     inlineDiffs: true,
     reporterOptions: {},
 });
-
-// $ExpectError
-Mochawesome();
-
-// $ExpectError
-Mochawesome({}, {});
-
-import register = require('mochawesome/register');
