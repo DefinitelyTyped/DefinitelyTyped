@@ -1253,10 +1253,6 @@
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
         },
-        "googlemaps": {
-            "libraryName": "@types/google.maps",
-            "asOfVersion": "3.44.0"
-        },
         "graphene-pk11": {
             "libraryName": "graphene-pk11",
             "asOfVersion": "2.0.31"
