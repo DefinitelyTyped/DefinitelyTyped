@@ -597,6 +597,7 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBe(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
@@ -609,6 +610,7 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toEqual(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
@@ -622,33 +624,39 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toMatch(expected: string | RegExp, expectationFailOutput: any): void;
 
         toBeDefined(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeDefined(expectationFailOutput: any): void;
         toBeUndefined(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeUndefined(expectationFailOutput: any): void;
         toBeNull(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeNull(expectationFailOutput: any): void;
         toBeNaN(): void;
         toBeTruthy(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeTruthy(expectationFailOutput: any): void;
         toBeFalsy(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeFalsy(expectationFailOutput: any): void;
         toBeTrue(): void;
         toBeFalse(): void;
@@ -661,31 +669,37 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toContain(expected: any, expectationFailOutput: any): void;
         toBeLessThan(expected: number): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeLessThan(expected: number, expectationFailOutput: any): void;
         toBeLessThanOrEqual(expected: number): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeLessThanOrEqual(expected: number, expectationFailOutput: any): void;
         toBeGreaterThan(expected: number): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeGreaterThan(expected: number, expectationFailOutput: any): void;
         toBeGreaterThanOrEqual(expected: number): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeGreaterThanOrEqual(expected: number, expectationFailOutput: any): void;
         toBeCloseTo(expected: number, precision?: any): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeCloseTo(expected: number, precision: any, expectationFailOutput: any): void;
         toThrow(expected?: any): void;
         toThrowError(message?: string | RegExp): void;
@@ -695,11 +709,13 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeNegativeInfinity(expectationFailOutput: any): void;
         toBePositiveInfinity(): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBePositiveInfinity(expectationFailOutput: any): void;
         toBeInstanceOf(expected: Constructor): void;
 
@@ -716,6 +732,7 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toHaveClass(expected: string, expectationFailOutput: any): void;
 
         /**
@@ -753,6 +770,7 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput: any): void;
 
         /**
@@ -765,12 +783,14 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput: any): void;
 
         toContain(expected: Expected<T>): void;
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toContain(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
@@ -826,6 +846,7 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBePending(expectationFailOutput: any): PromiseLike<void>;
 
         /**
@@ -835,6 +856,7 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeResolved(expectationFailOutput: any): PromiseLike<void>;
 
         /**
@@ -844,6 +866,7 @@ declare namespace jasmine {
         /**
          * @deprecated expectationFailOutput is deprecated. Use withContext instead.
          */
+        // tslint:disable-next-line unified-signatures
         toBeRejected(expectationFailOutput: any): PromiseLike<void>;
 
         /**
