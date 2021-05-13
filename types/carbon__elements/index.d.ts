@@ -1,4 +1,4 @@
-// Type definitions for @carbon/elements 10.33
+// Type definitions for @carbon/elements 10.34
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/elements
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -958,6 +958,12 @@ export const helperText01: {
     letterSpacing: "0.32px";
 };
 
+export const helperText02: {
+    fontSize: "0.875rem";
+    lineHeight: 1.29;
+    letterSpacing: "0.32px";
+};
+
 export const bodyShort01: {
     fontSize: "0.875rem";
     fontWeight: 400;
@@ -1528,6 +1534,11 @@ export const g10: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     bodyShort01: {
         fontSize: "0.875rem";
         fontWeight: 400;
@@ -2086,6 +2097,11 @@ export const g80: {
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -2648,6 +2664,11 @@ export const g90: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     bodyShort01: {
         fontSize: "0.875rem";
         fontWeight: 400;
@@ -3206,6 +3227,11 @@ export const g100: {
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -3768,6 +3794,11 @@ export const v9: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     bodyShort01: {
         fontSize: "0.875rem";
         fontWeight: 400;
@@ -4242,6 +4273,7 @@ export const tokens: {
         "caption01",
         "label01",
         "helperText01",
+        "helperText02",
         "bodyShort01",
         "bodyLong01",
         "bodyShort02",
@@ -4479,6 +4511,11 @@ export const themes: {
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -4962,6 +4999,11 @@ export const themes: {
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -5522,6 +5564,11 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         bodyShort01: {
             fontSize: "0.875rem";
             fontWeight: 400;
@@ -6007,6 +6054,11 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         bodyShort01: {
             fontSize: "0.875rem";
             fontWeight: 400;
@@ -6488,6 +6540,11 @@ export const themes: {
         helperText01: {
             fontSize: "0.75rem";
             lineHeight: 1.34;
+            letterSpacing: "0.32px";
+        };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
             letterSpacing: "0.32px";
         };
         bodyShort01: {
@@ -6973,6 +7030,11 @@ export const themes: {
             lineHeight: 1.34;
             letterSpacing: "0.32px";
         };
+        helperText02: {
+            fontSize: "0.875rem";
+            lineHeight: 1.29;
+            letterSpacing: "0.32px";
+        };
         bodyShort01: {
             fontSize: "0.875rem";
             fontWeight: 400;
@@ -7444,6 +7506,7 @@ export const unstable_tokens: [
     "caption01",
     "label01",
     "helperText01",
+    "helperText02",
     "bodyShort01",
     "bodyLong01",
     "bodyShort02",
@@ -7616,6 +7679,11 @@ export const styles: {
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
