@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.35
+// Type definitions for ArcGIS API for JavaScript 3.36
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -2598,8 +2598,6 @@ declare module "esri/IdentityManagerBase" {
   class IdentityManagerBase {
     /** The suggested lifetime of the token in minutes. */
     tokenValidity: number;
-    /** If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page. */
-    useSignInPage: boolean;
     /**
      * Returns a credential if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
      * @param resUrl The resource URL.
@@ -2613,6 +2611,13 @@ declare module "esri/IdentityManagerBase" {
     checkSignInStatus(resUrl: string): any;
     /** Destroys all credentials. */
     destroyCredentials(): void;
+    /** Disables the use of window.postMessage to serve authentication requests that was enabled by enablePostMessageAuth. */
+    disablePostMessageAuth(): void;
+    /**
+     * Enables the IdentityManager to serve authentication requests for the given resource from apps running in child iframes.
+     * @param resUrl The resource URL.
+     */
+    enablePostMessageAuth(resUrl?: string): void;
     /**
      * Returns the credential for the resource identified by the specified url.
      * @param url The url to a server.
@@ -2677,11 +2682,6 @@ declare module "esri/IdentityManagerBase" {
      * @param handlerFunction The function to call when the protocol is mismatched.
      */
     setProtocolErrorHandler(handlerFunction: Function): void;
-    /**
-     * If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page.
-     * @param handlerFunction When called, the function passed to setRedirectionHandler receives an object containing redirection properties.
-     */
-    setRedirectionHandler(handlerFunction: Function): void;
     /**
      * Sub-classes must implement this method to create and manager the user interface that is used to obtain a username and password from the end-user.
      * @param url Url for the secure resource.
@@ -5674,7 +5674,7 @@ declare module "esri/dijit/Search" {
     maxResults: number;
     /** The default maximum number of suggestions returned by the widget if not specified by source. */
     maxSuggestions: number;
-    /** The default minimum number of characters needed for the search if not specified by source. */
+    /** The default minimum number of characters needed for the search and suggestions if not specified by source. */
     minCharacters: number;
     /** Read-only property that returns an array of current results from the search. */
     searchResults: any[];

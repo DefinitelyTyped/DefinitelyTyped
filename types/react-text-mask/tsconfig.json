@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-text-mask-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

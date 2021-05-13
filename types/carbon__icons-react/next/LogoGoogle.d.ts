@@ -1,0 +1,1 @@
+export { LogoGoogle as default } from "./";

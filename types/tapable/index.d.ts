@@ -4,4 +4,5 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /* tslint:disable-next-line:no-self-import */
-export * from 'tapable';
+import tapable = require('tapable');
+export = tapable;

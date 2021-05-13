@@ -13,6 +13,8 @@
 //                 bdbai <https://github.com/bdbai>
 //                 pokutuna <https://github.com/pokutuna>
 //                 Jason Xian <https://github.com/JasonXian>
+//                 userTim <https://github.com/usertim>
+//                 Idan Zeierman <https://github.com/idan315>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -587,7 +589,7 @@ declare namespace chrome.browserAction {
 
     export interface BadgeTextDetails {
         /** Any number of characters can be passed, but only about four can fit in the space. */
-        text: string;
+        text?: string;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number;
     }
@@ -2026,7 +2028,7 @@ declare namespace chrome.devtools.inspectedWindow {
      */
     export function eval<T>(
         expression: string,
-        options: EvalOptions,
+        options?: EvalOptions,
         callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
     ): void;
     /**
@@ -3992,6 +3994,20 @@ declare namespace chrome.identity {
         id: string;
     }
 
+    /** @since Chrome 84. */
+    export enum AccountStatus {
+        SYNC = 'SYNC',
+        ANY = 'ANY',
+    }
+
+    export interface ProfileDetails {
+        /**
+         * Optional.
+         * A status of the primary account signed into a profile whose ProfileUserInfo should be returned. Defaults to SYNC account status.
+         */
+        accountStatus?: AccountStatus;
+    }
+
     export interface TokenDetails {
         /**
          * Optional.
@@ -4046,6 +4062,7 @@ declare namespace chrome.identity {
      * Dev channel only.
      */
     export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
+
     /**
      * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
      * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
@@ -4056,12 +4073,17 @@ declare namespace chrome.identity {
      * function(string token) {...};
      */
     export function getAuthToken(details: TokenDetails, callback?: (token: string) => void): void;
+
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
      * This API is different from identity.getAccounts in two ways. The information returned is available offline, and it only applies to the primary account for the profile.
      * @since Chrome 37.
      */
     export function getProfileUserInfo(callback: (userInfo: UserInfo) => void): void;
+
+    /** @since Chrome 84. */
+    export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
+
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
      * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
@@ -4071,6 +4093,7 @@ declare namespace chrome.identity {
      * function() {...};
      */
     export function removeCachedAuthToken(details: TokenInformation, callback?: () => void): void;
+
     /**
      * Starts an auth flow at the specified URL.
      * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
@@ -4081,6 +4104,7 @@ declare namespace chrome.identity {
      * function(string responseUrl) {...};
      */
     export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+
     /**
      * Generates a redirect URL to be used in launchWebAuthFlow.
      * The generated URLs match the pattern https://<app-id>.chromiumapp.org/*.
@@ -7721,6 +7745,11 @@ declare namespace chrome.tabs {
          * @since Chrome 31.
          */
         sessionId?: string;
+        /**
+         * The ID of the group that the tab belongs to.
+         * @since Chrome 88
+         */
+        groupId: number;
     }
 
     /**
@@ -7904,6 +7933,18 @@ declare namespace chrome.tabs {
         frameId?: number;
     }
 
+    export interface GroupOptions {
+        /** Optional. Configurations for creating a group. Cannot be used if groupId is already specified. */
+        createProperties?: {
+            /** Optional. The window of the new group. Defaults to the current window. */
+            windowId?: number
+        },
+        /** Optional. The ID of the group to add the tabs to. If not specified, a new group will be created. */
+        groupId?: number;
+        /** TOptional. he tab ID or list of tab IDs to add to the specified group. */
+        tabIds?: number | number[];
+    }
+
     export interface HighlightInfo {
         /** One or more tab indices to highlight. */
         tabs: number | number[];
@@ -7971,6 +8012,11 @@ declare namespace chrome.tabs {
          * @since Chrome 45.
          */
         muted?: boolean;
+        /**
+         * Optional. The ID of the group that the tabs are in, or chrome.tabGroups.TAB_GROUP_ID_NONE for ungrouped tabs.
+         * @since Chrome 88
+         */
+        groupId?: number;
     }
 
     export interface TabHighlightInfo {
@@ -8386,7 +8432,13 @@ declare namespace chrome.tabs {
      * @param callback Optional. Called after the operation is completed.
      */
     export function goBack(tabId: number, callback?: () => void): void;
-
+    /**
+     * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+     * @since Chrome 88
+     * @param options Configurations object
+     * @param callback Optional.
+     */
+    export function group(options: GroupOptions, callback?: (groupId: number) => void): void
     /**
      * Fired when the highlighted or selected tabs in a window changes.
      * @since Chrome 18.
@@ -8442,6 +8494,106 @@ declare namespace chrome.tabs {
      * @since Chrome 46.
      */
     export var TAB_ID_NONE: -1;
+}
+
+////////////////////
+// Tab Groups
+////////////////////
+/**
+ * Use the chrome.tabGroups API to interact with the browser's tab grouping system. You can use this API to modify and rearrange tab groups in the browser. To group and ungroup tabs, or to query what tabs are in groups, use the chrome.tabs API.
+ * Permissions:  "tabGroups"
+ * @since Chrome 89. Manifest V3 and above.
+ */
+ declare namespace chrome.tabGroups {
+
+    /** An ID that represents the absence of a group. */
+    export var TAB_GROUP_ID_NONE: -1;
+
+    export type ColorEnum = 'grey' | 'blue' | 'red' | 'yellow' | 'green' | 'pink' | 'purple' | 'cyan';
+
+    export interface TabGroup {
+        /** Whether the group is collapsed. A collapsed group is one whose tabs are hidden. */
+        collapsed: boolean;
+        /** The group's color. */
+        color: ColorEnum;
+        /** The ID of the group. Group IDs are unique within a browser session. */
+        id: number;
+        /** Optional. The title of the group. */
+        title?: string;
+        /** The ID of the window that contains the group. */
+        windowId: number;
+    }
+
+    export interface MoveProperties {
+        /** The position to move the group to. Use -1 to place the group at the end of the window. */
+        index: number;
+        /** Optional. The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with chrome.windows.WindowType type "normal". */
+        windowId?: number;
+    }
+
+    export interface QueryInfo {
+        /** Optional. Whether the groups are collapsed. */
+        collapsed?: boolean;
+        /** Optional. The color of the groups. */
+        color?: ColorEnum;
+        /** Optional. Match group titles against a pattern. */
+        title?: string;
+        /** Optional. The ID of the window that contains the group. */
+        windowId?: number;
+    }
+
+    export interface UpdateProperties {
+        /** Optional. Whether the group should be collapsed. */
+        collapsed?: boolean;
+        /** Optional. The color of the group. */
+        color?: ColorEnum;
+        /** Optional. The title of the group. */
+        title?: string;
+    }
+
+    /**
+     * Retrieves details about the specified group.
+     * @param groupId The ID of the tab group.
+     * @param callback Called with the retrieved tab group.
+     */
+    export function get(groupId: number, callback: (group: TabGroup) => void): void;
+
+    /**
+     * Moves the group and all its tabs within its window, or to a new window.
+     * @param groupId The ID of the group to move.
+     * @param moveProperties Information on how to move the group.
+     * @param callback Optional.
+    */
+    export function move(groupId: number, moveProperties: MoveProperties, callback?: (group: TabGroup) => void): void;
+
+    /**
+     * Gets all groups that have the specified properties, or all groups if no properties are specified.
+     * @param queryInfo Object with search parameters.
+     * @param callback Called with retrieved tab groups.
+     */
+     export function query(queryInfo: QueryInfo, callback: (result: TabGroup[]) => void): void;
+
+    /**
+     * Modifies the properties of a group. Properties that are not specified in updateProperties are not modified.
+     * @param groupId The ID of the group to modify.
+     * @param updateProperties Information on how to update the group.
+     * @param callback Optional.
+     */
+    export function update(groupId: number, updateProperties: UpdateProperties, callback?: (group: TabGroup) => void): void;
+
+    export interface TabGroupCreatedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupMovedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupRemovedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
+    export interface TabGroupUpdated extends chrome.events.Event<(group: TabGroup) => void> { }
+
+    /** Fired when a group is created. */
+    export var onCreated: TabGroupCreatedEvent;
+    /** Fired when a group is moved within a window. Move events are still fired for the individual tabs within the group, as well as for the group itself. This event is not fired when a group is moved between windows; instead, it will be removed from one window and created in another. */
+    export var onMoved: TabGroupMovedEvent;
+    /** Fired when a group is closed, either directly by the user or automatically because it contained zero. */
+    export var onRemoved: TabGroupRemovedEvent;
+    /** Fired when a group is updated. */
+    export var onUpdated: TabGroupUpdated;
 }
 
 ////////////////////
@@ -9424,7 +9576,7 @@ declare namespace chrome.webstore {
  */
 declare namespace chrome.windows {
     export interface Window {
-        /** Array of tabs.Tab objects representing the current tabs in the window. */
+        /** Optional. Array of tabs.Tab objects representing the current tabs in the window. */
         tabs?: chrome.tabs.Tab[];
         /** Optional. The offset of the window from the top edge of the screen in pixels. Under some circumstances a Window may not be assigned top property, for example when querying closed windows from the sessions API. */
         top?: number;
@@ -9434,10 +9586,9 @@ declare namespace chrome.windows {
         width?: number;
         /**
          * The state of this browser window.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 17.
          */
-        state: string;
+        state?: windowStateEnum;
         /** Whether the window is currently the focused window. */
         focused: boolean;
         /**
@@ -9449,32 +9600,30 @@ declare namespace chrome.windows {
         incognito: boolean;
         /**
          * The type of browser window this is.
-         * One of: "normal", "popup", "panel", "app", or "devtools"
          */
-        type: string;
+        type?: windowTypeEnum;
         /** Optional. The ID of the window. Window IDs are unique within a browser session. Under some circumstances a Window may not be assigned an ID, for example when querying windows using the sessions API, in which case a session ID may be present. */
-        id: number;
+        id?: number;
         /** Optional. The offset of the window from the left edge of the screen in pixels. Under some circumstances a Window may not be assigned left property, for example when querying closed windows from the sessions API. */
         left?: number;
         /**
-         * The session ID used to uniquely identify a Window obtained from the sessions API.
+         * Optional. The session ID used to uniquely identify a Window obtained from the sessions API.
          * @since Chrome 31.
          */
         sessionId?: string;
     }
 
-    export interface GetInfo {
+    export interface QueryOptions {
         /**
          * Optional.
-         * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects. The Tab objects only contain the url, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission.
+         * If true, the windows.Window object will have a tabs property that contains a list of the tabs.Tab objects.
+         * The Tab objects only contain the url, pendingUrl, title and favIconUrl properties if the extension's manifest file includes the "tabs" permission.
          */
         populate?: boolean;
         /**
-         * If set, the windows.Window returned will be filtered based on its type. If unset the default filter is set to ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows.
-         * Each one of: "normal", "popup", "panel", "app", or "devtools"
-         * @since Chrome 46. Warning: this is the current Beta channel.
+         * If set, the Window returned is filtered based on its type. If unset, the default filter is set to ['normal', 'popup'].
          */
-        windowTypes?: string[];
+        windowTypes?: windowTypeEnum[];
     }
 
     export interface CreateData {
@@ -9510,11 +9659,8 @@ declare namespace chrome.windows {
         focused?: boolean;
         /** Optional. Whether the new window should be an incognito window. */
         incognito?: boolean;
-        /**
-         * Optional. Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.
-         * One of: "normal", "popup", "panel", or "detached_panel"
-         */
-        type?: string;
+        /** Optional. Specifies what type of browser window to create. */
+        type?: createTypeEnum;
         /**
          * Optional.
          * The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
@@ -9522,10 +9668,14 @@ declare namespace chrome.windows {
         left?: number;
         /**
          * Optional. The initial state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 44.
          */
-        state?: string;
+        state?: windowStateEnum;
+        /**
+         * If true, the newly-created window's 'window.opener' is set to the caller and is in the same [unit of related browsing contexts](https://www.w3.org/TR/html51/browsers.html#unit-of-related-browsing-contexts) as the caller.
+         * @since Chrome 64.
+         */
+        setSelfAsOpener?: boolean;
     }
 
     export interface UpdateInfo {
@@ -9542,10 +9692,9 @@ declare namespace chrome.windows {
         width?: number;
         /**
          * Optional. The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'.
-         * One of: "normal", "minimized", "maximized", "fullscreen", or "docked"
          * @since Chrome 17.
          */
-        state?: string;
+        state?: windowStateEnum;
         /**
          * Optional. If true, brings the window to the front. If false, brings the next window in the z-order to the front.
          * @since Chrome 8.
@@ -9558,9 +9707,8 @@ declare namespace chrome.windows {
     export interface WindowEventFilter {
         /**
          * Conditions that the window's type being created must satisfy. By default it will satisfy ['app', 'normal', 'panel', 'popup'], with 'app' and 'panel' window types limited to the extension's own windows.
-         * Each one of: "normal", "popup", "panel", "app", or "devtools"
          */
-        windowTypes: string[];
+        windowTypes: windowTypeEnum[];
     }
 
     export interface WindowIdEvent
@@ -9570,15 +9718,36 @@ declare namespace chrome.windows {
         extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> { }
 
     /**
+     * Specifies what type of browser window to create.
+     * 'panel' is deprecated and is available only to existing whitelisted extensions on Chrome OS.
+     * @since Chrome 44.
+     */
+    export type createTypeEnum = 'normal' | 'popup' | 'panel';
+
+    /**
+     * The state of this browser window.
+     * In some circumstances a window may not be assigned a state property; for example, when querying closed windows from the sessions API.
+     * @since Chrome 44.
+     */
+    export type windowStateEnum = 'normal' | 'minimized' | 'maximized' | 'fullscreen' | 'locked-fullscreen';
+
+    /**
+     * The type of browser window this is.
+     * In some circumstances a window may not be assigned a type property; for example, when querying closed windows from the sessions API.
+     * @since Chrome 44.
+     */
+    export type windowTypeEnum = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
+
+    /**
      * The windowId value that represents the current window.
      * @since Chrome 18.
      */
-    export var WINDOW_ID_CURRENT: number;
+    export var WINDOW_ID_CURRENT: -2;
     /**
      * The windowId value that represents the absence of a chrome browser window.
      * @since Chrome 6.
      */
-    export var WINDOW_ID_NONE: number;
+    export var WINDOW_ID_NONE: -1;
 
     /** Gets details about a window. */
     export function get(windowId: number, callback: (window: chrome.windows.Window) => void): void;
@@ -9586,16 +9755,15 @@ declare namespace chrome.windows {
      * Gets details about a window.
      * @since Chrome 18.
      */
-    export function get(windowId: number, getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
-    /**
-     * Gets the current window.
-     */
+    export function get(windowId: number, queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
+    /** Gets the current window. */
     export function getCurrent(callback: (window: chrome.windows.Window) => void): void;
     /**
      * Gets the current window.
+     * @param QueryOptions
      * @since Chrome 18.
      */
-    export function getCurrent(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getCurrent(queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
     /**
      * Creates (opens) a new browser with any optional sizing, position or default URL provided.
      * @param callback
@@ -9604,6 +9772,7 @@ declare namespace chrome.windows {
     export function create(callback?: (window?: chrome.windows.Window) => void): void;
     /**
      * Creates (opens) a new browser with any optional sizing, position or default URL provided.
+     * @param CreateData
      * @param callback
      * Optional parameter window: Contains details about the created window.
      */
@@ -9616,7 +9785,7 @@ declare namespace chrome.windows {
      * Gets all windows.
      * @since Chrome 18.
      */
-    export function getAll(getInfo: GetInfo, callback: (windows: chrome.windows.Window[]) => void): void;
+    export function getAll(queryOptions: QueryOptions, callback: (windows: chrome.windows.Window[]) => void): void;
     /** Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged. */
     export function update(
         windowId: number,
@@ -9633,7 +9802,7 @@ declare namespace chrome.windows {
      * Gets the window that was most recently focused — typically the window 'on top'.
      * @since Chrome 18.
      */
-    export function getLastFocused(getInfo: GetInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function getLastFocused(queryOptions: QueryOptions, callback: (window: chrome.windows.Window) => void): void;
 
     /** Fired when a window is removed (closed). */
     export var onRemoved: WindowIdEvent;
@@ -9644,4 +9813,555 @@ declare namespace chrome.windows {
      * Note: On some Linux window managers, WINDOW_ID_NONE will always be sent immediately preceding a switch from one chrome window to another.
      */
     export var onFocusChanged: WindowIdEvent;
+
+    /**
+     * Fired when a window has been resized; this event is only dispatched when the new bounds are committed, and not for in-progress changes.
+     * @since Chrome 86.
+     */
+    export var onBoundsChanged: WindowReferenceEvent;
+}
+
+declare namespace chrome.declarativeNetRequest {
+    /** Ruleset ID for the dynamic rules added by the extension. */
+    export const DYNAMIC_RULESET_ID: string;
+
+    /** Time interval within which MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL getMatchedRules calls can be made, specified in minutes.
+     * Additional calls will fail immediately and set runtime.lastError.
+     * Note: getMatchedRules calls associated with a user gesture are exempt from the quota.
+     */
+    export const GETMATCHEDRULES_QUOTA_INTERVAL: number;
+
+    /** The minimum number of static rules guaranteed to an extension across its enabled static rulesets.
+     * Any rules above this limit will count towards the global rule limit.
+     */
+    export const GUARANTEED_MINIMUM_STATIC_RULES: number;
+
+    /** The number of times getMatchedRules can be called within a period of GETMATCHEDRULES_QUOTA_INTERVAL. */
+    export const MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL: number;
+
+    /** The maximum number of combined dynamic and session scoped rules an extension can add. */
+    export const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: number;
+
+    /** The maximum number of regular expression rules that an extension can add.
+     * This limit is evaluated separately for the set of dynamic rules and those specified in the rule resources file.
+     */
+    export const MAX_NUMBER_OF_REGEX_RULES: number;
+
+    /** The maximum number of static Rulesets an extension can specify as part of the "rule_resources" manifest key. */
+    export const MAX_NUMBER_OF_STATIC_RULESETS: number;
+
+    /** Ruleset ID for the session-scoped rules added by the extension. */
+    export const SESSION_RULESET_ID: string;
+
+    /** This describes the resource type of the network request. */
+    export enum ResourceType {
+        MainFrame = "main_frame",
+        SubFrame = "sub_frame",
+        Stylesheet = "stylesheet",
+        Script = "script",
+        Image = "image",
+        Font = "font",
+        Object = "object",
+        XmlHttpRequest = "xmlhttprequest",
+        Ping = "ping",
+        CspReport = "csp_report",
+        Media = "media",
+        WebSocket = "websocket",
+        Other = "other"
+    }
+
+    /** Describes the kind of action to take if a given RuleCondition matches. */
+    export enum RuleActionType {
+        Block= "block",
+        Redirect = "redirect",
+        Allow = "allow",
+        UpgradeScheme = "upgradeScheme",
+        ModifyHeaders = "modifyHeaders",
+        AllowAllRequests = "allowAllRequests"
+    }
+
+    /** Describes the reason why a given regular expression isn't supported. */
+    export enum UnsupportedRegexReason {
+        SyntaxError = "syntaxError",
+        MemoryLimitExceeded = "memoryLimitExceeded"
+    }
+
+    /** TThis describes whether the request is first or third party to the frame in which it originated.
+     * A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated.
+     */
+    export enum DomainType {
+        FirstParty = "firstParty",
+        ThirdParty = "thirdParty"
+    }
+
+    /** This describes the possible operations for a "modifyHeaders" rule. */
+    export enum HeaderOperation {
+        Append = "append",
+        Set = "set",
+        Remove = "remove"
+    }
+
+    export interface RequestDetails {
+        /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens.
+         * If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame.
+         * Frame IDs are unique within a tab.
+         */
+        frameId: number;
+
+        /** The origin where the request was initiated.
+         * This does not change through redirects.
+         * If this is an opaque origin, the string 'null' will be used.
+         */
+        initiator?: string;
+
+        /** Standard HTTP method. */
+        method: string;
+
+        /** ID of frame that wraps the frame which sent the request.
+         * Set to -1 if no parent frame exists.
+         */
+        partentFrameId: number;
+
+        /** The ID of the request.
+         * Request IDs are unique within a browser session.
+         */
+        requestId: string;
+
+        /** The ID of the tab in which the request takes place.
+         * Set to -1 if the request isn't related to a tab.
+         */
+        tabId: number;
+
+        /** The resource type of the request. */
+        type: ResourceType;
+
+        /** The URL of the request. */
+        url: string;
+    }
+
+    export interface Rule {
+        /** The action to take if this rule is matched. */
+        action: RuleAction;
+
+        /** The condition under which this rule is triggered. */
+        condition: RuleCondition;
+
+        /** An id which uniquely identifies a rule.
+         * Mandatory and should be >= 1.
+         */
+        id: number;
+
+        /** Rule priority.
+         * Defaults to 1.
+         * When specified, should be >= 1.
+         */
+        priority: number;
+    }
+
+    export interface RuleAction {
+        /** Describes how the redirect should be performed.
+         * Only valid for redirect rules.
+         */
+        redirect?: Redirect;
+
+        /** The request headers to modify for the request.
+         * Only valid if RuleActionType is "modifyHeaders".
+         */
+        requestHeaders?: ModifyHeaderInfo[];
+
+        /** The response headers to modify for the request.
+         * Only valid if RuleActionType is "modifyHeaders".
+         */
+        responseHeaders?: ModifyHeaderInfo[];
+
+        /** The type of action to perform. */
+        type: RuleActionType;
+    }
+
+    export interface RuleCondition {
+        /** Specifies whether the network request is first-party or third-party to the domain from which it originated.
+         * If omitted, all requests are accepted.
+         */
+        domainType?: DomainType;
+
+        /** The rule will only match network requests originating from the list of domains.
+         * If the list is omitted, the rule is applied to requests from all domains.
+         * An empty list is not allowed.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        domains?: string[];
+
+        /** The rule will not match network requests originating from the list of excludedDomains.
+         * If the list is empty or omitted, no domains are excluded.
+         * This takes precedence over domains.
+         *
+         * Notes:
+         * Sub-domains like "a.example.com" are also allowed.
+         * The entries must consist of only ascii characters.
+         * Use punycode encoding for internationalized domains.
+         * This matches against the request initiator and not the request url.
+         */
+        excludedDomains?: string[];
+
+        /** List of resource types which the rule won't match.
+         * Only one of resourceTypes and excludedResourceTypes should be specified.
+         * If neither of them is specified, all resource types except "main_frame" are blocked.
+         */
+        excludedResourceTypes?: ResourceType[];
+
+        /**
+         * Whether the urlFilter or regexFilter (whichever is specified) is case sensitive.
+         * Default is true.
+         */
+        isUrlFilterCaseSensitive?: boolean;
+
+        /** Regular expression to match against the network request url.
+         * This follows the RE2 syntax.
+         *
+         * Note: Only one of urlFilter or regexFilter can be specified.
+         *
+         * Note: The regexFilter must be composed of only ASCII characters.
+         * This is matched against a url where the host is encoded in the punycode format (in case of internationalized domains) and any other non-ascii characters are url encoded in utf-8.
+         */
+        regexFilter?: string;
+
+        /** List of resource types which the rule can match.
+         * An empty list is not allowed.
+         *
+         * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+         */
+        resourceTypes?: ResourceType[];
+
+        /** The pattern which is matched against the network request url.
+         * Supported constructs:
+         *
+         * '*' : Wildcard: Matches any number of characters.
+         *
+         * '|' : Left/right anchor: If used at either end of the pattern, specifies the beginning/end of the url respectively.
+         *
+         * '||' : Domain name anchor: If used at the beginning of the pattern, specifies the start of a (sub-)domain of the URL.
+         *
+         * '^' : Separator character: This matches anything except a letter, a digit or one of the following: _ - . %.
+         * This can also match the end of the URL.
+         *
+         * Therefore urlFilter is composed of the following parts: (optional Left/Domain name anchor) + pattern + (optional Right anchor).
+         *
+         * If omitted, all urls are matched. An empty string is not allowed.
+         *
+         * A pattern beginning with || is not allowed. Use instead.
+         *
+         * Note: Only one of urlFilter or regexFilter can be specified.
+         *
+         * Note: The urlFilter must be composed of only ASCII characters.
+         * This is matched against a url where the host is encoded in the punycode format (in case of internationalized domains) and any other non-ascii characters are url encoded in utf-8.
+         * For example, when the request url is http://abc.рф?q=ф, the urlFilter will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
+         */
+        urlFilter?: string;
+    }
+
+    export interface MatchedRule {
+        /** A matching rule's ID. */
+        ruleId: number;
+
+        /** ID of the Ruleset this rule belongs to.
+         * For a rule originating from the set of dynamic rules, this will be equal to DYNAMIC_RULESET_ID.
+         */
+        rulesetId: string;
+    }
+
+    export interface MatchedRuleInfo {
+        rule: MatchedRule;
+
+        /** The tabId of the tab from which the request originated if the tab is still active. Else -1. */
+        tabId: number;
+
+        /** The time the rule was matched.
+         * Timestamps will correspond to the Javascript convention for times, i.e. number of milliseconds since the epoch.
+         */
+        timeStamp: number;
+    }
+
+    export interface MatchedRulesFilter {
+        /** If specified, only matches rules after the given timestamp. */
+        minTimeStamp?: number;
+
+        /** If specified, only matches rules for the given tab.
+         * Matches rules not associated with any active tab if set to -1.
+         */
+        tabId?: number;
+    }
+
+    export interface ModifyHeaderInfo {
+        /** The name of the header to be modified. */
+        header: string;
+
+        /** The operation to be performed on a header. */
+        operation: HeaderOperation;
+
+        /** The new value for the header.
+         * Must be specified for append and set operations.
+         */
+        value?: string;
+    }
+
+    export interface QueryKeyValue {
+        key: string;
+        value: string;
+    }
+
+    export interface QueryTransform {
+        /** The list of query key-value pairs to be added or replaced. */
+        addOrReplaceParams?: QueryKeyValue[];
+
+        /** The list of query keys to be removed. */
+        removeParams?: string[];
+    }
+
+    export interface URLTransform {
+        /** The new fragment for the request.
+         * Should be either empty, in which case the existing fragment is cleared; or should begin with '#'.
+         */
+        fragment?: string;
+
+        /** The new host for the request. */
+        host?: string;
+
+        /** The new password for the request. */
+        password?: string;
+
+        /** The new path for the request.
+         * If empty, the existing path is cleared.
+         */
+        path?: string;
+
+        /** The new port for the request.
+         * If empty, the existing port is cleared.
+         */
+        port?: string;
+
+        /** The new query for the request.
+         * Should be either empty, in which case the existing query is cleared; or should begin with '?'.
+         */
+        query?: string;
+
+        /** Add, remove or replace query key-value pairs. */
+        queryTransform?: QueryTransform;
+
+        /** The new scheme for the request.
+         * Allowed values are "http", "https", "ftp" and "chrome-extension".
+         */
+        scheme?: string;
+
+        /** The new username for the request. */
+        username?: string;
+    }
+
+    export interface RegexOptions {
+        /** Whether the regex specified is case sensitive.
+         * Default is true.
+         */
+        isCaseSensitive?: boolean;
+
+        /** The regular expresson to check. */
+        regex: string;
+
+        /** Whether the regex specified requires capturing.
+         * Capturing is only required for redirect rules which specify a regexSubstition action.
+         * The default is false.
+         */
+        requireCapturing?: boolean;
+    }
+
+    export interface IsRegexSupportedResult {
+        isSupported: boolean;
+
+        /** Specifies the reason why the regular expression is not supported.
+         * Only provided if isSupported is false.
+         */
+        reason?: UnsupportedRegexReason;
+    }
+
+    export interface TabActionCountUpdate {
+        /** The amount to increment the tab's action count by.
+         * Negative values will decrement the count
+         */
+        increment: number;
+
+        /** The tab for which to update the action count. */
+        tabId: number;
+    }
+
+    export interface ExtensionActionOptions {
+        /** Whether to automatically display the action count for a page as the extension's badge text.
+         * This preference is persisted across sessions.
+         */
+        displayActionCountAsBadgeText?: boolean;
+
+        /** Details of how the tab's action count should be adjusted. */
+        tabUpdate?: TabActionCountUpdate;
+    }
+
+    export interface Redirect {
+        /** Path relative to the extension directory.
+         * Should start with '/'.
+         */
+        extensionPath?: string;
+
+        /** Substitution pattern for rules which specify a regexFilter.
+         * The first match of regexFilter within the url will be replaced with this pattern.
+         * Within regexSubstitution, backslash-escaped digits (\1 to \9) can be used to insert the corresponding capture groups.
+         * \0 refers to the entire matching text.
+         */
+        regexSubstitution?: string;
+
+        /** Url transformations to perform. */
+        transform?: URLTransform;
+
+        /** The redirect url.
+         * Redirects to JavaScript urls are not allowed.
+         */
+        url?: string;
+    }
+
+    export interface UpdateRuleOptions {
+        /** Rules to add. */
+        addRules?: Rule[];
+
+        /** IDs of the rules to remove.
+         * Any invalid IDs will be ignored.
+         */
+        removeRuleIds?: number[];
+    }
+
+    export interface UpdateRulesetOptions {
+        /** The set of ids corresponding to a static Ruleset that should be disabled. */
+        disableRulesetIds?: string[];
+
+        /** The set of ids corresponding to a static Ruleset that should be enabled. */
+        enableRulesetIds?: string[];
+    }
+
+    export interface MatchedRuleInfoDebug {
+        /** Details about the request for which the rule was matched. */
+        request: RequestDetails;
+
+        rule: MatchedRule;
+    }
+
+    export interface Ruleset {
+        /** Whether the ruleset is enabled by default. */
+        enabled: boolean;
+
+        /** A non-empty string uniquely identifying the ruleset.
+         * IDs beginning with '_' are reserved for internal use.
+         */
+        id: string;
+
+        /** The path of the JSON ruleset relative to the extension directory. */
+        path: string;
+    }
+
+    export interface RulesMatchedDetails {
+        /** Rules matching the given filter. */
+        rulesMatchedInfo: MatchedRuleInfo[]
+    }
+
+    /** Returns the number of static rules an extension can enable before the global static rule limit is reached. */
+    export function getAvailableStaticRuleCount(callback: (count: number) => void): void;
+
+    /** Returns the current set of dynamic rules for the extension.
+     *
+     * @param callback Called with the set of dynamic rules.
+     * An error might be raised in case of transient internal errors.
+     */
+    export function getDynamicRules(callback: (rules: Rule[]) => void): void;
+
+    /** Returns the ids for the current set of enabled static rulesets.
+     *
+     * @param callback Called with a list of ids, where each id corresponds to an enabled static Ruleset. */
+    export function getEnabledRulesets(callback: (rulesetIds: string[]) => void): void;
+
+    /** Returns all rules matched for the extension.
+     * Callers can optionally filter the list of matched rules by specifying a filter.
+     * This method is only available to extensions with the declarativeNetRequestFeedback permission or having the activeTab permission granted for the tabId specified in filter.
+     * Note: Rules not associated with an active document that were matched more than five minutes ago will not be returned.
+     *
+     * @param filter An object to filter the list of matched rules.
+     * @param callback Called once the list of matched rules has been fetched.
+     * In case of an error, runtime.lastError will be set and no rules will be returned.
+     * This can happen for multiple reasons, such as insufficient permissions, or exceeding the quota.
+     */
+    export function getMatchedRules(filter: MatchedRulesFilter | undefined, callback: (details: RulesMatchedDetails) => void): void;
+
+    export function getMatchedRules(callback: (details: RulesMatchedDetails) => void): void;
+
+    /** Returns the current set of session scoped rules for the extension.
+     *
+     * @param callback Called with the set of session scoped rules.
+     */
+    export function getSessionRules(callback: (rules: Rule[]) => void): void;
+
+    /** Checks if the given regular expression will be supported as a regexFilter rule condition.
+     *
+     * @param regexOptions The regular expression to check.
+     * @param callback Called with details consisting of whether the regular expression is supported and the
+     * reason if not.
+     */
+    export function isRegexSupported(regexOptions: RegexOptions, callback: (result: IsRegexSupportedResult) => void): void;
+
+    /** Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented. */
+    export function setExtensionActionOptions(options: ExtensionActionOptions, callback: Function): void;
+
+    /** Modifies the current set of dynamic rules for the extension.
+     * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
+     *
+     * Notes:
+     * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
+     * These rules are persisted across browser sessions and across extension updates.
+     * Static rules specified as part of the extension package can not be removed using this function.
+     * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
+     *
+     * @param callback Called once the update is complete or has failed.
+     * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
+     * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, internal errors, and others.
+     */
+    export function updateDynamicRules(options: UpdateRuleOptions, callback: Function): void;
+
+    /** Updates the set of enabled static rulesets for the extension.
+     * The rulesets with IDs listed in options.disableRulesetIds are first removed, and then the rulesets listed in options.enableRulesetIds are added.
+     *
+     * Note that the set of enabled static rulesets is persisted across sessions but not across extension updates, i.e. the rule_resources manifest key will determine the set of enabled static rulesets on each extension update.
+     *
+     * @param callback Called once the update is complete.
+     * In case of an error, runtime.lastError will be set and no change will be made to set of enabled rulesets.
+     * This can happen for multiple reasons, such as invalid ruleset IDs, rule count limit exceeded, or internal errors.
+     */
+    export function updateEnabledRulesets(options: UpdateRulesetOptions, callback: Function): void;
+
+
+    /** Modifies the current set of session scoped rules for the extension.
+     * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
+     *
+     * Notes:
+     * This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
+     * These rules are not persisted across sessions and are backed in memory.
+     * MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES is the maximum number of combined dynamic and session rules an extension can add.
+     *
+     * @param callback Called once the update is complete or has failed.
+     * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
+     * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
+     */
+    export function updateSessionRules(options: UpdateRuleOptions, callback: Function): void;
+
+    /** The rule that has been matched along with information about the associated request. */
+    export interface RuleMatchedDebugEvent extends chrome.events.Event<(info: MatchedRuleInfoDebug) => void> { }
+
+    /** Fired when a rule is matched with a request.
+     * Only available for unpacked extensions with the declarativeNetRequestFeedback permission as this is intended to be used for debugging purposes only. */
+    export var onRuleMatchedDebug: RuleMatchedDebugEvent;
 }

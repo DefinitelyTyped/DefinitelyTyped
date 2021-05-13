@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactDivAttr, CarbonSize } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 import { ButtonProps } from "../Button";
 
 // ComposedModal
@@ -13,7 +13,7 @@ export interface ComposedModalProps extends Omit<ReactDivAttr, ExcludedAttribute
     preventCloseOnClickOutside?: boolean,
     selectedPrimaryFocus?: string,
     selectorsFloatingMenus?: string,
-    size?: CarbonSize,
+    size?: "xs" | "sm" | "md" | "lg";
 }
 
 declare class ComposedModal extends React.Component<ComposedModalProps> { }

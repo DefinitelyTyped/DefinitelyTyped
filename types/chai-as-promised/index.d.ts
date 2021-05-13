@@ -188,16 +188,16 @@ declare namespace Chai {
     }
 
     interface PromisedProperty {
-        (name: string, value?: any, message?: string): PromisedAssertion;
+        (name: string | symbol, value?: any, message?: string): PromisedAssertion;
     }
 
     interface PromisedOwnProperty {
-        (name: string, message?: string): PromisedAssertion;
+        (name: string | symbol, message?: string): PromisedAssertion;
     }
 
     interface PromisedOwnPropertyDescriptor {
-        (name: string, descriptor: PropertyDescriptor, message?: string): PromisedAssertion;
-        (name: string, message?: string): PromisedAssertion;
+        (name: string | symbol, descriptor: PropertyDescriptor, message?: string): PromisedAssertion;
+        (name: string | symbol, message?: string): PromisedAssertion;
     }
 
     interface PromisedLength extends PromisedLanguageChains, PromisedNumericComparison {

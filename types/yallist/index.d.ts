@@ -1,4 +1,4 @@
-// Type definitions for yallist 3.0
+// Type definitions for yallist 4.0
 // Project: https://github.com/isaacs/yallist#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,6 +37,7 @@ declare class Yallist<T> implements Iterable<T> {
     shift(): T | undefined;
     slice(from?: number, to?: number): Yallist<T>;
     sliceReverse(from?: number, to?: number): Yallist<T>;
+    splice(start: number, deleteCount: number, ...nodes: T[]): T[];
     toArray(): T[];
     toArrayReverse(): T[];
     unshift(...items: T[]): number;

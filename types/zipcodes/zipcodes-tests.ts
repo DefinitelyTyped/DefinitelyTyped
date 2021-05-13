@@ -1,38 +1,42 @@
-import * as ZipCodes from 'zipcodes';
+import zipcodes = require("zipcodes");
+import { ZipCode } from "zipcodes";
 
-const zipA: ZipCodes.ZipCode = {
-    zip: '90210',
+const zipA: ZipCode = {
+    zip: "90210",
     latitude: 34.088808,
     longitude: -118.406125,
-    city: 'Beverly Hills',
-    state: 'CA',
-    country: 'US',
+    city: "Beverly Hills",
+    state: "CA",
+    country: "US",
 };
 
-const zipB: ZipCodes.ZipCode = {
-    zip: '95015',
+const zipB: ZipCode = {
+    zip: "95015",
     latitude: 37.323,
     longitude: -122.0527,
-    city: 'Cupertino',
-    state: 'CA',
-    country: 'US',
+    city: "Cupertino",
+    state: "CA",
+    country: "US",
 };
 
-ZipCodes.lookup(zipA.zip); // $ExpectType ZipCode | undefined
+zipcodes.lookup(zipA.zip); // $ExpectType ZipCode | undefined
 
-ZipCodes.lookupByName('Cupertino', 'CA'); // $ExpectType ZipCode[]
+zipcodes.lookupByName("Cupertino", "CA"); // $ExpectType ZipCode[]
 
-ZipCodes.lookupByState('CA'); // $ExpectType ZipCode[]
+zipcodes.lookupByState("CA"); // $ExpectType ZipCode[]
 
-ZipCodes.distance(zipA.zip, zipB.zip); // $ExpectType number | null
+zipcodes.distance(zipA.zip, zipB.zip); // $ExpectType number | null
 
-ZipCodes.radius(zipA.zip, 1, true); // $ExpectType ZipCode[] | string[]
-ZipCodes.radius(zipA.zip, 1, false); // $ExpectType ZipCode[] | string[]
+zipcodes.radius(zipA.zip, 1, true); // $ExpectType ZipCode[] | string[]
+zipcodes.radius(zipA.zip, 1, false); // $ExpectType ZipCode[] | string[]
 
-ZipCodes.toMiles(3); // $ExpectType number
+zipcodes.toMiles(3); // $ExpectType number
 
-ZipCodes.toKilometers(3); // $ExpectType number
+zipcodes.toKilometers(3); // $ExpectType number
 
-ZipCodes.lookupByCoords(37.323, -122.0527); // $ExpectType string | null
+zipcodes.lookupByCoords(37.323, -122.0527); // $ExpectType string | null
 
-ZipCodes.random(); // $ExpectType ZipCode
+zipcodes.random(); // $ExpectType ZipCode
+
+zipcodes.codes["10001"]; // $ExpectType ZipCode
+zipcodes.states.abbr["AL"]; // $ExpectType string

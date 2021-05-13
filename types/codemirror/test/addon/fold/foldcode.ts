@@ -18,4 +18,13 @@ myCodeMirror.foldCode(myCodeMirror.getCursor(), {
     widget: '\u2194',
 });
 
-CodeMirror.commands.fold(myCodeMirror);
+myCodeMirror.foldCode(myCodeMirror.getCursor(), CodeMirror.fold.auto);
+myCodeMirror.foldCode(myCodeMirror.getCursor(), CodeMirror.fold.combine(rangeFinder, CodeMirror.fold.auto));
+
+const myKeyMap: CodeMirror.KeyMap = {
+    test: CodeMirror.commands.fold,
+    test2: CodeMirror.commands.unfold,
+    test3: CodeMirror.commands.toggleFold,
+    test4: CodeMirror.commands.foldAll,
+    test5: CodeMirror.commands.unfoldAll,
+};

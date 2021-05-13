@@ -9,7 +9,10 @@ import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 import tailwindCss = require('tailwindcss');
 
 // A typical TailwindCSS Config
-const config: TailwindConfig = {
+const configWithoutExtend: Omit<TailwindConfig, 'theme' | 'variants'> & {
+    theme: Omit<TailwindConfig['theme'], 'extend'>;
+    variants: Omit<TailwindConfig['variants'], 'extend'>;
+} = {
     theme: {
         screens: {
             sm: '640px',
@@ -2494,6 +2497,22 @@ const config: TailwindConfig = {
     prefix: '',
     important: false,
     separator: ':',
+};
+
+const config: TailwindConfig = {
+    ...configWithoutExtend,
+    theme: {
+        ...configWithoutExtend.theme,
+        extend: {
+            ...configWithoutExtend.theme,
+        },
+    },
+    variants: {
+        ...configWithoutExtend.variants,
+        extend: {
+            ...configWithoutExtend.variants,
+        },
+    },
 };
 
 const tailwindConfig = resolveConfig(config);

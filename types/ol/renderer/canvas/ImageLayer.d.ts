@@ -1,12 +1,11 @@
 import { Coordinate } from '../../coordinate';
 import { EventsKey } from '../../events';
 import BaseEvent from '../../events/Event';
-import { FeatureLike } from '../../Feature';
 import ImageBase from '../../ImageBase';
 import ImageLayer from '../../layer/Image';
-import Layer from '../../layer/Layer';
 import { FrameState } from '../../PluggableMap';
-import Source from '../../source/Source';
+import { HitMatch } from '../Map';
+import { FeatureCallback } from '../vector';
 import CanvasLayerRenderer from './Layer';
 
 export default class CanvasImageLayerRenderer extends CanvasLayerRenderer {
@@ -16,9 +15,9 @@ export default class CanvasImageLayerRenderer extends CanvasLayerRenderer {
         coordinate: Coordinate,
         frameState: FrameState,
         hitTolerance: number,
-        callback: (p0: FeatureLike, p1: Layer<Source>) => T,
-        declutteredFeatures: FeatureLike[],
-    ): T;
+        callback: FeatureCallback<T>,
+        matches: HitMatch<T>[],
+    ): T | undefined;
     getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
     /**
      * Perform action necessary to get the layer rendered after new fonts have loaded

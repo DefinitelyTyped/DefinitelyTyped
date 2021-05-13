@@ -1,9 +1,5 @@
-declare module 'node:zlib' {
-    export * from 'zlib';
-}
-
 declare module 'zlib' {
-    import * as stream from 'node:stream';
+    import * as stream from 'stream';
 
     interface ZlibOptions {
         /**

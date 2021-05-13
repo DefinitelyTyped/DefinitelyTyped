@@ -17,11 +17,12 @@
 
 /// <reference types="node"/>
 
-import stream = require('stream');
-import http = require('http');
-import { EventEmitter } from 'events';
-import SonicBoom = require('sonic-boom');
-import * as pinoStdSerializers from 'pino-std-serializers';
+import stream = require("stream");
+import http = require("http");
+import { EventEmitter } from "events";
+import SonicBoom = require("sonic-boom");
+import * as pinoStdSerializers from "pino-std-serializers";
+import * as PinoPretty from "pino-pretty";
 
 export = P;
 
@@ -47,32 +48,32 @@ declare namespace P {
     const LOG_VERSION: number;
     const levels: LevelMapping;
     const symbols: {
-        readonly setLevelSym: unique symbol,
-        readonly getLevelSym: unique symbol,
-        readonly levelValSym: unique symbol,
-        readonly useLevelLabelsSym: unique symbol,
-        readonly mixinSym: unique symbol,
-        readonly lsCacheSym: unique symbol,
-        readonly chindingsSym: unique symbol,
-        readonly parsedChindingsSym: unique symbol,
-        readonly asJsonSym: unique symbol,
-        readonly writeSym: unique symbol,
-        readonly serializersSym: unique symbol,
-        readonly redactFmtSym: unique symbol,
-        readonly timeSym: unique symbol,
-        readonly timeSliceIndexSym: unique symbol,
-        readonly streamSym: unique symbol,
-        readonly stringifySym: unique symbol,
-        readonly stringifiersSym: unique symbol,
-        readonly endSym: unique symbol,
-        readonly formatOptsSym: unique symbol,
-        readonly messageKeySym: unique symbol,
-        readonly nestedKeySym: unique symbol,
-        readonly wildcardFirstSym: unique symbol,
-        readonly needsMetadataGsym: unique symbol,
-        readonly useOnlyCustomLevelsSym: unique symbol,
-        readonly formattersSym: unique symbol,
-        readonly hooksSym: unique symbol,
+        readonly setLevelSym: unique symbol;
+        readonly getLevelSym: unique symbol;
+        readonly levelValSym: unique symbol;
+        readonly useLevelLabelsSym: unique symbol;
+        readonly mixinSym: unique symbol;
+        readonly lsCacheSym: unique symbol;
+        readonly chindingsSym: unique symbol;
+        readonly parsedChindingsSym: unique symbol;
+        readonly asJsonSym: unique symbol;
+        readonly writeSym: unique symbol;
+        readonly serializersSym: unique symbol;
+        readonly redactFmtSym: unique symbol;
+        readonly timeSym: unique symbol;
+        readonly timeSliceIndexSym: unique symbol;
+        readonly streamSym: unique symbol;
+        readonly stringifySym: unique symbol;
+        readonly stringifiersSym: unique symbol;
+        readonly endSym: unique symbol;
+        readonly formatOptsSym: unique symbol;
+        readonly messageKeySym: unique symbol;
+        readonly nestedKeySym: unique symbol;
+        readonly wildcardFirstSym: unique symbol;
+        readonly needsMetadataGsym: unique symbol;
+        readonly useOnlyCustomLevelsSym: unique symbol;
+        readonly formattersSym: unique symbol;
+        readonly hooksSym: unique symbol;
     };
     /**
      * Exposes the Pino package version. Also available on the logger instance.
@@ -191,7 +192,9 @@ declare namespace P {
      *                writing performance it is strongly recommended to use `pino.destination` to create the destination stream.
      * @returns A Sonic-Boom  stream to be used as destination for the pino function
      */
-    function destination(dest?: string | number | DestinationObjectOptions | DestinationStream | NodeJS.WritableStream): SonicBoom;
+    function destination(
+        dest?: string | number | DestinationObjectOptions | DestinationStream | NodeJS.WritableStream,
+    ): SonicBoom;
 
     /**
      * Create an extreme mode destination. This yields an additional 60% performance boost.
@@ -502,26 +505,26 @@ declare namespace P {
          * For example, they can be used to change the level key name or to enrich the default metadata.
          */
         formatters?: {
-          /**
-           * Changes the shape of the log level.
-           * The default shape is { level: number }.
-           * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
-           */
-          level?: (level: string, number: number) => object;
-          /**
-           * Changes the shape of the bindings.
-           * The default shape is { pid, hostname }.
-           * The function takes a single argument, the bindings object.
-           * It will be called every time a child logger is created.
-           */
-          bindings?: (bindings: Bindings) => object;
-          /**
-           * Changes the shape of the log object.
-           * This function will be called every time one of the log methods (such as .info) is called.
-           * All arguments passed to the log method, except the message, will be pass to this function.
-           * By default it does not change the shape of the log object.
-           */
-          log?: (object: object) => object;
+            /**
+             * Changes the shape of the log level.
+             * The default shape is { level: number }.
+             * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
+             */
+            level?: (label: string, number: number) => object;
+            /**
+             * Changes the shape of the bindings.
+             * The default shape is { pid, hostname }.
+             * The function takes a single argument, the bindings object.
+             * It will be called every time a child logger is created.
+             */
+            bindings?: (bindings: Bindings) => object;
+            /**
+             * Changes the shape of the log object.
+             * This function will be called every time one of the log methods (such as .info) is called.
+             * All arguments passed to the log method, except the message, will be pass to this function.
+             * By default it does not change the shape of the log object.
+             */
+            log?: (object: object) => object;
         };
 
         /**
@@ -539,76 +542,16 @@ declare namespace P {
         };
     }
 
-    type MessageFormatFunc = (log: LogDescriptor, messageKey: string, levelLabel: string) => string;
-
-    interface PrettyOptions {
-        /**
-         * Translate the epoch time value into a human readable date and time string.
-         * This flag also can set the format string to apply when translating the date to human readable format.
-         * The default format is yyyy-mm-dd HH:MM:ss.l o in UTC.
-         * For a list of available pattern letters see the {@link https://www.npmjs.com/package/dateformat|dateformat documentation}.
-         */
-        translateTime?: boolean | string;
-        /**
-         * If set to true, it will print the name of the log level as the first field in the log line. Default: `false`.
-         */
-        levelFirst?: boolean;
-        /**
-         * The key in the JSON object to use as the highlighted message. Default: "msg".
-         */
-        messageKey?: string;
-        /**
-         * The key in the JSON object to use for timestamp display. Default: "time".
-         */
-        timestampKey?: string;
-        /**
-         * Format output of message, e.g. {level} - {pid} will output message: INFO - 1123 Default: `false`.
-         *
-         * @example
-         * ```typescript
-         * {
-         *   messageFormat: (log, messageKey) => {
-         *     const message = log[messageKey];
-         *     if (log.requestId) return `[${log.requestId}] ${message}`;
-         *     return message;
-         *   }
-         * }
-         * ```
-         */
-        messageFormat?: false | string | MessageFormatFunc;
-        /**
-         * If set to true, will add color information to the formatted output message. Default: `false`.
-         */
-        colorize?: boolean;
-        /**
-         * Appends carriage return and line feed, instead of just a line feed, to the formatted log line.
-         */
-        crlf?: boolean;
-        /**
-         * Define the log keys that are associated with error like objects. Default: ["err", "error"]
-         */
-        errorLikeObjectKeys?: string[];
-        /**
-         *  When formatting an error object, display this list of properties.
-         *  The list should be a comma separated list of properties. Default: ''
-         */
-        errorProps?: string;
-        /**
-         * Specify a search pattern according to {@link http://jmespath.org|jmespath}
-         */
-        search?: string;
-        /**
-         * Ignore one or several keys. Example: "time,hostname"
-         */
-        ignore?: string;
+    // Re-export for backward compatibility
+    type PrettyOptions = PinoPretty.PrettyOptions & {
         /**
          * Suppress warning on first synchronous flushing.
          */
         suppressFlushSyncWarning?: boolean;
-    }
+    };
 
-    type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
-    type LevelWithSilent = Level | 'silent';
+    type Level = "fatal" | "error" | "warn" | "info" | "debug" | "trace";
+    type LevelWithSilent = Level | "silent";
 
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
@@ -719,12 +662,12 @@ declare namespace P {
          * @param event: only ever fires the `'level-change'` event
          * @param listener: The listener is passed four arguments: `levelLabel`, `levelValue`, `previousLevelLabel`, `previousLevelValue`.
          */
-        on(event: 'level-change', listener: LevelChangeEventListener): this;
-        addListener(event: 'level-change', listener: LevelChangeEventListener): this;
-        once(event: 'level-change', listener: LevelChangeEventListener): this;
-        prependListener(event: 'level-change', listener: LevelChangeEventListener): this;
-        prependOnceListener(event: 'level-change', listener: LevelChangeEventListener): this;
-        removeListener(event: 'level-change', listener: LevelChangeEventListener): this;
+        on(event: "level-change", listener: LevelChangeEventListener): this;
+        addListener(event: "level-change", listener: LevelChangeEventListener): this;
+        once(event: "level-change", listener: LevelChangeEventListener): this;
+        prependListener(event: "level-change", listener: LevelChangeEventListener): this;
+        prependOnceListener(event: "level-change", listener: LevelChangeEventListener): this;
+        removeListener(event: "level-change", listener: LevelChangeEventListener): this;
 
         /**
          * Creates a child logger, setting all key-value pairs in `bindings` as properties in the log lines. All serializers will be applied to the given pair.

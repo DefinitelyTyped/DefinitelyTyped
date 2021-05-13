@@ -10,7 +10,9 @@ format/filter/Bbox.d.ts
 format/filter/Comparison.d.ts
 format/filter/ComparisonBinary.d.ts
 format/filter/Contains.d.ts
+format/filter/Disjoint.d.ts
 format/filter/During.d.ts
+format/filter/DWithin.d.ts
 format/filter/EqualTo.d.ts
 format/filter/GreaterThan.d.ts
 format/filter/GreaterThanOrEqualTo.d.ts
@@ -24,6 +26,7 @@ format/filter/LogicalNary.d.ts
 format/filter/Not.d.ts
 format/filter/NotEqualTo.d.ts
 format/filter/Or.d.ts
+format/filter/ResourceId.d.ts
 format/filter/Spatial.d.ts
 format/filter/Within.d.ts
 format/GML2.d.ts
@@ -73,11 +76,8 @@ proj/projections.d.ts
 proj/transforms.d.ts
 render/Box.d.ts
 render/canvas/Builder.d.ts
-render/canvas/BuilderGroup.d.ts
-render/canvas/BuilderType.d.ts
-render/canvas/Executor.d.ts
 render/canvas/ExecutorGroup.d.ts
-render/canvas/hitdetet.d.ts
+render/canvas/hitdetect.d.ts
 render/canvas/ImageBuilder.d.ts
 render/canvas/Instruction.d.ts
 render/canvas/LineStringBuilder.d.ts
@@ -90,7 +90,6 @@ renderer/canvas/VectorImageLayer.d.ts
 renderer/canvas/VectorLayer.d.ts
 renderer/canvas/VectorTileLayer.d.ts
 renderer/Composite.d.ts
-renderer/vector.d.ts
 reproj.d.ts
 reproj/common.d.ts
 reproj/Image.d.ts

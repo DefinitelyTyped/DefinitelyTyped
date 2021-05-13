@@ -1224,6 +1224,8 @@ export interface OverflowProps<ThemeType extends Theme = RequiredTheme> {
 }
 
 export const overflow: styleFn;
+export const overflowX: styleFn;
+export const overflowY: styleFn;
 
 /**
  * Background

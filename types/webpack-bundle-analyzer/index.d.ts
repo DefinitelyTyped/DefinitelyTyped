@@ -1,4 +1,4 @@
-// Type definitions for webpack-bundle-analyzer 3.9
+// Type definitions for webpack-bundle-analyzer 4.4
 // Project: https://github.com/webpack-contrib/webpack-bundle-analyzer
 // Definitions by: Michael Strobel <https://github.com/kryops>
 //                 Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
@@ -7,6 +7,8 @@
 //                 Kyle Hensel <https://github.com/k-yle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
+
+/// <reference types="node" />
 
 import { WebpackPluginInstance, Compiler } from 'webpack';
 

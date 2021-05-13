@@ -35,6 +35,7 @@ interface Auth0LockAdditionalTextSignUpField {
     placeholder: string;
     prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
     validator?: (input: string) => { valid: boolean; hint?: string };
+    storage?: "root";
 }
 
 interface Auth0LockAdditionalSelectSignUpField {
@@ -45,6 +46,7 @@ interface Auth0LockAdditionalSelectSignUpField {
     placeholder: string;
     prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
     validator?: (input: string) => { valid: boolean; hint?: string };
+    storage?: "root";
 }
 
 interface Auth0LockAdditionalCheckboxSignUpField {
@@ -54,9 +56,17 @@ interface Auth0LockAdditionalCheckboxSignUpField {
     placeholder: string;
     prefill: "true" | "false";
     validator?: (input: string) => { valid: boolean, hint?: string };
+    storage?: "root";
 }
 
-type Auth0LockAdditionalSignUpField = Auth0LockAdditionalSelectSignUpField |Auth0LockAdditionalTextSignUpField |Auth0LockAdditionalCheckboxSignUpField;
+interface Auth0LockAdditionalHiddenSignUpField {
+    type?: "hidden";
+    name: string;
+    value: string;
+    storage?: "root";
+}
+
+type Auth0LockAdditionalSignUpField = Auth0LockAdditionalSelectSignUpField |Auth0LockAdditionalTextSignUpField |Auth0LockAdditionalCheckboxSignUpField |Auth0LockAdditionalHiddenSignUpField;
 
 type Auth0LockAvatarUrlCallback = (error: auth0.Auth0Error, url: string) => void;
 type Auth0LockAvatarDisplayNameCallback = (error: auth0.Auth0Error, displayName: string) => void;

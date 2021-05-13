@@ -64,18 +64,41 @@ export enum ApplePayStatusCodes {
     STATUS_PIN_LOCKOUT,
 }
 
+export type ApplePayTokenizeValues = 'Yes' | 'No' | 'Unknown';
+
+export interface ApplePayDetails {
+    cardType: string;
+    cardholderName: string;
+    dpanLastTwo: string;
+}
+
 export interface ApplePayPayload {
-    merchantIdentifier: string;
-    domainName: string;
-    displayName: string;
+    nonce: string;
+    description: string;
+    type: string;
+    consumed: boolean;
+    details: ApplePayDetails;
+    binData: {
+        commercial: ApplePayTokenizeValues;
+        countryOfIssuance: string;
+        debit: ApplePayTokenizeValues;
+        durbinRegulated: ApplePayTokenizeValues;
+        healthcare: ApplePayTokenizeValues;
+        issuingBank: ApplePayTokenizeValues;
+        payroll: ApplePayTokenizeValues;
+        prepaid: ApplePayTokenizeValues;
+        productId: string;
+    };
 }
 
 export class ApplePaySession {
     constructor(version: number, request: ApplePayPaymentRequest);
 
-    canMakePayments(): boolean;
+    static canMakePayments(): boolean;
 
-    canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
+    static canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
+
+    static supportsVersion(version: number): boolean;
 
     completeMerchantValidation(merchantSession: any): void;
 
@@ -95,8 +118,6 @@ export class ApplePaySession {
     ): void;
 
     completeShippingMethodSelection(status: ApplePayStatusCodes, newTotal: any, newLineItems: any): void;
-
-    supportsVersion(version: number): boolean;
 
     oncancel: (event: any) => void;
 
