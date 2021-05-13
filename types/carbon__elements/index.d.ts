@@ -1549,6 +1549,12 @@ export const g10: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
