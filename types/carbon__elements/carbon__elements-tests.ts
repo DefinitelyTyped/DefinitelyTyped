@@ -16,6 +16,9 @@ import {
     fontFamily,
     slow01,
     spacing13,
+    caption02,
+    helperText02,
+    label02,
 } from "@carbon/elements";
 
 tokens.colors;
@@ -39,3 +42,7 @@ white.toggleOff;
 g100.textOnColorDisabled;
 g100.highlight;
 g80.hoverDanger;
+g80.helperText02;
+caption02;
+helperText02;
+label02;
