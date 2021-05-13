@@ -471,21 +471,6 @@ declare module 'crypto' {
         callback: (err: Error | null, buf: T) => void,
     ): void;
 
-    interface RandomUUIDOptions {
-        /**
-         * To improve performance, Node.js generates and caches enough random data to
-         * generate up to 128 random UUIDs. To generate a UUID without using the cache,
-         * set disableEntropyCache to true
-         *
-         * @default false
-        */
-        disableEntropyCache?: boolean;
-    }
-
-    function randomUUID(
-        options?: RandomUUIDOptions,
-    ): string;
-
     interface ScryptOptions {
         cost?: number;
         blockSize?: number;
