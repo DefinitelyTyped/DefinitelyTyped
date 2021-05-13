@@ -718,7 +718,7 @@ declare namespace jasmine {
     }
 
     type MatchableArgs<Fn> = Fn extends (...args: infer P) => any
-        ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> }
+        ? { [K in keyof P]: Expected<P[K]> }
         : never;
 
     interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
