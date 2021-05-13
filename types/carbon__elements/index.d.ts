@@ -34,7 +34,7 @@ export const white: {
     inverse01: "#ffffff";
     inverse02: "#393939";
     support01: "#da1e28";
-    support02: "#24a148";
+    support02: "#198038";
     support03: "#f1c21b";
     support04: "#0043ce";
     inverseSupport01: "#fa4d56";
@@ -1424,7 +1424,7 @@ export const g10: {
     inverse01: "#ffffff";
     inverse02: "#393939";
     support01: "#da1e28";
-    support02: "#24a148";
+    support02: "#198038";
     support03: "#f1c21b";
     support04: "#0043ce";
     inverseSupport01: "#fa4d56";
