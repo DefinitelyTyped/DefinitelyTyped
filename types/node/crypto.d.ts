@@ -471,6 +471,14 @@ declare module 'crypto' {
         callback: (err: Error | null, buf: T) => void,
     ): void;
 
+    interface RandomUUIDOptions {
+        disableEntropyCache?: boolean;
+    }
+
+    function randomUUID(
+        options?: RandomUUIDOptions,
+    ): string;
+
     interface ScryptOptions {
         cost?: number;
         blockSize?: number;
