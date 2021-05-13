@@ -543,6 +543,38 @@ adapter.setForeignStateChanged("id", ["an", "array"]);
 adapter.setStateChangedAsync("id", ["an", "array"]);
 // $ExpectError
 adapter.setForeignStateChangedAsync("id", ["an", "array"]);
+// $ExpectError
+adapter.setState("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setForeignState("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setStateAsync("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setForeignStateAsync("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setStateChanged("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setForeignStateChanged("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setStateChangedAsync("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setForeignStateChangedAsync("id", {val: {an: "object"}});
+// $ExpectError
+adapter.setState("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setForeignState("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setStateAsync("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setForeignStateAsync("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setStateChanged("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setForeignStateChanged("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setStateChangedAsync("id", {val: ["an", "array"]});
+// $ExpectError
+adapter.setForeignStateChangedAsync("id", {val: ["an", "array"]});
 
 // Allow alias states
 adapter.getObjectAsync("id").then(obj => obj && obj.type === "state" && obj.common.alias && obj.common.alias.id.toUpperCase());
