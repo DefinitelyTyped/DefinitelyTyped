@@ -1,5 +1,6 @@
 import * as net from 'net';
 import { LookupOneOptions } from 'dns';
+import { Socket } from 'dgram';
 
 {
     const connectOpts: net.NetConnectOpts = {
@@ -299,9 +300,23 @@ import { LookupOneOptions } from 'dns';
 }
 
 {
+    const sockAddr: net.SocketAddress = new net.SocketAddress({
+        address: '123.123.123.123',
+        family: 'ipv4',
+        flowlabel: 0,
+        port: 123,
+    });
+    sockAddr.address; // $ExpectType string
+    sockAddr.family; // $ExpectType IPVersion
+    sockAddr.flowlabel; // $ExpectType number
+    sockAddr.port; // $ExpectType number
+
     const bl = new net.BlockList();
     bl.addAddress('127.0.0.1', 'ipv4');
+    bl.addAddress(sockAddr);
     bl.addRange('127.0.0.1', '127.0.0.255', 'ipv4');
+    bl.addRange(sockAddr, sockAddr);
     bl.addSubnet('127.0.0.1', 26, 'ipv4');
-    const res: boolean = bl.check('127.0.0.1', 'ipv4');
+    bl.addSubnet(sockAddr, 12);
+    const res: boolean = bl.check('127.0.0.1', 'ipv4') || bl.check(sockAddr);
 }

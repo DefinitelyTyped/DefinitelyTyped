@@ -488,7 +488,7 @@ declare module 'child_process' {
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
-    interface CommonExecOptions {
+    interface CommonExecOptions extends ProcessEnvOptions {
         input?: string | NodeJS.ArrayBufferView;
         stdio?: StdioOptions;
         killSignal?: NodeJS.Signals | number;
