@@ -87,6 +87,7 @@ declare namespace SimplePeer {
 
         // methods which are not documented
         readonly bufferSize: number;
+        readonly connected: boolean;
         address(): { port: string; family: string; address: string };
 
         // used for debug logging
