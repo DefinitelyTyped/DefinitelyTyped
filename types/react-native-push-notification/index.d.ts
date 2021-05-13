@@ -131,7 +131,7 @@ export class ChannelObject {
     channelName: string;
     channelDescription?: string;
     soundName?: string;
-    importance?: number | Importance;
+    importance?: Importance;
     vibrate?: boolean;
     playSound?: boolean;
 }
