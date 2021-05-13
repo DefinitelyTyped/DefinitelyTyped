@@ -23,7 +23,7 @@ export interface WhenMock<T = any, Y extends any[] = any>
   mockImplementationOnce(fn?: (...args: Y) => T): this;
 }
 
-export type When = <T, Y extends any[]>(fn: jest.MockInstance<T, Y>) => WhenMock<T, Y>;
+export type When = <T, Y extends any[]>(fn: ((...args: Y) => T) | jest.MockInstance<T, Y>) => WhenMock<T, Y>;
 
 export const when: When;
 export function resetAllWhenMocks(): void;
