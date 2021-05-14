@@ -11,13 +11,12 @@
 // TypeScript Version: 2.3
 
 import { IncomingMessage } from 'http';
+import { User } from 'discord.js';
 
 declare global {
     namespace Express {
         // tslint:disable-next-line:no-empty-interface
         interface AuthInfo {}
-        // tslint:disable-next-line:no-empty-interface
-        interface User {}
 
         interface Request {
             authInfo?: AuthInfo;
