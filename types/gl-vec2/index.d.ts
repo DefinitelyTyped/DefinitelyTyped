@@ -5,7 +5,7 @@
 // TypeScript Version: 3.3
 
 import add = require('./add');
-import ceil = require('./add');
+import ceil = require('./ceil');
 import clone = require('./clone');
 import copy = require('./copy');
 import create = require('./create');
