@@ -164,7 +164,7 @@ declare module 'backbone' {
         update(model:RelationalModel):void;
 
         // tslint:disable-next-line use-default-type-parameter
-        unregister(type: Model | Collection | typeof Model): void;
+        unregister(type: RelationalModel | Collection | typeof RelationalModel): void;
 
         reset():void;
 
