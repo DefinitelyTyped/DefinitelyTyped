@@ -761,6 +761,7 @@ declare namespace lunr {
     class TokenSet {
         constructor();
 
+		/** @package */
         id: number;
         final: boolean;
 
