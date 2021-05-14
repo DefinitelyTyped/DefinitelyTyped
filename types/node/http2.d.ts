@@ -516,6 +516,8 @@ declare module 'http2' {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         setTimeout(msec?: number, callback?: () => void): this;
+
+        updateSettings(settings: Settings): void;
     }
 
     export interface Http2SecureServer extends tls.Server {
@@ -574,6 +576,8 @@ declare module 'http2' {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         setTimeout(msec?: number, callback?: () => void): this;
+
+        updateSettings(settings: Settings): void;
     }
 
     export class Http2ServerRequest extends stream.Readable {
