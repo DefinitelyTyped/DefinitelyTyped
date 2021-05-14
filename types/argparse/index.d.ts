@@ -121,6 +121,10 @@ export interface ArgumentOptions {
     version?: string;
 }
 
+export class BooleanOptionalAction extends Action {
+    call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null): void;
+}
+
 export const SUPPRESS: string;
 export const OPTIONAL: string;
 export const ZERO_OR_MORE: string;
