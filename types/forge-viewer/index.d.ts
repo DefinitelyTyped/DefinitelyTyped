@@ -1208,7 +1208,7 @@ declare namespace Autodesk {
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
-            createViewerOptionsMenu(model: Model): void;
+            createViewerOptionsMenu(): void;
             createUI(model: Model): void;
             onFullScreenModeEvent(event: object): void;
             onProgressBarUpdate(event: object): void;
@@ -1216,10 +1216,12 @@ declare namespace Autodesk {
             addOptionList(parent: Element, label: string, optionList: string[], initialIndex: number, onchange: (index: number) => void, saveKey: boolean): void;
             showViewer3dOptions(show: boolean): void;
             showRenderingOptions(show: boolean): void;
-            showLayerManager(show: boolean): void;
+            /** @deprecated */
+            showLayerManager(): void;
             initHotkeys(model: Model): void;
             setModelStructurePanel(modelStructurePanel: any/*Autodesk.Viewing.UI.ModelStructurePanel*/): void;
-            setLayersPanel(layersPanel: any/*Autodesk.Viewing.UI.LayersPanel*/): void;
+            /** @deprecated */
+            setLayersPanel(): void;
             setPropertyPanel(propertyPanel: any/*Autodesk.Viewing.UI.PropertyPanel*/): void;
             getPropertyPanel(createDefault?: boolean): any/*Autodesk.Viewing.UI.PropertyPanel*/;
             setSettingsPanel(settingsPanel: any/*Autodesk.Viewing.UI.SettingsPanel*/): void;
