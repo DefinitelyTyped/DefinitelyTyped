@@ -38,6 +38,7 @@ declare module 'readline' {
          */
         protected constructor(options: ReadLineOptions);
 
+        getPrompt(): string;
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;

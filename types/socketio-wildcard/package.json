@@ -2,6 +2,6 @@
     "private": true,
     "dependencies": {
         "@types/socket.io": "2.1.13",
-        "eventemitter2": "^4.1.0"
+        "@types/socket.io-client": "1.4.36"
     }
 }
