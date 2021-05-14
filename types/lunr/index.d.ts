@@ -763,6 +763,7 @@ declare namespace lunr {
 
 		/** @package */
         id: number;
+		/** @package */
         final: boolean;
 
         /**
