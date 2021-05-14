@@ -397,6 +397,7 @@ declare namespace Autodesk {
           useDynamicGlobalOffset?: boolean;
           viewerConfig?: any;
           viewerStartOptions?: any;
+          viewerUnits?: string;
         }
 
         class AggregatedView {
