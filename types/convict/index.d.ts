@@ -78,7 +78,7 @@ declare namespace convict {
          * If omitted, format will be set to the value of Object.prototype.toString.call
          * for the default value
          */
-        format?: PredefinedFormat | any[] | ((val: any) => void);
+        format?: PredefinedFormat | any[] | ((val: any) => asserts val is T) | ((val: any) => void);
         env?: string;
         arg?: string;
         sensitive?: boolean;
