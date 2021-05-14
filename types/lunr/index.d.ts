@@ -767,6 +767,7 @@ declare namespace lunr {
         final: boolean;
 
         /**
+		 * @package
          * Key is a single character, the letter that represents the
          * possibilty for that letter to occur in the nested order of TokenSets.
          */
