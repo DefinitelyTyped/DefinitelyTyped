@@ -2,6 +2,6 @@
   "private": true,
   "dependencies": {
     "tapable": "^2.2.0",
-    "webpack": "^5"
+    "webpack": "^4 || ^5"
   }
 }
