@@ -4,11 +4,12 @@ import Editor from "./editor/editor";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { view } from "@ckeditor/ckeditor5-engine";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
+import ContextPlugin from "./contextplugin";
 
 export default class Plugin implements Emitter, Observable {
     static readonly pluginName?: string;
     static readonly isContextPlugin: boolean;
-    static readonly requires?: Array<typeof Plugin>;
+    static readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string>;
 
     readonly editor: Editor;
     readonly isEnabled: boolean;
@@ -19,7 +20,7 @@ export default class Plugin implements Emitter, Observable {
     clearForceDisabled(id: string): void;
     decorate(methodName: string): void;
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    destroy?(): null | Promise<any>;
+    destroy?(): void | Promise<any>;
     fire<T>(eventOrInfo: string | EventInfo<Emitter>, ...args: T[]): T;
     forceDisabled(id: string): void;
     init?(): Promise<void> | void;
