@@ -44,7 +44,14 @@ export function log(log: any): void;
 export function log(...log: any[]): void;
 export function on(name: string, callback: (e: any) => void): any;
 export function remote(command: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): PromiseLike<ShipitLocal>;
+
+/**
+ * @deprecated Use `copyToRemote` or `copyFromRemote` instead
+ */
 export function remoteCopy(src: string, dest: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): PromiseLike<ShipitLocal>;
+export function copyToRemote(src: string, dest: string, options?: child_process.ExecOptions): PromiseLike<ShipitLocal>;
+export function copyFromRemote(src: string, dest: string, options?: child_process.ExecOptions): PromiseLike<ShipitLocal>;
+
 export function start(tasks: string | string[]): typeof shipit;
 export function start(...tasks: string[]): typeof shipit;
 export function task(name: string, depsOrFn: string[] | EmptyCallback, fn?: () => void): typeof shipit;
