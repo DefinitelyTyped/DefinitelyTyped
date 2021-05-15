@@ -349,7 +349,7 @@ export class MongoWriteConcernError extends MongoError {
  * @see https://mongodb.github.io/node-mongodb-native/3.6/api/BulkWriteError.html
  */
 export class BulkWriteError extends MongoError {}
-export { BulkWriteError as MongoBulkWriteError};
+export { BulkWriteError as MongoBulkWriteError };
 
 /** @see https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect */
 export interface MongoClientOptions
