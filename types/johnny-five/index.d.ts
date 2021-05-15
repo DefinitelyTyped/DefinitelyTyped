@@ -685,7 +685,7 @@ export declare class Ping {
 export declare interface ProximityOption {
     pin: number | string;
     controller: string;
-		freq?: number;
+    freq?: number;
 }
 
 export declare interface ProximityData {
