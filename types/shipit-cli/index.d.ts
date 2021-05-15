@@ -1,6 +1,6 @@
-// Type definitions for shipit-cli 1.5
+// Type definitions for shipit-cli 4.0
 // Project: https://github.com/shipitjs/shipit
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, fsubal <https://github.com/fsubal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
