@@ -6,7 +6,6 @@
 //                 theweirdone <https://github.com/theweirdone>
 //                 whoaa512 <https://github.com/whoaa512>
 //                 John Reilly <https://github.com/johnnyreilly>
-//                 Wes Cossick <https://github.com/WesCossick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
