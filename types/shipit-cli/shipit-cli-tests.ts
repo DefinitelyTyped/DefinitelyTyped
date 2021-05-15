@@ -46,5 +46,6 @@ shipit.remote("ls -lah").then((res: any) => {
   console.log(res[0].stderr);
 });
 
-shipit.remoteCopy("/tmp/workspace", "/opt/web/myapp").then(() => {});
+shipit.copyToRemote("/tmp/workspace", "/opt/web/myapp").then(() => {});
+shipit.copyFromRemote("/opt/web/myapp","/tmp/workspace").then(() => {});
 shipit.log("hello %s", "world");
