@@ -27,7 +27,7 @@ declare module 'koa' {
     }
 }
 
-declare function bodyParser (opts?: bodyParser.Options): Koa.Middleware;
+declare function bodyParser(opts?: bodyParser.Options): Koa.Middleware;
 
 declare namespace bodyParser {
     interface Options {
