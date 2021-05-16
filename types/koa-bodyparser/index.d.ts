@@ -18,16 +18,16 @@
 
  =============================================== */
 
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
-declare module "koa" {
+declare module 'koa' {
     interface Request {
         body: string | Record<string, unknown>;
         rawBody: string;
     }
 }
 
-declare function bodyParser(opts?: bodyParser.Options): Koa.Middleware;
+declare function bodyParser (opts?: bodyParser.Options): Koa.Middleware;
 
 declare namespace bodyParser {
     interface Options {
