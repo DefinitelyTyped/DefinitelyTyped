@@ -609,7 +609,7 @@ declare namespace OSS {
             name: string,
             stream: any,
             options?: PutStreamOptions,
-        ): Promise<{ name: string; res: NormalSuccessResponse }>;
+        ): Promise<{ name: string; url: string; res: NormalSuccessResponse }>;
 
         head(name: string, options?: HeadObjectOptions): Promise<HeadObjectResult>;
 
