@@ -432,6 +432,10 @@
             "libraryName": "cli-cursor",
             "asOfVersion": "3.0.0"
         },
+        "cli-spinners": {
+            "libraryName": "cli-spinners",
+            "asOfVersion": "2.0.0"
+        },
         "cli-truncate": {
             "libraryName": "cli-truncate",
             "asOfVersion": "2.0.0"
