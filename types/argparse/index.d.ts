@@ -64,7 +64,9 @@ export interface ArgumentParserOptions {
     argument_default?: any;
     parents?: ArgumentParser[];
     prefix_chars?: string;
-    formatter_class?: { new (): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter };
+    formatter_class?: {
+        new (): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter;
+    };
     prog?: string;
     usage?: string;
     exit_on_error?: boolean;
@@ -80,7 +82,12 @@ export interface ArgumentGroupOptions {
 export abstract class Action {
     protected dest: string;
     constructor(options: ActionConstructorOptions);
-    abstract call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null): void;
+    abstract call(
+        parser: ArgumentParser,
+        namespace: Namespace,
+        values: string | string[],
+        optionString: string | null,
+    ): void;
 }
 
 // Can be used in conjunction with the exit_on_error flag to save the error message
@@ -98,15 +105,15 @@ export class ArgumentTypeError extends Error {
 // Passed to the Action constructor.  Subclasses are just expected to relay this to
 // the super() constructor, so using an "opaque type" pattern is probably fine.
 // Someone may want to fill this out in the future.
-export type ActionConstructorOptions = number & {_: 'ActionConstructorOptions'};
+export type ActionConstructorOptions = number & { _: "ActionConstructorOptions" };
 
-export class HelpFormatter { }
-export class ArgumentDefaultsHelpFormatter { }
-export class RawDescriptionHelpFormatter { }
-export class RawTextHelpFormatter { }
+export class HelpFormatter {}
+export class ArgumentDefaultsHelpFormatter {}
+export class RawDescriptionHelpFormatter {}
+export class RawTextHelpFormatter {}
 
 export interface ArgumentOptions {
-    action?: string | { new(options: ActionConstructorOptions): Action };
+    action?: string | { new (options: ActionConstructorOptions): Action };
     option_strings?: string[];
     dest?: string;
     nargs?: string | number;
