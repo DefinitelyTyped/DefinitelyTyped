@@ -203,3 +203,20 @@ chess.history({ verbose: true });
 
 // $ExpectType ({ type: PieceType; color: "w" | "b"; } | null)[][]
 chess.board();
+
+// --- comments --- \\
+
+// $ExpectType void
+chess.set_comment("comment")
+
+// $ExpectType string | undefined
+chess.get_comment()
+
+// $ExpectType Comment[]
+chess.get_comments()
+
+// $ExpectType string | undefined
+chess.delete_comment()
+
+// $ExpectType Comment[]
+chess.delete_comments()

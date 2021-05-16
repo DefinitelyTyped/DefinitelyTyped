@@ -1,4 +1,4 @@
-// Type definitions for chess.js 0.10
+// Type definitions for chess.js 0.11
 // Project: https://github.com/jhlywa/chess.js
 // Definitions by: Jacob Fischer <https://github.com/JacobFischer>
 //                 Zachary Svoboda <https://github.com/zacnomore>
@@ -148,6 +148,11 @@ export interface Piece {
      * - "w" for White
      */
     color: 'b' | 'w';
+}
+
+export interface Comment {
+    fen: string;
+    comment: string;
 }
 
 export interface ChessInstance {
@@ -618,6 +623,16 @@ export interface ChessInstance {
     }): string[] | Move[];
 
     board(): Array<Array<{ type: PieceType; color: 'w' | 'b' } | null>>;
+
+    get_comment(): string | undefined;
+
+    set_comment(comment: string): void;
+
+    delete_comment(): string | undefined;
+
+    get_comments(): Comment[];
+
+    delete_comments(): Comment[];
 }
 
 /**
