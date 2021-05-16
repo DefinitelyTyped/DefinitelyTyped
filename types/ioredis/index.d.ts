@@ -1,11 +1,10 @@
-// Type definitions for ioredis 4.22
+// Type definitions for ioredis 4.26
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 //                 Whemoon Jang <https://github.com/palindrom615>
-//                 Francis Gulotta <https://github.com/reconbot>
 //                 Dmitry Motovilov <https://github.com/funthing>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 Ting-Wai To <https://github.com/tingwai-to>
@@ -318,9 +317,13 @@ declare namespace IORedis {
 
         rpop(key: KeyType, callback: Callback<string>): void;
         rpop(key: KeyType): Promise<string>;
+        rpop(key: KeyType, count: number, callback: Callback<string[]>): void;
+        rpop(key: KeyType, count: number): Promise<string[]>;
 
         lpop(key: KeyType, callback: Callback<string>): void;
         lpop(key: KeyType): Promise<string>;
+        lpop(key: KeyType, count: number, callback: Callback<string[]>): void;
+        lpop(key: KeyType, count: number): Promise<string[]>;
 
         lpos(key: KeyType, value: ValueType, rank?: number, count?: number, maxlen?: number): Promise<number | null>;
 
@@ -1161,7 +1164,7 @@ declare namespace IORedis {
         readonly options: RedisOptions;
         readonly status: string;
         connect(callback?: () => void): Promise<void>;
-        disconnect(): void;
+        disconnect(reconnect?: boolean): void;
         duplicate(): Redis;
 
         send_command(command: string, ...args: ValueType[]): Promise<any>;
@@ -1250,8 +1253,10 @@ declare namespace IORedis {
         lpush(key: KeyType, ...values: ValueType[]): Pipeline;
 
         rpushx(key: KeyType, value: ValueType, callback?: Callback<number>): Pipeline;
+        rpushx(key: KeyType, ...values: ValueType[]): Pipeline;
 
         lpushx(key: KeyType, value: ValueType, callback?: Callback<number>): Pipeline;
+        lpushx(key: KeyType, ...values: ValueType[]): Pipeline;
 
         linsert(
             key: KeyType,
@@ -1670,7 +1675,7 @@ declare namespace IORedis {
         readonly options: ClusterOptions;
         readonly status: string;
         connect(): Promise<void>;
-        disconnect(): void;
+        disconnect(reconnect?: boolean): void;
         duplicate(overrideStartupNodes?: ReadonlyArray<ClusterNode>, overrideOptions?: ClusterOptions): Cluster;
         nodes(role?: NodeRole): Redis[];
     }
@@ -1694,6 +1699,18 @@ declare namespace IORedis {
          * TCP KeepAlive on the socket with a X ms delay before start. Set to a non-number value to disable keepAlive.
          */
         keepAlive?: number;
+        /**
+         * Whether to disable the Nagle's Algorithm.
+         */
+        noDelay?: boolean;
+        /**
+         * Force numbers to be always returned as JavaScript strings. This option is necessary when dealing with big numbers (exceed the [-2^53, +2^53] range).
+         */
+        stringNumbers?: boolean;
+        /**
+         * Default script definition caching time.
+         */
+        maxScriptsCachingTime?: number;
         connectionName?: string;
         /**
          * If set, client will send AUTH command with the value of this option as the first argument when connected. The `password` option must be set too. Username should only be set for Redis >=6.
@@ -1731,6 +1748,14 @@ declare namespace IORedis {
          * (which is the default behavior before ioredis v4).
          */
         maxRetriesPerRequest?: number | null;
+        /**
+         * The milliseconds before a timeout occurs when executing a single
+         * command. By default, there is no timeout and the client will wait
+         * indefinitely. The timeout is enforced only on the client side, not
+         * server side. The server may still complete the operation after a
+         * timeout error occurs on the client side.
+         */
+        commandTimeout?: number;
         /**
          * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
          * the error and do nothing.

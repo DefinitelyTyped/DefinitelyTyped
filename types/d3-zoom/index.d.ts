@@ -231,10 +231,10 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * The scale factor transform.k is multiplied by 2Δ; for example, a Δ of +1 doubles the scale factor, Δ of -1 halves the scale factor.
      *
      * @param delta Wheel delta function which is invoked in the wheel event handler of each element to which the zoom behavior was applied,
-     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * in order, being passed the wheel event that triggered the handler,
      * with this as the current DOM element. The function returns a numeric value.
      */
-    wheelDelta(delta: ValueFn<ZoomRefElement, Datum, number>): this;
+    wheelDelta(delta: ((event: WheelEvent) => number) | number): this;
 
     /**
      * Return the current extent accessor, which defaults to [[0, 0], [width, height]] where width is the client width of the element and height is its client height;

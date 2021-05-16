@@ -11,7 +11,7 @@ import VectorSource from '../source/Vector';
 import Interaction from './Interaction';
 
 export interface Options {
-    formatConstructors?: FeatureFormat[];
+    formatConstructors?: (FeatureFormat | FeatureFormat)[];
     source?: VectorSource<Geometry>;
     projection?: ProjectionLike;
     target?: HTMLElement;
@@ -52,7 +52,7 @@ export default class DragAndDrop extends Interaction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-declare class DragAndDropEvent extends BaseEvent {
+export class DragAndDropEvent extends BaseEvent {
     constructor(
         type: DragAndDropEventType,
         file: File,

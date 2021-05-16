@@ -7,6 +7,7 @@ module.exports = (config: karma.Config) => {
             show: 'failed',
             specLength: 50,
             overviewColumn: true,
+            browserList: 'ifneeded',
         },
     });
 };

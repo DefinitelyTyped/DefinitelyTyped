@@ -1,12 +1,15 @@
-// Type definitions for faker 5.1
+// Type definitions for faker 5.5
 // Project: http://marak.com/faker.js/
-// Definitions by: Ben Swartz <https://github.com/bensw>,
-//                 Bas Pennings <https://github.com/basp>,
-//                 Yuki Kokubun <https://github.com/Kuniwak>,
-//                 Matt Bishop <https://github.com/mattbishop>,
+// Definitions by: Ben Swartz <https://github.com/bensw>
+//                 Bas Pennings <https://github.com/basp>
+//                 Yuki Kokubun <https://github.com/Kuniwak>
+//                 Matt Bishop <https://github.com/mattbishop>
 //                 Leonardo Testa <https://github.com/testica>
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
 //                 Daniel Montesinos <https://github.com/damonpam>
+//                 Shinya Ohyanagi <https://github.com/heavenshell>
+//                 Piotr Kuczynski <https://github.com/pkuczynski>
+//                 Jérémie Parker <https://github.com/p-j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -19,7 +22,8 @@ declare namespace Faker {
         address: {
             zipCodeByState(state: string): string;
             zipCode(format?: string): string;
-            city(format?: number): string;
+            city(format?: string): string;
+            cityName(): string;
             cityPrefix(): string;
             citySuffix(): string;
             streetName(): string;
@@ -37,7 +41,11 @@ declare namespace Faker {
             direction(useAbbr?: boolean): string;
             cardinalDirection(useAbbr?: boolean): string;
             ordinalDirection(useAbbr?: boolean): string;
-            nearbyGPSCoordinate(coordinate?: ReadonlyArray<string>, radius?: number, isMetric?: boolean): string[];
+            nearbyGPSCoordinate(
+                coordinate?: ReadonlyArray<number | string>,
+                radius?: number,
+                isMetric?: boolean,
+            ): string[];
             timeZone(): string;
         };
 
@@ -71,6 +79,21 @@ declare namespace Faker {
             type(): string;
             collation(): string;
             engine(): string;
+        };
+
+        datatype: {
+            number(max?: number): number;
+            number(options?: { min?: number; max?: number; precision?: number }): number;
+            float(max?: number): number;
+            float(options?: { min?: number; max?: number; precision?: number }): number;
+            datetime(max?: number): Date;
+            datetime(options?: { min?: number; max?: number }): Date;
+            string(length?: number): string;
+            uuid(): string;
+            boolean(): boolean;
+            hexaDecimal(count?: number): string;
+            json(): string;
+            array(length?: number): Array<string | number>;
         };
 
         date: {
@@ -175,6 +198,7 @@ declare namespace Faker {
             domainWord(): string;
             ip(): string;
             ipv6(): string;
+            port(): number;
             userAgent(): string;
             color(baseRed255?: number, baseGreen255?: number, baseBlue255?: number): string;
             mac(sep?: string): string;
@@ -219,9 +243,13 @@ declare namespace Faker {
         };
 
         random: {
+            /** @deprecated faker.random.number is now located in faker.datatype.number */
             number(max?: number): number;
+            /** @deprecated faker.random.number is now located in faker.datatype.number */
             number(options?: { min?: number; max?: number; precision?: number }): number;
+            /** @deprecated faker.random.float is now located in faker.datatype.float */
             float(max?: number): number;
+            /** @deprecated faker.random.float is now located in faker.datatype.float */
             float(options?: { min?: number; max?: number; precision?: number }): number;
             arrayElement(): string;
             arrayElement<T>(array: T[]): T;
@@ -231,7 +259,9 @@ declare namespace Faker {
             arrayElements<T>(array: ReadonlyArray<T>, count?: number): ReadonlyArray<T>;
             objectElement(object?: { [key: string]: any }, field?: 'key'): string;
             objectElement<T>(object?: { [key: string]: T }, field?: any): T;
+            /** @deprecated faker.random.uuid is now located in faker.datatype.uuid */
             uuid(): string;
+            /** @deprecated faker.random.boolean is now located in faker.datatype.boolean */
             boolean(): boolean;
             word(type?: string): string;
             words(count?: number): string;
@@ -239,17 +269,18 @@ declare namespace Faker {
             locale(): string;
             alpha(options?: { count?: number; upcase?: boolean }): string;
             alphaNumeric(count?: number): string;
+            /** @deprecated faker.random.hexaDecimal is now located in faker.datatype.hexaDecimal */
             hexaDecimal(count?: number): string;
         };
 
         system: {
-            fileName(ext?: string, type?: string): string;
-            commonFileName(ext: string, type?: string): string;
+            fileName(): string;
+            commonFileName(ext?: string): string;
             mimeType(): string;
             commonFileType(): string;
             commonFileExt(): string;
             fileType(): string;
-            fileExt(mimeType: string): string;
+            fileExt(mimeType?: string): string;
             directoryPath(): string;
             filePath(): string;
             semver(): string;
@@ -272,6 +303,8 @@ declare namespace Faker {
             fuel(): string;
             vin(): string;
             color(): string;
+            vrm(): string;
+            bicycle(): string;
         };
 
         unique<T extends (...args: any) => any>(

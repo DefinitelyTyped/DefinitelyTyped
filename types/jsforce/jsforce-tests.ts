@@ -678,68 +678,73 @@ async function testChatter(conn: sf.Connection): Promise<void> {
         console.log("small photo url: " + res.photo.smallPhotoUrl);
     });
 
-    chatter.resource('/users', { q: 'Suzuki' }).retrieve((err, result: any) => {
+    chatter.resource("/users", { q: "Suzuki" }).retrieve((err, result: any) => {
         if (err) {
             console.error(err);
             return;
         }
-        console.log("current page URL: " + result['currentPageUrl']);
-        console.log("next page URL: " + result['nextPageUrl']);
-        console.log("users count: " + result['users'].length);
-        for (const user of result['users']) {
-            console.log('User ID: ' + user.id);
-            console.log('User URL: ' + user.url);
-            console.log('Username: ' + user.username);
+        console.log("current page URL: " + result["currentPageUrl"]);
+        console.log("next page URL: " + result["nextPageUrl"]);
+        console.log("users count: " + result["users"].length);
+        for (const user of result["users"]) {
+            console.log("User ID: " + user.id);
+            console.log("User URL: " + user.url);
+            console.log("Username: " + user.username);
         }
     });
 
-    const feedResource: sf.Resource<sf.RequestResult> = chatter.resource('/feed-elements');
+    const feedResource: sf.Resource<sf.RequestResult> = chatter.resource("/feed-elements");
 
     const feedCreateRequest: any = await feedResource.create({
         body: {
-            messageSegments: [{
-                type: 'Text',
-                text: 'This is new comment on the post'
-            }]
+            messageSegments: [
+                {
+                    type: "Text",
+                    text: "This is new comment on the post",
+                },
+            ],
         },
-        feedElementType: 'FeedItem',
-        subjectId: 'me'
+        feedElementType: "FeedItem",
+        subjectId: "me",
     });
 
     console.log(`feedCreateRequest.id: ${feedCreateRequest.id}`);
     const itemLikesUrl = `/feed-elements/${feedCreateRequest.id}/capabilities/chatter-likes/items`;
     const itemsLikeResource: sf.Resource<sf.RequestResult> = chatter.resource(itemLikesUrl);
 
-    const itemsLikeCreateResult: sf.RequestResult = await itemsLikeResource.create('');
-    console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any['likedItem']}`);
+    const itemsLikeCreateResult: sf.RequestResult = await itemsLikeResource.create("");
+    console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any["likedItem"]}`);
 }
 
 (async () => {
-    const query2: sf.QueryResult<object> =
-        await (salesforceConnection.query("SELECT Id, Name FROM User") as Promise<sf.QueryResult<object>>);
+    const query2: sf.QueryResult<object> = await (salesforceConnection.query("SELECT Id, Name FROM User") as Promise<
+        sf.QueryResult<object>
+    >);
     console.log("Query Promise: total in database: " + query2.totalSize);
     console.log("Query Promise: total fetched : " + query2.records[0]);
 
     await testAnalytics(salesforceConnection);
     await testChatter(salesforceConnection);
     await testMetadata(salesforceConnection);
+    await testSoapApi(salesforceConnection);
     await testExecuteAnonymous(salesforceConnection);
 })();
 
 const oauth2 = new sf.OAuth2({
     // you can change loginUrl to connect to sandbox or prerelease env.
     // loginUrl : 'https://test.salesforce.com',
-    clientId: '<your Salesforce OAuth2 client ID is here>',
-    clientSecret: '<your Salesforce OAuth2 client secret is here>',
-    redirectUri: '<callback URI is here>'
+    clientId: "<your Salesforce OAuth2 client ID is here>",
+    clientSecret: "<your Salesforce OAuth2 client secret is here>",
+    redirectUri: "<callback URI is here>",
 });
-oauth2.getAuthorizationUrl({ scope: 'api id web' });
+oauth2.getAuthorizationUrl({ scope: "api id web" });
 
 const job = salesforceConnection.bulk.createJob("Account", "insert");
 const batch = job.createBatch();
 batch.execute(undefined);
-batch.on("queue", (batchInfo) => { // fired when batch request is queued in server.
-    console.log('batchInfo:', batchInfo);
+batch.on("queue", batchInfo => {
+    // fired when batch request is queued in server.
+    console.log("batchInfo:", batchInfo);
     const batchId = batchInfo.id;
     const jobId = batchInfo.jobId;
 });
@@ -810,7 +815,204 @@ async function testDescribe() {
     const options: DescribeSObjectOptions = { type: types[0], ifModifiedSince: new Date().toUTCString() };
     const sobject: DescribeSObjectResult = await salesforceConnection.describe(options);
     const cachedSObject: DescribeSObjectResult = await salesforceConnection.describe$(options);
-    const batchSObjects: DescribeSObjectResult[] = await salesforceConnection.batchDescribe({ types, autofetch: false, maxConcurrentRequests: 15 });
+    const batchSObjects: DescribeSObjectResult[] = await salesforceConnection.batchDescribe({
+        types,
+        autofetch: false,
+        maxConcurrentRequests: 15,
+    });
+}
+
+async function testSoapApi(conn: sf.Connection): Promise<void> {
+    const soap: sf.SoapApi = conn.soap;
+
+    // test convertLead()
+    {
+        const leadConvert = {
+            convertedStatus: "some-status",
+            leadId: "some-lead-id",
+        };
+
+        const leadConvertWithOptions = {
+            convertedStatus: "some-status",
+            leadId: "some-lead-id",
+            accountId: "some string",
+            contactId: "some string",
+            doNotCreateOpportunity: false,
+            opportunityName: "some string",
+            overwriteLeadSource: true,
+            ownerId: "some string",
+            sendNotificationEmail: true,
+        };
+
+        const multipleLeads = [
+            {
+                convertedStatus: "some-other-status",
+                leadId: "some-other-lead-id",
+            },
+            {
+                convertedStatus: "some-status",
+                leadId: "some-lead-id",
+            },
+        ];
+
+        const leadResult: sf.LeadConvertResult | sf.LeadConvertResult[] = await soap.convertLead(leadConvert);
+        const leadResultWithOptions: sf.LeadConvertResult | sf.LeadConvertResult[] = await soap.convertLead(
+            leadConvertWithOptions,
+        );
+        const leadResultWithMultipleLeads: sf.LeadConvertResult | sf.LeadConvertResult[] = await soap.convertLead(
+            multipleLeads,
+        );
+
+        // test callback style
+        soap.convertLead(leadConvert, (err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test describeTabs()
+    {
+        const describeTabResult: sf.DescribeTabSetResult[] = await soap.describeTabs();
+
+        // test callback style
+        soap.describeTabs((err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test emptyRecycleBin()
+    {
+        const ids = ["one fish", "two fish"];
+        const emptyRecycleBinResult: sf.EmptyRecycleBinResult[] = await soap.emptyRecycleBin(ids);
+
+        // test callback style
+        soap.emptyRecycleBin(ids, (err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test getServerTimestamp()
+    {
+        const serverTimestampResult: sf.ServerTimestampResult = await soap.getServerTimestamp();
+
+        // test callback style
+        soap.getServerTimestamp((err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test getUserInfo()
+    {
+        const getUserInfoResult: sf.UserInfoResult = await soap.getUserInfo();
+
+        // test callback style
+        soap.getUserInfo((err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test merge()
+    {
+        const mergeRequest = {
+            masterRecord: {},
+            recordToMergeIds: ["string", "string"],
+        };
+        const multipleMergeRequests = [
+            {
+                masterRecord: {},
+                recordToMergeIds: ["string", "string"],
+            },
+            {
+                masterRecord: {},
+                recordToMergeIds: ["string", "string"],
+            },
+        ];
+
+        const mergeResult: sf.MergeResult | sf.MergeResult[] = await soap.merge(mergeRequest);
+        const multipleMergeResults: sf.MergeResult | sf.MergeResult[] = await soap.merge(multipleMergeRequests);
+
+        // test callback style
+        soap.merge(mergeRequest, (err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test setPassword()
+    {
+        const userId = "some user id";
+        const password = "top secret";
+        const setPasswordResult: sf.ResetPasswordResult = await soap.setPassword(userId, password);
+
+        // test callback style
+        soap.setPassword(userId, password, (err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test create()
+    {
+        const objects = [{ foo: "bar" }, { bar: "baz" }];
+        const createResult: sf.SoapSaveResult = await soap.create(objects);
+
+        // test callback style
+        soap.create(objects, (err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test update()
+    {
+        const objects = [{ foo: "bar" }, { bar: "baz" }];
+        const updateResult: sf.SoapSaveResult = await soap.update(objects);
+
+        // test callback style
+        soap.update(objects, (err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test upsert()
+    {
+        const objects = [{ foo: "bar" }, { bar: "baz" }];
+        const upsertResult: sf.SoapUpsertResult = await soap.upsert("external field name", objects);
+
+        // test callback style
+        soap.upsert("external field name", objects, (err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
+
+    // test delete()
+    {
+        const ids = [{ foo: "bar" }, { bar: "baz" }];
+        const deleteResult: sf.SoapDeleteResult = await soap.delete(ids);
+
+        // test callback style
+        soap.delete(ids, (err, result) => {
+            if (!err) {
+                console.log(result);
+            }
+        });
+    }
 }
 
 async function testApex(conn: sf.Connection): Promise<void> {

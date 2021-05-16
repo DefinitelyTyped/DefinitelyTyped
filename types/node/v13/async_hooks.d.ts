@@ -85,7 +85,7 @@ declare module "async_hooks" {
     interface AsyncResourceOptions {
       /**
        * The ID of the execution context that created this async event.
-       * Default: `executionAsyncId()`
+       * @default executionAsyncId()
        */
       triggerAsyncId?: number;
 
@@ -94,7 +94,7 @@ declare module "async_hooks" {
        * This usually does not need to be set (even if `emitDestroy` is called
        * manually), unless the resource's `asyncId` is retrieved and the
        * sensitive API's `emitDestroy` is called with it.
-       * Default: `false`
+       * @default false
        */
       requireManualDestroy?: boolean;
     }
@@ -131,7 +131,7 @@ declare module "async_hooks" {
         /**
          * Call AsyncHooks destroy callbacks.
          */
-        emitDestroy(): void;
+        emitDestroy(): this;
 
         /**
          * @return the unique ID assigned to this AsyncResource instance.

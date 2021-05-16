@@ -4,11 +4,10 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
-export as namespace Bootstrap;
+export as namespace bootstrap;
 
 import Alert from "./js/dist/alert";
 import Button from "./js/dist/button";

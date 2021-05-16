@@ -1,5 +1,5 @@
 // Type definitions for k6 0.31
-// Project: https://k6.io/docs
+// Project: https://k6.io/docs/
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
 //                 na-- <https://github.com/na-->
@@ -11,7 +11,7 @@
 
 /**
  * k6 JavaScript API.
- * https://k6.io/docs
+ * https://k6.io/docs/
  *
  * @privateRemarks
  * Uses a branding pattern throughout to reflect the custom classes exposed by
@@ -46,7 +46,7 @@ import './net/grpc';
 
 /**
  * Run checks on a value.
- * https://k6.io/docs/javascript-api/k6/check-val-sets-tags
+ * https://k6.io/docs/javascript-api/k6/check-val-sets-tags/
  * @typeParam VT - Value type.
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
@@ -62,7 +62,7 @@ export function check<VT>(val: VT, sets: Checkers<VT>, tags?: object): boolean;
 
 /**
  * Immediately throw an error, aborting the current script iteration.
- * https://k6.io/docs/javascript-api/k6/fail-err
+ * https://k6.io/docs/javascript-api/k6/fail-err/
  * @param err - Error message that gets printed to stderr.
  * @example
  * fail("abort current iteration");
@@ -71,7 +71,7 @@ export function fail(err?: string): never;
 
 /**
  * Run code inside a group.
- * https://k6.io/docs/javascript-api/k6/group-name-fn
+ * https://k6.io/docs/javascript-api/k6/group-name-fn/
  * @typeParam RT - Return type.
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
@@ -85,7 +85,7 @@ export function group<RT>(name: string, fn: () => RT): RT;
 
 /**
  * Suspend VU execution for the specified duration.
- * https://k6.io/docs/javascript-api/k6/sleep-t
+ * https://k6.io/docs/javascript-api/k6/sleep-t/
  * @param t - Duration, in seconds.
  * @example
  * sleep(3);

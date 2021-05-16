@@ -285,7 +285,8 @@ f("one");
 
 #### Linter: `tslint.json`
 
-If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+何らかの理由で何らかのLintルールを無効化する必要がある場合は、[特定の行を無効化する](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) `// tslint:disable-next-line:[ruleName]` を使い特定の行を無効化することで、無効にしたことをレビューできるようにします。
+(追加の内容を持つ古いLint設定もありますが、新しい作業ではこのような設定を変更する必要はないはずです。)
 
 #### tsconfig.json
 

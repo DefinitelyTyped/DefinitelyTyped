@@ -658,7 +658,7 @@ declare namespace Stylus {
         /**
          * Get dependencies of the compiled file.
          */
-        deps(filename: string): string[];
+        deps(filename?: string): string[];
 
         /**
          * Set option `key` to `val`.

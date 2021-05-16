@@ -1,0 +1,1 @@
+export { AppSwitcher as default } from "./";

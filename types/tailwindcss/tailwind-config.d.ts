@@ -104,6 +104,7 @@ export interface TailwindColorConfig {
 
 export interface TailwindConfig {
     readonly theme: {
+        readonly extend: Omit<TailwindConfig['theme'], 'extend'>
         readonly screens: {
             readonly sm: string;
             readonly md: string;
@@ -938,6 +939,7 @@ export interface TailwindConfig {
         };
     };
     readonly variants: {
+        readonly extend: Omit<TailwindConfig['variants'], 'extend'>
         readonly accessibility: Variant[];
         readonly alignContent: Variant[];
         readonly alignItems: Variant[];

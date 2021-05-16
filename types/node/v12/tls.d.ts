@@ -1,9 +1,5 @@
-declare module 'node:tls' {
-    export * from 'tls';
-}
-
 declare module 'tls' {
-    import * as net from 'node:net';
+    import * as net from 'net';
 
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
