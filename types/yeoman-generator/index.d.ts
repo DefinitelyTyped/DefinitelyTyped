@@ -902,7 +902,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns
      * The newly added dependencies.
      */
-    addDependencies(dependencies: { [pkg: string]: string } | string | string[]): Promise<{ [pkg: string]: string }>;
+    addDependencies(dependencies: Record<string, string> | string | string[]): Promise<Record<string, string>>;
 
     /**
      * Adds development-dependencies to the destination `package.json`.
@@ -913,7 +913,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @returns
      * The newly added development-dependencies.
      */
-    addDevDependencies(devDependencies: { [pkg: string]: string } | string | string[]): Promise<{ [pkg: string]: string }>;
+    addDevDependencies(devDependencies: Record<string, string> | string | string[]): Promise<Record<string, string>>;
 
     // actions/user mixin
     readonly user: {
