@@ -13,8 +13,8 @@ interface RequestBody {
 }
 
 app.use<{}, { request: { body: RequestBody } }>((ctx) => {
-    // ExpectType RequestBody
-    const body = ctx.request.body;
+    // $ExpectType RequestBody
+    const body = ctx.request.body as RequestBody;
 
     // $ExpectType string
     ctx.request.body.a.b;
