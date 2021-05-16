@@ -13,6 +13,7 @@ import {
     REMAINDER,
     ArgumentError,
     ArgumentTypeError,
+    BooleanOptionalAction,
 } from "argparse";
 let args: any;
 
@@ -322,4 +323,15 @@ try {
         console.log(errorMessage);
     }
 }
+console.log("-----------");
+
+const booleanOptionalActionExample = new ArgumentParser();
+booleanOptionalActionExample.add_argument("--foo", { action: BooleanOptionalAction });
+booleanOptionalActionExample.print_help();
+console.log("-----------");
+booleanOptionalActionExample.parse_args(["--foo"]);
+console.dir(args);
+console.log("-----------");
+booleanOptionalActionExample.parse_args(["--no-foo"]);
+console.dir(args);
 console.log("-----------");

@@ -1,28 +1,25 @@
+import ContextPlugin from "./contextplugin";
 import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import Editor from "./editor/editor";
-import Context from "./context";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import * as engine from "@ckeditor/ckeditor5-engine";
 
-export default class PendingActions implements Emitter, Observable, Iterable<Observable & { message: string }> {
-    readonly context: Editor | Context;
+export default class PendingActions
+    extends ContextPlugin
+    implements Emitter, Observable, Iterable<Observable & { message: string }> {
     readonly first: null | (Observable & { message: string });
     readonly hasAny: boolean;
 
-    static isContextPlugin: boolean;
-    static pluginName?: string;
-    static requires?: Array<typeof Plugin>;
+    static pluginName: "PendingActions";
 
     constructor(editor: Editor);
     [Symbol.iterator](): Iterator<Observable & { message: string }>;
     add(message: string): Observable & { message: string };
     remove(action: Observable & { message: string }): void;
 
-    afterInit?(): Promise<void> | null;
-    destroy?(): Promise<void> | null;
-    init?(): Promise<void> | null;
+    init(): void;
 
     set(option: Record<string, unknown>): void;
     set(name: string, value: unknown): void;
