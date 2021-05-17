@@ -942,7 +942,29 @@ interface Workspace {
     contains(path: string): boolean;
     relativizePath(path: string): string;
     openConfig(identifier?: string): void;
-    openFile(uri: string): Promise<TextEditor | null>;
+    openFile(
+        uri: string,
+        options?: {
+            line?: number,
+            column?: never
+        } | {
+            line: number,
+            column?: number // column requires line
+        }
+    ): Promise<TextEditor | null>;
+    openNewTextDocument(
+        options?: {
+            content?: string,
+            syntax?: string,
+            line?: number,
+            column?: never
+        } | {
+            content?: string,
+            syntax?: string,
+            line: number,
+            column?: number // column requires line
+        }
+    ): Promise<TextEditor | null>;
     showInformativeMessage(message: string): void;
     showWarningMessage(message: string): void;
     showErrorMessage(message: string): void;
