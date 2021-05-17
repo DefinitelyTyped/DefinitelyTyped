@@ -200,6 +200,10 @@
             "libraryName": "axios-mock-adapter",
             "asOfVersion": "1.10.0"
         },
+        "azure-kusto-data": {
+            "libraryName": "azure-kusto-data",
+            "asOfVersion": "2.0.1"
+        },
         "azure-mobile-apps": {
             "libraryName": "azure-mobile-apps",
             "asOfVersion": "3.0.0"
