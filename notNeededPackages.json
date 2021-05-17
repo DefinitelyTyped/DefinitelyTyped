@@ -196,6 +196,10 @@
             "libraryName": "axios",
             "asOfVersion": "0.14.0"
         },
+        "axios-case-converter": {
+            "libraryName": "axios-case-converter",
+            "asOfVersion": "0.4.0"
+        },
         "axios-mock-adapter": {
             "libraryName": "axios-mock-adapter",
             "asOfVersion": "1.10.0"
