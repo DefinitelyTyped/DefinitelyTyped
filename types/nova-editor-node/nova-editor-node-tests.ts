@@ -321,6 +321,9 @@ class MyDataProvider implements TreeDataProvider<{ name: string }> {
     getTreeItem(element: { name: string }): TreeItem {
         throw new Error('Method not implemented.');
     }
+    getParent(element: { name: string }): TreeItem | null {
+        return null;
+    }
 }
 
 // Create the TreeView

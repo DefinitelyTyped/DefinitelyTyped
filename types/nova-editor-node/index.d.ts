@@ -884,7 +884,7 @@ interface TextEditorEdit {
 
 interface TreeDataProvider<E> {
     getChildren(element: E | null): E[] | Promise<E[]>;
-    getParent?(element: E): E;
+    getParent?(element: E): E | null;
     getTreeItem(element: E): TreeItem;
 }
 
