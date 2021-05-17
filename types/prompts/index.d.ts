@@ -15,10 +15,10 @@ export = prompts;
 
 import { Readable, Writable } from 'stream';
 
-declare function prompts<T extends string = string>(
+declare function prompts<T extends string = string, A = any>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
     options?: prompts.Options
-): Promise<prompts.Answers<T>>;
+): Promise<prompts.Answers<T, A>>;
 
 declare namespace prompts {
     // Circular reference from prompts
@@ -102,7 +102,7 @@ declare namespace prompts {
         stdin?: Readable;
     }
 
-    type Answers<T extends string> = { [id in T]: any };
+    type Answers<T extends string, A = any> = { [id in T]: A };
 
     type PrevCaller<T extends string, R = T> = (
         prev: any,
