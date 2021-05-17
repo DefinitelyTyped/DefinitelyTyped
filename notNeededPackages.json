@@ -224,6 +224,10 @@
             "libraryName": "base-x",
             "asOfVersion": "3.0.6"
         },
+        "base64-arraybuffer": {
+            "libraryName": "base64-arraybuffer",
+            "asOfVersion": "0.2.0"
+        },
         "base64url": {
             "libraryName": "base64url",
             "asOfVersion": "2.0.0"
