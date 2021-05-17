@@ -15,7 +15,7 @@ export = prompts;
 
 import { Readable, Writable } from 'stream';
 
-declare function prompts<T extends string = string, A = any>(
+declare function prompts<T extends string = string, A extends any = any>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
     options?: prompts.Options
 ): Promise<prompts.Answers<T, A>>;
