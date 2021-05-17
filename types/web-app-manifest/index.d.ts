@@ -3,8 +3,8 @@
 // Definitions by: Yamagishi Kazutoshi <https://github.com/ykzts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type TextDirectionType = 'ltr' | 'rtl' | 'auto';
-type DisplayModeType = 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
+export type TextDirectionType = 'ltr' | 'rtl' | 'auto';
+export type DisplayModeType = 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
 
 /**
  * Each `ImageResource` represents an image that is used as part of a web application, suitable to use in
@@ -13,7 +13,7 @@ type DisplayModeType = 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
  *
  * @see https://w3c.github.io/manifest/#imageresource-and-its-members
  */
-interface ImageResource {
+export interface ImageResource {
     /**
      * The `src` member of an `ImageResource` is a URL from which a user agent can fetch the image's data.
      *
@@ -58,7 +58,7 @@ interface ImageResource {
  *
  * @see https://w3c.github.io/manifest/#fingerprints-member
  */
-interface Fingerprint {
+export interface Fingerprint {
     type?: string;
     value?: string;
 }
@@ -68,7 +68,7 @@ interface Fingerprint {
  *
  * @see https://w3c.github.io/manifest/#externalapplicationresource-and-its-members
  */
-interface ExternalApplicationResource {
+export interface ExternalApplicationResource {
     /**
      * The `platform` member represents the platform to which a containing object applies.
      *
@@ -114,7 +114,7 @@ interface ExternalApplicationResource {
  *
  * @see https://w3c.github.io/manifest/#shortcutitem-and-its-members
  */
-interface ShortcutItem {
+export interface ShortcutItem {
     /**
      * The `name` member of a `ShortcutItem` is a `string` that represents the name of the shortcut as it is usually
      * displayed to the user in a context menu.
@@ -162,7 +162,7 @@ interface ShortcutItem {
  *
  * @see https://w3c.github.io/manifest/#webappmanifest-dictionary
  */
-interface WebAppManifest {
+export interface WebAppManifest {
     /**
      * The `dir` member specifies the base direction for the directionality-capable members of the manifest.
      *
