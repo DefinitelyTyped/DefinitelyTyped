@@ -1,4 +1,4 @@
-// Type definitions for react-custom-scroll 4.2
+// Type definitions for react-custom-scroll 4.3.0
 // Project: https://github.com/rommguy/react-custom-scroll
 // Definitions by:  Guy Romm <https://github.com/rommguy>
 //                  rvdende <https://github.com/rvdende>
