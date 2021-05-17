@@ -188,6 +188,10 @@
             "libraryName": "@atlaskit/button",
             "asOfVersion": "10.0.0"
         },
+        "atlaskit__calendar": {
+            "libraryName": "@atlaskit/calendar",
+            "asOfVersion": "9.0.0"
+        },
         "atlaskit__feedback-collector": {
             "libraryName": "@atlaskit/feedback-collector",
             "asOfVersion": "5.0.0"
