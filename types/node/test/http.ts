@@ -202,10 +202,12 @@ import * as net from 'net';
 // http request options
 {
     const requestOpts: http.RequestOptions = {
+        abort: new AbortSignal(),
         timeout: 30000
     };
 
     const clientArgs: http.ClientRequestArgs = {
+        abort: new AbortSignal(),
         timeout: 30000
     };
 }

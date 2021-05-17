@@ -235,12 +235,15 @@ async function testPromisify() {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });
+    cp = cp.addListener("spawn", () => {
+    });
 
     _boolean = cp.emit("close", () => { });
     _boolean = cp.emit("disconnect", () => { });
     _boolean = cp.emit("error", () => { });
     _boolean = cp.emit("exit", () => { });
     _boolean = cp.emit("message", () => { });
+    _boolean = cp.emit("spawn", () => { });
 
     cp = cp.on("close", (code, signal) => {
         const _code: number | null = code;

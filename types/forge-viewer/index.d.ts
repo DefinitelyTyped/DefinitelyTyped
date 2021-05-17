@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.42
+// Type definitions for non-npm package Forge Viewer 7.43
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -397,6 +397,7 @@ declare namespace Autodesk {
           useDynamicGlobalOffset?: boolean;
           viewerConfig?: any;
           viewerStartOptions?: any;
+          viewerUnits?: string;
         }
 
         class AggregatedView {
@@ -1207,7 +1208,7 @@ declare namespace Autodesk {
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
-            createViewerOptionsMenu(model: Model): void;
+            createViewerOptionsMenu(): void;
             createUI(model: Model): void;
             onFullScreenModeEvent(event: object): void;
             onProgressBarUpdate(event: object): void;
@@ -1215,10 +1216,12 @@ declare namespace Autodesk {
             addOptionList(parent: Element, label: string, optionList: string[], initialIndex: number, onchange: (index: number) => void, saveKey: boolean): void;
             showViewer3dOptions(show: boolean): void;
             showRenderingOptions(show: boolean): void;
-            showLayerManager(show: boolean): void;
+            /** @deprecated */
+            showLayerManager(): void;
             initHotkeys(model: Model): void;
             setModelStructurePanel(modelStructurePanel: any/*Autodesk.Viewing.UI.ModelStructurePanel*/): void;
-            setLayersPanel(layersPanel: any/*Autodesk.Viewing.UI.LayersPanel*/): void;
+            /** @deprecated */
+            setLayersPanel(): void;
             setPropertyPanel(propertyPanel: any/*Autodesk.Viewing.UI.PropertyPanel*/): void;
             getPropertyPanel(createDefault?: boolean): any/*Autodesk.Viewing.UI.PropertyPanel*/;
             setSettingsPanel(settingsPanel: any/*Autodesk.Viewing.UI.SettingsPanel*/): void;
@@ -1838,24 +1841,24 @@ declare namespace Autodesk {
             areDefaultPropertiesShown(): void;
             displayCategory(category: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
             displayProperty(property: object, parent: HTMLElement, options: DisplayCategoryOptions): HTMLElement[];
-            getCategoryClass(category: object): string;
-            getPropertyClass(property: object): string;
+            getCategoryClass(): string;
+            getPropertyClass(): string;
             hasProperties(): boolean;
-            highlight(text: string, options: object): void;
+            highlight(text: string): void;
             isCategoryCollapsed(category: object): boolean;
-            onCategoryClick(category: object, event: Event): void;
-            onCategoryDoubleClick(category: object, event: Event): void;
-            onCategoryIconClick(category: object, event: Event): void;
-            onCategoryRightClick(category: object, event: Event): void;
-            onPropertyClick(property: object, event: Event): void;
-            onPropertyDoubleClick(property: object, event: Event): void;
-            onPropertyIconClick(property: object, event: Event): void;
-            onPropertyRightClick(property: object, event: Event): void;
+            onCategoryClick(category: object): void;
+            onCategoryDoubleClick(): void;
+            onCategoryIconClick(category: object): void;
+            onCategoryRightClick(): void;
+            onPropertyClick(): void;
+            onPropertyDoubleClick(): void;
+            onPropertyIconClick(property: object): void;
+            onPropertyRightClick(): void;
             removeAllProperties(): void;
-            removeProperty(name: string, value: string, category: string, options?: object): boolean;
+            removeProperty(name: string, value: string, category: string): boolean;
             setAggregatedProperties(propSet: PropertySet): void;
             setCategoryCollapsed(category: object, collapsed: boolean): void;
-            setProperties(properties: Array<{displayName: string, displayValue: any}>, options?: object): void;
+            setProperties(properties: Array<{displayName: string, displayValue: any}>): void;
             showDefaultProperties(): void;
             showNoProperties(): void;
           }

@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 4.11
+// Type definitions for yeoman-generator 5.0
 // Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
@@ -57,6 +57,16 @@ declare namespace Generator {
          * Gets or sets a collection of custom priorities.
          */
         customPriorities?: Priority[];
+
+        /**
+         * The environment to use for creating the generator.
+         */
+        env?: Environment;
+
+        /**
+         * The destination-root to write the files to.
+         */
+        destinationRoot?: string;
     }
 
     /**
@@ -199,7 +209,7 @@ declare namespace Generator {
      * Represents a generator-constructor.
      */
     interface GeneratorConstructor {
-        new (...args: any[]): Generator<any>;
+        new(...args: any[]): Generator<any>;
     }
 
     /**
@@ -331,6 +341,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * The `.yo-rc` config file manager.
      */
     config: Storage;
+
+    /**
+     * The storage containing the destination-`package.json`.
+     */
+    packageJson: Storage;
 
     /**
      * An instance of [`mem-fs-editor`](https://github.com/SBoudrias/mem-fs-editor).
@@ -803,6 +818,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     // actions/install mixin
     /**
+     * @deprecated
      * Receives a list of `components` and an `options` object to install through bower.
      *
      * The installation will automatically run during the run loop `install` phase.
@@ -814,6 +830,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     bowerInstall(component?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     /**
+     * @deprecated
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
      *
@@ -833,6 +850,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     installDependencies(options?: Generator.InstallOptions): void;
 
     /**
+     * @deprecated
      * Receives a list of `packages` and an `options` object to install through npm.
      *
      * The installation will automatically run during the run loop `install` phase.
@@ -844,6 +862,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     /**
+     * @deprecated
      * Combine package manager cmd line arguments and run the `install` command.
      *
      * During the `install` step, every command will be scheduled to run once, on the
@@ -862,6 +881,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     ): void;
 
     /**
+     * @deprecated
      * Receives a list of `packages` and an `options` object to install through npm.
      *
      * The installation will automatically run during the run loop `install` phase.
@@ -871,6 +891,29 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param spawnOptions Options to pass `child_process.spawn`.
      */
     yarnInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+
+    // actions/package.json
+    /**
+     * Adds dependencies to the destination `package.json`.
+     *
+     * @param dependencies
+     * The packages to add.
+     *
+     * @returns
+     * The newly added dependencies.
+     */
+    addDependencies(dependencies: Record<string, string> | string | string[]): Promise<Record<string, string>>;
+
+    /**
+     * Adds development-dependencies to the destination `package.json`.
+     *
+     * @param devDependencies
+     * The packages to add to the development-dependencies.
+     *
+     * @returns
+     * The newly added development-dependencies.
+     */
+    addDevDependencies(devDependencies: Record<string, string> | string | string[]): Promise<Record<string, string>>;
 
     // actions/user mixin
     readonly user: {

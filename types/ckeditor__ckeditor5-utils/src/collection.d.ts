@@ -1,6 +1,7 @@
 import EventInfo from "./eventinfo";
 import { PriorityString } from "./priorities";
 import { Emitter, EmitterMixinDelegateChain } from "./emittermixin";
+import * as engine from "@ckeditor/ckeditor5-engine";
 
 export interface CollectionBindTo<T, K> {
     as: (Class: { new (item: T): K }) => void;
@@ -231,12 +232,24 @@ export default class Collection<T> implements Iterable<T>, Emitter {
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: Function,
+        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
-    off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
-    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
+    on: (
+        event: string,
+        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
+        options?: { priority: PriorityString | number },
+    ) => void;
+    once(
+        event: string,
+        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        options?: { priority: PriorityString | number },
+    ): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
+    stopListening(
+        emitter?: Emitter,
+        event?: string,
+        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+    ): void;
 }

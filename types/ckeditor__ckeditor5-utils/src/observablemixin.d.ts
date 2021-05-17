@@ -1,6 +1,6 @@
 export interface BindChain {
-    to(observable: Observable, ...bindProperties: Array<Observable | string | Function>): void;
-    toMany(observable: Observable[], ...bindProperties: Array<Observable | string | Function>): void;
+    to(observable: Observable, ...bindProperties: Array<Observable | string | (() => void)>): void;
+    toMany(observable: Observable[], ...bindProperties: Array<Observable | string | (() => void)>): void;
 }
 
 export interface Observable {

@@ -78,7 +78,7 @@ command.execute();
 
 const ed: Editor = command.editor;
 
-const bool: Boolean = command.isEnabled;
+const bool: boolean = command.isEnabled;
 
 comm = new Command(editor);
 
@@ -101,7 +101,10 @@ contextWithConfig.initPlugins().then(plugins => plugins.map(plugin => plugin.plu
  * ContextPlugin
  */
 const CPlugin = new ContextPlugin(context) && new ContextPlugin(editor);
-CPlugin.afterInit?.()?.then(() => {});
+const afterInitPromise = CPlugin.afterInit?.();
+if (afterInitPromise != null) {
+    afterInitPromise.then(() => {});
+}
 
 class MyCPlugin extends ContextPlugin {
     builtinPlugins: [MyPlugin];
