@@ -3,7 +3,7 @@ import prompts = require('prompts');
 type HasProperty<T, K> = K extends keyof T ? true : false;
 
 (async () => {
-    const response = await prompts({
+    const response = await prompts<'value', number>({
         type: 'number',
         name: 'value',
         message: 'Input value to double:',
