@@ -74,7 +74,7 @@ declare namespace prompts {
         onCancel?: (prompt: PromptObject, answers: any) => void;
     }
 
-    interface PromptObject<T extends string = string, A = any> {
+    interface PromptObject<T extends string = string, C = any> {
         type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
@@ -92,10 +92,10 @@ declare namespace prompts {
         separator?: string | PrevCaller<T, string | Falsy>;
         active?: string | PrevCaller<T, string | Falsy>;
         inactive?: string | PrevCaller<T, string | Falsy>;
-        choices?: Choice<A>[] | PrevCaller<T, Choice<A>[] | Falsy>;
+        choices?: Choice<C>[] | PrevCaller<T, Choice<C>[] | Falsy>;
         hint?: string | PrevCaller<T, string | Falsy>;
         warn?: string | PrevCaller<T, string | Falsy>;
-        suggest?: ((input: any, choices: Choice<A>[]) => Promise<any>);
+        suggest?: ((input: any, choices: Choice<C>[]) => Promise<any>);
         limit?: number | PrevCaller<T, number | Falsy>;
         mask?: string | PrevCaller<T, string | Falsy>;
         stdout?: Writable;
