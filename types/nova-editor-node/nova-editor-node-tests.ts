@@ -353,7 +353,6 @@ nova.workspace.showInputPalette('This is an input', {
     value: "Default value"
 });
 
-
 /// https://docs.nova.app/api-reference/workspace/
 
 nova.workspace.openFile("file:///tmp/test/txt");
@@ -371,5 +370,3 @@ nova.workspace.openNewTextDocument({ syntax: "html", line: 1 });
 // $ExpectError
 nova.workspace.openNewTextDocument({ syntax: "html", column: 2 });
 nova.workspace.openNewTextDocument({ content: "<!doctype html>", syntax: "html", line: 1, column: 2 });
-
-
