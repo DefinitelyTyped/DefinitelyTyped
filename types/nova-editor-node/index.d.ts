@@ -944,26 +944,30 @@ interface Workspace {
     openConfig(identifier?: string): void;
     openFile(
         uri: string,
-        options?: {
-            line?: number,
-            column?: never
-        } | {
-            line: number,
-            column?: number // column requires line
-        }
+        options?:
+            | {
+                  line?: number;
+                  column?: never;
+              }
+            | {
+                  line: number;
+                  column?: number; // column requires line
+              },
     ): Promise<TextEditor | null>;
     openNewTextDocument(
-        options?: {
-            content?: string,
-            syntax?: string,
-            line?: number,
-            column?: never
-        } | {
-            content?: string,
-            syntax?: string,
-            line: number,
-            column?: number // column requires line
-        }
+        options?:
+            | {
+                  content?: string;
+                  syntax?: string;
+                  line?: number;
+                  column?: never;
+              }
+            | {
+                  content?: string;
+                  syntax?: string;
+                  line: number;
+                  column?: number; // column requires line
+              },
     ): Promise<TextEditor | null>;
     showInformativeMessage(message: string): void;
     showWarningMessage(message: string): void;
