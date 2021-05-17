@@ -2028,7 +2028,7 @@ declare namespace chrome.devtools.inspectedWindow {
      */
     export function eval<T>(
         expression: string,
-        options: EvalOptions,
+        options?: EvalOptions,
         callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
     ): void;
     /**
@@ -4055,6 +4055,19 @@ declare namespace chrome.identity {
     }
 
     export interface SignInChangeEvent extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void> { }
+
+    /**
+     * Resets the state of the Identity API:
+     *
+     *  * Removes all OAuth2 access tokens from the token cache
+     *  * Removes user's account preferences
+     *  * De-authorizes the user from all auth flows
+     * @since Chrome 87.
+     * @param callback Called when the state has been cleared.
+     * The parameter should be a function that looks like this:
+     * () => {...};
+     */
+    export function clearAllCachedAuthTokens(callback: () => void): void;
 
     /**
      * Retrieves a list of AccountInfo objects describing the accounts present on the profile.

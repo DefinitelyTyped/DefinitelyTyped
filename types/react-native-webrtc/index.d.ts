@@ -35,13 +35,7 @@ export type RTCIceConnectionState =
     | "disconnected"
     | "closed";
 
-export type RTCPeerConnectionState =
-    | "new"
-    | "connecting"
-    | "connected"
-    | "disconnected"
-    | "failed"
-    | "closed";
+export type RTCPeerConnectionState = "new" | "connecting" | "connected" | "disconnected" | "failed" | "closed";
 
 export class MediaStreamTrack {
     private _enabled: boolean;
@@ -111,7 +105,10 @@ export interface ConfigurationParamWithUrl extends ConfigurationParam {
 
 export interface RTCPeerConnectionConfiguration {
     iceServers: ConfigurationParamWithUrls[] | ConfigurationParamWithUrl[];
-    iceTransportPolicy?: "all" | "public" | "relay";
+    iceTransportPolicy?: "all" | "relay" | "nohost" | "none";
+    bundlePolicy?: "balanced" | "max-compat" | "max-bundle";
+    rtcpMuxPolicy?: "negotiate" | "require";
+    iceCandidatePoolSize?: number;
 }
 
 export interface EventOnCandidate {
@@ -140,9 +137,7 @@ export class RTCPeerConnection {
     onconnectionstatechange: (event: Event) => void | undefined;
     onicecandidate: (event: EventOnCandidate) => void | undefined;
     onicecandidateerror: (error: Error) => void | undefined;
-    oniceconnectionstatechange: (
-        event: EventOnConnectionStateChange
-    ) => void | undefined;
+    oniceconnectionstatechange: (event: EventOnConnectionStateChange) => void | undefined;
     onicegatheringstatechange: () => void | undefined;
     onnegotiationneeded: () => void | undefined;
     onsignalingstatechange: () => void | undefined;
@@ -169,13 +164,9 @@ export class RTCPeerConnection {
 
     setConfiguration(configuration: RTCPeerConnectionConfiguration): void;
 
-    setLocalDescription(
-        sessionDescription: RTCSessionDescriptionType
-    ): Promise<void>;
+    setLocalDescription(sessionDescription: RTCSessionDescriptionType): Promise<void>;
 
-    setRemoteDescription(
-        sessionDescription: RTCSessionDescriptionType
-    ): Promise<void>;
+    setRemoteDescription(sessionDescription: RTCSessionDescriptionType): Promise<void>;
 
     addIceCandidate(candidate: RTCIceCandidateType): Promise<void>;
 
@@ -187,10 +178,7 @@ export class RTCPeerConnection {
 
     close(): void;
 
-    private _getTrack(
-        streamReactTag: string,
-        trackId: string
-    ): MediaStreamTrack;
+    private _getTrack(streamReactTag: string, trackId: string): MediaStreamTrack;
 
     private _unregisterEvents(): void;
 

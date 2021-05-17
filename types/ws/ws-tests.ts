@@ -85,6 +85,22 @@ import * as url from 'url';
 }
 
 {
+    const wss = new WebSocket.Server();
+
+    wss.addListener('connection', (client, request) => {
+        request.socket.remoteAddress;
+
+        // $ExpectError
+        request.aborted === 10;
+
+        client.terminate();
+        request.destroy();
+    });
+
+    wss.close();
+}
+
+{
     new WebSocket.Server({ noServer: true, perMessageDeflate: false });
     new WebSocket.Server({ noServer: true, perMessageDeflate: { } });
     new WebSocket.Server({

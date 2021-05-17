@@ -53,23 +53,6 @@ declare module '.' {
     }
 
     /**
-     * Replaces `ReactDOM.render` when the `.render` method is called and enables Blocking Mode.
-     *
-     * Opting into Concurrent Mode introduces semantic changes to how React works.
-     * This means that you can’t use Concurrent Mode in just a few components.
-     * Because of this, some apps may not be able to migrate directly to Concurrent Mode.
-     * Blocking Mode only contains a small subset of Concurrent Mode features and is intended
-     * as an intermediary migration step for apps that are unable to migrate directly.
-     *
-     * @see https://reactjs.org/docs/concurrent-mode-adoption.html#migration-step-blocking-mode
-     * @see https://reactjs.org/docs/concurrent-mode-reference.html#createblockingroot
-     */
-    function unstable_createBlockingRoot(
-        container: Element | Document | DocumentFragment | Comment,
-        options?: RootOptions,
-    ): Root;
-
-    /**
      * Replaces `ReactDOM.render` when the `.render` method is called and enables Concurrent Mode.
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot

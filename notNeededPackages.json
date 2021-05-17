@@ -1889,6 +1889,10 @@
             "libraryName": "karma-viewport",
             "asOfVersion": "1.0.0"
         },
+        "keycloak-connect": {
+            "libraryName": "keycloak-connect",
+            "asOfVersion": "7.0.0"
+        },
         "keycloak-js": {
             "libraryName": "keycloak-js",
             "asOfVersion": "3.4.1"
@@ -2072,6 +2076,10 @@
         "make-dir": {
             "libraryName": "make-dir",
             "asOfVersion": "2.1.0"
+        },
+        "maker.js": {
+            "libraryName": "makerjs",
+            "asOfVersion": "0.9.34"
         },
         "mali": {
             "libraryName": "mali",
@@ -2260,6 +2268,10 @@
         "microgears": {
             "libraryName": "microgears",
             "asOfVersion": "4.0.5"
+        },
+        "minimist-options": {
+            "libraryName": "minimist-options",
+            "asOfVersion": "4.0.1"
         },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
@@ -3605,6 +3617,26 @@
         "soap": {
             "libraryName": "soap",
             "asOfVersion": "0.21.0"
+        },
+        "socket.io": {
+            "libraryName": "socket.io",
+            "asOfVersion": "3.0.0"
+        },
+        "socket.io-client": {
+            "libraryName": "socket.io-client",
+            "asOfVersion": "3.0.0"
+        },
+        "socket.io-emitter": {
+            "libraryName": "socket.io-emitter",
+            "asOfVersion": "3.2.0"
+        },
+        "socket.io-parser": {
+            "libraryName": "socket.io-parser",
+            "asOfVersion": "3.0.0"
+        },
+        "socket.io-redis": {
+            "libraryName": "socket.io-redis",
+            "asOfVersion": "3.0.0"
         },
         "solidity-parser-antlr": {
             "libraryName": "solidity-parser-antlr",

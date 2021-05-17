@@ -14,16 +14,6 @@ function createRoot() {
     });
 }
 
-function createBlockingRoot() {
-    const root = ReactDOM.unstable_createBlockingRoot(document, {
-        hydrate: true,
-    });
-
-    root.render(<div>initial render</div>, () => {
-        console.log('callback');
-    });
-}
-
 function updates() {
     ReactDOM.unstable_flushControlled(() => {});
 }

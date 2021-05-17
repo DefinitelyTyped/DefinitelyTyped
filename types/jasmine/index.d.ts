@@ -375,15 +375,15 @@ declare namespace jasmine {
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any extends AsymmetricMatcher<any> {
-        (...params: any[]): any; // jasmine.Any can also be a function
         new (expectedClass: any): any;
-
-        jasmineMatches(other: any): boolean;
         jasmineToString(): string;
     }
 
     interface AsymmetricMatcher<TValue> {
-        asymmetricMatch(other: TValue, customTesters: ReadonlyArray<CustomEqualityTester>): boolean;
+        /**
+         * customTesters are deprecated and will be replaced with matcherUtils in the future.
+         */
+        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | ReadonlyArray<CustomEqualityTester>): boolean;
         jasmineToString?(): string;
     }
 
@@ -395,12 +395,12 @@ declare namespace jasmine {
 
     interface ArrayContaining<T> extends AsymmetricMatcher<any> {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
+        jasmineToString(): string;
     }
 
     interface ObjectContaining<T> extends AsymmetricMatcher<T> {
         new?(sample: { [K in keyof T]?: any }): { [K in keyof T]?: any };
 
-        jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString?(): string;
     }
 
@@ -478,7 +478,7 @@ declare namespace jasmine {
          * @param value The value to pretty-print
          * @return The pretty-printed value
          */
-        pp(value: unknown): string;
+        pp: typeof pp;
     }
 
     interface Env {
@@ -558,11 +558,11 @@ declare namespace jasmine {
 
     interface ExpectationResult extends Result {
         matcherName: string;
+        message: string;
+        stack: string;
         passed: boolean;
         expected: any;
         actual: any;
-        message: string;
-        stack: string;
     }
 
     interface DeprecationWarning extends Result {
@@ -571,7 +571,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean, seed: number | string }): any;
+        new (options: { random: boolean; seed: number | string }): any;
         random: boolean;
         seed: number | string;
         sort<T>(items: T[]): T[];
@@ -586,32 +586,32 @@ declare namespace jasmine {
     }
 
     interface Matchers<T> {
-        new (env: Env, actual: T, spec: Env, isNot?: boolean): any;
-
-        env: Env;
-        actual: T;
-        spec: Env;
-        isNot?: boolean;
-        message(): any;
-
         /**
          * Expect the actual value to be `===` to the expected value.
          *
          * @param expected The expected value to compare against.
-         * @param expectationFailOutput
          * @example
          * expect(thing).toBe(realThing);
          */
-        toBe(expected: Expected<T>, expectationFailOutput?: any): boolean;
+        toBe(expected: Expected<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBe(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
          * @param expected Expected value.
-         * @param expectationFailOutput
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
-        toEqual(expected: Expected<T>, expectationFailOutput?: any): boolean;
+        toEqual(expected: Expected<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toEqual(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
          * Expect the actual value to match a regular expression.
@@ -620,34 +620,104 @@ declare namespace jasmine {
          * expect("my string").toMatch(/string$/);
          * expect("other string").toMatch("her");
          */
-        toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;
+        toMatch(expected: string | RegExp): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toMatch(expected: string | RegExp, expectationFailOutput: any): void;
 
-        toBeDefined(expectationFailOutput?: any): boolean;
-        toBeUndefined(expectationFailOutput?: any): boolean;
-        toBeNull(expectationFailOutput?: any): boolean;
-        toBeNaN(): boolean;
-        toBeTruthy(expectationFailOutput?: any): boolean;
-        toBeFalsy(expectationFailOutput?: any): boolean;
-        toBeTrue(): boolean;
-        toBeFalse(): boolean;
-        toHaveBeenCalled(): boolean;
-        toHaveBeenCalledBefore(expected: Func): boolean;
-        toHaveBeenCalledWith(...params: any[]): boolean;
-        toHaveBeenCalledOnceWith(...params: any[]): boolean;
-        toHaveBeenCalledTimes(expected: number): boolean;
-        toContain(expected: any, expectationFailOutput?: any): boolean;
-        toBeLessThan(expected: number, expectationFailOutput?: any): boolean;
-        toBeLessThanOrEqual(expected: number, expectationFailOutput?: any): boolean;
-        toBeGreaterThan(expected: number, expectationFailOutput?: any): boolean;
-        toBeGreaterThanOrEqual(expected: number, expectationFailOutput?: any): boolean;
-        toBeCloseTo(expected: number, precision?: any, expectationFailOutput?: any): boolean;
-        toThrow(expected?: any): boolean;
-        toThrowError(message?: string | RegExp): boolean;
-        toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
-        toThrowMatching(predicate: (thrown: any) => boolean): boolean;
-        toBeNegativeInfinity(expectationFailOutput?: any): boolean;
-        toBePositiveInfinity(expectationFailOutput?: any): boolean;
-        toBeInstanceOf(expected: Constructor): boolean;
+        toBeDefined(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeDefined(expectationFailOutput: any): void;
+        toBeUndefined(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeUndefined(expectationFailOutput: any): void;
+        toBeNull(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeNull(expectationFailOutput: any): void;
+        toBeNaN(): void;
+        toBeTruthy(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeTruthy(expectationFailOutput: any): void;
+        toBeFalsy(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeFalsy(expectationFailOutput: any): void;
+        toBeTrue(): void;
+        toBeFalse(): void;
+        toHaveBeenCalled(): void;
+        toHaveBeenCalledBefore(expected: Func): void;
+        toHaveBeenCalledWith(...params: any[]): void;
+        toHaveBeenCalledOnceWith(...params: any[]): void;
+        toHaveBeenCalledTimes(expected: number): void;
+        toContain(expected: any): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toContain(expected: any, expectationFailOutput: any): void;
+        toBeLessThan(expected: number): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeLessThan(expected: number, expectationFailOutput: any): void;
+        toBeLessThanOrEqual(expected: number): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeLessThanOrEqual(expected: number, expectationFailOutput: any): void;
+        toBeGreaterThan(expected: number): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeGreaterThan(expected: number, expectationFailOutput: any): void;
+        toBeGreaterThanOrEqual(expected: number): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeGreaterThanOrEqual(expected: number, expectationFailOutput: any): void;
+        toBeCloseTo(expected: number, precision?: any): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeCloseTo(expected: number, precision: any, expectationFailOutput: any): void;
+        toThrow(expected?: any): void;
+        toThrowError(message?: string | RegExp): void;
+        toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): void;
+        toThrowMatching(predicate: (thrown: any) => boolean): void;
+        toBeNegativeInfinity(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeNegativeInfinity(expectationFailOutput: any): void;
+        toBePositiveInfinity(): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBePositiveInfinity(expectationFailOutput: any): void;
+        toBeInstanceOf(expected: Constructor): void;
 
         /**
          * Expect the actual value to be a DOM element that has the expected class.
@@ -658,7 +728,12 @@ declare namespace jasmine {
          * el.className = 'foo bar baz';
          * expect(el).toHaveClass('bar');
          */
-        toHaveClass(expected: string, expectationFailOutput?: any): boolean;
+        toHaveClass(expected: string): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toHaveClass(expected: string, expectationFailOutput: any): void;
 
         /**
          * Expect the actual size to be equal to the expected, using array-like
@@ -669,7 +744,7 @@ declare namespace jasmine {
          * array = [1,2];
          * expect(array).toHaveSize(2);
          */
-        toHaveSize(expected: number): boolean;
+        toHaveSize(expected: number): void;
 
         /**
          * Add some context for an expect.
@@ -688,22 +763,35 @@ declare namespace jasmine {
          * Expect the actual value to be `===` to the expected value.
          *
          * @param expected The expected value to compare against.
-         * @param expectationFailOutput
          * @example
          * expect(thing).toBe(realThing);
          */
-        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
+        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBe(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput: any): void;
 
         /**
          * Expect the actual value to be equal to the expected, using deep equality comparison.
          * @param expected Expected value.
-         * @param expectationFailOutput
          * @example
          * expect(bigObject).toEqual({ "foo": ['bar', 'baz'] });
          */
-        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput?: any): boolean;
+        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toEqual(expected: Expected<ArrayLike<T>> | ArrayContaining<T>, expectationFailOutput: any): void;
 
-        toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
+        toContain(expected: Expected<T>): void;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toContain(expected: Expected<T>, expectationFailOutput: any): void;
 
         /**
          * Add some context for an expect.
@@ -718,7 +806,7 @@ declare namespace jasmine {
     }
 
     type MatchableArgs<Fn> = Fn extends (...args: infer P) => any
-        ? { [K in keyof P]: P[K] | AsymmetricMatcher<any> }
+        ? { [K in keyof P]: Expected<P[K]> }
         : never;
 
     interface FunctionMatchers<Fn extends Func> extends Matchers<any> {
@@ -726,13 +814,13 @@ declare namespace jasmine {
          * Expects the actual (a spy) to have been called with the particular arguments at least once
          * @param params The arguments to look for
          */
-        toHaveBeenCalledWith(...params: MatchableArgs<Fn>): boolean;
+        toHaveBeenCalledWith(...params: MatchableArgs<Fn>): void;
 
         /**
          * Expects the actual (a spy) to have been called exactly once, and exactly with the particular arguments
          * @param params The arguments to look for
          */
-        toHaveBeenCalledOnceWith(...params: MatchableArgs<Fn>): boolean;
+        toHaveBeenCalledOnceWith(...params: MatchableArgs<Fn>): void;
 
         /**
          * Add some context for an expect.
@@ -753,21 +841,33 @@ declare namespace jasmine {
     interface AsyncMatchers<T, U> {
         /**
          * Expect a promise to be pending, i.e. the promise is neither resolved nor rejected.
-         * @param expectationFailOutput
          */
-        toBePending(expectationFailOutput?: any): PromiseLike<void>;
+        toBePending(): PromiseLike<void>;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBePending(expectationFailOutput: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved.
-         * @param expectationFailOutput
          */
-        toBeResolved(expectationFailOutput?: any): PromiseLike<void>;
+        toBeResolved(): PromiseLike<void>;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeResolved(expectationFailOutput: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected.
-         * @param expectationFailOutput
          */
-        toBeRejected(expectationFailOutput?: any): PromiseLike<void>;
+        toBeRejected(): PromiseLike<void>;
+        /**
+         * @deprecated expectationFailOutput is deprecated. Use withContext instead.
+         */
+        // tslint:disable-next-line unified-signatures
+        toBeRejected(expectationFailOutput: any): PromiseLike<void>;
 
         /**
          * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
@@ -806,7 +906,7 @@ declare namespace jasmine {
         not: AsyncMatchers<T, U>;
     }
 
-    interface SuiteInfo {
+    interface JasmineStartedInfo {
         totalSpecsDefined: number;
         order: Order;
     }
@@ -829,7 +929,7 @@ declare namespace jasmine {
         message: string;
     }
 
-    interface CustomReporterResult {
+    interface SuiteResult {
         /**
          * The unique id of this spec.
          */
@@ -848,27 +948,17 @@ declare namespace jasmine {
         /**
          * The list of expectations that failed during execution of this spec.
          */
-        failedExpectations?: FailedExpectation[];
-
-        /**
-         * The list of expectations that passed during execution of this spec.
-         */
-        passedExpectations?: PassedExpectation[];
+        failedExpectations: FailedExpectation[];
 
         /**
          * The list of deprecation warnings that occurred during execution this spec.
          */
-        deprecationWarnings?: DeprecatedExpectation[];
-
-        /**
-         * If the spec is pending, this will be the reason.
-         */
-        pendingReason?: string;
+        deprecationWarnings: DeprecatedExpectation[];
 
         /**
          * Once the spec has completed, this string represents the pass/fail status of this spec.
          */
-        status?: string;
+        status: string;
 
         /**
          * The time in ms used by the spec execution, including any before/afterEach.
@@ -881,7 +971,19 @@ declare namespace jasmine {
         properties: { [key: string]: unknown } | null;
     }
 
-    interface RunDetails {
+    interface SpecResult extends SuiteResult {
+        /**
+         * The list of expectations that passed during execution of this spec.
+         */
+        passedExpectations: PassedExpectation[];
+
+        /**
+         * If the spec is pending, this will be the reason.
+         */
+        pendingReason: string;
+    }
+
+    interface JasmineDoneInfo {
         overallStatus: string;
         totalTime: number;
         incompleteReason: string;
@@ -891,50 +993,28 @@ declare namespace jasmine {
     }
 
     interface CustomReporter {
-        jasmineStarted?(suiteInfo: SuiteInfo, done?: () => void): void | Promise<void>;
-        suiteStarted?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
-        specStarted?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
-        specDone?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
-        suiteDone?(result: CustomReporterResult, done?: () => void): void | Promise<void>;
-        jasmineDone?(runDetails: RunDetails, done?: () => void): void | Promise<void>;
+        jasmineStarted?(suiteInfo: JasmineStartedInfo, done?: () => void): void | Promise<void>;
+        suiteStarted?(result: SuiteResult, done?: () => void): void | Promise<void>;
+        specStarted?(result: SpecResult, done?: () => void): void | Promise<void>;
+        specDone?(result: SpecResult, done?: () => void): void | Promise<void>;
+        suiteDone?(result: SuiteResult, done?: () => void): void | Promise<void>;
+        jasmineDone?(runDetails: JasmineDoneInfo, done?: () => void): void | Promise<void>;
     }
 
     type SpecFunction = (spec?: Spec) => void;
 
-    interface SuiteOrSpec {
+    interface Spec {
+        new (attrs: any): any;
+
         id: number;
         env: Env;
         description: string;
-    }
-
-    interface Spec extends SuiteOrSpec {
         getFullName(): string;
-        getResult(): any;
-        expect(actual: any): any;
-        execute(onComplete?: () => void, enabled?: boolean): any;
-        throwOnExpectationFailure: boolean;
     }
 
-    interface XSpec {
-        id: number;
-    }
-
-    interface Suite extends SuiteOrSpec {
-        new (env: Env, description: string, specDefinitions: () => void, parentSuite: Suite): any;
-
+    interface Suite extends Spec {
         parentSuite: Suite;
-
-        getFullName(): string;
-        beforeEach(beforeEachFunction: SpecFunction): void;
-        afterEach(afterEachFunction: SpecFunction): void;
-        beforeAll(beforeAllFunction: SpecFunction): void;
-        afterAll(afterAllFunction: SpecFunction): void;
-        specs(): Spec[];
-        suites(): Suite[];
-    }
-
-    interface XSuite {
-        execute(): void;
+        children: Array<Spec | Suite>;
     }
 
     interface Spy<Fn extends Func = Func> {
@@ -1040,13 +1120,13 @@ declare namespace jasmine {
 
         started: boolean;
         finished: boolean;
-        runDetails: RunDetails;
+        runDetails: JasmineDoneInfo;
 
         status(): string;
-        suiteResults(index: number, length: number): CustomReporterResult[];
-        specResults(index: number, length: number): CustomReporterResult[];
-        suites(): { [id: string]: CustomReporterResult };
-        specs(): CustomReporterResult[];
+        suiteResults(index: number, length: number): SuiteResult[];
+        specResults(index: number, length: number): SpecResult[];
+        suites(): { [id: string]: SuiteResult };
+        specs(): SpecResult[];
         executionTime(): number;
     }
 

@@ -467,6 +467,28 @@ const awsServerless: Aws.Serverless = {
                         existing: false
                     }
                 }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                prefix: 'testprefix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
+                    s3: {
+                        bucket: 'testbucket',
+                        event: 'testevent',
+                        rules: [
+                            {
+                                suffix: 'testsuffix',
+                            }
+                        ],
+                        existing: false
+                    }
+                }, {
                     schedule: '1',
                 }, {
                     sns: {
@@ -640,6 +662,12 @@ const awsServerless: Aws.Serverless = {
                     Name: 'testname',
                 },
                 Condition: 'testcondition',
+            },
+            testFunctionLambdaFunctionQualifiedArn: {
+                Description: 'testDescription',
+                Export: {
+                    Name: 'testFunctionLambdaFunctionQualifiedArn',
+                },
             },
         },
     },
