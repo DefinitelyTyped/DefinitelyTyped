@@ -48,6 +48,10 @@
             "libraryName": "ajv",
             "asOfVersion": "1.0.0"
         },
+        "ajv-errors": {
+            "libraryName": "ajv-errors",
+            "asOfVersion": "2.0.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
