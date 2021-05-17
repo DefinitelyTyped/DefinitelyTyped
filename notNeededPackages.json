@@ -60,6 +60,10 @@
             "libraryName": "ajv-errors",
             "asOfVersion": "2.0.0"
         },
+        "ajv-keywords": {
+            "libraryName": "ajv-keywords",
+            "asOfVersion": "3.5.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
