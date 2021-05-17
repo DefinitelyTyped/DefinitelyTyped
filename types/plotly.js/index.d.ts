@@ -1556,10 +1556,10 @@ export interface Config {
     /**
      * fully custom mode bar buttons as nested array, where the outer
      * arrays represents button groups, and the inner arrays have
-     * buttons config objects or names of default buttons
+     * button config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
+    modeBarButtons: Array<(ModeBarDefaultButtons | ModeBarButton)[]> | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
