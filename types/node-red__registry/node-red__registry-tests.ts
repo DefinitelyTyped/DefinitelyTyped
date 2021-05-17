@@ -77,6 +77,14 @@ function registryTests() {
                 this.debug('log debug');
 
                 send(msg);
+
+                // send a new message with a topic
+
+                send ({
+                    payload: "payload",
+                    topic: "topic"
+                });
+
                 done();
 
                 done(new Error('error'));
