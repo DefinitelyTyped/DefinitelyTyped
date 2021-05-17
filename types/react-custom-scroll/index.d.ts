@@ -21,7 +21,7 @@ export interface CustomScrollProps {
     rtl?: boolean;
     scrollTo?: number;
     keepAtBottom?: boolean;
-    className?: string
+    className?: string;
 }
 
 /**
