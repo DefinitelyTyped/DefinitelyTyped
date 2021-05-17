@@ -1,5 +1,5 @@
-import { zingchart } from "zingchart/server/zingchart-nodejs.min.js";
-import { ZC } from "zingchart/es6";
+import { ZC } from "zingchart/server/zingchart-nodejs.min.js";
+import zingchart from "zingchart/es6";
 
 zingchart.ASYNC = true;
 zingchart.DEV.CANVASVERSION = 2;

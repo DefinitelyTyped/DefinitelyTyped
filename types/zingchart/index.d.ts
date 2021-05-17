@@ -6,4 +6,4 @@
 // Minimum TypeScript Version: 3.7
 import { zingchart } from './es6';
 
-export default zingchart;
+export = zingchart;
