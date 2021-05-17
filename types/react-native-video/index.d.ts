@@ -141,6 +141,7 @@ export interface VideoProperties extends ViewProps {
     automaticallyWaitsToMinimizeStalling?: boolean;
     paused?: boolean;
     muted?: boolean;
+    mixWithOthers?: boolean;
     volume?: number;
     bufferConfig?: {
         minBufferMs?: number;
