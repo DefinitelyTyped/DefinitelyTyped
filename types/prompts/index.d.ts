@@ -15,10 +15,10 @@ export = prompts;
 
 import { Readable, Writable } from 'stream';
 
-declare function prompts<T extends string = string, A extends any = any>(
-    questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
+declare function prompts<T extends string = string, C = any>(
+    questions: prompts.PromptObject<T, C> | Array<prompts.PromptObject<T, C>>,
     options?: prompts.Options
-): Promise<prompts.Answers<T, A>>;
+): Promise<prompts.Answers<T, C>>;
 
 declare namespace prompts {
     // Circular reference from prompts
@@ -61,9 +61,9 @@ declare namespace prompts {
     }
 
     // Based upon: https://github.com/terkelg/prompts/blob/d7d2c37a0009e3235b2e88a7d5cdbb114ac271b2/lib/elements/select.js#L29
-    interface Choice {
+    interface Choice<C = any> {
         title: string;
-        value: any;
+        value: C extends Array<any> ? C[0] : C;
         disabled?: boolean;
         selected?: boolean;
         description?: string;
@@ -74,7 +74,7 @@ declare namespace prompts {
         onCancel?: (prompt: PromptObject, answers: any) => void;
     }
 
-    interface PromptObject<T extends string = string> {
+    interface PromptObject<T extends string = string, A = any> {
         type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
@@ -92,17 +92,17 @@ declare namespace prompts {
         separator?: string | PrevCaller<T, string | Falsy>;
         active?: string | PrevCaller<T, string | Falsy>;
         inactive?: string | PrevCaller<T, string | Falsy>;
-        choices?: Choice[] | PrevCaller<T, Choice[] | Falsy>;
+        choices?: Choice<A>[] | PrevCaller<T, Choice<A>[] | Falsy>;
         hint?: string | PrevCaller<T, string | Falsy>;
         warn?: string | PrevCaller<T, string | Falsy>;
-        suggest?: ((input: any, choices: Choice[]) => Promise<any>);
+        suggest?: ((input: any, choices: Choice<A>[]) => Promise<any>);
         limit?: number | PrevCaller<T, number | Falsy>;
         mask?: string | PrevCaller<T, string | Falsy>;
         stdout?: Writable;
         stdin?: Readable;
     }
 
-    type Answers<T extends string, A = any> = { [id in T]: A };
+    type Answers<T extends string, C = any> = { [id in T]: C };
 
     type PrevCaller<T extends string, R = T> = (
         prev: any,
