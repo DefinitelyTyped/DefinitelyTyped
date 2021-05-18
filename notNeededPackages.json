@@ -160,6 +160,10 @@
             "libraryName": "asynciterator",
             "asOfVersion": "3.0.0"
         },
+        "atlaskit__tree": {
+            "libraryName": "@atlaskit/tree",
+            "asOfVersion": "7.0.0"
+        },
         "aurelia-knockout": {
             "libraryName": "aurelia-knockout",
             "asOfVersion": "2.1.0"
