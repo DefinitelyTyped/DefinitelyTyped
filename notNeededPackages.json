@@ -276,6 +276,10 @@
             "libraryName": "baseui",
             "asOfVersion": "8.0.0"
         },
+        "bcp-47-match": {
+            "libraryName": "bcp-47-match",
+            "asOfVersion": "2.0.0"
+        },
         "bech32": {
             "libraryName": "bech32",
             "asOfVersion": "1.1.4"
