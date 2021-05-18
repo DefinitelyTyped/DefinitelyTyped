@@ -1465,6 +1465,10 @@
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
         },
+        "htmlparser2": {
+            "libraryName": "htmlparser2",
+            "asOfVersion": "4.0.0"
+        },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
             "asOfVersion": "2.3.0"
