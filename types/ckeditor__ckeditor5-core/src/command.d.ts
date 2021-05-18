@@ -13,7 +13,7 @@ export default class Command implements Emitter, Observable {
     constructor(editor: Editor);
     clearForceDisabled(id: string): void;
     destroy(): void;
-    execute(options?: Record<string, unknown>): void;
+    execute(...options: any[]): void;
     forceDisabled(id: string): void;
     refresh(): void;
 
