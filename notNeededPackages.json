@@ -925,6 +925,10 @@
             "libraryName": "ensure-error",
             "asOfVersion": "2.0.0"
         },
+        "ensure-posix-path": {
+            "libraryName": "ensure-posix-path",
+            "asOfVersion": "1.1.0"
+        },
         "env-editor": {
             "libraryName": "env-editor",
             "asOfVersion": "0.4.0"
