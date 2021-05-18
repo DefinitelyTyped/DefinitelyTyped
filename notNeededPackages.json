@@ -428,6 +428,10 @@
             "libraryName": "chalk",
             "asOfVersion": "2.2.0"
         },
+        "chalk-pipe": {
+            "libraryName": "chalk-pipe",
+            "asOfVersion": "5.1.1"
+        },
         "change-case": {
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
