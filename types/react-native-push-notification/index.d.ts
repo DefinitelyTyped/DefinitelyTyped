@@ -1,4 +1,4 @@
-// Type definitions for react-native-push-notification 7.2
+// Type definitions for react-native-push-notification 7.3
 // Project: https://github.com/zo0r/react-native-push-notification#readme
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 Tom Sawkins <https://github.com/tomSawkins>
@@ -117,12 +117,21 @@ export class PushNotificationScheduledLocalObject {
     data: Record<string, any>;
 }
 
+export enum Importance {
+    DEFAULT = 3,
+    HIGH = 4,
+    LOW = 2,
+    MIN = 1,
+    NONE = 0,
+    UNSPECIFIED = -1000,
+}
+
 export class ChannelObject {
     channelId: string;
     channelName: string;
     channelDescription?: string;
     soundName?: string;
-    importance?: number;
+    importance?: Importance;
     vibrate?: boolean;
     playSound?: boolean;
 }

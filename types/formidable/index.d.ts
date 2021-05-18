@@ -6,22 +6,25 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage } from 'http';
-import { Stream, Transform, PassThrough } from 'stream';
-import { EventEmitter } from 'events';
+import { Stream } from "stream";
+import Formidable = require("./Formidable");
+import parsers = require("./parsers/index");
+import PersistentFile = require("./PersistentFile");
+import VolatileFile = require("./VolatileFile");
+import errors = require("./FormidableError");
 
-declare namespace Formidable {
+declare namespace formidable {
     type BufferEncoding =
-        | 'ascii'
-        | 'utf8'
-        | 'utf-8'
-        | 'utf16le'
-        | 'ucs2'
-        | 'ucs-2'
-        | 'base64'
-        | 'latin1'
-        | 'binary'
-        | 'hex';
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "latin1"
+        | "ucs-2"
+        | "ucs2"
+        | "utf-8"
+        | "utf16le"
+        | "utf8";
 
     type EventNames =
         /**
@@ -31,14 +34,14 @@ declare namespace Formidable {
          *
          * @link https://github.com/node-formidable/formidable#aborted
          */
-        | 'aborted'
+        | "aborted"
         /**
          * Emitted when the entire request has been received, and all contained files have finished
          * flushing to disk. This is a great place for you to send your response.
          *
          * @link https://github.com/node-formidable/formidable#end
          */
-        | 'end'
+        | "end"
         /**
          * Emitted when there is an error processing the incoming form. A request that experiences an
          * error is automatically paused, you will have to manually call request.resume() if you want the
@@ -46,39 +49,39 @@ declare namespace Formidable {
          *
          * @link https://github.com/node-formidable/formidable#error
          */
-        | 'error'
+        | "error"
         /**
          * Emitted whenever a field / value pair has been received.
          *
          * @link https://github.com/node-formidable/formidable#field
          */
-        | 'field'
+        | "field"
         /**
          * Emitted whenever a field / file pair has been received. file is an instance of File.
          *
          * @link https://github.com/node-formidable/formidable#file-1
          */
-        | 'file'
+        | "file"
         /**
          * Emitted whenever a new file is detected in the upload stream. Use this event if you want to
          * stream the file to somewhere else while buffering the upload on the file system.
          *
          * @link https://github.com/node-formidable/formidable#filebegin
          */
-        | 'fileBegin'
-        | 'headerEnd'
-        | 'headerField'
-        | 'headersEnd'
-        | 'headerValue'
-        | 'partBegin'
-        | 'partData'
+        | "fileBegin"
+        | "headerEnd"
+        | "headerField"
+        | "headersEnd"
+        | "headerValue"
+        | "partBegin"
+        | "partData"
         /**
          * Emitted after each incoming chunk of data that has been parsed. Can be used to roll your own
          * progress bar.
          *
          * @link https://github.com/node-formidable/formidable#progress
          */
-        | 'progress';
+        | "progress";
 
     interface Options {
         /**
@@ -86,56 +89,56 @@ declare namespace Formidable {
          *
          * @default 'utf-8'
          */
-        encoding: BufferEncoding;
+        encoding?: BufferEncoding;
 
         /**
          * the directory for placing file uploads in. You can move them later by using fs.rename()
          *
          * @default os.tmpdir()
          */
-        uploadDir: string;
+        uploadDir?: string;
 
         /**
          * to include the extensions of the original files or not
          *
          * @default false
          */
-        keepExtensions: boolean;
+        keepExtensions?: boolean;
 
         /**
          * allow upload empty files
          *
          * @default true
          */
-        allowEmptyFiles: boolean;
+        allowEmptyFiles?: boolean;
 
         /**
          * the minium size of uploaded file
          *
          * @default 1
          */
-        minFileSize: number;
+        minFileSize?: number;
 
         /**
          * limit the size of uploaded file
          *
          * @default 200 * 1024 * 1024
          */
-        maxFileSize: number;
+        maxFileSize?: number;
 
         /**
          * limit the number of fields, set 0 for unlimited
          *
          * @default 1000
          */
-        maxFields: number;
+        maxFields?: number;
 
         /**
          * limit the amount of memory all fields together (except files) can allocate in bytes
          *
          * @default 20 * 1024 * 1024
          */
-        maxFieldsSize: number;
+        maxFieldsSize?: number;
 
         /**
          * include checksums calculated for incoming files, set this to some hash algorithm, see
@@ -143,7 +146,7 @@ declare namespace Formidable {
          *
          * @default false
          */
-        hash: string | false;
+        hash?: string | false;
 
         /**
          * which by default writes to host machine file system every file parsed; The function should
@@ -156,7 +159,7 @@ declare namespace Formidable {
          *
          * @default null
          */
-        fileWriteStreamHandler(): void;
+        fileWriteStreamHandler?: () => void;
 
         /**
          * when you call the .parse method, the files argument (of the callback) will contain arrays of
@@ -165,17 +168,16 @@ declare namespace Formidable {
          *
          * @default false
          */
-        multiples: boolean;
+        multiples?: boolean;
 
-        enabledPlugins: string[];
+        enabledPlugins?: string[];
     }
 
     interface Fields {
-        [key: string]: string | string[];
+        [field: string]: string | string[];
     }
-
     interface Files {
-        [key: string]: File | File[]; // is an array when multiples is true
+        [file: string]: File | File[];
     }
 
     interface Part extends Stream {
@@ -188,7 +190,7 @@ declare namespace Formidable {
     /**
      * @link https://github.com/node-formidable/formidable#file
      */
-    interface FileJSON extends Pick<File, 'size' | 'path' | 'name' | 'type' | 'hash'> {
+    interface FileJSON extends Pick<File, "size" | "path" | "name" | "type" | "hash"> {
         filename: string;
         length: number;
         mime: string;
@@ -227,7 +229,7 @@ declare namespace Formidable {
         /**
          * If `options.hash` calculation was set, you can read the hex digest out of this var.
          */
-        hash?: string | 'sha1' | 'md5' | 'sha256' | null;
+        hash?: string | "sha1" | "md5" | "sha256" | null;
 
         /**
          * This method returns a JSON-representation of the file, allowing you to JSON.stringify() the
@@ -243,7 +245,7 @@ declare namespace Formidable {
     interface EmitData {
         formname: any;
         key?: string | number;
-        name: 'fileBegin' | 'file';
+        name: "fileBegin" | "file";
         value: File | string;
     }
 
@@ -259,192 +261,37 @@ declare namespace Formidable {
 
     type PluginFunction = (formidable: Formidable, options: Partial<Options>) => void;
 
-    /**
-     * Default options
-     */
-    const defaultOptions: Options;
-
-    /**
-     * Enabled plugins
-     */
-    const enabledPlugins: string[];
-
-    /**
-     * Errors
-     */
-    const errors: Record<
-        | 'missingPlugin'
-        | 'pluginFunction'
-        | 'aborted'
-        | 'noParser'
-        | 'uninitializedParser'
-        | 'filenameNotString'
-        | 'maxFieldsSizeExceeded'
-        | 'maxFieldsExceeded'
-        | 'smallerThanMinFileSize'
-        | 'biggerThanMaxFileSize'
-        | 'noEmptyFiles'
-        | 'missingContentType'
-        | 'malformedMultipart'
-        | 'missingMultipartBoundary'
-        | 'unknownTransferEncoding',
-        number
-    > & {
-        FormidableError: (message: string, internalCode: number, httpCode: number) => void;
+    type MappedParsers = {
+        [P in keyof typeof parsers]: typeof parsers[P];
     };
 
-    /**
-     * Persistent File
-     */
-    class PersistentFile extends EventEmitter {
-        constructor(properties: File);
-        open(): void;
-        toJSON(): FileJSON;
-        toString(): string;
-        write(buffer: string, cb: () => void): void;
-        end(cb: () => void): void;
-        destroy(): void;
-    }
+    type Plugins = ["octetstream", "querystring", "multipart", "json"];
 
-    /**
-     * Volatile File
-     */
-    const VolatileFile: typeof PersistentFile;
+    type Plugin = keyof { [K in Plugins[number]]: K };
 
-    /**
-     * File
-     */
-    const File: typeof PersistentFile;
-
-    /**
-     * Plugins
-     */
-    const plugins: Record<'octetstream' | 'querystring' | 'multipart' | 'json', PluginFunction>;
-
-    /**
-     * Parsers
-     */
-    class DummyParser extends Transform {
-        constructor(incomingForm: Formidable, options?: Partial<Options>);
-        _flush(callback: () => void): void;
-    }
-
-    class JSONParser extends Transform {
-        constructor(options?: Partial<Options>);
-        _flush(callback: () => void): void;
-        _transform(chunk: any, encoding: BufferEncoding, callback: () => void): void;
-    }
-
-    class MultipartParser extends Transform {
-        constructor(options?: Partial<Options>);
-        _final(callback: () => void): void;
-        _handleCallback(name: string, buffer: Buffer, start?: number, end?: number): void;
-        _transform(buffer: Buffer, _: any, callback: () => void): number;
-        explain(): string;
-        initWithBoundary(str: string): void;
-
-        static stateToString: (stateNumber: number) => string;
-
-        static STATES: Record<
-            | 'PARSER_UNINITIALIZED'
-            | 'START'
-            | 'START_BOUNDARY'
-            | 'HEADER_FIELD_START'
-            | 'HEADER_FIELD'
-            | 'HEADER_VALUE_START'
-            | 'HEADER_VALUE'
-            | 'HEADER_VALUE_ALMOST_DONE'
-            | 'HEADERS_ALMOST_DONE'
-            | 'PART_DATA_START'
-            | 'PART_DATA'
-            | 'PART_END'
-            | 'END',
-            number
-        >;
-    }
-
-    class OctetStreamParser extends PassThrough {
-        constructor(options?: Partial<Options>);
-    }
-
-    class QuerystringParser extends Transform {
-        constructor(options?: Partial<Options>);
-        _flush(callback: () => void): void;
-        _transform(buffer: Buffer, encoding: BufferEncoding, callback: () => void): void;
-    }
-
-    class StreamingQuerystring extends QuerystringParser {
-        emitField(key: string, val?: string): void;
-        getSection(buffer: Buffer, i: number): string;
-    }
-
-    const parsers: {
-        DummyParser: DummyParser;
-        JSONParser: JSONParser;
-        MultipartParser: MultipartParser;
-        OctetstreamParser: OctetStreamParser;
-        OctetStreamParser: OctetStreamParser;
-        QuerystringParser: QuerystringParser;
-        QueryStringParser: QuerystringParser;
+    type DefaultOptions = Required<Omit<Options, "enabledPlugins">> & {
+        enabledPlugins: EnabledPlugins;
     };
 
-    /**
-     * make it available without requiring the `new` keyword
-     * if you want it access `const formidable.IncomingForm` as v1
-     */
-    function formidable(options?: Partial<Options>): Formidable;
-
-    /**
-     * Alias
-     */
-    const IncomingForm: typeof Formidable;
+    type EnabledPlugins = {
+        [P in Plugin]: PluginFunction;
+    };
 }
 
-declare class Formidable {
-    constructor(options?: Partial<Formidable.Options>);
+declare const formidable: {
+    (options?: formidable.Options): Formidable;
+    defaultOptions: formidable.DefaultOptions;
+    plugins: formidable.EnabledPlugins;
+    errors: typeof errors;
+    File: typeof PersistentFile;
+    PersistentFile: typeof PersistentFile;
+    VolatileFile: typeof VolatileFile;
+    Formidable: typeof Formidable;
+    formidable: (options?: formidable.Options) => Formidable;
+    // alias
+    IncomingForm: typeof Formidable;
+    // parsers and mapped parsers
+    parsers: typeof parsers;
+} & formidable.MappedParsers;
 
-    /**
-     * Parses an incoming Node.js request containing form data. If callback is provided, all fields
-     * and files are collected and passed to the callback.
-     *
-     * @link https://github.com/node-formidable/formidable#parserequest-callback
-     */
-    parse(
-        request: IncomingMessage,
-        callback: (err: any, fields: Formidable.Fields, files: Formidable.Files) => void,
-    ): void;
-
-    once(name: 'end', callback: () => void): void;
-    once(name: 'error', callback: (err: any) => void): void;
-
-    on(name: 'data', callback: (data: Formidable.EventData) => void): void;
-    on(name: 'error', callback: (err: any) => void): void;
-    on(name: 'field', callback: (name: string, value: string) => void): void;
-    on(name: 'fileBegin' | 'file', callback: (formName: string, file: Formidable.File) => void): void;
-    on(name: 'progress', callback: (bytesReceived: number, bytesExpected: number) => void): void;
-    on(name: string, callback: () => void): void;
-
-    emit(name: 'data', data: Formidable.EmitData): void;
-
-    /**
-     * A method that allows you to extend the Formidable library. By default we include 4 plugins,
-     * which esentially are adapters to plug the different built-in parsers.
-     *
-     * @link https://github.com/node-formidable/formidable#useplugin-plugin
-     */
-    use(plugin: Formidable.PluginFunction): void;
-
-    /**
-     * If you want to use Formidable to only handle certain parts for you, you can do something
-     * similar. Or see #387 for inspiration, you can for example validate the mime-type.
-     *
-     * @link https://github.com/node-formidable/formidable#formonpart
-     */
-    onPart(part: Formidable.Part): void;
-
-    handlePart(part: Formidable.Part): void;
-
-    static readonly DEFAULT_OPTIONS: Formidable.Options;
-}
-
-export = Formidable;
+export = formidable;

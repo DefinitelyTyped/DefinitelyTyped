@@ -1,4 +1,4 @@
-// Type definitions for ioBroker 3.2
+// Type definitions for ioBroker 3.3
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,9 @@
 /// <reference types="node" />
 /// <reference path="./objects.d.ts" />
 import * as fs from 'fs';
+export {}; // avoids exporting AtLeastOne into the global scope
+
+type AtLeastOne<T, U = {[K in keyof T]-?: T[K] }> = { [K in keyof U]: {[P in K]: U[P]} }[keyof U];
 
 declare global {
     namespace ioBroker {
@@ -26,9 +29,11 @@ declare global {
             sensor_reports_error = 0x84,
         }
 
+        type StateValue = string | number | boolean | null;
+
         interface State {
             /** The value of the state. */
-            val: string | number | boolean | any[] | Record<string, any> | null;
+            val: StateValue;
 
             /** Direction flag: false for desired value and true for actual value. Default: false. */
             ack: boolean;
@@ -54,7 +59,8 @@ declare global {
             /** Optional comment */
             c?: string;
         }
-        type SettableState = Partial<Omit<State, 'val'>> & Pick<State, 'val'>;
+
+        type SettableState = AtLeastOne<State>;
 
         type Session = any; // TODO: implement
 
@@ -748,24 +754,24 @@ declare global {
             // tslint:disable:unified-signatures
             setState(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 options: unknown,
                 callback?: SetStateCallback,
             ): void;
             setState(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateCallback,
@@ -773,41 +779,41 @@ declare global {
             /** Writes a value into the states DB. */
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack?: boolean,
             ): SetStatePromise;
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 options?: unknown,
             ): SetStatePromise;
             setStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 options: unknown,
             ): SetStatePromise;
             /** Writes a value into the states DB only if it has changed. */
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 options: unknown,
                 callback?: SetStateChangedCallback,
             ): void;
             setStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateChangedCallback,
@@ -815,41 +821,41 @@ declare global {
             /** Writes a value into the states DB only if it has changed. */
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack?: boolean,
             ): SetStateChangedPromise;
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 options?: unknown,
             ): SetStateChangedPromise;
             setStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 options: unknown,
             ): SetStateChangedPromise;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 options: unknown,
                 callback?: SetStateCallback,
             ): void;
             setForeignState(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateCallback,
@@ -857,41 +863,41 @@ declare global {
             /** Writes a value (which might not belong to this adapter) into the states DB. */
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack?: boolean,
             ): SetStatePromise;
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 options?: unknown,
             ): SetStatePromise;
             setForeignStateAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 options: unknown,
             ): SetStatePromise;
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 options: unknown,
                 callback?: SetStateChangedCallback,
             ): void;
             setForeignStateChanged(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 options: unknown,
                 callback?: SetStateChangedCallback,
@@ -899,17 +905,17 @@ declare global {
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack?: boolean,
             ): SetStateChangedPromise;
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 options?: unknown,
             ): SetStateChangedPromise;
             setForeignStateChangedAsync(
                 id: string,
-                state: string | number | boolean | State | SettableState | null,
+                state: State | StateValue | SettableState,
                 ack: boolean,
                 options: unknown,
             ): SetStateChangedPromise;

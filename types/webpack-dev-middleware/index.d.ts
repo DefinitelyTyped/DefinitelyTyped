@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-middleware 4.1
+// Type definitions for webpack-dev-middleware 4.2
 // Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 reduckted <https://github.com/reduckted>
@@ -8,8 +8,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import * as webpack from 'webpack';
-import { NextHandleFunction } from 'connect';
+import * as webpack from "webpack";
+import { IncomingMessage, NextHandleFunction } from "connect";
+import { ServerResponse } from "http";
 
 export = WebpackDevMiddleware;
 
@@ -35,9 +36,7 @@ declare namespace WebpackDevMiddleware {
          */
         methods?: string[];
         /** This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" } */
-        headers?: {
-            [name: string]: string;
-        };
+        headers?: Record<string, string> | HeadersHandle;
         /** The public path that the middleware is bound to */
         publicPath?: string;
         /** Instructs the module to enable or disable the server-side rendering mode */
@@ -78,5 +77,9 @@ declare namespace WebpackDevMiddleware {
         /** A function executed once the middleware has stopped watching. */
         close(callback?: () => void): void;
         context: Context;
+    }
+
+    interface HeadersHandle {
+        (req: IncomingMessage, res: ServerResponse, context: Context): Record<string, string> | void;
     }
 }

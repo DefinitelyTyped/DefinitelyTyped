@@ -12,7 +12,8 @@ import * as util from 'util';
     fs.writeFile("Harry Potter",
         "\"You be wizzing, Harry,\" jived Dumbledore.",
         {
-            encoding: "ascii"
+            encoding: "ascii",
+            signal: new AbortSignal(),
         },
         assert.ifError);
 
@@ -51,7 +52,7 @@ import * as util from 'util';
     buffer = fs.readFileSync('testfile', { flag: 'r' });
 
     fs.readFile('testfile', 'utf8', (err, data) => content = data);
-    fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+    fs.readFile('testfile', { encoding: 'utf8', signal: new AbortSignal() }, (err, data) => content = data);
     fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
     fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
 
@@ -362,8 +363,8 @@ async function testStat(
   path: string,
   fd: number,
   opts: fs.StatOptions,
-  maybeFalse: fs.StatOptions & { bigint: false } | undefined,
-  maybeTrue: fs.StatOptions & { bigint: true } | undefined,
+  bigintMaybeFalse: fs.StatOptions & { bigint: false } | undefined,
+  bigIntMaybeTrue: fs.StatOptions & { bigint: true } | undefined,
   maybe?: fs.StatOptions,
 ) {
     /* Need to test these variants:
@@ -404,21 +405,21 @@ async function testStat(
     fs.lstat(path, {}, (err, st: fs.Stats) => {});
     fs.fstat(fd, {}, (err, st: fs.Stats) => {});
 
-    fs.stat(path, maybeFalse, (err, st: fs.Stats) => {});
-    fs.lstat(path, maybeFalse, (err, st: fs.Stats) => {});
-    fs.fstat(fd, maybeFalse, (err, st: fs.Stats) => {});
+    fs.stat(path, bigintMaybeFalse, (err, st: fs.Stats) => {});
+    fs.lstat(path, bigintMaybeFalse, (err, st: fs.Stats) => {});
+    fs.fstat(fd, bigintMaybeFalse, (err, st: fs.Stats) => {});
 
     fs.stat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
     fs.lstat(path, { bigint: true }, (err, st: fs.BigIntStats) => {});
     fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => {});
 
-    fs.stat(path, maybeTrue, (err, st) => {
+    fs.stat(path, bigIntMaybeTrue, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
     });
-    fs.lstat(path, maybeTrue, (err, st) => {
+    fs.lstat(path, bigIntMaybeTrue, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
     });
-    fs.fstat(fd, maybeTrue, (err, st) => {
+    fs.fstat(fd, bigIntMaybeTrue, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
     });
 
@@ -443,25 +444,33 @@ async function testStat(
     fs.lstatSync(path, undefined); // $ExpectType Stats
     fs.fstatSync(fd, undefined); // $ExpectType Stats
 
+    fs.statSync(path, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
+    fs.lstatSync(path, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
+    fs.fstatSync(fd, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
+
     fs.statSync(path, {}); // $ExpectType Stats
     fs.lstatSync(path, {}); // $ExpectType Stats
     fs.fstatSync(fd, {}); // $ExpectType Stats
 
-    fs.statSync(path, maybeFalse); // $ExpectType Stats
-    fs.lstatSync(path, maybeFalse); // $ExpectType Stats
-    fs.fstatSync(fd, maybeFalse); // $ExpectType Stats
+    fs.statSync(path, bigintMaybeFalse); // $ExpectType Stats
+    fs.lstatSync(path, bigintMaybeFalse); // $ExpectType Stats
+    fs.fstatSync(fd, bigintMaybeFalse); // $ExpectType Stats
 
     fs.statSync(path, { bigint: true }); // $ExpectType BigIntStats
     fs.lstatSync(path, { bigint: true }); // $ExpectType BigIntStats
     fs.fstatSync(fd, { bigint: true }); // $ExpectType BigIntStats
 
-    fs.statSync(path, maybeTrue); // $ExpectType Stats | BigIntStats
-    fs.lstatSync(path, maybeTrue); // $ExpectType Stats | BigIntStats
-    fs.fstatSync(fd, maybeTrue); // $ExpectType Stats | BigIntStats
+    fs.statSync(path, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
+    fs.lstatSync(path, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
+    fs.fstatSync(fd, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
 
-    fs.statSync(path, opts); // $ExpectType Stats | BigIntStats
-    fs.lstatSync(path, opts); // $ExpectType Stats | BigIntStats
-    fs.fstatSync(fd, opts); // $ExpectType Stats | BigIntStats
+    fs.statSync(path, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
+    fs.lstatSync(path, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
+    fs.fstatSync(fd, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
+
+    fs.statSync(path, opts); // $ExpectType Stats | BigIntStats | undefined
+    fs.lstatSync(path, opts); // $ExpectType Stats | BigIntStats | undefined
+    fs.fstatSync(fd, opts); // $ExpectType Stats | BigIntStats | undefined
 
     // Promisify mode
     util.promisify(fs.stat)(path); // $ExpectType Promise<Stats>
@@ -476,17 +485,17 @@ async function testStat(
     util.promisify(fs.lstat)(path, {}); // $ExpectType Promise<Stats>
     util.promisify(fs.fstat)(fd, {}); // $ExpectType Promise<Stats>
 
-    util.promisify(fs.stat)(path, maybeFalse); // $ExpectType Promise<Stats>
-    util.promisify(fs.lstat)(path, maybeFalse); // $ExpectType Promise<Stats>
-    util.promisify(fs.fstat)(fd, maybeFalse); // $ExpectType Promise<Stats>
+    util.promisify(fs.stat)(path, bigintMaybeFalse); // $ExpectType Promise<Stats>
+    util.promisify(fs.lstat)(path, bigintMaybeFalse); // $ExpectType Promise<Stats>
+    util.promisify(fs.fstat)(fd, bigintMaybeFalse); // $ExpectType Promise<Stats>
 
     util.promisify(fs.stat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     util.promisify(fs.lstat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     util.promisify(fs.fstat)(fd, { bigint: true }); // $ExpectType Promise<BigIntStats>
 
-    util.promisify(fs.stat)(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
-    util.promisify(fs.lstat)(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
-    util.promisify(fs.fstat)(fd, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.stat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.lstat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.fstat)(fd, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
 
     util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     util.promisify(fs.lstat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
@@ -506,19 +515,23 @@ async function testStat(
     fs.promises.lstat(path, {}); // $ExpectType Promise<Stats>
     fh.stat({}); // $ExpectType Promise<Stats>
 
-    fs.promises.stat(path, maybeFalse); // $ExpectType Promise<Stats>
-    fs.promises.lstat(path, maybeFalse); // $ExpectType Promise<Stats>
-    fh.stat(maybeFalse); // $ExpectType Promise<Stats>
+    fs.promises.stat(path, bigintMaybeFalse); // $ExpectType Promise<Stats>
+    fs.promises.lstat(path, bigintMaybeFalse); // $ExpectType Promise<Stats>
+    fh.stat(bigintMaybeFalse); // $ExpectType Promise<Stats>
 
     fs.promises.stat(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     fs.promises.lstat(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     fh.stat({ bigint: true }); // $ExpectType Promise<BigIntStats>
 
-    fs.promises.stat(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
-    fs.promises.lstat(path, maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
-    fh.stat(maybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fs.promises.stat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fs.promises.lstat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fh.stat(bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
 
     fs.promises.stat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     fs.promises.lstat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats>
 }
+
+const bigStats: fs.BigIntStats = fs.statSync('.', { bigint: true });
+const bigIntStat: bigint = bigStats.atimeNs;
+const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.random() > 0.5 });

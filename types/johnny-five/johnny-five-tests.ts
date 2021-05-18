@@ -98,10 +98,16 @@ board.on('ready', function(){
         pin: 7
     });
 
-    var proximity = new five.Proximity({
-        controller: "GP2Y0A21YK",
-        pin: "A0"
-    });
+    var proximityOption: five.ProximityOption = {
+      controller: "HCSR04",
+      pin: "10",
+      freq: 500	// optional
+    };
+
+    let proximityController: string = proximityOption.controller;
+    let proximityPin: string | number = proximityOption.pin;
+    let proximityFrequency: number | undefined = proximityOption.freq;
+    let proximity = new five.Proximity(proximityOption);
 
     var eyes = new five.IR.Reflect.Array({
         emitter: 13,
