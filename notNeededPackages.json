@@ -124,6 +124,10 @@
             "libraryName": "anydb-sql-migrations",
             "asOfVersion": "2.1.1"
         },
+        "anymatch": {
+            "libraryName": "anymatch",
+            "asOfVersion": "3.0.0"
+        },
         "aphrodite": {
             "libraryName": "aphrodite",
             "asOfVersion": "2.0.0"
