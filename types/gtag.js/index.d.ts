@@ -6,13 +6,17 @@
 declare var gtag: Gtag.Gtag;
 declare namespace Gtag {
   interface Gtag {
-    (command: 'config', targetId: string, config?: ControlParams | EventParams | CustomParams): void;
+    (command: 'config', targetId: string, config?: ControlParams | EventParams | ConfigParams | CustomParams): void;
     (command: 'set', targetId: string, config: CustomParams): void;
     (command: 'set', config: CustomParams): void;
     (command: 'js', config: Date): void;
     (command: 'event', eventName: EventNames | string, eventParams?: ControlParams |  EventParams | CustomParams): void;
   }
 
+  interface ConfigParams {
+    send_page_view?: boolean
+  }
+    
   interface CustomParams {
     [key: string]: any;
   }
