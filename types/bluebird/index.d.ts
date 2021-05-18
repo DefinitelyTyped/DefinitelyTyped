@@ -39,32 +39,27 @@ type CatchFilter<E> = ((error: E) => boolean) | (object & E);
 type Resolvable<R> = R | PromiseLike<R>;
 type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => Resolvable<R>;
 
-type PromisifyAllKeys<T> = T extends string ? T | `${T}Async` : T;
-type GetValueForKey<T, K> = K extends keyof T ? T[K] : never;
-type WithoutLast<T extends any[]> = T extends [...infer A, any] ? A : [];
-type Last<T extends any[]> = T extends [...any[], infer L] ? L : never;
+type PromisifyAllKeys<T> = T extends string ? `${T}Async` : never;
+type WithoutLast<T> = T extends [...infer A, any] ? A : [];
+type Last<T> = T extends [...any[], infer L] ? L : never;
 type ExtractCallbackValueType<T> = T extends (error: any, ...data: infer D) => any ? D : never;
+
+type PromiseMethod<TArgs, TReturn> = TReturn extends never ? never : (...args: WithoutLast<TArgs>) => Promise<TReturn>;
+
 type ExtractAsyncMethod<T> = T extends (...args: infer A) => any
-    ? (...arg: WithoutLast<A>) => Promise<ExtractCallbackValueType<Last<Required<A>>>[0]>
-    : never;
-type ValidPromiseOrNever<T> = ExtractAsyncMethod<T> extends (...args: any[]) => Promise<never>
-    ? never
-    : ExtractAsyncMethod<T>;
+  ? PromiseMethod<A, ExtractCallbackValueType<Last<Required<A>>>[0]>
+  : never;
 
 type PromisifyAllItems<T> = {
-    [Key in PromisifyAllKeys<keyof T>]: Key extends `${infer S}Async`
-        ? S extends keyof T
-            ? ValidPromiseOrNever<T[S]>
-            : GetValueForKey<T, Key>
-        : GetValueForKey<T, Key>;
+  [K in keyof T as PromisifyAllKeys<K>]: ExtractAsyncMethod<T[K]>;
 };
 
-type NonNeverKeys<T> = {
-    [Key in keyof T]: T[Key] extends never ? never : Key;
-}[keyof T];
+type NonNeverValues<T> = {
+  [K in keyof T as T[K] extends never ? never : K]: T[K];
+};
 
 // Drop `never` values
-type PromisifyAll<T> = Pick<PromisifyAllItems<T>, NonNeverKeys<PromisifyAllItems<T>>>;
+type PromisifyAll<T> = NonNeverValues<PromisifyAllItems<T>> & T;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   readonly [Symbol.toStringTag]: "Object";
