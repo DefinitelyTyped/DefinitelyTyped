@@ -1,6 +1,7 @@
 import { AutosaveConfig } from "@ckeditor/ckeditor5-autosave/src/autosave";
 import { ExportPdfConfig } from "@ckeditor/ckeditor5-export-pdf/src/exportpdf";
 import { ExportWordConfig } from "@ckeditor/ckeditor5-export-word/src/exportword";
+import { WordCountConfig } from "@ckeditor/ckeditor5-word-count/src/wordcount";
 import Plugin from "../plugin";
 
 // TODO: import {Alignment} from "@ckeditor/ckeditor5-alignment/src/alignment"
@@ -54,8 +55,6 @@ type TitleConfig = any;
 type TrackChangesConfig = any;
 // TODO: import {TypingConfig} from "@ckeditor/ckeditor5-typing/src/typing";
 type TypingConfig = any;
-// TODO: import {WordCountConfig} from "@ckeditor/ckeditor5-word-count/src/wordcount";
-type WordCountConfig = any;
 // TODO: import {TextPartLanguageOption} from "@ckeditor/ckeditor5-language/src/textpartlanguage";
 type TextPartLanguageOption = any;
 
