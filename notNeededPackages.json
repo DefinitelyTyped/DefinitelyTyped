@@ -528,6 +528,10 @@
             "libraryName": "consola",
             "asOfVersion": "2.2.5"
         },
+        "console-stamp": {
+            "libraryName": "console-stamp",
+            "asOfVersion": "3.0.0"
+        },
         "constant-case": {
             "libraryName": "constant-case",
             "asOfVersion": "1.1.2"
