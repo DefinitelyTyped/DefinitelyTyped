@@ -1037,6 +1037,10 @@
             "libraryName": "extract-stack",
             "asOfVersion": "2.0.0"
         },
+        "extract-zip": {
+            "libraryName": "extract-zip",
+            "asOfVersion": "2.0.0"
+        },
         "fast-diff": {
             "libraryName": "fast-diff",
             "asOfVersion": "1.2.0"
