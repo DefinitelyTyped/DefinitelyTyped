@@ -40,6 +40,10 @@
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
         },
+        "agora-rtc-sdk": {
+            "libraryName": "agora-rtc-sdk",
+            "asOfVersion": "3.2.0"
+        },
         "airtable": {
             "libraryName": "airtable",
             "asOfVersion": "0.10.0"
