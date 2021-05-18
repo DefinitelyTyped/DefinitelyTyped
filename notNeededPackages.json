@@ -1049,6 +1049,10 @@
             "libraryName": "fast-json-patch",
             "asOfVersion": "1.1.5"
         },
+        "fast-json-stable-stringify": {
+            "libraryName": "fast-json-stable-stringify",
+            "asOfVersion": "2.1.0"
+        },
         "fast-simplex-noise": {
             "libraryName": "fast-simplex-noise",
             "asOfVersion": "3.0.0"
