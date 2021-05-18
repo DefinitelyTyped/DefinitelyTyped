@@ -883,39 +883,7 @@ voidProm = Bluebird.delay(num);
 asyncfunc = Bluebird.promisify(f);
 asyncfunc = Bluebird.promisify(f, obj);
 
-const emtpyFn = () => {};
-
-const promiseModule = Bluebird.promisifyAll({
-    movedMethod: (someArg: string, callback: (error: Error, data: number) => void) => {},
-    ignoredMethod: (someArg: string) => {}
-});
-const normalMethod = promiseModule.movedMethod;
-normalMethod('foo', (err, data) => {
-    const stack = err.stack;
-    const value = data * 25;
-});
-
-// We want to test the return type of the standard methods, so we disable the no void rule for these lines
-// tslint:disable-next-line:no-void-expression
-const normalMethodValue = normalMethod('foo', emtpyFn);
-// $ExpectError
-normalMethodValue.then();
-
-const asyncMethod = promiseModule.movedMethodAsync;
-asyncMethod('foo').then(data => {
-    const value = data * 25;
-});
-
-const ignoredMethod = promiseModule.ignoredMethod;
-// tslint:disable-next-line:no-void-expression
-const ignoredMethodValue = ignoredMethod('foo');
-
-// $ExpectError
-ignoredMethodValue.then();
-
-// $ExpectError
-const ignoredMethodAsync = promiseModule.ignoredMethodAsync;
-
+obj = Bluebird.promisifyAll(obj);
 anyProm = Bluebird.fromNode(nodeCallbackFunc);
 anyProm = Bluebird.fromNode(nodeCallbackFuncErrorOnly);
 anyProm = Bluebird.fromNode(nodeCallbackFunc, {multiArgs : true});
