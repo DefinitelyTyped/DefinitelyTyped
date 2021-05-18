@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 import { Component, ReactNode } from "react";
 
 export default ReactGoogleMapsLoader;
