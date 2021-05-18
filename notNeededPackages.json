@@ -3838,6 +3838,10 @@
             "libraryName": "stream-mock",
             "asOfVersion": "2.0.1"
         },
+        "stream-to-string": {
+            "libraryName": "stream-to-string",
+            "asOfVersion": "1.2.0"
+        },
         "string-argv": {
             "libraryName": "string-argv",
             "asOfVersion": "0.3.0"
