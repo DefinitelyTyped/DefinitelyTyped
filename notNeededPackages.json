@@ -821,6 +821,10 @@
             "libraryName": "domelementtype",
             "asOfVersion": "2.0.1"
         },
+        "domhandler": {
+            "libraryName": "domhandler",
+            "asOfVersion": "3.0.0"
+        },
         "domutils": {
             "libraryName": "domutils",
             "asOfVersion": "2.0.0"
