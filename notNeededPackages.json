@@ -3642,6 +3642,10 @@
             "libraryName": "snake-case",
             "asOfVersion": "1.1.2"
         },
+        "snakecase-keys": {
+            "libraryName": "snakecase-keys",
+            "asOfVersion": "3.1.0"
+        },
         "snappy": {
             "libraryName": "snappy",
             "asOfVersion": "6.3.2"
