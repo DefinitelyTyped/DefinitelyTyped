@@ -3574,6 +3574,10 @@
             "libraryName": "shebang-regex",
             "asOfVersion": "3.0.0"
         },
+        "shorten-repo-url": {
+            "libraryName": "shorten-repo-url",
+            "asOfVersion": "1.5.1"
+        },
         "should": {
             "libraryName": "should",
             "asOfVersion": "13.0.0"
