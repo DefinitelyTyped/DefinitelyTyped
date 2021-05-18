@@ -8,7 +8,7 @@
 
 import * as cookies from "cookies";
 
-interface ICookieOptions extends cookies.IOptions {
+interface CookieOptions extends cookies.IOptions {
 /**
  * a boolean indicating whether the cookie will expire when browser closes or not
  * (false by default).
@@ -51,7 +51,7 @@ declare namespace client_sessions {
      */
     requestKey?: string;
 
-    cookie?: ICookieOptions;
+    cookie?: CookieOptions;
   }
 
   interface DecodeResult {

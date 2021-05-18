@@ -28,11 +28,11 @@
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/utils": "latest",
         "danger": "^10.1.1",
-        "dtslint": "latest",
+        "dtslint": "^4.0.9",
         "prettier": "^2.1.1",
         "remark-cli": "^9.0.0",
         "remark-validate-links": "^10.0.2",
-        "typescript": "next"
+        "typescript": "^4.4.0-dev.20210518"
     },
     "husky": {
         "hooks": {
