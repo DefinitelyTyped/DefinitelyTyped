@@ -1,8 +1,9 @@
-import * as workerThreads from 'node:worker_threads';
-import assert = require('node:assert');
-import { createContext } from 'node:vm';
-import { Readable } from 'node:stream';
-import * as fs from 'node:fs';
+import * as workerThreads from 'worker_threads';
+import assert = require('assert');
+import { createContext } from 'vm';
+import { Readable } from 'stream';
+import * as fs from 'fs';
+import { EventLoopUtilization } from 'perf_hooks';
 
 {
     if (workerThreads.isMainThread) {
@@ -103,4 +104,9 @@ import * as fs from 'node:fs';
         const worker = new workerThreads.Worker(__filename);
         worker.postMessage("some message", [ fileHandle ] as ReadonlyArray<workerThreads.TransferListItem>);
     })();
+}
+
+{
+    const worker = new workerThreads.Worker(__filename);
+    const utilization: EventLoopUtilization = worker.performance.eventLoopUtilitzation();
 }

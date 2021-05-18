@@ -1,11 +1,7 @@
-declare module 'node:net' {
-    export * from 'net';
-}
-
 declare module 'net' {
-    import * as stream from 'node:stream';
-    import EventEmitter = require('node:events');
-    import * as dns from 'node:dns';
+    import * as stream from 'stream';
+    import EventEmitter = require('events');
+    import * as dns from 'dns';
 
     type LookupFunction = (
         hostname: string,
@@ -188,12 +184,14 @@ declare module 'net' {
 
     interface ServerOpts {
         /**
-         * Indicates whether half-opened TCP connections are allowed. __Default:__ `false`.
+         * Indicates whether half-opened TCP connections are allowed.
+         * @default false
          */
         allowHalfOpen?: boolean;
 
         /**
-         * Indicates whether the socket should be paused on incoming connections. __Default:__ `false`.
+         * Indicates whether the socket should be paused on incoming connections.
+         * @default false
          */
         pauseOnConnect?: boolean;
     }

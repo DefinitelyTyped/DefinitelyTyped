@@ -7,7 +7,7 @@ import {
     constants,
     kMaxLength,
     kStringMaxLength,
-} from 'node:buffer';
+} from 'buffer';
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');
@@ -259,4 +259,16 @@ b.fill('a').fill('b');
     const source: TranscodeEncoding = 'utf8';
     const target: TranscodeEncoding = 'ascii';
     transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
+}
+
+{
+    const a = Buffer.alloc(1000);
+    a.writeBigInt64BE(123n);
+    a.writeBigInt64LE(123n);
+    a.writeBigUInt64BE(123n);
+    a.writeBigUInt64LE(123n);
+    let b: bigint = a.readBigInt64BE(123);
+    b = a.readBigInt64LE(123);
+    b = a.readBigUInt64LE(123);
+    b = a.readBigUInt64BE(123);
 }

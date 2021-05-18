@@ -258,6 +258,7 @@ const provider = new Provider('https://op.example.com', {
             interaction.returnTo.substring(0);
             JSON.stringify(interaction.params.foo);
             JSON.stringify(interaction.prompt.name);
+            interaction.grantId;
             return 'foo';
         },
         policy: [

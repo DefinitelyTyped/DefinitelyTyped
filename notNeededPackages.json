@@ -28,6 +28,10 @@
             "libraryName": "active-win",
             "asOfVersion": "5.1.0"
         },
+        "adhan": {
+            "libraryName": "adhan",
+            "asOfVersion": "4.0.0"
+        },
         "ag-grid": {
             "libraryName": "ag-grid",
             "asOfVersion": "3.2.0"
@@ -40,6 +44,10 @@
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
         },
+        "agora-rtc-sdk": {
+            "libraryName": "agora-rtc-sdk",
+            "asOfVersion": "3.2.0"
+        },
         "airtable": {
             "libraryName": "airtable",
             "asOfVersion": "0.10.0"
@@ -47,6 +55,10 @@
         "ajv": {
             "libraryName": "ajv",
             "asOfVersion": "1.0.0"
+        },
+        "ajv-errors": {
+            "libraryName": "ajv-errors",
+            "asOfVersion": "2.0.0"
         },
         "algoliasearch": {
             "libraryName": "algoliasearch",
@@ -92,6 +104,10 @@
             "libraryName": "ansi-regex",
             "asOfVersion": "5.0.0"
         },
+        "ansi-styles": {
+            "libraryName": "ansi-styles",
+            "asOfVersion": "4.2.0"
+        },
         "antd": {
             "libraryName": "antd",
             "asOfVersion": "1.0.0"
@@ -107,6 +123,10 @@
         "anydb-sql-migrations": {
             "libraryName": "anydb-sql-migrations",
             "asOfVersion": "2.1.1"
+        },
+        "anymatch": {
+            "libraryName": "anymatch",
+            "asOfVersion": "3.0.0"
         },
         "aphrodite": {
             "libraryName": "aphrodite",
@@ -148,6 +168,10 @@
             "libraryName": "assertion-error",
             "asOfVersion": "1.1.0"
         },
+        "astring": {
+            "libraryName": "astring",
+            "asOfVersion": "1.7.0"
+        },
         "asyncblock": {
             "libraryName": "asyncblock",
             "asOfVersion": "2.2.11"
@@ -155,6 +179,10 @@
         "asynciterator": {
             "libraryName": "asynciterator",
             "asOfVersion": "3.0.0"
+        },
+        "atlaskit__tree": {
+            "libraryName": "@atlaskit/tree",
+            "asOfVersion": "7.0.0"
         },
         "aurelia-knockout": {
             "libraryName": "aurelia-knockout",
@@ -192,9 +220,17 @@
             "libraryName": "axios",
             "asOfVersion": "0.14.0"
         },
+        "axios-case-converter": {
+            "libraryName": "axios-case-converter",
+            "asOfVersion": "0.4.0"
+        },
         "axios-mock-adapter": {
             "libraryName": "axios-mock-adapter",
             "asOfVersion": "1.10.0"
+        },
+        "azure-kusto-data": {
+            "libraryName": "azure-kusto-data",
+            "asOfVersion": "2.0.1"
         },
         "azure-mobile-apps": {
             "libraryName": "azure-mobile-apps",
@@ -219,6 +255,10 @@
         "base-x": {
             "libraryName": "base-x",
             "asOfVersion": "3.0.6"
+        },
+        "base64-arraybuffer": {
+            "libraryName": "base64-arraybuffer",
+            "asOfVersion": "0.2.0"
         },
         "base64url": {
             "libraryName": "base64url",
@@ -251,6 +291,10 @@
         "bin-version": {
             "libraryName": "bin-version",
             "asOfVersion": "3.1.0"
+        },
+        "binaryextensions": {
+            "libraryName": "binaryextensions",
+            "asOfVersion": "4.0.0"
         },
         "bingmaps": {
             "libraryName": "bingmaps",
@@ -657,6 +701,14 @@
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
         },
+        "datastore-core": {
+            "libraryName": "datastore-core",
+            "asOfVersion": "3.0.0"
+        },
+        "datastore-level": {
+            "libraryName": "datastore-level",
+            "asOfVersion": "3.0.0"
+        },
         "date-fns": {
             "libraryName": "date-fns",
             "asOfVersion": "2.6.0"
@@ -881,6 +933,10 @@
             "libraryName": "ensure-error",
             "asOfVersion": "2.0.0"
         },
+        "ensure-posix-path": {
+            "libraryName": "ensure-posix-path",
+            "asOfVersion": "1.1.0"
+        },
         "env-editor": {
             "libraryName": "env-editor",
             "asOfVersion": "0.4.0"
@@ -993,6 +1049,10 @@
             "libraryName": "extract-stack",
             "asOfVersion": "2.0.0"
         },
+        "extract-zip": {
+            "libraryName": "extract-zip",
+            "asOfVersion": "2.0.0"
+        },
         "fast-diff": {
             "libraryName": "fast-diff",
             "asOfVersion": "1.2.0"
@@ -1000,6 +1060,10 @@
         "fast-json-patch": {
             "libraryName": "fast-json-patch",
             "asOfVersion": "1.1.5"
+        },
+        "fast-json-stable-stringify": {
+            "libraryName": "fast-json-stable-stringify",
+            "asOfVersion": "2.1.0"
         },
         "fast-simplex-noise": {
             "libraryName": "fast-simplex-noise",
@@ -1821,6 +1885,46 @@
             "libraryName": "junk",
             "asOfVersion": "3.0.0"
         },
+        "just-clone": {
+            "libraryName": "just-clone",
+            "asOfVersion": "3.2.1"
+        },
+        "just-debounce-it": {
+            "libraryName": "just-debounce-it",
+            "asOfVersion": "1.5.0"
+        },
+        "just-extend": {
+            "libraryName": "just-extend",
+            "asOfVersion": "4.2.1"
+        },
+        "just-map-values": {
+            "libraryName": "just-map-values",
+            "asOfVersion": "1.2.1"
+        },
+        "just-merge": {
+            "libraryName": "just-merge",
+            "asOfVersion": "1.2.0"
+        },
+        "just-pick": {
+            "libraryName": "just-pick",
+            "asOfVersion": "2.2.1"
+        },
+        "just-safe-get": {
+            "libraryName": "just-safe-get",
+            "asOfVersion": "2.1.1"
+        },
+        "just-safe-set": {
+            "libraryName": "just-safe-set",
+            "asOfVersion": "2.2.1"
+        },
+        "just-snake-case": {
+            "libraryName": "just-snake-case",
+            "asOfVersion": "1.2.1"
+        },
+        "just-throttle": {
+            "libraryName": "just-throttle",
+            "asOfVersion": "2.3.0"
+        },
         "jwt-decode": {
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
@@ -1836,6 +1940,10 @@
         "karma-viewport": {
             "libraryName": "karma-viewport",
             "asOfVersion": "1.0.0"
+        },
+        "keycloak-connect": {
+            "libraryName": "keycloak-connect",
+            "asOfVersion": "7.0.0"
         },
         "keycloak-js": {
             "libraryName": "keycloak-js",
@@ -2020,6 +2128,10 @@
         "make-dir": {
             "libraryName": "make-dir",
             "asOfVersion": "2.1.0"
+        },
+        "maker.js": {
+            "libraryName": "makerjs",
+            "asOfVersion": "0.9.34"
         },
         "mali": {
             "libraryName": "mali",
@@ -2209,6 +2321,10 @@
             "libraryName": "microgears",
             "asOfVersion": "4.0.5"
         },
+        "minimist-options": {
+            "libraryName": "minimist-options",
+            "asOfVersion": "4.0.1"
+        },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
             "asOfVersion": "1.1.0"
@@ -2236,6 +2352,10 @@
         "mobx-task": {
             "libraryName": "mobx-task",
             "asOfVersion": "2.0.0"
+        },
+        "mockdate": {
+            "libraryName": "mockdate",
+            "asOfVersion": "3.0.0"
         },
         "mockingoose": {
             "libraryName": "mockingoose",
@@ -2950,6 +3070,10 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
+        "rc-slider": {
+            "libraryName": "rc-slider",
+            "asOfVersion": "9.3.0"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
@@ -3013,6 +3137,10 @@
         "react-easy-crop": {
             "libraryName": "react-easy-crop",
             "asOfVersion": "2.0.0"
+        },
+        "react-editext": {
+            "libraryName": "react-editext",
+            "asOfVersion": "4.0.0"
         },
         "react-filepond": {
             "libraryName": "react-filepond",
@@ -3462,6 +3590,10 @@
             "libraryName": "shebang-regex",
             "asOfVersion": "3.0.0"
         },
+        "shorten-repo-url": {
+            "libraryName": "shorten-repo-url",
+            "asOfVersion": "1.5.1"
+        },
         "should": {
             "libraryName": "should",
             "asOfVersion": "13.0.0"
@@ -3469,6 +3601,10 @@
         "simonwep__selection-js": {
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
+        },
+        "simplebar": {
+            "libraryName": "simplebar",
+            "asOfVersion": "5.3.3"
         },
         "sindresorhus__class-names": {
             "libraryName": "@sindresorhus/class-names",
@@ -3522,6 +3658,10 @@
             "libraryName": "snake-case",
             "asOfVersion": "1.1.2"
         },
+        "snakecase-keys": {
+            "libraryName": "snakecase-keys",
+            "asOfVersion": "3.1.0"
+        },
         "snappy": {
             "libraryName": "snappy",
             "asOfVersion": "6.3.2"
@@ -3537,6 +3677,26 @@
         "soap": {
             "libraryName": "soap",
             "asOfVersion": "0.21.0"
+        },
+        "socket.io": {
+            "libraryName": "socket.io",
+            "asOfVersion": "3.0.0"
+        },
+        "socket.io-client": {
+            "libraryName": "socket.io-client",
+            "asOfVersion": "3.0.0"
+        },
+        "socket.io-emitter": {
+            "libraryName": "socket.io-emitter",
+            "asOfVersion": "3.2.0"
+        },
+        "socket.io-parser": {
+            "libraryName": "socket.io-parser",
+            "asOfVersion": "3.0.0"
+        },
+        "socket.io-redis": {
+            "libraryName": "socket.io-redis",
+            "asOfVersion": "3.0.0"
         },
         "solidity-parser-antlr": {
             "libraryName": "solidity-parser-antlr",
@@ -3677,6 +3837,10 @@
         "stream-mock": {
             "libraryName": "stream-mock",
             "asOfVersion": "2.0.1"
+        },
+        "stream-to-string": {
+            "libraryName": "stream-to-string",
+            "asOfVersion": "1.2.0"
         },
         "string-argv": {
             "libraryName": "string-argv",
@@ -3846,9 +4010,17 @@
             "libraryName": "text-clipper",
             "asOfVersion": "1.3.0"
         },
+        "theme-ui": {
+            "libraryName": "theme-ui",
+            "asOfVersion": "0.6.0"
+        },
         "theme-ui__color": {
             "libraryName": "theme-ui",
             "asOfVersion": "0.3.1"
+        },
+        "theme-ui__components": {
+            "libraryName": "@theme-ui/components",
+            "asOfVersion": "0.6.0"
         },
         "theming": {
             "libraryName": "theming",

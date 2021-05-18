@@ -1,9 +1,5 @@
-declare module 'node:readline' {
-    export * from 'readline';
-}
-
 declare module 'readline' {
-    import EventEmitter = require('node:events');
+    import EventEmitter = require('events');
 
     interface Key {
         sequence?: string;
@@ -42,6 +38,7 @@ declare module 'readline' {
          */
         protected constructor(options: ReadLineOptions);
 
+        getPrompt(): string;
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;

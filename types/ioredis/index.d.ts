@@ -5,7 +5,6 @@
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 //                 Whemoon Jang <https://github.com/palindrom615>
-//                 Francis Gulotta <https://github.com/reconbot>
 //                 Dmitry Motovilov <https://github.com/funthing>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 Ting-Wai To <https://github.com/tingwai-to>
@@ -140,6 +139,8 @@ declare namespace IORedis {
     }
 
     interface OverloadedKeyCommand<T, U> {
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, arg7: T, arg8: T, cb: Callback<U>): void;
+        (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, arg7: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, cb: Callback<U>): void;
         (key: KeyType, arg1: T, arg2: T, arg3: T, arg4: T, cb: Callback<U>): void;
@@ -318,6 +319,8 @@ declare namespace IORedis {
 
         rpop(key: KeyType, callback: Callback<string>): void;
         rpop(key: KeyType): Promise<string>;
+        rpop(key: KeyType, count: number, callback: Callback<string[]>): void;
+        rpop(key: KeyType, count: number): Promise<string[]>;
 
         lpop(key: KeyType, callback: Callback<string>): void;
         lpop(key: KeyType): Promise<string>;

@@ -1,9 +1,5 @@
-declare module 'node:process' {
-    export = process;
-}
-
 declare module 'process' {
-    import * as tty from 'node:tty';
+    import * as tty from 'tty';
 
     global {
         var process: NodeJS.Process;

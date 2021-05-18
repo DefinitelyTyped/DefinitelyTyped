@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.9
+// Type definitions for D3JS d3-array module 2.10
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.9.1
+// Last module patch version validated against: 2.10.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -423,14 +423,14 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 // --------------------------------------------------------------------------------------
 
 /**
- * Groups the specified array of values into a Map from key to array of value.
+ * Groups the specified array of values into an InternMap from key to array of value.
  *
  * @param iterable The array to group.
  * @param key The key function.
  */
-export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
+export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): InternMap<TKey, TObject[]>;
 /**
- * Groups the specified array of values into a Map from key to array of value.
+ * Groups the specified array of values into an InternMap from key to array of value.
  *
  * @param iterable The array to group.
  * @param key1 The first key function.
@@ -440,9 +440,9 @@ export function group<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2
-): Map<TKey1, Map<TKey2, TObject[]>>;
+): InternMap<TKey1, Map<TKey2, TObject[]>>;
 /**
- * Groups the specified array of values into a Map from key to array of value.
+ * Groups the specified array of values into an InternMap from key to array of value.
  *
  * @param iterable The array to group.
  * @param key1 The first key function.
@@ -454,7 +454,7 @@ export function group<TObject, TKey1, TKey2, TKey3>(
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
-): Map<TKey1, Map<TKey2, Map<TKey3, TObject[]>>>;
+): InternMap<TKey1, Map<TKey2, Map<TKey3, TObject[]>>>;
 
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
@@ -499,7 +499,7 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
  * @param iterable The array to group.
  * @param key The key function.
  */
-export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject>;
+export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): InternMap<TKey, TObject>;
 /**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
  *
@@ -511,7 +511,7 @@ export function index<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2
-): Map<TKey1, Map<TKey2, TObject>>;
+): InternMap<TKey1, InternMap<TKey2, TObject>>;
 /**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
  *
@@ -525,7 +525,7 @@ export function index<TObject, TKey1, TKey2, TKey3>(
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
-): Map<TKey1, Map<TKey2, Map<TKey3, TObject>>>;
+): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TObject>>>;
 
 /**
  * Equivalent to index, but returns nested arrays instead of nested maps.
@@ -565,7 +565,7 @@ export function indexes<TObject, TKey1, TKey2, TKey3>(
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject]>]>]>;
 
 /**
- * Groups and reduces the specified array of values into a Map from key to value.
+ * Groups and reduces the specified array of values into an InternMap from key to value.
  *
  * @param iterable The array to group.
  * @param reduce The reduce function.
@@ -575,9 +575,9 @@ export function rollup<TObject, TReduce, TKey>(
     iterable: Iterable<TObject>,
     reduce: (value: TObject[]) => TReduce,
     key: (value: TObject) => TKey
-): Map<TKey, TReduce>;
+): InternMap<TKey, TReduce>;
 /**
- * Groups and reduces the specified array of values into a Map from key to value.
+ * Groups and reduces the specified array of values into an InternMap from key to value.
  *
  * @param iterable The array to group.
  * @param reduce The reduce function.
@@ -589,9 +589,9 @@ export function rollup<TObject, TReduce, TKey1, TKey2>(
     reduce: (value: TObject[]) => TReduce,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2
-): Map<TKey1, Map<TKey2, TReduce>>;
+): InternMap<TKey1, InternMap<TKey2, TReduce>>;
 /**
- * Groups and reduces the specified array of values into a Map from key to value.
+ * Groups and reduces the specified array of values into an InternMap from key to value.
  *
  * @param iterable The array to group.
  * @param reduce The reduce function.
@@ -605,7 +605,7 @@ export function rollup<TObject, TReduce, TKey1, TKey2, TKey3>(
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
-): Map<TKey1, Map<TKey2, Map<TKey3, TReduce>>>;
+): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TReduce>>>;
 
 /**
  * Equivalent to rollup, but returns nested arrays instead of nested maps.
@@ -1075,3 +1075,19 @@ export function thresholdFreedmanDiaconis(values: ArrayLike<number | undefined>,
 export function thresholdScott(values: ArrayLike<number | undefined>, min: number, max: number): number; // of type ThresholdCountGenerator
 
 export function thresholdSturges(values: ArrayLike<number | undefined>): number; // of type ThresholdCountGenerator
+
+// --------------------------------------------------------------------------------------
+// Interning
+// --------------------------------------------------------------------------------------
+
+/**
+ * The InternMap class extends the native JavaScript Map class, allowing Dates and other non-primitive keys by bypassing the SameValueZero algorithm when determining key equality.
+ */
+export class InternMap<K = any, V = any> extends Map<K, V> {
+}
+
+/**
+ * The InternSet class extends the native JavaScript Set class, allowing Dates and other non-primitive keys by bypassing the SameValueZero algorithm when determining key equality.
+ */
+export class InternSet<T = any> extends Set<T> {
+}

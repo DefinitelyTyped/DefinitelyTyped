@@ -1,7 +1,6 @@
 // Type definitions for ws 7.4
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
-//                 Matt Silverlock <https://github.com/elithrar>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 reduckted <https://github.com/reduckted>
@@ -289,7 +288,7 @@ declare namespace WebSocket {
         off(event: 'close' | 'listening', cb: (this: Server) => void): this;
         off(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
 
-        addListener(event: 'connection', cb: (client: WebSocket) => void): this;
+        addListener(event: 'connection', cb: (client: WebSocket, request: http.IncomingMessage) => void): this;
         addListener(event: 'error', cb: (err: Error) => void): this;
         addListener(event: 'headers', cb: (headers: string[], request: http.IncomingMessage) => void): this;
         addListener(event: 'close' | 'listening', cb: () => void): this;

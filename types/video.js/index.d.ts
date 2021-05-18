@@ -1983,25 +1983,25 @@ declare namespace videojs {
     };
 
     interface ControlBarOptions extends ComponentOptions {
-        volumePanel?: VolumePanelOptions | false;
-        playToggle?: false;
-        captionsButton?: false;
-        chaptersButton?: false;
-        subtitlesButton?: false;
-        remainingTimeDisplay?: false;
-        progressControl?: ProgressControlOptions | false;
-        fullscreenToggle?: false;
-        playbackRateMenuButton?: false;
-        pictureInPictureToggle?: false;
-        currentTimeDisplay?: false;
-        timeDivider?: false;
-        durationDisplay?: false;
-        liveDisplay?: false;
-        seekToLive?: false;
-        customControlSpacer?: false;
-        descriptionsButton?: false;
-        subsCapsButton?: false;
-        audioTrackButton?: false;
+        volumePanel?: VolumePanelOptions | boolean;
+        playToggle?: boolean;
+        captionsButton?: boolean;
+        chaptersButton?: boolean;
+        subtitlesButton?: boolean;
+        remainingTimeDisplay?: boolean;
+        progressControl?: ProgressControlOptions | boolean;
+        fullscreenToggle?: boolean;
+        playbackRateMenuButton?: boolean;
+        pictureInPictureToggle?: boolean;
+        currentTimeDisplay?: boolean;
+        timeDivider?: boolean;
+        durationDisplay?: boolean;
+        liveDisplay?: boolean;
+        seekToLive?: boolean;
+        customControlSpacer?: boolean;
+        descriptionsButton?: boolean;
+        subsCapsButton?: boolean;
+        audioTrackButton?: boolean;
     }
 
     /**
@@ -6728,6 +6728,20 @@ export interface VideoJsPlayer extends videojs.Component {
     reset(): void;
 
     /**
+     * Get or set a flag indicating whether or not this player should adjust its
+     * UI based on its dimensions.
+     *
+     * @param [value] Should be `true` if the player should adjust its UI based
+     * on its dimensions; otherwise, should be `false`.
+     *
+     * @return Will be `true` if this player should adjust its UI based on its
+     * dimensions; otherwise, will be `false`.
+     */
+    responsive(value: boolean): void;
+
+    responsive(): boolean;
+
+    /**
      * Returns whether or not the player is in the "seeking" state.
      *
      * @return boolean True if the player is in the seeking state, false if not.
@@ -6928,6 +6942,7 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     plugins?: Partial<VideoJsPlayerPluginOptions>;
     poster?: string;
     preload?: string;
+    responsive?: boolean;
     sourceOrder?: boolean;
     sources?: videojs.Tech.SourceObject[];
     src?: string;

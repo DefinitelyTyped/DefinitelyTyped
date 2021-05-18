@@ -152,6 +152,7 @@ declare namespace registry {
 
     interface NodeMessage {
         payload?: unknown;
+        topic?: string;
         _msgid?: string;
     }
 

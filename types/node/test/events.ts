@@ -1,4 +1,4 @@
-import events = require('node:events');
+import events = require('events');
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
@@ -139,4 +139,10 @@ async function test() {
     target.addEventListener('foo', handler2);
     target.addEventListener('foo', handler3);
     target.addEventListener('foo', handler4, { once: true });
+}
+
+{
+    let fns: Function[] = events.getEventListener(new EventTarget(), 'test');
+    fns = events.getEventListener(new events.EventEmitter(), Symbol('woot'));
+    fns = events.getEventListener(new EventTarget(), 'test');
 }

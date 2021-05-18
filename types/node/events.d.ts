@@ -1,8 +1,3 @@
-declare module 'node:events' {
-    import EventEmitter = require('events');
-    export = EventEmitter;
-}
-
 declare module 'events' {
     interface EventEmitterOptions {
         /**
@@ -33,6 +28,10 @@ declare module 'events' {
 
         /** @deprecated since v4.0.0 */
         static listenerCount(emitter: NodeJS.EventEmitter, event: string | symbol): number;
+        /**
+         * Returns a list listener for a specific emitter event name.
+         */
+        static getEventListener(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
 
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`

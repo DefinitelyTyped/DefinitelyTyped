@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Dialogflow API v2 2.0
+// Type definitions for non-npm package Dialogflow API v3 3.0
 // Project: https://cloud.google.com/dialogflow/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

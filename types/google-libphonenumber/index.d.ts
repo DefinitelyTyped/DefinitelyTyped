@@ -124,7 +124,7 @@ declare namespace libphonenumber {
         formatOutOfCountryCallingNumber(phoneNumber: PhoneNumber, regionDialingFrom?: string): string;
         getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
         getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
-        getCountryCodeForRegion(supportedRegion:string):string;
+        getCountryCodeForRegion(supportedRegion:string):number;
         getExampleNumber(regionCode: string): PhoneNumber;
         getExampleNumberForType(regionCode: string, type: PhoneNumberType): PhoneNumber;
         getRegionCodeForCountryCode(countryCallingCode: number): string;

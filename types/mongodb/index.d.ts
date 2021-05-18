@@ -462,6 +462,12 @@ export class MongoWriteConcernError extends MongoError {
      */
     result?: object;
 }
+/**
+ * An error indicating an unsuccessful Bulk Write
+ * @see https://mongodb.github.io/node-mongodb-native/3.6/api/BulkWriteError.html
+ */
+export class BulkWriteError extends MongoError {}
+export { BulkWriteError as MongoBulkWriteError };
 
 /**
  * Optional settings for MongoClient.connect()

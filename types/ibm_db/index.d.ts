@@ -178,6 +178,8 @@ export class ODBCStatement {
     executeNonQuery(cb: (err: Error, res: any[]) => void): void;
     executeNonQuery(params?: any[]): Promise<void>;
 
+    executeNonQuerySync(params?: any[]): number;
+
     prepare(sql: string, cb: (err: Error, result: any[]) => void): void;
 
     bind(ary: any[], cb: (err: Error) => void): void;
@@ -191,6 +193,8 @@ export class ODBCResult {
     fetchAllSync(): any[];
     moreResultsSync(): any[];
     closeSync(): void;
+    getColumnMetadataSync(): any[];
+    fetchAll(option: object, cb: (err: Error, data: any[], noOfColumns?: number) => void): void;
 } // Class ODBCResult
 
 export function getElapsedTime(): string;
