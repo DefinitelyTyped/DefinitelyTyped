@@ -288,6 +288,10 @@
             "libraryName": "bin-version",
             "asOfVersion": "3.1.0"
         },
+        "binaryextensions": {
+            "libraryName": "binaryextensions",
+            "asOfVersion": "4.0.0"
+        },
         "bingmaps": {
             "libraryName": "bingmaps",
             "asOfVersion": "2.0.15"
