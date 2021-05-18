@@ -777,6 +777,10 @@
             "libraryName": "detect-newline",
             "asOfVersion": "3.0.0"
         },
+        "detect-passive-events": {
+            "libraryName": "detect-passive-events",
+            "asOfVersion": "2.0.0"
+        },
         "devextreme": {
             "libraryName": "devextreme",
             "asOfVersion": "16.2.1"
