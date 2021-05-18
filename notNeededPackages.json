@@ -28,6 +28,10 @@
             "libraryName": "active-win",
             "asOfVersion": "5.1.0"
         },
+        "adhan": {
+            "libraryName": "adhan",
+            "asOfVersion": "4.0.0"
+        },
         "ag-grid": {
             "libraryName": "ag-grid",
             "asOfVersion": "3.2.0"
