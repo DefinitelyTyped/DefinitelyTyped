@@ -12,6 +12,47 @@ export interface extractorExecOpts {
     exec: { [index: string]: string };
 }
 
+export type MimeType =
+| string
+| 'application/vnd.ms-excel'
+| 'application/vnd.ms-excel.sheet.binary.macroEnabled.12'
+| 'application/vnd.ms-excel.sheet.macroEnabled.12'
+| 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+| 'application/vnd.openxmlformats-officedocument.spreadsheetml.template'
+| 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+| 'application/vnd.oasis.opendocument.spreadsheet'
+| 'application/vnd.oasis.opendocument.spreadsheet-template'
+| 'application/vnd.oasis.opendocument.text'
+| 'application/vnd.oasis.opendocument.text-template'
+| 'application/vnd.oasis.opendocument.graphics'
+| 'application/vnd.oasis.opendocument.graphics-template'
+| 'application/vnd.oasis.opendocument.presentation'
+| 'application/vnd.oasis.opendocument.presentation-template'
+| 'application/pdf'
+| 'application/csv'
+| 'application/javascript'
+| 'application/rtf'
+| 'application/xml'
+| 'application/rss+xml'
+| 'application/atom+xml'
+| 'application/epub+zip'
+| 'application/dxf'
+| 'application/x-autocad'
+| 'application/x-dxf'
+| 'text/rtf'
+| 'text/x-markdown'
+| 'text/markdown'
+| 'text/html'
+| 'text/xml'
+| 'image/png'
+| 'image/jpeg'
+| 'image/gif'
+| 'image/vnd.dxf'
+| 'image/x-autocad'
+| 'image/x-dxf'
+| 'drawing/x-dxf'
+| 'zz-application/zz-winassoc-dxf';
+
 export interface Config {
     /**
      * Pass this in as true and textract will not strip any line breaks.
@@ -132,7 +173,7 @@ export function fromFileWithPath(filePath: string, config: Config, callback: (er
  * @param filePath path to file
  * @param callback callback
  */
-export function fromFileWithMimeAndPath(mimeType: string, filePath: string, callback: (error: Error, text: string) => void): void;
+export function fromFileWithMimeAndPath(mimeType: MimeType, filePath: string, callback: (error: Error, text: string) => void): void;
 /**
  * Get text from file by path
  * @param mimeType mime type of file
@@ -140,7 +181,7 @@ export function fromFileWithMimeAndPath(mimeType: string, filePath: string, call
  * @param config configuration object
  * @param callback callback
  */
-export function fromFileWithMimeAndPath(mimeType: string, filePath: string, config: Config, callback: (error: Error, text: string) => void): void;
+export function fromFileWithMimeAndPath(mimeType: MimeType, filePath: string, config: Config, callback: (error: Error, text: string) => void): void;
 
 /**
  * Get text from file buffer
@@ -148,7 +189,7 @@ export function fromFileWithMimeAndPath(mimeType: string, filePath: string, conf
  * @param buffer path to file
  * @param callback callback
  */
-export function fromBufferWithMime(mimeType: string, buffer: Buffer, callback: (error: Error, text: string) => void): void;
+export function fromBufferWithMime(mimeType: MimeType, buffer: Buffer, callback: (error: Error, text: string) => void): void;
 /**
  * Get text from file buffer
  * @param mimeType mime type of file
@@ -156,7 +197,7 @@ export function fromBufferWithMime(mimeType: string, buffer: Buffer, callback: (
  * @param config configuration object
  * @param callback callback
  */
-export function fromBufferWithMime(mimeType: string, buffer: Buffer, config: Config, callback: (error: Error, text: string) => void): void;
+export function fromBufferWithMime(mimeType: MimeType, buffer: Buffer, config: Config, callback: (error: Error, text: string) => void): void;
 
 /**
  * Get text from file buffer
