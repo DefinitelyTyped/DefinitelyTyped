@@ -92,6 +92,10 @@
             "libraryName": "ansi-regex",
             "asOfVersion": "5.0.0"
         },
+        "ansi-styles": {
+            "libraryName": "ansi-styles",
+            "asOfVersion": "4.2.0"
+        },
         "antd": {
             "libraryName": "antd",
             "asOfVersion": "1.0.0"
