@@ -1,23 +1,26 @@
 import * as utils from "@ckeditor/ckeditor5-utils";
 import * as core from "@ckeditor/ckeditor5-core";
 import * as engine from "@ckeditor/ckeditor5-engine";
+import Config from "@ckeditor/ckeditor5-utils/src/config";
+import { KeyEventData } from "@ckeditor/ckeditor5-engine/src/view/observer/keyobserver";
+import View from "@ckeditor/ckeditor5-engine/src/view/view";
 
 declare let bool: boolean;
 declare let command: core.Command;
 declare let commandCollection: core.CommandCollection;
 declare let commands: core.Command[];
 declare let componentFactory: core.ComponentFactory;
-declare let config: utils.Config;
-declare let conversion: engine.conversion.Conversion;
-declare let dataController: engine.controller.DataController;
-declare let editingController: engine.controller.EditingController;
+declare let config: Config;
+declare let conversion: engine.Conversion;
+declare let dataController: engine.DataController;
+declare let editingController: engine.EditingController;
 declare let editingKeystrokeHandler: core.EditingKeystrokeHandler;
 declare let editor: core.editor.Editor;
 declare let focusTracker: utils.FocusTracker;
 declare let htmlElement: HTMLElement;
 declare let keystrokes: core.EditingKeystrokeHandler;
 declare let locale: utils.Locale;
-declare let model: engine.model.Model;
+declare let model: engine.Model;
 declare let num: number;
 declare let pendingActions: core.PendingActions;
 declare let plugin: core.Plugin;
@@ -203,7 +206,7 @@ keystrokes = new core.EditingKeystrokeHandler(editor);
 
 editor = keystrokes.editor;
 
-keystrokes.press({ keyCode: 123 });
+keystrokes.press(new KeyEventData(new View(new engine.StylesProcessor()), new MouseEvent("foo")));
 
 keystrokes.set("Ctrl+A", "foo");
 keystrokes.set(["shift", "33"], "foo");

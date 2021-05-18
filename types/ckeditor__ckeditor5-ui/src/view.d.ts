@@ -1,11 +1,11 @@
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { Observable as ObservableBase } from "@ckeditor/ckeditor5-utils/src/observablemixin";
-import * as engine from "@ckeditor/ckeditor5-engine";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import { Locale } from "@ckeditor/ckeditor5-utils";
 import Template, { BindChain, TemplateDefinition } from "./template";
 import ViewCollection from "./viewcollection";
+import { DomEventData } from "@ckeditor/ckeditor5-engine";
 
 interface Observable extends Omit<ObservableBase, "bind"> {
     bind(...bindProperties: string[]): BindChain;
@@ -36,26 +36,22 @@ export default class View implements Emitter, Observable {
 
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
-    stopListening(
-        emitter?: Emitter,
-        event?: string,
-        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
-    ): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
