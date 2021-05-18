@@ -28,8 +28,8 @@ class MyEditor extends Editor {
     }
 }
 
-const PluginArray: Array<typeof Plugin> = MyEditor.builtinPlugins;
-PluginArray.forEach(plugin => plugin.pluginName);
+const PluginArray: Array<typeof Plugin|typeof ContextPlugin|string> = MyEditor.builtinPlugins;
+PluginArray.forEach(plugin => typeof plugin !== "string" && plugin.pluginName);
 
 const editor = new MyEditor(document.createElement("div"));
 const editorState: "initializing" | "ready" | "destroyed" = editor.state;
@@ -40,13 +40,12 @@ editor.destroy().then(() => {});
 editor.initPlugins().then(plugins => plugins.map(plugin => plugin.pluginName));
 
 MyEditor.defaultConfig = {
-    foo: {
-        a: 1,
-        b: 2,
-    },
+    placeholder: "foo",
 };
 // $ExpectError
-MyEditor.defaultConfig = "foo";
+MyEditor.defaultConfig = 4;
+// $ExpectError
+MyEditor.defaultConfig = { foo: 5 };
 
 /**
  * Plugin
@@ -77,7 +76,7 @@ const command = new Command(new MyEmptyEditor());
 command.execute();
 command.execute("foo", "bar", true, false, 50033);
 command.execute(4545454, "refresh", [], []);
-command.execute({}, {foo: 5});
+command.execute({}, { foo: 5 });
 
 const ed: Editor = command.editor;
 
