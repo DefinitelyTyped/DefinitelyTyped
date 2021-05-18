@@ -1,11 +1,11 @@
 {
-  "private": true,
-  "types": "index",
-  "typesVersions": {
-    "<=4.1": {
-      "*": [
-        "ts4.1/*"
-      ]
+    "private": true,
+    "types": "index",
+    "typesVersions": {
+        "<=4.1": {
+            "*": [
+                "ts4.1/*"
+            ]
+        }
     }
-  }
 }
