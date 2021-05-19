@@ -46,7 +46,7 @@ class ClassPage extends React.Component<any> {
     }
 }
 
-const FunctionPage: React.SFC<any> = props => {
+const FunctionPage: React.FC<any> = props => {
     return (
         <div
             onClick={() => {
