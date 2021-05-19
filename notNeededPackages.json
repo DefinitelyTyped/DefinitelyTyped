@@ -1193,6 +1193,10 @@
             "libraryName": "fast-simplex-noise",
             "asOfVersion": "3.0.0"
         },
+        "fastify-accepts": {
+            "libraryName": "fastify-accepts",
+            "asOfVersion": "1.0.0"
+        },
         "fastify-cors": {
             "libraryName": "fastify-cors",
             "asOfVersion": "2.1.0"
