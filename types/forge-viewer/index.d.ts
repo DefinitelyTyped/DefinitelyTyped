@@ -1073,6 +1073,7 @@ declare namespace Autodesk {
             getAllModels(): Model[];
             getUnderlayRaster(bubbleNode: BubbleNode): Model[];
             hide(node: number|number[], model?: Model): void;
+            hideAll(): void;
             show(node: number|number[], model?: Model): void;
             showAll(): void;
             toggleVisibility(dbId: number, model?: Model): void;
