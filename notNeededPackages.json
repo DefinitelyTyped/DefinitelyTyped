@@ -2061,6 +2061,10 @@
             "libraryName": "leven",
             "asOfVersion": "3.0.0"
         },
+        "levenshtein-edit-distance": {
+            "libraryName": "levenshtein-edit-distance",
+            "asOfVersion": "3.0.0"
+        },
         "libra-core": {
             "libraryName": "libra-core",
             "asOfVersion": "1.0.5"
