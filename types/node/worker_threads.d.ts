@@ -19,7 +19,7 @@ declare module 'worker_threads' {
     }
 
     interface WorkerPerformance {
-        eventLoopUtilitzation: EventLoopUtilityFunction;
+        eventLoopUtilization: EventLoopUtilityFunction;
     }
 
     type TransferListItem = ArrayBuffer | MessagePort | FileHandle;
