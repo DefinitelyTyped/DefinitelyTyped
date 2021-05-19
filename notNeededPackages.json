@@ -717,6 +717,10 @@
             "libraryName": "date-fns",
             "asOfVersion": "2.6.0"
         },
+        "dayzed": {
+            "libraryName": "dayzed",
+            "asOfVersion": "3.2.0"
+        },
         "dd-trace": {
             "libraryName": "dd-trace",
             "asOfVersion": "0.9.0"
