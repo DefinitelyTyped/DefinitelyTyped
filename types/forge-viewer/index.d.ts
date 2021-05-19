@@ -2105,11 +2105,11 @@ declare namespace Autodesk {
 
           constructor(model: Viewing.Model);
 
-          generateSurfaceShadingData(devices: object[], levels?: LevelRoomsMap): Promise<SurfaceShadingData>;
+          generateSurfaceShadingData(devices: RoomDevice[], levels?: LevelRoomsMap, nodeName?: string): Promise<SurfaceShadingData>;
           getImmediateChildNodesByName(name: string, parentId?: number): number[];
           getLevel(room: Room): string;
-          getLevelRoomsMap(keepRoomDetail?: boolean): Promise<LevelRoomsMap>;
-          getRoomList(): Promise<Room[]>;
+          getLevelRoomsMap(keepRoomDetail?: boolean, nodeName?: string): Promise<LevelRoomsMap>;
+          getRoomList(nodeName?: string): Promise<Room[]>;
         }
 
         class Room {
