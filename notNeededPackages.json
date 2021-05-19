@@ -184,6 +184,10 @@
             "libraryName": "asynciterator",
             "asOfVersion": "3.0.0"
         },
+        "atlaskit__button": {
+            "libraryName": "@atlaskit/button",
+            "asOfVersion": "10.0.0"
+        },
         "atlaskit__tree": {
             "libraryName": "@atlaskit/tree",
             "asOfVersion": "7.0.0"
