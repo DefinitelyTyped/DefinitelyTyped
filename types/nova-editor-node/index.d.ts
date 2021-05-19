@@ -929,6 +929,17 @@ declare class TreeView<E> extends Disposable {
 
 /// https://docs.nova.app/api-reference/workspace/
 
+// The line is optional, unless a column is specified
+declare type FileLocation =
+    | {
+          line?: number;
+          column?: never;
+      }
+    | {
+          line: number;
+          column?: number;
+      };
+
 interface Workspace {
     readonly path: string | null;
     readonly config: Configuration;
@@ -942,32 +953,12 @@ interface Workspace {
     contains(path: string): boolean;
     relativizePath(path: string): string;
     openConfig(identifier?: string): void;
-    openFile(
-        uri: string,
-        options?:
-            | {
-                  line?: number;
-                  column?: never;
-              }
-            | {
-                  line: number;
-                  column?: number; // column requires line
-              },
-    ): Promise<TextEditor | null>;
+    openFile(uri: string, options?: FileLocation): Promise<TextEditor | null>;
     openNewTextDocument(
-        options?:
-            | {
-                  content?: string;
-                  syntax?: string;
-                  line?: number;
-                  column?: never;
-              }
-            | {
-                  content?: string;
-                  syntax?: string;
-                  line: number;
-                  column?: number; // column requires line
-              },
+        options?: {
+            content?: string;
+            syntax?: string;
+        } & FileLocation,
     ): Promise<TextEditor | null>;
     showInformativeMessage(message: string): void;
     showWarningMessage(message: string): void;
