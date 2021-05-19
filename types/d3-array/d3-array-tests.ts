@@ -764,6 +764,20 @@ const rolledups2: Array<[string, Array<[string, number]>]> = d3Array.rollups(obj
 const rolledups3: Array<[string, Array<[string, Array<[string, number]>]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
 const rolledupsAlternate: Array<[string, string]> = d3Array.rollups(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
+// groupSort() -------------------
+
+interface Barley {
+    yield: number;
+    variety: string;
+    year: number;
+    site: string;
+}
+
+declare const barley: Barley[];
+
+const keysAccessor: string[] = d3Array.groupSort(barley, g => d3Array.median(g, d => d.yield), d => d.variety);
+const keysComparator: string[] = d3Array.groupSort(barley, (a, b) => d3Array.ascending(d3Array.median(a, d => d.yield), d3Array.median(b, d => d.yield)), d => d.variety);
+
 // count() -----------------------
 
 let count: number;
