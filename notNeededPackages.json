@@ -496,6 +496,10 @@
             "libraryName": "cloudevents-sdk",
             "asOfVersion": "1.0.0"
         },
+        "codegen.macro": {
+            "libraryName": "codegen.macro",
+            "asOfVersion": "4.1.0"
+        },
         "colors": {
             "libraryName": "colors",
             "asOfVersion": "1.2.1"
