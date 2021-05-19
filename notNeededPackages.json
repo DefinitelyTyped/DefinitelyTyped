@@ -865,6 +865,14 @@
             "libraryName": "egg",
             "asOfVersion": "1.5.0"
         },
+        "egjs__axes": {
+            "libraryName": "@egjs/axes",
+            "asOfVersion": "2.1.1"
+        },
+        "egjs__component": {
+            "libraryName": "@egjs/component",
+            "asOfVersion": "2.1.0"
+        },
         "elastic-apm-node": {
             "libraryName": "elastic-apm-node",
             "asOfVersion": "2.7.0"
