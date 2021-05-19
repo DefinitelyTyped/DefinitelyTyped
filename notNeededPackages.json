@@ -1193,8 +1193,16 @@
             "libraryName": "fast-simplex-noise",
             "asOfVersion": "3.0.0"
         },
+        "fastify-accepts": {
+            "libraryName": "fastify-accepts",
+            "asOfVersion": "1.0.0"
+        },
         "fastify-cors": {
             "libraryName": "fastify-cors",
+            "asOfVersion": "2.1.0"
+        },
+        "fastify-favicon": {
+            "libraryName": "fastify-favicon",
             "asOfVersion": "2.1.0"
         },
         "fastify-jwt": {
@@ -1204,6 +1212,10 @@
         "fastify-multipart": {
             "libraryName": "fastify-multipart",
             "asOfVersion": "0.7.0"
+        },
+        "fastify-rate-limit": {
+            "libraryName": "fastify-rate-limit",
+            "asOfVersion": "2.1.0"
         },
         "fastify-static": {
             "libraryName": "fastify-static",
