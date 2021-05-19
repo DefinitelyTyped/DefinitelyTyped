@@ -841,6 +841,10 @@
             "libraryName": "double-metaphone",
             "asOfVersion": "2.0.0"
         },
+        "dsinjs__binary-tree": {
+            "libraryName": "@dsinjs/binary-tree",
+            "asOfVersion": "2.0.1"
+        },
         "dva": {
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
