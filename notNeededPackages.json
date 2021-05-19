@@ -492,6 +492,10 @@
             "libraryName": "clipboardy",
             "asOfVersion": "2.0.0"
         },
+        "cloud-config-client": {
+            "libraryName": "cloud-config-client",
+            "asOfVersion": "1.5.0"
+        },
         "cloudevents-sdk": {
             "libraryName": "cloudevents-sdk",
             "asOfVersion": "1.0.0"
