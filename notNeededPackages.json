@@ -684,6 +684,10 @@
             "libraryName": "csv-stringify",
             "asOfVersion": "3.1.0"
         },
+        "csvtojson": {
+            "libraryName": "csvtojson",
+            "asOfVersion": "2.0.0"
+        },
         "cucumber": {
             "libraryName": "@cucumber/cucumber",
             "sourceRepoURL": "https://github.com/cucumber/cucumber-js",
