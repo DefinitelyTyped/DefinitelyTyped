@@ -14,7 +14,7 @@ export interface Emitter {
      */
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     /**
@@ -85,7 +85,7 @@ export interface Emitter {
      * through modification of the {@link module:utils/eventinfo~EventInfo#return `evt.return`}'s property (the event info
      * is the first param of every callback).
      */
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     /**
      * Delegates selected events to another {@link module:utils/emittermixin~Emitter}. For instance:
      *

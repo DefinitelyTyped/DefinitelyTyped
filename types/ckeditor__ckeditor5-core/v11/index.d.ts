@@ -85,7 +85,7 @@ export namespace editor {
 
         // Emitter
         delegate(...events: string[]): EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+        fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
         listenTo(
             emitter: Emitter,
             event: string,
@@ -142,7 +142,7 @@ export namespace editor {
 
         // Emitter
         delegate(...events: string[]): EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+        fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
         listenTo(
             emitter: Emitter,
             event: string,
@@ -178,7 +178,7 @@ export class Command<T = undefined> implements Emitter, Observable {
 
     // Emitter
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     listenTo(
         emitter: Emitter,
         event: string,
@@ -253,7 +253,7 @@ export abstract class Plugin<T = void> implements Emitter, Observable {
 
     // Emitter
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     listenTo(
         emitter: Emitter,
         event: string,
