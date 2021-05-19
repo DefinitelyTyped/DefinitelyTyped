@@ -1,11 +1,10 @@
+import { AlignmentConfig } from "@ckeditor/ckeditor5-alignment/src/alignment";
 import { AutosaveConfig } from "@ckeditor/ckeditor5-autosave/src/autosave";
 import { ExportPdfConfig } from "@ckeditor/ckeditor5-export-pdf/src/exportpdf";
 import { ExportWordConfig } from "@ckeditor/ckeditor5-export-word/src/exportword";
 import { WordCountConfig } from "@ckeditor/ckeditor5-word-count/src/wordcount";
 import Plugin from "../plugin";
 
-// TODO: import {Alignment} from "@ckeditor/ckeditor5-alignment/src/alignment"
-type Alignment = any;
 // TODO: import {CKFinderConfig} from "@ckeditor/ckeditor5-ckfinder/src/ckfinder";
 type CKFinderConfig = any;
 // TODO: import {CloudServicesConfig} from "@ckeditor/ckeditor5-cloud-services/src/cloudservices";
@@ -59,7 +58,7 @@ type TypingConfig = any;
 type TextPartLanguageOption = any;
 
 export interface EditorConfig {
-    alignment?: Alignment;
+    alignment?: AlignmentConfig;
     autosave?: AutosaveConfig;
     balloonToolbar?: string[] | { items: string[]; shouldNotGroupWhenFull?: boolean };
     blockToolbar?: string[] | { items: string[]; shouldNotGroupWhenFull?: boolean };
