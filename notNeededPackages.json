@@ -424,6 +424,10 @@
             "libraryName": "@catho/quantum",
             "asOfVersion": "3.9.0"
         },
+        "cbor": {
+            "libraryName": "cbor",
+            "asOfVersion": "6.0.0"
+        },
         "chai-http": {
             "libraryName": "chai-http",
             "asOfVersion": "4.2.0"
