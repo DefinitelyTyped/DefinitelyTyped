@@ -258,7 +258,6 @@ declare namespace mermaidAPI {
 
         class?: any;
         git?: any;
-        
     }
 
     /**
