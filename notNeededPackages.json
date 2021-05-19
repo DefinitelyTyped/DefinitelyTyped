@@ -1201,6 +1201,10 @@
             "libraryName": "fastify-cors",
             "asOfVersion": "2.1.0"
         },
+        "fastify-favicon": {
+            "libraryName": "fastify-favicon",
+            "asOfVersion": "2.1.0"
+        },
         "fastify-jwt": {
             "libraryName": "fastify-jwt",
             "asOfVersion": "0.8.1"
