@@ -1137,6 +1137,10 @@
             "libraryName": "expo",
             "asOfVersion": "33.0.0"
         },
+        "expo__vector-icons": {
+            "libraryName": "@expo/vector-icons",
+            "asOfVersion": "10.0.0"
+        },
         "expo-localization": {
             "libraryName": "expo-localization",
             "asOfVersion": "3.0.0"
