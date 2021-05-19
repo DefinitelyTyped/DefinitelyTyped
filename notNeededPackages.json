@@ -404,6 +404,10 @@
             "libraryName": "camljs",
             "asOfVersion": "2.8.1"
         },
+        "canvaskit-wasm": {
+            "libraryName": "canvaskit-wasm",
+            "asOfVersion": "0.18.1"
+        },
         "card-validator": {
             "libraryName": "card-validator",
             "asOfVersion": "7.0.1"
