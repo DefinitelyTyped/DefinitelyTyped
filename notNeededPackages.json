@@ -628,6 +628,10 @@
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
         },
+        "country-code-lookup": {
+            "libraryName": "country-code-lookup",
+            "asOfVersion": "0.0.19"
+        },
         "country-emoji": {
             "libraryName": "country-emoji",
             "asOfVersion": "1.5.6"
