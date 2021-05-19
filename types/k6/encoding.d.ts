@@ -7,8 +7,24 @@
  * @example
  * encoding.b64decode(str)
  * encoding.b64decode(str, 'rawstd')
+ * const decBuffer = encoding.b64decode(str, 'rawurl')
+ * let decBin = new Uint8Array(decBuffer);
  */
-export function b64decode(input: string | ArrayBuffer, encoding?: Base64Variant): string;
+export function b64decode(input: string, encoding?: Base64Variant): ArrayBuffer;
+
+/**
+ * Base64 decode a string.
+ * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding
+ * @param input - Base64 encoded string or ArrayBuffer object.
+ * @param encoding - Base64 variant.
+ * @returns Decoded string.
+ * @example
+ * encoding.b64decode(str)
+ * encoding.b64decode(str, 'rawstd')
+ * const decBuffer = encoding.b64decode(str, 'rawurl')
+ * let decBin = new Uint8Array(decBuffer);
+ */
+ export function b64decode(input: string, encoding: Base64Variant, format: 's'): string;
 
 /**
  * Base64 encode a string.
@@ -41,8 +57,23 @@ declare namespace encoding {
      * @example
      * encoding.b64decode(str)
      * encoding.b64decode(str, 'rawstd')
+     * const decBuffer = encoding.b64decode(str, 'rawurl')
+     * let decBin = new Uint8Array(decBuffer);
      */
-    function b64decode(input: string | ArrayBuffer, encoding?: Base64Variant): string;
+    function b64decode(input: string, encoding?: Base64Variant): ArrayBuffer;
+    /**
+     * Base64 decode a string.
+     * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding/
+     * @param input - Base64 encoded string or ArrayBuffer object.
+     * @param encoding - Base64 variant.
+     * @returns Decoded string.
+     * @example
+     * encoding.b64decode(str)
+     * encoding.b64decode(str, 'rawstd')
+     * const decBuffer = encoding.b64decode(str, 'rawurl')
+     * let decBin = new Uint8Array(decBuffer);
+     */
+    function b64decode(input: string, encoding: Base64Variant, format: 's'): string;
     /**
      * Base64 decode a string.
      * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding/
