@@ -126,6 +126,12 @@ declare namespace mermaidAPI {
          * default: true
          */
         useMaxWidth?: boolean;
+        
+        /**
+         * This will display arrows that start and begin at the same node as right angles, rather than a curve
+         * Default value: false
+         */
+        rightAngles?: boolean;
     }
 
     interface GanttConfig {
@@ -252,6 +258,7 @@ declare namespace mermaidAPI {
 
         class?: any;
         git?: any;
+        
     }
 
     /**
