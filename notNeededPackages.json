@@ -1229,6 +1229,10 @@
             "libraryName": "feedsub",
             "asOfVersion": "0.7.5"
         },
+        "fetch-jsonp": {
+            "libraryName": "fetch-jsonp",
+            "asOfVersion": "1.1.0"
+        },
         "figures": {
             "libraryName": "figures",
             "asOfVersion": "3.0.0"
