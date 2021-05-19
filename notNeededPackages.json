@@ -905,6 +905,10 @@
             "libraryName": "electron-util",
             "asOfVersion": "0.11.0"
         },
+        "electron-window-state": {
+            "libraryName": "electron-window-state",
+            "asOfVersion": "5.0.0"
+        },
         "electron-winstaller": {
             "libraryName": "electron-winstaller",
             "asOfVersion": "4.0.0"
