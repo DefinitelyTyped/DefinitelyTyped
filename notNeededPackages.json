@@ -356,6 +356,10 @@
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
         },
+        "browser-image-compression": {
+            "libraryName": "browser-image-compression",
+            "asOfVersion": "1.0.7"
+        },
         "browserslist": {
             "libraryName": "browserslist",
             "asOfVersion": "4.15.0"
