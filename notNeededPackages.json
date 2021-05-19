@@ -1165,6 +1165,10 @@
             "libraryName": "express-promise-router",
             "asOfVersion": "3.0.0"
         },
+        "express-urlrewrite": {
+            "libraryName": "express-urlrewrite",
+            "asOfVersion": "1.3.0"
+        },
         "express-validator": {
             "libraryName": "express-validator",
             "asOfVersion": "3.0.0"
