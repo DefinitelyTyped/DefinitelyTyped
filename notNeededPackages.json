@@ -528,6 +528,10 @@
             "libraryName": "confirmdialog",
             "asOfVersion": "1.0.0"
         },
+        "connect-modrewrite": {
+            "libraryName": "connect-modrewrite",
+            "asOfVersion": "0.10.2"
+        },
         "connect-mongo": {
             "libraryName": "connect-mongo",
             "asOfVersion": "3.1.1"
