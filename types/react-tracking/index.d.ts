@@ -62,7 +62,7 @@ export interface Options<T> {
     process?(ownTrackingData: T): T | Falsy;
 }
 
-export interface DecoratorOptions<T> {
+export interface DecoratorOptions<T> extends Options<T> {
     /**
      * When set to `true`, adding a ref to the wrapped component will actually return the instance of the underlying
      * component.
@@ -109,7 +109,7 @@ export function useTracking<P = {}>(trackingData?: Partial<P>, options?: Partial
 export interface Track<T = any, P = any, S = any> {
     <K extends keyof T>(
         trackingInfo?: TrackingInfo<Pick<T, K>, P, S>,
-        options?: Options<Partial<T>> & DecoratorOptions<Partial<T>>,
+        options?: DecoratorOptions<Partial<T>>,
     ): Decorator;
 }
 
