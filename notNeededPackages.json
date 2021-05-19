@@ -3738,6 +3738,10 @@
             "libraryName": "sololearn",
             "asOfVersion": "2.5.0"
         },
+        "soundex-code": {
+            "libraryName": "soundex-code",
+            "asOfVersion": "2.0.0"
+        },
         "source-map": {
             "libraryName": "source-map",
             "asOfVersion": "0.5.7"
