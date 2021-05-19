@@ -528,6 +528,10 @@
             "libraryName": "cloudevents-sdk",
             "asOfVersion": "1.0.0"
         },
+        "cnpj": {
+            "libraryName": "cnpj",
+            "asOfVersion": "3.1.0"
+        },
         "codegen.macro": {
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
