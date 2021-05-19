@@ -376,6 +376,10 @@
             "libraryName": "bunyan-bugsnag",
             "asOfVersion": "3.0.0"
         },
+        "burns": {
+            "libraryName": "burns",
+            "asOfVersion": "2.1.0"
+        },
         "cachefactory": {
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
