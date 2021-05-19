@@ -705,6 +705,10 @@
             "libraryName": "cypress",
             "asOfVersion": "1.1.3"
         },
+        "cypress-axe": {
+            "libraryName": "cypress-axe",
+            "asOfVersion": "0.11.0"
+        },
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
