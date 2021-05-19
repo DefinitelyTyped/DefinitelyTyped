@@ -764,6 +764,20 @@ const rolledups2: Array<[string, Array<[string, number]>]> = d3Array.rollups(obj
 const rolledups3: Array<[string, Array<[string, Array<[string, number]>]>]> = d3Array.rollups(objArray, d => d.length, d => d.name, d => d.date, d => d.amount);
 const rolledupsAlternate: Array<[string, string]> = d3Array.rollups(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
+// groupSort() -------------------
+
+interface Barley {
+    yield: number;
+    variety: string;
+    year: number;
+    site: string;
+}
+
+declare const barley: Barley[];
+
+const keysAccessor: string[] = d3Array.groupSort(barley, g => d3Array.median(g, d => d.yield), d => d.variety);
+const keysComparator: string[] = d3Array.groupSort(barley, (a, b) => d3Array.ascending(d3Array.median(a, d => d.yield), d3Array.median(b, d => d.yield)), d => d.variety);
+
 // count() -----------------------
 
 let count: number;
@@ -943,6 +957,8 @@ const sorted: number[] = d3Array.sort(new Set([0, 2, 3, 1]));
 const sortedComparator: number[] = d3Array.sort(new Set([0, 2, 3, 1]), (a, b) => a - b);
 
 const sortedAccessor: Array<{ value: number }> = d3Array.sort([{ value: 5 }, { value: 3 }], (a) => a.value);
+const points: Array<[number, number]> = [[1, 0], [2, 1], [2, 0], [1, 1], [3, 0]];
+const sortedWithMultipleAccessors: Array<[number, number]> = d3Array.sort(points, ([x]) => x, ([, y]) => y);
 
 // -----------------------------------------------------------------------------
 // Test Sets

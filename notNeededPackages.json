@@ -60,6 +60,10 @@
             "libraryName": "ajv-errors",
             "asOfVersion": "2.0.0"
         },
+        "ajv-keywords": {
+            "libraryName": "ajv-keywords",
+            "asOfVersion": "3.5.0"
+        },
         "algoliasearch": {
             "libraryName": "algoliasearch",
             "asOfVersion": "4.0.0"
@@ -180,6 +184,10 @@
             "libraryName": "asynciterator",
             "asOfVersion": "3.0.0"
         },
+        "atlaskit__button": {
+            "libraryName": "@atlaskit/button",
+            "asOfVersion": "10.0.0"
+        },
         "atlaskit__tree": {
             "libraryName": "@atlaskit/tree",
             "asOfVersion": "7.0.0"
@@ -268,6 +276,10 @@
             "libraryName": "baseui",
             "asOfVersion": "8.0.0"
         },
+        "bech32": {
+            "libraryName": "bech32",
+            "asOfVersion": "1.1.4"
+        },
         "beeper": {
             "libraryName": "beeper",
             "asOfVersion": "2.0.0"
@@ -348,6 +360,10 @@
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
         },
+        "browser-image-compression": {
+            "libraryName": "browser-image-compression",
+            "asOfVersion": "1.0.7"
+        },
         "browserslist": {
             "libraryName": "browserslist",
             "asOfVersion": "4.15.0"
@@ -367,6 +383,10 @@
         "bunyan-bugsnag": {
             "libraryName": "bunyan-bugsnag",
             "asOfVersion": "3.0.0"
+        },
+        "burns": {
+            "libraryName": "burns",
+            "asOfVersion": "2.1.0"
         },
         "cachefactory": {
             "libraryName": "cachefactory",
@@ -396,6 +416,10 @@
             "libraryName": "camljs",
             "asOfVersion": "2.8.1"
         },
+        "canvaskit-wasm": {
+            "libraryName": "canvaskit-wasm",
+            "asOfVersion": "0.18.1"
+        },
         "card-validator": {
             "libraryName": "card-validator",
             "asOfVersion": "7.0.1"
@@ -415,6 +439,10 @@
         "catho__quantum": {
             "libraryName": "@catho/quantum",
             "asOfVersion": "3.9.0"
+        },
+        "cbor": {
+            "libraryName": "cbor",
+            "asOfVersion": "6.0.0"
         },
         "chai-http": {
             "libraryName": "chai-http",
@@ -476,13 +504,25 @@
             "libraryName": "cli-truncate",
             "asOfVersion": "2.0.0"
         },
+        "clipboard": {
+            "libraryName": "clipboard",
+            "asOfVersion": "2.0.7"
+        },
         "clipboardy": {
             "libraryName": "clipboardy",
             "asOfVersion": "2.0.0"
         },
+        "cloud-config-client": {
+            "libraryName": "cloud-config-client",
+            "asOfVersion": "1.5.0"
+        },
         "cloudevents-sdk": {
             "libraryName": "cloudevents-sdk",
             "asOfVersion": "1.0.0"
+        },
+        "codegen.macro": {
+            "libraryName": "codegen.macro",
+            "asOfVersion": "4.1.0"
         },
         "colors": {
             "libraryName": "colors",
@@ -495,6 +535,10 @@
         "comment-json": {
             "libraryName": "comment-json",
             "asOfVersion": "2.4.1"
+        },
+        "commitlint__load": {
+            "libraryName": "@commitlint/load",
+            "asOfVersion": "9.0.0"
         },
         "commons-validator-js": {
             "libraryName": "commons-validator-js",
@@ -520,6 +564,10 @@
             "libraryName": "confirmdialog",
             "asOfVersion": "1.0.0"
         },
+        "connect-modrewrite": {
+            "libraryName": "connect-modrewrite",
+            "asOfVersion": "0.10.2"
+        },
         "connect-mongo": {
             "libraryName": "connect-mongo",
             "asOfVersion": "3.1.1"
@@ -528,9 +576,17 @@
             "libraryName": "consola",
             "asOfVersion": "2.2.5"
         },
+        "console-stamp": {
+            "libraryName": "console-stamp",
+            "asOfVersion": "3.0.0"
+        },
         "constant-case": {
             "libraryName": "constant-case",
             "asOfVersion": "1.1.2"
+        },
+        "contentstack": {
+            "libraryName": "contentstack",
+            "asOfVersion": "3.11.0"
         },
         "convert-hrtime": {
             "libraryName": "convert-hrtime",
@@ -624,6 +680,10 @@
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
         },
+        "country-code-lookup": {
+            "libraryName": "country-code-lookup",
+            "asOfVersion": "0.0.19"
+        },
         "country-emoji": {
             "libraryName": "country-emoji",
             "asOfVersion": "1.5.6"
@@ -680,6 +740,10 @@
             "libraryName": "csv-stringify",
             "asOfVersion": "3.1.0"
         },
+        "csvtojson": {
+            "libraryName": "csvtojson",
+            "asOfVersion": "2.0.0"
+        },
         "cucumber": {
             "libraryName": "@cucumber/cucumber",
             "sourceRepoURL": "https://github.com/cucumber/cucumber-js",
@@ -689,6 +753,10 @@
             "libraryName": "cucumber-html-reporter",
             "asOfVersion": "5.0.1"
         },
+        "cuid": {
+            "libraryName": "cuid",
+            "asOfVersion": "2.0.1"
+        },
         "cycled": {
             "libraryName": "cycled",
             "asOfVersion": "1.1.0"
@@ -696,6 +764,10 @@
         "cypress": {
             "libraryName": "cypress",
             "asOfVersion": "1.1.3"
+        },
+        "cypress-axe": {
+            "libraryName": "cypress-axe",
+            "asOfVersion": "0.11.0"
         },
         "dargs": {
             "libraryName": "dargs",
@@ -712,6 +784,10 @@
         "date-fns": {
             "libraryName": "date-fns",
             "asOfVersion": "2.6.0"
+        },
+        "dayzed": {
+            "libraryName": "dayzed",
+            "asOfVersion": "3.2.0"
         },
         "dd-trace": {
             "libraryName": "dd-trace",
@@ -761,6 +837,10 @@
             "libraryName": "depcheck",
             "asOfVersion": "0.9.1"
         },
+        "dependency-tree": {
+            "libraryName": "dependency-tree",
+            "asOfVersion": "8.1.0"
+        },
         "detect-browser": {
             "libraryName": "detect-browser",
             "asOfVersion": "4.0.0"
@@ -769,9 +849,17 @@
             "libraryName": "detect-indent",
             "asOfVersion": "6.0.0"
         },
+        "detect-it": {
+            "libraryName": "detect-it",
+            "asOfVersion": "4.0.0"
+        },
         "detect-newline": {
             "libraryName": "detect-newline",
             "asOfVersion": "3.0.0"
+        },
+        "detect-passive-events": {
+            "libraryName": "detect-passive-events",
+            "asOfVersion": "2.0.0"
         },
         "devextreme": {
             "libraryName": "devextreme",
@@ -785,9 +873,17 @@
             "libraryName": "dexie",
             "asOfVersion": "1.3.1"
         },
+        "dialog-polyfill": {
+            "libraryName": "dialog-polyfill",
+            "asOfVersion": "0.5.2"
+        },
         "dialogflow": {
             "libraryName": "dialogflow",
             "asOfVersion": "4.0.3"
+        },
+        "dice-coefficient": {
+            "libraryName": "dice-coefficient",
+            "asOfVersion": "2.0.0"
         },
         "diff2html": {
             "libraryName": "diff2html",
@@ -837,6 +933,10 @@
             "libraryName": "double-metaphone",
             "asOfVersion": "2.0.0"
         },
+        "dsinjs__binary-tree": {
+            "libraryName": "@dsinjs/binary-tree",
+            "asOfVersion": "2.0.1"
+        },
         "dva": {
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
@@ -857,9 +957,21 @@
             "libraryName": "ecmarkup",
             "asOfVersion": "3.4.0"
         },
+        "eev": {
+            "libraryName": "eev",
+            "asOfVersion": "0.1.2"
+        },
         "egg": {
             "libraryName": "egg",
             "asOfVersion": "1.5.0"
+        },
+        "egjs__axes": {
+            "libraryName": "@egjs/axes",
+            "asOfVersion": "2.1.1"
+        },
+        "egjs__component": {
+            "libraryName": "@egjs/component",
+            "asOfVersion": "2.1.0"
         },
         "elastic-apm-node": {
             "libraryName": "elastic-apm-node",
@@ -889,6 +1001,10 @@
             "libraryName": "electron-packager",
             "asOfVersion": "15.0.0"
         },
+        "electron-settings": {
+            "libraryName": "electron-settings",
+            "asOfVersion": "4.0.0"
+        },
         "electron-store": {
             "libraryName": "electron-store",
             "asOfVersion": "3.2.0"
@@ -900,6 +1016,10 @@
         "electron-util": {
             "libraryName": "electron-util",
             "asOfVersion": "0.11.0"
+        },
+        "electron-window-state": {
+            "libraryName": "electron-window-state",
+            "asOfVersion": "5.0.0"
         },
         "electron-winstaller": {
             "libraryName": "electron-winstaller",
@@ -936,6 +1056,10 @@
         "ensure-posix-path": {
             "libraryName": "ensure-posix-path",
             "asOfVersion": "1.1.0"
+        },
+        "entities": {
+            "libraryName": "entities",
+            "asOfVersion": "2.0.0"
         },
         "env-editor": {
             "libraryName": "env-editor",
@@ -2027,6 +2151,10 @@
         },
         "leven": {
             "libraryName": "leven",
+            "asOfVersion": "3.0.0"
+        },
+        "levenshtein-edit-distance": {
+            "libraryName": "levenshtein-edit-distance",
             "asOfVersion": "3.0.0"
         },
         "libra-core": {
@@ -3705,6 +3833,10 @@
         "sololearn": {
             "libraryName": "sololearn",
             "asOfVersion": "2.5.0"
+        },
+        "soundex-code": {
+            "libraryName": "soundex-code",
+            "asOfVersion": "2.0.0"
         },
         "source-map": {
             "libraryName": "source-map",

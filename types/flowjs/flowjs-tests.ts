@@ -49,8 +49,8 @@ flowOptions.maxChunkRetries = 0;
 flowOptions.chunkRetryInterval = 0;
 flowOptions.progressCallbacksInterval = 0;
 flowOptions.speedSmoothingFactor = 0;
-flowOptions.successStatuses = [""];
-flowOptions.permanentErrors = [""];
+flowOptions.successStatuses = [200, 201, 202];
+flowOptions.permanentErrors = [404, 415, 500, 501];
 
 // flow file
 flowObject = flowFile.flowObj;

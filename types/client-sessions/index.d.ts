@@ -8,6 +8,14 @@
 
 import * as cookies from "cookies";
 
+interface CookieOptions extends cookies.IOptions {
+/**
+ * a boolean indicating whether the cookie will expire when browser closes or not
+ * (false by default).
+ */
+  ephemeral?: boolean;
+}
+
 declare namespace client_sessions {
   type NextFunction = (err?: Error) => void;
   type RequestHandler = (req: any, res: any, next: NextFunction) => any;
@@ -43,7 +51,7 @@ declare namespace client_sessions {
      */
     requestKey?: string;
 
-    cookie?: cookies.IOptions;
+    cookie?: CookieOptions;
   }
 
   interface DecodeResult {
