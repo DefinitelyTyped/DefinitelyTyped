@@ -508,6 +508,10 @@
             "libraryName": "comment-json",
             "asOfVersion": "2.4.1"
         },
+        "commitlint__load": {
+            "libraryName": "@commitlint/load",
+            "asOfVersion": "9.0.0"
+        },
         "commons-validator-js": {
             "libraryName": "commons-validator-js",
             "asOfVersion": "1.0.1266"
