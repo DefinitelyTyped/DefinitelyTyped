@@ -901,6 +901,10 @@
             "libraryName": "electron-packager",
             "asOfVersion": "15.0.0"
         },
+        "electron-settings": {
+            "libraryName": "electron-settings",
+            "asOfVersion": "4.0.0"
+        },
         "electron-store": {
             "libraryName": "electron-store",
             "asOfVersion": "3.2.0"
