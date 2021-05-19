@@ -1149,6 +1149,10 @@
             "libraryName": "express-graphql",
             "asOfVersion": "0.9.0"
         },
+        "express-mongo-sanitize": {
+            "libraryName": "express-mongo-sanitize",
+            "asOfVersion": "2.1.0"
+        },
         "express-openapi": {
             "libraryName": "express-openapi",
             "asOfVersion": "1.9.0"
