@@ -3992,8 +3992,7 @@ export class Cursor<T = Default> extends Readable {
      * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#close
      */
-    close(): Promise<void>;
-    close(options: { skipKillCursors: boolean }): Promise<void>;
+    close(options?: { skipKillCursors: boolean }): Promise<void>;
     close(options: { skipKillCursors: boolean }, callback?: MongoCallback<number>): void;
     close(callback: MongoCallback<CursorResult>): void;
     /**
