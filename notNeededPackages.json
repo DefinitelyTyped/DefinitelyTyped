@@ -536,6 +536,10 @@
             "libraryName": "constant-case",
             "asOfVersion": "1.1.2"
         },
+        "contentstack": {
+            "libraryName": "contentstack",
+            "asOfVersion": "3.11.0"
+        },
         "convert-hrtime": {
             "libraryName": "convert-hrtime",
             "asOfVersion": "3.0.0"
