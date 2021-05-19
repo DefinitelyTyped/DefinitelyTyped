@@ -909,8 +909,9 @@ export function sort<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => numb
  * Returns an array containing the values in the given iterable in the sorted order defined by the given accessor function.
  * This is equivalent to a comparator using natural order.
  * The accessor is only invoked once per element, and thus may be nondeterministic.
+ * Multiple accessors may be specified to break ties.
  */
-export function sort<T>(iterable: Iterable<T>, accessor: (a: T) => unknown): T[];
+export function sort<T>(iterable: Iterable<T>, ...accessors: Array<(a: T) => unknown>): T[];
 
 // --------------------------------------------------------------------------------------
 // Sets
