@@ -234,7 +234,7 @@ declare module 'azdata' {
          * Register a connection event listener
          * @param listener The connection event listener
          */
-        export function registerConnectionEventListener(listener: connection.ConnectionEventListener): vscode.Disposable;
+        export function registerConnectionEventListener(listener: ConnectionEventListener): vscode.Disposable;
 
         /**
          * Get connection profile by its owner uri
@@ -3303,8 +3303,8 @@ declare module 'azdata' {
          */
         readOnly?: boolean;
         /**
-        * This title will show when hovered over
-        */
+         * This title will show when hovered over
+         */
         title?: string;
     }
 
