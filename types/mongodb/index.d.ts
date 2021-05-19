@@ -3992,7 +3992,7 @@ export class Cursor<T = Default> extends Readable {
      * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#close
      */
-    close(options: { skipKillCursors: boolean }, callback?: MongoCallback<number>): void;
+    close(options?: { skipKillCursors: boolean }, callback?: MongoCallback<number>): void;
     close(callback: MongoCallback<CursorResult>): void;
     /**
      * Set the collation options for the cursor.
