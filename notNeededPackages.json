@@ -693,6 +693,10 @@
             "libraryName": "cucumber-html-reporter",
             "asOfVersion": "5.0.1"
         },
+        "cuid": {
+            "libraryName": "cuid",
+            "asOfVersion": "2.0.1"
+        },
         "cycled": {
             "libraryName": "cycled",
             "asOfVersion": "1.1.0"
