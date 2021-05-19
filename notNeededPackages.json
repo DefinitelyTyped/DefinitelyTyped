@@ -484,6 +484,10 @@
             "libraryName": "cli-truncate",
             "asOfVersion": "2.0.0"
         },
+        "clipboard": {
+            "libraryName": "clipboard",
+            "asOfVersion": "2.0.7"
+        },
         "clipboardy": {
             "libraryName": "clipboardy",
             "asOfVersion": "2.0.0"
