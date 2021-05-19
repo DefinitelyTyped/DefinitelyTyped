@@ -977,6 +977,10 @@
             "libraryName": "egg",
             "asOfVersion": "1.5.0"
         },
+        "egg-mock": {
+            "libraryName": "egg-mock",
+            "asOfVersion": "3.6.0"
+        },
         "egjs__axes": {
             "libraryName": "@egjs/axes",
             "asOfVersion": "2.1.1"
