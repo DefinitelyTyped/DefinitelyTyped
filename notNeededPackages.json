@@ -773,9 +773,17 @@
             "libraryName": "detect-indent",
             "asOfVersion": "6.0.0"
         },
+        "detect-it": {
+            "libraryName": "detect-it",
+            "asOfVersion": "4.0.0"
+        },
         "detect-newline": {
             "libraryName": "detect-newline",
             "asOfVersion": "3.0.0"
+        },
+        "detect-passive-events": {
+            "libraryName": "detect-passive-events",
+            "asOfVersion": "2.0.0"
         },
         "devextreme": {
             "libraryName": "devextreme",
