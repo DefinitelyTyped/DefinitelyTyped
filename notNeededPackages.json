@@ -941,6 +941,10 @@
             "libraryName": "ensure-posix-path",
             "asOfVersion": "1.1.0"
         },
+        "entities": {
+            "libraryName": "entities",
+            "asOfVersion": "2.0.0"
+        },
         "env-editor": {
             "libraryName": "env-editor",
             "asOfVersion": "0.4.0"
