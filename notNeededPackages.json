@@ -188,6 +188,10 @@
             "libraryName": "@atlaskit/button",
             "asOfVersion": "10.0.0"
         },
+        "atlaskit__inline-edit": {
+            "libraryName": "@atlaskit/inline-edit",
+            "asOfVersion": "9.0.0"
+        },
         "atlaskit__tree": {
             "libraryName": "@atlaskit/tree",
             "asOfVersion": "7.0.0"
