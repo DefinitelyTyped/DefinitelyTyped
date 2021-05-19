@@ -861,6 +861,10 @@
             "libraryName": "ecmarkup",
             "asOfVersion": "3.4.0"
         },
+        "eev": {
+            "libraryName": "eev",
+            "asOfVersion": "0.1.2"
+        },
         "egg": {
             "libraryName": "egg",
             "asOfVersion": "1.5.0"
