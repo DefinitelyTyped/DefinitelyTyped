@@ -97,8 +97,6 @@ export const ReactTrackingContext: TrackingContext;
  *
  * @param trackingData represents the data to be tracked (or a function returning that data)
  * @param options Additional options
- *
- * @returns object with
  */
 export function useTracking<P = {}>(trackingData?: Partial<P>, options?: Partial<Options<P>>): TrackingHook<P>;
 
