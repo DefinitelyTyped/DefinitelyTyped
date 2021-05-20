@@ -1409,6 +1409,10 @@
             "libraryName": "geolib",
             "asOfVersion": "2.0.23"
         },
+        "get-caller-file": {
+            "libraryName": "get-caller-file",
+            "asOfVersion": "2.0.2"
+        },
         "get-emails": {
             "libraryName": "get-emails",
             "asOfVersion": "3.0.0"
