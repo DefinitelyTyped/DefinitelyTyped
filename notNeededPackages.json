@@ -1565,6 +1565,10 @@
             "libraryName": "gridstack",
             "asOfVersion": "0.5.2"
         },
+        "gsap": {
+            "libraryName": "gsap",
+            "asOfVersion": "3.0.0"
+        },
         "gulp-pug": {
             "libraryName": "gulp-pug",
             "asOfVersion": "4.0.0"
