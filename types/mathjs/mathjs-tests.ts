@@ -93,6 +93,22 @@ Chaining examples
 }
 
 /*
+Simplify examples
+*/
+{
+    const math = create(all);
+
+    math.simplify("2 * 1 * x ^ (2 - 1)");
+    math.simplify("2 * 3 * x", { x: 4 });
+
+    const f = math.parse("2 * 1 * x ^ (2 - 1)");
+    math.simplify(f);
+
+    math.simplify("0.4 * x", {}, { exactFractions: true });
+    math.simplify("0.4 * x", {}, { exactFractions: false });
+}
+
+/*
 Complex numbers examples
 */
 {
