@@ -1361,6 +1361,10 @@
             "libraryName": "@fluent/react",
             "asOfVersion": "0.12.0"
         },
+        "fluent__sequence": {
+            "libraryName": "@fluent/sequence",
+            "asOfVersion": "0.5.0"
+        },
         "flux-standard-action": {
             "libraryName": "flux-standard-action",
             "asOfVersion": "1.1.0"
