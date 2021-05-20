@@ -1465,6 +1465,10 @@
             "libraryName": "globby",
             "asOfVersion": "9.1.0"
         },
+        "google__markerclustererplus": {
+            "libraryName": "@google/markerclustererplus",
+            "asOfVersion": "3.0.3"
+        },
         "google-cloud__pubsub": {
             "libraryName": "@google-cloud/pubsub",
             "asOfVersion": "0.26.0"
