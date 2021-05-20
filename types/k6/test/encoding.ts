@@ -8,6 +8,8 @@ b64decode('AQID', 5); // $ExpectError
 b64decode('AQID', 'badvariant'); // $ExpectError
 b64decode('AQID', 'url'); // $ExpectType ArrayBuffer
 b64decode('AQID', 'url', 's'); // $ExpectType string
+b64decode('AQID', 'url', 'i'); // $ExpectError
+b64decode('AQID', 'url', null); // $ExpectError
 b64decode('AQID', 'url', 5); // $ExpectError
 
 // b64encode
