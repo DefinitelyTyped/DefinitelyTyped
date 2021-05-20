@@ -369,6 +369,21 @@ numOrUndefined = d3Array.fsum(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.fsum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.fsum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// fcumsum() ----------------------------------------------------------------------
+
+float64Array = d3Array.fcumsum(numbersArray);
+float64Array = d3Array.fcumsum(numericArray);
+float64Array = d3Array.fcumsum(numbersOrUndefinedArray);
+
+float64Array = d3Array.fcumsum(typedArray);
+float64Array = d3Array.fcumsum(readonlyNumbersArray);
+float64Array = d3Array.fcumsum(readonlyNumericArray);
+float64Array = d3Array.fcumsum(readonlyNumbersOrUndefinedArray);
+
+float64Array = d3Array.fcumsum(mixedObjectArray, accessorMixedObjectToNum);
+float64Array = d3Array.fcumsum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+float64Array = d3Array.fcumsum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // Adder() ---------------------------------------------------------------------
 
 const adder = new d3Array.Adder();
