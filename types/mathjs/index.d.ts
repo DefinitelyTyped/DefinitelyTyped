@@ -537,16 +537,12 @@ declare namespace math {
         /**
          * Simplify an expression tree.
          * @param expr The expression to be simplified
-         * @param rules (optional) A list of rules are applied to an expression, repeating
+         * @param [rules] (optional) A list of rules are applied to an expression, repeating
          * over the list until no further changes are made. It’s possible to
          * pass a custom set of rules to the function as second argument. A rule
          * can be specified as an object, string, or function.
-         * @param scope (optional) Scope to variables
-         * @param options (optional) Simplify options object with two knobs:
-         *   - `exactFractions`: a boolean which is `true` by default.
-         *   - `fractionsLimit`: when `exactFractions` is true, a fraction will be returned
-         * only when both numerator and denominator are smaller than `fractionsLimit`.
-         * Default value is 10000.
+         * @param [scope] (optional) Scope to variables
+         * @param {SimplifyOptions} [options] (optional) An object with simplify options
          * @returns Returns the simplified form of expr
          */
         simplify(
@@ -2959,7 +2955,13 @@ declare namespace math {
     }
 
     interface SimplifyOptions {
+        /** A boolean which is `true` by default. */
         exactFractions?: boolean;
+        /**
+         * When `exactFractions` is true, a fraction will be returned only
+         * when both numerator and denominator are smaller than `fractionsLimit`.
+         * Default value is 10000.
+         */
         fractionsLimit?: number;
     }
 
