@@ -6,6 +6,7 @@ import { ExportPdfConfig } from "@ckeditor/ckeditor5-export-pdf/src/exportpdf";
 import { ExportWordConfig } from "@ckeditor/ckeditor5-export-word/src/exportword";
 import { HeadingConfig } from "@ckeditor/ckeditor5-heading/src/heading";
 import { TitleConfig } from "@ckeditor/ckeditor5-heading/src/title";
+import { TypingConfig } from "@ckeditor/ckeditor5-typing/src/typing";
 import { WordCountConfig } from "@ckeditor/ckeditor5-word-count/src/wordcount";
 import ContextPlugin from "../contextplugin";
 import Plugin, { PluginInterface } from "../plugin";
@@ -49,8 +50,6 @@ type SimpleUploadConfig = any;
 type TableConfig = any;
 // TODO: import {TrackChangesConfig} from "@ckeditor/ckeditor5-track-changes/src/trackchanges";
 type TrackChangesConfig = any;
-// TODO: import {TypingConfig} from "@ckeditor/ckeditor5-typing/src/typing";
-type TypingConfig = any;
 // TODO: import {TextPartLanguageOption} from "@ckeditor/ckeditor5-language/src/textpartlanguage";
 type TextPartLanguageOption = any;
 
