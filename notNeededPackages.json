@@ -1389,6 +1389,10 @@
             "libraryName": "fullcalendar",
             "asOfVersion": "3.8.0"
         },
+        "fullname": {
+            "libraryName": "fullname",
+            "asOfVersion": "4.0.0"
+        },
         "fuse": {
             "libraryName": "fuse",
             "asOfVersion": "2.6.0"
