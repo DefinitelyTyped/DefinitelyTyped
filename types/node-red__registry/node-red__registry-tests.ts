@@ -84,7 +84,7 @@ function registryTests() {
                     payload: "payload",
                     topic: "topic"
                 });
-                
+
                 // send messages to a subset of the outputs
 
                 send (
