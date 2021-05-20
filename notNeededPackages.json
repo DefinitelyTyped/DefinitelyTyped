@@ -1661,6 +1661,10 @@
             "libraryName": "hasha",
             "asOfVersion": "4.0.0"
         },
+        "hedron": {
+            "libraryName": "hedron",
+            "asOfVersion": "1.0.1"
+        },
         "helmet": {
             "libraryName": "helmet",
             "asOfVersion": "4.0.0"
