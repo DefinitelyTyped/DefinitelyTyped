@@ -1,7 +1,7 @@
 /**
  * Base64 decode a string.
- * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding
- * @param input - Base64 encoded string or ArrayBuffer object.
+ * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding-format/
+ * @param input - The string to base64 decode.
  * @param encoding - Base64 variant.
  * @returns Decoded string.
  * @example
@@ -14,15 +14,15 @@ export function b64decode(input: string, encoding?: Base64Variant): ArrayBuffer;
 
 /**
  * Base64 decode a string.
- * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding
- * @param input - Base64 encoded string or ArrayBuffer object.
+ * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding-format/
+ * @param input - The string to base64 decode.
  * @param encoding - Base64 variant.
- * @returns Decoded string.
+ * @param format - If 's' return the data as a string, otherwise an ArrayBuffer object .
+ * @returns The base64 decoded version of the input string in either string or ArrayBuffer format, depending on the `format` parameter.
  * @example
  * encoding.b64decode(str)
  * encoding.b64decode(str, 'rawstd')
- * const decBuffer = encoding.b64decode(str, 'rawurl')
- * let decBin = new Uint8Array(decBuffer);
+ * const decodedString = encoding.b64decode(str, 'rawurl', 's')
  */
  export function b64decode(input: string, encoding: Base64Variant, format: 's'): string;
 
@@ -50,8 +50,8 @@ export type Base64Variant = 'std' | 'rawstd' | 'url' | 'rawurl';
 declare namespace encoding {
     /**
      * Base64 decode a string.
-     * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding/
-     * @param input - Base64 encoded string or ArrayBuffer object.
+     * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding-format/
+     * @param input - The string to base64 decode.
      * @param encoding - Base64 variant.
      * @returns Decoded string.
      * @example
@@ -63,15 +63,15 @@ declare namespace encoding {
     function b64decode(input: string, encoding?: Base64Variant): ArrayBuffer;
     /**
      * Base64 decode a string.
-     * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding/
-     * @param input - Base64 encoded string or ArrayBuffer object.
+     * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding-format/
+     * @param input - The string to base64 decode.
      * @param encoding - Base64 variant.
-     * @returns Decoded string.
+     * @param format - If 's' return the data as a string, otherwise an ArrayBuffer object .
+     * @returns The base64 decoded version of the input string in either string or ArrayBuffer format, depending on the `format` parameter.
      * @example
      * encoding.b64decode(str)
      * encoding.b64decode(str, 'rawstd')
-     * const decBuffer = encoding.b64decode(str, 'rawurl')
-     * let decBin = new Uint8Array(decBuffer);
+     * const decodedString = encoding.b64decode(str, 'rawurl', 's')
      */
     function b64decode(input: string, encoding: Base64Variant, format: 's'): string;
     /**
