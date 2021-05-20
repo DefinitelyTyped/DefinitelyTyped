@@ -25,6 +25,8 @@ export { default as LivePosition } from "./src/model/liveposition";
 export { default as Model } from "./src/model/model";
 export { default as TreeWalker } from "./src/model/treewalker";
 export { default as Element } from "./src/model/element";
+export { default as Text } from "./src/model/text";
+export { default as Node } from "./src/model/node";
 
 export { default as DomConverter } from "./src/view/domconverter";
 export { default as ViewDocument } from "./src/view/document";
