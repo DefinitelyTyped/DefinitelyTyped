@@ -127,11 +127,14 @@ interface Trackables {
 const App = track()((props: { foo: string }) => {
     const tracking = useTracking<Trackables>();
 
-    React.useEffect(() =>
+    React.useEffect(() => {
         tracking.trackEvent({
-            page: 'Home - useEffect callback'
-        })
-    );
+            page: 'Home - useEffect callback',
+        });
+        tracking.trackEvent(null);
+        tracking.trackEvent(undefined);
+        tracking.trackEvent(false);
+    });
     return (
         <div
             onClick={() => {
