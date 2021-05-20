@@ -893,8 +893,10 @@ curveGenerator.areaEnd();
 // Test factories --------------------------------------------------------------------
 
 curveFactory = d3Shape.curveBasis;
-curveFactory = d3Shape.curveBasisOpen;
 curveFactory = d3Shape.curveBasisClosed;
+curveFactory = d3Shape.curveBasisOpen;
+curveFactory = d3Shape.curveBumpX;
+curveFactory = d3Shape.curveBumpY;
 
 let curveBundleFactory: d3Shape.CurveBundleFactory;
 
