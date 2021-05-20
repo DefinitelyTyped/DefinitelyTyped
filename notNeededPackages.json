@@ -1349,6 +1349,10 @@
             "libraryName": "flux-standard-action",
             "asOfVersion": "1.1.0"
         },
+        "force-graph": {
+            "libraryName": "force-graph",
+            "asOfVersion": "1.26.0"
+        },
         "forge-di": {
             "libraryName": "forge-di",
             "asOfVersion": "12.0.2"
