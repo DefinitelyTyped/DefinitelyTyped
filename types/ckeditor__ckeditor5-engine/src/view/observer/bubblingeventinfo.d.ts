@@ -8,5 +8,5 @@ export default class BubblingEventInfo extends EventInfo {
     readonly eventPhase: "none" | "capturing" | "atTarget" | "bubbling";
     readonly startRange: Range;
 
-    constructor(source: any, name: string, startRange: Range);
+    constructor(source: Document, name: string, startRange: Range);
 }

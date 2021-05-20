@@ -21,24 +21,24 @@ export default abstract class Plugin implements Emitter, Observable {
     decorate(methodName: string): void;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     destroy?(): void | Promise<any>;
-    fire<T>(eventOrInfo: string | EventInfo<Emitter>, ...args: T[]): T;
+    fire<T>(eventOrInfo: string | EventInfo, ...args: T[]): T;
     forceDisabled(id: string): void;
     init?(): Promise<void> | void;
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: number | PriorityString },
     ): void;
-    off(event: string, callback?: (info: EventInfo<Emitter>, data: DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: number | PriorityString },
     ) => void;
     once(
         event: string,
-        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: number | PriorityString },
     ): void;
     set(name: string, value: unknown): void;
@@ -47,7 +47,7 @@ export default abstract class Plugin implements Emitter, Observable {
     stopListening(
         emitter?: Emitter,
         event?: string,
-        callback?: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        callback?: (info: EventInfo, data: DomEventData) => void,
     ): void;
     unbind(...unbindProperties: string[]): void;
 }

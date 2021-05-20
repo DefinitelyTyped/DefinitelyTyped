@@ -5,7 +5,7 @@ import { PriorityString } from "../priorities";
 
 export interface Emitter extends BaseEmitter {
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     listenTo(
         emitter: Emitter,
         event: string,
@@ -15,7 +15,7 @@ export interface Emitter extends BaseEmitter {
     off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(

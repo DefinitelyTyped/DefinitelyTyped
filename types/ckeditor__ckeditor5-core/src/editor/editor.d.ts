@@ -37,7 +37,7 @@ export default abstract class Editor implements Emitter, Observable {
 
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: engine.DomEventData) => void,
+        callback: (info: EventInfo, data: engine.DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
@@ -57,7 +57,7 @@ export default abstract class Editor implements Emitter, Observable {
         event?: string,
         callback?: (info: EventInfo, data: engine.DomEventData) => void,
     ): void;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 
