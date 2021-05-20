@@ -6,10 +6,11 @@ import Locale from "@ckeditor/ckeditor5-utils/src/locale";
 import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import CommandCollection from "../commandcollection";
+import ContextPlugin from "../contextplugin";
 import EditingKeystrokeHandler from "../editingkeystrokehandler";
 import Plugin, { LoadedPlugins } from "../plugin";
 import PluginCollection from "../plugincollection";
-import { EditorConfig } from "./editorconfig.d";
+import { EditorConfig } from "./editorconfig";
 
 export default abstract class Editor implements Emitter, Observable {
     readonly commands: CommandCollection;
@@ -24,8 +25,8 @@ export default abstract class Editor implements Emitter, Observable {
     readonly plugins: PluginCollection;
     readonly state: "initializing" | "ready" | "destroyed";
 
-    static builtinPlugins: Array<typeof Plugin>;
-    static defaultConfig: Record<string, unknown>;
+    static builtinPlugins: Array<typeof Plugin|typeof ContextPlugin|string>;
+    static defaultConfig?: EditorConfig;
 
     constructor(config?: EditorConfig);
     destroy(): Promise<void>;

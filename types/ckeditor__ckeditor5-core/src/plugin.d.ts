@@ -6,7 +6,7 @@ import { DomEventData } from "@ckeditor/ckeditor5-engine";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import ContextPlugin from "./contextplugin";
 
-export default class Plugin implements Emitter, Observable {
+export default abstract class Plugin implements Emitter, Observable {
     static readonly pluginName?: string;
     static readonly isContextPlugin: boolean;
     static readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string>;
@@ -41,7 +41,6 @@ export default class Plugin implements Emitter, Observable {
         callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
         options?: { priority: number | PriorityString },
     ): void;
-    private _disableStack;
     set(name: string, value: unknown): void;
     set(option: Record<string, string>): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
@@ -63,7 +62,7 @@ export interface PluginInterface {
     };
     readonly pluginName?: string;
     readonly isContextPlugin: boolean;
-    readonly requires?: Array<typeof Plugin>;
+    readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string>;
 }
 
-export type LoadedPlugins = Array<typeof Plugin>;
+export type LoadedPlugins = Array<typeof Plugin|typeof ContextPlugin>;

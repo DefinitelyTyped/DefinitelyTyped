@@ -7,7 +7,8 @@ import { ExportWordConfig } from "@ckeditor/ckeditor5-export-word/src/exportword
 import { HeadingConfig } from "@ckeditor/ckeditor5-heading/src/heading";
 import { TitleConfig } from "@ckeditor/ckeditor5-heading/src/title";
 import { WordCountConfig } from "@ckeditor/ckeditor5-word-count/src/wordcount";
-import Plugin from "../plugin";
+import ContextPlugin from "../contextplugin";
+import Plugin, { PluginInterface } from "../plugin";
 
 // TODO: import {CodeBlockConfig} from "@ckeditor/ckeditor5-code-block/src/codeblock";
 type CodeBlockConfig = any;
@@ -82,14 +83,16 @@ export interface EditorConfig {
     mention?: MentionConfig;
     pagination?: PaginationConfig;
     placeholder?: string;
-    plugins?: Array<string | typeof Plugin>;
-    removePlugins?: Array<string | typeof Plugin>;
+    plugins?: Array<string | PluginInterface>;
+    removePlugins?: Array<string | typeof Plugin | typeof ContextPlugin>;
     restrictedEditing?: RestrictedEditingModeConfig;
     sidebar?: SidebarConfig;
     simpleUpload?: SimpleUploadConfig;
     table?: TableConfig;
     title?: TitleConfig;
-    toolbar?: string[] | { items: string[]; viewportTopOffset?: number; shouldNotGroupWhenFull?: boolean };
+    toolbar?:
+        | string[]
+        | { items?: string[]; viewportTopOffset?: number; shouldNotGroupWhenFull?: boolean; removeItems?: string[] };
     trackChanges?: TrackChangesConfig;
     typing?: TypingConfig;
     wordCount?: WordCountConfig;
