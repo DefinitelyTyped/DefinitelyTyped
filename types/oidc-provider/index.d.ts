@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.2
+// Type definitions for oidc-provider 7.3
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -234,6 +234,8 @@ declare class Session extends BaseModel {
 }
 
 declare class Grant extends BaseModel {
+    constructor(properties?: { clientId?: string; accountId?: string });
+    
     accountId?: string;
     clientId?: string;
     openid?: {
