@@ -1,8 +1,8 @@
+import { DomEventData } from "@ckeditor/ckeditor5-engine";
 import { EmitterMixinDelegateChain } from "../emittermixin";
 import EventInfo from "../eventinfo";
 import { PriorityString } from "../priorities";
 import { Emitter } from "./emittermixin";
-import * as engine from "@ckeditor/ckeditor5-engine";
 
 /**
  * A helper class which instances allow performing custom actions when native DOM elements are resized.
@@ -39,24 +39,20 @@ export default class ResizeObserver implements Emitter {
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(
-        emitter?: Emitter,
-        event?: string,
-        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
-    ): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
 }

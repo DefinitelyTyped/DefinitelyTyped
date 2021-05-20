@@ -26,6 +26,7 @@ export class ArgumentParser extends ArgumentGroup {
 // tslint:disable-next-line:no-unnecessary-class
 export class Namespace {
     constructor(options: object);
+    [key: string]: any;
 }
 
 export class SubParser {

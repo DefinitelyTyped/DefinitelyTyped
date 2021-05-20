@@ -4,8 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import * as engine from "@ckeditor/ckeditor5-engine";
-import * as ckutils from "@ckeditor/ckeditor5-utils";
+import { Conversion, DataController, EditingController, Model } from "@ckeditor/ckeditor5-engine";
+import { KeyEventData } from "@ckeditor/ckeditor5-engine/src/view/observer/keyobserver";
+import { FocusTracker, KeystrokeHandler, Locale } from "@ckeditor/ckeditor5-utils";
+import Config from "@ckeditor/ckeditor5-utils/src/config";
+import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
+import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
+import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 
 // TODO: depends on other libraries
 export interface AlignmentConfig {}
@@ -21,6 +27,10 @@ export interface MediaEmbedConfig {}
 export interface TypingConfig {}
 export interface ComponentFactory {} // CKEditor 5 UI
 export interface EditorUIView {} // CKEditor 5 UI
+
+interface Message extends Observable, Emitter {
+    message: string;
+}
 
 export namespace editor {
     namespace utils {
@@ -49,16 +59,16 @@ export namespace editor {
 
     // core/editor/editor
 
-    class Editor implements ckutils.Emitter, ckutils.Observable {
+    class Editor implements Emitter, Observable {
         readonly commands: CommandCollection;
-        readonly config: ckutils.Config;
-        readonly conversion: engine.conversion.Conversion;
-        readonly data: engine.controller.DataController;
-        readonly editing: engine.controller.EditingController;
+        readonly config: Config;
+        readonly conversion: Conversion;
+        readonly data: DataController;
+        readonly editing: EditingController;
         isReadOnly: boolean;
         readonly keystrokes: EditingKeystrokeHandler;
-        readonly locale: ckutils.Locale;
-        readonly model: engine.model.Model;
+        readonly locale: Locale;
+        readonly model: Model;
         readonly plugins: PluginCollection<Plugin<any>>;
         state: "initializing" | "ready" | "destroyed";
 
@@ -74,22 +84,22 @@ export namespace editor {
         static create(config: object): Promise<any>;
 
         // Emitter
-        delegate(...events: string[]): ckutils.EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | ckutils.EventInfo<ckutils.Emitter>, ...args: any[]): any;
+        delegate(...events: string[]): EmitterMixinDelegateChain;
+        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
         listenTo(
-            emitter: ckutils.Emitter,
+            emitter: Emitter,
             event: string,
             callback: Function,
-            options?: { priority?: ckutils.PriorityString | number },
+            options?: { priority?: PriorityString | number },
         ): void;
         off(event: string, callback?: Function): void;
-        on(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
-        once(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
-        stopDelegating(event?: string, emitter?: ckutils.Emitter): void;
-        stopListening(emitter?: ckutils.Emitter, event?: string, callback?: Function): void;
+        on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+        once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+        stopDelegating(event?: string, emitter?: Emitter): void;
+        stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
 
         // Observable
-        bind(...bindProperties: string[]): ckutils.BindChain;
+        bind(...bindProperties: string[]): BindChain;
         decorate(methodName: string): void;
         set(name: object): void;
         set(name: string, value: any): void;
@@ -120,10 +130,10 @@ export namespace editor {
 
     // core/editor/editorui
 
-    class EditorUI implements ckutils.Emitter {
+    class EditorUI implements Emitter {
         readonly componentFactory: ComponentFactory;
         readonly editor: Editor;
-        readonly focusTracker: ckutils.FocusTracker;
+        readonly focusTracker: FocusTracker;
         readonly view: EditorUIView;
 
         constructor(editor: Editor, view: EditorUIView);
@@ -131,19 +141,19 @@ export namespace editor {
         update(): void;
 
         // Emitter
-        delegate(...events: string[]): ckutils.EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | ckutils.EventInfo<ckutils.Emitter>, ...args: any[]): any;
+        delegate(...events: string[]): EmitterMixinDelegateChain;
+        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
         listenTo(
-            emitter: ckutils.Emitter,
+            emitter: Emitter,
             event: string,
             callback: Function,
-            options?: { priority?: ckutils.PriorityString | number },
+            options?: { priority?: PriorityString | number },
         ): void;
         off(event: string, callback?: Function): void;
-        on(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
-        once(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
-        stopDelegating(event?: string, emitter?: ckutils.Emitter): void;
-        stopListening(emitter?: ckutils.Emitter, event?: string, callback?: Function): void;
+        on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+        once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+        stopDelegating(event?: string, emitter?: Emitter): void;
+        stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
     }
 
     // core/editor/editorwithui
@@ -156,7 +166,7 @@ export namespace editor {
 
 // core/command
 
-export class Command<T = undefined> implements ckutils.Emitter, ckutils.Observable {
+export class Command<T = undefined> implements Emitter, Observable {
     readonly editor: editor.Editor;
     readonly isEnabled: boolean;
     readonly value: T | undefined;
@@ -167,22 +177,22 @@ export class Command<T = undefined> implements ckutils.Emitter, ckutils.Observab
     refresh(): void;
 
     // Emitter
-    delegate(...events: string[]): ckutils.EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | ckutils.EventInfo<ckutils.Emitter>, ...args: any[]): any;
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
     listenTo(
-        emitter: ckutils.Emitter,
+        emitter: Emitter,
         event: string,
         callback: Function,
-        options?: { priority?: ckutils.PriorityString | number },
+        options?: { priority?: PriorityString | number },
     ): void;
     off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
-    once(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
-    stopDelegating(event?: string, emitter?: ckutils.Emitter): void;
-    stopListening(emitter?: ckutils.Emitter, event?: string, callback?: Function): void;
+    on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    stopDelegating(event?: string, emitter?: Emitter): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
 
     // Observable
-    bind(...bindProperties: string[]): ckutils.BindChain;
+    bind(...bindProperties: string[]): BindChain;
     decorate(methodName: string): void;
     set(name: object): void;
     set(name: string, value: any): void;
@@ -204,14 +214,14 @@ export class CommandCollection {
 
 // core/editingkeystrokehandler
 
-export class EditingKeystrokeHandler extends ckutils.KeystrokeHandler {
+export class EditingKeystrokeHandler extends KeystrokeHandler {
     readonly editor: editor.Editor;
 
     constructor(editor: editor.Editor);
     set(
         keystroke: string | Array<string | number>,
-        callback: string | ((keyEvtData: engine.view.observer.KeyEventData, cancel: () => void) => void),
-        options?: { priority: ckutils.PriorityString | number },
+        callback: string | ((keyEvtData: KeyEventData, cancel: () => void) => void),
+        options?: { priority: PriorityString | number },
     ): void;
 }
 
@@ -220,17 +230,17 @@ export class EditingKeystrokeHandler extends ckutils.KeystrokeHandler {
 export class PendingActions extends Plugin {
     static readonly pluginName: "PendingActions";
 
-    first: null | (ckutils.Observable & { message: string });
+    first: null | Message;
     readonly hasAny: boolean;
 
-    [Symbol.iterator](): Iterator<ckutils.Observable & { message: string }>;
-    add(message: string): ckutils.Observable & { message: string };
-    remove(action: ckutils.Observable & { message: string }): void;
+    [Symbol.iterator](): Iterator<Message>;
+    add(message: string): Message;
+    remove(action: Message): void;
 }
 
 // core/plugin
 
-export abstract class Plugin<T = void> implements ckutils.Emitter, ckutils.Observable {
+export abstract class Plugin<T = void> implements Emitter, Observable {
     readonly editor: editor.Editor;
 
     static readonly pluginName?: string;
@@ -242,22 +252,22 @@ export abstract class Plugin<T = void> implements ckutils.Emitter, ckutils.Obser
     init?(): null | Promise<T>;
 
     // Emitter
-    delegate(...events: string[]): ckutils.EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | ckutils.EventInfo<ckutils.Emitter>, ...args: any[]): any;
+    delegate(...events: string[]): EmitterMixinDelegateChain;
+    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
     listenTo(
-        emitter: ckutils.Emitter,
+        emitter: Emitter,
         event: string,
         callback: Function,
-        options?: { priority?: ckutils.PriorityString | number },
+        options?: { priority?: PriorityString | number },
     ): void;
     off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
-    once(event: string, callback: Function, options?: { priority: ckutils.PriorityString | number }): void;
-    stopDelegating(event?: string, emitter?: ckutils.Emitter): void;
-    stopListening(emitter?: ckutils.Emitter, event?: string, callback?: Function): void;
+    on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    stopDelegating(event?: string, emitter?: Emitter): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
 
     // Observable
-    bind(...bindProperties: string[]): ckutils.BindChain;
+    bind(...bindProperties: string[]): BindChain;
     decorate(methodName: string): void;
     set(name: object): void;
     set(name: string, value: any): void;
@@ -282,3 +292,5 @@ export class PluginCollection<P extends Plugin<any>> {
         removePlugins?: Array<string | (new (editor: editor.Editor) => P)>,
     ): Promise<P[]>;
 }
+
+export {};

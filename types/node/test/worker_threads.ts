@@ -108,5 +108,5 @@ import { EventLoopUtilization } from 'perf_hooks';
 
 {
     const worker = new workerThreads.Worker(__filename);
-    const utilization: EventLoopUtilization = worker.performance.eventLoopUtilitzation();
+    const utilization: EventLoopUtilization = worker.performance.eventLoopUtilization();
 }

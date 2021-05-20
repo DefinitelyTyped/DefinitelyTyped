@@ -7,7 +7,7 @@ import {
     addDependencies,
     divideDependencies,
     formatDependencies,
-} from 'mathjs';
+} from "mathjs";
 /*
 Basic usage examples
 */
@@ -20,23 +20,25 @@ Basic usage examples
     math.atan2(3, -3) / math.pi;
     math.log(10000, 10);
     math.sqrt(-4);
-    math.pow([[-1, 2], [3, 1]], 2);
+    math.pow(
+        [
+            [-1, 2],
+            [3, 1],
+        ],
+        2,
+    );
     const angle = 0.2;
     math.add(math.pow(math.sin(angle), 2), math.pow(math.cos(angle), 2));
 
     // expressions
-    math.evaluate('1.2 * (2 + 4.5)');
+    math.evaluate("1.2 * (2 + 4.5)");
 
     // chained operations
-    const a = math
-        .chain(3)
-        .add(4)
-        .multiply(2)
-        .done(); // 14
+    const a = math.chain(3).add(4).multiply(2).done(); // 14
 
     // mixed use of different data types in functions
     math.add(4, [5, 6]); // number + Array, [9, 10]
-    math.multiply(math.unit('5 mm'), 3); // Unit * number,  15 mm
+    math.multiply(math.unit("5 mm"), 3); // Unit * number,  15 mm
     math.subtract([2, 3, 4], 5); // Array - number, [-3, -2, -1]
     math.add(math.matrix([2, 3]), [4, 5]); // Matrix + Array, [6, 8]
 }
@@ -47,7 +49,7 @@ Bignumbers examples
 {
     // configure the default type of numbers as BigNumbers
     const math = create(all, {
-        number: 'BigNumber',
+        number: "BigNumber",
         precision: 20,
     });
 
@@ -62,19 +64,10 @@ Chaining examples
 */
 {
     const math = create(all, {});
-    const a = math
-        .chain(3)
-        .add(4)
-        .multiply(2)
-        .done(); // 14
+    const a = math.chain(3).add(4).multiply(2).done(); // 14
 
     // Another example, calculate square(sin(pi / 4))
-    const b = math
-        .chain(math.pi)
-        .divide(4)
-        .sin()
-        .square()
-        .done();
+    const b = math.chain(math.pi).divide(4).sin().square().done();
 
     // toString will return a string representation of the chain's value
     const chain = math.chain(2).divide(3);
@@ -83,17 +76,13 @@ Chaining examples
     chain.valueOf();
 
     // the function subset can be used to get or replace sub matrices
-    const array = [[1, 2], [3, 4]];
-    const v = math
-        .chain(array)
-        .subset(math.index(1, 0))
-        .done(); // 3
+    const array = [
+        [1, 2],
+        [3, 4],
+    ];
+    const v = math.chain(array).subset(math.index(1, 0)).done(); // 3
 
-    const m = math
-        .chain(array)
-        .subset(math.index(0, 0), 8)
-        .multiply(3)
-        .done();
+    const m = math.chain(array).subset(math.index(0, 0), 8).multiply(3).done();
 
     // filtering
     math.chain([-1, 0, 1.1, 2, 3, 1000])
@@ -110,7 +99,7 @@ Complex numbers examples
     const math = create(all, {});
     const a = math.complex(2, 3);
     // create a complex number by providing a string with real and complex parts
-    const b = math.complex('3 - 7i');
+    const b = math.complex("3 - 7i");
 
     // read the real and complex parts of the complex number
     {
@@ -152,17 +141,17 @@ Expressions examples
     const math = create(all, {});
     // evaluate expressions
     {
-        math.evaluate('sqrt(3^2 + 4^2)');
+        math.evaluate("sqrt(3^2 + 4^2)");
     }
 
     // evaluate multiple expressions at once
     {
-        math.evaluate(['f = 3', 'g = 4', 'f * g']);
+        math.evaluate(["f = 3", "g = 4", "f * g"]);
     }
 
     // get content of a parenthesis node
     {
-        const node = math.parse('(1)');
+        const node = math.parse("(1)");
         const innerNode = node.content;
     }
 
@@ -178,13 +167,13 @@ Expressions examples
             a: 3,
             b: 4,
         };
-        const f = math.evaluate('f(x) = x ^ a', scope);
+        const f = math.evaluate("f(x) = x ^ a", scope);
         f(2);
         scope.f(2);
     }
 
     {
-        const node2 = math.parse('x^a');
+        const node2 = math.parse("x^a");
         const code2: math.EvalFunction = node2.compile();
         node2.toString();
     }
@@ -193,7 +182,7 @@ Expressions examples
     // parse an expression
     {
         // provide a scope for the variable assignment
-        const code2 = math.compile('a = a + 3');
+        const code2 = math.compile("a = a + 3");
         const scope = { a: 7 };
         code2.evaluate(scope);
     }
@@ -202,18 +191,18 @@ Expressions examples
 
     // get and set variables and functions
     {
-        parser.evaluate('x = 7 / 2'); // 3.5
-        parser.evaluate('x + 3'); // 6.5
-        parser.evaluate('f(x, y) = x^y'); // f(x, y)
-        parser.evaluate('f(2, 3)'); // 8
+        parser.evaluate("x = 7 / 2"); // 3.5
+        parser.evaluate("x + 3"); // 6.5
+        parser.evaluate("f(x, y) = x^y"); // f(x, y)
+        parser.evaluate("f(2, 3)"); // 8
 
-        const x = parser.get('x');
-        const f = parser.get('f');
+        const x = parser.get("x");
+        const f = parser.get("f");
         const y = parser.getAll();
         const g = f(3, 3);
 
-        parser.set('h', 500);
-        parser.set('hello', (name: string) => `hello, ${name}!`);
+        parser.set("h", 500);
+        parser.set("hello", (name: string) => `hello, ${name}!`);
     }
 
     // clear defined functions and variables
@@ -226,18 +215,18 @@ Fractions examples
 {
     // configure the default type of numbers as Fractions
     const math = create(all, {
-        number: 'Fraction',
+        number: "Fraction",
     });
 
     const x = math.fraction(0.125);
-    const y = math.fraction('1/3');
+    const y = math.fraction("1/3");
     math.fraction(2, 3);
 
     math.add(x, y);
     math.divide(x, y);
 
     // output formatting
-    const a = math.fraction('2/3');
+    const a = math.fraction("2/3");
 }
 
 /*
@@ -264,8 +253,14 @@ Matrices examples
 
     // create and manipulate matrices. Arrays and Matrices can be used mixed.
     {
-        const a = [[1, 2], [3, 4]];
-        const b: math.Matrix = math.matrix([[5, 6], [1, 1]]);
+        const a = [
+            [1, 2],
+            [3, 4],
+        ];
+        const b: math.Matrix = math.matrix([
+            [5, 6],
+            [1, 1],
+        ]);
 
         b.subset(math.index(1, [0, 1]), [[7, 8]]);
         const c = math.multiply(a, b);
@@ -300,23 +295,23 @@ Matrices examples
     {
         math.range(1, 6);
         math.range(0, 18, 3);
-        math.range('2:-1:-3');
-        math.factorial(math.range('1:6'));
+        math.range("2:-1:-3");
+        math.factorial(math.range("1:6"));
     }
 
     // map matrix
     {
-        math.map([1, 2, 3], function(value) {
+        math.map([1, 2, 3], value => {
             return value * value;
         }); // returns [1, 4, 9]
     }
 
     // filter matrix
     {
-        math.filter([6, -2, -1, 4, 3], function(x) {
+        math.filter([6, -2, -1, 4, 3], x => {
             return x > 0;
         }); // returns [6, 4, 3]
-        math.filter(['23', 'foo', '100', '55', 'bar'], /[0-9]+/); // returns ["23", "100", "55"]
+        math.filter(["23", "foo", "100", "55", "bar"], /[0-9]+/); // returns ["23", "100", "55"]
     }
 
     // concat matrix
@@ -333,7 +328,7 @@ Sparse matrices examples
     const math = create(all, {});
 
     // create a sparse matrix
-    const a = math.identity(1000, 1000, 'sparse');
+    const a = math.identity(1000, 1000, "sparse");
 
     // do operations with a sparse matrix
     const b = math.multiply(a, a);
@@ -351,65 +346,65 @@ Units examples
 
     // units can be created by providing a value and unit name, or by providing
     // a string with a valued unit.
-    const a = math.unit(45, 'cm'); // 450 mm
-    const b = math.unit('0.1m'); // 100 mm
+    const a = math.unit(45, "cm"); // 450 mm
+    const b = math.unit("0.1m"); // 100 mm
 
     // creating units
-    math.createUnit('foo');
-    math.createUnit('furlong', '220 yards');
-    math.createUnit('furlong', '220 yards', { override: true });
-    math.createUnit('testunit', { definition: '0.555556 kelvin', offset: 459.67 });
-    math.createUnit('testunit', { definition: '0.555556 kelvin', offset: 459.67 }, { override: true });
-    math.createUnit('knot', { definition: '0.514444 m/s', aliases: ['knots', 'kt', 'kts'] });
-    math.createUnit('knot', { definition: '0.514444 m/s', aliases: ['knots', 'kt', 'kts'] }, { override: true });
+    math.createUnit("foo");
+    math.createUnit("furlong", "220 yards");
+    math.createUnit("furlong", "220 yards", { override: true });
+    math.createUnit("testunit", { definition: "0.555556 kelvin", offset: 459.67 });
+    math.createUnit("testunit", { definition: "0.555556 kelvin", offset: 459.67 }, { override: true });
+    math.createUnit("knot", { definition: "0.514444 m/s", aliases: ["knots", "kt", "kts"] });
+    math.createUnit("knot", { definition: "0.514444 m/s", aliases: ["knots", "kt", "kts"] }, { override: true });
     math.createUnit(
-        'knot',
+        "knot",
         {
-            definition: '0.514444 m/s',
-            aliases: ['knots', 'kt', 'kts'],
-            prefixes: 'long',
+            definition: "0.514444 m/s",
+            aliases: ["knots", "kt", "kts"],
+            prefixes: "long",
         },
-        { override: true }
+        { override: true },
     );
     math.createUnit(
         {
             foo_2: {
-                prefixes: 'long',
+                prefixes: "long",
             },
-            bar: '40 foo',
+            bar: "40 foo",
             baz: {
-                definition: '1 bar/hour',
-                prefixes: 'long',
+                definition: "1 bar/hour",
+                prefixes: "long",
             },
         },
         {
             override: true,
-        }
+        },
     );
     // use Unit as definition
-    math.createUnit('c', { definition: b });
-    math.createUnit('c', { definition: b }, { override: true });
+    math.createUnit("c", { definition: b });
+    math.createUnit("c", { definition: b }, { override: true });
 
     // units can be added, subtracted, and multiplied or divided by numbers and by other units
     math.add(a, b);
     math.multiply(b, 2);
-    math.divide(math.unit('1 m'), math.unit('1 s'));
-    math.pow(math.unit('12 in'), 3);
+    math.divide(math.unit("1 m"), math.unit("1 s"));
+    math.pow(math.unit("12 in"), 3);
 
     // units can be converted to a specific type, or to a number
-    b.to('cm');
-    math.to(b, 'inch');
-    b.toNumber('cm');
-    math.number(b, 'cm');
+    b.to("cm");
+    math.to(b, "inch");
+    b.toNumber("cm");
+    math.number(b, "cm");
 
     // the expression parser supports units too
-    math.evaluate('2 inch to cm');
+    math.evaluate("2 inch to cm");
 
     // units can be converted to SI
-    math.unit('1 inch').toSI();
+    math.unit("1 inch").toSI();
 
     // units can be split into other units
-    math.unit('1 m').splitUnit(['ft', 'in']);
+    math.unit("1 m").splitUnit(["ft", "in"]);
 }
 
 /*
@@ -419,23 +414,23 @@ Expression tree examples
     const math = create(all, {});
 
     // Filter an expression tree
-    const node: math.MathNode = math.parse('x^2 + x/4 + 3*y');
-    const filtered: math.MathNode[] = node.filter((node: math.MathNode) => node.isSymbolNode && node.name === 'x');
+    const node: math.MathNode = math.parse("x^2 + x/4 + 3*y");
+    const filtered: math.MathNode[] = node.filter((node: math.MathNode) => node.isSymbolNode && node.name === "x");
 
     const arr: string[] = filtered.map((node: math.MathNode) => node.toString());
 
     // Traverse an expression tree
-    const node1: math.MathNode = math.parse('3 * x + 2');
+    const node1: math.MathNode = math.parse("3 * x + 2");
     node1.traverse((node: math.MathNode, path: string, parent: math.MathNode) => {
         switch (node.type) {
-            case 'OperatorNode':
-                return node.type === 'OperatorNode';
-            case 'ConstantNode':
-                return node.type === 'ConstantNode';
-            case 'SymbolNode':
-                return node.type === 'SymbolNode';
+            case "OperatorNode":
+                return node.type === "OperatorNode";
+            case "ConstantNode":
+                return node.type === "ConstantNode";
+            case "SymbolNode":
+                return node.type === "SymbolNode";
             default:
-                return node.type === 'any string at all';
+                return node.type === "any string at all";
         }
     });
 }
@@ -447,18 +442,18 @@ JSON serialization/deserialization
     const math = create(all, {});
 
     const data = {
-        bigNumber: math.bignumber('1.5'),
+        bigNumber: math.bignumber("1.5"),
     };
     const stringified = JSON.stringify(data);
     const parsed = JSON.parse(stringified, math.json.reviver);
-    parsed.bigNumber === math.bignumber('1.5'); // true
+    parsed.bigNumber === math.bignumber("1.5"); // true
 }
 
 /*
 Extend functionality with import
  */
 
-declare module 'mathjs' {
+declare module "mathjs" {
     interface MathJsStatic {
         testFun(): number;
         value: number;
@@ -474,7 +469,7 @@ declare module 'mathjs' {
             testFun,
             value: 10,
         },
-        {}
+        {},
     );
 
     math.testFun();
@@ -489,18 +484,12 @@ Renamed functions from v5 => v6
     const math = create(all, {});
     math.typeOf(1);
     math.variance([1, 2, 3, 4]);
-    math.evaluate('1 + 2');
+    math.evaluate("1 + 2");
 
     // chained operations
-    math.chain(3)
-        .typeOf()
-        .done();
-    math.chain([1, 2, 3])
-        .variance()
-        .done();
-    math.chain('1 + 2')
-        .evaluate()
-        .done();
+    math.chain(3).typeOf().done();
+    math.chain([1, 2, 3]).variance().done();
+    math.chain("1 + 2").evaluate().done();
 }
 
 /*
@@ -508,8 +497,8 @@ Factory Test
  */
 {
     // create a factory function
-    const name = 'negativeSquare';
-    const dependencies: MathJsFunctionName[] = ['multiply', 'unaryMinus'];
+    const name = "negativeSquare";
+    const dependencies: MathJsFunctionName[] = ["multiply", "unaryMinus"];
     const createNegativeSquare = factory(name, dependencies, injected => {
         const { multiply, unaryMinus } = injected;
         return function negativeSquare(x: number): number {
@@ -541,7 +530,7 @@ Factory Test
             divideDependencies,
             formatDependencies,
         },
-        config
+        config,
     );
 
     // Use the created functions
@@ -549,6 +538,22 @@ Factory Test
     const b = fraction(3, 7);
     const c = add(a, b);
     const d = divide(a, b);
-    console.log('c =', format(c)); // outputs "c = 16/21"
-    console.log('d =', format(d)); // outputs "d = 7/9"
+    console.log("c =", format(c)); // outputs "c = 16/21"
+    console.log("d =", format(d)); // outputs "d = 7/9"
+}
+
+/**
+ * Custom parsing functions
+ * https://mathjs.org/docs/expressions/customization.html#customize-supported-characters
+ */
+{
+    const math = create(all, {});
+    const isAlphaOriginal = math.parse.isAlpha;
+    math.parse.isAlpha = (c, cPrev, cNext) => {
+        return isAlphaOriginal(c, cPrev, cNext) || c === "\u260E";
+    };
+
+    // now we can use the \u260E (phone) character in expressions
+    const result = math.evaluate("\u260Efoo", { "\u260Efoo": 42 }); // returns 42
+    console.log(result);
 }

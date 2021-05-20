@@ -2,7 +2,7 @@ import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/sr
 import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import Editor from "./editor/editor";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import { view } from "@ckeditor/ckeditor5-engine";
+import { DomEventData } from "@ckeditor/ckeditor5-engine";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import ContextPlugin from "./contextplugin";
 
@@ -27,18 +27,18 @@ export default class Plugin implements Emitter, Observable {
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo<Emitter>, data: view.observer.DomEventData) => void,
+        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
         options?: { priority?: number | PriorityString },
     ): void;
-    off(event: string, callback?: (info: EventInfo<Emitter>, data: view.observer.DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo<Emitter>, data: DomEventData) => void): void;
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: view.observer.DomEventData) => void,
+        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
         options?: { priority: number | PriorityString },
     ) => void;
     once(
         event: string,
-        callback: (info: EventInfo<Emitter>, data: view.observer.DomEventData) => void,
+        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
         options?: { priority: number | PriorityString },
     ): void;
     private _disableStack;
@@ -48,7 +48,7 @@ export default class Plugin implements Emitter, Observable {
     stopListening(
         emitter?: Emitter,
         event?: string,
-        callback?: (info: EventInfo<Emitter>, data: view.observer.DomEventData) => void,
+        callback?: (info: EventInfo<Emitter>, data: DomEventData) => void,
     ): void;
     unbind(...unbindProperties: string[]): void;
 }

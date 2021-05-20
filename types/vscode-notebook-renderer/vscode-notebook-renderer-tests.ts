@@ -1,37 +1,44 @@
-import { NotebookRendererApi } from 'vscode-notebook-renderer';
+import { ActivationFunction } from "vscode-notebook-renderer";
 
-const notebookApi: NotebookRendererApi<{ cool: boolean }> = acquireNotebookRendererApi();
+const activate: ActivationFunction<{ cool: boolean }> = context => {
+    const prevState = context.getState();
 
-const prevState = notebookApi.getState();
+    // $ExpectError
+    prevState.cool;
 
-// $ExpectError
-prevState.cool;
+    if (prevState) {
+        console.log("cool?", prevState.cool);
+    }
 
-if (prevState) {
-    console.log('cool?', prevState.cool);
-}
+    context.setState({ cool: true });
 
-notebookApi.setState({ cool: true });
+    // $ExpectError
+    context.setState({ unknownProp: true });
 
-const listener = notebookApi.onDidCreateOutput(({ element, outputId, value, mime }) => {
-    // $ExpectType string
-    outputId;
-    // $ExpectType HTMLElement
-    element;
-    // $ExpectType string
-    mime;
+    return {
+        renderCell(outputId, { value, mime, metadata, element }) {
+            // $ExpectType string
+            outputId;
+            // $ExpectType HTMLElement
+            element;
+            // $ExpectType string
+            mime;
+            // $ExpectType unknown
+            metadata;
+            // $ExpectType unknown
+            value;
+        },
 
-    console.log('my render data is', value);
-});
+        destroyCell(outputId) {
+            // $ExpectType string | undefined
+            outputId;
+        },
 
-listener.dispose();
+        otherProp: () => {},
+    };
+};
 
-notebookApi.onWillDestroyOutput(evt => {
-    // $ExpectType { outputId: string; } | undefined
-    evt;
-});
-
-import 'vscode-notebook-renderer/preload';
+import "vscode-notebook-renderer/preload";
 
 onDidReceiveKernelMessage(msg => {
     // $ExpectType any
