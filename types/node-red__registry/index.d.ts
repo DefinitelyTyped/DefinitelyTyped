@@ -200,7 +200,7 @@ declare namespace registry {
          * Send a message to the nodes wired.
          * @param msg A message or array of messages to send
          */
-        send(msg?: NodeMessage | (NodeMessage | undefined | null)[]): void;
+        send(msg?: NodeMessage | Array<NodeMessage | undefined | null>): void;
         /**
          * Receive a message.
          *
