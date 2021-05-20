@@ -1393,6 +1393,10 @@
             "libraryName": "fuse",
             "asOfVersion": "2.6.0"
         },
+        "fusioncharts": {
+            "libraryName": "fusioncharts",
+            "asOfVersion": "3.12.2"
+        },
         "gaea-model": {
             "libraryName": "gaea-model",
             "asOfVersion": "0.0.0"
