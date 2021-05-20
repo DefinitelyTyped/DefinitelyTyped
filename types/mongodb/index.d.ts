@@ -4309,7 +4309,7 @@ export class AggregationCursor<T = Default> extends Cursor<T> {
      * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#close
      */
-    close(): Promise<AggregationCursorResult>;
+    close(): Promise<void>;
     close(callback: MongoCallback<AggregationCursorResult>): void;
     /**
      * Iterates over all the documents for this cursor. As with `cursor.toArray()`,
