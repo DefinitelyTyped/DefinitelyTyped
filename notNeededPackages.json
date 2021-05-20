@@ -1861,6 +1861,10 @@
             "libraryName": "is-absolute-url",
             "asOfVersion": "3.0.0"
         },
+        "is-alphanumerical": {
+            "libraryName": "is-alphanumerical",
+            "asOfVersion": "2.0.0"
+        },
         "is-archive": {
             "libraryName": "is-archive",
             "asOfVersion": "2.0.0"
