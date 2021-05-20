@@ -3399,6 +3399,8 @@ export interface FindOneAndReplaceOption<T> extends CommonOptions {
     sort?: SortOptionObject<T>;
     maxTimeMS?: number;
     upsert?: boolean;
+    returnDocument?: 'after' | 'before';
+    /** @deprecated Use returnDocument */
     returnOriginal?: boolean;
     collation?: CollationDocument;
 }
