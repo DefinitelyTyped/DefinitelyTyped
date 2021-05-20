@@ -1349,6 +1349,10 @@
             "libraryName": "@fluent/bundle",
             "asOfVersion": "0.15.0"
         },
+        "fluent__dedent": {
+            "libraryName": "@fluent/dedent",
+            "asOfVersion": "0.2.0"
+        },
         "flux-standard-action": {
             "libraryName": "flux-standard-action",
             "asOfVersion": "1.1.0"
