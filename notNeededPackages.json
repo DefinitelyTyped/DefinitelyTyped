@@ -1697,6 +1697,10 @@
             "libraryName": "html-tags",
             "asOfVersion": "3.0.0"
         },
+        "html-void-elements": {
+            "libraryName": "html-void-elements",
+            "asOfVersion": "2.0.0"
+        },
         "html-webpack-tags-plugin": {
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
