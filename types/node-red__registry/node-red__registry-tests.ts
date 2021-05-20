@@ -93,8 +93,7 @@ function registryTests() {
                             payload: "payload",
                             topic: "topic"
                         },
-                        null,
-                        undefined,
+                        null
                     ]
                 );
 
