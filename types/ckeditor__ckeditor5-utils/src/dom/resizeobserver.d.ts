@@ -1,3 +1,4 @@
+import { DomEventData } from "@ckeditor/ckeditor5-engine";
 import { EmitterMixinDelegateChain } from "../emittermixin";
 import EventInfo from "../eventinfo";
 import { PriorityString } from "../priorities";
@@ -38,12 +39,20 @@ export default class ResizeObserver implements Emitter {
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: Function,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
-    off(event: string, callback?: Function): void;
-    on: (event: string, callback: Function, options?: { priority: PriorityString | number }) => void;
-    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
+    on: (
+        event: string,
+        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        options?: { priority: PriorityString | number },
+    ) => void;
+    once(
+        event: string,
+        callback: (info: EventInfo, data: DomEventData) => void,
+        options?: { priority: PriorityString | number },
+    ): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
 }

@@ -5,7 +5,7 @@
 // TypeScript Version: 3.0
 
 /// <reference types="angular" />
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 
 declare module "ngmap" {
     let _: string;

@@ -77,6 +77,8 @@ redis.sinter('keya', 'keyb').then(console.log);
 redis.sinter('keya', 'keyb', cb);
 redis.sunion('keya', 'keyb').then(console.log);
 redis.sunion('keya', 'keyb', cb);
+redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '6', '7', '8', cb);
+redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '6', '7', '8').then(console.log);
 
 // Test list index command
 redis.rpush('lposlist', 'foo', 'bar', 'baz');

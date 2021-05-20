@@ -1,6 +1,6 @@
+import DomEventData from "@ckeditor/ckeditor5-engine/src/view/observer/domeventdata";
 import EventInfo from "./eventinfo";
 import { PriorityString } from "./priorities";
-import * as engine from "@ckeditor/ckeditor5-engine";
 
 export interface Emitter {
     /**
@@ -14,7 +14,7 @@ export interface Emitter {
      */
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     /**
@@ -26,7 +26,7 @@ export interface Emitter {
      */
     once(
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ): void;
     /**
@@ -34,7 +34,7 @@ export interface Emitter {
      * Shorthand for {@link #stopListening `this.stopListening( this, event, callback )`}.
      *
      */
-    off(event: string, callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     /**
      * Registers a callback function to be executed when an event is fired in a specific (emitter) object.
      *
@@ -61,7 +61,7 @@ export interface Emitter {
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
     /**
@@ -75,11 +75,7 @@ export interface Emitter {
      * for all events from `emitter`.
      * `event`.
      */
-    stopListening(
-        emitter?: Emitter,
-        event?: string,
-        callback?: (info: EventInfo, data: engine.view.observer.DomEventData) => void,
-    ): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     /**
      * Fires an event, executing all callbacks registered for it.
      *

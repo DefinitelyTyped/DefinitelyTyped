@@ -22,6 +22,14 @@ function staticPropertiesTests() {
     Big.DP = 40;
     Big.RM = 3;
     Big.RM = RoundingMode.RoundUp;
+    Big.RM = Big.roundUp;
+}
+
+function staticReadonlyPropertiesTests() {
+    Big.roundDown; // 0
+    Big.roundHalfUp; // 1
+    Big.roundHalfEven; // 2
+    Big.roundUp; // 3
 }
 
 function absTests() {

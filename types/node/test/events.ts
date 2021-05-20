@@ -140,3 +140,9 @@ async function test() {
     target.addEventListener('foo', handler3);
     target.addEventListener('foo', handler4, { once: true });
 }
+
+{
+    let fns: Function[] = events.getEventListener(new EventTarget(), 'test');
+    fns = events.getEventListener(new events.EventEmitter(), Symbol('woot'));
+    fns = events.getEventListener(new EventTarget(), 'test');
+}

@@ -1,4 +1,4 @@
-// Type definitions for pg 7.14
+// Type definitions for pg 8.6
 // Project: http://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -294,3 +294,5 @@ export const defaults: Defaults & ClientConfig;
 import * as Pg from '.';
 
 export const native: typeof Pg | null;
+
+export { DatabaseError } from 'pg-protocol';

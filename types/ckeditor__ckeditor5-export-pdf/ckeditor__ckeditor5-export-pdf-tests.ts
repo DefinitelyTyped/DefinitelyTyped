@@ -6,7 +6,12 @@ class MyEditor extends Editor {}
 
 const bool: boolean = ExportPdf.isContextPlugin;
 const plugin = new ExportPdf(new MyEditor());
-plugin.destroy?.()?.then(() => {});
+if (plugin.destroy) {
+    const destroyPromise = plugin.destroy();
+    if (destroyPromise instanceof Promise) {
+        destroyPromise.then(() => {});
+    }
+}
 
 let config: ExportPdfConfig = {};
 config = {

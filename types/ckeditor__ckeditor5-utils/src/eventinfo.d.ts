@@ -35,4 +35,20 @@ export default class EventInfo<S extends object = {}, N extends string = ""> {
         (): void;
         called: boolean;
     };
+
+    /**
+     * The value which will be returned by {@link module:utils/emittermixin~EmitterMixin#fire}.
+     *
+     * It's `undefined` by default and can be changed by an event listener:
+     *
+     *    dataController.fire( 'getSelectedContent', ( evt ) => {
+     *      // This listener will make `dataController.fire( 'getSelectedContent' )`
+     *      // always return an empty DocumentFragment.
+     *      evt.return = new DocumentFragment();
+     *
+     *      // Make sure no other listeners are executed.
+     *      evt.stop();
+     *    } );
+     */
+    return?: unknown;
 }
