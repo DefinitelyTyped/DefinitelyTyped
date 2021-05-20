@@ -228,6 +228,12 @@ declare namespace run {
         require_valid_protocol?: boolean;
     }
 
+    interface CustomMetaTag {
+        multiple?: boolean;
+        property: string;
+        fieldName: string;
+    }
+
     interface Options {
         /** By default, OGS will only send back the first image/video it finds (default: `false`). */
         allMedia?: boolean;
@@ -262,6 +268,8 @@ declare namespace run {
         url: string;
         /** Sets the options used by `validator.js` for testing the URL. */
         urlValidatorSettings?: URLValidatorSettings;
+        /** Add custom meta tags if there are no what you want in open graph properties type */
+        customMetaTags?: CustomMetaTag[];
     }
 }
 
