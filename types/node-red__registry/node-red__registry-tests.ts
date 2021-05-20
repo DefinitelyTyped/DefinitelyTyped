@@ -88,12 +88,14 @@ function registryTests() {
                 // send messages to a subset of the outputs
 
                 send (
-                    {
-                        payload: "payload",
-                        topic: "topic"
-                    },
-                    null,
-                    undefined,
+                    [
+                        {
+                            payload: "payload",
+                            topic: "topic"
+                        },
+                        null,
+                        undefined,
+                    ]
                 );
 
                 done();
