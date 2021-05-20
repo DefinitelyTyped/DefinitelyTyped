@@ -1353,6 +1353,10 @@
             "libraryName": "@fluent/dedent",
             "asOfVersion": "0.2.0"
         },
+        "fluent__langneg": {
+            "libraryName": "@fluent/langneg",
+            "asOfVersion": "0.4.0"
+        },
         "flux-standard-action": {
             "libraryName": "flux-standard-action",
             "asOfVersion": "1.1.0"
