@@ -1357,6 +1357,10 @@
             "libraryName": "@fluent/langneg",
             "asOfVersion": "0.4.0"
         },
+        "fluent__react": {
+            "libraryName": "@fluent/react",
+            "asOfVersion": "0.12.0"
+        },
         "flux-standard-action": {
             "libraryName": "flux-standard-action",
             "asOfVersion": "1.1.0"
