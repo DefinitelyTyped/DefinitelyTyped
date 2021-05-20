@@ -1,4 +1,4 @@
-// Type definitions for hex2dec 2.0
+// Type definitions for hex2dec 1.1.2
 // Project: https://github.com/donmccurdy/hex2dec#readme
 // Definitions by: Adriaan Knapen <https://github.com/Addono>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
