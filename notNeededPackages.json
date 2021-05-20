@@ -1797,6 +1797,10 @@
             "libraryName": "interactjs",
             "asOfVersion": "1.3.0"
         },
+        "interface-datastore": {
+            "libraryName": "interface-datastore",
+            "asOfVersion": "3.0.0"
+        },
         "internal-ip": {
             "libraryName": "internal-ip",
             "asOfVersion": "4.1.0"
