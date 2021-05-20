@@ -542,7 +542,7 @@ declare namespace math {
          * pass a custom set of rules to the function as second argument. A rule
          * can be specified as an object, string, or function.
          * @param [scope] (optional) Scope to variables
-         * @param {SimplifyOptions} [options] (optional) An object with simplify options
+         * @param [options] (optional) An object with simplify options
          * @returns Returns the simplified form of expr
          */
         simplify(
