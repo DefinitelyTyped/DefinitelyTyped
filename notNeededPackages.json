@@ -1693,6 +1693,10 @@
             "libraryName": "homeworks",
             "asOfVersion": "1.0.19"
         },
+        "html-tag-names": {
+            "libraryName": "html-tag-names",
+            "asOfVersion": "2.0.0"
+        },
         "html-tags": {
             "libraryName": "html-tags",
             "asOfVersion": "3.0.0"
