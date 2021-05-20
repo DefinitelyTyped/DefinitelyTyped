@@ -3,7 +3,7 @@
  * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding-format/
  * @param input - The string to base64 decode.
  * @param encoding - Base64 variant.
- * @returns Decoded string.
+ * @returns The base64 decoded version of the input string in either string or ArrayBuffer format, depending on the `format` parameter.
  * @example
  * encoding.b64decode(str)
  * encoding.b64decode(str, 'rawstd')
@@ -53,7 +53,7 @@ declare namespace encoding {
      * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding-format/
      * @param input - The string to base64 decode.
      * @param encoding - Base64 variant.
-     * @returns Decoded string.
+     * @returns The base64 decoded version of the input string in either string or ArrayBuffer format, depending on the `format` parameter.
      * @example
      * encoding.b64decode(str)
      * encoding.b64decode(str, 'rawstd')
