@@ -1329,6 +1329,10 @@
             "libraryName": "fine-uploader",
             "asOfVersion": "5.14.0"
         },
+        "fingerprintjs__fingerprintjs": {
+            "libraryName": "@fingerprintjs/fingerprintjs",
+            "asOfVersion": "3.0.0"
+        },
         "firebase": {
             "libraryName": "firebase",
             "asOfVersion": "3.2.1"
