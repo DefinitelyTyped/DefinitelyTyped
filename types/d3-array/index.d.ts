@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.10
+// Type definitions for D3JS d3-array module 2.11
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.10.0
+// Last module patch version validated against: 2.11.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -651,6 +651,24 @@ export function rollups<TObject, TReduce, TKey1, TKey2, TKey3>(
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TReduce]>]>]>;
 
 /**
+ * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified comparator, and then returns an array of keys in sorted order.
+ * The comparator will be asked to compare two groups a and b and should return a negative value if a should be before b, a positive value if a should be after b, or zero for a partial ordering.
+ */
+export function groupSort<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    comparator: (a: TObject[], b: TObject[]) => number,
+    key: (value: TObject) => TKey
+): TKey[];
+/**
+ * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified accessor, and then returns an array of keys in sorted order.
+ */
+export function groupSort<TObject, TReduce, TKey>(
+    iterable: Iterable<TObject>,
+    accessor: (value: TObject[]) => TReduce,
+    key: (value: TObject) => TKey
+): TKey[];
+
+/**
  * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
  *
  * @param iterable Input array.
@@ -660,7 +678,7 @@ export function count<TObject>(iterable: Iterable<TObject>): number;
  * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
  *
  * @param iterable Input array.
- * @param accessor Accesor method.
+ * @param accessor Accessor method.
  */
 export function count<TObject>(
     iterable: Iterable<TObject>,
@@ -891,8 +909,9 @@ export function sort<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => numb
  * Returns an array containing the values in the given iterable in the sorted order defined by the given accessor function.
  * This is equivalent to a comparator using natural order.
  * The accessor is only invoked once per element, and thus may be nondeterministic.
+ * Multiple accessors may be specified to break ties.
  */
-export function sort<T>(iterable: Iterable<T>, accessor: (a: T) => unknown): T[];
+export function sort<T>(iterable: Iterable<T>, ...accessors: Array<(a: T) => unknown>): T[];
 
 // --------------------------------------------------------------------------------------
 // Sets
