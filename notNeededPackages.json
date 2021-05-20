@@ -1361,6 +1361,10 @@
             "libraryName": "form-data",
             "asOfVersion": "2.5.0"
         },
+        "form-urlencoded": {
+            "libraryName": "form-urlencoded",
+            "asOfVersion": "4.4.0"
+        },
         "format-number": {
             "libraryName": "format-number",
             "asOfVersion": "3.0.0"
