@@ -1345,6 +1345,26 @@
             "libraryName": "flatpickr",
             "asOfVersion": "3.1.2"
         },
+        "fluent__bundle": {
+            "libraryName": "@fluent/bundle",
+            "asOfVersion": "0.15.0"
+        },
+        "fluent__dedent": {
+            "libraryName": "@fluent/dedent",
+            "asOfVersion": "0.2.0"
+        },
+        "fluent__langneg": {
+            "libraryName": "@fluent/langneg",
+            "asOfVersion": "0.4.0"
+        },
+        "fluent__react": {
+            "libraryName": "@fluent/react",
+            "asOfVersion": "0.12.0"
+        },
+        "fluent__sequence": {
+            "libraryName": "@fluent/sequence",
+            "asOfVersion": "0.5.0"
+        },
         "flux-standard-action": {
             "libraryName": "flux-standard-action",
             "asOfVersion": "1.1.0"
