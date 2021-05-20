@@ -3992,8 +3992,8 @@ export class Cursor<T = Default> extends Readable {
      * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html#close
      */
-    close(options?: { skipKillCursors: boolean }): Promise<void>;
-    close(options: { skipKillCursors: boolean }, callback?: MongoCallback<number>): void;
+    close(options?: { skipKillCursors: boolean }): Promise<CursorResult>;
+    close(options: { skipKillCursors: boolean }, callback: MongoCallback<CursorResult>): void;
     close(callback: MongoCallback<CursorResult>): void;
     /**
      * Set the collation options for the cursor.
@@ -4309,7 +4309,7 @@ export class AggregationCursor<T = Default> extends Cursor<T> {
      * @returns Promise if no callback is passed
      * @see https://mongodb.github.io/node-mongodb-native/3.6/api/AggregationCursor.html#close
      */
-    close(): Promise<void>;
+    close(): Promise<AggregationCursorResult>;
     close(callback: MongoCallback<AggregationCursorResult>): void;
     /**
      * Iterates over all the documents for this cursor. As with `cursor.toArray()`,
