@@ -1,17 +1,19 @@
-// Type definitions for wait-on 5.2
+// Type definitions for wait-on 5.3
 // Project: https://github.com/jeffbski/wait-on#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
+/// <reference types="node" />
+
+import { SecureContextOptions } from 'tls';
 export = waitOn;
 
 declare function waitOn(options: waitOn.WaitOnOptions): Promise<void>;
 declare function waitOn(options: waitOn.WaitOnOptions, cb: (err: any) => void): void;
 
 declare namespace waitOn {
-    interface WaitOnOptions {
+    interface WaitOnOptions extends SecureContextOptions {
         /**
          * Array of string resources to wait for. prefix determines the type of resource with the default type of file:
          */

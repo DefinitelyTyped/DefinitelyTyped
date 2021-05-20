@@ -1,4 +1,4 @@
-// Type definitions for js-to-java 2.7.0
+// Type definitions for js-to-java 2.7
 // Project: https://github.com/node-modules/js-to-java
 // Definitions by: skyitachi <https://github.com/skyitachi>
 //                 zhaoleipeng <https://github.com/zhaoleipeng>

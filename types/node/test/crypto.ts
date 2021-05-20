@@ -1,6 +1,6 @@
-import * as crypto from 'node:crypto';
-import assert = require('node:assert');
-import { promisify } from 'node:util';
+import * as crypto from 'crypto';
+import assert = require('assert');
+import { promisify } from 'util';
 
 {
     const copied: crypto.Hash = crypto.createHash('md5').copy();
@@ -959,4 +959,12 @@ import { promisify } from 'node:util';
 
 {
     crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
+}
+
+{
+    crypto.hkdf("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42, (err, derivedKey) => {});
+}
+
+{
+    const derivedKey = crypto.hkdfSync("sha256", Buffer.alloc(32, 0xFF), Buffer.alloc(16, 0x00), "SomeInfo", 42);
 }

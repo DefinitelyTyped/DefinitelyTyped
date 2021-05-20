@@ -1277,6 +1277,27 @@ declare namespace ComponentFramework {
     }
 
     /**
+     * An object used to contain an entity reference to a selected Lookup value. Fields defined as
+     * such to align with other Lookup APIs
+     */
+    interface LookupValue {
+        /**
+         * The record id.
+         */
+        id: string;
+
+        /**
+         * The name of the record the lookup selection references.
+         */
+        name?: string;
+
+        /**
+         * The entity logical name of the record the lookup selection references.
+         */
+        entityType: string;
+    }
+
+    /**
      * Interface of one file object
      */
     interface FileObject {
@@ -1397,6 +1418,24 @@ declare namespace ComponentFramework {
         interface TwoOptionsProperty extends Property {
             raw: boolean;
             attributes?: PropertyHelper.FieldPropertyMetadata.TwoOptionMetadata;
+        }
+
+        /**
+         * Property Interface for context.parameters.[property_key], when property manifest type is Lookup. Currently
+         * targeted for use with Lookup.Simple only, and interface will be expanded as more features are made public.
+         */
+        interface LookupProperty extends Property {
+            raw: LookupValue[];
+
+            /**
+             * Get Lookup target entity type
+             */
+            getTargetEntityType(): string;
+
+            /**
+             * Gets Id of view used by the lookup property
+             */
+            getViewId(): string;
         }
 
         /**

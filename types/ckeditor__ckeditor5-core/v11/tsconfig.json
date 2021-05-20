@@ -4,8 +4,7 @@
         "target": "es6",
         "lib": [
             "es6",
-            "dom",
-            "es2015.promise"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -21,9 +20,6 @@
         "paths": {
             "@ckeditor/ckeditor5-core": [
                 "ckeditor__ckeditor5-core/v11"
-            ],
-            "@ckeditor/ckeditor5-utils": [
-                "ckeditor__ckeditor5-utils/v10"
             ],
             "@ckeditor/*": [
                 "ckeditor__*"

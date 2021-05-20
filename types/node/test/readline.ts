@@ -1,6 +1,6 @@
-import * as readline from 'node:readline';
-import * as stream from 'node:stream';
-import * as fs from 'node:fs';
+import * as readline from 'readline';
+import * as stream from 'stream';
+import * as fs from 'fs';
 
 const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
@@ -45,6 +45,10 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 {
     rl.prompt();
     rl.prompt(true);
+}
+
+{
+    rl.getPrompt(); // $ExpectType string
 }
 
 {

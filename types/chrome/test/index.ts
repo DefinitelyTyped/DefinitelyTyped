@@ -568,6 +568,12 @@ chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
     console.log('harLog: ', harLog);
 });
 
+function testDevtools() {
+    chrome.devtools.inspectedWindow.eval('1+1', undefined, result => {
+        console.log(result);
+    });
+}
+
 function testAssistiveWindow() {
     chrome.input.ime.setAssistiveWindowProperties({
         contextID: 0,
@@ -672,7 +678,19 @@ async function testDeclarativeNetRequest() {
     })
 
     chrome.declarativeNetRequest.getEnabledRulesets(sets => {
-        // ExpectType string[]
+        // $ExpectType string[]
         sets;
     })
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
+function testSetBrowserBadgeText() {
+    chrome.browserAction.setBadgeText({});
+    chrome.browserAction.setBadgeText({text: "test"});
+    chrome.browserAction.setBadgeText({tabId: 123});
+    chrome.browserAction.setBadgeText({text: "test", tabId: 123});
+    chrome.browserAction.setBadgeText({}, () => {});
+
+    chrome.browserAction.setBadgeText(); // $ExpectError
+    chrome.browserAction.setBadgeText(undefined); // $ExpectError
 }

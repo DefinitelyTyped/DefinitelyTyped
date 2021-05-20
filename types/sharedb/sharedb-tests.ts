@@ -308,7 +308,7 @@ function startClient(callback) {
 
     doc.submitOp([{insert: 'foo', attributes: {bold: true}}], {source: {deep: true}});
 
-    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot) => {
+    connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
     });

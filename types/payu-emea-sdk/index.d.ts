@@ -1,6 +1,6 @@
-// Type definitions for payu-emea-sdk
+// Type definitions for payu-emea-sdk 1.0
 // Project: https://developers.payu.com/en/card_tokenization.html#secureform
-// Definitions by: Tomasz Regdos <https://github.com/regdos/,https://github.com/PayU-EMEA/>
+// Definitions by: Tomasz Regdos <https://github.com/regdos/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var PayU: payu.PayuEntry;

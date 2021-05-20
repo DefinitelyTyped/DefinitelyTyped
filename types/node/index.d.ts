@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 14.14
+// Type definitions for non-npm package Node.js 15.3
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -6,7 +6,6 @@
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Benjamin Toueg <https://github.com/btoueg>
-//                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>

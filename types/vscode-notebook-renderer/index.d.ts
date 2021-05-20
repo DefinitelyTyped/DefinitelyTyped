@@ -1,61 +1,74 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.55
+// Type definitions for non-npm package vscode-notebook-renderer 1.57
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
-// todo: update "Project" link above to docs site, once it becomes available
-
-export interface Disposable {
-    dispose(): void;
-}
-
-export interface VSCodeEvent<T> {
-    (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
-}
-
-/**
- * Notebook output event -- a supertype of the `NotebookCellOutputItem` in the VS Code types.
- */
-export interface NotebookOutputEventParams  {
+export interface CellInfo {
+    /**
+     * HTML element where the cell should be renderer.
+     */
     readonly element: HTMLElement;
-    readonly outputId: string;
 
+    /**
+     * Mime type being renderer.
+     */
     readonly mime: string;
-    readonly value: any;
-    readonly metadata?: Record<string, any>;
+
+    /**
+     * Render data for the cell.
+     * @todo This may eventually be just a Uint8Array
+     */
+    readonly value: unknown;
+
+    /**
+     * cell metadata.
+     */
+    readonly metadata: unknown;
 }
 
-export interface NotebookRendererApi<T> {
+export interface RendererContext<T> {
+    /**
+     * Sets renderer-specific state that is persisted in the webview.
+     */
     setState(value: T): void;
+
+    /**
+     * Gets any previously set renderer-specific state.
+     * @see RendererContext.setState
+     */
     getState(): T | undefined;
 
     /**
-     * Sends a message to the renderer extension code. Can be received in
-     * the `onDidReceiveMessage` event in `NotebookCommunication`.
+     * Gets the return value of an already activated renderer. It returns
+     * undefined if the specified renderer is not available or has not been
+     * activated yet.
      */
-    postMessage(msg: unknown): void;
-
-    /**
-     * Fired before an output is destroyed, with its output ID, or undefined if
-     * all cells are about to unmount.
-     */
-    onWillDestroyOutput: VSCodeEvent<{ outputId: string } | undefined>;
-
-    /**
-     * Fired when an output is rendered. The `outputId` provided is the same
-     * as the one given in `NotebookOutputRenderer.render` in the extension
-     * API, and `onWillDestroyOutput`.
-     */
-    onDidCreateOutput: VSCodeEvent<NotebookOutputEventParams>;
-
-    /**
-     * Called when the renderer uses `postMessage` on the NotebookCommunication
-     * instance for this renderer.
-     */
-    onDidReceiveMessage: VSCodeEvent<any>;
+    getRenderer(id: string): RendererApi | undefined;
 }
 
-declare global {
-    function acquireNotebookRendererApi(rendererId: string): NotebookRendererApi<any>;
+export interface RendererApi {
+    /**
+     * Method called by the editor to render a cell.
+     */
+    renderCell(id: string, info: CellInfo): void;
+
+    /**
+     * Destroys a previously-rendered cell.
+     * @param id the of the cell being removed. If undefined, all cells are
+     * being removed.
+     */
+    destroyCell?(id?: string): void;
+
+    /**
+     * Additional properties may be returned for others to consume in
+     * {@link RendererContext.getRenderer}.
+     */
+    [key: string]: unknown;
 }
+
+/**
+ * Describes the function that should be exported as "activate" from your
+ * renderer entrypoint.
+ */
+export type ActivationFunction<TState = any> = (context: RendererContext<TState>) => RendererApi;

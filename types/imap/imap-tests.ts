@@ -145,6 +145,36 @@ openInbox(function(err : Error, box : IMAP.Box) {
     });
 });
 
+openInbox(function(err : Error, box : IMAP.Box) {
+    if (err) throw err;
+    imap.sort([ '-DATE' ], [ 'UNSEEN', ['SINCE', 'May 20, 2020'] ], function(err, uids) {
+        if (err) throw err;
+        var f = imap.fetch(uids, { bodies: '' });
+        f.on('message', function(msg : IMAP.ImapMessage, seqno : number) {
+            console.log('Message #%d', seqno);
+            var prefix = '(#' + seqno + ') ';
+            msg.on('body', function(stream : NodeJS.ReadableStream, info : any) {
+                console.log(prefix + 'Body');
+                stream.pipe(fs.createWriteStream('msg-' + seqno + '-body.txt'));
+            });
+            msg.once('attributes', function(attrs : Object) {
+                console.log(prefix + 'Attributes: %s', inspect(attrs, false, 8));
+            });
+            msg.once('end', function() {
+                console.log(prefix + 'Finished');
+            });
+        });
+        f.once('error', function(err : Error) {
+            console.log('Fetch error: ' + err);
+        });
+        f.once('end', function() {
+            console.log('Done fetching all messages!');
+            imap.end();
+        });
+    });
+});
+
+
 
 
 var rawHeader : string = '';

@@ -561,6 +561,19 @@ declare namespace Office {
      */
     interface Ribbon {
         /**
+         * Registers a custom contextual tab with Office and defines the tab's controls.
+         *
+         * @remarks
+         *
+         * **Requirement set**: Ribbon 1.2
+         * 
+         * This method only requests that the tab be registered. The actual registration is controlled by the Office application and may not be complete when the returned `Promise` object is resolved.
+         * For more information and code examples, see {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
+         * 
+         * @param tabDefinition - Specifies the tab's properties and child controls and their properties. Pass a JSON string that conforms to the Office dynamic-ribbon JSON schema to `JSON.parse`, and then pass the returned object to this method.
+         */
+         requestCreateControls(tabDefinition: Object): Promise<void>;
+        /**
          * Sends a request to Office to update the ribbon.
 		 *
 		 * @remarks
@@ -568,6 +581,8 @@ declare namespace Office {
          * **Requirement set**: Ribbon 1.1
 		 *
          * Note that this API is only to request an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
+         * 
+         * For code examples, see  {@link https://docs.microsoft.com/office/dev/add-ins/design/disable-add-in-commands | Enable and Disable Add-in Commands} and {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
 		 *
          * @param input - Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
          */
@@ -587,7 +602,7 @@ declare namespace Office {
         tabs: Tab[];
     }
     /**
-     * Represents an individual tab and the state it should have.
+     * Represents an individual tab and the state it should have. For code examples, see  {@link https://docs.microsoft.com/office/dev/add-ins/design/disable-add-in-commands | Enable and Disable Add-in Commands} and {@link https://docs.microsoft.com/office/dev/add-ins/design/contextual-tabs | Create custom contextual tabs}.
 	 *
 	 * @remarks
      *
@@ -601,7 +616,15 @@ declare namespace Office {
         /**
          * Specifies the controls in the tab, such as menu items, buttons, etc.
          */
-        controls: Control[];
+        controls?: Control[];
+        /**
+         * Specifies whether the tab is visible on the ribbon. Used only with contextual tabs.
+         * 
+         * @remarks
+         *
+         * **Requirement set**: Ribbon 1.2
+         */
+        visible?: boolean;
     }
     /**
      * Represents an individual control or command and the state it should have.

@@ -1,4 +1,4 @@
-// Type definitions for big.js 6.0
+// Type definitions for big.js 6.1
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet>
 //                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
@@ -97,6 +97,28 @@ export interface BigConstructor {
      * Default value: 21
      */
     PE: number;
+
+    /** Readonly rounding modes */
+
+    /**
+     * Rounds towards zero.
+     * I.e. truncate, no rounding.
+     */
+    readonly roundDown: RoundingMode.RoundDown;
+    /**
+     * Rounds towards nearest neighbour.
+     * If equidistant, rounds away from zero.
+     */
+    readonly roundHalfUp: RoundingMode.RoundHalfUp;
+    /**
+     * Rounds towards nearest neighbour.
+     * If equidistant, rounds towards even neighbour.
+     */
+    readonly roundHalfEven: RoundingMode.RoundHalfEven;
+    /**
+     * Rounds away from zero.
+     */
+    readonly roundUp: RoundingMode.RoundUp;
 }
 
 export interface Big {

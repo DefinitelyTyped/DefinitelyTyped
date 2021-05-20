@@ -1,6 +1,6 @@
-import * as http from 'node:http';
-import * as url from 'node:url';
-import * as net from 'node:net';
+import * as http from 'http';
+import * as url from 'url';
+import * as net from 'net';
 
 // http Server
 {
@@ -202,10 +202,12 @@ import * as net from 'node:net';
 // http request options
 {
     const requestOpts: http.RequestOptions = {
+        abort: new AbortSignal(),
         timeout: 30000
     };
 
     const clientArgs: http.ClientRequestArgs = {
+        abort: new AbortSignal(),
         timeout: 30000
     };
 }

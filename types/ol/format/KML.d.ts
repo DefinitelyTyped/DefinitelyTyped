@@ -1,7 +1,6 @@
 import Feature from '../Feature';
 import Geometry from '../geom/Geometry';
 import Fill from '../style/Fill';
-
 import IconAnchorUnits from '../style/IconAnchorUnits';
 import IconOrigin from '../style/IconOrigin';
 import ImageStyle from '../style/Image';
@@ -15,12 +14,19 @@ export interface GxTrackObject {
     flatCoordinates: number[];
     whens: number[];
 }
+/**
+ * A function that takes a url {string} and returns a url {string}.
+ * Might be used to change an icon path or to substitute a
+ * data url obtained from a KMZ array buffer.
+ */
+export type IconUrlFunction = (p0: string) => string;
 export interface Options {
     extractStyles?: boolean;
     showPointNames?: boolean;
     defaultStyle?: Style[];
     writeStyles?: boolean;
     crossOrigin?: string;
+    iconUrlFunction?: IconUrlFunction;
 }
 export interface Vec2 {
     x: number;

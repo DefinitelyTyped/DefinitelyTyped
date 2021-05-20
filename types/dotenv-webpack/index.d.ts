@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
+/// <reference types="node" />
 import { Compiler } from 'webpack';
 
 /**
