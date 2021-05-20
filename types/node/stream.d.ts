@@ -131,7 +131,7 @@ declare module 'stream' {
             [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         }
 
-        interface WritableOptions extends StreamOptions<Readable> {
+        interface WritableOptions extends StreamOptions<Writable> {
             decodeStrings?: boolean;
             defaultEncoding?: BufferEncoding;
             write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
