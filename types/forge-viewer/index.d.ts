@@ -470,6 +470,7 @@ declare namespace Autodesk {
           findPropertyDbPath(): string;
           findViewableParent(): BubbleNode;
           getDefaultGeometry(): any;
+          getDocument(): Document;
           getInputFileType(): string;
           getLodNode(): boolean;
           getModelName(): string;
