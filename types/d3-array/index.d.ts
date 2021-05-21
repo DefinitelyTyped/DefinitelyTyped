@@ -266,7 +266,7 @@ export function fsum<T>(
  * Returns a full precision cumulative sum of the given values.
  * Although slower, d3.fcumsum can replace d3.cumsum when greater precision is needed. Uses d3.Adder.
  */
-export function fcumsum<T extends Numeric>(values: Iterable<T | undefined | null>): number;
+export function fcumsum<T extends Numeric>(values: Iterable<T | undefined | null>): Float64Array;
 /**
  * Returns a full precision cumulative sum of the given values.
  * Although slower, d3.fcumsum can replace d3.cumsum when greater precision is needed. Uses d3.Adder.
