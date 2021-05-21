@@ -1195,7 +1195,7 @@ declare namespace Autodesk {
             appendOrderedElementToViewer(layerOrderId: string): void;
             hitTest(x: number, y: number, ignoreTransparent: boolean): Private.HitTestResult;
             refresh(clear: boolean): void;
-            addEventListener(type: string, callback: (event: any) => void): any;
+            addEventListener(type: string, callback: (event: any) => void, options?: any): any;
             hasEventListener(type: string, callback: (event: any) => void): any;
             removeEventListener(type: string, callback: (event: any) => void): any;
             dispatchEvent(event: object): void;
