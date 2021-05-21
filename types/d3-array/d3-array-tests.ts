@@ -384,6 +384,9 @@ float64Array = d3Array.fcumsum(mixedObjectArray, accessorMixedObjectToNum);
 float64Array = d3Array.fcumsum(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 float64Array = d3Array.fcumsum(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// $ExpectError
+float64Array = d3Array.fcumsum(['test']);
+
 // Adder() ---------------------------------------------------------------------
 
 const adder = new d3Array.Adder();
