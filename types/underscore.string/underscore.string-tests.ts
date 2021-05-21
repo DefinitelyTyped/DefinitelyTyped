@@ -131,3 +131,6 @@ _.toBoolean('FALSE');
 _.toBoolean('random');
 _.toBoolean('truthy', ['truthy'], ['falsy']);
 _.toBoolean('true only at start', [/^true/]);
+
+_.wrap('Hello world');
+_.wrap('Hello world', { width: 5, seperator: '.', trailingSpaces: true, cut: true, preserveSpaces: true });
