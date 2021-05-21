@@ -371,6 +371,13 @@ declare namespace Autodesk {
 
         let HTTP_REQUEST_HEADERS: any;
 
+        enum TOOLBAR {
+          NAVTOOLSID = 'navTools',
+          MODELTOOLSID = 'modelTools',
+          SETTINGSTOOLSID = 'settingsTools',
+          MEASURETOOLSID = 'measureTools'
+        }
+
         interface ViewerEventArgs {
           target?: Viewer3D;
           model?: ViewerItem;
