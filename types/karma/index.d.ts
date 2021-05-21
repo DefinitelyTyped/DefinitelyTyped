@@ -5,53 +5,28 @@
 //                 Yaroslav Admin <https://github.com/devoto13>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+import https = require('https');
+import { Appender } from 'log4js';
+
+import constants = require('./lib/constants');
+import Server = require('./lib/server');
+import runner = require('./lib/runner');
+import stopper = require('./lib/stopper');
+import launcher = require('./lib/launcher');
+import cfg = require('./lib/config');
+
 // See Karma public API https://karma-runner.github.io/latest/dev/public-api.html
-import https = require("https");
-import { Appender } from "log4js";
-import { EventEmitter } from "events";
-import * as constants from "./lib/constants";
-import { VERSION } from "./lib/constants";
-
-export { constants, VERSION };
-export const runner: Runner;
-export const stopper: Stopper;
-
-export namespace launcher {
-    class Launcher {
-        static generateId(): string;
-
-        constructor(emitter: NodeJS.EventEmitter, injector: any);
-
-        // TODO: Can this return value ever be typified?
-        launch(names: string[], protocol: string, hostname: string, port: number, urlRoot: string): any[];
-        kill(id: string, callback: () => void): boolean;
-        restart(id: string): boolean;
-        killAll(callback: () => void): void;
-        areAllCaptured(): boolean;
-        markCaptured(id: string): void;
-    }
+export { constants, Server, launcher, runner, stopper };
+export const VERSION: typeof constants.VERSION;
+export namespace config {
+    const parseConfig: typeof cfg.parseConfig;
 }
 
-export interface Runner {
-    run(options?: Config, callback?: ServerCallback): void;
-    /** @deprecated */
-    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
-    run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
-}
-
-export interface Stopper {
-    /**
-     * This function will signal a running server to stop. The equivalent of karma stop.
-     */
-    stop(options?: Config, callback?: ServerCallback): void;
-    /** @deprecated */
-    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
-    stop(options?: ConfigOptions, callback?: ServerCallback): void;
-}
+export type Config = cfg.Config;
 
 export interface TestResults {
     disconnected: boolean;
@@ -61,50 +36,7 @@ export interface TestResults {
     success: number;
 }
 
-export class Server extends EventEmitter {
-    constructor(options?: Config, callback?: ServerCallback);
-    /** @deprecated */
-    // tslint:disable-next-line:unified-signatures to correctly show deprecated overload
-    constructor(options?: ConfigOptions | ConfigFile, callback?: ServerCallback);
-    /**
-     * Start the server
-     */
-    start(): Promise<void>;
-
-    /**
-     * Stop the server
-     */
-    stop(): Promise<void>;
-
-    /**
-     * Get properties from the injector
-     * @param token
-     */
-    get(token: string): any;
-
-    /**
-     * Force a refresh of the file list
-     */
-    refreshFiles(): Promise<any>;
-
-    on(event: string, listener: (...args: any[]) => void): this;
-
-    /**
-     * Listen to the 'run_complete' event.
-     */
-    on(event: "run_complete", listener: (browsers: any, results: TestResults) => void): this;
-}
-
 export type ServerCallback = (exitCode: number) => void;
-
-export interface Config {
-    set: (config: ConfigOptions) => void;
-    LOG_DISABLE: string;
-    LOG_ERROR: string;
-    LOG_WARN: string;
-    LOG_INFO: string;
-    LOG_DEBUG: string;
-}
 
 export interface ConfigFile {
     configFile: string;
@@ -690,35 +622,4 @@ export interface BrowserConsoleLogOptions {
     path?: string;
     /** if the log should be written in the terminal, or not */
     terminal?: boolean;
-}
-
-interface ParseOptions {
-    /**
-     * When true, the return value of the function is a Promise of Config instead of Config.
-     * Should be set to true to support async Karma configuration file.
-     *
-     * @deprecated Will become a default in the next major release.
-     */
-    promiseConfig?: boolean;
-
-    /**
-     * When true, function will throw error or return rejected Promise instead of calling process.exit(1).
-     *
-     * @deprecated Will become a default in the next major release.
-     */
-    throwErrors?: boolean;
-}
-
-export namespace config {
-    function parseConfig(configFilePath: string, cliOptions: ConfigOptions): Config;
-    function parseConfig(
-        configFilePath: string | null | undefined,
-        cliOptions: ConfigOptions,
-        parseOptions?: ParseOptions & { promiseConfig: true },
-    ): Promise<Config>;
-    function parseConfig(
-        configFilePath: string | null | undefined,
-        cliOptions: ConfigOptions,
-        parseOptions?: ParseOptions,
-    ): Config;
 }
