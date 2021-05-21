@@ -444,7 +444,7 @@ declare namespace Shippo {
             weight: number;
         };
         is_return?: boolean;
-        lasership_attrs?: 'TwoPersonDelivery' | 'Explosive' | 'Alcohol' | 'Hazmat' | 'ControlledSubstance' | 'Refrigerated' | 'DryIce' | 'Perishable';
+        lasership_attrs?: Array<'TwoPersonDelivery' | 'Explosive' | 'Alcohol' | 'Hazmat' | 'ControlledSubstance' | 'Refrigerated' | 'DryIce' | 'Perishable'>;
         lasership_declared_value?: string;
         insurance?: Insurance;
         preferred_delivery_timeframe?: '10001200' | '12001400' | '14001600' | '16001800' | '18002000' | '19002100';
