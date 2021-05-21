@@ -92,7 +92,7 @@ declare namespace Chance {
         tld(): string;
         twitter(): string;
         url(opts?: Partial<UrlOptions>): string;
-        mac_address(opts?: MacOptions): string;
+        mac_address(opts?: Partial<MacOptions>): string;
 
         // Location
         address(opts?: Options): string;
@@ -226,8 +226,8 @@ declare namespace Chance {
     }
 
     interface MacOptions {
-        separator?: string;
-        networkVersion?: boolean;
+        separator: string;
+        networkVersion: boolean;
     }
 
     interface IntegerOptions {
