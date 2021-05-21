@@ -1705,6 +1705,10 @@
             "libraryName": "http-graceful-shutdown",
             "asOfVersion": "2.3.0"
         },
+        "http-proxy-agent": {
+            "libraryName": "http-proxy-agent",
+            "asOfVersion": "4.0.0"
+        },
         "http-proxy-middleware": {
             "libraryName": "http-proxy-middleware",
             "asOfVersion": "1.0.0"
