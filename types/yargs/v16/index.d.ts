@@ -1,4 +1,4 @@
-// Type definitions for yargs 17.0
+// Type definitions for yargs 16.0
 // Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -8,7 +8,6 @@
 //                 Emily Marigold Klassen <https://github.com/forivall>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Aankhen <https://github.com/Aankhen>
-//                 Ben Coe <https://github.com/bcoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -45,7 +44,7 @@ declare namespace yargs {
      * `Arguments<T>` to simplify the inferred type signature in client code.
      */
     interface Argv<T = {}> {
-        (): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        (): { [key in keyof Arguments<T>]: Arguments<T>[key] };
         (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
 
         /**
@@ -71,7 +70,7 @@ declare namespace yargs {
          * it will ignore the first parameter since it expects it to be the script name. In order to override
          * this behavior, use `.parse(process.argv.slice(1))` instead of .argv and the first parameter won't be ignored.
          */
-        argv: { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        argv: { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         /**
          * Tell the parser to interpret `key` as an array.
@@ -333,7 +332,7 @@ declare namespace yargs {
          * Method to execute when a failure occurs, rather than printing the failure message.
          * @param func Is called with the failure message that would have been printed, the Error instance originally thrown and yargs state when the failure occurred.
          */
-        fail(func: ((msg: string, err: Error, yargs: Argv<T>) => any) | boolean): Argv<T>;
+        fail(func: (msg: string, err: Error, yargs: Argv<T>) => any): Argv<T>;
 
         /**
          * Allows to programmatically get completion choices for any line.
@@ -454,13 +453,8 @@ declare namespace yargs {
          * Note: Providing a callback to parse() disables the `exitProcess` setting until after the callback is invoked.
          * @param [context]  Provides a useful mechanism for passing state information to commands
          */
-        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] }
-            | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        parseSync(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parseSync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parseAsync(): Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        parseAsync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         /**
          * If the arguments have not been parsed, this property is `false`.
@@ -513,6 +507,12 @@ declare namespace yargs {
         required(positionals: number, msg: string): Argv<T>;
 
         requiresArg(key: string | ReadonlyArray<string>): Argv<T>;
+
+        /**
+         * @deprecated since version 6.6.0
+         * Use '.global()' instead
+         */
+        reset(): Argv<T>;
 
         /** Set the name of your script ($0). Default is the base filename executed by node (`process.argv[1]`) */
         scriptName($0: string): Argv<T>;
@@ -781,20 +781,14 @@ declare namespace yargs {
     type ToNumber<T> = (Exclude<T, undefined> extends any[] ? number[] : number) | Extract<T, undefined>;
 
     type InferredOptionType<O extends Options | PositionalOptions> =
-        O extends (
-            | { required: string | true }
-            | { require: string | true }
-            | { demand: string | true }
-            | { demandOption: string | true }
-        ) ?
-        Exclude<InferredOptionTypeInner<O>, undefined> :
-        InferredOptionTypeInner<O>;
-
-    type InferredOptionTypeInner<O extends Options | PositionalOptions> =
         O extends { default: any, coerce: (arg: any) => infer T } ? T :
         O extends { default: infer D } ? D :
         O extends { type: "count" } ? number :
         O extends { count: true } ? number :
+        O extends { required: string | true } ? RequiredOptionType<O> :
+        O extends { require: string | true } ? RequiredOptionType<O> :
+        O extends { demand: string | true } ? RequiredOptionType<O> :
+        O extends { demandOption: string | true } ? RequiredOptionType<O> :
         RequiredOptionType<O> | undefined;
 
     type RequiredOptionType<O extends Options | PositionalOptions> =
@@ -836,7 +830,7 @@ declare namespace yargs {
         handler: (args: Arguments<U>) => void;
     }
 
-    type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T>|Promise<Arguments<T>>, output: string) => void;
+    type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T>, output: string) => void;
     type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>) | ((args: Argv<T>) => PromiseLike<Argv<U>>);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
