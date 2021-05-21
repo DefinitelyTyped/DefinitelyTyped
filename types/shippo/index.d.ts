@@ -423,7 +423,7 @@ declare namespace Shippo {
     interface ShipmentExtra {
         alcohol?: {
             contains_alcohol: boolean;
-            recipient_type: 'licensee' | 'consumer';
+            recipient_type?: 'licensee' | 'consumer';
         };
         ancillary_endorsement?: 'FORWARDING_SERVICE_REQUESTED' | 'RETURN_SERVICE_REQUESTED';
         authority_to_leave?: boolean;
