@@ -1,7 +1,6 @@
 /// <reference types="node" />
 
 import yargs = require('yargs');
-import yargsHelpers = require('yargs/helpers');
 import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
@@ -114,22 +113,6 @@ function line_count() {
         .describe('f', 'Load a file')
         .argv
         ;
-}
-
-function camelCase() {
-    const args: Arguments<{ someOpt: number }> = yargs
-    .usage('Usage: $0 options')
-    .describe('some-opt', 'Some option')
-    .default('some-opt', 2)
-    .argv;
-
-    yargs
-    .command(
-        'my-command',
-        'a command',
-        { 'some-opt-in-command': { describe: 'Some option', default: 2 } },
-        (args: Arguments<{ someOptInCommand: number }>) => {}
-    );
 }
 
 // Below are tests for individual methods.
@@ -1066,18 +1049,6 @@ function Argv$inferRequiredOptionTypes() {
 
     // $ExpectType (string | number)[]
     yargs.option("x", { array: true, demandOption: true }).argv.x;
-
-    // $ExpectType string
-    yargs.option("x", { default: "default" as string | undefined, demandOption: true }).argv.x;
-
-    // $ExpectType string
-    yargs.option("x", { default: "default" as string | undefined, demand: true }).argv.x;
-
-    // $ExpectType string
-    yargs.option("x", { default: "default" as string | undefined, require: true }).argv.x;
-
-    // $ExpectType string
-    yargs.option("x", { default: "default" as string | undefined, required: true }).argv.x;
 }
 
 function Argv$inferMultipleOptionTypes() {
@@ -1335,23 +1306,4 @@ function Argv$strictOptions() {
 function Argv$strictCommands() {
     const argv1 = yargs.strictCommands().command('foo', 'foo command').argv;
     const argv2 = yargs.strictCommands(true).command('foo', 'foo command').argv;
-}
-
-function Argv$applyExtendsHelper() {
-    // $ExpectType Record<string, any>
-    const arvg = yargsHelpers.applyExtends(
-        { extends: './package.json', apple: 'red' },
-        process.cwd(),
-        true
-    );
-}
-
-function Argv$hideBinHelper() {
-    // $ExpectType string[]
-    const arvg = yargsHelpers.hideBin(process.argv);
-}
-
-function Argv$ParserHelper() {
-    // $ExpectType Arguments
-    const argv = yargsHelpers.Parser('--foo --bar=99');
 }
