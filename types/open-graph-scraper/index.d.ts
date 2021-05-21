@@ -268,7 +268,7 @@ declare namespace run {
         url: string;
         /** Sets the options used by `validator.js` for testing the URL. */
         urlValidatorSettings?: URLValidatorSettings;
-        /** Add custom meta tags if there are no what you want in open graph properties type */
+        /** Here you can define custom meta tags you want to scrape. */
         customMetaTags?: CustomMetaTag[];
     }
 }
