@@ -203,7 +203,7 @@ declare module 'twit' {
                 display_text_range?: [number, number];
                 entities: Entities;
                 extended_entities?: {
-                    media: MediaEntity[]
+                    media: MediaEntity[];
                 };
                 favorite_count?: number;
                 favorited?: boolean;
