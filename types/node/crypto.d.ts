@@ -1,5 +1,6 @@
 declare module 'crypto' {
     import * as stream from 'stream';
+    import { PeerCertificate } from 'tls';
 
     interface Certificate {
         /**
@@ -1267,4 +1268,189 @@ declare module 'crypto' {
      * or if the derived key cannot be generated.
      */
     function hkdfSync(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number): ArrayBuffer;
+
+    interface SecureHeapUsage {
+        /**
+         * The total allocated secure heap size as specified using the `--secure-heap=n` command-line flag.
+         */
+        total: number;
+
+        /**
+         * The minimum allocation from the secure heap as specified using the `--secure-heap-min` command-line flag.
+         */
+        min: number;
+
+        /**
+         * The total number of bytes currently allocated from the secure heap.
+         */
+        used: number;
+
+        /**
+         * The calculated ratio of `used` to `total` allocated bytes.
+         */
+        utilization: number;
+    }
+
+    function secureHeapUsed(): SecureHeapUsage;
+
+    // TODO: X509Certificate
+
+    interface RandomUUIDOptions {
+        /**
+         * By default, to improve performance,
+         * Node.js will pre-emptively generate and persistently cache enough
+         * random data to generate up to 128 random UUIDs. To generate a UUID
+         * without using the cache, set `disableEntropyCache` to `true`.
+         *
+         * @default `false`
+         */
+        disableEntropyCache?: boolean;
+    }
+
+    function randomUUID(options?: RandomUUIDOptions): string;
+
+    interface X509CheckOptions {
+        /**
+         * @default 'always'
+         */
+        subject: 'always' | 'never';
+
+        /**
+         * @default true
+         */
+        wildcards: boolean;
+
+        /**
+         * @default true
+         */
+        partialWildcards: boolean;
+
+        /**
+         * @default false
+         */
+        multiLabelWildcards: boolean;
+
+        /**
+         * @default false
+         */
+        singleLabelSubdomains: boolean;
+    }
+
+    class X509Certificate {
+        /**
+         * Will be `true` if this is a Certificate Authority (ca) certificate.
+         */
+        readonly ca: boolean;
+
+        /**
+         * The SHA-1 fingerprint of this certificate.
+         */
+        readonly fingerprint: string;
+
+        /**
+         * The SHA-256 fingerprint of this certificate.
+         */
+        readonly fingerprint256: string;
+
+        /**
+         * The complete subject of this certificate.
+         */
+        readonly subject: string;
+
+        /**
+         * The subject alternative name specified for this certificate.
+         */
+        readonly subjectAltName: string;
+
+        /**
+         * The information access content of this certificate.
+         */
+        readonly infoAccess: string;
+
+        /**
+         * An array detailing the key usages for this certificate.
+         */
+        readonly keyUsage: string[];
+
+        /**
+         * The public key for this certificate.
+         */
+        readonly publicKey: KeyObject;
+
+        /**
+         * A `Buffer` containing the DER encoding of this certificate.
+         */
+        readonly raw: Buffer;
+
+        /**
+         * The serial number of this certificate.
+         */
+        readonly serialNumber: string;
+
+        /**
+         * Returns the PEM-encoded certificate.
+         */
+        readonly validFrom: string;
+
+        /**
+         * The date/time from which this certificate is considered valid.
+         */
+        readonly validTo: string;
+
+        constructor(buffer: BinaryLike);
+
+        /**
+         * Checks whether the certificate matches the given email address.
+         *
+         * Returns `email` if the certificate matches,`undefined` if it does not.
+         */
+        checkEmail(email: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether the certificate matches the given host name.
+         *
+         * Returns `name` if the certificate matches, `undefined` if it does not.
+         */
+        checkHost(name: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether the certificate matches the given IP address (IPv4 or IPv6).
+         *
+         * Returns `ip` if the certificate matches, `undefined` if it does not.
+         */
+        checkIP(ip: string, options?: X509CheckOptions): string | undefined;
+
+        /**
+         * Checks whether this certificate was issued by the given `otherCert`.
+         */
+        checkIssued(otherCert: X509Certificate): boolean;
+
+        /**
+         * Checks whether this certificate was issued by the given `otherCert`.
+         */
+        checkPrivateKey(privateKey: KeyObject): boolean;
+
+        /**
+         * There is no standard JSON encoding for X509 certificates. The
+         * `toJSON()` method returns a string containing the PEM encoded
+         * certificate.
+         */
+        toJSON(): string;
+
+        /**
+         * Returns information about this certificate using the legacy [certificate object][] encoding.
+         */
+        toLegacyObject(): PeerCertificate;
+
+        /**
+         * Returns the PEM-encoded certificate.
+         */
+        toString(): string;
+
+        /**
+         * Verifies that this certificate was signed by the given public key.
+         * Does not perform any other validation checks on the certificate.
+         */
+        verify(publicKey: KeyObject): boolean;
+    }
 }

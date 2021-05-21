@@ -1,6 +1,7 @@
+import { FileHandle, open as openAsync } from 'fs/promises';
 import * as fs from 'fs';
-import assert = require('assert');
 import * as util from 'util';
+import assert = require('assert');
 
 {
     fs.writeFile("thebible.txt",
@@ -345,13 +346,18 @@ async function testPromisify() {
     });
 }
 
-{
-    const writeStream = fs.createWriteStream('./index.d.ts');
+async () => {
+    const handle: FileHandle = await openAsync('test', 'r');
+    const writeStream = fs.createWriteStream('./index.d.ts', {
+        fd: handle,
+    });
     const _wom = writeStream.writableObjectMode; // $ExpectType boolean
 
-    const readStream = fs.createReadStream('./index.d.ts');
+    const readStream = fs.createReadStream('./index.d.ts', {
+        fd: handle,
+    });
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
-}
+};
 
 {
     fs.readvSync(123, [Buffer.from('wut')] as ReadonlyArray<NodeJS.ArrayBufferView>);

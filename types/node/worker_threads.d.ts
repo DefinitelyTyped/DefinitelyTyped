@@ -1,10 +1,11 @@
 declare module 'worker_threads' {
     import { Context } from 'vm';
-    import EventEmitter = require('events');
+    import { EventEmitter } from 'events';
+    import { EventLoopUtilityFunction } from 'perf_hooks';
+    import { FileHandle } from 'fs/promises';
     import { Readable, Writable } from 'stream';
     import { URL } from 'url';
-    import { FileHandle } from 'fs/promises';
-    import { EventLoopUtilityFunction } from 'perf_hooks';
+    import { X509Certificate } from 'crypto';
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
@@ -22,7 +23,7 @@ declare module 'worker_threads' {
         eventLoopUtilization: EventLoopUtilityFunction;
     }
 
-    type TransferListItem = ArrayBuffer | MessagePort | FileHandle;
+    type TransferListItem = ArrayBuffer | MessagePort | FileHandle | X509Certificate;
 
     class MessagePort extends EventEmitter {
         close(): void;
@@ -207,6 +208,22 @@ declare module 'worker_threads' {
         off(event: "messageerror", listener: (error: Error) => void): this;
         off(event: "online", listener: () => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
+    }
+
+    interface BroadcastChannel extends NodeJS.RefCounted {}
+
+    /**
+     * See https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel
+     */
+    class BroadcastChannel {
+        readonly name: string;
+        onmessage: (message: unknown) => void;
+        onmessageerror: (message: unknown) => void;
+
+        constructor(name: string);
+
+        close(): void;
+        postMessage(message: unknown): void;
     }
 
     /**

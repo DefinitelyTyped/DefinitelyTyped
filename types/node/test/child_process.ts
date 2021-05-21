@@ -9,7 +9,7 @@ import { Writable, Readable, Pipe } from 'stream';
     childProcess.exec("echo test");
     childProcess.exec("echo test", { windowsHide: true });
     childProcess.spawn("echo");
-    childProcess.spawn("echo", { windowsHide: true });
+    childProcess.spawn("echo", { windowsHide: true, signal: new AbortSignal() });
     childProcess.spawn("echo", ["test"], { windowsHide: true });
     childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
     childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
@@ -29,7 +29,7 @@ import { Writable, Readable, Pipe } from 'stream';
 
 {
     childProcess.execFile("npm", () => {});
-    childProcess.execFile("npm", { windowsHide: true }, () => {});
+    childProcess.execFile("npm", { windowsHide: true, signal: new AbortSignal(), }, () => {});
     childProcess.execFile("npm", { shell: true }, () => {});
     childProcess.execFile("npm", { shell: '/bin/sh' }, () => {});
     childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, () => {});
@@ -53,7 +53,8 @@ import { Writable, Readable, Pipe } from 'stream';
         silent: false,
         stdio: "inherit",
         execPath: '',
-        execArgv: ['asda']
+        execArgv: ['asda'],
+        signal: new AbortSignal(),
     });
     const ipc: Pipe = forked.channel!;
     const hasRef: boolean = ipc.hasRef();
@@ -345,6 +346,9 @@ async function testPromisify() {
     expectNonNull(childProcess.spawn('command', { stdio: 'pipe' }));
     expectNonNull(childProcess.spawn('command', { stdio: [undefined, undefined, undefined] }));
     expectNonNull(childProcess.spawn('command', { stdio: [null, null, null] }));
+    expectNonNull(childProcess.spawn('command', { stdio: 'overlapped' }));
+    expectNonNull(childProcess.spawn('command', { stdio: ['overlapped', 'overlapped', 'overlapped'] }));
+    expectNonNull(childProcess.spawn('command', { stdio: ['pipe', 'pipe', 'pipe'] }));
     expectNonNull(childProcess.spawn('command', { stdio: ['pipe', 'pipe', 'pipe'] }));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c']));
     expectNonNull(childProcess.spawn('command', ['a', 'b', 'c'], {}));
