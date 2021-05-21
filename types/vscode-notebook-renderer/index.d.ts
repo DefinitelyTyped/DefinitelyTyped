@@ -23,7 +23,7 @@ export interface CellInfo {
     readonly value: unknown;
 
     /**
-     * The data as text. Note the a UTF-8 decoder is used is create 
+     * The data as text. Note the a UTF-8 decoder is used is create
      * the string from the underlying bytes.
      */
     text(): string;
@@ -32,7 +32,7 @@ export interface CellInfo {
      * The data as object - parsed from JSON. Note that this will
      * throw an error when the underlying data is not a valid JSON string.
      */
-    json(): string;
+    json(): any;
 
     /**
      * The data as bytes.

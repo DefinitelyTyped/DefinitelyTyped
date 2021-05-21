@@ -27,14 +27,14 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             metadata;
             // $ExpectType unknown
             value;
-            // $ExpectType function
-            text
-            // $ExpectType function
-            json
-            // $ExpectType function
-            blob
-            // $ExpectType function
-            bytes
+            // $ExpectType () => string
+            text;
+            // $ExpectType () => any
+            json;
+            // $ExpectType () => Blob
+            blob;
+            // $ExpectType () => Uint8Array
+            bytes;
         },
 
         destroyCell(outputId) {
