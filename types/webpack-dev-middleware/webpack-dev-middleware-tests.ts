@@ -44,6 +44,9 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
     },
 });
 
+// $ExpectType string | undefined
+webpackDevMiddlewareInstance.getFilenameFromUrl("/");
+
 // return value
 const app = express();
 app.use([webpackDevMiddlewareInstance]);
