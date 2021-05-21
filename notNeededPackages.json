@@ -2601,6 +2601,10 @@
             "libraryName": "maxmind",
             "asOfVersion": "2.0.5"
         },
+        "md5-file": {
+            "libraryName": "md5-file",
+            "asOfVersion": "5.0.0"
+        },
         "mdarea": {
             "libraryName": "mdarea",
             "asOfVersion": "2.0.0"
