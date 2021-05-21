@@ -1569,6 +1569,10 @@
             "libraryName": "gulp-pug",
             "asOfVersion": "4.0.0"
         },
+        "gulp-replace": {
+            "libraryName": "gulp-replace",
+            "asOfVersion": "1.1.0"
+        },
         "gulp-shell": {
             "libraryName": "gulp-shell",
             "asOfVersion": "0.7.0"
