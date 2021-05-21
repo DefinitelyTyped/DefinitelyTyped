@@ -392,7 +392,13 @@ declare module "node-forge" {
 
         function createCaStore(certs?: ReadonlyArray<Certificate | pki.PEM>): CAStore;
 
-        function verifyCertificateChain(caStore: CAStore, chain: Certificate[], customVerifyCallback?: (verified: boolean | string, depth: number, chain: Certificate[]) => boolean): boolean;
+        function verifyCertificateChain(
+            caStore: CAStore,
+            chain: Certificate[],
+            options?: ((verified: boolean | string, depth: number, certs: Certificate[]) => boolean) | {
+                verify?: (verified: boolean | string, depth: number, certs: Certificate[]) => boolean,
+                validityCheckDate?: Date | null
+            }): boolean;
 
         function pemToDer(pem: PEM): util.ByteStringBuffer;
 
