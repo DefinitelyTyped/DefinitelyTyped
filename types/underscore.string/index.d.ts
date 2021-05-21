@@ -581,6 +581,23 @@ declare module 'underscore' {
          * @param falseValues
          */
         toBoolean(str: string, trueValues?: any[], falseValues?: any[]): boolean;
+        
+        /**
+         * Splits a line `str` (default '') into several lines of size `options.width` (default 75)
+         * using a `options.seperator` (default '\n').
+         * If `options.trailingSpaces` is true, make each line at least width long using trailing spaces.
+         * If `options.cut` is true, create new lines in the middle of words. 
+         * If `options.preserveSpaces` is true, preserve the space that should be there at the end of a line (only works if `options.cut is` false).
+         * @param str
+         * @param options
+         */
+        wrap(str: string, options?: { 
+            width?: number, 
+            seperator?: string,
+            trailingSpaces?: boolean, 
+            cut?: boolean, 
+            preserveSpaces?: boolean, 
+        }): string;
 
     }
 }
