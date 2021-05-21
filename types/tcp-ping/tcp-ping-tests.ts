@@ -6,7 +6,7 @@ tp.ping({}, (err, result) => {
     result;
     // $ExpectType Results[]
     result.results;
-    // $ExpectType number | undefined
+    // $ExpectType number
     result.results[0].seq;
     // $ExpectType number | undefined
     result.results[0].time;
