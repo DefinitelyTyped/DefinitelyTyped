@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 3.2.3
+// Last module patch version validated against: 3.2.4
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 

@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.11
+// Type definitions for D3JS d3-array module 2.12
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.11.0
+// Last module patch version validated against: 2.12.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -261,6 +261,15 @@ export function fsum<T>(
     values: Iterable<T>,
     accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
 ): number;
+
+/**
+ * Returns a full precision cumulative sum of the given values.
+ * Although slower, d3.fcumsum can replace d3.cumsum when greater precision is needed. Uses d3.Adder.
+ */
+export function fcumsum<T>(
+    values: Iterable<T>,
+    accessor?: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+): Float64Array;
 
 export class Adder {
     /**
