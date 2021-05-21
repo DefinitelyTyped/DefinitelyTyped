@@ -2085,6 +2085,10 @@
             "libraryName": "joi",
             "asOfVersion": "17.2.0"
         },
+        "joi-password-complexity": {
+            "libraryName": "joi-password-complexity",
+            "asOfVersion": "4.2.1"
+        },
         "jointjs": {
             "libraryName": "jointjs",
             "asOfVersion": "2.0.0"
