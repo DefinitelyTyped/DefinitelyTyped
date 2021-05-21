@@ -2141,6 +2141,10 @@
             "libraryName": "jsonschema",
             "asOfVersion": "1.1.1"
         },
+        "jspdf": {
+            "libraryName": "jspdf",
+            "asOfVersion": "2.0.0"
+        },
         "jsplumb": {
             "libraryName": "jsplumb",
             "asOfVersion": "2.5.7"
