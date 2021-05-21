@@ -1,4 +1,4 @@
-// Type definitions for strip-final-newline 2.0
+// Type definitions for strip-final-newline 3.0
 // Project: https://github.com/sindresorhus/strip-final-newline#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,6 +8,7 @@
 /**
  * Strip the final newline character from a string/buffer
  */
-declare function stripFinalNewline(input: string | Buffer): string;
+declare function stripFinalNewline(input: string): string;
+declare function stripFinalNewline(input: Buffer): Buffer;
 
-export = stripFinalNewline;
+export default stripFinalNewline;

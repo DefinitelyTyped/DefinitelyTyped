@@ -1,9 +1,9 @@
-import * as childProcess from 'node:child_process';
-import * as net from 'node:net';
-import * as fs from 'node:fs';
-import assert = require('node:assert');
-import { promisify } from 'node:util';
-import { Writable, Readable, Pipe } from 'node:stream';
+import * as childProcess from 'child_process';
+import * as net from 'net';
+import * as fs from 'fs';
+import assert = require('assert');
+import { promisify } from 'util';
+import { Writable, Readable, Pipe } from 'stream';
 
 {
     childProcess.exec("echo test");
@@ -235,12 +235,15 @@ async function testPromisify() {
         const _message: any = message;
         const _sendHandle: net.Socket | net.Server = sendHandle;
     });
+    cp = cp.addListener("spawn", () => {
+    });
 
     _boolean = cp.emit("close", () => { });
     _boolean = cp.emit("disconnect", () => { });
     _boolean = cp.emit("error", () => { });
     _boolean = cp.emit("exit", () => { });
     _boolean = cp.emit("message", () => { });
+    _boolean = cp.emit("spawn", () => { });
 
     cp = cp.on("close", (code, signal) => {
         const _code: number | null = code;

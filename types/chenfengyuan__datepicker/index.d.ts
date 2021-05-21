@@ -265,8 +265,13 @@ export interface DatepickerOptions {
     pick?: (event: DatePickerEvent) => void;
 }
 
+export type DatePickerMethod = 'show' | 'hide' | 'update' | 'pick' | 'reset' |
+    'getMonthName' | 'getDayName' | 'getDate' | 'setDate' | 'setStartDate' | 'setEndDate' |
+    'parseDate' | 'formatDate' | 'destroy';
+
 declare global {
     interface JQuery<TElement = HTMLElement> {
         datepicker(options?: DatepickerOptions): DatepickerPlugin<TElement>;
+        datepicker(method: DatePickerMethod, ...args: ReadonlyArray<number | boolean | Date | string>): void | string | Date;
     }
 }

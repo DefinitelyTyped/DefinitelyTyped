@@ -1149,8 +1149,8 @@ declare namespace braintree {
         addOns?: AddOn[];
         balance: string;
         billingDayOfMonth?: number;
-        billingPeriodEndDate: Date;
-        billingPeriodStartDate: Date;
+        billingPeriodEndDate: string;
+        billingPeriodStartDate: string;
         createdAt: Date;
         currentBillingCycle: number;
         daysPastDue?: number;

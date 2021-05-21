@@ -1,9 +1,5 @@
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
-}
-
 declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
+    import { AsyncResource } from 'async_hooks';
 
     interface PerformanceEntry {
         /**

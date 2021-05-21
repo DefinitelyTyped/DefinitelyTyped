@@ -1,4 +1,4 @@
-import * as querystring from 'node:querystring';
+import * as querystring from 'querystring';
 
 interface SampleObject { [key: string]: string; }
 

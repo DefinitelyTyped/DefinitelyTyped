@@ -1,15 +1,20 @@
-import UAParser = require('ua-parser-js');
+import UAParser = require("ua-parser-js");
 // tslint:disable-next-line:no-duplicate-imports testing imports
-import { UAParser as UAParserAlias } from 'ua-parser-js';
+import { UAParser as UAParserAlias } from "ua-parser-js";
 // tslint:disable-next-line:no-duplicate-imports testing imports
-import { IBrowser, ICPU, IDevice, IEngine, IOS, IResult, BROWSER, CPU, DEVICE, ENGINE, OS } from 'ua-parser-js';
+import { IBrowser, ICPU, IDevice, IEngine, IOS, IResult, BROWSER, CPU, DEVICE, ENGINE, OS } from "ua-parser-js";
 
-const ua = 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6';
-let parser = new UAParser(ua); // $ExpectType UAParser
+const ua = "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6";
+new UAParser(); // $ExpectType UAParserInstance
+const parser = new UAParser(ua); // $ExpectType UAParserInstance
 const result = parser.getResult(); // $ExpectType IResult
 
+// create via call instead of new
+UAParser(); // $ExpectType IResult
+UAParser(ua); // $ExpectType IResult
+
 parser.getUA(); // $ExpectType string
-parser.setUA('foo'); // $ExpectType UAParser
+parser.setUA("foo"); // $ExpectType UAParserInstance
 
 result.ua; // $ExpectType string
 
@@ -45,9 +50,28 @@ result.cpu.architecture; // $ExpectType string | undefined
 parser.getCPU().architecture; // $ExpectType string | undefined
 
 // Extensions
-const uaString = 'ownbrowser/1.3';
+const uaString = "ownbrowser/1.3";
 const ownBrowser = [[/(ownbrowser)\/([\w\.]+)/i], [UAParser.BROWSER.NAME, UAParser.BROWSER.VERSION]];
-parser = new UAParser(uaString, { browser: ownBrowser }); // $ExpectType UAParser
+new UAParser({ browser: ownBrowser }); // $ExpectType UAParserInstance
+new UAParser(uaString, { browser: ownBrowser }); // $ExpectType UAParserInstance
+UAParser({ browser: ownBrowser }); // $ExpectType IResult
+UAParser(uaString, { browser: ownBrowser }); // $ExpectType IResult
 
 // alias
-parser = new UAParserAlias(uaString, { browser: ownBrowser }); // $ExpectType UAParser
+new UAParserAlias(uaString, { browser: ownBrowser }); // $ExpectType UAParserInstance
+UAParserAlias(uaString, { browser: ownBrowser }); // $ExpectType IResult
+
+// static fields
+UAParser.VERSION; // $ExpectType string
+UAParser.BROWSER; // $ExpectType BROWSER
+UAParser.CPU; // $ExpectType CPU
+UAParser.DEVICE; // $ExpectType DEVICE
+UAParser.ENGINE; // $ExpectType ENGINE
+UAParser.OS; // $ExpectType OS
+
+// test UAParser interface export
+interface Foo extends UAParser {
+    a: string;
+}
+
+const method: Foo["getBrowser"] = parser.getBrowser;

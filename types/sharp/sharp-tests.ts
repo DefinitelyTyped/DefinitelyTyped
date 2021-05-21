@@ -327,3 +327,20 @@ sharp("input.png").ensureAlpha().ensureAlpha(0).extractChannel(3).toColourspace(
 // From https://sharp.pixelplumbing.com/api-constructor#examples-4
 // Convert an animated GIF to an animated WebP
 sharp("in.gif", { animated: true }).toFile("out.webp");
+
+// From https://github.com/lovell/sharp/issues/2701
+// Type support for limitInputPixels
+sharp({
+    create: {
+      background: "red",
+      channels: 4,
+      height: 25000,
+      width: 25000,
+    },
+    limitInputPixels: false,
+  })
+    .toFormat("png")
+    .toBuffer()
+    .then((largeImage) =>
+      sharp(input).composite([{ input: largeImage, limitInputPixels: false }]),
+    );

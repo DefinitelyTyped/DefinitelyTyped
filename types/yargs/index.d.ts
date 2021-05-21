@@ -781,14 +781,20 @@ declare namespace yargs {
     type ToNumber<T> = (Exclude<T, undefined> extends any[] ? number[] : number) | Extract<T, undefined>;
 
     type InferredOptionType<O extends Options | PositionalOptions> =
+        O extends (
+            | { required: string | true }
+            | { require: string | true }
+            | { demand: string | true }
+            | { demandOption: string | true }
+        ) ?
+        Exclude<InferredOptionTypeInner<O>, undefined> :
+        InferredOptionTypeInner<O>;
+
+    type InferredOptionTypeInner<O extends Options | PositionalOptions> =
         O extends { default: any, coerce: (arg: any) => infer T } ? T :
         O extends { default: infer D } ? D :
         O extends { type: "count" } ? number :
         O extends { count: true } ? number :
-        O extends { required: string | true } ? RequiredOptionType<O> :
-        O extends { require: string | true } ? RequiredOptionType<O> :
-        O extends { demand: string | true } ? RequiredOptionType<O> :
-        O extends { demandOption: string | true } ? RequiredOptionType<O> :
         RequiredOptionType<O> | undefined;
 
     type RequiredOptionType<O extends Options | PositionalOptions> =

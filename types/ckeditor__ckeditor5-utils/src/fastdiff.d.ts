@@ -85,6 +85,11 @@ export interface InsertChange {
  *    fastDiff( a, b );
  *    diffToChanges( diff( a, b ) );
  *
+ *
+ *    // Both calls will return the same results (grouped changes format).
+ *    fastDiff( a, b );
+ *    diffToChanges( diff( a, b ) );
+ *
  *    // Again, both calls will return the same results (atomic changes format).
  *    fastDiff( a, b, null, true );
  *    diff( a, b );

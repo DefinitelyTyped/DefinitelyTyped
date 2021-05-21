@@ -2,11 +2,7 @@
 
 > 这是一个 *高质量* 的 TypeScript 类型定义的仓库。
 
-也可以去看 [definitelytyped.org](http://definitelytyped.org) 这个网站，尽管这个 README 里的信息更新。
-
-*你可以去看其他语言的 README，[英语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)，[西班牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)，[韩语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)，[俄罗斯语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)*
-
-<!-- For translators: add link to README.ja.md above! -->
+*你可以去看其他语言的 README，[英语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)，[西班牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)，[韩语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)，[俄罗斯语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)，[葡萄牙语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)，[意大利语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)，[日语](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *[管理员手册](./docs/admin.md)*
 
@@ -60,49 +56,55 @@
 npm install --save-dev @types/node
 ```
 
-编译器中会自动包含这些类型。
+编译器中会自动引入这些类型。
+如果你的项目没有使用模块系统的话，你可能需要使用 `types` 进行手动引用：
+
+```ts
+/// <reference types="node" />
+```
+
 可以在 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html) 中查看更多信息。
 
-对于 npm 包 "foo"，它的类型将是 "@types/foo"。
+对于 npm 包 "foo"，它的类型定义的包名应该是 "@types/foo"。
 如果没有找到你的包，请在 [TypeSearch](https://microsoft.github.io/TypeSearch/) 查询。
 
 如果你仍然没有找到它，请检查它是否 [捆绑](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型。
-这通常会在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中提供，
-或者可以只查找包中的任何 ".d.ts" 文件并手动将它们包含在 `/// <reference path="" />`.
+这通常会通过 `package.json` 文件中的 `"types"` 或 `"typings"` 字段提供，
+或者将包中包含类型定义的 ".d.ts" 文件手动通过 `/// <reference path="" />` 引入.
 
 #### 旧版本的 TypeScript（3.4 和更早版本）
 
-Definitely Typed 仅在小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.5 及更高版本。如果您使用的是 TypeScript 2.0 到 3.4，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.5 及更高版本。如果您使用的是 TypeScript 2.0 到 3.4，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
-Version | Released | End of Support
--- | -- | --
-2.8 | March 2018 | March 2020
-2.9 | May 2018 | May 2020
-3.0 | July 2018 | July 2020
-3.1 | September 2018 | September 2020
-3.2 | November 2018 | November 2020
-3.3 | January 2019 | January 2021
-3.4 | March 2019 | March 2021
-3.5 | May 2019 | May 2021
-3.6 | August 2019 | August 2021
-3.7 | November 2019 | November 2021
-3.8 | February 2020 | February 2022
-3.9 | May 2020 | May 2022
-4.0 | August 2020 | August 2022
-4.1     | November 2020  | November 2022
-4.2     | February 2021  | February 2023
+| Version | Released       | End of Support |
+| ------- | -------------- | -------------- |
+| 2.8     | March 2018     | March 2020     |
+| 2.9     | May 2018       | May 2020       |
+| 3.0     | July 2018      | August 2020    |
+| 3.1     | September 2018 | September 2020 |
+| 3.2     | November 2018  | November 2020  |
+| 3.3     | January 2019   | January 2021   |
+| 3.4     | March 2019     | March 2021     |
+| 3.5     | May 2019       | May 2021       |
+| 3.6     | August 2019    | August 2021    |
+| 3.7     | November 2019  | November 2021  |
+| 3.8     | February 2020  | February 2022  |
+| 3.9     | May 2020       | May 2022       |
+| 4.0     | August 2020    | August 2022    |
+| 4.1     | November 2020  | November 2022  |
+| 4.2     | February 2021  | February 2023  |
 
-`@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您将看到 TypeScript 2.5 可以将类型用于 react@16.0，而 TypeScript 2.6 和 2.7 可以将类型用于 react@16.4：
+`@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您能看到 TypeScript 2.5 最高支持 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则最高支持 react@16.4：
 
-|Tag | Version|
-|----|---------|
-|latest| 16.9.23|
-|ts2.0| 15.0.1|
-| ... | ... |
-|ts2.5| 16.0.36|
-|ts2.6| 16.4.7|
-|ts2.7| 16.4.7|
-| ... | ... |
+| Tag    | Version |
+| ------ | ------- |
+| latest | 16.9.23 |
+| ts2.0  | 15.0.1  |
+| ...    | ...     |
+| ts2.5  | 16.0.36 |
+| ts2.6  | 16.4.7  |
+| ts2.7  | 16.4.7  |
+| ...    | ...     |
 
 #### TypeScript 1.*
 
@@ -116,20 +118,20 @@ Version | Released | End of Support
 
 ## 我该如何贡献？
 
-只有像你一样的用户的贡献，Definitely Typed 才能发挥作用
+有赖像你这样的用户不断贡献，Definitely Typed 才能持续运作下去
 
 ### 测试
 
-在你分享你的成果前，请务必自己试用一下。
+在你向世界分享你的成果前，请务必自己试用一下。
 
 #### 测试编辑现有的包
 
 你可以使用 [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) 添加新功能。
 你也可以直接在 `node_modules/@types/foo/index.d.ts` 编辑类型，或者从那里复制它们并按照以下步骤操作。
 
-#### 测试新的包
+#### 为新创建的库添加测试
 
-添加到你的 `tsconfig.json`:
+在你的 `tsconfig.json` 中添加:
 
 ```json
 "baseUrl": "types",
@@ -138,8 +140,9 @@ Version | Released | End of Support
 
 (你也可以使用 `src/types`.)
 创建包含模块 "foo" 声明的 `types/foo/index.d.ts`.
-你现在应该将 `"foo"` 导入到你的代码中，它会使用新的类型声明。
+你现在应该能够在你的代码中从 `"foo"` 导入，它会连接到你上面所定义的新的类型声明。
 然后构建并运行代码确保你的类型定义与实际上发生的情况一致。
+
 一旦你的真实代码中的类型定义通过测试，那么可以发起一个 [PR](#发起一个-pull-request)，
 然后按照下面的说明去 [编辑一个现有包](#编辑一个现有包) 或
 [创建一个新包](#创建一个新的包)。
@@ -148,7 +151,25 @@ Version | Released | End of Support
 
 一旦你的包测试通过，你可以在 Definitely Typed 分享它。
 
-首先，[fork](https://guides.github.com/activities/forking/) 这个仓库，然后安装 [node](https://nodejs.org/)，并运行以下命令 `npm install`.
+首先，[fork](https://guides.github.com/activities/forking/) 这个仓库，然后安装 [node](https://nodejs.org/)，并运行以下命令 `npm install`。如果你使用的 `npm` 版本是 v7，你需要增加 `--legacy-peer-deps` 参数。
+
+我们使用机器人来自动管理大量的库，你可以在 [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/) 查看更多细节。下面是一个简易的示意图，显示了一个 PR 的生命周期：
+
+<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+
+#### 减少克隆代码量
+
+通常情况下，你会选择[克隆整个项目](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)代码到本地机器进行开发，但是项目现在包含 7000 多个类型定义包，全部下载无疑会花费很多时间，而且也不是很有必要。
+
+为了便于管理，是否可以选择只克隆你需要的类型定义包呢？使用 git 的 [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout)，[`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt)，和 [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) 特性能够达成这个目的，能够显著减少克隆代码的时间和提高 git 操作的性能。
+
+>:注意: 该特性需要至少 [git 版本 2.27.0](https://git-scm.com/downloads)，这可能比大部分人安装的版本要更新，旧版本的 git 也有更复杂一点的方式能够实现局部克隆，但本文不涉及。
+
+1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
+    - `--sparse` 告知 git 使用 sparse-checkout 方式，所以首次克隆的只有根部的文件。
+    - `--filter=blob:none` 将排除文件，只在需要时获取它们。
+    - `--depth=1` 可以通过阶段提交历史来进一步提高克隆速度，不过它可能会导致一些问题，见：[here](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
+2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
 
 #### 编辑一个现有包
 
@@ -190,6 +211,8 @@ Version | Released | End of Support
 如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my-package> --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my-package> --template module`.
 可以在 [dts-gen](https://github.com/Microsoft/dts-gen) 查看所有的选项。
 
+如果你除了 `index.d.ts` 以外还有别的 `.d.ts` 文件，请确保它们有在 `index.d.ts` 或测试文件中被引用。
+
 Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许多其他 PRs 的时候，检查会变慢。
 
 [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 是个很好的示例。
@@ -224,7 +247,8 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 #### 验证
 
 通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
-这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
+
+这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint) 来对你的 dts 文件进行 TypeScript 编译测试.
 
 #### Naming
 
@@ -236,14 +260,15 @@ If a non-npm package conflicts with an existing npm package try adding -browser 
 
 #### `<my-package>-tests.ts`
 
-There should be a `<my-package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my-package>`.
+`<my-package>-tests.ts` 是你的类型定义项目的测试文件，它应该引入了你所编写的 `*.ts` 文件。
 
-Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`
+如果你在项目文件夹下看不到测试文件的话，你应该创建一份并编写测试用例。
 
-For example, this change to a function in a `.d.ts` file adding a new param to a function:
+测试文件应该对作为 `@types/<my-package>` 被交付的所有 `*.d.ts` 文件中被外部导出的 API 进行验证。
+
+对 `*.d.ts` 的任何修改应该在 `*.ts` 中进行相应的更改，这样别人就不会意外的破坏你所依赖的代码。
+
+举个例子，你为了 `.d.ts` 中的一个函数增加了一个新入参：
 
 `index.d.ts`:
 
@@ -267,9 +292,9 @@ const result = twoslash("//")
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+如果你不知道从何开始，README 中的示例模块是个很好的参考。
 
-You can [validate your changes](#验证) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+你可以在根目录执行 `npm test <package to test>` 来 [validate your changes](#验证) 来验证你的更改。
 
 若要声明的表达式是一个给定类型，请使用 `$ExpectType`. 若要声明的表达式会导致编译错误，请使用 `$ExpectError`.
 
@@ -311,7 +336,7 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 
 #### `OTHER_FILES.txt`
 
-If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
+如果有一些文件需要包含在类型定义包中，但没有在测试文件或 `index.d.ts` 中被引用的话。你需要在 `OTHER_FILES.txt` 列出，一个文件占一行。
 
 #### 常见错误
 

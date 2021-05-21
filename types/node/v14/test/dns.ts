@@ -13,7 +13,7 @@ import {
     Resolver,
     ALL,
     promises,
-} from 'node:dns';
+} from 'dns';
 
 lookup("nodejs.org", (err, address, family) => {
     const _err: NodeJS.ErrnoException | null = err;

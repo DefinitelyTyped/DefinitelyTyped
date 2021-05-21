@@ -1,6 +1,6 @@
-import * as crypto from 'node:crypto';
-import assert = require('node:assert');
-import { promisify } from 'node:util';
+import * as crypto from 'crypto';
+import assert = require('assert');
+import { promisify } from 'util';
 
 {
     const copied: crypto.Hash = crypto.createHash('md5').copy();
@@ -354,6 +354,13 @@ import { promisify } from 'node:util';
     crypto.randomFill(i32arr, (err: Error | null, buf: Int32Array) => void {});
     crypto.randomFill(i32arr, 2, (err: Error | null, buf: Int32Array) => void {});
     crypto.randomFill(i32arr, 2, 3, (err: Error | null, buf: Int32Array) => void {});
+}
+
+{
+    crypto.randomUUID({});
+    crypto.randomUUID({ disableEntropyCache: true });
+    crypto.randomUUID({ disableEntropyCache: false });
+    crypto.randomUUID();
 }
 
 {

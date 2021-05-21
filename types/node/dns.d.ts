@@ -1,9 +1,5 @@
-declare module 'node:dns' {
-    export * from 'dns';
-}
-
 declare module 'dns' {
-    import * as dnsPromises from "node:dns/promises";
+    import * as dnsPromises from "dns/promises";
 
     // Supported getaddrinfo flags.
     export const ADDRCONFIG: number;

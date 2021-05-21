@@ -3,6 +3,7 @@ import { Emitter as DomEmitter } from "./dom/emittermixin";
 import { BindChain, Observable } from "./observablemixin";
 import { PriorityString } from "./priorities";
 import EventInfo from "./eventinfo";
+import { DomEventData } from "@ckeditor/ckeditor5-engine";
 
 /**
  * Allows observing a group of `HTMLElement`s whether at least one of them is focused.
@@ -46,16 +47,24 @@ export default class FocusTracker implements Observable, Emitter, DomEmitter {
 
     // Observable (Emitter)
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: Function,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: PriorityString | number },
     ): void;
-    off(event: string, callback?: Function): void;
-    on(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
-    once(event: string, callback: Function, options?: { priority: PriorityString | number }): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
+    on: (
+        event: string,
+        callback: (info: EventInfo, data: DomEventData) => void,
+        options?: { priority: PriorityString | number },
+    ) => void;
+    once(
+        event: string,
+        callback: (info: EventInfo, data: DomEventData) => void,
+        options?: { priority: PriorityString | number },
+    ): void;
     stopDelegating(event?: string, emitter?: Emitter): void;
-    stopListening(emitter?: Emitter, event?: string, callback?: Function): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
 }

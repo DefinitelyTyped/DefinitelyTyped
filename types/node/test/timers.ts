@@ -1,5 +1,5 @@
-import { promisify } from 'node:util';
-import * as timers from 'node:timers';
+import { promisify } from 'util';
+import * as timers from 'timers';
 {
     {
         const immediate = timers

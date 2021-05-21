@@ -1,7 +1,3 @@
-declare module "node:stream/promises" {
-    export * from "stream/promises";
-}
-
 declare module "stream/promises" {
     import { FinishedOptions, PipelineSource, PipelineTransform,
         PipelineDestination, PipelinePromise, PipelineOptions } from "stream";

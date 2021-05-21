@@ -1,9 +1,5 @@
 declare module 'crypto' {
-    export * from 'node:crypto';
-}
-
-declare module 'node:crypto' {
-    import * as stream from 'node:stream';
+    import * as stream from 'stream';
 
     interface Certificate {
         exportChallenge(spkac: BinaryLike): Buffer;

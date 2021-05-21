@@ -6,7 +6,6 @@ indy.openBlobStorageWriter("default", {
 });
 indy.openBlobStorageReader("default", {
     base_dir: "dir",
-    uri_pattern: "uri_pattern",
 });
 
 const walletConfig: indy.WalletConfig = { id: "wallet" };
@@ -225,7 +224,7 @@ indy.proverStoreCredential(
 indy.proverGetCredential(10, "outCredId");
 indy.generateNonce();
 indy.proverGetCredentialsForProofReq(10, proofReq);
-indy.proverSearchCredentialsForProofReq(10, proofReq, [{}]);
+indy.proverSearchCredentialsForProofReq(10, proofReq, {});
 indy.proverFetchCredentialsForProofReq(10, "attr1_referent", 100);
 indy.proverCloseCredentialsSearchForProofReq(10);
 indy.verifierVerifyProof(

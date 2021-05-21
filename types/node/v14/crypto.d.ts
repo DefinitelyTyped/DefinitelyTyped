@@ -1,9 +1,5 @@
-declare module 'node:crypto' {
-    export * from 'crypto';
-}
-
 declare module 'crypto' {
-    import * as stream from 'node:stream';
+    import * as stream from 'stream';
 
     interface Certificate {
         /**
@@ -451,6 +447,20 @@ declare module 'crypto' {
         size: number,
         callback: (err: Error | null, buf: T) => void,
     ): void;
+
+    interface RandomUUIDOptions {
+        /**
+         * By default, to improve performance,
+         * Node.js will pre-emptively generate and persistently cache enough
+         * random data to generate up to 128 random UUIDs. To generate a UUID
+         * without using the cache, set `disableEntropyCache` to `true`.
+         *
+         * @default `false`
+         */
+        disableEntropyCache?: boolean;
+    }
+
+    function randomUUID(options?: RandomUUIDOptions): string;
 
     interface ScryptOptions {
         cost?: number;

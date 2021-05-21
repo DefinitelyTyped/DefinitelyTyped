@@ -7,8 +7,8 @@ import {
     compileFunction,
     measureMemory,
     MemoryMeasurement,
-} from 'node:vm';
-import { inspect } from 'node:util';
+} from 'vm';
+import { inspect } from 'util';
 
 {
     const sandbox = {
