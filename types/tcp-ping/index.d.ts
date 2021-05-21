@@ -12,7 +12,7 @@ export interface Options {
 }
 
 export interface Results {
-    seq: number | undefined;
+    seq: number;
     time: number | undefined;
     err?: Error;
 }
