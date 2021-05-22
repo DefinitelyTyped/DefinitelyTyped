@@ -2157,6 +2157,10 @@
             "libraryName": "jss",
             "asOfVersion": "10.0.0"
         },
+        "jssha": {
+            "libraryName": "jssha",
+            "asOfVersion": "3.0.0"
+        },
         "jszip": {
             "libraryName": "jszip",
             "asOfVersion": "3.4.0"
