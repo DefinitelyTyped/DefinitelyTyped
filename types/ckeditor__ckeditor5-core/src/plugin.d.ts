@@ -12,7 +12,7 @@ export default abstract class Plugin implements Emitter, Observable {
     static readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string>;
 
     readonly editor: Editor;
-    readonly isEnabled: boolean;
+    isEnabled: boolean;
 
     constructor(editor: Editor);
     afterInit?(): Promise<any> | void;

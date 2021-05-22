@@ -170,7 +170,7 @@ export function median<T>(
  * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the cumulative sum.
  * This method ignores undefined and NaN values; this is useful for ignoring missing data.
  */
-export function cumsum<T extends Numeric>(iterable: Iterable<T | undefined | null>): Float64Array;
+export function cumsum(iterable: Iterable<Numeric | undefined | null>): Float64Array;
 /**
  * Returns the cumulative sum of the given iterable of numbers, as a Float64Array of the same length.
  * If the iterable contains no numbers, returns zeros.
@@ -266,9 +266,14 @@ export function fsum<T>(
  * Returns a full precision cumulative sum of the given values.
  * Although slower, d3.fcumsum can replace d3.cumsum when greater precision is needed. Uses d3.Adder.
  */
+export function fcumsum(values: Iterable<Numeric | undefined | null>): Float64Array;
+/**
+ * Returns a full precision cumulative sum of the given values.
+ * Although slower, d3.fcumsum can replace d3.cumsum when greater precision is needed. Uses d3.Adder.
+ */
 export function fcumsum<T>(
     values: Iterable<T>,
-    accessor?: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
 ): Float64Array;
 
 export class Adder {
