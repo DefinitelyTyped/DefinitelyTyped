@@ -3402,6 +3402,10 @@
             "libraryName": "@reach/tooltip",
             "asOfVersion": "0.4.0"
         },
+        "reach__visually-hidden": {
+            "libraryName": "@reach/visually-hidden",
+            "asOfVersion": "0.3.0"
+        },
         "react-alice-carousel": {
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
