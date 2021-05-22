@@ -3374,6 +3374,10 @@
             "libraryName": "@reach/auto-id",
             "asOfVersion": "0.3.0"
         },
+        "reach__combobox": {
+            "libraryName": "@reach/combobox",
+            "asOfVersion": "0.4.0"
+        },
         "react-alice-carousel": {
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
