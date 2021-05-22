@@ -3666,6 +3666,10 @@
             "libraryName": "redux-devtools-extension",
             "asOfVersion": "2.13.2"
         },
+        "redux-devtools-log-monitor": {
+            "libraryName": "redux-devtools-log-monitor",
+            "asOfVersion": "2.1.0"
+        },
         "redux-little-router": {
             "libraryName": "redux-little-router",
             "asOfVersion": "15.1.0"
