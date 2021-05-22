@@ -3406,6 +3406,10 @@
             "libraryName": "@reach/visually-hidden",
             "asOfVersion": "0.3.0"
         },
+        "reach__window-size": {
+            "libraryName": "@reach/window-size",
+            "asOfVersion": "0.1.2"
+        },
         "react-alice-carousel": {
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
