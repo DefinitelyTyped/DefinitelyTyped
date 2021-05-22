@@ -3518,6 +3518,10 @@
             "libraryName": "@mauron85/react-native-background-geolocation",
             "asOfVersion": "0.5.3"
         },
+        "react-native-mixpanel": {
+            "libraryName": "react-native-mixpanel",
+            "asOfVersion": "1.1.3"
+        },
         "react-native-modal": {
             "libraryName": "react-native-modal",
             "asOfVersion": "4.1.1"
