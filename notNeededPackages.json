@@ -3362,6 +3362,10 @@
             "libraryName": "re2",
             "asOfVersion": "1.10.3"
         },
+        "reach__alert-dialog": {
+            "libraryName": "@reach/alert-dialog",
+            "asOfVersion": "0.4.0"
+        },
         "react-alice-carousel": {
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
