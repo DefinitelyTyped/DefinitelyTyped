@@ -3630,6 +3630,10 @@
             "libraryName": "realm",
             "asOfVersion": "1.13.0"
         },
+        "reapop": {
+            "libraryName": "reapop",
+            "asOfVersion": "3.0.0"
+        },
         "redent": {
             "libraryName": "redent",
             "asOfVersion": "3.0.0"
