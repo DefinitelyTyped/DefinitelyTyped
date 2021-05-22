@@ -1055,7 +1055,7 @@ declare namespace CodeMirror {
          * Alternatively, it may be an object containing configuration options for the mode,
          * with a name property that names the mode (for example {name: "javascript", json: true}).
          */
-        mode?: string | ModeSpec<unknown>;
+        mode?: string | ModeSpec<{[key:string]:unknown}>;
 
         /**
          * Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well
