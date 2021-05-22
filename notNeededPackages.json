@@ -3354,6 +3354,10 @@
             "libraryName": "raspi-serial",
             "asOfVersion": "5.1.0"
         },
+        "raspi-soft-pwm": {
+            "libraryName": "raspi-soft-pwm",
+            "asOfVersion": "5.1.0"
+        },
         "raven-js": {
             "libraryName": "raven-js",
             "asOfVersion": "3.10.0"
