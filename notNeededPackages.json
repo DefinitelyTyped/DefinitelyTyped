@@ -3350,6 +3350,10 @@
             "libraryName": "raspi-onewire",
             "asOfVersion": "1.0.1"
         },
+        "raspi-serial": {
+            "libraryName": "raspi-serial",
+            "asOfVersion": "5.1.0"
+        },
         "raven-js": {
             "libraryName": "raven-js",
             "asOfVersion": "3.10.0"
