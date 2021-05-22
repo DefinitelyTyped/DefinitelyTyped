@@ -2441,6 +2441,10 @@
             "libraryName": "markdown-it-anchor",
             "asOfVersion": "7.0.0"
         },
+        "markdown-table": {
+            "libraryName": "markdown-table",
+            "asOfVersion": "3.0.0"
+        },
         "markdownlint": {
             "libraryName": "markdownlint",
             "asOfVersion": "0.18.0"
