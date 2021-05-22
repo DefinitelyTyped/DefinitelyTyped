@@ -3334,6 +3334,10 @@
             "libraryName": "raspi-board",
             "asOfVersion": "5.3.0"
         },
+        "raspi-gpio": {
+            "libraryName": "raspi-gpio",
+            "asOfVersion": "6.1.0"
+        },
         "raven-js": {
             "libraryName": "raven-js",
             "asOfVersion": "3.10.0"
