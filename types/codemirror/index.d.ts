@@ -580,13 +580,13 @@ declare namespace CodeMirror {
     } & { name: string };
 
     interface DocConstructor {
-        new (text: string, mode?: string | ModeSpec<unknown>, firstLineNumber?: number, lineSep?: string): Doc;
-        (text: string, mode?: string | ModeSpec<unknown>, firstLineNumber?: number, lineSep?: string): Doc;
+        new (text: string, mode?: string | ModeSpec<any>, firstLineNumber?: number, lineSep?: string): Doc;
+        (text: string, mode?: string | ModeSpec<any>, firstLineNumber?: number, lineSep?: string): Doc;
     }
 
     interface DocOrEditor {
         /** Get the mode option */
-        modeOption: string | ModeSpec<unknown>;
+        modeOption: string | ModeSpec<any>;
 
         /** Get the current editor content. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
         getValue(seperator?: string): string;
@@ -766,7 +766,7 @@ declare namespace CodeMirror {
              */
             to?: number;
             /** By default, the new document inherits the mode of the parent. This option can be set to a mode spec to give it a different mode. */
-            mode?: string | ModeSpec<unknown>;
+            mode?: string | ModeSpec<any>;
         }): Doc;
 
         /**
@@ -1055,7 +1055,7 @@ declare namespace CodeMirror {
          * Alternatively, it may be an object containing configuration options for the mode,
          * with a name property that names the mode (for example {name: "javascript", json: true}).
          */
-        mode?: string | ModeSpec<{[key: string]: unknown}>;
+        mode?: string | ModeSpec<any>;
 
         /**
          * Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well
@@ -1592,7 +1592,7 @@ declare namespace CodeMirror {
      * The first argument is a configuration object as passed to the mode constructor function, and the second argument
      * is a mode specification as in the EditorConfiguration mode option.
      */
-    function getMode(config: EditorConfiguration, mode: string | ModeSpec<unknown>): Mode<unknown>;
+    function getMode(config: EditorConfiguration, mode: string | ModeSpec<any>): Mode<unknown>;
 
     /**
      * Utility function from the overlay.js addon that allows modes to be combined. The mode given as the base argument takes care of
@@ -1611,10 +1611,10 @@ declare namespace CodeMirror {
      */
     const modes: ModeMap;
 
-    function defineMIME(mime: string, modeSpec: string | ModeSpec<unknown>): void;
+    function defineMIME(mime: string, modeSpec: string | ModeSpec<any>): void;
 
     interface MimeModeMap {
-        [mimeName: string]: string | ModeSpec<unknown>;
+        [mimeName: string]: string | ModeSpec<any>;
     }
 
     /**
