@@ -2265,6 +2265,10 @@
             "libraryName": "koa-useragent",
             "asOfVersion": "2.1.1"
         },
+        "koa-views": {
+            "libraryName": "koa-views",
+            "asOfVersion": "7.0.0"
+        },
         "ladda": {
             "libraryName": "ladda",
             "asOfVersion": "2.0.0"
