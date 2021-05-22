@@ -73,7 +73,7 @@ export interface TemplateDefinition {
     children?: Array<string | View | Node | TemplateDefinition>;
     on?: Record<string, TemplateListenerSchema>;
     tag?: string;
-    text?: String | TemplateValueSchema | Array<string | TemplateValueSchema>;
+    text?: string | TemplateValueSchema | Array<string | TemplateValueSchema>;
 }
 
 export type TemplateListenerSchema = TemplateBinding | TemplateBinding[];
