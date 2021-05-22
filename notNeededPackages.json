@@ -3338,6 +3338,10 @@
             "libraryName": "raspi-i2c",
             "asOfVersion": "6.1.2"
         },
+        "raspi-led": {
+            "libraryName": "raspi-led",
+            "asOfVersion": "2.1.0"
+        },
         "raven-js": {
             "libraryName": "raven-js",
             "asOfVersion": "3.10.0"
