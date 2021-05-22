@@ -3334,6 +3334,10 @@
             "libraryName": "raspi-board",
             "asOfVersion": "5.3.0"
         },
+        "raspi-gpio": {
+            "libraryName": "raspi-gpio",
+            "asOfVersion": "6.1.0"
+        },
         "raspi-i2c": {
             "libraryName": "raspi-i2c",
             "asOfVersion": "6.1.2"
