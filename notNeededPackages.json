@@ -3342,6 +3342,10 @@
             "libraryName": "raspi-led",
             "asOfVersion": "2.1.0"
         },
+        "raspi-onewire": {
+            "libraryName": "raspi-onewire",
+            "asOfVersion": "1.0.1"
+        },
         "raven-js": {
             "libraryName": "raven-js",
             "asOfVersion": "3.10.0"
