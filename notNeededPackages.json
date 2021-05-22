@@ -3482,6 +3482,10 @@
             "libraryName": "@react-native-community/cli",
             "asOfVersion": "3.0.0"
         },
+        "react-native-dialog": {
+            "libraryName": "react-native-dialog",
+            "asOfVersion": "8.0.0"
+        },
         "react-native-elements": {
             "libraryName": "react-native-elements",
             "asOfVersion": "0.18.0"
