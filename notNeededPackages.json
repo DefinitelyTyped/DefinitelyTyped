@@ -3366,6 +3366,10 @@
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
         },
+        "react-auth-kit": {
+            "libraryName": "react-auth-kit",
+            "asOfVersion": "1.2.1"
+        },
         "react-chartjs-2": {
             "libraryName": "react-chartjs-2",
             "asOfVersion": "2.5.7"
