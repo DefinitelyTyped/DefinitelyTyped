@@ -3230,6 +3230,10 @@
             "libraryName": "positive-zero",
             "asOfVersion": "3.0.0"
         },
+        "postcss-load-config": {
+            "libraryName": "postcss-load-config",
+            "asOfVersion": "3.0.1"
+        },
         "postcss-nested": {
             "libraryName": "postcss-nested",
             "asOfVersion": "4.2.1"
