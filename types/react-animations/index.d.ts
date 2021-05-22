@@ -1,4 +1,4 @@
-// // Type definitions for react-animations 1.0
+// Type definitions for react-animations 1.0
 // Project: https://github.com/FormidableLabs/react-animations
 // Definitions by: Matheus Battirola <https://github.com/mcbattirola>
 //                 Caroline Aquistapace <http://github.com/aquistapace>
