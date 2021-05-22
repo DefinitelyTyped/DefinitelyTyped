@@ -3406,6 +3406,10 @@
             "libraryName": "react-day-picker",
             "asOfVersion": "5.3.0"
         },
+        "react-div-100vh": {
+            "libraryName": "react-div-100vh",
+            "asOfVersion": "0.4.0"
+        },
         "react-dnd": {
             "libraryName": "react-dnd",
             "asOfVersion": "3.0.2"
