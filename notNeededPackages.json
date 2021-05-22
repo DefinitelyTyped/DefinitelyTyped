@@ -2313,6 +2313,10 @@
             "libraryName": "libra-core",
             "asOfVersion": "1.0.5"
         },
+        "lightship": {
+            "libraryName": "lightship",
+            "asOfVersion": "6.6.0"
+        },
         "line-column-path": {
             "libraryName": "line-column-path",
             "asOfVersion": "2.0.0"
