@@ -3394,6 +3394,10 @@
             "libraryName": "react-content-loader",
             "asOfVersion": "4.0.0"
         },
+        "react-countdown-circle-timer": {
+            "libraryName": "react-countdown-circle-timer",
+            "asOfVersion": "2.0.1"
+        },
         "react-daum-postcode": {
             "libraryName": "react-daum-postcode",
             "asOfVersion": "1.6.1"
