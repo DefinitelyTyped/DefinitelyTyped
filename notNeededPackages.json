@@ -3358,6 +3358,10 @@
             "libraryName": "rc-slider",
             "asOfVersion": "9.3.0"
         },
+        "rc-time-picker": {
+            "libraryName": "rc-time-picker",
+            "asOfVersion": "3.5.0"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
