@@ -3654,6 +3654,10 @@
             "libraryName": "redux-bootstrap",
             "asOfVersion": "1.1.0"
         },
+        "redux-devtools": {
+            "libraryName": "redux-devtools",
+            "asOfVersion": "3.7.0"
+        },
         "redux-devtools-extension": {
             "libraryName": "redux-devtools-extension",
             "asOfVersion": "2.13.2"
