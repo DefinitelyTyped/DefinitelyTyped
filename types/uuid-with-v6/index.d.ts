@@ -3,7 +3,7 @@
 // Definitions by: Kael Shipman <https://github.com/kael-shipman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from "../uuid";
+export * from "uuid";
 
 export interface V6SetupOpts {
     disableRandom: boolean;
