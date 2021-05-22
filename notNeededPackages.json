@@ -3382,6 +3382,10 @@
             "libraryName": "@reach/dialog",
             "asOfVersion": "0.4.0"
         },
+        "reach__menu-button": {
+            "libraryName": "@reach/menu-button",
+            "asOfVersion": "0.1.8"
+        },
         "react-alice-carousel": {
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
