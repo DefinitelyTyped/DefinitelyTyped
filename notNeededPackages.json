@@ -3394,6 +3394,10 @@
             "libraryName": "@reach/skip-nav",
             "asOfVersion": "0.1.2"
         },
+        "reach__tabs": {
+            "libraryName": "@reach/tabs",
+            "asOfVersion": "0.4.0"
+        },
         "react-alice-carousel": {
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
