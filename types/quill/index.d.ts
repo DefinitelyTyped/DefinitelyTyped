@@ -6,11 +6,12 @@
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
 //                 Mohammad Hossein Amri <https://github.com/mhamri>
 //                 Marco Mantovani <https://github.com/TheLand>
+//                 Ameer Hamoodi <https://github.com/AmeerHamoodi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { Blot } from 'parchment/dist/src/blot/abstract/blot';
-import Delta = require('quill-delta');
+import { Blot } from "parchment/src/blot/abstract/blot";
+import Delta = require("quill-delta");
 
 /**
  * A stricter type definition would be:
@@ -21,15 +22,19 @@ import Delta = require('quill-delta');
  */
 export type DeltaOperation = { insert?: any; delete?: number; retain?: number } & OptionalAttributes;
 interface SourceMap {
-    API: 'api';
-    SILENT: 'silent';
-    USER: 'user';
+    API: "api";
+    SILENT: "silent";
+    USER: "user";
 }
-export type Sources = 'api' | 'user' | 'silent';
+export type Sources = "api" | "user" | "silent";
 
 export interface Key {
     key: string | number;
-    shortKey?: boolean;
+    shortKey?: boolean | null;
+    shiftKey?: boolean | null;
+    altKey?: boolean | null;
+    metaKey?: boolean | null;
+    ctrlKey?: boolean | null;
 }
 
 export interface StringMap {
@@ -43,8 +48,8 @@ export interface OptionalAttributes {
 export type TextChangeHandler = (delta: Delta, oldContents: Delta, source: Sources) => any;
 export type SelectionChangeHandler = (range: RangeStatic, oldRange: RangeStatic, source: Sources) => any;
 export type EditorChangeHandler =
-    | ((name: 'text-change', delta: Delta, oldContents: Delta, source: Sources) => any)
-    | ((name: 'selection-change', range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
+    | ((name: "text-change", delta: Delta, oldContents: Delta, source: Sources) => any)
+    | ((name: "selection-change", range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
 
 export interface KeyboardStatic {
     addBinding(key: Key, callback: (range: RangeStatic, context: any) => void): void;
@@ -95,15 +100,15 @@ export class RangeStatic implements RangeStatic {
 }
 
 export interface EventEmitter {
-    on(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
-    on(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
-    on(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
-    once(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
-    once(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
-    once(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
-    off(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
-    off(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
-    off(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
+    on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
 }
 
 export class Quill implements EventEmitter {
@@ -181,15 +186,15 @@ export class Quill implements EventEmitter {
     getLines(range: RangeStatic): any[];
 
     // EventEmitter methods
-    on(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
-    on(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
-    on(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
-    once(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
-    once(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
-    once(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
-    off(eventName: 'text-change', handler: TextChangeHandler): EventEmitter;
-    off(eventName: 'selection-change', handler: SelectionChangeHandler): EventEmitter;
-    off(eventName: 'editor-change', handler: EditorChangeHandler): EventEmitter;
+    on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
 }
 
 export default Quill;
