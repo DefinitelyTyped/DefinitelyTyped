@@ -3570,6 +3570,10 @@
             "libraryName": "react-native-tab-view",
             "asOfVersion": "2.3.0"
         },
+        "react-native-version-number": {
+            "libraryName": "react-native-version-number",
+            "asOfVersion": "0.3.5"
+        },
         "react-navigation": {
             "libraryName": "react-navigation",
             "asOfVersion": "3.4.0"
