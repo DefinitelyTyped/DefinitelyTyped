@@ -3658,6 +3658,10 @@
             "libraryName": "redux-devtools",
             "asOfVersion": "3.7.0"
         },
+        "redux-devtools-dock-monitor": {
+            "libraryName": "redux-devtools-dock-monitor",
+            "asOfVersion": "1.2.0"
+        },
         "redux-devtools-extension": {
             "libraryName": "redux-devtools-extension",
             "asOfVersion": "2.13.2"
