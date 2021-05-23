@@ -1,31 +1,29 @@
-// Type definitions for Eris-Sharder 1.10.0
+// Type definitions for Eris-Sharder 1.10
 // Project: https://github.com/discordware/eris-sharder
 // Definitions by: MathleteDev <https://github.com/mathletedev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="eris" />
-
 import * as Eris from 'eris';
-import * as events from 'events';
+import { EventEmitter } from 'events';
 
-declare class Cluster {
-    public shards: number;
-    public maxShards: number;
-    public firstShardID: number;
-    public lastShardID: number;
-    public mainFile: any;
-    public clusterID: number;
-    public clusterCount: number;
-    public guilds: number;
-    public users: number;
-    public uptime: number;
-    public exclusiveGuilds: number;
-    public largeGuilds: number;
-    public voiceChannels: number;
-    public shardsStats: any[];
-    public app: any;
-    public bot: Eris.Client | null;
-    public test: boolean;
+export class Cluster {
+    shards: number;
+    maxShards: number;
+    firstShardID: number;
+    lastShardID: number;
+    mainFile: any;
+    clusterID: number;
+    clusterCount: number;
+    guilds: number;
+    users: number;
+    uptime: number;
+    exclusiveGuilds: number;
+    largeGuilds: number;
+    voiceChannels: number;
+    shardsStats: any[];
+    app: any;
+    bot: Eris.Client | null;
+    test: boolean;
 
     constructor();
 
@@ -47,7 +45,7 @@ declare class Cluster {
     startStats(bot: Eris.Client): undefined;
 }
 
-export class Master extends events.EventEmitter {
+export class Master extends EventEmitter {
     constructor(
         token: string,
         mainFile: string,
@@ -103,7 +101,7 @@ export abstract class Base {
     protected bot: Eris.Client;
     protected clusterID: number;
     protected ipc: {
-        register(event: string, callback: Function): void;
+        register(event: string, callback: () => any): void;
         unregister(event: string): void;
         broadcast(name: string, message: any): void;
         sendTo(cluster: number, name: string, message: any): void;
