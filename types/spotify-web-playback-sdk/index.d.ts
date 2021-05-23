@@ -142,3 +142,6 @@ declare namespace Spotify {
         device_id: string;
     }
 }
+
+export = Spotify;
+export as namespace Spotify;
