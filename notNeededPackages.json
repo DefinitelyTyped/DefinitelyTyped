@@ -4342,6 +4342,10 @@
             "libraryName": "terser",
             "asOfVersion": "3.12.0"
         },
+        "tesseract.js": {
+            "libraryName": "tesseract.js",
+            "asOfVersion": "2.0.0"
+        },
         "testing-library__dom": {
             "libraryName": "@testing-library/dom",
             "asOfVersion": "7.5.0"
