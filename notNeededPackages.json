@@ -3666,6 +3666,10 @@
             "libraryName": "react-tooltip",
             "asOfVersion": "4.2.4"
         },
+        "react-vega": {
+            "libraryName": "react-vega",
+            "asOfVersion": "7.0.0"
+        },
         "react-visibility-sensor": {
             "libraryName": "react-visibility-sensor",
             "asOfVersion": "5.1.0"
