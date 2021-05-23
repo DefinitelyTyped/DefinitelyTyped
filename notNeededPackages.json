@@ -4814,6 +4814,10 @@
             "libraryName": "yn",
             "asOfVersion": "3.1.0"
         },
+        "yoctodelay": {
+            "libraryName": "yoctodelay",
+            "asOfVersion": "1.2.0"
+        },
         "z-schema": {
             "libraryName": "z-schema",
             "asOfVersion": "3.24.0"
