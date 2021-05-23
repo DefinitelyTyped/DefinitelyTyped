@@ -3494,6 +3494,10 @@
             "libraryName": "react-icons",
             "asOfVersion": "3.0.0"
         },
+        "react-infinite-scroll-component": {
+            "libraryName": "react-infinite-scroll-component",
+            "asOfVersion": "5.0.0"
+        },
         "react-inlinesvg": {
             "libraryName": "react-inlinesvg",
             "asOfVersion": "1.0.0"
