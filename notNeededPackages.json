@@ -4650,6 +4650,10 @@
             "libraryName": "webpack-chain",
             "asOfVersion": "5.2.0"
         },
+        "webpack-chunk-hash": {
+            "libraryName": "webpack-chunk-hash",
+            "asOfVersion": "0.6.0"
+        },
         "webpack-merge": {
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
