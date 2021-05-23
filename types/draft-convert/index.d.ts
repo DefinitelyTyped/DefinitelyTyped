@@ -8,7 +8,7 @@
 
 // Based on: https://github.com/HubSpot/draft-convert/issues/107#issuecomment-488581709 by <https://github.com/sbusch>
 
-declare module "draft-convert" {
+declare module 'draft-convert' {
     import {
         DraftEntityMutability,
         RawDraftContentBlock,
@@ -17,10 +17,10 @@ declare module "draft-convert" {
         DraftInlineStyleType,
         Entity,
         RawDraftEntity,
-    } from "draft-js";
-    import { ReactNode } from "react";
+    } from 'draft-js';
+    import { ReactNode } from 'react';
 
-    type RawDraftContentBlockWithCustomType<T> = Omit<RawDraftContentBlock, "type"> & {
+    type RawDraftContentBlockWithCustomType<T> = Omit<RawDraftContentBlock, 'type'> & {
         type: T;
     };
 
@@ -63,7 +63,7 @@ declare module "draft-convert" {
         htmlToEntity?: (
             nodeName: string,
             node: ExtendedHTMLElement<S>,
-            createEntity: (type: E["type"], mutability: DraftEntityMutability, data: E["data"]) => EntityKey,
+            createEntity: (type: E['type'], mutability: DraftEntityMutability, data: E['data']) => EntityKey,
             getEntity: (key: EntityKey) => Entity,
             mergeEntityData: (key: string, data: object) => void,
             replaceEntityData: (key: string, data: object) => void,
@@ -72,7 +72,7 @@ declare module "draft-convert" {
         // Text entities
         textToEntity?: (
             text: string,
-            createEntity: (type: E["type"], mutability: DraftEntityMutability, data: E["data"]) => EntityKey,
+            createEntity: (type: E['type'], mutability: DraftEntityMutability, data: E['data']) => EntityKey,
             getEntity: (key: EntityKey) => Entity,
             mergeEntityData: (key: string, data: object) => void,
             replaceEntityData: (key: string, data: object) => void,
@@ -94,6 +94,7 @@ declare module "draft-convert" {
         B extends DraftBlockType = DraftBlockType,
         E extends RawDraftEntity = RawDraftEntity
     >(config: IConvertToHTMLConfig<S, B, E>): ContentStateConverter;
+    export function convertToHTML(contentState: ContentState): string;
     export function convertFromHTML<
         S extends {
             [name: string]: unknown;
@@ -101,4 +102,5 @@ declare module "draft-convert" {
         B extends DraftBlockType = DraftBlockType,
         E extends RawDraftEntity = RawDraftEntity
     >(config: IConvertFromHTMLConfig<S, B, E>): htmlConverter;
+    export function convertFromHTML(html: string): ContentState;
 }
