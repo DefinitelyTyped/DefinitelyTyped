@@ -1,4 +1,4 @@
-import Gender from "./Gender";
+import Gender from './Gender';
 
 export type LemmaOptions = {
     text: string;
@@ -6,7 +6,7 @@ export type LemmaOptions = {
     indeclinable?: boolean;
     pluraleTantum?: boolean;
     animate?: boolean;
-}
+};
 
 export class Lemma {
     constructor(o: LemmaOptions | Lemma);
@@ -19,9 +19,9 @@ export class Lemma {
     public lower(): string;
     public isPluraleTantum(): boolean;
     /**
-    * @deprecated Используйте isPluraleTantum(), т.к. речь об одной лемме, а pluralia — во мн.ч. на латыни.
-    * @returns {boolean}
-    */
+     * @deprecated Используйте isPluraleTantum(), т.к. речь об одной лемме, а pluralia — во мн.ч. на латыни.
+     * @returns {boolean}
+     */
     public isPluraliaTantum(): boolean;
     public getGender(): string;
     public isIndeclinable(): boolean;

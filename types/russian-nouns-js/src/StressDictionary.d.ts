@@ -1,30 +1,30 @@
-import { Lemma, LemmaOptions } from "./Lemma";
+import { Lemma, LemmaOptions } from './Lemma';
 
 export default class StressDictionary {
     public data: {};
 
     constructor();
 
-     /**
-             * @param {RussianNouns.Lemma|Object} lemma
-             * @param {string} settings Строка настроек в формате 1234567-123456.
-             * До дефиса — единственное число, после дефиса — множественное.
-             * Номер символа — номер падежа в {@link RussianNouns.CASES}.
-             * Возможные значения каждого символа:
-             * S — ударение только на основу;
-             * s — чаще на основу;
-             * b — оба варианта употребляются одинаково часто;
-             * e — чаще на окончание;
-             * E — только на окончание.
-             * @throws {RussianNouns.StressDictionaryException}
-             */
+    /**
+     * @param {RussianNouns.Lemma|Object} lemma
+     * @param {string} settings Строка настроек в формате 1234567-123456.
+     * До дефиса — единственное число, после дефиса — множественное.
+     * Номер символа — номер падежа в {@link RussianNouns.CASES}.
+     * Возможные значения каждого символа:
+     * S — ударение только на основу;
+     * s — чаще на основу;
+     * b — оба варианта употребляются одинаково часто;
+     * e — чаще на окончание;
+     * E — только на окончание.
+     * @throws {RussianNouns.StressDictionaryException}
+     */
     public put(lemma: LemmaOptions | Lemma, settings: string): void;
 
     /**
-             * @param {RussianNouns.Lemma|Object} lemma
-             * @param {boolean} fuzzy Если не найдено, игнорировать букву Ё и второстепенные поля у леммы.
-             * @returns {*} Строка настроек или undefined.
-             */
+     * @param {RussianNouns.Lemma|Object} lemma
+     * @param {boolean} fuzzy Если не найдено, игнорировать букву Ё и второстепенные поля у леммы.
+     * @returns {*} Строка настроек или undefined.
+     */
     public get(lemma: LemmaOptions | Lemma, fuzzy: boolean): string | undefined;
 
     public remove(lemma: LemmaOptions | Lemma): void;
@@ -34,12 +34,12 @@ export default class StressDictionary {
     public hasStressedEndingPlural(lemma: LemmaOptions | Lemma, grCase: string): boolean[];
 
     /**
-             * Благодаря этому методу, словарь можно использовать для других целей.
-             * Например, если там есть слово, можно посмотреть его род и признаки.
-             *
-             * @param word Слово, по которому производится поиск.
-             * Буква Ё и регистр игнорируются.
-             * @returns {Array} Список лемм.
-             */
+     * Благодаря этому методу, словарь можно использовать для других целей.
+     * Например, если там есть слово, можно посмотреть его род и признаки.
+     *
+     * @param word Слово, по которому производится поиск.
+     * Буква Ё и регистр игнорируются.
+     * @returns {Array} Список лемм.
+     */
     public find(word: string): string[];
 }
