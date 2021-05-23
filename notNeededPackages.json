@@ -4650,6 +4650,10 @@
             "libraryName": "wikidata-sdk",
             "asOfVersion": "6.1.0"
         },
+        "windows-process-tree": {
+            "libraryName": "windows-process-tree",
+            "asOfVersion": "0.3.0"
+        },
         "winston": {
             "libraryName": "winston",
             "asOfVersion": "2.4.4"
