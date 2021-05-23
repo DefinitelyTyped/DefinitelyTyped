@@ -88,7 +88,10 @@ declare module 'perf_hooks' {
      * @param util1 The result of a previous call to eventLoopUtilization()
      * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
      */
-    type EventLoopUtilityFunction = (util1?: EventLoopUtilization, util2?: EventLoopUtilization) => EventLoopUtilization;
+    type EventLoopUtilityFunction = (
+        util1?: EventLoopUtilization,
+        util2?: EventLoopUtilization,
+    ) => EventLoopUtilization;
 
     interface Performance {
         /**
@@ -122,7 +125,7 @@ declare module 'perf_hooks' {
          * @param startMark
          * @param endMark
          */
-        measure(name: string, startMark: string, endMark: string): void;
+        measure(name: string, startMark?: string, endMark?: string): void;
 
         /**
          * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
