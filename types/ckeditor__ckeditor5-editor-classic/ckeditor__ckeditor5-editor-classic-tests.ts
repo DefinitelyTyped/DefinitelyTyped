@@ -7,6 +7,8 @@ import View from "@ckeditor/ckeditor5-engine/src/view/view";
 import { EditorUIView, ToolbarView } from "@ckeditor/ckeditor5-ui";
 import { Locale } from "@ckeditor/ckeditor5-utils";
 
+let locale = new Locale();
+
 ClassicEditor.create("", { placeholder: "foo" }).then(editor => {
     editor.commands.get("");
     ClassicEditor.defaultConfig?.plugins?.map(strOrPlugin => {
@@ -18,7 +20,7 @@ ClassicEditor.create("", { placeholder: "foo" }).then(editor => {
     const classicEditorUI = new ClassicEditorUI(editor, new EditorUIView());
     classicEditorUI.init(document.createElement("div"));
     classicEditorUI.init();
-    new ClassicEditorUIView(new Locale(), new View(new StylesProcessor()), {
+    new ClassicEditorUIView(locale, new View(new StylesProcessor()), {
         shouldToolbarGroupWhenFull: true,
     });
 });
@@ -41,16 +43,19 @@ class MyPlugin extends Plugin {}
     editor.setData();
     const processor: HtmlDataProcessor = editor.data.processor;
     editor.updateSourceElement();
-    const elem: HTMLElement = editor.sourceElement!;
+    htmlElement = editor.sourceElement!;
     const ui: ClassicEditorUI = editor.ui;
     const uiView: ClassicEditorUIView = editor.ui.view;
+
+    const num: number = uiView.stickyPanel.viewportTopOffset;
+    let bool: boolean = ui.focusTracker.isFocused;
 
     editor = await ClassicEditor.create(htmlElement, {
         toolbar: {
             items: [],
             removeItems: [],
-            viewportTopOffset: 0,
-            shouldNotGroupWhenFull: true,
+            viewportTopOffset: num,
+            shouldNotGroupWhenFull: bool,
         },
     });
 
@@ -59,15 +64,15 @@ class MyPlugin extends Plugin {}
     ui.init();
     ui.init(null);
     ui.init(htmlElement);
-    let bool: boolean = ui.focusTracker.isFocused;
 
     bool = uiView.isRendered;
     bool = uiView.stickyPanel.isSticky;
-    const num: number = uiView.stickyPanel.viewportTopOffset;
 
     htmlElement = ui.getEditableElement()!;
 
     uiView.render();
     const toolbarView: ToolbarView = uiView.toolbar;
-    const locale: Locale = uiView.toolbar.locale!;
+    locale = uiView.toolbar.locale!;
 })();
+
+ClassicEditor.create(document.querySelector('#editor')!);
