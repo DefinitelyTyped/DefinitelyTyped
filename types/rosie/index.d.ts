@@ -228,7 +228,8 @@ declare namespace rosie {
      * @param {string|Factory} name The factory to extend.
      * @return {Factory}
      */
-    extend<K extends T, T>(name: String | IFactory<T>): IFactory<K>;
+    extend<K extends T>(name: string): IFactory<K>;
+    extend<K extends T, T>(name: IFactory<T>): IFactory<K>;
   }
 
 }

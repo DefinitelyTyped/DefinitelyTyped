@@ -107,6 +107,12 @@ const unregisteredExtendedPersonFactory = new Factory().extend(unregisteredPerso
 unregisteredExtendedPersonFactory.attr('firstName', 'John2')
 unregisteredExtendedPersonFactory.sequence('lastName', ['age'], (i: number) => `Doe2 ${i}`)
 
+// Define Humanoid as extended person
+const humanoidFactory = Factory.define<Person>('Humanoid').extend('Person')
+
+humanoidFactory.attr('firstName', 'Beep');
+humanoidFactory.attr('lastName', 'Bop');
+
 class CustomClass {
   type: string;
 
