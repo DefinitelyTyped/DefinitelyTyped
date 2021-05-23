@@ -85,7 +85,7 @@ declare module 'draft-convert' {
     }
 
     type ContentStateConverter = (contentState: ContentState) => string;
-    type htmlConverter = (html: string) => ContentState;
+    type HTMLConverter = (html: string) => ContentState;
 
     type Tag = ReactNode | { start: string; end: string; empty?: string } | { element: ReactNode; empty?: ReactNode };
 
@@ -101,6 +101,6 @@ declare module 'draft-convert' {
         } = DOMStringMap,
         B extends DraftBlockType = DraftBlockType,
         E extends RawDraftEntity = RawDraftEntity
-    >(config: IConvertFromHTMLConfig<S, B, E>): htmlConverter;
+    >(config: IConvertFromHTMLConfig<S, B, E>): HTMLConverter;
     export function convertFromHTML(html: string): ContentState;
 }
