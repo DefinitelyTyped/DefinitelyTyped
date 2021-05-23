@@ -2329,6 +2329,10 @@
             "libraryName": "libra-core",
             "asOfVersion": "1.0.5"
         },
+        "lifeomic__axios-fetch": {
+            "libraryName": "@lifeomic/axios-fetch",
+            "asOfVersion": "2.0.0"
+        },
         "lightship": {
             "libraryName": "lightship",
             "asOfVersion": "6.6.0"
@@ -2596,6 +2600,10 @@
         "maxmind": {
             "libraryName": "maxmind",
             "asOfVersion": "2.0.5"
+        },
+        "mdarea": {
+            "libraryName": "mdarea",
+            "asOfVersion": "2.0.0"
         },
         "mem": {
             "libraryName": "mem",
@@ -3493,6 +3501,10 @@
         "react-icons": {
             "libraryName": "react-icons",
             "asOfVersion": "3.0.0"
+        },
+        "react-infinite-scroll-component": {
+            "libraryName": "react-infinite-scroll-component",
+            "asOfVersion": "5.0.0"
         },
         "react-inlinesvg": {
             "libraryName": "react-inlinesvg",
@@ -4513,6 +4525,10 @@
         "use-deep-compare-effect": {
             "libraryName": "use-deep-compare-effect",
             "asOfVersion": "1.5.0"
+        },
+        "use-resize-observer": {
+            "libraryName": "use-resize-observer",
+            "asOfVersion": "6.1.0"
         },
         "username": {
             "libraryName": "username",
