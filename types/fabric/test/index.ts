@@ -1046,8 +1046,8 @@ function sample14() {
   });
 }
 
-function sample15() { 
+function sample15() {
   const canvas = new fabric.Canvas('c');
-  var textRTL = new fabric.Text('שלום עולם', { left: 100, top: 100, direction: 'rtl', originX: 'right', textAlign: 'right' });
+  const textRTL = new fabric.Text('שלום עולם', { left: 100, top: 100, direction: 'rtl', originX: 'right', textAlign: 'right' });
   canvas.add(textRTL);
 }
