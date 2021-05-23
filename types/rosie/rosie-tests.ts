@@ -30,12 +30,12 @@ Factory.define('coach')
     .option('buildPlayer', false)
     .sequence('id')
     .sequence('name', (i: number) => `Coach${i}`)
-    .attr('players', ['id', 'buildPlayer'], function (id: any, buildPlayer: boolean) {
+    .attr('players', ['id', 'buildPlayer'], (id: any, buildPlayer: boolean) => {
         if (buildPlayer) {
             return [Factory.build('player', { coach_id: id })];
         }
     })
-    .after(function (coach: any, options: any) {
+    .after((coach: any, options: any) => {
         if (options.buildPlayer) {
             console.log('built player:', coach.players[0]);
         }
