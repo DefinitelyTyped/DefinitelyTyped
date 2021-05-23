@@ -13,6 +13,3 @@ Bot.isMaster();
 
 // $ExpectType undefined
 Bot.startStats();
-
-// $ExpectError
-Bot.broadcast('Hello World', 1);
