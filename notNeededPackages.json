@@ -2597,6 +2597,10 @@
             "libraryName": "maxmind",
             "asOfVersion": "2.0.5"
         },
+        "mdarea": {
+            "libraryName": "mdarea",
+            "asOfVersion": "2.0.0"
+        },
         "mem": {
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
