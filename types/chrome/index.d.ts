@@ -8078,6 +8078,11 @@ declare namespace chrome.tabs {
          */
         autoDiscardable?: boolean;
         /**
+         * The tab's new group.
+         * @since Chrome 88
+         */
+        groupId?: number;
+        /**
          * The tab's new muted state and the reason for the change.
          * @since Chrome 46. Warning: this is the current Beta channel.
          */
