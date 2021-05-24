@@ -3418,6 +3418,58 @@
             "libraryName": "re2",
             "asOfVersion": "1.10.3"
         },
+        "reach__alert": {
+            "libraryName": "@reach/alert",
+            "asOfVersion": "0.1.4"
+        },
+        "reach__alert-dialog": {
+            "libraryName": "@reach/alert-dialog",
+            "asOfVersion": "0.4.0"
+        },
+        "reach__auto-id": {
+            "libraryName": "@reach/auto-id",
+            "asOfVersion": "0.3.0"
+        },
+        "reach__combobox": {
+            "libraryName": "@reach/combobox",
+            "asOfVersion": "0.4.0"
+        },
+        "reach__dialog": {
+            "libraryName": "@reach/dialog",
+            "asOfVersion": "0.4.0"
+        },
+        "reach__menu-button": {
+            "libraryName": "@reach/menu-button",
+            "asOfVersion": "0.1.8"
+        },
+        "reach__rect": {
+            "libraryName": "@reach/rect",
+            "asOfVersion": "0.4.0"
+        },
+        "reach__skip-nav": {
+            "libraryName": "@reach/skip-nav",
+            "asOfVersion": "0.1.2"
+        },
+        "reach__tabs": {
+            "libraryName": "@reach/tabs",
+            "asOfVersion": "0.4.0"
+        },
+        "reach__tooltip": {
+            "libraryName": "@reach/tooltip",
+            "asOfVersion": "0.4.0"
+        },
+        "reach__utils": {
+            "libraryName": "@reach/utils",
+            "asOfVersion": "0.5.0"
+        },
+        "reach__visually-hidden": {
+            "libraryName": "@reach/visually-hidden",
+            "asOfVersion": "0.3.0"
+        },
+        "reach__window-size": {
+            "libraryName": "@reach/window-size",
+            "asOfVersion": "0.1.2"
+        },
         "react-alice-carousel": {
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
