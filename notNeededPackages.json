@@ -3638,6 +3638,10 @@
             "libraryName": "react-rnd",
             "asOfVersion": "8.0.0"
         },
+        "react-scrollbar-size": {
+            "libraryName": "react-scrollbar-size",
+            "asOfVersion": "3.0.0"
+        },
         "react-share": {
             "libraryName": "react-share",
             "asOfVersion": "4.0.0"
