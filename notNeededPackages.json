@@ -1977,6 +1977,10 @@
             "libraryName": "is-png",
             "asOfVersion": "2.0.0"
         },
+        "is-promise": {
+            "libraryName": "is-promise",
+            "asOfVersion": "2.2.0"
+        },
         "is-reachable": {
             "libraryName": "is-reachable",
             "asOfVersion": "3.1.0"
