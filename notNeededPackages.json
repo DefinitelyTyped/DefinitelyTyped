@@ -1949,6 +1949,10 @@
             "libraryName": "is-mobile",
             "asOfVersion": "2.1.0"
         },
+        "is-my-json-valid": {
+            "libraryName": "is-my-json-valid",
+            "asOfVersion": "2.18.0"
+        },
         "is-obj": {
             "libraryName": "is-obj",
             "asOfVersion": "2.0.0"
