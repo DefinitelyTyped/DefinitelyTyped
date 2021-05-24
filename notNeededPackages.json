@@ -3478,6 +3478,10 @@
             "libraryName": "pupa",
             "asOfVersion": "2.0.0"
         },
+        "pusher-js": {
+            "libraryName": "pusher-js",
+            "asOfVersion": "5.1.0"
+        },
         "qhistory": {
             "libraryName": "qhistory",
             "asOfVersion": "1.1.0"
