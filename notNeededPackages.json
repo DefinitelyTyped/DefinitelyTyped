@@ -2369,6 +2369,10 @@
             "libraryName": "load-json-file",
             "asOfVersion": "5.1.0"
         },
+        "local-storage": {
+            "libraryName": "local-storage",
+            "asOfVersion": "2.0.0"
+        },
         "localforage": {
             "libraryName": "localforage",
             "asOfVersion": "0.0.34"
