@@ -4134,6 +4134,10 @@
             "libraryName": "socket.io-redis",
             "asOfVersion": "3.0.0"
         },
+        "socketio-jwt": {
+            "libraryName": "socketio-jwt",
+            "asOfVersion": "4.6.2"
+        },
         "solidity-parser-antlr": {
             "libraryName": "solidity-parser-antlr",
             "asOfVersion": "0.4.2"
