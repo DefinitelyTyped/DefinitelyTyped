@@ -1433,6 +1433,10 @@
             "libraryName": "fullcalendar",
             "asOfVersion": "3.8.0"
         },
+        "fullcalendar__vue": {
+            "libraryName": "@fullcalendar/vue",
+            "asOfVersion": "5.0.0"
+        },
         "fullname": {
             "libraryName": "fullname",
             "asOfVersion": "4.0.0"
