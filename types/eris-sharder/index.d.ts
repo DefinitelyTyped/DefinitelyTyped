@@ -6,7 +6,7 @@
 import * as Eris from 'eris';
 import { EventEmitter } from 'events';
 
-export class Cluster {
+declare class Cluster {
     shards: number;
     maxShards: number;
     firstShardID: number;
@@ -116,3 +116,5 @@ export abstract class Base {
 
     abstract launch(): any;
 }
+
+export {};
