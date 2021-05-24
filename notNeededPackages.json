@@ -4582,6 +4582,10 @@
             "libraryName": "username",
             "asOfVersion": "5.0.0"
         },
+        "uuid-apikey": {
+            "libraryName": "uuid-apikey",
+            "asOfVersion": "1.5.0"
+        },
         "uuidjs": {
             "libraryName": "uuidjs",
             "asOfVersion": "3.6.0"
