@@ -3286,6 +3286,10 @@
             "libraryName": "postmark",
             "asOfVersion": "2.0.0"
         },
+        "preferred-pm": {
+            "libraryName": "preferred-pm",
+            "asOfVersion": "3.0.0"
+        },
         "pretty-bytes": {
             "libraryName": "pretty-bytes",
             "asOfVersion": "5.2.0"
