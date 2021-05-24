@@ -3670,6 +3670,10 @@
             "libraryName": "react-owl-carousel",
             "asOfVersion": "2.3.0"
         },
+        "react-resize-detector": {
+            "libraryName": "react-resize-detector",
+            "asOfVersion": "6.1.0"
+        },
         "react-rnd": {
             "libraryName": "react-rnd",
             "asOfVersion": "8.0.0"
