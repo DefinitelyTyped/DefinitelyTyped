@@ -1,11 +1,11 @@
 import Commerce = require('@chec/commerce.js');
 
-type LocaleListCountriesResponse = {
+export interface LocaleListCountriesResponse {
   countries: { [name: string]: string };
   html: string;
 }
 
-type LocaleListSubdivisionsResponse = {
+export interface LocaleListSubdivisionsResponse {
   subdivisions: { [name: string]: string };
   html: string;
 }

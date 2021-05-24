@@ -1,5 +1,6 @@
 import { Currency } from './currency';
 import { LineItem } from './line-item';
+import { OrderTax } from './order-tax';
 import { Price } from './price';
 import { ShippingMethod } from './shipping-method';
 
@@ -8,14 +9,12 @@ export interface Live {
   currency: Currency;
   line_items: LineItem[];
   subtotal: Price;
-  discount: any; // todo
+  discount: any[]; // todo
   shipping: {
     available_options: ShippingMethod[];
     price: Price;
   };
-  tax: {
-    amount: Price;
-  };
+  tax: OrderTax;
   total: Price;
   total_with_tax: Price;
   pay_what_you_want: {

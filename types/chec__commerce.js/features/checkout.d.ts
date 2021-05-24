@@ -1,31 +1,119 @@
 import Commerce = require('@chec/commerce.js');
-import { Order } from '../types/order';
 import { Live } from '../types/live';
+import { Price } from '../types/price';
 
 export type IdentifierType = 'product_id' | 'cart' | 'permalink';
+export type DiscountType = 'percentage' | 'fixed';
+
+export interface CheckPayWhatYouWantResponse {
+  valid: boolean;
+  customer_set_price: Price;
+  message: string;
+  live: Live;
+}
+
+export interface GetLocationFromIPResponse {
+  ip_address: string;
+  country_code: string;
+  country_name: string;
+  region_code: string;
+  region_name: string;
+  city: string;
+  postal_zip_code: string;
+}
+
+export interface IsFreeResponse {
+  is_free: boolean;
+  live: Live;
+}
+
+export interface CheckVariantResponse {
+  available: boolean;
+  name: string;
+  price: Price;
+  option_id: string;
+  variant_id: string;
+  line_item_id: string;
+  requested_quantity: number;
+  live: Live;
+}
+
+export interface CheckDiscountResponse {
+  valid: boolean;
+  type: DiscountType;
+  code: string;
+  value: number;
+  amount_saved: Price;
+  live: Live;
+}
+
+export interface CheckShippingOptionResponse {
+  valid: boolean;
+  id: string;
+  description: string;
+  price: Price;
+  live: Live;
+}
+
+export interface GetShippingOptionsResponse {
+  id: string;
+  description: string;
+  price: Price;
+  countries: string[];
+}
+
+export interface SetTaxZoneResponse {
+  valid: true;
+  tax_region: {
+    country: string;
+    region: string;
+    postal_zip_code: string;
+    ip_address: string;
+  };
+  live: Live;
+}
+
+export interface CheckQuantityResponse {
+  available: boolean;
+  line_item_id: string;
+  requested_quantity: number;
+  live: Live;
+}
+
+export interface HelperValidationResponse {
+  rules: {
+    [name: string]: { required?: boolean, email?: boolean, digits?: boolean };
+  };
+}
+
+export interface CheckGiftcardResponse {
+  valid: boolean;
+  code: string;
+  credit: number;
+  live: Live;
+}
 
 export class Checkout {
   constructor(commerce: Commerce);
 
   protect(token: string): Promise<any>;
-  generateToken(identifier: string, data: object): Promise<Checkout>;
-  generateTokenFrom(type: IdentifierType, identifier: string): Promise<Checkout>;
-  capture(token: string, data: object): Promise<Order>;
-  receipt(token: string): Promise<Order>;
+  generateToken(identifier: string, data: object): Promise<any>;
+  generateTokenFrom(type: IdentifierType, identifier: string): Promise<any>;
+  capture(token: string, data: object): Promise<any>;
+  receipt(token: string): Promise<any>;
 
-  checkPayWhatYouWant(token: string, data: object): Promise<any>;
+  checkPayWhatYouWant(token: string, data: { customer_set_price: string }): Promise<CheckPayWhatYouWantResponse>;
   fields(identifier: string): Promise<any>;
-  setTaxZene(identifier: string): Promise<any>;
-  getLocationFromIP(token: string, ipAddress: string): Promise<any>;
-  isFree(token: string): Promise<any>;
-  checkVariant(token: string, lineItemId: string, data: object): Promise<any>;
-  checkDiscount(token: string, data: object): Promise<any>;
-  checkShippingOption(token: string, data: object): Promise<any>;
-  getShippingOptions(token: string, data: object): Promise<any>;
-  setTaxZone(token: string, data: object): Promise<any>;
-  checkQuantity(token: string, lineItem: string, data: object): Promise<any>;
-  helperValidation(token: string): Promise<any>;
+  getLocationFromIP(token: string, ipAddress?: string): Promise<GetLocationFromIPResponse>;
+  isFree(token: string): Promise<IsFreeResponse>;
+  checkVariant(token: string, lineItemId: string, data: object): Promise<CheckVariantResponse>;
+  checkDiscount(token: string, data: { code: string}): Promise<CheckDiscountResponse>;
+  checkShippingOption(token: string, data: { shipping_option_id: string, country: string, region?: string }): Promise<CheckShippingOptionResponse>;
+  getShippingOptions(token: string, data: { country: string, region?: string }): Promise<GetShippingOptionsResponse>;
+  setTaxZone(token: string, data: { ip_address?: string, country?: string, region?: string, postal_zip_code?: string }): Promise<SetTaxZoneResponse>;
+  checkQuantity(token: string, lineItemId: string, data: object): Promise<CheckQuantityResponse>;
+  helperValidation(token: string): Promise<HelperValidationResponse>;
   getLive(token: string): Promise<Live>;
   getToken(token: string): Promise<Checkout>;
-  checkGiftcard(token: string, data: object): Promise<any>;
+  checkGiftcard(token: string, params: { code: string }): Promise<CheckGiftcardResponse>;
 }

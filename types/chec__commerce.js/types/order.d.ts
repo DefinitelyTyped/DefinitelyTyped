@@ -45,7 +45,7 @@ export interface Order {
   order: {
     line_items: LineItem[];
     subtotal: Price;
-    discount: any; // todo
+    discount: any[]; // todo
     shipping?: ShippingMethod;
     tax: OrderTax;
     total: Price;

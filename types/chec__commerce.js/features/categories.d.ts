@@ -7,13 +7,9 @@ export interface CategoryCollection {
   meta: PaginationMeta;
 }
 
-type CategoryRetrieveRequest = {
-  type: string;
-}
-
 export class Categories {
   constructor(commerce: Commerce);
 
   list(params?: any): Promise<CategoryCollection>;
-  retrieve(id: string, params?: CategoryRetrieveRequest): Promise<Category>;
+  retrieve(id: string, params?: { type: string }): Promise<Category>;
 }
