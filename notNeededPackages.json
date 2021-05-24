@@ -3778,6 +3778,10 @@
             "libraryName": "react-editext",
             "asOfVersion": "4.0.0"
         },
+        "react-fade-in": {
+            "libraryName": "react-fade-in",
+            "asOfVersion": "2.0.0"
+        },
         "react-file-utils": {
             "libraryName": "react-file-utils",
             "asOfVersion": "1.0.0"
