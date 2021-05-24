@@ -2753,6 +2753,10 @@
             "libraryName": "nano",
             "asOfVersion": "7.0.0"
         },
+        "nanoid": {
+            "libraryName": "nanoid",
+            "asOfVersion": "3.0.0"
+        },
         "nats-hemera": {
             "libraryName": "nats-hemera",
             "asOfVersion": "5.0.0"
