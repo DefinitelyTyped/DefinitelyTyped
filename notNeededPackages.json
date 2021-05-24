@@ -3510,6 +3510,10 @@
             "libraryName": "react-flip-move",
             "asOfVersion": "2.9.12"
         },
+        "react-frontload": {
+            "libraryName": "react-frontload",
+            "asOfVersion": "2.0.0"
+        },
         "react-ga": {
             "libraryName": "react-ga",
             "asOfVersion": "2.3.0"
