@@ -4442,6 +4442,10 @@
             "libraryName": "title-case",
             "asOfVersion": "1.1.2"
         },
+        "tlds": {
+            "libraryName": "tlds",
+            "asOfVersion": "1.207.0"
+        },
         "to-semver": {
             "libraryName": "to-semver",
             "asOfVersion": "2.0.0"
