@@ -614,7 +614,11 @@ declare namespace Office {
          */
         id: string;
         /**
-         * Specifies the controls in the tab, such as menu items, buttons, etc.
+         * Specifies one or more of the controls in the tab, such as menu items, buttons, etc.
+         * 
+         * @remarks
+         * 
+         * When the `Tab` object is part of an {@link Office.RibbonUpdaterData} object passed to the `requestUpdate` method of {@link Office.Ribbon}, this property specifies the IDs of the controls whose enabled status is to be changed. However, if there is a `groups` property on the tab, then this property is ignored and the `controls` properties of the specified groups must be used to change enabled status.
          */
         controls?: Control[];
         /**
@@ -625,6 +629,36 @@ declare namespace Office {
          * **Requirement set**: Ribbon 1.2
          */
         visible?: boolean;
+        /**
+         * Specifies one or more of the control groups on the tab.
+         * 
+         * @remarks
+         * 
+         * When the `Tab` object is part of an {@link Office.RibbonUpdaterData} object passed to the `requestUpdate` method of {@link Office.Ribbon}, the `controls` properties of the various {@link Office.Group} objects specify which controls have their enabled status changed; the `controls` property of the `Tab` object is ignored. 
+         *
+         * **Requirement set**: Ribbon 1.1
+         */
+        groups?: Group[];
+    }
+    /**
+     * Represents a group of controls on a ribbon tab.
+     *
+     * **Requirement set**: Ribbon 1.1
+     */
+    interface Group {
+        /**
+         * Identifier of the group as specified in the manifest.
+         * 
+         */
+         id: string;
+         /**
+          * Specifies one or more of the controls in the group, such as menu items, buttons, etc.
+          * 
+          * @remarks
+          * 
+          * When the `Group` object is part of a {@link Office.RibbonUpdaterData} object passed to the `requestUpdate` method of {@link Office.Ribbon}, the `controls` properties of the various {@link Office.Group} objects specify which controls have their enabled status changed; the `controls` property of the `Group` object's parent `Tab` object is ignored. 
+          */
+         controls?: Control[];
     }
     /**
      * Represents an individual control or command and the state it should have.
@@ -638,10 +672,6 @@ declare namespace Office {
          * Identifier of the control as specified in the manifest.
          */
         id: string;
-        /**
-         * Indicates whether the control should be visible or hidden. The default is true.
-         */
-        visible?: boolean;
         /**
          * Indicates whether the control should be enabled or disabled. The default is true.
          */
