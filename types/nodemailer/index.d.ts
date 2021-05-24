@@ -24,7 +24,7 @@ export type SentMessageInfo = any;
 export type Transporter = Mail;
 
 export interface Transport {
-    mailer?: Mail;
+    mailer?: Transporter;
 
     name: string;
     version: string;
@@ -44,21 +44,39 @@ export interface TransportOptions {
 export interface TestAccount {
     user: string;
     pass: string;
-    smtp: { host: string, port: number, secure: boolean };
-    imap: { host: string, port: number, secure: boolean };
-    pop3: { host: string, port: number, secure: boolean };
+    smtp: { host: string; port: number; secure: boolean };
+    imap: { host: string; port: number; secure: boolean };
+    pop3: { host: string; port: number; secure: boolean };
     web: string;
 }
 
-export function createTransport(transport?: SMTPTransport | SMTPTransport.Options | string, defaults?: SMTPTransport.Options): Mail;
-export function createTransport(transport: SMTPPool | SMTPPool.Options, defaults?: SMTPPool.Options): Mail;
-export function createTransport(transport: SendmailTransport | SendmailTransport.Options, defaults?: SendmailTransport.Options): Mail;
-export function createTransport(transport: StreamTransport | StreamTransport.Options, defaults?: StreamTransport.Options): Mail;
-export function createTransport(transport: JSONTransport | JSONTransport.Options, defaults?: JSONTransport.Options): Mail;
-export function createTransport(transport: SESTransport | SESTransport.Options, defaults?: SESTransport.Options): Mail;
-export function createTransport(transport: Transport | TransportOptions, defaults?: TransportOptions): Mail;
+export function createTransport(
+    transport?: SMTPTransport | SMTPTransport.Options | string,
+    defaults?: SMTPTransport.Options,
+): Transporter;
+export function createTransport(transport: SMTPPool | SMTPPool.Options, defaults?: SMTPPool.Options): Transporter;
+export function createTransport(
+    transport: SendmailTransport | SendmailTransport.Options,
+    defaults?: SendmailTransport.Options,
+): Transporter;
+export function createTransport(
+    transport: StreamTransport | StreamTransport.Options,
+    defaults?: StreamTransport.Options,
+): Transporter;
+export function createTransport(
+    transport: JSONTransport | JSONTransport.Options,
+    defaults?: JSONTransport.Options,
+): Transporter;
+export function createTransport(
+    transport: SESTransport | SESTransport.Options,
+    defaults?: SESTransport.Options,
+): Transporter;
+export function createTransport(transport: Transport | TransportOptions, defaults?: TransportOptions): Transporter;
 
-export function createTestAccount(apiUrl: string, callback: (err: Error | null, testAccount: TestAccount) => void): void;
+export function createTestAccount(
+    apiUrl: string,
+    callback: (err: Error | null, testAccount: TestAccount) => void,
+): void;
 export function createTestAccount(callback: (err: Error | null, testAccount: TestAccount) => void): void;
 export function createTestAccount(apiUrl?: string): Promise<TestAccount>;
 

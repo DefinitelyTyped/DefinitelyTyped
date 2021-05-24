@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "tapable": "^2.2.0"
+    }
+}

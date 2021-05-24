@@ -10,7 +10,8 @@ export default class Sample extends React.Component<{}, State> {
     value: null,
   };
 
-  onChange = (value: Date | Date[]) => {
+  onChange = (value: Date | Date[], e: React.SyntheticEvent) => {
+    e.stopPropagation();
     this.setState({ value });
   }
 
@@ -27,6 +28,7 @@ export default class Sample extends React.Component<{}, State> {
             <Calendar
               onChange={this.onChange}
               showWeekNumbers
+              closeCalendar={true}
               value={value}
             />
           </main>

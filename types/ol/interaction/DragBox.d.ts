@@ -51,6 +51,9 @@ export default class DragBox extends PointerInteraction {
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
+    on(type: 'boxcancel', listener: (evt: DragBoxEvent) => void): EventsKey;
+    once(type: 'boxcancel', listener: (evt: DragBoxEvent) => void): EventsKey;
+    un(type: 'boxcancel', listener: (evt: DragBoxEvent) => void): void;
     on(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     once(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     un(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): void;
@@ -73,7 +76,7 @@ export default class DragBox extends PointerInteraction {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-declare class DragBoxEvent extends BaseEvent {
+export class DragBoxEvent extends BaseEvent {
     constructor(type: string, coordinate: Coordinate, mapBrowserEvent: MapBrowserEvent<UIEvent>);
     /**
      * The coordinate of the drag event.

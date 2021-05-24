@@ -75,6 +75,7 @@ let map = new mapboxgl.Map({
         'FullscreenControl.Enter': 'Розгорнути на весь екран',
         'FullscreenControl.Exit': 'Вийти з повоноеранного режиму',
     },
+    optimizeForTerrain: false,
 });
 
 /**
@@ -449,6 +450,24 @@ popup.toggleClassName('class3');
 popup.setOffset([10, 20]);
 
 /**
+ * Add terrain
+ */
+const terrainStyle: mapboxgl.Style = {
+    version: 8,
+    name: 'terrain',
+    sources: {
+        dem: {
+            type: 'raster-dem',
+            url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        }
+    },
+    terrain: {
+        source: 'dem',
+        exaggeration: 1.5,
+    }
+};
+
+/**
  * Add an image
  */
 var mapStyle: mapboxgl.Style = {
@@ -644,6 +663,9 @@ map = new mapboxgl.Map({
     container: 'map',
     hash: 'customHash',
 });
+
+const syncOnce: mapboxgl.Map = map.once('load', () => {});
+const asyncOnce: Promise<mapboxgl.Map> = map.once('load');
 
 /**
  * Marker
@@ -859,11 +881,11 @@ let cameraOpts: mapboxgl.CameraOptions = {
     bearing: 0,
     pitch: 0,
     zoom: 0,
+    padding,
 };
 let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
     offset: pointlike,
     maxZoom: 10,
-    padding,
     ...cameraOpts,
 };
 
@@ -1478,7 +1500,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'symbol-avoid-edges': false,
     'symbol-z-order': eitherType('viewport-y', 'source'),
     'icon-allow-overlap': eitherType(false, styleFunction, expression),
-    'icon-ignore-placement': false,
+    'icon-ignore-placement': eitherType(false, expression),
     'icon-optional': false,
     'icon-rotation-alignment': eitherType('map', 'viewport', 'auto'),
     'icon-size': eitherType(0, styleFunction, expression),
@@ -1499,7 +1521,7 @@ const symbolLayout: mapboxgl.SymbolLayout = {
     'text-max-width': eitherType(0, styleFunction, expression),
     'text-line-height': eitherType(0, expression),
     'text-letter-spacing': eitherType(0, expression),
-    'text-justify': eitherType('left', 'center', 'right', expression),
+    'text-justify': eitherType('auto', 'left', 'center', 'right', expression),
     'text-anchor': eitherType('center', styleFunction, expression),
     'text-max-angle': eitherType(0, expression),
     'text-rotate': eitherType(0, styleFunction, expression),

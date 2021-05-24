@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 2.9
+// Type definitions for D3JS d3-array module 2.12
 // Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 2.9.1
+// Last module patch version validated against: 2.12.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -170,7 +170,7 @@ export function median<T>(
  * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the cumulative sum.
  * This method ignores undefined and NaN values; this is useful for ignoring missing data.
  */
-export function cumsum<T extends Numeric>(iterable: Iterable<T | undefined | null>): Float64Array;
+export function cumsum(iterable: Iterable<Numeric | undefined | null>): Float64Array;
 /**
  * Returns the cumulative sum of the given iterable of numbers, as a Float64Array of the same length.
  * If the iterable contains no numbers, returns zeros.
@@ -261,6 +261,20 @@ export function fsum<T>(
     values: Iterable<T>,
     accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
 ): number;
+
+/**
+ * Returns a full precision cumulative sum of the given values.
+ * Although slower, d3.fcumsum can replace d3.cumsum when greater precision is needed. Uses d3.Adder.
+ */
+export function fcumsum(values: Iterable<Numeric | undefined | null>): Float64Array;
+/**
+ * Returns a full precision cumulative sum of the given values.
+ * Although slower, d3.fcumsum can replace d3.cumsum when greater precision is needed. Uses d3.Adder.
+ */
+export function fcumsum<T>(
+    values: Iterable<T>,
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+): Float64Array;
 
 export class Adder {
     /**
@@ -423,14 +437,14 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 // --------------------------------------------------------------------------------------
 
 /**
- * Groups the specified array of values into a Map from key to array of value.
+ * Groups the specified array of values into an InternMap from key to array of value.
  *
  * @param iterable The array to group.
  * @param key The key function.
  */
-export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
+export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): InternMap<TKey, TObject[]>;
 /**
- * Groups the specified array of values into a Map from key to array of value.
+ * Groups the specified array of values into an InternMap from key to array of value.
  *
  * @param iterable The array to group.
  * @param key1 The first key function.
@@ -440,9 +454,9 @@ export function group<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2
-): Map<TKey1, Map<TKey2, TObject[]>>;
+): InternMap<TKey1, Map<TKey2, TObject[]>>;
 /**
- * Groups the specified array of values into a Map from key to array of value.
+ * Groups the specified array of values into an InternMap from key to array of value.
  *
  * @param iterable The array to group.
  * @param key1 The first key function.
@@ -454,7 +468,7 @@ export function group<TObject, TKey1, TKey2, TKey3>(
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
-): Map<TKey1, Map<TKey2, Map<TKey3, TObject[]>>>;
+): InternMap<TKey1, Map<TKey2, Map<TKey3, TObject[]>>>;
 
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
@@ -499,7 +513,7 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
  * @param iterable The array to group.
  * @param key The key function.
  */
-export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject>;
+export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): InternMap<TKey, TObject>;
 /**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
  *
@@ -511,7 +525,7 @@ export function index<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2
-): Map<TKey1, Map<TKey2, TObject>>;
+): InternMap<TKey1, InternMap<TKey2, TObject>>;
 /**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
  *
@@ -525,7 +539,7 @@ export function index<TObject, TKey1, TKey2, TKey3>(
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
-): Map<TKey1, Map<TKey2, Map<TKey3, TObject>>>;
+): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TObject>>>;
 
 /**
  * Equivalent to index, but returns nested arrays instead of nested maps.
@@ -565,7 +579,7 @@ export function indexes<TObject, TKey1, TKey2, TKey3>(
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject]>]>]>;
 
 /**
- * Groups and reduces the specified array of values into a Map from key to value.
+ * Groups and reduces the specified array of values into an InternMap from key to value.
  *
  * @param iterable The array to group.
  * @param reduce The reduce function.
@@ -575,9 +589,9 @@ export function rollup<TObject, TReduce, TKey>(
     iterable: Iterable<TObject>,
     reduce: (value: TObject[]) => TReduce,
     key: (value: TObject) => TKey
-): Map<TKey, TReduce>;
+): InternMap<TKey, TReduce>;
 /**
- * Groups and reduces the specified array of values into a Map from key to value.
+ * Groups and reduces the specified array of values into an InternMap from key to value.
  *
  * @param iterable The array to group.
  * @param reduce The reduce function.
@@ -589,9 +603,9 @@ export function rollup<TObject, TReduce, TKey1, TKey2>(
     reduce: (value: TObject[]) => TReduce,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2
-): Map<TKey1, Map<TKey2, TReduce>>;
+): InternMap<TKey1, InternMap<TKey2, TReduce>>;
 /**
- * Groups and reduces the specified array of values into a Map from key to value.
+ * Groups and reduces the specified array of values into an InternMap from key to value.
  *
  * @param iterable The array to group.
  * @param reduce The reduce function.
@@ -605,7 +619,7 @@ export function rollup<TObject, TReduce, TKey1, TKey2, TKey3>(
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
     key3: (value: TObject) => TKey3
-): Map<TKey1, Map<TKey2, Map<TKey3, TReduce>>>;
+): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TReduce>>>;
 
 /**
  * Equivalent to rollup, but returns nested arrays instead of nested maps.
@@ -651,6 +665,24 @@ export function rollups<TObject, TReduce, TKey1, TKey2, TKey3>(
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TReduce]>]>]>;
 
 /**
+ * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified comparator, and then returns an array of keys in sorted order.
+ * The comparator will be asked to compare two groups a and b and should return a negative value if a should be before b, a positive value if a should be after b, or zero for a partial ordering.
+ */
+export function groupSort<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    comparator: (a: TObject[], b: TObject[]) => number,
+    key: (value: TObject) => TKey
+): TKey[];
+/**
+ * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified accessor, and then returns an array of keys in sorted order.
+ */
+export function groupSort<TObject, TReduce, TKey>(
+    iterable: Iterable<TObject>,
+    accessor: (value: TObject[]) => TReduce,
+    key: (value: TObject) => TKey
+): TKey[];
+
+/**
  * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
  *
  * @param iterable Input array.
@@ -660,7 +692,7 @@ export function count<TObject>(iterable: Iterable<TObject>): number;
  * Returns the number of valid number values (i.e., not null, NaN, or undefined) in the specified iterable; accepts an accessor.
  *
  * @param iterable Input array.
- * @param accessor Accesor method.
+ * @param accessor Accessor method.
  */
 export function count<TObject>(
     iterable: Iterable<TObject>,
@@ -891,8 +923,9 @@ export function sort<T>(iterable: Iterable<T>, comparator?: (a: T, b: T) => numb
  * Returns an array containing the values in the given iterable in the sorted order defined by the given accessor function.
  * This is equivalent to a comparator using natural order.
  * The accessor is only invoked once per element, and thus may be nondeterministic.
+ * Multiple accessors may be specified to break ties.
  */
-export function sort<T>(iterable: Iterable<T>, accessor: (a: T) => unknown): T[];
+export function sort<T>(iterable: Iterable<T>, ...accessors: Array<(a: T) => unknown>): T[];
 
 // --------------------------------------------------------------------------------------
 // Sets
@@ -1075,3 +1108,19 @@ export function thresholdFreedmanDiaconis(values: ArrayLike<number | undefined>,
 export function thresholdScott(values: ArrayLike<number | undefined>, min: number, max: number): number; // of type ThresholdCountGenerator
 
 export function thresholdSturges(values: ArrayLike<number | undefined>): number; // of type ThresholdCountGenerator
+
+// --------------------------------------------------------------------------------------
+// Interning
+// --------------------------------------------------------------------------------------
+
+/**
+ * The InternMap class extends the native JavaScript Map class, allowing Dates and other non-primitive keys by bypassing the SameValueZero algorithm when determining key equality.
+ */
+export class InternMap<K = any, V = any> extends Map<K, V> {
+}
+
+/**
+ * The InternSet class extends the native JavaScript Set class, allowing Dates and other non-primitive keys by bypassing the SameValueZero algorithm when determining key equality.
+ */
+export class InternSet<T = any> extends Set<T> {
+}

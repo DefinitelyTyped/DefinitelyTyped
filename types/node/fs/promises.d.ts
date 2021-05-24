@@ -1,6 +1,9 @@
 declare module 'fs/promises' {
+    import { Abortable } from 'events';
     import {
         Stats,
+        BigIntStats,
+        StatOptions,
         WriteVResult,
         ReadVResult,
         PathLike,
@@ -92,7 +95,9 @@ declare module 'fs/promises' {
         /**
          * Asynchronous fstat(2) - Get file status.
          */
-        stat(): Promise<Stats>;
+        stat(opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+        stat(opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
 
         /**
          * Asynchronous ftruncate(2) - Truncate a file to a specified length.
@@ -139,7 +144,7 @@ declare module 'fs/promises' {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        writeFile(data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } | BufferEncoding | null): Promise<void>;
+        writeFile(data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null): Promise<void>;
 
         /**
          * See `fs.writev` promisified version.
@@ -358,22 +363,20 @@ declare module 'fs/promises' {
     function symlink(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
 
     /**
-     * Asynchronous fstat(2) - Get file status.
-     * @param handle A `FileHandle`.
-     */
-    function fstat(handle: FileHandle): Promise<Stats>;
-
-    /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstat(path: PathLike): Promise<Stats>;
+    function lstat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    function lstat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+    function lstat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     /**
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function stat(path: PathLike): Promise<Stats>;
+    function stat(path: PathLike, opts?: StatOptions & { bigint?: false }): Promise<Stats>;
+    function stat(path: PathLike, opts: StatOptions & { bigint: true }): Promise<BigIntStats>;
+    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
@@ -508,7 +511,7 @@ declare module 'fs/promises' {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    function writeFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } | BufferEncoding | null): Promise<void>;
+    function writeFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: BaseEncodingOptions & { mode?: Mode, flag?: OpenMode } & Abortable | BufferEncoding | null): Promise<void>;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -531,7 +534,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options?: { encoding?: null, flag?: OpenMode } | null): Promise<Buffer>;
+    function readFile(path: PathLike | FileHandle, options?: { encoding?: null, flag?: OpenMode } & Abortable | null): Promise<Buffer>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -540,7 +543,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: OpenMode } | BufferEncoding): Promise<string>;
+    function readFile(path: PathLike | FileHandle, options: { encoding: BufferEncoding, flag?: OpenMode } & Abortable | BufferEncoding): Promise<string>;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -549,7 +552,7 @@ declare module 'fs/promises' {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & { flag?: OpenMode } | BufferEncoding | null): Promise<string | Buffer>;
+    function readFile(path: PathLike | FileHandle, options?: BaseEncodingOptions & Abortable & { flag?: OpenMode } | BufferEncoding | null): Promise<string | Buffer>;
 
     function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
 }

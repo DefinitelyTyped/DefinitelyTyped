@@ -6,6 +6,7 @@
 //                 Sosuke Suzuki <https://github.com/sosukesuzuki>,
 //                 Christopher Quadflieg <https://github.com/Shinigami92>
 //                 Kevin Deisz <https://github.com/kddeisz>
+//                 Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -42,6 +43,7 @@ export type BuiltInParserName =
     | 'css'
     | 'espree'
     | 'flow'
+    | 'glimmer'
     | 'graphql'
     | 'html'
     | 'json-stringify'
@@ -207,12 +209,7 @@ export interface Printer<T = any> {
     hasPrettierIgnore?: (path: FastPath<T>) => boolean;
     canAttachComment?: (node: T) => boolean;
     willPrintOwnComments?: (path: FastPath<T>) => boolean;
-    printComments?: (
-        path: FastPath<T>,
-        print: (path: FastPath<T>) => Doc,
-        options: ParserOptions<T>,
-        needsSemi: boolean,
-    ) => Doc;
+    printComment?: (commentPath: FastPath<T>, options: ParserOptions<T>) => Doc;
     handleComments?: {
         ownLine?: (
             commentNode: any,
@@ -397,7 +394,7 @@ export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
     default: boolean;
     array?: false;
     description: string;
-    oppositeDescription?: boolean;
+    oppositeDescription?: string;
 }
 
 export interface BooleanArraySupportOption extends BaseSupportOption<'boolean'> {

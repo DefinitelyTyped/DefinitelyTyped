@@ -1,4 +1,12 @@
-import { AsyncResource, createHook, triggerAsyncId, executionAsyncId, executionAsyncResource, HookCallbacks, AsyncLocalStorage } from 'async_hooks';
+import {
+    AsyncResource,
+    createHook,
+    triggerAsyncId,
+    executionAsyncId,
+    executionAsyncResource,
+    HookCallbacks,
+    AsyncLocalStorage,
+} from 'async_hooks';
 
 {
     const hooks: HookCallbacks = {
@@ -47,6 +55,10 @@ import { AsyncResource, createHook, triggerAsyncId, executionAsyncId, executionA
       triggerAsyncId: 0,
       requireManualDestroy: true
     });
+
+    const asyncResource = new AsyncResource('');
+    // $ExpectType AsyncResource
+    asyncResource.emitDestroy();
 }
 
 {

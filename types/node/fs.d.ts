@@ -1,7 +1,7 @@
-declare module "fs" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import { URL } from "url";
+declare module 'fs' {
+    import * as stream from 'stream';
+    import { Abortable, EventEmitter } from 'events';
+    import { URL } from 'url';
     import * as promises from 'fs/promises';
 
     export { promises };
@@ -108,7 +108,7 @@ declare module "fs" {
         readSync(): Dirent | null;
     }
 
-    export interface FSWatcher extends events.EventEmitter {
+    export interface FSWatcher extends EventEmitter {
         close(): void;
 
         /**
@@ -536,9 +536,10 @@ declare module "fs" {
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function stat(path: PathLike, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
-    export function stat(path: PathLike, options: StatOptions, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
     export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function stat(path: PathLike, options: StatOptions & { bigint?: false } | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function stat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function stat(path: PathLike, options: StatOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace stat {
@@ -546,24 +547,35 @@ declare module "fs" {
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, options: BigIntOptions): Promise<BigIntStats>;
-        function __promisify__(path: PathLike, options: StatOptions): Promise<Stats | BigIntStats>;
-        function __promisify__(path: PathLike): Promise<Stats>;
+        function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(path: PathLike, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
+    }
+
+    export interface StatSyncFn<TDescriptor = PathLike> extends Function {
+        (path: TDescriptor, options?: undefined): Stats;
+        (path: TDescriptor, options?: StatOptions & { bigint?: false; throwIfNoEntry: false }): Stats | undefined;
+        (path: TDescriptor, options: StatOptions & { bigint: true; throwIfNoEntry: false }): BigIntStats | undefined;
+        (path: TDescriptor, options?: StatOptions & { bigint?: false }): Stats;
+        (path: TDescriptor, options: StatOptions & { bigint: true }): BigIntStats;
+        (path: TDescriptor, options: StatOptions & { bigint: boolean; throwIfNoEntry?: false }): Stats | BigIntStats;
+        (path: TDescriptor, options?: StatOptions): Stats | BigIntStats | undefined;
     }
 
     /**
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function statSync(path: PathLike, options: BigIntOptions): BigIntStats;
-    export function statSync(path: PathLike, options: StatOptions): Stats | BigIntStats;
-    export function statSync(path: PathLike): Stats;
+    export const statSync: StatSyncFn;
 
     /**
      * Asynchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
     export function fstat(fd: number, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function fstat(fd: number, options: StatOptions & { bigint?: false } | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function fstat(fd: number, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function fstat(fd: number, options: StatOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace fstat {
@@ -571,20 +583,25 @@ declare module "fs" {
          * Asynchronous fstat(2) - Get file status.
          * @param fd A file descriptor.
          */
-        function __promisify__(fd: number): Promise<Stats>;
+        function __promisify__(fd: number, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(fd: number, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        function __promisify__(fd: number, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
     /**
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    export function fstatSync(fd: number): Stats;
+    export const fstatSync: StatSyncFn<number>;
 
     /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function lstat(path: PathLike, options: StatOptions & { bigint?: false } | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function lstat(path: PathLike, options: StatOptions & { bigint: true }, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
+    export function lstat(path: PathLike, options: StatOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace lstat {
@@ -592,15 +609,16 @@ declare module "fs" {
          * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<Stats>;
+        function __promisify__(path: PathLike, options?: StatOptions & { bigint?: false }): Promise<Stats>;
+        function __promisify__(path: PathLike, options: StatOptions & { bigint: true }): Promise<BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
 
     /**
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function lstatSync(path: PathLike): Stats;
-
+    export const lstatSync: StatSyncFn;
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
      * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -864,8 +882,7 @@ declare module "fs" {
         maxRetries?: number;
         /**
          * @deprecated since v14.14.0 In future versions of Node.js,
-         * `fs.rmdir(path, { recursive: true })` will throw on nonexistent
-         * paths, or when given a file as a target.
+         * `fs.rmdir(path, { recursive: true })` will throw if `path` does not exist or is a file.
          * Use `fs.rm(path, { recursive: true, force: true })` instead.
          *
          * If `true`, perform a recursive directory removal. In
@@ -1543,17 +1560,11 @@ declare module "fs" {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFile(path: PathLike | number, options: { encoding?: null; flag?: string; } | undefined | null, callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void): void;
-
-    /**
-     * Asynchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
-     * If a flag is not provided, it defaults to `'r'`.
-     */
-    export function readFile(path: PathLike | number, options: { encoding: BufferEncoding; flag?: string; } | string, callback: (err: NodeJS.ErrnoException | null, data: string) => void): void;
+    export function readFile(
+        path: PathLike | number,
+        options: { encoding?: null; flag?: string; } & Abortable | undefined | null,
+        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+    ): void;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1565,7 +1576,22 @@ declare module "fs" {
      */
     export function readFile(
         path: PathLike | number,
-        options: BaseEncodingOptions & { flag?: string; } | string | undefined | null,
+        options: { encoding: BufferEncoding; flag?: string; } & Abortable | string,
+        callback: (err: NodeJS.ErrnoException | null, data: string) => void,
+    ): void;
+
+    /**
+     * Asynchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
+     * If a flag is not provided, it defaults to `'r'`.
+     */
+    export function readFile(
+        path: PathLike | number,
+        // TODO: unify the options across all readfile functions
+        options: BaseEncodingOptions & { flag?: string; } & Abortable | string | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
     ): void;
 
@@ -1637,7 +1663,7 @@ declare module "fs" {
      */
     export function readFileSync(path: PathLike | number, options?: BaseEncodingOptions & { flag?: string; } | BufferEncoding | null): string | Buffer;
 
-    export type WriteFileOptions = BaseEncodingOptions & { mode?: Mode; flag?: string; } | string | null;
+    export type WriteFileOptions = (BaseEncodingOptions & Abortable & { mode?: Mode; flag?: string; }) | string | null;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -1778,7 +1804,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | BufferEncoding | undefined | null,
-        listener?: (event: string, filename: string) => void,
+        listener?: (event: "rename" | "change", filename: string) => void,
     ): FSWatcher;
 
     /**
@@ -1790,7 +1816,11 @@ declare module "fs" {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    export function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean, recursive?: boolean } | "buffer", listener?: (event: string, filename: Buffer) => void): FSWatcher;
+    export function watch(
+        filename: PathLike,
+        options: { encoding: "buffer", persistent?: boolean, recursive?: boolean; } | "buffer",
+        listener?: (event: "rename" | "change", filename: Buffer) => void
+    ): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -1804,7 +1834,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | string | null,
-        listener?: (event: string, filename: string | Buffer) => void,
+        listener?: (event: "rename" | "change", filename: string | Buffer) => void,
     ): FSWatcher;
 
     /**
@@ -1812,7 +1842,7 @@ declare module "fs" {
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    export function watch(filename: PathLike, listener?: (event: string, filename: string) => any): FSWatcher;
+    export function watch(filename: PathLike, listener?: (event: "rename" | "change", filename: string) => any): FSWatcher;
 
     /**
      * Asynchronously tests whether or not the given path exists by checking with the file system.
@@ -2032,15 +2062,10 @@ declare module "fs" {
      */
     export function accessSync(path: PathLike, mode?: number): void;
 
-    /**
-     * Returns a new `ReadStream` object.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
-     */
-    export function createReadStream(path: PathLike, options?: string | {
+    interface StreamOptions {
         flags?: string;
         encoding?: BufferEncoding;
-        fd?: number;
+        fd?: number | promises.FileHandle;
         mode?: number;
         autoClose?: boolean;
         /**
@@ -2048,25 +2073,26 @@ declare module "fs" {
          */
         emitClose?: boolean;
         start?: number;
-        end?: number;
         highWaterMark?: number;
-    }): ReadStream;
+    }
+
+    interface ReadStreamOptions extends StreamOptions {
+        end?: number;
+    }
+
+    /**
+     * Returns a new `ReadStream` object.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function createReadStream(path: PathLike, options?: string | ReadStreamOptions): ReadStream;
 
     /**
      * Returns a new `WriteStream` object.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    export function createWriteStream(path: PathLike, options?: string | {
-        flags?: string;
-        encoding?: BufferEncoding;
-        fd?: number;
-        mode?: number;
-        autoClose?: boolean;
-        emitClose?: boolean;
-        start?: number;
-        highWaterMark?: number;
-    }): WriteStream;
+    export function createWriteStream(path: PathLike, options?: string | StreamOptions): WriteStream;
 
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
@@ -2234,6 +2260,7 @@ declare module "fs" {
     }
 
     export interface StatOptions {
-        bigint: boolean;
+        bigint?: boolean;
+        throwIfNoEntry?: boolean;
     }
 }

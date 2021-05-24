@@ -445,7 +445,7 @@ declare namespace DataTables {
         //#endregion ColVis
     }
 
-    type ButtonSelectorTypes = string | number | JQuery<any>;
+    type ButtonSelectorTypes = string | number | JQuery;
     interface ButtonExportOptions {
         columns?: ButtonSelectorTypes | ButtonSelectorTypes[];
     }

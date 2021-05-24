@@ -10,6 +10,13 @@ export const iMatrix: number[];
 export let textureSize: number;
 export let copiedText: string;
 export let copiedTextStyle: any[];
+export let charWidthsCache: {
+    [key: string]: { // example: montserrat
+        [key: string]: { // example: normal_normal
+            [key: string]: number; // example: A: 286
+        }
+    }
+};
 
 /////////////////////////////////////////////////////////////
 // fabric Functions
@@ -578,7 +585,7 @@ interface IGradientOptionsCoords {
 }
 
 type IGradientOptionsColorStops = Array<{
-    offset: string;
+    offset: number;
     color: string;
 }>;
 
@@ -1654,9 +1661,12 @@ export class StaticCanvas {
 interface ICanvasOptions extends IStaticCanvasOptions {
     /**
      * When true, objects can be transformed by one side (unproportionally)
+     * when dragged on the corners that normally would not do that.
      * @type Boolean
+     * @default
+     * @since fabric 4.0 // changed name and default value
      */
-    uniScaleTransform?: boolean;
+    uniformScaling?: boolean;
 
     /**
      * Indicates which key enable unproportional scaling
@@ -3146,6 +3156,8 @@ export class Object {
         tr?: boolean;
         mtr?: boolean;
     };
+
+    controls: { [key: string]: Control };
 
     constructor(options?: IObjectOptions);
     initialize(options?: IObjectOptions): Object;
@@ -6514,4 +6526,212 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 
 export class WebglFilterBackend {
     constructor(options?: WebglFilterBackendOptions);
+}
+
+export class Control {
+    constructor(options?: Partial<Control>);
+
+    /**
+     * keep track of control visibility.
+     * mainly for backward compatibility.
+     * if you do not want to see a control, you can remove it
+     * from the controlset.
+     * @type {Boolean}
+     * @default true
+     */
+    visible: boolean;
+
+    /**
+     * Name of the action that the control will likely execute.
+     * This is optional. FabricJS uses to identify what the user is doing for some
+     * extra optimizations. If you are writing a custom control and you want to know
+     * somewhere else in the code what is going on, you can use this string here.
+     * you can also provide a custom getActionName if your control run multiple actions
+     * depending on some external state.
+     * default to scale since is the most common, used on 4 corners by default
+     * @default 'scale'
+     */
+    actionName: string;
+
+    /**
+     * Drawing angle of the control.
+     * NOT used for now, but name marked as needed for internal logic
+     * example: to reuse the same drawing function for different rotated controls
+     * @default 0
+     */
+    angle: number;
+
+    /**
+     * Relative position of the control. X
+     * 0,0 is the center of the Object, while -0.5 (left) or 0.5 (right) are the extremities
+     * of the bounding box.
+     * @default 0
+     */
+    x: number;
+
+    /**
+     * Relative position of the control. Y
+     * 0,0 is the center of the Object, while -0.5 (top) or 0.5 (bottom) are the extremities
+     * of the bounding box.
+     * @default 0
+     */
+    y: number;
+
+    /**
+     * Horizontal offset of the control from the defined position. In pixels
+     * Positive offset moves the control to the right, negative to the left.
+     * It used when you want to have position of control that does not scale with
+     * the bounding box. Example: rotation control is placed at x:0, y: 0.5 on
+     * the boundindbox, with an offset of 30 pixels vertically. Those 30 pixels will
+     * stay 30 pixels no matter how the object is big. Another example is having 2
+     * controls in the corner, that stay in the same position when the object scale.
+     * of the bounding box.
+     * @default 0
+     */
+    offsetX: number;
+
+    /**
+     * Vertical offset of the control from the defined position. In pixels
+     * Positive offset moves the control to the bottom, negative to the top.
+     * @default 0
+     */
+    offsetY: number;
+
+    /**
+     * Sets the length of the control. If null, defaults to object's cornerSize.
+     * Expects both sizeX and sizeY to be set when set.
+     * @type {?Number}
+     */
+    sizeX?: number;
+
+    /**
+     * Sets the height of the control. If null, defaults to object's cornerSize.
+     * Expects both sizeX and sizeY to be set when set.
+     */
+    sizeY?: number;
+
+    /**
+     * Sets the length of the touch area of the control. If null, defaults to object's touchCornerSize.
+     * Expects both touchSizeX and touchSizeY to be set when set.
+     * @type {?Number}
+     * @default null
+     */
+    touchSizeX?: number;
+
+    /**
+     * Sets the height of the touch area of the control. If null, defaults to object's touchCornerSize.
+     * Expects both touchSizeX and touchSizeY to be set when set.
+     * @type {?Number}
+     * @default null
+     */
+    touchSizeY?: number;
+
+    /**
+     * Css cursor style to display when the control is hovered.
+     * if the method `cursorStyleHandler` is provided, this property is ignored.
+     * @default 'crosshair'
+     */
+    cursorStyle: string;
+
+    /**
+     * If controls has an offsetY or offsetX, draw a line that connects
+     * the control to the bounding box
+     * @default false
+     */
+    withConnection: boolean;
+
+    /**
+     * The control actionHandler, provide one to handle action ( control being moved )
+     * @return {Boolean} true if the action/event modified the object
+     */
+    actionHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * The control handler for mouse down, provide one to handle mouse down on control
+     */
+    mouseDownHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * The control mouseUpHandler, provide one to handle an effect on mouse up.
+     */
+    mouseUpHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * Returns control actionHandler
+     */
+    getActionHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control mouseDown handler
+     */
+    getMouseDownHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control mouseUp handler
+     */
+    getMouseUpHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control cursorStyle for css using cursorStyle. If you need a more elaborate
+     * function you can pass one in the constructor
+     * the cursorStyle property
+     */
+    cursorStyleHandler(eventData: MouseEvent, control: Control, fabricObject: Object): string;
+
+    /**
+     * Returns the action name. The basic implementation just return the actionName property.
+     */
+    getActionName(eventData: MouseEvent, control: Control, fabricObject: Object): string;
+
+    /**
+     * Returns controls visibility
+     */
+    getVisibility(fabricObject: Object, controlKey: string): boolean;
+
+    /**
+     * Sets controls visibility
+     */
+    setVisibility(visibility: boolean): void;
+
+    positionHandler(dim: { x: number, y: number }, finalMatrix: any, fabricObject: Object, currentControl: Control): Point;
+
+    /**
+     * Returns the coords for this control based on object values.
+     */
+    calcCornerCoords(objectAngle: number, objectCornerSize: number, centerX: number, centerY: number, isTouch: boolean): void;
+
+    /**
+     * Render function for the control.
+     * When this function runs the context is unscaled. unrotate. Just retina scaled.
+     * all the functions will have to translate to the point left,top before starting Drawing
+     * if they want to draw a control where the position is detected.
+     * left and top are the result of the positionHandler function
+     */
+    render(ctx: CanvasRenderingContext2D, left: number, top: number, styleOverride: any, fabricObject: Object): void;
+}
+
+type ControlMouseEventHandler = (eventData: MouseEvent, transformData: Transform, x: number, y: number) => boolean;
+
+export interface Transform {
+    target: Object;
+    action: string;
+    actionHandler: ControlMouseEventHandler;
+    altKey: boolean;
+    corner: string;
+    ex: number;
+    ey: number;
+    lastX: number;
+    lastY: number;
+    offsetX: number;
+    offsetY: number;
+    originX: "left" | "right";
+    originY: "top" | "bottom";
+    original: any;
+    scaleX: number;
+    scaleY: number;
+    shiftKey: boolean;
+    skewX: number;
+    skewY: number;
+    theta: number;
+    width: number;
 }

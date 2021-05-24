@@ -1,5 +1,5 @@
-declare module "perf_hooks" {
-    import { AsyncResource } from "async_hooks";
+declare module 'perf_hooks' {
+    import { AsyncResource } from 'async_hooks';
 
     interface PerformanceEntry {
         /**

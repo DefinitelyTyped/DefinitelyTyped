@@ -3,6 +3,15 @@
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type ComplexLike =
+    | { re: number; im: number }
+    | { arg: number; abs: number }
+    | { phi: number; r: number }
+    | [number, number]
+    | number
+    | string
+    | Complex;
+
 declare class Complex {
     /**
      * A complex zero value (south pole on the Riemann Sphere).
@@ -45,7 +54,7 @@ declare class Complex {
     static EPSILON: number;
 
     constructor(x: number, y: number);
-    constructor(x: Complex);
+    constructor(x: ComplexLike);
 
     // the real part of this complex number
     re: number;
@@ -62,31 +71,31 @@ declare class Complex {
      * Adds another complex number.
      */
     add(a: number, b: number): Complex;
-    add(a: Complex): Complex;
+    add(a: ComplexLike): Complex;
 
     /**
      * Subtracts another complex number.
      */
     sub(a: number, b: number): Complex;
-    sub(a: Complex): Complex;
+    sub(a: ComplexLike): Complex;
 
     /**
      * Multiplies the number with another complex number.
      */
     mul(a: number, b: number): Complex;
-    mul(a: Complex): Complex;
+    mul(a: ComplexLike): Complex;
 
     /**
      * Divides the number by another complex number.
      */
     div(a: number, b: number): Complex;
-    div(a: Complex): Complex;
+    div(a: ComplexLike): Complex;
 
     /**
      * Returns the number raised to the complex exponent.
      */
     pow(a: number, b: number): Complex;
-    pow(a: Complex): Complex;
+    pow(a: ComplexLike): Complex;
 
     /**
      * Returns the complex square root of the number.
@@ -131,24 +140,24 @@ declare class Complex {
     /**
      * Floors the complex number parts towards zero.
      */
-    floor(places: number): Complex;
+    floor(places?: number): Complex;
 
     /**
      * Ceils the complex number parts off zero.
      */
-    ceil(places: number): Complex;
+    ceil(places?: number): Complex;
 
     /**
      * Rounds the complex number parts.
      */
-    round(places: number): Complex;
+    round(places?: number): Complex;
 
     /**
      * Checks if both numbers are exactly the same,
      * if both numbers are infinite they are considered not equal.
      */
     equals(a: number, b: number): boolean;
-    equals(a: Complex): boolean;
+    equals(a: ComplexLike): boolean;
 
     /**
      * Checks if the given number is not a number.
@@ -190,7 +199,7 @@ declare class Complex {
     /**
      * Returns the real part of the number if imaginary part is zero. Otherwise null.
      */
-    valueOf(): number|undefined;
+    valueOf(): number | undefined;
 
     /**
      * Calculate the sine of the complex number.

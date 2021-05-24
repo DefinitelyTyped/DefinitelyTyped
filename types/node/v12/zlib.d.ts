@@ -1,5 +1,5 @@
-declare module "zlib" {
-    import * as stream from "stream";
+declare module 'zlib' {
+    import * as stream from 'stream';
 
     interface ZlibOptions {
         /**

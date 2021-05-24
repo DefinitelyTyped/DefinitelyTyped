@@ -2,6 +2,7 @@
 // Project: https://github.com/1337programming/webpack-shell-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.8
 
 import { Plugin } from 'webpack';
 

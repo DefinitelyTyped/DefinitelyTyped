@@ -96,6 +96,14 @@ export interface ReactourAccessibilityOptions {
     showNavigationScreenReaders?: boolean;
 }
 
+export interface CustomHelperProps {
+    current: number;
+    totalSteps: number;
+    gotoStep: (step: number) => void;
+    close: () => void;
+    content: React.ReactNode | ((args: ReactourStepContentArgs) => React.ReactNode);
+}
+
 export interface ReactourProps {
     /**
      * You know…
@@ -292,6 +300,11 @@ export interface ReactourProps {
      * Configure accessibility related accessibility options
      */
     accessibilityOptions?: ReactourAccessibilityOptions;
+
+    /**
+     * CustomHelper component
+     */
+    CustomHelper?: ({ ...props }: CustomHelperProps) => React.ReactElement;
 }
 
 export interface ReactourState {

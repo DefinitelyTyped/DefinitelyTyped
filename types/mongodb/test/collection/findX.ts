@@ -81,7 +81,7 @@ async function run() {
         b; // $ExpectType Bag | null
     });
     collectionBag
-        .findOne({ color: 'white' })
+        .findOne<{ cost: number }>({ color: 'white' })
         .then(b => {
             if (b) {
                 b.cost; // $ExpectType number

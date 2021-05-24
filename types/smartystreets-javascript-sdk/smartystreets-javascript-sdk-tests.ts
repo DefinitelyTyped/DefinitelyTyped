@@ -124,3 +124,13 @@ client.send(lookup)
     .catch((
         err, // $ExpectType any
     ) => console.error(err));
+
+client = SmartyStreetsSDK.core.buildClient.usReverseGeo(credentials);
+lookup = new SmartyStreetsSDK.usReverseGeo.Lookup('29.751711638333997', '-95.35554678347353');
+client.send(lookup)
+    .then((
+        resp, // $ExpectType Lookup
+    ) => console.log(resp))
+    .catch((
+        err, // $ExpectType any
+    ) => console.error(err));

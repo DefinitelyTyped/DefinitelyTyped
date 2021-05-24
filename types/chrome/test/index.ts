@@ -331,8 +331,13 @@ function contentSettings() {
 }
 
 // tabs: https://developer.chrome.com/extensions/tabs#
-function testTabInterface() {
-    chrome.tabs.query({ active: true, currentWindow: true, url: ['http://*/*', 'https://*/*'] }, tabs => {
+async function testTabInterface() {
+    const options = { active: true, currentWindow: true, url: ['http://*/*', 'https://*/*'] };
+
+    chrome.tabs.query(options, tabs => {
+        // $ExpectType Tab[]
+        tabs;
+
         const [tab] = tabs;
         tab.id; // $ExpectType number | undefined
         tab.index; // $ExpectType number
@@ -356,7 +361,50 @@ function testTabInterface() {
         tab.height; // $ExpectType number | undefined
         tab.sessionId; // $ExpectType string | undefined
     });
+
+    // $ExpectType Tab[]
+    const tabs = await chrome.tabs.query(options);
+
+    const [tab] = tabs;
+    tab.id; // $ExpectType number | undefined
+    tab.index; // $ExpectType number
+    tab.windowId; // $ExpectType number
+    tab.openerTabId; // $ExpectType number | undefined
+    tab.selected; // $ExpectType boolean
+    tab.highlighted; // $ExpectType boolean
+    tab.active; // $ExpectType boolean
+    tab.pinned; // $ExpectType boolean
+    tab.audible; // $ExpectType boolean | undefined
+    tab.discarded; // $ExpectType boolean
+    tab.autoDiscardable; // $ExpectType boolean
+    tab.mutedInfo; // $ExpectType MutedInfo | undefined
+    tab.url; // $ExpectType string | undefined
+    tab.pendingUrl; // $ExpectType string | undefined
+    tab.title; // $ExpectType string | undefined
+    tab.favIconUrl; // $ExpectType string | undefined
+    tab.status; // $ExpectType string | undefined
+    tab.incognito; // $ExpectType boolean
+    tab.width; // $ExpectType number | undefined
+    tab.height; // $ExpectType number | undefined
+    tab.sessionId; // $ExpectType string | undefined
 }
+
+// tabGroups: https://developer.chrome.com/extensions/tabGroups#
+async function testTabGroupInterface() {
+    const options = { collapsed: false, title: 'Test' };
+
+    chrome.tabGroups.query(options, tabGroups => {
+        // $ExpectType TabGroup[]
+        tabGroups;
+
+        const [tabGroup] = tabGroups;
+        tabGroup.collapsed; // $ExpectType boolean
+        tabGroup.color; // $ExpectType ColorEnum
+        tabGroup.id; // $ExpectType number
+        tabGroup.title; // $ExpectType string | undefined
+        tabGroup.windowId; // $ExpectType number
+    });
+  }
 
 // https://developer.chrome.com/extensions/runtime#method-openOptionsPage
 function testOptionsPage() {
@@ -520,6 +568,12 @@ chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
     console.log('harLog: ', harLog);
 });
 
+function testDevtools() {
+    chrome.devtools.inspectedWindow.eval('1+1', undefined, result => {
+        console.log(result);
+    });
+}
+
 function testAssistiveWindow() {
     chrome.input.ime.setAssistiveWindowProperties({
         contextID: 0,
@@ -603,4 +657,40 @@ function testSearch() {
             getCallback,
         );
     });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/
+async function testDeclarativeNetRequest() {
+    chrome.declarativeNetRequest.getDynamicRules(rules => {
+        // $ExpectType Rule[]
+        rules;
+
+        const rule = rules[0]
+        rule.action; // $ExpectType RuleAction
+        rule.condition; // $ExpectType RuleCondition
+        rule.id; // $ExpectType number
+        rule.priority; // $ExpectType number
+    })
+
+    chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
+        // $ExpectType number
+        count;
+    })
+
+    chrome.declarativeNetRequest.getEnabledRulesets(sets => {
+        // $ExpectType string[]
+        sets;
+    })
+}
+
+// https://developer.chrome.com/docs/extensions/reference/browserAction/#method-setBadgeText
+function testSetBrowserBadgeText() {
+    chrome.browserAction.setBadgeText({});
+    chrome.browserAction.setBadgeText({text: "test"});
+    chrome.browserAction.setBadgeText({tabId: 123});
+    chrome.browserAction.setBadgeText({text: "test", tabId: 123});
+    chrome.browserAction.setBadgeText({}, () => {});
+
+    chrome.browserAction.setBadgeText(); // $ExpectError
+    chrome.browserAction.setBadgeText(undefined); // $ExpectError
 }

@@ -1907,39 +1907,39 @@ interface JQuery {
     tooltip(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
 
-    addClass(classNames: string, speed?: number, callback?: Function): JQuery;
-    addClass(classNames: string, speed?: string, callback?: Function): JQuery;
-    addClass(classNames: string, speed?: number, easing?: string, callback?: Function): JQuery;
-    addClass(classNames: string, speed?: string, easing?: string, callback?: Function): JQuery;
+    addClass(classNames: string, speed?: number, callback?: Function): this;
+    addClass(classNames: string, speed?: string, callback?: Function): this;
+    addClass(classNames: string, speed?: number, easing?: string, callback?: Function): this;
+    addClass(classNames: string, speed?: string, easing?: string, callback?: Function): this;
 
-    removeClass(classNames: string, speed?: number, callback?: Function): JQuery;
-    removeClass(classNames: string, speed?: string, callback?: Function): JQuery;
-    removeClass(classNames: string, speed?: number, easing?: string, callback?: Function): JQuery;
-    removeClass(classNames: string, speed?: string, easing?: string, callback?: Function): JQuery;
+    removeClass(classNames: string, speed?: number, callback?: Function): this;
+    removeClass(classNames: string, speed?: string, callback?: Function): this;
+    removeClass(classNames: string, speed?: number, easing?: string, callback?: Function): this;
+    removeClass(classNames: string, speed?: string, easing?: string, callback?: Function): this;
 
-    switchClass(removeClassName: string, addClassName: string, duration?: number, easing?: string, complete?: Function): JQuery;
-    switchClass(removeClassName: string, addClassName: string, duration?: string, easing?: string, complete?: Function): JQuery;
+    switchClass(removeClassName: string, addClassName: string, duration?: number, easing?: string, complete?: Function): this;
+    switchClass(removeClassName: string, addClassName: string, duration?: string, easing?: string, complete?: Function): this;
 
-    toggleClass(className: string, duration?: number, easing?: string, complete?: Function): JQuery;
-    toggleClass(className: string, duration?: string, easing?: string, complete?: Function): JQuery;
-    toggleClass(className: string, aswitch?: boolean, duration?: number, easing?: string, complete?: Function): JQuery;
-    toggleClass(className: string, aswitch?: boolean, duration?: string, easing?: string, complete?: Function): JQuery;
+    toggleClass(className: string, duration?: number, easing?: string, complete?: Function): this;
+    toggleClass(className: string, duration?: string, easing?: string, complete?: Function): this;
+    toggleClass(className: string, aswitch?: boolean, duration?: number, easing?: string, complete?: Function): this;
+    toggleClass(className: string, aswitch?: boolean, duration?: string, easing?: string, complete?: Function): this;
 
-    effect(options: any): JQuery;
-    effect(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
-    effect(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
+    effect(options: any): this;
+    effect(effect: string, options?: any, duration?: number, complete?: Function): this;
+    effect(effect: string, options?: any, duration?: string, complete?: Function): this;
 
-    hide(options: any): JQuery;
-    hide(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
-    hide(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
+    hide(options: any): this;
+    hide(effect: string, options?: any, duration?: number, complete?: Function): this;
+    hide(effect: string, options?: any, duration?: string, complete?: Function): this;
 
-    show(options: any): JQuery;
-    show(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
-    show(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
+    show(options: any): this;
+    show(effect: string, options?: any, duration?: number, complete?: Function): this;
+    show(effect: string, options?: any, duration?: string, complete?: Function): this;
 
-    toggle(options: any): JQuery;
-    toggle(effect: string, options?: any, duration?: number, complete?: Function): JQuery;
-    toggle(effect: string, options?: any, duration?: string, complete?: Function): JQuery;
+    toggle(options: any): this;
+    toggle(effect: string, options?: any, duration?: number, complete?: Function): this;
+    toggle(effect: string, options?: any, duration?: string, complete?: Function): this;
 
     position(options: JQueryUI.JQueryPositionOptions): JQuery;
 

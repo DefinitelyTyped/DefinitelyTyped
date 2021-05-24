@@ -1983,8 +1983,25 @@ declare namespace videojs {
     };
 
     interface ControlBarOptions extends ComponentOptions {
-        volumePanel?: VolumePanelOptions;
+        volumePanel?: VolumePanelOptions | boolean;
+        playToggle?: boolean;
+        captionsButton?: boolean;
+        chaptersButton?: boolean;
+        subtitlesButton?: boolean;
+        remainingTimeDisplay?: boolean;
+        progressControl?: ProgressControlOptions | boolean;
         fullscreenToggle?: boolean;
+        playbackRateMenuButton?: boolean;
+        pictureInPictureToggle?: boolean;
+        currentTimeDisplay?: boolean;
+        timeDivider?: boolean;
+        durationDisplay?: boolean;
+        liveDisplay?: boolean;
+        seekToLive?: boolean;
+        customControlSpacer?: boolean;
+        descriptionsButton?: boolean;
+        subsCapsButton?: boolean;
+        audioTrackButton?: boolean;
     }
 
     /**
@@ -2926,6 +2943,10 @@ declare namespace videojs {
         new (tracks?: HTMLTrackElement[]): HTMLTrackElementList;
     };
 
+    interface KeyboardEvent extends EventTarget.Event {
+        readonly which: number;
+    }
+
     interface LanguageTranslations {
         [language: string]: string;
     }
@@ -3593,7 +3614,7 @@ declare namespace videojs {
          * @param src
          * @param next
          */
-        setSource: (src: Tech.SourceObject, next: (err: any, next: (src: Tech.SourceObject) => void) => void) => void;
+        setSource: (src: Tech.SourceObject, next: (err: any, src: Tech.SourceObject) => void) => void;
     }
 
     /**
@@ -4186,8 +4207,12 @@ declare namespace videojs {
          * @param [options]
          *        The key/value store of player options.
          */
-        new (player: Player, options?: ComponentOptions): ProgressControl;
+        new (player: Player, options?: ProgressControlOptions): ProgressControl;
     };
+
+    interface ProgressControlOptions extends ComponentOptions {
+        seekBar?: boolean;
+    }
 
     interface Representation {
         id: string;
@@ -5702,6 +5727,17 @@ declare namespace videojs {
         new (tracks?: Track[]): TrackList;
     };
 
+    interface UserActions {
+        doubleClick?: boolean | ((event: EventTarget.Event) => void);
+        hotkeys?: boolean | ((event: KeyboardEvent) => void) | UserActionHotkeys;
+    }
+
+    interface UserActionHotkeys {
+        fullscreenKey?: (event: KeyboardEvent) => boolean;
+        muteKey?: (event: KeyboardEvent) => boolean;
+        playPauseKey?: (event: KeyboardEvent) => boolean;
+    }
+
     /**
      * The bar that contains the volume level and can be clicked on to adjust the level
      */
@@ -6035,7 +6071,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return The current value of autoplay when getting
      */
-    autoplay(value?: boolean | string): void;
+    autoplay(value: boolean | string): void;
 
     autoplay(): boolean | string;
 
@@ -6143,7 +6179,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return The current value of controls when getting
      */
-    controls(bool?: boolean): void;
+    controls(bool: boolean): void;
 
     controls(): boolean;
 
@@ -6513,7 +6549,7 @@ export interface VideoJsPlayer extends videojs.Component {
      *
      * @return The current value of loop when getting
      */
-    loop(value?: boolean): void;
+    loop(value: boolean): void;
 
     loop(): boolean;
 
@@ -6690,6 +6726,20 @@ export interface VideoJsPlayer extends videojs.Component {
      * and calls `reset` on the tech`.
      */
     reset(): void;
+
+    /**
+     * Get or set a flag indicating whether or not this player should adjust its
+     * UI based on its dimensions.
+     *
+     * @param [value] Should be `true` if the player should adjust its UI based
+     * on its dimensions; otherwise, should be `false`.
+     *
+     * @return Will be `true` if this player should adjust its UI based on its
+     * dimensions; otherwise, will be `false`.
+     */
+    responsive(value: boolean): void;
+
+    responsive(): boolean;
 
     /**
      * Returns whether or not the player is in the "seeking" state.
@@ -6872,6 +6922,7 @@ export interface VideoJsPlayer extends videojs.Component {
 export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     aspectRatio?: string;
     autoplay?: boolean | string;
+    bigPlayButton?: boolean;
     controlBar?: videojs.ControlBarOptions | false;
     textTrackSettings?: videojs.TextTrackSettingsOptions;
     controls?: boolean;
@@ -6891,11 +6942,13 @@ export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
     plugins?: Partial<VideoJsPlayerPluginOptions>;
     poster?: string;
     preload?: string;
+    responsive?: boolean;
     sourceOrder?: boolean;
     sources?: videojs.Tech.SourceObject[];
     src?: string;
     techOrder?: string[];
     tracks?: videojs.TextTrackOptions[];
+    userActions?: videojs.UserActions;
     width?: number;
 }
 

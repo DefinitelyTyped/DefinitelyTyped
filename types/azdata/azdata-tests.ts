@@ -15,11 +15,42 @@ azdata.dataprotocol.registerConnectionProvider({
     registerOnConnectionChanged(handler: (changedConnInfo: azdata.ChangedConnectionInfo) => any): void { }
 });
 
-const test: azdata.ContainerBuilder<azdata.InputBoxComponent, any, any, azdata.InputBoxProperties> = {
+class StubDisposable {
+    public dispose(): void { }
+}
+
+const testContainerBuilder: azdata.ContainerBuilder<azdata.InputBoxComponent, any, any, azdata.InputBoxProperties> = {
     component: () => <any> {},
     withItems: (component: azdata.Component[]) => { throw new Error('Not implemented'); },
     withLayout: (layout: any) => { throw new Error('Not implemented'); },
     withProperties: (properties: azdata.InputBoxProperties) => { throw new Error('Not implemented'); },
     withValidation: (validation: (component: azdata.InputBoxComponent) => boolean | Thenable<boolean>) => { throw new Error('Not implemented'); }
 };
-test.component();
+testContainerBuilder.component();
+
+const testButtonComponent: azdata.ButtonComponent = {
+    id: 'my-loading-component',
+    onDidClick: (listener: (e: any) => any) => new StubDisposable(),
+    updateProperty: async (key: string, value: any) => { },
+    updateCssStyles: async (cssStyles) => { },
+    updateProperties: async (properties: { [key: string]: any }) => { },
+    valid: false,
+    validate: async () => false,
+    focus: async () => { },
+    onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable()
+};
+testButtonComponent.validate();
+
+const testLoadingComponent: azdata.LoadingComponent = {
+    loading: false,
+    component: testContainerBuilder.component(),
+    id: 'my-loading-component',
+    updateProperty: async (key: string, value: any) => { },
+    updateCssStyles: async (cssStyles) => { },
+    updateProperties: async (properties: { [key: string]: any }) => { },
+    valid: false,
+    validate: async () => false,
+    focus: async () => { },
+    onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable()
+};
+testLoadingComponent.validate();

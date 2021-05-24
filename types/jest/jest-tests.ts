@@ -315,6 +315,14 @@ jest.requireActual('./thisReturnsTheActualModule');
 // $ExpectType string
 jest.requireActual<string>('./thisReturnsTheActualModule');
 
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+jest.requireActual('./thisReturnsTheActualModule').default;
+
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+const spreadRequireActual = {...jest.requireActual('./thisReturnsTheActualModule')};
+
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
 // $ExpectType any
 jest.requireMock('./thisAlwaysReturnsTheMock');
@@ -322,6 +330,14 @@ jest.requireMock('./thisAlwaysReturnsTheMock');
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
 // $ExpectType string
 jest.requireMock<string>('./thisAlwaysReturnsTheMock');
+
+// https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+// $ExpectType any
+jest.requireMock('./thisAlwaysReturnsTheMock').default;
+
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+// $ExpectType any
+const spreadRequireMock = {...jest.requireMock('./thisAlwaysReturnsTheMock')};
 
 /* Mocks and spies */
 
@@ -1477,3 +1493,4 @@ test.only.each`
 });
 
 expect('').toHaveProperty('path.to.thing');
+expect('').toHaveProperty('path.to.thing', {});

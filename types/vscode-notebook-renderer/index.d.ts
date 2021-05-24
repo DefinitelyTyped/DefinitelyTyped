@@ -1,71 +1,98 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.48
+// Type definitions for non-npm package vscode-notebook-renderer 1.57
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
-// todo: update "Project" link above to docs site, once it becomes available
-
-export interface Disposable {
-    dispose(): void;
-}
-
-export interface VSCodeEvent<T> {
-    (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
-}
-
-export interface NotebookOutputEventParams  {
-    element: HTMLElement;
-    outputId: string;
-    output: NotebookOutput;
-    mimeType: string;
-}
-
-/**
- * Notebook output data -- corresponds to the `CellDisplayOutput` in the VS Code types.
- */
-export interface NotebookOutput {
-    data: { [mimeType: string]: any };
-    metadata?: NotebookCellOutputMetadata;
-}
-
-export interface NotebookCellOutputMetadata {
+export interface CellInfo {
     /**
-     * Additional attributes of a cell metadata.
+     * HTML element where the cell should be renderer.
      */
-    custom?: { [key: string]: any; };
+    readonly element: HTMLElement;
+
+    /**
+     * Mime type being renderer.
+     */
+    readonly mime: string;
+
+    /**
+     * Render data for the cell.
+     * @todo This may eventually be just a Uint8Array
+     * @deprecated
+     */
+    readonly value: unknown;
+
+    /**
+     * The data as text. Note the a UTF-8 decoder is used is create
+     * the string from the underlying bytes.
+     */
+    text(): string;
+
+    /**
+     * The data as object - parsed from JSON. Note that this will
+     * throw an error when the underlying data is not a valid JSON string.
+     */
+    json(): any;
+
+    /**
+     * The data as bytes.
+     */
+    bytes(): Uint8Array;
+
+    /**
+     * The data as blob. The blob-type will be initialized the `mime`
+     * of this object.
+     */
+    blob(): Blob;
+
+    /**
+     * cell metadata.
+     */
+    readonly metadata: unknown;
 }
 
-export interface NotebookRendererApi<T> {
+export interface RendererContext<T> {
+    /**
+     * Sets renderer-specific state that is persisted in the webview.
+     */
     setState(value: T): void;
+
+    /**
+     * Gets any previously set renderer-specific state.
+     * @see RendererContext.setState
+     */
     getState(): T | undefined;
 
     /**
-     * Sends a message to the renderer extension code. Can be received in
-     * the `onDidReceiveMessage` event in `NotebookCommunication`.
+     * Gets the return value of an already activated renderer. It returns
+     * undefined if the specified renderer is not available or has not been
+     * activated yet.
      */
-    postMessage(msg: unknown): void;
-
-    /**
-     * Fired before an output is destroyed, with its output ID, or undefined if
-     * all cells are about to unmount.
-     */
-    onWillDestroyOutput: VSCodeEvent<{ outputId: string } | undefined>;
-
-    /**
-     * Fired when an output is rendered. The `outputId` provided is the same
-     * as the one given in `NotebookOutputRenderer.render` in the extension
-     * API, and `onWillDestroyOutput`.
-     */
-    onDidCreateOutput: VSCodeEvent<NotebookOutputEventParams>;
-
-    /**
-     * Called when the renderer uses `postMessage` on the NotebookCommunication
-     * instance for this renderer.
-     */
-    onDidReceiveMessage: VSCodeEvent<any>;
+    getRenderer(id: string): RendererApi | undefined;
 }
 
-declare global {
-    function acquireNotebookRendererApi(rendererId: string): NotebookRendererApi<any>;
+export interface RendererApi {
+    /**
+     * Method called by the editor to render a cell.
+     */
+    renderCell(id: string, info: CellInfo): void;
+
+    /**
+     * Destroys a previously-rendered cell.
+     * @param id the of the cell being removed. If undefined, all cells are
+     * being removed.
+     */
+    destroyCell?(id?: string): void;
+
+    /**
+     * Additional properties may be returned for others to consume in
+     * {@link RendererContext.getRenderer}.
+     */
+    [key: string]: unknown;
 }
+
+/**
+ * Describes the function that should be exported as "activate" from your
+ * renderer entrypoint.
+ */
+export type ActivationFunction<TState = any> = (context: RendererContext<TState>) => RendererApi;

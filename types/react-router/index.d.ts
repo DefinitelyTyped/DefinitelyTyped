@@ -83,17 +83,23 @@ export interface RouteChildrenProps<Params extends { [K in keyof Params]?: strin
     match: match<Params> | null;
 }
 
-export interface RouteProps {
+export interface RouteProps<
+    Path extends string = string,
+    Params extends { [K: string]: string | undefined } = ExtractRouteParams<Path, string>
+> {
     location?: H.Location;
     component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-    render?: (props: RouteComponentProps<any>) => React.ReactNode;
-    children?: ((props: RouteChildrenProps<any>) => React.ReactNode) | React.ReactNode;
-    path?: string | string[];
+    render?: (props: RouteComponentProps<Params>) => React.ReactNode;
+    children?: ((props: RouteChildrenProps<Params>) => React.ReactNode) | React.ReactNode;
+    path?: Path | readonly Path[];
     exact?: boolean;
     sensitive?: boolean;
     strict?: boolean;
 }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> {}
+export class Route<T extends {} = {}, Path extends string = string> extends React.Component<
+    RouteProps<Path> & OmitNative<T, keyof RouteProps>,
+    any
+> {}
 
 export interface RouterProps {
     history: H.History;
@@ -128,22 +134,29 @@ export interface match<Params extends { [K in keyof Params]?: string } = {}> {
 // Omit taken from https://github.com/Microsoft/TypeScript/issues/28339#issuecomment-467220238
 export type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
+// Newer Omit type: as the previous one is being exported, removing it would be a breaking change
+export type OmitNative<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P] };
+
 export function matchPath<Params extends { [K in keyof Params]?: string }>(
     pathname: string,
     props: string | string[] | RouteProps,
     parent?: match<Params> | null,
 ): match<Params> | null;
 
-export type ExtractRouteOptionalParam<T extends string> = T extends `${infer Param}?`
-    ? { [k in Param]?: string | number | boolean }
-    : { [k in T]: string | number | boolean };
+export type ExtractRouteOptionalParam<T extends string, U = string | number | boolean> = T extends `${infer Param}?`
+    ? { [k in Param]?: U }
+    : { [k in T]: U };
 
-export type ExtractRouteParams<T extends string> = string extends T
-    ? { [k in string]?: string | number | boolean }
-    : T extends `${infer _Start}:${infer Param}/${infer Rest}`
-    ? ExtractRouteOptionalParam<Param> & ExtractRouteParams<Rest>
-    : T extends `${infer _Start}:${infer Param}`
-    ? ExtractRouteOptionalParam<Param>
+export type ExtractRouteParams<T extends string, U = string | number | boolean> = string extends T
+    ? { [k in string]?: U }
+    : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}/${infer Rest}`
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+      ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
+      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
+    : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+      ? ExtractRouteOptionalParam<Param, U>
+      : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
     : {};
 
 export function generatePath<S extends string>(path: S, params?: ExtractRouteParams<S>): string;

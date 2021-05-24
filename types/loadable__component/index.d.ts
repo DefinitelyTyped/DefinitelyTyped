@@ -88,7 +88,7 @@ declare function loadableFunc<Props>(
 
 declare function loadableFunc<Component extends React.ComponentClass<any>>(
     loadFn: (props: React.ComponentProps<Component>) => Promise<Component | { default: Component }>,
-    options?: OptionsWithResolver<React.ComponentProps<Component>, Component>,
+    options?: Options<React.ComponentProps<Component>, Component>,
 ): LoadableClassComponent<Component>;
 
 declare const loadable: typeof loadableFunc & { lib: typeof lib };

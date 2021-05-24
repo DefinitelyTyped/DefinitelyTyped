@@ -1,4 +1,4 @@
-// Type definitions for three 0.125
+// Type definitions for three 0.128
 // Project: https://threejs.org/
 // Definitions by: Josh Ellis <https://github.com/joshuaellis>
 //                 Nathan Bierema <https://github.com/Methuselah96>

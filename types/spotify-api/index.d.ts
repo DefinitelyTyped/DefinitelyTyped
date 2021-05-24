@@ -1544,10 +1544,12 @@ declare namespace SpotifyApi {
     interface CurrentlyPlayingObject {
         timestamp: number;
         device: UserDevice;
+        actions: ActionsObject;
         progress_ms: number | null;
         is_playing: boolean;
-        item: TrackObjectFull | null;
+        item: TrackObjectFull | EpisodeObjectFull | null;
         context: ContextObject | null;
+        currently_playing_type: 'track' | 'episode' | 'ad' | 'unknown';
     }
 
     interface UserDevice {
@@ -1557,5 +1559,22 @@ declare namespace SpotifyApi {
         name: string;
         type: string;
         volume_percent: number | null;
+    }
+
+    interface ActionsObject {
+        disallows: DisallowsObject;
+    }
+
+    interface DisallowsObject {
+        interrupting_playback?: boolean;
+        pausing?: boolean;
+        resuming?: boolean;
+        seeking?: boolean;
+        skipping_next?: boolean;
+        skipping_prev?: boolean;
+        toggling_repeat_context?: boolean;
+        toggling_repeat_track?: boolean;
+        toggling_shuffle?: boolean;
+        transferring_playback?: boolean;
     }
 }

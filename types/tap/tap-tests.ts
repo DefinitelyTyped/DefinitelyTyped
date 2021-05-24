@@ -1,22 +1,25 @@
-import { EventEmitter } from 'events';
-import * as tap from 'tap';
+import { EventEmitter } from "events";
+import * as tap from "tap";
+
+Tap.Test;
+Tap.Tap;
 
 tap.pass();
 
-tap.test('all-assertions', t => {
+tap.test("all-assertions", t => {
     const obj: any = {};
     const found: any = 1;
     const wanted: any = 1;
     const notWanted: any = 1;
-    const fn: (stuff: any) => void = () => {};
+    const fn: (stuff: any) => void = () => { };
     const expectedError: Error = new Error();
     const eventEmitter: EventEmitter = new EventEmitter();
-    const pattern: RegExp | string | { [key: string]: RegExp } = 'pattern';
+    const pattern: RegExp | string | { [key: string]: RegExp } = "pattern";
 
-    const message = 'message';
+    const message = "message";
     const extra = {
         todo: false,
-        skip: 'skip',
+        skip: "skip",
         diagnostic: true,
         extra_stuff: false,
     };
@@ -39,9 +42,9 @@ tap.test('all-assertions', t => {
     t.ifErr(expectedError);
     t.ifError(expectedError);
 
-    t.emits(eventEmitter, 'event', message, extra);
-    t.emits(eventEmitter, 'event', message);
-    t.emits(eventEmitter, 'event');
+    t.emits(eventEmitter, "event", message, extra);
+    t.emits(eventEmitter, "event", message);
+    t.emits(eventEmitter, "event");
 
     t.matchSnapshot(found, message, extra);
     t.matchSnapshot(found, message);
@@ -165,21 +168,21 @@ tap.test('all-assertions', t => {
     t.isNotSimilar(found, pattern);
     t.isDissimilar(found, pattern);
 
-    t.type(new Date(), 'object', message, extra);
-    t.type(new Date(), 'object', message);
-    t.type(new Date(), 'object');
-    t.isa(new Date(), 'Date');
+    t.type(new Date(), "object", message, extra);
+    t.type(new Date(), "object", message);
+    t.type(new Date(), "object");
+    t.isa(new Date(), "Date");
     t.isA(new Date(), Date);
 });
 
-tap.test('async test', async t => {
+tap.test("async test", async t => {
     const wanted: any = 1;
     const expectedError: Error = new Error();
 
-    const message = 'message';
+    const message = "message";
     const extra = {
         todo: false,
-        skip: 'skip',
+        skip: "skip",
         diagnostic: true,
         extra_stuff: false,
     };
@@ -221,14 +224,67 @@ tap.test('async test', async t => {
     await t.resolveMatchSnapshot(promiseProvider);
 });
 
-tap.only('only', t => {
+tap.test("lifecycle", t => {
+    t.before(() => true);
+    t.before(async () => true);
+
+    t.beforeEach(() => true);
+    t.beforeEach(async () => true);
+    t.beforeEach(async (childTest: any) => childTest.foo);
+
+    t.afterEach(() => true);
+    t.afterEach(async () => true);
+    t.afterEach(async (childTest: any) => childTest.foo);
+});
+
+tap.test("mocks", t => {
+    const anyMockModule = tap.mock("../my-module", {
+        fs: {
+            readFile: () => false,
+        },
+    });
+
+    anyMockModule.any.thing;
+});
+
+tap.only("only", t => {
     t.pass();
 });
 
-tap.skip('skip', t => {
+tap.skip("skip", t => {
     t.pass();
 });
 
-tap.test('test with options', { only: true, skip: true, todo: true, timeout: 1000 }, t => {
+tap.test("test with options", { only: true, skip: true, todo: true, timeout: 1000 }, t => {
     t.pass();
+});
+
+const topLevelDir = tap.testdir();
+
+tap.test("testdir", t => {
+    const cwd = t.testdir({
+        "demo.jpg": Buffer.from("a jpg"),
+        "package.json": JSON.stringify({
+            name: "pj",
+        }),
+        src: {
+            "index.js": "yay",
+            hardlinked: t.fixture("link", "../target"),
+            softlinked: t.fixture("symlink", "../target"),
+        },
+        target: {},
+    });
+    t.notEqual(cwd, topLevelDir);
+    t.equals(cwd, t.testdirName);
+});
+
+tap.test("fixture", t => {
+    // fairly infrequent vs testdir() sugar
+    t.fixture("dir", {});
+    t.fixture("file", "content");
+    t.fixture("file", Buffer.from("content"));
+
+    // much more common, as sugar does not exist
+    t.fixture("link", "target");
+    t.fixture("symlink", "target");
 });

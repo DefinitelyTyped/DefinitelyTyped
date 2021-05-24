@@ -11,7 +11,7 @@ export interface ToggleProps extends Omit<ReactInputAttr, ExcludedAttributes> {
     labelText?: string,
     onChange?(event: React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>): void,
     onToggle?(checked: boolean, id: ToggleProps["id"], event: React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>): void,
-    size?: "sm",
+    size?: "sm" | "md",
     toggled?: boolean,
 }
 

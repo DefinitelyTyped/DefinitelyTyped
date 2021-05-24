@@ -13,6 +13,9 @@ middleware = session({
   secret,
   cookie: {
     httpOnly: false,
+    // type for new valid option to cookie, along with all existing option types
+    // when true, cookie expires when the browser closes
+    ephemeral: true
   }
 });
 

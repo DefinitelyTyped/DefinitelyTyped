@@ -15,6 +15,7 @@ export interface Options {
     opaque?: boolean;
     reprojectionErrorThreshold?: number;
     tileLoadFunction?: LoadFunction;
+    transition?: number;
     url?: string;
     wrapX?: boolean;
 }

@@ -37,6 +37,8 @@ markerClusterGroupOptions.iconCreateFunction = (cluster: L.MarkerCluster) => {
     return L.divIcon();
 };
 
+markerClusterGroupOptions.clusterPane = "foobarPane";
+
 let markerClusterGroup: L.MarkerClusterGroup;
 markerClusterGroup = L.markerClusterGroup();
 markerClusterGroup = L.markerClusterGroup(markerClusterGroupOptions);

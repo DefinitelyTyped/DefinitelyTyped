@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as assert from 'assert';
+import assert = require('assert');
 import * as util from 'util';
 
 {

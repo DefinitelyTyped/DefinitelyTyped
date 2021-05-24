@@ -169,6 +169,10 @@ export class Mapping implements Mappable {
      * `assoc` points in the direction of the deleted content.
      */
     mapResult(pos: number, assoc?: number): MapResult;
+    /**
+     * Create an inverted version of this mapping.
+     */
+    invert(): Mapping;
 }
 /**
  * Add a mark to all inline content between two positions.

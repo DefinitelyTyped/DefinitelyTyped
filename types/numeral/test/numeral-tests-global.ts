@@ -11,12 +11,12 @@ const added: numeral.Numeral = value3.add(10);
 const value4: numeral.Numeral = numeral(1000);
 const formatValue4a: string = value4.format('0,0');
 // '1,000'
-const formatValue4b: number = value4.value();
+const formatValue4b: number | null = value4.value();
 // 1000
 
 const value5: numeral.Numeral = numeral();
 value5.set(1000);
-const value5Num: number = value5.value();
+const value5Num: number | null = value5.value();
 // 1000
 
 const value6: numeral.Numeral = numeral(1000);
@@ -33,11 +33,11 @@ const a: numeral.Numeral = numeral(1000);
 const b: numeral.Numeral = numeral(a);
 const c: numeral.Numeral = a.clone();
 
-const aVal: number = a.set(2000).value();
+const aVal: number | null = a.set(2000).value();
 // 2000
-const bVal: number = b.value();
+const bVal: number | null = b.value();
 // 1000
-const cVal: number = c.add(10).value();
+const cVal: number | null = c.add(10).value();
 // 1010
 
 // Formats
@@ -104,3 +104,6 @@ numeral(50).format('0%');
 // test isNumeral
 numeral.isNumeral(numeral(1000));
 numeral.isNumeral(1000);
+
+numeral(null).value(); // $ExpectType number | null
+numeral(null).value() || 0; // $ExpectType number

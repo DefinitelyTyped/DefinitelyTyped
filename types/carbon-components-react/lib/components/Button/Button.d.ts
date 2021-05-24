@@ -25,8 +25,10 @@ export interface ButtonKindProps {
 
 // these props are not passed to the general createElement call
 interface ButtonBaseIsolatedProps {
+    dangerDescription?: string;
     hasIconOnly?: boolean;
     iconDescription?: string;
+    isSelected?: boolean;
     // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
     // if anon render props type is desired, import ButtonRenderIconRenderProps.
     renderIcon?: any;

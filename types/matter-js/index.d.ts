@@ -1539,7 +1539,7 @@ declare namespace Matter {
          * @param {number} length
          * @return {composite} A new composite newtonsCradle body
          */
-        newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
+        static newtonsCradle(xx: number, yy: number, _number: number, size: number, length: number): Composite;
 
         /**
          * Create a new composite containing bodies created in the callback in a pyramid arrangement.
@@ -2968,7 +2968,7 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @return {vector} The average point
          */
-        static mean(vertices: Array<Vector>): Array<Vector>;
+        static mean(vertices: Array<Vector>): Vector;
 
         /**
          * Sorts the input vertices into clockwise order in place.

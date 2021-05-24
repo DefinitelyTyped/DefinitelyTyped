@@ -1,6 +1,6 @@
 import { JSONValue } from 'k6';
 import { Selection } from 'k6/html';
-import {
+import http, {
     CookieJar,
     CookieJarCookies,
     FileData,
@@ -17,6 +17,8 @@ import {
     batch,
     file,
     cookieJar,
+    expectedStatuses,
+    setResponseCallback
 } from 'k6/http';
 
 const address = 'http://example.com';
@@ -73,6 +75,7 @@ options(address, 5); // $ExpectError
 responseDefault = options(address, 'choices choices');
 responseDefault = options(address, {});
 responseDefault = options(address, { theme: 'forest' });
+responseDefault = options(address, new ArrayBuffer(8));
 options(address, {}, 5); // $ExpectError
 responseNone = options(address, {}, { responseType: 'none' });
 options(address, {}, {}, 5); // $ExpectError
@@ -85,6 +88,7 @@ patch(address, 5); // $ExpectError
 responseDefault = patch(address, 'a life of contrasts and patchwork');
 responseDefault = patch(address, {});
 responseDefault = patch(address, { weaponOfChoice: 'pen' });
+responseDefault = patch(address, new ArrayBuffer(8));
 patch(address, {}, 5); // $ExpectError
 responseBinary = patch(address, {}, { responseType: 'binary' });
 patch(address, {}, {}, 5); // $ExpectError
@@ -97,6 +101,7 @@ post(address, 5); // $ExpectError
 responseDefault = post(address, 'hello in cyberspace');
 responseDefault = post(address, {});
 responseDefault = post(address, { query: 'kittens' });
+responseDefault = post(address, new ArrayBuffer(8));
 post(address, {}, 5); // $ExpectError
 responseNone = post(address, null, { responseType: 'none' });
 post(address, {}, {}, 5); // $ExpectError
@@ -109,6 +114,7 @@ put(address, 5); // $ExpectError
 responseDefault = put(address, 'cat in box');
 responseDefault = put(address, {});
 responseDefault = put(address, { box: 'cat' });
+responseDefault = put(address, new ArrayBuffer(8));
 put(address, {}, 5); // $ExpectError
 responseText = put(address, null, { responseType: 'text' });
 put(address, {}, {}, 5); // $ExpectError
@@ -123,9 +129,14 @@ request('post', address, 5); // $ExpectError
 responseDefault = request('post', address, 'welcome to the internet');
 responseDefault = request('post', address, {});
 responseDefault = request('post', address, { query: 'quokka' });
+responseDefault = request('post', address, new ArrayBuffer(8));
 request('post', address, {}, 5); // $ExpectError
 responseBinary = request('post', address, {}, { responseType: 'binary' });
 request('post', address, {}, {}, 5); // $ExpectError
+
+// request params
+responseDefault = request('post', address, {}, {timeout: '10s'});
+responseDefault = request('post', address, {}, {timeout: 10});
 
 // batch
 batch(); // $ExpectError
@@ -246,6 +257,7 @@ file(); // $ExpectError
 file(5); // $ExpectError
 fileData = file('important data');
 fileData = file([ 1, 2, 3 ]);
+fileData = file(new Uint8Array([10, 12]).buffer);
 file('', 5); // $ExpectError
 fileData = file('important data', 'data.txt');
 file('important data', 'data.txt', 5); // $ExpectError
@@ -344,3 +356,22 @@ jar.set(address, 'session', 'abc123', {
 });
 jar.set('session', 'abc123', {}, 5); // $ExpectError
 jar.set(address, 'session', 'abc123', {}, 5); // $ExpectError
+
+// expectedStatuses
+expectedStatuses(200);
+expectedStatuses({min: 200, max: 300});
+expectedStatuses(200, 400);
+expectedStatuses(200, {min: 200, max: 300}, 400);
+expectedStatuses(200, {min: 200, max: 300}, 400, {min: 500, max: 600});
+expectedStatuses(200, {min: 200, max: 300}, 400, {hola: 500, max: 600}); // $ExpectError
+expectedStatuses(406, 500, {min: 200, max: 204}, 302, {min: 305, max: 405});
+
+http.expectedStatuses(200);
+
+setResponseCallback(); // $ExpectError
+setResponseCallback('hola'); // $ExpectError
+setResponseCallback(expectedStatuses(200));
+
+http.setResponseCallback(http.expectedStatuses(200));
+
+request('post', address, {}, {responseCallback: expectedStatuses(200)});

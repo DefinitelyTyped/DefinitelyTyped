@@ -3,217 +3,217 @@
 // Definitions by: Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import ndarray = require("ndarray");
+import { NdArray } from "ndarray";
 
 ////////////////
 /// Assignment operations
 ////////////////
-export function add(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function addeq(array1: ndarray, array2: ndarray): boolean;
-export function adds(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function addseq(array: ndarray, scalar: number): boolean;
+export function add(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function addeq(array1: NdArray, array2: NdArray): boolean;
+export function adds(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function addseq(array: NdArray, scalar: number): boolean;
 
-export function sub(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function subeq(array1: ndarray, array2: ndarray): boolean;
-export function subs(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function subseq(array: ndarray, scalar: number): boolean;
+export function sub(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function subeq(array1: NdArray, array2: NdArray): boolean;
+export function subs(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function subseq(array: NdArray, scalar: number): boolean;
 
-export function mul(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function muleq(array1: ndarray, array2: ndarray): boolean;
-export function muls(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function mulseq(array: ndarray, scalar: number): boolean;
+export function mul(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function muleq(array1: NdArray, array2: NdArray): boolean;
+export function muls(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function mulseq(array: NdArray, scalar: number): boolean;
 
-export function div(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function diveq(array1: ndarray, array2: ndarray): boolean;
-export function divs(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function divseq(array: ndarray, scalar: number): boolean;
+export function div(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function diveq(array1: NdArray, array2: NdArray): boolean;
+export function divs(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function divseq(array: NdArray, scalar: number): boolean;
 
-export function mod(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function modeq(array1: ndarray, array2: ndarray): boolean;
-export function mods(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function modseq(array: ndarray, scalar: number): boolean;
+export function mod(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function modeq(array1: NdArray, array2: NdArray): boolean;
+export function mods(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function modseq(array: NdArray, scalar: number): boolean;
 
-export function band(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function bandeq(array1: ndarray, array2: ndarray): boolean;
-export function bands(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function bandseq(array: ndarray, scalar: number): boolean;
+export function band(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function bandeq(array1: NdArray, array2: NdArray): boolean;
+export function bands(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function bandseq(array: NdArray, scalar: number): boolean;
 
-export function bor(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function boreq(array1: ndarray, array2: ndarray): boolean;
-export function bors(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function borseq(array: ndarray, scalar: number): boolean;
+export function bor(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function boreq(array1: NdArray, array2: NdArray): boolean;
+export function bors(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function borseq(array: NdArray, scalar: number): boolean;
 
-export function bxor(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function bxoreq(array1: ndarray, array2: ndarray): boolean;
-export function bxors(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function bxorseq(array: ndarray, scalar: number): boolean;
+export function bxor(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function bxoreq(array1: NdArray, array2: NdArray): boolean;
+export function bxors(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function bxorseq(array: NdArray, scalar: number): boolean;
 
-export function lshift(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function lshifteq(array1: ndarray, array2: ndarray): boolean;
-export function lshifts(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function lshiftseq(array: ndarray, scalar: number): boolean;
+export function lshift(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function lshifteq(array1: NdArray, array2: NdArray): boolean;
+export function lshifts(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function lshiftseq(array: NdArray, scalar: number): boolean;
 
-export function rshift(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function rshifteq(array1: ndarray, array2: ndarray): boolean;
-export function rshifts(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function rshiftseq(array: ndarray, scalar: number): boolean;
+export function rshift(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function rshifteq(array1: NdArray, array2: NdArray): boolean;
+export function rshifts(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function rshiftseq(array: NdArray, scalar: number): boolean;
 
-export function rrshift(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function rrshifteq(array1: ndarray, array2: ndarray): boolean;
-export function rrshifts(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function rrshiftseq(array: ndarray, scalar: number): boolean;
+export function rrshift(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function rrshifteq(array1: NdArray, array2: NdArray): boolean;
+export function rrshifts(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function rrshiftseq(array: NdArray, scalar: number): boolean;
 
 ////////////////
 /// Unary operations
 ////////////////
-export function not(array1: ndarray, array2: ndarray): ndarray;
-export function noteq(array: ndarray): boolean;
+export function not(array1: NdArray, array2: NdArray): NdArray;
+export function noteq(array: NdArray): boolean;
 
-export function bnot(array1: ndarray, array2: ndarray): ndarray;
-export function bnoteq(array: ndarray): boolean;
+export function bnot(array1: NdArray, array2: NdArray): NdArray;
+export function bnoteq(array: NdArray): boolean;
 
-export function neg(array1: ndarray, array2: ndarray): ndarray;
-export function negeq(array: ndarray): boolean;
+export function neg(array1: NdArray, array2: NdArray): NdArray;
+export function negeq(array: NdArray): boolean;
 
-export function recip(array1: ndarray, array2: ndarray): ndarray;
-export function recipeq(array: ndarray): boolean;
+export function recip(array1: NdArray, array2: NdArray): NdArray;
+export function recipeq(array: NdArray): boolean;
 
 ////////////////
 /// Binary operations
 ////////////////
-export function and(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function ands(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function andeq(array1: ndarray, array2: ndarray): boolean;
-export function andseq(array: ndarray, scalar: number): boolean;
+export function and(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function ands(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function andeq(array1: NdArray, array2: NdArray): boolean;
+export function andseq(array: NdArray, scalar: number): boolean;
 
-export function or(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function ors(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function oreq(array1: ndarray, array2: ndarray): boolean;
-export function orseq(array: ndarray, scalar: number): boolean;
+export function or(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function ors(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function oreq(array1: NdArray, array2: NdArray): boolean;
+export function orseq(array: NdArray, scalar: number): boolean;
 
-export function eq(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function eqs(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function eqeq(array1: ndarray, array2: ndarray): boolean;
-export function eqseq(array: ndarray, scalar: number): boolean;
+export function eq(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function eqs(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function eqeq(array1: NdArray, array2: NdArray): boolean;
+export function eqseq(array: NdArray, scalar: number): boolean;
 
-export function neq(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function neqs(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function neqeq(array1: ndarray, array2: ndarray): boolean;
-export function neqseq(array: ndarray, scalar: number): boolean;
+export function neq(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function neqs(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function neqeq(array1: NdArray, array2: NdArray): boolean;
+export function neqseq(array: NdArray, scalar: number): boolean;
 
-export function lt(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function lts(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function lteq(array1: ndarray, array2: ndarray): boolean;
-export function ltseq(array: ndarray, scalar: number): boolean;
+export function lt(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function lts(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function lteq(array1: NdArray, array2: NdArray): boolean;
+export function ltseq(array: NdArray, scalar: number): boolean;
 
-export function gt(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function gts(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function gteq(array1: ndarray, array2: ndarray): boolean;
-export function gtseq(array: ndarray, scalar: number): boolean;
+export function gt(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function gts(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function gteq(array1: NdArray, array2: NdArray): boolean;
+export function gtseq(array: NdArray, scalar: number): boolean;
 
-export function leq(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function leqs(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function leqeq(array1: ndarray, array2: ndarray): boolean;
-export function leqseq(array: ndarray, scalar: number): boolean;
+export function leq(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function leqs(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function leqeq(array1: NdArray, array2: NdArray): boolean;
+export function leqseq(array: NdArray, scalar: number): boolean;
 
-export function geq(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function geqs(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function geqeq(array1: ndarray, array2: ndarray): boolean;
-export function geqseq(array: ndarray, scalar: number): boolean;
+export function geq(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function geqs(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function geqeq(array1: NdArray, array2: NdArray): boolean;
+export function geqseq(array: NdArray, scalar: number): boolean;
 
 ////////////////
 /// Math unary operations
 ////////////////
-export function abs(array1: ndarray, array2: ndarray): ndarray;
-export function abseq(array: ndarray): boolean;
+export function abs(array1: NdArray, array2: NdArray): NdArray;
+export function abseq(array: NdArray): boolean;
 
-export function acos(array1: ndarray, array2: ndarray): ndarray;
-export function acoseq(array: ndarray): boolean;
+export function acos(array1: NdArray, array2: NdArray): NdArray;
+export function acoseq(array: NdArray): boolean;
 
-export function asin(array1: ndarray, array2: ndarray): ndarray;
-export function asineq(array: ndarray): boolean;
+export function asin(array1: NdArray, array2: NdArray): NdArray;
+export function asineq(array: NdArray): boolean;
 
-export function atan(array1: ndarray, array2: ndarray): ndarray;
-export function ataneq(array: ndarray): boolean;
+export function atan(array1: NdArray, array2: NdArray): NdArray;
+export function ataneq(array: NdArray): boolean;
 
-export function ceil(array1: ndarray, array2: ndarray): ndarray;
-export function ceileq(array: ndarray): boolean;
+export function ceil(array1: NdArray, array2: NdArray): NdArray;
+export function ceileq(array: NdArray): boolean;
 
-export function cos(array1: ndarray, array2: ndarray): ndarray;
-export function coseq(array: ndarray): boolean;
+export function cos(array1: NdArray, array2: NdArray): NdArray;
+export function coseq(array: NdArray): boolean;
 
-export function exp(array1: ndarray, array2: ndarray): ndarray;
-export function expeq(array: ndarray): boolean;
+export function exp(array1: NdArray, array2: NdArray): NdArray;
+export function expeq(array: NdArray): boolean;
 
-export function floor(array1: ndarray, array2: ndarray): ndarray;
-export function flooreq(array: ndarray): boolean;
+export function floor(array1: NdArray, array2: NdArray): NdArray;
+export function flooreq(array: NdArray): boolean;
 
-export function log(array1: ndarray, array2: ndarray): ndarray;
-export function logeq(array: ndarray): boolean;
+export function log(array1: NdArray, array2: NdArray): NdArray;
+export function logeq(array: NdArray): boolean;
 
-export function round(array1: ndarray, array2: ndarray): ndarray;
-export function roundeq(array: ndarray): boolean;
+export function round(array1: NdArray, array2: NdArray): NdArray;
+export function roundeq(array: NdArray): boolean;
 
-export function sin(array1: ndarray, array2: ndarray): ndarray;
-export function sineq(array: ndarray): boolean;
+export function sin(array1: NdArray, array2: NdArray): NdArray;
+export function sineq(array: NdArray): boolean;
 
-export function sqrt(array1: ndarray, array2: ndarray): ndarray;
-export function sqrteq(array: ndarray): boolean;
+export function sqrt(array1: NdArray, array2: NdArray): NdArray;
+export function sqrteq(array: NdArray): boolean;
 
-export function tan(array1: ndarray, array2: ndarray): ndarray;
-export function taneq(array: ndarray): boolean;
+export function tan(array1: NdArray, array2: NdArray): NdArray;
+export function taneq(array: NdArray): boolean;
 
 ////////////////
 /// Math common operations
 ////////////////
-export function max(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function maxs(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function maxeq(array1: ndarray, array2: ndarray): boolean;
-export function maxseq(array: ndarray, scalar: number): boolean;
+export function max(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function maxs(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function maxeq(array1: NdArray, array2: NdArray): boolean;
+export function maxseq(array: NdArray, scalar: number): boolean;
 
-export function min(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function mins(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function mineq(array1: ndarray, array2: ndarray): boolean;
-export function minseq(array: ndarray, scalar: number): boolean;
+export function min(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function mins(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function mineq(array1: NdArray, array2: NdArray): boolean;
+export function minseq(array: NdArray, scalar: number): boolean;
 
-export function atan2(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function atan2s(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function atan2eq(array1: ndarray, array2: ndarray): boolean;
-export function atan2seq(array: ndarray, scalar: number): boolean;
+export function atan2(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function atan2s(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function atan2eq(array1: NdArray, array2: NdArray): boolean;
+export function atan2seq(array: NdArray, scalar: number): boolean;
 
-export function pow(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function pows(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function poweq(array1: ndarray, array2: ndarray): boolean;
-export function powseq(array: ndarray, scalar: number): boolean;
+export function pow(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function pows(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function poweq(array1: NdArray, array2: NdArray): boolean;
+export function powseq(array: NdArray, scalar: number): boolean;
 
 ////////////////
 /// Math non-common operations
 ////////////////
-export function atan2op(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function atan2ops(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function atan2opeq(array1: ndarray, array2: ndarray): boolean;
-export function atan2opseq(array: ndarray, scalar: number): boolean;
+export function atan2op(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function atan2ops(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function atan2opeq(array1: NdArray, array2: NdArray): boolean;
+export function atan2opseq(array: NdArray, scalar: number): boolean;
 
-export function powop(array1: ndarray, array2: ndarray, array3: ndarray): ndarray;
-export function powops(array1: ndarray, array2: ndarray, scalar: number): ndarray;
-export function powopeq(array1: ndarray, array2: ndarray): boolean;
-export function powopseq(array: ndarray, scalar: number): boolean;
+export function powop(array1: NdArray, array2: NdArray, array3: NdArray): NdArray;
+export function powops(array1: NdArray, array2: NdArray, scalar: number): NdArray;
+export function powopeq(array1: NdArray, array2: NdArray): boolean;
+export function powopseq(array: NdArray, scalar: number): boolean;
 
-export function any(array: ndarray): boolean;
-export function all(array: ndarray): boolean;
-export function sum(array: ndarray): boolean;
-export function prod(array: ndarray): boolean;
-export function norm2squared(array: ndarray): boolean;
-export function norm2(array: ndarray): boolean;
-export function norminf(array: ndarray): boolean;
-export function norm1(array: ndarray): boolean;
-export function sup(array: ndarray): boolean;
-export function inf(array: ndarray): boolean;
-export function argmin(index: number, array: ndarray, shape: ndarray): boolean;
-export function argmax(index: number, array: ndarray, shape: ndarray): boolean;
-export function random(array: ndarray): ndarray;
-export function assign(array: ndarray, array2: ndarray): ndarray;
-export function assigns(array: ndarray, scalar: number): ndarray;
-export function equals(array1: ndarray, array2: ndarray): boolean;
+export function any(array: NdArray): boolean;
+export function all(array: NdArray): boolean;
+export function sum(array: NdArray): boolean;
+export function prod(array: NdArray): boolean;
+export function norm2squared(array: NdArray): boolean;
+export function norm2(array: NdArray): boolean;
+export function norminf(array: NdArray): boolean;
+export function norm1(array: NdArray): boolean;
+export function sup(array: NdArray): boolean;
+export function inf(array: NdArray): boolean;
+export function argmin(index: number, array: NdArray, shape: NdArray): boolean;
+export function argmax(index: number, array: NdArray, shape: NdArray): boolean;
+export function random(array: NdArray): NdArray;
+export function assign(array: NdArray, array2: NdArray): NdArray;
+export function assigns(array: NdArray, scalar: number): NdArray;
+export function equals(array1: NdArray, array2: NdArray): boolean;
 
 export as namespace ops;

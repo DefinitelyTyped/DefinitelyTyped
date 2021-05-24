@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import assert = require('assert');
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 

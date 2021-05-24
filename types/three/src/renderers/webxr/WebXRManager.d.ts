@@ -16,14 +16,14 @@ export class WebXRManager extends EventDispatcher {
      */
     isPresenting: boolean;
 
-    getController(id: number): Group;
-    getControllerGrip(id: number): Group;
-    getHand(id: number): Group;
+    getController(index: number): Group;
+    getControllerGrip(index: number): Group;
+    getHand(index: number): Group;
     setFramebufferScaleFactor(value: number): void;
     setReferenceSpaceType(value: XRReferenceSpaceType): void;
-    getReferenceSpace(): XRReferenceSpace;
-    getSession(): XRSession;
-    setSession(value: XRSession): void;
+    getReferenceSpace(): XRReferenceSpace | null;
+    getSession(): XRSession | null;
+    setSession(value: XRSession): Promise<void>;
     getCamera(camera: Camera): Camera;
     setAnimationLoop(callback: XRFrameRequestCallback): void;
     dispose(): void;

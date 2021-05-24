@@ -38,7 +38,6 @@ async function run() {
     collection.find().project({ notExistingField: 1 });
     collection.find().sort({ text: { $meta: 'textScore' }, notExistingField: -1 });
     collection.find().sort({});
-    collection.find().bufferedCount();
 
     interface TypedDoc {
         name: string;
