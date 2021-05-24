@@ -3318,6 +3318,10 @@
             "libraryName": "ps-list",
             "asOfVersion": "6.2.1"
         },
+        "ptomasroos__react-native-multi-slider": {
+            "libraryName": "@ptomasroos/react-native-multi-slider",
+            "asOfVersion": "2.2.1"
+        },
         "public-ip": {
             "libraryName": "public-ip",
             "asOfVersion": "3.1.0"
