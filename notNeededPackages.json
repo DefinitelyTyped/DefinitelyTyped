@@ -3454,6 +3454,10 @@
             "libraryName": "react-countdown-circle-timer",
             "asOfVersion": "2.0.1"
         },
+        "react-countup": {
+            "libraryName": "react-countup",
+            "asOfVersion": "4.3.1"
+        },
         "react-daum-postcode": {
             "libraryName": "react-daum-postcode",
             "asOfVersion": "1.6.1"
