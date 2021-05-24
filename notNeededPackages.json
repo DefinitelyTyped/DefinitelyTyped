@@ -3882,6 +3882,10 @@
             "libraryName": "riot",
             "asOfVersion": "4.1.0"
         },
+        "rn-swipeable-panel": {
+            "libraryName": "rn-swipeable-panel",
+            "asOfVersion": "1.2.2"
+        },
         "roads": {
             "libraryName": "roads",
             "asOfVersion": "6.0.1"
