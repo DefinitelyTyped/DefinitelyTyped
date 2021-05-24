@@ -2105,6 +2105,10 @@
             "libraryName": "jquery.ajaxfile",
             "asOfVersion": "0.2.29"
         },
+        "js-combinatorics": {
+            "libraryName": "js-combinatorics",
+            "asOfVersion": "1.2.0"
+        },
         "js-data": {
             "libraryName": "js-data",
             "asOfVersion": "3.0.0"
