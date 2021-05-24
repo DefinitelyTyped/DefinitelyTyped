@@ -3,7 +3,6 @@
 // Definitions by: Fernando Mendes <https://github.com/fernando-msj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 // Definition taken from:
 // https://github.com/LuudJacobs/better-bem#classname-parameter-usage
 type Parameter = string | Record<string, any>;
@@ -15,8 +14,6 @@ export interface BEMClass {
     mod: (modifiers: BEMParameter) => BEMClass;
     el: (element: BEMParameter) => BEMClass;
 }
-
-
 
 declare function bem(
     classNames?: BEMParameter,
