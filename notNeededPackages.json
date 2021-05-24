@@ -3606,6 +3606,10 @@
             "libraryName": "react-native-linear-gradient",
             "asOfVersion": "2.4.0"
         },
+        "react-native-maps": {
+            "libraryName": "react-native-maps",
+            "asOfVersion": "0.24.2"
+        },
         "react-native-mauron85-background-geolocation": {
             "libraryName": "@mauron85/react-native-background-geolocation",
             "asOfVersion": "0.5.3"
