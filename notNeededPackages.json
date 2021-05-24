@@ -3185,6 +3185,10 @@
             "libraryName": "path-type",
             "asOfVersion": "4.0.0"
         },
+        "paypal__paypal-js": {
+            "libraryName": "@paypal/paypal-js",
+            "asOfVersion": "2.1.0"
+        },
         "peerjs": {
             "libraryName": "peerjs",
             "asOfVersion": "1.1.0"
