@@ -3037,6 +3037,10 @@
             "libraryName": "@okta/jwt-verifier",
             "asOfVersion": "2.1.0"
         },
+        "okta__okta-vue": {
+            "libraryName": "@okta/okta-vue",
+            "asOfVersion": "3.1.0"
+        },
         "on-change": {
             "libraryName": "on-change",
             "asOfVersion": "1.1.0"
