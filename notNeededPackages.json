@@ -4306,6 +4306,10 @@
             "libraryName": "rollup-plugin-postcss",
             "asOfVersion": "3.1.4"
         },
+        "rollup-plugin-sourcemaps": {
+            "libraryName": "rollup-plugin-sourcemaps",
+            "asOfVersion": "0.5.0"
+        },
         "rot-js": {
             "libraryName": "rot-js",
             "asOfVersion": "2.0.1"
