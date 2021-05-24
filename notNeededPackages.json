@@ -4290,6 +4290,10 @@
             "libraryName": "string-length",
             "asOfVersion": "3.0.0"
         },
+        "string-strip-html": {
+            "libraryName": "string-strip-html",
+            "asOfVersion": "5.0.1"
+        },
         "string-width": {
             "libraryName": "string-width",
             "asOfVersion": "4.0.0"
