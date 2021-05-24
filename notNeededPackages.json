@@ -3430,6 +3430,10 @@
             "libraryName": "react-auth-kit",
             "asOfVersion": "1.2.1"
         },
+        "react-axe": {
+            "libraryName": "react-axe",
+            "asOfVersion": "3.5.0"
+        },
         "react-chartjs-2": {
             "libraryName": "react-chartjs-2",
             "asOfVersion": "2.5.7"
