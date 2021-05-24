@@ -3510,6 +3510,10 @@
             "libraryName": "react-icons",
             "asOfVersion": "3.0.0"
         },
+        "react-images": {
+            "libraryName": "react-images",
+            "asOfVersion": "1.1.0"
+        },
         "react-infinite-scroll-component": {
             "libraryName": "react-infinite-scroll-component",
             "asOfVersion": "5.0.0"
