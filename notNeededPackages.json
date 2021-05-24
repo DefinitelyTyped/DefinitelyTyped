@@ -3818,6 +3818,10 @@
             "libraryName": "redux-saga",
             "asOfVersion": "0.10.5"
         },
+        "redux-test-utils": {
+            "libraryName": "redux-test-utils",
+            "asOfVersion": "1.0.0"
+        },
         "redux-thunk": {
             "libraryName": "redux-thunk",
             "asOfVersion": "2.1.0"
