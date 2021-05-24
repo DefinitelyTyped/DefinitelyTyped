@@ -3914,6 +3914,10 @@
             "libraryName": "react-native-linear-gradient",
             "asOfVersion": "2.4.0"
         },
+        "react-native-mail": {
+            "libraryName": "react-native-mail",
+            "asOfVersion": "6.0.1"
+        },
         "react-native-maps": {
             "libraryName": "react-native-maps",
             "asOfVersion": "0.24.2"
