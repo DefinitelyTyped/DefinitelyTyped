@@ -2869,6 +2869,10 @@
             "libraryName": "normalizr",
             "asOfVersion": "2.0.18"
         },
+        "nosleep.js": {
+            "libraryName": "nosleep.js",
+            "asOfVersion": "0.10.0"
+        },
         "notyf": {
             "libraryName": "notyf",
             "asOfVersion": "3.0.0"
