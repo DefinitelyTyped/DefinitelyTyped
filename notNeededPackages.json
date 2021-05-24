@@ -4814,6 +4814,10 @@
             "libraryName": "write-pkg",
             "asOfVersion": "4.0.0"
         },
+        "wyt": {
+            "libraryName": "wyt",
+            "asOfVersion": "2.0.0"
+        },
         "x2js": {
             "libraryName": "x2js",
             "asOfVersion": "3.1.0"
