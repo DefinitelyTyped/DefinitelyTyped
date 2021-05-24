@@ -3542,6 +3542,10 @@
             "libraryName": "react-inlinesvg",
             "asOfVersion": "1.0.0"
         },
+        "react-interactive": {
+            "libraryName": "react-interactive",
+            "asOfVersion": "1.0.0"
+        },
         "react-intl": {
             "libraryName": "react-intl",
             "asOfVersion": "3.0.0"
