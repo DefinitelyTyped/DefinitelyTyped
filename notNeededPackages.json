@@ -3562,6 +3562,10 @@
             "libraryName": "react-monaco-editor",
             "asOfVersion": "0.16.0"
         },
+        "react-native-appsflyer": {
+            "libraryName": "react-native-appsflyer",
+            "asOfVersion": "5.1.2"
+        },
         "react-native-collapsible": {
             "libraryName": "react-native-collapsible",
             "asOfVersion": "0.11.0"
