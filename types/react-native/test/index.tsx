@@ -1520,6 +1520,34 @@ StyleSheet.create({
     },
 });
 
+function someColorString(): ColorValue {
+    return "#000000";
+}
+
+function somePlatformColor(): ColorValue {
+    return PlatformColor('test');
+}
+
+const colors = {
+    color: someColorString(),
+    backgroundColor: somePlatformColor(),
+}
+
+StyleSheet.create({
+    labelCell: {
+        color: colors.color,
+        backgroundColor: colors.backgroundColor,
+    },
+});
+
+const OpaqueTest3 = () => (
+    <View
+        style={{
+            backgroundColor: colors.backgroundColor,
+        }}
+    />
+);
+
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
     <ProgressBarAndroid animating color="white" styleAttr="Horizontal" progress={0.42} />;
