@@ -3894,6 +3894,10 @@
             "libraryName": "roads-server",
             "asOfVersion": "1.0.1"
         },
+        "rolling-rate-limiter": {
+            "libraryName": "rolling-rate-limiter",
+            "asOfVersion": "0.2.6"
+        },
         "rollup": {
             "libraryName": "rollup",
             "asOfVersion": "0.54.0"
