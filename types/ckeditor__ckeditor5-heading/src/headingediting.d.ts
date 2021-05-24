@@ -1,7 +1,5 @@
 import { Plugin } from "@ckeditor/ckeditor5-core";
-
-// TODO: import {Paragraph} from "@ckeditor/ckeditor5-paragraph";
-declare class Paragraph extends Plugin {}
+import { Paragraph } from "@ckeditor/ckeditor5-paragraph";
 
 export default class HeadingEditing extends Plugin {
     static readonly pluginName: "HeadingEditing";
@@ -9,5 +7,3 @@ export default class HeadingEditing extends Plugin {
     init(): void;
     afterInit(): void;
 }
-
-export {};
