@@ -3810,6 +3810,10 @@
             "libraryName": "redux-persist-transform-compress",
             "asOfVersion": "4.2.0"
         },
+        "redux-persist-transform-filter": {
+            "libraryName": "redux-persist-transform-filter",
+            "asOfVersion": "0.0.15"
+        },
         "redux-promise-middleware": {
             "libraryName": "redux-promise-middleware",
             "asOfVersion": "6.0.0"
