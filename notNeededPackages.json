@@ -4082,6 +4082,10 @@
             "libraryName": "slash",
             "asOfVersion": "3.0.0"
         },
+        "slate-react": {
+            "libraryName": "slate-react",
+            "asOfVersion": "0.50.0"
+        },
         "smooth-scrollbar": {
             "libraryName": "smooth-scrollbar",
             "asOfVersion": "8.2.5"
