@@ -918,7 +918,7 @@ deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 const androidEventEmitter = new NativeEventEmitter();
 const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
 const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
-androidEventEmitter.listenerCount('event');
+androidEventEmitter.listenerCount('event'); // $ExpectType number
 sub2.remove();
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub1);
