@@ -4070,6 +4070,10 @@
             "libraryName": "@sindresorhus/to-milliseconds",
             "asOfVersion": "1.1.0"
         },
+        "single-spa-react": {
+            "libraryName": "single-spa-react",
+            "asOfVersion": "4.0.0"
+        },
         "sip.js": {
             "libraryName": "sip.js",
             "asOfVersion": "0.12.0"
