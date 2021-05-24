@@ -2453,6 +2453,10 @@
             "libraryName": "mali-onerror",
             "asOfVersion": "0.2.0"
         },
+        "mangopay2-nodejs-sdk": {
+            "libraryName": "mangopay2-nodejs-sdk",
+            "asOfVersion": "1.14.1"
+        },
         "map-obj": {
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
