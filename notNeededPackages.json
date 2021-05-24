@@ -2761,6 +2761,10 @@
             "libraryName": "natsort",
             "asOfVersion": "2.0.0"
         },
+        "naudiodon": {
+            "libraryName": "naudiodon",
+            "asOfVersion": "2.2.5"
+        },
         "navigation": {
             "libraryName": "navigation",
             "asOfVersion": "5.1.0"
