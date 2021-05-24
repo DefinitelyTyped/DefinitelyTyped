@@ -3854,6 +3854,10 @@
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
         },
+        "react-loader-spinner": {
+            "libraryName": "react-loader-spinner",
+            "asOfVersion": "4.0.0"
+        },
         "react-mathquill": {
             "libraryName": "react-mathquill",
             "asOfVersion": "0.2.3"
