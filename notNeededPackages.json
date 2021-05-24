@@ -2345,6 +2345,18 @@
             "libraryName": "line-column-path",
             "asOfVersion": "2.0.0"
         },
+        "lingui__core": {
+            "libraryName": "@lingui/core",
+            "asOfVersion": "3.0.0"
+        },
+        "lingui__macro": {
+            "libraryName": "@lingui/macro",
+            "asOfVersion": "3.0.0"
+        },
+        "lingui__react": {
+            "libraryName": "@lingui/react",
+            "asOfVersion": "3.0.0"
+        },
         "linkify-issues": {
             "libraryName": "linkify-issues",
             "asOfVersion": "2.0.0"
