@@ -2053,6 +2053,10 @@
             "libraryName": "issue-regex",
             "asOfVersion": "3.1.0"
         },
+        "it-all": {
+            "libraryName": "it-all",
+            "asOfVersion": "1.0.4"
+        },
         "it-pushable": {
             "libraryName": "it-pushable",
             "asOfVersion": "1.4.0"
