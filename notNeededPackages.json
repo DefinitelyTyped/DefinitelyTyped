@@ -4598,6 +4598,10 @@
             "libraryName": "vanilla-tilt",
             "asOfVersion": "1.6.2"
         },
+        "vectorious": {
+            "libraryName": "vectorious",
+            "asOfVersion": "5.0.0"
+        },
         "vega": {
             "libraryName": "vega",
             "asOfVersion": "3.2.0"
