@@ -2773,6 +2773,10 @@
             "libraryName": "typescript",
             "asOfVersion": "2.0.0"
         },
+        "navigo": {
+            "libraryName": "navigo",
+            "asOfVersion": "8.1.0"
+        },
         "nblas": {
             "libraryName": "nblas",
             "asOfVersion": "2.1.6"
