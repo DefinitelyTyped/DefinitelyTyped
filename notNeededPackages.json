@@ -2921,6 +2921,10 @@
             "libraryName": "onetime",
             "asOfVersion": "4.0.0"
         },
+        "onfido-sdk-ui": {
+            "libraryName": "onfido-sdk-ui",
+            "asOfVersion": "6.5.0"
+        },
         "onoff": {
             "libraryName": "onoff",
             "asOfVersion": "4.1.0"
