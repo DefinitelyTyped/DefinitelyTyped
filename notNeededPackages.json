@@ -2045,6 +2045,10 @@
             "libraryName": "jest-cli",
             "asOfVersion": "24.3.0"
         },
+        "jest-cucumber-fusion": {
+            "libraryName": "jest-cucumber-fusion",
+            "asOfVersion": "0.6.5"
+        },
         "jest-diff": {
             "libraryName": "jest-diff",
             "asOfVersion": "24.3.0"
