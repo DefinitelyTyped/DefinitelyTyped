@@ -32,5 +32,6 @@ const testCases = [
     <input value={['one', 'two'] as string[]} />,
     <input value={['one', 'two']} />,
     <div role="alertdialog" />,
+    <div role="none presentation" />,
     <svg role="treeitem" />
 ];

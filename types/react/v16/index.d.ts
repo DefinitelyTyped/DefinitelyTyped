@@ -1809,7 +1809,8 @@ declare namespace React {
         | 'tooltip'
         | 'tree'
         | 'treegrid'
-        | 'treeitem';
+        | 'treeitem'
+        | (string & {});
 
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
