@@ -3502,6 +3502,10 @@
             "libraryName": "react-editext",
             "asOfVersion": "4.0.0"
         },
+        "react-file-utils": {
+            "libraryName": "react-file-utils",
+            "asOfVersion": "1.0.0"
+        },
         "react-filepond": {
             "libraryName": "react-filepond",
             "asOfVersion": "7.1.0"
