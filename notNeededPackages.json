@@ -4278,6 +4278,10 @@
             "libraryName": "roads-server",
             "asOfVersion": "1.0.1"
         },
+        "rockset": {
+            "libraryName": "rockset",
+            "asOfVersion": "2.0.1"
+        },
         "rolling-rate-limiter": {
             "libraryName": "rolling-rate-limiter",
             "asOfVersion": "0.2.6"
