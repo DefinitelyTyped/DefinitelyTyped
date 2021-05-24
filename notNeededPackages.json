@@ -3642,6 +3642,10 @@
             "libraryName": "react-native-tab-view",
             "asOfVersion": "2.3.0"
         },
+        "react-native-touch-id": {
+            "libraryName": "react-native-touch-id",
+            "asOfVersion": "4.4.0"
+        },
         "react-native-version-number": {
             "libraryName": "react-native-version-number",
             "asOfVersion": "0.3.5"
