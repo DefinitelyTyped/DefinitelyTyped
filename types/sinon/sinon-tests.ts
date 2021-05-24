@@ -163,8 +163,8 @@ function testClock() {
     clock.clearTimeout(timer);
     timer = clock.setInterval(fn, 0);
     clock.clearInterval(timer);
-    timer = clock.setImmediate(fn);
-    clock.clearImmediate(timer);
+    const immediate = clock.setImmediate(fn);
+    clock.clearImmediate(immediate);
 
     const animTimer = clock.requestAnimationFrame(fn);
     clock.cancelAnimationFrame(animTimer);
