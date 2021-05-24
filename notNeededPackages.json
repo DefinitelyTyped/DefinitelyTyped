@@ -3874,6 +3874,10 @@
             "libraryName": "rfc4648",
             "asOfVersion": "1.3.0"
         },
+        "rfdc": {
+            "libraryName": "rfdc",
+            "asOfVersion": "1.2.0"
+        },
         "rgb-hex": {
             "libraryName": "rgb-hex",
             "asOfVersion": "3.0.0"
