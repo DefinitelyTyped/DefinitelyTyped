@@ -1,5 +1,7 @@
-import Case from './Case';
-import { Lemma, LemmaOptions } from 'russian-nouns-js/src/Lemma';
+/* tslint:disable:no-redundant-jsdoc-2 */
+
+import { Case } from './Case';
+import { Lemma, LemmaOptions } from './Lemma';
 import StressDictionary from './StressDictionary';
 
 export default class Engine {
@@ -7,7 +9,7 @@ export default class Engine {
      * @description Словарь ударений. Его можно редактировать в рантайме.
      * @type {API.StressDictionary}
      */
-    public readonly sd: StressDictionary;
+    readonly sd: StressDictionary;
 
     constructor();
 
@@ -22,11 +24,11 @@ export default class Engine {
      * женского рода в творительном могут иметь как окончания -ей -ой, так и -ею -ою.
      * Второй предложный падеж (местный падеж, локатив) не включен в предложный.
      */
-    public decline(lemma: LemmaOptions | Lemma, grammaticalCase?: Case[keyof Case], pluralForm?: string): [string];
+    decline(lemma: LemmaOptions | Lemma, grammaticalCase?: Case[keyof Case], pluralForm?: string): [string];
 
     /**
      * @param {RussianNouns.Lemma|Object} lemma
      * @returns {Array}
      */
-    public pluralize(lemma: LemmaOptions | Lemma): [string];
+    pluralize(lemma: LemmaOptions | Lemma): [string];
 }

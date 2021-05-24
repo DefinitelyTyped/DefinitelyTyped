@@ -1,32 +1,34 @@
-import Gender from './Gender';
+/* tslint:disable:no-redundant-jsdoc-2 */
 
-export type LemmaOptions = {
+import { Gender } from './Gender';
+
+export interface LemmaOptions {
     text: string;
     gender?: Gender[keyof Gender];
     indeclinable?: boolean;
     pluraleTantum?: boolean;
     animate?: boolean;
-};
+}
 
 export class Lemma {
     constructor(o: LemmaOptions | Lemma);
 
-    public newText(f: (o: string) => string): Lemma;
-    public newGender(f: (o: string) => string): Lemma;
-    public equals(o: Lemma): boolean;
-    public fuzzyEquals(o: Lemma): boolean;
-    public text(): string;
-    public lower(): string;
-    public isPluraleTantum(): boolean;
+    newText(f: (o: string) => string): Lemma;
+    newGender(f: (o: string) => string): Lemma;
+    equals(o: Lemma): boolean;
+    fuzzyEquals(o: Lemma): boolean;
+    text(): string;
+    lower(): string;
+    isPluraleTantum(): boolean;
     /**
      * @deprecated Используйте isPluraleTantum(), т.к. речь об одной лемме, а pluralia — во мн.ч. на латыни.
      * @returns {boolean}
      */
-    public isPluraliaTantum(): boolean;
-    public getGender(): string;
-    public isIndeclinable(): boolean;
-    public isAnimate(): boolean;
-    public isASurname(): boolean;
-    public isASurname(): boolean;
-    public isATransport(): boolean;
+    isPluraliaTantum(): boolean;
+    getGender(): string;
+    isIndeclinable(): boolean;
+    isAnimate(): boolean;
+    isASurname(): boolean;
+    isASurname(): boolean;
+    isATransport(): boolean;
 }

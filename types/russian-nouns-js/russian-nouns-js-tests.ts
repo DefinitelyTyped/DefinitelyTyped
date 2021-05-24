@@ -1,3 +1,3 @@
-import RussianNouns from 'russian-nouns-js';
+import * as RussianNouns from 'russian-nouns-js';
 
-RussianNouns.createLemma(); // $ExpectType Lemma
+RussianNouns.createLemma({ text: 'путь' }); // $ExpectType Lemma

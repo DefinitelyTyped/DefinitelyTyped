@@ -1,7 +1,9 @@
+/* tslint:disable:no-redundant-jsdoc-2 */
+
 import { Lemma, LemmaOptions } from './Lemma';
 
 export default class StressDictionary {
-    public data: {};
+    data: {};
 
     constructor();
 
@@ -18,20 +20,20 @@ export default class StressDictionary {
      * E — только на окончание.
      * @throws {RussianNouns.StressDictionaryException}
      */
-    public put(lemma: LemmaOptions | Lemma, settings: string): void;
+    put(lemma: LemmaOptions | Lemma, settings: string): void;
 
     /**
      * @param {RussianNouns.Lemma|Object} lemma
      * @param {boolean} fuzzy Если не найдено, игнорировать букву Ё и второстепенные поля у леммы.
      * @returns {*} Строка настроек или undefined.
      */
-    public get(lemma: LemmaOptions | Lemma, fuzzy: boolean): string | undefined;
+    get(lemma: LemmaOptions | Lemma, fuzzy: boolean): string | undefined;
 
-    public remove(lemma: LemmaOptions | Lemma): void;
+    remove(lemma: LemmaOptions | Lemma): void;
 
-    public hasStressedEndingSingular(lemma: LemmaOptions | Lemma, grCase: string): boolean[];
+    hasStressedEndingSingular(lemma: LemmaOptions | Lemma, grCase: string): boolean[];
 
-    public hasStressedEndingPlural(lemma: LemmaOptions | Lemma, grCase: string): boolean[];
+    hasStressedEndingPlural(lemma: LemmaOptions | Lemma, grCase: string): boolean[];
 
     /**
      * Благодаря этому методу, словарь можно использовать для других целей.
@@ -41,5 +43,5 @@ export default class StressDictionary {
      * Буква Ё и регистр игнорируются.
      * @returns {Array} Список лемм.
      */
-    public find(word: string): string[];
+    find(word: string): string[];
 }

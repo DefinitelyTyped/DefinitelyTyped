@@ -3,10 +3,14 @@
 // Definitions by: RusAnonym <https://github.com/RusAnonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* tslint:disable:no-redundant-jsdoc-2 */
+
 import { Gender as GenderEnum } from './src/Gender';
 import { Case as CaseEnum } from './src/Case';
 import { LemmaOptions, Lemma } from './src/Lemma';
 import Engine from './src/Engine';
+
+export as namespace RussianNounsJS;
 
 /**
  * Case
@@ -79,5 +83,3 @@ export function getDeclension(lemma: Lemma | object): number | undefined;
 export function getSchoolDeclension(lemma: Lemma): number;
 
 export { Engine };
-
-export as namespace RussianNounsJS;
