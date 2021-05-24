@@ -4486,6 +4486,10 @@
             "libraryName": "twilio",
             "asOfVersion": "3.19.2"
         },
+        "twilio-video": {
+            "libraryName": "twilio-video",
+            "asOfVersion": "2.11.0"
+        },
         "typed.js": {
             "libraryName": "typed.js",
             "asOfVersion": "2.0.9"
