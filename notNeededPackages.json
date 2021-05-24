@@ -2473,6 +2473,10 @@
             "libraryName": "markdown-table",
             "asOfVersion": "3.0.0"
         },
+        "markdown-to-jsx": {
+            "libraryName": "markdown-to-jsx",
+            "asOfVersion": "7.0.0"
+        },
         "markdownlint": {
             "libraryName": "markdownlint",
             "asOfVersion": "0.18.0"
