@@ -3638,6 +3638,10 @@
             "libraryName": "react-native-swipe-gestures",
             "asOfVersion": "1.0.4"
         },
+        "react-native-swiper": {
+            "libraryName": "react-native-swiper",
+            "asOfVersion": "1.5.12"
+        },
         "react-native-tab-view": {
             "libraryName": "react-native-tab-view",
             "asOfVersion": "2.3.0"
