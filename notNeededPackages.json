@@ -2405,6 +2405,10 @@
             "libraryName": "log4js",
             "asOfVersion": "2.3.5"
         },
+        "logat": {
+            "libraryName": "logat",
+            "asOfVersion": "1.0.5"
+        },
         "logform": {
             "libraryName": "logform",
             "asOfVersion": "1.10.0"
