@@ -4006,6 +4006,10 @@
             "libraryName": "sentence-case",
             "asOfVersion": "1.1.3"
         },
+        "sentry__webpack-plugin": {
+            "libraryName": "@sentry/webpack-plugin",
+            "asOfVersion": "1.10.0"
+        },
         "serialize-error": {
             "libraryName": "serialize-error",
             "asOfVersion": "4.0.0"
