@@ -3630,6 +3630,10 @@
             "libraryName": "react-native-responsive-dimensions",
             "asOfVersion": "3.1.0"
         },
+        "react-native-restart": {
+            "libraryName": "react-native-restart",
+            "asOfVersion": "0.0.14"
+        },
         "react-native-safe-area": {
             "libraryName": "react-native-safe-area",
             "asOfVersion": "0.5.1"
