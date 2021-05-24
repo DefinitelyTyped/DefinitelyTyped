@@ -5126,6 +5126,10 @@
             "libraryName": "vfile",
             "asOfVersion": "4.0.0"
         },
+        "vfile-location": {
+            "libraryName": "vfile-location",
+            "asOfVersion": "3.0.0"
+        },
         "vfile-message": {
             "libraryName": "vfile-message",
             "asOfVersion": "2.0.0"
