@@ -2,6 +2,7 @@
 // Project: https://github.com/LuudJacobs/better-bem#readme
 // Definitions by: Fernando Mendes <https://github.com/fernando-msj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 // Definition taken from:
 // https://github.com/LuudJacobs/better-bem#classname-parameter-usage
