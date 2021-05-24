@@ -23,7 +23,7 @@
  * excluded here.
  */
 
-export as namespace Tableau;
+export as namespace tableau;
 
 export * from './enums';
 export * from './viz';
