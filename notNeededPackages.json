@@ -5098,6 +5098,10 @@
             "libraryName": "vanilla-tilt",
             "asOfVersion": "1.6.2"
         },
+        "vec3": {
+            "libraryName": "vec3",
+            "asOfVersion": "0.1.4"
+        },
         "vectorious": {
             "libraryName": "vectorious",
             "asOfVersion": "5.0.0"
