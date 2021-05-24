@@ -3646,6 +3646,10 @@
             "libraryName": "react-share",
             "asOfVersion": "4.0.0"
         },
+        "react-sketchapp": {
+            "libraryName": "react-sketchapp",
+            "asOfVersion": "3.0.1"
+        },
         "react-sortable-hoc": {
             "libraryName": "react-sortable-hoc",
             "asOfVersion": "0.7.1"
