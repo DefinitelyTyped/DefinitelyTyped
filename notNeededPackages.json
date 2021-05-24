@@ -3218,6 +3218,10 @@
             "libraryName": "physijs",
             "asOfVersion": "1.0.0"
         },
+        "pigpio": {
+            "libraryName": "pigpio",
+            "asOfVersion": "3.1.0"
+        },
         "pixi-spine": {
             "libraryName": "pixi-spine",
             "asOfVersion": "1.4.2"
