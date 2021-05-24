@@ -3422,6 +3422,10 @@
             "libraryName": "react-alice-carousel",
             "asOfVersion": "1.15.3"
         },
+        "react-audio-player": {
+            "libraryName": "react-audio-player",
+            "asOfVersion": "0.13.0"
+        },
         "react-auth-kit": {
             "libraryName": "react-auth-kit",
             "asOfVersion": "1.2.1"
