@@ -3866,6 +3866,10 @@
             "libraryName": "react-monaco-editor",
             "asOfVersion": "0.16.0"
         },
+        "react-native-app-intro-slider": {
+            "libraryName": "react-native-app-intro-slider",
+            "asOfVersion": "4.0.0"
+        },
         "react-native-appsflyer": {
             "libraryName": "react-native-appsflyer",
             "asOfVersion": "5.1.2"
