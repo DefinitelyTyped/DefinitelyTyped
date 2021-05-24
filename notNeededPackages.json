@@ -4893,6 +4893,10 @@
         "zone.js": {
             "libraryName": "zone.js",
             "asOfVersion": "0.5.12"
+        },
+        "zookeeper": {
+            "libraryName": "zookeeper",
+            "asOfVersion": "4.6.0"
         }
     }
 }
