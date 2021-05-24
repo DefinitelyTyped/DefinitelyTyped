@@ -201,6 +201,7 @@ declare namespace Shippo {
 
     // https://goshippo.com/docs/reference#orders
     interface Order extends CreateOrderRequest, Omit<ShippoObject, 'object_created'> {
+        from_address?: Address;
         line_items: LineItem[];
         placed_at: string;
         shipping_cost?: string;
@@ -219,6 +220,7 @@ declare namespace Shippo {
             'StripeRelay' |
             'Weebly' |
             'WooCommerce';
+        to_address: Address;
         total_price?: string;
         total_tax?: string;
         weight: string;
@@ -298,6 +300,10 @@ declare namespace Shippo {
 
     // https://goshippo.com/docs/reference#shipments
     interface Shipment extends Omit<CreateShipmentRequest, 'async' | 'customs_declaration'>, MutableShippoObject {
+        address_from: Address;
+        address_return?: Address;
+        address_to: Address;
+        alternate_address_to?: Address;
         customs_declaration: CustomsDeclaration;
         extra: ShipmentExtra;
         order: Order['object_id'];
