@@ -3,15 +3,15 @@ import { Currency } from './currency';
 import { LineItem } from './line-item';
 
 export interface Cart {
-  id: string,
-  total_items: number,
-  total_unique_items: number,
-  subtotal: Price,
-  currency: Currency,
-  line_items: LineItem[],
-  hosted_checkout_url: string,
-  discount_code: any, // todo
-  created: number,
-  last_updated: number,
-  expires: number,
+  id: string;
+  created: number;
+  last_updated: number;
+  expires: number;
+  total_items: number;
+  total_unique_items: number;
+  subtotal: Price;
+  currency: Currency;
+  discount_code: any[]; // todo
+  hosted_checkout_url: string;
+  line_items: LineItem[];
 }

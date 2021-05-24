@@ -1,5 +1,7 @@
 import Commerce = require('@chec/commerce.js');
 import { LineItem } from '../types/line-item';
+import { Cart as CartType } from '../types/cart';
+import { Price } from '../types/price';
 
 export enum RequestMethod {
   Get = 'get',
@@ -9,17 +11,47 @@ export enum RequestMethod {
   Delete = 'delete',
 }
 
+export interface AddUpdateResponse {
+  success: boolean;
+  event: string;
+  line_item_id: string;
+  product_id: string;
+  product_name: string;
+  quantity: number;
+  line_total: Price;
+  cart: CartType;
+}
+
+export interface RemoveResponse {
+  success: boolean;
+  event: string;
+  line_item_id: string;
+  cart: CartType;
+}
+
+export interface DeleteResponse {
+  success: boolean;
+  event: string;
+  cart_id: string;
+}
+
+export interface EmptyResponse {
+  success: boolean;
+  event: string;
+  cart: CartType;
+}
+
 export class Cart {
   constructor(commerce: Commerce);
 
-  refresh(): Promise<Cart>;
+  refresh(): Promise<CartType>;
   id(): string|null;
-  request(endpoint: string, method: RequestMethod, data?: object, returnFullRequest?: boolean): Promise<any>;
-  add(productId: string, quantity: number, options?: object, variant_id?: string): Promise<any>;
-  retrieve(cardId?: string): Promise<Cart>;
-  remove(lineId: string): Promise<any>;
-  delete(): Promise<any>;
-  update(lineId: string, data: object): Promise<any>;
+  request(endpoint: string, method: RequestMethod, data?: object, returnFullRequest?: boolean): Promise<CartType>;
+  add(productId: string, quantity: number, options?: object, variant_id?: string): Promise<AddUpdateResponse>;
+  retrieve(cardId?: string): Promise<CartType>;
+  remove(lineId: string): Promise<RemoveResponse>;
+  delete(): Promise<DeleteResponse>;
+  update(lineId: string, data: object): Promise<AddUpdateResponse>;
   contents(): Promise<LineItem[]>;
-  empty(): Promise<any>;
+  empty(): Promise<EmptyResponse>;
 }
