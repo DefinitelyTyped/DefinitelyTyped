@@ -3350,6 +3350,10 @@
             "libraryName": "ractive",
             "asOfVersion": "0.10.0"
         },
+        "random": {
+            "libraryName": "random",
+            "asOfVersion": "3.0.1"
+        },
         "random-float": {
             "libraryName": "random-float",
             "asOfVersion": "2.0.0"
