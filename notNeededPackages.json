@@ -4322,6 +4322,10 @@
             "libraryName": "striptags",
             "asOfVersion": "3.1.1"
         },
+        "strong-error-handler": {
+            "libraryName": "strong-error-handler",
+            "asOfVersion": "3.2.0"
+        },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",
             "asOfVersion": "2.1.0"
