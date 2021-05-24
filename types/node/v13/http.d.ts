@@ -154,7 +154,7 @@ declare module "http" {
         finished: boolean;
         headersSent: boolean;
         /**
-         * @deprecated Use `socket` instead.
+         * @deprecate Use `socket` instead.
          */
         connection: Socket;
         socket: Socket;
