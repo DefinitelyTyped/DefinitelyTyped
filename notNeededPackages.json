@@ -4198,6 +4198,10 @@
             "libraryName": "stellar-sdk",
             "asOfVersion": "0.15.1"
         },
+        "stemmer": {
+            "libraryName": "stemmer",
+            "asOfVersion": "2.0.0"
+        },
         "storybook__addon-a11y": {
             "libraryName": "@storybook/addon-a11y",
             "asOfVersion": "5.1.1"
