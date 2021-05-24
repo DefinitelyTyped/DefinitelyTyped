@@ -3334,6 +3334,10 @@
             "libraryName": "qrcode-generator",
             "asOfVersion": "1.0.6"
         },
+        "quadstore": {
+            "libraryName": "quadstore",
+            "asOfVersion": "8.0.0"
+        },
         "query-string": {
             "libraryName": "query-string",
             "asOfVersion": "6.3.0"
