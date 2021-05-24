@@ -3,5 +3,7 @@ export interface Category {
     slug: string;
     name: string;
     description: string;
+    products: number;
     created: number;
+    meta: any;
 }
