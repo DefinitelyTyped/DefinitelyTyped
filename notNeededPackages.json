@@ -3398,6 +3398,10 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
+        "rc-select": {
+            "libraryName": "rc-select",
+            "asOfVersion": "8.6.5"
+        },
         "rc-slider": {
             "libraryName": "rc-slider",
             "asOfVersion": "9.3.0"
