@@ -4802,6 +4802,10 @@
             "libraryName": "@wordpress/url",
             "asOfVersion": "2.14.0"
         },
+        "words-to-numbers": {
+            "libraryName": "words-to-numbers",
+            "asOfVersion": "1.3.0"
+        },
         "wouter": {
             "libraryName": "wouter",
             "asOfVersion": "2.2.0"
