@@ -3986,6 +3986,10 @@
             "libraryName": "screenfull",
             "asOfVersion": "4.1.0"
         },
+        "scrypt-js": {
+            "libraryName": "scrypt-js",
+            "asOfVersion": "3.0.1"
+        },
         "sdbm": {
             "libraryName": "sdbm",
             "asOfVersion": "1.1.0"
