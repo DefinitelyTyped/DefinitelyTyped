@@ -3,14 +3,27 @@
 // Definitions by: Fernando Mendes <https://github.com/fernando-msj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type BEMModifier = string | { [key: string]: any };
+
+// Definition taken from:
+// https://github.com/LuudJacobs/better-bem#classname-parameter-usage
+type Parameter = string | Record<string, any>;
+
+export type BEMParameter = Parameter | Parameter[];
 
 export interface BEMClass {
     cn: string;
-    mod: (modifiers: BEMModifier | BEMModifier[]) => BEMClass;
-    el: (element: string | string[]) => BEMClass;
+    mod: (modifiers: BEMParameter) => BEMClass;
+    el: (element: BEMParameter) => BEMClass;
 }
 
-declare function BEM(blockName: string | string[], mapping?: { [key: string]: string }): BEMClass;
 
-export default BEM;
+
+declare function bem(
+    classNames?: BEMParameter,
+    mods?: BEMParameter,
+    classNameMap?: Record<string, string>,
+    strict?: boolean,
+    glue?: Record<string, string>,
+): BEMClass;
+
+export default bem;
