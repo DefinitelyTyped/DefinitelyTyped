@@ -4170,6 +4170,10 @@
             "libraryName": "spotify-web-api-js",
             "asOfVersion": "0.21.0"
         },
+        "sql-formatter": {
+            "libraryName": "sql-formatter",
+            "asOfVersion": "4.0.1"
+        },
         "sql-query-identifier": {
             "libraryName": "sql-query-identifier",
             "asOfVersion": "1.2.0"
