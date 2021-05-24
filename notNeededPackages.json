@@ -1713,6 +1713,10 @@
             "libraryName": "homeworks",
             "asOfVersion": "1.0.19"
         },
+        "html-entities": {
+            "libraryName": "html-entities",
+            "asOfVersion": "1.3.2"
+        },
         "html-tag-names": {
             "libraryName": "html-tag-names",
             "asOfVersion": "2.0.0"
