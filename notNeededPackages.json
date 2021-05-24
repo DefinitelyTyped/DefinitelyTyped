@@ -3650,6 +3650,10 @@
             "libraryName": "react-native-version-number",
             "asOfVersion": "0.3.5"
         },
+        "react-native-view-pdf": {
+            "libraryName": "react-native-view-pdf",
+            "asOfVersion": "0.8.2"
+        },
         "react-navigation": {
             "libraryName": "react-navigation",
             "asOfVersion": "3.4.0"
