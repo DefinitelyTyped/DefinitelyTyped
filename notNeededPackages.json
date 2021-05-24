@@ -3878,6 +3878,10 @@
             "libraryName": "rgb-hex",
             "asOfVersion": "3.0.0"
         },
+        "rgb2hex": {
+            "libraryName": "rgb2hex",
+            "asOfVersion": "0.2.1"
+        },
         "riot": {
             "libraryName": "riot",
             "asOfVersion": "4.1.0"
