@@ -3326,6 +3326,10 @@
             "libraryName": "pupa",
             "asOfVersion": "2.0.0"
         },
+        "qhistory": {
+            "libraryName": "qhistory",
+            "asOfVersion": "1.1.0"
+        },
         "qiniu": {
             "libraryName": "qiniu",
             "asOfVersion": "7.0.1"
