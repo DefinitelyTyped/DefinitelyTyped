@@ -3730,6 +3730,10 @@
             "libraryName": "reapop",
             "asOfVersion": "3.0.0"
         },
+        "recoil": {
+            "libraryName": "recoil",
+            "asOfVersion": "0.0.9"
+        },
         "redent": {
             "libraryName": "redent",
             "asOfVersion": "3.0.0"
