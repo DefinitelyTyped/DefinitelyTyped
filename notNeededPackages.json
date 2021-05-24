@@ -2145,6 +2145,10 @@
             "libraryName": "jquery.ajaxfile",
             "asOfVersion": "0.2.29"
         },
+        "js-base64": {
+            "libraryName": "js-base64",
+            "asOfVersion": "3.3.1"
+        },
         "js-combinatorics": {
             "libraryName": "js-combinatorics",
             "asOfVersion": "1.2.0"
