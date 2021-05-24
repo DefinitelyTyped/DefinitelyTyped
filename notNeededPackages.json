@@ -4646,6 +4646,10 @@
             "libraryName": "vue-scrollto",
             "asOfVersion": "2.17.1"
         },
+        "vuedraggable": {
+            "libraryName": "vuedraggable",
+            "asOfVersion": "2.24.0"
+        },
         "vuex-i18n": {
             "libraryName": "vuex-i18n",
             "asOfVersion": "1.13.0"
