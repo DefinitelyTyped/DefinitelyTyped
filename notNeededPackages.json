@@ -3254,6 +3254,10 @@
             "libraryName": "plottable",
             "asOfVersion": "3.7.0"
         },
+        "plugin-error": {
+            "libraryName": "plugin-error",
+            "asOfVersion": "1.0.0"
+        },
         "plur": {
             "libraryName": "plur",
             "asOfVersion": "3.1.0"
