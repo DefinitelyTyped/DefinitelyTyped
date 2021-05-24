@@ -4846,6 +4846,10 @@
             "libraryName": "xmlbuilder",
             "asOfVersion": "11.0.1"
         },
+        "xregexp": {
+            "libraryName": "xregexp",
+            "asOfVersion": "4.4.0"
+        },
         "xterm": {
             "libraryName": "xterm",
             "asOfVersion": "3.0.0"
