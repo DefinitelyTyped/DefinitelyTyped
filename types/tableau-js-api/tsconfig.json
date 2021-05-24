@@ -18,6 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "tableau-js-api-tests.ts"
     ]
 }
