@@ -3330,6 +3330,10 @@
             "libraryName": "qiniu",
             "asOfVersion": "7.0.1"
         },
+        "qiniu-js": {
+            "libraryName": "qiniu-js",
+            "asOfVersion": "3.0.0"
+        },
         "qrcode-generator": {
             "libraryName": "qrcode-generator",
             "asOfVersion": "1.0.6"
