@@ -3201,6 +3201,10 @@
             "libraryName": "pg-promise",
             "asOfVersion": "5.4.3"
         },
+        "pg-query-stream": {
+            "libraryName": "pg-query-stream",
+            "asOfVersion": "3.4.0"
+        },
         "pg-types": {
             "libraryName": "pg-types",
             "sourceRepoURL": "https://github.com/brianc/node-pg-types",
