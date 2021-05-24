@@ -3878,6 +3878,10 @@
             "libraryName": "rollup-plugin-node-resolve",
             "asOfVersion": "4.1.0"
         },
+        "rollup-plugin-postcss": {
+            "libraryName": "rollup-plugin-postcss",
+            "asOfVersion": "3.1.4"
+        },
         "rot-js": {
             "libraryName": "rot-js",
             "asOfVersion": "2.0.1"
