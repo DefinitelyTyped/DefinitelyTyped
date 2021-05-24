@@ -4442,6 +4442,10 @@
             "libraryName": "timezonecomplete",
             "asOfVersion": "5.5.0"
         },
+        "tiny-secp256k1": {
+            "libraryName": "tiny-secp256k1",
+            "asOfVersion": "2.0.0"
+        },
         "title-case": {
             "libraryName": "title-case",
             "asOfVersion": "1.1.2"
