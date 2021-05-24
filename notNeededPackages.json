@@ -3558,6 +3558,10 @@
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
         },
+        "react-mathquill": {
+            "libraryName": "react-mathquill",
+            "asOfVersion": "0.2.3"
+        },
         "react-monaco-editor": {
             "libraryName": "react-monaco-editor",
             "asOfVersion": "0.16.0"
