@@ -3438,6 +3438,10 @@
             "libraryName": "react-chartjs-2",
             "asOfVersion": "2.5.7"
         },
+        "react-chat-widget": {
+            "libraryName": "react-chat-widget",
+            "asOfVersion": "3.0.0"
+        },
         "react-circular-progressbar": {
             "libraryName": "react-circular-progressbar",
             "asOfVersion": "1.1.0"
