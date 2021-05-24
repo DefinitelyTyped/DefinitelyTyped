@@ -4462,6 +4462,10 @@
             "libraryName": "trash",
             "asOfVersion": "5.0.1"
         },
+        "trezor-connect": {
+            "libraryName": "trezor-connect",
+            "asOfVersion": "8.1.15"
+        },
         "trim-newlines": {
             "libraryName": "trim-newlines",
             "asOfVersion": "3.0.0"
