@@ -2990,9 +2990,16 @@ declare namespace math {
         isUpdateNode?: boolean;
         comment?: string;
         content?: MathNode;
+        condition?: MathNode;
+        trueExpr?: MathNode;
+        falseExpr?: MathNode;
+        dimensions?: MathNode[];
         op?: string;
-        fn?: string;
+        object?: MathNode;
+        fn?: string | MathNode;
         args?: MathNode[];
+        index?: MathNode;
+        items?: MathNode[];
         type: string;
         name?: string;
         value?: any;
