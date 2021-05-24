@@ -3554,6 +3554,10 @@
             "libraryName": "react-json-pretty",
             "asOfVersion": "2.2.0"
         },
+        "react-json-tree": {
+            "libraryName": "react-json-tree",
+            "asOfVersion": "0.13.0"
+        },
         "react-jss": {
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
