@@ -3702,6 +3702,10 @@
             "libraryName": "react-axe",
             "asOfVersion": "3.5.0"
         },
+        "react-bootstrap-daterangepicker": {
+            "libraryName": "react-bootstrap-daterangepicker",
+            "asOfVersion": "7.0.0"
+        },
         "react-chartjs-2": {
             "libraryName": "react-chartjs-2",
             "asOfVersion": "2.5.7"
