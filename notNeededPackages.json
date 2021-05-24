@@ -2905,6 +2905,10 @@
             "libraryName": "o.js",
             "asOfVersion": "1.0.3"
         },
+        "obj-str": {
+            "libraryName": "obj-str",
+            "asOfVersion": "1.1.0"
+        },
         "odata": {
             "libraryName": "odata",
             "asOfVersion": "1.0.3"
