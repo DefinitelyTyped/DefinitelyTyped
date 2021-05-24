@@ -2129,6 +2129,10 @@
             "libraryName": "json-schema-traverse",
             "asOfVersion": "1.0.0"
         },
+        "json-stream-stringify": {
+            "libraryName": "json-stream-stringify",
+            "asOfVersion": "2.0.3"
+        },
         "json5": {
             "libraryName": "json5",
             "asOfVersion": "2.2.0"
