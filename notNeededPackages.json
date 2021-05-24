@@ -2113,6 +2113,10 @@
             "libraryName": "js-data-http",
             "asOfVersion": "3.0.0"
         },
+        "js-sha512": {
+            "libraryName": "js-sha512",
+            "asOfVersion": "0.8.0"
+        },
         "js-types": {
             "libraryName": "js-types",
             "asOfVersion": "2.1.0"
