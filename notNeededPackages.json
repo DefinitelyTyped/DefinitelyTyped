@@ -4490,6 +4490,10 @@
             "libraryName": "typed.js",
             "asOfVersion": "2.0.9"
         },
+        "typeform__embed": {
+            "libraryName": "@typeform/embed",
+            "asOfVersion": "1.0.0"
+        },
         "typescript": {
             "libraryName": "typescript",
             "asOfVersion": "2.0.0"
