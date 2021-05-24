@@ -2913,6 +2913,10 @@
             "libraryName": "oembed-parser",
             "asOfVersion": "1.2.2"
         },
+        "okta__jwt-verifier": {
+            "libraryName": "@okta/jwt-verifier",
+            "asOfVersion": "2.1.0"
+        },
         "on-change": {
             "libraryName": "on-change",
             "asOfVersion": "1.1.0"
