@@ -3486,6 +3486,10 @@
             "libraryName": "pusher-js",
             "asOfVersion": "5.1.0"
         },
+        "python-shell": {
+            "libraryName": "python-shell",
+            "asOfVersion": "1.0.2"
+        },
         "qhistory": {
             "libraryName": "qhistory",
             "asOfVersion": "1.1.0"
