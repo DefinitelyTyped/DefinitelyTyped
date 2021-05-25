@@ -1,16 +1,3 @@
-// Type definitions for Express 4.17
-// Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Michał Lytek <https://github.com/19majkel94>
-//                 Kacper Polak <https://github.com/kacepe>
-//                 Satana Charuwichitratana <https://github.com/micksatana>
-//                 Sami Jaber <https://github.com/samijaber>
-//                 Jose Luis Leon <https://github.com/JoseLion>
-//                 David Stephens <https://github.com/dwrss>
-//                 Shin Ando <https://github.com/andoshin11>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
 
@@ -38,11 +25,6 @@ export interface NextFunction {
      * @see {https://expressjs.com/en/guide/using-middleware.html#middleware.router}
      */
     (deferToNext: 'router'): void;
-    /**
-     * "Break-out" of a route by calling {next('route')};
-     * @see {https://expressjs.com/en/guide/using-middleware.html#middleware.application}
-     */
-    (deferToNext: 'route'): void;
 }
 
 export interface Dictionary<T> {
@@ -61,7 +43,7 @@ export interface RequestHandler<
     ReqBody = any,
     ReqQuery = ParsedQs,
     Locals extends Record<string, any> = Record<string, any>
-> {
+    > {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2)
     (
         req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
@@ -76,7 +58,7 @@ export type ErrorRequestHandler<
     ReqBody = any,
     ReqQuery = ParsedQs,
     Locals extends Record<string, any> = Record<string, any>
-> = (
+    > = (
     err: any,
     req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
     res: Response<ResBody, Locals>,
@@ -91,59 +73,22 @@ export type RequestHandlerParams<
     ReqBody = any,
     ReqQuery = ParsedQs,
     Locals extends Record<string, any> = Record<string, any>
-> =
+    > =
     | RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
 
-export type RouteParameterNames<Route extends string> =
-    string extends Route
-        ? string
-        : Route extends `${string}:${infer Param}/${infer Rest}`
-        ? (Param | RouteParameterNames<Rest>)
-        : (Route extends `${string}:${infer LastParam}` ? LastParam : never);
-
-export type RouteParameters<T extends string> = {
-    [key in RouteParameterNames<T>]: string
-};
-
 export interface IRouterMatcher<
     T,
     Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any
-> {
-    <
-        Route extends string,
-        P = RouteParameters<Route>,
-        ResBody = any,
-        ReqBody = any,
-        ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
-    >(
-        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
-        path: Route,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
-    ): T;
-    <
-        Path extends string,
-        P = RouteParameters<Path>,
-        ResBody = any,
-        ReqBody = any,
-        ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
-    >(
-        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
-        path: Path,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
-    ): T;
+    > {
     <
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
-    >(
+        >(
         path: PathParams,
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
@@ -154,7 +99,7 @@ export interface IRouterMatcher<
         ReqBody = any,
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
-    >(
+        >(
         path: PathParams,
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
@@ -162,11 +107,11 @@ export interface IRouterMatcher<
     (path: PathParams, subApplication: Application): T;
 }
 
-export interface IRouterHandler<T, Route extends string = string> {
-    (...handlers: Array<RequestHandler<RouteParameters<Route>>>): T;
-    (...handlers: Array<RequestHandlerParams<RouteParameters<Route>>>): T;
+export interface IRouterHandler<T> {
+    (...handlers: RequestHandler[]): T;
+    (...handlers: RequestHandlerParams[]): T;
     <
-        P = RouteParameters<Route>,
+        P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
@@ -176,32 +121,12 @@ export interface IRouterHandler<T, Route extends string = string> {
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
-        P = RouteParameters<Route>,
+        P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
         >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
-    ): T;
-    <
-        P = ParamsDictionary,
-        ResBody = any,
-        ReqBody = any,
-        ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
-    >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
-        ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
-    ): T;
-    <
-        P = ParamsDictionary,
-        ResBody = any,
-        ReqBody = any,
-        ReqQuery = ParsedQs,
-        Locals extends Record<string, any> = Record<string, any>
-    >(
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
@@ -278,7 +203,6 @@ export interface IRouter extends RequestHandler {
 
     use: IRouterHandler<this> & IRouterMatcher<this>;
 
-    route<T extends string>(prefix: T): IRoute<T>;
     route(prefix: PathParams): IRoute;
     /**
      * Stack of configured routes
@@ -286,34 +210,34 @@ export interface IRouter extends RequestHandler {
     stack: any[];
 }
 
-export interface IRoute<Route extends string = string> {
+export interface IRoute {
     path: string;
     stack: any;
-    all: IRouterHandler<this, Route>;
-    get: IRouterHandler<this, Route>;
-    post: IRouterHandler<this, Route>;
-    put: IRouterHandler<this, Route>;
-    delete: IRouterHandler<this, Route>;
-    patch: IRouterHandler<this, Route>;
-    options: IRouterHandler<this, Route>;
-    head: IRouterHandler<this, Route>;
+    all: IRouterHandler<this>;
+    get: IRouterHandler<this>;
+    post: IRouterHandler<this>;
+    put: IRouterHandler<this>;
+    delete: IRouterHandler<this>;
+    patch: IRouterHandler<this>;
+    options: IRouterHandler<this>;
+    head: IRouterHandler<this>;
 
-    checkout: IRouterHandler<this, Route>;
-    copy: IRouterHandler<this, Route>;
-    lock: IRouterHandler<this, Route>;
-    merge: IRouterHandler<this, Route>;
-    mkactivity: IRouterHandler<this, Route>;
-    mkcol: IRouterHandler<this, Route>;
-    move: IRouterHandler<this, Route>;
-    'm-search': IRouterHandler<this, Route>;
-    notify: IRouterHandler<this, Route>;
-    purge: IRouterHandler<this, Route>;
-    report: IRouterHandler<this, Route>;
-    search: IRouterHandler<this, Route>;
-    subscribe: IRouterHandler<this, Route>;
-    trace: IRouterHandler<this, Route>;
-    unlock: IRouterHandler<this, Route>;
-    unsubscribe: IRouterHandler<this, Route>;
+    checkout: IRouterHandler<this>;
+    copy: IRouterHandler<this>;
+    lock: IRouterHandler<this>;
+    merge: IRouterHandler<this>;
+    mkactivity: IRouterHandler<this>;
+    mkcol: IRouterHandler<this>;
+    move: IRouterHandler<this>;
+    'm-search': IRouterHandler<this>;
+    notify: IRouterHandler<this>;
+    purge: IRouterHandler<this>;
+    report: IRouterHandler<this>;
+    search: IRouterHandler<this>;
+    subscribe: IRouterHandler<this>;
+    trace: IRouterHandler<this>;
+    unlock: IRouterHandler<this>;
+    unsubscribe: IRouterHandler<this>;
 }
 
 export interface Router extends IRouter {}
@@ -358,8 +282,8 @@ export interface Request<
     ReqBody = any,
     ReqQuery = ParsedQs,
     Locals extends Record<string, any> = Record<string, any>
-> extends http.IncomingMessage,
-        Express.Request {
+    > extends http.IncomingMessage,
+    Express.Request {
     /**
      * Return request header.
      *
@@ -648,8 +572,8 @@ export interface Response<
     ResBody = any,
     Locals extends Record<string, any> = Record<string, any>,
     StatusCode extends number = number
-> extends http.ServerResponse,
-        Express.Response {
+    > extends http.ServerResponse,
+    Express.Response {
     /**
      * Set status `code`.
      */
