@@ -49,7 +49,7 @@ interface OptimizeForResize extends OptimizeFor {
     fit: "resize";
 }
 
-type OptimizeDefiniton = OptimizeForFit | OptimizeForResize;
+type OptimizeDefinition = OptimizeForFit | OptimizeForResize;
 
 /**
  * Binary definitions
