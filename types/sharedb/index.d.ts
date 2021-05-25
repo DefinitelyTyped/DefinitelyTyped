@@ -5,7 +5,6 @@
 //                 Peter Xu <https://github.com/pxpeterxu>
 //                 Alec Gibson <https://github.com/alecgibson>
 //                 Christina Burger <https://github.com/pypmannetjies>
-//                 Devon Winrick <https://github.com/dwinrick-lever>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
