@@ -20,8 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "path-support.d.ts",
-        "registry.d.ts",
         "react-native__assets-test.ts"
     ]
 }
