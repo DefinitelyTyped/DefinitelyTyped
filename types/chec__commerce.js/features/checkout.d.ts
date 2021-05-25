@@ -1,9 +1,10 @@
 import Commerce = require('@chec/commerce.js');
 import { Live } from '../types/live';
 import { Price } from '../types/price';
+import { DiscountType } from '../types/discount';
+import { CheckoutToken } from '../types/checkout-token';
 
 export type IdentifierType = 'product_id' | 'cart' | 'permalink';
-export type DiscountType = 'percentage' | 'fixed';
 
 export interface CheckPayWhatYouWantResponse {
   valid: boolean;
@@ -114,6 +115,6 @@ export class Checkout {
   checkQuantity(token: string, lineItemId: string, data: object): Promise<CheckQuantityResponse>;
   helperValidation(token: string): Promise<HelperValidationResponse>;
   getLive(token: string): Promise<Live>;
-  getToken(token: string): Promise<Checkout>;
+  getToken(token: string): Promise<CheckoutToken>;
   checkGiftcard(token: string, params: { code: string }): Promise<CheckGiftcardResponse>;
 }

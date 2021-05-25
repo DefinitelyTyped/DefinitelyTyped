@@ -1,17 +1,11 @@
-declare enum DiscountType {
-  Fixed = 'fixed',
-  Percentage = 'percentage',
-}
+import { Price } from "./price";
+
+export type DiscountType = 'percentage' | 'fixed';
 
 export interface Discount {
-  id: string;
-  code: string;
+  valid: boolean;
   type: DiscountType;
+  code: string;
   value: number;
-  limit_quantity: boolean;
-  quantity: number;
-  description: string;
-  expires_on: number | null;
-  created: number;
-  meta: any;
+  amount_saved: Price;
 }

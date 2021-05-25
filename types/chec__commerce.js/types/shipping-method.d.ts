@@ -4,4 +4,5 @@ export interface ShippingMethod {
   id: string;
   description: string;
   price: Price;
+  countries: string[];
 }

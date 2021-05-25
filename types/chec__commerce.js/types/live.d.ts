@@ -1,5 +1,5 @@
 import { Currency } from './currency';
-import { LineItem } from './line-item';
+import { Discount } from './discount';
 import { OrderTax } from './order-tax';
 import { Price } from './price';
 import { ShippingMethod } from './shipping-method';
@@ -7,13 +7,14 @@ import { ShippingMethod } from './shipping-method';
 export interface Live {
   merchant_id: number;
   currency: Currency;
-  line_items: LineItem[];
+  line_items: any[];
   subtotal: Price;
-  discount: any[]; // todo
+  discount: Discount | [];
   shipping: {
     available_options: ShippingMethod[];
     price: Price;
   };
+  giftcard: any;
   tax: OrderTax;
   total: Price;
   total_with_tax: Price;
