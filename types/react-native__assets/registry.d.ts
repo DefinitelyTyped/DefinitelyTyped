@@ -4,7 +4,7 @@ export type PackagerAsset = {
     httpServerLocation: string;
     width: null | undefined | number;
     height: null | undefined | number;
-    scales: Array<number>;
+    scales: number[];
     hash: string;
     name: string;
     type: string;
