@@ -3,5 +3,4 @@
 // Definitions by: Zihan Chen <https://github.com/ZihanChen-MSFT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './path-support';
-export * from './registry';
+// intended to leave blank
