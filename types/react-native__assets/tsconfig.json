@@ -2,10 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es5"
+            "es6"
         ],
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
