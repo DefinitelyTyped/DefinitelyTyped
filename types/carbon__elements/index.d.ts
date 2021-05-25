@@ -2163,6 +2163,12 @@ export const g80: {
         lineHeight: 1.34;
         letterSpacing: "0.32px";
     };
+    caption02: {
+        fontSize: "0.875rem";
+        fontWeight: 400;
+        lineHeight: 1.29;
+        letterSpacing: "0.32px";
+    };
     label01: {
         fontSize: "0.75rem";
         fontWeight: 400;
@@ -2578,6 +2584,12 @@ export const g80: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
