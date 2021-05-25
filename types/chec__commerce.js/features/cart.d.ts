@@ -3,13 +3,7 @@ import { LineItem } from '../types/line-item';
 import { Cart as CartType } from '../types/cart';
 import { Price } from '../types/price';
 
-export enum RequestMethod {
-  Get = 'get',
-  Post = 'post',
-  Put = 'put',
-  Patch = 'patch',
-  Delete = 'delete',
-}
+export type RequestMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
 export interface AddUpdateResponse {
   success: boolean;

@@ -1,6 +1,4 @@
-export enum ExtrafieldType {
-  Text = 'text',
-}
+export type ExtrafieldType = 'text';
 
 export interface Extrafield {
   id: string;

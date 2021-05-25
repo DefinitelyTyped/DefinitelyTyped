@@ -1,9 +1,6 @@
 import { Currency } from './currency';
 
-export enum MerchantStatus {
-  Active = 'active',
-  Inactive = 'inactive',
-}
+export type MerchantStatus = 'active' | 'inactive';
 
 export interface Merchant {
   id: number;
