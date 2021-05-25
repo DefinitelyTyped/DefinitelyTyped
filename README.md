@@ -142,8 +142,8 @@ declare module "libname" {
 
 #### Test editing an existing package
 
-You can also edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
-Alternatively, to quickly locally to your app, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module you want to work on.
+You can edit the types directly in `node_modules/@types/foo/index.d.ts` to validate your changes, then bring the changes to this repo with the steps below.
+Alternatively, you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend existing types from the DT module you want to work on.
 
 #### Adding tests to a new package
 
@@ -437,8 +437,9 @@ PRs that have been approved by an author listed in the definition's header are u
 #### I'd like to submit a change to a very popular project, why are they treated differently?
 
 For changes to very popular modules, e.g. Node/Express/Jest which have many millions of downloads each per week on npm, the requirements for contributions are a bit higher. 
-These modules require both a sign-off from a DT maintainer, and enthusiastic support from the module owners. The bar for passing this can be quite high, and often PRs can go stale because it doesn't have a champion.
 Changes to these projects can have massive ecosystem effects, and so we treat changes to the with a lot of care.
+These modules require both a sign-off from a DT maintainer, and enthusiastic support from the module owners. The bar for passing this can be quite high, and often PRs can go stale because it doesn't have a champion.
+If you're finding that no-one is committing, try to make your PR have a smaller focus.
 
 #### My PR is merged; when will the `@types` npm package be updated?
 
