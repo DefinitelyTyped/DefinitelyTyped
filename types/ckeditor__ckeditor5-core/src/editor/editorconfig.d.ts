@@ -7,6 +7,7 @@ import { ExportWordConfig } from '@ckeditor/ckeditor5-export-word/src/exportword
 import { HeadingConfig } from '@ckeditor/ckeditor5-heading/src/heading';
 import { TitleConfig } from '@ckeditor/ckeditor5-heading/src/title';
 import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
+import { PaginationConfig } from '@ckeditor/ckeditor5-pagination/src/pagination';
 import { TrackChangesConfig } from '@ckeditor/ckeditor5-track-changes/src/trackchanges';
 import { TypingConfig } from '@ckeditor/ckeditor5-typing/src/typing';
 import { WordCountConfig } from '@ckeditor/ckeditor5-word-count/src/wordcount';
@@ -38,8 +39,6 @@ type IndentBlockConfig = any;
 type MediaEmbedConfig = any;
 // TODO: import {MentionConfig} from "@ckeditor/ckeditor5-mention/src/mention";
 type MentionConfig = any;
-// TODO: import {PaginationConfig} from "@ckeditor/ckeditor5-pagination/src/pagination";
-type PaginationConfig = any;
 // TODO: import {RestrictedEditingModeConfig} from "@ckeditor/ckeditor5-restricted-editing/src/restrictededitingmode";
 type RestrictedEditingModeConfig = any;
 // TODO: import {SidebarConfig} from "@ckeditor/ckeditor5-comments/src/annotations/sidebar";
