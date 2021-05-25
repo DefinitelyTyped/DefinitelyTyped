@@ -7,7 +7,7 @@
  */
 (() => {
   microsoftTeams.getContext(context => {
-    const { 
+    const {
         appIconPosition,
         appSessionId,
         channelId,

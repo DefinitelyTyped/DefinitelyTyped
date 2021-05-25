@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoftteams 1.9.0
+// Type definitions for non-npm package microsoftteams 1.9
 // Project: https://github.com/OfficeDev/microsoft-teams-library-js
 // Definitions by: Bhargav Krishna <https://github.com/WrathOfZombies>
 //                 Jay Ongg <https://github.com/jayongg>
@@ -14,127 +14,125 @@ interface MessageEvent {
  * This is the root namespace for the JavaScript SDK.
  */
 declare namespace microsoftTeams {
-    export class Communication {
-        static currentWindow: Window | any;
+    // tslint:disable-next-line:no-unnecessary-class
+    class Communication {
+        static currentWindow: Window;
         static parentOrigin: string;
-        static parentWindow: Window | any;
+        static parentWindow: Window;
         static childWindow: Window;
-        static childOrigin: string;
     }
-    export function initializeCommunication(callback: Function, validMessageOrigins: string[] | undefined): void;
-    export function uninitializeCommunication(): void;
+    function initializeCommunication(callback: () => void, validMessageOrigins: string[] | undefined): void;
+    function uninitializeCommunication(): void;
     /**
      * Send a message to parent. Uses nativeInterface on mobile to communicate with parent context
      */
-    export function sendMessageToParent(actionName: string, callback?: Function): void;
+    function sendMessageToParent(actionName: string, callback?: () => void): void;
     /**
      * Send a message to parent. Uses nativeInterface on mobile to communicate with parent context
      */
-    export function sendMessageToParent(actionName: string, args: any[], callback?: Function): void;
-    export function waitForMessageQueue(targetWindow: Window, callback: () => void): void;
+    function sendMessageToParent(actionName: string, args: any[], callback?: () => void): void;
+    function waitForMessageQueue(targetWindow: Window, callback: () => void): void;
     /**
      * Send a custom message object that can be sent to child window,
      * instead of a response message to a child
      */
-    export function sendMessageEventToChild(actionName: string, args?: any[]): void;
-    export const version = "1.10.0";
+    function sendMessageEventToChild(actionName: string, args?: any[]): void;
+    const version = "1.10.0";
     /**
      * This is the SDK version when all SDK APIs started to check platform compatibility for the APIs.
      */
-    export const defaultSDKVersionForCompatCheck = "1.6.0";
+    const defaultSDKVersionForCompatCheck = "1.6.0";
     /**
      * Minimum required client supported version for {@link getUserJoinedTeams} to be supported on {@link HostClientType.android}
      */
-    export const getUserJoinedTeamsSupportedAndroidClientVersion = "2.0.1";
+    const getUserJoinedTeamsSupportedAndroidClientVersion = "2.0.1";
     /**
      * This is the SDK version when location APIs (getLocation and showLocation) are supported.
      */
-    export const locationAPIsRequiredVersion = "1.9.0";
+    const locationAPIsRequiredVersion = "1.9.0";
     /**
      * This is the SDK version when people picker API is supported on mobile.
      */
-    export const peoplePickerRequiredVersion = "2.0.0";
+    const peoplePickerRequiredVersion = "2.0.0";
     /**
      * This is the SDK version when captureImage API is supported on mobile.
      */
-    export const captureImageMobileSupportVersion = "1.7.0";
+    const captureImageMobileSupportVersion = "1.7.0";
     /**
      * This is the SDK version when media APIs are supported on all three platforms ios, android and web.
      */
-    export const mediaAPISupportVersion = "1.8.0";
+    const mediaAPISupportVersion = "1.8.0";
     /**
      * This is the SDK version when getMedia API is supported via Callbacks on all three platforms ios, android and web.
      */
-    export const getMediaCallbackSupportVersion = "2.0.0";
+    const getMediaCallbackSupportVersion = "2.0.0";
     /**
      * This is the SDK version when scanBarCode API is supported on mobile.
      */
-    export const scanBarCodeAPIMobileSupportVersion = "1.9.0";
+    const scanBarCodeAPIMobileSupportVersion = "1.9.0";
     /**
      * List of supported Host origins
      */
-    export const validOrigins: string[];
-    export const validOriginRegExp: RegExp;
+    const validOrigins: string[];
+    const validOriginRegExp: RegExp;
     /**
      * USer specified message origins should satisfy this test
      */
-    export const userOriginUrlValidationRegExp: RegExp;
-    export class GlobalVars {
+    const userOriginUrlValidationRegExp: RegExp;
+    // tslint:disable-next-line:no-unnecessary-class
+    class GlobalVars {
         static initializeCalled: boolean;
         static initializeCompleted: boolean;
         static additionalValidOrigins: string[];
         static additionalValidOriginsRegexp: RegExp;
-        static initializeCallbacks: {
+        static initializeCallbacks: Array<{
             (): void;
-        }[];
+        }>;
         static isFramelessWindow: boolean;
         static frameContext: FrameContexts;
         static hostClientType: string;
         static clientSupportedSDKVersion: string;
         static printCapabilityEnabled: boolean;
     }
-    export function initializeHandlers(): void;
-    export function callHandler(name: string, args?: any[]): [true, any] | [false, undefined];
-    export function registerHandler(name: string, handler: Function, sendMessage?: boolean, args?: any[]): void;
-    export function removeHandler(name: string): void;
-    export function registerOnThemeChangeHandler(handler: (theme: string) => void): void;
-    export function handleThemeChange(theme: string): void;
-    export function registerBackButtonHandler(handler: () => boolean): void;
-    export function registerOnLoadHandler(handler: (context: LoadContext) => void): void;
-    export function registerBeforeUnloadHandler(handler: (readyToUnload: () => void) => boolean): void;
+    function initializeHandlers(): void;
+    function callHandler(name: string, args?: any[]): [true, any] | [false, undefined];
+    function registerHandler(name: string, handler: () => void, sendMessage?: boolean, args?: any[]): void;
+    function removeHandler(name: string): void;
+    function registerOnThemeChangeHandler(handler: (theme: string) => void): void;
+    function handleThemeChange(theme: string): void;
+    function registerBackButtonHandler(handler: () => boolean): void;
+    function registerOnLoadHandler(handler: (context: LoadContext) => void): void;
+    function registerBeforeUnloadHandler(handler: (readyToUnload: () => void) => boolean): void;
     /**
-     * @private
      * Hide from docs
      * Shim in definitions used for browser-compat
      */
-    export interface DOMMessageEvent {
+    interface DOMMessageEvent {
         origin?: any;
         source?: any;
         data?: any;
         originalEvent: DOMMessageEvent;
     }
     /**
-     * @private
      * Hide from docs
      */
-    export interface TeamsNativeClient {
+    interface TeamsNativeClient {
         framelessPostMessage(msg: string): void;
     }
     /**
-     * @private
      * Hide from docs
      */
-    export interface ExtendedWindow extends Window {
+    interface ExtendedWindow extends Window {
         nativeInterface: TeamsNativeClient;
         onNativeMessage(evt: DOMMessageEvent): void;
     }
-    export interface MessageRequest {
+    interface MessageRequest {
         id?: number;
         func: string;
         timestamp?: number;
         args?: any[];
     }
-    export interface MessageResponse {
+    interface MessageResponse {
         id: number;
         args?: any[];
         isPartialResponse?: boolean;
@@ -142,53 +140,53 @@ declare namespace microsoftTeams {
     /**
      * Meant for Message objects that are sent to children without id
      */
-    export interface DOMMessageEvent {
+    interface DOMMessageEvent {
         func: string;
         args?: any[];
     }
-    export function ensureInitialized(...expectedFrameContexts: string[]): void;
+    function ensureInitialized(...expectedFrameContexts: string[]): void;
     /**
      * Checks whether the platform has knowledge of this API by doing a comparison
      * on API required version and platform supported version of the SDK
      * @param requiredVersion SDK version required by the API
      */
-    export function isAPISupportedByPlatform(requiredVersion?: string): boolean;
+    function isAPISupportedByPlatform(requiredVersion?: string): boolean;
     /**
      * Processes the valid origins specifuied by the user, de-duplicates and converts them into a regexp
      * which is used later for message source/origin validation
      */
-    export function processAdditionalValidOrigins(validMessageOrigins: string[]): void;
+    function processAdditionalValidOrigins(validMessageOrigins: string[]): void;
     /**
      * Helper function to create a blob from media chunks based on their sequence
      */
-    export function createFile(assembleAttachment: media.AssembleAttachment[], mimeType: string): Blob;
+    function createFile(assembleAttachment: media.AssembleAttachment[], mimeType: string): Blob;
     /**
      * Helper function to convert Media chunks into another object type which can be later assemebled
      * Converts base 64 encoded string to byte array and then into an array of blobs
      */
-    export function decodeAttachment(attachment: media.MediaChunk, mimeType: string): media.AssembleAttachment;
+    function decodeAttachment(attachment: media.MediaChunk, mimeType: string): media.AssembleAttachment;
     /**
      * Returns true if the mediaInput params are valid and false otherwise
      */
-    export function validateSelectMediaInputs(mediaInputs: media.MediaInputs): boolean;
+    function validateSelectMediaInputs(mediaInputs: media.MediaInputs): boolean;
     /**
      * Returns true if the get Media params are valid and false otherwise
      */
-    export function validateGetMediaInputs(mimeType: string, format: media.FileFormat, content: string): boolean;
+    function validateGetMediaInputs(mimeType: string, format: media.FileFormat, content: string): boolean;
     /**
      * Returns true if the view images param is valid and false otherwise
      */
-    export function validateViewImagesInput(uriList: media.ImageUri[]): boolean;
+    function validateViewImagesInput(uriList: media.ImageUri[]): boolean;
     /**
      * Returns true if the scan barcode param is valid and false otherwise
      */
-    export function validateScanBarCodeInput(barCodeConfig: media.BarCodeConfig): boolean;
+    function validateScanBarCodeInput(barCodeConfig: media.BarCodeConfig): boolean;
     /**
      * Returns true if the people picker params are valid and false otherwise
      */
-    export function validatePeoplePickerInput(peoplePickerInputs: people.PeoplePickerInputs): boolean;
-    export function generateRegExpFromUrls(urls: string[]): RegExp;
-    export function getGenericOnCompleteHandler(errorMessage?: string): (success: boolean, reason?: string) => void;
+    function validatePeoplePickerInput(peoplePickerInputs: people.PeoplePickerInputs): boolean;
+    function generateRegExpFromUrls(urls: string[]): RegExp;
+    function getGenericOnCompleteHandler(errorMessage?: string): (success: boolean, reason?: string) => void;
     /**
      * Compares SDK versions.
      * @param v1 first version
@@ -204,20 +202,18 @@ declare namespace microsoftTeams {
      *    compareSDKVersions('2.0', '1.3.2') returns 1
      *    compareSDKVersions('2.0', 2.0) returns NaN
      */
-    export function compareSDKVersions(v1: string, v2: string): number;
+    function compareSDKVersions(v1: string, v2: string): number;
     /**
      * Generates a GUID
      */
-    export function generateGUID(): string;
+    function generateGUID(): string;
     /**
      * Namespace to interact with the application entities specific part of the SDK.
      *
-     * @private
      * Hide from docs
      */
-    export namespace appEntity {
+    namespace appEntity {
         /**
-         * @private
          * Hide from docs
          * --------
          * Information on an app entity
@@ -245,7 +241,6 @@ declare namespace microsoftTeams {
             websiteUrl: string;
         }
         /**
-         * @private
          * Hide from docs
          *
          * Open the Tab Gallery and retrieve the app entity
@@ -258,12 +253,10 @@ declare namespace microsoftTeams {
         function selectAppEntity(threadId: string, categories: string[], callback: (appEntity: AppEntity, sdkError?: SdkError) => void): void;
     }
     /**
-     * @private
      * Namespace to interact with bots using the SDK.
      */
-    export namespace bot {
+    namespace bot {
         /**
-         * @private
          * Hide from docs until release.
          * ------
          * Sends query to bot in order to retrieve data.
@@ -273,7 +266,6 @@ declare namespace microsoftTeams {
          */
         function sendQuery(botRequest: QueryRequest, onSuccess?: (data: QueryResponse) => void, onError?: (error: string) => void): void;
         /**
-         * @private
          * Hide from docs until release.
          * -----
          * Retrieves list of support commands from bot
@@ -282,7 +274,6 @@ declare namespace microsoftTeams {
          */
         function getSupportedCommands(onSuccess?: (response: Command[]) => void, onError?: (error: string) => void): void;
         /**
-         * @private
          * Hide from docs until release.
          * -----
          * Authenticates a user for json tab
@@ -337,16 +328,14 @@ declare namespace microsoftTeams {
     /**
      * Namespace to interact with the conversational subEntities inside the tab
      */
-    export namespace conversations {
+    namespace conversations {
         /**
-         * @private
          * Hide from docs
          * --------------
          * Allows the user to start or continue a conversation with each subentity inside the tab
          */
         function openConversation(openConversationRequest: OpenConversationRequest): void;
         /**
-         * @private
          * Hide from docs
          * --------------
          * Allows the user to close the conversation in the right pane
@@ -356,12 +345,10 @@ declare namespace microsoftTeams {
     /**
      * Namespace to interact with the files specific part of the SDK.
      *
-     * @private
      * Hide from docs
      */
-    export namespace files {
+    namespace files {
         /**
-         * @private
          * Hide from docs
          *
          * Cloud storage providers registered with Microsoft Teams
@@ -374,7 +361,6 @@ declare namespace microsoftTeams {
             Egnyte = "EGNYTE"
         }
         /**
-         * @private
          * Hide from docs
          *
          * Cloud storage provider integration type
@@ -385,7 +371,6 @@ declare namespace microsoftTeams {
             Google = 2
         }
         /**
-         * @private
          * Hide from docs
          *
          * Cloud storage folder interface
@@ -433,7 +418,6 @@ declare namespace microsoftTeams {
             accessType?: string;
         }
         /**
-         * @private
          * Hide from docs
          *
          * Cloud storage item interface
@@ -473,7 +457,6 @@ declare namespace microsoftTeams {
             accessToken?: string;
         }
         /**
-         * @private
          * Hide from docs
          *
          * Gets a list of cloud storage folders added to the channel
@@ -482,7 +465,6 @@ declare namespace microsoftTeams {
          */
         function getCloudStorageFolders(channelId: string, callback: (error: SdkError, folders: CloudStorageFolder[]) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Initiates the add cloud storage folder flow
@@ -491,7 +473,6 @@ declare namespace microsoftTeams {
          */
         function addCloudStorageFolder(channelId: string, callback: (error: SdkError, isFolderAdded: boolean, folders: CloudStorageFolder[]) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Deletes a cloud storage folder from channel
@@ -501,7 +482,6 @@ declare namespace microsoftTeams {
          */
         function deleteCloudStorageFolder(channelId: string, folderToDelete: CloudStorageFolder, callback: (error: SdkError, isFolderDeleted: boolean) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Fetches the contents of a Cloud storage folder (CloudStorageFolder) / sub directory
@@ -511,7 +491,6 @@ declare namespace microsoftTeams {
          */
         function getCloudStorageFolderContents(folder: CloudStorageFolder | CloudStorageFolderItem, providerCode: CloudStorageProvider, callback: (error: SdkError, items: CloudStorageFolderItem[]) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Open a cloud storage file in teams
@@ -522,51 +501,47 @@ declare namespace microsoftTeams {
         function openCloudStorageFile(file: CloudStorageFolderItem, providerCode: CloudStorageProvider, fileOpenPreference?: FileOpenPreference.Web | FileOpenPreference.Inline): void;
     }
     /**
-     * @private
      * Hide from docs
      * --------
      * Information about all members in a chat
      */
-    export interface ChatMembersInformation {
+    interface ChatMembersInformation {
         members: ThreadMember[];
     }
     /**
-     * @private
      * Hide from docs
      * --------
      * Information about a chat member
      */
-    export interface ThreadMember {
+    interface ThreadMember {
         /**
          * The member's user principal name in the current tenant.
          */
         upn: string;
     }
-    export enum NotificationTypes {
+    enum NotificationTypes {
         fileDownloadStart = "fileDownloadStart",
         fileDownloadComplete = "fileDownloadComplete"
     }
-    export interface ShowNotificationParameters {
+    interface ShowNotificationParameters {
         message: string;
         notificationType: NotificationTypes;
     }
     /**
-     * @private
      * Hide from docs.
      * ------
      */
-    export enum ViewerActionTypes {
+    enum ViewerActionTypes {
         view = "view",
         edit = "edit",
         editNew = "editNew"
     }
     /**
-     * * @private
      * Hide from docs.
      * ------
      * User setting changes that can be subscribed to,
      */
-    export enum UserSettingTypes {
+    enum UserSettingTypes {
         /**
          * Use this key to subscribe to changes in user's file open preference
          */
@@ -577,11 +552,10 @@ declare namespace microsoftTeams {
         theme = "theme"
     }
     /**
-     * @private
      * Hide from docs.
      * ------
      */
-    export interface FilePreviewParameters {
+    interface FilePreviewParameters {
         /**
          * The developer-defined unique ID for the file.
          */
@@ -638,24 +612,22 @@ declare namespace microsoftTeams {
         fileOpenPreference?: FileOpenPreference;
     }
     /**
-     * @private
      * Hide from docs
      * --------
      * Query parameters used when fetching team information
      */
-    export interface TeamInstanceParameters {
+    interface TeamInstanceParameters {
         /**
          * Flag allowing to select favorite teams only
          */
         favoriteTeamsOnly?: boolean;
     }
     /**
-     * @private
      * Hide from docs
      * --------
      * Information on userJoined Teams
      */
-    export interface UserJoinedTeamsInformation {
+    interface UserJoinedTeamsInformation {
         /**
          * List of team information
          */
@@ -665,12 +637,10 @@ declare namespace microsoftTeams {
      * Namespace to interact with the logging part of the SDK.
      * This object is used to send the app logs on demand to the host client
      *
-     * @private
      * Hide from docs
      */
-    export namespace logs {
+    namespace logs {
         /**
-         * @private
          * Hide from docs
          * ------
          * Registers a handler for getting app log
@@ -678,9 +648,8 @@ declare namespace microsoftTeams {
          */
         function registerGetLogHandler(handler: () => string): void;
     }
-    export namespace meetingRoom {
+    namespace meetingRoom {
         /**
-         * @private
          * Hide from docs
          *
          * Data structure to represent a meeting room.
@@ -704,7 +673,6 @@ declare namespace microsoftTeams {
             clientVersion: string;
         }
         /**
-         * @private
          * Hide from docs
          *
          * Enum used to indicate meeting room capabilities.
@@ -752,7 +720,6 @@ declare namespace microsoftTeams {
             leaveMeeting = "leaveMeeting"
         }
         /**
-         * @private
          * Hide from docs
          *
          * Data structure to represent capabilities of a meeting room.
@@ -772,7 +739,6 @@ declare namespace microsoftTeams {
             meetingControls: string[];
         }
         /**
-         * @private
          * Hide from docs
          *
          * Data structure to represent states of a meeting room.
@@ -800,7 +766,6 @@ declare namespace microsoftTeams {
             leaveMeeting: boolean;
         }
         /**
-         * @private
          * Hide from docs
          *
          * Fetch the meeting room info that paired with current client.
@@ -808,7 +773,6 @@ declare namespace microsoftTeams {
          */
         function getPairedMeetingRoomInfo(callback: (sdkError: SdkError, meetingRoomInfo: MeetingRoomInfo) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Send a command to paired meeting room.
@@ -817,7 +781,6 @@ declare namespace microsoftTeams {
          */
         function sendCommandToPairedMeetingRoom(commandName: string, callback: (sdkError: SdkError) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Registers a handler for meeting room capabilities update.
@@ -826,7 +789,6 @@ declare namespace microsoftTeams {
          */
         function registerMeetingRoomCapabilitiesUpdateHandler(handler: (capabilities: MeetingRoomCapability) => void): void;
         /**
-         * @private
          * Hide from docs
          * Registers a handler for meeting room states update.
          * Only one handler can be registered at a time. A subsequent registration replaces an existing registration.
@@ -838,10 +800,9 @@ declare namespace microsoftTeams {
      * Namespace to interact with the menu-specific part of the SDK.
      * This object is used to show View Configuration, Action Menu and Navigation Bar Menu.
      *
-     * @private
      * Hide from docs until feature is complete
      */
-    export namespace menus {
+    namespace menus {
         /**
          * Represents information about item in View Configuration.
          */
@@ -951,57 +912,50 @@ declare namespace microsoftTeams {
          */
         function showActionMenu(params: ActionMenuParameters, handler: (id: string) => boolean): void;
     }
-    export function initializePrivateApis(): void;
+    function initializePrivateApis(): void;
     /**
-     * @private
      * Hide from docs
      * ------
      * Allows an app to retrieve information of all user joined teams
      * @param callback The callback to invoke when the {@link TeamInstanceParameters} object is retrieved.
      * @param teamInstanceParameters OPTIONAL Flags that specify whether to scope call to favorite teams
      */
-    export function getUserJoinedTeams(callback: (userJoinedTeamsInformation: UserJoinedTeamsInformation) => void, teamInstanceParameters?: TeamInstanceParameters): void;
+    function getUserJoinedTeams(callback: (userJoinedTeamsInformation: UserJoinedTeamsInformation) => void, teamInstanceParameters?: TeamInstanceParameters): void;
     /**
-     * @private
      * Hide from docs
      * ------
      * Place the tab into full-screen mode.
      */
-    export function enterFullscreen(): void;
+    function enterFullscreen(): void;
     /**
-     * @private
      * Hide from docs
      * ------
      * Reverts the tab into normal-screen mode.
      */
-    export function exitFullscreen(): void;
+    function exitFullscreen(): void;
     /**
-     * @private
      * Hide from docs.
      * ------
      * Opens a client-friendly preview of the specified file.
      * @param file The file to preview.
      */
-    export function openFilePreview(filePreviewParameters: FilePreviewParameters): void;
+    function openFilePreview(filePreviewParameters: FilePreviewParameters): void;
     /**
-     * @private
      * Hide from docs.
      * ------
      * display notification API.
      * @param message Notification message.
      * @param notificationType Notification type
      */
-    export function showNotification(showNotificationParameters: ShowNotificationParameters): void;
+    function showNotification(showNotificationParameters: ShowNotificationParameters): void;
     /**
-     * @private
      * Hide from docs.
      * ------
      * Upload a custom App manifest directly to both team and personal scopes.
      * This method works just for the first party Apps.
      */
-    export function uploadCustomApp(manifestBlob: Blob, onComplete?: (status: boolean, reason?: string) => void): void;
+    function uploadCustomApp(manifestBlob: Blob, onComplete?: (status: boolean, reason?: string) => void): void;
     /**
-     * @private
      * Internal use only
      * Sends a custom action MessageRequest to Teams or parent window
      * @param actionName Specifies name of the custom action to be sent
@@ -1009,9 +963,8 @@ declare namespace microsoftTeams {
      * @param callback Optionally specify a callback to receive response parameters from the parent
      * @returns id of sent message
      */
-    export function sendCustomMessage(actionName: string, args?: any[], callback?: (...args: any[]) => void): void;
+    function sendCustomMessage(actionName: string, args?: any[], callback?: (...args: any[]) => void): void;
     /**
-     * @private
      * Internal use only
      * Sends a custom action MessageEvent to a child iframe/window, only if you are not using auth popup.
      * Otherwise it will go to the auth popup (which becomes the child)
@@ -1019,17 +972,15 @@ declare namespace microsoftTeams {
      * @param args Specifies additional arguments passed to the action
      * @returns id of sent message
      */
-    export function sendCustomEvent(actionName: string, args?: any[]): void;
+    function sendCustomEvent(actionName: string, args?: any[]): void;
     /**
-     * @private
      * Internal use only
      * Adds a handler for an action sent by a child window or parent window
      * @param actionName Specifies name of the action message to handle
      * @param customHandler The callback to invoke when the action message is received. The return value is sent to the child
      */
-    export function registerCustomHandler(actionName: string, customHandler: (...args: any[]) => any[]): void;
+    function registerCustomHandler(actionName: string, customHandler: (...args: any[]) => any[]): void;
     /**
-     * @private
      * Hide from docs
      * ------
      * Allows an app to retrieve information of all chat members
@@ -1037,26 +988,23 @@ declare namespace microsoftTeams {
      * be used only as a hint as to who the members are and never as proof of membership.
      * @param callback The callback to invoke when the {@link ChatMembersInformation} object is retrieved.
      */
-    export function getChatMembers(callback: (chatMembersInformation: ChatMembersInformation) => void): void;
+    function getChatMembers(callback: (chatMembersInformation: ChatMembersInformation) => void): void;
     /**
-     * @private
      * Hide from docs
      * ------
      * Allows an app to get the configuration setting value
      * @param callback The callback to invoke when the value is retrieved.
      * @param key The key for the config setting
      */
-    export function getConfigSetting(callback: (value: string) => void, key: string): void;
+    function getConfigSetting(callback: (value: string) => void, key: string): void;
     /**
-     * @private
      * register a handler to be called when a user setting changes. The changed setting type & value is provided in the callback.
      * @param settingTypes List of user setting changes to subscribe
      * @param handler When a subscribed setting is updated this handler is called
      */
-    export function registerUserSettingsChangeHandler(settingTypes: UserSettingTypes[], handler: (settingType: UserSettingTypes, value: any) => void): void;
-    export namespace remoteCamera {
+    function registerUserSettingsChangeHandler(settingTypes: UserSettingTypes[], handler: (settingType: UserSettingTypes, value: any) => void): void;
+    namespace remoteCamera {
         /**
-         * @private
          * Hide from docs
          *
          * Data structure to represent patricipant details needed to request control of camera.
@@ -1076,7 +1024,6 @@ declare namespace microsoftTeams {
             active?: boolean;
         }
         /**
-         * @private
          * Hide from docs
          *
          * Enum used to indicate possible camera control commands.
@@ -1091,51 +1038,49 @@ declare namespace microsoftTeams {
             TiltDown = "TiltDown"
         }
         /**
-         * @private
          * Hide from docs
          *
          * Data structure to indicate the current state of the device.
          */
         interface DeviceState {
             /**
-             * All operation are available to apply.
+             * All operation are available to apply.
              */
             available: boolean;
             /**
-             * Either camera doesnt support to get state or It unable to apply command.
+             * Either camera doesnt support to get state or It unable to apply command.
              */
             error: boolean;
             /**
-             * Reset max out or already applied. Client Disable Reset.
+             * Reset max out or already applied. Client Disable Reset.
              */
             reset: boolean;
             /**
-             * ZoomIn maxed out.
+             * ZoomIn maxed out.
              */
             zoomIn: boolean;
             /**
-             * ZoomOut maxed out.
+             * ZoomOut maxed out.
              */
             zoomOut: boolean;
             /**
-             * PanLeft reached max left.
+             * PanLeft reached max left.
              */
             panLeft: boolean;
             /**
-             * PanRight reached max right.
+             * PanRight reached max right.
              */
             panRight: boolean;
             /**
-             * TiltUp reached top.
+             * TiltUp reached top.
              */
             tiltUp: boolean;
             /**
-             * TiltDown reached bottom.
+             * TiltDown reached bottom.
              */
             tiltDown: boolean;
         }
         /**
-         * @private
          * Hide from docs
          *
          * Enum used to indicate the reason for the error.
@@ -1151,7 +1096,6 @@ declare namespace microsoftTeams {
             SendDataError = 7
         }
         /**
-         * @private
          * Hide from docs
          *
          * Data structure to indicate the status of the current session.
@@ -1167,7 +1111,6 @@ declare namespace microsoftTeams {
             terminatedReason?: SessionTerminatedReason;
         }
         /**
-         * @private
          * Hide from docs
          *
          * Enum used to indicate the reason the session was terminated.
@@ -1186,7 +1129,6 @@ declare namespace microsoftTeams {
             ControlTerminatedToAllowOtherController = 10
         }
         /**
-         * @private
          * Hide from docs
          *
          * Fetch a list of the participants with controllable-cameras in a meeting.
@@ -1197,7 +1139,6 @@ declare namespace microsoftTeams {
          */
         function getCapableParticipants(callback: (error: SdkError | null, participants: Participant[] | null) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Request control of a participant's camera.
@@ -1209,7 +1150,6 @@ declare namespace microsoftTeams {
          */
         function requestControl(participant: Participant, callback: (error: SdkError | null, requestResponse: boolean | null) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Send control command to the participant's camera.
@@ -1218,7 +1158,6 @@ declare namespace microsoftTeams {
          */
         function sendControlCommand(ControlCommand: ControlCommand, callback: (error: SdkError | null) => void): void;
         /**
-         * @private
          * Hide from docs
          *
          * Terminate the remote  session
@@ -1250,7 +1189,7 @@ declare namespace microsoftTeams {
          */
         function registerOnSessionStatusChangeHandler(handler: (sessionStatusChange: SessionStatus) => void): void;
     }
-    export namespace appInitialization {
+    namespace appInitialization {
         const Messages: {
             AppLoaded: string;
             Success: string;
@@ -1269,10 +1208,12 @@ declare namespace microsoftTeams {
             Offline = "Offline",
             Other = "Other"
         }
+        // tslint:disable-next-line:interface-name
         interface IFailedRequest {
             reason: FailedReason;
             message?: string;
         }
+        // tslint:disable-next-line:interface-name
         interface IExpectedFailureRequest {
             reason: ExpectedFailureReason;
             message?: string;
@@ -1294,15 +1235,16 @@ declare namespace microsoftTeams {
          */
         function notifyExpectedFailure(expectedFailureRequest: IExpectedFailureRequest): void;
     }
-    export interface IAppWindow {
+        // tslint:disable-next-line:interface-name
+    interface IAppWindow {
         postMessage(message: any): void;
-        addEventListener(type: string, listener: Function): void;
+        addEventListener(type: string, listener: () => void): void;
     }
-    export class ChildAppWindow implements IAppWindow {
+    class ChildAppWindow implements IAppWindow {
         postMessage(message: any, onComplete?: (status: boolean, reason?: string) => void): void;
         addEventListener(type: string, listener: (message: any) => void): void;
     }
-    export class ParentAppWindow implements IAppWindow {
+    class ParentAppWindow implements IAppWindow {
         private static _instance;
         static readonly Instance: IAppWindow;
         postMessage(message: any, onComplete?: (status: boolean, reason?: string) => void): void;
@@ -1312,7 +1254,7 @@ declare namespace microsoftTeams {
      * Namespace to interact with the authentication-specific part of the SDK.
      * This object is used for starting or completing authentication flows.
      */
-    export namespace authentication {
+    namespace authentication {
         function initialize(): void;
         /**
          * Registers the authentication Communication.handlers
@@ -1330,7 +1272,6 @@ declare namespace microsoftTeams {
          */
         function getAuthToken(authTokenRequest: AuthTokenRequest): void;
         /**
-         * @private
          * Hide from docs.
          * ------
          * Requests the decoded Azure AD user identity on behalf of the app.
@@ -1397,7 +1338,6 @@ declare namespace microsoftTeams {
             failureCallback?: (reason: string) => void;
         }
         /**
-         * @private
          * Hide from docs.
          * ------
          */
@@ -1412,7 +1352,6 @@ declare namespace microsoftTeams {
             failureCallback?: (reason: string) => void;
         }
         /**
-         * @private
          * Hide from docs.
          * ------
          */
@@ -1485,7 +1424,7 @@ declare namespace microsoftTeams {
             ver: string;
         }
     }
-    export enum HostClientType {
+    enum HostClientType {
         desktop = "desktop",
         web = "web",
         android = "android",
@@ -1493,7 +1432,7 @@ declare namespace microsoftTeams {
         rigel = "rigel",
         surfaceHub = "surfaceHub"
     }
-    export enum FrameContexts {
+    enum FrameContexts {
         settings = "settings",
         content = "content",
         authentication = "authentication",
@@ -1507,7 +1446,7 @@ declare namespace microsoftTeams {
      * Indicates the team type, currently used to distinguish between different team
      * types in Office 365 for Education (team types 1, 2, 3, and 4).
      */
-    export enum TeamType {
+    enum TeamType {
         Standard = 0,
         Edu = 1,
         Class = 2,
@@ -1517,7 +1456,7 @@ declare namespace microsoftTeams {
     /**
      * Indicates the various types of roles of a user in a team.
      */
-    export enum UserTeamRole {
+    enum UserTeamRole {
         Admin = 0,
         User = 1,
         Guest = 2
@@ -1525,7 +1464,7 @@ declare namespace microsoftTeams {
     /**
      * Task module dimension enum
      */
-    export enum TaskModuleDimension {
+    enum TaskModuleDimension {
         Large = "large",
         Medium = "medium",
         Small = "small"
@@ -1533,7 +1472,7 @@ declare namespace microsoftTeams {
     /**
      * The type of the channel with which the content is associated.
      */
-    export enum ChannelType {
+    enum ChannelType {
         Regular = "Regular",
         Private = "Private",
         Shared = "Shared"
@@ -1541,20 +1480,19 @@ declare namespace microsoftTeams {
     /**
      * Represents information about tabs for an app
      */
-    export interface TabInformation {
+    interface TabInformation {
         teamTabs: TabInstance[];
     }
     /**
      * Represents information about a tab instance
      */
-    export interface TabInstance {
+    interface TabInstance {
         /**
          * The name of the tab
          */
         tabName: string;
         /**
          * Internal: do not use
-         * @protected
          */
         internalTabInstanceId?: string;
         /**
@@ -1606,7 +1544,7 @@ declare namespace microsoftTeams {
     /**
      * Indicates information about the tab instance for filtering purposes.
      */
-    export interface TabInstanceParameters {
+    interface TabInstanceParameters {
         /**
          * Flag allowing to select favorite channels only
          */
@@ -1619,7 +1557,7 @@ declare namespace microsoftTeams {
     /**
      * Represents Team Information
      */
-    export interface TeamInformation {
+    interface TeamInformation {
         /**
          * Id of the team
          */
@@ -1661,7 +1599,7 @@ declare namespace microsoftTeams {
     /**
      * Represents OS locale info used for formatting date and time data
      */
-    export interface LocaleInfo {
+    interface LocaleInfo {
         platform: 'windows' | 'macos';
         regionalFormat: string;
         shortDate: string;
@@ -1672,12 +1610,12 @@ declare namespace microsoftTeams {
     /**
      * Allowed user file open preferences
      */
-    export enum FileOpenPreference {
+    enum FileOpenPreference {
         Inline = "inline",
         Desktop = "desktop",
         Web = "web"
     }
-    export interface Context {
+    interface Context {
         /**
          * The Office 365 group ID for the team with which the content is associated.
          * This field is available only when the identity permission is requested in the manifest.
@@ -1889,7 +1827,7 @@ declare namespace microsoftTeams {
          */
         userFileOpenPreference?: FileOpenPreference;
     }
-    export interface DeepLinkParameters {
+    interface DeepLinkParameters {
         /**
          * The developer-defined unique ID for the sub-entity to which this deep link points in the current entity.
          * This field should be used to restore to a specific state within an entity, such as scrolling to or activating a specific piece of content.
@@ -1905,7 +1843,7 @@ declare namespace microsoftTeams {
          */
         subEntityWebUrl?: string;
     }
-    export interface TaskInfo {
+    interface TaskInfo {
         /**
          * The url to be rendered in the webview/iframe.
          */
@@ -1938,11 +1876,10 @@ declare namespace microsoftTeams {
         completionBotId?: string;
     }
     /**
-     * @private
      * Hide from docs.
      * ------
      */
-    export interface OpenConversationRequest {
+    interface OpenConversationRequest {
         /**
          * The Id of the subEntity where the conversation is taking place
          */
@@ -1973,11 +1910,10 @@ declare namespace microsoftTeams {
         onCloseConversation?: (conversationResponse: ConversationResponse) => void;
     }
     /**
-     * @private
      * Hide from docs.
      * ------
      */
-    export interface ConversationResponse {
+    interface ConversationResponse {
         /**
          * The Id of the subEntity where the conversation is taking place
          */
@@ -1996,10 +1932,9 @@ declare namespace microsoftTeams {
         entityId?: string;
     }
     /**
-     * @private
      * Hide from docs.
      */
-    export interface LoadContext {
+    interface LoadContext {
         /**
          * The enitity that is requested to be loaded
          */
@@ -2009,7 +1944,7 @@ declare namespace microsoftTeams {
          */
         contentUrl: string;
     }
-    export interface FrameContext {
+    interface FrameContext {
         /**
          * The current URL that needs to be used in the iframe if the tab is reloaded
          */
@@ -2019,19 +1954,19 @@ declare namespace microsoftTeams {
          */
         websiteUrl: string;
     }
-    export interface SdkError {
+    interface SdkError {
         /**
-        error code
-        */
+         * error code
+         */
         errorCode: ErrorCode;
         /**
-        Optional description for the error. This may contain useful information for web-app developers.
-        This string will not be localized and is not for end-user consumption.
-        App should not depend on the string content. The exact value may change. This is only for debugging purposes.
-        */
+         * Optional description for the error. This may contain useful information for web-app developers.
+         * This string will not be localized and is not for end-user consumption.
+         * App should not depend on the string content. The exact value may change. This is only for debugging purposes.
+         */
         message?: string;
     }
-    export enum ErrorCode {
+    enum ErrorCode {
         /**
          * API not supported in the current platform.
          */
@@ -2045,8 +1980,8 @@ declare namespace microsoftTeams {
          */
         NOT_SUPPORTED_IN_CURRENT_CONTEXT = 501,
         /**
-        Permissions denied by user
-        */
+         * Permissions denied by user
+         */
         PERMISSION_DENIED = 1000,
         /**
          * Network issue
@@ -2093,38 +2028,38 @@ declare namespace microsoftTeams {
          */
         SIZE_EXCEEDED = 10000
     }
-    export namespace location {
+    namespace location {
         interface LocationProps {
             /**
-            whether user can alter location or not
-            if false, user will be shown current location
-            and wouldn't be allowed to alter it
-            */
+             * whether user can alter location or not
+             * if false, user will be shown current location
+             * and wouldn't be allowed to alter it
+             */
             allowChooseLocation: boolean;
             /**
-            whether selected location should be shown to user on map or not.
-            If allowChooseLocation is true, this parameter will be ignored by platform.
-            If allowChooseLocation is false, and this paramater is not provided, default
-            value will be false.
-            */
+             * whether selected location should be shown to user on map or not.
+             * If allowChooseLocation is true, this parameter will be ignored by platform.
+             * If allowChooseLocation is false, and this paramater is not provided, default
+             * value will be false.
+             */
             showMap?: boolean;
         }
         interface Location {
             /**
-            Latitude of the location
-            */
+             * Latitude of the location
+             */
             latitude: number;
             /**
-            Longitude of the location
-            */
+             * Longitude of the location
+             */
             longitude: number;
             /**
-            Accuracy of the coordinates captured
-            */
+             * Accuracy of the coordinates captured
+             */
             accuracy?: number;
             /**
-            Time stamp when the location was captured
-            */
+             * Time stamp when the location was captured
+             */
             timestamp?: number;
         }
         /**
@@ -2139,7 +2074,7 @@ declare namespace microsoftTeams {
          */
         function showLocation(location: Location, callback: (error: SdkError, status: boolean) => void): void;
     }
-    export namespace media {
+    namespace media {
         /**
          * Enum for file formats supported
          */
@@ -2162,15 +2097,15 @@ declare namespace microsoftTeams {
              */
             format: FileFormat;
             /**
-             * Size of the file in KB
+             * Size of the file in KB
              */
             size: number;
             /**
-             * MIME type. This can be used for constructing a dataUrl, if needed.
+             * MIME type. This can be used for constructing a dataUrl, if needed.
              */
             mimeType: string;
             /**
-             * Optional: Name of the file
+             * Optional: Name of the file
              */
             name?: string;
         }
@@ -2227,6 +2162,7 @@ declare namespace microsoftTeams {
         /**
          *  All properties in ImageProps are optional and have default values in the platform
          */
+        // tslint:disable-next-line:interface-name
         interface ImageProps {
             /**
              * Optional; Lets the developer specify the image source, more than one can be specified.
@@ -2295,6 +2231,7 @@ declare namespace microsoftTeams {
         /**
          * Input for view images API
          */
+        // tslint:disable-next-line:interface-name
         interface ImageUri {
             value: string;
             type: ImageUriType;
@@ -2315,7 +2252,7 @@ declare namespace microsoftTeams {
              */
             chunk: string;
             /**
-             * chunk sequence number​
+             * chunk sequence number
              */
             chunkSequence: number;
         }
@@ -2357,12 +2294,12 @@ declare namespace microsoftTeams {
          */
         function scanBarCode(callback: (error: SdkError, decodedText: string) => void, config?: BarCodeConfig): void;
     }
-    export namespace meeting {
+    namespace meeting {
         /**
-         * @private
          * Hide from docs
          * Data structure to represent a meeting details.
          */
+        // tslint:disable-next-line:interface-name
         interface IMeetingDetails {
             /**
              * details object
@@ -2378,10 +2315,10 @@ declare namespace microsoftTeams {
             organizer: IOrganizer;
         }
         /**
-         * @private
          * Hide from docs
          * Data structure to represent details.
          */
+        // tslint:disable-next-line:interface-name
         interface IDetails {
             /**
              * Scheduled start time of the meeting
@@ -2405,10 +2342,10 @@ declare namespace microsoftTeams {
             type?: MeetingType;
         }
         /**
-         * @private
          * Hide from docs
          * Data structure to represent a conversation object.
          */
+        // tslint:disable-next-line:interface-name
         interface IConversation {
             /**
              * conversation id of the meeting
@@ -2416,10 +2353,10 @@ declare namespace microsoftTeams {
             id: string;
         }
         /**
-         * @private
          * Hide from docs
          * Data structure to represent an organizer object.
          */
+        // tslint:disable-next-line:interface-name
         interface IOrganizer {
             /**
              * organizer id of the meeting
@@ -2470,7 +2407,6 @@ declare namespace microsoftTeams {
          */
         function toggleIncomingClientAudio(callback: (error: SdkError | null, result: boolean | null) => void): void;
         /**
-         * @private
          * Hide from docs
          * Allows an app to get the meeting details for the meeting
          * @param callback Callback contains 2 parameters, error and meetingDetails.
@@ -2479,7 +2415,6 @@ declare namespace microsoftTeams {
          */
         function getMeetingDetails(callback: (error: SdkError | null, meetingDetails: IMeetingDetails | null) => void): void;
         /**
-         * @private
          * Allows an app to get the authentication token for the anonymous or guest user in the meeting
          * @param callback Callback contains 2 parameters, error and authenticationTokenOfAnonymousUser.
          * error can either contain an error of type SdkError, incase of an error, or null when get is successful
@@ -2521,12 +2456,12 @@ declare namespace microsoftTeams {
      * Return focus to the main Teams app. Will focus search bar if navigating foward and app bar if navigating back.
      * @param navigateForward Determines the direction to focus in teams app.
      */
-    export function returnFocus(navigateForward?: boolean): void;
+    function returnFocus(navigateForward?: boolean): void;
     /**
      * Navigates the Microsoft Teams app to the specified tab instance.
      * @param tabInstance The tab instance to navigate to.
      */
-    export function navigateToTab(tabInstance: TabInstance, onComplete?: (status: boolean, reason?: string) => void): void;
+    function navigateToTab(tabInstance: TabInstance, onComplete?: (status: boolean, reason?: string) => void): void;
     /**
      * Navigates the frame to a new cross-domain URL. The domain of this URL must match at least one of the
      * valid domains specified in the validDomains block of the manifest; otherwise, an exception will be
@@ -2535,13 +2470,13 @@ declare namespace microsoftTeams {
      * continue working.
      * @param url The URL to navigate the frame to.
      */
-    export function navigateCrossDomain(url: string, onComplete?: (status: boolean, reason?: string) => void): void;
+    function navigateCrossDomain(url: string, onComplete?: (status: boolean, reason?: string) => void): void;
     /**
      * Navigates back in the Teams client. See registerBackButtonHandler for more information on when
      * it's appropriate to use this method.
      */
-    export function navigateBack(onComplete?: (status: boolean, reason?: string) => void): void;
-    export namespace people {
+    function navigateBack(onComplete?: (status: boolean, reason?: string) => void): void;
+    namespace people {
         /**
          * Launches a people picker and allows the user to select one or more people from the list
          * If the app is added to personal app scope the people picker launched is org wide and if the app is added to a chat/channel, people picker launched is also limited to the members of chat/channel
@@ -2600,64 +2535,63 @@ declare namespace microsoftTeams {
      * @param validMessageOrigins Optionally specify a list of cross frame message origins. There must have
      * https: protocol otherwise they will be ignored. Example: https://www.example.com
      */
-    export function initialize(callback?: () => void, validMessageOrigins?: string[]): void;
+    function initialize(callback?: () => void, validMessageOrigins?: string[]): void;
     /**
-     * @private
      * Hide from docs.
      * ------
      * Undocumented function used to set a mock window for unit tests
      */
-    export function _initialize(hostWindow: any): void;
+    function _initialize(hostWindow: any): void;
     /**
-     * @private
      * Hide from docs.
      * ------
      * Undocumented function used to clear state between unit tests
      */
-    export function _uninitialize(): void;
+    function _uninitialize(): void;
     /**
      * Enable print capability to support printing page using Ctrl+P and cmd+P
      */
-    export function enablePrintCapability(): void;
+    function enablePrintCapability(): void;
     /**
      * default print handler
      */
-    export function print(): void;
+    function print(): void;
     /**
      * Retrieves the current context the frame is running in.
      * @param callback The callback to invoke when the {@link Context} object is retrieved.
      */
-    export function getContext(callback: (context: Context) => void): void;
+    function getContext(callback: (context: Context) => void): void;
     /**
      * Registers a handler for theme changes.
      * Only one handler can be registered at a time. A subsequent registration replaces an existing registration.
      * @param handler The handler to invoke when the user changes their theme.
      */
-    export function registerOnThemeChangeHandler(handler: (theme: string) => void): void;
+    // tslint:disable-next-line:adjacent-overload-signatures
+    function registerOnThemeChangeHandler(handler: (theme: string) => void): void;
     /**
      * Registers a handler for changes from or to full-screen view for a tab.
      * Only one handler can be registered at a time. A subsequent registration replaces an existing registration.
      * @param handler The handler to invoke when the user toggles full-screen view for a tab.
      */
-    export function registerFullScreenHandler(handler: (isFullScreen: boolean) => void): void;
+    function registerFullScreenHandler(handler: (isFullScreen: boolean) => void): void;
     /**
      * Registers a handler for clicking the app button.
      * Only one handler can be registered at a time. A subsequent registration replaces an existing registration.
      * @param handler The handler to invoke when the personal app button is clicked in the app bar.
      */
-    export function registerAppButtonClickHandler(handler: () => void): void;
+    function registerAppButtonClickHandler(handler: () => void): void;
     /**
      * Registers a handler for entering hover of the app button.
      * Only one handler can be registered at a time. A subsequent registration replaces an existing registration.
      * @param handler The handler to invoke when entering hover of the personal app button in the app bar.
      */
-    export function registerAppButtonHoverEnterHandler(handler: () => void): void;
+    function registerAppButtonHoverEnterHandler(handler: () => void): void;
     /**
      * Registers a handler for exiting hover of the app button.
      * Only one handler can be registered at a time. A subsequent registration replaces an existing registration.
      * @param handler The handler to invoke when exiting hover of the personal app button in the app bar.
      */
-    export function registerAppButtonHoverLeaveHandler(handler: () => void): void;
+    function registerAppButtonHoverLeaveHandler(handler: () => void): void;
     /**
      * Registers a handler for user presses of the Team client's back button. Experiences that maintain an internal
      * navigation stack should use this handler to navigate the user back within their frame. If an app finds
@@ -2665,55 +2599,56 @@ declare namespace microsoftTeams {
      * method to ask the Teams client to handle it instead.
      * @param handler The handler to invoke when the user presses their Team client's back button.
      */
-    export function registerBackButtonHandler(handler: () => boolean): void;
+    // tslint:disable-next-line:adjacent-overload-signatures
+    function registerBackButtonHandler(handler: () => boolean): void;
     /**
-     * @private
      * Registers a handler to be called when the page has been requested to load.
      * @param handler The handler to invoke when the page is loaded.
      */
-    export function registerOnLoadHandler(handler: (context: LoadContext) => void): void;
+    // tslint:disable-next-line:adjacent-overload-signatures
+    function registerOnLoadHandler(handler: (context: LoadContext) => void): void;
     /**
-     * @private
      * Registers a handler to be called before the page is unloaded.
      * @param handler The handler to invoke before the page is unloaded. If this handler returns true the page should
      * invoke the readyToUnload function provided to it once it's ready to be unloaded.
      */
-    export function registerBeforeUnloadHandler(handler: (readyToUnload: () => void) => boolean): void;
+    // tslint:disable-next-line:adjacent-overload-signatures
+    function registerBeforeUnloadHandler(handler: (readyToUnload: () => void) => boolean): void;
     /**
      * Registers a handler for when the user reconfigurated tab
      * @param handler The handler to invoke when the user click on Settings.
      */
-    export function registerChangeSettingsHandler(handler: () => void): void;
+    function registerChangeSettingsHandler(handler: () => void): void;
     /**
      * Allows an app to retrieve for this user tabs that are owned by this app.
      * If no TabInstanceParameters are passed, the app defaults to favorite teams and favorite channels.
      * @param callback The callback to invoke when the {@link TabInstanceParameters} object is retrieved.
      * @param tabInstanceParameters OPTIONAL Flags that specify whether to scope call to favorite teams or channels.
      */
-    export function getTabInstances(callback: (tabInfo: TabInformation) => void, tabInstanceParameters?: TabInstanceParameters): void;
+    function getTabInstances(callback: (tabInfo: TabInformation) => void, tabInstanceParameters?: TabInstanceParameters): void;
     /**
      * Allows an app to retrieve the most recently used tabs for this user.
      * @param callback The callback to invoke when the {@link TabInformation} object is retrieved.
      * @param tabInstanceParameters OPTIONAL Ignored, kept for future use
      */
-    export function getMruTabInstances(callback: (tabInfo: TabInformation) => void, tabInstanceParameters?: TabInstanceParameters): void;
+    function getMruTabInstances(callback: (tabInfo: TabInformation) => void, tabInstanceParameters?: TabInstanceParameters): void;
     /**
      * Shares a deep link that a user can use to navigate back to a specific state in this page.
      * @param deepLinkParameters ID and label for the link and fallback URL.
      */
-    export function shareDeepLink(deepLinkParameters: DeepLinkParameters): void;
+    function shareDeepLink(deepLinkParameters: DeepLinkParameters): void;
     /**
      * execute deep link API.
      * @param deepLink deep link.
      */
-    export function executeDeepLink(deepLink: string, onComplete?: (status: boolean, reason?: string) => void): void;
-    export function setFrameContext(frameContext: FrameContext): void;
-    export function initializeWithFrameContext(frameContext: FrameContext, callback?: () => void, validMessageOrigins?: string[]): void;
+    function executeDeepLink(deepLink: string, onComplete?: (status: boolean, reason?: string) => void): void;
+    function setFrameContext(frameContext: FrameContext): void;
+    function initializeWithFrameContext(frameContext: FrameContext, callback?: () => void, validMessageOrigins?: string[]): void;
     /**
      * Namespace to interact with the settings-specific part of the SDK.
      * This object is usable only on the settings frame.
      */
-    export namespace settings {
+    namespace settings {
         function initialize(): void;
         /**
          * Sets the validity state for the settings.
@@ -2808,7 +2743,7 @@ declare namespace microsoftTeams {
      * Namespace to interact with the task module-specific part of the SDK.
      * This object is usable only on the content frame.
      */
-    export namespace tasks {
+    namespace tasks {
         /**
          * Allows an app to open the task module.
          * @param taskInfo An object containing the parameters of the task module
