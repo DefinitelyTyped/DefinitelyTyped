@@ -16,7 +16,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@react-native/*": [
+                "react-native__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
