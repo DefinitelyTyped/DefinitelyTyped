@@ -8457,6 +8457,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      */
     export function group(options: GroupOptions, callback?: (groupId: number) => void): void
+    export function group(options: GroupOptions): Promise<number>;
     /**
      * Removes one or more tabs from their respective groups. If any groups become empty, they are deleted
      * @since Chrome 88
@@ -8464,6 +8465,7 @@ declare namespace chrome.tabs {
      * @param callback Optional. Called after the operation is completed.
      */
     export function ungroup(tabIds: number | number[], callback?: () => void): void
+    export function ungroup(tabIds: number | number[]): Promise<void>;
     /**
      * Fired when the highlighted or selected tabs in a window changes.
      * @since Chrome 18.
