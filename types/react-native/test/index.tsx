@@ -1521,7 +1521,7 @@ StyleSheet.create({
 });
 
 function someColorString(): ColorValue {
-    return "#000000";
+    return '#000000';
 }
 
 function somePlatformColor(): ColorValue {
@@ -1531,7 +1531,7 @@ function somePlatformColor(): ColorValue {
 const colors = {
     color: someColorString(),
     backgroundColor: somePlatformColor(),
-}
+};
 
 StyleSheet.create({
     labelCell: {
@@ -1756,10 +1756,8 @@ const I18nManagerTest = () => {
 };
 
 // LayoutAnimations
-LayoutAnimation.configureNext(LayoutAnimation.create(
-    123,
-    LayoutAnimation.Types.easeIn,
-    LayoutAnimation.Properties.opacity,
-));
+LayoutAnimation.configureNext(
+    LayoutAnimation.create(123, LayoutAnimation.Types.easeIn, LayoutAnimation.Properties.opacity),
+);
 
 LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));
