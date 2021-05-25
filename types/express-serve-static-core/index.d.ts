@@ -281,34 +281,34 @@ export interface IRouter extends RequestHandler {
     stack: any[];
 }
 
-export interface IRoute<T extends string = string> {
+export interface IRoute<Route extends string = string> {
     path: string;
     stack: any;
-    all: IRouterHandler<this, T>;
-    get: IRouterHandler<this, T>;
-    post: IRouterHandler<this, T>;
-    put: IRouterHandler<this, T>;
-    delete: IRouterHandler<this, T>;
-    patch: IRouterHandler<this, T>;
-    options: IRouterHandler<this, T>;
-    head: IRouterHandler<this, T>;
+    all: IRouterHandler<this, Route>;
+    get: IRouterHandler<this, Route>;
+    post: IRouterHandler<this, Route>;
+    put: IRouterHandler<this, Route>;
+    delete: IRouterHandler<this, Route>;
+    patch: IRouterHandler<this, Route>;
+    options: IRouterHandler<this, Route>;
+    head: IRouterHandler<this, Route>;
 
-    checkout: IRouterHandler<this, T>;
-    copy: IRouterHandler<this, T>;
-    lock: IRouterHandler<this, T>;
-    merge: IRouterHandler<this, T>;
-    mkactivity: IRouterHandler<this, T>;
-    mkcol: IRouterHandler<this, T>;
-    move: IRouterHandler<this, T>;
-    'm-search': IRouterHandler<this, T>;
-    notify: IRouterHandler<this, T>;
-    purge: IRouterHandler<this, T>;
-    report: IRouterHandler<this, T>;
-    search: IRouterHandler<this, T>;
-    subscribe: IRouterHandler<this, T>;
-    trace: IRouterHandler<this, T>;
-    unlock: IRouterHandler<this, T>;
-    unsubscribe: IRouterHandler<this, T>;
+    checkout: IRouterHandler<this, Route>;
+    copy: IRouterHandler<this, Route>;
+    lock: IRouterHandler<this, Route>;
+    merge: IRouterHandler<this, Route>;
+    mkactivity: IRouterHandler<this, Route>;
+    mkcol: IRouterHandler<this, Route>;
+    move: IRouterHandler<this, Route>;
+    'm-search': IRouterHandler<this, Route>;
+    notify: IRouterHandler<this, Route>;
+    purge: IRouterHandler<this, Route>;
+    report: IRouterHandler<this, Route>;
+    search: IRouterHandler<this, Route>;
+    subscribe: IRouterHandler<this, Route>;
+    trace: IRouterHandler<this, Route>;
+    unlock: IRouterHandler<this, Route>;
+    unsubscribe: IRouterHandler<this, Route>;
 }
 
 export interface Router extends IRouter {}
