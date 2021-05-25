@@ -114,7 +114,9 @@ declare class sharedb extends EventEmitter {
         | ReadSnapshotsContext
         | ReceiveContext
         | ReplyContext
-        /** For errors, we'll send back the request body (ReceiveContext.data). **/
+        /**
+         * For errors, we'll send back the request body (ReceiveContext.data).
+         */
         | {[key: string]: any}) => void): this;
 
     addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
