@@ -350,6 +350,7 @@ async function testTabInterface() {
         tab.audible; // $ExpectType boolean | undefined
         tab.discarded; // $ExpectType boolean
         tab.autoDiscardable; // $ExpectType boolean
+        tab.groupId; // $ExpectType number
         tab.mutedInfo; // $ExpectType MutedInfo | undefined
         tab.url; // $ExpectType string | undefined
         tab.pendingUrl; // $ExpectType string | undefined
@@ -377,6 +378,7 @@ async function testTabInterface() {
     tab.audible; // $ExpectType boolean | undefined
     tab.discarded; // $ExpectType boolean
     tab.autoDiscardable; // $ExpectType boolean
+    tab.groupId; // $ExpectType number
     tab.mutedInfo; // $ExpectType MutedInfo | undefined
     tab.url; // $ExpectType string | undefined
     tab.pendingUrl; // $ExpectType string | undefined
