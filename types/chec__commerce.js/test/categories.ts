@@ -2,15 +2,17 @@ import Commerce = require('@chec/commerce.js');
 
 const commerce = new Commerce('{your_public_key}');
 
+const categoryId = 'cat_7RqEv5xKOoZz4j';
+const categorySlug = 'shoes';
+
 // List all categories
-commerce.categories.list().then(categories => {});
+// $ExpectType Promise<CategoryCollection>
+commerce.categories.list();
 
 // Fetch a category by ID
-const categoryId = 'cat_7RqEv5xKOoZz4j';
-commerce.categories.retrieve(categoryId)
-  .then(category => {});
+// $ExpectType Promise<Category>
+commerce.categories.retrieve(categoryId);
 
 // Fetch a category by slug
-const categorySlug = 'shoes';
-commerce.categories.retrieve(categorySlug, { type: 'slug' })
-  .then(category => {});
+// $ExpectType Promise<Category>
+commerce.categories.retrieve(categorySlug, { type: 'slug' });

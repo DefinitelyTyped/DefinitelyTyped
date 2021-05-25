@@ -9,25 +9,33 @@ const lineItemId = 'item_7RyWOwmK5nEa2V';
 const newQuantity = 3;
 
 // Retrieve the customers current cart (tracked by their browser)
-commerce.cart.retrieve().then(cart => {});
+// $ExpectType Promise<Cart>
+commerce.cart.retrieve();
 
 // Create a new cart rather than using any existing cart
-commerce.cart.refresh().then(cart => {});
+// $ExpectType Promise<Cart>
+commerce.cart.refresh();
 
 // Retrieve a cart by cartId
-commerce.cart.retrieve(cartId).then(cart => {});
+// $ExpectType Promise<Cart>
+commerce.cart.retrieve(cartId);
 
 // Uses the cart that was previously created or retrieved
-commerce.cart.add(productId, quantity).then(json => {});
+// $ExpectType Promise<AddUpdateResponse>
+commerce.cart.add(productId, quantity);
 
 // Uses the cart that was previously created or retrieved
-commerce.cart.update(lineItemId, { quantity: newQuantity }).then(json => {});
+// $ExpectType Promise<AddUpdateResponse>
+commerce.cart.update(lineItemId, { quantity: newQuantity });
 
 // Uses the cart that was previously created or retrieved
-commerce.cart.delete().then(json => {});
+// $ExpectType Promise<DeleteResponse>
+commerce.cart.delete();
 
 // Uses the cart that was previously created or retrieved
-commerce.cart.empty().then(json => {});
+// $ExpectType Promise<EmptyResponse>
+commerce.cart.empty();
 
 // Uses the cart that was previously created or retrieved
-commerce.cart.remove(lineItemId).then(json => {});
+// $ExpectType Promise<RemoveResponse>
+commerce.cart.remove(lineItemId);

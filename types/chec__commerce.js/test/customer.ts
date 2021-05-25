@@ -8,13 +8,32 @@ const customerId = 'cstmr_VNplJa1EaYwL60';
 const token = 'token';
 const orderId = 'ord_p7ZAMo1xwNJ4xX';
 
-commerce.customer.login(email, base_url).then((response) => {});
-commerce.customer.getToken(token, true).then((response) => {});
-commerce.customer.update({}, customerId, token).then((response) => {});
-commerce.customer.getOrders(customerId, token, {}).then((response) => {});
-commerce.customer.getOrder(orderId, customerId, token).then((response) => {});
-commerce.customer.about().then((response) => {});
+// $ExpectType Promise<{ success: boolean; }>
+commerce.customer.login(email, base_url);
+
+// $ExpectType Promise<{ customer_id: string; jwt: string; }>
+commerce.customer.getToken(token, true);
+
+// $ExpectType Promise<any>
+commerce.customer.update({}, customerId, token);
+
+// $ExpectType Promise<any>
+commerce.customer.getOrders(customerId, token, {});
+
+// $ExpectType Promise<any>
+commerce.customer.getOrder(orderId, customerId, token);
+
+// $ExpectType Promise<any>
+commerce.customer.about();
+
+// $ExpectType string | null
 commerce.customer.id();
+
+// $ExpectType string | null
 commerce.customer.token();
+
+// $ExpectType boolean
 commerce.customer.isLoggedIn();
+
+// $ExpectType void
 commerce.customer.logout();

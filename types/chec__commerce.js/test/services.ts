@@ -5,10 +5,14 @@ const commerce = new Commerce('{your_public_key}');
 const token = 'checkout_token_id';
 const country = 'US';
 
-commerce.services.localeListCountries().then(response => {});
+// $ExpectType Promise<LocaleListCountriesResponse>
+commerce.services.localeListCountries();
 
-commerce.services.localeListShippingCountries(token).then(response => {});
+// $ExpectType Promise<LocaleListCountriesResponse>
+commerce.services.localeListShippingCountries(token);
 
-commerce.services.localeListShippingSubdivisions(token, country).then(response => {});
+// $ExpectType Promise<LocaleListSubdivisionsResponse>
+commerce.services.localeListShippingSubdivisions(token, country);
 
-commerce.services.localeListSubdivisions(country).then(response => {});
+// $ExpectType Promise<LocaleListSubdivisionsResponse>
+commerce.services.localeListSubdivisions(country);

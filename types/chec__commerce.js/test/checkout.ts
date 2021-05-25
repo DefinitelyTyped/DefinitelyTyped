@@ -17,18 +17,22 @@ const postCode = '94107';
 const ipAddress = '';
 const giftcardCode = 'ABC-123-ZYX';
 
+// $ExpectType Promise<CheckoutToken>
+commerce.checkout.generateToken('white-shirt', { type: 'permalink' });
+
 // Generate a token from a product permalink
-commerce.checkout.generateTokenFrom('permalink', productPermalink)
-  .then(response => {});
+// $ExpectType Promise<CheckoutToken>
+commerce.checkout.generateTokenFrom('permalink', productPermalink);
 
 // Generate a token from a product ID
-commerce.checkout.generateTokenFrom('product_id', productId)
-  .then(response => {});
+// $ExpectType Promise<CheckoutToken>
+commerce.checkout.generateTokenFrom('product_id', productId);
 
 // Generate a token from the cart that was previously created or retrieved
-commerce.checkout.generateTokenFrom('cart', commerce.cart.id()!)
-  .then(response => {});
+// $ExpectType Promise<CheckoutToken>
+commerce.checkout.generateTokenFrom('cart', commerce.cart.id()!);
 
+// $ExpectType Promise<CheckoutCaptureResponse>
 commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
   line_items: {
     // Key is the line item ID for our test product
@@ -68,50 +72,60 @@ commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
       number: '4242 4242 4242 4242'
     },
   },
-})
-.then(response => {})
-.catch(error => {});
+});
 
-commerce.checkout.getToken(checkoutTokenId).then(token => {});
+// $ExpectType Promise<CheckoutToken>
+commerce.checkout.getToken(checkoutTokenId);
 
-commerce.checkout.getLive(checkoutTokenId).then(live => {});
+// $ExpectType Promise<Live>
+commerce.checkout.getLive(checkoutTokenId);
 
+// $ExpectType Promise<CheckPayWhatYouWantResponse>
 commerce.checkout.checkPayWhatYouWant(checkoutTokenId, {
   customer_set_price: customerSetPrice,
-}).then(response => {});
+});
 
+// $ExpectType Promise<CheckVariantResponse>
 commerce.checkout.checkVariant(checkoutTokenId, lineItemId, {
   variant_id: variantId,
   option_id: optionId,
-}).then(response => {});
+});
 
+// $ExpectType Promise<CheckDiscountResponse>
 commerce.checkout.checkDiscount(checkoutTokenId, {
   code: discountCode,
-}).then(response => {});
+});
 
+// $ExpectType Promise<CheckShippingOptionResponse>
 commerce.checkout.checkShippingOption(checkoutTokenId, {
   shipping_option_id: shippingOptionId,
   country,
   region,
-}).then(response => {});
+});
 
-commerce.checkout.isFree(checkoutTokenId).then(response => {});
+// $ExpectType Promise<IsFreeResponse>
+commerce.checkout.isFree(checkoutTokenId);
 
-commerce.checkout.getLocationFromIP(checkoutTokenId, ipAddress).then(response => {});
+// $ExpectType Promise<GetLocationFromIPResponse>
+commerce.checkout.getLocationFromIP(checkoutTokenId, ipAddress);
 
+// $ExpectType Promise<CheckGiftcardResponse>
 commerce.checkout.checkGiftcard(checkoutTokenId, {
   code: giftcardCode,
-}).then(response => {});
+});
 
-commerce.checkout.helperValidation(checkoutTokenId).then(response => {});
+// $ExpectType Promise<HelperValidationResponse>
+commerce.checkout.helperValidation(checkoutTokenId);
 
+// $ExpectType Promise<GetShippingOptionsResponse>
 commerce.checkout.getShippingOptions(checkoutTokenId, {
   country,
   region,
-}).then(options => {});
+});
 
+// $ExpectType Promise<SetTaxZoneResponse>
 commerce.checkout.setTaxZone(checkoutTokenId, {
   country,
   region,
   postal_zip_code: postCode,
-}).then(response => {});
+});

@@ -9,19 +9,26 @@ const variantId = 'vrnt_Kvg9l6Apq51bB7';
 const productPermalink = 'YfFoyi';
 
 // Fetch all products
-commerce.products.list().then(response => response.data);
+// $ExpectType Promise<ProductCollection>
+commerce.products.list();
 
 // Fetch products specifying some additional parameters
+// $ExpectType Promise<ProductCollection>
 commerce.products.list({
   limit,
   category_slug: categorySlug,
-}).then(response => response.data);
+});
 
 // Retrieve a product by it's ID
-commerce.products.retrieve(productId).then(product => {});
+// $ExpectType Promise<Product>
+commerce.products.retrieve(productId);
 
 // Retrieve a product by it's permalink
-commerce.products.retrieve(productPermalink, { type: 'permalink' }).then(product => {});
+// $ExpectType Promise<Product>
+commerce.products.retrieve(productPermalink, { type: 'permalink' });
 
-commerce.products.getVariants(productId).then(product => {});
-commerce.products.getVariant(productId, variantId).then(product => {});
+// $ExpectType Promise<any>
+commerce.products.getVariants(productId);
+
+// $ExpectType Promise<any>
+commerce.products.getVariant(productId, variantId);
