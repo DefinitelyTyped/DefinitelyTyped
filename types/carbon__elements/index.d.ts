@@ -101,7 +101,7 @@ export const white: {
     iconOnColor: "#ffffff";
     iconInverse: "#ffffff";
     supportError: "#da1e28";
-    supportSuccess: "#24a148";
+    supportSuccess: "#198038";
     supportWarning: "#f1c21b";
     supportInfo: "#0043ce";
     supportErrorInverse: "#fa4d56";
@@ -182,6 +182,11 @@ export const white: {
     helperText01: {
         fontSize: "0.75rem";
         lineHeight: 1.34;
+        letterSpacing: "0.32px";
+    };
+    helperText02: {
+        fontSize: "0.875rem";
+        lineHeight: 1.29;
         letterSpacing: "0.32px";
     };
     bodyShort01: {
@@ -577,6 +582,12 @@ export const white: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
