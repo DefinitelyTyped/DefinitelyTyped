@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-native__assets-test.ts"
+        "react-native__assets-tests.ts"
     ]
 }
