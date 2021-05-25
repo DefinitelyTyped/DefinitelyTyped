@@ -1,9 +1,8 @@
+import { User } from '@ckeditor/ckeditor5-collaboration-core';
 import { EditorConfig } from '@ckeditor/ckeditor5-core/src/editor/editorconfig';
 import { View } from '@ckeditor/ckeditor5-ui';
 import { Locale } from '@ckeditor/ckeditor5-utils';
 import Suggestion from '../../suggestion';
-// TODO: import {User} from "@ckeditor/ckeditor5-collaboration-core";
-declare class User {}
 
 export default class BaseSuggestionThreadView extends View {
     readonly commentThreadInputView: View | null;

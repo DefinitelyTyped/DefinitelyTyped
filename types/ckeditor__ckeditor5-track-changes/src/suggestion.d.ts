@@ -1,10 +1,8 @@
-// TODO: import {User} from "@ckeditor/ckeditor5-collaboration-core";
 // TODO: import {CommentThread} from "@ckeditor/ckeditor5-comments/src/comments/commentsrepository";
-
+import { User } from '@ckeditor/ckeditor5-collaboration-core';
 import { Element, Model, Range } from '@ckeditor/ckeditor5-engine';
 import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
 import { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';
-declare class User {}
 declare class CommentThread {}
 
 export default class Suggestion {
