@@ -453,6 +453,10 @@ If the module you're referencing is an ambient module (uses `declare module`, or
 
 Then they are wrong, and we've not noticed yet. You can help by submitting a pull request to fix them.
 
+#### Can I change/enforce formatting settings for modules?
+
+No. We've explored trying to make DT's code-formatting consistent before but reached an impasse due to the high activity on the repo. We include formatting settings via a [`.editorconfig`](.editorconfig) and [`.prettierrc.json`](.prettierrc.json). These are exclusively for tooling in your editor, their settings don't conflict and we don't plan on changing them. Nor do we plan on enforcing a specific style in the repo. We want to keep the barriers to contributions low.
+
 #### Can I request a definition?
 
 Here are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
