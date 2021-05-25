@@ -43,7 +43,7 @@ app.route('/*').get<express.ParamsArray>(req => {
 });
 
 // Params can be a custom type
-// NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
+// NB. out-of-the-box all params are strings, however, other types are allowed to accommodate request validation/coercion middleware
 app.get<{ foo: string; bar: number }>('/:foo/:bar', req => {
     req.params.foo; // $ExpectType string
     req.params.bar; // $ExpectType number
