@@ -2,3 +2,5 @@
 // Project: https://github.com/facebook/react-native#readme
 // Definitions by: Zihan Chen <https://github.com/ZihanChen-MSFT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// intended to leave blank
