@@ -8287,6 +8287,7 @@ export const brand03: "#0f62fe";
 export const active01: "#c6c6c6";
 export const hoverField: "#e5e5e5";
 export const danger: "#da1e28";
+export const toggleOff: "#8d8d8d";
 export const unstable_tokens: [
     "caption01",
     "caption02",
