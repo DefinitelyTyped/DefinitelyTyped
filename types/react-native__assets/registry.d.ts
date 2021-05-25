@@ -1,4 +1,4 @@
-export type PackagerAsset = {
+interface PackagerAsset {
     __packager_asset: boolean;
     fileSystemLocation: string;
     httpServerLocation: string;
@@ -8,7 +8,7 @@ export type PackagerAsset = {
     hash: string;
     name: string;
     type: string;
-};
+}
 
 export function registerAsset(asset: PackagerAsset): number;
 export function getAssetByID(assetId: number): PackagerAsset;
