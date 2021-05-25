@@ -1999,6 +1999,12 @@ export const g10: {
     container03: "2.5rem";
     container04: "3rem";
     container05: "4rem";
+    sizeXSmall: "1.5rem";
+    sizeSmall: "2rem";
+    sizeMedium: "2.5rem";
+    sizeLarge: "3rem";
+    sizeXLarge: "4rem";
+    size2XLarge: "5rem";
     iconSize01: "1rem";
     iconSize02: "1.25rem";
 };
