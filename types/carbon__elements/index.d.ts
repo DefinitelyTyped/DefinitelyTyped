@@ -1391,6 +1391,20 @@ export const layout04: "3rem";
 export const layout05: "4rem";
 export const layout06: "6rem";
 export const layout07: "10rem";
+export const size2XLarge: "5rem";
+export const sizeLarge: "3rem";
+export const sizeMedium: "2.5rem";
+export const sizeSmall: "2rem";
+export const sizeXLarge: "4rem";
+export const sizeXSmall: "1.5rem";
+export const sizes: {
+    XSmall: typeof sizeXSmall;
+    Small: typeof sizeSmall;
+    Medium: typeof sizeMedium;
+    Large: typeof sizeLarge;
+    XLarge: typeof sizeXLarge;
+    "2XLarge": typeof size2XLarge;
+};
 export const container01: "1.5rem";
 export const container02: "2rem";
 export const container03: "2.5rem";
@@ -4467,6 +4481,7 @@ export const tokens: {
         "spacing10",
         "spacing11",
         "spacing12",
+        "spacing13",
         "fluidSpacing01",
         "fluidSpacing02",
         "fluidSpacing03",
@@ -4483,6 +4498,12 @@ export const tokens: {
         "container03",
         "container04",
         "container05",
+        "sizeXSmall",
+        "sizeSmall",
+        "sizeMedium",
+        "sizeLarge",
+        "sizeXLarge",
+        "size2XLarge",
         "iconSize01",
         "iconSize02",
     ];
