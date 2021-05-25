@@ -59,7 +59,7 @@ export interface WriteTransactionOptions {
     srsName?: string;
     handle?: string;
     hasZ?: boolean;
-    nativeElements: object[];
+    nativeElements?: object[];
     gmlOptions?: Options_1;
     version?: string;
 }
