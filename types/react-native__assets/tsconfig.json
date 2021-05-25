@@ -4,6 +4,8 @@
         "lib": [
             "es5",
         ],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
