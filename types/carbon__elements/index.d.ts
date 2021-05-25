@@ -76,6 +76,8 @@ export const white: {
     background: "#ffffff";
     layer: "#f4f4f4";
     layerAccent: "#e0e0e0";
+    layerAccentActive: "#a8a8a8";
+    layerAccentHover: "#d1d1d1";
     field: "#f4f4f4";
     backgroundInverse: "#393939";
     backgroundBrand: "#0f62fe";
@@ -1466,6 +1468,8 @@ export const g10: {
     background: "#f4f4f4";
     layer: "#ffffff";
     layerAccent: "#e0e0e0";
+    layerAccentActive: "#a8a8a8";
+    layerAccentHover: "#d1d1d1";
     field: "#ffffff";
     backgroundInverse: "#393939";
     backgroundBrand: "#0f62fe";
@@ -1977,6 +1981,8 @@ export const g80: {
     background: "#393939";
     layer: "#525252";
     layerAccent: "#6f6f6f";
+    layerAccentActive: "#525252";
+    layerAccentHover: "#5e5e5e";
     field: "#525252";
     backgroundInverse: "#f4f4f4";
     backgroundBrand: "#0f62fe";
@@ -2614,6 +2620,8 @@ export const g90: {
     background: "#262626";
     layer: "#393939";
     layerAccent: "#525252";
+    layerAccentActive: "#8d8d8d";
+    layerAccentHover: "#636363";
     field: "#393939";
     backgroundInverse: "#f4f4f4";
     backgroundBrand: "#0f62fe";
@@ -3185,6 +3193,8 @@ export const g100: {
     background: "#161616";
     layer: "#262626";
     layerAccent: "#393939";
+    layerAccentActive: "#6f6f6f";
+    layerAccentHover: "#474747";
     field: "#262626";
     backgroundInverse: "#f4f4f4";
     backgroundBrand: "#0f62fe";
@@ -4279,6 +4289,7 @@ export const tokens: {
         "icon02",
         "icon03",
         "link01",
+        "link02",
         "inverseLink",
         "field01",
         "field02",
@@ -4324,6 +4335,82 @@ export const tokens: {
         "buttonSeparator",
         "skeleton01",
         "skeleton02",
+        "background",
+        "layer",
+        "layerAccent",
+        "layerAccentHover",
+        "layerAccentActive",
+        "field",
+        "backgroundInverse",
+        "backgroundBrand",
+        "interactive",
+        "borderSubtle",
+        "borderStrong",
+        "borderInverse",
+        "borderInteractive",
+        "textPrimary",
+        "textSecondary",
+        "textPlaceholder",
+        "textHelper",
+        "textOnColor",
+        "textInverse",
+        "linkPrimary",
+        "linkSecondary",
+        "linkVisited",
+        "linkInverse",
+        "iconPrimary",
+        "iconSecondary",
+        "iconOnColor",
+        "iconInverse",
+        "supportError",
+        "supportSuccess",
+        "supportWarning",
+        "supportInfo",
+        "supportErrorInverse",
+        "supportSuccessInverse",
+        "supportWarningInverse",
+        "supportInfoInverse",
+        "overlay",
+        "toggleOff",
+        "buttonPrimary",
+        "buttonSecondary",
+        "buttonTertiary",
+        "buttonDangerPrimary",
+        "buttonDangerSecondary",
+        "backgroundActive",
+        "layerActive",
+        "buttonDangerActive",
+        "buttonPrimaryActive",
+        "buttonSecondaryActive",
+        "buttonTertiaryActive",
+        "focusInset",
+        "focusInverse",
+        "backgroundHover",
+        "layerHover",
+        "fieldHover",
+        "backgroundInverseHover",
+        "linkPrimaryHover",
+        "buttonDangerHover",
+        "buttonPrimaryHover",
+        "buttonSecondaryHover",
+        "buttonTertiaryHover",
+        "backgroundSelected",
+        "backgroundSelectedHover",
+        "layerSelected",
+        "layerSelectedHover",
+        "layerSelectedInverse",
+        "borderSubtleSelected",
+        "layerDisabled",
+        "fieldDisabled",
+        "borderDisabled",
+        "textDisabled",
+        "buttonDisabled",
+        "iconDisabled",
+        "textOnColorDisabled",
+        "iconOnColorDisabled",
+        "layerSelectedDisabled",
+        "skeletonBackground",
+        "skeletonElement",
         "brand01",
         "brand02",
         "brand03",
@@ -4558,6 +4645,8 @@ export const themes: {
         background: "#ffffff";
         layer: "#f4f4f4";
         layerAccent: "#e0e0e0";
+        layerAccentActive: "#a8a8a8";
+        layerAccentHover: "#d1d1d1";
         field: "#f4f4f4";
         backgroundInverse: "#393939";
         backgroundBrand: "#0f62fe";
@@ -5135,6 +5224,8 @@ export const themes: {
         background: "#f4f4f4";
         layer: "#ffffff";
         layerAccent: "#e0e0e0";
+        layerAccentActive: "#a8a8a8";
+        layerAccentHover: "#d1d1d1";
         field: "#ffffff";
         backgroundInverse: "#393939";
         backgroundBrand: "#0f62fe";
@@ -5646,6 +5737,8 @@ export const themes: {
         background: "#393939";
         layer: "#525252";
         layerAccent: "#6f6f6f";
+        layerAccentActive: "#525252";
+        layerAccentHover: "#5e5e5e";
         field: "#525252";
         backgroundInverse: "#f4f4f4";
         backgroundBrand: "#0f62fe";
@@ -6289,6 +6382,8 @@ export const themes: {
         background: "#262626";
         layer: "#393939";
         layerAccent: "#525252";
+        layerAccentActive: "#8d8d8d";
+        layerAccentHover: "#636363";
         field: "#393939";
         backgroundInverse: "#f4f4f4";
         backgroundBrand: "#0f62fe";
@@ -6866,6 +6961,8 @@ export const themes: {
         background: "#161616";
         layer: "#262626";
         layerAccent: "#393939";
+        layerAccentActive: "#6f6f6f";
+        layerAccentHover: "#474747";
         field: "#262626";
         backgroundInverse: "#f4f4f4";
         backgroundBrand: "#0f62fe";
@@ -8017,6 +8114,8 @@ export const inverseSupport03: "#f1c21b";
 export const inverseSupport04: "#4589ff";
 export const layer: "#f4f4f4";
 export const layerAccent: "#e0e0e0";
+export const layerAccentActive: "#a8a8a8";
+export const layerAccentHover: "#d1d1d1";
 export const layerActive: "#c6c6c6";
 export const layerDisabled: "#f4f4f4";
 export const layerHover: "#e5e5e5";
