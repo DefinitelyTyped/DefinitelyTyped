@@ -1,4 +1,4 @@
-// Type definitions for Koa 2.13.0
+// Type definitions for Koa 2.13.1
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
 //                 jKey Lu <https://github.com/jkeylu>
@@ -456,7 +456,14 @@ declare class Application<
     silent: boolean;
     keys: Keygrip | string[];
 
-    constructor();
+    constructor(options?: {
+        env?: string,
+        keys?: string[],
+        proxy?: boolean,
+        subdomainOffset?: number,
+        proxyIpHeader?: boolean,
+        maxIpsCount?: boolean,
+    });
 
     /**
      * Shorthand for:
