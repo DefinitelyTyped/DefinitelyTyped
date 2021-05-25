@@ -24,6 +24,7 @@
         "test/cart.ts",
         "test/categories.ts",
         "test/checkout.ts",
+        "test/customer.ts",
         "test/merchants.ts",
         "test/products.ts",
         "test/services.ts"

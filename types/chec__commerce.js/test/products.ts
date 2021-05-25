@@ -5,6 +5,8 @@ const commerce = new Commerce('{your_public_key}');
 const limit = 50;
 const categorySlug = 'shoes';
 const productId = 'prod_1ypbroE658n4ea';
+const variantId = 'vrnt_Kvg9l6Apq51bB7';
+const productPermalink = 'YfFoyi';
 
 // Fetch all products
 commerce.products.list().then(response => response.data);
@@ -19,6 +21,7 @@ commerce.products.list({
 commerce.products.retrieve(productId).then(product => {});
 
 // Retrieve a product by it's permalink
-const productPermalink = 'YfFoyi';
-
 commerce.products.retrieve(productPermalink, { type: 'permalink' }).then(product => {});
+
+commerce.products.getVariants(productId).then(product => {});
+commerce.products.getVariant(productId, variantId).then(product => {});

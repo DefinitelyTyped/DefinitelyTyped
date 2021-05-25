@@ -12,4 +12,6 @@ export class Products {
 
   list(params?: any): Promise<ProductCollection>;
   retrieve(id: string, data?: object): Promise<Product>;
+  getVariants(id: string, data?: object): Promise<any>;
+  getVariant(id: string, variantId: string): Promise<any>;
 }
