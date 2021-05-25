@@ -3,6 +3,8 @@ import { Live } from '../types/live';
 import { Price } from '../types/price';
 import { DiscountType } from '../types/discount';
 import { CheckoutToken } from '../types/checkout-token';
+import { CheckoutCapture } from '../types/checkout-capture';
+import { CheckoutCaptureResponse } from '../types/checkout-capture-response';
 
 export type IdentifierType = 'product_id' | 'cart' | 'permalink';
 
@@ -98,9 +100,9 @@ export class Checkout {
   constructor(commerce: Commerce);
 
   protect(token: string): Promise<any>;
-  generateToken(identifier: string, data: object): Promise<any>;
-  generateTokenFrom(type: IdentifierType, identifier: string): Promise<any>;
-  capture(token: string, data: object): Promise<any>;
+  generateToken(identifier: string, data: object): Promise<CheckoutToken>;
+  generateTokenFrom(type: IdentifierType, identifier: string): Promise<CheckoutToken>;
+  capture(token: string, data: CheckoutCapture): Promise<CheckoutCaptureResponse>;
   receipt(token: string): Promise<any>;
 
   checkPayWhatYouWant(token: string, data: { customer_set_price: string }): Promise<CheckPayWhatYouWantResponse>;

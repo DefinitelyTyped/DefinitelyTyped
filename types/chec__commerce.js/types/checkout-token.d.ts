@@ -2,7 +2,6 @@ import { Merchant } from './merchant';
 import { Extrafield } from './extrafield';
 import { ShippingMethod } from './shipping-method';
 import { Live } from './live';
-import { Product } from './product';
 import { Price } from './price';
 import { SelectedVariant } from './selected-variant';
 
@@ -41,7 +40,6 @@ export interface CheckoutToken {
   line_items: CheckoutTokenLineItem[];
   merchant: Merchant;
   extra_fields: Extrafield[];
-  products: Product[];
   gateways: {
     available: {
       test_gateway: boolean;

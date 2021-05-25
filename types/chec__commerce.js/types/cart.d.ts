@@ -11,7 +11,7 @@ export interface Cart {
   total_unique_items: number;
   subtotal: Price;
   currency: Currency;
-  discount_code: any[]; // todo
+  discount_code: any; // todo
   hosted_checkout_url: string;
   line_items: LineItem[];
 }
