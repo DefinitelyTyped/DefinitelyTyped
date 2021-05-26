@@ -300,6 +300,8 @@ rule = {
 
         context.getFilename();
 
+        context.getCwd();
+
         context.getSourceCode();
 
         context.getScope();
