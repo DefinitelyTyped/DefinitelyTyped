@@ -458,16 +458,16 @@ declare class Application<
     keys: Keygrip | string[];
 
     /**
-    *
-    * @param {object} [options] Application optionsJake, 2 years ago: • feat: accept options in the Application const…
-    * @param {string} [options.env='development'] Environment
-    * @param {string[]} [options.keys] Signed cookie keys
-    * @param {boolean} [options.proxy] Trust proxy headers
-    * @param {number} [options.subdomainOffset] Subdomain offset
-    * @param {boolean} [options.proxyIpHeader] proxy ip header, default to X-Forwarded-For
-    * @param {boolean} [options.maxIpsCount] max ips read from proxy ip header, default to 0 (means infinity)
-    *
-    */
+     *
+     * @param {object} [options] Application optionsJake, 2 years ago: • feat: accept options in the Application const…
+     * @param {string} [options.env='development'] Environment
+     * @param {string[]} [options.keys] Signed cookie keys
+     * @param {boolean} [options.proxy] Trust proxy headers
+     * @param {number} [options.subdomainOffset] Subdomain offset
+     * @param {boolean} [options.proxyIpHeader] proxy ip header, default to X-Forwarded-For
+     * @param {boolean} [options.maxIpsCount] max ips read from proxy ip header, default to 0 (means infinity)
+     *
+     */
     constructor(options?: {
         env?: string,
         keys?: string[],
