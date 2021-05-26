@@ -103,20 +103,7 @@ declare class sharedb extends EventEmitter {
     on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
     on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
-    on(event: 'send', callback: (agent: Agent, context: SubmitContext
-        | ApplyContext
-        | CommitContext
-        | ConnectContext
-        | DocContext
-        | OpContext
-        | QueryContext
-        | ReadSnapshotsContext
-        | ReceiveContext
-        | ReplyContext
-        /**
-         * For errors, we'll send back the request body (ReceiveContext.data).
-         */
-        | {[key: string]: any}) => void): this;
+    on(event: 'send', callback: (agent: Agent, requestData: {[key: string]: any}) => void): this;
 
     addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
     addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
