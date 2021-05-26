@@ -1,4 +1,4 @@
-// Type definitions for Bezier.js
+// Type definitions for Bezier.js 4.1.x
 // Project: https://github.com/Pomax/bezierjs
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 //                 Simon <https://github.com/Epskampie>
