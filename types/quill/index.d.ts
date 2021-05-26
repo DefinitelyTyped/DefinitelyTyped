@@ -10,7 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { Blot } from "parchment/src/blot/abstract/blot";
+import { Blot } from "parchment/dist/src/blot/abstract/blot";
 import Delta = require("quill-delta");
 
 /**
