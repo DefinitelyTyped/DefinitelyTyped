@@ -6,10 +6,17 @@ export interface JSONObject {
 }
 export interface JSONArray extends Array<JSONValue> {}
 
+export type IDString = string;
+export type VersionNumber = number;
+export type CollectionName = string;
+export type DocumentID = string;
+export type RequestQuery = any;
+export type BulkRequestData = IDString[] | Record<IDString, any>;
+
 export type Path = ReadonlyArray<string|number>;
 export interface Snapshot<T = any> {
-    id: string;
-    v: number;
+    id: IDString;
+    v: VersionNumber;
     type: string | null;
     data?: T;
     m: SnapshotMeta | null;
@@ -43,10 +50,10 @@ export type Op = AddNumOp | ListInsertOp | ListDeleteOp | ListReplaceOp | ListMo
 export interface RawOp {
     src: string;
     seq: number;
-    v: number;
+    v: VersionNumber;
     m: any;
-    c: string;
-    d: string;
+    c: CollectionName;
+    d: DocumentID;
 }
 
 export type CreateOp = RawOp & { create: { type: string; data: any }; del: undefined; op: undefined; };
@@ -103,7 +110,7 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     id: string;
     collection: string;
     data: T;
-    version: number | null;
+    version: VersionNumber | null;
     subscribed: boolean;
     preventCompose: boolean;
     paused: boolean;
@@ -148,7 +155,7 @@ export class Query<T = any> extends TypedEmitter<QueryEventMap<T>> {
     connection: Connection;
     id: string;
     collection: string;
-    query: any;
+    query: RequestQuery;
     ready: boolean;
     sent: boolean;
     results: Array<Doc<T>>;
@@ -207,6 +214,31 @@ export interface ClientRequest {
     a: RequestAction;
 
     [propertyName: string]: any;
+}
+
+export interface AnyDataObject {
+    [key: string]: any;
+}
+
+export interface ServerResponseSuccess {
+    a?: RequestAction;
+    c?: CollectionName;
+    d?: DocumentID;
+    extra?: any;
+    v?: VersionNumber;
+    id?: number;
+    protocol?: number;
+    protocolMinor?: number;
+    type?: string;
+    data?: AnyDataObject | AnyDataObject[];
+}
+
+export interface ServerResponseError extends ServerResponseSuccess {
+    error: Error;
+    b?: BulkRequestData;
+    o?: AnyDataObject;
+    q?: RequestQuery;
+    r?: Array<[IDString, VersionNumber]>;
 }
 
 export interface Socket {
