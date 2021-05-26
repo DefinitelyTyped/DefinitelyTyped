@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
+import { VSCodeEvent } from './events';
+
 export interface CellInfo {
     /**
      * HTML element where the cell should be renderer.
@@ -69,6 +71,24 @@ export interface RendererContext<T> {
      * activated yet.
      */
     getRenderer(id: string): RendererApi | undefined;
+
+    /**
+     * Method that may be present if `requiresMessaging` is set to `true`
+     * or `optional` in the renderer contribution point.
+     *
+     * Sends a message to a renderer listening via the `vscode.notebook.createRendererMessaging`
+     * object in the extension host.
+     */
+    postMessage?(message: unknown): void;
+
+    /**
+     * Event that may be present if `requiresMessaging` is set to `true`
+     * or `optional` in the renderer contribution point.
+     *
+     * Fires when a message is sent via the `vscode.notebook.createRendererMessaging`
+     * object in the extension host.
+     */
+    onDidReceiveMessage?: VSCodeEvent<any>;
 }
 
 export interface RendererApi {

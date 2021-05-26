@@ -15,6 +15,12 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
     // $ExpectError
     context.setState({ unknownProp: true });
 
+    context.postMessage?.('hello world');
+    context.onDidReceiveMessage?.(message => {
+        // $ExpectType any
+        message;
+    });
+
     return {
         renderCell(outputId, { value, mime, metadata, element, text, json, blob, bytes }) {
             // $ExpectType string
