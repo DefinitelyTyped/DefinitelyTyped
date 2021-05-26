@@ -1,4 +1,4 @@
-// Type definitions for prettier 2.2
+// Type definitions for prettier 2.3
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
@@ -610,7 +610,7 @@ export namespace doc {
              */
             useTabs: boolean;
             parentParser?: string;
-            embeddedInHtml: boolean;
+            __embeddedInHtml?: boolean;
         }
     }
     namespace utils {
