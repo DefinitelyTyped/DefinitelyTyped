@@ -200,7 +200,8 @@ export class StreamWriter<Q extends RDF.BaseQuad = RDF.Quad> extends stream.Tran
     import(stream: RDF.Stream<Q>): EventEmitter;
 }
 
-export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad, OutQuad extends RDF.BaseQuad = RDF.Quad, InQuad extends RDF.BaseQuad = RDF.Quad> implements RDF.Store<Q_RDF>, RDF.DatasetCore<OutQuad, InQuad> {
+export class Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad, OutQuad extends RDF.BaseQuad = RDF.Quad, InQuad extends RDF.BaseQuad = RDF.Quad>
+  implements RDF.Store<Q_RDF>, RDF.DatasetCore<OutQuad, InQuad> {
     constructor(triples?: Q_RDF[], options?: StoreOptions);
     readonly size: number;
     add(quad: InQuad): this;
