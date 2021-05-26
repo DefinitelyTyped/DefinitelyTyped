@@ -20,7 +20,7 @@ export interface WebviewApi<StateType> {
     /**
      * Get the persistent state stored for this webview.
      *
-     * @return The current state or `undefined` if it has not been set.
+     * @return The current state or `undefined` if no state has been set.
      */
     getState(): StateType | undefined;
 
@@ -40,10 +40,10 @@ declare global {
     /**
      * Acquire an instance of the webview API.
      *
-     * This may only be called once in a webview's context. Attempting call `acquireVsCodeApi` after it has already
+     * This may only be called once in a webview's context. Attempting to call `acquireVsCodeApi` after it has already
      * been called will throw an exception.
      *
-     * @template StateType Type of the persisted state stored for the webview
+     * @template StateType Type of the persisted state stored for the webview.
      */
     // tslint:disable-next-line:no-unnecessary-generics
     function acquireVsCodeApi<StateType = unknown>(): WebviewApi<StateType>;
