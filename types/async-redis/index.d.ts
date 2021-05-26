@@ -12,54 +12,22 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 type Omitted = Omit<RedisClient, keyof Commands>;
 
 interface OverloadedCommand<T, U> {
-	(arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-	(arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-	(arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-	(arg1: T, arg2: T, arg3: T): Promise<U>;
-	(arg1: T, arg2: T | T[]): Promise<U>;
-	(arg1: T | T[]): Promise<U>;
 	(...args: T[]): Promise<U>;
 }
 
 interface OverloadedKeyCommand<T, U> {
-	(key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-	(key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-	(key: string, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-	(key: string, arg1: T, arg2: T, arg3: T): Promise<U>;
-	(key: string, arg1: T, arg2: T): Promise<U>;
-	(key: string, arg1: T | T[]): Promise<U>;
-	(key: string, ...args: T[]): Promise<U>;
 	(...args: Array<string | T>): Promise<U>;
 }
 
 interface OverloadedListCommand<T, U> {
-	(arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-	(arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-	(arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-	(arg1: T, arg2: T, arg3: T): Promise<U>;
-	(arg1: T, arg2: T): Promise<U>;
-	(arg1: T | T[]): Promise<U>;
 	(...args: T[]): Promise<U>;
 }
 
 interface OverloadedSetCommand<T, U> {
-	(key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T, arg6: T): Promise<U>;
-	(key: string, arg1: T, arg2: T, arg3: T, arg4: T, arg5: T): Promise<U>;
-	(key: string, arg1: T, arg2: T, arg3: T, arg4: T): Promise<U>;
-	(key: string, arg1: T, arg2: T, arg3: T): Promise<U>;
-	(key: string, arg1: T, arg2: T): Promise<U>;
-	(key: string, arg1: T | { [key: string]: T } | T[]): Promise<U>;
-	(key: string, ...args: T[]): Promise<U>;
 	(args: [string, ...T[]]): Promise<U>;
 }
 
 interface OverloadedLastCommand<T1, T2, U> {
-	(arg1: T1, arg2: T1, arg3: T1, arg4: T1, arg5: T1, arg6: T2): Promise<U>;
-	(arg1: T1, arg2: T1, arg3: T1, arg4: T1, arg5: T2): Promise<U>;
-	(arg1: T1, arg2: T1, arg3: T1, arg4: T2): Promise<U>;
-	(arg1: T1, arg2: T1, arg3: T2): Promise<U>;
-	(arg1: T1, arg2: T2 | Array<T1 | T2>): Promise<U>;
-	(args: Array<T1 | T2>): Promise<U>;
 	(...args: Array<T1 | T2>): Promise<U>;
 }
 
@@ -70,18 +38,14 @@ interface Commands {
     /**
      * Get information and statistics about the server.
      */
-    info(): Promise<ServerInfo>;
     info(section?: string | string[]): Promise<ServerInfo>;
-    INFO(): Promise<ServerInfo>;
     INFO(section?: string | string[]): Promise<ServerInfo>;
 
     /**
      * Ping the server.
      */
-    ping(): Promise<string>;
-    ping(message: string): Promise<string>;
-    PING(): Promise<string>;
-    PING(message: string): Promise<string>;
+    ping(message?: string): Promise<string>;
+    PING(message?: string): Promise<string>;
 
     /**
      * Post a message to a channel.
@@ -171,13 +135,7 @@ interface Commands {
     /**
      * Perform bitwise operations between strings.
      */
-    bitop(operation: string, destkey: string, key1: string, key2: string, key3: string): Promise<number>;
-    bitop(operation: string, destkey: string, key1: string, key2: string): Promise<number>;
-    bitop(operation: string, destkey: string, key: string): Promise<number>;
     bitop(operation: string, destkey: string, ...args: string[]): Promise<number>;
-    BITOP(operation: string, destkey: string, key1: string, key2: string, key3: string): Promise<number>;
-    BITOP(operation: string, destkey: string, key1: string, key2: string): Promise<number>;
-    BITOP(operation: string, destkey: string, key: string): Promise<number>;
     BITOP(operation: string, destkey: string, ...args: string[]): Promise<number>;
 
     /**
@@ -333,10 +291,8 @@ interface Commands {
     /**
      * Remove all keys from all databases.
      */
-    flushall(): Promise<string>;
-    flushall(async: "ASYNC"): Promise<string>;
-    FLUSHALL(): Promise<string>;
-    FLUSHALL(async: 'ASYNC'): Promise<string>;
+    flushall(async?: "ASYNC"): Promise<string>;
+    FLUSHALL(async?: 'ASYNC'): Promise<string>;
 
     /**
      * Remove all keys from the current database.
@@ -785,15 +741,11 @@ interface Commands {
     /**
      * Set the string value of a key.
      */
-    set(key: string, value: string): Promise<'OK'>;
-    set(key: string, value: string, flag: string): Promise<'OK'>;
-    set(key: string, value: string, mode: string, duration: number): Promise<'OK' | undefined>;
-    set(key: string, value: string, mode: string, duration: number, flag: string): Promise<'OK' | undefined>;
+    set(key: string, value: string, flag?: string): Promise<'OK'>;
+    set(key: string, value: string, mode: string, duration: number, flag?: string): Promise<'OK' | undefined>;
     set(key: string, value: string, flag: string, mode: string, duration: number): Promise<'OK' | undefined>;
-    SET(key: string, value: string): Promise<'OK'>;
-    SET(key: string, value: string, flag: string): Promise<'OK'>;
-    SET(key: string, value: string, mode: string, duration: number): Promise<'OK' | undefined>;
-    SET(key: string, value: string, mode: string, duration: number, flag: string): Promise<'OK' | undefined>;
+    SET(key: string, value: string, flag?: string): Promise<'OK'>;
+    SET(key: string, value: string, mode: string, duration: number, flag?: string): Promise<'OK' | undefined>;
     SET(key: string, value: string, flag: string, mode: string, duration: number): Promise<'OK' | undefined>;
 
     /**
@@ -1003,10 +955,8 @@ interface Commands {
     /**
      * Return a range of members in a sorted set, by index.
      */
-    zrange(key: string, start: number, stop: number): Promise<string[]>;
-    zrange(key: string, start: number, stop: number, withscores: string): Promise<string[]>;
-    ZRANGE(key: string, start: number, stop: number): Promise<string[]>;
-    ZRANGE(key: string, start: number, stop: number, withscores: string): Promise<string[]>;
+    zrange(key: string, start: number, stop: number, withscores?: string): Promise<string[]>;
+    ZRANGE(key: string, start: number, stop: number, withscores?: string): Promise<string[]>;
 
     /**
      * Return a range of members in a sorted set, by lexicographical range.
@@ -1027,14 +977,10 @@ interface Commands {
     /**
      * Return a range of members in a sorted set, by score.
      */
-    zrangebyscore(key: string, min: number | string, max: number | string): Promise<string[]>;
-    zrangebyscore(key: string, min: number | string, max: number | string, withscores: string): Promise<string[]>;
-    zrangebyscore(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number): Promise<string[]>;
-    zrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number): Promise<string[]>;
-    ZRANGEBYSCORE(key: string, min: number | string, max: number | string): Promise<string[]>;
-    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string): Promise<string[]>;
-    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number): Promise<string[]>;
-    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number): Promise<string[]>;
+    zrangebyscore(key: string, min: number | string, max: number | string, withscores?: string): Promise<string[]>;
+    zrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count?: number): Promise<string[]>;
+    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores?: string): Promise<string[]>;
+    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count?: number): Promise<string[]>;
 
     /**
      * Determine the index of a member in a sorted set.
@@ -1069,20 +1015,16 @@ interface Commands {
     /**
      * Return a range of members in a sorted set, by index, with scores ordered from high to low.
      */
-    zrevrange(key: string, start: number, stop: number): Promise<string[]>;
-    zrevrange(key: string, start: number, stop: number, withscores: string): Promise<string[]>;
-    ZREVRANGE(key: string, start: number, stop: number): Promise<string[]>;
-    ZREVRANGE(key: string, start: number, stop: number, withscores: string): Promise<string[]>;
+    zrevrange(key: string, start: number, stop: number, withscores?: string): Promise<string[]>;
+    ZREVRANGE(key: string, start: number, stop: number, withscores?: string): Promise<string[]>;
 
     /**
      * Return a range of members in a sorted set, by score, with scores ordered from high to low.
      */
-    zrevrangebyscore(key: string, min: number | string, max: number | string): Promise<string[]>;
-    zrevrangebyscore(key: string, min: number | string, max: number | string, withscores: string): Promise<string[]>;
+    zrevrangebyscore(key: string, min: number | string, max: number | string, withscores?: string): Promise<string[]>;
     zrevrangebyscore(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number): Promise<string[]>;
     zrevrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number): Promise<string[]>;
-    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string): Promise<string[]>;
-    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string): Promise<string[]>;
+    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores?: string): Promise<string[]>;
     ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number): Promise<string[]>;
     ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number): Promise<string[]>;
 
