@@ -2,7 +2,7 @@ import * as React from 'react';
 import Calendar from 'react-calendar';
 
 interface State {
-  value: Date | Date[] | null;
+  value: Date | null;
 }
 
 export default class Sample extends React.Component<{}, State> {
@@ -10,7 +10,7 @@ export default class Sample extends React.Component<{}, State> {
     value: null,
   };
 
-  onChange = (value: Date | Date[], e: React.SyntheticEvent) => {
+  onChange = (value: Date, e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     this.setState({ value });
   }
@@ -30,6 +30,8 @@ export default class Sample extends React.Component<{}, State> {
               showWeekNumbers
               closeCalendar={true}
               value={value}
+              locale="ko-KR"
+              formatDay={(locale, date) => date.getDate().toString()}
             />
           </main>
         </div>
