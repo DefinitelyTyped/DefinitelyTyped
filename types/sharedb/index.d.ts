@@ -15,7 +15,6 @@ import { EventEmitter } from 'events';
 import Agent = require('./lib/agent');
 import { Connection } from './lib/client';
 import * as ShareDB from './lib/sharedb';
-import { ServerResponseError, ServerResponseSuccess } from './lib/sharedb';
 
 interface PubSubOptions {
     prefix?: string;
@@ -94,7 +93,7 @@ declare class sharedb extends EventEmitter {
     on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
     on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
-    on(event: 'send', callback: (agent: Agent, response: ServerResponseSuccess | ServerResponseError) => void): this;
+    on(event: 'send', callback: (agent: Agent, response: ShareDB.ServerResponseSuccess | ShareDB.ServerResponseError) => void): this;
 
     addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
     addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;

@@ -220,7 +220,7 @@ export interface ServerResponseSuccess {
     d?: string;
     extra?: number;
     o?: AnyDataObject;
-    r?: [number, number][];
+    r?: Array<[number, number]>;
     v?: number;
     id?: number;
     protocol?: number;
