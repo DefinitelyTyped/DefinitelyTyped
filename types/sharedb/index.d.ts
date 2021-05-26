@@ -15,16 +15,6 @@ import { EventEmitter } from 'events';
 import Agent = require('./lib/agent');
 import { Connection } from './lib/client';
 import * as ShareDB from './lib/sharedb';
-import SubmitContext = sharedb.middleware.SubmitContext;
-import ApplyContext = sharedb.middleware.ApplyContext;
-import CommitContext = sharedb.middleware.CommitContext;
-import ConnectContext = sharedb.middleware.ConnectContext;
-import DocContext = sharedb.middleware.DocContext;
-import OpContext = sharedb.middleware.OpContext;
-import QueryContext = sharedb.middleware.QueryContext;
-import ReadSnapshotsContext = sharedb.middleware.ReadSnapshotsContext;
-import ReceiveContext = sharedb.middleware.ReceiveContext;
-import ReplyContext = sharedb.middleware.ReplyContext;
 
 interface PubSubOptions {
     prefix?: string;
