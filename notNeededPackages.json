@@ -2989,6 +2989,10 @@
             "libraryName": "notyf",
             "asOfVersion": "3.0.0"
         },
+        "noUiSlider": {
+            "libraryName": "noUiSlider",
+            "asOfVersion": "15.0.0"
+        },
         "npm-email": {
             "libraryName": "npm-email",
             "asOfVersion": "3.1.0"
