@@ -209,6 +209,30 @@ export interface ClientRequest {
     [propertyName: string]: any;
 }
 
+export interface AnyDataObject {
+    [key: string]: any;
+}
+
+export interface ServerResponseSuccess {
+    a?: RequestAction;
+    b?: string;
+    c?: string;
+    d?: string;
+    extra?: number;
+    o?: AnyDataObject;
+    r?: [number, number][];
+    v?: number;
+    id?: number;
+    protocol?: number;
+    protocolMinor?: number;
+    type?: string;
+    data?: AnyDataObject | AnyDataObject[];
+}
+
+export interface ServerResponseError extends ServerResponseSuccess {
+    error: Error;
+}
+
 export interface Socket {
     readyState: number;
 
