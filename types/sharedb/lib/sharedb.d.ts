@@ -224,7 +224,7 @@ export interface ServerResponseSuccess {
     a?: RequestAction;
     c?: CollectionName;
     d?: DocumentID;
-    extra?: number;
+    extra?: any;
     v?: VersionNumber;
     id?: number;
     protocol?: number;
