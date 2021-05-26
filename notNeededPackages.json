@@ -2989,8 +2989,8 @@
             "libraryName": "notyf",
             "asOfVersion": "3.0.0"
         },
-        "noUiSlider": {
-            "libraryName": "noUiSlider",
+        "nouislider": {
+            "libraryName": "nouislider",
             "asOfVersion": "15.0.0"
         },
         "npm-email": {
