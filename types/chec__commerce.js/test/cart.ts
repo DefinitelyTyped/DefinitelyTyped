@@ -8,6 +8,9 @@ const quantity = 5;
 const lineItemId = 'item_7RyWOwmK5nEa2V';
 const newQuantity = 3;
 
+// $ExpectType string | null
+commerce.cart.id();
+
 // Retrieve the customers current cart (tracked by their browser)
 // $ExpectType Promise<Cart>
 commerce.cart.retrieve();
