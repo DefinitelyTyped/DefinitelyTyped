@@ -54,6 +54,7 @@ commerce.checkout.capture('chkt_959gvxcZ6lnJ7', {
   shipping: {
     name: 'John Doe',
     street: '123 Fake St',
+    street_2: 'Unit 2',
     town_city: 'San Francisco',
     county_state: 'CA',
     postal_zip_code: '94103',
