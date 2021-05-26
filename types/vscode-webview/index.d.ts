@@ -15,7 +15,7 @@ export interface WebviewApi<StateType> {
      *
      * @param message Data to post. Must be JSON serializable.
      */
-    postMessage(message: any): void;
+    postMessage(message: unknown): void;
 
     /**
      * Get the persistent state stored for this webview.
@@ -32,8 +32,7 @@ export interface WebviewApi<StateType> {
      *
      * @return The new state.
      */
-    setState(newState: StateType): StateType;
-    setState(newState: undefined): undefined;
+    setState<T extends StateType | undefined>(newState: T): T;
 }
 
 declare global {
