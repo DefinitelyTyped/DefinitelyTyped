@@ -2,7 +2,7 @@
 
 > La repo per le definizioni di tipi Typescript di *alta qualità*.
 
-*Puoi leggere questo README anche in [Spagnolo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coreano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Cinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md), [Portoghese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) and [Giapponese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*Puoi leggere questo README anche in [Spagnolo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coreano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Cinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md), [Portoghese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) e [Giapponese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link per il [manuale dell'amministratore](./docs/admin.md)*
 

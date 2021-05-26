@@ -102,11 +102,13 @@ export interface BadgeProps {
     position?: 'middle' | 'top';
 }
 
+export type BoxPassthroughProps = Omit<React.ComponentProps<'div'>, 'onClick' | 'className' | 'style'>;
+
 /**
  * Box Props Interface
  * https://gestalt.netlify.app/Box
  */
-export interface BoxProps {
+export interface BoxProps extends BoxPassthroughProps {
     alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch';
     alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch';
     alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch';

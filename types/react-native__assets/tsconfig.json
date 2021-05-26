@@ -14,10 +14,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@react-native/*": [
+                "react-native__*"
+            ]
+        }
     },
     "files": [
-      "index.d.ts",
-      "react-query-tests.ts"
+        "index.d.ts",
+        "react-native__assets-tests.ts"
     ]
 }
