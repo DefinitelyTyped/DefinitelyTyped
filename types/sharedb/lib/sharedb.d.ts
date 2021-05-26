@@ -16,7 +16,7 @@ export type BulkRequestData = IDString[] | Record<IDString, any>;
 export type Path = ReadonlyArray<string|number>;
 export interface Snapshot<T = any> {
     id: IDString;
-    v: number;
+    v: VersionNumber;
     type: string | null;
     data?: T;
     m: SnapshotMeta | null;
