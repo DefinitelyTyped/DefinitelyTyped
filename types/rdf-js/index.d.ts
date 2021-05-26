@@ -339,13 +339,13 @@ export interface Source<Q extends BaseQuad = Quad> {
     /**
      * Returns a stream that processes all quads matching the pattern.
      *
-     * @param subject   The optional exact subject or subject regex to match.
-     * @param predicate The optional exact predicate or predicate regex to match.
-     * @param object    The optional exact object or object regex to match.
-     * @param graph     The optional exact graph or graph regex to match.
+     * @param subject   The optional subject
+     * @param predicate The optional predicate
+     * @param object    The optional object
+     * @param graph     The optional graph
      * @return The resulting quad stream.
      */
-    match(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp): Stream<Q>;
+    match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): Stream<Q>;
 }
 
 /**
@@ -395,13 +395,13 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Stream
      * The `end` and `error` events are used like described in the Stream interface.
      * @see {@link Stream}
      *
-     * @param subject   The optional exact subject or subject regex to match.
-     * @param predicate The optional exact predicate or predicate regex to match.
-     * @param object    The optional exact object or object regex to match.
-     * @param graph     The optional exact graph or graph regex to match.
+     * @param subject   The optional subject
+     * @param predicate The optional predicate
+     * @param object    The optional object
+     * @param graph     The optional graph
      * @return The resulting event emitter.
      */
-    removeMatches(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp)
+    removeMatches(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null)
         : EventEmitter;
 
     /**
