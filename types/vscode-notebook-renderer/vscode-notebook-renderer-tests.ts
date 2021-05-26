@@ -15,7 +15,9 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
     // $ExpectError
     context.setState({ unknownProp: true });
 
-    context.postMessage?.('hello world');
+    if (context.postMessage) {
+        context.postMessage('hello world');
+    }
     context.onDidReceiveMessage?.(message => {
         // $ExpectType any
         message;
