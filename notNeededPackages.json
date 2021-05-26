@@ -4010,6 +4010,10 @@
             "libraryName": "react-plaid-link",
             "asOfVersion": "2.0.0"
         },
+        "react-query": {
+            "libraryName": "react-query",
+            "asOfVersion": "1.2.8"
+        },
         "react-resize-detector": {
             "libraryName": "react-resize-detector",
             "asOfVersion": "6.1.0"
