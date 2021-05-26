@@ -153,13 +153,9 @@ function test_stream() {
     const source: Source = <any> {};
     const matchStream1: Stream = source.match();
     const matchStream2: Stream = source.match(term);
-    const matchStream3: Stream = source.match(/.*/);
     const matchStream4: Stream = source.match(term, term);
-    const matchStream5: Stream = source.match(term, /.*/);
     const matchStream6: Stream = source.match(term, term, term);
-    const matchStream7: Stream = source.match(term, term, /.*/);
     const matchStream8: Stream = source.match(term, term, term, term);
-    const matchStream9: Stream = source.match(term, term, term, /.*/);
 
     const sink: Sink<Stream, EventEmitter> = <any> {};
     const graph: Quad_Graph = <any> {};
@@ -171,13 +167,9 @@ function test_stream() {
     const eventEmitter2: EventEmitter = store.remove(stream);
     const eventEmitter3: EventEmitter = store.removeMatches();
     const eventEmitter4: EventEmitter = store.removeMatches(term);
-    const eventEmitter5: EventEmitter = store.removeMatches(/.*/);
     const eventEmitter6: EventEmitter = store.removeMatches(term, term);
-    const eventEmitter7: EventEmitter = store.removeMatches(term, /.*/);
     const eventEmitter8: EventEmitter = store.removeMatches(term, term, term);
-    const eventEmitter9: EventEmitter = store.removeMatches(term, term, /.*/);
     const eventEmitter10: EventEmitter = store.removeMatches(term, term, term, term);
-    const eventEmitter11: EventEmitter = store.removeMatches(term, term, term, /.*/);
     const eventEmitter12: EventEmitter = store.deleteGraph(graph);
     const eventEmitter13: EventEmitter = store.deleteGraph('http://example.org');
 }
