@@ -18,10 +18,12 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
     if (context.postMessage) {
         context.postMessage('hello world');
     }
-    context.onDidReceiveMessage?.(message => {
-        // $ExpectType any
-        message;
-    });
+    if (context.onDidReceiveMessage) {
+        context.onDidReceiveMessage(message => {
+            // $ExpectType any
+            message;
+        });
+    }
 
     return {
         renderCell(outputId, { value, mime, metadata, element, text, json, blob, bytes }) {
