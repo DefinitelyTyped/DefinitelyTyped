@@ -6,7 +6,7 @@
 import * as Eris from 'eris';
 import { EventEmitter } from 'events';
 
-export interface Cluster {
+declare class Cluster {
     shards: number;
     maxShards: number;
     firstShardID: number;
@@ -25,6 +25,8 @@ export interface Cluster {
     bot: Eris.Client | null;
     test: boolean;
 
+    constructor();
+
     logOverride(message: string): string;
 
     spawn(): undefined;
@@ -42,6 +44,8 @@ export interface Cluster {
 
     startStats(bot: Eris.Client): undefined;
 }
+
+export interface ICluster extends Cluster {}
 
 export class Master extends EventEmitter {
     constructor(
@@ -114,3 +118,5 @@ export abstract class Base {
 
     abstract launch(): any;
 }
+
+export {};
