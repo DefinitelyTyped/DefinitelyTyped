@@ -104,6 +104,8 @@ export default class Drawflow {
 
   import(data: any): void;
 
+  export(): any;
+
   /**
    *
    * @param name Name of module
@@ -227,6 +229,8 @@ export default class Drawflow {
   clear(): void;
 
   addModule(moduleName: string): void;
+
+  removeModule(moduleName: string): void;
 
   changeModule(moduleName: string): void;
 
