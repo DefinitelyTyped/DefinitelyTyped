@@ -8560,6 +8560,11 @@ declare namespace chrome.tabs {
          */
         autoDiscardable?: boolean;
         /**
+         * The tab's new group.
+         * @since Chrome 88
+         */
+        groupId?: number;
+        /**
          * The tab's new muted state and the reason for the change.
          * @since Chrome 46. Warning: this is the current Beta channel.
          */
@@ -9197,9 +9202,30 @@ declare namespace chrome.tabs {
      * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
      * @since Chrome 88
      * @param options Configurations object
+     * @return The `group` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function group(options: GroupOptions): Promise<number>;
+    /**
+     * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+     * @since Chrome 88
+     * @param options Configurations object
      * @param callback Optional.
      */
-    export function group(options: GroupOptions, callback?: (groupId: number) => void): void;
+    export function group(options: GroupOptions, callback?: (groupId: number) => void): void
+    /**
+     * Removes one or more tabs from their respective groups. If any groups become empty, they are deleted
+     * @since Chrome 88
+     * @param tabIds The tabs to ungroup.
+     * @return The `ungroup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function ungroup(tabIds: number | number[]): Promise<void>;
+    /**
+     * Removes one or more tabs from their respective groups. If any groups become empty, they are deleted
+     * @since Chrome 88
+     * @param tabIds The tabs to ungroup.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function ungroup(tabIds: number | number[], callback?: () => void): void
     /**
      * Fired when the highlighted or selected tabs in a window changes.
      * @since Chrome 18.

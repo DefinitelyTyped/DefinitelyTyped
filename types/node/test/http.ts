@@ -55,7 +55,8 @@ import * as net from 'net';
     const res: http.ServerResponse = new http.ServerResponse(incoming);
 
     // test headers
-    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Type', 'text/plain')
+    .setHeader('Return-Type', 'this');
     const bool: boolean = res.hasHeader('Content-Type');
     const headers: string[] = res.getHeaderNames();
 

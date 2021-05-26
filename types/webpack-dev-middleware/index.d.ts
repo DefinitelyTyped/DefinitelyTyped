@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-middleware 4.2
+// Type definitions for webpack-dev-middleware 4.3
 // Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 reduckted <https://github.com/reduckted>
@@ -76,6 +76,11 @@ declare namespace WebpackDevMiddleware {
         invalidate(callback?: Callback): void;
         /** A function executed once the middleware has stopped watching. */
         close(callback?: () => void): void;
+        /**
+         * Get filename from URL.
+         * @param url URL for the requested file.
+         */
+        getFilenameFromUrl(url: string): string | undefined;
         context: Context;
     }
 

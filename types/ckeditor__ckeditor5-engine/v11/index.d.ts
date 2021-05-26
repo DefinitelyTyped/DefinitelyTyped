@@ -35,7 +35,7 @@ export namespace controller {
 
         // Emitter
         delegate(...events: string[]): EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+        fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
         listenTo(
             emitter: Emitter,
             event: string,
@@ -69,7 +69,7 @@ export namespace controller {
 
         // Emitter
         delegate(...events: string[]): EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+        fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
         listenTo(
             emitter: Emitter,
             event: string,
@@ -606,7 +606,7 @@ export namespace model {
 
         // Emitter
         delegate(...events: string[]): EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+        fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
         listenTo(
             emitter: Emitter,
             event: string,
@@ -812,7 +812,7 @@ export namespace model {
 
         // Emitter
         delegate(...events: string[]): EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+        fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
         listenTo(
             emitter: Emitter,
             event: string,
@@ -1076,7 +1076,7 @@ export namespace view {
 
         // Emitter
         delegate(...events: string[]): EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+        fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
         listenTo(
             emitter: Emitter,
             event: string,
@@ -1423,7 +1423,7 @@ export namespace view {
 
         // Emitter
         delegate(...events: string[]): EmitterMixinDelegateChain;
-        fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+        fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
         listenTo(
             emitter: Emitter,
             event: string,

@@ -6,9 +6,9 @@ import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import { DomEventData } from "@ckeditor/ckeditor5-engine";
 
 export default class Command implements Emitter, Observable {
-    readonly value?: unknown;
+    value?: unknown;
     readonly editor: Editor;
-    readonly isEnabled: boolean;
+    isEnabled: boolean;
 
     constructor(editor: Editor);
     clearForceDisabled(id: string): void;
@@ -25,7 +25,7 @@ export default class Command implements Emitter, Observable {
 
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
@@ -41,7 +41,7 @@ export default class Command implements Emitter, Observable {
         options?: { priority?: PriorityString | number },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }

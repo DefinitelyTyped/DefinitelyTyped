@@ -537,18 +537,21 @@ declare namespace math {
         /**
          * Simplify an expression tree.
          * @param expr The expression to be simplified
-         * @param rules A list of rules are applied to an expression, repeating
+         * @param [rules] (optional) A list of rules are applied to an expression, repeating
          * over the list until no further changes are made. It’s possible to
          * pass a custom set of rules to the function as second argument. A rule
          * can be specified as an object, string, or function.
-         * @param scope Scope to variables
+         * @param [scope] (optional) Scope to variables
+         * @param [options] (optional) An object with simplify options
          * @returns Returns the simplified form of expr
          */
         simplify(
             expr: MathNode | string,
             rules?: Array<{ l: string; r: string } | string | ((node: MathNode) => MathNode)>,
             scope?: object,
+            options?: SimplifyOptions,
         ): MathNode;
+        simplify(expr: MathNode | string, scope?: object, options?: SimplifyOptions): MathNode;
 
         /**
          * Calculate the Sparse Matrix LU decomposition with full pivoting.
@@ -2951,6 +2954,17 @@ declare namespace math {
         aliases?: string[];
     }
 
+    interface SimplifyOptions {
+        /** A boolean which is `true` by default. */
+        exactFractions?: boolean;
+        /**
+         * When `exactFractions` is true, a fraction will be returned only
+         * when both numerator and denominator are smaller than `fractionsLimit`.
+         * Default value is 10000.
+         */
+        fractionsLimit?: number;
+    }
+
     interface Index {} // tslint:disable-line no-empty-interface
 
     interface EvalFunction {
@@ -2976,9 +2990,16 @@ declare namespace math {
         isUpdateNode?: boolean;
         comment?: string;
         content?: MathNode;
+        condition?: MathNode;
+        trueExpr?: MathNode;
+        falseExpr?: MathNode;
+        dimensions?: MathNode[];
         op?: string;
-        fn?: string;
+        object?: MathNode;
+        fn?: string | MathNode;
         args?: MathNode[];
+        index?: MathNode;
+        items?: MathNode[];
         type: string;
         name?: string;
         value?: any;

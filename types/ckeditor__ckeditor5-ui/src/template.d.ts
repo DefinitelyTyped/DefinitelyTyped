@@ -23,7 +23,7 @@ export default class Template implements Emitter {
 
     on: (
         event: string,
-        callback: (info: EventInfo<Emitter>, data: DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
@@ -39,7 +39,7 @@ export default class Template implements Emitter {
         options?: { priority?: PriorityString | number },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
-    fire(eventOrInfo: string | EventInfo<Emitter>, ...args: any[]): any;
+    fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }
@@ -73,7 +73,7 @@ export interface TemplateDefinition {
     children?: Array<string | View | Node | TemplateDefinition>;
     on?: Record<string, TemplateListenerSchema>;
     tag?: string;
-    text?: String | TemplateValueSchema | Array<string | TemplateValueSchema>;
+    text?: string | TemplateValueSchema | Array<string | TemplateValueSchema>;
 }
 
 export type TemplateListenerSchema = TemplateBinding | TemplateBinding[];

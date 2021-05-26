@@ -16,7 +16,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
     context.setState({ unknownProp: true });
 
     return {
-        renderCell(outputId, { value, mime, metadata, element }) {
+        renderCell(outputId, { value, mime, metadata, element, text, json, blob, bytes }) {
             // $ExpectType string
             outputId;
             // $ExpectType HTMLElement
@@ -27,6 +27,14 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             metadata;
             // $ExpectType unknown
             value;
+            // $ExpectType () => string
+            text;
+            // $ExpectType () => any
+            json;
+            // $ExpectType () => Blob
+            blob;
+            // $ExpectType () => Uint8Array
+            bytes;
         },
 
         destroyCell(outputId) {
@@ -34,7 +42,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             outputId;
         },
 
-        otherProp: () => {},
+        otherProp: () => { },
     };
 };
 

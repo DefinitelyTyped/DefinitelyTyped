@@ -18,8 +18,32 @@ export interface CellInfo {
     /**
      * Render data for the cell.
      * @todo This may eventually be just a Uint8Array
+     * @deprecated
      */
     readonly value: unknown;
+
+    /**
+     * The data as text. Note the a UTF-8 decoder is used is create
+     * the string from the underlying bytes.
+     */
+    text(): string;
+
+    /**
+     * The data as object - parsed from JSON. Note that this will
+     * throw an error when the underlying data is not a valid JSON string.
+     */
+    json(): any;
+
+    /**
+     * The data as bytes.
+     */
+    bytes(): Uint8Array;
+
+    /**
+     * The data as blob. The blob-type will be initialized the `mime`
+     * of this object.
+     */
+    blob(): Blob;
 
     /**
      * cell metadata.

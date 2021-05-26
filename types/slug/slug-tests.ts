@@ -1,41 +1,40 @@
-import slug = require('slug');
-const print = console.log.bind(console, '>');
+import slug = require("slug");
 
-print(slug('i ♥ unicode'));
-// > i-love-unicode
+slug("i ♥ unicode"); // $ExpectType string
 
-print(slug('unicode ♥ is ☢')); // yes!
-// > unicode-love-is-radioactive
+slug("unicode ♥ is ☢"); // $ExpectType string
 
-print(slug('i ♥ unicode', '_')); // If you prefer something else then `-` as seperator
-// > i_love_unicode
+slug("i ♥ unicode", "_"); // $ExpectType string
 
-slug.charmap['♥'] = 'freaking love'; // change default charmap or use option {charmap:{…}} as 2. argument
-print(slug('I ♥ UNICODE'));
-// > I-freaking-love-UNICODE
+slug.charmap["♥"] = "freaking love"; // change default charmap or use option {charmap:{…}} as 2. argument
+slug("I ♥ UNICODE"); // $ExpectType string
 
-print(slug('☏-Number', {lower: true})); // If you prefer lower case
-// > telephone-number
+slug("☏-Number", { lower: true }); // $ExpectType string
 
-print(slug('i <3 unicode'));
-// > i-love-unicode
+slug("i <3 unicode"); // $ExpectType string
 
 // options is either object or replacement (sets options.replacement)
-slug('string', { } || 'replacement');
-slug.defaults.mode = 'pretty';
-slug.defaults.modes['rfc3986'] = {
-    replacement: '-',      // replace spaces with replacement
-    symbols: true,         // replace unicode symbols or not
-    remove: null,          // (optional) regex to remove characters
-    lower: true,           // result in lower case
+slug("string", {}); // $ExpectType string
+
+slug("string", "replacement"); // $ExpectType string
+
+slug.defaults.mode = "pretty";
+slug.defaults.modes["rfc3986"] = {
+    replacement: "-", // replace spaces with replacement
+    symbols: true, // replace unicode symbols or not
+    remove: null, // (optional) regex to remove characters
+    lower: true, // result in lower case
     charmap: slug.charmap, // replace special characters
-    multicharmap: slug.multicharmap // replace multi-characters
+    multicharmap: slug.multicharmap, // replace multi-characters
 };
-slug.defaults.modes['pretty'] = {
-    replacement: '-',
+slug.defaults.modes["pretty"] = {
+    replacement: "-",
     symbols: true,
     remove: /[.]/g,
     lower: false,
     charmap: slug.charmap,
-    multicharmap: slug.multicharmap
+    multicharmap: slug.multicharmap,
 };
+
+slug.extend({ "☢": "radioactive" }); // $ExpectType void
+slug("one 1 two 2 three 3", { remove: /[0-9]/g }); // $ExpectType string

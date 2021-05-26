@@ -1,10 +1,8 @@
 import { Plugin } from "@ckeditor/ckeditor5-core";
-// TODO: import { Typing } from '@ckeditor/ckeditor5-typing';
-
-type Typing = typeof Plugin;
+import { Typing } from "@ckeditor/ckeditor5-typing";
 
 export default class SpecialCharacters extends Plugin {
-    static readonly requires: [Typing];
+    static readonly requires: [typeof Typing];
     static readonly pluginName: "SpecialCharacters";
     init(): void;
     addItems(groupName: string, items: SpecialCharacterDefinition[]): void;
@@ -17,5 +15,3 @@ export interface SpecialCharacterDefinition {
     title: string;
     character: string;
 }
-
-export {};

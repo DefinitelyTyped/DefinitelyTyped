@@ -107,6 +107,15 @@ const CheckUseReducedMotion = () => {
 />;
 <Badge text="Nicolas" />;
 <Box ref={React.createRef<HTMLDivElement>()} />;
+
+<Box aria-colspan={1} />;
+// $ExpectError
+<Box aria-colspan="foo" />;
+
+<Box onDrag={(event) => { event.movementX; }} />;
+// $ExpectError
+<Box onDrag={((event) => { event.__nonExistentProperty__; })} />;
+
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
 <Button text="" />;
 <ButtonGroup>

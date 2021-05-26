@@ -34,17 +34,30 @@ declare namespace Cloudflare {
         token?: string;
     }
 
+    interface DnsRecordWithoutPriority {
+        type: Exclude<RecordTypes, 'MX' | 'SRV' | 'URI'>;
+        name: string;
+        content: string;
+        ttl: number;
+        proxied?: boolean;
+    }
+
+    interface DnsRecordWithPriority {
+        type: Extract<RecordTypes, 'MX' | 'SRV' | 'URI'>;
+        name: string;
+        content: string;
+        ttl: number;
+        proxied?: boolean;
+        priority: number;
+    }
+
+    type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority;
+
     interface DNSRecords {
         edit(
             zone_id: string,
             id: string,
-            record: {
-                type: RecordTypes;
-                name: string;
-                content: string;
-                ttl: number;
-                proxied?: boolean;
-            },
+            record: DnsRecord,
         ): ResponseObjectPromise;
         browse(zone_id: string): ResponseObjectPromise;
         export(zone_id: string): ResponseObjectPromise;
@@ -52,14 +65,7 @@ declare namespace Cloudflare {
         read(zone_id: string, id: string): ResponseObjectPromise;
         add(
             zone_id: string,
-            record: {
-                type: RecordTypes;
-                name: string;
-                content: string;
-                ttl: number;
-                priority: number;
-                proxied?: boolean;
-            },
+            record: DnsRecord,
         ): ResponseObjectPromise;
     }
 

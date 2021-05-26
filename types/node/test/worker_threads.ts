@@ -110,3 +110,17 @@ import { EventLoopUtilization } from 'perf_hooks';
     const worker = new workerThreads.Worker(__filename);
     const utilization: EventLoopUtilization = worker.performance.eventLoopUtilization();
 }
+
+{
+    const bc: workerThreads.BroadcastChannel = new workerThreads.BroadcastChannel('test');
+    const name: string = bc.name;
+    bc.postMessage({
+        test: 1.
+    });
+
+    bc.close();
+    bc.ref();
+    bc.unref();
+    bc.onmessage = (msg: unknown) => { };
+    bc.onmessageerror = (msg: unknown) => { };
+}

@@ -1,4 +1,5 @@
 declare module 'fs/promises' {
+    import { Abortable } from 'events';
     import {
         Stats,
         BigIntStats,
@@ -16,7 +17,6 @@ declare module 'fs/promises' {
         BufferEncodingOption,
         OpenMode,
         Mode,
-        Abortable,
     } from 'fs';
 
     interface FileHandle {

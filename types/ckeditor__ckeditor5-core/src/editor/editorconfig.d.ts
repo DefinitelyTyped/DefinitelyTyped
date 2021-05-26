@@ -1,13 +1,17 @@
-import { AlignmentConfig } from "@ckeditor/ckeditor5-alignment/src/alignment";
-import { AutosaveConfig } from "@ckeditor/ckeditor5-autosave/src/autosave";
-import { CKFinderConfig } from "@ckeditor/ckeditor5-ckfinder/src/ckfinder";
-import { CloudServicesConfig } from "@ckeditor/ckeditor5-cloud-services/src/cloudservices";
-import { ExportPdfConfig } from "@ckeditor/ckeditor5-export-pdf/src/exportpdf";
-import { ExportWordConfig } from "@ckeditor/ckeditor5-export-word/src/exportword";
-import { HeadingConfig } from "@ckeditor/ckeditor5-heading/src/heading";
-import { TitleConfig } from "@ckeditor/ckeditor5-heading/src/title";
-import { WordCountConfig } from "@ckeditor/ckeditor5-word-count/src/wordcount";
-import Plugin from "../plugin";
+import { AlignmentConfig } from '@ckeditor/ckeditor5-alignment/src/alignment';
+import { AutosaveConfig } from '@ckeditor/ckeditor5-autosave/src/autosave';
+import { CKFinderConfig } from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
+import { CloudServicesConfig } from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
+import { ExportPdfConfig } from '@ckeditor/ckeditor5-export-pdf/src/exportpdf';
+import { ExportWordConfig } from '@ckeditor/ckeditor5-export-word/src/exportword';
+import { HeadingConfig } from '@ckeditor/ckeditor5-heading/src/heading';
+import { TitleConfig } from '@ckeditor/ckeditor5-heading/src/title';
+import { LinkConfig } from '@ckeditor/ckeditor5-link/src/link';
+import { TrackChangesConfig } from '@ckeditor/ckeditor5-track-changes/src/trackchanges';
+import { TypingConfig } from '@ckeditor/ckeditor5-typing/src/typing';
+import { WordCountConfig } from '@ckeditor/ckeditor5-word-count/src/wordcount';
+import ContextPlugin from '../contextplugin';
+import Plugin, { PluginInterface } from '../plugin';
 
 // TODO: import {CodeBlockConfig} from "@ckeditor/ckeditor5-code-block/src/codeblock";
 type CodeBlockConfig = any;
@@ -30,8 +34,6 @@ type HighlightConfig = any;
 type ImageConfig = any;
 // TODO: import {IndentBlockConfig} from "@ckeditor/ckeditor5-indent/src/indentblock";
 type IndentBlockConfig = any;
-// TODO: import {LinkConfig} from "@ckeditor/ckeditor5-link/src/link";
-type LinkConfig = any;
 // TODO: import {MediaEmbedConfig} from "@ckeditor/ckeditor5-media-embed/src/mediaembed";
 type MediaEmbedConfig = any;
 // TODO: import {MentionConfig} from "@ckeditor/ckeditor5-mention/src/mention";
@@ -46,10 +48,6 @@ type SidebarConfig = any;
 type SimpleUploadConfig = any;
 // TODO: import {TableConfig} from "@ckeditor/ckeditor5-table/src/table";
 type TableConfig = any;
-// TODO: import {TrackChangesConfig} from "@ckeditor/ckeditor5-track-changes/src/trackchanges";
-type TrackChangesConfig = any;
-// TODO: import {TypingConfig} from "@ckeditor/ckeditor5-typing/src/typing";
-type TypingConfig = any;
 // TODO: import {TextPartLanguageOption} from "@ckeditor/ckeditor5-language/src/textpartlanguage";
 type TextPartLanguageOption = any;
 
@@ -82,14 +80,16 @@ export interface EditorConfig {
     mention?: MentionConfig;
     pagination?: PaginationConfig;
     placeholder?: string;
-    plugins?: Array<string | typeof Plugin>;
-    removePlugins?: Array<string | typeof Plugin>;
+    plugins?: Array<string | PluginInterface>;
+    removePlugins?: Array<string | typeof Plugin | typeof ContextPlugin>;
     restrictedEditing?: RestrictedEditingModeConfig;
     sidebar?: SidebarConfig;
     simpleUpload?: SimpleUploadConfig;
     table?: TableConfig;
     title?: TitleConfig;
-    toolbar?: string[] | { items: string[]; viewportTopOffset?: number; shouldNotGroupWhenFull?: boolean };
+    toolbar?:
+        | string[]
+        | { items?: string[]; viewportTopOffset?: number; shouldNotGroupWhenFull?: boolean; removeItems?: string[] };
     trackChanges?: TrackChangesConfig;
     typing?: TypingConfig;
     wordCount?: WordCountConfig;

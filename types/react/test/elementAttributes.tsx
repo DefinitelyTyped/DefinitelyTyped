@@ -32,6 +32,9 @@ const testCases = [
     <input value={['one', 'two'] as string[]} />,
     <input value={['one', 'two']} />,
     <input enterKeyHint="done" />,
+    <div role="dialog" />,
+    <div role="none presentation" />,
+    <svg role="treeitem" />,
     // $ExpectError
     <input enterKeyHint="don" />,
     <video disableRemotePlayback />

@@ -1,5 +1,5 @@
 declare module 'stream' {
-    import EventEmitter = require('events');
+    import { EventEmitter, Abortable } from 'events';
     import * as streamPromises from "stream/promises";
 
     class internal extends EventEmitter {
@@ -11,14 +11,18 @@ declare module 'stream' {
             constructor(opts?: ReadableOptions);
         }
 
-        interface ReadableOptions {
+        interface StreamOptions<T extends Stream> extends Abortable {
+            emitClose?: boolean;
             highWaterMark?: number;
-            encoding?: BufferEncoding;
             objectMode?: boolean;
-            read?(this: Readable, size: number): void;
-            construct?(this: Readable, callback: (error?: Error | null) => void): void;
-            destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
+            construct?(this: T, callback: (error?: Error | null) => void): void;
+            destroy?(this: T, error: Error | null, callback: (error: Error | null) => void): void;
             autoDestroy?: boolean;
+        }
+
+        interface ReadableOptions extends StreamOptions<Readable> {
+            encoding?: BufferEncoding;
+            read?(this: Readable, size: number): void;
         }
 
         class Readable extends Stream implements NodeJS.ReadableStream {
@@ -127,18 +131,12 @@ declare module 'stream' {
             [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         }
 
-        interface WritableOptions {
-            highWaterMark?: number;
+        interface WritableOptions extends StreamOptions<Writable> {
             decodeStrings?: boolean;
             defaultEncoding?: BufferEncoding;
-            objectMode?: boolean;
-            emitClose?: boolean;
-            construct?(this: Writable, callback: (error?: Error | null) => void): void;
             write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Writable, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
-            destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
-            autoDestroy?: boolean;
         }
 
         class Writable extends Stream implements NodeJS.WritableStream {
@@ -292,6 +290,16 @@ declare module 'stream' {
         }
 
         class PassThrough extends Transform { }
+
+        /**
+         * Attaches an AbortSignal to a readable or writeable stream. This lets code
+         * control stream destruction using an `AbortController`.
+         *
+         * Calling `abort` on the `AbortController` corresponding to the passed
+         * `AbortSignal` will behave the same way as calling `.destroy(new AbortError())`
+         * on the stream.
+         */
+        function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
 
         interface FinishedOptions {
             error?: boolean;
