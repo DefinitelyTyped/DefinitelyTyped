@@ -24,7 +24,7 @@ ClassicEditor.create("", { placeholder: "foo" }).then(editor => {
 });
 
 let htmlElement: HTMLElement = document.createElement("div");
-// $ExpectError;
+// $ExpectError
 new ClassicEditor();
 
 class MyPlugin extends Plugin {}

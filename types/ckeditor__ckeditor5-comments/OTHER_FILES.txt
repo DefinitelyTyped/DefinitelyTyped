@@ -1,0 +1,12 @@
+src/annotations/editorannotations.d.ts
+src/annotations/inlineannotations.d.ts
+src/annotations/narrowsidebar.d.ts
+src/annotations/sidebar.d.ts
+src/annotations/view/annotationcounterbuttonview.d.ts
+src/annotations/view/sidebaritemview.d.ts
+src/annotations/view/sidebarview.d.ts
+src/annotations/widesidebar.d.ts
+src/comments/addcommentthreadcommand.d.ts
+src/comments/ui/commentthreadcontroller.d.ts
+src/comments/ui/view/commentthreadview.d.ts
+src/comments/ui/view/commentview.d.ts

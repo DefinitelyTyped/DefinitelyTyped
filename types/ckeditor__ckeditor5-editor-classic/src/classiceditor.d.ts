@@ -6,8 +6,9 @@ import { ElementApi } from "@ckeditor/ckeditor5-core/src/editor/utils/elementapi
 import ClassicEditorUI from "./classiceditorui";
 
 export default class ClassicEditor extends Editor implements DataApi, EditorWithUI, ElementApi {
+    private constructor();
     ui: ClassicEditorUI;
-    static create(sourceElementOrData: HTMLElement | string, config?: EditorConfig): Promise<ClassicEditor>;
+    static create(sourceElementOrData: Element | string, config?: EditorConfig): Promise<ClassicEditor>;
 
     setData(data: string): void;
     getData(options?: { rootName?: string; trim?: "empty" | "none" }): string;
