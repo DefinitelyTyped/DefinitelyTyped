@@ -11,7 +11,7 @@
 //                 Rifa Achrinza <https://github.com/achrinza>
 //                 Daniel Hensby <https://github.com/dhensby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.6
 
 /// <reference types="node" />
 
