@@ -8,7 +8,7 @@
 //                 Kevin Deisz <https://github.com/kddeisz>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 // This utility is here to handle the case where you have an explicit union
 // between string literals and the generic string type. It would normally
