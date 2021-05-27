@@ -53,11 +53,26 @@ declare namespace union {
         { [P in keyof T]: Field<ref.UnderlyingType<T[P]>>; };
 
     /**
+     * The base type of any {@link UnionObjectProperties}
+     */
+    interface UnionObjectBase {
+        /**
+         * Returns a {@link Buffer} pointing to this struct data structure.
+         */
+        ref(): ref.Pointer<this>;
+    }
+
+    /**
      * Converts a {@link UnionTypeDefinitionBase} into a an object type representing the runtime shape of a {@link UnionType}.
      */
-    type UnionObject<T extends UnionTypeDefinitionBase> =
+    type UnionObjectProperties<T extends UnionTypeDefinitionBase> =
         [T] extends [never] | [0] ? Record<string, any> : // catches T extends never/any (since `0` doesn't overlap with our constraint)
         { [P in keyof T]: ref.UnderlyingType<T[P]>; };
+
+    /**
+     * Represents the instance type of a union type.
+     */
+    type UnionObject<T> = UnionObjectBase & T;
 
     /**
      * Converts a {@link UnionTypeDefinitionBase} into a union of possible inputs, allowing only a single key/value of the union.
@@ -74,7 +89,7 @@ declare namespace union {
             //          x: { x: number, y?: never };
             //          y: { y: number, x?: never };
             //      }
-            [P in keyof UnionObject<T>]: Pick<UnionObject<T>, P> & Partial<Record<Exclude<keyof UnionObject<T>, P>, never>>;
+            [P in keyof UnionObjectProperties<T>]: Pick<UnionObjectProperties<T>, P> & Partial<Record<Exclude<keyof UnionObjectProperties<T>, P>, never>>;
 
             // Performing an indexed access on the result using the expected keys gives us a union of non-overlapping values.
             //
@@ -85,7 +100,7 @@ declare namespace union {
             //      }
             // Becomes:
             //      { x: number, y?: never } | { y: number, x?: never };
-        }[keyof UnionObject<T>];
+        }[keyof UnionObjectProperties<T>];
 
     /**
      * Defines a field in a {@link UnionType}.
@@ -104,14 +119,14 @@ declare namespace union {
      *
      * @constructor
      */
-    interface UnionType<TDefinition extends UnionTypeDefinitionBase = any> extends ref.Type<UnionObject<TDefinition>> {
+    interface UnionType<TDefinition extends UnionTypeDefinitionBase = any> extends ref.Type<UnionObject<UnionObjectProperties<TDefinition>>> {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        new (arg: Buffer, data?: UnionInput<TDefinition>): UnionObject<TDefinition>;
-        new (data?: UnionInput<TDefinition>): UnionObject<TDefinition>;
+        new (arg: Buffer, data?: UnionInput<TDefinition>): UnionObject<UnionObjectProperties<TDefinition>>;
+        new (data?: UnionInput<TDefinition>): UnionObject<UnionObjectProperties<TDefinition>>;
 
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        (arg: Buffer, data?: UnionInput<TDefinition>): UnionObject<TDefinition>;
-        (data?: UnionInput<TDefinition>): UnionObject<TDefinition>;
+        (arg: Buffer, data?: UnionInput<TDefinition>): UnionObject<UnionObjectProperties<TDefinition>>;
+        (data?: UnionInput<TDefinition>): UnionObject<UnionObjectProperties<TDefinition>>;
 
         fields: UnionFields<TDefinition>;
 
