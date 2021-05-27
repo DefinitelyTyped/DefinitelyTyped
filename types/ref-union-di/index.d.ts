@@ -6,7 +6,14 @@
 import ref = require('ref-napi');
 
 declare var UnionType: {
+    new <TDefinition extends union.UnionTypeObjectDefinitionBase | union.UnionTypeObjectDefinitionInferenceMarker>(
+        fields: TDefinition
+    ): union.UnionType<union.UnionTypeObjectDefinitionToUnionTypeDefinition<TDefinition>>;
     new (fields?: Record<string, string | ref.Type>): union.UnionType;
+
+    <TDefinition extends union.UnionTypeObjectDefinitionBase | union.UnionTypeObjectDefinitionInferenceMarker>(
+        fields: TDefinition
+    ): union.UnionType<union.UnionTypeObjectDefinitionToUnionTypeDefinition<TDefinition>>;
     (fields?: Record<string, string | ref.Type>): union.UnionType;
 };
 
@@ -14,12 +21,81 @@ type RefModuleLike = Pick<typeof ref, "coerceType" | "get" | "set" | "alignof" |
 
 declare function union(ref: RefModuleLike): typeof UnionType;
 declare namespace union {
-    interface Field {
-        type: ref.Type;
+    /**
+     * Base constraint for an object-based union type definition.
+     */
+    type UnionTypeObjectDefinitionBase = Record<string, ref.TypeLike>;
+
+    /**
+     * This is a marker type that causes TypeScript to use string literal inference when inferring a generic from {@link UnionTypeObjectDefinitionBase}.
+     * If it is not used, `new UnionType({ x: "int" })` will be inferred as `new UnionType<{ x: string }>(...)` instead of `new UnionType<{ x: "int" }>(...)`.
+     */
+    type UnionTypeObjectDefinitionInferenceMarker = Record<string, "void">;
+
+    /**
+     * Converts a {@link UnionTypeObjectDefinitionBase} into a consistent subtype of {@link UnionTypeDefinitionBase}. If `any` is used, it is passed along
+     * to be interpreted to use a fallback definition for a union.
+     */
+    type UnionTypeObjectDefinitionToUnionTypeDefinition<T extends UnionTypeObjectDefinitionBase> =
+        [T] extends [never] | [0] ? any : // catches T extends never/any (since `0` doesn't overlap with our constraint)
+        { [P in keyof T]: ref.Type<ref.UnderlyingType<T[P]>>; };
+
+    /**
+     * Base constraint for a consistent union type definition.
+     */
+    type UnionTypeDefinitionBase = Record<string, ref.Type>;
+
+    /**
+     * Converts a {@link UnionTypeDefinitionBase} into a set of fields for use with {@link UnionType.fields}.
+     */
+    type UnionFields<T extends UnionTypeDefinitionBase> =
+        [T] extends [never] | [0] ? Record<string, Field> : // catches T extends never/any (since `0` doesn't overlap with our constraint)
+        { [P in keyof T]: Field<ref.UnderlyingType<T[P]>>; };
+
+    /**
+     * Converts a {@link UnionTypeDefinitionBase} into a an object type representing the runtime shape of a {@link UnionType}.
+     */
+    type UnionObject<T extends UnionTypeDefinitionBase> =
+        [T] extends [never] | [0] ? Record<string, any> : // catches T extends never/any (since `0` doesn't overlap with our constraint)
+        { [P in keyof T]: ref.UnderlyingType<T[P]>; };
+
+    /**
+     * Converts a {@link UnionTypeDefinitionBase} into a union of possible inputs, allowing only a single key/value of the union.
+     */
+    type UnionInput<T extends UnionTypeDefinitionBase> =
+        [T] extends [never] | [0] ? Record<string, any> : // catches T extends never/any (since `0` doesn't overlap with our constraint)
+        {
+            // For each key in T, construct an object where that key is defined, and the other keys are `never`.
+            //
+            // For example:
+            //      { x: Type<number>, y: Type<number> }
+            // Becomes:
+            //      {
+            //          x: { x: number, y?: never };
+            //          y: { y: number, x?: never };
+            //      }
+            [P in keyof UnionObject<T>]: Pick<UnionObject<T>, P> & Partial<Record<Exclude<keyof UnionObject<T>, P>, never>>;
+
+            // Performing an indexed access on the result using the expected keys gives us a union of non-overlapping values.
+            //
+            // For example:
+            //      {
+            //          x: { x: number, y?: never };
+            //          y: { y: number, x?: never };
+            //      }
+            // Becomes:
+            //      { x: number, y?: never } | { y: number, x?: never };
+        }[keyof UnionObject<T>];
+
+    /**
+     * Defines a field in a {@link UnionType}.
+     */
+    interface Field<T = any> {
+        type: ref.Type<T>;
     }
 
     /**
-     * This is the `constructor` of the Struct type that gets returned.
+     * This is the `constructor` of the union type that gets returned.
      *
      * Invoke it with `new` to create a new Buffer instance backing the union.
      * Pass it an existing Buffer instance to use that as the backing buffer.
@@ -28,16 +104,16 @@ declare namespace union {
      *
      * @constructor
      */
-    interface UnionType extends ref.Type {
+    interface UnionType<TDefinition extends UnionTypeDefinitionBase = any> extends ref.Type<UnionObject<TDefinition>> {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        new (arg: Buffer, data?: Record<string, any>): Record<string, any>;
-        new (data?: Record<string, any>): Record<string, any>;
+        new (arg: Buffer, data?: UnionInput<TDefinition>): UnionObject<TDefinition>;
+        new (data?: UnionInput<TDefinition>): UnionObject<TDefinition>;
 
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        (arg: Buffer, data?: Record<string, any>): Record<string, any>;
-        (data?: Record<string, any>): Record<string, any>;
+        (arg: Buffer, data?: UnionInput<TDefinition>): UnionObject<TDefinition>;
+        (data?: UnionInput<TDefinition>): UnionObject<TDefinition>;
 
-        fields: Record<string, Field>;
+        fields: UnionFields<TDefinition>;
 
         /**
          * Adds a new field to the union instance with the given name and type.

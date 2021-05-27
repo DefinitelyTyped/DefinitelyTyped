@@ -7,25 +7,25 @@ declare const buffer: Buffer;
 declare const number: number;
 declare const string: string;
 
-// $ExpectType UnionType
-UnionType();
-// $ExpectType UnionType
-UnionType({
-    ival: typeLike,
-    fval: typeLike,
-});
+type T = ref_union.UnionFields<any>;
 
-// $ExpectType UnionType
+// $ExpectType UnionType<any>
+UnionType();
+// $ExpectType UnionType<{ ival: Type<any>; fval: Type<any>; }>
+UnionType({ ival: typeLike, fval: typeLike });
+// $ExpectType UnionType<{ ival: Type<number>; fval: Type<number>; }>
+UnionType({ ival: "int", fval: "float" });
+
+// $ExpectType UnionType<any>
 new UnionType();
-// $ExpectType UnionType
-new UnionType({
-    ival: typeLike,
-    fval: typeLike,
-});
+// $ExpectType UnionType<{ ival: Type<any>; fval: Type<any>; }>
+new UnionType({ ival: typeLike, fval: typeLike });
+// $ExpectType UnionType<{ ival: Type<number>; fval: Type<number>; }>
+new UnionType({ ival: "int", fval: "float" });
 
 declare const union: ref_union.UnionType;
 
-// $ExpectType Record<string, Field>
+// $ExpectType Record<string, Field<any>>
 union.fields;
 
 // $ExpectType void
@@ -59,3 +59,26 @@ new union(buffer);
 new union(buffer, undefined);
 // $ExpectType Record<string, any>
 new union(buffer, { ival: number });
+
+declare const int32tofloat32: ref_union.UnionType<{ ival: ref.Type<number>, fval: ref.Type<number> }>;
+
+// $ExpectType { ival: Field<number>; fval: Field<number>; }
+int32tofloat32.fields;
+
+// $ExpectType { ival: number; fval: number; }
+int32tofloat32();
+// $ExpectType { ival: number; fval: number; }
+int32tofloat32({ ival: 1 });
+// $ExpectType { ival: number; fval: number; }
+int32tofloat32({ fval: 1.1 });
+// @ts-expect-error
+int32tofloat32({ ival: 1, fval: 1.1 });
+
+// $ExpectType { ival: number; fval: number; }
+new int32tofloat32();
+// $ExpectType { ival: number; fval: number; }
+new int32tofloat32({ ival: 1 });
+// $ExpectType { ival: number; fval: number; }
+new int32tofloat32({ fval: 1.1 });
+// @ts-expect-error
+new int32tofloat32({ ival: 1, fval: 1.1 });
