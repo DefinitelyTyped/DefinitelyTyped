@@ -218,9 +218,14 @@ export declare class MSSQLError extends Error {
 }
 
 export declare class ConnectionPool extends events.EventEmitter {
-    public connected: boolean;
-    public connecting: boolean;
-    public driver: string;
+    public readonly connected: boolean;
+    public readonly connecting: boolean;
+    public readonly healthy: boolean;
+    public readonly driver: string;
+    public readonly size: number;
+    public readonly available: number;
+    public readonly pending: number;
+    public readonly borrowed: number;
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;
