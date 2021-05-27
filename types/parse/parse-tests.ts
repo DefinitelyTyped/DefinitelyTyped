@@ -1066,6 +1066,9 @@ function testObject() {
         // $ExpectType Object<Attributes>
         new Parse.Object("TestObject");
 
+        // $ExpectType Object<{ example: string; }>
+        new Parse.Object<{ example: string }>("TestObject");
+
         // $ExpectType Object<{ example: number; }>
         new Parse.Object("TestObject", { example: 100 });
 
@@ -1074,9 +1077,6 @@ function testObject() {
 
         // $ExpectType Object<{ example: string; }>
         new Parse.Object("TestObject", { example: "hello" }, { ignoreValidation: true });
-
-        // $ExpectError
-        new Parse.Object<{ example: string }>("TestObject");
 
         // $ExpectError
         new Parse.Object<{ example: boolean }>("TestObject", { example: "hello" });
