@@ -1,6 +1,6 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 import { Input, TwoStepCaretMovement } from '@ckeditor/ckeditor5-typing';
-import { ClipboardPipeline } from '@ckeditor/ckeditor5-clipboard';
+import ClipboardPipeline from '@ckeditor/ckeditor5-clipboard/src/clipboardpipeline';
 
 export default class LinkEditing extends Plugin {
     static readonly pluginName: 'LinkEditing';
