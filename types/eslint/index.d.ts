@@ -584,6 +584,8 @@ export namespace Rule {
 
         getFilename(): string;
 
+        getCwd(): string;
+
         getScope(): Scope.Scope;
 
         getSourceCode(): SourceCode;
