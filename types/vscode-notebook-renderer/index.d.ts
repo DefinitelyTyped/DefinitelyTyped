@@ -13,16 +13,9 @@ export interface CellInfo {
     readonly element: HTMLElement;
 
     /**
-     * Mime type being renderer.
+     * Mime type being rendered.
      */
     readonly mime: string;
-
-    /**
-     * Render data for the cell.
-     * @todo This may eventually be just a Uint8Array
-     * @deprecated
-     */
-    readonly value: unknown;
 
     /**
      * The data as text. Note the a UTF-8 decoder is used is create
