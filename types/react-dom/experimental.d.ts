@@ -29,33 +29,11 @@
 // flagged experimental or not. Experimental APIs will be tagged with `__EXPERIMENTAL__`.
 
 import React = require('react');
-import ReactDOM = require('.');
+import ReactDOM = require('./alpha');
 
 export {};
 
 declare module '.' {
-    interface HydrationOptions {
-        onHydrated?(suspenseInstance: Comment): void;
-        onDeleted?(suspenseInstance: Comment): void;
-    }
-
-    interface RootOptions {
-        hydrate?: boolean;
-        hydrationOptions?: HydrationOptions;
-    }
-
-    interface Root {
-        render(children: React.ReactChild | React.ReactNodeArray): void;
-        unmount(): void;
-    }
-
-    /**
-     * Replaces `ReactDOM.render` when the `.render` method is called and enables Concurrent Mode.
-     *
-     * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot
-     */
-    function createRoot(container: Element | Document | DocumentFragment | Comment, options?: RootOptions): Root;
-
     function unstable_flushControlled(callback: () => void): void;
 
     // enableSelectiveHydration feature
