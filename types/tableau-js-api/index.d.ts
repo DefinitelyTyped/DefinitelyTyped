@@ -8,7 +8,7 @@
  *
  * https://help.tableau.com/v2021.1/api/js_api/en-us/JavaScriptAPI/js_api_ref.htm
  *
- * Where possible, the structure of the type definition mirros what is present
+ * Where possible, the structure of the type definition mirrors what is present
  * the documentation. The file structure also attempts to (largely) mirror the
  * structure of the documentation. The Viz Classes category is located in the
  * viz.d.ts file and the Sheet Classes category is located in the sheet.d.ts
