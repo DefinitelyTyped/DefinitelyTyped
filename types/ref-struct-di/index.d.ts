@@ -6,20 +6,122 @@
 import ref = require('ref-napi');
 
 declare var StructType: {
-    new (fields?: Record<string, string | ref.Type>, opt?: { packed?: boolean }): struct.StructType;
-    new (fields?: Array<[string, string | ref.Type]>, opt?: { packed?: boolean }): struct.StructType;
-    (fields?: Record<string, string | ref.Type>, opt?: { packed?: boolean }): struct.StructType;
-    (fields?: Array<[string, string | ref.Type]>, opt?: { packed?: boolean }): struct.StructType;
+    /**
+     * Creates a new {@link struct.StructType} for the provided field definitions.
+     */
+    new <TDefinition extends struct.StructTypeObjectDefinitionBase | struct.StructTypeObjectDefinitionInferenceMarker>(
+        fields: TDefinition,
+        opt?: { packed?: boolean }
+    ): struct.StructType<struct.StructTypeObjectDefinitionToStructTypeDefinition<TDefinition>>;
+    /**
+     * Creates a new {@link struct.StructType} for the provided field definitions.
+     */
+    new <TDefinition extends struct.StructTypeTupleDefinitionBase | struct.StructTypeTupleDefinitionInferenceMarker>(
+        fields: TDefinition,
+        opt?: { packed?: boolean }
+    ): struct.StructType<struct.StructTypeTupleDefinitionToStructTypeDefinition<TDefinition>>;
+    /**
+     * Creates a new {@link struct.StructType} for the provided field definitions.
+     */
+    new (fields?: Record<string, ref.TypeLike>, opt?: { packed?: boolean }): struct.StructType;
+    /**
+     * Creates a new {@link struct.StructType} for the provided field definitions.
+     */
+    new (fields?: Array<[string, ref.TypeLike]>, opt?: { packed?: boolean }): struct.StructType;
+
+    /**
+     * Creates a new {@link struct.StructType} for the provided field definitions.
+     */
+    <TDefinition extends struct.StructTypeObjectDefinitionBase | struct.StructTypeObjectDefinitionInferenceMarker>(
+        fields: TDefinition,
+        opt?: { packed?: boolean }
+    ): struct.StructType<struct.StructTypeObjectDefinitionToStructTypeDefinition<TDefinition>>;
+    /**
+     * Creates a new {@link struct.StructType} for the provided field definitions.
+     */
+    <TDefinition extends struct.StructTypeTupleDefinitionBase | struct.StructTypeTupleDefinitionInferenceMarker>(
+        fields: TDefinition,
+        opt?: { packed?: boolean }
+    ): struct.StructType<struct.StructTypeTupleDefinitionToStructTypeDefinition<TDefinition>>;
+    /**
+     * Creates a new {@link struct.StructType} for the provided field definitions.
+     */
+    (fields?: Record<string, ref.TypeLike>, opt?: { packed?: boolean }): struct.StructType;
+    /**
+     * Creates a new {@link struct.StructType} for the provided field definitions.
+     */
+    (fields?: Array<[string, ref.TypeLike]>, opt?: { packed?: boolean }): struct.StructType;
 };
 
 type RefModuleLike = Pick<typeof ref, "coerceType" | "get" | "set" | "alignof" | "sizeof" | "NULL">;
 
 declare function struct(ref: RefModuleLike): typeof StructType;
 declare namespace struct {
-    interface Field {
-        type: ref.Type;
+    /**
+     * Base constraint for an object-based struct type definition.
+     */
+    type StructTypeObjectDefinitionBase = Record<string, ref.TypeLike>;
+
+    /**
+     * This is a marker type that causes TypeScript to use string literal inference when inferring a generic from {@link StructTypeObjectDefinitionBase}.
+     * If it is not used, `new StructType({ x: "int" })` will be inferred as `new StructType<{ x: string }>(...)` instead of `new StructType<{ x: "int" }>(...)`.
+     */
+    type StructTypeObjectDefinitionInferenceMarker = Record<string, "void">;
+
+    /**
+     * Converts a {@link StructTypeObjectDefinitionBase} into a consistent subtype of {@link StructTypeDefinitionBase}. If `any` is used, it is passed along
+     * to be interpreted to use a fallback definition for a struct.
+     */
+    type StructTypeObjectDefinitionToStructTypeDefinition<T extends StructTypeObjectDefinitionBase> =
+        [T] extends [never] | [0] ? any : // catches T extends never/any (since `0` doesn't overlap with our constraint)
+        { [P in keyof T]: ref.Type<ref.UnderlyingType<T[P]>>; };
+
+    /**
+     * Base constraint for an array-based struct type definition.
+     */
+    type StructTypeTupleDefinitionBase = Array<[string, ref.TypeLike]>;
+
+    /**
+     * This is a marker type that causes TypeScript to use tuple-type and string literal inference when inferring a generic from {@link StructTypeTupleDefinitionBase}.
+     * If it is not used, `new StructType([["x", "int"]])` will be inferred as `new StructType<[string, string][]>(...)` instead of `new StructType<[["x", "int"]]>(...)`.
+     */
+    type StructTypeTupleDefinitionInferenceMarker = [["", "void"]];
+
+    /**
+     * Converts a {@link StructTypeTupleDefinitionBase} into a consistent subtype of {@link StructTypeDefinitionBase}. If `any` is used, it is passed along
+     * to be interpreted to use a fallback definition for a struct.
+     */
+    type StructTypeTupleDefinitionToStructTypeDefinition<T extends StructTypeTupleDefinitionBase> =
+        [T] extends [never] | [0] ? any : // catches T extends never/any (since `0` doesn't overlap with our constraint)
+        { [P in Extract<keyof T, `${number}`> as Extract<T[P], [string, ref.TypeLike]>[0]]: ref.Type<ref.UnderlyingType<Extract<T[P], [string, ref.TypeLike]>[1]>>; };
+
+    /**
+     * Base constraint for a consistent struct type definition.
+     */
+    type StructTypeDefinitionBase = Record<string, ref.Type>;
+
+    /**
+     * Converts a {@link StructTypeDefinitionBase} into a set of fields for use with {@link StructType.fields}.
+     */
+    type StructFields<T extends StructTypeDefinitionBase> =
+        [T] extends [never] | [0] ? Record<string, Field> : // catches T extends never/any (since `0` doesn't overlap with our constraint)
+        { [P in keyof T]: Field<ref.UnderlyingType<T[P]>>; };
+
+    /**
+     * Converts a {@link StructTypeDefinitionBase} into a an object type representing the runtime shape of a {@link StructType}.
+     */
+    type StructObject<T extends StructTypeDefinitionBase> =
+        [T] extends [never] | [0] ? Record<string, any> : // catches T extends never/any (since `0` doesn't overlap with our constraint)
+        { [P in keyof T]: ref.UnderlyingType<T[P]>; };
+
+    /**
+     * Defines a field in a {@link StructType}.
+     */
+    interface Field<T = any> {
+        type: ref.Type<T>;
         offset: number;
     }
+
     /**
      * This is the `constructor` of the Struct type that gets returned.
      *
@@ -30,16 +132,16 @@ declare namespace struct {
      *
      * @constructor
      */
-    interface StructType extends ref.Type {
+    interface StructType<TDefinition extends StructTypeDefinitionBase = any> extends ref.Type<StructObject<TDefinition>> {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        new (arg: Buffer, data?: Record<string, any>): Record<string, any>;
-        new (data?: Record<string, any>): Record<string, any>;
+        new (arg: Buffer, data?: Partial<StructObject<TDefinition>>): StructObject<TDefinition>;
+        new (data?: Partial<StructObject<TDefinition>>): StructObject<TDefinition>;
 
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        (arg: Buffer, data?: Record<string, any>): Record<string, any>;
-        (data?: Record<string, any>): Record<string, any>;
+        (arg: Buffer, data?: Partial<StructObject<TDefinition>>): StructObject<TDefinition>;
+        (data?: Partial<StructObject<TDefinition>>): StructObject<TDefinition>;
 
-        fields: Record<string, Field>;
+        fields: StructFields<TDefinition>;
 
         /**
          * Adds a new field to the struct instance with the given name and type.
@@ -47,7 +149,7 @@ declare namespace struct {
          * type have already been created, therefore this function must be called at the
          * beginning, before any instances are created.
          */
-        defineProperty(name: string, type: string | ref.Type): void;
+        defineProperty(name: string, type: ref.TypeLike): void;
 
         /**
          * Custom for struct type instances.

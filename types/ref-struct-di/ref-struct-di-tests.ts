@@ -12,51 +12,76 @@ const packedStruct = StructType({
   v: ref.types.long,
 }, {packed: true});
 
-declare const typeLike: string | ref.Type;
+declare const typeLike: ref.TypeLike;
 declare const buffer: Buffer;
 declare const number: number;
 declare const string: string;
 declare const boolean: boolean;
 
-// $ExpectType StructType
+// $ExpectType StructType<any>
 StructType();
-// $ExpectType StructType
+// $ExpectType StructType<any>
 StructType(undefined);
-// $ExpectType StructType
+// $ExpectType StructType<any>
 StructType(undefined, undefined);
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 StructType({ x: typeLike });
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 StructType({ x: typeLike }, undefined);
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 StructType({ x: typeLike }, { packed: boolean });
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<number>; }>
+StructType({ x: ref.types.int }, { packed: boolean });
+// $ExpectType StructType<{ x: Type<number>; }>
+StructType({ x: "int" }, { packed: boolean });
+// $ExpectType StructType<{ x: Type<any>; }>
 StructType([["x", typeLike]]);
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 StructType([["x", typeLike]], undefined);
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 StructType([["x", typeLike]], { packed: boolean });
+// $ExpectType StructType<{ x: Type<number>; }>
+StructType([["x", ref.types.int]], { packed: boolean });
+// $ExpectType StructType<{ x: Type<number>; }>
+StructType([["x", "int"]], { packed: boolean });
 
-// $ExpectType StructType
+// $ExpectType StructType<any>
 new StructType();
-// $ExpectType StructType
+// $ExpectType StructType<any>
 new StructType(undefined);
-// $ExpectType StructType
+// $ExpectType StructType<any>
 new StructType(undefined, undefined);
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 new StructType({ x: typeLike });
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 new StructType({ x: typeLike }, undefined);
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 new StructType({ x: typeLike }, { packed: boolean });
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<number>; }>
+new StructType({ x: ref.types.int }, { packed: boolean });
+// $ExpectType StructType<{ x: Type<number>; }>
+new StructType({ x: "int" }, { packed: boolean });
+// $ExpectType StructType<{ x: Type<any>; }>
 new StructType([["x", typeLike]]);
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 new StructType([["x", typeLike]], undefined);
-// $ExpectType StructType
+// $ExpectType StructType<{ x: Type<any>; }>
 new StructType([["x", typeLike]], { packed: boolean });
+// $ExpectType StructType<{ x: Type<number>; }>
+new StructType([["x", ref.types.int]], { packed: boolean });
+// $ExpectType StructType<{ x: Type<number>; }>
+new StructType([["x", "int"]], { packed: boolean });
 
 declare const struct: ref_struct.StructType;
+
+// $ExpectType Record<string, Field<any>>
+struct.fields;
+
+// $ExpectType void
+struct.defineProperty(string, typeLike);
+
+// $ExpectType string
+struct.toString();
 
 // $ExpectType Record<string, any>
 struct();
@@ -84,11 +109,33 @@ new struct(buffer, undefined);
 // $ExpectType Record<string, any>
 new struct(buffer, { x: number });
 
-// $ExpectType Record<string, Field>
-struct.fields;
+declare const Point: ref_struct.StructType<{ x: ref.Type<number>, y: ref.Type<number> }>;
 
-// $ExpectType void
-struct.defineProperty(string, typeLike);
+// $ExpectType { x: Field<number>; y: Field<number>; }
+Point.fields;
 
-// $ExpectType string
-struct.toString();
+// $ExpectType { x: number; y: number; }
+Point();
+// $ExpectType { x: number; y: number; }
+Point(undefined);
+// $ExpectType { x: number; y: number; }
+Point({ x: number });
+// $ExpectType { x: number; y: number; }
+Point(buffer);
+// $ExpectType { x: number; y: number; }
+Point(buffer, undefined);
+// $ExpectType { x: number; y: number; }
+Point(buffer, { x: number });
+
+// $ExpectType { x: number; y: number; }
+new Point();
+// $ExpectType { x: number; y: number; }
+new Point(undefined);
+// $ExpectType { x: number; y: number; }
+new Point({ x: number });
+// $ExpectType { x: number; y: number; }
+new Point(buffer);
+// $ExpectType { x: number; y: number; }
+new Point(buffer, undefined);
+// $ExpectType { x: number; y: number; }
+new Point(buffer, { x: number });

@@ -1,16 +1,8 @@
 import ref = require("ref-napi");
 
-interface Foo {
-    x: number;
-}
-
-declare const typeLike: ref.NamedType | ref.Type;
-declare const numberPointer: ref.Pointer<number>;
-declare const numberPointerType: ref.Type<ref.Pointer<number>>;
-declare const fooPointer: ref.Pointer<Foo>;
+declare const typeLike: string | ref.Type;
 declare const buffer: Buffer;
 declare const string: string;
-declare const encoding: BufferEncoding;
 declare const number: number;
 declare const any: any;
 declare const int64Like: string | number;
@@ -22,43 +14,24 @@ ref.address(buffer);
 // $ExpectType string
 ref.hexAddress(buffer);
 
-// $ExpectType Value<any>
+// $ExpectType Buffer
 ref.alloc(typeLike, 0);
-// $ExpectType Value<number>
-ref.alloc("int");
-// $ExpectType Value<number>
-ref.alloc("int", 4);
 
-// $ExpectType Value<string>
+// $ExpectType Buffer
 ref.allocCString(string);
-// $ExpectType Value<string>
+// $ExpectType Buffer
 ref.allocCString(string, undefined);
-// $ExpectType Value<string>
-ref.allocCString(string, encoding);
+// $ExpectType Buffer
+ref.allocCString(string, string);
 
-// $ExpectType Value<string | null>
-ref.allocCString(null);
-// $ExpectType Value<string | null>
-ref.allocCString(null, undefined);
-// $ExpectType Value<string | null>
-ref.allocCString(null, encoding);
-
-// $ExpectType Type<any>
+// $ExpectType Type
 ref.coerceType(typeLike);
-// $ExpectType Type<number>
-ref.coerceType(ref.types.int);
-// $ExpectType Type<number>
-ref.coerceType("int");
 
 // $ExpectType any
 ref.deref(buffer);
-// $ExpectType number
-ref.deref(numberPointer);
 
-// $ExpectType Type<unknown>
+// $ExpectType Type
 ref.derefType(typeLike);
-// $ExpectType Type<number>
-ref.derefType(numberPointerType);
 
 // $ExpectType "LE" | "BE"
 ref.endianness;
@@ -75,21 +48,9 @@ ref.get(buffer, number);
 ref.get(buffer, number, undefined);
 // $ExpectType any
 ref.get(buffer, number, typeLike);
-// $ExpectType number
-ref.get(numberPointer);
-// $ExpectType number
-ref.get(numberPointer, undefined);
-// $ExpectType number
-ref.get(numberPointer, 0);
-// $ExpectType any
-ref.get(numberPointer, number);
-// $ExpectType number
-ref.get(buffer, number, ref.types.int);
 
-// $ExpectType Type<any>
+// $ExpectType Type
 ref.getType(buffer);
-// $ExpectType Type<number>
-ref.getType(numberPointer);
 
 // $ExpectType boolean
 ref.isNull(buffer);
@@ -121,24 +82,12 @@ ref.readObject(buffer);
 ref.readObject(buffer, undefined);
 // $ExpectType Object
 ref.readObject(buffer, number);
-// $ExpectType Foo
-ref.readObject(fooPointer);
-// $ExpectType Foo
-ref.readObject(fooPointer, undefined);
-// $ExpectType Foo
-ref.readObject(fooPointer, 0);
-// $ExpectType Object
-ref.readObject(fooPointer, number);
 
 // $ExpectType Buffer
 ref.ref(buffer);
-// $ExpectType Pointer<Pointer<number>>
-ref.ref(numberPointer);
 
-// $ExpectType Type<Pointer<any>>
+// $ExpectType Type
 ref.refType(typeLike);
-// $ExpectType Type<Pointer<number>>
-ref.refType(ref.types.int);
 
 // $ExpectType Buffer
 ref.reinterpret(buffer, number);
@@ -166,7 +115,7 @@ ref.writeCString(buffer, number, string);
 // $ExpectType void
 ref.writeCString(buffer, number, string, undefined);
 // $ExpectType void
-ref.writeCString(buffer, number, string, encoding);
+ref.writeCString(buffer, number, string, string);
 
 // $ExpectType void
 ref.writeInt64BE(buffer, number, int64Like);
@@ -209,62 +158,62 @@ ref._writePointer(buffer, number, buffer);
 // $ExpectType void
 ref._writeObject(buffer, number, jsObject);
 
-// $ExpectType Type<void>
+// $ExpectType Type
 ref.types.void;
-// @ts-expect-error
+// $ExpectError
 ref.types.pointer; // `pointer` doesn't exist on `types`, though it exists on `sizeof`/`alignof`
-// $ExpectType Type<string | number>
+// $ExpectType Type
 ref.types.int64;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.ushort;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.int;
-// $ExpectType Type<string | number>
+// $ExpectType Type
 ref.types.uint64;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.float;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.uint;
-// $ExpectType Type<string | number>
+// $ExpectType Type
 ref.types.long;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.double;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.int8;
-// $ExpectType Type<string | number>
+// $ExpectType Type
 ref.types.ulong;
-// $ExpectType Type<unknown>
+// $ExpectType Type
 ref.types.Object;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.uint8;
-// $ExpectType Type<string | number>
+// $ExpectType Type
 ref.types.longlong;
-// $ExpectType Type<string | null>
+// $ExpectType Type
 ref.types.CString;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.int16;
-// $ExpectType Type<string | number>
+// $ExpectType Type
 ref.types.ulonglong;
-// $ExpectType Type<boolean>
+// $ExpectType Type
 ref.types.bool;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.uint16;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.char;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.byte;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.int32;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.uchar;
-// $ExpectType Type<string | number>
+// $ExpectType Type
 ref.types.size_t;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.uint32;
-// $ExpectType Type<number>
+// $ExpectType Type
 ref.types.short;
 
-// @ts-expect-error
+// $ExpectError
 ref.alignof.void; // `void` doesn't have an alignment
 // $ExpectType number
 ref.alignof.pointer;
@@ -294,7 +243,7 @@ ref.alignof.Object;
 ref.alignof.uint8;
 // $ExpectType number
 ref.alignof.longlong;
-// @ts-expect-error
+// $ExpectError
 ref.alignof.CString; // `CString` doesn't have an alignment
 // $ExpectType number
 ref.alignof.int16;
@@ -319,7 +268,7 @@ ref.alignof.uint32;
 // $ExpectType number
 ref.alignof.short;
 
-// @ts-expect-error
+// $ExpectError
 ref.sizeof.void; // `void` doesn't have an size
 // $ExpectType number
 ref.sizeof.pointer;
@@ -349,7 +298,7 @@ ref.sizeof.Object;
 ref.sizeof.uint8;
 // $ExpectType number
 ref.sizeof.longlong;
-// @ts-expect-error
+// $ExpectError
 ref.sizeof.CString; // `CString` doesn't have an size
 // $ExpectType number
 ref.sizeof.int16;
@@ -483,5 +432,5 @@ buffer.reinterpretUntilZeros(number, undefined);
 // $ExpectType Buffer
 buffer.reinterpretUntilZeros(number, number);
 
-// $ExpectType Type<any> | undefined
+// $ExpectType Type | undefined
 buffer.type;
