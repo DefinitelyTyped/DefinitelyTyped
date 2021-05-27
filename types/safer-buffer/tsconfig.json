@@ -12,6 +12,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "buffer": [
+                "node/buffer"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
