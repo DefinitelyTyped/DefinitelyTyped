@@ -202,6 +202,7 @@ export interface config {
     parseJSON?: boolean;
     options?: IOptions;
     pool?: IPool;
+    arrayRowMode?: boolean;
     /**
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.
