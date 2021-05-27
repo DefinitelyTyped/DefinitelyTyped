@@ -32,7 +32,7 @@ export type LibraryObjectDefinitionBase = Record<string, [retType: ref.TypeLike,
 export type LibraryObjectDefinitionInferenceMarker = Record<string, [retType: "void", argTypes: ArgTypesInferenceMarker]>;
 
 /**
- * Converts a {@link LibraryObjectDefinitionBase} into a consistent subtype of {@link LibraryDefinitionBase}. If `"any"` is used, it is passed along
+ * Converts a {@link LibraryObjectDefinitionBase} into a consistent subtype of {@link LibraryDefinitionBase}. If `any` is used, it is passed along
  * to be interpreted to use a fallback definition for a union.
  */
 export type LibraryObjectDefinitionToLibraryDefinition<T extends LibraryObjectDefinitionBase> =
@@ -51,6 +51,7 @@ export type LibraryObject<T extends LibraryDefinitionBase> =
     [T] extends [never] | [0] ? any : // catches T extends never/any (since `0` doesn't overlap with our constraint)
     {
         [P in keyof T]:
+            T[P][2] extends undefined ? ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>> :
             T[P][2] extends { varargs: true } ? VariadicForeignFunction<T[P][0], T[P][1]> :
             T[P][2] extends { async: true } ? ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>>["async"] :
             ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>>;
