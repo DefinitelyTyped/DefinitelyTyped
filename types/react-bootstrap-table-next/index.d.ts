@@ -58,6 +58,8 @@ declare enum FilterComparator {
  */
 export type SortOrder = 'asc' | 'desc';
 
+export type ColumnSortValue<R, C = any> = (cell: C, row: R) => number | string | boolean | React.ReactText;
+
 export type ColumnSortFunc<T, E extends keyof T = any> = (
     a: T[E],
     b: T[E],
@@ -135,6 +137,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
         | React.CSSProperties
         | ((cell: T[keyof T], row: T, rowIndex: number, colIndex: number) => React.CSSProperties);
     sort?: boolean;
+    sortValue?: ColumnSortValue<T>;
     sortFunc?: ColumnSortFunc<T>;
     sortCaret?: ColumnSortCaret<T, E>;
     searchable?: boolean;
