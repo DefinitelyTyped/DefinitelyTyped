@@ -269,7 +269,7 @@ export interface Property extends BaseNode {
 export interface PropertyDefinition extends BaseNode {
     type: "PropertyDefinition";
     key: Expression | PrivateIdentifier;
-    value: Expression | null;
+    value?: Expression | null;
     computed: boolean;
     static: boolean;
 }
