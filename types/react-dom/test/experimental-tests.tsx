@@ -9,9 +9,7 @@ function createRoot() {
     // in reality it will do nothing because the root isn't hydrate: true
     ReactDOM.unstable_scheduleHydration(document);
 
-    root.render(<div>initial render</div>, () => {
-        console.log('callback');
-    });
+    root.render(<div>initial render</div>);
 }
 
 function updates() {

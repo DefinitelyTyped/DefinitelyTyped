@@ -34,13 +34,10 @@ import ReactDOM = require('.');
 export {};
 
 declare module '.' {
-    // enableSuspenseServerRenderer feature
     interface HydrationOptions {
         onHydrated?(suspenseInstance: Comment): void;
         onDeleted?(suspenseInstance: Comment): void;
     }
-
-    // exposeConcurrentModeAPIs features
 
     interface RootOptions {
         hydrate?: boolean;
@@ -48,8 +45,8 @@ declare module '.' {
     }
 
     interface Root {
-        render(children: React.ReactChild | React.ReactNodeArray, callback?: () => void): void;
-        unmount(callback?: () => void): void;
+        render(children: React.ReactChild | React.ReactNodeArray): void;
+        unmount(): void;
     }
 
     /**
