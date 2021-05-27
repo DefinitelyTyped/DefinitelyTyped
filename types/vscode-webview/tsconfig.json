@@ -3,12 +3,12 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom"
+            "DOM"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "nouislider-tests.ts"
+        "vscode-webview-tests.ts"
     ]
 }

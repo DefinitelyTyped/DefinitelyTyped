@@ -2079,6 +2079,8 @@ describe("Randomize Tests", () => {
                 seed: 1234,
             });
         }).not.toThrow();
+        const env = jasmine.getEnv();
+        const seed: number = env.seed(42);
     });
 });
 

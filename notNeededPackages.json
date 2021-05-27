@@ -2989,6 +2989,10 @@
             "libraryName": "notyf",
             "asOfVersion": "3.0.0"
         },
+        "nouislider": {
+            "libraryName": "nouislider",
+            "asOfVersion": "15.0.0"
+        },
         "npm-email": {
             "libraryName": "npm-email",
             "asOfVersion": "3.1.0"
@@ -3889,6 +3893,10 @@
         "react-native-document-picker": {
             "libraryName": "react-native-document-picker",
             "asOfVersion": "3.1.0"
+        },
+        "react-native-draggable-flatlist": {
+            "libraryName": "react-native-draggable-flatlist",
+            "asOfVersion": "2.0.0"
         },
         "react-native-elements": {
             "libraryName": "react-native-elements",
