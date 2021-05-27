@@ -459,7 +459,7 @@ declare class Application<
 
     /**
      *
-     * @param {object} [options] Application optionsJake, 2 years ago: • feat: accept options in the Application const…
+     * @param {object} [options] Application options
      * @param {string} [options.env='development'] Environment
      * @param {string[]} [options.keys] Signed cookie keys
      * @param {boolean} [options.proxy] Trust proxy headers
