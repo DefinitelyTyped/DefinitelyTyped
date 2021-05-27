@@ -9,7 +9,7 @@ export = bufferEqual;
 
 /**
  * @return Whether two buffers are equal or undefined if given
- * elements that are not buffers.
+ * arguments that are not buffers.
  *
  * @example
  * import bufferEqual = require('buffer-equal');
