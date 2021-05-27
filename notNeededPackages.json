@@ -3894,6 +3894,10 @@
             "libraryName": "react-native-document-picker",
             "asOfVersion": "3.1.0"
         },
+        "react-native-draggable-flatlist": {
+            "libraryName": "react-native-draggable-flatlist",
+            "asOfVersion": "2.0.0"
+        },
         "react-native-elements": {
             "libraryName": "react-native-elements",
             "asOfVersion": "0.18.0"
