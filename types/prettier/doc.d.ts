@@ -108,7 +108,7 @@ export namespace builders {
 
     function addAlignmentToDoc(doc: Doc, size: number, tabWidth: number): Doc;
     /** @see [align](https://github.com/prettier/prettier/blob/main/commands.md#align) */
-    function align(widthOrString: number | string | { type: 'root' }, doc: Doc): Align;
+    function align(widthOrString: Align['n'], doc: Doc): Align;
     /** @see [breakParent](https://github.com/prettier/prettier/blob/main/commands.md#breakparent) */
     const breakParent: BreakParent;
     /**
