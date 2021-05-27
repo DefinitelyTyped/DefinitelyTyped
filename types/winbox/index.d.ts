@@ -63,10 +63,13 @@ declare namespace WinBox {
         index?: number;
         left?: string | number;
         max?: boolean;
+        minheight?: number;
+        minwidth?: number;
         modal?: boolean;
         mount?: Node;
         right?: string | number;
         root?: Node;
+        splitscreen?: boolean;
         title?: string;
         top?: string | number;
         url?: string;
