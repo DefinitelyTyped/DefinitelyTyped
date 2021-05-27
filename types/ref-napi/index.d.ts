@@ -1,4 +1,4 @@
-// Type definitions for ref-napi 1.4
+// Type definitions for ref-napi 3.0
 // Project: https://github.com/node-ffi-napi/ref-napi
 // Definitions by: Keerthi Niranjan <https://github.com/keerthi16>, Kiran Niranjan <https://github.com/KiranNiranjan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,10 +26,10 @@ export declare var NULL: Buffer;
 export declare var NULL_POINTER: Buffer;
 /** Get the memory address of buffer. */
 export declare function address(buffer: Buffer): number;
+/** Get the memory address of buffer. */
+export declare function hexAddress(buffer: Buffer): string;
 /** Allocate the memory with the given value written to it. */
-export declare function alloc(type: Type, value?: any): Buffer;
-/** Allocate the memory with the given value written to it. */
-export declare function alloc(type: string, value?: any): Buffer;
+export declare function alloc(type: string | Type, value?: any): Buffer;
 
 /**
  * Allocate the memory with the given string written to it with the given
@@ -38,10 +38,8 @@ export declare function alloc(type: string, value?: any): Buffer;
  */
 export declare function allocCString(string: string, encoding?: string): Buffer;
 
-/** Coerce a type.*/
-export declare function coerceType(type: Type): Type;
 /** Coerce a type. String are looked up from the ref.types object. */
-export declare function coerceType(type: string): Type;
+export declare function coerceType(type: string | Type): Type;
 
 /**
  * Get value after dereferencing buffer.
@@ -52,15 +50,11 @@ export declare function coerceType(type: string): Type;
 export declare function deref(buffer: Buffer): any;
 
 /** Create clone of the type, with decremented indirection level by 1. */
-export declare function derefType(type: Type): Type;
-/** Create clone of the type, with decremented indirection level by 1. */
-export declare function derefType(type: string): Type;
+export declare function derefType(type: string | Type): Type;
 /** Represents the native endianness of the processor ("LE" or "BE"). */
-export declare var endianness: string;
+export declare var endianness: "LE" | "BE";
 /** Check the indirection level and return a dereferenced when necessary. */
-export declare function get(buffer: Buffer, offset?: number, type?: Type): any;
-/** Check the indirection level and return a dereferenced when necessary. */
-export declare function get(buffer: Buffer, offset?: number, type?: string): any;
+export declare function get(buffer: Buffer, offset?: number, type?: string | Type): any;
 /** Get type of the buffer. Create a default type when none exists. */
 export declare function getType(buffer: Buffer): Type;
 /** Check the NULL. */
@@ -73,14 +67,14 @@ export declare function readCString(buffer: Buffer, offset?: number): string;
  * If there is losing precision, then return a string, otherwise a number.
  * @return {number|string}
  */
-export declare function readInt64BE(buffer: Buffer, offset?: number): any;
+export declare function readInt64BE(buffer: Buffer, offset?: number): number | string;
 
 /**
  * Read a little-endian signed 64-bit int.
  * If there is losing precision, then return a string, otherwise a number.
  * @return {number|string}
  */
-export declare function readInt64LE(buffer: Buffer, offset?: number): any;
+export declare function readInt64LE(buffer: Buffer, offset?: number): number | string;
 
 /** Read a JS Object that has previously been written. */
 export declare function readObject(buffer: Buffer, offset?: number): Object;
@@ -92,21 +86,19 @@ export declare function readPointer(buffer: Buffer, offset?: number,
  * If there is losing precision, then return a string, otherwise a number.
  * @return {number|string}
  */
-export declare function readUInt64BE(buffer: Buffer, offset?: number): any;
+export declare function readUInt64BE(buffer: Buffer, offset?: number): string | number;
 
 /**
  * Read a little-endian unsigned 64-bit int.
  * If there is losing precision, then return a string, otherwise a number.
  * @return {number|string}
  */
-export declare function readUInt64LE(buffer: Buffer, offset?: number): any;
+export declare function readUInt64LE(buffer: Buffer, offset?: number): string | number;
 
 /** Create pointer to buffer. */
 export declare function ref(buffer: Buffer): Buffer;
 /** Create clone of the type, with incremented indirection level by 1. */
-export declare function refType(type: Type): Type;
-/** Create clone of the type, with incremented indirection level by 1. */
-export declare function refType(type: string): Type;
+export declare function refType(type: string | Type): Type;
 
 /**
  * Create buffer with the specified size, with the same address as source.
@@ -123,20 +115,14 @@ export declare function reinterpretUntilZeros(buffer: Buffer, size: number,
     offset?: number): Buffer;
 
 /** Write pointer if the indirection is 1, otherwise write value. */
-export declare function set(buffer: Buffer, offset: number, value: any, type?: Type): void;
-/** Write pointer if the indirection is 1, otherwise write value. */
-export declare function set(buffer: Buffer, offset: number, value: any, type?: string): void;
+export declare function set(buffer: Buffer, offset: number, value: any, type?: string | Type): void;
 /** Write the string as a NULL terminated. Default encoding is utf8. */
 export declare function writeCString(buffer: Buffer, offset: number,
     string: string, encoding?: string): void;
 /** Write a big-endian signed 64-bit int. */
-export declare function writeInt64BE(buffer: Buffer, offset: number, input: number): void;
-/** Write a big-endian signed 64-bit int. */
-export declare function writeInt64BE(buffer: Buffer, offset: number, input: string): void;
+export declare function writeInt64BE(buffer: Buffer, offset: number, input: string | number): void;
 /** Write a little-endian signed 64-bit int. */
-export declare function writeInt64LE(buffer: Buffer, offset: number, input: number): void;
-/** Write a little-endian signed 64-bit int. */
-export declare function writeInt64LE(buffer: Buffer, offset: number, input: string): void;
+export declare function writeInt64LE(buffer: Buffer, offset: number, input: string | number): void;
 
 /**
  * Write the JS Object. This function "attaches" object to buffer to prevent
@@ -151,10 +137,10 @@ export declare function writeObject(buffer: Buffer, offset: number, object: Obje
 export declare function writePointer(buffer: Buffer, offset: number,
     pointer: Buffer): void;
 
+/** Write a big-endian unsigned 64-bit int. */
+export declare function writeUInt64BE(buffer: Buffer, offset: number, input: string | number): void;
 /** Write a little-endian unsigned 64-bit int. */
-export declare function writeUInt64BE(buffer: Buffer, offset: number, input: number): void;
-/** Write a little-endian unsigned 64-bit int. */
-export declare function writeUInt64BE(buffer: Buffer, offset: number, input: string): void;
+export declare function writeUInt64LE(buffer: Buffer, offset: number, input: string | number): void;
 
 /**
  * Attach object to buffer such.
@@ -187,26 +173,52 @@ export declare var types: {
     uint32: Type; short: Type;
 };
 
+export declare var alignof: {
+    pointer: number; int64: number; ushort: number;
+    int: number; uint64: number; float: number;
+    uint: number; long: number; double: number;
+    int8: number; ulong: number; Object: number;
+    uint8: number; longlong: number;
+    int16: number; ulonglong: number; bool: number;
+    uint16: number; char: number; byte: number;
+    int32: number; uchar: number; size_t: number;
+    uint32: number; short: number;
+};
+export declare var sizeof: {
+    pointer: number; int64: number; ushort: number;
+    int: number; uint64: number; float: number;
+    uint: number; long: number; double: number;
+    int8: number; ulong: number; Object: number;
+    uint8: number; longlong: number;
+    int16: number; ulonglong: number; bool: number;
+    uint16: number; char: number; byte: number;
+    int32: number; uchar: number; size_t: number;
+    uint32: number; short: number;
+};
+
 declare global {
   interface Buffer {
-    address: typeof address;
-    isNull: typeof isNull;
-    ref: typeof ref;
-    deref: typeof deref;
-    readObject: typeof readObject;
-    writeObject: typeof writeObject;
-    readPointer: typeof readPointer;
-    writePointer: typeof writePointer;
-    readCString: typeof readCString;
-    writeCString: typeof writeCString;
-    readInt64BE: typeof readInt64BE;
-    writeInt64BE: typeof writeInt64BE;
-    readUInt64BE: typeof readUInt64BE;
-    writeUInt64BE: typeof writeUInt64BE;
-    readInt64LE: typeof readInt64LE;
-    writeInt64LE: typeof writeInt64LE;
-    reinterpret: typeof reinterpret;
-    reinterpretUntilZeros: typeof reinterpretUntilZeros;
+    address(): number;
+    hexAddress(): string;
+    isNull(): boolean;
+    ref(): Buffer;
+    deref(): any;
+    readObject(offset?: number): Object;
+    writeObject(offset: number, object: Object): void;
+    readPointer(offset?: number, length?: number): Buffer;
+    writePointer(offset: number, pointer: Buffer): void;
+    readCString(offset?: number): string;
+    writeCString(offset: number, string: string, encoding?: string): void;
+    readInt64BE(offset?: number): string | number;
+    writeInt64BE(offset: number, input: string | number): void;
+    readUInt64BE(offset?: number): string | number;
+    writeUInt64BE(offset: number, input: string | number): void;
+    readInt64LE(offset?: number): string | number;
+    writeInt64LE(offset: number, input: string | number): void;
+    readUInt64LE(offset?: number): string | number;
+    writeUInt64LE(offset: number, input: string | number): void;
+    reinterpret(size: number, offset?: number): Buffer;
+    reinterpretUntilZeros(size: number, offset?: number): Buffer;
     type?: Type;
   }
 }
