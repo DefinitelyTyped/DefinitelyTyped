@@ -60,7 +60,7 @@ export function setDispatcher(name: string, version?: string): void;
  * The `name` will be prefixed with 'Controller/' when sent.
  * The `action` defaults to the HTTP method used for the request.
  */
-export function setControllerName(name: string, action: string): void;
+export function setControllerName(name: string, action?: string): void;
 
 /**
  * Add a custom attribute to the current transaction.
