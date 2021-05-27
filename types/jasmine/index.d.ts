@@ -508,7 +508,7 @@ declare namespace jasmine {
         /**
          * @deprecated Use seed option in {@link jasmine.Env.configure} instead.
          */
-        seed(value?: number): number;
+        seed(value?: number | string): number | string;
         /**
          * Sets a user-defined property that will be provided to reporters as
          * part of the properties field of SpecResult.

@@ -2080,7 +2080,8 @@ describe("Randomize Tests", () => {
             });
         }).not.toThrow();
         const env = jasmine.getEnv();
-        const seed: number = env.seed(42);
+        const seed1 = env.seed(42); // $ExpectType string | number
+        const seed2 = env.seed('42'); // $ExpectType string | number
     });
 });
 
