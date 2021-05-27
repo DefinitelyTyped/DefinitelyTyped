@@ -9170,6 +9170,7 @@ export interface I18nManagerStatic {
     getConstants: () => {
         isRTL: boolean;
         doLeftAndRightSwapInRTL: boolean;
+        localeIdentifier?: string | null;
     };
     allowRTL: (allowRTL: boolean) => void;
     forceRTL: (forceRTL: boolean) => void;
