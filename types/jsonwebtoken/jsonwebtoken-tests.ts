@@ -160,12 +160,12 @@ decoded = jwt.decode(token, { complete: false, json: false });
 
 decoded = jwt.decode(token, { json: true });
 if (decoded) {
-    // $ExpectType { [key: string]: any; }
+    // $ExpectType JwtPayload
     decoded;
 }
 
 decoded = jwt.decode(token, { complete: true });
 if (decoded) {
-  // $ExpectType { [key: string]: any; }
+  // $ExpectType Jwt
   decoded;
 }

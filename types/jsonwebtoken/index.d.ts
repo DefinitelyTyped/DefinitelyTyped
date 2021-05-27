@@ -107,15 +107,36 @@ export type SignCallback = (
     err: Error | null, encoded: string | undefined
 ) => void;
 
+// standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
 export interface JwtHeader {
-    alg: string;
+    alg: string | Algorithm;
     typ?: string;
+    cty?: string;
+    crit: Array<string | keyof JwtHeader>;
     kid?: string;
     jku?: string;
     x5u?: string;
     x5t?: string;
 }
 
+// standard claims https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
+export interface JwtPayload {
+    [key: string]: any;
+    iss?: string;
+    sub?: string;
+    aud?: string | string[];
+    exp?: number;
+    nbf?: number;
+    iat?: number;
+}
+
+export interface Jwt {
+    header: JwtHeader;
+    payload: JwtPayload;
+    signature: string;
+}
+
+// https://github.com/auth0/node-jsonwebtoken#algorithms-supported
 export type Algorithm =
     "HS256" | "HS384" | "HS512" |
     "RS256" | "RS384" | "RS512" |
@@ -206,5 +227,5 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(token: string, options: DecodeOptions & { json: true } | DecodeOptions & { complete: true }): null | { [key: string]: any };
-export function decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;
+export function decode(token: string, options: DecodeOptions & { json: true } | DecodeOptions & { complete: true }): null | Jwt;
+export function decode(token: string, options?: DecodeOptions): null | JwtPayload | string;
