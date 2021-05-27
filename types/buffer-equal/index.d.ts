@@ -8,7 +8,8 @@
 export = bufferEqual;
 
 /**
- * @return Whether the two buffers are equal.
+ * @return Whether two buffers are equal or undefined if given
+ * junk.
  *
  * @example
  * import bufferEqual = require('buffer-equal');
@@ -24,5 +25,11 @@ export = bufferEqual;
  *     Buffer.from('abcd')
  * ));
  * // -> false
+ *
+ * console.dir(bufferEqual(
+ *     "abc",
+ *     Buffer.from("abcd")
+ * ));
+ * // -> undefined
  */
-declare function bufferEqual(a: Buffer, b: Buffer): boolean;
+declare function bufferEqual(a: any, b: any): boolean | undefined;
