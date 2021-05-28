@@ -23,6 +23,12 @@ export type AST = any;
 export type Doc = doc.builders.Doc;
 
 // https://github.com/prettier/prettier/blob/main/src/common/ast-path.js
+
+declare var AstPath: {
+    prototype: AstPath;
+    new <T>(value: T): AstPath<T>;
+};
+
 export interface AstPath<T = any> {
     stack: T[];
     getName(): null | PropertyKey;
@@ -30,8 +36,10 @@ export interface AstPath<T = any> {
     getNode(count?: number): null | T;
     getParentNode(count?: number): null | T;
     call<U>(callback: (path: this) => U, ...names: PropertyKey[]): U;
+    callParent<U>(callback: (path: this) => U, count?: number): U;
     each(callback: (path: this, index: number, value: any) => void, ...names: PropertyKey[]): void;
     map<U>(callback: (path: this, index: number, value: any) => U, ...names: PropertyKey[]): U[];
+    match(...predicates: Array<(node: any, name: string | null, number: number | null) => boolean>): boolean;
 }
 
 /** @deprecated `FastPath` was renamed to `AstPath` */
