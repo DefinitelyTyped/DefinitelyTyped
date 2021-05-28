@@ -223,7 +223,7 @@ export function assocPath<T, U>(path: Path): _.F.Curry<(a: T, b: U) => U>;
  * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
  * parameters. Any extraneous parameters will not be passed to the supplied function.
  */
-export function binary<T extends (...arg: any) => any>(fn: T): (...arg: _.T.Take<Parameters<T>, '2'>) => ReturnType<T>;
+export function binary<T extends (...arg: any) => any>(fn: T): (...arg: _.T.Take<Parameters<T>, 2>) => ReturnType<T>;
 
 /**
  * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
@@ -443,8 +443,8 @@ export function curry<F extends (...args: any) => any>(f: F): _.F.Curry<F>;
  * Returns a curried equivalent of the provided function, with the specified arity. The curried function has
  * two unusual capabilities. First, its arguments needn't be provided one at a time.
  */
-export function curryN<N extends number, F extends (...args: any) => any>(length: N, fn: F): _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
-export function curryN<N extends number>(length: N): <F extends (...args: any) => any>(fn: F) => _.F.Curry<(...a: _.T.Take<Parameters<F>, _.N.NumberOf<N>>) => ReturnType<F>>;
+export function curryN<N extends number, F extends (...args: any) => any>(length: N, fn: F): _.F.Curry<(...a: _.T.Take<Parameters<F>, N>) => ReturnType<F>>;
+export function curryN<N extends number>(length: N): <F extends (...args: any) => any>(fn: F) => _.F.Curry<(...a: _.T.Take<Parameters<F>, N>) => ReturnType<F>>;
 
 /**
  * Decrements its argument.
@@ -1260,8 +1260,8 @@ export function move(from: number): {
  * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.
  * Any extraneous parameters will not be passed to the supplied function.
  */
-export function nAry<N extends number, T extends (...arg: any) => any>(n: N, fn: T): (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
-export function nAry<N extends number>(n: N): <T extends (...arg: any) => any>(fn: T) => (...arg: _.T.Take<Parameters<T>, _.N.NumberOf<N>>) => ReturnType<T>;
+export function nAry<N extends number, T extends (...arg: any) => any>(n: N, fn: T): (...arg: _.T.Take<Parameters<T>, N>) => ReturnType<T>;
+export function nAry<N extends number>(n: N): <T extends (...arg: any) => any>(fn: T) => (...arg: _.T.Take<Parameters<T>, N>) => ReturnType<T>;
 
 /**
  * Negates its argument.

@@ -265,6 +265,8 @@ export type Lens<S, A> = (
 // ---------------------------------------------------------------------------------------
 // M
 
+type ObjectOf<O extends object> = O extends T.List ? T.ObjectOf<O> : O;
+
 /**
  * Merge an object `O1` with `O2`
  * @param O1
@@ -281,7 +283,7 @@ export type Lens<S, A> = (
  * <created by @pirix-gh>
  */
 export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | 'deep'> =
-    O.MergeUp<T.ObjectOf<O1>, T.ObjectOf<O2>, Depth, 1>;
+    O.Merge<ObjectOf<O1>, ObjectOf<O2>, Depth>;
 
 /**
  * Merge multiple objects `Os` with each other
@@ -293,7 +295,7 @@ export type Merge<O1 extends object, O2 extends object, Depth extends 'flat' | '
  * <created by @pirix-gh>
  */
 export type MergeAll<Os extends readonly object[]> =
-    O.AssignUp<{}, Os, 'flat', 1> extends infer M
+    O.Assign<{}, Os> extends infer M
     ? {} extends M    // nothing merged => bcs no `as const`
       ? T.UnionOf<Os> // so we output the approximate types
       : M             // otherwise, we can get accurate types
@@ -323,9 +325,9 @@ export type Ord = number | string | boolean | Date;
  */
 // Implementation taken from
 // https://github.com/piotrwitek/utility-types/blob/df2502ef504c4ba8bd9de81a45baef112b7921d0/src/mapped-types.ts#L351-L362
-export type ObjectHavingSome<Key extends string> = A.Clean<{
+export type ObjectHavingSome<Key extends string> = A.Compute<{
     [K in Key]: { [P in K]: unknown }
-}[Key]>;
+}[Key], 'flat'>;
 
 // ---------------------------------------------------------------------------------------
 // P
