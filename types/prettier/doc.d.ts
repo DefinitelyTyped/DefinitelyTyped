@@ -198,18 +198,18 @@ export namespace printer {
 }
 
 export namespace utils {
-    function cleanDoc(...params: any[]): any;
-    function findInDoc(...params: any[]): any;
-    function getDocParts(...params: any[]): any;
-    function isConcat(...params: any[]): any;
+    function cleanDoc(doc: Doc): Doc;
+    function findInDoc<T = Doc>(doc: Doc, callback: (doc: Doc) => T, defaultValue: T): T;
+    function getDocParts(doc: Doc): Doc;
+    function isConcat(doc: Doc): boolean;
     function isEmpty(doc: Doc): boolean;
     function isLineNext(doc: Doc): boolean;
-    function mapDoc<T>(doc: Doc, callback: (doc: Doc) => T): T;
-    function normalizeDoc(...params: any[]): any;
-    function normalizeParts(...params: any[]): any;
+    function mapDoc<T = Doc>(doc: Doc, callback: (doc: Doc) => T): T;
+    function normalizeDoc(doc: Doc): Doc;
+    function normalizeParts(parts: Doc[]): Doc[];
     function propagateBreaks(doc: Doc): void;
     function removeLines(doc: Doc): Doc;
-    function replaceNewlinesWithLiterallines(): any;
+    function replaceNewlinesWithLiterallines(doc: Doc): Doc;
     function stripTrailingHardline(doc: Doc): Doc;
     function traverseDoc(
         doc: Doc,
