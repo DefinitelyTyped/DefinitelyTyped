@@ -3,7 +3,7 @@
 // Definitions by: Nikola Andreev <https://github.com/Nikola-Andreev>
 //                Jordan Garvey <https://github.com/jordangarvey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
+// TypeScript Version: 2.2
 
 export function connect(apiKey: string, apiSecret: string, options?: ConnectOptions): Email.Client;
 
