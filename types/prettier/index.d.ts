@@ -250,7 +250,7 @@ export interface CursorResult {
 }
 
 /**
- * `format` is used to format text using Prettier. [Options](https://github.com/prettier/prettier#options) may be provided to override the defaults.
+ * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/en/options.html) may be provided to override the defaults.
  */
 export function format(source: string, options?: Options): string;
 
@@ -297,7 +297,7 @@ export interface ResolveConfigOptions {
  *
  * A promise is returned which will resolve to:
  *
- *  - An options object, providing a [config file](https://github.com/prettier/prettier#configuration-file) was found.
+ *  - An options object, providing a [config file](https://prettier.io/docs/en/configuration.html) was found.
  *  - `null`, if no file was found.
  *
  * The promise will be rejected if there was an error parsing the configuration file.
@@ -466,7 +466,7 @@ export function getSupportInfo(): SupportInfo;
  */
 export const version: string;
 
-// https://github.com/prettier/prettier/blob/master/src/common/util-shared.js
+// https://github.com/prettier/prettier/blob/main/src/common/util-shared.js
 export namespace util {
     function isNextLineEmpty(text: string, node: any, locEnd: (node: any) => number): boolean;
     function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
@@ -478,7 +478,7 @@ export namespace util {
     function addTrailingComment(node: any, commentNode: any): void;
 }
 
-// https://github.com/prettier/prettier/blob/master/src/doc/index.js
+// https://github.com/prettier/prettier/blob/main/src/document/index.js
 export namespace doc {
     namespace builders {
         type DocCommand =

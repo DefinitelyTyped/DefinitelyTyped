@@ -1,6 +1,6 @@
 import { Doc } from './';
 
-// https://github.com/prettier/prettier/blob/master/src/doc/index.js
+// https://github.com/prettier/prettier/blob/main/src/document/index.js
 
 export namespace builders {
     type DocCommand =
