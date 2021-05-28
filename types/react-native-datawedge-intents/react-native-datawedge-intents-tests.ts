@@ -24,3 +24,15 @@ function sendCommand(extraName: string, extraValue: any) {
         extras: broadcastExtras
     });
 }
+
+sendIntent('ACTION_SOFTSCANTRIGGER', 'START_SCANNING');
+
+function sendIntent(action: string, parameterValue: string) {
+    DataWedgeIntents.sendIntent(action, parameterValue);
+}
+
+registerReceiver('com.zebra.dwintents.ACTION', '');
+
+function registerReceiver(action: string, category: string) {
+DataWedgeIntents.registerReceiver(action, category);
+}
