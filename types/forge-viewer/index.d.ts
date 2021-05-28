@@ -336,6 +336,7 @@ declare namespace Autodesk {
         const GEOMETRY_LOADED_EVENT = 'geometryLoaded';
         const GEOMETRY_DOWNLOAD_COMPLETE_EVENT = 'geometryDownloadComplete';
         const HIDE_EVENT = 'hide';
+        const HIDE_ALL_EVENT = 'hideAll';
         const HYPERLINK_EVENT = 'hyperlink';
         const ISOLATE_EVENT = 'isolate';
         const LAYER_VISIBILITY_CHANGED_EVENT = 'layerVisibilityChanged';
@@ -360,6 +361,8 @@ declare namespace Autodesk {
         const RESTORE_DEFAULT_SETTINGS_EVENT = 'restoreDefaultSettings';
         const SELECTION_CHANGED_EVENT = 'selection';
         const SHOW_EVENT = 'show';
+        const SHOW_ALL_EVENT = 'showAll';
+        const SHOW_PROPERTIES_EVENT = 'showProperties';
         const TEXTURES_LOADED_EVENT = 'texturesLoaded';
         const TOOL_CHANGE_EVENT = 'toolChanged';
         const TOOLBAR_CREATED_EVENT = 'toolbarCreated';
